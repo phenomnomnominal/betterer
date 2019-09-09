@@ -1,0 +1,34 @@
+{
+  "name": "better",
+  "version": "0.0.1",
+  "description": "better makes it easier to make incremental improvements to your codebase",
+  "main": "dist/index.js",
+  "scripts": {
+    "better": "node ./bin/better",
+    "clean": "rimraf dist && rimraf coverage",
+    "compile": "tsc",
+    "lint": "eslint --fix src/*.ts"
+  },
+  "author": "Craig Spence <craigspence0@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^3.0.1",
+    "npmlog": "^4.1.2",
+    "prettier": "^1.18.2"
+  },
+  "devDependencies": {
+    "@types/node": "^8.10.25",
+    "@types/npmlog": "^4.1.1",
+    "@typescript-eslint/eslint-plugin": "^2.1.0",
+    "@typescript-eslint/parser": "^2.1.0",
+    "eslint": "^6.3.0",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "jest": "^24.8.0",
+    "tslib": "^1.9.3",
+    "typescript": "^3.4.1"
+  },
+  "peerDependencies": {
+    "tslib": "^1.9.3"
+  }
+}
