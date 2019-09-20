@@ -1,5 +1,5 @@
 const path = require('path');
-
+debugger;
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -15,6 +15,6 @@ module.exports = {
     'plugin:@typescript-eslint/recommended-requiring-type-checking'
   ],
   rules: {
-    '@typescript-eslint/no-use-before-define': 0
+    'no-debugger': 1
   }
 };

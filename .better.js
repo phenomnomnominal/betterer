@@ -1,8 +1,14 @@
-const { bigger } = require('./dist');
+const { eslintBetterer } = require('./dist');
 
 module.exports = {
-    'check that some number got bigger': [
-        () => Date.now(),
-        bigger
-    ]
+  'eslint enable new rule': eslintBetterer('./src/**/*.ts', [
+    'no-debugger',
+    'error'
+  ])
+  // 'tsc enable new option': tscBetterer(
+  //   path.join(__dirname, './tsconfig.json'),
+  //   {
+  //     noImplicitAny: true
+  //   }
+  // )
 };

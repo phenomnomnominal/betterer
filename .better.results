@@ -1,2 +1,2 @@
 // BETTER RESULTS V1.
-exports[`check that some number got bigger`] = { timestamp: 1568061188002, value: `1568061188002` };
+exports[`eslint enable new rule`] = { timestamp: 1568671566016, value: `0` };

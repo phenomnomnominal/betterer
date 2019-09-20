@@ -14,9 +14,9 @@
     "strict": true,
     "target": "ES5",
     "outDir": "./dist",
-    "typeRoots": ["./node_modules/@types/"],
+    "typeRoots": ["../../node_modules/@types/"],
     "resolveJsonModule": true
   },
-  "include": ["./src/*"],
-  "exclude": ["./node_modules/*", "./dist/*", "./test/*"]
+  "include": ["./src/**/*"],
+  "exclude": ["../../node_modules/*"]
 }

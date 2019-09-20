@@ -1,5 +1,2 @@
 #!/usr/bin/env node
-'use strict';
-
-const { start } = require('../dist');
-start();
+require('../dist').start();

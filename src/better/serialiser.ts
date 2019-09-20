@@ -1,12 +1,12 @@
-export function serialise (value: any) {
-    return isJSON(value) ? value : JSON.stringify(value);
+export function serialise(value: unknown): string {
+  return isJSON(value) ? value : JSON.stringify(value);
 }
 
-function isJSON (value: any) {
-    try {
-        JSON.parse(value);
-        return typeof value === 'string';
-    } catch {
-        return false;
-    }
+function isJSON(value: unknown): value is string {
+  try {
+    JSON.parse(value as string);
+    return typeof value === 'string';
+  } catch {
+    return false;
+  }
 }

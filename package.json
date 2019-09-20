@@ -5,18 +5,22 @@
   "main": "dist/index.js",
   "scripts": {
     "better": "node ./bin/better",
-    "clean": "rimraf dist && rimraf coverage",
+    "clean": "rimraf dist && rimraf reports",
     "compile": "tsc",
-    "lint": "eslint --fix src/*.ts"
+    "lint": "eslint --fix src/**/*.ts",
+    "test": "jest"
   },
   "author": "Craig Spence <craigspence0@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "callsite": "^1.0.0",
     "commander": "^3.0.1",
-    "npmlog": "^4.1.2",
-    "prettier": "^1.18.2"
+    "npmlog": "^4.1.2"
   },
   "devDependencies": {
+    "@types/callsite": "^1.0.30",
+    "@types/eslint": "^6.1.1",
+    "@types/jest": "^24.0.18",
     "@types/node": "^8.10.25",
     "@types/npmlog": "^4.1.1",
     "@typescript-eslint/eslint-plugin": "^2.1.0",
@@ -25,10 +29,16 @@
     "eslint-config-prettier": "^6.1.0",
     "eslint-plugin-prettier": "^3.1.0",
     "jest": "^24.8.0",
+    "prettier": "^1.18.2",
+    "ts-jest": "^24.0.2",
     "tslib": "^1.9.3",
     "typescript": "^3.4.1"
   },
   "peerDependencies": {
     "tslib": "^1.9.3"
+  },
+  "optionalDependencies": {
+    "eslint": "^6.3.0",
+    "typescript": "^3.4.1"
   }
 }
