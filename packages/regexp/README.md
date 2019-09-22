@@ -1,11 +1,19 @@
 # `@betterer/regexp`
 
-> TODO: description
+[![npm version](https://img.shields.io/npm/v/@betterer/regexp.svg)](https://www.npmjs.com/package/@betterer/regexp)
+
+RegExp betterer for [**`betterer`**](https://github.com/phenomnomnominal/betterer).
+
+## Description
+
+Use this betterer to incrementally remove RegExp matches from your codebase!
 
 ## Usage
 
-```
-const regexp = require('@betterer/regexp');
+```javascript
+const { regexpBetterer } = require('@betterer/regexp');
 
-// TODO: DEMONSTRATE API
+module.exports = {
+  'no hack comments': regexpBetterer('**/*.ts', /(\/\/\s*HACK)/i)
+};
 ```

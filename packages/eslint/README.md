@@ -1,11 +1,19 @@
 # `@betterer/eslint`
 
-> TODO: description
+[![npm version](https://img.shields.io/npm/v/@betterer/eslint.svg)](https://www.npmjs.com/package/@betterer/eslint)
+
+ESLint betterer for [**`betterer`**](https://github.com/phenomnomnominal/betterer).
+
+## Description
+
+Use this betterer to incrementally introduce ESLint rules to your codebase
 
 ## Usage
 
-```
-const eslint = require('@betterer/eslint');
+```javascript
+const { eslintBetterer } = require('@betterer/eslint');
 
-// TODO: DEMONSTRATE API
+module.exports = {
+  'no more debuggers': eslintBetterer('./src/**/*.ts', ['no-debugger', 'error'])
+};
 ```

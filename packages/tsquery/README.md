@@ -1,11 +1,22 @@
 # `@betterer/tsquery`
 
-> TODO: description
+[![npm version](https://img.shields.io/npm/v/@betterer/tsquery.svg)](https://www.npmjs.com/package/@betterer/tsquery)
+
+TSQuery betterer for [**`betterer`**](https://github.com/phenomnomnominal/betterer).
+
+## Description
+
+Use this betterer to incrementally remove TSQuery matches from your codebase!
 
 ## Usage
 
-```
-const tsquery = require('@betterer/tsquery');
+```javascript
+const { tsqueryBetterer } = require('@betterer/tsquery');
 
-// TODO: DEMONSTRATE API
+module.exports = {
+  'no raw console.log': tsqueryBetterer(
+    './tsconfig.json',
+    'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
+  )
+};
 ```
