@@ -1,4 +1,6 @@
 import { tsquery } from '@phenomnomnominal/tsquery';
+import * as stack from 'callsite';
+import * as path from 'path';
 
 import { Betterer } from '@betterer/betterer';
 import { smaller } from '@betterer/constraints';
@@ -8,8 +10,11 @@ export function tsqueryBetterer(
   configFilePath: string,
   query: string
 ): Betterer {
+  const [, callee] = stack();
+  const cwd = path.dirname(callee.getFileName());
+  const absPath = path.resolve(cwd, configFilePath);
   return {
-    test: (): number => createTsqueryTest(configFilePath, query),
+    test: (): number => createTsqueryTest(absPath, query),
     constraint: smaller,
     goal: 0
   };

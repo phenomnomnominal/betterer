@@ -26,7 +26,11 @@
     "@betterer/betterer": "^0.1.0",
     "@betterer/constraints": "^0.1.0",
     "@betterer/logger": "^0.1.0",
+    "callsite": "^1.0.0",
     "tslib": "^1.10.0",
     "typescript": "^3.6.3"
+  },
+  "devDependencies": {
+    "@types/callsite": "^1.0.30"
   }
 }

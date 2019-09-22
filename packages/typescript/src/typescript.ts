@@ -1,4 +1,6 @@
 import * as ts from 'typescript';
+import * as stack from 'callsite';
+import * as path from 'path';
 
 import { Betterer } from '@betterer/betterer';
 import { smaller } from '@betterer/constraints';
@@ -7,18 +9,21 @@ import { error, info } from '@betterer/logger';
 const readFile = ts.sys.readFile.bind(ts.sys);
 const readDirectory = ts.sys.readDirectory.bind(ts.sys);
 
-export function tscBetterer(
+export function typescriptBetterer(
   configFilePath: string,
   extraCompilerOptions?: ts.CompilerOptions
 ): Betterer {
+  const [, callee] = stack();
+  const cwd = path.dirname(callee.getFileName());
+  const absPath = path.resolve(cwd, configFilePath);
   return {
-    test: (): number => createTscTest(configFilePath, extraCompilerOptions),
+    test: (): number => createTypescriptTest(absPath, extraCompilerOptions),
     constraint: smaller,
     goal: 0
   };
 }
 
-function createTscTest(
+function createTypescriptTest(
   configFilePath: string,
   extraCompilerOptions?: ts.CompilerOptions
 ): number {

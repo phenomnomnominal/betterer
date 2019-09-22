@@ -1,1 +1,1 @@
-export * from './tsc';
+export * from './typescript';

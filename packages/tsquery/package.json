@@ -27,6 +27,10 @@
     "@betterer/constraints": "^0.1.0",
     "@betterer/logger": "^0.1.0",
     "@phenomnomnominal/tsquery": "^3.0.0",
+    "callsite": "^1.0.0",
     "tslib": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/callsite": "^1.0.30"
   }
 }
