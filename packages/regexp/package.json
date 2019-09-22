@@ -1,0 +1,37 @@
+{
+  "name": "@betterer/regexp",
+  "description": "RegExp betterer for @betterer/betterer",
+  "version": "0.1.0",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "author": "Craig Spence <craigspence0@gmail.com>",
+  "homepage": "https://phenomnomnominal.github.io/betterer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phenomnomnominal/betterer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/phenomnomnominal/betterer/issues"
+  },
+  "scripts": {
+    "compile": "tsc"
+  },
+  "dependencies": {
+    "@betterer/betterer": "^0.1.0",
+    "@betterer/constraints": "^0.1.0",
+    "@betterer/logger": "^0.1.0",
+    "callsite": "^1.0.0",
+    "glob": "^7.1.4",
+    "tslib": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/callsite": "^1.0.30",
+    "@types/glob": "^7.1.1"
+  }
+}

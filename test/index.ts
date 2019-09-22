@@ -1,4 +1,3 @@
-import { mute } from '../src/logger';
+import { mute } from '@betterer/logger';
 
 mute();
-console.log = () => {};

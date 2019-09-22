@@ -2,6 +2,7 @@
   "compilerOptions": {
     "declaration": true,
     "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
     "lib": ["esnext"],
     "moduleResolution": "node",
     "noEmitOnError": true,
@@ -17,6 +18,6 @@
     "typeRoots": ["./node_modules/@types/"],
     "resolveJsonModule": true
   },
-  "include": ["./src/*"],
-  "exclude": ["./node_modules/*", "./dist/*", "./test/*"]
+  "include": ["./packages/**/src/*.ts", "./test/**/*.ts", "./*.js"],
+  "exclude": ["./node_modules/*", "./dist/*"]
 }

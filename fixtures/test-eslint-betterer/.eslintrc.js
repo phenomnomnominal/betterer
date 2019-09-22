@@ -1,5 +1,5 @@
 const path = require('path');
-debugger;
+
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {

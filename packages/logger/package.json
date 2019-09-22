@@ -1,0 +1,35 @@
+{
+  "name": "@betterer/logger",
+  "description": "logger for @betterer/betterer",
+  "version": "0.1.0",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "author": "Craig Spence <craigspence0@gmail.com>",
+  "homepage": "https://phenomnomnominal.github.io/betterer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phenomnomnominal/betterer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/phenomnomnominal/betterer/issues"
+  },
+  "scripts": {
+    "compile": "tsc"
+  },
+  "dependencies": {
+    "@babel/code-frame": "^7.5.5",
+    "lines-and-columns": "^1.1.6",
+    "npmlog": "^4.1.2",
+    "tslib": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/babel__code-frame": "^7.0.1",
+    "@types/npmlog": "^4.1.2"
+  }
+}

@@ -1,7 +1,7 @@
 {
-  "name": "better-test-lint-betterer",
+  "name": "betterer-test-lint-betterer",
   "version": "0.0.1",
-  "description": "better-test-lint-betterer",
+  "description": "betterer-test-lint-betterer",
   "private": true,
   "author": "Craig Spence <craigspence0@gmail.com>",
   "license": "MIT"

@@ -1,0 +1,29 @@
+{
+  "name": "@betterer/betterer",
+  "description": "Main engine for runing betterer tests",
+  "version": "0.1.0",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "author": "Craig Spence <craigspence0@gmail.com>",
+  "homepage": "https://phenomnomnominal.github.io/betterer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phenomnomnominal/betterer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/phenomnomnominal/betterer/issues"
+  },
+  "scripts": {
+    "compile": "tsc"
+  },
+  "dependencies": {
+    "@betterer/logger": "^0.1.0",
+    "tslib": "^1.10.0"
+  }
+}

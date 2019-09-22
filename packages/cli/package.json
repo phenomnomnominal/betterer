@@ -1,0 +1,35 @@
+{
+  "name": "@betterer/cli",
+  "version": "0.1.0",
+  "description": "betterer CLI",
+  "author": "Craig Spence <craigspence0@gmail.com>",
+  "homepage": "https://phenomnomnominal.github.io/betterer",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "bin": {
+    "betterer": "./bin/betterer"
+  },
+  "scripts": {
+    "compile": "tsc"
+  },
+  "directories": {
+    "src": "src"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phenomnomnominal/betterer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/phenomnomnominal/betterer/issues"
+  },
+  "dependencies": {
+    "@betterer/betterer": "^0.1.0",
+    "tslib": "^1.10.0"
+  }
+}

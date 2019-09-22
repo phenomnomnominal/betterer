@@ -1,6 +1,9 @@
 const path = require('path');
 
 module.exports = {
+  env: {
+    node: true
+  },
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2018,
