@@ -1,6 +1,6 @@
 {
   "name": "@betterer/cli",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "betterer CLI",
   "author": "Craig Spence <craigspence0@gmail.com>",
   "homepage": "https://phenomnomnominal.github.io/betterer",
@@ -30,7 +30,7 @@
     "url": "https://github.com/phenomnomnominal/betterer/issues"
   },
   "dependencies": {
-    "@betterer/betterer": "^0.1.0",
+    "@betterer/betterer": "^0.1.3",
     "commander": "^3.0.1",
     "tslib": "^1.10.0"
   }
