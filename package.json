@@ -16,9 +16,6 @@
     "lint": "eslint --fix ./packages/**/src/*.ts ./test/**/*.ts ./*.js",
     "test": "jest"
   },
-  "dependencies": {
-    "commander": "^3.0.1"
-  },
   "devDependencies": {
     "@betterer/cli": "*",
     "@betterer/regexp": "*",
