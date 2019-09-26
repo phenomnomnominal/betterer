@@ -33,8 +33,8 @@ When you want to make an improvement to your codebase, you just start by making 
 ```js
 module.exports = {
   'thing to improve': {
-    test: (): number => runMyTest(),
-    constraint: (current: number, previous: number) => current < previous,
+    test: () => runMyTest(),
+    constraint: (current, previous) => current < previous,
     goal: 0
   }
 };
