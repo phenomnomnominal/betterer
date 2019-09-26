@@ -34,7 +34,7 @@ When you want to make an improvement to your codebase, you just start by making 
 module.exports = {
   'thing to improve': {
     test: (): number => runMyTest(),
-    constraint: (c: number, n: number) => p < n,
+    constraint: (current: number, previous: number) => current < previous,
     goal: 0
   }
 };
