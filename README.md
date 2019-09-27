@@ -4,11 +4,21 @@
 
 **`Betterer`** makes it easier to make incremental improvements to your codebase!
 
-## Installation:
+## Set up:
+
+If you want everything to happen magically, run the following from the root of your project:
+
+```bash
+npx @betterer/cli init
+```
+
+To do it yourself, run the following from the root of your project:
 
 ```bash
 npm install @betterer/cli --save-dev
 ```
+
+You'll then need to make your own test file and test commands.
 
 ---
 
