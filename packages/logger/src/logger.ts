@@ -9,23 +9,16 @@ const IS_JS_REGEXP = /.t|jsx?$/;
 // Need to import npmlog as a module to override global settings.
 import * as npmlog from 'npmlog';
 
-// HACK:
-// This assertion is necessary to overwriting "readonly".
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-(npmlog.heading as string) = '☀️  betterer';
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-(npmlog.headingStyle as StyleObject) = {
+assign(npmlog, 'heading', '☀️  betterer');
+assign(npmlog, 'headingStyle', {
   fg: 'yellow'
-};
+});
 
 enableColor();
 enableUnicode();
 
 export function mute(): void {
-  // HACK:
-  // This assertion is necessary to overwriting "readonly".
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-  (npmlog.level as string) = 'silent';
+  assign(npmlog, 'level', 'silent');
   // HACK:
   // There seems to be an issue with this lint rule for *assigning*.
   // Should file an issue...
@@ -105,3 +98,11 @@ export type LoggerCodeLocation = {
   line: number;
   column: number;
 };
+
+function assign<T, K extends keyof T>(
+  object: T,
+  property: K,
+  value: T[K]
+): void {
+  object[property] = value;
+}
