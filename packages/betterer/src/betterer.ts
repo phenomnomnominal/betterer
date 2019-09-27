@@ -9,7 +9,8 @@ export async function betterer(config: BetterConfig): Promise<BetterStats> {
   info('running betterer!');
 
   const { configPath, filters, resultsPath } = config;
-  const tests: BetterTests = await import(configPath);
+  const imported = await import(configPath);
+  const tests: BetterTests = imported.default ? imported.default : imported;
   const testsToRun = Object.keys(tests).filter(testName => {
     if (!filters) {
       return true;
