@@ -1,11 +1,13 @@
-import { access } from 'fs';
+import { readFile } from 'fs';
 import { promisify } from 'util';
 
 import { BetterResults } from './types';
 
+const readFileAsync = promisify(readFile);
+
 export async function read(resultsPath: string): Promise<BetterResults> {
   try {
-    await promisify(access)(resultsPath);
+    await readFileAsync(resultsPath);
   } catch {
     return {};
   }

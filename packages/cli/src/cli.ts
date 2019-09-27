@@ -1,9 +1,11 @@
 import * as commander from 'commander';
 
-const DEFAULT_DEFINITION_PATH = './.betterer.js';
-const DEFAULT_RESULTS_PATH = './.betterer.results';
-
-import { CONFIG_ENV, RESULTS_ENV } from './env';
+import {
+  CONFIG_ENV,
+  RESULTS_ENV,
+  DEFAULT_CONFIG_PATH,
+  DEFAULT_RESULTS_PATH
+} from './env';
 
 export function cli(): void {
   // HACK:
@@ -14,12 +16,12 @@ export function cli(): void {
 
   commander.version(version);
 
-  process.env[CONFIG_ENV] = DEFAULT_DEFINITION_PATH;
+  process.env[CONFIG_ENV] = DEFAULT_CONFIG_PATH;
   commander
     .option(
       '-c, --config [value]',
       'Path to test definition file relative to CWD',
-      DEFAULT_DEFINITION_PATH
+      DEFAULT_CONFIG_PATH
     )
     .on('option:config', value => (process.env[CONFIG_ENV] = value));
 
@@ -33,6 +35,7 @@ export function cli(): void {
     .on('option:results', value => (process.env[RESULTS_ENV] = value));
 
   commander.command('start', 'run betterer', { isDefault: true });
+  commander.command('init', 'init betterer');
 
   commander.parse(process.argv);
 }

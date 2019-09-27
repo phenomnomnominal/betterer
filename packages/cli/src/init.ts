@@ -1,0 +1,95 @@
+import { error, info, warn, success } from '@betterer/logger';
+import * as findUp from 'find-up';
+import { readFile, writeFile } from 'fs';
+import * as path from 'path';
+import { promisify } from 'util';
+
+import { CONFIG_ENV } from './env';
+
+const readFileAsync = promisify(readFile);
+const writeAsync = promisify(writeFile);
+
+const TEMPLATE = `module.exports = {\n  // Add tests here ☀️\n};`;
+
+export async function init(cwd: string): Promise<void> {
+  info('initialising betterer... ☀️');
+  await createTestFile(cwd);
+  await updatePackageJSON(cwd);
+  success('initialised betterer! ☀️');
+}
+
+async function createTestFile(cwd: string): Promise<void> {
+  const configPath = path.resolve(cwd, process.env[CONFIG_ENV] as string);
+  info(`creating "${configPath}" file...`);
+
+  let exists = false;
+  try {
+    exists = !!(await readFileAsync(configPath));
+  } catch {
+    // Doesn't matter if it fails...
+  }
+
+  if (exists) {
+    warn(`"${configPath}" already exists, moving on... 🤔`);
+    return;
+  }
+
+  try {
+    await writeAsync(configPath, TEMPLATE, 'utf8');
+  } catch {
+    error(`couln't write to "${configPath}" 🔥`);
+    return;
+  }
+
+  success(`created "${configPath}" file! 🎉`);
+}
+
+async function updatePackageJSON(cwd: string): Promise<void> {
+  info(`adding "betterer" to package.json file...`);
+
+  let packageJSON;
+  let packageJSONPath;
+  try {
+    packageJSONPath = await findUp('package.json', { cwd });
+    if (!packageJSONPath) {
+      throw new Error();
+    }
+    packageJSON = JSON.parse(await readFileAsync(packageJSONPath, 'utf-8'));
+  } catch {
+    error(`couldn't read package.json 🔥`);
+    return;
+  }
+
+  packageJSON.scripts = packageJSON.scripts || {};
+  if (packageJSON.scripts.betterer) {
+    warn(`"betterer" script already exists, moving on... 🤔`);
+    return;
+  } else {
+    packageJSON.scripts.betterer = 'betterer';
+  }
+
+  packageJSON.devDependencies = packageJSON.devDependencies || {};
+  if (packageJSON.devDependencies['@betterer/cli']) {
+    warn(`"betterer" dependency already exists, moving on... 🤔`);
+  } else {
+    // HACK:
+    // It's easier to use require than to try to get `await import`
+    // to work right for the package.json...
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { version } = require('../package.json');
+    packageJSON.devDependencies['@betterer/cli'] = `^${version}`;
+  }
+
+  try {
+    await writeAsync(
+      packageJSONPath,
+      JSON.stringify(packageJSON, null, 2),
+      'utf-8'
+    );
+  } catch {
+    error(`couldn't write package.json 🔥`);
+    return;
+  }
+
+  success(`added "betterer" to package.json file! 🎉`);
+}
