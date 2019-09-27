@@ -1,1 +1,497 @@
-<h1>Hello</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Betterer ☀️</title>
+    <meta
+      name="description"
+      content="betterer makes it easier to make incremental improvements to your codebase"
+    />
+    <meta name="author" content="Craig Spence <craigspence0@gmail.com>" />
+
+    <style>
+      html,
+      body,
+      div,
+      span,
+      applet,
+      object,
+      iframe,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      blockquote,
+      pre,
+      a,
+      abbr,
+      acronym,
+      address,
+      big,
+      cite,
+      code,
+      del,
+      dfn,
+      em,
+      img,
+      ins,
+      kbd,
+      q,
+      s,
+      samp,
+      small,
+      strike,
+      strong,
+      sub,
+      sup,
+      tt,
+      var,
+      b,
+      u,
+      i,
+      center,
+      dl,
+      dt,
+      dd,
+      ol,
+      ul,
+      li,
+      fieldset,
+      form,
+      label,
+      legend,
+      table,
+      caption,
+      tbody,
+      tfoot,
+      thead,
+      tr,
+      th,
+      td,
+      article,
+      aside,
+      canvas,
+      details,
+      embed,
+      figure,
+      figcaption,
+      footer,
+      header,
+      hgroup,
+      menu,
+      nav,
+      output,
+      ruby,
+      section,
+      summary,
+      time,
+      mark,
+      audio,
+      video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+      }
+      /* HTML5 display-role reset for older browsers */
+      article,
+      aside,
+      details,
+      figcaption,
+      figure,
+      footer,
+      header,
+      hgroup,
+      menu,
+      nav,
+      section {
+        display: block;
+      }
+      body {
+        line-height: 1;
+      }
+      ol,
+      ul {
+        list-style: none;
+      }
+      blockquote,
+      q {
+        quotes: none;
+      }
+      blockquote:before,
+      blockquote:after,
+      q:before,
+      q:after {
+        content: '';
+        content: none;
+      }
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+    </style>
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=Pacifico|Roboto+Mono|Roboto+Slab&display=swap');
+
+      html,
+      body {
+        scroll-behavior: smooth;
+        font-size: 14px;
+        background-color: rgb(235, 255, 0);
+        min-width: 420px;
+      }
+
+      a {
+        color: currentColor;
+      }
+      code {
+        font-family: 'Roboto Mono', monospace;
+        letter-spacing: -3px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: 'Pacifico', cursive;
+        text-shadow: 2px 2px red;
+      }
+
+      button {
+        padding: 0;
+        border: none;
+        font: inherit;
+        color: inherit;
+        background-color: transparent;
+        cursor: pointer;
+        text-decoration: underline;
+      }
+
+      h4,
+      h5,
+      h6,
+      p,
+      li,
+      span,
+      button {
+        font-family: 'Roboto Slab', serif;
+      }
+
+      h1 {
+        font-size: 8rem;
+        line-height: 11rem;
+        margin-bottom: 3rem;
+      }
+
+      h3 {
+        font-size: 4rem;
+        line-height: 5.5rem;
+        margin: 1.5rem 0;
+      }
+
+      hr {
+        margin: 3rem 0;
+      }
+
+      em {
+        font-style: italic;
+      }
+
+      .typography--hero {
+        color: rgb(235, 255, 0);
+      }
+
+      .typography--emphasised {
+        text-align: center;
+        font-style: italic;
+      }
+
+      header {
+        text-align: center;
+        height: 100vh;
+        display: flex;
+        background: linear-gradient(
+          300deg,
+          rgba(180, 190, 0, 1) 0%,
+          rgba(235, 255, 0, 1) 30%
+        );
+      }
+
+      .header__container {
+        justify-content: center;
+        align-self: center;
+        width: 100%;
+      }
+
+      .header__logo {
+        font-size: 8rem;
+      }
+
+      .header__name {
+        display: inline-block;
+      }
+
+      .header__name a {
+        color: currentColor;
+        text-decoration: none;
+      }
+
+      .header__get-started-snippet {
+        width: 100%;
+        height: 120px;
+        border: 0;
+        overflow: hidden;
+      }
+
+      main {
+        width: 70%;
+        padding: 1rem 15%;
+        background: rgb(10, 10, 10);
+        color: rgb(255, 255, 255);
+      }
+
+      main ol {
+        list-style: decimal;
+      }
+
+      main p,
+      main li,
+      main span {
+        font-size: 1.25rem;
+        line-height: 2rem;
+      }
+
+      main ol li {
+        margin: 2rem 1rem;
+      }
+
+      main span {
+        width: 100%;
+        text-align: center;
+      }
+      .how__betterer-file-snippet {
+        width: 140%;
+        height: 270px;
+        border: 0;
+        overflow: hidden;
+        margin: 0px -20%;
+      }
+
+      .how__betterer-run-snippet {
+        width: 140%;
+        height: 120px;
+        border: 0;
+        overflow: hidden;
+        margin: 0px -20%;
+      }
+
+      .how__running-video-container {
+        text-align: center;
+        margin: 3rem auto;
+      }
+
+      .how__running-video {
+        width: 130%;
+        margin: 0 -15%;
+        max-width: 640px;
+        outline-color: yellow;
+      }
+
+      .footer__container {
+        margin: 2rem;
+      }
+      .footer__link {
+        display: inline-block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="header__container">
+        <span class="header__logo"> ☀️</span>
+        <h1 class="header__name">
+          <a href="https://github.com/phenomnomnominal/betterer">Betterer</a>
+        </h1>
+        <iframe
+          class="header__get-started-snippet"
+          src="https://carbon.now.sh/embed/?bg=rgba(171%2C184%2C195%2C0)&t=3024-night&wt=none&l=application%2Fx-sh&ds=false&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=16px&ph=15px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=npx%2520%2540betterer%252Fcli%2520init%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520"
+          sandbox="allow-scripts allow-same-origin"
+        >
+        </iframe>
+        <p class="header__get-started-message">
+          Run this in your project to get started or
+          <button id="learn-more">learn more!</button>
+        </p>
+      </div>
+    </header>
+    <main>
+      <h3 class="typography--hero" id="what">What does Betterer do?</h3>
+      <p>
+        Making widespread changes to a codebase can be really hard! When trying
+        to make a radical improvement to a lot of code, one of two things often
+        happens:
+      </p>
+      <ol>
+        <li>
+          You start a really long-lived branch that is difficult to maintain and
+          often <em>impossible</em> to merge.
+        </li>
+        <li>
+          You and your team have some agreement to make the improvement slowly
+          over time, but it gets forgotten about and
+          <em>never really happens</em>.
+        </li>
+      </ol>
+      <h3 class="typography--emphasised">
+        <a
+          class="typography--hero"
+          href="https://github.com/phenomnomnominal/betterer"
+          >Betterer</a
+        >
+        is here to help!
+      </h3>
+      <hr />
+      <h3 class="typography--hero" id="how">How does Betterer work?</h3>
+      <p>
+        <span class="typography--hero">Betterer</span>
+        is built upon an idea popularised by
+        <a href="https://jestjs.io/docs/en/snapshot-testing">snapshot testing</a
+        >, where the result of a test is saved in a file in your codebase.
+      </p>
+      <br />
+      <p>
+        Instead of a <em>static</em> value,
+        <span class="typography--hero">Betterer</span> keeps track of a value as
+        it changes <em>over time</em>, and makes sure that the value changes how
+        you want it to change!
+      </p>
+      <br />
+      <p>
+        When you want to make an improvement to your codebase, start by making a
+        new test, defined in a
+        <code class="typography--hero">.betterer.js</code> file:
+      </p>
+      <iframe
+        class="how__betterer-file-snippet"
+        src="https://carbon.now.sh/embed/?bg=rgba(255%2C255%2C255%2C0)&t=tomorrow-night-bright&wt=none&l=javascript&ds=false&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=16px&ph=15px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=module.exports%2520%253D%2520%257B%250A%2520%2520'thing%2520you%2520want%2520to%2520improve'%253A%2520%257B%250A%2520%2520%2520%2520test%253A%2520()%2520%253D%253E%2520runMyTest()%252C%250A%2520%2520%2520%2520constraint%253A%2520(current%252C%2520previous)%2520%253D%253E%2520%257B%250A%2520%2520%2520%2520%2520%2520return%2520current%2520%253C%2520previous%253B%250A%2520%2520%2520%2520%257D%252C%250A%2520%2520%2520%2520goal%253A%25200%250A%2520%2520%257D%250A%257D%253B"
+        sandbox="allow-scripts allow-same-origin"
+      >
+      </iframe>
+      <p>
+        Then run <span class="typography--hero">Betterer</span> from the command
+        line:
+      </p>
+      <iframe
+        class="how__betterer-run-snippet"
+        src="https://carbon.now.sh/embed/?bg=rgba(255%2C255%2C255%2C0)&t=tomorrow-night-bright&wt=none&l=application%2Fx-sh&ds=false&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=16px&ph=15px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=npx%2520%2540betterer%252Fcli%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520"
+        sandbox="allow-scripts allow-same-origin"
+      >
+      </iframe>
+      <br />
+      <p>
+        <span class="typography--hero">Betterer</span> will run your test the
+        first time, and store the result in a new
+        <code class="typography--hero">.betterer.results </code> file.
+      </p>
+      <div class="how__running-video-container">
+        <video
+          class="how__running-video"
+          controls
+          src="https://media.giphy.com/media/kcqsLCfMTSlQ90jP15/giphy.mp4"
+        ></video>
+      </div>
+      <p>
+        Whenever your tests run again,
+        <span class="typography--hero">Betterer</span> will make sure the result
+        hasn't got worse. If it gets better, the
+        <code class="typography--hero">.betterer.results </code> file will be
+        updated with the new value!
+      </p>
+      <div class="how__running-video-container">
+        <video
+          class="how__running-video"
+          controls
+          src="https://media.giphy.com/media/TLIg5hdyiWeBuzJphQ/giphy.mp4"
+        ></video>
+      </div>
+      <h3 class="typography--emphasised typography--hero">
+        Isn't that neat!?
+      </h3>
+    </main>
+    <footer class="footer__container">
+      <p class="footer__link">
+        <a href="https://github.com/phenomnomnominal/betterer">github</a>
+      </p>
+      <p class="footer__link">
+        <a href="https://twitter.com/phenomnominal">twitter</a>
+      </p>
+    </footer>
+
+    <!--
+        Thanks very much to Tim Holman for the lovely http://tholman.com/github-corners/
+    -->
+    <a
+      href="https://github.com/phenomnomnominal/betterer"
+      class="github-corner"
+      aria-label="View source on GitHub"
+      ><svg
+        width="80"
+        height="80"
+        viewBox="0 0 250 250"
+        style="fill:rgb(40, 40, 40); color:#fff; position: fixed; top: 0; border: 0; right: 0;"
+        aria-hidden="true"
+      >
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor"
+          style="transform-origin: 130px 106px;"
+          class="octo-arm"
+        ></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor"
+          class="octo-body"
+        ></path></svg></a
+    ><style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+      }
+      @keyframes octocat-wave {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        20%,
+        60% {
+          transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+          transform: rotate(10deg);
+        }
+      }
+      @media (max-width: 500px) {
+        .github-corner:hover .octo-arm {
+          animation: none;
+        }
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out;
+        }
+      }
+    </style>
+  </body>
+  <script>
+    var learnMore = document.getElementById('learn-more');
+    var what = document.getElementById('what');
+    learnMore.addEventListener('click', function() {
+      window.scroll(0, what.offsetTop);
+    });
+  </script>
+</html>
