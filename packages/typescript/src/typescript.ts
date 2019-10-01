@@ -36,12 +36,15 @@ function createTypescriptTest(
 
   const { config } = ts.readConfigFile(configFilePath, readFile);
   const { compilerOptions } = config;
-  const baseUrl = compilerOptions.baseUrl || '.';
+  const basePath = path.dirname(configFilePath);
 
-  const host = ts.createCompilerHost({
+  const fullCompilerOptions = {
     ...compilerOptions,
     ...extraCompilerOptions
-  });
+  };
+  config.compilerOptions = fullCompilerOptions;
+
+  const host = ts.createCompilerHost(fullCompilerOptions);
   const parsed = ts.parseJsonConfigFileContent(
     config,
     {
@@ -49,7 +52,7 @@ function createTypescriptTest(
       readDirectory,
       useCaseSensitiveFileNames: host.useCaseSensitiveFileNames()
     },
-    baseUrl
+    basePath
   );
 
   const program = ts.createProgram({
@@ -60,7 +63,14 @@ function createTypescriptTest(
 
   const { diagnostics } = program.emit();
 
-  const allDiagnostics = ts.getPreEmitDiagnostics(program).concat(diagnostics);
+  const preEmitDiagnostic = ts.getPreEmitDiagnostics(program);
+  const semanticDiagnostics = program.getSemanticDiagnostics();
+  const allDiagnostics = ts.sortAndDeduplicateDiagnostics([
+    ...diagnostics,
+    ...preEmitDiagnostic,
+    ...semanticDiagnostics
+  ]);
+
   if (allDiagnostics.length) {
     error('TypeScript compiler found some issues:');
     console.log(ts.formatDiagnosticsWithColorAndContext(allDiagnostics, host));
