@@ -24,16 +24,16 @@
     "@betterer/logger": "*",
     "@types/eslint": "^6.1.1",
     "@types/jest": "^24.0.18",
-    "@types/node": "^8.10.25",
-    "@typescript-eslint/eslint-plugin": "^2.1.0",
-    "@typescript-eslint/parser": "^2.1.0",
-    "eslint": "^6.3.0",
-    "eslint-config-prettier": "^6.1.0",
-    "eslint-plugin-prettier": "^3.1.0",
-    "jest": "^24.8.0",
+    "@types/node": "^12.7.8",
+    "@typescript-eslint/eslint-plugin": "^2.3.2",
+    "@typescript-eslint/parser": "^2.3.2",
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "jest": "^24.9.0",
     "lerna": "^3.16.4",
     "prettier": "^1.18.2",
-    "ts-jest": "^24.0.2",
-    "typescript": "^3.4.1"
+    "ts-jest": "^24.1.0",
+    "typescript": "^3.6.3"
   }
 }
