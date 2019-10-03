@@ -1,7 +1,7 @@
 {
   "name": "@betterer/regexp",
   "description": "RegExp betterer for @betterer/betterer",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -24,9 +24,9 @@
     "compile": "tsc"
   },
   "dependencies": {
-    "@betterer/betterer": "^0.1.4",
-    "@betterer/constraints": "^0.1.4",
-    "@betterer/logger": "^0.1.4",
+    "@betterer/betterer": "^0.2.0",
+    "@betterer/constraints": "^0.2.0",
+    "@betterer/logger": "^0.2.0",
     "callsite": "^1.0.0",
     "glob": "^7.1.4",
     "tslib": "^1.10.0"
