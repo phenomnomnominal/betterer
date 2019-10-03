@@ -8,9 +8,14 @@ import { write } from './writer';
 export async function betterer(config: BetterConfig): Promise<BetterStats> {
   info('running betterer!');
 
-  const { configPath, filters, resultsPath } = config;
-  const imported = await import(configPath);
-  const tests: BetterTests = imported.default ? imported.default : imported;
+  const { configPaths, filters, resultsPath } = config;
+  let tests: BetterTests = {};
+  await Promise.all(
+    configPaths.map(async configPath => {
+      const moreTests = await getTests(configPath);
+      tests = { ...tests, ...moreTests };
+    })
+  );
   const testsToRun = Object.keys(tests).filter(testName => {
     if (!filters) {
       return true;
@@ -110,7 +115,7 @@ export async function betterer(config: BetterConfig): Promise<BetterStats> {
 
     // Worse:
     stats.worse.push(testName);
-    stats.messages.push(`"${testName}" got worse`);
+    stats.messages.push(`"${testName}" got worse.`);
     results[testName] = previous;
   }, Promise.resolve());
 
@@ -176,4 +181,16 @@ export async function betterer(config: BetterConfig): Promise<BetterStats> {
 
 function getThings(count: number): string {
   return count === 1 ? 'thing' : 'things';
+}
+
+async function getTests(configPath: string): Promise<BetterTests> {
+  try {
+    const imported = await import(configPath);
+    return imported.default ? imported.default : imported;
+  } catch {
+    // Couldn't import, doesn't matter...
+  }
+
+  error(`could not read tests from "${configPath}". 😔`);
+  throw new Error();
 }

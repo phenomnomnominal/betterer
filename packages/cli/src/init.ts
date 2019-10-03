@@ -1,10 +1,11 @@
 import { error, info, warn, success } from '@betterer/logger';
+import * as commander from 'commander';
 import * as findUp from 'find-up';
 import { readFile, writeFile } from 'fs';
 import * as path from 'path';
 import { promisify } from 'util';
 
-import { CONFIG_ENV } from './env';
+import { DEFAULT_CONFIG_PATH } from './constants';
 
 const readFileAsync = promisify(readFile);
 const writeAsync = promisify(writeFile);
@@ -12,14 +13,27 @@ const writeAsync = promisify(writeFile);
 const TEMPLATE = `module.exports = {\n  // Add tests here ☀️\n};`;
 
 export async function init(cwd: string): Promise<void> {
+  commander
+    .option(
+      '-c, --config [value]',
+      'Path to test definition file relative to CWD',
+      DEFAULT_CONFIG_PATH
+    )
+    .parse(process.argv);
+
+  const { config } = commander;
+
   info('initialising betterer... ☀️');
-  await createTestFile(cwd);
+  await createTestFile(cwd, config);
   await updatePackageJSON(cwd);
   success('initialised betterer! ☀️');
 }
 
-async function createTestFile(cwd: string): Promise<void> {
-  const configPath = path.resolve(cwd, process.env[CONFIG_ENV] as string);
+async function createTestFile(
+  cwd: string,
+  configFilePath: string
+): Promise<void> {
+  const configPath = path.resolve(cwd, configFilePath);
   info(`creating "${configPath}" file...`);
 
   let exists = false;

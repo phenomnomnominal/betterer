@@ -3,7 +3,7 @@ import * as path from 'path';
 import { promisify } from 'util';
 
 import { init } from '../packages/cli/src';
-import { CONFIG_ENV, DEFAULT_CONFIG_PATH } from '../packages/cli/src/env';
+import { DEFAULT_CONFIG_PATH } from '../packages/cli/src/constants';
 
 const FIXTURE = path.resolve(__dirname, '../fixtures/test-betterer-init');
 
@@ -19,8 +19,6 @@ describe('betterer init', () => {
     const packageJSONPath = path.resolve(FIXTURE, './package.json');
 
     await reset(configPath, packageJSONPath);
-
-    process.env[CONFIG_ENV] = DEFAULT_CONFIG_PATH;
 
     await init(FIXTURE);
 

@@ -1,11 +1,8 @@
 import * as commander from 'commander';
 
-import {
-  CONFIG_ENV,
-  RESULTS_ENV,
-  DEFAULT_CONFIG_PATH,
-  DEFAULT_RESULTS_PATH
-} from './env';
+const DEFAULT_COMMAND = 'start';
+
+const COMMANDS = [DEFAULT_COMMAND, 'init'];
 
 export function cli(): void {
   // HACK:
@@ -16,26 +13,14 @@ export function cli(): void {
 
   commander.version(version);
 
-  process.env[CONFIG_ENV] = DEFAULT_CONFIG_PATH;
-  commander
-    .option(
-      '-c, --config [value]',
-      'Path to test definition file relative to CWD',
-      DEFAULT_CONFIG_PATH
-    )
-    .on('option:config', value => (process.env[CONFIG_ENV] = value));
-
-  process.env[RESULTS_ENV] = DEFAULT_RESULTS_PATH;
-  commander
-    .option(
-      '-r, --results [value]',
-      'Path to test results file relative to CWD',
-      DEFAULT_RESULTS_PATH
-    )
-    .on('option:results', value => (process.env[RESULTS_ENV] = value));
-
-  commander.command('start', 'run betterer', { isDefault: true });
+  commander.command(DEFAULT_COMMAND, 'run betterer');
   commander.command('init', 'init betterer');
 
-  commander.parse(process.argv);
+  const args = process.argv.slice(0);
+  const [, , command] = args;
+  if (!COMMANDS.includes(command)) {
+    args.splice(2, 0, DEFAULT_COMMAND);
+  }
+
+  commander.parse(args);
 }
