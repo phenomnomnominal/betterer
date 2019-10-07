@@ -28,7 +28,7 @@ Making widespread changes to a codebase can be really hard. Often when trying to
 
 1. You start a really long-lived branch that is awful to maintain and often impossible to merge.
 
-2. You and your team have some agreement to make the improvement slowly over time, but it gets forgottern about and never really happens.
+2. You and your team have some agreement to make the improvement slowly over time, but it gets forgotten about and never really happens.
 
 **`Betterer`** is meant to help with this!
 
