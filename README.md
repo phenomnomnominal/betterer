@@ -137,7 +137,10 @@ It's also pretty straightforward to write your own custom **`betterer`**. All yo
 ```typescript
 export type Betterer<T = number> = {
   test: () => T | Promise<T>;
-  constraint: (current: T, previous: T) => boolean | Promise<boolean>;
+  constraint: (
+    current: T,
+    previous: T
+  ) => ConstraintResult | Promise<ConstraintResult>;
   goal: T;
 };
 ```
