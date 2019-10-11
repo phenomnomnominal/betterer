@@ -5,18 +5,18 @@ import { read } from './reader';
 import { serialise } from './serialiser';
 import {
   BettererConfig,
-  BetterResults,
-  BetterStats,
-  BetterTests
+  BettererResults,
+  BettererStats,
+  BettererTests
 } from './types';
 import { write } from './writer';
 
-export async function betterer(config: BettererConfig): Promise<BetterStats> {
+export async function betterer(config: BettererConfig): Promise<BettererStats> {
   setConfig(config);
   info('running betterer!');
 
   const { configPaths, filters, resultsPath } = config;
-  let tests: BetterTests = {};
+  let tests: BettererTests = {};
   await Promise.all(
     configPaths.map(async configPath => {
       const moreTests = await getTests(configPath);
@@ -30,7 +30,7 @@ export async function betterer(config: BettererConfig): Promise<BetterStats> {
     return filters.some(filter => filter.test(testName));
   });
 
-  let expectedResults: BetterResults = {};
+  let expectedResults: BettererResults = {};
   if (resultsPath) {
     try {
       expectedResults = await read(resultsPath);
@@ -47,7 +47,7 @@ export async function betterer(config: BettererConfig): Promise<BetterStats> {
     delete expectedResults[obsoleteName];
   });
 
-  const stats: BetterStats = {
+  const stats: BettererStats = {
     obsolete: obsoleteNames,
     ran: [],
     failed: [],
@@ -59,7 +59,7 @@ export async function betterer(config: BettererConfig): Promise<BetterStats> {
     completed: []
   };
 
-  const results: BetterResults = { ...expectedResults };
+  const results: BettererResults = { ...expectedResults };
 
   await testsToRun.reduce(async (p, testName) => {
     await p;
@@ -190,7 +190,7 @@ function getThings(count: number): string {
   return count === 1 ? 'thing' : 'things';
 }
 
-async function getTests(configPath: string): Promise<BetterTests> {
+async function getTests(configPath: string): Promise<BettererTests> {
   try {
     const imported = await import(configPath);
     return imported.default ? imported.default : imported;
