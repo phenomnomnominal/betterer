@@ -1,8 +1,10 @@
+import { ConstraintResult } from '@betterer/constraints';
+
 type BettererTest<T = unknown> = () => T | Promise<T>;
 type BettererConstraint<T = unknown> = (
   current: T,
   previous: T
-) => boolean | Promise<boolean>;
+) => ConstraintResult | Promise<ConstraintResult>;
 
 export type Betterer<T = number> = {
   test: BettererTest<T>;
