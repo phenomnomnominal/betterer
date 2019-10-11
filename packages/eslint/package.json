@@ -25,13 +25,16 @@
   },
   "dependencies": {
     "@betterer/betterer": "^0.2.0",
-    "@betterer/constraints": "^0.2.0",
     "@betterer/logger": "^0.2.0",
     "callsite": "^1.0.0",
-    "eslint": "^6.4.0",
+    "lines-and-columns": "^1.1.6",
     "tslib": "^1.10.0"
   },
+  "peerDependencies": {
+    "eslint": "*"
+  },
   "devDependencies": {
-    "@types/callsite": "^1.0.30"
+    "@types/callsite": "^1.0.30",
+    "eslint": "*"
   }
 }

@@ -2,8 +2,7 @@ import * as ts from 'typescript';
 import * as stack from 'callsite';
 import * as path from 'path';
 
-import { Betterer } from '@betterer/betterer';
-import { smaller } from '@betterer/constraints';
+import { FileBetterer, createFileBetterer } from '@betterer/betterer';
 import { error, info } from '@betterer/logger';
 
 const readFile = ts.sys.readFile.bind(ts.sys);
@@ -12,68 +11,68 @@ const readDirectory = ts.sys.readDirectory.bind(ts.sys);
 export function typescriptBetterer(
   configFilePath: string,
   extraCompilerOptions?: ts.CompilerOptions
-): Betterer {
+): FileBetterer {
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
   const absPath = path.resolve(cwd, configFilePath);
-  return {
-    test: (): number => createTypescriptTest(absPath, extraCompilerOptions),
-    constraint: smaller,
-    goal: 0
-  };
-}
 
-function createTypescriptTest(
-  configFilePath: string,
-  extraCompilerOptions?: ts.CompilerOptions
-): number {
-  info(`running TypeScript compiler...`);
+  return createFileBetterer(() => {
+    info(`running TypeScript compiler...`);
 
-  if (!configFilePath) {
-    error();
-    throw new Error();
-  }
+    if (!configFilePath) {
+      error();
+      throw new Error();
+    }
 
-  const { config } = ts.readConfigFile(configFilePath, readFile);
-  const { compilerOptions } = config;
-  const basePath = path.dirname(configFilePath);
+    const { config } = ts.readConfigFile(absPath, readFile);
+    const { compilerOptions } = config;
+    const basePath = path.dirname(absPath);
 
-  const fullCompilerOptions = {
-    ...compilerOptions,
-    ...extraCompilerOptions
-  };
-  config.compilerOptions = fullCompilerOptions;
+    const fullCompilerOptions = {
+      ...compilerOptions,
+      ...extraCompilerOptions
+    };
+    config.compilerOptions = fullCompilerOptions;
 
-  const host = ts.createCompilerHost(fullCompilerOptions);
-  const parsed = ts.parseJsonConfigFileContent(
-    config,
-    {
-      ...host,
-      readDirectory,
-      useCaseSensitiveFileNames: host.useCaseSensitiveFileNames()
-    },
-    basePath
-  );
+    const host = ts.createCompilerHost(fullCompilerOptions);
+    const parsed = ts.parseJsonConfigFileContent(
+      config,
+      {
+        ...host,
+        readDirectory,
+        useCaseSensitiveFileNames: host.useCaseSensitiveFileNames()
+      },
+      basePath
+    );
 
-  const program = ts.createProgram({
-    ...parsed,
-    rootNames: parsed.fileNames,
-    host
+    const program = ts.createProgram({
+      ...parsed,
+      rootNames: parsed.fileNames,
+      host
+    });
+
+    const { diagnostics } = program.emit();
+
+    const preEmitDiagnostic = ts.getPreEmitDiagnostics(program);
+    const semanticDiagnostics = program.getSemanticDiagnostics();
+    const allDiagnostics = ts.sortAndDeduplicateDiagnostics([
+      ...diagnostics,
+      ...preEmitDiagnostic,
+      ...semanticDiagnostics
+    ]);
+
+    if (allDiagnostics.length) {
+      error('TypeScript compiler found some issues:');
+    }
+    return allDiagnostics.map((diagnostic: ts.Diagnostic) => {
+      const { file, start, length } = diagnostic as ts.DiagnosticWithLocation;
+      return {
+        message: ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'),
+        filePath: file.fileName,
+        fileText: file.getFullText(),
+        start,
+        end: start + length
+      };
+    });
   });
-
-  const { diagnostics } = program.emit();
-
-  const preEmitDiagnostic = ts.getPreEmitDiagnostics(program);
-  const semanticDiagnostics = program.getSemanticDiagnostics();
-  const allDiagnostics = ts.sortAndDeduplicateDiagnostics([
-    ...diagnostics,
-    ...preEmitDiagnostic,
-    ...semanticDiagnostics
-  ]);
-
-  if (allDiagnostics.length) {
-    error('TypeScript compiler found some issues:');
-    console.log(ts.formatDiagnosticsWithColorAndContext(allDiagnostics, host));
-  }
-  return allDiagnostics.length;
 }

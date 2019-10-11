@@ -1,4 +1,5 @@
 import { codeFrameColumns } from '@babel/code-frame';
+import chalk from 'chalk';
 import LinesAndColumns from 'lines-and-columns';
 import { addLevel, enableColor, enableUnicode, log, StyleObject } from 'npmlog';
 import * as path from 'path';
@@ -67,7 +68,7 @@ function createLogger(
 }
 
 export const code = function(codeInfo: LoggerCodeInfo): void {
-  const { filePath, fileText } = codeInfo;
+  const { filePath, fileText, message } = codeInfo;
   const isJS = IS_JS_REGEXP.exec(path.extname(filePath));
   const options = {
     highlightCode: !!isJS
@@ -84,19 +85,16 @@ export const code = function(codeInfo: LoggerCodeInfo): void {
     column: endLocation ? endLocation.column + 1 : 0
   };
 
-  console.log(`${codeFrameColumns(fileText, { start, end }, options)}\n`);
+  const codeFrame = codeFrameColumns(fileText, { start, end }, options);
+  console.log(`\n  ${chalk.bgRed.whiteBright(` ${message} \n`)}${codeFrame}`);
 };
 
 export type LoggerCodeInfo = {
+  message: string;
   filePath: string;
   fileText: string;
   start: number;
   end: number;
-};
-
-export type LoggerCodeLocation = {
-  line: number;
-  column: number;
 };
 
 function assign<T, K extends keyof T>(

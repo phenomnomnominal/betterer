@@ -1,15 +1,30 @@
+import { ConstraintResult } from '@betterer/constraints';
 import { error, info, success, warn } from '@betterer/logger';
+import * as Diff from 'diff';
+import * as jsonpatch from 'fast-json-patch';
+import { setConfig } from './config';
 import { print } from './printer';
 import { read } from './reader';
 import { serialise } from './serialiser';
-import { BetterConfig, BetterResults, BetterStats, BetterTests } from './types';
+import { stringify } from './stringifier';
+import {
+  BettererConfig,
+  BettererGoalFunction,
+  BettererGoal,
+  BettererResult,
+  BettererResults,
+  BettererStats,
+  BettererTests
+} from './types';
 import { write } from './writer';
 
-export async function betterer(config: BetterConfig): Promise<BetterStats> {
+export async function betterer(config: BettererConfig): Promise<BettererStats> {
+  setConfig(config);
   info('running betterer!');
 
   const { configPaths, filters, resultsPath } = config;
-  let tests: BetterTests = {};
+
+  let tests: BettererTests = {};
   await Promise.all(
     configPaths.map(async configPath => {
       const moreTests = await getTests(configPath);
@@ -23,7 +38,7 @@ export async function betterer(config: BetterConfig): Promise<BetterStats> {
     return filters.some(filter => filter.test(testName));
   });
 
-  let expectedResults: BetterResults = {};
+  let expectedResults: BettererResults = {};
   if (resultsPath) {
     try {
       expectedResults = await read(resultsPath);
@@ -40,7 +55,7 @@ export async function betterer(config: BetterConfig): Promise<BetterStats> {
     delete expectedResults[obsoleteName];
   });
 
-  const stats: BetterStats = {
+  const stats: BettererStats = {
     obsolete: obsoleteNames,
     ran: [],
     failed: [],
@@ -52,15 +67,18 @@ export async function betterer(config: BetterConfig): Promise<BetterStats> {
     completed: []
   };
 
-  const results: BetterResults = { ...expectedResults };
+  const results: BettererResults = { ...expectedResults };
 
   await testsToRun.reduce(async (p, testName) => {
     await p;
+
     const { test, constraint, goal } = tests[testName];
-    let result: unknown;
+    const diff = tests[testName].diff || defaultDiff;
+
+    let current: unknown;
     try {
       info(`running "${testName}"!`);
-      result = await test();
+      current = await test();
     } catch {
       stats.failed.push(testName);
       stats.messages.push(`"${testName}" failed to run.`);
@@ -68,46 +86,47 @@ export async function betterer(config: BetterConfig): Promise<BetterStats> {
     }
     stats.ran.push(testName);
 
-    const current = {
-      timestamp: Date.now(),
-      value: serialise(result)
-    };
-    const previous = expectedResults[testName];
+    const serialisedCurrent = serialise(current);
+    const serialisedPrevious = expectedResults[testName]
+      ? JSON.parse(expectedResults[testName].value)
+      : null;
 
     // New test:
-    if (!previous) {
-      results[testName] = current;
+    if (!serialisedPrevious) {
+      diff(current, serialisedCurrent, serialisedPrevious);
+
+      results[testName] = update(serialisedCurrent);
       stats.new.push(testName);
       return;
     }
 
-    const isSame = current.value === previous.value;
-    const serialisedGoal = serialise(goal);
+    const checkGoal = createGoal(goal);
+
+    const comparison = await constraint(serialisedCurrent, serialisedPrevious);
+    const isSame = comparison === ConstraintResult.same;
+    const isBetter = comparison === ConstraintResult.better;
 
     // Same, but already met goal:
-    if (isSame && current.value === serialisedGoal) {
+    if (isSame && checkGoal(serialisedCurrent)) {
       stats.completed.push(testName);
       return;
     }
 
     // Same:
     if (isSame) {
-      results[testName] = current;
       stats.same.push(testName);
       return;
     }
 
-    const isBetter = await constraint(
-      JSON.parse(current.value),
-      JSON.parse(previous.value)
-    );
+    diff(current, serialisedCurrent, serialisedPrevious);
 
     // Better:
     if (isBetter) {
+      results[testName] = update(serialisedCurrent);
       stats.better.push(testName);
-      results[testName] = current;
+
       // Newly met goal:
-      if (current.value === serialisedGoal) {
+      if (checkGoal(serialisedCurrent)) {
         stats.completed.push(testName);
       }
       return;
@@ -116,7 +135,6 @@ export async function betterer(config: BetterConfig): Promise<BetterStats> {
     // Worse:
     stats.worse.push(testName);
     stats.messages.push(`"${testName}" got worse.`);
-    results[testName] = previous;
   }, Promise.resolve());
 
   const ran = stats.ran.length;
@@ -153,9 +171,7 @@ export async function betterer(config: BetterConfig): Promise<BetterStats> {
     warn(`${same} ${getThings(same)} stayed the same. 😐`);
   }
 
-  messages.forEach(message => {
-    error(message);
-  });
+  messages.forEach(message => error(message));
 
   const printed = print(results);
 
@@ -183,7 +199,7 @@ function getThings(count: number): string {
   return count === 1 ? 'thing' : 'things';
 }
 
-async function getTests(configPath: string): Promise<BetterTests> {
+async function getTests(configPath: string): Promise<BettererTests> {
   try {
     const imported = await import(configPath);
     return imported.default ? imported.default : imported;
@@ -193,4 +209,31 @@ async function getTests(configPath: string): Promise<BetterTests> {
 
   error(`could not read tests from "${configPath}". 😔`);
   throw new Error();
+}
+
+function defaultDiff(
+  _: unknown,
+  serialisedCurrent: unknown,
+  serialisedPrevious: unknown
+): void {
+  const stringifiedCurrent = stringify(serialisedCurrent);
+  const stringifiedPrevious = stringify(serialisedPrevious);
+  console.log(Diff.diffJson(stringifiedCurrent, stringifiedPrevious));
+  console.log(jsonpatch.compare(stringifiedCurrent, stringifiedPrevious));
+}
+
+function createGoal(
+  goal: BettererGoal<unknown>
+): BettererGoalFunction<unknown> {
+  if (typeof goal === 'function') {
+    return goal as BettererGoalFunction<unknown>;
+  }
+  return (value: unknown): boolean => value === goal;
+}
+
+function update(value: unknown): BettererResult {
+  return {
+    timestamp: Date.now(),
+    value: stringify(value)
+  };
 }

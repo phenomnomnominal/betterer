@@ -1,33 +1,53 @@
-type BetterTest<T = unknown> = () => T | Promise<T>;
-type BetterConstraint<T = unknown> = (
+import { ConstraintResult } from '@betterer/constraints';
+
+export type MaybeAsync<T> = T | Promise<T>;
+
+export type BettererTest<T> = () => MaybeAsync<T>;
+
+export type BettererConstraint<T> = (
   current: T,
   previous: T
-) => boolean | Promise<boolean>;
+) => MaybeAsync<ConstraintResult>;
 
-export type Betterer<T = number> = {
-  test: BetterTest<T>;
-  constraint: BetterConstraint<T>;
-  goal: T;
+export type BettererGoalFunction<SerialisedType> = (
+  current: SerialisedType
+) => MaybeAsync<boolean>;
+
+export type BettererGoal<SerialisedType> =
+  | SerialisedType
+  | BettererGoalFunction<SerialisedType>;
+
+export type BettererDiff<TestType, SerialisedType> = (
+  current: TestType,
+  serialisedCurrent: SerialisedType,
+  serialisedPrevious: SerialisedType | null
+) => MaybeAsync<void>;
+
+export type Betterer<TestType, SerialisedType = TestType> = {
+  test: BettererTest<TestType>;
+  constraint: BettererConstraint<SerialisedType>;
+  goal: BettererGoal<SerialisedType>;
+  diff?: BettererDiff<TestType, SerialisedType>;
 };
 
-export type BetterTests = {
-  [key: string]: Betterer;
+export type BettererTests = {
+  [key: string]: Betterer<unknown, unknown>;
 };
 
-export type BetterConfig = {
+export type BettererConfig = {
   configPaths: Array<string>;
-  resultsPath?: string;
+  resultsPath: string;
   filters?: Array<RegExp>;
 };
 
-type BetterResult = {
+export type BettererResult = {
   timestamp: number;
   value: string;
 };
 
-export type BetterResults = Record<string, BetterResult>;
+export type BettererResults = Record<string, BettererResult>;
 
-export type BetterStats = {
+export type BettererStats = {
   obsolete: Array<string>;
   ran: Array<string>;
   failed: Array<string>;

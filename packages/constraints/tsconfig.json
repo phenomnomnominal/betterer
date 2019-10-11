@@ -3,6 +3,6 @@
   "compilerOptions": {
     "outDir": "./dist"
   },
-  "include": ["./src/*.ts"],
+  "include": ["./src/*.ts", "../betterer/src/files/fewer-file-errors.ts"],
   "exclude": ["../node_modules/*", "./node_modules/*", "./dist/*"]
 }
