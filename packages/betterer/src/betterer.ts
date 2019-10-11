@@ -23,7 +23,6 @@ export async function betterer(config: BettererConfig): Promise<BettererStats> {
   info('running betterer!');
 
   const { configPaths, filters, resultsPath } = config;
-
   let tests: BettererTests = {};
   await Promise.all(
     configPaths.map(async configPath => {
