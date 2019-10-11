@@ -1,3 +1,4 @@
+import { ConstraintResult } from '@betterer/constraints';
 import { error, info, success, warn } from '@betterer/logger';
 import { setConfig } from './config';
 import { print } from './printer';
@@ -88,7 +89,13 @@ export async function betterer(config: BettererConfig): Promise<BettererStats> {
       return;
     }
 
-    const isSame = current.value === previous.value;
+    const comparison = await constraint(
+      JSON.parse(current.value),
+      JSON.parse(previous.value)
+    );
+
+    const isSame = comparison === ConstraintResult.same;
+    const isBetter = comparison === ConstraintResult.better;
     const serialisedGoal = serialise(goal);
 
     // Same, but already met goal:
@@ -103,11 +110,6 @@ export async function betterer(config: BettererConfig): Promise<BettererStats> {
       stats.same.push(testName);
       return;
     }
-
-    const isBetter = await constraint(
-      JSON.parse(current.value),
-      JSON.parse(previous.value)
-    );
 
     // Better:
     if (isBetter) {
