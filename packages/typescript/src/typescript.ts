@@ -12,7 +12,7 @@ const readDirectory = ts.sys.readDirectory.bind(ts.sys);
 export function typescriptBetterer(
   configFilePath: string,
   extraCompilerOptions?: ts.CompilerOptions
-): Betterer {
+): Betterer<number> {
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
   const absPath = path.resolve(cwd, configFilePath);

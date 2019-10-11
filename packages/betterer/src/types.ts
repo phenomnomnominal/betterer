@@ -1,15 +1,15 @@
 import { ConstraintResult } from '@betterer/constraints';
 
-type BettererTest<T = unknown> = () => T | Promise<T>;
-type BettererConstraint<T = unknown> = (
+type BettererTest<T> = () => T | Promise<T>;
+type BettererConstraint<T> = (
   current: T,
   previous: T
 ) => ConstraintResult | Promise<ConstraintResult>;
 
-export type Betterer<T = number> = {
-  test: BettererTest<T>;
-  constraint: BettererConstraint<T>;
-  goal: T;
+export type Betterer<TestType = unknown, SerialisedType = TestType> = {
+  test: BettererTest<TestType>;
+  constraint: BettererConstraint<SerialisedType>;
+  goal: TestType;
 };
 
 export type BettererTests = {
@@ -18,11 +18,11 @@ export type BettererTests = {
 
 export type BettererConfig = {
   configPaths: Array<string>;
-  resultsPath?: string;
+  resultsPath: string;
   filters?: Array<RegExp>;
 };
 
-type BettererResult = {
+export type BettererResult = {
   timestamp: number;
   value: string;
 };
