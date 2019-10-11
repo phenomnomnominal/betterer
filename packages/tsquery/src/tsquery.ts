@@ -9,7 +9,7 @@ import { code, error, info, LoggerCodeInfo } from '@betterer/logger';
 export function tsqueryBetterer(
   configFilePath: string,
   query: string
-): Betterer {
+): Betterer<number> {
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
   const absPath = path.resolve(cwd, configFilePath);
