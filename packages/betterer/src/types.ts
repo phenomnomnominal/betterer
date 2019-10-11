@@ -14,7 +14,7 @@ export type BetterTests = {
   [key: string]: Betterer;
 };
 
-export type BetterConfig = {
+export type BettererConfig = {
   configPaths: Array<string>;
   resultsPath?: string;
   filters?: Array<RegExp>;

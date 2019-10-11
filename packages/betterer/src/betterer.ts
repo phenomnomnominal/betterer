@@ -1,11 +1,18 @@
 import { error, info, success, warn } from '@betterer/logger';
+import { setConfig } from './config';
 import { print } from './printer';
 import { read } from './reader';
 import { serialise } from './serialiser';
-import { BetterConfig, BetterResults, BetterStats, BetterTests } from './types';
+import {
+  BettererConfig,
+  BetterResults,
+  BetterStats,
+  BetterTests
+} from './types';
 import { write } from './writer';
 
-export async function betterer(config: BetterConfig): Promise<BetterStats> {
+export async function betterer(config: BettererConfig): Promise<BetterStats> {
+  setConfig(config);
   info('running betterer!');
 
   const { configPaths, filters, resultsPath } = config;
