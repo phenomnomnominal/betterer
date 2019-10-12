@@ -9,11 +9,13 @@ Simple constraint functions for use with [**`betterer`**](https://github.com/phe
 ```typescript
 import { bigger, smaller } from '@betterer/constraints';
 
-bigger(1, 2); // false;
-bigger(1, 1); // false;
-bigger(2, 1); // true;
+bigger(1, 2); // worse;
+bigger(1, 1); // worse;
+bigger(2, 1); // better;
+bigger(2, 2); // same;
 
-smaller(2, 1); // false;
-smaller(1, 1); // false;
-smaller(1, 2); // true;
+smaller(2, 1); // worse;
+smaller(1, 1); // worse;
+smaller(1, 2); // better;
+smaller(2, 2); // same;
 ```

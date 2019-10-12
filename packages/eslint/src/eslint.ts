@@ -11,7 +11,7 @@ type ESLintRuleConfig = [string, Linter.RuleLevel | Linter.RuleLevelAndOptions];
 export function eslintBetterer(
   files: string | Array<string>,
   rule: ESLintRuleConfig
-): Betterer {
+): Betterer<number> {
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
   const filesArray = Array.isArray(files) ? files : [files];

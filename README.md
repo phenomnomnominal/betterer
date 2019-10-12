@@ -28,7 +28,7 @@ Making widespread changes to a codebase can be really hard. Often when trying to
 
 1. You start a really long-lived branch that is awful to maintain and often impossible to merge.
 
-2. You and your team have some agreement to make the improvement slowly over time, but it gets forgottern about and never really happens.
+2. You and your team have some agreement to make the improvement slowly over time, but it gets forgotten about and never really happens.
 
 **`Betterer`** is meant to help with this!
 
@@ -137,7 +137,10 @@ It's also pretty straightforward to write your own custom **`betterer`**. All yo
 ```typescript
 export type Betterer<T = number> = {
   test: () => T | Promise<T>;
-  constraint: (current: T, previous: T) => boolean | Promise<boolean>;
+  constraint: (
+    current: T,
+    previous: T
+  ) => ConstraintResult | Promise<ConstraintResult>;
   goal: T;
 };
 ```

@@ -1,33 +1,35 @@
-type BetterTest<T = unknown> = () => T | Promise<T>;
-type BetterConstraint<T = unknown> = (
+import { ConstraintResult } from '@betterer/constraints';
+
+type BettererTest<T> = () => T | Promise<T>;
+type BettererConstraint<T> = (
   current: T,
   previous: T
-) => boolean | Promise<boolean>;
+) => ConstraintResult | Promise<ConstraintResult>;
 
-export type Betterer<T = number> = {
-  test: BetterTest<T>;
-  constraint: BetterConstraint<T>;
-  goal: T;
+export type Betterer<TestType = unknown, SerialisedType = TestType> = {
+  test: BettererTest<TestType>;
+  constraint: BettererConstraint<SerialisedType>;
+  goal: TestType;
 };
 
-export type BetterTests = {
+export type BettererTests = {
   [key: string]: Betterer;
 };
 
-export type BetterConfig = {
+export type BettererConfig = {
   configPaths: Array<string>;
-  resultsPath?: string;
+  resultsPath: string;
   filters?: Array<RegExp>;
 };
 
-type BetterResult = {
+export type BettererResult = {
   timestamp: number;
   value: string;
 };
 
-export type BetterResults = Record<string, BetterResult>;
+export type BettererResults = Record<string, BettererResult>;
 
-export type BetterStats = {
+export type BettererStats = {
   obsolete: Array<string>;
   ran: Array<string>;
   failed: Array<string>;

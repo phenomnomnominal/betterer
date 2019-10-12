@@ -14,7 +14,7 @@ const readAsync = promisify(fs.readFile);
 export function regexpBetterer(
   files: string | Array<string>,
   regexp: RegExp
-): Betterer {
+): Betterer<number> {
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
   const filesArray = Array.isArray(files) ? files : [files];

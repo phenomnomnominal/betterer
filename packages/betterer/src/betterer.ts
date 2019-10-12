@@ -1,15 +1,25 @@
+import { ConstraintResult } from '@betterer/constraints';
 import { error, info, success, warn } from '@betterer/logger';
+import { setConfig } from './config';
 import { print } from './printer';
 import { read } from './reader';
 import { serialise } from './serialiser';
-import { BetterConfig, BetterResults, BetterStats, BetterTests } from './types';
+import { stringify } from './stringifier';
+import {
+  BettererConfig,
+  BettererResult,
+  BettererResults,
+  BettererStats,
+  BettererTests
+} from './types';
 import { write } from './writer';
 
-export async function betterer(config: BetterConfig): Promise<BetterStats> {
+export async function betterer(config: BettererConfig): Promise<BettererStats> {
+  setConfig(config);
   info('running betterer!');
 
   const { configPaths, filters, resultsPath } = config;
-  let tests: BetterTests = {};
+  let tests: BettererTests = {};
   await Promise.all(
     configPaths.map(async configPath => {
       const moreTests = await getTests(configPath);
@@ -23,7 +33,7 @@ export async function betterer(config: BetterConfig): Promise<BetterStats> {
     return filters.some(filter => filter.test(testName));
   });
 
-  let expectedResults: BetterResults = {};
+  let expectedResults: BettererResults = {};
   if (resultsPath) {
     try {
       expectedResults = await read(resultsPath);
@@ -40,7 +50,7 @@ export async function betterer(config: BetterConfig): Promise<BetterStats> {
     delete expectedResults[obsoleteName];
   });
 
-  const stats: BetterStats = {
+  const stats: BettererStats = {
     obsolete: obsoleteNames,
     ran: [],
     failed: [],
@@ -52,15 +62,16 @@ export async function betterer(config: BetterConfig): Promise<BetterStats> {
     completed: []
   };
 
-  const results: BetterResults = { ...expectedResults };
+  const results: BettererResults = { ...expectedResults };
 
   await testsToRun.reduce(async (p, testName) => {
     await p;
     const { test, constraint, goal } = tests[testName];
-    let result: unknown;
+
+    let current: unknown;
     try {
       info(`running "${testName}"!`);
-      result = await test();
+      current = await test();
     } catch {
       stats.failed.push(testName);
       stats.messages.push(`"${testName}" failed to run.`);
@@ -68,46 +79,42 @@ export async function betterer(config: BetterConfig): Promise<BetterStats> {
     }
     stats.ran.push(testName);
 
-    const current = {
-      timestamp: Date.now(),
-      value: serialise(result)
-    };
-    const previous = expectedResults[testName];
+    const serialisedCurrent = serialise(current);
+    const serialisedPrevious = expectedResults[testName]
+      ? JSON.parse(expectedResults[testName].value)
+      : null;
 
     // New test:
-    if (!previous) {
-      results[testName] = current;
+    if (!serialisedPrevious) {
+      results[testName] = update(serialisedCurrent);
       stats.new.push(testName);
       return;
     }
 
-    const isSame = current.value === previous.value;
+    const comparison = await constraint(serialisedCurrent, serialisedPrevious);
+
+    const isSame = comparison === ConstraintResult.same;
+    const isBetter = comparison === ConstraintResult.better;
     const serialisedGoal = serialise(goal);
 
     // Same, but already met goal:
-    if (isSame && current.value === serialisedGoal) {
+    if (isSame && serialisedCurrent === serialisedGoal) {
       stats.completed.push(testName);
       return;
     }
 
     // Same:
     if (isSame) {
-      results[testName] = current;
       stats.same.push(testName);
       return;
     }
 
-    const isBetter = await constraint(
-      JSON.parse(current.value),
-      JSON.parse(previous.value)
-    );
-
     // Better:
     if (isBetter) {
+      results[testName] = update(serialisedCurrent);
       stats.better.push(testName);
-      results[testName] = current;
       // Newly met goal:
-      if (current.value === serialisedGoal) {
+      if (serialisedCurrent === serialisedGoal) {
         stats.completed.push(testName);
       }
       return;
@@ -116,7 +123,6 @@ export async function betterer(config: BetterConfig): Promise<BetterStats> {
     // Worse:
     stats.worse.push(testName);
     stats.messages.push(`"${testName}" got worse.`);
-    results[testName] = previous;
   }, Promise.resolve());
 
   const ran = stats.ran.length;
@@ -183,7 +189,7 @@ function getThings(count: number): string {
   return count === 1 ? 'thing' : 'things';
 }
 
-async function getTests(configPath: string): Promise<BetterTests> {
+async function getTests(configPath: string): Promise<BettererTests> {
   try {
     const imported = await import(configPath);
     return imported.default ? imported.default : imported;
@@ -193,4 +199,11 @@ async function getTests(configPath: string): Promise<BetterTests> {
 
   error(`could not read tests from "${configPath}". 😔`);
   throw new Error();
+}
+
+function update(value: unknown): BettererResult {
+  return {
+    timestamp: Date.now(),
+    value: stringify(value)
+  };
 }
