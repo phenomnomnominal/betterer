@@ -1,5 +1,5 @@
 import { ConstraintResult } from '@betterer/constraints';
-import { error, info, success, warn } from '@betterer/logger';
+import { error, header, info, success, warn } from '@betterer/logger';
 import * as Diff from 'diff';
 import * as jsonpatch from 'fast-json-patch';
 import { setConfig } from './config';
@@ -20,7 +20,13 @@ import { write } from './writer';
 
 export async function betterer(config: BettererConfig): Promise<BettererStats> {
   setConfig(config);
-  info('running betterer!');
+  header(`
+   \\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\ / _ \\ __| __/ _ \\ '__/ _ \\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\    |_.__/ \\___|\\__|\\__\\___|_|  \\___|_|   
+ `);
 
   const { configPaths, filters, resultsPath } = config;
   let tests: BettererTests = {};

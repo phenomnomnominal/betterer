@@ -1,3 +1,3 @@
 // BETTERER RESULTS V1.
-exports[`no hack comments`] = { timestamp: 1570784090038, value: `{"../packages/cli/src/cli.ts":[[152,7]],"../packages/cli/src/init.ts":[[2333,7]],"../packages/logger/src/logger.ts":[[276,7],[585,7]]}` };
-exports[`no raw console.log`] = { timestamp: 1570784109418, value: `{"../packages/betterer/src/betterer.ts":[[4960,11],[5666,11],[5737,11]],"../packages/logger/src/logger.ts":[[2504,11]]}` };
+exports[`no hack comments`] = { timestamp: 1571097214906, value: `{"../packages/cli/src/cli.ts":[[152,7]],"../packages/cli/src/init.ts":[[2333,7]],"../packages/logger/src/logger.ts":[[228,7]]}` };
+exports[`no raw console.log`] = { timestamp: 1571097218313, value: `{"../packages/betterer/src/betterer.ts":[[5220,11],[5926,11],[5997,11]],"../packages/logger/src/logger.ts":[[481,11],[1279,11],[1306,11],[2174,11]]}` };
