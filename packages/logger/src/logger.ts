@@ -1,24 +1,20 @@
 import { codeFrameColumns } from '@babel/code-frame';
+import chalk from 'chalk';
 import LinesAndColumns from 'lines-and-columns';
-import { addLevel, enableColor, enableUnicode, log, StyleObject } from 'npmlog';
 import * as path from 'path';
 
 const IS_JS_REGEXP = /.t|jsx?$/;
 
-// HACK:
-// Need to import npmlog as a module to override global settings.
-import * as npmlog from 'npmlog';
+type ChainableNames<T> = {
+  [K in keyof T]: T[K] extends T ? K : never;
+}[keyof T];
 
-assign(npmlog, 'heading', '☀️  betterer');
-assign(npmlog, 'headingStyle', {
-  fg: 'yellow'
-});
-
-enableColor();
-enableUnicode();
+type ChalkStyles = {
+  bg: ChainableNames<typeof chalk>;
+  fg: ChainableNames<typeof chalk>;
+};
 
 export function mute(): void {
-  assign(npmlog, 'level', 'silent');
   // HACK:
   // There seems to be an issue with this lint rule for *assigning*.
   // Should file an issue...
@@ -26,43 +22,41 @@ export function mute(): void {
   console.log = (): void => {};
 }
 
-const SUCCESS_LEVEL = 2500;
-const SUCCESS_STYLE: StyleObject = {
-  bg: 'green',
+const SUCCESS_STYLE: ChalkStyles = {
+  bg: 'bgGreen',
   fg: 'black'
 };
-export const success = createLogger('good ❤️ ', SUCCESS_LEVEL, SUCCESS_STYLE);
+export const success = createLogger('❤️', SUCCESS_STYLE);
 
-const INFO_LEVEL = 2000;
-const INFO_STYLE: StyleObject = {
-  bg: 'black',
+const INFO_STYLE: ChalkStyles = {
+  bg: 'bgBlack',
   fg: 'white'
 };
-export const info = createLogger('info 💬 ', INFO_LEVEL, INFO_STYLE);
+export const info = createLogger('💬', INFO_STYLE);
 
-const WARN_LEVEL = 3000;
-const WARN_STYLE: StyleObject = {
-  bg: 'yellow',
+const WARN_STYLE: ChalkStyles = {
+  bg: 'bgYellow',
   fg: 'black'
 };
-export const warn = createLogger('warn ⚠️ ', WARN_LEVEL, WARN_STYLE);
+export const warn = createLogger('⚠️', WARN_STYLE);
 
-const ERROR_LEVEL = 4000;
-const ERROR_STYLE: StyleObject = {
-  bg: 'red',
+const ERROR_STYLE: ChalkStyles = {
+  bg: 'bgRed',
   fg: 'white'
 };
-export const error = createLogger('baad 💀 ', ERROR_LEVEL, ERROR_STYLE);
+export const error = createLogger('💀', ERROR_STYLE);
 
 function createLogger(
   name: string,
-  level: number,
-  style: StyleObject
+  style: ChalkStyles
 ): (...args: Array<string>) => void {
-  const loggerName = `betterer-${name}`;
-  addLevel(loggerName, level, style, ` ${name} `);
-  return function(message: string, ...args: Array<string>): void {
-    log(loggerName, '-', message, ...args);
+  return function(...messages: Array<string>): void {
+    console.log(
+      chalk.bold.bgYellowBright('☀️ betterer'),
+      chalk[style.fg][style.bg].bold(name),
+      chalk.yellowBright.bold('-'),
+      ...messages.map(m => chalk.whiteBright(m))
+    );
   };
 }
 
@@ -98,11 +92,3 @@ export type LoggerCodeLocation = {
   line: number;
   column: number;
 };
-
-function assign<T, K extends keyof T>(
-  object: T,
-  property: K,
-  value: T[K]
-): void {
-  object[property] = value;
-}
