@@ -7,6 +7,8 @@ import { serialise } from './serialiser';
 import { stringify } from './stringifier';
 import {
   BettererConfig,
+  BettererGoalFunction,
+  BettererGoal,
   BettererResult,
   BettererResults,
   BettererStats,
@@ -206,7 +208,7 @@ function createGoal(
   goal: BettererGoal<unknown>
 ): BettererGoalFunction<unknown> {
   if (typeof goal === 'function') {
-    return goal;
+    return goal as BettererGoalFunction<unknown>;
   }
   return (value: unknown): boolean => value === goal;
 }
