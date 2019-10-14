@@ -75,7 +75,6 @@ export function diff(
     filePaths.forEach(filePath => {
       const fileInfo = current.getFileInfo(filePath);
       const { length } = fileInfo;
-      console.log('');
       error(`${length} new ${getIssues(length)} in "${filePath}":`);
       fileInfo.forEach(info => code(info));
     });
@@ -113,7 +112,6 @@ export function diff(
       );
     });
     const { length } = changed;
-    console.log('');
     error(`${length} new ${getIssues(length)} in "${filePath}":`);
     changed.forEach(info => code(info));
   });
