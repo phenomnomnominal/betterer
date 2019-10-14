@@ -1,15 +1,25 @@
 import { ConstraintResult } from '@betterer/constraints';
 
-type BettererTest<T> = () => T | Promise<T>;
+export type MaybeAsync<T> = T | Promise<T>;
+
+type BettererTest<T> = () => MaybeAsync<T>;
 type BettererConstraint<T> = (
   current: T,
   previous: T
-) => ConstraintResult | Promise<ConstraintResult>;
+) => MaybeAsync<ConstraintResult>;
+
+export type BettererGoalFunction<SerialisedType> = (
+  current: SerialisedType
+) => MaybeAsync<boolean>;
+
+export type BettererGoal<SerialisedType> =
+  | SerialisedType
+  | BettererGoalFunction<SerialisedType>;
 
 export type Betterer<TestType = unknown, SerialisedType = TestType> = {
   test: BettererTest<TestType>;
   constraint: BettererConstraint<SerialisedType>;
-  goal: TestType;
+  goal: BettererGoal<SerialisedType>;
 };
 
 export type BettererTests = {
