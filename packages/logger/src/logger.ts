@@ -5,15 +5,6 @@ import * as path from 'path';
 
 const IS_JS_REGEXP = /.t|jsx?$/;
 
-type ChainableNames<T> = {
-  [K in keyof T]: T[K] extends T ? K : never;
-}[keyof T];
-
-type ChalkStyles = {
-  bg: ChainableNames<typeof chalk>;
-  fg: ChainableNames<typeof chalk>;
-};
-
 export function mute(): void {
   // HACK:
   // There seems to be an issue with this lint rule for *assigning*.
@@ -22,46 +13,51 @@ export function mute(): void {
   console.log = (): void => {};
 }
 
-const SUCCESS_STYLE: ChalkStyles = {
-  bg: 'bgGreen',
-  fg: 'black'
-};
-export const success = createLogger('❤️', SUCCESS_STYLE);
+export function header(head: string): void {
+  console.log(chalk.yellowBright(head));
+}
 
-const INFO_STYLE: ChalkStyles = {
-  bg: 'bgBlack',
-  fg: 'white'
-};
-export const info = createLogger('💬', INFO_STYLE);
+const HEADING = chalk.bgBlack.yellowBright.bold(` ☀️  betterer `);
 
-const WARN_STYLE: ChalkStyles = {
-  bg: 'bgYellow',
-  fg: 'black'
-};
-export const warn = createLogger('⚠️', WARN_STYLE);
+let previousLogger: 'LOG' | 'CODE' = 'LOG';
 
-const ERROR_STYLE: ChalkStyles = {
-  bg: 'bgRed',
-  fg: 'white'
-};
-export const error = createLogger('💀', ERROR_STYLE);
+export const success = createLogger(
+  chalk.bgGreenBright.black(' succ '),
+  chalk.bgBlack(' ✅ ')
+);
+export const info = createLogger(
+  chalk.bgWhiteBright.black(' info '),
+  chalk.bgBlack(' 💬 ')
+);
+export const warn = createLogger(
+  chalk.bgYellowBright.black(' warn '),
+  chalk.bgBlack(' ⚠️ ')
+);
+export const error = createLogger(
+  chalk.bgRedBright.white(' erro '),
+  chalk.bgBlack(' 🔥 ')
+);
+
+const SPACER = chalk.bgBlack.yellowBright(' - ');
 
 function createLogger(
   name: string,
-  style: ChalkStyles
+  icon: string
 ): (...args: Array<string>) => void {
   return function(...messages: Array<string>): void {
+    if (previousLogger === 'CODE') {
+      console.log('');
+    }
     console.log(
-      chalk.bold.bgYellowBright('☀️ betterer'),
-      chalk[style.fg][style.bg].bold(name),
-      chalk.yellowBright.bold('-'),
+      `${HEADING}${name}${icon}${SPACER}`,
       ...messages.map(m => chalk.whiteBright(m))
     );
+    previousLogger = 'LOG';
   };
 }
 
 export const code = function(codeInfo: LoggerCodeInfo): void {
-  const { filePath, fileText } = codeInfo;
+  const { filePath, fileText, message } = codeInfo;
   const isJS = IS_JS_REGEXP.exec(path.extname(filePath));
   const options = {
     highlightCode: !!isJS
@@ -78,10 +74,15 @@ export const code = function(codeInfo: LoggerCodeInfo): void {
     column: endLocation ? endLocation.column + 1 : 0
   };
 
-  console.log(`${codeFrameColumns(fileText, { start, end }, options)}\n`);
+  const codeFrame = codeFrameColumns(fileText, { start, end }, options);
+  console.log(
+    `\n${chalk.bgRed('  ')}${chalk.bgBlack.white(` ${message} \n`)}${codeFrame}`
+  );
+  previousLogger = 'CODE';
 };
 
 export type LoggerCodeInfo = {
+  message: string;
   filePath: string;
   fileText: string;
   start: number;
