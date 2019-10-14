@@ -91,14 +91,15 @@ export async function betterer(config: BettererConfig): Promise<BettererStats> {
       return;
     }
 
+    const checkGoal = createGoal(goal);
+
     const comparison = await constraint(serialisedCurrent, serialisedPrevious);
 
     const isSame = comparison === ConstraintResult.same;
     const isBetter = comparison === ConstraintResult.better;
-    const serialisedGoal = serialise(goal);
 
     // Same, but already met goal:
-    if (isSame && serialisedCurrent === serialisedGoal) {
+    if (isSame && checkGoal(serialisedCurrent)) {
       stats.completed.push(testName);
       return;
     }
@@ -114,7 +115,7 @@ export async function betterer(config: BettererConfig): Promise<BettererStats> {
       results[testName] = update(serialisedCurrent);
       stats.better.push(testName);
       // Newly met goal:
-      if (serialisedCurrent === serialisedGoal) {
+      if (checkGoal(serialisedCurrent)) {
         stats.completed.push(testName);
       }
       return;
@@ -199,6 +200,15 @@ async function getTests(configPath: string): Promise<BettererTests> {
 
   error(`could not read tests from "${configPath}". 😔`);
   throw new Error();
+}
+
+function createGoal(
+  goal: BettererGoal<unknown>
+): BettererGoalFunction<unknown> {
+  if (typeof goal === 'function') {
+    return goal;
+  }
+  return (value: unknown): boolean => value === goal;
 }
 
 function update(value: unknown): BettererResult {
