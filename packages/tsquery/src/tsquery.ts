@@ -30,6 +30,7 @@ function createTsqueryTest(configFilePath: string, query: string): number {
       .query(sourceFile, query, { visitAllChildren: true })
       .forEach(match => {
         matches.push({
+          message: `TSQuery match:`,
           filePath: sourceFile.fileName,
           fileText: sourceFile.getFullText(),
           start: match.getStart(),
@@ -39,11 +40,15 @@ function createTsqueryTest(configFilePath: string, query: string): number {
   });
 
   if (matches.length) {
-    error(`Found ${matches.length} TSQuery matches:`);
-    console.log('');
+    error(`found ${matches.length} TSQuery matches:`);
+    const matchesPerFile: Record<string, Array<LoggerCodeInfo>> = {};
     matches.forEach(match => {
-      console.log(`Match found in file "${match.filePath}":\n`);
-      code(match);
+      matchesPerFile[match.filePath] = matchesPerFile[match.filePath] || [];
+      matchesPerFile[match.filePath].push(match);
+    });
+    Object.keys(matchesPerFile).forEach(filePathInfo => {
+      error(`"${filePathInfo}":`);
+      matchesPerFile[filePathInfo].forEach(match => code(match));
     });
   }
   return matches.length;

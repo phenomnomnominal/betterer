@@ -1,3 +1,3 @@
 // BETTERER RESULTS V1.
-exports[`no hack comments`] = { timestamp: 1570135095745, value: `4` };
-exports[`no raw console.log`] = { timestamp: 1570135096743, value: `8` };
+exports[`no hack comments`] = { timestamp: 1571095609800, value: `3` };
+exports[`no raw console.log`] = { timestamp: 1571095610791, value: `7` };

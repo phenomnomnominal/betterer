@@ -56,6 +56,7 @@ async function createRegExpTest(
             if (currentMatch) {
               const [matchText] = currentMatch;
               matches.push({
+                message: `RegExp match:`,
                 filePath,
                 fileText,
                 start: currentMatch.index,
@@ -69,11 +70,15 @@ async function createRegExpTest(
   );
 
   if (matches.length) {
-    error(`Found ${matches.length} RegExp matches:`);
-    console.log('');
+    error(`found ${matches.length} RegExp matches:`);
+    const matchesPerFile: Record<string, Array<LoggerCodeInfo>> = {};
     matches.forEach(match => {
-      console.log(`Match found in file "${match.filePath}":\n`);
-      code(match);
+      matchesPerFile[match.filePath] = matchesPerFile[match.filePath] || [];
+      matchesPerFile[match.filePath].push(match);
+    });
+    Object.keys(matchesPerFile).forEach(filePathInfo => {
+      error(`"${filePathInfo}":`);
+      matchesPerFile[filePathInfo].forEach(match => code(match));
     });
   }
   return matches.length;
