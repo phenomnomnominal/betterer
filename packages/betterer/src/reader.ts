@@ -1,20 +1,27 @@
-import { readFile } from 'fs';
-import { promisify } from 'util';
-
+import { existsSync } from 'fs';
 import { BettererResults } from './types';
-
-const readFileAsync = promisify(readFile);
+import * as dedent from 'dedent';
+import to from 'await-to-js';
 
 export async function read(resultsPath: string): Promise<BettererResults> {
-  try {
-    await readFileAsync(resultsPath);
-  } catch {
+  if (!existsSync(resultsPath)) {
     return {};
   }
 
-  try {
-    return await import(resultsPath);
-  } catch {
-    throw new Error();
+  const [importError, config = {}] = await to(import(resultsPath));
+
+  if (importError) {
+    throw new Error(dedent`
+        Failed to load config file at path
+
+          ${resultsPath}
+
+        It resulted in the following error
+
+        ${importError.message}
+        ${importError.stack}
+      `);
   }
+
+  return config;
 }
