@@ -5,9 +5,9 @@ import { getConfig } from '../config';
 export type BettererFileCodeInfo = LoggerCodeInfo;
 
 type BettererFileErrorMap = Record<string, Array<BettererFileCodeInfo> | null>;
-type BetterFileLoc = [number, number];
-type BettererFileLocs = Array<BetterFileLoc>;
-export type BettererFileInfoSerialised = Record<string, BettererFileLocs>;
+type BetterFileMark = [number, number, string?];
+type BettererFileMarks = Array<BetterFileMark>;
+export type BettererFileInfoSerialised = Record<string, BettererFileMarks>;
 
 export class BettererFileInfo {
   private _files: BettererFileErrorMap = {};
@@ -37,8 +37,8 @@ export class BettererFileInfo {
 
         serialised[filePath] = fileInfo
           .map(info => {
-            const { start, end } = info;
-            return [start, end - start] as BetterFileLoc;
+            const { start, end, message } = info;
+            return [start, end - start, message] as BetterFileMark;
           })
           .sort(([a], [b]) => a - b);
       });
