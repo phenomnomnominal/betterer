@@ -25,7 +25,6 @@
   },
   "dependencies": {
     "@betterer/betterer": "^0.2.0",
-    "@betterer/constraints": "^0.2.0",
     "@betterer/logger": "^0.2.0",
     "callsite": "^1.0.0",
     "glob": "^7.1.4",
