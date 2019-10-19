@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-
-      - run: npm install
-      - run: npm run-script build
+      - uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: install
+          cmd: run build
