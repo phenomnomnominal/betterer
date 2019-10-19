@@ -2,7 +2,7 @@ import { BettererConfig } from './types';
 
 let currentConfig: BettererConfig | null = null;
 
-export function setConfig(config: BettererConfig) {
+export function setConfig(config: BettererConfig): void {
   currentConfig = config;
 }
 
