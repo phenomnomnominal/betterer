@@ -6,11 +6,7 @@ import * as path from 'path';
 const IS_JS_REGEXP = /.t|jsx?$/;
 
 export function mute(): void {
-  // HACK:
-  // There seems to be an issue with this lint rule for *assigning*.
-  // Should file an issue...
-  // eslint-disable-next-line @typescript-eslint/unbound-method
-  console.log = (): void => {};
+  console['log'] = (): void => {};
 }
 
 export function header(head: string): void {

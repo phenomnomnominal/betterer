@@ -1,12 +1,10 @@
 import { ConstraintResult } from '@betterer/constraints';
 import { error, header, info, success, warn } from '@betterer/logger';
-import * as Diff from 'diff';
-import * as jsonpatch from 'fast-json-patch';
+import * as logDiff from 'jest-diff';
 import { setConfig } from './config';
 import { print } from './printer';
 import { read } from './reader';
 import { serialise } from './serialiser';
-import { stringify } from './stringifier';
 import {
   BettererConfig,
   BettererGoalFunction,
@@ -91,16 +89,20 @@ export async function betterer(config: BettererConfig): Promise<BettererStats> {
     }
     stats.ran.push(testName);
 
-    const serialisedCurrent = serialise(current);
+    // Get the serialised previous results from the test results file:
     const serialisedPrevious = expectedResults[testName]
-      ? JSON.parse(expectedResults[testName].value)
+      ? JSON.parse(expectedResults[testName].value as string)
       : null;
+
+    // Serialise the current results so that the `constraint`, `diff`, and
+    // `goal` can be evaluated on the same shape object:
+    const serialisedCurrent = serialise(current);
 
     // New test:
     if (!serialisedPrevious) {
       diff(current, serialisedCurrent, serialisedPrevious);
 
-      results[testName] = update(serialisedCurrent);
+      results[testName] = update(current);
       stats.new.push(testName);
       return;
     }
@@ -127,7 +129,7 @@ export async function betterer(config: BettererConfig): Promise<BettererStats> {
 
     // Better:
     if (isBetter) {
-      results[testName] = update(serialisedCurrent);
+      results[testName] = update(current);
       stats.better.push(testName);
 
       // Newly met goal:
@@ -221,10 +223,7 @@ function defaultDiff(
   serialisedCurrent: unknown,
   serialisedPrevious: unknown
 ): void {
-  const stringifiedCurrent = stringify(serialisedCurrent);
-  const stringifiedPrevious = stringify(serialisedPrevious);
-  console.log(Diff.diffJson(stringifiedCurrent, stringifiedPrevious));
-  console.log(jsonpatch.compare(stringifiedCurrent, stringifiedPrevious));
+  console.log(logDiff(serialisedCurrent, serialisedPrevious));
 }
 
 function createGoal(
@@ -239,6 +238,6 @@ function createGoal(
 function update(value: unknown): BettererResult {
   return {
     timestamp: Date.now(),
-    value: stringify(value)
+    value
   };
 }

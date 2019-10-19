@@ -26,11 +26,8 @@
   "dependencies": {
     "@betterer/constraints": "^0.2.0",
     "@betterer/logger": "^0.2.0",
-    "diff": "^4.0.1",
-    "fast-json-patch": "^3.0.0-1",
+    "jest-diff": "^24.9.0",
+    "lines-and-columns": "^1.1.6",
     "tslib": "^1.10.0"
-  },
-  "devDependencies": {
-    "@types/diff": "^4.0.2"
   }
 }

@@ -42,7 +42,7 @@ export type BettererConfig = {
 
 export type BettererResult = {
   timestamp: number;
-  value: string;
+  value: unknown;
 };
 
 export type BettererResults = Record<string, BettererResult>;

@@ -91,23 +91,21 @@ export function diff(
     ) {
       return true;
     }
-    return currentInfo.some(([currentStart, currentLength], index) => {
-      const [previousStart, previousLength] = previousInfo[index];
-      return currentStart !== previousStart || currentLength !== previousLength;
+    return currentInfo.some(([cLine, cColumn, cLength], index) => {
+      const [pLine, pColumn, pLength] = previousInfo[index];
+      return pLine !== cLine || pColumn !== cColumn || pLength !== cLength;
     });
   });
 
   filesWithChanges.forEach(filePath => {
     const fileInfo = current.getFileInfo(filePath);
     const changed = fileInfo.filter((_, index) => {
-      const [currentStart, currentLength] = serialisedCurrent[filePath][index];
+      const [cLine, cColumn, cLength] = serialisedCurrent[filePath][index];
       const previousInfo = serialisedPrevious[filePath];
       return (
         !previousInfo ||
-        !!previousInfo.find(([previousStart, previousLength]) => {
-          return (
-            previousStart === currentStart && previousLength == currentLength
-          );
+        !previousInfo.find(([pLine, pColumn, pLength]) => {
+          return pLine === cLine && pColumn === cColumn && pLength === cLength;
         })
       );
     });

@@ -26,7 +26,7 @@ export function tsqueryBetterer(
         .query(sourceFile, query, { visitAllChildren: true })
         .forEach(match => {
           matches.push({
-            message: `TSQuery match:`,
+            message: `TSQuery match`,
             filePath: sourceFile.fileName,
             fileText: sourceFile.getFullText(),
             start: match.getStart(),

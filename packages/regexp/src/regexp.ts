@@ -48,7 +48,7 @@ export function regexpBetterer(
               if (currentMatch) {
                 const [matchText] = currentMatch;
                 errors.push({
-                  message: `RegExp match:`,
+                  message: `RegExp match`,
                   filePath,
                   fileText,
                   start: currentMatch.index,
