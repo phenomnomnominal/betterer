@@ -2,7 +2,7 @@ import { ConstraintResult } from '@betterer/constraints';
 
 export type MaybeAsync<T> = T | Promise<T>;
 
-export type BettererTest<T> = () => MaybeAsync<T>;
+export type BettererTest<T> = (config: BettererConfig) => MaybeAsync<T>;
 
 export type BettererConstraint<T> = (
   current: T,
@@ -55,6 +55,5 @@ export type BettererStats = {
   better: Array<string>;
   same: Array<string>;
   worse: Array<string>;
-  messages: Array<string>;
   completed: Array<string>;
 };

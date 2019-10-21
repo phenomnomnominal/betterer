@@ -13,6 +13,10 @@ export function header(head: string): void {
   console.log(chalk.yellowBright(head));
 }
 
+export function br(): void {
+  console.log('');
+}
+
 const HEADING = chalk.bgBlack.yellowBright.bold(` ☀️  betterer `);
 
 let previousLogger: 'LOG' | 'CODE' = 'LOG';
@@ -42,7 +46,7 @@ function createLogger(
 ): (...args: Array<string>) => void {
   return function(...messages: Array<string>): void {
     if (previousLogger === 'CODE') {
-      console.log('');
+      br();
     }
     console.log(
       `${HEADING}${name}${icon}${SPACER}`,

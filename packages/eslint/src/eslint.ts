@@ -36,7 +36,7 @@ export function eslintBetterer(
     const errors: Array<BettererFileCodeInfo> = [];
     report.results.forEach(result => {
       result.messages.forEach(message => {
-        const lc = new LinesAndColumns(message.source as string);
+        const lc = new LinesAndColumns(result.source as string);
         const startLocation = lc.indexForLocation({
           line: message.line,
           column: message.column

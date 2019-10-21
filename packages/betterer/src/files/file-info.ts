@@ -1,7 +1,7 @@
 import { LoggerCodeInfo } from '@betterer/logger';
 import LinesAndColumns from 'lines-and-columns';
 import * as path from 'path';
-import { getConfig } from '../config';
+import { BettererConfig } from '../types';
 
 export type BettererFileCodeInfo = LoggerCodeInfo;
 
@@ -17,8 +17,7 @@ const UNKNOWN_LOCATION = {
 
 export class BettererFileInfo {
   private _files: BettererFileErrorMap = {};
-  constructor(info: Array<BettererFileCodeInfo>) {
-    const config = getConfig();
+  constructor(config: BettererConfig, info: Array<BettererFileCodeInfo>) {
     info.forEach(i => {
       const relativePath = path.relative(config.resultsPath, i.filePath);
       this._files[relativePath] = this._files[relativePath] || [];
