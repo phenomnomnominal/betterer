@@ -1,10 +1,10 @@
 import { ConstraintResult } from '@betterer/constraints';
-import { error, header, info, success, warn } from '@betterer/logger';
-import { setConfig } from './config';
+import { br, error, header, info, success, warn } from '@betterer/logger';
+import * as logDiff from 'jest-diff';
+
 import { print } from './printer';
 import { read } from './reader';
 import { serialise } from './serialiser';
-import { stringify } from './stringifier';
 import {
   BettererConfig,
   BettererGoalFunction,
@@ -17,7 +17,6 @@ import {
 import { write } from './writer';
 
 export async function betterer(config: BettererConfig): Promise<BettererStats> {
-  setConfig(config);
   header(`
    \\ | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
@@ -66,7 +65,6 @@ export async function betterer(config: BettererConfig): Promise<BettererStats> {
     better: [],
     same: [],
     worse: [],
-    messages: [],
     completed: []
   };
 
@@ -74,81 +72,98 @@ export async function betterer(config: BettererConfig): Promise<BettererStats> {
 
   await testsToRun.reduce(async (p, testName) => {
     await p;
+
     const { test, constraint, goal } = tests[testName];
+    const diff = tests[testName].diff || defaultDiff;
 
     let current: unknown;
     try {
       info(`running "${testName}"!`);
-      current = await test();
+      current = await test(config);
     } catch {
       stats.failed.push(testName);
-      stats.messages.push(`"${testName}" failed to run.`);
+      error(`"${testName}" failed to run. 🔥`);
       return;
     }
     stats.ran.push(testName);
 
-    const serialisedCurrent = serialise(current);
+    // Get the serialised previous results from the test results file:
     const serialisedPrevious = expectedResults[testName]
-      ? JSON.parse(expectedResults[testName].value)
+      ? JSON.parse(expectedResults[testName].value as string)
       : null;
 
+    // Serialise the current results so that the `constraint`, `diff`, and
+    // `goal` can be evaluated on the same shape object:
+    const serialisedCurrent = serialise(current);
+
     // New test:
-    if (!serialisedPrevious) {
-      results[testName] = update(serialisedCurrent);
+    if (!Object.hasOwnProperty.call(expectedResults, testName)) {
+      results[testName] = update(current);
       stats.new.push(testName);
+      success(`"${testName}" got checked for the first time! 🎉`);
       return;
     }
 
     const checkGoal = createGoal(goal);
 
     const comparison = await constraint(serialisedCurrent, serialisedPrevious);
-
     const isSame = comparison === ConstraintResult.same;
     const isBetter = comparison === ConstraintResult.better;
 
     // Same, but already met goal:
     if (isSame && checkGoal(serialisedCurrent)) {
       stats.completed.push(testName);
+      success(`"${testName}" has already met its goal! ✨`);
       return;
     }
 
     // Same:
     if (isSame) {
       stats.same.push(testName);
+      warn(`"${testName}" stayed the same. 😐`);
       return;
     }
 
     // Better:
     if (isBetter) {
-      results[testName] = update(serialisedCurrent);
+      results[testName] = update(current);
       stats.better.push(testName);
+
       // Newly met goal:
       if (checkGoal(serialisedCurrent)) {
         stats.completed.push(testName);
+        success(`"${testName}" met its goal! 🎉`);
+        return;
       }
+
+      // Not reached goal yet:
+      success(`"${testName}" got better! 😍`);
       return;
     }
 
     // Worse:
     stats.worse.push(testName);
-    stats.messages.push(`"${testName}" got worse.`);
+    error(`"${testName}" got worse. 😔`);
+    br();
+    diff(current, serialisedCurrent, serialisedPrevious);
+    br();
   }, Promise.resolve());
 
   const ran = stats.ran.length;
-  const nnew = stats.new.length;
   const failed = stats.failed.length;
+  const nnew = stats.new.length;
   const obsolete = stats.obsolete.length;
   const better = stats.better.length;
   const worse = stats.worse.length;
   const same = stats.same.length;
-  const { completed, messages } = stats;
+  const { completed } = stats;
 
-  info(`${ran} ${getThings(ran)} got checked.`);
-  if (nnew) {
-    info(`${nnew} ${getThings(nnew)} got checked for the first time. 😎`);
-  }
+  info(`${ran} ${getThings(ran)} got checked. 🤔`);
   if (failed) {
     error(`${failed} ${getThings(failed)} failed to run. 🔥`);
+  }
+  if (nnew) {
+    info(`${nnew} ${getThings(nnew)} got checked for the first time! 🎉`);
   }
   if (obsolete) {
     info(`${obsolete} ${getThings(obsolete)} are no longer needed! 🤪`);
@@ -158,7 +173,7 @@ export async function betterer(config: BettererConfig): Promise<BettererStats> {
   }
   if (completed.length) {
     completed.forEach(testName => {
-      success(`"${testName}" is all better! 🎉`);
+      success(`"${testName}" met its goal! 🎉`);
     });
   }
   if (worse) {
@@ -167,10 +182,6 @@ export async function betterer(config: BettererConfig): Promise<BettererStats> {
   if (same) {
     warn(`${same} ${getThings(same)} stayed the same. 😐`);
   }
-
-  messages.forEach(message => {
-    error(message);
-  });
 
   const printed = print(results);
 
@@ -210,6 +221,24 @@ async function getTests(configPath: string): Promise<BettererTests> {
   throw new Error();
 }
 
+function defaultDiff(
+  _: unknown,
+  serialisedCurrent: unknown,
+  serialisedPrevious: unknown
+): void {
+  const diffStr =
+    logDiff(serialisedPrevious, serialisedCurrent, {
+      aAnnotation: 'Previous',
+      bAnnotation: 'Current'
+    }) || '';
+  console.log(
+    diffStr
+      .split('\n')
+      .map(line => `  ${line}`)
+      .join('\n')
+  );
+}
+
 function createGoal(
   goal: BettererGoal<unknown>
 ): BettererGoalFunction<unknown> {
@@ -222,6 +251,6 @@ function createGoal(
 function update(value: unknown): BettererResult {
   return {
     timestamp: Date.now(),
-    value: stringify(value)
+    value
   };
 }

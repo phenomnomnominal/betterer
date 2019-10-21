@@ -15,10 +15,11 @@ export function typescriptBetterer(
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
   const absPath = path.resolve(cwd, configFilePath);
+
   return createFileBetterer(() => {
     info(`running TypeScript compiler...`);
 
-    if (!absPath) {
+    if (!configFilePath) {
       error();
       throw new Error();
     }
@@ -62,10 +63,16 @@ export function typescriptBetterer(
 
     if (allDiagnostics.length) {
       error('TypeScript compiler found some issues:');
-      console.log(
-        ts.formatDiagnosticsWithColorAndContext(allDiagnostics, host)
-      );
     }
-    return allDiagnostics.length;
+    return allDiagnostics.map((diagnostic: ts.Diagnostic) => {
+      const { file, start, length } = diagnostic as ts.DiagnosticWithLocation;
+      return {
+        message: ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'),
+        filePath: file.fileName,
+        fileText: file.getFullText(),
+        start,
+        end: start + length
+      };
+    });
   });
 }

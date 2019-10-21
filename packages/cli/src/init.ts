@@ -12,14 +12,14 @@ const writeAsync = promisify(writeFile);
 
 const TEMPLATE = `module.exports = {\n  // Add tests here ☀️\n};`;
 
-export async function init(cwd: string): Promise<void> {
+export async function init(cwd: string, argv: Array<string>): Promise<void> {
   commander
     .option(
       '-c, --config [value]',
       'Path to test definition file relative to CWD',
       DEFAULT_CONFIG_PATH
     )
-    .parse(process.argv);
+    .parse(argv);
 
   const { config } = commander;
 

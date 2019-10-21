@@ -4,8 +4,12 @@ import * as path from 'path';
 import * as glob from 'glob';
 import { promisify } from 'util';
 
-import { FileBetterer, createFileBetterer } from '@betterer/betterer';
-import { code, error, info, LoggerCodeInfo } from '@betterer/logger';
+import {
+  BettererFileCodeInfo,
+  FileBetterer,
+  createFileBetterer
+} from '@betterer/betterer';
+import { error, info } from '@betterer/logger';
 
 const globAsync = promisify(glob);
 const readAsync = promisify(fs.readFile);
@@ -24,7 +28,7 @@ export function regexpBetterer(
 
     regexp = new RegExp(regexp.source, `${regexp.flags}g`);
 
-    const matches: Array<LoggerCodeInfo> = [];
+    const errors: Array<BettererFileCodeInfo> = [];
     await Promise.all(
       filesGlobs.map(async currentGlob => {
         const filePaths = await globAsync(currentGlob);
@@ -43,8 +47,8 @@ export function regexpBetterer(
               currentMatch = regexp.exec(fileText);
               if (currentMatch) {
                 const [matchText] = currentMatch;
-                matches.push({
-                  message: `RegExp match:`,
+                errors.push({
+                  message: `RegExp match`,
                   filePath,
                   fileText,
                   start: currentMatch.index,
@@ -57,18 +61,10 @@ export function regexpBetterer(
       })
     );
 
-    if (matches.length) {
-      error(`found ${matches.length} RegExp matches:`);
-      const matchesPerFile: Record<string, Array<LoggerCodeInfo>> = {};
-      matches.forEach(match => {
-        matchesPerFile[match.filePath] = matchesPerFile[match.filePath] || [];
-        matchesPerFile[match.filePath].push(match);
-      });
-      Object.keys(matchesPerFile).forEach(filePathInfo => {
-        error(`"${filePathInfo}":`);
-        matchesPerFile[filePathInfo].forEach(match => code(match));
-      });
+    if (errors.length) {
+      error(`found ${errors.length} RegExp matches:`);
     }
-    return matches.length;
+
+    return errors;
   });
 }

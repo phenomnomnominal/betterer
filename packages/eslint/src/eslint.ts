@@ -1,8 +1,13 @@
 import { CLIEngine, Linter } from 'eslint';
 import * as stack from 'callsite';
+import LinesAndColumns from 'lines-and-columns';
 import * as path from 'path';
 
-import { FileBetterer, createFileBetterer } from '@betterer/betterer';
+import {
+  BettererFileCodeInfo,
+  FileBetterer,
+  createFileBetterer
+} from '@betterer/betterer';
 import { error, info } from '@betterer/logger';
 
 type ESLintRuleConfig = [string, Linter.RuleLevel | Linter.RuleLevelAndOptions];
@@ -26,9 +31,30 @@ export function eslintBetterer(
 
     if (report.errorCount) {
       error('ESLint found some issues:');
-      const formatter = cli.getFormatter();
-      console.log(formatter(report.results));
     }
-    return report.errorCount;
+
+    const errors: Array<BettererFileCodeInfo> = [];
+    report.results.forEach(result => {
+      result.messages.forEach(message => {
+        const lc = new LinesAndColumns(result.source as string);
+        const startLocation = lc.indexForLocation({
+          line: message.line,
+          column: message.column
+        });
+        const endLocation = lc.indexForLocation({
+          line: message.endLine || 0,
+          column: message.endColumn || 0
+        });
+        errors.push({
+          message: message.message,
+          filePath: result.filePath,
+          fileText: result.source as string,
+          start: startLocation as number,
+          end: endLocation as number
+        });
+      });
+    });
+
+    return errors;
   });
 }

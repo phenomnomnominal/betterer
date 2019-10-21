@@ -4,7 +4,7 @@ const DEFAULT_COMMAND = 'start';
 
 const COMMANDS = [DEFAULT_COMMAND, 'init'];
 
-export function cli(): void {
+export function cli(argv: Array<string>): void {
   // HACK:
   // It's easier to use require than to try to get `await import`
   // to work right for the package.json...
@@ -16,7 +16,7 @@ export function cli(): void {
   commander.command(DEFAULT_COMMAND, 'run betterer');
   commander.command('init', 'init betterer');
 
-  const args = process.argv.slice(0);
+  const args = argv.slice(0);
   const [, , command] = args;
   if (!COMMANDS.includes(command)) {
     args.splice(2, 0, DEFAULT_COMMAND);

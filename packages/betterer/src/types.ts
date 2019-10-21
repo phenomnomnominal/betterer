@@ -2,9 +2,9 @@ import { ConstraintResult } from '@betterer/constraints';
 
 export type MaybeAsync<T> = T | Promise<T>;
 
-type BettererTest<T> = () => MaybeAsync<T>;
+export type BettererTest<T> = (config: BettererConfig) => MaybeAsync<T>;
 
-type BettererConstraint<T> = (
+export type BettererConstraint<T> = (
   current: T,
   previous: T
 ) => MaybeAsync<ConstraintResult>;
@@ -17,10 +17,17 @@ export type BettererGoal<SerialisedType> =
   | SerialisedType
   | BettererGoalFunction<SerialisedType>;
 
+export type BettererDiff<TestType, SerialisedType> = (
+  current: TestType,
+  serialisedCurrent: SerialisedType,
+  serialisedPrevious: SerialisedType | null
+) => MaybeAsync<void>;
+
 export type Betterer<TestType, SerialisedType = TestType> = {
   test: BettererTest<TestType>;
   constraint: BettererConstraint<SerialisedType>;
   goal: BettererGoal<SerialisedType>;
+  diff?: BettererDiff<TestType, SerialisedType>;
 };
 
 export type BettererTests = {
@@ -35,7 +42,7 @@ export type BettererConfig = {
 
 export type BettererResult = {
   timestamp: number;
-  value: string;
+  value: unknown;
 };
 
 export type BettererResults = Record<string, BettererResult>;
@@ -48,6 +55,5 @@ export type BettererStats = {
   better: Array<string>;
   same: Array<string>;
   worse: Array<string>;
-  messages: Array<string>;
   completed: Array<string>;
 };

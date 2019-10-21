@@ -4,7 +4,7 @@ import * as path from 'path';
 import { betterer } from '@betterer/betterer';
 import { DEFAULT_CONFIG_PATH, DEFAULT_RESULTS_PATH } from './constants';
 
-export async function start(cwd: string): Promise<void> {
+export async function start(cwd: string, argv: Array<string>): Promise<void> {
   commander
     .option(
       '-c, --config [value]',
@@ -18,7 +18,7 @@ export async function start(cwd: string): Promise<void> {
       'Path to test results file relative to CWD',
       DEFAULT_RESULTS_PATH
     )
-    .parse(process.argv);
+    .parse(argv);
 
   const { config } = commander;
 
