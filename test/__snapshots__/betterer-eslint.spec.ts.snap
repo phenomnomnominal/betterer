@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`betterer should report the status of a new eslint rule 1`] = `
+"// BETTERER RESULTS V1.
+exports[\`eslint enable new rule\`] = {
+  timestamp: 0,
+  value: \`{
+    \\"../src/index.ts\\": [
+      [0, 0, 9, \\"Unexpected 'debugger' statement.\\"]
+    ]
+  }\`
+};"
+`;
+
+exports[`betterer should report the status of a new eslint rule 2`] = `
+Array [
+  "[93m[39m
+[93m   \\\\ | /     _          _   _                     [39m
+[93m '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ [39m
+[93m---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|[39m
+[93m .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   [39m
+[93m   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   [39m
+[93m [39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[107m[30m info [39m[49m[40m 💬 [49m[40m[93m - [39m[49m",
+  "[97mrunning \\"eslint enable new rule\\"![39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[107m[30m info [39m[49m[40m 💬 [49m[40m[93m - [39m[49m",
+  "[97mrunning ESLint with \\"no-debugger\\" set to \\"error\\"[39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[101m[37m erro [39m[49m[40m 🔥 [49m[40m[93m - [39m[49m",
+  "[97mESLint found some issues:[39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[102m[30m succ [39m[49m[40m ✅ [49m[40m[93m - [39m[49m",
+  "[97m\\"eslint enable new rule\\" got checked for the first time! 🎉[39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[107m[30m info [39m[49m[40m 💬 [49m[40m[93m - [39m[49m",
+  "[97m1 thing got checked. 🤔[39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[107m[30m info [39m[49m[40m 💬 [49m[40m[93m - [39m[49m",
+  "[97m1 thing got checked for the first time! 🎉[39m",
+  "[93m[39m
+[93m   \\\\ | /     _          _   _                     [39m
+[93m '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ [39m
+[93m---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|[39m
+[93m .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   [39m
+[93m   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   [39m
+[93m [39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[107m[30m info [39m[49m[40m 💬 [49m[40m[93m - [39m[49m",
+  "[97mrunning \\"eslint enable new rule\\"![39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[107m[30m info [39m[49m[40m 💬 [49m[40m[93m - [39m[49m",
+  "[97mrunning ESLint with \\"no-debugger\\" set to \\"error\\"[39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[101m[37m erro [39m[49m[40m 🔥 [49m[40m[93m - [39m[49m",
+  "[97mESLint found some issues:[39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[103m[30m warn [39m[49m[40m ⚠️ [49m[40m[93m - [39m[49m",
+  "[97m\\"eslint enable new rule\\" stayed the same. 😐[39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[107m[30m info [39m[49m[40m 💬 [49m[40m[93m - [39m[49m",
+  "[97m1 thing got checked. 🤔[39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[103m[30m warn [39m[49m[40m ⚠️ [49m[40m[93m - [39m[49m",
+  "[97m1 thing stayed the same. 😐[39m",
+  "[93m[39m
+[93m   \\\\ | /     _          _   _                     [39m
+[93m '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ [39m
+[93m---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|[39m
+[93m .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   [39m
+[93m   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   [39m
+[93m [39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[107m[30m info [39m[49m[40m 💬 [49m[40m[93m - [39m[49m",
+  "[97mrunning \\"eslint enable new rule\\"![39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[107m[30m info [39m[49m[40m 💬 [49m[40m[93m - [39m[49m",
+  "[97mrunning ESLint with \\"no-debugger\\" set to \\"error\\"[39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[101m[37m erro [39m[49m[40m 🔥 [49m[40m[93m - [39m[49m",
+  "[97mESLint found some issues:[39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[101m[37m erro [39m[49m[40m 🔥 [49m[40m[93m - [39m[49m",
+  "[97m\\"eslint enable new rule\\" got worse. 😔[39m",
+  "",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[101m[37m erro [39m[49m[40m 🔥 [49m[40m[93m - [39m[49m",
+  "[97m1 new issue in \\"../src/index.ts\\":[39m",
+  "
+[41m  [49m[40m[37m Unexpected 'debugger' statement. [39m[49m
+[40m[37m[39m[49m[0m [90m 1 | [39m[36mdebugger[39m[33m;[39m[0m
+[0m[31m[1m>[22m[39m[90m 2 | [39m[36mdebugger[39m[33m;[39m[0m
+[0m [90m   | [39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m",
+  "",
+  "",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[107m[30m info [39m[49m[40m 💬 [49m[40m[93m - [39m[49m",
+  "[97m1 thing got checked. 🤔[39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[101m[37m erro [39m[49m[40m 🔥 [49m[40m[93m - [39m[49m",
+  "[97m1 thing got worse. 😔[39m",
+  "[93m[39m
+[93m   \\\\ | /     _          _   _                     [39m
+[93m '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ [39m
+[93m---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|[39m
+[93m .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   [39m
+[93m   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   [39m
+[93m [39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[107m[30m info [39m[49m[40m 💬 [49m[40m[93m - [39m[49m",
+  "[97mrunning \\"eslint enable new rule\\"![39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[107m[30m info [39m[49m[40m 💬 [49m[40m[93m - [39m[49m",
+  "[97mrunning ESLint with \\"no-debugger\\" set to \\"error\\"[39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[102m[30m succ [39m[49m[40m ✅ [49m[40m[93m - [39m[49m",
+  "[97m\\"eslint enable new rule\\" met its goal! 🎉[39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[107m[30m info [39m[49m[40m 💬 [49m[40m[93m - [39m[49m",
+  "[97m1 thing got checked. 🤔[39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[102m[30m succ [39m[49m[40m ✅ [49m[40m[93m - [39m[49m",
+  "[97m1 thing got better! 😍[39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[102m[30m succ [39m[49m[40m ✅ [49m[40m[93m - [39m[49m",
+  "[97m\\"eslint enable new rule\\" met its goal! 🎉[39m",
+  "[93m[39m
+[93m   \\\\ | /     _          _   _                     [39m
+[93m '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ [39m
+[93m---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|[39m
+[93m .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   [39m
+[93m   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   [39m
+[93m [39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[107m[30m info [39m[49m[40m 💬 [49m[40m[93m - [39m[49m",
+  "[97mrunning \\"eslint enable new rule\\"![39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[107m[30m info [39m[49m[40m 💬 [49m[40m[93m - [39m[49m",
+  "[97mrunning ESLint with \\"no-debugger\\" set to \\"error\\"[39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[102m[30m succ [39m[49m[40m ✅ [49m[40m[93m - [39m[49m",
+  "[97m\\"eslint enable new rule\\" met its goal! 🎉[39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[107m[30m info [39m[49m[40m 💬 [49m[40m[93m - [39m[49m",
+  "[97m1 thing got checked. 🤔[39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[102m[30m succ [39m[49m[40m ✅ [49m[40m[93m - [39m[49m",
+  "[97m1 thing got better! 😍[39m",
+  "[40m[93m[1m ☀️  betterer [22m[39m[49m[102m[30m succ [39m[49m[40m ✅ [49m[40m[93m - [39m[49m",
+  "[97m\\"eslint enable new rule\\" met its goal! 🎉[39m",
+]
+`;

@@ -12,7 +12,7 @@ const writeFile = promisify(fs.writeFile);
 const deleteFile = promisify(fs.unlink);
 
 describe('betterer init', () => {
-  it('should setup betterer in a repo', async () => {
+  it('should initialise betterer in a repo', async () => {
     jest.setTimeout(10000);
 
     const configPath = path.resolve(FIXTURE, DEFAULT_CONFIG_PATH);
@@ -20,7 +20,7 @@ describe('betterer init', () => {
 
     await reset(configPath, packageJSONPath);
 
-    await init(FIXTURE);
+    await init(FIXTURE, ['node', './bin/betterer']);
 
     const packageJSON = JSON.parse(await readFile(packageJSONPath, 'utf-8'));
 

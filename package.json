@@ -15,6 +15,7 @@
     "compile": "lerna run compile",
     "lint": "eslint --fix ./packages/**/src/*.ts ./test/**/*.ts ./*.js",
     "test:unit": "jest",
+    "test:debug": "jest --runInBand",
     "test": "yarn test:unit && yarn betterer"
   },
   "devDependencies": {

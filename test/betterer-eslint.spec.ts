@@ -1,21 +1,27 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as util from 'util';
+import { promisify } from 'util';
 
-import { betterer } from '../packages/betterer/src';
+import { betterer } from '@betterer/betterer/src';
 import {
   DEFAULT_CONFIG_PATH,
   DEFAULT_RESULTS_PATH
 } from '../packages/cli/src/constants';
 
-const FIXTURE = path.resolve(__dirname, '../fixtures/test-eslint-betterer');
+const FIXTURE = path.resolve(__dirname, '../fixtures/test-betterer-eslint');
 
-const writeFile = util.promisify(fs.writeFile);
-const deleteFile = util.promisify(fs.unlink);
+const writeFile = promisify(fs.writeFile);
+const deleteFile = promisify(fs.unlink);
+const readFile = promisify(fs.readFile);
 
-describe('eslint betterer', () => {
+describe('betterer', () => {
   it('should report the status of a new eslint rule', async () => {
-    jest.setTimeout(10000);
+    jest.setTimeout(100000);
+
+    const logs: Array<string> = [];
+    jest.spyOn(console, 'log').mockImplementation((...messages) => {
+      logs.push(...messages);
+    });
 
     const configPaths = [path.resolve(FIXTURE, DEFAULT_CONFIG_PATH)];
     const resultsPath = path.resolve(FIXTURE, DEFAULT_RESULTS_PATH);
@@ -39,6 +45,10 @@ describe('eslint betterer', () => {
 
     expect(worseTestRun.worse).toEqual(['eslint enable new rule']);
 
+    const result = await readFile(resultsPath, 'utf8');
+
+    expect(result).toMatchSnapshot();
+
     await writeFile(indexPath, ``, 'utf8');
 
     const betterTestRun = await betterer({ configPaths, resultsPath });
@@ -48,6 +58,8 @@ describe('eslint betterer', () => {
     const completedTestRun = await betterer({ configPaths, resultsPath });
 
     expect(completedTestRun.completed).toEqual(['eslint enable new rule']);
+
+    expect(logs).toMatchSnapshot();
 
     await reset(resultsPath);
   });
