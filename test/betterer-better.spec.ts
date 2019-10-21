@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import stripAnsi from 'strip-ansi';
 import { promisify } from 'util';
 
 import { betterer } from '@betterer/betterer/src';
@@ -19,7 +20,7 @@ describe('betterer', () => {
 
     const logs: Array<string> = [];
     jest.spyOn(console, 'log').mockImplementation((...messages) => {
-      logs.push(...messages);
+      logs.push(...messages.map(m => stripAnsi(m)));
     });
 
     const configPaths = [path.resolve(FIXTURE, DEFAULT_CONFIG_PATH)];
