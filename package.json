@@ -10,13 +10,14 @@
   ],
   "scripts": {
     "betterer": "node ./packages/cli/./bin/betterer",
-    "build": "yarn lint && yarn compile && yarn test",
+    "build": "yarn clean && yarn && yarn lint && yarn compile && yarn test",
     "clean": "rimraf reports && lerna exec \"rimraf dist\" && lerna exec \"rimraf node_modules\" && rimraf node_modules",
     "compile": "lerna run compile",
     "lint": "eslint --fix ./packages/**/src/*.ts ./test/**/*.ts ./*.js",
     "test:unit": "jest",
     "test:debug": "jest --runInBand",
-    "test": "yarn test:unit && yarn betterer"
+    "test": "yarn test:unit && yarn betterer",
+    "prepublishOnly": "yarn run build"
   },
   "devDependencies": {
     "@betterer/cli": "*",
