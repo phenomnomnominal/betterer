@@ -12,4 +12,112 @@ exports[\`regexp no hack comments\`] = {
 };"
 `;
 
-exports[`betterer should report the existence of RegExp matches 2`] = `Array []`;
+exports[`betterer should report the existence of RegExp matches 2`] = `
+Array [
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"regexp no hack comments\\"!",
+  " ☀️  betterer  info  💬  - ",
+  "using RegExp to find files matching \\"/(\\\\/\\\\/\\\\s*HACK)/i\\"",
+  " ☀️  betterer  erro  🔥  - ",
+  "found 1 RegExp matches:",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"regexp no hack comments\\" got checked for the first time! 🎉",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked for the first time! 🎉",
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"regexp no hack comments\\"!",
+  " ☀️  betterer  info  💬  - ",
+  "using RegExp to find files matching \\"/(\\\\/\\\\/\\\\s*HACK)/gi\\"",
+  " ☀️  betterer  erro  🔥  - ",
+  "found 1 RegExp matches:",
+  " ☀️  betterer  warn  ⚠️  - ",
+  "\\"regexp no hack comments\\" stayed the same. 😐",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  warn  ⚠️  - ",
+  "1 thing stayed the same. 😐",
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"regexp no hack comments\\"!",
+  " ☀️  betterer  info  💬  - ",
+  "using RegExp to find files matching \\"/(\\\\/\\\\/\\\\s*HACK)/gi\\"",
+  " ☀️  betterer  erro  🔥  - ",
+  "found 2 RegExp matches:",
+  " ☀️  betterer  erro  🔥  - ",
+  "\\"regexp no hack comments\\" got worse. 😔",
+  "",
+  " ☀️  betterer  erro  🔥  - ",
+  "1 new issue in \\"../src/index.ts\\":",
+  "
+   RegExp match 
+  1 | // HACK:;
+> 2 | // HACK:;
+    | ^^^^^^^",
+  "",
+  "",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  erro  🔥  - ",
+  "1 thing got worse. 😔",
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"regexp no hack comments\\"!",
+  " ☀️  betterer  info  💬  - ",
+  "using RegExp to find files matching \\"/(\\\\/\\\\/\\\\s*HACK)/gi\\"",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"regexp no hack comments\\" met its goal! 🎉",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  succ  ✅  - ",
+  "1 thing got better! 😍",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"regexp no hack comments\\" met its goal! 🎉",
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"regexp no hack comments\\"!",
+  " ☀️  betterer  info  💬  - ",
+  "using RegExp to find files matching \\"/(\\\\/\\\\/\\\\s*HACK)/gi\\"",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"regexp no hack comments\\" met its goal! 🎉",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  succ  ✅  - ",
+  "1 thing got better! 😍",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"regexp no hack comments\\" met its goal! 🎉",
+]
+`;
