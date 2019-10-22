@@ -26,7 +26,10 @@ export function regexpBetterer(
   return createFileBetterer(async () => {
     info(`using RegExp to find files matching "${regexp}"`);
 
-    regexp = new RegExp(regexp.source, `${regexp.flags}g`);
+    regexp = new RegExp(
+      regexp.source,
+      regexp.flags.includes('g') ? regexp.flags : `${regexp.flags}g`
+    );
 
     const errors: Array<BettererFileCodeInfo> = [];
     await Promise.all(

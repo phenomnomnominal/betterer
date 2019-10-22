@@ -38,12 +38,12 @@ export function eslintBetterer(
       result.messages.forEach(message => {
         const lc = new LinesAndColumns(result.source as string);
         const startLocation = lc.indexForLocation({
-          line: message.line,
-          column: message.column
+          line: message.line - 1,
+          column: message.column - 1
         });
         const endLocation = lc.indexForLocation({
-          line: message.endLine || 0,
-          column: message.endColumn || 0
+          line: message.endLine ? message.endLine - 1 : 0,
+          column: message.endColumn ? message.endColumn - 1 : 0
         });
         errors.push({
           message: message.message,
