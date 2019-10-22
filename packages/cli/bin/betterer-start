@@ -1,2 +1,6 @@
 #!/usr/bin/env node
-require('../dist').start(process.cwd(), process.argv);
+require('../dist')
+  .start(process.cwd(), process.argv)
+  .then(function(results) {
+    process.exit(results.worse.length !== 0 ? 1 : 0);
+  });
