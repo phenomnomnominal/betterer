@@ -1,10 +1,23 @@
 import * as commander from 'commander';
 import * as path from 'path';
 
-import { betterer } from '@betterer/betterer';
-import { DEFAULT_CONFIG_PATH, DEFAULT_RESULTS_PATH } from './constants';
+import { betterer, BettererStats } from '@betterer/betterer';
+import {
+  DEFAULT_CONFIG_PATH,
+  DEFAULT_RESULTS_PATH,
+  DEFAULT_FILTER
+} from './constants';
 
-export async function start(cwd: string, argv: Array<string>): Promise<void> {
+type CLIStartConfig = {
+  config: Array<string>;
+  results: string;
+  filter: Array<string>;
+};
+
+export async function start(
+  cwd: string,
+  argv: Array<string>
+): Promise<BettererStats> {
   commander
     .option(
       '-c, --config [value]',
@@ -18,16 +31,24 @@ export async function start(cwd: string, argv: Array<string>): Promise<void> {
       'Path to test results file relative to CWD',
       DEFAULT_RESULTS_PATH
     )
+    .option(
+      '-f, --filter [value]',
+      'RegExp filter for tests to run',
+      (value: string, previous: Array<string>): Array<string> =>
+        previous.concat([value]),
+      []
+    )
     .parse(argv);
 
-  const { config } = commander;
+  let { config, filter } = (commander as unknown) as CLIStartConfig;
 
-  let configPaths = [DEFAULT_CONFIG_PATH];
-  if (config && config.length) {
-    configPaths = config;
-  }
-  configPaths = configPaths.map(configPath => path.resolve(cwd, configPath));
+  config = config && config.length ? config : [DEFAULT_CONFIG_PATH];
+  const configPaths = config.map(configPath => path.resolve(cwd, configPath));
+
   const resultsPath = path.resolve(cwd, commander.results);
-  const { worse } = await betterer({ configPaths, resultsPath });
-  process.exit(worse.length !== 0 ? 1 : 0);
+
+  filter = filter && filter.length ? filter : [DEFAULT_FILTER];
+  const filters = filter.map((filter: string) => new RegExp(filter, 'i'));
+
+  return await betterer({ configPaths, filters, resultsPath });
 }
