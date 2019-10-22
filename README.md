@@ -157,10 +157,10 @@ These pretty much do what they say on the box - make sure that the result from t
 
 ## CLI Options:
 
-You can change the path to the test file, or to the results file using the CLI:
+You can change the path to the test file, the path to the results file, or the tests you want to run, using the CLI:
 
 ```sh
-betterer -c ./path/to/config -r ./path/to/results
+betterer -c ./path/to/config -r ./path/to/results -f my-test
 ```
 
 ### Options
@@ -169,3 +169,4 @@ betterer -c ./path/to/config -r ./path/to/results
 | ------------------------- | -------------------------------------------- | --------------------- |
 | `-c`, `--config` [value]  | Path to test definition file relative to CWD | `./.betterer.js`      |
 | `-r`, `--results` [value] | Path to test results file relative to CWD    | `./.betterer.results` |
+| `-f`, `--filter` [value]  | RegExp filter for tests to run               | `.*`                  |
