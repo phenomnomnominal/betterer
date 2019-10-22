@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`betterer should work when a test meets its goal 1`] = `
+Array [
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"gets completed\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"gets completed\\" got checked for the first time! 🎉",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked for the first time! 🎉",
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"gets completed\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"gets completed\\" got better! 😍",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  succ  ✅  - ",
+  "1 thing got better! 😍",
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"gets completed\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"gets completed\\" met its goal! 🎉",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  succ  ✅  - ",
+  "1 thing got better! 😍",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"gets completed\\" met its goal! 🎉",
+]
+`;
+
+exports[`betterer should work when a test meets its goal 2`] = `
+"// BETTERER RESULTS V1.
+exports[\`gets completed\`] = {
+  timestamp: 0,
+  value: \`2\`
+};"
+`;
