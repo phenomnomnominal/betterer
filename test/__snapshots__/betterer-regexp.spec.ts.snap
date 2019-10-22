@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`betterer should report the existence of RegExp matches 1`] = `
+"// BETTERER RESULTS V1.
+exports[\`regexp no hack comments\`] = {
+  timestamp: 0,
+  value: \`{
+    \\"../src/index.ts\\": [
+      [0, 0, 7, \\"RegExp match\\"]
+    ]
+  }\`
+};"
+`;
+
+exports[`betterer should report the existence of RegExp matches 2`] = `Array []`;
