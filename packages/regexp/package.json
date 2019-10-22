@@ -1,7 +1,7 @@
 {
   "name": "@betterer/regexp",
   "description": "RegExp betterer for @betterer/betterer",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
