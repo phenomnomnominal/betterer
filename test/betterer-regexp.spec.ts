@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-// import stripAnsi from 'strip-ansi';
+import stripAnsi from 'strip-ansi';
 import { promisify } from 'util';
 
 import { betterer } from '@betterer/betterer/src';
@@ -20,9 +20,9 @@ describe('betterer', () => {
     jest.setTimeout(100000);
 
     const logs: Array<string> = [];
-    // jest.spyOn(console, 'log').mockImplementation((...messages) => {
-    //   logs.push(...messages.map(m => stripAnsi(m)));
-    // });
+    jest.spyOn(console, 'log').mockImplementation((...messages) => {
+      logs.push(...messages.map(m => stripAnsi(m)));
+    });
 
     const configPaths = [path.resolve(FIXTURE, DEFAULT_CONFIG_PATH)];
     const resultsPath = path.resolve(FIXTURE, DEFAULT_RESULTS_PATH);
@@ -36,11 +36,7 @@ describe('betterer', () => {
 
     expect(newTestRun.new).toEqual(['regexp no hack comments']);
 
-    console.log(newTestRun);
-
     const sameTestRun = await betterer({ configPaths, resultsPath });
-
-    console.log(sameTestRun);
 
     expect(sameTestRun.same).toEqual(['regexp no hack comments']);
 
