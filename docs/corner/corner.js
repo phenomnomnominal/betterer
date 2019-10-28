@@ -3,7 +3,7 @@ async function main() {
   const text = await response.text();
   
   const template = document.createElement('template');
-  template.innerHTML = html.trim();
+  template.innerHTML = text.trim();
   
   document.body.appendChild(template.content.firstChild);
 }
