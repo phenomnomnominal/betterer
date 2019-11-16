@@ -16,6 +16,7 @@ export function print(results: BettererResults): string {
           ? (value as Printable).print()
           : JSON.stringify(value);
     }
+    printedValue = (printedValue as string).replace(/`/g, '\\`');
     return `\nexports[\`${resultName}\`] = {\n  timestamp: ${timestamp},\n  value: \`${printedValue}\`\n};`;
   });
 
