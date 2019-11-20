@@ -66,7 +66,9 @@ export class BettererFileInfo {
           printed += ',\n';
         }
         const [line, column, length, message] = mark;
-        printed += `      [${line}, ${column}, ${length}, "${message}"]`;
+        printed += `      [${line}, ${column}, ${length}, ${JSON.stringify(
+          message
+        )}]`;
       });
       printed += `\n    ]`;
     });

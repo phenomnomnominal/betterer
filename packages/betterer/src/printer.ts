@@ -1,4 +1,5 @@
 import { BettererResults } from './types';
+import { escape } from 'safe-string-literal';
 
 const RESULTS_HEADER = `// BETTERER RESULTS V1.`;
 
@@ -16,8 +17,10 @@ export function print(results: BettererResults): string {
           ? (value as Printable).print()
           : JSON.stringify(value);
     }
-    printedValue = (printedValue as string).replace(/`/g, '\\`');
-    return `\nexports[\`${resultName}\`] = {\n  timestamp: ${timestamp},\n  value: \`${printedValue}\`\n};`;
+    return `\nexports[\`${resultName}\`] = {\n  timestamp: ${timestamp},\n  value: \`${escape(
+      printedValue as string,
+      '"\n'
+    )}\`\n};`;
   });
 
   return [RESULTS_HEADER, ...printed].join('');
