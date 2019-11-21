@@ -7,6 +7,9 @@ type Printable = {
   print: () => string;
 };
 
+/** Characters that we avoid escaping to make snapshots easier to visually diff */
+const UNESCAPED = '"\n';
+
 export function print(results: BettererResults): string {
   const printed = Object.keys(results).map(resultName => {
     const { timestamp, value } = results[resultName];
@@ -19,7 +22,7 @@ export function print(results: BettererResults): string {
     }
     return `\nexports[\`${resultName}\`] = {\n  timestamp: ${timestamp},\n  value: \`${escape(
       printedValue as string,
-      '"\n'
+      UNESCAPED
     )}\`\n};`;
   });
 
