@@ -18,8 +18,11 @@ const UNKNOWN_LOCATION = {
 export class BettererFileInfo {
   private _files: BettererFileErrorMap = {};
   constructor(config: BettererConfig, info: Array<BettererFileCodeInfo>) {
+    const { resultsPath } = config;
     info.forEach(i => {
-      const relativePath = path.relative(config.resultsPath, i.filePath);
+      const relativePath = this._normalisePath(
+        path.relative(resultsPath, i.filePath)
+      );
       this._files[relativePath] = this._files[relativePath] || [];
       (this._files[relativePath] as Array<BettererFileCodeInfo>).push(i);
     });
@@ -74,5 +77,11 @@ export class BettererFileInfo {
     });
     printed += '\n  }';
     return printed;
+  }
+
+  private _normalisePath(filePath: string): string {
+    return path.sep === path.posix.sep
+      ? filePath
+      : filePath.split(path.sep).join(path.posix.sep);
   }
 }
