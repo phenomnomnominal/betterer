@@ -38,10 +38,10 @@ Making widespread changes to a codebase can be really hard. Often when trying to
 
 **`Betterer`** is built upon an idea popularised by [snapshot testing](https://jestjs.io/docs/en/snapshot-testing), where the status of a test is saved in a file in your codebase. But instead of a static value, **`betterer`** keeps track of a value as it changes over time, and makes sure that the value changes how you want it to change.
 
-When you want to make an improvement to your codebase, you just start by making a new test, defined in a `.betterer.js` file:
+When you want to make an improvement to your codebase, you just start by making a new test, defined in a `.betterer.ts` file:
 
-```js
-module.exports = {
+```typescript
+export default {
   'thing to improve': {
     test: () => runMyTest(),
     constraint: (current, previous) => current < previous,
@@ -77,10 +77,10 @@ Each of these test configurations is called a **`betterer`**! The API should be 
 
 If you want to enable a new [ESLint](https://eslint.org/) rule in your codebase, you can use the `eslintBetterer`:
 
-```javascript
-const { eslintBetterer } = require('@betterer/eslint');
+```typescript
+import { eslintBetterer } from '@betterer/eslint';
 
-module.exports = {
+export default {
   'no more debuggers': eslintBetterer('./src/**/*.ts', ['no-debugger', 'error'])
 };
 ```
@@ -89,10 +89,10 @@ module.exports = {
 
 If you want to remove anything that matches a Regular Expression within your codebase, you can use the `regexpBetterer`:
 
-```javascript
-const { regexpBetterer } = require('@betterer/regexp');
+```typescript
+import { regexpBetterer } from '@betterer/regexp';
 
-module.exports = {
+export default {
   'no hack comments': regexpBetterer('**/*.ts', /(\/\/\s*HACK)/i)
 };
 ```
@@ -103,10 +103,10 @@ module.exports = {
 
 If you want to remove anything that matches a [TSQuery](https://github.com/phenomnomnominal/tsquery) within your codebase, you can use the `tsqueryBetterer`:
 
-```javascript
-const { tsqueryBetterer } = require('@betterer/tsquery');
+```typescript
+import { tsqueryBetterer } from '@betterer/tsquery';
 
-module.exports = {
+export default {
   'no raw console.log': tsqueryBetterer(
     './tsconfig.json',
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
@@ -118,10 +118,10 @@ module.exports = {
 
 If you want to enable a new [TypeScript](https://www.typescriptlang.org/) compiler option to your codebase, you can use the `typescriptBetterer`:
 
-```javascript
-const { typescriptBetterer } = require('@betterer/typescript');
+```typescript
+import { typescriptBetterer } from '@betterer/typescript';
 
-module.exports = {
+export default {
   'stricter compilation': typescriptBetterer('./tsconfig.json', {
     strict: true
   })
@@ -167,6 +167,6 @@ betterer -c ./path/to/config -r ./path/to/results -f my-test
 
 | Name                      | Description                                  | Default               |
 | ------------------------- | -------------------------------------------- | --------------------- |
-| `-c`, `--config` [value]  | Path to test definition file relative to CWD | `./.betterer.js`      |
+| `-c`, `--config` [value]  | Path to test definition file relative to CWD | `./.betterer.ts`      |
 | `-r`, `--results` [value] | Path to test results file relative to CWD    | `./.betterer.results` |
 | `-f`, `--filter` [value]  | RegExp filter for tests to run               | `.*`                  |

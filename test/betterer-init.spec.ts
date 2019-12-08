@@ -2,8 +2,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { promisify } from 'util';
 
-import { init } from '../packages/cli/src';
-import { DEFAULT_CONFIG_PATH } from '../packages/cli/src/constants';
+import { init } from '@betterer/cli/src';
+import { DEFAULT_CONFIG_PATH } from '@betterer/cli/src/constants';
 
 const FIXTURE = path.resolve(__dirname, '../fixtures/test-betterer-init');
 

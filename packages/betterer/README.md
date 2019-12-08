@@ -11,7 +11,7 @@ import { betterer } from '@betterer/betterer';
 
 async function run(): Promise<void> {
   const cwd = process.cwd();
-  const configPath = path.resolve(cwd, './.betterer.js');
+  const configPath = path.resolve(cwd, './.betterer.ts');
   const resultsPath = path.resolve(cwd, './.betterer.results');
   const { worse } = await betterer({ configPath, resultsPath });
   process.exit(worse.length !== 0 ? 1 : 0);
