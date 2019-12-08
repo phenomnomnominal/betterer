@@ -80,6 +80,8 @@ export class BettererFileInfo {
   }
 
   private _normalisePath(filePath: string): string {
-    return path.sep === '/' ? filePath : filePath.split(path.sep).join('/');
+    return path.sep === path.posix.sep
+      ? filePath
+      : filePath.split(path.sep).join(path.posix.sep);
   }
 }
