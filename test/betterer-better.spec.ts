@@ -7,7 +7,7 @@ import { betterer } from '@betterer/betterer/src';
 import {
   DEFAULT_CONFIG_PATH,
   DEFAULT_RESULTS_PATH
-} from '../packages/cli/src/constants';
+} from '@betterer/cli/src/constants';
 
 const FIXTURE = path.resolve(__dirname, '../fixtures/test-betterer-better');
 

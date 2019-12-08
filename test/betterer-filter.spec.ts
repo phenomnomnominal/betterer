@@ -3,8 +3,8 @@ import * as path from 'path';
 import stripAnsi from 'strip-ansi';
 import { promisify } from 'util';
 
-import { start } from '../packages/cli/src';
-import { DEFAULT_RESULTS_PATH } from '../packages/cli/src/constants';
+import { start } from '@betterer/cli/src';
+import { DEFAULT_RESULTS_PATH } from '@betterer/cli/src/constants';
 
 const FIXTURE = path.resolve(__dirname, '../fixtures/test-betterer-filter');
 

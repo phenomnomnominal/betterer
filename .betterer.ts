@@ -1,7 +1,7 @@
-const { regexpBetterer } = require('@betterer/regexp');
-const { tsqueryBetterer } = require('@betterer/tsquery');
+import { regexpBetterer } from '@betterer/regexp';
+import { tsqueryBetterer } from '@betterer/tsquery';
 
-module.exports = {
+export default {
   'no hack comments': regexpBetterer(
     './packages/**/src/**/*.ts',
     /(\/\/\s*HACK)/i

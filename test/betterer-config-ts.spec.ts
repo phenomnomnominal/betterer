@@ -9,13 +9,13 @@ import {
   DEFAULT_RESULTS_PATH
 } from '@betterer/cli/src/constants';
 
-const FIXTURE = path.resolve(__dirname, '../fixtures/test-betterer-failed');
+const FIXTURE = path.resolve(__dirname, '../fixtures/test-betterer-config-ts');
 
 const deleteFile = promisify(fs.unlink);
 const readFile = promisify(fs.readFile);
 
 describe('betterer', () => {
-  it(`should work when a test fails`, async () => {
+  it('should work with a .betterer.ts file', async () => {
     jest.setTimeout(10000);
 
     const logs: Array<string> = [];
@@ -30,7 +30,11 @@ describe('betterer', () => {
 
     const firstRun = await betterer({ configPaths, resultsPath });
 
-    expect(firstRun.failed).toEqual(['throws error']);
+    expect(firstRun.new).toEqual(['gets better']);
+
+    const secondRun = await betterer({ configPaths, resultsPath });
+
+    expect(secondRun.better).toEqual(['gets better']);
 
     expect(logs).toMatchSnapshot();
 
