@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`betterer should report the status of the TypeScript compiler 1`] = `
+"// BETTERER RESULTS V1.
+exports[\`typescript use strict mode\`] = {
+  timestamp: 0,
+  value: \`{
+    \\"../src/index.ts\\": [
+      [2, 12, 1, \\"The left-hand side of an arithmetic operation must be of type \\\\'any\\\\', \\\\'number\\\\', \\\\'bigint\\\\' or an enum type.\\"]
+    ]
+  }\`
+};"
+`;
+
+exports[`betterer should report the status of the TypeScript compiler 2`] = `
+Array [
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"typescript use strict mode\\"!",
+  " ☀️  betterer  info  💬  - ",
+  "running TypeScript compiler...",
+  " ☀️  betterer  erro  🔥  - ",
+  "TypeScript compiler found some issues:",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"typescript use strict mode\\" got checked for the first time! 🎉",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked for the first time! 🎉",
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"typescript use strict mode\\"!",
+  " ☀️  betterer  info  💬  - ",
+  "running TypeScript compiler...",
+  " ☀️  betterer  erro  🔥  - ",
+  "TypeScript compiler found some issues:",
+  " ☀️  betterer  warn  ⚠️  - ",
+  "\\"typescript use strict mode\\" stayed the same. 😐",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  warn  ⚠️  - ",
+  "1 thing stayed the same. 😐",
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"typescript use strict mode\\"!",
+  " ☀️  betterer  info  💬  - ",
+  "running TypeScript compiler...",
+  " ☀️  betterer  erro  🔥  - ",
+  "TypeScript compiler found some issues:",
+  " ☀️  betterer  erro  🔥  - ",
+  "\\"typescript use strict mode\\" got worse. 😔",
+  "",
+  " ☀️  betterer  erro  🔥  - ",
+  "1 new issue in \\"../src/index.ts\\":",
+  "
+   The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type. 
+  1 | const a = 'a';
+  2 | const one = 1;
+> 3 | console.log(a * one, one * a);
+    |                            ^",
+  "",
+  "",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  erro  🔥  - ",
+  "1 thing got worse. 😔",
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"typescript use strict mode\\"!",
+  " ☀️  betterer  info  💬  - ",
+  "running TypeScript compiler...",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"typescript use strict mode\\" met its goal! 🎉",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  succ  ✅  - ",
+  "1 thing got better! 😍",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"typescript use strict mode\\" met its goal! 🎉",
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"typescript use strict mode\\"!",
+  " ☀️  betterer  info  💬  - ",
+  "running TypeScript compiler...",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"typescript use strict mode\\" met its goal! 🎉",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  succ  ✅  - ",
+  "1 thing got better! 😍",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"typescript use strict mode\\" met its goal! 🎉",
+]
+`;
