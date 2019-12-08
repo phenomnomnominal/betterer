@@ -36,7 +36,6 @@ describe('betterer', () => {
       'utf8'
     );
 
-    debugger;
     const newTestRun = await betterer({ configPaths, resultsPath });
 
     expect(newTestRun.new).toEqual(['typescript use strict mode']);
