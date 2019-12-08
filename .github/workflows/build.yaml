@@ -22,10 +22,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        uses: borales/actions-yarn@v2.0.0
+        uses: sergioramos/yarn-actions/install@master
         with:
-          cmd: install
+          frozen-lockfile: true
       - name: Run build
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: run build
+        run: yarn run build
