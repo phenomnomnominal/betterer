@@ -8,11 +8,12 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.operating-system }}
 
     strategy:
       matrix:
         node-version: [10.x, 12.x]
+        operating-system: [windows-latest, ubuntu-latest, macOS-latest]
 
     steps:
       - uses: actions/checkout@v1
@@ -21,10 +22,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        uses: borales/actions-yarn@v2.0.0
+        uses: sergioramos/yarn-actions/install@master
         with:
-          cmd: install
+          frozen-lockfile: true
       - name: Run build
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: run build
+        run: yarn run build
