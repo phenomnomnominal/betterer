@@ -12,7 +12,7 @@
     "betterer": "node ./packages/cli/./bin/betterer",
     "build": "yarn clean && yarn && yarn lint && yarn compile && yarn test && yarn betterer",
     "clean": "rimraf reports && lerna exec \"rimraf dist\" && lerna exec \"rimraf node_modules\" && rimraf node_modules",
-    "compile": "lerna run compile",
+    "compile": "tsc -p packages",
     "lint": "eslint --fix ./packages/**/src/*.ts ./test/**/*.ts ./*.js",
     "test": "jest",
     "test:debug": "jest --runInBand",
