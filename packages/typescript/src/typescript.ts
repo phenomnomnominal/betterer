@@ -67,7 +67,9 @@ export function typescriptBetterer(
     return allDiagnostics.map((diagnostic: ts.Diagnostic) => {
       const { file, start, length } = diagnostic as ts.DiagnosticWithLocation;
       return {
-        message: ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'),
+        message: ts
+          .flattenDiagnosticMessageText(diagnostic.messageText, '\n')
+          .replace(process.cwd(), '.'),
         filePath: file.fileName,
         fileText: file.getFullText(),
         start,
