@@ -16,8 +16,8 @@
     "target": "ES5",
     "outDir": "./dist",
     "typeRoots": ["./node_modules/@types/"],
-    "resolveJsonModule": true
-  },
-  "include": ["./packages/**/src/*.ts", "./test/**/*.ts", "./*.js"],
-  "exclude": ["./node_modules/*", "./dist/*"]
+    "resolveJsonModule": true,
+    "composite": true,
+    "incremental": true
+  }
 }

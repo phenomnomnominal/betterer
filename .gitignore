@@ -3,3 +3,4 @@ node_modules
 reports
 lerna-debug.log
 yarn-error.log
+tsconfig.tsbuildinfo

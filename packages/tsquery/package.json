@@ -21,7 +21,7 @@
     "url": "https://github.com/phenomnomnominal/betterer/issues"
   },
   "scripts": {
-    "compile": "tsc"
+    "compile": "tsc -b ."
   },
   "dependencies": {
     "@betterer/betterer": "^0.3.4",

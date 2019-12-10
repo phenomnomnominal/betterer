@@ -1,0 +1,13 @@
+{
+  "files": [],
+  "references": [
+    { "path": "betterer" },
+    { "path": "cli" },
+    { "path": "constraints" },
+    { "path": "eslint" },
+    { "path": "logger" },
+    { "path": "regexp" },
+    { "path": "tsquery" },
+    { "path": "typescript" }
+  ]
+}
