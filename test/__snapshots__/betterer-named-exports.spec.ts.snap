@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`betterer should work with named exports in the config file 1`] = `
+Array [
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"getsBetter\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"getsBetter\\" got checked for the first time! 🎉",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked for the first time! 🎉",
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"getsBetter\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"getsBetter\\" got better! 😍",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  succ  ✅  - ",
+  "1 thing got better! 😍",
+]
+`;
+
+exports[`betterer should work with named exports in the config file 2`] = `
+"// BETTERER RESULTS V1.
+exports[\`getsBetter\`] = {
+  timestamp: 0,
+  value: \`1\`
+};"
+`;
