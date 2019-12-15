@@ -1,4 +1,4 @@
-const { smaller } = require('@betterer/constraints');
+const { smaller } = require('@betterer/constraints/src');
 
 let start = 0;
 

@@ -1,4 +1,4 @@
-const { bigger } = require('@betterer/constraints');
+const { bigger } = require('@betterer/constraints/src');
 
 module.exports = {
   'test 1': {

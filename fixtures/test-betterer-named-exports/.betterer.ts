@@ -1,4 +1,4 @@
-import { bigger } from '@betterer/constraints';
+import { bigger } from '@betterer/constraints/src';
 
 let start = 0;
 

@@ -1,4 +1,4 @@
-import { typescriptBetterer } from '@betterer/typescript';
+import { typescriptBetterer } from '@betterer/typescript/src';
 
 export default {
   'typescript use strict mode': typescriptBetterer('./tsconfig.json', {
