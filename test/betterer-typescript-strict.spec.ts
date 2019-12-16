@@ -31,8 +31,6 @@ describe('betterer', () => {
     const resultsPath = path.resolve(FIXTURE, DEFAULT_RESULTS_PATH);
     const indexPath = path.resolve(FIXTURE, './src/index.ts');
 
-    debugger;
-
     await reset(resultsPath);
 
     const indexSource = await readFile(indexPath, 'utf8');
