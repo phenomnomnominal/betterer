@@ -27,6 +27,7 @@
     "@betterer/betterer": "^0.3.5",
     "@betterer/logger": "^0.3.5",
     "callsite": "^1.0.0",
+    "glob": "^7.1.4",
     "lines-and-columns": "^1.1.6",
     "tslib": "^1.10.0"
   },
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@types/callsite": "^1.0.30",
+    "@types/glob": "^7.1.1",
     "eslint": "*"
   }
 }
