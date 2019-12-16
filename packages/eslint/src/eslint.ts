@@ -86,7 +86,7 @@ function eslintMessageToBettererError(
   filePath: string,
   source: string,
   message: Linter.LintMessage
-) {
+): BettererFileCodeInfo {
   const lc = new LinesAndColumns(source);
   const startLocation = lc.indexForLocation({
     line: message.line - 1,

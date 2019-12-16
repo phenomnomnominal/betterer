@@ -1,4 +1,4 @@
-console.log('foo');
+'hello'[0] === 'h';
 
 export enum Numbers {
   one,

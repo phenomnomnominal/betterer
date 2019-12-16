@@ -1,5 +1,5 @@
 module.exports = {
   rules: {
-    'no-console': 2
+    '@typescript-eslint/prefer-string-starts-ends-with': 'error'
   }
 };
