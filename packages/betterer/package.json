@@ -1,7 +1,7 @@
 {
   "name": "@betterer/betterer",
   "description": "Main engine for runing betterer tests",
-  "version": "0.3.5",
+  "version": "0.3.7",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -24,8 +24,8 @@
     "compile": "tsc -b ."
   },
   "dependencies": {
-    "@betterer/constraints": "^0.3.5",
-    "@betterer/logger": "^0.3.5",
+    "@betterer/constraints": "^0.3.7",
+    "@betterer/logger": "^0.3.7",
     "jest-diff": "^24.9.0",
     "lines-and-columns": "^1.1.6",
     "safe-string-literal": "^1.0.1",

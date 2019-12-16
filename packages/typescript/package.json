@@ -1,7 +1,7 @@
 {
   "name": "@betterer/typescript",
   "description": "TypeScript betterer for @betterer/betterer",
-  "version": "0.3.5",
+  "version": "0.3.7",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -24,8 +24,8 @@
     "compile": "tsc -b ."
   },
   "dependencies": {
-    "@betterer/betterer": "^0.3.5",
-    "@betterer/logger": "^0.3.5",
+    "@betterer/betterer": "^0.3.7",
+    "@betterer/logger": "^0.3.7",
     "callsite": "^1.0.0",
     "tslib": "^1.10.0"
   },
