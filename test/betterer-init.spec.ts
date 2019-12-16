@@ -33,6 +33,20 @@ describe('betterer init', () => {
 
     await reset(configPath, packageJSONPath);
   });
+
+  it('should work multiple times', async () => {
+    jest.setTimeout(10000);
+
+    const configPath = path.resolve(FIXTURE, DEFAULT_CONFIG_PATH);
+    const packageJSONPath = path.resolve(FIXTURE, './package.json');
+
+    await reset(configPath, packageJSONPath);
+
+    await init(FIXTURE, ['node', './bin/betterer']);
+    await init(FIXTURE, ['node', './bin/betterer']);
+
+    await reset(configPath, packageJSONPath);
+  });
 });
 
 async function reset(
