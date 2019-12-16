@@ -19,5 +19,6 @@
     "resolveJsonModule": true,
     "composite": true,
     "incremental": true
-  }
+  },
+  "exclude": ["./fixtures"]
 }
