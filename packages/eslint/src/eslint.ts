@@ -60,14 +60,13 @@ export function eslintBetterer(
 
           const report = runner.executeOnFiles([filePath]);
           report.results.forEach(result => {
-            result.messages.forEach(message => {
-              errors.push(
-                eslintMessageToBettererError(
-                  filePath,
-                  result.source as string,
-                  message
-                )
-              );
+            const { source, messages } = result;
+            messages.forEach(message => {
+              if (source) {
+                errors.push(
+                  eslintMessageToBettererError(filePath, source, message)
+                );
+              }
             });
           });
         });
