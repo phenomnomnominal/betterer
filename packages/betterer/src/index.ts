@@ -1,6 +1,7 @@
-import { register } from 'ts-node';
-register();
+import { registerExtensions } from './register';
+registerExtensions();
 
-export * from './files';
 export * from './betterer';
+export * from './constants';
+export * from './files';
 export * from './types';
