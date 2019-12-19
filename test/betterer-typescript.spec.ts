@@ -1,39 +1,21 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import stripAnsi from 'strip-ansi';
-import { promisify } from 'util';
-
 import { betterer } from '@betterer/betterer/src';
-import {
-  DEFAULT_CONFIG_PATH,
-  DEFAULT_RESULTS_PATH
-} from '@betterer/cli/src/constants';
-
-const FIXTURE = path.resolve(__dirname, '../fixtures/test-betterer-typescript');
-
-const writeFile = promisify(fs.writeFile);
-const deleteFile = promisify(fs.unlink);
-const readFile = promisify(fs.readFile);
+import { fixture } from './index';
 
 describe('betterer', () => {
   it('should report the status of the TypeScript compiler', async () => {
-    jest.setTimeout(100000);
+    const { paths, logs, resolve, readFile, reset, writeFile } = fixture(
+      'test-betterer-typescript'
+    );
 
-    const logs: Array<string> = [];
-    jest.spyOn(console, 'log').mockImplementation((...messages) => {
-      logs.push(...messages.map(m => stripAnsi(m)));
-    });
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+    const indexPath = resolve('./src/index.ts');
 
-    const configPaths = [path.resolve(FIXTURE, DEFAULT_CONFIG_PATH)];
-    const resultsPath = path.resolve(FIXTURE, DEFAULT_RESULTS_PATH);
-    const indexPath = path.resolve(FIXTURE, './src/index.ts');
-
-    await reset(resultsPath);
+    await reset();
 
     await writeFile(
       indexPath,
-      `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`,
-      'utf8'
+      `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`
     );
 
     const newTestRun = await betterer({ configPaths, resultsPath });
@@ -46,19 +28,18 @@ describe('betterer', () => {
 
     await writeFile(
       indexPath,
-      `const a = 'a';\nconst one = 1;\nconsole.log(a * one, one * a);`,
-      'utf8'
+      `const a = 'a';\nconst one = 1;\nconsole.log(a * one, one * a);`
     );
 
     const worseTestRun = await betterer({ configPaths, resultsPath });
 
     expect(worseTestRun.worse).toEqual(['typescript use strict mode']);
 
-    const result = await readFile(resultsPath, 'utf8');
+    const result = await readFile(resultsPath);
 
     expect(result).toMatchSnapshot();
 
-    await writeFile(indexPath, ``, 'utf8');
+    await writeFile(indexPath, ``);
 
     const betterTestRun = await betterer({ configPaths, resultsPath });
 
@@ -70,14 +51,6 @@ describe('betterer', () => {
 
     expect(logs).toMatchSnapshot();
 
-    await reset(resultsPath);
+    await reset();
   });
 });
-
-async function reset(resultsPath: string): Promise<void> {
-  try {
-    await deleteFile(resultsPath);
-  } catch {
-    // Moving on, nothing to reset
-  }
-}
