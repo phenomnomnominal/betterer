@@ -28,7 +28,7 @@ describe('betterer', () => {
     const indexPath = path.resolve(FIXTURE, './src/index.ts');
     const movedPath = path.resolve(FIXTURE, './src/moved.ts');
 
-    await reset(resultsPath, indexPath, movedPath);
+    await reset(resultsPath, movedPath);
 
     await writeFile(
       indexPath,
@@ -53,15 +53,13 @@ describe('betterer', () => {
 
     expect(logs).toMatchSnapshot();
 
-    await reset(resultsPath, indexPath, movedPath);
+    await writeFile(indexPath, '', 'utf8');
+
+    await reset(resultsPath, movedPath);
   });
 });
 
-async function reset(
-  resultsPath: string,
-  indexPath: string,
-  movedPath: string
-): Promise<void> {
+async function reset(resultsPath: string, movedPath: string): Promise<void> {
   try {
     await deleteFile(resultsPath);
   } catch {
@@ -69,11 +67,6 @@ async function reset(
   }
   try {
     await deleteFile(movedPath);
-  } catch {
-    // Moving on
-  }
-  try {
-    await deleteFile(indexPath);
   } catch {
     // Moving on
   }
