@@ -5,7 +5,7 @@ exports[`betterer should report the status of a new eslint rule 1`] = `
 exports[\`eslint enable new rule\`] = {
   timestamp: 0,
   value: \`{
-    \\"../src/index.ts:3045238015\\": [
+    \\"../src/index.ts:3201740415\\": [
       [0, 0, 9, \\"Unexpected \\\\'debugger\\\\' statement.\\"]
     ]
   }\`
@@ -27,8 +27,6 @@ Array [
   "running ESLint with \\"no-debugger\\" set to \\"error\\"",
   " ☀️  betterer  erro  🔥  - ",
   "ESLint found some issues:",
-  11,
-  11,
   " ☀️  betterer  succ  ✅  - ",
   "\\"eslint enable new rule\\" got checked for the first time! 🎉",
   " ☀️  betterer  info  💬  - ",
@@ -48,8 +46,6 @@ Array [
   "running ESLint with \\"no-debugger\\" set to \\"error\\"",
   " ☀️  betterer  erro  🔥  - ",
   "ESLint found some issues:",
-  11,
-  11,
   " ☀️  betterer  warn  ⚠️  - ",
   "\\"eslint enable new rule\\" stayed the same. 😐",
   " ☀️  betterer  info  💬  - ",
@@ -69,8 +65,6 @@ Array [
   "running ESLint with \\"no-debugger\\" set to \\"error\\"",
   " ☀️  betterer  erro  🔥  - ",
   "ESLint found some issues:",
-  22,
-  22,
   " ☀️  betterer  erro  🔥  - ",
   "\\"eslint enable new rule\\" got worse. 😔",
   "",

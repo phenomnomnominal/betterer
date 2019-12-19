@@ -5,7 +5,7 @@ exports[`betterer should report the existence of RegExp matches 1`] = `
 exports[\`regexp no hack comments\`] = {
   timestamp: 0,
   value: \`{
-    \\"../src/index.ts:1430365662\\": [
+    \\"../src/index.ts:4126639614\\": [
       [0, 0, 7, \\"RegExp match\\"]
     ]
   }\`
@@ -27,8 +27,6 @@ Array [
   "using RegExp to find files matching \\"/(\\\\/\\\\/\\\\s*HACK)/i\\"",
   " ☀️  betterer  erro  🔥  - ",
   "found 1 RegExp matches:",
-  10,
-  10,
   " ☀️  betterer  succ  ✅  - ",
   "\\"regexp no hack comments\\" got checked for the first time! 🎉",
   " ☀️  betterer  info  💬  - ",
@@ -48,8 +46,6 @@ Array [
   "using RegExp to find files matching \\"/(\\\\/\\\\/\\\\s*HACK)/gi\\"",
   " ☀️  betterer  erro  🔥  - ",
   "found 1 RegExp matches:",
-  10,
-  10,
   " ☀️  betterer  warn  ⚠️  - ",
   "\\"regexp no hack comments\\" stayed the same. 😐",
   " ☀️  betterer  info  💬  - ",
@@ -69,8 +65,6 @@ Array [
   "using RegExp to find files matching \\"/(\\\\/\\\\/\\\\s*HACK)/gi\\"",
   " ☀️  betterer  erro  🔥  - ",
   "found 2 RegExp matches:",
-  22,
-  22,
   " ☀️  betterer  erro  🔥  - ",
   "\\"regexp no hack comments\\" got worse. 😔",
   "",

@@ -5,7 +5,7 @@ exports[`betterer should report the status of the TypeScript compiler in strict 
 exports[\`typescript use strict mode\`] = {
   timestamp: 0,
   value: \`{
-    \\"../src/index.ts:3261236057\\": [
+    \\"../src/index.ts:902979929\\": [
       [0, 27, 4, \\"Parameter \\\\'list\\\\' implicitly has an \\\\'any\\\\' type.\\"],
       [1, 18, 6, \\"Parameter \\\\'member\\\\' implicitly has an \\\\'any\\\\' type.\\"],
       [5, 9, 4, \\"\\\\'this\\\\' implicitly has type \\\\'any\\\\' because it does not have a type annotation.\\"],
@@ -32,8 +32,6 @@ Array [
   "running TypeScript compiler...",
   " ☀️  betterer  erro  🔥  - ",
   "TypeScript compiler found some issues:",
-  535,
-  535,
   " ☀️  betterer  succ  ✅  - ",
   "\\"typescript use strict mode\\" got checked for the first time! 🎉",
   " ☀️  betterer  info  💬  - ",
@@ -53,8 +51,6 @@ Array [
   "running TypeScript compiler...",
   " ☀️  betterer  erro  🔥  - ",
   "TypeScript compiler found some issues:",
-  535,
-  535,
   " ☀️  betterer  warn  ⚠️  - ",
   "\\"typescript use strict mode\\" stayed the same. 😐",
   " ☀️  betterer  info  💬  - ",
@@ -74,8 +70,6 @@ Array [
   "running TypeScript compiler...",
   " ☀️  betterer  erro  🔥  - ",
   "TypeScript compiler found some issues:",
-  590,
-  590,
   " ☀️  betterer  erro  🔥  - ",
   "\\"typescript use strict mode\\" got worse. 😔",
   "",
@@ -106,8 +100,6 @@ Array [
   "running TypeScript compiler...",
   " ☀️  betterer  erro  🔥  - ",
   "TypeScript compiler found some issues:",
-  532,
-  532,
   " ☀️  betterer  succ  ✅  - ",
   "\\"typescript use strict mode\\" got better! 😍",
   " ☀️  betterer  info  💬  - ",
