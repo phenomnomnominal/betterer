@@ -1,51 +1,39 @@
+import * as fs from 'fs';
+import * as path from 'path';
+import stripAnsi from 'strip-ansi';
+import { promisify } from 'util';
+
 import { betterer } from '@betterer/betterer/src';
-import { fixture } from './fixture';
+import {
+  DEFAULT_CONFIG_PATH,
+  DEFAULT_RESULTS_PATH
+} from '@betterer/cli/src/constants';
 
-const INDEX_SOURCE = `export function extractIds(list) {
-  return list.map(member => member.id);
-}
+const FIXTURE = path.resolve(
+  __dirname,
+  '../fixtures/test-betterer-typescript-strict'
+);
 
-function bar() {
-  return this.baz.toUpperCase();
-}
-
-const foo = {
-  baz: 'baz',
-  bar
-};
-
-foo.bar();
-
-export function findNumberFixed(numbers: Array<number>, search: number) {
-  const number = numbers.find(n => n === search);
-  return number.toFixed(2);
-}
-
-export class Foo {
-  private bar: number;
-  constructor() {}
-}
-
-export function sum(num1: number, num2: number) {
-  return num1 + num2;
-}
-
-sum.apply(null, [1, 2, 3]);
-`;
+const writeFile = promisify(fs.writeFile);
+const deleteFile = promisify(fs.unlink);
+const readFile = promisify(fs.readFile);
 
 describe('betterer', () => {
   it('should report the status of the TypeScript compiler in strict mode', async () => {
-    const { paths, logs, resolve, readFile, reset, writeFile } = fixture(
-      'test-betterer-typescript-strict'
-    );
+    jest.setTimeout(100000);
 
-    const configPaths = [paths.config];
-    const resultsPath = paths.results;
-    const indexPath = resolve('./src/index.ts');
+    const logs: Array<string> = [];
+    jest.spyOn(console, 'log').mockImplementation((...messages) => {
+      logs.push(...messages.map(m => stripAnsi(m)));
+    });
 
-    await reset();
+    const configPaths = [path.resolve(FIXTURE, DEFAULT_CONFIG_PATH)];
+    const resultsPath = path.resolve(FIXTURE, DEFAULT_RESULTS_PATH);
+    const indexPath = path.resolve(FIXTURE, './src/index.ts');
 
-    await writeFile(indexPath, INDEX_SOURCE);
+    await reset(resultsPath);
+
+    const indexSource = await readFile(indexPath, 'utf8');
 
     const newTestRun = await betterer({ configPaths, resultsPath });
 
@@ -57,23 +45,25 @@ describe('betterer', () => {
 
     await writeFile(
       indexPath,
-      `${INDEX_SOURCE}\nconst a = 'a';\nconst one = 1;\nconsole.log(a * one);`
+      `${indexSource}\nconst a = 'a';\nconst one = 1;\nconsole.log(a * one);`,
+      'utf8'
     );
 
     const worseTestRun = await betterer({ configPaths, resultsPath });
 
     expect(worseTestRun.worse).toEqual(['typescript use strict mode']);
 
-    const result = await readFile(resultsPath);
+    const result = await readFile(resultsPath, 'utf8');
 
     expect(result).toMatchSnapshot();
 
     await writeFile(
       indexPath,
-      INDEX_SOURCE.replace(
+      indexSource.replace(
         'sum.apply(null, [1, 2, 3]);',
         'sum.apply(null, [1, 2]);'
-      )
+      ),
+      'utf8'
     );
 
     const betterTestRun = await betterer({ configPaths, resultsPath });
@@ -82,6 +72,16 @@ describe('betterer', () => {
 
     expect(logs).toMatchSnapshot();
 
-    await reset();
+    await writeFile(indexPath, indexSource, 'utf8');
+
+    await reset(resultsPath);
   });
 });
+
+async function reset(resultsPath: string): Promise<void> {
+  try {
+    await deleteFile(resultsPath);
+  } catch {
+    // Moving on, nothing to reset
+  }
+}
