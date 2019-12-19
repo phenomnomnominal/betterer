@@ -29,23 +29,26 @@ export function constraint(
   const currentFiles = deserialisedCurrent.getFilePaths();
   const previousFiles = deserialisedPrevious.getFilePaths();
 
-  const newOrRenamedFiles = currentFiles.filter(file => {
+  const newOrMovedUnchangedFiles = currentFiles.filter(file => {
     return !previousFiles.includes(file);
   });
-  const renamedFiles = newOrRenamedFiles.filter(file => {
+  const movedUnchangedFiles = newOrMovedUnchangedFiles.filter(file => {
     const fileHash = deserialisedCurrent.getHash(file);
     return deserialisedPrevious.hasHash(fileHash);
   });
-  const newFiles = newOrRenamedFiles.filter(
-    file => !renamedFiles.includes(file)
-  );
+  const newFiles = newOrMovedUnchangedFiles.filter(file => {
+    return !movedUnchangedFiles.includes(file);
+  });
+  const existingFiles = currentFiles.filter(file => {
+    return !newOrMovedUnchangedFiles.includes(file);
+  });
 
   // If there are any new files, then it's worse:
   if (newFiles.length > 0) {
     return ConstraintResult.worse;
   }
 
-  const filesWithMore = currentFiles.filter(filePath => {
+  const filesWithMore = existingFiles.filter(filePath => {
     const currentMarks = deserialisedCurrent.getFileMarks(filePath);
     const previousMarks = deserialisedPrevious.getFileMarks(filePath);
     return currentMarks.length > previousMarks.length;
@@ -56,14 +59,15 @@ export function constraint(
     return ConstraintResult.worse;
   }
 
-  const filesWithSame = currentFiles.filter(filePath => {
+  const filesWithSame = existingFiles.filter(filePath => {
     const currentMarks = deserialisedCurrent.getFileMarks(filePath);
     const previousMarks = deserialisedPrevious.getFileMarks(filePath);
     return currentMarks.length === previousMarks.length;
   });
 
   // If all the files have the same number of entries as before, then it's the same:
-  if (filesWithSame.length === previousFiles.length) {
+  const unchangedFiles = [...filesWithSame, ...movedUnchangedFiles];
+  if (unchangedFiles.length === previousFiles.length) {
     return ConstraintResult.same;
   }
 

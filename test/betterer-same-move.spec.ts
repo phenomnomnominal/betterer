@@ -45,10 +45,13 @@ describe('betterer', () => {
       `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`,
       'utf8'
     );
+    await deleteFile(indexPath);
 
     const sameTestRun = await betterer({ configPaths, resultsPath });
 
     expect(sameTestRun.same).toEqual(['typescript use strict mode']);
+
+    expect(logs).toMatchSnapshot();
 
     await reset(resultsPath, indexPath, movedPath);
   });
@@ -61,9 +64,17 @@ async function reset(
 ): Promise<void> {
   try {
     await deleteFile(resultsPath);
-    await deleteFile(indexPath);
+  } catch {
+    // Moving on
+  }
+  try {
     await deleteFile(movedPath);
   } catch {
-    // Moving on, nothing to reset
+    // Moving on
+  }
+  try {
+    await deleteFile(indexPath);
+  } catch {
+    // Moving on
   }
 }
