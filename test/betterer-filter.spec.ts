@@ -1,13 +1,13 @@
 import { start } from '@betterer/cli/src';
 
-import { fixture } from './index';
+import { fixture } from './fixture';
 
 '../fixtures/test-betterer-filter';
 
 const ARGV = ['node', './bin/betterer'];
 
-describe('betterer init', () => {
-  it('should initialise betterer in a repo', async () => {
+describe('betterer', () => {
+  it('should filter tests by name', async () => {
     const { logs, paths, reset } = fixture('test-betterer-filter');
 
     const fixturePath = paths.fixture;

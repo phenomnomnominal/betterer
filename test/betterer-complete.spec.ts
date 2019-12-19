@@ -1,6 +1,6 @@
 import { betterer } from '@betterer/betterer/src';
 
-import { fixture } from './index';
+import { fixture } from './fixture';
 
 '../fixtures/test-betterer-complete';
 

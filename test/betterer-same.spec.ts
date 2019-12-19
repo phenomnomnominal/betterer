@@ -1,12 +1,12 @@
 import { betterer } from '@betterer/betterer/src';
-import { fixture } from './index';
+import { fixture } from './fixture';
 
 describe('betterer', () => {
   it(`should work when a test is the same`, async () => {
     const { paths, logs, readFile, reset } = fixture('test-betterer-same');
 
     const configPaths = [paths.config];
-    const resultsPath = paths.result;
+    const resultsPath = paths.results;
 
     await reset();
 

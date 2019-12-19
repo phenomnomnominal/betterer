@@ -1,5 +1,4 @@
 module.exports = {
-  setupFiles: ['./test/index.ts'],
   setupFilesAfterEnv: ['./test/setup.ts'],
   globals: {
     tsConfig: 'tsconfig.json'

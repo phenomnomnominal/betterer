@@ -1,6 +1,6 @@
 import { betterer } from '@betterer/betterer/src';
 
-import { fixture } from './index';
+import { fixture } from './fixture';
 
 describe('betterer', () => {
   it('should work with named exports in the config file', async () => {

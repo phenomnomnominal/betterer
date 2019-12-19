@@ -12,10 +12,16 @@ const deleteFile = fs.promises.unlink;
 const readFile = fs.promises.readFile;
 const writeFile = fs.promises.writeFile;
 
+type Paths = {
+  config: string;
+  fixture: string;
+  results: string;
+};
+
 type Fixture = {
   deleteFile(filePath: string): Promise<void>;
   logs: Array<string>;
-  paths: Record<string, string>;
+  paths: Paths;
   readFile(filePath: string): Promise<string>;
   resolve(filePath: string): string;
   writeFile(filePath: string, text: string): Promise<void>;
@@ -58,12 +64,12 @@ export function fixture(fixtureName: string): Fixture {
       try {
         await remove(resolve('./src'));
       } catch {
-        //
+        // Moving on...
       }
       try {
         await deleteFile(paths.results);
       } catch {
-        //
+        // Moving on...
       }
     }
   };

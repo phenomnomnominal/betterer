@@ -1,12 +1,12 @@
 import { init } from '@betterer/cli/src';
 
-import { fixture } from './index';
+import { fixture } from './fixture';
 
 describe('betterer init', () => {
   it('should initialise betterer in a repo', async () => {
     const { paths, readFile, reset, resolve } = initFixture();
 
-    const configPath = paths.config;
+    const configPath = `${paths.config}.ts`;
     const fixturePath = paths.fixture;
     const packageJSONPath = resolve('./package.json');
 
@@ -42,10 +42,15 @@ describe('betterer init', () => {
 
 function initFixture(): ReturnType<typeof fixture> {
   const init = fixture('test-betterer-init');
-  const { readFile, writeFile, reset, resolve } = init;
+  const { deleteFile, paths, readFile, writeFile, reset, resolve } = init;
   const packageJSONPath = resolve('./package.json');
   async function initReset(): Promise<void> {
     await reset();
+    try {
+      await deleteFile(`${paths.config}.ts`);
+    } catch {
+      // Moving on...
+    }
     try {
       const packageJSON = JSON.parse(await readFile(packageJSONPath));
       delete packageJSON.scripts;
@@ -53,7 +58,7 @@ function initFixture(): ReturnType<typeof fixture> {
       const json = JSON.stringify(packageJSON, null, 2);
       await writeFile(packageJSONPath, json);
     } catch {
-      // Moving on, nothing to reset
+      // Moving on...
     }
   }
   return { ...init, reset: initReset };
