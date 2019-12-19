@@ -1,71 +1,65 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import { promisify } from 'util';
-
 import { init } from '@betterer/cli/src';
-import { DEFAULT_CONFIG_PATH } from '@betterer/cli/src/constants';
 
-const FIXTURE = path.resolve(__dirname, '../fixtures/test-betterer-init');
-
-const readFile = promisify(fs.readFile);
-const writeFile = promisify(fs.writeFile);
-const deleteFile = promisify(fs.unlink);
+import { fixture } from './fixture';
 
 describe('betterer init', () => {
   it('should initialise betterer in a repo', async () => {
-    jest.setTimeout(10000);
+    const { paths, readFile, reset, resolve } = initFixture();
 
-    const configPath = path.resolve(FIXTURE, DEFAULT_CONFIG_PATH);
-    const packageJSONPath = path.resolve(FIXTURE, './package.json');
+    const configPath = `${paths.config}.ts`;
+    const fixturePath = paths.fixture;
+    const packageJSONPath = resolve('./package.json');
 
-    await reset(configPath, packageJSONPath);
+    await reset();
 
-    await init(FIXTURE, ['node', './bin/betterer']);
+    await init(fixturePath, ['node', './bin/betterer']);
 
-    const packageJSON = JSON.parse(await readFile(packageJSONPath, 'utf-8'));
+    const packageJSON = JSON.parse(await readFile(packageJSONPath));
 
     expect(packageJSON.scripts.betterer).toEqual('betterer');
     expect(packageJSON.devDependencies['@betterer/cli']).toBeDefined();
 
-    const config = await readFile(configPath, 'utf-8');
+    const config = await readFile(configPath);
 
     expect(config).toEqual('module.exports = {\n  // Add tests here ☀️\n};');
 
-    await reset(configPath, packageJSONPath);
+    await reset();
   });
 
   it('should work multiple times', async () => {
-    jest.setTimeout(10000);
+    const { paths, reset } = initFixture();
 
-    const configPath = path.resolve(FIXTURE, DEFAULT_CONFIG_PATH);
-    const packageJSONPath = path.resolve(FIXTURE, './package.json');
+    const fixturePath = paths.fixture;
 
-    await reset(configPath, packageJSONPath);
+    await reset();
 
-    await init(FIXTURE, ['node', './bin/betterer']);
-    await init(FIXTURE, ['node', './bin/betterer']);
+    await init(fixturePath, ['node', './bin/betterer']);
+    await init(fixturePath, ['node', './bin/betterer']);
 
-    await reset(configPath, packageJSONPath);
+    await reset();
   });
 });
 
-async function reset(
-  configPath: string,
-  packageJSONPath: string
-): Promise<void> {
-  try {
-    await deleteFile(configPath);
-  } catch {
-    // Moving on, nothing to reset
+function initFixture(): ReturnType<typeof fixture> {
+  const init = fixture('test-betterer-init');
+  const { deleteFile, paths, readFile, writeFile, reset, resolve } = init;
+  const packageJSONPath = resolve('./package.json');
+  async function initReset(): Promise<void> {
+    await reset();
+    try {
+      await deleteFile(`${paths.config}.ts`);
+    } catch {
+      // Moving on...
+    }
+    try {
+      const packageJSON = JSON.parse(await readFile(packageJSONPath));
+      delete packageJSON.scripts;
+      delete packageJSON.devDependencies;
+      const json = JSON.stringify(packageJSON, null, 2);
+      await writeFile(packageJSONPath, json);
+    } catch {
+      // Moving on...
+    }
   }
-
-  try {
-    const packageJSON = JSON.parse(await readFile(packageJSONPath, 'utf-8'));
-    delete packageJSON.scripts;
-    delete packageJSON.devDependencies;
-    const json = JSON.stringify(packageJSON, null, 2);
-    await writeFile(packageJSONPath, json, 'utf-8');
-  } catch {
-    // Moving on, nothing to reset
-  }
+  return { ...init, reset: initReset };
 }
