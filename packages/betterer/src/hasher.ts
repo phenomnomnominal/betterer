@@ -1,10 +1,8 @@
 import * as djb2a from 'djb2a';
 
 const NEW_LINES = /\r\n|\r|\n/g;
+const NORMALISED_NEW_LINE = '\n';
 
-export function hash(value: unknown): string {
-  const result = JSON.stringify(value);
-  console.log(result.length);
-  console.log(result.replace(NEW_LINES, '\n').length);
-  return djb2a(result.replace(NEW_LINES, '\n')).toString();
+export function hash(value: string): string {
+  return djb2a(value.replace(NEW_LINES, NORMALISED_NEW_LINE)).toString();
 }
