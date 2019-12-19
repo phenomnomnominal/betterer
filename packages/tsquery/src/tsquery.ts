@@ -3,7 +3,7 @@ import * as stack from 'callsite';
 import * as path from 'path';
 
 import {
-  BettererFileCodeInfo,
+  BettererFileInfo,
   FileBetterer,
   createFileBetterer
 } from '@betterer/betterer';
@@ -20,7 +20,7 @@ export function tsqueryBetterer(
     info(`running TSQuery to search for nodes matching query "${query}"`);
 
     const sourceFiles = tsquery.project(absPath);
-    const matches: Array<BettererFileCodeInfo> = [];
+    const matches: Array<BettererFileInfo> = [];
     sourceFiles.forEach(sourceFile => {
       tsquery
         .query(sourceFile, query, { visitAllChildren: true })

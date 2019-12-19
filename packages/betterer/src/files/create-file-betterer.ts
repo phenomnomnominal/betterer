@@ -2,23 +2,17 @@ import { ConstraintResult } from '@betterer/constraints';
 import { code, error } from '@betterer/logger';
 
 import { Betterer, BettererConfig, MaybeAsync } from '../types';
-import {
-  BettererFileInfo,
-  BettererFileCodeInfo,
-  BettererFileInfoSerialised
-} from './file-info';
+import { BettererFile } from './file';
+import { BettererFileMarksMap, BettererFileInfo } from './types';
 
-export type FileBetterer = Betterer<
-  BettererFileInfo,
-  BettererFileInfoSerialised
->;
+export type FileBetterer = Betterer<BettererFile, BettererFileMarksMap>;
 
 export function createFileBetterer(
-  test: () => MaybeAsync<Array<BettererFileCodeInfo>>
+  test: () => MaybeAsync<Array<BettererFileInfo>>
 ): FileBetterer {
   return {
-    test: async (config: BettererConfig): Promise<BettererFileInfo> => {
-      return new BettererFileInfo(config, await test());
+    test: async (config: BettererConfig): Promise<BettererFile> => {
+      return BettererFile.fromInfo(config, await test());
     },
     constraint,
     goal,
@@ -27,33 +21,53 @@ export function createFileBetterer(
 }
 
 export function constraint(
-  current: BettererFileInfoSerialised,
-  previous: BettererFileInfoSerialised
+  serialisedCurrent: BettererFileMarksMap,
+  serialisedPrevious: BettererFileMarksMap
 ): ConstraintResult {
-  const previousFiles = Object.keys(previous);
-  const currentFiles = Object.keys(current);
+  const deserialisedCurrent = BettererFile.fromSerialised(serialisedCurrent);
+  const deserialisedPrevious = BettererFile.fromSerialised(serialisedPrevious);
+  const currentFiles = deserialisedCurrent.getFilePaths();
+  const previousFiles = deserialisedPrevious.getFilePaths();
 
-  const hasNewFiles = currentFiles.some(file => !previousFiles.includes(file));
+  const newOrMovedUnchangedFiles = currentFiles.filter(file => {
+    return !previousFiles.includes(file);
+  });
+  const movedUnchangedFiles = newOrMovedUnchangedFiles.filter(file => {
+    const fileHash = deserialisedCurrent.getHash(file);
+    return deserialisedPrevious.hasHash(fileHash);
+  });
+  const newFiles = newOrMovedUnchangedFiles.filter(file => {
+    return !movedUnchangedFiles.includes(file);
+  });
+  const existingFiles = currentFiles.filter(file => {
+    return !newOrMovedUnchangedFiles.includes(file);
+  });
+
   // If there are any new files, then it's worse:
-  if (hasNewFiles) {
+  if (newFiles.length > 0) {
     return ConstraintResult.worse;
   }
 
-  const filesWithMore = currentFiles.filter(
-    filePath => current[filePath].length > previous[filePath].length
-  );
+  const filesWithMore = existingFiles.filter(filePath => {
+    const currentMarks = deserialisedCurrent.getFileMarks(filePath);
+    const previousMarks = deserialisedPrevious.getFileMarks(filePath);
+    return currentMarks.length > previousMarks.length;
+  });
 
   // If any file has new entries, then it's worse:
   if (filesWithMore.length > 0) {
     return ConstraintResult.worse;
   }
 
-  const filesWithSame = currentFiles.filter(
-    filePath => current[filePath].length === previous[filePath].length
-  );
+  const filesWithSame = existingFiles.filter(filePath => {
+    const currentMarks = deserialisedCurrent.getFileMarks(filePath);
+    const previousMarks = deserialisedPrevious.getFileMarks(filePath);
+    return currentMarks.length === previousMarks.length;
+  });
 
   // If all the files have the same number of entries as before, then it's the same:
-  if (filesWithSame.length === previousFiles.length) {
+  const unchangedFiles = [...filesWithSame, ...movedUnchangedFiles];
+  if (unchangedFiles.length === previousFiles.length) {
     return ConstraintResult.same;
   }
 
@@ -61,15 +75,17 @@ export function constraint(
   return ConstraintResult.better;
 }
 
-export function goal(value: BettererFileInfoSerialised): boolean {
+export function goal(value: BettererFileMarksMap): boolean {
   return Object.keys(value).length === 0;
 }
 
 export function diff(
-  current: BettererFileInfo,
-  serialisedCurrent: BettererFileInfoSerialised,
-  serialisedPrevious: BettererFileInfoSerialised | null
+  current: BettererFile,
+  serialisedCurrent: BettererFileMarksMap,
+  serialisedPrevious: BettererFileMarksMap | null
 ): void {
+  const deserialisedCurrent = BettererFile.fromSerialised(serialisedCurrent);
+  const deserialisedPrevious = BettererFile.fromSerialised(serialisedPrevious);
   const filePaths = current.getFilePaths();
   if (serialisedPrevious === null) {
     filePaths.forEach(filePath => {
@@ -82,29 +98,30 @@ export function diff(
   }
 
   const filesWithChanges = filePaths.filter(filePath => {
-    const currentInfo = serialisedCurrent[filePath];
-    const previousInfo = serialisedPrevious[filePath];
+    const currentMarks = deserialisedCurrent.getFileMarks(filePath);
+    const previousMarks = deserialisedPrevious.getFileMarks(filePath);
     if (
-      !currentInfo ||
-      !previousInfo ||
-      currentInfo.length !== previousInfo.length
+      !currentMarks ||
+      !previousMarks ||
+      currentMarks.length !== previousMarks.length
     ) {
       return true;
     }
-    return currentInfo.some(([cLine, cColumn, cLength], index) => {
-      const [pLine, pColumn, pLength] = previousInfo[index];
+    return currentMarks.some(([cLine, cColumn, cLength], index) => {
+      const [pLine, pColumn, pLength] = previousMarks[index];
       return pLine !== cLine || pColumn !== cColumn || pLength !== cLength;
     });
   });
 
   filesWithChanges.forEach(filePath => {
+    const currentMarks = deserialisedCurrent.getFileMarks(filePath);
+    const previousMarks = deserialisedPrevious.getFileMarks(filePath);
     const fileInfo = current.getFileInfo(filePath);
     const changed = fileInfo.filter((_, index) => {
-      const [cLine, cColumn, cLength] = serialisedCurrent[filePath][index];
-      const previousInfo = serialisedPrevious[filePath];
+      const [cLine, cColumn, cLength] = currentMarks[index];
       return (
-        !previousInfo ||
-        !previousInfo.find(([pLine, pColumn, pLength]) => {
+        !previousMarks ||
+        !previousMarks.find(([pLine, pColumn, pLength]) => {
           return pLine === cLine && pColumn === cColumn && pLength === cLength;
         })
       );

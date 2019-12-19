@@ -6,7 +6,7 @@ import * as path from 'path';
 import { promisify } from 'util';
 
 import {
-  BettererFileCodeInfo,
+  BettererFileInfo,
   FileBetterer,
   createFileBetterer
 } from '@betterer/betterer';
@@ -31,7 +31,7 @@ export function eslintBetterer(
     info(`running ESLint with "${ruleName}" set to "${ruleOptions}"`);
 
     const cli = new CLIEngine({});
-    const errors: Array<BettererFileCodeInfo> = [];
+    const errors: Array<BettererFileInfo> = [];
 
     // This is way less than ideal. ESLint does not currently
     // support running a single lint rule while using the
@@ -85,7 +85,7 @@ function eslintMessageToBettererError(
   filePath: string,
   source: string,
   message: Linter.LintMessage
-): BettererFileCodeInfo {
+): BettererFileInfo {
   const lc = new LinesAndColumns(source);
   const startLocation = lc.indexForLocation({
     line: message.line - 1,
