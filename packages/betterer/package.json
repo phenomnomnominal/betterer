@@ -26,6 +26,7 @@
   "dependencies": {
     "@betterer/constraints": "^0.4.0",
     "@betterer/logger": "^0.4.0",
+    "djb2a": "^1.2.0",
     "jest-diff": "^24.9.0",
     "lines-and-columns": "^1.1.6",
     "safe-string-literal": "^1.0.1",

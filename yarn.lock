@@ -2354,6 +2354,11 @@ dir-glob@^2.2.2:
   dependencies:
     path-type "^3.0.0"
 
+djb2a@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/djb2a/-/djb2a-1.2.0.tgz#a441d5f49b90b78aac52d2c44f5a6c49b3d1724b"
+  integrity sha512-rXrJYOPCGvHPYw8R2u/zczFTG3xXNqklrtT17vTPm8n/4a16PKEhrfgMwJ9Zyuz96PJwZzHuK2ChQO/SSChuKA==
+
 doctrine@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-3.0.0.tgz#addebead72a6574db783639dc87a121773973961"
@@ -4668,7 +4673,7 @@ mz@^2.5.0:
 
 nan@^2.12.1:
   version "2.14.0"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.0.tgz#7818f722027b2459a86f0295d434d1fc2336c52c"
+  resolved "https://registry.npmjs.org/nan/-/nan-2.14.0.tgz#7818f722027b2459a86f0295d434d1fc2336c52c"
   integrity sha512-INOFj37C7k3AfaNTtX8RhsTw7qRy7eLET14cROi9+5HAVbbHuIWUHEauBv5qT4Av2tWasiTY1Jw6puUNqRJXQg==
 
 nanomatch@^1.2.9:

@@ -5,7 +5,7 @@ exports[`betterer should report the status of a new eslint rule with a complex s
 exports[\`eslint enable no-debugger rule\`] = {
   timestamp: 0,
   value: \`{
-    \\"../src/index.ts:0ecfc073db00a466482ca5b4beaf06505a41f116b1564c73b60166aa9e4c168a\\": [
+    \\"../src/index.ts:3045238015\\": [
       [0, 0, 9, \\"Unexpected \\\\'debugger\\\\' statement.\\"]
     ]
   }\`

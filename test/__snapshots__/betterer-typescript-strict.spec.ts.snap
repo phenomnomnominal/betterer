@@ -5,7 +5,7 @@ exports[`betterer should report the status of the TypeScript compiler in strict 
 exports[\`typescript use strict mode\`] = {
   timestamp: 0,
   value: \`{
-    \\"../src/index.ts:006489c7308cb6759e719fa15e5a51725acb9fbb6c6936e00b2a046e7cdaf0df\\": [
+    \\"../src/index.ts:3261236057\\": [
       [0, 27, 4, \\"Parameter \\\\'list\\\\' implicitly has an \\\\'any\\\\' type.\\"],
       [1, 18, 6, \\"Parameter \\\\'member\\\\' implicitly has an \\\\'any\\\\' type.\\"],
       [5, 9, 4, \\"\\\\'this\\\\' implicitly has type \\\\'any\\\\' because it does not have a type annotation.\\"],

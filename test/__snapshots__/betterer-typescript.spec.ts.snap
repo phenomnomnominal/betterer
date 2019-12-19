@@ -5,7 +5,7 @@ exports[`betterer should report the status of the TypeScript compiler 1`] = `
 exports[\`typescript use strict mode\`] = {
   timestamp: 0,
   value: \`{
-    \\"../src/index.ts:7b4dc7585e1a7f4a3ddbc063899b0d9cb075441f32525caf706ccc3774779ec8\\": [
+    \\"../src/index.ts:2366960472\\": [
       [2, 12, 1, \\"The left-hand side of an arithmetic operation must be of type \\\\'any\\\\', \\\\'number\\\\', \\\\'bigint\\\\' or an enum type.\\"]
     ]
   }\`
