@@ -94,7 +94,7 @@ export async function betterer(config: BettererConfig): Promise<BettererStats> {
 
     // Serialise the current results so that the `constraint`, `diff`, and
     // `goal` can be evaluated on the same shape object:
-    const serialisedCurrent = serialise(current);
+    const serialisedCurrent = await serialise(current);
 
     // New test:
     if (!Object.hasOwnProperty.call(expectedResults, testName)) {
@@ -183,7 +183,7 @@ export async function betterer(config: BettererConfig): Promise<BettererStats> {
     warn(`${same} ${getThings(same)} stayed the same. 😐`);
   }
 
-  const printed = print(results);
+  const printed = await print(results);
 
   let printError = '';
   if (resultsPath) {

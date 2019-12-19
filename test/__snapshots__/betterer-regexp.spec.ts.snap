@@ -5,7 +5,7 @@ exports[`betterer should report the existence of RegExp matches 1`] = `
 exports[\`regexp no hack comments\`] = {
   timestamp: 0,
   value: \`{
-    \\"../src/index.ts\\": [
+    \\"../src/index.ts:0c0aff802d21a74a68dbc2405848773354fa5fe099a4935bee12cf020ac37bae\\": [
       [0, 0, 7, \\"RegExp match\\"]
     ]
   }\`

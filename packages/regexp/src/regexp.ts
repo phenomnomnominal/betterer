@@ -5,7 +5,7 @@ import * as glob from 'glob';
 import { promisify } from 'util';
 
 import {
-  BettererFileCodeInfo,
+  BettererFileInfo,
   FileBetterer,
   createFileBetterer
 } from '@betterer/betterer';
@@ -31,7 +31,7 @@ export function regexpBetterer(
       regexp.flags.includes('g') ? regexp.flags : `${regexp.flags}g`
     );
 
-    const errors: Array<BettererFileCodeInfo> = [];
+    const errors: Array<BettererFileInfo> = [];
     await Promise.all(
       filesGlobs.map(async currentGlob => {
         const filePaths = await globAsync(currentGlob);
