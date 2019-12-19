@@ -1,25 +1,39 @@
-import { betterer } from '@betterer/betterer/src';
+import * as fs from 'fs';
+import * as path from 'path';
+import stripAnsi from 'strip-ansi';
+import { promisify } from 'util';
 
-import { fixture } from './fixture';
+import { betterer } from '@betterer/betterer/src';
+import {
+  DEFAULT_CONFIG_PATH,
+  DEFAULT_RESULTS_PATH
+} from '@betterer/cli/src/constants';
+
+const FIXTURE = path.resolve(
+  __dirname,
+  '../fixtures/test-betterer-eslint-complex'
+);
+
+const writeFile = promisify(fs.writeFile);
+const deleteFile = promisify(fs.unlink);
+const readFile = promisify(fs.readFile);
 
 describe('betterer', () => {
   it('should report the status of a new eslint rule with a complex set up', async () => {
-    const {
-      logs,
-      paths,
-      readFile,
-      reset,
-      resolve,
-      writeFile
-    } = eslintComplexFixture();
+    jest.setTimeout(100000);
 
-    const configPaths = [paths.config];
-    const resultsPath = paths.results;
-    const indexPath = resolve('./src/index.ts');
+    const logs: Array<string> = [];
+    jest.spyOn(console, 'log').mockImplementation((...messages) => {
+      logs.push(...messages.map(m => stripAnsi(m)));
+    });
 
-    await reset();
+    const configPaths = [path.resolve(FIXTURE, DEFAULT_CONFIG_PATH)];
+    const resultsPath = path.resolve(FIXTURE, DEFAULT_RESULTS_PATH);
+    const indexPath = path.resolve(FIXTURE, './src/index.ts');
 
-    await writeFile(indexPath, `debugger;`);
+    await reset(resultsPath);
+
+    await writeFile(indexPath, `debugger;`, 'utf8');
 
     const newTestRun = await betterer({ configPaths, resultsPath });
 
@@ -29,17 +43,17 @@ describe('betterer', () => {
 
     expect(sameTestRun.same).toEqual(['eslint enable no-debugger rule']);
 
-    await writeFile(indexPath, `debugger;\ndebugger;`);
+    await writeFile(indexPath, `debugger;\ndebugger;`, 'utf8');
 
     const worseTestRun = await betterer({ configPaths, resultsPath });
 
     expect(worseTestRun.worse).toEqual(['eslint enable no-debugger rule']);
 
-    const result = await readFile(resultsPath);
+    const result = await readFile(resultsPath, 'utf8');
 
     expect(result).toMatchSnapshot();
 
-    await writeFile(indexPath, ``);
+    await writeFile(indexPath, ``, 'utf8');
 
     const betterTestRun = await betterer({ configPaths, resultsPath });
 
@@ -53,25 +67,14 @@ describe('betterer', () => {
 
     expect(logs).toMatchSnapshot();
 
-    await reset();
+    await reset(resultsPath);
   });
 });
 
-function eslintComplexFixture(): ReturnType<typeof fixture> {
-  const init = fixture('test-betterer-eslint-complex');
-  const { deleteFile, paths, resolve } = init;
-  const indexPath = resolve('./src/index.ts');
-  async function reset(): Promise<void> {
-    try {
-      await deleteFile(indexPath);
-    } catch {
-      // Moving on...
-    }
-    try {
-      await deleteFile(paths.results);
-    } catch {
-      // Moving on...
-    }
+async function reset(resultsPath: string): Promise<void> {
+  try {
+    await deleteFile(resultsPath);
+  } catch {
+    // Moving on, nothing to reset
   }
-  return { ...init, reset };
 }
