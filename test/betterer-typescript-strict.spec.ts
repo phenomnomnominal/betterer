@@ -1,8 +1,7 @@
 import { betterer } from '@betterer/betterer/src';
 import { fixture } from './index';
 
-const INDEX_SOURCE = `
-export function extractIds(list) {
+const INDEX_SOURCE = `export function extractIds(list) {
   return list.map(member => member.id);
 }
 

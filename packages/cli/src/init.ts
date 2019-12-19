@@ -17,7 +17,7 @@ export async function init(cwd: string, argv: Array<string>): Promise<void> {
     .option(
       '-c, --config [value]',
       'Path to test definition file relative to CWD',
-      DEFAULT_CONFIG_PATH
+      `${DEFAULT_CONFIG_PATH}.ts`
     )
     .parse(argv);
 
