@@ -1,7 +1,8 @@
-import { createHash } from 'crypto';
+import * as djb2a from 'djb2a';
 
-export function hash(value: unknown): string {
-  const hasher = createHash('sha256');
-  hasher.update(JSON.stringify(value), 'utf8');
-  return hasher.digest('hex');
+const NEW_LINES = /\r\n|\r|\n/g;
+const NORMALISED_NEW_LINE = '\n';
+
+export function hash(value: string): string {
+  return djb2a(value.replace(NEW_LINES, NORMALISED_NEW_LINE)).toString();
 }
