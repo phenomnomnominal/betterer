@@ -27,6 +27,7 @@ Array [
   "using RegExp to find files matching \\"/(\\\\/\\\\/\\\\s*HACK)/i\\"",
   " ☀️  betterer  erro  🔥  - ",
   "found 1 RegExp matches:",
+  10,
   Set {
     "\\"",
     "/",
@@ -56,6 +57,7 @@ Array [
   "using RegExp to find files matching \\"/(\\\\/\\\\/\\\\s*HACK)/gi\\"",
   " ☀️  betterer  erro  🔥  - ",
   "found 1 RegExp matches:",
+  10,
   Set {
     "\\"",
     "/",
@@ -85,6 +87,7 @@ Array [
   "using RegExp to find files matching \\"/(\\\\/\\\\/\\\\s*HACK)/gi\\"",
   " ☀️  betterer  erro  🔥  - ",
   "found 2 RegExp matches:",
+  22,
   Set {
     "\\"",
     "/",
