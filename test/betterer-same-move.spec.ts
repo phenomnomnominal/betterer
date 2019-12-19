@@ -1,39 +1,22 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import stripAnsi from 'strip-ansi';
-import { promisify } from 'util';
-
 import { betterer } from '@betterer/betterer/src';
-import {
-  DEFAULT_CONFIG_PATH,
-  DEFAULT_RESULTS_PATH
-} from '@betterer/cli/src/constants';
-
-const FIXTURE = path.resolve(__dirname, '../fixtures/test-betterer-same-move');
-
-const writeFile = promisify(fs.writeFile);
-const deleteFile = promisify(fs.unlink);
+import { fixture } from './fixture';
 
 describe('betterer', () => {
   it('should stay the same when a file is moved', async () => {
-    jest.setTimeout(100000);
+    const { deleteFile, paths, logs, reset, resolve, writeFile } = fixture(
+      'test-betterer-same-move'
+    );
 
-    const logs: Array<string> = [];
-    jest.spyOn(console, 'log').mockImplementation((...messages) => {
-      logs.push(...messages.map(m => stripAnsi(m)));
-    });
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+    const indexPath = resolve('./src/index.ts');
+    const movedPath = resolve('./src/moved.ts');
 
-    const configPaths = [path.resolve(FIXTURE, DEFAULT_CONFIG_PATH)];
-    const resultsPath = path.resolve(FIXTURE, DEFAULT_RESULTS_PATH);
-    const indexPath = path.resolve(FIXTURE, './src/index.ts');
-    const movedPath = path.resolve(FIXTURE, './src/moved.ts');
-
-    await reset(resultsPath, movedPath);
+    await reset();
 
     await writeFile(
       indexPath,
-      `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`,
-      'utf8'
+      `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`
     );
 
     const newTestRun = await betterer({ configPaths, resultsPath });
@@ -42,8 +25,7 @@ describe('betterer', () => {
 
     await writeFile(
       movedPath,
-      `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`,
-      'utf8'
+      `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`
     );
     await deleteFile(indexPath);
 
@@ -53,21 +35,6 @@ describe('betterer', () => {
 
     expect(logs).toMatchSnapshot();
 
-    await writeFile(indexPath, '', 'utf8');
-
-    await reset(resultsPath, movedPath);
+    await reset();
   });
 });
-
-async function reset(resultsPath: string, movedPath: string): Promise<void> {
-  try {
-    await deleteFile(resultsPath);
-  } catch {
-    // Moving on
-  }
-  try {
-    await deleteFile(movedPath);
-  } catch {
-    // Moving on
-  }
-}

@@ -1,39 +1,28 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import stripAnsi from 'strip-ansi';
-import { promisify } from 'util';
-
 import { start } from '@betterer/cli/src';
-import { DEFAULT_RESULTS_PATH } from '@betterer/cli/src/constants';
 
-const FIXTURE = path.resolve(__dirname, '../fixtures/test-betterer-filter');
+import { fixture } from './fixture';
 
-const deleteFile = promisify(fs.unlink);
+'../fixtures/test-betterer-filter';
 
 const ARGV = ['node', './bin/betterer'];
 
-describe('betterer init', () => {
-  it('should initialise betterer in a repo', async () => {
-    jest.setTimeout(10000);
+describe('betterer', () => {
+  it('should filter tests by name', async () => {
+    const { logs, paths, reset } = fixture('test-betterer-filter');
 
-    const logs: Array<string> = [];
-    jest.spyOn(console, 'log').mockImplementation((...messages) => {
-      logs.push(...messages.map(m => stripAnsi(m)));
-    });
+    const fixturePath = paths.fixture;
 
-    const resultsPath = path.resolve(FIXTURE, DEFAULT_RESULTS_PATH);
+    await reset();
 
-    await reset(resultsPath);
-
-    const firstRun = await start(FIXTURE, ARGV);
+    const firstRun = await start(fixturePath, ARGV);
 
     expect(firstRun.ran).toEqual(['test 1', 'test 2', 'test 3']);
 
-    const secondRun = await start(FIXTURE, [...ARGV, '--filter', '1']);
+    const secondRun = await start(fixturePath, [...ARGV, '--filter', '1']);
 
     expect(secondRun.ran).toEqual(['test 1']);
 
-    const thirdRun = await start(FIXTURE, [
+    const thirdRun = await start(fixturePath, [
       ...ARGV,
       '--filter',
       '1',
@@ -45,14 +34,6 @@ describe('betterer init', () => {
 
     expect(logs).toMatchSnapshot();
 
-    await reset(resultsPath);
+    await reset();
   });
 });
-
-async function reset(resultsPath: string): Promise<void> {
-  try {
-    await deleteFile(resultsPath);
-  } catch {
-    // Moving on, nothing to reset
-  }
-}
