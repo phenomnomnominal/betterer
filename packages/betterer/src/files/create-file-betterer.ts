@@ -1,7 +1,8 @@
 import { ConstraintResult } from '@betterer/constraints';
 import { code, error } from '@betterer/logger';
 
-import { Betterer, BettererConfig, MaybeAsync } from '../types';
+import { BettererConfig } from '../config';
+import { Betterer, MaybeAsync } from '../types';
 import { BettererFile } from './file';
 import { BettererFileMarksMap, BettererFileInfo } from './types';
 

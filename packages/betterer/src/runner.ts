@@ -1,31 +1,23 @@
 import { ConstraintResult } from '@betterer/constraints';
-import { br, error, header, info, success, warn } from '@betterer/logger';
-import * as logDiff from 'jest-diff';
+import { br, error, info, success, warn } from '@betterer/logger';
 
+import { BettererConfig } from './config';
 import { print } from './printer';
 import { read } from './reader';
+import { initialise, report, BettererStats } from './statistics';
 import { serialise } from './serialiser';
+import { createTest } from './test';
 import {
-  BettererConfig,
-  BettererGoalFunction,
-  BettererGoal,
   BettererResult,
   BettererResults,
-  BettererStats,
-  BettererTests
+  BettererTests,
+  BettererGoalFunction
 } from './types';
 import { write } from './writer';
 
-export async function betterer(config: BettererConfig): Promise<BettererStats> {
-  header(`
-   \\ | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ \\ / _ \\ __| __/ _ \\ '__/ _ \\ '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | \\    |_.__/ \\___|\\__|\\__\\___|_|  \\___|_|   
- `);
-
+export async function run(config: BettererConfig): Promise<BettererStats> {
   const { configPaths, filters, resultsPath } = config;
+
   let tests: BettererTests = {};
   await Promise.all(
     configPaths.map(async configPath => {
@@ -33,11 +25,9 @@ export async function betterer(config: BettererConfig): Promise<BettererStats> {
       tests = { ...tests, ...moreTests };
     })
   );
+
   const testsToRun = Object.keys(tests).filter(testName => {
-    if (!filters) {
-      return true;
-    }
-    return filters.some(filter => filter.test(testName));
+    return !filters || filters.some(filter => filter.test(testName));
   });
 
   let expectedResults: BettererResults = {};
@@ -57,24 +47,16 @@ export async function betterer(config: BettererConfig): Promise<BettererStats> {
     delete expectedResults[obsoleteName];
   });
 
-  const stats: BettererStats = {
-    obsolete: obsoleteNames,
-    ran: [],
-    failed: [],
-    new: [],
-    better: [],
-    same: [],
-    worse: [],
-    completed: []
-  };
+  const stats = initialise();
+  stats.obsolete.push(...obsoleteNames);
 
   const results: BettererResults = { ...expectedResults };
 
   await testsToRun.reduce(async (p, testName) => {
     await p;
 
-    const { test, constraint, goal } = tests[testName];
-    const diff = tests[testName].diff || defaultDiff;
+    const { test, constraint, goal, diff } = tests[testName];
+    const checkGoal = goal as BettererGoalFunction<unknown>;
 
     let current: unknown;
     try {
@@ -103,8 +85,6 @@ export async function betterer(config: BettererConfig): Promise<BettererStats> {
       success(`"${testName}" got checked for the first time! 🎉`);
       return;
     }
-
-    const checkGoal = createGoal(goal);
 
     const comparison = await constraint(serialisedCurrent, serialisedPrevious);
     const isSame = comparison === ConstraintResult.same;
@@ -149,40 +129,7 @@ export async function betterer(config: BettererConfig): Promise<BettererStats> {
     br();
   }, Promise.resolve());
 
-  const ran = stats.ran.length;
-  const failed = stats.failed.length;
-  const nnew = stats.new.length;
-  const obsolete = stats.obsolete.length;
-  const better = stats.better.length;
-  const worse = stats.worse.length;
-  const same = stats.same.length;
-  const { completed } = stats;
-
-  info(`${ran} ${getThings(ran)} got checked. 🤔`);
-  if (failed) {
-    error(`${failed} ${getThings(failed)} failed to run. 🔥`);
-  }
-  if (nnew) {
-    info(`${nnew} ${getThings(nnew)} got checked for the first time! 🎉`);
-  }
-  if (obsolete) {
-    info(`${obsolete} ${getThings(obsolete)} are no longer needed! 🤪`);
-  }
-  if (better) {
-    success(`${better} ${getThings(better)} got better! 😍`);
-  }
-  if (completed.length) {
-    completed.forEach(testName => {
-      success(`"${testName}" met its goal! 🎉`);
-    });
-  }
-  if (worse) {
-    error(`${worse} ${getThings(worse)} got worse. 😔`);
-  }
-  if (same) {
-    warn(`${same} ${getThings(same)} stayed the same. 😐`);
-  }
-
+  report(stats);
   const printed = await print(results);
 
   let printError = '';
@@ -199,53 +146,26 @@ export async function betterer(config: BettererConfig): Promise<BettererStats> {
   if (printError) {
     error(printError);
     error('printing to stdout instead:');
-    console.log(`\n\n\n${printed}\n\n\n`);
+    process.stdout.write(`\n\n\n${printed}\n\n\n`);
   }
 
   return stats;
 }
 
-function getThings(count: number): string {
-  return count === 1 ? 'thing' : 'things';
-}
-
 async function getTests(configPath: string): Promise<BettererTests> {
   try {
     const imported = await import(configPath);
-    return imported.default ? imported.default : imported;
+    const tests = imported.default ? imported.default : imported;
+    Object.keys(tests).forEach(test => {
+      tests[test] = createTest(tests[test]);
+    });
+    return tests;
   } catch {
     // Couldn't import, doesn't matter...
   }
 
   error(`could not read tests from "${configPath}". 😔`);
   throw new Error();
-}
-
-function defaultDiff(
-  _: unknown,
-  serialisedCurrent: unknown,
-  serialisedPrevious: unknown
-): void {
-  const diffStr =
-    logDiff(serialisedPrevious, serialisedCurrent, {
-      aAnnotation: 'Previous',
-      bAnnotation: 'Current'
-    }) || '';
-  console.log(
-    diffStr
-      .split('\n')
-      .map(line => `  ${line}`)
-      .join('\n')
-  );
-}
-
-function createGoal(
-  goal: BettererGoal<unknown>
-): BettererGoalFunction<unknown> {
-  if (typeof goal === 'function') {
-    return goal as BettererGoalFunction<unknown>;
-  }
-  return (value: unknown): boolean => value === goal;
 }
 
 function update(value: unknown): BettererResult {
