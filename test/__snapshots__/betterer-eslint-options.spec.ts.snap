@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`betterer should handlex complex eslint rule options 1`] = `
+"// BETTERER RESULTS V1.
+exports[\`eslint enable complex rule\`] = {
+  timestamp: 0,
+  value: \`{
+    \\"../src/index.ts:1015454386\\": [
+      [0, 0, 34, \\"Prefer named exports\\"]
+    ]
+  }\`
+};"
+`;
+
+exports[`betterer should handlex complex eslint rule options 2`] = `
+Array [
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"eslint enable complex rule\\"!",
+  " ☀️  betterer  info  💬  - ",
+  "running ESLint with \\"no-restricted-syntax\\" set to \\"[\\"error\\",{\\"selector\\":\\"ExportDefaultDeclaration\\",\\"message\\":\\"Prefer named exports\\"}]\\"",
+  " ☀️  betterer  erro  🔥  - ",
+  "ESLint found some issues:",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"eslint enable complex rule\\" got checked for the first time! 🎉",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked for the first time! 🎉",
+]
+`;

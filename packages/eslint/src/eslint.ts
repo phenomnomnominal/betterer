@@ -28,7 +28,10 @@ export function eslintBetterer(
   return createFileBetterer(async () => {
     const [ruleName, ruleOptions] = rule;
 
-    info(`running ESLint with "${ruleName}" set to "${ruleOptions}"`);
+    const options = isString(ruleOptions)
+      ? ruleOptions
+      : JSON.stringify(ruleOptions);
+    info(`running ESLint with "${ruleName}" set to "${options}"`);
 
     const cli = new CLIEngine({});
     const errors: Array<BettererFileInfo> = [];
@@ -102,4 +105,8 @@ function eslintMessageToBettererError(
     start: startLocation as number,
     end: endLocation as number
   };
+}
+
+function isString(value: unknown): value is string {
+  return typeof value === 'string';
 }
