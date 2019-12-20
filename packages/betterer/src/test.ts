@@ -31,7 +31,7 @@ function defaultDiff(
       aAnnotation: 'Previous',
       bAnnotation: 'Current'
     }) || '';
-  console.log(
+  process.stdout.write(
     diffStr
       .split('\n')
       .map(line => `  ${line}`)

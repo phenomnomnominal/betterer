@@ -146,7 +146,7 @@ export async function run(config: BettererConfig): Promise<BettererStats> {
   if (printError) {
     error(printError);
     error('printing to stdout instead:');
-    console.log(`\n\n\n${printed}\n\n\n`);
+    process.stdout.write(`\n\n\n${printed}\n\n\n`);
   }
 
   return stats;

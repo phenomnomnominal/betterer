@@ -11,12 +11,8 @@ exports[`no hack comments`] = {
   }`
 };
 exports[`no raw console.log`] = {
-  timestamp: 1576781601484,
+  timestamp: 1576800034001,
   value: `{
-    "../packages/betterer/src/betterer.ts:2612875315": [
-      [201, 4, 11, "TSQuery match"],
-      [233, 2, 11, "TSQuery match"]
-    ],
     "../packages/logger/src/logger.ts:3020313855": [
       [12, 2, 11, "TSQuery match"],
       [16, 2, 11, "TSQuery match"],
