@@ -2,6 +2,7 @@ import { error, info, success, warn } from '@betterer/logger';
 
 export type BettererStats = {
   obsolete: Array<string>;
+  skipped: Array<string>;
   ran: Array<string>;
   failed: Array<string>;
   new: Array<string>;
@@ -14,6 +15,7 @@ export type BettererStats = {
 export function initialise(): BettererStats {
   return {
     obsolete: [],
+    skipped: [],
     ran: [],
     failed: [],
     new: [],
@@ -32,6 +34,7 @@ export function report(stats: BettererStats): void {
   const better = stats.better.length;
   const worse = stats.worse.length;
   const same = stats.same.length;
+  const skipped = stats.skipped.length;
   const { completed } = stats;
 
   info(`${ran} ${getThings(ran)} got checked. 🤔`);
@@ -57,6 +60,9 @@ export function report(stats: BettererStats): void {
   }
   if (same) {
     warn(`${same} ${getThings(same)} stayed the same. 😐`);
+  }
+  if (skipped) {
+    warn(`${skipped} ${getThings(skipped)} got skipped. ❌`);
   }
 }
 

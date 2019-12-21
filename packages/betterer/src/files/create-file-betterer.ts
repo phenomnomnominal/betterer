@@ -1,8 +1,9 @@
 import { ConstraintResult } from '@betterer/constraints';
 import { code, error } from '@betterer/logger';
 
+import { Betterer, createBetterer } from '../betterer';
 import { BettererConfig } from '../config';
-import { Betterer, MaybeAsync } from '../types';
+import { MaybeAsync } from '../types';
 import { BettererFile } from './file';
 import { BettererFileMarksMap, BettererFileInfo } from './types';
 
@@ -11,14 +12,14 @@ export type FileBetterer = Betterer<BettererFile, BettererFileMarksMap>;
 export function createFileBetterer(
   test: () => MaybeAsync<Array<BettererFileInfo>>
 ): FileBetterer {
-  return {
+  return createBetterer({
     test: async (config: BettererConfig): Promise<BettererFile> => {
       return BettererFile.fromInfo(config, await test());
     },
     constraint,
     goal,
     diff
-  };
+  });
 }
 
 export function constraint(
