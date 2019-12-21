@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`betterer should filter tests by name 1`] = `
+exports[`betterer should run specific tests 1`] = `
 Array [
   "
    \\\\ | /     _          _   _                     
@@ -22,9 +22,15 @@ Array [
   " ☀️  betterer  succ  ✅  - ",
   "\\"test 3\\" got checked for the first time! 🎉",
   " ☀️  betterer  info  💬  - ",
-  "3 things got checked. 🤔",
+  "running \\"test 4\\"!",
   " ☀️  betterer  info  💬  - ",
-  "3 things got checked for the first time! 🎉",
+  "using RegExp to find files matching \\"/(\\\\/\\\\/\\\\s*HACK)/i\\"",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"test 4\\" got checked for the first time! 🎉",
+  " ☀️  betterer  info  💬  - ",
+  "4 things got checked. 🤔",
+  " ☀️  betterer  info  💬  - ",
+  "4 things got checked for the first time! 🎉",
   "
    \\\\ | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
@@ -37,31 +43,40 @@ Array [
   " ☀️  betterer  warn  ⚠️  - ",
   "\\"test 1\\" stayed the same. 😐",
   " ☀️  betterer  info  💬  - ",
-  "1 thing got checked. 🤔",
+  "running \\"test 4\\"!",
+  " ☀️  betterer  info  💬  - ",
+  "using RegExp to find files matching \\"/(\\\\/\\\\/\\\\s*HACK)/i\\"",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"test 4\\" has already met its goal! ✨",
+  " ☀️  betterer  info  💬  - ",
+  "2 things got checked. 🤔",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"test 4\\" met its goal! 🎉",
   " ☀️  betterer  warn  ⚠️  - ",
   "1 thing stayed the same. 😐",
   " ☀️  betterer  warn  ⚠️  - ",
   "2 things got skipped. ❌",
-  "
-   \\\\ | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"test 1\\"!",
-  " ☀️  betterer  warn  ⚠️  - ",
-  "\\"test 1\\" stayed the same. 😐",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"test 3\\"!",
-  " ☀️  betterer  warn  ⚠️  - ",
-  "\\"test 3\\" stayed the same. 😐",
-  " ☀️  betterer  info  💬  - ",
-  "2 things got checked. 🤔",
-  " ☀️  betterer  warn  ⚠️  - ",
-  "2 things stayed the same. 😐",
-  " ☀️  betterer  warn  ⚠️  - ",
-  "1 thing got skipped. ❌",
 ]
+`;
+
+exports[`betterer should run specific tests 2`] = `
+"// BETTERER RESULTS V1.
+exports[\`test 1\`] = {
+  timestamp: 0,
+  value: \`0\`
+};
+exports[\`test 2\`] = {
+  timestamp: 0,
+  value: \`0\`
+};
+exports[\`test 3\`] = {
+  timestamp: 0,
+  value: \`0\`
+};
+exports[\`test 4\`] = {
+  timestamp: 0,
+  value: \`{
+
+  }\`
+};"
 `;
