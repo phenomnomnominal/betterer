@@ -37,15 +37,10 @@ export class Betterer<Base = unknown, Serialised = Base> {
   }: BettererOptions<Base, Serialised>) {
     this.constraint = constraint;
     this.diff = diff;
-    this.goal = this._createGoal(goal);
+    this.goal = createGoal(goal);
     this.test = test;
-    this.isSkipped = isSkipped;
     this.isOnly = isOnly;
-  }
-
-  public skip(): Betterer<Base, Serialised> {
-    this.isSkipped = true;
-    return this;
+    this.isSkipped = isSkipped;
   }
 
   public only(): Betterer<Base, Serialised> {
@@ -53,14 +48,19 @@ export class Betterer<Base = unknown, Serialised = Base> {
     return this;
   }
 
-  private _createGoal(
-    goal: BettererGoal<unknown>
-  ): BettererGoalFunction<unknown> {
-    if (typeof goal === 'function') {
-      return goal as BettererGoalFunction<unknown>;
-    }
-    return (value: unknown): boolean => value === goal;
+  public skip(): Betterer<Base, Serialised> {
+    this.isSkipped = true;
+    return this;
   }
+}
+
+function createGoal(
+  goal: BettererGoal<unknown>
+): BettererGoalFunction<unknown> {
+  if (typeof goal === 'function') {
+    return goal as BettererGoalFunction<unknown>;
+  }
+  return (value: unknown): boolean => value === goal;
 }
 
 function defaultDiff(

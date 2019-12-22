@@ -65,7 +65,7 @@ export function regexpBetterer(
     );
 
     if (errors.length) {
-      error(`found ${errors.length} RegExp matches:`);
+      error('RegExp found some matches:');
     }
 
     return errors;
