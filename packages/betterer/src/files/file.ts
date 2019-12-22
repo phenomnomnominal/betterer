@@ -19,6 +19,7 @@ const UNKNOWN_LOCATION = {
 
 export class BettererFile
   implements Serialisable<BettererFileMarksMap>, Printable {
+  private _excluded: Array<RegExp> = [];
   private _fileInfoMap: BettererFileInfoMap | null = null;
   private _fileHashMap: BettererFileHashMap = {};
   private _fileHashes: Array<string> = [];
@@ -63,6 +64,10 @@ export class BettererFile
     return file;
   }
 
+  public exclude(excluded: Array<RegExp>): void {
+    this._excluded = excluded;
+  }
+
   public getFilePaths(): Array<string> {
     return Object.keys(this._fileHashMap);
   }
@@ -90,6 +95,9 @@ export class BettererFile
     const serialised: BettererFileMarksMap = {};
     Object.keys(this._fileMarkMap)
       .filter(filePath => !!this._fileMarkMap[filePath])
+      .filter(
+        filePath => !this._excluded.some(exclude => exclude.test(filePath))
+      )
       .map(filePath => {
         const marks = this._fileMarkMap[filePath];
         const fileHash = this._fileHashMap[filePath];

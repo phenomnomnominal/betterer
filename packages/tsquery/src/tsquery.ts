@@ -36,7 +36,7 @@ export function tsqueryBetterer(
     });
 
     if (matches.length) {
-      error(`found ${matches.length} TSQuery matches:`);
+      error('TSQuery found some matches:');
     }
 
     return matches;

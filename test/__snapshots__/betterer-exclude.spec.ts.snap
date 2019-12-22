@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`betterer should exclude specific files from results 1`] = `
+"// BETTERER RESULTS V1.
+exports[\`regexp no hack comments\`] = {
+  timestamp: 0,
+  value: \`{
+    \\"../src/exclude.ts:645618020\\": [
+      [0, 0, 7, \\"RegExp match\\"]
+    ],
+    \\"../src/index.ts:645618020\\": [
+      [0, 0, 7, \\"RegExp match\\"]
+    ]
+  }\`
+};"
+`;
+
+exports[`betterer should exclude specific files from results 2`] = `
+"// BETTERER RESULTS V1.
+exports[\`regexp no hack comments\`] = {
+  timestamp: 0,
+  value: \`{
+    \\"../src/index.ts:645618020\\": [
+      [0, 0, 7, \\"RegExp match\\"]
+    ]
+  }\`
+};"
+`;
+
+exports[`betterer should exclude specific files from results 3`] = `
+Array [
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"regexp no hack comments\\"!",
+  " ☀️  betterer  info  💬  - ",
+  "using RegExp to find files matching \\"/(\\\\/\\\\/\\\\s*HACK)/i\\"",
+  " ☀️  betterer  erro  🔥  - ",
+  "RegExp found some matches:",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"regexp no hack comments\\" got checked for the first time! 🎉",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked for the first time! 🎉",
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"regexp no hack comments\\"!",
+  " ☀️  betterer  info  💬  - ",
+  "using RegExp to find files matching \\"/(\\\\/\\\\/\\\\s*HACK)/i\\"",
+  " ☀️  betterer  erro  🔥  - ",
+  "RegExp found some matches:",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"regexp no hack comments\\" got better! 😍",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  succ  ✅  - ",
+  "1 thing got better! 😍",
+]
+`;
