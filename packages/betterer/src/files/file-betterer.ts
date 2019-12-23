@@ -3,7 +3,7 @@ import { code, error } from '@betterer/logger';
 
 import { Betterer } from '../betterer';
 import { BettererConfig } from '../config';
-import { MaybeAsync } from '../types';
+import { MaybeAsync } from '../utils';
 import { BettererFileInfo, BettererFileMarksMap } from './types';
 import { BettererFile } from './file';
 

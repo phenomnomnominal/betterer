@@ -1,7 +1,7 @@
 import * as commander from 'commander';
 import * as path from 'path';
 
-import { betterer, BettererStats } from '@betterer/betterer';
+import { BettererStats, betterer } from '@betterer/betterer';
 import {
   DEFAULT_CONFIG_PATH,
   DEFAULT_RESULTS_PATH,

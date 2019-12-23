@@ -1,7 +1,7 @@
 import { ConstraintResult } from '@betterer/constraints';
 
 import { BettererConfig } from '../config';
-import { MaybeAsync } from '../types';
+import { MaybeAsync } from '../utils';
 
 export type BettererTest<T> = (config: BettererConfig) => MaybeAsync<T>;
 
