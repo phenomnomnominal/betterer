@@ -2,7 +2,7 @@ import { error } from '@betterer/logger';
 
 import { BettererContext } from '../context';
 import { print } from './printer';
-import { report } from './statistics';
+import { report } from './reporter';
 import { write } from './writer';
 
 export async function process(

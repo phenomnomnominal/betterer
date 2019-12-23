@@ -1,2 +1,2 @@
 export * from './runner';
-export * from './statistics';
+export * from '../reporter/reporter';

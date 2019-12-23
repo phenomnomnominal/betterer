@@ -1,6 +1,6 @@
-import { Betterer } from './betterer';
+import { Betterer } from '../betterer';
 import { BettererConfig } from './config';
-import { BettererStats } from './runner';
+import { BettererStats } from './statistics';
 
 export type BettererContext = {
   config: BettererConfig;

@@ -2,29 +2,22 @@ import { ConstraintResult } from '@betterer/constraints';
 import { br, error, info, success, warn } from '@betterer/logger';
 
 import { Betterer } from '../betterer';
-import { BettererConfig } from '../config';
 import { BettererResult, BettererContext } from '../context';
-import { prepare } from './prepare';
-import { process } from './process';
 import { serialise } from './serialiser';
 
-export async function run(config: BettererConfig): Promise<BettererContext> {
-  const context = await prepare(config);
+export async function runTests(context: BettererContext): Promise<void> {
   const { betterers } = context;
-
   await betterers.reduce(async (p, betterer) => {
     await p;
     await runTest(betterer, context);
   }, Promise.resolve());
-
-  return await process(context);
 }
 
 async function runTest(
   betterer: Betterer,
   context: BettererContext
 ): Promise<void> {
-  const { config, expected, only, results, stats } = context;
+  const { expected, only, results, stats } = context;
   const { test, constraint, goal, diff, isSkipped, name } = betterer;
 
   if (only.length && !only.includes(betterer)) {
@@ -40,7 +33,7 @@ async function runTest(
   let current: unknown;
   try {
     info(`running "${name}"!`);
-    current = await test(config);
+    current = await test(context);
   } catch {
     stats.failed.push(name);
     error(`"${name}" failed to run. 🔥`);

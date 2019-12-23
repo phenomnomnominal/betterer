@@ -1,15 +1,10 @@
 import { error } from '@betterer/logger';
 
 import { Betterer, createBetterer } from '../betterer';
-import { BettererContext, BettererResults } from '../context';
+import { BettererConfig } from './config';
+import { BettererContext, BettererResults } from './context';
 import { read } from './reader';
 import { initialise } from './statistics';
-
-export type BettererConfig = {
-  configPaths: Array<string>;
-  resultsPath: string;
-  filters?: Array<RegExp>;
-};
 
 export async function prepare(
   config: BettererConfig

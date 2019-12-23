@@ -1,9 +1,9 @@
 import LinesAndColumns from 'lines-and-columns';
 import * as path from 'path';
 
-import { BettererConfig } from '../config';
+import { BettererContext } from '../context';
 import { hash } from '../hasher';
-import { Printable } from '../runner/printer';
+import { Printable } from '../reporter/printer';
 import { Serialisable } from '../runner/serialiser';
 import {
   BettererFileMarksMap,
@@ -27,13 +27,14 @@ export class BettererFile
   private _fileMarkMap: BettererFileMarksMap = {};
 
   static fromInfo(
-    config: BettererConfig,
+    context: BettererContext,
     info: Array<BettererFileInfo>
   ): BettererFile {
     const file = new BettererFile();
     const fileInfo: BettererFileInfoMap = {};
     info.forEach(i => {
-      const relativePath = file._getPath(config.resultsPath, i.filePath);
+      const { resultsPath } = context.config;
+      const relativePath = file._getPath(resultsPath, i.filePath);
       fileInfo[relativePath] = fileInfo[relativePath] || [];
       fileInfo[relativePath].push(i);
       file._fileMarkMap[relativePath] = file._fileMarkMap[relativePath] || [];

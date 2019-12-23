@@ -2,32 +2,6 @@ import { error, info, success, warn } from '@betterer/logger';
 
 import { BettererContext } from '../context';
 
-export type BettererStats = {
-  obsolete: Array<string>;
-  skipped: Array<string>;
-  ran: Array<string>;
-  failed: Array<string>;
-  new: Array<string>;
-  better: Array<string>;
-  same: Array<string>;
-  worse: Array<string>;
-  completed: Array<string>;
-};
-
-export function initialise(): BettererStats {
-  return {
-    obsolete: [],
-    skipped: [],
-    ran: [],
-    failed: [],
-    new: [],
-    better: [],
-    same: [],
-    worse: [],
-    completed: []
-  };
-}
-
 export function report(context: BettererContext): void {
   const { stats } = context;
   const ran = stats.ran.length;
