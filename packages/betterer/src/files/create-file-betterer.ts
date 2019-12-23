@@ -1,4 +1,4 @@
-import { MaybeAsync } from '../utils';
+import { MaybeAsync } from '../types';
 import { FileBetterer } from './file-betterer';
 import { BettererFileInfo } from './types';
 

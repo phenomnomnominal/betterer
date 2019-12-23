@@ -5,7 +5,6 @@ import { BettererConfig } from '../config';
 import { hash } from '../hasher';
 import { Printable } from '../runner/printer';
 import { Serialisable } from '../runner/serialiser';
-import { normalisePath } from '../utils';
 import {
   BettererFileMarksMap,
   BettererFileInfo,
@@ -140,6 +139,8 @@ export class BettererFile
 
   private _getPath(resultsPath: string, filePath: string): string {
     const relativeFilePath = path.relative(resultsPath, filePath);
-    return normalisePath(relativeFilePath);
+    return path.sep === path.posix.sep
+      ? relativeFilePath
+      : relativeFilePath.split(path.sep).join(path.posix.sep);
   }
 }

@@ -1,7 +1,7 @@
 import { escape } from 'safe-string-literal';
 
 import { BettererContext } from '../context';
-import { MaybeAsync } from '../utils';
+import { MaybeAsync } from '../types';
 
 const RESULTS_HEADER = `// BETTERER RESULTS V1.`;
 

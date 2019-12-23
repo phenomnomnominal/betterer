@@ -1,4 +1,4 @@
-import { MaybeAsync } from '../utils';
+import { MaybeAsync } from '../types';
 
 export type Serialisable<T = unknown> = {
   serialise: () => MaybeAsync<T>;
