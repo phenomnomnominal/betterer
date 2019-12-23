@@ -17,8 +17,6 @@ export type BettererOptions<TestType, SerialisedType = TestType> = {
   isSkipped?: boolean;
 };
 
-export type NamedBetterer = Betterer & { name: string };
-
 export class Betterer<Base = unknown, Serialised = Base> {
   public constraint: BettererConstraint<Serialised>;
   public diff: BettererDiff<Base, Serialised>;
@@ -26,6 +24,7 @@ export class Betterer<Base = unknown, Serialised = Base> {
   public test: BettererTest<Base>;
   public isOnly = false;
   public isSkipped = false;
+  public name = '';
 
   constructor({
     test,

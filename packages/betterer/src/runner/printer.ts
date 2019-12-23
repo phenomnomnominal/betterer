@@ -1,5 +1,7 @@
-import { BettererResults, MaybeAsync } from './types';
 import { escape } from 'safe-string-literal';
+
+import { BettererContext } from '../context';
+import { MaybeAsync } from '../types';
 
 const RESULTS_HEADER = `// BETTERER RESULTS V1.`;
 
@@ -10,7 +12,8 @@ export type Printable = {
 // Characters that we avoid escaping to make snapshots easier to visually diff
 const UNESCAPED = '"\n';
 
-export async function print(results: BettererResults): Promise<string> {
+export async function print(context: BettererContext): Promise<string> {
+  const { results } = context;
   const printed = await Promise.all(
     Object.keys(results).map(async resultName => {
       const { timestamp, value } = results[resultName];

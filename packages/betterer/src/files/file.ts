@@ -1,9 +1,10 @@
 import LinesAndColumns from 'lines-and-columns';
 import * as path from 'path';
+
 import { BettererConfig } from '../config';
 import { hash } from '../hasher';
-import { Printable } from '../printer';
-import { Serialisable } from '../serialiser';
+import { Printable } from '../runner/printer';
+import { Serialisable } from '../runner/serialiser';
 import {
   BettererFileMarksMap,
   BettererFileInfo,

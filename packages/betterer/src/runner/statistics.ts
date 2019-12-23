@@ -1,5 +1,7 @@
 import { error, info, success, warn } from '@betterer/logger';
 
+import { BettererContext } from '../context';
+
 export type BettererStats = {
   obsolete: Array<string>;
   skipped: Array<string>;
@@ -26,7 +28,8 @@ export function initialise(): BettererStats {
   };
 }
 
-export function report(stats: BettererStats): void {
+export function report(context: BettererContext): void {
+  const { stats } = context;
   const ran = stats.ran.length;
   const failed = stats.failed.length;
   const nnew = stats.new.length;

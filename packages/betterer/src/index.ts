@@ -1,25 +1,19 @@
-import { header } from '@betterer/logger';
+import { logo } from '@betterer/logger';
 
 import { BettererConfig } from './config';
 import { registerExtensions } from './register';
-import { run } from './runner';
-import { BettererStats } from './statistics';
+import { run, BettererStats } from './runner';
 
 export * from './config';
+export * from './context';
 export * from './constants';
 export * from './files';
-export * from './statistics';
-export * from './types';
+export * from './runner';
 
 registerExtensions();
 
-export function betterer(config: BettererConfig): Promise<BettererStats> {
-  header(`
-   \\ | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ \\ / _ \\ __| __/ _ \\ '__/ _ \\ '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | \\    |_.__/ \\___|\\__|\\__\\___|_|  \\___|_|   
- `);
-  return run(config);
+export async function betterer(config: BettererConfig): Promise<BettererStats> {
+  logo();
+  const result = await run(config);
+  return result.stats;
 }

@@ -13,6 +13,16 @@ export function header(head: string): void {
   console.log(chalk.yellowBright(head));
 }
 
+export function logo(): void {
+  header(`
+   \\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\ / _ \\ __| __/ _ \\ '__/ _ \\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\    |_.__/ \\___|\\__|\\__\\___|_|  \\___|_|   
+ `);
+}
+
 export function br(): void {
   console.log('');
 }

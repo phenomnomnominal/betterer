@@ -1,7 +1,7 @@
 import { readFile } from 'fs';
 import { promisify } from 'util';
 
-import { BettererResults } from './types';
+import { BettererResults } from '../context';
 
 const readFileAsync = promisify(readFile);
 
