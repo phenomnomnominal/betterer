@@ -4,9 +4,7 @@ import { fixture } from './fixture';
 
 describe('betterer', () => {
   it('should skip a test', async () => {
-    const { logs, paths, readFile, reset, resolve } = fixture(
-      'test-betterer-skip'
-    );
+    const { logs, paths, readFile, reset, resolve } = fixture('test-betterer-skip');
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;

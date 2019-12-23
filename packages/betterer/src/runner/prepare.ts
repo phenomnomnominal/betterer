@@ -11,9 +11,7 @@ export type BettererConfig = {
   filters?: Array<RegExp>;
 };
 
-export async function prepare(
-  config: BettererConfig
-): Promise<BettererContext> {
+export async function prepare(config: BettererConfig): Promise<BettererContext> {
   const { configPaths, filters = [], resultsPath } = config;
 
   const stats = initialise();
@@ -46,9 +44,7 @@ export async function prepare(
     }
   }
 
-  const obsolete = Object.keys(expected).filter(
-    name => !betterers.find(betterer => betterer.name === name)
-  );
+  const obsolete = Object.keys(expected).filter(name => !betterers.find(betterer => betterer.name === name));
   obsolete.forEach(name => {
     delete expected[name];
   });

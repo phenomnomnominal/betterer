@@ -5,9 +5,7 @@ import { print } from './printer';
 import { report } from './statistics';
 import { write } from './writer';
 
-export async function process(
-  context: BettererContext
-): Promise<BettererContext> {
+export async function process(context: BettererContext): Promise<BettererContext> {
   const { config } = context;
   const { resultsPath } = config;
   report(context);

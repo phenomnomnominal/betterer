@@ -8,10 +8,7 @@ import { error, info } from '@betterer/logger';
 const readFile = ts.sys.readFile.bind(ts.sys);
 const readDirectory = ts.sys.readDirectory.bind(ts.sys);
 
-export function typescriptBetterer(
-  configFilePath: string,
-  extraCompilerOptions?: ts.CompilerOptions
-): FileBetterer {
+export function typescriptBetterer(configFilePath: string, extraCompilerOptions?: ts.CompilerOptions): FileBetterer {
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
   const absPath = path.resolve(cwd, configFilePath);
@@ -67,9 +64,7 @@ export function typescriptBetterer(
     return allDiagnostics.map((diagnostic: ts.Diagnostic) => {
       const { file, start, length } = diagnostic as ts.DiagnosticWithLocation;
       return {
-        message: ts
-          .flattenDiagnosticMessageText(diagnostic.messageText, '\n')
-          .replace(process.cwd(), '.'),
+        message: ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n').replace(process.cwd(), '.'),
         filePath: file.fileName,
         fileText: file.getFullText(),
         start,

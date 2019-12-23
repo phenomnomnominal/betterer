@@ -20,10 +20,7 @@ export async function run(config: BettererConfig): Promise<BettererContext> {
   return await process(context);
 }
 
-async function runTest(
-  betterer: Betterer,
-  context: BettererContext
-): Promise<void> {
+async function runTest(betterer: Betterer, context: BettererContext): Promise<void> {
   const { config, expected, only, results, stats } = context;
   const { test, constraint, goal, diff, isSkipped, name } = betterer;
 
@@ -49,9 +46,7 @@ async function runTest(
   stats.ran.push(name);
 
   // Get the serialised previous results from the test results file:
-  const serialisedPrevious = expected[name]
-    ? JSON.parse(expected[name].value as string)
-    : null;
+  const serialisedPrevious = expected[name] ? JSON.parse(expected[name].value as string) : null;
 
   // Serialise the current results so that the `constraint`, `diff`, and
   // `goal` can be evaluated on the same shape object:

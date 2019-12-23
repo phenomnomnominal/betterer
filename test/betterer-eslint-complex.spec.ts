@@ -4,14 +4,7 @@ import { fixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the status of a new eslint rule with a complex set up', async () => {
-    const {
-      logs,
-      paths,
-      readFile,
-      reset,
-      resolve,
-      writeFile
-    } = eslintComplexFixture();
+    const { logs, paths, readFile, reset, resolve, writeFile } = eslintComplexFixture();
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
@@ -47,9 +40,7 @@ describe('betterer', () => {
 
     const completedTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(completedTestRun.completed).toEqual([
-      'eslint enable no-debugger rule'
-    ]);
+    expect(completedTestRun.completed).toEqual(['eslint enable no-debugger rule']);
 
     expect(logs).toMatchSnapshot();
 

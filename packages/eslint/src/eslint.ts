@@ -5,21 +5,14 @@ import LinesAndColumns from 'lines-and-columns';
 import * as path from 'path';
 import { promisify } from 'util';
 
-import {
-  BettererFileInfo,
-  FileBetterer,
-  createFileBetterer
-} from '@betterer/betterer';
+import { BettererFileInfo, FileBetterer, createFileBetterer } from '@betterer/betterer';
 import { error, info } from '@betterer/logger';
 
 const globAsync = promisify(glob);
 
 type ESLintRuleConfig = [string, Linter.RuleLevel | Linter.RuleLevelAndOptions];
 
-export function eslintBetterer(
-  files: string | Array<string>,
-  rule: ESLintRuleConfig
-): FileBetterer {
+export function eslintBetterer(files: string | Array<string>, rule: ESLintRuleConfig): FileBetterer {
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
   const filesArray = Array.isArray(files) ? files : [files];
@@ -28,9 +21,7 @@ export function eslintBetterer(
   return createFileBetterer(async () => {
     const [ruleName, ruleOptions] = rule;
 
-    const options = isString(ruleOptions)
-      ? ruleOptions
-      : JSON.stringify(ruleOptions);
+    const options = isString(ruleOptions) ? ruleOptions : JSON.stringify(ruleOptions);
     info(`running ESLint with "${ruleName}" set to "${options}"`);
 
     const cli = new CLIEngine({});
@@ -66,9 +57,7 @@ export function eslintBetterer(
             const { source, messages } = result;
             messages.forEach(message => {
               if (source) {
-                errors.push(
-                  eslintMessageToBettererError(filePath, source, message)
-                );
+                errors.push(eslintMessageToBettererError(filePath, source, message));
               }
             });
           });
@@ -84,11 +73,7 @@ export function eslintBetterer(
   });
 }
 
-function eslintMessageToBettererError(
-  filePath: string,
-  source: string,
-  message: Linter.LintMessage
-): BettererFileInfo {
+function eslintMessageToBettererError(filePath: string, source: string, message: Linter.LintMessage): BettererFileInfo {
   const lc = new LinesAndColumns(source);
   const startLocation = lc.indexForLocation({
     line: message.line - 1,

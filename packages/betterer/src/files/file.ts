@@ -18,18 +18,14 @@ const UNKNOWN_LOCATION = {
   column: 0
 } as const;
 
-export class BettererFile
-  implements Serialisable<BettererFileMarksMap>, Printable {
+export class BettererFile implements Serialisable<BettererFileMarksMap>, Printable {
   private _excluded: Array<RegExp> = [];
   private _fileInfoMap: BettererFileInfoMap | null = null;
   private _fileHashMap: BettererFileHashMap = {};
   private _fileHashes: Array<string> = [];
   private _fileMarkMap: BettererFileMarksMap = {};
 
-  static fromInfo(
-    config: BettererConfig,
-    info: Array<BettererFileInfo>
-  ): BettererFile {
+  static fromInfo(config: BettererConfig, info: Array<BettererFileInfo>): BettererFile {
     const file = new BettererFile();
     const fileInfo: BettererFileInfoMap = {};
     info.forEach(i => {
@@ -96,9 +92,7 @@ export class BettererFile
     const serialised: BettererFileMarksMap = {};
     Object.keys(this._fileMarkMap)
       .filter(filePath => !!this._fileMarkMap[filePath])
-      .filter(
-        filePath => !this._excluded.some(exclude => exclude.test(filePath))
-      )
+      .filter(filePath => !this._excluded.some(exclude => exclude.test(filePath)))
       .map(filePath => {
         const marks = this._fileMarkMap[filePath];
         const fileHash = this._fileHashMap[filePath];
@@ -120,9 +114,7 @@ export class BettererFile
           printed += ',\n';
         }
         const [line, column, length, message] = mark;
-        printed += `      [${line}, ${column}, ${length}, ${JSON.stringify(
-          message
-        )}]`;
+        printed += `      [${line}, ${column}, ${length}, ${JSON.stringify(message)}]`;
       });
       printed += `\n    ]`;
     });
@@ -139,8 +131,6 @@ export class BettererFile
 
   private _getPath(resultsPath: string, filePath: string): string {
     const relativeFilePath = path.relative(resultsPath, filePath);
-    return path.sep === path.posix.sep
-      ? relativeFilePath
-      : relativeFilePath.split(path.sep).join(path.posix.sep);
+    return path.sep === path.posix.sep ? relativeFilePath : relativeFilePath.split(path.sep).join(path.posix.sep);
   }
 }

@@ -35,9 +35,7 @@ sum.apply(null, [1, 2, 3]);
 
 describe('betterer', () => {
   it('should report the status of the TypeScript compiler in strict mode', async () => {
-    const { paths, logs, resolve, readFile, reset, writeFile } = fixture(
-      'test-betterer-typescript-strict'
-    );
+    const { paths, logs, resolve, readFile, reset, writeFile } = fixture('test-betterer-typescript-strict');
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
@@ -55,10 +53,7 @@ describe('betterer', () => {
 
     expect(sameTestRun.same).toEqual(['typescript use strict mode']);
 
-    await writeFile(
-      indexPath,
-      `${INDEX_SOURCE}\nconst a = 'a';\nconst one = 1;\nconsole.log(a * one);`
-    );
+    await writeFile(indexPath, `${INDEX_SOURCE}\nconst a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
 
     const worseTestRun = await betterer({ configPaths, resultsPath });
 
@@ -68,13 +63,7 @@ describe('betterer', () => {
 
     expect(result).toMatchSnapshot();
 
-    await writeFile(
-      indexPath,
-      INDEX_SOURCE.replace(
-        'sum.apply(null, [1, 2, 3]);',
-        'sum.apply(null, [1, 2]);'
-      )
-    );
+    await writeFile(indexPath, INDEX_SOURCE.replace('sum.apply(null, [1, 2, 3]);', 'sum.apply(null, [1, 2]);'));
 
     const betterTestRun = await betterer({ configPaths, resultsPath });
 

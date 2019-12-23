@@ -10,7 +10,7 @@ module.exports = {
     project: path.resolve(__dirname, './tsconfig.json'),
     sourceType: 'module'
   },
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'prettier'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
@@ -18,6 +18,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended-requiring-type-checking'
   ],
   rules: {
-    '@typescript-eslint/no-use-before-define': 0
+    '@typescript-eslint/no-use-before-define': 0,
+    'prettier/prettier': 'error'
   }
 };
