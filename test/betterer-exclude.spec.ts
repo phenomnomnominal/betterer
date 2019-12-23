@@ -4,9 +4,7 @@ import { fixture } from './fixture';
 
 describe('betterer', () => {
   it('should exclude specific files from results', async () => {
-    const { logs, paths, readFile, reset, resolve, writeFile } = fixture(
-      'test-betterer-exclude'
-    );
+    const { logs, paths, readFile, reset, resolve, writeFile } = fixture('test-betterer-exclude');
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;

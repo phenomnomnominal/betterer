@@ -2,11 +2,7 @@ import * as commander from 'commander';
 import * as path from 'path';
 
 import { BettererStats, betterer } from '@betterer/betterer';
-import {
-  DEFAULT_CONFIG_PATH,
-  DEFAULT_RESULTS_PATH,
-  DEFAULT_FILTER
-} from './constants';
+import { DEFAULT_CONFIG_PATH, DEFAULT_RESULTS_PATH, DEFAULT_FILTER } from './constants';
 
 type CLIStartConfig = {
   config: Array<string>;
@@ -14,28 +10,19 @@ type CLIStartConfig = {
   filter: Array<string>;
 };
 
-export async function start(
-  cwd: string,
-  argv: Array<string>
-): Promise<BettererStats> {
+export async function start(cwd: string, argv: Array<string>): Promise<BettererStats> {
   commander
     .option(
       '-c, --config [value]',
       'Path to test definition file relative to CWD',
-      (value: string, previous: Array<string>): Array<string> =>
-        previous.concat([value]),
+      (value: string, previous: Array<string>): Array<string> => previous.concat([value]),
       []
     )
-    .option(
-      '-r, --results [value]',
-      'Path to test results file relative to CWD',
-      DEFAULT_RESULTS_PATH
-    )
+    .option('-r, --results [value]', 'Path to test results file relative to CWD', DEFAULT_RESULTS_PATH)
     .option(
       '-f, --filter [value]',
       'RegExp filter for tests to run',
-      (value: string, previous: Array<string>): Array<string> =>
-        previous.concat([value]),
+      (value: string, previous: Array<string>): Array<string> => previous.concat([value]),
       []
     )
     .parse(argv);

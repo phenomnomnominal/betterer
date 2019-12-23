@@ -3,9 +3,7 @@ import { fixture } from './fixture';
 
 describe('betterer', () => {
   it('should work when a test gets worse', async () => {
-    const { paths, logs, resolve, readFile, reset } = fixture(
-      'test-betterer-worse'
-    );
+    const { paths, logs, resolve, readFile, reset } = fixture('test-betterer-worse');
 
     const configPaths = [paths.config];
     const resultsPath = resolve(paths.results);

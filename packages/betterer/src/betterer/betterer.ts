@@ -1,12 +1,6 @@
 import * as logDiff from 'jest-diff';
 
-import {
-  BettererGoal,
-  BettererGoalFunction,
-  BettererTest,
-  BettererConstraint,
-  BettererDiff
-} from './types';
+import { BettererGoal, BettererGoalFunction, BettererTest, BettererConstraint, BettererDiff } from './types';
 
 export type BettererOptions<TestType, SerialisedType = TestType> = {
   test: BettererTest<TestType>;
@@ -53,20 +47,14 @@ export class Betterer<Base = unknown, Serialised = Base> {
   }
 }
 
-function createGoal(
-  goal: BettererGoal<unknown>
-): BettererGoalFunction<unknown> {
+function createGoal(goal: BettererGoal<unknown>): BettererGoalFunction<unknown> {
   if (typeof goal === 'function') {
     return goal as BettererGoalFunction<unknown>;
   }
   return (value: unknown): boolean => value === goal;
 }
 
-function defaultDiff(
-  _: unknown,
-  serialisedCurrent: unknown,
-  serialisedPrevious: unknown
-): void {
+function defaultDiff(_: unknown, serialisedCurrent: unknown, serialisedPrevious: unknown): void {
   const diffStr =
     logDiff(serialisedPrevious, serialisedCurrent, {
       aAnnotation: 'Previous',

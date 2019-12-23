@@ -106,11 +106,7 @@ function diff(
   const filesWithChanges = files.filter(file => {
     const currentMarks = deserialisedCurrent.getFileMarks(file);
     const previousMarks = deserialisedPrevious.getFileMarks(file);
-    if (
-      !currentMarks ||
-      !previousMarks ||
-      currentMarks.length !== previousMarks.length
-    ) {
+    if (!currentMarks || !previousMarks || currentMarks.length !== previousMarks.length) {
       return true;
     }
     return currentMarks.some(([cLine, cColumn, cLength], index) => {

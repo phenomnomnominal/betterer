@@ -22,13 +22,7 @@ describe('betterer', () => {
 
     expect(secondRun.ran).toEqual(['test 1']);
 
-    const thirdRun = await start(fixturePath, [
-      ...ARGV,
-      '--filter',
-      '1',
-      '--filter',
-      '3'
-    ]);
+    const thirdRun = await start(fixturePath, [...ARGV, '--filter', '1', '--filter', '3']);
 
     expect(thirdRun.ran).toEqual(['test 1', 'test 3']);
 

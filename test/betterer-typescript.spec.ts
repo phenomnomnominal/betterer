@@ -3,9 +3,7 @@ import { fixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the status of the TypeScript compiler', async () => {
-    const { paths, logs, resolve, readFile, reset, writeFile } = fixture(
-      'test-betterer-typescript'
-    );
+    const { paths, logs, resolve, readFile, reset, writeFile } = fixture('test-betterer-typescript');
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
@@ -13,10 +11,7 @@ describe('betterer', () => {
 
     await reset();
 
-    await writeFile(
-      indexPath,
-      `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`
-    );
+    await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
 
     const newTestRun = await betterer({ configPaths, resultsPath });
 
@@ -26,10 +21,7 @@ describe('betterer', () => {
 
     expect(sameTestRun.same).toEqual(['typescript use strict mode']);
 
-    await writeFile(
-      indexPath,
-      `const a = 'a';\nconst one = 1;\nconsole.log(a * one, one * a);`
-    );
+    await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one, one * a);`);
 
     const worseTestRun = await betterer({ configPaths, resultsPath });
 

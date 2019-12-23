@@ -4,20 +4,13 @@ import * as path from 'path';
 import * as glob from 'glob';
 import { promisify } from 'util';
 
-import {
-  BettererFileInfo,
-  FileBetterer,
-  createFileBetterer
-} from '@betterer/betterer';
+import { BettererFileInfo, FileBetterer, createFileBetterer } from '@betterer/betterer';
 import { error, info } from '@betterer/logger';
 
 const globAsync = promisify(glob);
 const readAsync = promisify(fs.readFile);
 
-export function regexpBetterer(
-  files: string | Array<string>,
-  regexp: RegExp
-): FileBetterer {
+export function regexpBetterer(files: string | Array<string>, regexp: RegExp): FileBetterer {
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
   const filesArray = Array.isArray(files) ? files : [files];
@@ -26,10 +19,7 @@ export function regexpBetterer(
   return createFileBetterer(async () => {
     info(`using RegExp to find files matching "${regexp}"`);
 
-    regexp = new RegExp(
-      regexp.source,
-      regexp.flags.includes('g') ? regexp.flags : `${regexp.flags}g`
-    );
+    regexp = new RegExp(regexp.source, regexp.flags.includes('g') ? regexp.flags : `${regexp.flags}g`);
 
     const errors: Array<BettererFileInfo> = [];
     await Promise.all(
