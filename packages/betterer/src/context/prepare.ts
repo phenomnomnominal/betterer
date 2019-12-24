@@ -49,9 +49,11 @@ export async function prepare(
   });
   stats.obsolete.push(...obsolete);
 
+  const files: Array<string> = [];
+
   const results = { ...expected };
 
-  return { betterers, config, only, expected, results, stats };
+  return { betterers, config, files, only, expected, results, stats };
 }
 
 async function getBetterers(configPath: string): Promise<Array<Betterer>> {

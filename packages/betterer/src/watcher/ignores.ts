@@ -1,4 +1,6 @@
 export const WATCH_IGNORES = [
+  'node_modules',
+  '.git',
   '.log',
   '.sql',
   '.sqlite',
@@ -8,5 +10,6 @@ export const WATCH_IGNORES = [
   'ehthumbs.db',
   'Thumbs.db',
   '.gitignore',
-  'package-lock.json'
+  'package-lock.json',
+  'yarn.lock'
 ];

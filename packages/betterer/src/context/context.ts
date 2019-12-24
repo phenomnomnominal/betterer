@@ -5,6 +5,7 @@ import { BettererStats } from './statistics';
 export type BettererContext = {
   config: BettererConfig;
   betterers: Array<Betterer>;
+  files: Array<string>;
   only: Array<Betterer>;
   expected: BettererResults;
   results: BettererResults;

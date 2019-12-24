@@ -17,15 +17,15 @@ const globAsync = promisify(glob);
 type ESLintRuleConfig = [string, Linter.RuleLevel | Linter.RuleLevelAndOptions];
 
 export function eslintBetterer(
-  files: string | Array<string>,
+  globs: string | Array<string>,
   rule: ESLintRuleConfig
 ): FileBetterer {
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
-  const filesArray = Array.isArray(files) ? files : [files];
-  const filesGlobs = filesArray.map(glob => path.resolve(cwd, glob));
+  const globsArray = Array.isArray(globs) ? globs : [globs];
+  const resolvedGlobs = globsArray.map(glob => path.resolve(cwd, glob));
 
-  return createFileBetterer(async () => {
+  return createFileBetterer(async (files: Array<string> = []) => {
     const [ruleName, ruleOptions] = rule;
 
     const options = isString(ruleOptions)
@@ -33,55 +33,60 @@ export function eslintBetterer(
       : JSON.stringify(ruleOptions);
     info(`running ESLint with "${ruleName}" set to "${options}"`);
 
+    const issues: Array<BettererFileInfo> = [];
+
     const cli = new CLIEngine({});
-    const errors: Array<BettererFileInfo> = [];
 
-    // This is way less than ideal. ESLint does not currently
-    // support running a single lint rule while using the
-    // rest of the current configuration.
-    //
-    // See https://github.com/eslint/eslint/issues/12666 for more.
-    //
-    // To get around this for now, we need to handle iterating
-    // over all the files and getting their configuration.
-    //
-    // This will be slower than if ESLint handled it, so hopefully
-    // they make it possible to do this soon!
+    if (files.length === 0) {
+      await Promise.all(
+        resolvedGlobs.flatMap(async currentGlob => {
+          const globFiles = await globAsync(currentGlob);
+          files.push(...globFiles);
+        })
+      );
+    }
+
     await Promise.all(
-      filesGlobs.map(async currentGlob => {
-        const filePaths = await globAsync(currentGlob);
-        filePaths.map(filePath => {
-          const linterOptions = cli.getConfigForFile(filePath);
-          const runner = new CLIEngine({
-            ...linterOptions,
-            useEslintrc: false,
-            globals: Object.keys(linterOptions.globals || {}),
-            rules: {
-              [ruleName]: ruleOptions
-            }
-          });
-
-          const report = runner.executeOnFiles([filePath]);
-          report.results.forEach(result => {
-            const { source, messages } = result;
-            messages.forEach(message => {
-              if (source) {
-                errors.push(
-                  eslintMessageToBettererError(filePath, source, message)
-                );
-              }
-            });
-          });
-        });
+      files.map(filePath => {
+        const linterOptions = cli.getConfigForFile(filePath);
+        issues.push(...getFileIssues(linterOptions, rule, filePath));
       })
     );
 
-    if (errors.length) {
+    if (issues.length) {
       error('ESLint found some issues:');
     }
 
-    return errors;
+    return issues;
   });
+}
+
+function getFileIssues(
+  linterOptions: Linter.Config,
+  rule: ESLintRuleConfig,
+  filePath: string
+) {
+  const [ruleName, ruleOptions] = rule;
+  const runner = new CLIEngine({
+    ...linterOptions,
+    useEslintrc: false,
+    globals: Object.keys(linterOptions.globals || {}),
+    rules: {
+      [ruleName]: ruleOptions
+    }
+  });
+
+  const issues: Array<BettererFileInfo> = [];
+  const report = runner.executeOnFiles([filePath]);
+  report.results.forEach(result => {
+    const { source, messages } = result;
+    messages.forEach(message => {
+      if (source) {
+        issues.push(eslintMessageToBettererError(filePath, source, message));
+      }
+    });
+  });
+  return issues;
 }
 
 function eslintMessageToBettererError(

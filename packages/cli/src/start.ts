@@ -1,7 +1,7 @@
 import * as commander from 'commander';
 import * as path from 'path';
 
-import { BettererStats, betterer } from '@betterer/betterer';
+import { BettererStats, bettererWatch } from '@betterer/betterer';
 import {
   DEFAULT_CONFIG_PATH,
   DEFAULT_RESULTS_PATH,
@@ -50,5 +50,6 @@ export async function start(
   filter = filter && filter.length ? filter : [DEFAULT_FILTER];
   const filters = filter.map((filter: string) => new RegExp(filter, 'i'));
 
-  return await betterer({ configPaths, filters, resultsPath });
+  // return await betterer({ configPaths, filters, resultsPath });
+  return await bettererWatch({ configPaths, filters, resultsPath });
 }

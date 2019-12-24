@@ -10,13 +10,18 @@ import { BettererFile } from './file';
 export class FileBetterer extends Betterer<BettererFile, BettererFileMarksMap> {
   private _excluded: Array<RegExp> = [];
 
-  constructor(test: () => MaybeAsync<Array<BettererFileInfo>>) {
+  constructor(
+    test: (files: Array<string>) => MaybeAsync<Array<BettererFileInfo>>
+  ) {
     super({
       constraint,
       diff,
       goal,
       test: async (context: BettererContext): Promise<BettererFile> => {
-        const bettererFile = BettererFile.fromInfo(context, await test());
+        const bettererFile = BettererFile.fromInfo(
+          context,
+          await test(context.files)
+        );
         bettererFile.exclude(this._excluded);
         return bettererFile;
       }

@@ -16,7 +16,7 @@ export function typescriptBetterer(
   const cwd = path.dirname(callee.getFileName());
   const absPath = path.resolve(cwd, configFilePath);
 
-  return createFileBetterer(() => {
+  return createFileBetterer((files: Array<string>) => {
     info(`running TypeScript compiler...`);
 
     if (!configFilePath) {
@@ -45,9 +45,13 @@ export function typescriptBetterer(
       basePath
     );
 
+    if (files.length === 0) {
+      files = parsed.fileNames;
+    }
+
     const program = ts.createProgram({
-      ...parsed,
-      rootNames: parsed.fileNames,
+      ...config,
+      rootNames: files,
       host
     });
 
@@ -61,10 +65,7 @@ export function typescriptBetterer(
       ...semanticDiagnostics
     ]);
 
-    if (allDiagnostics.length) {
-      error('TypeScript compiler found some issues:');
-    }
-    return allDiagnostics.map((diagnostic: ts.Diagnostic) => {
+    const issues = allDiagnostics.map((diagnostic: ts.Diagnostic) => {
       const { file, start, length } = diagnostic as ts.DiagnosticWithLocation;
       return {
         message: ts
@@ -76,5 +77,10 @@ export function typescriptBetterer(
         end: start + length
       };
     });
+
+    if (issues.length) {
+      error('TypeScript compiler found some issues:');
+    }
+    return issues;
   });
 }
