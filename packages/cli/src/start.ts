@@ -1,17 +1,21 @@
 import * as commander from 'commander';
 import * as path from 'path';
 
-import { BettererStats, bettererWatch } from '@betterer/betterer';
+import { BettererStats, betterer, bettererWatch } from '@betterer/betterer';
+import { warn } from '@betterer/logger';
 import {
   DEFAULT_CONFIG_PATH,
+  DEFAULT_FILTER,
   DEFAULT_RESULTS_PATH,
-  DEFAULT_FILTER
+  DEFAULT_WATCH
 } from './constants';
 
 type CLIStartConfig = {
   config: Array<string>;
-  results: string;
   filter: Array<string>;
+  ignore: Array<string>;
+  results: string;
+  watch: boolean;
 };
 
 export async function start(
@@ -38,9 +42,24 @@ export async function start(
         previous.concat([value]),
       []
     )
+    .option(
+      '-w, --watch [value]',
+      'Run ☀️ betterer in watch mode',
+      DEFAULT_WATCH
+    )
+    .option(
+      '-i, --ignore [value]',
+      'RegExp filter for files at watch',
+      (value: string, previous: Array<string>): Array<string> =>
+        previous.concat([value]),
+      []
+    )
     .parse(argv);
 
-  let { config, filter } = (commander as unknown) as CLIStartConfig;
+  const cliConfig = (commander as unknown) as CLIStartConfig;
+
+  let { config, filter, ignore } = cliConfig;
+  const { watch } = cliConfig;
 
   config = config && config.length ? config : [DEFAULT_CONFIG_PATH];
   const configPaths = config.map(configPath => path.resolve(cwd, configPath));
@@ -50,6 +69,25 @@ export async function start(
   filter = filter && filter.length ? filter : [DEFAULT_FILTER];
   const filters = filter.map((filter: string) => new RegExp(filter, 'i'));
 
-  // return await betterer({ configPaths, filters, resultsPath });
-  return await bettererWatch({ configPaths, filters, resultsPath });
+  ignore = ignore && ignore.length ? ignore : [];
+  const ignores = ignore.map((ignore: string) => new RegExp(ignore, 'i'));
+  if (ignores.length && !watch) {
+    warn();
+  }
+
+  if (watch) {
+    const stop = await bettererWatch({
+      configPaths,
+      filters,
+      ignores,
+      resultsPath
+    });
+    return new Promise((resolve): void => {
+      process.on('SIGINT', () => {
+        const stats = stop();
+        resolve(stats);
+      });
+    });
+  }
+  return await betterer({ configPaths, filters, resultsPath });
 }

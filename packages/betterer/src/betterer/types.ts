@@ -1,9 +1,9 @@
 import { ConstraintResult } from '@betterer/constraints';
 
-import { BettererContext } from '../context';
+import { BettererRunContext } from '../context';
 import { MaybeAsync } from '../types';
 
-export type BettererTest<T> = (context: BettererContext) => MaybeAsync<T>;
+export type BettererTest<T> = (context: BettererRunContext) => MaybeAsync<T>;
 
 export type BettererConstraint<T> = (
   current: T,

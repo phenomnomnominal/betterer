@@ -9,6 +9,7 @@ import {
 } from './types';
 
 export type BettererOptions<TestType, SerialisedType = TestType> = {
+  name?: string;
   test: BettererTest<TestType>;
   constraint: BettererConstraint<SerialisedType>;
   goal: BettererGoal<SerialisedType>;
@@ -18,13 +19,13 @@ export type BettererOptions<TestType, SerialisedType = TestType> = {
 };
 
 export class Betterer<Base = unknown, Serialised = Base> {
-  public constraint: BettererConstraint<Serialised>;
-  public diff: BettererDiff<Base, Serialised>;
-  public goal: BettererGoalFunction<Serialised>;
-  public test: BettererTest<Base>;
-  public isOnly = false;
-  public isSkipped = false;
-  public name = '';
+  public readonly constraint: BettererConstraint<Serialised>;
+  public readonly diff: BettererDiff<Base, Serialised>;
+  public readonly goal: BettererGoalFunction<Serialised>;
+  public readonly test: BettererTest<Base>;
+
+  private _isOnly = false;
+  private _isSkipped = false;
 
   constructor({
     test,
@@ -38,17 +39,25 @@ export class Betterer<Base = unknown, Serialised = Base> {
     this.diff = diff;
     this.goal = createGoal(goal);
     this.test = test;
-    this.isOnly = isOnly;
-    this.isSkipped = isSkipped;
+    this._isOnly = isOnly;
+    this._isSkipped = isSkipped;
+  }
+
+  public get isOnly(): boolean {
+    return this._isOnly;
+  }
+
+  public get isSkipped(): boolean {
+    return this._isSkipped;
   }
 
   public only(): Betterer<Base, Serialised> {
-    this.isOnly = true;
+    this._isOnly = true;
     return this;
   }
 
   public skip(): Betterer<Base, Serialised> {
-    this.isSkipped = true;
+    this._isSkipped = true;
     return this;
   }
 }
@@ -56,10 +65,14 @@ export class Betterer<Base = unknown, Serialised = Base> {
 function createGoal(
   goal: BettererGoal<unknown>
 ): BettererGoalFunction<unknown> {
-  if (typeof goal === 'function') {
-    return goal as BettererGoalFunction<unknown>;
+  if (isGoalFunction(goal)) {
+    return goal;
   }
   return (value: unknown): boolean => value === goal;
+}
+
+function isGoalFunction(goal: unknown): goal is BettererGoalFunction<unknown> {
+  return typeof goal === 'function';
 }
 
 function defaultDiff(

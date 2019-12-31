@@ -10,7 +10,6 @@ import {
   FileBetterer,
   createFileBetterer
 } from '@betterer/betterer';
-import { error, info } from '@betterer/logger';
 
 const globAsync = promisify(glob);
 
@@ -26,15 +25,6 @@ export function eslintBetterer(
   const resolvedGlobs = globsArray.map(glob => path.resolve(cwd, glob));
 
   return createFileBetterer(async (files: Array<string> = []) => {
-    const [ruleName, ruleOptions] = rule;
-
-    const options = isString(ruleOptions)
-      ? ruleOptions
-      : JSON.stringify(ruleOptions);
-    info(`running ESLint with "${ruleName}" set to "${options}"`);
-
-    const issues: Array<BettererFileInfo> = [];
-
     const cli = new CLIEngine({});
 
     if (files.length === 0) {
@@ -46,18 +36,12 @@ export function eslintBetterer(
       );
     }
 
-    await Promise.all(
-      files.map(filePath => {
+    return await Promise.all(
+      files.flatMap(filePath => {
         const linterOptions = cli.getConfigForFile(filePath);
-        issues.push(...getFileIssues(linterOptions, rule, filePath));
+        return getFileIssues(linterOptions, rule, filePath);
       })
     );
-
-    if (issues.length) {
-      error('ESLint found some issues:');
-    }
-
-    return issues;
   });
 }
 
@@ -65,7 +49,7 @@ function getFileIssues(
   linterOptions: Linter.Config,
   rule: ESLintRuleConfig,
   filePath: string
-) {
+): Array<BettererFileInfo> {
   const [ruleName, ruleOptions] = rule;
   const runner = new CLIEngine({
     ...linterOptions,
@@ -110,8 +94,4 @@ function eslintMessageToBettererError(
     start: startLocation as number,
     end: endLocation as number
   };
-}
-
-function isString(value: unknown): value is string {
-  return typeof value === 'string';
 }

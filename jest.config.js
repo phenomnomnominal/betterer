@@ -4,7 +4,7 @@ module.exports = {
     tsConfig: 'tsconfig.json'
   },
   moduleFileExtensions: ['ts', 'js'],
-  collectCoverage: true,
+  collectCoverage: false,
   collectCoverageFrom: ['<rootDir>/packages/**/src/**'],
   coverageDirectory: '<rootDir>/reports/coverage',
   testRegex: '.*\\.spec\\.ts$',

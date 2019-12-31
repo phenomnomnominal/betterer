@@ -1,10 +1,9 @@
-import { logo } from '@betterer/logger';
-
-import { BettererConfig, BettererStats, prepare } from './context';
+import { BettererConfig } from './config';
+import { BettererContext, BettererStats } from './context';
 import { registerExtensions } from './register';
-import { runTests } from './runner';
-import { report } from './reporter';
+import { parallel, serial } from './runner';
 import { watch } from './watcher';
+import { parallelReporters, serialReporters } from './reporters';
 
 export * from './context';
 export * from './constants';
@@ -14,28 +13,22 @@ export * from './runner';
 registerExtensions();
 
 export async function betterer(config: BettererConfig): Promise<BettererStats> {
-  logo();
-  const context = await prepare(config);
-  await runTests(context);
-  const result = await report(context);
-  return result.stats;
+  const context = await BettererContext.create(config, serialReporters);
+  await serial(context);
+  return await context.complete();
 }
 
 export async function bettererWatch(
   config: BettererConfig
-): Promise<BettererStats> {
-  logo();
-  const context = await prepare(config);
-  await runTests(context);
+): Promise<() => Promise<BettererStats>> {
+  const context = await BettererContext.create(config, parallelReporters);
+  await parallel(context);
   const watcher = watch(context, itemPath => {
-    context.files = [itemPath];
-    runTests(context);
+    context.setFiles([itemPath]);
+    parallel(context);
   });
-  return new Promise((resolve): void => {
-    process.on('SIGINT', () => {
-      watcher.close();
-      resolve(context.stats);
-      process.exit();
-    });
-  });
+  return async function(): Promise<BettererStats> {
+    watcher.close();
+    return await context.complete();
+  };
 }

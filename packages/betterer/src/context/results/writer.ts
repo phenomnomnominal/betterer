@@ -1,19 +1,41 @@
+import { error } from '@betterer/logger';
+
+import { promises as fs } from 'fs';
 import { escape } from 'safe-string-literal';
 
-import { BettererContext } from '../context';
-import { MaybeAsync } from '../types';
+import { BettererResults } from './results';
+import { Printable } from '../../types';
 
 const RESULTS_HEADER = `// BETTERER RESULTS V1.`;
-
-export type Printable = {
-  print: () => MaybeAsync<string>;
-};
 
 // Characters that we avoid escaping to make snapshots easier to visually diff
 const UNESCAPED = '"\n';
 
-export async function print(context: BettererContext): Promise<string> {
-  const { results } = context;
+export async function write(
+  results: BettererResults,
+  resultsPath: string
+): Promise<void> {
+  const printed = await print(results);
+
+  let printError = '';
+  if (resultsPath) {
+    try {
+      await fs.writeFile(resultsPath, printed, 'utf8');
+    } catch {
+      printError = `could not write results to "${resultsPath}". 😔`;
+    }
+  } else {
+    printError = `no \`resultsPath\` given. 😔`;
+  }
+
+  if (printError) {
+    error(printError);
+    error('printing to stdout instead:');
+    console.log(`\n\n\n${printed}\n\n\n`);
+  }
+}
+
+async function print(results: BettererResults): Promise<string> {
   const printed = await Promise.all(
     Object.keys(results).map(async resultName => {
       const { timestamp, value } = results[resultName];
@@ -38,5 +60,5 @@ function isString(value: unknown): value is string {
 }
 
 function isPrintable(value: unknown): value is Printable {
-  return value && !!(value as Printable).print;
+  return value && typeof (value as Printable).print === 'function';
 }

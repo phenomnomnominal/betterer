@@ -1,13 +1,10 @@
-import { readFile } from 'fs';
-import { promisify } from 'util';
+import { promises as fs } from 'fs';
 
-import { BettererResults } from './context';
-
-const readFileAsync = promisify(readFile);
+import { BettererResults } from './results';
 
 export async function read(resultsPath: string): Promise<BettererResults> {
   try {
-    await readFileAsync(resultsPath);
+    await fs.readFile(resultsPath);
   } catch {
     return {};
   }

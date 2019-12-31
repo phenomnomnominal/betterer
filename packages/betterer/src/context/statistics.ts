@@ -1,25 +1,11 @@
-export type BettererStats = {
-  obsolete: Array<string>;
-  skipped: Array<string>;
-  ran: Array<string>;
-  failed: Array<string>;
-  new: Array<string>;
-  better: Array<string>;
-  same: Array<string>;
-  worse: Array<string>;
-  completed: Array<string>;
-};
-
-export function initialise(): BettererStats {
-  return {
-    obsolete: [],
-    skipped: [],
-    ran: [],
-    failed: [],
-    new: [],
-    better: [],
-    same: [],
-    worse: [],
-    completed: []
-  };
+export class BettererStats {
+  public readonly obsolete: Array<string> = [];
+  public readonly skipped: Array<string> = [];
+  public readonly ran: Array<string> = [];
+  public readonly failed: Array<string> = [];
+  public readonly new: Array<string> = [];
+  public readonly better: Array<string> = [];
+  public readonly same: Array<string> = [];
+  public readonly worse: Array<string> = [];
+  public readonly completed: Array<string> = [];
 }

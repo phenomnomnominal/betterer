@@ -12,4 +12,4 @@ export const WATCH_IGNORES = [
   '.gitignore',
   'package-lock.json',
   'yarn.lock'
-];
+].map(i => new RegExp(`${i}$`, 'i'));

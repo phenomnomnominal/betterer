@@ -2,7 +2,7 @@ import { ConstraintResult } from '@betterer/constraints';
 import { code, error } from '@betterer/logger';
 
 import { Betterer } from '../betterer';
-import { BettererContext } from '../context';
+import { BettererRunContext } from '../context';
 import { MaybeAsync } from '../types';
 import { BettererFileInfo, BettererFileMarksMap } from './types';
 import { BettererFile } from './file';
@@ -17,11 +17,10 @@ export class FileBetterer extends Betterer<BettererFile, BettererFileMarksMap> {
       constraint,
       diff,
       goal,
-      test: async (context: BettererContext): Promise<BettererFile> => {
-        const bettererFile = BettererFile.fromInfo(
-          context,
-          await test(context.files)
-        );
+      test: async (runContext: BettererRunContext): Promise<BettererFile> => {
+        const { config, files } = runContext.context;
+        const info = await test(files);
+        const bettererFile = BettererFile.fromInfo(config, info);
         bettererFile.exclude(this._excluded);
         return bettererFile;
       }

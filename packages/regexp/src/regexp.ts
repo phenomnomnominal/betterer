@@ -9,7 +9,6 @@ import {
   FileBetterer,
   createFileBetterer
 } from '@betterer/betterer';
-import { error, info } from '@betterer/logger';
 
 const globAsync = promisify(glob);
 
@@ -23,14 +22,10 @@ export function regexpBetterer(
   const resolvedGlobs = globsArray.map(glob => path.resolve(cwd, glob));
 
   return createFileBetterer(async (files: Array<string> = []) => {
-    info(`using RegExp to find files matching "${regexp}"`);
-
     regexp = new RegExp(
       regexp.source,
       regexp.flags.includes('g') ? regexp.flags : `${regexp.flags}g`
     );
-
-    const matches: Array<BettererFileInfo> = [];
 
     if (files.length === 0) {
       await Promise.all(
@@ -41,18 +36,12 @@ export function regexpBetterer(
       );
     }
 
-    await Promise.all(
-      files.map(async filePath => {
-        const fileErrors = await getFileMatches(regexp, filePath);
-        matches.push(...fileErrors);
+    const matches = await Promise.all(
+      files.flatMap(async filePath => {
+        return await getFileMatches(regexp, filePath);
       })
     );
-
-    if (matches.length) {
-      error('RegExp found some matches:');
-    }
-
-    return matches;
+    return matches.flat();
   });
 }
 

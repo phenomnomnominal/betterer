@@ -3,5 +3,5 @@ export type BettererConfig = {
   resultsPath: string;
   filters?: Array<RegExp>;
   watch?: boolean;
-  ignore?: Array<RegExp>;
+  ignores?: Array<RegExp>;
 };

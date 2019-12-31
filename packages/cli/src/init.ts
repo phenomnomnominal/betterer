@@ -1,14 +1,10 @@
 import { error, info, warn, success } from '@betterer/logger';
 import * as commander from 'commander';
 import * as findUp from 'find-up';
-import { readFile, writeFile } from 'fs';
+import { promises as fs } from 'fs';
 import * as path from 'path';
-import { promisify } from 'util';
 
 import { DEFAULT_CONFIG_PATH } from './constants';
-
-const readFileAsync = promisify(readFile);
-const writeAsync = promisify(writeFile);
 
 const TEMPLATE = `module.exports = {\n  // Add tests here ☀️\n};`;
 
@@ -38,7 +34,7 @@ async function createTestFile(
 
   let exists = false;
   try {
-    exists = !!(await readFileAsync(configPath));
+    exists = !!(await fs.readFile(configPath));
   } catch {
     // Doesn't matter if it fails...
   }
@@ -49,7 +45,7 @@ async function createTestFile(
   }
 
   try {
-    await writeAsync(configPath, TEMPLATE, 'utf8');
+    await fs.writeFile(configPath, TEMPLATE, 'utf8');
   } catch {
     error(`couln't write to "${configPath}" 🔥`);
     return;
@@ -68,7 +64,7 @@ async function updatePackageJSON(cwd: string): Promise<void> {
     if (!packageJSONPath) {
       throw new Error();
     }
-    packageJSON = JSON.parse(await readFileAsync(packageJSONPath, 'utf-8'));
+    packageJSON = JSON.parse(await fs.readFile(packageJSONPath, 'utf-8'));
   } catch {
     error(`couldn't read package.json 🔥`);
     return;
@@ -95,7 +91,7 @@ async function updatePackageJSON(cwd: string): Promise<void> {
   }
 
   try {
-    await writeAsync(
+    await fs.writeFile(
       packageJSONPath,
       JSON.stringify(packageJSON, null, 2),
       'utf-8'

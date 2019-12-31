@@ -1,109 +1,74 @@
 import { ConstraintResult } from '@betterer/constraints';
-import { br, error, info, success, warn } from '@betterer/logger';
 
 import { Betterer } from '../betterer';
-import { BettererResult, BettererContext } from '../context';
+import { BettererContext, BettererRunContext } from '../context';
 import { serialise } from './serialiser';
 
-export async function runTests(context: BettererContext): Promise<void> {
-  const { betterers } = context;
-  await betterers.reduce(async (p, betterer) => {
+export async function parallel(context: BettererContext): Promise<void> {
+  const { runs } = context;
+  context.runnerStart();
+  await Promise.all(
+    runs.map(async run => {
+      await runTest(run.betterer, run);
+      run.end();
+    })
+  );
+  context.runnerEnd();
+}
+
+export async function serial(context: BettererContext): Promise<void> {
+  const { runs } = context;
+  context.runnerStart();
+  await runs.reduce(async (p, run) => {
     await p;
-    await runTest(betterer, context);
+    await runTest(run.betterer, run);
+    run.end();
   }, Promise.resolve());
+  context.runnerEnd();
 }
 
 async function runTest(
   betterer: Betterer,
-  context: BettererContext
+  runContext: BettererRunContext
 ): Promise<void> {
-  const { expected, only, results, stats } = context;
-  const { test, constraint, goal, diff, isSkipped, name } = betterer;
-
-  if (only.length && !only.includes(betterer)) {
-    stats.skipped.push(name);
-    return;
-  }
+  const { test, constraint, goal, isSkipped } = betterer;
+  const { expected, hasExpected } = runContext;
 
   if (isSkipped) {
-    stats.skipped.push(name);
+    runContext.skipped();
     return;
   }
 
+  runContext.start();
   let current: unknown;
   try {
-    info(`running "${name}"!`);
-    current = await test(context);
+    current = await test(runContext);
   } catch {
-    stats.failed.push(name);
-    error(`"${name}" failed to run. 🔥`);
+    runContext.failed();
     return;
   }
-  stats.ran.push(name);
+  runContext.ran();
 
-  // Get the serialised previous results from the test results file:
-  const serialisedPrevious = expected[name]
-    ? JSON.parse(expected[name].value as string)
-    : null;
-
-  // Serialise the current results so that the `constraint`, `diff`, and
-  // `goal` can be evaluated on the same shape object:
   const serialisedCurrent = await serialise(current);
+  const goalComplete = await goal(serialisedCurrent);
 
-  // New test:
-  if (!Object.hasOwnProperty.call(expected, name)) {
-    results[name] = update(current);
-    stats.new.push(name);
-    success(`"${name}" got checked for the first time! 🎉`);
+  if (!hasExpected) {
+    runContext.new(current, goalComplete);
     return;
   }
 
-  const comparison = await constraint(serialisedCurrent, serialisedPrevious);
-  const isSame = comparison === ConstraintResult.same;
-  const isBetter = comparison === ConstraintResult.better;
+  const comparison = await constraint(serialisedCurrent, expected);
 
-  // Same, but already met goal:
-  if (isSame && goal(serialisedCurrent)) {
-    stats.completed.push(name);
-    success(`"${name}" has already met its goal! ✨`);
+  if (comparison === ConstraintResult.same) {
+    runContext.same(goalComplete);
     return;
   }
 
-  // Same:
-  if (isSame) {
-    stats.same.push(name);
-    warn(`"${name}" stayed the same. 😐`);
+  if (comparison === ConstraintResult.better) {
+    runContext.better(current, goalComplete);
     return;
   }
 
-  // Better:
-  if (isBetter) {
-    results[name] = update(current);
-    stats.better.push(name);
-
-    // Newly met goal:
-    if (goal(serialisedCurrent)) {
-      stats.completed.push(name);
-      success(`"${name}" met its goal! 🎉`);
-      return;
-    }
-
-    // Not reached goal yet:
-    success(`"${name}" got better! 😍`);
-    return;
-  }
-
-  // Worse:
-  stats.worse.push(name);
-  error(`"${name}" got worse. 😔`);
-  br();
-  diff(current, serialisedCurrent, serialisedPrevious);
-  br();
-}
-
-function update(value: unknown): BettererResult {
-  return {
-    timestamp: Date.now(),
-    value
-  };
+  runContext.worse(current, serialisedCurrent);
+  return;
 }

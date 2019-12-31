@@ -9,7 +9,6 @@ import {
   FileBetterer,
   createFileBetterer
 } from '@betterer/betterer';
-import { error, info } from '@betterer/logger';
 
 export function tsqueryBetterer(
   configFilePath: string,
@@ -19,10 +18,6 @@ export function tsqueryBetterer(
   const cwd = path.dirname(callee.getFileName());
   const absoluteConfigFilePath = path.resolve(cwd, configFilePath);
   return createFileBetterer(async (files: Array<string> = []) => {
-    info(`running TSQuery to search for nodes matching query "${query}"`);
-
-    const matches: Array<BettererFileInfo> = [];
-
     let sourceFiles: Array<SourceFile> = [];
     if (!files) {
       sourceFiles = tsquery.project(absoluteConfigFilePath);
@@ -35,15 +30,9 @@ export function tsqueryBetterer(
       );
     }
 
-    sourceFiles.forEach(sourceFile => {
-      matches.push(...getFileMatches(query, sourceFile));
+    return sourceFiles.flatMap(sourceFile => {
+      return getFileMatches(query, sourceFile);
     });
-
-    if (matches.length) {
-      error('TSQuery found some matches:');
-    }
-
-    return matches;
   });
 }
 

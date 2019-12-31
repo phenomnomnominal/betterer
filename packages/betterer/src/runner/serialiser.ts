@@ -1,14 +1,14 @@
-import { MaybeAsync } from '../types';
-
-export type Serialisable<T = unknown> = {
-  serialise: () => MaybeAsync<T>;
-};
+import { Serialisable } from '../types';
 
 export async function serialise(
   value: unknown | Serialisable
 ): Promise<unknown> {
-  if (value && (value as Serialisable).serialise) {
-    return await (value as Serialisable).serialise();
+  if (isSerialisable(value)) {
+    return await value.serialise();
   }
   return value;
+}
+
+function isSerialisable(value: unknown): value is Serialisable {
+  return value && typeof (value as Serialisable).serialise === 'function';
 }

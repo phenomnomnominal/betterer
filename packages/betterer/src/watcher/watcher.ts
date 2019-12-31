@@ -12,10 +12,8 @@ export function watch(
 ): FSWatcher {
   const cwd = process.cwd();
   const watcher = chokidar(cwd, {
-    ignored: [
-      ...WATCH_IGNORES.map(i => new RegExp(`${i}$`, 'i')),
-      ...(context.config.ignore || [])
-    ],
+    ignoreInitial: true,
+    ignored: [...WATCH_IGNORES, ...(context.config.ignores || [])],
     cwd
   });
   watcher.on('all', (event: string, path: string) => {
