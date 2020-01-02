@@ -17,15 +17,17 @@ export function tsqueryBetterer(
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
   const absoluteConfigFilePath = path.resolve(cwd, configFilePath);
-  return createFileBetterer(async (files: Array<string> = []) => {
-    let sourceFiles: Array<SourceFile> = [];
-    if (!files) {
+  return createFileBetterer(async (files: ReadonlyArray<string> = []) => {
+    let sourceFiles: ReadonlyArray<SourceFile> = [];
+    if (files.length === 0) {
       sourceFiles = tsquery.project(absoluteConfigFilePath);
     } else {
       sourceFiles = await Promise.all(
         files.map(async filePath => {
           const fileText = await fs.readFile(filePath, 'utf8');
-          return tsquery.ast(fileText);
+          const sourceFile = tsquery.ast(fileText);
+          sourceFile.fileName = filePath;
+          return sourceFile;
         })
       );
     }
@@ -39,7 +41,7 @@ export function tsqueryBetterer(
 function getFileMatches(
   query: string,
   sourceFile: SourceFile
-): Array<BettererFileInfo> {
+): ReadonlyArray<BettererFileInfo> {
   return tsquery
     .query(sourceFile, query, { visitAllChildren: true })
     .map(match => {

@@ -19,7 +19,7 @@ const UNKNOWN_LOCATION = {
 
 export class BettererFile
   implements Serialisable<BettererFileMarksMap>, Printable {
-  private _excluded: Array<RegExp> = [];
+  private _excluded: ReadonlyArray<RegExp> = [];
   private _fileInfoMap: BettererFileInfoMap | null = null;
   private _fileHashMap: BettererFileHashMap = {};
   private _fileHashes: Array<string> = [];
@@ -27,7 +27,7 @@ export class BettererFile
 
   static fromInfo(
     config: BettererConfig,
-    info: Array<BettererFileInfo>
+    info: ReadonlyArray<BettererFileInfo>
   ): BettererFile {
     const file = new BettererFile();
     const fileInfo: BettererFileInfoMap = {};
@@ -65,22 +65,22 @@ export class BettererFile
     return file;
   }
 
-  public exclude(excluded: Array<RegExp>): void {
+  public exclude(excluded: ReadonlyArray<RegExp>): void {
     this._excluded = excluded;
   }
 
-  public getFilePaths(): Array<string> {
+  public getFilePaths(): ReadonlyArray<string> {
     return Object.keys(this._fileHashMap);
   }
 
-  public getFileInfo(filePath: string): Array<BettererFileInfo> {
+  public getFileInfo(filePath: string): ReadonlyArray<BettererFileInfo> {
     if (!this._fileInfoMap) {
       throw new Error();
     }
     return this._fileInfoMap[filePath] || [];
   }
 
-  public getFileMarks(filePath: string): Array<BettererFileMark> {
+  public getFileMarks(filePath: string): ReadonlyArray<BettererFileMark> {
     return this._fileMarkMap[filePath] || [];
   }
 
@@ -121,9 +121,7 @@ export class BettererFile
         }
         const [line, column, length, message] = mark;
         printed += `      [${line}, ${column}, ${length}, ${JSON.stringify(
-          message,
-          null,
-          '  '
+          message
         )}]`;
       });
       printed += `\n    ]`;

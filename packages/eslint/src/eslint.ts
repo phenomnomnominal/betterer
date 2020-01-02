@@ -16,7 +16,7 @@ const globAsync = promisify(glob);
 type ESLintRuleConfig = [string, Linter.RuleLevel | Linter.RuleLevelAndOptions];
 
 export function eslintBetterer(
-  globs: string | Array<string>,
+  globs: string | ReadonlyArray<string>,
   rule: ESLintRuleConfig
 ): FileBetterer {
   const [, callee] = stack();
@@ -24,20 +24,21 @@ export function eslintBetterer(
   const globsArray = Array.isArray(globs) ? globs : [globs];
   const resolvedGlobs = globsArray.map(glob => path.resolve(cwd, glob));
 
-  return createFileBetterer(async (files: Array<string> = []) => {
+  return createFileBetterer(async (files: ReadonlyArray<string> = []) => {
     const cli = new CLIEngine({});
 
-    if (files.length === 0) {
+    const testFiles = [...files];
+    if (testFiles.length === 0) {
       await Promise.all(
         resolvedGlobs.flatMap(async currentGlob => {
           const globFiles = await globAsync(currentGlob);
-          files.push(...globFiles);
+          testFiles.push(...globFiles);
         })
       );
     }
 
     return await Promise.all(
-      files.flatMap(filePath => {
+      testFiles.flatMap(filePath => {
         const linterOptions = cli.getConfigForFile(filePath);
         return getFileIssues(linterOptions, rule, filePath);
       })
@@ -49,7 +50,7 @@ function getFileIssues(
   linterOptions: Linter.Config,
   rule: ESLintRuleConfig,
   filePath: string
-): Array<BettererFileInfo> {
+): ReadonlyArray<BettererFileInfo> {
   const [ruleName, ruleOptions] = rule;
   const runner = new CLIEngine({
     ...linterOptions,

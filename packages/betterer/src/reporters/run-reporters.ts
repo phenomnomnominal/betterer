@@ -1,16 +1,15 @@
 import { br, error, info, success, warn } from '@betterer/logger';
 
-import { BettererRunContext } from '../context';
+import { BettererRun } from '../context';
 
 export type BettererRunReporter = {
-  better(run: BettererRunContext): void;
-  end(run: BettererRunContext): void;
-  failed(run: BettererRunContext): void;
-  ['new'](run: BettererRunContext): void;
-  same(run: BettererRunContext): void;
-  start(run: BettererRunContext): void;
+  better(run: BettererRun): void;
+  failed(run: BettererRun): void;
+  ['new'](run: BettererRun): void;
+  same(run: BettererRun): void;
+  start(run: BettererRun): void;
   worse(
-    run: BettererRunContext,
+    run: BettererRun,
     result: unknown,
     serialised: unknown,
     expected: unknown
@@ -19,9 +18,6 @@ export type BettererRunReporter = {
 
 export const runParallel: BettererRunReporter = {
   better(): void {
-    //
-  },
-  end(): void {
     //
   },
   failed(): void {
@@ -42,35 +38,40 @@ export const runParallel: BettererRunReporter = {
 };
 
 export const runSerial: BettererRunReporter = {
-  better({ name }: BettererRunContext): void {
-    success(`"${name}" got better! 😍`);
-  },
-  end({ hasCompleted, name }: BettererRunContext): void {
-    if (!hasCompleted) {
-      error(`"${name}" has not met its goal. 😔`);
+  better({ hasCompleted, name }: BettererRun): void {
+    if (hasCompleted) {
+      success(`"${name}" met its goal! 🎉`);
       return;
     }
-    success(`"${name}" has met its goal! ✨`);
+    success(`"${name}" got better! 😍`);
   },
-  failed({ name }: BettererRunContext): void {
+  failed({ name }: BettererRun): void {
     error(`"${name}" failed to run. 🔥`);
   },
-  new({ name }: BettererRunContext): void {
+  new({ hasCompleted, name }: BettererRun): void {
+    if (hasCompleted) {
+      success(`"${name}" has already met its goal! ✨`);
+      return;
+    }
     success(`"${name}" got checked for the first time! 🎉`);
   },
-  same({ name }: BettererRunContext): void {
+  same({ hasCompleted, name }: BettererRun): void {
+    if (hasCompleted) {
+      success(`"${name}" has already met its goal! ✨`);
+      return;
+    }
     warn(`"${name}" stayed the same. 😐`);
   },
-  start({ name }: BettererRunContext): void {
+  start({ name }: BettererRun): void {
     info(`running "${name}"!`);
   },
   worse(
-    { name, betterer }: BettererRunContext,
+    { name, betterer }: BettererRun,
     result: unknown,
     serialised: unknown,
     expected: unknown
   ): void {
-    error(`"${name}" got worse. 🤬`);
+    error(`"${name}" got worse. 😔`);
     br();
     betterer.diff(result, serialised, expected);
     br();

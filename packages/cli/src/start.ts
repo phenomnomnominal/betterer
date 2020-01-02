@@ -11,9 +11,9 @@ import {
 } from './constants';
 
 type CLIStartConfig = {
-  config: Array<string>;
-  filter: Array<string>;
-  ignore: Array<string>;
+  config: ReadonlyArray<string>;
+  filter: ReadonlyArray<string>;
+  ignore: ReadonlyArray<string>;
   results: string;
   watch: boolean;
 };
@@ -26,7 +26,7 @@ export async function start(
     .option(
       '-c, --config [value]',
       'Path to test definition file relative to CWD',
-      (value: string, previous: Array<string>): Array<string> =>
+      (value: string, previous: ReadonlyArray<string>): ReadonlyArray<string> =>
         previous.concat([value]),
       []
     )
@@ -38,7 +38,7 @@ export async function start(
     .option(
       '-f, --filter [value]',
       'RegExp filter for tests to run',
-      (value: string, previous: Array<string>): Array<string> =>
+      (value: string, previous: ReadonlyArray<string>): ReadonlyArray<string> =>
         previous.concat([value]),
       []
     )
@@ -50,7 +50,7 @@ export async function start(
     .option(
       '-i, --ignore [value]',
       'RegExp filter for files at watch',
-      (value: string, previous: Array<string>): Array<string> =>
+      (value: string, previous: ReadonlyArray<string>): ReadonlyArray<string> =>
         previous.concat([value]),
       []
     )

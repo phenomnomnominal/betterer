@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 require('../dist')
   .start(process.cwd(), process.argv)
-  .then(function(context) {
-    process.exit(context.stats.worse.length !== 0 ? 1 : 0);
+  .then(function(stats) {
+    process.exit(stats.worse.length !== 0 ? 1 : 0);
   });

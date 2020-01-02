@@ -15,7 +15,7 @@ export function typescriptBetterer(
   const cwd = path.dirname(callee.getFileName());
   const absPath = path.resolve(cwd, configFilePath);
 
-  return createFileBetterer((files: Array<string> = []) => {
+  return createFileBetterer((files: ReadonlyArray<string> = []) => {
     if (!configFilePath) {
       throw new Error();
     }

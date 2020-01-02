@@ -4,14 +4,17 @@ import { fixture } from './fixture';
 
 describe('betterer', () => {
   it('should skip a test', async () => {
-    const { logs, paths, readFile, reset, resolve } = fixture(
+    const { logs, paths, readFile, reset, resolve, writeFile } = fixture(
       'test-betterer-skip'
     );
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
+    const indexPath = resolve('./src/index.ts');
 
     await reset();
+
+    await writeFile(indexPath, `// HACK:`);
 
     const run = await betterer({ configPaths, resultsPath });
 

@@ -5,14 +5,13 @@ import { BettererConfig } from '../config';
 import { BettererResults, BettererResultsValues, read, write } from './results';
 import { BettererStats } from './statistics';
 import { BettererReporters } from '../reporters';
-import { BettererRunContext } from './run';
+import { BettererRun } from './run';
 
 export class BettererContext {
-  private _files: Array<string> = [];
   private _expected: BettererResultsValues = {};
   private _expectedRaw: BettererResults = {};
   private _results: Array<BettererResults> = [];
-  private _runs: Array<BettererRunContext> = [];
+  private _runs: ReadonlyArray<BettererRun> = [];
 
   public static async create(
     config: BettererConfig,
@@ -27,16 +26,8 @@ export class BettererContext {
     return this._expected;
   }
 
-  public get files(): Array<string> {
-    return this._files;
-  }
-
-  public get runs(): Array<BettererRunContext> {
+  public get runs(): ReadonlyArray<BettererRun> {
     return this._runs;
-  }
-
-  public setFiles(files: Array<string>): void {
-    this._files = files;
   }
 
   public getResults(): BettererResults {
@@ -67,55 +58,54 @@ export class BettererContext {
     this._reporters.runner.end();
   }
 
-  public runBetter(run: BettererRunContext, result: unknown): void {
+  public runBetter(run: BettererRun, result: unknown): void {
     const { name } = run;
     this.stats.better.push(name);
     this._reporters.run.better(run);
     this._results.push(this._createResults(name, result));
   }
 
-  public runEnd(run: BettererRunContext): void {
+  public runEnd(run: BettererRun): void {
     const { hasCompleted, name } = run;
     if (hasCompleted) {
       this.stats.completed.push(name);
     }
-    this._reporters.run.end(run);
   }
 
-  public runFailed(run: BettererRunContext): void {
+  public runFailed(run: BettererRun): void {
     const { name } = run;
     this.stats.failed.push(name);
     this._reporters.run.failed(run);
   }
 
-  public runNew(run: BettererRunContext, result: unknown): void {
+  public runNew(run: BettererRun, result: unknown): void {
     const { name } = run;
     this.stats.new.push(name);
     this._reporters.run.new(run);
     this._results.push(this._createResults(name, result));
   }
 
-  public runRan(run: BettererRunContext): void {
+  public runRan(run: BettererRun): void {
     this.stats.ran.push(run.name);
   }
 
-  public runSame(run: BettererRunContext): void {
+  public runSame(run: BettererRun): void {
     const { name } = run;
     this.stats.same.push(name);
     this._reporters.run.same(run);
   }
 
-  public runSkipped(run: BettererRunContext): void {
+  public runSkipped(run: BettererRun): void {
     const { name } = run;
     this.stats.skipped.push(name);
   }
 
-  public runStart(run: BettererRunContext): void {
+  public runStart(run: BettererRun): void {
     this._reporters.run.start(run);
   }
 
   public runWorse(
-    run: BettererRunContext,
+    run: BettererRun,
     result: unknown,
     serialised: unknown,
     expected: unknown
@@ -123,7 +113,6 @@ export class BettererContext {
     const { name } = run;
     this.stats.worse.push(name);
     this._reporters.run.worse(run, result, serialised, expected);
-    this._results.push(this._createResults(name, serialised));
   }
 
   private async _init(): Promise<void> {
@@ -137,9 +126,9 @@ export class BettererContext {
   }
 
   private async _initRuns(
-    configPaths: Array<string> = []
-  ): Promise<Array<BettererRunContext>> {
-    let runs: Array<BettererRunContext> = [];
+    configPaths: ReadonlyArray<string> = []
+  ): Promise<ReadonlyArray<BettererRun>> {
+    let runs: ReadonlyArray<BettererRun> = [];
     await Promise.all(
       configPaths.map(async configPath => {
         const more = await this._getRuns(configPath);
@@ -181,7 +170,7 @@ export class BettererContext {
     return expectedValues;
   }
 
-  private _initFilters(filters: Array<RegExp> = []): void {
+  private _initFilters(filters: ReadonlyArray<RegExp> = []): void {
     if (filters.length) {
       this.runs.forEach(run => {
         if (!filters.some(filter => filter.test(run.name))) {
@@ -201,18 +190,12 @@ export class BettererContext {
     this.stats.obsolete.push(...obsolete);
   }
 
-  private async _getRuns(
-    configPath: string
-  ): Promise<Array<BettererRunContext>> {
+  private async _getRuns(configPath: string): Promise<Array<BettererRun>> {
     try {
       const imported = await import(configPath);
       const betterers = imported.default ? imported.default : imported;
       return Object.keys(betterers).map(name => {
-        return BettererRunContext.create(
-          name,
-          this,
-          createBetterer(betterers[name])
-        );
+        return BettererRun.create(name, this, createBetterer(betterers[name]));
       });
     } catch {
       // Couldn't import, doesn't matter...

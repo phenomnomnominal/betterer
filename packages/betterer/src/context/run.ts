@@ -1,17 +1,18 @@
 import { BettererContext } from './context';
 import { Betterer } from '../betterer';
 
-export class BettererRunContext {
+export class BettererRun {
   private _expected: unknown;
   private _hasExpected = false;
   private _hasCompleted = false;
+  private _files: ReadonlyArray<string> = [];
 
   public static create(
     name: string,
     context: BettererContext,
     betterer: Betterer
-  ): BettererRunContext {
-    const run = new BettererRunContext(name, context, betterer);
+  ): BettererRun {
+    const run = new BettererRun(name, context, betterer);
     if (Object.hasOwnProperty.call(context.expected, name)) {
       run._expected = context.expected[name];
       run._hasExpected = true;
@@ -24,6 +25,14 @@ export class BettererRunContext {
     public readonly context: BettererContext,
     public readonly betterer: Betterer
   ) {}
+
+  public get files(): ReadonlyArray<string> {
+    return this._files;
+  }
+
+  public setFiles(files: ReadonlyArray<string>): void {
+    this._files = files;
+  }
 
   public get expected(): unknown {
     return this._expected;
@@ -38,10 +47,10 @@ export class BettererRunContext {
   }
 
   public better(result: unknown, goalComplete: boolean): void {
-    this.context.runBetter(this, result);
     if (goalComplete) {
       this.completed();
     }
+    this.context.runBetter(this, result);
   }
 
   public completed(): void {
@@ -57,10 +66,10 @@ export class BettererRunContext {
   }
 
   public new(result: unknown, goalComplete: boolean): void {
-    this.context.runNew(this, result);
     if (goalComplete) {
       this.completed();
     }
+    this.context.runNew(this, result);
   }
 
   public ran(): void {
@@ -72,10 +81,10 @@ export class BettererRunContext {
   }
 
   public same(goalComplete: boolean): void {
-    this.context.runSame(this);
     if (goalComplete) {
       this.completed();
     }
+    this.context.runSame(this);
   }
 
   public skipped(): void {

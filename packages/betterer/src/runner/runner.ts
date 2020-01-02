@@ -1,14 +1,18 @@
 import { ConstraintResult } from '@betterer/constraints';
 
 import { Betterer } from '../betterer';
-import { BettererContext, BettererRunContext } from '../context';
+import { BettererContext, BettererRun } from '../context';
 import { serialise } from './serialiser';
 
-export async function parallel(context: BettererContext): Promise<void> {
+export async function parallel(
+  context: BettererContext,
+  files: ReadonlyArray<string> = []
+): Promise<void> {
   const { runs } = context;
   context.runnerStart();
   await Promise.all(
     runs.map(async run => {
+      run.setFiles(files);
       await runTest(run.betterer, run);
       run.end();
     })
@@ -27,48 +31,45 @@ export async function serial(context: BettererContext): Promise<void> {
   context.runnerEnd();
 }
 
-async function runTest(
-  betterer: Betterer,
-  runContext: BettererRunContext
-): Promise<void> {
+async function runTest(betterer: Betterer, run: BettererRun): Promise<void> {
   const { test, constraint, goal, isSkipped } = betterer;
-  const { expected, hasExpected } = runContext;
+  const { expected, hasExpected } = run;
 
   if (isSkipped) {
-    runContext.skipped();
+    run.skipped();
     return;
   }
 
-  runContext.start();
+  run.start();
   let current: unknown;
   try {
-    current = await test(runContext);
+    current = await test(run);
   } catch {
-    runContext.failed();
+    run.failed();
     return;
   }
-  runContext.ran();
+  run.ran();
 
   const serialisedCurrent = await serialise(current);
   const goalComplete = await goal(serialisedCurrent);
 
   if (!hasExpected) {
-    runContext.new(current, goalComplete);
+    run.new(current, goalComplete);
     return;
   }
 
   const comparison = await constraint(serialisedCurrent, expected);
 
   if (comparison === ConstraintResult.same) {
-    runContext.same(goalComplete);
+    run.same(goalComplete);
     return;
   }
 
   if (comparison === ConstraintResult.better) {
-    runContext.better(current, goalComplete);
+    run.better(current, goalComplete);
     return;
   }
 
-  runContext.worse(current, serialisedCurrent);
+  run.worse(current, serialisedCurrent);
   return;
 }

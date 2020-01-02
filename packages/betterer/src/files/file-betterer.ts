@@ -2,7 +2,7 @@ import { ConstraintResult } from '@betterer/constraints';
 import { code, error } from '@betterer/logger';
 
 import { Betterer } from '../betterer';
-import { BettererRunContext } from '../context';
+import { BettererRun } from '../context';
 import { MaybeAsync } from '../types';
 import { BettererFileInfo, BettererFileMarksMap } from './types';
 import { BettererFile } from './file';
@@ -11,16 +11,16 @@ export class FileBetterer extends Betterer<BettererFile, BettererFileMarksMap> {
   private _excluded: Array<RegExp> = [];
 
   constructor(
-    test: (files: Array<string>) => MaybeAsync<Array<BettererFileInfo>>
+    test: (files: ReadonlyArray<string>) => MaybeAsync<Array<BettererFileInfo>>
   ) {
     super({
       constraint,
       diff,
       goal,
-      test: async (runContext: BettererRunContext): Promise<BettererFile> => {
-        const { config, files } = runContext.context;
+      test: async (run: BettererRun): Promise<BettererFile> => {
+        const { context, files } = run;
         const info = await test(files);
-        const bettererFile = BettererFile.fromInfo(config, info);
+        const bettererFile = BettererFile.fromInfo(context.config, info);
         bettererFile.exclude(this._excluded);
         return bettererFile;
       }

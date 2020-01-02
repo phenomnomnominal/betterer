@@ -20,7 +20,7 @@ type Paths = {
 
 type Fixture = {
   deleteFile(filePath: string): Promise<void>;
-  logs: Array<string>;
+  logs: ReadonlyArray<string>;
   paths: Paths;
   readFile(filePath: string): Promise<string>;
   resolve(filePath: string): string;

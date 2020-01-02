@@ -13,7 +13,7 @@ import {
 const globAsync = promisify(glob);
 
 export function regexpBetterer(
-  globs: string | Array<string>,
+  globs: string | ReadonlyArray<string>,
   regexp: RegExp
 ): FileBetterer {
   const [, callee] = stack();
@@ -21,23 +21,24 @@ export function regexpBetterer(
   const globsArray = Array.isArray(globs) ? globs : [globs];
   const resolvedGlobs = globsArray.map(glob => path.resolve(cwd, glob));
 
-  return createFileBetterer(async (files: Array<string> = []) => {
+  return createFileBetterer(async (files: ReadonlyArray<string> = []) => {
     regexp = new RegExp(
       regexp.source,
       regexp.flags.includes('g') ? regexp.flags : `${regexp.flags}g`
     );
 
-    if (files.length === 0) {
+    const testFiles = [...files];
+    if (testFiles.length === 0) {
       await Promise.all(
         resolvedGlobs.flatMap(async currentGlob => {
           const globFiles = await globAsync(currentGlob);
-          files.push(...globFiles);
+          testFiles.push(...globFiles);
         })
       );
     }
 
     const matches = await Promise.all(
-      files.flatMap(async filePath => {
+      testFiles.flatMap(async filePath => {
         return await getFileMatches(regexp, filePath);
       })
     );
@@ -48,7 +49,7 @@ export function regexpBetterer(
 async function getFileMatches(
   regexp: RegExp,
   filePath: string
-): Promise<Array<BettererFileInfo>> {
+): Promise<ReadonlyArray<BettererFileInfo>> {
   const matches: Array<BettererFileInfo> = [];
   let fileText: string;
   try {

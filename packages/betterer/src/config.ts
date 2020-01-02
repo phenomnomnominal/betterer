@@ -1,7 +1,7 @@
 export type BettererConfig = {
-  configPaths: Array<string>;
+  configPaths: ReadonlyArray<string>;
   resultsPath: string;
-  filters?: Array<RegExp>;
+  filters?: ReadonlyArray<RegExp>;
   watch?: boolean;
-  ignores?: Array<RegExp>;
+  ignores?: ReadonlyArray<RegExp>;
 };

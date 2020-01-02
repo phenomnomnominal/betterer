@@ -53,8 +53,8 @@ const SPACER = chalk.bgBlack.yellowBright(' - ');
 function createLogger(
   name: string,
   icon: string
-): (...args: Array<string>) => void {
-  return function(...messages: Array<string>): void {
+): (...args: ReadonlyArray<string>) => void {
+  return function(...messages: ReadonlyArray<string>): void {
     if (previousLogger === 'CODE') {
       br();
     }

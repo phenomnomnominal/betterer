@@ -24,8 +24,7 @@ export async function bettererWatch(
   const context = await BettererContext.create(config, parallelReporters);
   await parallel(context);
   const watcher = watch(context, itemPath => {
-    context.setFiles([itemPath]);
-    parallel(context);
+    parallel(context, [itemPath]);
   });
   return async function(): Promise<BettererStats> {
     watcher.close();
