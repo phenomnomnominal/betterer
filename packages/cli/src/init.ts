@@ -7,7 +7,9 @@ import * as path from 'path';
 import { DEFAULT_CONFIG_PATH } from './constants';
 import { COULDNT_FIND_PACKAGE_JSON } from './errors';
 
-const TEMPLATE = `module.exports = {\n  // Add tests here ☀️\n};`;
+const TEMPLATE = `module.exports = {
+  // Add tests here ☀️
+};`;
 
 export async function init(cwd: string, argv: Array<string>): Promise<void> {
   commander
@@ -48,7 +50,7 @@ async function createTestFile(
   try {
     await fs.writeFile(configPath, TEMPLATE, 'utf8');
   } catch {
-    error(`couln't write to "${configPath}" 🔥`);
+    error(`couldn't write to "${configPath}" 🔥`);
     return;
   }
 

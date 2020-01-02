@@ -1,8 +1,15 @@
+import { BettererError } from '@betterer/errors';
 import { createBetterer } from '../betterer';
 import { BettererConfig } from '../config';
 import { CANT_READ_CONFIG } from '../errors';
 import { BettererReporters } from '../reporters';
-import { BettererResults, BettererResultsValues, read, write } from './results';
+import {
+  BettererResults,
+  BettererResultsValues,
+  print,
+  read,
+  write
+} from './results';
 import { BettererRun } from './run';
 import { BettererStats } from './statistics';
 
@@ -44,8 +51,17 @@ export class BettererContext {
   }
 
   public async complete(): Promise<BettererStats> {
+    const printed: string = await print(this.getResults());
+    let error: BettererError | null = null;
+    try {
+      await write(printed, this.config.resultsPath);
+    } catch (e) {
+      error = e;
+    }
     this._reporters.context?.complete(this);
-    await write(this.getResults(), this.config.resultsPath);
+    if (error) {
+      this._reporters.context?.error(error, printed);
+    }
     return this.stats;
   }
 

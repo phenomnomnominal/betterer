@@ -5,6 +5,7 @@
     { "path": "cli" },
     { "path": "constraints" },
     { "path": "eslint" },
+    { "path": "errors" },
     { "path": "logger" },
     { "path": "regexp" },
     { "path": "tsquery" },

@@ -24,6 +24,6 @@
     "compile": "tsc -b ."
   },
   "dependencies": {
-    "chalk": "^2.4.2"
+    "@betterer/logger": "^0.5.0"
   }
 }

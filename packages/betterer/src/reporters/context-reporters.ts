@@ -1,3 +1,4 @@
+import { BettererError, logError } from '@betterer/errors';
 import { error, info, success, warn, logo } from '@betterer/logger';
 
 import { BettererContext } from '../context';
@@ -5,6 +6,7 @@ import { BettererContext } from '../context';
 export type BettererContextReporter = {
   start(): void;
   complete(context: BettererContext): void;
+  error(error: BettererError, printed: string): void;
 };
 
 export const contextSerial: BettererContextReporter = {
@@ -50,6 +52,10 @@ export const contextSerial: BettererContextReporter = {
     if (skipped) {
       warn(`${skipped} ${getThings(skipped)} got skipped. ❌`);
     }
+  },
+  error(error: BettererError, printed: string) {
+    logError(error);
+    console.log(printed);
   }
 };
 

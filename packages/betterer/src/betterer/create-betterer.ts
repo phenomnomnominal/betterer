@@ -1,19 +1,22 @@
-import { Betterer, BettererOptions } from './betterer';
 import { NO_CONSTRAINT, NO_TEST } from '../errors';
+import { Betterer, isBetterer } from './betterer';
+import { BettererOptions } from './types';
 
-export function createBetterer<Base = unknown, Serialised = Base>(
-  betterer: BettererOptions<Base, Serialised>
-): Betterer<Base, Serialised> {
-  if (betterer instanceof Betterer) {
+export function createBetterer<TestType = unknown, SerialisedType = TestType>(
+  betterer:
+    | BettererOptions<TestType, SerialisedType>
+    | Betterer<TestType, SerialisedType>
+): Betterer<TestType, SerialisedType> {
+  if (isBetterer(betterer)) {
     return betterer;
   }
 
-  const { test, constraint } = betterer;
+  const { constraint, test } = betterer;
+  if (constraint == null) {
+    throw NO_CONSTRAINT();
+  }
   if (test == null) {
     throw NO_TEST();
   }
-  if (constraint == null) {
-    throw NO_CONSTRAINT;
-  }
-  return new Betterer<Base, Serialised>(betterer);
+  return new Betterer<TestType, SerialisedType>(betterer);
 }

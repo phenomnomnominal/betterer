@@ -75,13 +75,10 @@ export async function start(
     warn();
   }
 
+  const options = { configPaths, filters, ignores, resultsPath };
+
   if (watch) {
-    const stop = await bettererWatch({
-      configPaths,
-      filters,
-      ignores,
-      resultsPath
-    });
+    const stop = await bettererWatch(options);
     return new Promise((resolve): void => {
       process.on('SIGINT', () => {
         const stats = stop();
@@ -89,5 +86,5 @@ export async function start(
       });
     });
   }
-  return await betterer({ configPaths, filters, resultsPath });
+  return await betterer(options);
 }

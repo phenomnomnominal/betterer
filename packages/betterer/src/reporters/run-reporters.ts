@@ -1,6 +1,7 @@
 import { br, error, info, success, warn } from '@betterer/logger';
 
 import { BettererRun } from '../context';
+import { getDiff } from './diffs';
 
 export type BettererRunReporter = {
   better(run: BettererRun): void;
@@ -17,42 +18,46 @@ export type BettererRunReporter = {
 };
 
 export const runSerial: BettererRunReporter = {
-  better({ hasCompleted, name }: BettererRun): void {
+  better(run: BettererRun): void {
+    const { hasCompleted, name } = run;
     if (hasCompleted) {
       success(`"${name}" met its goal! 🎉`);
       return;
     }
     success(`"${name}" got better! 😍`);
   },
-  failed({ name }: BettererRun): void {
-    error(`"${name}" failed to run. 🔥`);
+  failed(run: BettererRun): void {
+    error(`"${run.name}" failed to run. 🔥`);
   },
-  new({ hasCompleted, name }: BettererRun): void {
+  new(run: BettererRun): void {
+    const { hasCompleted, name } = run;
     if (hasCompleted) {
       success(`"${name}" has already met its goal! ✨`);
       return;
     }
     success(`"${name}" got checked for the first time! 🎉`);
   },
-  same({ hasCompleted, name }: BettererRun): void {
+  same(run: BettererRun): void {
+    const { hasCompleted, name } = run;
     if (hasCompleted) {
       success(`"${name}" has already met its goal! ✨`);
       return;
     }
     warn(`"${name}" stayed the same. 😐`);
   },
-  start({ name }: BettererRun): void {
-    info(`running "${name}"!`);
+  start(run: BettererRun): void {
+    info(`running "${run.name}"!`);
   },
   worse(
-    { name, betterer }: BettererRun,
+    run: BettererRun,
     result: unknown,
     serialised: unknown,
     expected: unknown
   ): void {
-    error(`"${name}" got worse. 😔`);
+    error(`"${run.name}" got worse. 😔`);
     br();
-    betterer.diff(result, serialised, expected);
+    const diff = getDiff(run.betterer);
+    diff(result, serialised, expected);
     br();
   }
 };

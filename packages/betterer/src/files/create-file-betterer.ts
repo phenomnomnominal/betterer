@@ -1,9 +1,6 @@
-import { MaybeAsync } from '../types';
 import { FileBetterer } from './file-betterer';
-import { BettererFileInfo } from './types';
+import { FileBettererTest } from './types';
 
-export function createFileBetterer(
-  test: (files: ReadonlyArray<string>) => MaybeAsync<Array<BettererFileInfo>>
-): FileBetterer {
+export function createFileBetterer(test: FileBettererTest): FileBetterer {
   return new FileBetterer(test);
 }

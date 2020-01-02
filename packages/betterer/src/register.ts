@@ -1,6 +1,8 @@
 import { register } from 'ts-node';
 
-import { RESULTS_EXTENTION, JS_EXTENSION } from './constants';
+import { RESULTS_EXTENTION } from './constants';
+
+export const JS_EXTENSION = '.js';
 
 export function registerExtensions(): void {
   // Get the original JS module require:

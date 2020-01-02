@@ -17,8 +17,10 @@ export function tsqueryBetterer(
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
   const absoluteConfigFilePath = path.resolve(cwd, configFilePath);
+
   return createFileBetterer(async (files: ReadonlyArray<string> = []) => {
     let sourceFiles: ReadonlyArray<SourceFile> = [];
+
     if (files.length === 0) {
       sourceFiles = tsquery.project(absoluteConfigFilePath);
     } else {

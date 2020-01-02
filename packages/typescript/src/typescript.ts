@@ -32,15 +32,12 @@ export function typescriptBetterer(
     config.compilerOptions = fullCompilerOptions;
 
     const host = ts.createCompilerHost(fullCompilerOptions);
-    const parsed = ts.parseJsonConfigFileContent(
-      config,
-      {
-        ...host,
-        readDirectory,
-        useCaseSensitiveFileNames: host.useCaseSensitiveFileNames()
-      },
-      basePath
-    );
+    const configHost = {
+      ...host,
+      readDirectory,
+      useCaseSensitiveFileNames: host.useCaseSensitiveFileNames()
+    };
+    const parsed = ts.parseJsonConfigFileContent(config, configHost, basePath);
 
     if (files.length === 0) {
       files = parsed.fileNames;

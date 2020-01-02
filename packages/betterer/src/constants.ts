@@ -1,2 +1,2 @@
 export const RESULTS_EXTENTION = '.results';
-export const JS_EXTENSION = '.js';
+export const NEW_LINE = '\n';

@@ -1,5 +1,4 @@
 import { error } from '@betterer/logger';
-import chalk from 'chalk';
 
 import { BettererError } from './error';
 
@@ -8,10 +7,10 @@ export type ErrorMessageFactory = (...details: Array<unknown>) => string;
 
 const ERROR_MESSAGES = new Map<symbol, ErrorMessageFactory>();
 
-export function logError({ code, details }: BettererError): void {
-  const factory = ERROR_MESSAGES.get(code);
+export function logError(err: BettererError): void {
+  const factory = ERROR_MESSAGES.get(err.code);
   if (factory) {
-    error(factory(...details));
+    error(factory(...err.details));
   }
 }
 
@@ -21,11 +20,4 @@ export function registerError(factory: ErrorMessageFactory): ErrorFactory {
   return function(...details: Array<unknown>): BettererError {
     return new BettererError(code, details);
   };
-}
-
-export function errorValue(value: unknown): string {
-  return chalk.redBright(`"${value}"`);
-}
-export function optionName(option: string): string {
-  return chalk.blueBright(`\`${option}\``);
 }
