@@ -1,5 +1,6 @@
 import { promises as fs } from 'fs';
 
+import { CANT_READ_RESULTS } from '../../errors';
 import { BettererResults } from './results';
 
 export async function read(resultsPath: string): Promise<BettererResults> {
@@ -12,6 +13,6 @@ export async function read(resultsPath: string): Promise<BettererResults> {
   try {
     return await import(resultsPath);
   } catch {
-    throw new Error();
+    throw CANT_READ_RESULTS(resultsPath);
   }
 }

@@ -1,11 +1,10 @@
-import { error } from '@betterer/logger';
-
 import { createBetterer } from '../betterer';
 import { BettererConfig } from '../config';
-import { BettererResults, BettererResultsValues, read, write } from './results';
-import { BettererStats } from './statistics';
+import { CANT_READ_CONFIG } from '../errors';
 import { BettererReporters } from '../reporters';
+import { BettererResults, BettererResultsValues, read, write } from './results';
 import { BettererRun } from './run';
+import { BettererStats } from './statistics';
 
 export class BettererContext {
   private _expected: BettererResultsValues = {};
@@ -150,12 +149,7 @@ export class BettererContext {
   private async _initExpected(resultsPath: string): Promise<BettererResults> {
     let expected: BettererResults = {};
     if (resultsPath) {
-      try {
-        expected = await read(resultsPath);
-      } catch {
-        error(`could not read results from "${resultsPath}". 😔`);
-        throw new Error();
-      }
+      expected = await read(resultsPath);
     }
     return expected;
   }
@@ -198,11 +192,8 @@ export class BettererContext {
         return BettererRun.create(name, this, createBetterer(betterers[name]));
       });
     } catch {
-      // Couldn't import, doesn't matter...
+      throw CANT_READ_CONFIG(configPath);
     }
-
-    error(`could not read "${configPath}". 😔`);
-    throw new Error();
   }
 
   private _createResults(name: string, value: unknown): BettererResults {

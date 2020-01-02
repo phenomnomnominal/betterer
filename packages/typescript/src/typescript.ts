@@ -1,8 +1,9 @@
-import * as ts from 'typescript';
+import { FileBetterer, createFileBetterer } from '@betterer/betterer';
 import * as stack from 'callsite';
+import * as ts from 'typescript';
 import * as path from 'path';
 
-import { FileBetterer, createFileBetterer } from '@betterer/betterer';
+import { CONFIG_PATH_REQUIRED } from './errors';
 
 const readFile = ts.sys.readFile.bind(ts.sys);
 const readDirectory = ts.sys.readDirectory.bind(ts.sys);
@@ -17,7 +18,7 @@ export function typescriptBetterer(
 
   return createFileBetterer((files: ReadonlyArray<string> = []) => {
     if (!configFilePath) {
-      throw new Error();
+      throw CONFIG_PATH_REQUIRED();
     }
 
     const { config } = ts.readConfigFile(absPath, readFile);

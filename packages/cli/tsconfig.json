@@ -6,5 +6,9 @@
   },
   "include": ["./src/*.ts"],
   "exclude": ["../node_modules/*", "./node_modules/*", "./dist/*"],
-  "references": [{ "path": "../betterer" }, { "path": "../logger" }]
+  "references": [
+    { "path": "../betterer" },
+    { "path": "../errors" },
+    { "path": "../logger" }
+  ]
 }

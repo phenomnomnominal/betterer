@@ -5,6 +5,7 @@ import { promises as fs } from 'fs';
 import * as path from 'path';
 
 import { DEFAULT_CONFIG_PATH } from './constants';
+import { COULDNT_FIND_PACKAGE_JSON } from './errors';
 
 const TEMPLATE = `module.exports = {\n  // Add tests here ☀️\n};`;
 
@@ -62,7 +63,7 @@ async function updatePackageJSON(cwd: string): Promise<void> {
   try {
     packageJSONPath = await findUp('package.json', { cwd });
     if (!packageJSONPath) {
-      throw new Error();
+      throw COULDNT_FIND_PACKAGE_JSON();
     }
     packageJSON = JSON.parse(await fs.readFile(packageJSONPath, 'utf-8'));
   } catch {

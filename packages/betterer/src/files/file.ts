@@ -2,6 +2,7 @@ import LinesAndColumns from 'lines-and-columns';
 import * as path from 'path';
 
 import { BettererConfig } from '../config';
+import { CANNOT_CALL_GET_FILE_INFO_ON_SERIALISED_BETTERER_FILE } from '../errors';
 import { hash } from '../hasher';
 import { Printable, Serialisable } from '../types';
 import {
@@ -75,7 +76,7 @@ export class BettererFile
 
   public getFileInfo(filePath: string): ReadonlyArray<BettererFileInfo> {
     if (!this._fileInfoMap) {
-      throw new Error();
+      throw CANNOT_CALL_GET_FILE_INFO_ON_SERIALISED_BETTERER_FILE();
     }
     return this._fileInfoMap[filePath] || [];
   }
