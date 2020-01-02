@@ -41,27 +41,27 @@ export class BettererContext {
     private _reporters: BettererReporters,
     public readonly stats = new BettererStats()
   ) {
-    this._reporters.context.start();
+    this._reporters.context?.start();
   }
 
   public async complete(): Promise<BettererStats> {
-    this._reporters.context.complete(this);
+    this._reporters.context?.complete(this);
     await write(this.getResults(), this.config.resultsPath);
     return this.stats;
   }
 
   public runnerStart(): void {
-    this._reporters.runner.start();
+    this._reporters.runner?.start();
   }
 
   public runnerEnd(): void {
-    this._reporters.runner.end();
+    this._reporters.runner?.end();
   }
 
   public runBetter(run: BettererRun, result: unknown): void {
     const { name } = run;
     this.stats.better.push(name);
-    this._reporters.run.better(run);
+    this._reporters.run?.better(run);
     this._results.push(this._createResults(name, result));
   }
 
@@ -75,13 +75,13 @@ export class BettererContext {
   public runFailed(run: BettererRun): void {
     const { name } = run;
     this.stats.failed.push(name);
-    this._reporters.run.failed(run);
+    this._reporters.run?.failed(run);
   }
 
   public runNew(run: BettererRun, result: unknown): void {
     const { name } = run;
     this.stats.new.push(name);
-    this._reporters.run.new(run);
+    this._reporters.run?.new(run);
     this._results.push(this._createResults(name, result));
   }
 
@@ -92,7 +92,7 @@ export class BettererContext {
   public runSame(run: BettererRun): void {
     const { name } = run;
     this.stats.same.push(name);
-    this._reporters.run.same(run);
+    this._reporters.run?.same(run);
   }
 
   public runSkipped(run: BettererRun): void {
@@ -101,7 +101,7 @@ export class BettererContext {
   }
 
   public runStart(run: BettererRun): void {
-    this._reporters.run.start(run);
+    this._reporters.run?.start(run);
   }
 
   public runWorse(
@@ -112,7 +112,7 @@ export class BettererContext {
   ): void {
     const { name } = run;
     this.stats.worse.push(name);
-    this._reporters.run.worse(run, result, serialised, expected);
+    this._reporters.run?.worse(run, result, serialised, expected);
   }
 
   private async _init(): Promise<void> {

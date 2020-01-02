@@ -1,4 +1,5 @@
 import { Betterer, BettererOptions } from './betterer';
+import { NO_CONSTRAINT, NO_TEST } from '../errors';
 
 export function createBetterer<Base = unknown, Serialised = Base>(
   betterer: BettererOptions<Base, Serialised>
@@ -9,10 +10,10 @@ export function createBetterer<Base = unknown, Serialised = Base>(
 
   const { test, constraint } = betterer;
   if (test == null) {
-    throw new Error();
+    throw NO_TEST();
   }
   if (constraint == null) {
-    throw new Error();
+    throw NO_CONSTRAINT;
   }
   return new Betterer<Base, Serialised>(betterer);
 }

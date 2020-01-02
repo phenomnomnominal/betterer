@@ -7,15 +7,6 @@ export type BettererContextReporter = {
   complete(context: BettererContext): void;
 };
 
-export const contextParallel: BettererContextReporter = {
-  start(): void {
-    //
-  },
-  complete(): void {
-    //
-  }
-};
-
 export const contextSerial: BettererContextReporter = {
   start(): void {
     logo();

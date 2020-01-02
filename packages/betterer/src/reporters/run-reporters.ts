@@ -16,27 +16,6 @@ export type BettererRunReporter = {
   ): void;
 };
 
-export const runParallel: BettererRunReporter = {
-  better(): void {
-    //
-  },
-  failed(): void {
-    //
-  },
-  new(): void {
-    //
-  },
-  same(): void {
-    //
-  },
-  start(): void {
-    //
-  },
-  worse(): void {
-    //
-  }
-};
-
 export const runSerial: BettererRunReporter = {
   better({ hasCompleted, name }: BettererRun): void {
     if (hasCompleted) {
