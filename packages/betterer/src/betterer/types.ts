@@ -4,9 +4,9 @@ import { BettererRun } from '../context';
 import { MaybeAsync } from '../types';
 
 export type BettererOptions<TestType = unknown, SerialisedType = TestType> = {
-  constraint: BettererConstraintFunction<SerialisedType>;
+  constraint: BettererConstraint<SerialisedType>;
   test: BettererTestFunction<TestType>;
-  goal: BettererGoal<SerialisedType>;
+  goal?: BettererGoal<SerialisedType>;
   isSkipped?: boolean;
   isOnly?: boolean;
 };
@@ -15,15 +15,25 @@ export type BettererTestFunction<TestType = unknown> = (
   run: BettererRun
 ) => MaybeAsync<TestType>;
 
-export type BettererConstraintFunction<SerialisedType = unknown> = (
+export type BettererConstraint<SerialisedType = unknown> = (
   current: SerialisedType,
   previous: SerialisedType
 ) => MaybeAsync<ConstraintResult>;
 
-export type BettererGoalFunction<SerialisedType = unknown> = (
+export type BettererDiff<
+  TestType = unknown,
+  SerialisedType = TestType,
+  DiffType = void
+> = (
+  current: TestType,
+  serialisedCurrent: SerialisedType,
+  serialisedPrevious: SerialisedType | null
+) => MaybeAsync<DiffType>;
+
+export type BettererGoal<SerialisedType = unknown> = (
   current: SerialisedType
 ) => MaybeAsync<boolean>;
 
-export type BettererGoal<SerialisedType = unknown> =
+export type BettererGoalValue<SerialisedType = unknown> =
   | SerialisedType
-  | BettererGoalFunction<SerialisedType>;
+  | BettererGoal<SerialisedType>;

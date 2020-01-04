@@ -1,7 +1,7 @@
 import { br, error, info, success, warn } from '@betterer/logger';
 
 import { BettererRun } from '../context';
-import { getDiff } from './diffs';
+import { getDiffReporter } from './diffs';
 import { BettererRunReporter } from './types';
 
 export const runSerial: BettererRunReporter = {
@@ -43,8 +43,8 @@ export const runSerial: BettererRunReporter = {
   ): void {
     error(`"${run.name}" got worse. 😔`);
     br();
-    const diff = getDiff(run.test.betterer);
-    diff(result, serialised, expected);
+    const diffReporter = getDiffReporter(run.test.betterer);
+    diffReporter(result, serialised, expected);
     br();
   }
 };

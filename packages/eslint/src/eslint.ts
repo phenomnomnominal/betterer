@@ -1,8 +1,8 @@
 import {
   BettererFileInfo,
-  BettererFilesInfo,
   FileBetterer,
-  createFileBetterer
+  createFileBetterer,
+  BettererFileInfoMap
 } from '@betterer/betterer';
 import * as stack from 'callsite';
 import { CLIEngine, Linter } from 'eslint';
@@ -46,12 +46,11 @@ export function eslintBetterer(
       );
     }
 
-    return await Promise.all(
-      testFiles.flatMap(filePath => {
-        const linterOptions = cli.getConfigForFile(filePath);
-        return getFileIssues(linterOptions, rule, filePath);
-      })
-    );
+    return testFiles.reduce((fileInfoMap, filePath) => {
+      const linterOptions = cli.getConfigForFile(filePath);
+      fileInfoMap[filePath] = getFileIssues(linterOptions, rule, filePath);
+      return fileInfoMap;
+    }, {} as BettererFileInfoMap);
   });
 }
 
@@ -59,7 +58,7 @@ function getFileIssues(
   linterOptions: Linter.Config,
   rule: ESLintRuleConfig,
   filePath: string
-): BettererFilesInfo {
+): Array<BettererFileInfo> {
   const [ruleName, ruleOptions] = rule;
   const runner = new CLIEngine({
     ...linterOptions,

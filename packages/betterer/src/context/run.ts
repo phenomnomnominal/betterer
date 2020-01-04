@@ -1,4 +1,4 @@
-import { BettererFilePaths } from '../files';
+import { BettererFilePaths } from '../betterer';
 import { BettererTest } from './test';
 
 export class BettererRun {
@@ -8,19 +8,13 @@ export class BettererRun {
   private _result: unknown;
 
   constructor(private _test: BettererTest, private _files: BettererFilePaths) {
-    const { betterer, context, name } = this._test;
-    if (Object.hasOwnProperty.call(context.expected, name)) {
-      this._expected = betterer.getExpected(
-        context.expected[name],
-        this._files
-      );
-      this._hasExpected = true;
-    }
+    this._expected = this._getExpected();
   }
 
   public get expected(): unknown {
     return this._expected;
   }
+
   public get files(): BettererFilePaths {
     return this._files;
   }
@@ -97,5 +91,14 @@ export class BettererRun {
   public worse(result: unknown, serialised: unknown): void {
     this._result = this._expected;
     this._test.context.runWorse(this, result, serialised, this.expected);
+  }
+
+  private _getExpected(): unknown {
+    const { betterer, context } = this.test;
+    const { expected } = context;
+    if (Object.hasOwnProperty.call(expected, this.name)) {
+      this._hasExpected = true;
+    }
+    return betterer.getExpected(this);
   }
 }

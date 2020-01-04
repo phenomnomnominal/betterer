@@ -1,7 +1,8 @@
 import {
   FileBetterer,
   createFileBetterer,
-  BettererFilesInfo
+  BettererFileInfo,
+  BettererFileInfoMap
 } from '@betterer/betterer';
 import * as stack from 'callsite';
 import { promises as fs } from 'fs';
@@ -44,18 +45,22 @@ export function regexpBetterer(
     }
 
     const matches = await Promise.all(
-      testFiles.flatMap(
-        async filePath => await getFileMatches(regexp, filePath)
-      )
+      testFiles.map(async filePath => {
+        return await getFileMatches(regexp, filePath);
+      })
     );
-    return matches.flat();
+
+    return testFiles.reduce((fileInfoMap, filePath, index) => {
+      fileInfoMap[filePath] = matches[index];
+      return fileInfoMap;
+    }, {} as BettererFileInfoMap);
   });
 }
 
 async function getFileMatches(
   regexp: RegExp,
   filePath: string
-): Promise<BettererFilesInfo> {
+): Promise<Array<BettererFileInfo>> {
   const matches: Array<RegExpExecArray> = [];
   let fileText: string;
   try {

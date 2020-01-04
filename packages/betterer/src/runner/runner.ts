@@ -1,12 +1,7 @@
 import { ConstraintResult } from '@betterer/constraints';
 
-import {
-  BettererContext,
-  BettererRun,
-  BettererTest,
-  BettererRuns
-} from '../context';
-import { BettererFilePaths } from '../files';
+import { BettererFilePaths } from '../betterer';
+import { BettererContext, BettererRun, BettererRuns } from '../context';
 import { serialise } from './serialiser';
 
 export async function parallel(
@@ -17,7 +12,7 @@ export async function parallel(
   context.runnerStart();
   await Promise.all(
     runs.map(async run => {
-      await runTest(run.test, run);
+      await runTest(run);
       run.end();
     })
   );
@@ -30,14 +25,15 @@ export async function serial(context: BettererContext): Promise<BettererRuns> {
   context.runnerStart();
   await runs.reduce(async (p, run) => {
     await p;
-    await runTest(run.test, run);
+    await runTest(run);
     run.end();
   }, Promise.resolve());
   context.runnerEnd(runs);
   return runs;
 }
 
-async function runTest(test: BettererTest, run: BettererRun): Promise<void> {
+async function runTest(run: BettererRun): Promise<void> {
+  const { test } = run;
   const { betterer } = test;
 
   if (betterer.isSkipped) {

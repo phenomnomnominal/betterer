@@ -1,14 +1,14 @@
+import { BettererRun } from '../context';
 import {
-  BettererConstraintFunction,
+  BettererConstraint,
   BettererGoal,
-  BettererGoalFunction,
   BettererTestFunction,
   BettererOptions
 } from './types';
 
 export class Betterer<TestType = unknown, SerialisedType = TestType> {
-  public readonly constraint: BettererConstraintFunction<SerialisedType>;
-  public readonly goal: BettererGoalFunction<SerialisedType>;
+  public readonly constraint: BettererConstraint<SerialisedType>;
+  public readonly goal: BettererGoal<SerialisedType>;
   public readonly test: BettererTestFunction<TestType>;
   public readonly isBetterer = true;
 
@@ -16,9 +16,9 @@ export class Betterer<TestType = unknown, SerialisedType = TestType> {
   private _isSkipped: boolean;
 
   constructor(options: BettererOptions<TestType, SerialisedType>) {
-    const { constraint, goal, test, isOnly, isSkipped } = options;
+    const { constraint, test, isOnly, isSkipped } = options;
     this.constraint = constraint;
-    this.goal = this._createGoal(goal);
+    this.goal = this._createGoal(options);
     this.test = test;
     this._isOnly = isOnly || false;
     this._isSkipped = isSkipped || false;
@@ -32,6 +32,10 @@ export class Betterer<TestType = unknown, SerialisedType = TestType> {
     return this._isSkipped;
   }
 
+  public getExpected(run: BettererRun): SerialisedType {
+    return run.test.context.expected[run.name] as SerialisedType;
+  }
+
   public only(): this {
     this._isOnly = true;
     return this;
@@ -42,18 +46,21 @@ export class Betterer<TestType = unknown, SerialisedType = TestType> {
     return this;
   }
 
-  private _createGoal<SerialisedType>(
-    goal: BettererGoal<SerialisedType>
-  ): BettererGoalFunction<SerialisedType> {
+  private _createGoal(
+    options: BettererOptions<TestType, SerialisedType>
+  ): BettererGoal<SerialisedType> {
+    const hasGoal = Object.hasOwnProperty.call(options, 'goal');
+    if (!hasGoal) {
+      return (): boolean => false;
+    }
+    const { goal } = options;
     if (this._isGoalFunction(goal)) {
       return goal;
     }
     return (value: unknown): boolean => value === goal;
   }
 
-  private _isGoalFunction(
-    goal: unknown
-  ): goal is BettererGoalFunction<unknown> {
+  private _isGoalFunction(goal: unknown): goal is BettererGoal<unknown> {
     return typeof goal === 'function';
   }
 }

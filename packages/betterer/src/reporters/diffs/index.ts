@@ -1,1 +1,1 @@
-export * from './diffs';
+export * from './diff-reporter';

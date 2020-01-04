@@ -1,5 +1,5 @@
 import { BettererError } from '@betterer/errors';
-import { createBetterer } from '../betterer';
+import { BettererFilePaths, createBetterer } from '../betterer';
 import {
   BettererConfig,
   BettererConfigFilters,
@@ -18,7 +18,6 @@ import { BettererRun } from './run';
 import { BettererStats } from './statistics';
 import { BettererTest } from './test';
 import { BettererRuns, BettererTests } from './types';
-import { BettererFilePaths } from '../files';
 
 export class BettererContext {
   private _tests: BettererTests = [];
@@ -51,10 +50,9 @@ export class BettererContext {
   }
 
   public getRuns(files: BettererFilePaths = []): BettererRuns {
-    this._tests.map(test => {
+    return this._tests.map(test => {
       return new BettererRun(test, files);
     });
-    return [];
   }
 
   private constructor(

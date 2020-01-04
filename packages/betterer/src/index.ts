@@ -7,20 +7,24 @@ import { watch } from './watcher';
 import { parallelReporters, serialReporters } from './reporters';
 
 // Export constructors and creators:
-export { Betterer, createBetterer } from './betterer';
+export {
+  Betterer,
+  FileBetterer,
+  createBetterer,
+  createFileBetterer
+} from './betterer';
 export {
   BettererContext,
   BettererRun,
   BettererTest,
   BettererStats
 } from './context';
-export { FileBetterer, createFileBetterer } from './files';
 
 // Export all types:
 export * from './betterer/types';
+export * from './betterer/file-betterer/types';
 export * from './config/types';
 export * from './context/types';
-export * from './files/types';
 
 registerExtensions();
 

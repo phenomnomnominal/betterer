@@ -1,15 +1,19 @@
 import { ConstraintResult } from '@betterer/constraints';
+
+import { BettererRun } from '../../context';
 import { Betterer } from '../betterer';
-import { BettererRun } from '../context';
-import { BettererFile } from './file';
+import { BettererFiles } from './files';
 import {
-  BettererFileMarksMap,
   BettererFileTest,
   BettererFileInfoDiff,
-  BettererFileExcluded
+  BettererFileExcluded,
+  BettererFileMarksMap
 } from './types';
 
-export class FileBetterer extends Betterer<BettererFile, BettererFileMarksMap> {
+export class FileBetterer extends Betterer<
+  BettererFiles,
+  BettererFileMarksMap
+> {
   private _excluded: BettererFileExcluded = [];
 
   public readonly isFileBetterer = true;
@@ -18,13 +22,14 @@ export class FileBetterer extends Betterer<BettererFile, BettererFileMarksMap> {
     super({
       constraint,
       goal,
-      test: async (run: BettererRun): Promise<BettererFile> => {
-        const { test, files } = run;
-        const { context } = test;
+      test: async (run: BettererRun): Promise<BettererFiles> => {
+        const { files } = run;
         const info = await fileTest(files);
-        const bettererFile = BettererFile.fromInfo(context.config, info);
-        bettererFile.exclude(this._excluded);
-        return bettererFile;
+
+        const included = files.filter(
+          filePath => !this._excluded.some(exclude => exclude.test(filePath))
+        );
+        return BettererFiles.fromInfo(info, included);
       }
     });
   }
@@ -34,27 +39,28 @@ export class FileBetterer extends Betterer<BettererFile, BettererFileMarksMap> {
     return this;
   }
 
-  public diff(
-    current: BettererFile,
+  public getDiff(
+    current: BettererFiles,
     serialisedCurrent: BettererFileMarksMap,
     serialisedPrevious: BettererFileMarksMap | null
   ): BettererFileInfoDiff {
-    const deserialisedCurrent = BettererFile.fromSerialised(serialisedCurrent);
-    const deserialisedPrevious = BettererFile.fromSerialised(
+    const files = current.files;
+
+    if (serialisedPrevious === null) {
+      return files.reduce((d, file) => {
+        d[file.filePath] = file.fileInfo;
+        return d;
+      }, {} as BettererFileInfoDiff);
+    }
+
+    const deserialisedCurrent = BettererFiles.fromSerialised(serialisedCurrent);
+    const deserialisedPrevious = BettererFiles.fromSerialised(
       serialisedPrevious
     );
 
-    const files = current.getFilePaths();
-    if (serialisedPrevious === null) {
-      return files.reduce((d: BettererFileInfoDiff, file: string) => {
-        d[file] = current.getFileInfo(file);
-        return d;
-      }, {});
-    }
-
-    const filesWithChanges = files.filter(file => {
-      const currentMarks = deserialisedCurrent.getFileMarks(file);
-      const previousMarks = deserialisedPrevious.getFileMarks(file);
+    const filesWithChanges = files.filter((_, index) => {
+      const currentMarks = deserialisedCurrent.files[index].fileMarks;
+      const previousMarks = deserialisedPrevious.files[index].fileMarks;
       if (
         !currentMarks ||
         !previousMarks ||
@@ -68,11 +74,10 @@ export class FileBetterer extends Betterer<BettererFile, BettererFileMarksMap> {
       });
     });
 
-    return filesWithChanges.reduce((d: BettererFileInfoDiff, file: string) => {
-      const currentMarks = deserialisedCurrent.getFileMarks(file);
-      const previousMarks = deserialisedPrevious.getFileMarks(file);
-      const fileInfo = current.getFileInfo(file);
-      d[file] = fileInfo.filter((_, index) => {
+    return filesWithChanges.reduce((d, file) => {
+      const currentMarks = deserialisedCurrent.getFileMarks(file.filePath);
+      const previousMarks = deserialisedPrevious.getFileMarks(file.filePath);
+      d[file.filePath] = file.fileInfo.filter((_, index) => {
         const [cLine, cCol, cLen] = currentMarks[index];
         return (
           !previousMarks ||
@@ -82,7 +87,17 @@ export class FileBetterer extends Betterer<BettererFile, BettererFileMarksMap> {
         );
       });
       return d;
-    }, {});
+    }, {} as BettererFileInfoDiff);
+  }
+
+  public getExpected(run: BettererRun): BettererFileMarksMap {
+    const expected = run.test.context.expected[
+      run.name
+    ] as BettererFileMarksMap;
+    const { files } = BettererFiles.fromSerialised(expected);
+    return new BettererFiles(
+      files.filter(file => run.files.includes(file.filePath))
+    ).serialise();
   }
 }
 
@@ -90,8 +105,8 @@ function constraint(
   serialisedCurrent: BettererFileMarksMap,
   serialisedPrevious: BettererFileMarksMap
 ): ConstraintResult {
-  const deserialisedCurrent = BettererFile.fromSerialised(serialisedCurrent);
-  const deserialisedPrevious = BettererFile.fromSerialised(serialisedPrevious);
+  const deserialisedCurrent = BettererFiles.fromSerialised(serialisedCurrent);
+  const deserialisedPrevious = BettererFiles.fromSerialised(serialisedPrevious);
   const currentFiles = deserialisedCurrent.getFilePaths();
   const previousFiles = deserialisedPrevious.getFilePaths();
 
@@ -99,7 +114,7 @@ function constraint(
     return !previousFiles.includes(file);
   });
   const movedUnchangedFiles = newOrMovedUnchangedFiles.filter(file => {
-    const fileHash = deserialisedCurrent.getHash(file);
+    const fileHash = deserialisedCurrent.getFileHash(file);
     return deserialisedPrevious.hasHash(fileHash);
   });
   const newFiles = newOrMovedUnchangedFiles.filter(file => {
@@ -146,5 +161,5 @@ function goal(value: BettererFileMarksMap): boolean {
 }
 
 export function isFileBetterer(obj: unknown): obj is FileBetterer {
-  return !!(obj as FileBetterer).isFileBetterer;
+  return (obj as FileBetterer).isFileBetterer;
 }

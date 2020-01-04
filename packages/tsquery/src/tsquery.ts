@@ -1,7 +1,8 @@
 import {
   FileBetterer,
   createFileBetterer,
-  BettererFilesInfo
+  BettererFileInfo,
+  BettererFileInfoMap
 } from '@betterer/betterer';
 import { tsquery } from '@phenomnomnominal/tsquery';
 import * as stack from 'callsite';
@@ -42,16 +43,17 @@ export function tsqueryBetterer(
       );
     }
 
-    return sourceFiles.flatMap(sourceFile => {
-      return getFileMatches(query, sourceFile);
-    });
+    return sourceFiles.reduce((fileInfoMap, sourceFile) => {
+      fileInfoMap[sourceFile.fileName] = getFileMatches(query, sourceFile);
+      return fileInfoMap;
+    }, {} as BettererFileInfoMap);
   });
 }
 
 function getFileMatches(
   query: string,
   sourceFile: SourceFile
-): BettererFilesInfo {
+): Array<BettererFileInfo> {
   return tsquery
     .query(sourceFile, query, { visitAllChildren: true })
     .map(match => {
