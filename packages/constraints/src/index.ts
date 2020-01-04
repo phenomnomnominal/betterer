@@ -1,4 +1,4 @@
-export * from './constraint-result';
+export { ConstraintResult } from './constraint-result';
 
-export * from './bigger';
-export * from './smaller';
+export { bigger } from './bigger';
+export { smaller } from './smaller';

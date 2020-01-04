@@ -1,7 +1,6 @@
 import * as djb2a from 'djb2a';
 
-import { NEW_LINE } from './constants';
-
+const NEW_LINE = '\n';
 const NEW_LINES = /\r\n|\r|\n/g;
 
 export function hash(value: string): string {

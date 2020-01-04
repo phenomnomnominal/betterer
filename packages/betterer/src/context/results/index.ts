@@ -1,4 +1,4 @@
-export * from './printer';
-export * from './reader';
-export * from './results';
-export * from './writer';
+export { print } from './printer';
+export { read } from './reader';
+export { write } from './writer';
+export * from './types';

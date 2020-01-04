@@ -1,4 +1,4 @@
-export * from './create-file-betterer';
-export * from './file-betterer';
-export * from './file';
+export { createFileBetterer } from './create-file-betterer';
+export { FileBetterer, isFileBetterer } from './file-betterer';
+export { BettererFile } from './file';
 export * from './types';

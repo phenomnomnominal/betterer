@@ -1,24 +1,24 @@
 import {
-  BettererConstraint,
+  BettererConstraintFunction,
   BettererGoal,
   BettererGoalFunction,
-  BettererTest,
+  BettererTestFunction,
   BettererOptions
 } from './types';
 
 export class Betterer<TestType = unknown, SerialisedType = TestType> {
-  public readonly constraint: BettererConstraint<SerialisedType>;
+  public readonly constraint: BettererConstraintFunction<SerialisedType>;
   public readonly goal: BettererGoalFunction<SerialisedType>;
-  public readonly test: BettererTest<TestType>;
+  public readonly test: BettererTestFunction<TestType>;
   public readonly isBetterer = true;
 
-  private _isOnly = false;
-  private _isSkipped = false;
+  private _isOnly: boolean;
+  private _isSkipped: boolean;
 
   constructor(options: BettererOptions<TestType, SerialisedType>) {
     const { constraint, goal, test, isOnly, isSkipped } = options;
     this.constraint = constraint;
-    this.goal = createGoal(goal);
+    this.goal = this._createGoal(goal);
     this.test = test;
     this._isOnly = isOnly || false;
     this._isSkipped = isSkipped || false;
@@ -41,19 +41,21 @@ export class Betterer<TestType = unknown, SerialisedType = TestType> {
     this._isSkipped = true;
     return this;
   }
-}
 
-function createGoal<SerialisedType>(
-  goal: BettererGoal<SerialisedType>
-): BettererGoalFunction<SerialisedType> {
-  if (isGoalFunction(goal)) {
-    return goal;
+  private _createGoal<SerialisedType>(
+    goal: BettererGoal<SerialisedType>
+  ): BettererGoalFunction<SerialisedType> {
+    if (this._isGoalFunction(goal)) {
+      return goal;
+    }
+    return (value: unknown): boolean => value === goal;
   }
-  return (value: unknown): boolean => value === goal;
-}
 
-function isGoalFunction(goal: unknown): goal is BettererGoalFunction<unknown> {
-  return typeof goal === 'function';
+  private _isGoalFunction(
+    goal: unknown
+  ): goal is BettererGoalFunction<unknown> {
+    return typeof goal === 'function';
+  }
 }
 
 export function isBetterer(obj: unknown): obj is Betterer {

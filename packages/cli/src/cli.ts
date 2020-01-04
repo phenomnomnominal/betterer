@@ -1,10 +1,12 @@
 import * as commander from 'commander';
 
+import { CLIArguments } from './types';
+
 const DEFAULT_COMMAND = 'start';
 
 const COMMANDS = [DEFAULT_COMMAND, 'init'];
 
-export function cli(argv: Array<string>): void {
+export function cli(argv: CLIArguments): void {
   // HACK:
   // It's easier to use require than to try to get `await import`
   // to work right for the package.json...

@@ -2,12 +2,7 @@ import { BettererError, logError } from '@betterer/errors';
 import { error, info, success, warn, logo } from '@betterer/logger';
 
 import { BettererContext } from '../context';
-
-export type BettererContextReporter = {
-  start(): void;
-  complete(context: BettererContext): void;
-  error(error: BettererError, printed: string): void;
-};
+import { BettererContextReporter } from './types';
 
 export const contextSerial: BettererContextReporter = {
   start(): void {
@@ -55,7 +50,7 @@ export const contextSerial: BettererContextReporter = {
   },
   error(error: BettererError, printed: string) {
     logError(error);
-    console.log(printed);
+    process.stdout.write(printed);
   }
 };
 

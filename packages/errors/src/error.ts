@@ -1,7 +1,9 @@
-export class BettererError extends Error {
-  public details: Array<unknown>;
+import { ErrorDetails } from './types';
 
-  constructor(public code: symbol, ...details: Array<unknown>) {
+export class BettererError extends Error {
+  public details: ErrorDetails;
+
+  constructor(public code: symbol, ...details: ErrorDetails) {
     super();
 
     this.details = details;

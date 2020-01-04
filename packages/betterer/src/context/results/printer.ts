@@ -1,7 +1,7 @@
 import { escape } from 'safe-string-literal';
 
 import { Printable } from '../../types';
-import { BettererResults } from './results';
+import { BettererResults } from './types';
 
 const RESULTS_HEADER = `// BETTERER RESULTS V1.`;
 

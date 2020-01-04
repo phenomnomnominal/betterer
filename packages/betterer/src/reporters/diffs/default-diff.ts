@@ -1,11 +1,10 @@
 import * as logDiff from 'jest-diff';
 
-import { NEW_LINE } from '../../constants';
-
 const DIFF_OPTIONS = {
   aAnnotation: 'Previous',
   bAnnotation: 'Current'
 };
+const NEW_LINE = '\n';
 
 export function defaultDiff(
   _: unknown,

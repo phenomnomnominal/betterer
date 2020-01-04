@@ -1,7 +1,7 @@
 import LinesAndColumns from 'lines-and-columns';
 import * as path from 'path';
 
-import { BettererConfig } from '../config';
+import { BettererConfig } from '../config/types';
 import { CANNOT_CALL_GET_FILE_INFO_ON_SERIALISED_BETTERER_FILE } from '../errors';
 import { hash } from '../hasher';
 import { Printable, Serialisable } from '../types';
@@ -10,7 +10,12 @@ import {
   BettererFileInfo,
   BettererFileInfoMap,
   BettererFileMark,
-  BettererFileHashMap
+  BettererFileHashMap,
+  BettererFilePaths,
+  BettererFileMarks,
+  BettererFileExcluded,
+  BettererFileHashes,
+  BettererFilesInfo
 } from './types';
 
 const UNKNOWN_LOCATION = {
@@ -20,15 +25,15 @@ const UNKNOWN_LOCATION = {
 
 export class BettererFile
   implements Serialisable<BettererFileMarksMap>, Printable {
-  private _excluded: ReadonlyArray<RegExp> = [];
+  private _excluded: BettererFileExcluded = [];
   private _fileInfoMap: BettererFileInfoMap | null = null;
   private _fileHashMap: BettererFileHashMap = {};
-  private _fileHashes: Array<string> = [];
+  private _fileHashes: BettererFileHashes = [];
   private _fileMarkMap: BettererFileMarksMap = {};
 
   static fromInfo(
     config: BettererConfig,
-    info: ReadonlyArray<BettererFileInfo>
+    info: BettererFilesInfo
   ): BettererFile {
     const file = new BettererFile();
     const fileInfo: BettererFileInfoMap = {};
@@ -66,22 +71,22 @@ export class BettererFile
     return file;
   }
 
-  public exclude(excluded: ReadonlyArray<RegExp>): void {
+  public exclude(excluded: BettererFileExcluded): void {
     this._excluded = excluded;
   }
 
-  public getFilePaths(): ReadonlyArray<string> {
+  public getFilePaths(): BettererFilePaths {
     return Object.keys(this._fileHashMap);
   }
 
-  public getFileInfo(filePath: string): ReadonlyArray<BettererFileInfo> {
+  public getFileInfo(filePath: string): BettererFilesInfo {
     if (!this._fileInfoMap) {
       throw CANNOT_CALL_GET_FILE_INFO_ON_SERIALISED_BETTERER_FILE();
     }
     return this._fileInfoMap[filePath] || [];
   }
 
-  public getFileMarks(filePath: string): ReadonlyArray<BettererFileMark> {
+  public getFileMarks(filePath: string): BettererFileMarks {
     return this._fileMarkMap[filePath] || [];
   }
 

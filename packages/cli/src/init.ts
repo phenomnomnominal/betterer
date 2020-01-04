@@ -1,30 +1,42 @@
-import { error, info, warn, success } from '@betterer/logger';
+import { logError } from '@betterer/errors';
+import { info, warn, success } from '@betterer/logger';
 import * as commander from 'commander';
 import * as findUp from 'find-up';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 
-import { DEFAULT_CONFIG_PATH } from './constants';
-import { COULDNT_FIND_PACKAGE_JSON } from './errors';
+import {
+  COULDNT_FIND_PACKAGE_JSON,
+  COULDNT_READ_PACKAGE_JSON,
+  COULDNT_WRITE_CONFIG_FILE,
+  COULDNT_WRITE_PACKAGE_JSON
+} from './errors';
+import { CLIArguments } from './types';
 
+const DEFAULT_CONFIG_PATH = './.betterer';
 const TEMPLATE = `module.exports = {
   // Add tests here ☀️
 };`;
 
-export async function init(cwd: string, argv: Array<string>): Promise<void> {
+export async function init(cwd: string, argv: CLIArguments): Promise<void> {
   commander
     .option(
       '-c, --config [value]',
       'Path to test definition file relative to CWD',
       `${DEFAULT_CONFIG_PATH}.ts`
     )
-    .parse(argv);
+    .parse(argv as Array<string>);
 
   const { config } = commander;
 
   info('initialising betterer... ☀️');
-  await createTestFile(cwd, config);
-  await updatePackageJSON(cwd);
+  try {
+    await createTestFile(cwd, config);
+    await updatePackageJSON(cwd);
+  } catch (e) {
+    logError(e);
+    throw e;
+  }
   success('initialised betterer! ☀️');
 }
 
@@ -50,8 +62,7 @@ async function createTestFile(
   try {
     await fs.writeFile(configPath, TEMPLATE, 'utf8');
   } catch {
-    error(`couldn't write to "${configPath}" 🔥`);
-    return;
+    throw COULDNT_WRITE_CONFIG_FILE(configPath);
   }
 
   success(`created "${configPath}" file! 🎉`);
@@ -69,8 +80,7 @@ async function updatePackageJSON(cwd: string): Promise<void> {
     }
     packageJSON = JSON.parse(await fs.readFile(packageJSONPath, 'utf-8'));
   } catch {
-    error(`couldn't read package.json 🔥`);
-    return;
+    throw COULDNT_READ_PACKAGE_JSON();
   }
 
   packageJSON.scripts = packageJSON.scripts || {};
@@ -100,8 +110,7 @@ async function updatePackageJSON(cwd: string): Promise<void> {
       'utf-8'
     );
   } catch {
-    error(`couldn't write package.json 🔥`);
-    return;
+    throw COULDNT_WRITE_PACKAGE_JSON();
   }
 
   success(`added "betterer" to package.json file! 🎉`);

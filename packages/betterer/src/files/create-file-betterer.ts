@@ -1,6 +1,6 @@
 import { FileBetterer } from './file-betterer';
-import { FileBettererTest } from './types';
+import { BettererFileTest } from './types';
 
-export function createFileBetterer(test: FileBettererTest): FileBetterer {
+export function createFileBetterer(test: BettererFileTest): FileBetterer {
   return new FileBetterer(test);
 }

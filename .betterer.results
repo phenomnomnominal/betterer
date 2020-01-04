@@ -3,27 +3,24 @@ exports[`no hack comments`] = {
   timestamp: 1577921043313,
   value: `{
     "../packages/cli/src/cli.ts:2669622844": [
-      [7, 2, 7, "RegExp match"]
+      [7, 2, 7]
     ],
     "../packages/cli/src/init.ts:629526533": [
-      [84, 4, 7, "RegExp match"]
+      [84, 4, 7]
     ]
   }`
 };
 exports[`no raw console.log`] = {
-  timestamp: 1577921044205,
+  timestamp: 1578005406361,
   value: `{
-    "../packages/betterer/src/betterer/betterer.ts:886397833": [
-      [87, 2, 11, "TSQuery match"]
+    "../packages/betterer/src/reporters/diffs/default-diff.ts:1923095399": [
+      [18, 4, 11]
     ],
-    "../packages/betterer/src/context/results/writer.ts:1128586037": [
-      [33, 4, 11, "TSQuery match"]
-    ],
-    "../packages/logger/src/logger.ts:2018060510": [
-      [12, 2, 11, "TSQuery match"],
-      [26, 2, 11, "TSQuery match"],
-      [60, 4, 11, "TSQuery match"],
-      [87, 2, 11, "TSQuery match"]
+    "../packages/logger/src/logger.ts:80987387": [
+      [8, 2, 11],
+      [20, 2, 11],
+      [54, 4, 11],
+      [81, 2, 11]
     ]
   }`
 };

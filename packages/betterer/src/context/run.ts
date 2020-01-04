@@ -1,41 +1,28 @@
-import { BettererContext } from './context';
-import { Betterer } from '../betterer';
+import { BettererFilePaths } from '../files';
+import { BettererTest } from './test';
 
 export class BettererRun {
   private _expected: unknown;
   private _hasExpected = false;
   private _hasCompleted = false;
-  private _files: ReadonlyArray<string> = [];
+  private _result: unknown;
 
-  public static create(
-    name: string,
-    context: BettererContext,
-    betterer: Betterer
-  ): BettererRun {
-    const run = new BettererRun(name, context, betterer);
+  constructor(private _test: BettererTest, private _files: BettererFilePaths) {
+    const { betterer, context, name } = this._test;
     if (Object.hasOwnProperty.call(context.expected, name)) {
-      run._expected = context.expected[name];
-      run._hasExpected = true;
+      this._expected = betterer.getExpected(
+        context.expected[name],
+        this._files
+      );
+      this._hasExpected = true;
     }
-    return run;
-  }
-
-  constructor(
-    public readonly name: string,
-    public readonly context: BettererContext,
-    public readonly betterer: Betterer
-  ) {}
-
-  public get files(): ReadonlyArray<string> {
-    return this._files;
-  }
-
-  public setFiles(files: ReadonlyArray<string>): void {
-    this._files = files;
   }
 
   public get expected(): unknown {
     return this._expected;
+  }
+  public get files(): BettererFilePaths {
+    return this._files;
   }
 
   public get hasCompleted(): boolean {
@@ -46,11 +33,24 @@ export class BettererRun {
     return this._hasExpected;
   }
 
+  public get name(): string {
+    return this._test.name;
+  }
+
+  public get result(): unknown {
+    return this._result;
+  }
+
+  public get test(): BettererTest {
+    return this._test;
+  }
+
   public better(result: unknown, goalComplete: boolean): void {
     if (goalComplete) {
       this.completed();
     }
-    this.context.runBetter(this, result);
+    this._result = result;
+    this._test.context.runBetter(this);
   }
 
   public completed(): void {
@@ -58,40 +58,44 @@ export class BettererRun {
   }
 
   public end(): void {
-    this.context.runEnd(this);
+    this._test.context.runEnd(this);
   }
 
   public failed(): void {
-    this.context.runFailed(this);
+    this._result = this._expected;
+    this._test.context.runFailed(this);
   }
 
   public new(result: unknown, goalComplete: boolean): void {
     if (goalComplete) {
       this.completed();
     }
-    this.context.runNew(this, result);
+    this._result = result;
+    this._test.context.runNew(this);
   }
 
   public ran(): void {
-    this.context.runRan(this);
+    this._test.context.runRan(this);
   }
 
   public start(): void {
-    this.context.runStart(this);
+    this._test.context.runStart(this);
   }
 
   public same(goalComplete: boolean): void {
     if (goalComplete) {
       this.completed();
     }
-    this.context.runSame(this);
+    this._result = this._expected;
+    this._test.context.runSame(this);
   }
 
   public skipped(): void {
-    this.context.runSkipped(this);
+    this._test.context.runSkipped(this);
   }
 
   public worse(result: unknown, serialised: unknown): void {
-    this.context.runWorse(this, result, serialised, this.expected);
+    this._result = this._expected;
+    this._test.context.runWorse(this, result, serialised, this.expected);
   }
 }

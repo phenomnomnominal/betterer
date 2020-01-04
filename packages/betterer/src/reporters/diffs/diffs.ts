@@ -1,12 +1,11 @@
-import { Betterer, BettererDiff } from '../../betterer';
+import { Betterer } from '../../betterer';
 import { isFileBetterer } from '../../files';
 
 import { defaultDiff } from './default-diff';
 import { fileDiff } from './file-diff';
+import { BettererDiff } from './types';
 
-export function getDiff(
-  betterer: Betterer<unknown, unknown>
-): BettererDiff<unknown, unknown> {
+export function getDiff(betterer: Betterer): BettererDiff {
   return function(
     current: unknown,
     serialisedCurrent: unknown,
@@ -14,7 +13,7 @@ export function getDiff(
   ): void {
     let diff = defaultDiff;
     if (isFileBetterer(betterer)) {
-      diff = fileDiff as BettererDiff<unknown, unknown>;
+      diff = fileDiff as BettererDiff;
     }
     return diff(betterer, current, serialisedCurrent, serialisedPrevious);
   };

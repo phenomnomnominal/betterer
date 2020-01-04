@@ -2,20 +2,7 @@ import { br, error, info, success, warn } from '@betterer/logger';
 
 import { BettererRun } from '../context';
 import { getDiff } from './diffs';
-
-export type BettererRunReporter = {
-  better(run: BettererRun): void;
-  failed(run: BettererRun): void;
-  ['new'](run: BettererRun): void;
-  same(run: BettererRun): void;
-  start(run: BettererRun): void;
-  worse(
-    run: BettererRun,
-    result: unknown,
-    serialised: unknown,
-    expected: unknown
-  ): void;
-};
+import { BettererRunReporter } from './types';
 
 export const runSerial: BettererRunReporter = {
   better(run: BettererRun): void {
@@ -56,7 +43,7 @@ export const runSerial: BettererRunReporter = {
   ): void {
     error(`"${run.name}" got worse. 😔`);
     br();
-    const diff = getDiff(run.betterer);
+    const diff = getDiff(run.test.betterer);
     diff(result, serialised, expected);
     br();
   }

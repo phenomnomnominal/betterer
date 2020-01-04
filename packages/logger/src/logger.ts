@@ -1,20 +1,28 @@
 import { codeFrameColumns } from '@babel/code-frame';
 import chalk from 'chalk';
+import * as logUpdate from 'log-update';
 import LinesAndColumns from 'lines-and-columns';
 import * as path from 'path';
 
-const IS_JS_REGEXP = /.t|jsx?$/;
+import {
+  BettererLogger,
+  BettererLoggerMessages,
+  BettererLoggerCodeInfo
+} from './types';
 
-export function logo(): void {
-  console.log(
-    chalk.yellowBright(`
+const ERROR_BLOCK = chalk.bgRed('  ');
+const IS_JS_REGEXP = /.t|jsx?$/;
+const LOGO = chalk.yellowBright(`
    \\ | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
 ---ooooo--- | '_ \\ / _ \\ __| __/ _ \\ '__/ _ \\ '__|
  .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
    / | \\    |_.__/ \\___|\\__|\\__\\___|_|  \\___|_|   
- `)
-  );
+ `);
+const NEW_LINE = '\n';
+
+export function logo(): void {
+  console.log(LOGO);
 }
 
 export function br(): void {
@@ -44,11 +52,8 @@ export const error = createLogger(
 
 const SPACER = chalk.bgBlack.yellowBright(' - ');
 
-function createLogger(
-  name: string,
-  icon: string
-): (...args: ReadonlyArray<string>) => void {
-  return function(...messages: ReadonlyArray<string>): void {
+function createLogger(name: string, icon: string): BettererLogger {
+  return function(...messages: BettererLoggerMessages): void {
     if (previousLogger === 'CODE') {
       br();
     }
@@ -60,7 +65,7 @@ function createLogger(
   };
 }
 
-export const code = function(codeInfo: LoggerCodeInfo): void {
+export const code = function(codeInfo: BettererLoggerCodeInfo): void {
   const { filePath, fileText, message } = codeInfo;
   const isJS = IS_JS_REGEXP.exec(path.extname(filePath));
   const options = {
@@ -79,21 +84,14 @@ export const code = function(codeInfo: LoggerCodeInfo): void {
   };
 
   const codeFrame = codeFrameColumns(fileText, { start, end }, options);
-  console.log(
-    `\n${chalk.bgRed('  ')}${chalk.bgBlack.white(` ${message} \n`)}${codeFrame}`
-  );
+  let codeMessage = '';
+  if (message) {
+    codeMessage = chalk.bgBlack.white(` ${message} ${NEW_LINE}`);
+  }
+  console.log(`${NEW_LINE}${ERROR_BLOCK}${codeMessage}${codeFrame}`);
   previousLogger = 'CODE';
 };
 
-export type LoggerCodeInfo = {
-  message: string;
-  filePath: string;
-  fileText: string;
-  start: number;
-  end: number;
-};
-
-export type LoggerCodeLocation = {
-  line: number;
-  column: number;
-};
+export function overwrite(content: string): void {
+  logUpdate(`${LOGO}${NEW_LINE}${content}`);
+}

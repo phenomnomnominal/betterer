@@ -1,11 +1,13 @@
+import { BettererTestNames } from './types';
+
 export class BettererStats {
-  public readonly obsolete: Array<string> = [];
-  public readonly skipped: Array<string> = [];
-  public readonly ran: Array<string> = [];
-  public readonly failed: Array<string> = [];
-  public readonly new: Array<string> = [];
-  public readonly better: Array<string> = [];
-  public readonly same: Array<string> = [];
-  public readonly worse: Array<string> = [];
-  public readonly completed: Array<string> = [];
+  public readonly obsolete: BettererTestNames = [];
+  public readonly skipped: BettererTestNames = [];
+  public readonly ran: BettererTestNames = [];
+  public readonly failed: BettererTestNames = [];
+  public readonly new: BettererTestNames = [];
+  public readonly better: BettererTestNames = [];
+  public readonly same: BettererTestNames = [];
+  public readonly worse: BettererTestNames = [];
+  public readonly completed: BettererTestNames = [];
 }

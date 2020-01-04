@@ -1,3 +1,9 @@
+import {
+  BettererFileInfo,
+  BettererFilesInfo,
+  FileBetterer,
+  createFileBetterer
+} from '@betterer/betterer';
 import * as stack from 'callsite';
 import { CLIEngine, Linter } from 'eslint';
 import * as glob from 'glob';
@@ -5,11 +11,7 @@ import LinesAndColumns from 'lines-and-columns';
 import * as path from 'path';
 import { promisify } from 'util';
 
-import {
-  BettererFileInfo,
-  FileBetterer,
-  createFileBetterer
-} from '@betterer/betterer';
+import { FILE_GLOB_REQUIRED, RULE_OPTIONS_REQUIRED } from './errors';
 
 const globAsync = promisify(glob);
 
@@ -19,12 +21,19 @@ export function eslintBetterer(
   globs: string | ReadonlyArray<string>,
   rule: ESLintRuleConfig
 ): FileBetterer {
+  if (!globs) {
+    throw FILE_GLOB_REQUIRED();
+  }
+  if (!rule) {
+    throw RULE_OPTIONS_REQUIRED();
+  }
+
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
   const globsArray = Array.isArray(globs) ? globs : [globs];
   const resolvedGlobs = globsArray.map(glob => path.resolve(cwd, glob));
 
-  return createFileBetterer(async (files: ReadonlyArray<string> = []) => {
+  return createFileBetterer(async (files = []) => {
     const cli = new CLIEngine({});
 
     const testFiles = [...files];
@@ -50,7 +59,7 @@ function getFileIssues(
   linterOptions: Linter.Config,
   rule: ESLintRuleConfig,
   filePath: string
-): ReadonlyArray<BettererFileInfo> {
+): BettererFilesInfo {
   const [ruleName, ruleOptions] = rule;
   const runner = new CLIEngine({
     ...linterOptions,
@@ -61,17 +70,14 @@ function getFileIssues(
     }
   });
 
-  const issues: Array<BettererFileInfo> = [];
   const report = runner.executeOnFiles([filePath]);
-  report.results.forEach(result => {
+  const resultsWithSource = report.results.filter(result => result.source);
+  return resultsWithSource.flatMap(result => {
     const { source, messages } = result;
-    messages.forEach(message => {
-      if (source) {
-        issues.push(eslintMessageToBettererError(filePath, source, message));
-      }
+    return messages.map(message => {
+      return eslintMessageToBettererError(filePath, source as string, message);
     });
   });
-  return issues;
 }
 
 function eslintMessageToBettererError(

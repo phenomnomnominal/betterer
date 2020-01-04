@@ -2,11 +2,7 @@ import { NO_CONSTRAINT, NO_TEST } from '../errors';
 import { Betterer, isBetterer } from './betterer';
 import { BettererOptions } from './types';
 
-export function createBetterer<TestType = unknown, SerialisedType = TestType>(
-  betterer:
-    | BettererOptions<TestType, SerialisedType>
-    | Betterer<TestType, SerialisedType>
-): Betterer<TestType, SerialisedType> {
+export function createBetterer(betterer: BettererOptions | Betterer): Betterer {
   if (isBetterer(betterer)) {
     return betterer;
   }
@@ -18,5 +14,5 @@ export function createBetterer<TestType = unknown, SerialisedType = TestType>(
   if (test == null) {
     throw NO_TEST();
   }
-  return new Betterer<TestType, SerialisedType>(betterer);
+  return new Betterer(betterer);
 }

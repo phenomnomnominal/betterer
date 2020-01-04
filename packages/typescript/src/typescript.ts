@@ -3,25 +3,27 @@ import * as stack from 'callsite';
 import * as ts from 'typescript';
 import * as path from 'path';
 
-import { CONFIG_PATH_REQUIRED } from './errors';
+import { CONFIG_PATH_REQUIRED, COMPILER_OPTIONS_REQUIRED } from './errors';
 
-const readFile = ts.sys.readFile.bind(ts.sys);
-const readDirectory = ts.sys.readDirectory.bind(ts.sys);
+const NEW_LINE = '\n';
 
 export function typescriptBetterer(
   configFilePath: string,
-  extraCompilerOptions?: ts.CompilerOptions
+  extraCompilerOptions: ts.CompilerOptions
 ): FileBetterer {
+  if (!configFilePath) {
+    throw CONFIG_PATH_REQUIRED();
+  }
+  if (!extraCompilerOptions) {
+    throw COMPILER_OPTIONS_REQUIRED();
+  }
+
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
   const absPath = path.resolve(cwd, configFilePath);
 
-  return createFileBetterer((files: ReadonlyArray<string> = []) => {
-    if (!configFilePath) {
-      throw CONFIG_PATH_REQUIRED();
-    }
-
-    const { config } = ts.readConfigFile(absPath, readFile);
+  return createFileBetterer((files = []) => {
+    const { config } = ts.readConfigFile(absPath, ts.sys.readFile.bind(ts.sys));
     const { compilerOptions } = config;
     const basePath = path.dirname(absPath);
 
@@ -34,7 +36,7 @@ export function typescriptBetterer(
     const host = ts.createCompilerHost(fullCompilerOptions);
     const configHost = {
       ...host,
-      readDirectory,
+      readDirectory: ts.sys.readDirectory.bind(ts.sys),
       useCaseSensitiveFileNames: host.useCaseSensitiveFileNames()
     };
     const parsed = ts.parseJsonConfigFileContent(config, configHost, basePath);
@@ -61,10 +63,11 @@ export function typescriptBetterer(
 
     return allDiagnostics.map((diagnostic: ts.Diagnostic) => {
       const { file, start, length } = diagnostic as ts.DiagnosticWithLocation;
+      const message = ts
+        .flattenDiagnosticMessageText(diagnostic.messageText, NEW_LINE)
+        .replace(process.cwd(), '.');
       return {
-        message: ts
-          .flattenDiagnosticMessageText(diagnostic.messageText, '\n')
-          .replace(process.cwd(), '.'),
+        message,
         filePath: file.fileName,
         fileText: file.getFullText(),
         start,

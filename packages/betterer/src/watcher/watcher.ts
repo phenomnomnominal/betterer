@@ -17,6 +17,7 @@ export function watch(
     cwd
   });
   watcher.on('all', (event: string, path: string) => {
+    // TODO: Debounce and group files:
     if (EMIT_EVENTS.includes(event)) {
       change(path);
     }

@@ -1,41 +1,46 @@
 import { ConstraintResult } from '@betterer/constraints';
 
-import { Betterer } from '../betterer';
-import { BettererContext, BettererRun } from '../context';
+import {
+  BettererContext,
+  BettererRun,
+  BettererTest,
+  BettererRuns
+} from '../context';
+import { BettererFilePaths } from '../files';
 import { serialise } from './serialiser';
 
 export async function parallel(
   context: BettererContext,
-  files: ReadonlyArray<string> = []
-): Promise<void> {
-  const { runs } = context;
+  files: BettererFilePaths = []
+): Promise<BettererRuns> {
+  const runs = context.getRuns(files);
   context.runnerStart();
   await Promise.all(
     runs.map(async run => {
-      run.setFiles(files);
-      await runTest(run.betterer, run);
+      await runTest(run.test, run);
       run.end();
     })
   );
-  context.runnerEnd();
+  context.runnerEnd(runs, files);
+  return runs;
 }
 
-export async function serial(context: BettererContext): Promise<void> {
-  const { runs } = context;
+export async function serial(context: BettererContext): Promise<BettererRuns> {
+  const runs = context.getRuns();
   context.runnerStart();
   await runs.reduce(async (p, run) => {
     await p;
-    await runTest(run.betterer, run);
+    await runTest(run.test, run);
     run.end();
   }, Promise.resolve());
-  context.runnerEnd();
+  context.runnerEnd(runs);
+  return runs;
 }
 
-async function runTest(betterer: Betterer, run: BettererRun): Promise<void> {
-  const { test, constraint, goal, isSkipped } = betterer;
-  const { expected, hasExpected } = run;
+async function runTest(test: BettererTest, run: BettererRun): Promise<void> {
+  const { betterer } = test;
 
-  if (isSkipped) {
+  if (betterer.isSkipped) {
     run.skipped();
     return;
   }
@@ -43,7 +48,7 @@ async function runTest(betterer: Betterer, run: BettererRun): Promise<void> {
   run.start();
   let current: unknown;
   try {
-    current = await test(run);
+    current = await betterer.test(run);
   } catch {
     run.failed();
     return;
@@ -51,14 +56,14 @@ async function runTest(betterer: Betterer, run: BettererRun): Promise<void> {
   run.ran();
 
   const serialisedCurrent = await serialise(current);
-  const goalComplete = await goal(serialisedCurrent);
+  const goalComplete = await betterer.goal(serialisedCurrent);
 
-  if (!hasExpected) {
+  if (!run.hasExpected) {
     run.new(current, goalComplete);
     return;
   }
 
-  const comparison = await constraint(serialisedCurrent, expected);
+  const comparison = await betterer.constraint(serialisedCurrent, run.expected);
 
   if (comparison === ConstraintResult.same) {
     run.same(goalComplete);

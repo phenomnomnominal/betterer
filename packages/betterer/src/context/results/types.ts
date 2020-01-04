@@ -1,4 +1,4 @@
-export type BettererResult = {
+type BettererResult = {
   timestamp: number;
   value: unknown;
 };

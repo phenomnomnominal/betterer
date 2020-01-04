@@ -4,22 +4,24 @@ import { BettererRun } from '../context';
 import { BettererFile } from './file';
 import {
   BettererFileMarksMap,
-  FileBettererTest,
-  BettererFileInfoDiff
+  BettererFileTest,
+  BettererFileInfoDiff,
+  BettererFileExcluded
 } from './types';
 
 export class FileBetterer extends Betterer<BettererFile, BettererFileMarksMap> {
-  private _excluded: Array<RegExp> = [];
+  private _excluded: BettererFileExcluded = [];
 
   public readonly isFileBetterer = true;
 
-  constructor(test: FileBettererTest) {
+  constructor(fileTest: BettererFileTest) {
     super({
       constraint,
       goal,
       test: async (run: BettererRun): Promise<BettererFile> => {
-        const { context, files } = run;
-        const info = await test(files);
+        const { test, files } = run;
+        const { context } = test;
+        const info = await fileTest(files);
         const bettererFile = BettererFile.fromInfo(context.config, info);
         bettererFile.exclude(this._excluded);
         return bettererFile;
@@ -27,7 +29,7 @@ export class FileBetterer extends Betterer<BettererFile, BettererFileMarksMap> {
     });
   }
 
-  public exclude(...excludePatterns: Array<RegExp>): this {
+  public exclude(...excludePatterns: BettererFileExcluded): this {
     this._excluded.push(...excludePatterns);
     return this;
   }
