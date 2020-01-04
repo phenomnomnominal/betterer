@@ -1,6 +1,6 @@
-import { mute } from '@betterer/logger';
-
-mute();
+console['log'] = (): void => {
+  //
+};
 
 Date['now'] = function(): number {
   return 0;

@@ -5,10 +5,6 @@ import * as path from 'path';
 
 const IS_JS_REGEXP = /.t|jsx?$/;
 
-export function mute(): void {
-  console['log'] = (): void => {};
-}
-
 export function header(head: string): void {
   console.log(chalk.yellowBright(head));
 }
