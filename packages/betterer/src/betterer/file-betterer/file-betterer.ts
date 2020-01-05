@@ -3,17 +3,9 @@ import { ConstraintResult } from '@betterer/constraints';
 import { BettererRun } from '../../context';
 import { Betterer } from '../betterer';
 import { BettererFiles } from './files';
-import {
-  BettererFileTest,
-  BettererFileInfoDiff,
-  BettererFileExcluded,
-  BettererFileMarksMap
-} from './types';
+import { BettererFileTest, BettererFileInfoDiff, BettererFileExcluded, BettererFileMarksMap } from './types';
 
-export class FileBetterer extends Betterer<
-  BettererFiles,
-  BettererFileMarksMap
-> {
+export class FileBetterer extends Betterer<BettererFiles, BettererFileMarksMap> {
   private _excluded: BettererFileExcluded = [];
 
   public readonly isFileBetterer = true;
@@ -26,9 +18,7 @@ export class FileBetterer extends Betterer<
         const { files } = run;
         const info = await fileTest(files);
 
-        const included = files.filter(
-          filePath => !this._excluded.some(exclude => exclude.test(filePath))
-        );
+        const included = files.filter(filePath => !this._excluded.some(exclude => exclude.test(filePath)));
         return BettererFiles.fromInfo(info, included);
       }
     });
@@ -54,18 +44,12 @@ export class FileBetterer extends Betterer<
     }
 
     const deserialisedCurrent = BettererFiles.fromSerialised(serialisedCurrent);
-    const deserialisedPrevious = BettererFiles.fromSerialised(
-      serialisedPrevious
-    );
+    const deserialisedPrevious = BettererFiles.fromSerialised(serialisedPrevious);
 
     const filesWithChanges = files.filter((_, index) => {
       const currentMarks = deserialisedCurrent.files[index].fileMarks;
       const previousMarks = deserialisedPrevious.files[index].fileMarks;
-      if (
-        !currentMarks ||
-        !previousMarks ||
-        currentMarks.length !== previousMarks.length
-      ) {
+      if (!currentMarks || !previousMarks || currentMarks.length !== previousMarks.length) {
         return true;
       }
       return currentMarks.some(([cLine, cColumn, cLength], index) => {
@@ -91,13 +75,9 @@ export class FileBetterer extends Betterer<
   }
 
   public getExpected(run: BettererRun): BettererFileMarksMap {
-    const expected = run.test.context.expected[
-      run.name
-    ] as BettererFileMarksMap;
+    const expected = run.test.context.expected[run.name] as BettererFileMarksMap;
     const { files } = BettererFiles.fromSerialised(expected);
-    return new BettererFiles(
-      files.filter(file => run.files.includes(file.filePath))
-    ).serialise();
+    return new BettererFiles(files.filter(file => run.files.includes(file.filePath))).serialise();
   }
 }
 

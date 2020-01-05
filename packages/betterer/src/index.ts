@@ -7,18 +7,8 @@ import { watch } from './watcher';
 import { parallelReporters, serialReporters } from './reporters';
 
 // Export constructors and creators:
-export {
-  Betterer,
-  FileBetterer,
-  createBetterer,
-  createFileBetterer
-} from './betterer';
-export {
-  BettererContext,
-  BettererRun,
-  BettererTest,
-  BettererStats
-} from './context';
+export { Betterer, FileBetterer, createBetterer, createFileBetterer } from './betterer';
+export { BettererContext, BettererRun, BettererTest, BettererStats } from './context';
 
 // Export all types:
 export * from './betterer/types';
@@ -39,9 +29,7 @@ export async function betterer(config: BettererConfig): Promise<BettererStats> {
   }
 }
 
-export async function bettererWatch(
-  config: BettererConfig
-): Promise<() => void> {
+export async function bettererWatch(config: BettererConfig): Promise<() => void> {
   try {
     const context = await BettererContext.create(config, parallelReporters);
     const watcher = watch(context, itemPath => {

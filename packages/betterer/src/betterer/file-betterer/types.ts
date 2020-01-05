@@ -9,14 +9,9 @@ export type BettererFileMarks = Array<BettererFileMark>;
 export type BettererFileMarksMap = Record<string, BettererFileMarks>;
 export type BettererFileHashMap = Record<string, string>;
 export type BettererFileHashes = Array<string>;
-export type BettererFileInfoDiff = Record<
-  string,
-  ReadonlyArray<BettererFileInfo>
->;
+export type BettererFileInfoDiff = Record<string, ReadonlyArray<BettererFileInfo>>;
 
 export type BettererFilePaths = ReadonlyArray<string>;
 export type BettererFileExcluded = Array<RegExp>;
 
-export type BettererFileTest = (
-  files: BettererFilePaths
-) => MaybeAsync<BettererFileInfoMap>;
+export type BettererFileTest = (files: BettererFilePaths) => MaybeAsync<BettererFileInfoMap>;

@@ -35,13 +35,10 @@ export function tsqueryBetterer(configFilePath: string, query: string): FileBett
       );
     }
 
-    return sourceFiles.reduce(
-      (fileInfoMap, sourceFile) => {
-        fileInfoMap[sourceFile.fileName] = getFileMatches(query, sourceFile);
-        return fileInfoMap;
-      },
-      {} as BettererFileInfoMap
-    );
+    return sourceFiles.reduce((fileInfoMap, sourceFile) => {
+      fileInfoMap[sourceFile.fileName] = getFileMatches(query, sourceFile);
+      return fileInfoMap;
+    }, {} as BettererFileInfoMap);
   });
 }
 

@@ -38,14 +38,11 @@ export function eslintBetterer(globs: string | ReadonlyArray<string>, rule: ESLi
       );
     }
 
-    return testFiles.reduce(
-      (fileInfoMap, filePath) => {
-        const linterOptions = cli.getConfigForFile(filePath);
-        fileInfoMap[filePath] = getFileIssues(linterOptions, rule, filePath);
-        return fileInfoMap;
-      },
-      {} as BettererFileInfoMap
-    );
+    return testFiles.reduce((fileInfoMap, filePath) => {
+      const linterOptions = cli.getConfigForFile(filePath);
+      fileInfoMap[filePath] = getFileIssues(linterOptions, rule, filePath);
+      return fileInfoMap;
+    }, {} as BettererFileInfoMap);
   });
 }
 

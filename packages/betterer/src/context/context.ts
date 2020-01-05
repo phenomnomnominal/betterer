@@ -1,19 +1,9 @@
 import { BettererError } from '@betterer/errors';
 import { BettererFilePaths, createBetterer } from '../betterer';
-import {
-  BettererConfig,
-  BettererConfigFilters,
-  BettererConfigPaths
-} from '../config';
+import { BettererConfig, BettererConfigFilters, BettererConfigPaths } from '../config';
 import { CANT_READ_CONFIG } from '../errors';
 import { BettererReporters } from '../reporters';
-import {
-  BettererResults,
-  BettererResultsValues,
-  print,
-  read,
-  write
-} from './results';
+import { BettererResults, BettererResultsValues, print, read, write } from './results';
 import { BettererRun } from './run';
 import { BettererStats } from './statistics';
 import { BettererTest } from './test';
@@ -24,10 +14,7 @@ export class BettererContext {
   private _expected: BettererResultsValues = {};
   private _expectedRaw: BettererResults = {};
 
-  public static async create(
-    config: BettererConfig,
-    reporters: BettererReporters
-  ): Promise<BettererContext> {
+  public static async create(config: BettererConfig, reporters: BettererReporters): Promise<BettererContext> {
     const context = new BettererContext(config, reporters);
     await context._init();
     return context;
@@ -130,12 +117,7 @@ export class BettererContext {
     this._reporters.run?.start?.(run);
   }
 
-  public runWorse(
-    run: BettererRun,
-    result: unknown,
-    serialised: unknown,
-    expected: unknown
-  ): void {
+  public runWorse(run: BettererRun, result: unknown, serialised: unknown, expected: unknown): void {
     const { name } = run;
     this.stats.worse.push(name);
     this._reporters.run?.worse?.(run, result, serialised, expected);
@@ -150,9 +132,7 @@ export class BettererContext {
     this._initObsolete();
   }
 
-  private async _initTests(
-    configPaths: BettererConfigPaths = []
-  ): Promise<BettererTests> {
+  private async _initTests(configPaths: BettererConfigPaths = []): Promise<BettererTests> {
     let tests: BettererTests = [];
     await Promise.all(
       configPaths.map(async configPath => {
@@ -180,9 +160,7 @@ export class BettererContext {
     return expected;
   }
 
-  private _initExpectedValues(
-    expected: BettererResults
-  ): BettererResultsValues {
+  private _initExpectedValues(expected: BettererResults): BettererResultsValues {
     const expectedValues: BettererResultsValues = {};
     Object.keys(expected).forEach(name => {
       expectedValues[name] = JSON.parse(expected[name].value as string);
@@ -201,9 +179,7 @@ export class BettererContext {
   }
 
   private _initObsolete(): void {
-    const obsolete = Object.keys(this._expected).filter(
-      name => !this.tests.find(test => test.name === name)
-    );
+    const obsolete = Object.keys(this._expected).filter(name => !this.tests.find(test => test.name === name));
     obsolete.forEach(name => {
       delete this._expected[name];
     });

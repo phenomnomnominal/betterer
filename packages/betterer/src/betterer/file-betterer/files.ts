@@ -10,10 +10,7 @@ import {
 } from './types';
 
 export class BettererFiles implements Serialisable<BettererFileMarksMap> {
-  static fromInfo(
-    info: BettererFileInfoMap,
-    included: BettererFilePaths
-  ): BettererFiles {
+  static fromInfo(info: BettererFileInfoMap, included: BettererFilePaths): BettererFiles {
     return new BettererFiles(
       included.map(filePath => {
         const fileInfo = info[filePath];
@@ -40,9 +37,7 @@ export class BettererFiles implements Serialisable<BettererFileMarksMap> {
       hashMap[file.filePath] = file.fileHash;
       return hashMap;
     }, {} as BettererFileHashMap);
-    this._fileHashes = Object.keys(this._fileHashMap).map(
-      filePath => this._fileHashMap[filePath]
-    );
+    this._fileHashes = Object.keys(this._fileHashMap).map(filePath => this._fileHashMap[filePath]);
     this._fileMarksMap = this._files.reduce((marksMap, file) => {
       marksMap[file.filePath] = file.fileMarks;
       return marksMap;

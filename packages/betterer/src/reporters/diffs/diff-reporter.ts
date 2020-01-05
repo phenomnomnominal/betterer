@@ -1,10 +1,4 @@
-import {
-  Betterer,
-  BettererFiles,
-  BettererFileMarksMap,
-  FileBetterer,
-  isFileBetterer
-} from '../../betterer';
+import { Betterer, BettererFiles, BettererFileMarksMap, FileBetterer, isFileBetterer } from '../../betterer';
 
 import { defaultDiff } from './default-diff';
 import { fileDiff } from './file-diff';
@@ -21,14 +15,9 @@ export function getDiffReporter(betterer: Betterer): BettererDiffReporter {
         betterer as FileBetterer,
         current as BettererFiles,
         serialisedCurrent as BettererFileMarksMap,
-        serialisedPrevious as BettererFileMarksMap | null
+        serialisedPrevious as BettererFileMarksMap
       );
     }
-    return defaultDiff(
-      betterer,
-      current,
-      serialisedCurrent,
-      serialisedPrevious
-    );
+    return defaultDiff(betterer, current, serialisedCurrent, serialisedPrevious);
   };
 }

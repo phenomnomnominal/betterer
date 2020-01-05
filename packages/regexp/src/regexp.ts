@@ -39,13 +39,10 @@ export function regexpBetterer(globs: string | ReadonlyArray<string>, regexp: Re
       })
     );
 
-    return testFiles.reduce(
-      (fileInfoMap, filePath, index) => {
-        fileInfoMap[filePath] = matches[index];
-        return fileInfoMap;
-      },
-      {} as BettererFileInfoMap
-    );
+    return testFiles.reduce((fileInfoMap, filePath, index) => {
+      fileInfoMap[filePath] = matches[index];
+      return fileInfoMap;
+    }, {} as BettererFileInfoMap);
   });
 }
 

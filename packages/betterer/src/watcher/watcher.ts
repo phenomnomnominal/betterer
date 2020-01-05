@@ -6,10 +6,7 @@ import { WATCH_IGNORES } from './ignores';
 
 const EMIT_EVENTS = ['add', 'change'];
 
-export function watch(
-  context: BettererContext,
-  change: WatchChangesHandler
-): FSWatcher {
+export function watch(context: BettererContext, change: WatchChangesHandler): FSWatcher {
   const cwd = process.cwd();
   const watcher = chokidar(cwd, {
     ignoreInitial: true,

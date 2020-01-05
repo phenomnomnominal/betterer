@@ -20,12 +20,7 @@ export type BettererRunReporter = {
   ['new']?(run: BettererRun): void;
   same?(run: BettererRun): void;
   start?(run: BettererRun): void;
-  worse?(
-    run: BettererRun,
-    result: unknown,
-    serialised: unknown,
-    expected: unknown
-  ): void;
+  worse?(run: BettererRun, result: unknown, serialised: unknown, expected: unknown): void;
 };
 
 export type BettererReporters = {

@@ -1,12 +1,7 @@
 import LinesAndColumns from 'lines-and-columns';
 
 import { hash } from '../../hasher';
-import {
-  BettererFileMarksMap,
-  BettererFileInfo,
-  BettererFileMark,
-  BettererFileMarks
-} from './types';
+import { BettererFileMarksMap, BettererFileInfo, BettererFileMark, BettererFileMarks } from './types';
 
 const UNKNOWN_LOCATION = {
   line: 0,
@@ -19,10 +14,7 @@ export class BettererFile {
   private _fileMarks: BettererFileMarks = [];
   private _filePath = '';
 
-  static fromInfo(
-    filePath: string,
-    fileInfo: Array<BettererFileInfo>
-  ): BettererFile {
+  static fromInfo(filePath: string, fileInfo: Array<BettererFileInfo>): BettererFile {
     const file = new BettererFile();
     file._filePath = filePath;
     file._fileInfo = fileInfo;
