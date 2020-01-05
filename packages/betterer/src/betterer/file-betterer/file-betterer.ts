@@ -75,8 +75,9 @@ export class FileBetterer extends Betterer<BettererFiles, BettererFileMarksMap> 
   }
 
   public getExpected(run: BettererRun): BettererFileMarksMap {
-    const expected = run.test.context.expected[run.name] as BettererFileMarksMap;
-    const { files } = BettererFiles.fromSerialised(expected);
+    const expected = run.test.context.expected[run.name];
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+    const { files } = BettererFiles.fromSerialised(expected as BettererFileMarksMap);
     return new BettererFiles(files.filter(file => run.files.includes(file.filePath))).serialise();
   }
 }
