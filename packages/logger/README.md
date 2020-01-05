@@ -40,6 +40,8 @@ error('message');
 ### Info
 
 ```typescript
+import { info } from '@betterer/logger';
+
 info('message');
 ```
 
@@ -50,6 +52,8 @@ info('message');
 ### Success
 
 ```typescript
+import { success } from '@betterer/logger';
+
 success('message');
 ```
 
@@ -60,6 +64,8 @@ success('message');
 ### Warning
 
 ```typescript
+import { warn } from '@betterer/logger';
+
 warn('message');
 ```
 

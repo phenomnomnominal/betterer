@@ -12,13 +12,49 @@ Use this betterer to incrementally remove TSQuery matches from your codebase!
 
 ## Usage
 
-```javascript
-const { tsqueryBetterer } = require('@betterer/tsquery');
+```typescript
+import { tsqueryBetterer } from '@betterer/tsquery';
 
-module.exports = {
+export default {
   'no raw console.log': tsqueryBetterer(
     './tsconfig.json',
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
   )
+};
+```
+
+### Skip
+
+Skip a test by calling `.skip()`:
+
+```typescript
+import { tsqueryBetterer } from '@betterer/tsquery';
+
+export default {
+  'no raw console.log': tsqueryBetterer(...).skip()
+};
+```
+
+### Only
+
+Run a test by itself by calling `.only()`:
+
+```typescript
+import { tsqueryBetterer } from '@betterer/tsquery';
+
+export default {
+  'no raw console.log': tsqueryBetterer(...).only()
+};
+```
+
+### Exclude
+
+Exclude files from a test by calling `.exclude()`:
+
+```typescript
+import { tsqueryBetterer } from '@betterer/tsquery';
+
+export default {
+  'no raw console.log': tsqueryBetterer(...).exclude(/excluded-file-regexp/)
 };
 ```
