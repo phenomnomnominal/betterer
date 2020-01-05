@@ -83,7 +83,3 @@ function eslintMessageToBettererError(filePath: string, source: string, message:
     end: endLocation as number
   };
 }
-
-function isString(value: unknown): value is string {
-  return typeof value === 'string';
-}
