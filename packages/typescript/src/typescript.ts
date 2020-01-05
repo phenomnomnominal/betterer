@@ -3,7 +3,6 @@ import * as stack from 'callsite';
 import * as path from 'path';
 
 import { FileBetterer, createFileBetterer } from '@betterer/betterer';
-import { error, info } from '@betterer/logger';
 
 const readFile = ts.sys.readFile.bind(ts.sys);
 const readDirectory = ts.sys.readDirectory.bind(ts.sys);
@@ -14,10 +13,7 @@ export function typescriptBetterer(configFilePath: string, extraCompilerOptions?
   const absPath = path.resolve(cwd, configFilePath);
 
   return createFileBetterer(() => {
-    info(`running TypeScript compiler...`);
-
     if (!configFilePath) {
-      error();
       throw new Error();
     }
 
@@ -58,9 +54,6 @@ export function typescriptBetterer(configFilePath: string, extraCompilerOptions?
       ...semanticDiagnostics
     ]);
 
-    if (allDiagnostics.length) {
-      error('TypeScript compiler found some issues:');
-    }
     return allDiagnostics.map((diagnostic: ts.Diagnostic) => {
       const { file, start, length } = diagnostic as ts.DiagnosticWithLocation;
       return {

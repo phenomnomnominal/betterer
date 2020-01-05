@@ -6,7 +6,6 @@ import * as path from 'path';
 import { promisify } from 'util';
 
 import { BettererFileInfo, FileBetterer, createFileBetterer } from '@betterer/betterer';
-import { error, info } from '@betterer/logger';
 
 const globAsync = promisify(glob);
 
@@ -20,9 +19,6 @@ export function eslintBetterer(files: string | Array<string>, rule: ESLintRuleCo
 
   return createFileBetterer(async () => {
     const [ruleName, ruleOptions] = rule;
-
-    const options = isString(ruleOptions) ? ruleOptions : JSON.stringify(ruleOptions);
-    info(`running ESLint with "${ruleName}" set to "${options}"`);
 
     const cli = new CLIEngine({});
     const errors: Array<BettererFileInfo> = [];
@@ -64,10 +60,6 @@ export function eslintBetterer(files: string | Array<string>, rule: ESLintRuleCo
         });
       })
     );
-
-    if (errors.length) {
-      error('ESLint found some issues:');
-    }
 
     return errors;
   });
