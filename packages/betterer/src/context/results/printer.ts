@@ -14,9 +14,7 @@ export async function print(results: BettererResults): Promise<string> {
       const { timestamp, value } = results[resultName];
       let printedValue = value;
       if (!isString(value)) {
-        printedValue = isPrintable(value)
-          ? await value.print()
-          : JSON.stringify(value);
+        printedValue = isPrintable(value) ? await value.print() : JSON.stringify(value);
       }
       const escaped = escape(printedValue as string, UNESCAPED);
       return `\nexports[\`${resultName}\`] = {\n  timestamp: ${timestamp},\n  value: \`${escaped}\`\n};`;

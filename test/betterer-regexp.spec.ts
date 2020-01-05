@@ -4,9 +4,7 @@ import { fixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the existence of RegExp matches', async () => {
-    const { logs, paths, readFile, reset, resolve, writeFile } = fixture(
-      'test-betterer-regexp'
-    );
+    const { logs, paths, readFile, reset, resolve, writeFile } = fixture('test-betterer-regexp');
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;

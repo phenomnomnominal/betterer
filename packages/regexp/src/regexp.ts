@@ -1,9 +1,4 @@
-import {
-  FileBetterer,
-  createFileBetterer,
-  BettererFileInfo,
-  BettererFileInfoMap
-} from '@betterer/betterer';
+import { FileBetterer, createFileBetterer, BettererFileInfo, BettererFileInfoMap } from '@betterer/betterer';
 import * as stack from 'callsite';
 import { promises as fs } from 'fs';
 import * as path from 'path';
@@ -12,10 +7,7 @@ import { promisify } from 'util';
 
 import { FILE_GLOB_REQUIRED, REGEXP_REQUIRED } from './errors';
 
-export function regexpBetterer(
-  globs: string | ReadonlyArray<string>,
-  regexp: RegExp
-): FileBetterer {
+export function regexpBetterer(globs: string | ReadonlyArray<string>, regexp: RegExp): FileBetterer {
   if (!globs) {
     throw FILE_GLOB_REQUIRED();
   }
@@ -29,10 +21,7 @@ export function regexpBetterer(
   const resolvedGlobs = globsArray.map(glob => path.resolve(cwd, glob));
 
   return createFileBetterer(async (files = []) => {
-    regexp = new RegExp(
-      regexp.source,
-      regexp.flags.includes('g') ? regexp.flags : `${regexp.flags}g`
-    );
+    regexp = new RegExp(regexp.source, regexp.flags.includes('g') ? regexp.flags : `${regexp.flags}g`);
 
     const testFiles = [...files];
     if (testFiles.length === 0) {
@@ -50,17 +39,17 @@ export function regexpBetterer(
       })
     );
 
-    return testFiles.reduce((fileInfoMap, filePath, index) => {
-      fileInfoMap[filePath] = matches[index];
-      return fileInfoMap;
-    }, {} as BettererFileInfoMap);
+    return testFiles.reduce(
+      (fileInfoMap, filePath, index) => {
+        fileInfoMap[filePath] = matches[index];
+        return fileInfoMap;
+      },
+      {} as BettererFileInfoMap
+    );
   });
 }
 
-async function getFileMatches(
-  regexp: RegExp,
-  filePath: string
-): Promise<Array<BettererFileInfo>> {
+async function getFileMatches(regexp: RegExp, filePath: string): Promise<Array<BettererFileInfo>> {
   const matches: Array<RegExpExecArray> = [];
   let fileText: string;
   try {

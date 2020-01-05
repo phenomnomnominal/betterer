@@ -1,10 +1,5 @@
 import { BettererRun } from '../context';
-import {
-  BettererConstraint,
-  BettererGoal,
-  BettererTestFunction,
-  BettererOptions
-} from './types';
+import { BettererConstraint, BettererGoal, BettererTestFunction, BettererOptions } from './types';
 
 export class Betterer<TestType = unknown, SerialisedType = TestType> {
   public readonly constraint: BettererConstraint<SerialisedType>;
@@ -46,9 +41,7 @@ export class Betterer<TestType = unknown, SerialisedType = TestType> {
     return this;
   }
 
-  private _createGoal(
-    options: BettererOptions<TestType, SerialisedType>
-  ): BettererGoal<SerialisedType> {
+  private _createGoal(options: BettererOptions<TestType, SerialisedType>): BettererGoal<SerialisedType> {
     const hasGoal = Object.hasOwnProperty.call(options, 'goal');
     if (!hasGoal) {
       return (): boolean => false;

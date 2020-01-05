@@ -1,9 +1,4 @@
-import {
-  FileBetterer,
-  createFileBetterer,
-  BettererFileInfo,
-  BettererFileInfoMap
-} from '@betterer/betterer';
+import { FileBetterer, createFileBetterer, BettererFileInfo, BettererFileInfoMap } from '@betterer/betterer';
 import { tsquery } from '@phenomnomnominal/tsquery';
 import * as stack from 'callsite';
 import { promises as fs } from 'fs';
@@ -12,10 +7,7 @@ import { SourceFile } from 'typescript';
 
 import { CONFIG_PATH_REQUIRED, QUERY_REQUIRED } from './errors';
 
-export function tsqueryBetterer(
-  configFilePath: string,
-  query: string
-): FileBetterer {
+export function tsqueryBetterer(configFilePath: string, query: string): FileBetterer {
   if (!configFilePath) {
     throw CONFIG_PATH_REQUIRED();
   }
@@ -43,25 +35,23 @@ export function tsqueryBetterer(
       );
     }
 
-    return sourceFiles.reduce((fileInfoMap, sourceFile) => {
-      fileInfoMap[sourceFile.fileName] = getFileMatches(query, sourceFile);
-      return fileInfoMap;
-    }, {} as BettererFileInfoMap);
+    return sourceFiles.reduce(
+      (fileInfoMap, sourceFile) => {
+        fileInfoMap[sourceFile.fileName] = getFileMatches(query, sourceFile);
+        return fileInfoMap;
+      },
+      {} as BettererFileInfoMap
+    );
   });
 }
 
-function getFileMatches(
-  query: string,
-  sourceFile: SourceFile
-): Array<BettererFileInfo> {
-  return tsquery
-    .query(sourceFile, query, { visitAllChildren: true })
-    .map(match => {
-      return {
-        filePath: sourceFile.fileName,
-        fileText: sourceFile.getFullText(),
-        start: match.getStart(),
-        end: match.getEnd()
-      };
-    });
+function getFileMatches(query: string, sourceFile: SourceFile): Array<BettererFileInfo> {
+  return tsquery.query(sourceFile, query, { visitAllChildren: true }).map(match => {
+    return {
+      filePath: sourceFile.fileName,
+      fileText: sourceFile.getFullText(),
+      start: match.getStart(),
+      end: match.getEnd()
+    };
+  });
 }

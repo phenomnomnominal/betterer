@@ -1,9 +1,4 @@
-import {
-  BettererFileInfo,
-  FileBetterer,
-  createFileBetterer,
-  BettererFileInfoMap
-} from '@betterer/betterer';
+import { BettererFileInfo, FileBetterer, createFileBetterer, BettererFileInfoMap } from '@betterer/betterer';
 import * as stack from 'callsite';
 import { CLIEngine, Linter } from 'eslint';
 import * as glob from 'glob';
@@ -17,10 +12,7 @@ const globAsync = promisify(glob);
 
 type ESLintRuleConfig = [string, Linter.RuleLevel | Linter.RuleLevelAndOptions];
 
-export function eslintBetterer(
-  globs: string | ReadonlyArray<string>,
-  rule: ESLintRuleConfig
-): FileBetterer {
+export function eslintBetterer(globs: string | ReadonlyArray<string>, rule: ESLintRuleConfig): FileBetterer {
   if (!globs) {
     throw FILE_GLOB_REQUIRED();
   }
@@ -46,11 +38,14 @@ export function eslintBetterer(
       );
     }
 
-    return testFiles.reduce((fileInfoMap, filePath) => {
-      const linterOptions = cli.getConfigForFile(filePath);
-      fileInfoMap[filePath] = getFileIssues(linterOptions, rule, filePath);
-      return fileInfoMap;
-    }, {} as BettererFileInfoMap);
+    return testFiles.reduce(
+      (fileInfoMap, filePath) => {
+        const linterOptions = cli.getConfigForFile(filePath);
+        fileInfoMap[filePath] = getFileIssues(linterOptions, rule, filePath);
+        return fileInfoMap;
+      },
+      {} as BettererFileInfoMap
+    );
   });
 }
 
@@ -79,11 +74,7 @@ function getFileIssues(
   });
 }
 
-function eslintMessageToBettererError(
-  filePath: string,
-  source: string,
-  message: Linter.LintMessage
-): BettererFileInfo {
+function eslintMessageToBettererError(filePath: string, source: string, message: Linter.LintMessage): BettererFileInfo {
   const lc = new LinesAndColumns(source);
   const startLocation = lc.indexForLocation({
     line: message.line - 1,

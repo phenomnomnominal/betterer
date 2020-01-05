@@ -4,11 +4,7 @@ import * as logUpdate from 'log-update';
 import LinesAndColumns from 'lines-and-columns';
 import * as path from 'path';
 
-import {
-  BettererLogger,
-  BettererLoggerMessages,
-  BettererLoggerCodeInfo
-} from './types';
+import { BettererLogger, BettererLoggerMessages, BettererLoggerCodeInfo } from './types';
 
 const ERROR_BLOCK = chalk.bgRed('  ');
 const IS_JS_REGEXP = /.t|jsx?$/;
@@ -33,22 +29,10 @@ const HEADING = chalk.bgBlack.yellowBright.bold(` ☀️  betterer `);
 
 let previousLogger: 'LOG' | 'CODE' = 'LOG';
 
-export const success = createLogger(
-  chalk.bgGreenBright.black(' succ '),
-  chalk.bgBlack(' ✅ ')
-);
-export const info = createLogger(
-  chalk.bgWhiteBright.black(' info '),
-  chalk.bgBlack(' 💬 ')
-);
-export const warn = createLogger(
-  chalk.bgYellowBright.black(' warn '),
-  chalk.bgBlack(' ⚠️ ')
-);
-export const error = createLogger(
-  chalk.bgRedBright.white(' erro '),
-  chalk.bgBlack(' 🔥 ')
-);
+export const success = createLogger(chalk.bgGreenBright.black(' succ '), chalk.bgBlack(' ✅ '));
+export const info = createLogger(chalk.bgWhiteBright.black(' info '), chalk.bgBlack(' 💬 '));
+export const warn = createLogger(chalk.bgYellowBright.black(' warn '), chalk.bgBlack(' ⚠️ '));
+export const error = createLogger(chalk.bgRedBright.white(' erro '), chalk.bgBlack(' 🔥 '));
 
 const SPACER = chalk.bgBlack.yellowBright(' - ');
 
@@ -57,10 +41,7 @@ function createLogger(name: string, icon: string): BettererLogger {
     if (previousLogger === 'CODE') {
       br();
     }
-    console.log(
-      `${HEADING}${name}${icon}${SPACER}`,
-      ...messages.map(m => chalk.whiteBright(m))
-    );
+    console.log(`${HEADING}${name}${icon}${SPACER}`, ...messages.map(m => chalk.whiteBright(m)));
     previousLogger = 'LOG';
   };
 }

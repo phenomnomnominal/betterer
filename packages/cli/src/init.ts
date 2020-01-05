@@ -20,11 +20,7 @@ const TEMPLATE = `module.exports = {
 
 export async function init(cwd: string, argv: CLIArguments): Promise<void> {
   commander
-    .option(
-      '-c, --config [value]',
-      'Path to test definition file relative to CWD',
-      `${DEFAULT_CONFIG_PATH}.ts`
-    )
+    .option('-c, --config [value]', 'Path to test definition file relative to CWD', `${DEFAULT_CONFIG_PATH}.ts`)
     .parse(argv as Array<string>);
 
   const { config } = commander;
@@ -40,10 +36,7 @@ export async function init(cwd: string, argv: CLIArguments): Promise<void> {
   success('initialised betterer! ☀️');
 }
 
-async function createTestFile(
-  cwd: string,
-  configFilePath: string
-): Promise<void> {
+async function createTestFile(cwd: string, configFilePath: string): Promise<void> {
   const configPath = path.resolve(cwd, configFilePath);
   info(`creating "${configPath}" file...`);
 
@@ -104,11 +97,7 @@ async function updatePackageJSON(cwd: string): Promise<void> {
   }
 
   try {
-    await fs.writeFile(
-      packageJSONPath,
-      JSON.stringify(packageJSON, null, 2),
-      'utf-8'
-    );
+    await fs.writeFile(packageJSONPath, JSON.stringify(packageJSON, null, 2), 'utf-8');
   } catch {
     throw COULDNT_WRITE_PACKAGE_JSON();
   }

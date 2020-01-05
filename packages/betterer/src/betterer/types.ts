@@ -11,29 +11,19 @@ export type BettererOptions<TestType = unknown, SerialisedType = TestType> = {
   isOnly?: boolean;
 };
 
-export type BettererTestFunction<TestType = unknown> = (
-  run: BettererRun
-) => MaybeAsync<TestType>;
+export type BettererTestFunction<TestType = unknown> = (run: BettererRun) => MaybeAsync<TestType>;
 
 export type BettererConstraint<SerialisedType = unknown> = (
   current: SerialisedType,
   previous: SerialisedType
 ) => MaybeAsync<ConstraintResult>;
 
-export type BettererDiff<
-  TestType = unknown,
-  SerialisedType = TestType,
-  DiffType = void
-> = (
+export type BettererDiff<TestType = unknown, SerialisedType = TestType, DiffType = void> = (
   current: TestType,
   serialisedCurrent: SerialisedType,
   serialisedPrevious: SerialisedType | null
 ) => MaybeAsync<DiffType>;
 
-export type BettererGoal<SerialisedType = unknown> = (
-  current: SerialisedType
-) => MaybeAsync<boolean>;
+export type BettererGoal<SerialisedType = unknown> = (current: SerialisedType) => MaybeAsync<boolean>;
 
-export type BettererGoalValue<SerialisedType = unknown> =
-  | SerialisedType
-  | BettererGoal<SerialisedType>;
+export type BettererGoalValue<SerialisedType = unknown> = SerialisedType | BettererGoal<SerialisedType>;

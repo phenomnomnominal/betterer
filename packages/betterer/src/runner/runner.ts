@@ -4,10 +4,7 @@ import { BettererFilePaths } from '../betterer';
 import { BettererContext, BettererRun, BettererRuns } from '../context';
 import { serialise } from './serialiser';
 
-export async function parallel(
-  context: BettererContext,
-  files: BettererFilePaths = []
-): Promise<BettererRuns> {
+export async function parallel(context: BettererContext, files: BettererFilePaths = []): Promise<BettererRuns> {
   const runs = context.getRuns(files);
   context.runnerStart();
   await Promise.all(

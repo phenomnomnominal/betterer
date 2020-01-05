@@ -1,8 +1,4 @@
-import {
-  FileBetterer,
-  createFileBetterer,
-  BettererFileInfoMap
-} from '@betterer/betterer';
+import { FileBetterer, createFileBetterer, BettererFileInfoMap } from '@betterer/betterer';
 import * as stack from 'callsite';
 import * as ts from 'typescript';
 import * as path from 'path';
@@ -11,10 +7,7 @@ import { CONFIG_PATH_REQUIRED, COMPILER_OPTIONS_REQUIRED } from './errors';
 
 const NEW_LINE = '\n';
 
-export function typescriptBetterer(
-  configFilePath: string,
-  extraCompilerOptions: ts.CompilerOptions
-): FileBetterer {
+export function typescriptBetterer(configFilePath: string, extraCompilerOptions: ts.CompilerOptions): FileBetterer {
   if (!configFilePath) {
     throw CONFIG_PATH_REQUIRED();
   }
@@ -65,21 +58,22 @@ export function typescriptBetterer(
       ...semanticDiagnostics
     ]);
 
-    return allDiagnostics.reduce((fileInfoMap, diagnostic) => {
-      const { file, start, length } = diagnostic as ts.DiagnosticWithLocation;
-      const { fileName } = file;
-      const message = ts
-        .flattenDiagnosticMessageText(diagnostic.messageText, NEW_LINE)
-        .replace(process.cwd(), '.');
-      fileInfoMap[fileName] = fileInfoMap[fileName] || [];
-      fileInfoMap[fileName].push({
-        message,
-        filePath: fileName,
-        fileText: file.getFullText(),
-        start,
-        end: start + length
-      });
-      return fileInfoMap;
-    }, {} as BettererFileInfoMap);
+    return allDiagnostics.reduce(
+      (fileInfoMap, diagnostic) => {
+        const { file, start, length } = diagnostic as ts.DiagnosticWithLocation;
+        const { fileName } = file;
+        const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, NEW_LINE).replace(process.cwd(), '.');
+        fileInfoMap[fileName] = fileInfoMap[fileName] || [];
+        fileInfoMap[fileName].push({
+          message,
+          filePath: fileName,
+          fileText: file.getFullText(),
+          start,
+          end: start + length
+        });
+        return fileInfoMap;
+      },
+      {} as BettererFileInfoMap
+    );
   });
 }

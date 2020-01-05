@@ -11,10 +11,7 @@ export function registerExtensions(): void {
   register();
 
   // Force `.betterer.results` files to be loaded as JS:
-  require.extensions[RESULTS_EXTENTION] = (
-    m: NodeModule,
-    filePath: string
-  ): void => {
+  require.extensions[RESULTS_EXTENTION] = (m: NodeModule, filePath: string): void => {
     JS(m, filePath);
   };
 }

@@ -3,10 +3,7 @@ import * as fs from 'graceful-fs';
 import * as path from 'path';
 import stripAnsi from 'strip-ansi';
 
-import {
-  DEFAULT_CONFIG_PATH,
-  DEFAULT_RESULTS_PATH
-} from '@betterer/cli/src/constants';
+import { DEFAULT_CONFIG_PATH, DEFAULT_RESULTS_PATH } from '@betterer/cli/src/constants';
 
 const deleteFile = fs.promises.unlink;
 const readFile = fs.promises.readFile;

@@ -4,9 +4,7 @@ import { fixture } from './fixture';
 
 describe('betterer', () => {
   it('should handlex complex eslint rule options', async () => {
-    const { logs, paths, readFile, reset, resolve, writeFile } = fixture(
-      'test-betterer-eslint-options'
-    );
+    const { logs, paths, readFile, reset, resolve, writeFile } = fixture('test-betterer-eslint-options');
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;

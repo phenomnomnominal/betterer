@@ -4,9 +4,7 @@ import { fixture } from './fixture';
 
 describe('betterer', () => {
   it('should work with named exports in the config file', async () => {
-    const { logs, paths, readFile, reset } = fixture(
-      'test-betterer-named-exports'
-    );
+    const { logs, paths, readFile, reset } = fixture('test-betterer-named-exports');
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;

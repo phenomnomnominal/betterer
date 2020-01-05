@@ -9,10 +9,7 @@ const DEFAULT_RESULTS_PATH = `./.betterer.results`;
 const DEFAULT_FILTER = '.*';
 const DEFAULT_WATCH = false;
 
-export async function start(
-  cwd: string,
-  argv: CLIArguments
-): Promise<BettererStats> {
+export async function start(cwd: string, argv: CLIArguments): Promise<BettererStats> {
   return startBetterer(cwd, getStartConfig(argv));
 }
 
@@ -21,32 +18,21 @@ function getStartConfig(argv: CLIArguments): CLIStartConfig {
     .option(
       '-c, --config [value]',
       'Path to test definition file relative to CWD',
-      (value: string, previous: CLIArguments): CLIArguments =>
-        previous.concat([value]),
+      (value: string, previous: CLIArguments): CLIArguments => previous.concat([value]),
       []
     )
-    .option(
-      '-r, --results [value]',
-      'Path to test results file relative to CWD',
-      DEFAULT_RESULTS_PATH
-    )
+    .option('-r, --results [value]', 'Path to test results file relative to CWD', DEFAULT_RESULTS_PATH)
     .option(
       '-f, --filter [value]',
       'RegExp filter for tests to run',
-      (value: string, previous: CLIArguments): CLIArguments =>
-        previous.concat([value]),
+      (value: string, previous: CLIArguments): CLIArguments => previous.concat([value]),
       []
     )
-    .option(
-      '-w, --watch [value]',
-      'Run ☀️ betterer in watch mode',
-      DEFAULT_WATCH
-    )
+    .option('-w, --watch [value]', 'Run ☀️ betterer in watch mode', DEFAULT_WATCH)
     .option(
       '-i, --ignore [value]',
       'RegExp filter for files at watch',
-      (value: string, previous: CLIArguments): CLIArguments =>
-        previous.concat([value]),
+      (value: string, previous: CLIArguments): CLIArguments => previous.concat([value]),
       []
     )
     .parse(argv as Array<string>);
@@ -54,10 +40,7 @@ function getStartConfig(argv: CLIArguments): CLIStartConfig {
   return (commander as unknown) as CLIStartConfig;
 }
 
-async function startBetterer(
-  cwd: string,
-  startConfig: CLIStartConfig
-): Promise<BettererStats> {
+async function startBetterer(cwd: string, startConfig: CLIStartConfig): Promise<BettererStats> {
   let { config, filter, ignore } = startConfig;
   const { watch } = startConfig;
 

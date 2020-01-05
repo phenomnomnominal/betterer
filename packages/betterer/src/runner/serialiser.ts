@@ -1,8 +1,6 @@
 import { Serialisable } from '../types';
 
-export async function serialise(
-  value: unknown | Serialisable
-): Promise<unknown> {
+export async function serialise(value: unknown | Serialisable): Promise<unknown> {
   if (isSerialisable(value)) {
     return await value.serialise();
   }

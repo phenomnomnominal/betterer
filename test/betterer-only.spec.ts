@@ -4,9 +4,7 @@ import { fixture } from './fixture';
 
 describe('betterer', () => {
   it('should run specific tests', async () => {
-    const { logs, paths, readFile, reset, resolve, writeFile } = fixture(
-      'test-betterer-only'
-    );
+    const { logs, paths, readFile, reset, resolve, writeFile } = fixture('test-betterer-only');
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
