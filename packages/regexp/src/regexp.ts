@@ -5,7 +5,6 @@ import * as glob from 'glob';
 import { promisify } from 'util';
 
 import { BettererFileInfo, FileBetterer, createFileBetterer } from '@betterer/betterer';
-import { error, info } from '@betterer/logger';
 
 const globAsync = promisify(glob);
 const readAsync = promisify(fs.readFile);
@@ -17,8 +16,6 @@ export function regexpBetterer(files: string | Array<string>, regexp: RegExp): F
   const filesGlobs = filesArray.map(glob => path.resolve(cwd, glob));
 
   return createFileBetterer(async () => {
-    info(`using RegExp to find files matching "${regexp}"`);
-
     regexp = new RegExp(regexp.source, regexp.flags.includes('g') ? regexp.flags : `${regexp.flags}g`);
 
     const errors: Array<BettererFileInfo> = [];
@@ -53,10 +50,6 @@ export function regexpBetterer(files: string | Array<string>, regexp: RegExp): F
         );
       })
     );
-
-    if (errors.length) {
-      error('RegExp found some matches:');
-    }
 
     return errors;
   });
