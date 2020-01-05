@@ -25,6 +25,8 @@ Array [
   "running \\"test 4\\"!",
   " ☀️  betterer  info  💬  - ",
   "using RegExp to find files matching \\"/(\\\\/\\\\/\\\\s*HACK)/i\\"",
+  " ☀️  betterer  erro  🔥  - ",
+  "RegExp found some matches:",
   " ☀️  betterer  succ  ✅  - ",
   "\\"test 4\\" got checked for the first time! 🎉",
   " ☀️  betterer  info  💬  - ",
@@ -46,14 +48,14 @@ Array [
   "running \\"test 4\\"!",
   " ☀️  betterer  info  💬  - ",
   "using RegExp to find files matching \\"/(\\\\/\\\\/\\\\s*HACK)/i\\"",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"test 4\\" has already met its goal! ✨",
+  " ☀️  betterer  erro  🔥  - ",
+  "RegExp found some matches:",
+  " ☀️  betterer  warn  ⚠️  - ",
+  "\\"test 4\\" stayed the same. 😐",
   " ☀️  betterer  info  💬  - ",
   "2 things got checked. 🤔",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"test 4\\" met its goal! 🎉",
   " ☀️  betterer  warn  ⚠️  - ",
-  "1 thing stayed the same. 😐",
+  "2 things stayed the same. 😐",
   " ☀️  betterer  warn  ⚠️  - ",
   "2 things got skipped. ❌",
 ]
@@ -76,7 +78,9 @@ exports[\`test 3\`] = {
 exports[\`test 4\`] = {
   timestamp: 0,
   value: \`{
-
+    \\"../src/index.ts:4126639614\\": [
+      [0, 0, 7, \\"RegExp match\\"]
+    ]
   }\`
 };"
 `;
