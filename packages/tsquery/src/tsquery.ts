@@ -42,7 +42,7 @@ export function tsqueryBetterer(configFilePath: string, query: string): FileBett
   });
 }
 
-function getFileMatches(query: string, sourceFile: SourceFile): Array<BettererFileInfo> {
+function getFileMatches(query: string, sourceFile: SourceFile): ReadonlyArray<BettererFileInfo> {
   return tsquery.query(sourceFile, query, { visitAllChildren: true }).map(match => {
     return {
       message: 'TSQuery match',

@@ -46,7 +46,7 @@ export function regexpBetterer(globs: string | ReadonlyArray<string>, regexp: Re
   });
 }
 
-async function getFileMatches(regexp: RegExp, filePath: string): Promise<Array<BettererFileInfo>> {
+async function getFileMatches(regexp: RegExp, filePath: string): Promise<ReadonlyArray<BettererFileInfo>> {
   const matches: Array<RegExpExecArray> = [];
   let fileText: string;
   try {

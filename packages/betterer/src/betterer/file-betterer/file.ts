@@ -9,23 +9,22 @@ const UNKNOWN_LOCATION = {
 } as const;
 
 export class BettererFile {
-  private _fileInfo: Array<BettererFileInfo> = [];
+  private _fileInfo: ReadonlyArray<BettererFileInfo> = [];
   private _fileHash = '';
   private _fileMarks: BettererFileMarks = [];
   private _filePath = '';
 
-  static fromInfo(filePath: string, fileInfo: Array<BettererFileInfo>): BettererFile {
+  static fromInfo(filePath: string, fileInfo: ReadonlyArray<BettererFileInfo>): BettererFile {
     const file = new BettererFile();
     file._filePath = filePath;
     file._fileInfo = fileInfo;
-    file._fileMarks = file._getMarks(fileInfo);
-    const [{ fileText }] = fileInfo;
-    file._fileHash = hash(fileText);
-    file._fileMarks.sort((a, b) => {
+    file._fileMarks = [...file._getMarks(fileInfo)].sort((a, b) => {
       const [aStart] = a;
       const [bStart] = b;
       return aStart - bStart;
     });
+    const [{ fileText }] = fileInfo;
+    file._fileHash = hash(fileText);
     return file;
   }
 
@@ -44,7 +43,7 @@ export class BettererFile {
     return this._fileHash;
   }
 
-  public get fileInfo(): Array<BettererFileInfo> {
+  public get fileInfo(): ReadonlyArray<BettererFileInfo> {
     return this._fileInfo;
   }
 
@@ -56,7 +55,7 @@ export class BettererFile {
     return this._filePath;
   }
 
-  private _getMarks(fileInfo: Array<BettererFileInfo>): BettererFileMarks {
+  private _getMarks(fileInfo: ReadonlyArray<BettererFileInfo>): BettererFileMarks {
     return fileInfo.map(info => {
       const { fileText, start, end, message } = info;
       const lc = new LinesAndColumns(fileText);

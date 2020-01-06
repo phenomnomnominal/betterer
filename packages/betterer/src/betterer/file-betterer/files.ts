@@ -40,7 +40,7 @@ export class BettererFiles implements Serialisable<BettererFileMarksMap>, Printa
   private _fileHashMap: BettererFileHashMap = {};
   private _filePaths: BettererFilePaths = [];
 
-  private constructor(private readonly _files: Array<BettererFile>) {
+  private constructor(private readonly _files: ReadonlyArray<BettererFile>) {
     this._fileHashMap = this._files.reduce((hashMap, file) => {
       hashMap[file.filePath] = file.fileHash;
       return hashMap;
@@ -53,7 +53,7 @@ export class BettererFiles implements Serialisable<BettererFileMarksMap>, Printa
     this._filePaths = this._files.map(file => file.filePath);
   }
 
-  public get files(): Array<BettererFile> {
+  public get files(): ReadonlyArray<BettererFile> {
     return this._files;
   }
 

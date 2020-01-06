@@ -3,9 +3,11 @@ import { BettererTest } from './test';
 
 export class BettererRun {
   private _expected: unknown;
+  private _failed = false;
   private _hasCompleted = false;
   private _isNew = false;
   private _result: unknown;
+  private _skipped = false;
 
   constructor(private _test: BettererTest, private _files: BettererFilePaths) {
     this._expected = this._getExpected();
@@ -21,6 +23,12 @@ export class BettererRun {
 
   public get hasCompleted(): boolean {
     return this._hasCompleted;
+  }
+
+  public get hasResult(): boolean {
+    // If you run a test for the first time and it is
+    // skipped or it fails, then it doesn't have a result:
+    return !(this.isNew && (this._skipped || this._failed));
   }
 
   public get isNew(): boolean {
@@ -56,6 +64,7 @@ export class BettererRun {
   }
 
   public failed(): void {
+    this._failed = true;
     this._result = this._expected;
     this._test.context.runFailed(this);
   }
@@ -85,6 +94,8 @@ export class BettererRun {
   }
 
   public skipped(): void {
+    this._skipped = true;
+    this._result = this._expected;
     this._test.context.runSkipped(this);
   }
 

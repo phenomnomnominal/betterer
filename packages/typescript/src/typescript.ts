@@ -63,13 +63,16 @@ export function typescriptBetterer(configFilePath: string, extraCompilerOptions:
       const { fileName } = file;
       const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, NEW_LINE).replace(process.cwd(), '.');
       fileInfoMap[fileName] = fileInfoMap[fileName] || [];
-      fileInfoMap[fileName].push({
-        message,
-        filePath: fileName,
-        fileText: file.getFullText(),
-        start,
-        end: start + length
-      });
+      fileInfoMap[fileName] = [
+        ...fileInfoMap[fileName],
+        {
+          message,
+          filePath: fileName,
+          fileText: file.getFullText(),
+          start,
+          end: start + length
+        }
+      ];
       return fileInfoMap;
     }, {} as BettererFileInfoMap);
   });

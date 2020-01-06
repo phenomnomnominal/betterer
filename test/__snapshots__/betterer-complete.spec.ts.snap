@@ -52,10 +52,4 @@ Array [
 ]
 `;
 
-exports[`betterer should work when a test meets its goal 2`] = `
-"// BETTERER RESULTS V1.
-exports[\`gets completed\`] = {
-  timestamp: 0,
-  value: \`2\`
-};"
-`;
+exports[`betterer should work when a test meets its goal 2`] = `"// BETTERER RESULTS V1."`;

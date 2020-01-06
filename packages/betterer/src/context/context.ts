@@ -43,6 +43,8 @@ export class BettererContext {
 
   public getResults(runs: BettererRuns): BettererResults {
     return runs
+      .filter(run => !run.hasCompleted)
+      .filter(run => run.hasResult)
       .map(run => this._createResults(run.name, run.result))
       .reduce((p, n) => {
         return { ...p, ...n };
@@ -138,7 +140,7 @@ export class BettererContext {
   private async _init(): Promise<void> {
     this._reporters.context?.start?.();
 
-    this._expectedRaw = await this._initExpectedRaw(this.config.resultsPath);
+    this._expectedRaw = await read(this.config.resultsPath);
     this._tests = await this._initTests(this.config.configPaths);
     this._initFilters(this.config.filters);
     this._initObsolete();
@@ -162,14 +164,6 @@ export class BettererContext {
       });
     }
     return tests;
-  }
-
-  private async _initExpectedRaw(resultsPath: string): Promise<BettererResults> {
-    let expected: BettererResults = {};
-    if (resultsPath) {
-      expected = await read(resultsPath);
-    }
-    return expected;
   }
 
   private _initFilters(filters: BettererConfigFilters = []): void {

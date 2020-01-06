@@ -1,9 +1,16 @@
 import { ConstraintResult } from '@betterer/constraints';
+import * as path from 'path';
 
 import { BettererRun } from '../../context';
 import { SerialisableBetterer } from '../serialisable-betterer';
 import { BettererFiles } from './files';
-import { BettererFileTest, BettererFileInfoDiff, BettererFileExcluded, BettererFileMarksMap } from './types';
+import {
+  BettererFileTest,
+  BettererFileInfoDiff,
+  BettererFileExcluded,
+  BettererFileMarksMap,
+  BettererFileInfoMap
+} from './types';
 
 export class FileBetterer extends SerialisableBetterer<BettererFiles, BettererFileMarksMap> {
   private _excluded: BettererFileExcluded = [];
@@ -16,17 +23,26 @@ export class FileBetterer extends SerialisableBetterer<BettererFiles, BettererFi
       deserialise: BettererFiles.deserialise,
       goal,
       test: async (run: BettererRun): Promise<BettererFiles> => {
-        const { files } = run;
+        const { files, test } = run;
+
         const info = await fileTest(files);
 
-        const included = Object.keys(info).filter(filePath => !this._excluded.some(exclude => exclude.test(filePath)));
-        return BettererFiles.fromInfo(info, included);
+        const { resultsPath } = test.context.config;
+        const relativeInfo = Object.keys(info).reduce((i, filePath) => {
+          i[this._getPath(resultsPath, filePath)] = info[filePath];
+          return i;
+        }, {} as BettererFileInfoMap);
+        const included = Object.keys(relativeInfo).filter(
+          filePath => !this._excluded.some(exclude => exclude.test(filePath))
+        );
+
+        return BettererFiles.fromInfo(relativeInfo, included);
       }
     });
   }
 
   public exclude(...excludePatterns: BettererFileExcluded): this {
-    this._excluded.push(...excludePatterns);
+    this._excluded = [...this._excluded, ...excludePatterns];
     return this;
   }
 
@@ -75,6 +91,11 @@ export class FileBetterer extends SerialisableBetterer<BettererFiles, BettererFi
       return allExpected;
     }
     return allExpected.filter(run.files);
+  }
+
+  private _getPath(resultsPath: string, filePath: string): string {
+    const relativeFilePath = path.relative(resultsPath, filePath);
+    return path.sep === path.posix.sep ? relativeFilePath : relativeFilePath.split(path.sep).join(path.posix.sep);
   }
 }
 

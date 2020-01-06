@@ -1,26 +1,12 @@
 // BETTERER RESULTS V1.
 exports[`no hack comments`] = {
-  timestamp: 1577921043313,
+  timestamp: 1578324784265,
   value: `{
-    "../packages/cli/src/cli.ts:2669622844": [
-      [7, 2, 7]
+    "../packages/cli/src/cli.ts:1776674894": [
+      [9, 2, 7, "RegExp match"]
     ],
-    "../packages/cli/src/init.ts:629526533": [
-      [84, 4, 7]
-    ]
-  }`
-};
-exports[`no raw console.log`] = {
-  timestamp: 1578005406361,
-  value: `{
-    "../packages/betterer/src/reporters/diffs/default-diff.ts:1923095399": [
-      [18, 4, 11]
-    ],
-    "../packages/logger/src/logger.ts:80987387": [
-      [8, 2, 11],
-      [20, 2, 11],
-      [54, 4, 11],
-      [81, 2, 11]
+    "../packages/cli/src/init.ts:3669865936": [
+      [90, 4, 7, "RegExp match"]
     ]
   }`
 };

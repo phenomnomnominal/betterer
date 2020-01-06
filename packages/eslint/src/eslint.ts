@@ -50,7 +50,7 @@ function getFileIssues(
   linterOptions: Linter.Config,
   rule: ESLintRuleConfig,
   filePath: string
-): Array<BettererFileInfo> {
+): ReadonlyArray<BettererFileInfo> {
   const [ruleName, ruleOptions] = rule;
   const runner = new CLIEngine({
     ...linterOptions,
