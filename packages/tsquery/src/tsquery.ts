@@ -45,6 +45,7 @@ export function tsqueryBetterer(configFilePath: string, query: string): FileBett
 function getFileMatches(query: string, sourceFile: SourceFile): Array<BettererFileInfo> {
   return tsquery.query(sourceFile, query, { visitAllChildren: true }).map(match => {
     return {
+      message: 'TSQuery match',
       filePath: sourceFile.fileName,
       fileText: sourceFile.getFullText(),
       start: match.getStart(),

@@ -2,7 +2,7 @@ export type BettererLoggerMessages = ReadonlyArray<string>;
 export type BettererLogger = (...messages: BettererLoggerMessages) => void;
 
 export type BettererLoggerCodeInfo = {
-  message?: string;
+  message: string;
   filePath: string;
   fileText: string;
   start: number;

@@ -67,6 +67,7 @@ async function getFileMatches(regexp: RegExp, filePath: string): Promise<Array<B
   return matches.map(match => {
     const [matchText] = match;
     return {
+      message: 'RegExp match',
       filePath,
       fileText,
       start: match.index,

@@ -90,11 +90,7 @@ export class BettererFiles implements Serialisable<BettererFileMarksMap>, Printa
           printed += ',\n';
         }
         const [line, column, length, message] = mark;
-        if (message) {
-          printed += `      [${line}, ${column}, ${length}, ${JSON.stringify(message)}]`;
-        } else {
-          printed += `      [${line}, ${column}, ${length}]`;
-        }
+        printed += `      [${line}, ${column}, ${length}, ${JSON.stringify(message)}]`;
       });
       printed += `\n    ]`;
     });

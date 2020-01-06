@@ -1,7 +1,7 @@
 import LinesAndColumns from 'lines-and-columns';
 
 import { hash } from '../../hasher';
-import { BettererFileMarksMap, BettererFileInfo, BettererFileMark, BettererFileMarks } from './types';
+import { BettererFileMarksMap, BettererFileInfo, BettererFileMarks } from './types';
 
 const UNKNOWN_LOCATION = {
   line: 0,
@@ -61,11 +61,7 @@ export class BettererFile {
       const { fileText, start, end, message } = info;
       const lc = new LinesAndColumns(fileText);
       const { line, column } = lc.locationForIndex(start) || UNKNOWN_LOCATION;
-      const mark: BettererFileMark = [line, column, end - start];
-      if (message) {
-        mark.push(message);
-      }
-      return mark;
+      return [line, column, end - start, message];
     });
   }
 }
