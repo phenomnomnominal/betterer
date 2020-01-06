@@ -11,7 +11,7 @@ export { Betterer, FileBetterer, createBetterer, createFileBetterer } from './be
 export { BettererContext, BettererRun, BettererTest, BettererStats } from './context';
 
 // Export all types:
-export * from './betterer/types';
+export * from './betterer/betterer/types';
 export * from './betterer/file-betterer/types';
 export * from './config/types';
 export * from './context/types';

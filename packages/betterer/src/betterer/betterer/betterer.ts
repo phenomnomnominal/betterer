@@ -1,16 +1,17 @@
-import { BettererRun } from '../context';
+import { BettererRun } from '../../context';
 import { BettererConstraint, BettererGoal, BettererTestFunction, BettererOptions } from './types';
 
-export class Betterer<TestType = unknown, SerialisedType = TestType> {
-  public readonly constraint: BettererConstraint<SerialisedType>;
-  public readonly goal: BettererGoal<SerialisedType>;
+export class Betterer<TestType = unknown> {
+  public readonly constraint: BettererConstraint<TestType>;
+  public readonly goal: BettererGoal<TestType>;
   public readonly test: BettererTestFunction<TestType>;
+
   public readonly isBetterer = true;
 
   private _isOnly: boolean;
   private _isSkipped: boolean;
 
-  constructor(options: BettererOptions<TestType, SerialisedType>) {
+  constructor(options: BettererOptions<TestType>) {
     const { constraint, test, isOnly, isSkipped } = options;
     this.constraint = constraint;
     this.goal = this._createGoal(options);
@@ -27,10 +28,6 @@ export class Betterer<TestType = unknown, SerialisedType = TestType> {
     return this._isSkipped;
   }
 
-  public getExpected(run: BettererRun): SerialisedType {
-    return run.test.context.expected[run.name] as SerialisedType;
-  }
-
   public only(): this {
     this._isOnly = true;
     return this;
@@ -41,7 +38,11 @@ export class Betterer<TestType = unknown, SerialisedType = TestType> {
     return this;
   }
 
-  private _createGoal(options: BettererOptions<TestType, SerialisedType>): BettererGoal<SerialisedType> {
+  public getExpected(run: BettererRun): TestType {
+    return run.test.expected as TestType;
+  }
+
+  private _createGoal(options: BettererOptions<TestType>): BettererGoal<TestType> {
     const hasGoal = Object.hasOwnProperty.call(options, 'goal');
     if (!hasGoal) {
       return (): boolean => false;

@@ -29,7 +29,7 @@ export class BettererFile {
     return file;
   }
 
-  static fromSerialised(serialised: BettererFileMarksMap): BettererFile {
+  static deserialise(serialised: BettererFileMarksMap): BettererFile {
     const file = new BettererFile();
     Object.keys(serialised).forEach(key => {
       const [filePath, fileHash] = key.split(':');

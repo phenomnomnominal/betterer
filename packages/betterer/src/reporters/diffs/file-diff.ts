@@ -1,14 +1,9 @@
 import { code, error } from '@betterer/logger';
 
-import { FileBetterer, BettererFiles, BettererFileMarksMap } from '../../betterer';
+import { FileBetterer, BettererFiles } from '../../betterer';
 
-export function fileDiff(
-  betterer: FileBetterer,
-  current: BettererFiles,
-  serialisedCurrent: BettererFileMarksMap,
-  serialisedPrevious: BettererFileMarksMap | null
-): void {
-  const fileInfoMap = betterer.getDiff(current, serialisedCurrent, serialisedPrevious);
+export function fileDiff(betterer: FileBetterer, current: BettererFiles, previous: BettererFiles | null): void {
+  const fileInfoMap = betterer.getDiff(current, previous);
   Object.keys(fileInfoMap).forEach(file => {
     const fileInfo = fileInfoMap[file];
     const { length } = fileInfo;

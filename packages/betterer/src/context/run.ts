@@ -3,8 +3,8 @@ import { BettererTest } from './test';
 
 export class BettererRun {
   private _expected: unknown;
-  private _hasExpected = false;
   private _hasCompleted = false;
+  private _isNew = false;
   private _result: unknown;
 
   constructor(private _test: BettererTest, private _files: BettererFilePaths) {
@@ -23,8 +23,8 @@ export class BettererRun {
     return this._hasCompleted;
   }
 
-  public get hasExpected(): boolean {
-    return this._hasExpected;
+  public get isNew(): boolean {
+    return this._isNew;
   }
 
   public get name(): string {
@@ -88,17 +88,16 @@ export class BettererRun {
     this._test.context.runSkipped(this);
   }
 
-  public worse(result: unknown, serialised: unknown): void {
+  public worse(result: unknown): void {
     this._result = this._expected;
-    this._test.context.runWorse(this, result, serialised, this.expected);
+    this._test.context.runWorse(this, result, this.expected);
   }
 
   private _getExpected(): unknown {
-    const { betterer, context } = this.test;
-    const { expected } = context;
-    if (Object.hasOwnProperty.call(expected, this.name)) {
-      this._hasExpected = true;
+    if (this.test.hasExpected) {
+      return this.test.betterer.getExpected(this);
     }
-    return betterer.getExpected(this);
+    this._isNew = true;
+    return;
   }
 }

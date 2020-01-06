@@ -2,7 +2,6 @@ import { ConstraintResult } from '@betterer/constraints';
 
 import { BettererFilePaths } from '../betterer';
 import { BettererContext, BettererRun, BettererRuns } from '../context';
-import { serialise } from './serialiser';
 
 export async function parallel(context: BettererContext, files: BettererFilePaths = []): Promise<BettererRuns> {
   const runs = context.getRuns(files);
@@ -48,15 +47,14 @@ async function runTest(run: BettererRun): Promise<void> {
   }
   run.ran();
 
-  const serialisedCurrent = await serialise(current);
-  const goalComplete = await betterer.goal(serialisedCurrent);
+  const goalComplete = await betterer.goal(current);
 
-  if (!run.hasExpected) {
+  if (run.isNew) {
     run.new(current, goalComplete);
     return;
   }
 
-  const comparison = await betterer.constraint(serialisedCurrent, run.expected);
+  const comparison = await betterer.constraint(current, run.expected);
 
   if (comparison === ConstraintResult.same) {
     run.same(goalComplete);
@@ -68,6 +66,6 @@ async function runTest(run: BettererRun): Promise<void> {
     return;
   }
 
-  run.worse(current, serialisedCurrent);
+  run.worse(current);
   return;
 }

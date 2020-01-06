@@ -1,11 +1,11 @@
 import { ConstraintResult } from '@betterer/constraints';
 
 import { BettererRun } from '../../context';
-import { Betterer } from '../betterer';
+import { SerialisableBetterer } from '../serialisable-betterer';
 import { BettererFiles } from './files';
 import { BettererFileTest, BettererFileInfoDiff, BettererFileExcluded, BettererFileMarksMap } from './types';
 
-export class FileBetterer extends Betterer<BettererFiles, BettererFileMarksMap> {
+export class FileBetterer extends SerialisableBetterer<BettererFiles, BettererFileMarksMap> {
   private _excluded: BettererFileExcluded = [];
 
   public readonly isFileBetterer = true;
@@ -13,12 +13,13 @@ export class FileBetterer extends Betterer<BettererFiles, BettererFileMarksMap> 
   constructor(fileTest: BettererFileTest) {
     super({
       constraint,
+      deserialise: BettererFiles.deserialise,
       goal,
       test: async (run: BettererRun): Promise<BettererFiles> => {
         const { files } = run;
         const info = await fileTest(files);
 
-        const included = files.filter(filePath => !this._excluded.some(exclude => exclude.test(filePath)));
+        const included = Object.keys(info).filter(filePath => !this._excluded.some(exclude => exclude.test(filePath)));
         return BettererFiles.fromInfo(info, included);
       }
     });
@@ -29,26 +30,20 @@ export class FileBetterer extends Betterer<BettererFiles, BettererFileMarksMap> 
     return this;
   }
 
-  public getDiff(
-    current: BettererFiles,
-    serialisedCurrent: BettererFileMarksMap,
-    serialisedPrevious: BettererFileMarksMap | null
-  ): BettererFileInfoDiff {
+  public getDiff(current: BettererFiles, previous: BettererFiles | null): BettererFileInfoDiff {
     const files = current.files;
 
-    if (serialisedPrevious === null) {
+    if (previous === null) {
       return files.reduce((d, file) => {
         d[file.filePath] = file.fileInfo;
         return d;
       }, {} as BettererFileInfoDiff);
     }
 
-    const deserialisedCurrent = BettererFiles.fromSerialised(serialisedCurrent);
-    const deserialisedPrevious = BettererFiles.fromSerialised(serialisedPrevious);
-
-    const filesWithChanges = files.filter((_, index) => {
-      const currentMarks = deserialisedCurrent.files[index].fileMarks;
-      const previousMarks = deserialisedPrevious.files[index].fileMarks;
+    const filesWithChanges = files.filter(file => {
+      const { filePath } = file;
+      const currentMarks = current.getFileMarks(filePath);
+      const previousMarks = previous.getFileMarks(filePath);
       if (!currentMarks || !previousMarks || currentMarks.length !== previousMarks.length) {
         return true;
       }
@@ -59,8 +54,8 @@ export class FileBetterer extends Betterer<BettererFiles, BettererFileMarksMap> 
     });
 
     return filesWithChanges.reduce((d, file) => {
-      const currentMarks = deserialisedCurrent.getFileMarks(file.filePath);
-      const previousMarks = deserialisedPrevious.getFileMarks(file.filePath);
+      const currentMarks = current.getFileMarks(file.filePath);
+      const previousMarks = previous.getFileMarks(file.filePath);
       d[file.filePath] = file.fileInfo.filter((_, index) => {
         const [cLine, cCol, cLen] = currentMarks[index];
         return (
@@ -74,29 +69,25 @@ export class FileBetterer extends Betterer<BettererFiles, BettererFileMarksMap> 
     }, {} as BettererFileInfoDiff);
   }
 
-  public getExpected(run: BettererRun): BettererFileMarksMap {
-    const expected = run.test.context.expected[run.name];
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const { files } = BettererFiles.fromSerialised(expected as BettererFileMarksMap);
-    return new BettererFiles(files.filter(file => run.files.includes(file.filePath))).serialise();
+  public getExpected(run: BettererRun): BettererFiles {
+    const allExpected = run.test.expected as BettererFiles;
+    if (!run.files.length) {
+      return allExpected;
+    }
+    return allExpected.filter(run.files);
   }
 }
 
-function constraint(
-  serialisedCurrent: BettererFileMarksMap,
-  serialisedPrevious: BettererFileMarksMap
-): ConstraintResult {
-  const deserialisedCurrent = BettererFiles.fromSerialised(serialisedCurrent);
-  const deserialisedPrevious = BettererFiles.fromSerialised(serialisedPrevious);
-  const currentFiles = deserialisedCurrent.getFilePaths();
-  const previousFiles = deserialisedPrevious.getFilePaths();
+function constraint(current: BettererFiles, previous: BettererFiles): ConstraintResult {
+  const currentFiles = current.getFilePaths();
+  const previousFiles = previous.getFilePaths();
 
   const newOrMovedUnchangedFiles = currentFiles.filter(file => {
     return !previousFiles.includes(file);
   });
   const movedUnchangedFiles = newOrMovedUnchangedFiles.filter(file => {
-    const fileHash = deserialisedCurrent.getFileHash(file);
-    return deserialisedPrevious.hasHash(fileHash);
+    const fileHash = current.getFileHash(file);
+    return previous.hasHash(fileHash);
   });
   const newFiles = newOrMovedUnchangedFiles.filter(file => {
     return !movedUnchangedFiles.includes(file);
@@ -111,8 +102,8 @@ function constraint(
   }
 
   const filesWithMore = existingFiles.filter(filePath => {
-    const currentMarks = deserialisedCurrent.getFileMarks(filePath);
-    const previousMarks = deserialisedPrevious.getFileMarks(filePath);
+    const currentMarks = current.getFileMarks(filePath);
+    const previousMarks = previous.getFileMarks(filePath);
     return currentMarks.length > previousMarks.length;
   });
 
@@ -122,8 +113,8 @@ function constraint(
   }
 
   const filesWithSame = existingFiles.filter(filePath => {
-    const currentMarks = deserialisedCurrent.getFileMarks(filePath);
-    const previousMarks = deserialisedPrevious.getFileMarks(filePath);
+    const currentMarks = current.getFileMarks(filePath);
+    const previousMarks = previous.getFileMarks(filePath);
     return currentMarks.length === previousMarks.length;
   });
 
@@ -137,8 +128,8 @@ function constraint(
   return ConstraintResult.better;
 }
 
-function goal(value: BettererFileMarksMap): boolean {
-  return Object.keys(value).length === 0;
+function goal(value: BettererFiles): boolean {
+  return value.files.every(file => file.fileMarks.length === 0);
 }
 
 export function isFileBetterer(obj: unknown): obj is FileBetterer {
