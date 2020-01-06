@@ -45,7 +45,7 @@ export class BettererContext {
     return runs
       .filter(run => !run.hasCompleted)
       .filter(run => run.hasResult)
-      .map(run => this._createResults(run.name, run.result))
+      .map(run => this._getResult(run))
       .reduce((p, n) => {
         return { ...p, ...n };
       }, {});
@@ -115,11 +115,16 @@ export class BettererContext {
     this._reporters.run?.worse?.(run, result, expected);
   }
 
-  private _createResults(name: string, value: unknown): BettererResults {
+  private _getResult(run: BettererRun): BettererResults {
+    const { hasUpdated, name, result } = run;
+    // Don't update timestamp if the result hasn't changed:
+    if (!hasUpdated) {
+      return { [name]: this._expectedRaw[name] };
+    }
     return {
       [name]: {
         timestamp: Date.now(),
-        value
+        value: result
       }
     };
   }

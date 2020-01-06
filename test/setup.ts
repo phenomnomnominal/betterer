@@ -1,6 +1,6 @@
-// console['log'] = (): void => {
-//   //
-// };
+console['log'] = (): void => {
+  //
+};
 
 Date['now'] = function(): number {
   return 0;
