@@ -1,9 +1,0 @@
-// BETTERER RESULTS V1.
-exports[`typescript use strict mode`] = {
-  timestamp: 0,
-  value: `{
-    "../src/index.ts:1499252024": [
-      [2, 12, 1, "The left-hand side of an arithmetic operation must be of type \'any\', \'number\', \'bigint\' or an enum type."]
-    ]
-  }`
-};
