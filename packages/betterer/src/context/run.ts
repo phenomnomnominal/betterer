@@ -1,14 +1,13 @@
 import { BettererFilePaths } from '../betterer';
 import { BettererTest } from './test';
+import { BettererRunStatus } from './run-status';
 
 export class BettererRun {
   private _expected: unknown;
-  private _failed = false;
-  private _hasCompleted = false;
   private _hasUpdated = false;
   private _isNew = false;
   private _result: unknown;
-  private _skipped = false;
+  private _status: BettererRunStatus = BettererRunStatus.pending;
 
   constructor(private _test: BettererTest, private _files: BettererFilePaths) {
     this._expected = this._getExpected();
@@ -22,22 +21,42 @@ export class BettererRun {
     return this._files;
   }
 
-  public get hasCompleted(): boolean {
-    return this._hasCompleted;
-  }
-
   public get hasResult(): boolean {
     // If you run a test for the first time and it is
     // skipped or it fails, then it doesn't have a result:
-    return !(this.isNew && (this._skipped || this._failed));
+    return !(this.isNew && (this._status === BettererRunStatus.skipped || this._status === BettererRunStatus.failed));
   }
 
   public get hasUpdated(): boolean {
     return this._hasUpdated;
   }
 
+  public get status(): string {
+    return this._status;
+  }
+
+  public get isBetter(): boolean {
+    return this._status === BettererRunStatus.better;
+  }
+
+  public get isComplete(): boolean {
+    return this._status === BettererRunStatus.complete;
+  }
+
+  public get isFailed(): boolean {
+    return this._status === BettererRunStatus.failed;
+  }
+
   public get isNew(): boolean {
     return this._isNew;
+  }
+
+  public get isSame(): boolean {
+    return this._status === BettererRunStatus.same;
+  }
+
+  public get isWorse(): boolean {
+    return this._status === BettererRunStatus.worse;
   }
 
   public get name(): string {
@@ -53,7 +72,7 @@ export class BettererRun {
   }
 
   public better(result: unknown, goalComplete: boolean): void {
-    this._hasCompleted = goalComplete;
+    this._status = goalComplete ? BettererRunStatus.complete : BettererRunStatus.better;
     this._hasUpdated = true;
     this._result = result;
     this._test.context.runBetter(this);
@@ -64,12 +83,12 @@ export class BettererRun {
   }
 
   public failed(): void {
-    this._failed = true;
+    this._status = BettererRunStatus.failed;
     this._test.context.runFailed(this);
   }
 
   public new(result: unknown, goalComplete: boolean): void {
-    this._hasCompleted = goalComplete;
+    this._status = goalComplete ? BettererRunStatus.complete : BettererRunStatus.new;
     this._hasUpdated = true;
     this._result = result;
     this._test.context.runNew(this);
@@ -84,16 +103,17 @@ export class BettererRun {
   }
 
   public same(goalComplete: boolean): void {
-    this._hasCompleted = goalComplete;
+    this._status = goalComplete ? BettererRunStatus.complete : BettererRunStatus.same;
     this._test.context.runSame(this);
   }
 
   public skipped(): void {
-    this._skipped = true;
+    this._status = BettererRunStatus.skipped;
     this._test.context.runSkipped(this);
   }
 
   public worse(result: unknown): void {
+    this._status = BettererRunStatus.worse;
     this._test.context.runWorse(this, result, this.expected);
   }
 

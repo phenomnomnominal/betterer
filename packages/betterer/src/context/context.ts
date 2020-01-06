@@ -43,7 +43,7 @@ export class BettererContext {
 
   public getResults(runs: BettererRuns): BettererResults {
     return runs
-      .filter(run => !run.hasCompleted)
+      .filter(run => !run.isComplete)
       .filter(run => run.hasResult)
       .map(run => this._getResult(run))
       .reduce((p, n) => {
@@ -57,8 +57,8 @@ export class BettererContext {
     });
   }
 
-  public runnerStart(): void {
-    this._reporters.runner?.start?.();
+  public runnerStart(files: BettererFilePaths = []): void {
+    this._reporters.runner?.start?.(files);
   }
 
   public runnerEnd(runs: BettererRuns, files: BettererFilePaths = []): void {
@@ -72,8 +72,8 @@ export class BettererContext {
   }
 
   public runEnd(run: BettererRun): void {
-    const { hasCompleted, name } = run;
-    if (hasCompleted) {
+    const { isComplete, name } = run;
+    if (isComplete) {
       this._stats.completed.push(name);
     }
   }

@@ -6,8 +6,8 @@ import { BettererRunReporter } from './types';
 
 export const runSerial: BettererRunReporter = {
   better(run: BettererRun): void {
-    const { hasCompleted, name } = run;
-    if (hasCompleted) {
+    const { isComplete, name } = run;
+    if (isComplete) {
       success(`"${name}" met its goal! 🎉`);
       return;
     }
@@ -17,16 +17,16 @@ export const runSerial: BettererRunReporter = {
     error(`"${run.name}" failed to run. 🔥`);
   },
   new(run: BettererRun): void {
-    const { hasCompleted, name } = run;
-    if (hasCompleted) {
+    const { isComplete, name } = run;
+    if (isComplete) {
       success(`"${name}" has already met its goal! ✨`);
       return;
     }
     success(`"${name}" got checked for the first time! 🎉`);
   },
   same(run: BettererRun): void {
-    const { hasCompleted, name } = run;
-    if (hasCompleted) {
+    const { isComplete, name } = run;
+    if (isComplete) {
       success(`"${name}" has already met its goal! ✨`);
       return;
     }

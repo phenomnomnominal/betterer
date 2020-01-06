@@ -4,6 +4,15 @@ import { error, info, success, warn, logo } from '@betterer/logger';
 import { BettererContext } from '../context';
 import { BettererContextReporter } from './types';
 
+export const contextParallel: BettererContextReporter = {
+  start(): void {
+    info('Running betterer in watch mode 🎉');
+  },
+  complete(): void {
+    info('Stopping watch mode 👋');
+  }
+};
+
 export const contextSerial: BettererContextReporter = {
   start(): void {
     logo();

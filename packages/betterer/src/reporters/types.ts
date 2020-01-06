@@ -10,7 +10,7 @@ export type BettererContextReporter = {
 };
 
 export type BettererRunnerReporter = {
-  start?(): void;
+  start?(files: BettererFilePaths): void;
   end?(runs: BettererRuns, files: BettererFilePaths): void;
 };
 

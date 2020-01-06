@@ -1,10 +1,11 @@
-import { contextSerial } from './context-reporters';
+import { contextParallel, contextSerial } from './context-reporters';
 import { runnerParallel } from './runner-reporters';
 import { runSerial } from './run-reporters';
 
 export * from './types';
 
 export const parallelReporters = {
+  context: contextParallel,
   runner: runnerParallel
 };
 
