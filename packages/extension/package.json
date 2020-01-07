@@ -1,0 +1,37 @@
+{
+  "name": "betterer",
+  "displayName": "betterer",
+  "publisher": "Betterer",
+  "private": true,
+  "description": "VSCode extension for @betterer/betterer",
+  "version": "0.0.1",
+  "main": "./dist/extension.js",
+  "author": "Craig Spence <craigspence0@gmail.com>",
+  "homepage": "https://phenomnomnominal.github.io/betterer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phenomnomnominal/betterer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/phenomnomnominal/betterer/issues"
+  },
+  "engines": {
+    "vscode": "^1.41.0"
+  },
+  "categories": [
+    "Linters"
+  ],
+  "activationEvents": [
+    "workspaceContains:**/.betterer.*"
+  ],
+  "scripts": {
+    "vscode:prepublish": "yarn run compile",
+    "compile": "../../node_modules/.bin/tsc -p ./"
+  },
+  "dependencies": {
+    "@betterer/betterer": "*"
+  },
+  "devDependencies": {
+    "vscode": "1.1.36"
+  }
+}

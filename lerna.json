@@ -1,6 +1,14 @@
 {
   "packages": [
-    "packages/*"
+    "packages/betterer",
+    "packages/cli",
+    "packages/constraints",
+    "packages/errors",
+    "packages/eslint",
+    "packages/logger",
+    "packages/regexp",
+    "packages/tsquery",
+    "packages/typescript"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,

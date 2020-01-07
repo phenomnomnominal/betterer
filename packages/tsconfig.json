@@ -6,6 +6,7 @@
     { "path": "constraints" },
     { "path": "eslint" },
     { "path": "errors" },
+    { "path": "extension" },
     { "path": "logger" },
     { "path": "regexp" },
     { "path": "tsquery" },
