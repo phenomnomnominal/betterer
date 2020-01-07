@@ -1,7 +1,7 @@
 import { BettererError } from '@betterer/errors';
 import { BettererFilePaths, createBetterer } from '../betterer';
 import { BettererConfig, BettererConfigFilters, BettererConfigPaths } from '../config';
-import { CANT_READ_CONFIG } from '../errors';
+import { COULDNT_READ_CONFIG } from '../errors';
 import { BettererReporters } from '../reporters';
 import { BettererResults, print, read, write } from './results';
 import { BettererRun } from './run';
@@ -14,13 +14,13 @@ export class BettererContext {
   private _stats: BettererStats = new BettererStats();
   private _tests: BettererTests = [];
 
-  public static async create(config: BettererConfig, reporters: BettererReporters): Promise<BettererContext> {
+  public static async create(config: BettererConfig, reporters?: BettererReporters): Promise<BettererContext> {
     const context = new BettererContext(config, reporters);
     await context._init();
     return context;
   }
 
-  private constructor(public readonly config: BettererConfig, private _reporters: BettererReporters) {}
+  private constructor(public readonly config: BettererConfig, private _reporters?: BettererReporters) {}
 
   public get stats(): BettererStats {
     return this._stats;
@@ -34,9 +34,9 @@ export class BettererContext {
     } catch (e) {
       error = e;
     }
-    this._reporters.context?.complete?.(this);
+    this._reporters?.context?.complete?.(this);
     if (error) {
-      this._reporters.context?.error?.(error, printed);
+      this._reporters?.context?.error?.(error, printed);
     }
     return this._stats;
   }
@@ -58,17 +58,17 @@ export class BettererContext {
   }
 
   public runnerStart(files: BettererFilePaths = []): void {
-    this._reporters.runner?.start?.(files);
+    this._reporters?.runner?.start?.(files);
   }
 
   public runnerEnd(runs: BettererRuns, files: BettererFilePaths = []): void {
-    this._reporters.runner?.end?.(runs, files);
+    this._reporters?.runner?.end?.(runs, files);
   }
 
   public runBetter(run: BettererRun): void {
     const { name } = run;
     this._stats.better.push(name);
-    this._reporters.run?.better?.(run);
+    this._reporters?.run?.better?.(run);
   }
 
   public runEnd(run: BettererRun): void {
@@ -81,13 +81,13 @@ export class BettererContext {
   public runFailed(run: BettererRun): void {
     const { name } = run;
     this._stats.failed.push(name);
-    this._reporters.run?.failed?.(run);
+    this._reporters?.run?.failed?.(run);
   }
 
   public runNew(run: BettererRun): void {
     const { name } = run;
     this._stats.new.push(name);
-    this._reporters.run?.new?.(run);
+    this._reporters?.run?.new?.(run);
   }
 
   public runRan(run: BettererRun): void {
@@ -97,7 +97,7 @@ export class BettererContext {
   public runSame(run: BettererRun): void {
     const { name } = run;
     this._stats.same.push(name);
-    this._reporters.run?.same?.(run);
+    this._reporters?.run?.same?.(run);
   }
 
   public runSkipped(run: BettererRun): void {
@@ -106,13 +106,13 @@ export class BettererContext {
   }
 
   public runStart(run: BettererRun): void {
-    this._reporters.run?.start?.(run);
+    this._reporters?.run?.start?.(run);
   }
 
-  public runWorse(run: BettererRun, result: unknown, expected: unknown): void {
+  public runWorse(run: BettererRun): void {
     const { name } = run;
     this._stats.worse.push(name);
-    this._reporters.run?.worse?.(run, result, expected);
+    this._reporters?.run?.worse?.(run);
   }
 
   private _getResult(run: BettererRun): BettererResults {
@@ -138,12 +138,12 @@ export class BettererContext {
         return new BettererTest(name, this, betterer, this._expectedRaw);
       });
     } catch {
-      throw CANT_READ_CONFIG(configPath);
+      throw COULDNT_READ_CONFIG(configPath);
     }
   }
 
   private async _init(): Promise<void> {
-    this._reporters.context?.start?.();
+    this._reporters?.context?.start?.();
 
     this._expectedRaw = await read(this.config.resultsPath);
     this._tests = await this._initTests(this.config.configPaths);

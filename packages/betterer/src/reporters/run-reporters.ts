@@ -35,10 +35,11 @@ export const runSerial: BettererRunReporter = {
   start(run: BettererRun): void {
     info(`running "${run.name}"!`);
   },
-  worse(run: BettererRun, result: unknown, expected: unknown): void {
-    error(`"${run.name}" got worse. 😔`);
+  worse(run: BettererRun): void {
+    const { expected, name, result, test } = run;
+    error(`"${name}" got worse. 😔`);
     br();
-    const diffReporter = getDiffReporter(run.test.betterer);
+    const diffReporter = getDiffReporter(test.betterer);
     diffReporter(result, expected);
     br();
   }

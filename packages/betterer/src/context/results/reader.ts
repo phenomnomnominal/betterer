@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 
-import { CANT_READ_RESULTS } from '../../errors';
+import { COULDNT_READ_RESULTS } from '../../errors';
 import { BettererResults } from './types';
 
 export async function read(resultsPath: string): Promise<BettererResults> {
@@ -13,6 +13,6 @@ export async function read(resultsPath: string): Promise<BettererResults> {
   try {
     return await import(resultsPath);
   } catch {
-    throw CANT_READ_RESULTS(resultsPath);
+    throw COULDNT_READ_RESULTS(resultsPath);
   }
 }

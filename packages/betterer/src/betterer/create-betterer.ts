@@ -1,4 +1,4 @@
-import { NO_CONSTRAINT, NO_TEST } from '../errors';
+import { CONSTRAINT_FUNCTION_REQUIRED, TEST_FUNCTION_REQUIRED } from '../errors';
 import { Betterer, isBetterer, BettererOptions } from './betterer';
 import { SerialisableBetterer, SerialisableBettererOptions } from './serialisable-betterer';
 import { Serialisable } from './types';
@@ -12,10 +12,10 @@ export function createBetterer(
 
   const { constraint, test } = options;
   if (constraint == null) {
-    throw NO_CONSTRAINT();
+    throw CONSTRAINT_FUNCTION_REQUIRED();
   }
   if (test == null) {
-    throw NO_TEST();
+    throw TEST_FUNCTION_REQUIRED();
   }
 
   if (isSerialisableBettererOptions(options)) {

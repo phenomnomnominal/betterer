@@ -20,7 +20,7 @@ export type BettererRunReporter = {
   ['new']?(run: BettererRun): void;
   same?(run: BettererRun): void;
   start?(run: BettererRun): void;
-  worse?(run: BettererRun, result: unknown, expected: unknown): void;
+  worse?(run: BettererRun): void;
 };
 
 export type BettererReporters = {
@@ -28,3 +28,4 @@ export type BettererReporters = {
   runner?: BettererRunnerReporter;
   run?: BettererRunReporter;
 };
+// Hack:

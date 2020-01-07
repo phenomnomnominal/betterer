@@ -1,12 +1,12 @@
 import { registerError } from '@betterer/errors';
 
-// TODO:
-export const NO_CONSTRAINT = registerError(() => '');
-export const NO_TEST = registerError(() => '');
+export const CONSTRAINT_FUNCTION_REQUIRED = registerError(
+  () => 'For a custom betterer to work, it needs to have a `constraint` function. ❌'
+);
+export const TEST_FUNCTION_REQUIRED = registerError(
+  () => 'For a custom betterer to work, it needs to have a `test` function. ❌'
+);
 
-export const CANT_READ_CONFIG = registerError(configPath => `could not read "${configPath}". 😔`);
-export const CANT_READ_RESULTS = registerError(resultsPath => `could not read results from "${resultsPath}". 😔`);
-export const CANT_WRITE_RESULTS = registerError(resultsPath => `could not write results to "${resultsPath}". 😔`);
-
-// TODO:
-export const CANNOT_CALL_GET_FILE_INFO_ON_SERIALISED_BETTERER_FILE = registerError(() => '');
+export const COULDNT_READ_CONFIG = registerError(configPath => `could not read "${configPath}". 😔`);
+export const COULDNT_READ_RESULTS = registerError(resultsPath => `could not read results from "${resultsPath}". 😔`);
+export const COULDNT_WRITE_RESULTS = registerError(resultsPath => `could not write results to "${resultsPath}". 😔`);

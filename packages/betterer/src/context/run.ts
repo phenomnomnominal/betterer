@@ -13,6 +13,8 @@ export class BettererRun {
     this._expected = this._getExpected();
   }
 
+  // Hack:
+
   public get expected(): unknown {
     return this._expected;
   }
@@ -104,6 +106,7 @@ export class BettererRun {
 
   public same(goalComplete: boolean): void {
     this._status = goalComplete ? BettererRunStatus.complete : BettererRunStatus.same;
+    this._result = this._expected;
     this._test.context.runSame(this);
   }
 
@@ -114,7 +117,8 @@ export class BettererRun {
 
   public worse(result: unknown): void {
     this._status = BettererRunStatus.worse;
-    this._test.context.runWorse(this, result, this.expected);
+    this._result = result;
+    this._test.context.runWorse(this);
   }
 
   private _getExpected(): unknown {
