@@ -21,7 +21,7 @@ describe('betterer init', () => {
 
     const config = await readFile(configPath);
 
-    expect(config).toEqual('module.exports = {\n  // Add tests here ☀️\n};');
+    expect(config).toEqual('export default {\n  // Add tests here ☀️\n};');
 
     await reset();
   });

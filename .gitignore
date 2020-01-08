@@ -4,3 +4,4 @@ reports
 lerna-debug.log
 yarn-error.log
 tsconfig.tsbuildinfo
+*.vsix

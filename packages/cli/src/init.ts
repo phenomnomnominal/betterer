@@ -5,6 +5,8 @@ import * as findUp from 'find-up';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 
+import { configPath } from './options';
+
 import {
   COULDNT_FIND_PACKAGE_JSON,
   COULDNT_READ_PACKAGE_JSON,
@@ -13,15 +15,14 @@ import {
 } from './errors';
 import { CLIArguments } from './types';
 
-const DEFAULT_CONFIG_PATH = './.betterer';
-const TEMPLATE = `module.exports = {
+const TEMPLATE = `export default {
   // Add tests here ☀️
 };`;
 
 export async function init(cwd: string, argv: CLIArguments): Promise<void> {
-  commander
-    .option('-c, --config [value]', 'Path to test definition file relative to CWD', `${DEFAULT_CONFIG_PATH}.ts`)
-    .parse(argv as Array<string>);
+  configPath(commander);
+
+  commander.parse(argv as Array<string>);
 
   const { config } = commander;
 
@@ -91,7 +92,7 @@ async function updatePackageJSON(cwd: string): Promise<void> {
     // HACK:
     // It's easier to use require than to try to get `await import`
     // to work right for the package.json...
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    /* eslint-disable @typescript-eslint/no-var-requires */
     const { version } = require('../package.json');
     packageJSON.devDependencies['@betterer/cli'] = `^${version}`;
   }

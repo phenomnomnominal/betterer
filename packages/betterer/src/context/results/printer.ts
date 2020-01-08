@@ -1,6 +1,7 @@
 import { escape } from 'safe-string-literal';
 
 import { Printable } from '../../types';
+import { isString } from '../../utils';
 import { BettererResults } from './types';
 
 const RESULTS_HEADER = `// BETTERER RESULTS V1.`;
@@ -22,10 +23,6 @@ export async function print(results: BettererResults): Promise<string> {
   );
 
   return [RESULTS_HEADER, ...printed].join('');
-}
-
-function isString(value: unknown): value is string {
-  return typeof value === 'string';
 }
 
 function isPrintable(value: unknown): value is Printable {
