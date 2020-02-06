@@ -14,9 +14,6 @@
       "path": "eslint"
     },
     {
-      "path": "extension"
-    },
-    {
       "path": "errors"
     },
     {

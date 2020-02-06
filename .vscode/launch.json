@@ -6,16 +6,35 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Run Extension",
+      "name": "Launch Client",
       "type": "extensionHost",
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": [
-        "--extensionDevelopmentPath=${workspaceFolder}/packages/extension"
+        "--extensionDevelopmentPath=${workspaceRoot}/packages/extension"
       ],
       "outFiles": [
-        "${workspaceFolder}/packages/extension/dist/**/*.js"
+        "${workspaceRoot}/packages/extension/dist/client/**/*.js"
+      ]
+    },
+    {
+      "name": "Attach to Server",
+      "type": "node",
+      "request": "attach",
+      "port": 6060,
+      "restart": true,
+      "outFiles": [
+        "${workspaceRoot}/packages/extension/dist/server/**/*.js"
       ]
     }
-  }
+  ],
+  "compounds": [
+    {
+      "name": "Client + Server",
+      "configurations": [
+        "Launch Client",
+        "Attach to Server"
+      ]
+    }
+  ]
 }

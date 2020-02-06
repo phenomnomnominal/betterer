@@ -2,7 +2,7 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-  entry: './src/extension.ts',
+  entry: './src/client/extension.ts',
   mode: 'development',
   externals: { ...nodeExternals(), vscode: 'commonjs vscode', fsevents: 'commonjs fsevents' },
   target: 'node',
@@ -19,9 +19,12 @@ module.exports = {
     extensions: ['.ts', '.js']
   },
   output: {
-    filename: 'extension.js',
-    path: path.resolve(__dirname, 'dist'),
+    filename: 'client.js',
+    path: path.resolve(__dirname, 'dist', 'client'),
     libraryTarget: 'commonjs2',
     devtoolModuleFilenameTemplate: '../[resource-path]'
+  },
+  watchOptions: {
+    ignored: /node_modules/
   }
 };
