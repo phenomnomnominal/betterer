@@ -14,5 +14,5 @@ export async function getPackageManager(workspace: RemoteWorkspace, uri: string)
 }
 
 async function getConfig(workspace: RemoteWorkspace, uri: string): Promise<WorkspaceConfiguration> {
-  return workspace.getConfiguration({ scopeUri: uri, section: '' });
+  return workspace.getConfiguration({ scopeUri: uri, section: 'betterer' });
 }

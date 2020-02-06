@@ -1,5 +1,11 @@
-import { IConnection, TextDocument, TextDocuments, Diagnostic as SDiagnostic } from 'vscode-languageserver';
-import { Diagnostic, DiagnosticSeverity, Position, Range } from 'vscode';
+import {
+  IConnection,
+  TextDocument,
+  TextDocuments,
+  Diagnostic,
+  DiagnosticSeverity,
+  Position
+} from 'vscode-languageserver';
 import { URI } from 'vscode-uri';
 
 import { getLibrary } from './betterer';
@@ -46,26 +52,32 @@ export class Validator {
             const { fileMarks } = file;
             fileMarks.forEach(fileMark => {
               const [line, column, length, message] = fileMark;
-              const start = new Position(line, column);
+              const start = { line, character: column };
               const startOffset = document.offsetAt(start);
-              const end = document.positionAt(startOffset + length) as Position;
+              const end = document.positionAt(startOffset + length);
               diagnostics.push(createDiagnostic(test.name, start, end, message));
             });
           } catch {
             //
           }
         });
-        this._connection.sendDiagnostics({ uri, diagnostics: diagnostics as Array<SDiagnostic> });
+        this._connection.sendDiagnostics({ uri, diagnostics });
       }
     });
   }
 }
 
 function createDiagnostic(name: string, start: Position, end: Position, message: string): Diagnostic {
-  const range = new Range(start, end);
-  const diagnostic = new Diagnostic(range, message, DiagnosticSeverity.Warning);
-  diagnostic.code = `${EXTENSION_NAME} - [${name}]`;
-  return diagnostic;
+  return {
+    message,
+    severity: DiagnosticSeverity.Warning,
+    source: 'betterer',
+    range: {
+      start,
+      end
+    },
+    code: `${EXTENSION_NAME} - [${name}]`
+  };
 }
 
 function getFilePath(documentOrUri: URI | TextDocument | string): string | null {

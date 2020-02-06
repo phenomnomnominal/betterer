@@ -51,44 +51,6 @@
           "default": true,
           "description": "Always show the betterer status bar item.",
           "scope": "window"
-        },
-        "betterer.trace.server": {
-          "scope": "window",
-          "anyOf": [
-            {
-              "type": "string",
-              "enum": [
-                "off",
-                "messages",
-                "verbose"
-              ],
-              "default": "off"
-            },
-            {
-              "type": "object",
-              "properties": {
-                "verbosity": {
-                  "type": "string",
-                  "enum": [
-                    "off",
-                    "messages",
-                    "verbose"
-                  ],
-                  "default": "off"
-                },
-                "format": {
-                  "type": "string",
-                  "enum": [
-                    "text",
-                    "json"
-                  ],
-                  "default": "text"
-                }
-              }
-            }
-          ],
-          "default": "off",
-          "description": "Traces the communication between VSCode and the betterer service."
         }
       }
     },

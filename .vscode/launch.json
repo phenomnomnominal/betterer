@@ -1,7 +1,4 @@
 // A launch configuration that compiles the extension and then opens it inside a new window
-// Use IntelliSense to learn about possible attributes.
-// Hover to view descriptions of existing attributes.
-// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
 {
   "version": "0.2.0",
   "configurations": [
@@ -10,31 +7,23 @@
       "type": "extensionHost",
       "request": "launch",
       "runtimeExecutable": "${execPath}",
-      "args": [
-        "--extensionDevelopmentPath=${workspaceRoot}/packages/extension"
-      ],
-      "outFiles": [
-        "${workspaceRoot}/packages/extension/dist/client/**/*.js"
-      ]
+      "args": ["--extensionDevelopmentPath=${workspaceRoot}/packages/extension"],
+      "outFiles": ["${workspaceRoot}/packages/extension/dist/client/**/*.js"]
     },
     {
       "name": "Attach to Server",
       "type": "node",
       "request": "attach",
+      "protocol": "inspector",
+      "address": "localhost",
       "port": 6060,
-      "restart": true,
-      "outFiles": [
-        "${workspaceRoot}/packages/extension/dist/server/**/*.js"
-      ]
+      "outFiles": ["${workspaceRoot}/packages/extension/dist/server/**/*.js"]
     }
   ],
   "compounds": [
     {
       "name": "Client + Server",
-      "configurations": [
-        "Launch Client",
-        "Attach to Server"
-      ]
+      "configurations": ["Launch Client", "Attach to Server"]
     }
   ]
 }

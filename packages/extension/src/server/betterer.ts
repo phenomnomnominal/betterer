@@ -1,29 +1,22 @@
 import { execSync } from 'child_process';
 import { Files } from 'vscode-languageserver';
-import { betterer } from '@betterer/betterer';
 
+import { betterer } from '@betterer/betterer';
 import { PackageManager } from './config';
+import { nodeRequire } from './require';
 
 type Betterer = typeof betterer;
 
 export async function getLibrary(cwd: string, packageManager: PackageManager): Promise<Betterer> {
+  const r = nodeRequire();
   const resolvedGlobalPackageManagerPath = globalPathGet(packageManager);
-  const libraryPath = await Files.resolve('betterer', resolvedGlobalPackageManagerPath, cwd, () => null);
+  const libraryPath = await Files.resolve('@betterer/betterer', resolvedGlobalPackageManagerPath, cwd, () => null);
   try {
-    return loadNodeModule<Betterer>(libraryPath);
+    return r(libraryPath) as Betterer;
   } catch {
     throw new Error();
   }
 }
-
-/* eslint-disable @typescript-eslint/camelcase */
-declare const __webpack_require__: typeof require;
-declare const __non_webpack_require__: typeof require;
-function loadNodeModule<T>(moduleName: string): T {
-  const r = typeof __webpack_require__ === 'function' ? __non_webpack_require__ : require;
-  return r(moduleName);
-}
-/* eslint-enable @typescript-eslint/camelcase */
 
 function globalPathGet(packageManager: PackageManagers): string | undefined {
   const pm = _globalPaths[packageManager];
