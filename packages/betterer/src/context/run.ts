@@ -13,8 +13,6 @@ export class BettererRun {
     this._expected = this._getExpected();
   }
 
-  // Hack:
-
   public get expected(): unknown {
     return this._expected;
   }

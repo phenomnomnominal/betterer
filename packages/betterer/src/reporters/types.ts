@@ -28,4 +28,3 @@ export type BettererReporters = {
   runner?: BettererRunnerReporter;
   run?: BettererRunReporter;
 };
-// Hack:
