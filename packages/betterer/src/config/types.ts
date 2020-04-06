@@ -8,9 +8,8 @@ export type BettererConfigPartial = Partial<{
   filters: BettererConfigFilters | ReadonlyArray<string> | string;
   watch: boolean;
   ignores: BettererConfigIgnore | ReadonlyArray<string> | string;
-}> & {
   cwd: string;
-};
+}>;
 
 export type BettererConfig = {
   configPaths: BettererConfigPaths;
