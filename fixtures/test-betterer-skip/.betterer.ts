@@ -6,7 +6,7 @@ let start = 0;
 export default {
   'test 1': {
     test: () => start++,
-    constraint: bigger
+    constraint: bigger,
   },
-  'test 2': regexpBetterer('./src/**/*.ts', /(\/\/\s*HACK)/i)
+  'test 2': regexpBetterer('./src/**/*.ts', /(\/\/\s*HACK)/i),
 };

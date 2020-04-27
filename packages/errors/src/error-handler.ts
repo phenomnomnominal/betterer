@@ -15,7 +15,7 @@ export function logError(err: BettererError): void {
 export function registerError(factory: ErrorMessageFactory): ErrorFactory {
   const code = Symbol();
   ERROR_MESSAGES.set(code, factory);
-  return function(...details: ErrorDetails): BettererError {
+  return function (...details: ErrorDetails): BettererError {
     return new BettererError(code, details);
   };
 }

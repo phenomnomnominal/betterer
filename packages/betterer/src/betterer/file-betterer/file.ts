@@ -5,7 +5,7 @@ import { BettererFileMarksMap, BettererFileInfo, BettererFileMarks } from './typ
 
 const UNKNOWN_LOCATION = {
   line: 0,
-  column: 0
+  column: 0,
 } as const;
 
 export class BettererFile {
@@ -30,7 +30,7 @@ export class BettererFile {
 
   static deserialise(serialised: BettererFileMarksMap): BettererFile {
     const file = new BettererFile();
-    Object.keys(serialised).forEach(key => {
+    Object.keys(serialised).forEach((key) => {
       const [filePath, fileHash] = key.split(':');
       file._filePath = filePath;
       file._fileHash = fileHash;
@@ -56,7 +56,7 @@ export class BettererFile {
   }
 
   private _getMarks(fileInfo: ReadonlyArray<BettererFileInfo>): BettererFileMarks {
-    return fileInfo.map(info => {
+    return fileInfo.map((info) => {
       const { fileText, start, end, message } = info;
       const lc = new LinesAndColumns(fileText);
       const { line, column } = lc.locationForIndex(start) || UNKNOWN_LOCATION;

@@ -16,7 +16,7 @@ export {
   createBetterer,
   createFileBetterer,
   BettererFiles,
-  BettererFile
+  BettererFile,
 } from './betterer';
 export { BettererContext, BettererRun, BettererTest, BettererStats } from './context';
 
@@ -49,10 +49,10 @@ export async function betterer(
 
     if (isBoolean(watchModeOrFilePath)) {
       const context = await BettererContext.create(finalConfig, parallelReporters);
-      const watcher = watch(context, filePath => {
+      const watcher = watch(context, (filePath) => {
         parallel(context, [filePath]);
       });
-      return function(): void {
+      return function (): void {
         watcher.close();
       };
     }

@@ -18,7 +18,7 @@ export function regexpBetterer(globs: string | ReadonlyArray<string>, regexp: Re
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
   const globsArray = Array.isArray(globs) ? globs : [globs];
-  const resolvedGlobs = globsArray.map(glob => path.resolve(cwd, glob));
+  const resolvedGlobs = globsArray.map((glob) => path.resolve(cwd, glob));
 
   return createFileBetterer(async (files = []) => {
     regexp = new RegExp(regexp.source, regexp.flags.includes('g') ? regexp.flags : `${regexp.flags}g`);
@@ -26,7 +26,7 @@ export function regexpBetterer(globs: string | ReadonlyArray<string>, regexp: Re
     const testFiles = [...files];
     if (testFiles.length === 0) {
       await Promise.all(
-        resolvedGlobs.flatMap(async currentGlob => {
+        resolvedGlobs.flatMap(async (currentGlob) => {
           const globFiles = await promisify(glob)(currentGlob);
           testFiles.push(...globFiles);
         })
@@ -34,7 +34,7 @@ export function regexpBetterer(globs: string | ReadonlyArray<string>, regexp: Re
     }
 
     const matches = await Promise.all(
-      testFiles.map(async filePath => {
+      testFiles.map(async (filePath) => {
         return await getFileMatches(regexp, filePath);
       })
     );
@@ -64,14 +64,14 @@ async function getFileMatches(regexp: RegExp, filePath: string): Promise<Readonl
     }
   } while (currentMatch);
 
-  return matches.map(match => {
+  return matches.map((match) => {
     const [matchText] = match;
     return {
       message: 'RegExp match',
       filePath,
       fileText,
       start: match.index,
-      end: match.index + matchText.length
+      end: match.index + matchText.length,
     };
   });
 }

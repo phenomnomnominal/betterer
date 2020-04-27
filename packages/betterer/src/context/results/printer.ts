@@ -11,7 +11,7 @@ const UNESCAPED = '"\n';
 
 export async function print(results: BettererResults): Promise<string> {
   const printed = await Promise.all(
-    Object.keys(results).map(async resultName => {
+    Object.keys(results).map(async (resultName) => {
       const { timestamp, value } = results[resultName];
       let printedValue = value;
       if (!isString(value)) {

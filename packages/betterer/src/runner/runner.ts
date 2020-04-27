@@ -7,7 +7,7 @@ export async function parallel(context: BettererContext, files: BettererFilePath
   const runs = context.getRuns(files);
   context.runnerStart(files);
   await Promise.all(
-    runs.map(async run => {
+    runs.map(async (run) => {
       await runTest(run);
       run.end();
     })

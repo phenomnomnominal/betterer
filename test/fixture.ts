@@ -35,13 +35,13 @@ export function fixture(fixtureName: string): Fixture {
 
   const logs: Array<string> = [];
   jest.spyOn(console, 'log').mockImplementation((...messages) => {
-    logs.push(...messages.map(m => stripAnsi(m)));
+    logs.push(...messages.map((m) => stripAnsi(m)));
   });
 
   const paths = {
     config: resolve(DEFAULT_CONFIG_PATH),
     fixture: fixturePath,
-    results: resolve(DEFAULT_RESULTS_PATH)
+    results: resolve(DEFAULT_RESULTS_PATH),
   };
 
   return {
@@ -69,6 +69,6 @@ export function fixture(fixtureName: string): Fixture {
       } catch {
         // Moving on...
       }
-    }
+    },
   };
 }

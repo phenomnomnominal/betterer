@@ -5,7 +5,7 @@ import { fileDiff } from './file-diff';
 import { BettererDiffReporter } from './types';
 
 export function getDiffReporter(betterer: Betterer): BettererDiffReporter {
-  return function(current: BettererFiles | unknown, previous: BettererFiles | unknown | null): void {
+  return function (current: BettererFiles | unknown, previous: BettererFiles | unknown | null): void {
     if (isFileBetterer(betterer)) {
       return fileDiff(betterer as FileBetterer, current as BettererFiles, previous as BettererFiles);
     }

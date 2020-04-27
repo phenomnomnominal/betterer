@@ -4,11 +4,11 @@ import { FileBetterer, BettererFiles } from '../../betterer';
 
 export function fileDiff(betterer: FileBetterer, current: BettererFiles, previous: BettererFiles | null): void {
   const fileInfoMap = betterer.getDiff(current, previous);
-  Object.keys(fileInfoMap).forEach(file => {
+  Object.keys(fileInfoMap).forEach((file) => {
     const fileInfo = fileInfoMap[file];
     const { length } = fileInfo;
     error(`${length} new ${getIssues(length)} in "${file}":`);
-    fileInfo.forEach(info => code(info));
+    fileInfo.forEach((info) => code(info));
   });
 }
 

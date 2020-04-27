@@ -43,16 +43,16 @@ export class BettererContext {
 
   public getResults(runs: BettererRuns): BettererResults {
     return runs
-      .filter(run => !run.isComplete)
-      .filter(run => run.hasResult)
-      .map(run => this._getResult(run))
+      .filter((run) => !run.isComplete)
+      .filter((run) => run.hasResult)
+      .map((run) => this._getResult(run))
       .reduce((p, n) => {
         return { ...p, ...n };
       }, {});
   }
 
   public getRuns(files: BettererFilePaths = []): BettererRuns {
-    return this._tests.map(test => {
+    return this._tests.map((test) => {
       return new BettererRun(test, files);
     });
   }
@@ -124,8 +124,8 @@ export class BettererContext {
     return {
       [name]: {
         timestamp: Date.now(),
-        value: result
-      }
+        value: result,
+      },
     };
   }
 
@@ -133,7 +133,7 @@ export class BettererContext {
     try {
       const imported = await import(configPath);
       const betterers = imported.default ? imported.default : imported;
-      return Object.keys(betterers).map(name => {
+      return Object.keys(betterers).map((name) => {
         const betterer = createBetterer(betterers[name]);
         return new BettererTest(name, this, betterer, this._expectedRaw);
       });
@@ -154,14 +154,14 @@ export class BettererContext {
   private async _initTests(configPaths: BettererConfigPaths = []): Promise<BettererTests> {
     let tests: BettererTests = [];
     await Promise.all(
-      configPaths.map(async configPath => {
+      configPaths.map(async (configPath) => {
         const more = await this._getTests(configPath);
         tests = [...tests, ...more];
       })
     );
-    const only = tests.find(test => test.betterer.isOnly);
+    const only = tests.find((test) => test.betterer.isOnly);
     if (only) {
-      tests.forEach(test => {
+      tests.forEach((test) => {
         const { betterer } = test;
         if (!betterer.isOnly) {
           betterer.skip();
@@ -173,8 +173,8 @@ export class BettererContext {
 
   private _initFilters(filters: BettererConfigFilters = []): void {
     if (filters.length) {
-      this._tests.forEach(test => {
-        if (!filters.some(filter => filter.test(test.name))) {
+      this._tests.forEach((test) => {
+        if (!filters.some((filter) => filter.test(test.name))) {
           test.betterer.skip();
         }
       });
@@ -182,8 +182,8 @@ export class BettererContext {
   }
 
   private _initObsolete(): void {
-    const obsolete = Object.keys(this._expectedRaw).filter(name => !this._tests.find(test => test.name === name));
-    obsolete.forEach(name => {
+    const obsolete = Object.keys(this._expectedRaw).filter((name) => !this._tests.find((test) => test.name === name));
+    obsolete.forEach((name) => {
       delete this._expectedRaw[name];
     });
     this._stats.obsolete.push(...obsolete);

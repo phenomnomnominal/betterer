@@ -10,7 +10,7 @@ export const contextParallel: BettererContextReporter = {
   },
   complete(): void {
     info('Stopping watch mode 👋');
-  }
+  },
 };
 
 export const contextSerial: BettererContextReporter = {
@@ -43,7 +43,7 @@ export const contextSerial: BettererContextReporter = {
       success(`${better} ${getThings(better)} got better! 😍`);
     }
     if (completed.length) {
-      completed.forEach(testName => {
+      completed.forEach((testName) => {
         success(`"${testName}" met its goal! 🎉`);
       });
     }
@@ -60,7 +60,7 @@ export const contextSerial: BettererContextReporter = {
   error(error: BettererError, printed: string) {
     logError(error);
     process.stdout.write(printed);
-  }
+  },
 };
 
 function getThings(count: number): string {

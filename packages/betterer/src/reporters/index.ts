@@ -6,10 +6,10 @@ export * from './types';
 
 export const parallelReporters = {
   context: contextParallel,
-  runner: runnerParallel
+  runner: runnerParallel,
 };
 
 export const serialReporters = {
   context: contextSerial,
-  run: runSerial
+  run: runSerial,
 };

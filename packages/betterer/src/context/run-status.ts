@@ -6,5 +6,5 @@ export const enum BettererRunStatus {
   new = 'new',
   same = 'same',
   skipped = 'skipped',
-  worse = 'worse'
+  worse = 'worse',
 }

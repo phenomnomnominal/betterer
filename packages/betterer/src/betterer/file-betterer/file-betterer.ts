@@ -9,7 +9,7 @@ import {
   BettererFileInfoDiff,
   BettererFileExcluded,
   BettererFileMarksMap,
-  BettererFileInfoMap
+  BettererFileInfoMap,
 } from './types';
 
 export class FileBetterer extends SerialisableBetterer<BettererFiles, BettererFileMarksMap> {
@@ -33,11 +33,11 @@ export class FileBetterer extends SerialisableBetterer<BettererFiles, BettererFi
           return i;
         }, {} as BettererFileInfoMap);
         const included = Object.keys(relativeInfo).filter(
-          filePath => !this._excluded.some(exclude => exclude.test(filePath))
+          (filePath) => !this._excluded.some((exclude) => exclude.test(filePath))
         );
 
         return BettererFiles.fromInfo(relativeInfo, included);
-      }
+      },
     });
   }
 
@@ -56,7 +56,7 @@ export class FileBetterer extends SerialisableBetterer<BettererFiles, BettererFi
       }, {} as BettererFileInfoDiff);
     }
 
-    const filesWithChanges = files.filter(file => {
+    const filesWithChanges = files.filter((file) => {
       const { filePath } = file;
       const currentMarks = current.getFileMarks(filePath);
       const previousMarks = previous.getFileMarks(filePath);
@@ -103,17 +103,17 @@ function constraint(current: BettererFiles, previous: BettererFiles): Constraint
   const currentFiles = current.getFilePaths();
   const previousFiles = previous.getFilePaths();
 
-  const newOrMovedUnchangedFiles = currentFiles.filter(file => {
+  const newOrMovedUnchangedFiles = currentFiles.filter((file) => {
     return !previousFiles.includes(file);
   });
-  const movedUnchangedFiles = newOrMovedUnchangedFiles.filter(file => {
+  const movedUnchangedFiles = newOrMovedUnchangedFiles.filter((file) => {
     const fileHash = current.getFileHash(file);
     return previous.hasHash(fileHash);
   });
-  const newFiles = newOrMovedUnchangedFiles.filter(file => {
+  const newFiles = newOrMovedUnchangedFiles.filter((file) => {
     return !movedUnchangedFiles.includes(file);
   });
-  const existingFiles = currentFiles.filter(file => {
+  const existingFiles = currentFiles.filter((file) => {
     return !newOrMovedUnchangedFiles.includes(file);
   });
 
@@ -122,7 +122,7 @@ function constraint(current: BettererFiles, previous: BettererFiles): Constraint
     return ConstraintResult.worse;
   }
 
-  const filesWithMore = existingFiles.filter(filePath => {
+  const filesWithMore = existingFiles.filter((filePath) => {
     const currentMarks = current.getFileMarks(filePath);
     const previousMarks = previous.getFileMarks(filePath);
     return currentMarks.length > previousMarks.length;
@@ -133,7 +133,7 @@ function constraint(current: BettererFiles, previous: BettererFiles): Constraint
     return ConstraintResult.worse;
   }
 
-  const filesWithSame = existingFiles.filter(filePath => {
+  const filesWithSame = existingFiles.filter((filePath) => {
     const currentMarks = current.getFileMarks(filePath);
     const previousMarks = previous.getFileMarks(filePath);
     return currentMarks.length === previousMarks.length;
@@ -150,7 +150,7 @@ function constraint(current: BettererFiles, previous: BettererFiles): Constraint
 }
 
 function goal(value: BettererFiles): boolean {
-  return value.files.every(file => file.fileMarks.length === 0);
+  return value.files.every((file) => file.fileMarks.length === 0);
 }
 
 export function isFileBetterer(obj: unknown): obj is FileBetterer {

@@ -1,7 +1,7 @@
 module.exports = {
   setupFilesAfterEnv: ['./test/setup.ts'],
   globals: {
-    tsConfig: 'tsconfig.json'
+    tsConfig: 'tsconfig.json',
   },
   moduleFileExtensions: ['ts', 'js'],
   collectCoverage: true,
@@ -9,6 +9,6 @@ module.exports = {
   coverageDirectory: '<rootDir>/reports/coverage',
   testRegex: '.*\\.spec\\.ts$',
   transform: {
-    '\\.(ts)$': 'ts-jest'
-  }
+    '\\.(ts)$': 'ts-jest',
+  },
 };

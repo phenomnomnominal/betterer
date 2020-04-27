@@ -1,5 +1,5 @@
 module.exports = {
   rules: {
-    '@typescript-eslint/prefer-string-starts-ends-with': 'error'
-  }
+    '@typescript-eslint/prefer-string-starts-ends-with': 'error',
+  },
 };

@@ -26,7 +26,7 @@ export function typescriptBetterer(configFilePath: string, extraCompilerOptions:
 
     const fullCompilerOptions = {
       ...compilerOptions,
-      ...extraCompilerOptions
+      ...extraCompilerOptions,
     };
     config.compilerOptions = fullCompilerOptions;
 
@@ -34,7 +34,7 @@ export function typescriptBetterer(configFilePath: string, extraCompilerOptions:
     const configHost = {
       ...host,
       readDirectory: ts.sys.readDirectory.bind(ts.sys),
-      useCaseSensitiveFileNames: host.useCaseSensitiveFileNames()
+      useCaseSensitiveFileNames: host.useCaseSensitiveFileNames(),
     };
     const parsed = ts.parseJsonConfigFileContent(config, configHost, basePath);
 
@@ -45,7 +45,7 @@ export function typescriptBetterer(configFilePath: string, extraCompilerOptions:
     const program = ts.createProgram({
       ...parsed,
       rootNames: files,
-      host
+      host,
     });
 
     const { diagnostics } = program.emit();
@@ -55,7 +55,7 @@ export function typescriptBetterer(configFilePath: string, extraCompilerOptions:
     const allDiagnostics = ts.sortAndDeduplicateDiagnostics([
       ...diagnostics,
       ...preEmitDiagnostic,
-      ...semanticDiagnostics
+      ...semanticDiagnostics,
     ]);
 
     return allDiagnostics.reduce((fileInfoMap, diagnostic) => {
@@ -70,8 +70,8 @@ export function typescriptBetterer(configFilePath: string, extraCompilerOptions:
           filePath: fileName,
           fileText: file.getFullText(),
           start,
-          end: start + length
-        }
+          end: start + length,
+        },
       ];
       return fileInfoMap;
     }, {} as BettererFileInfoMap);

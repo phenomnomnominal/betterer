@@ -6,6 +6,6 @@ module.exports = {
   'gets completed': {
     test: () => start++,
     constraint: bigger,
-    goal: 2
-  }
+    goal: 2,
+  },
 };

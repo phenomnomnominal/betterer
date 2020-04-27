@@ -23,7 +23,7 @@ export function eslintBetterer(globs: string | ReadonlyArray<string>, rule: ESLi
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
   const globsArray = Array.isArray(globs) ? globs : [globs];
-  const resolvedGlobs = globsArray.map(glob => path.resolve(cwd, glob));
+  const resolvedGlobs = globsArray.map((glob) => path.resolve(cwd, glob));
 
   return createFileBetterer(async (files = []) => {
     const cli = new CLIEngine({});
@@ -31,7 +31,7 @@ export function eslintBetterer(globs: string | ReadonlyArray<string>, rule: ESLi
     const testFiles = [...files];
     if (testFiles.length === 0) {
       await Promise.all(
-        resolvedGlobs.flatMap(async currentGlob => {
+        resolvedGlobs.flatMap(async (currentGlob) => {
           const globFiles = await globAsync(currentGlob);
           testFiles.push(...globFiles);
         })
@@ -57,15 +57,15 @@ function getFileIssues(
     useEslintrc: false,
     globals: Object.keys(linterOptions.globals || {}),
     rules: {
-      [ruleName]: ruleOptions
-    }
+      [ruleName]: ruleOptions,
+    },
   });
 
   const report = runner.executeOnFiles([filePath]);
-  const resultsWithSource = report.results.filter(result => result.source);
-  return resultsWithSource.flatMap(result => {
+  const resultsWithSource = report.results.filter((result) => result.source);
+  return resultsWithSource.flatMap((result) => {
     const { source, messages } = result;
-    return messages.map(message => {
+    return messages.map((message) => {
       return eslintMessageToBettererError(filePath, source as string, message);
     });
   });
@@ -75,17 +75,17 @@ function eslintMessageToBettererError(filePath: string, source: string, message:
   const lc = new LinesAndColumns(source);
   const startLocation = lc.indexForLocation({
     line: message.line - 1,
-    column: message.column - 1
+    column: message.column - 1,
   });
   const endLocation = lc.indexForLocation({
     line: message.endLine ? message.endLine - 1 : 0,
-    column: message.endColumn ? message.endColumn - 1 : 0
+    column: message.endColumn ? message.endColumn - 1 : 0,
   });
   return {
     message: message.message,
     filePath: filePath,
     fileText: source,
     start: startLocation as number,
-    end: endLocation as number
+    end: endLocation as number,
   };
 }

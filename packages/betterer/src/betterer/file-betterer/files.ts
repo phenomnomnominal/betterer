@@ -7,15 +7,15 @@ import {
   BettererFileInfoMap,
   BettererFileHashMap,
   BettererFileMarks,
-  BettererFileHashes
+  BettererFileHashes,
 } from './types';
 
 export class BettererFiles implements Serialisable<BettererFileMarksMap>, Printable {
   static fromInfo(info: BettererFileInfoMap, included: BettererFilePaths): BettererFiles {
     return new BettererFiles(
       included
-        .filter(filePath => info[filePath].length)
-        .map(filePath => {
+        .filter((filePath) => info[filePath].length)
+        .map((filePath) => {
           const fileInfo = info[filePath];
           return BettererFile.fromInfo(filePath, fileInfo);
         })
@@ -26,10 +26,10 @@ export class BettererFiles implements Serialisable<BettererFileMarksMap>, Printa
     const serialisedFilePaths = Object.keys(serialised);
     let filePaths = serialisedFilePaths;
     if (files.length) {
-      filePaths = serialisedFilePaths.filter(serialisedFilePath => files.includes(serialisedFilePath));
+      filePaths = serialisedFilePaths.filter((serialisedFilePath) => files.includes(serialisedFilePath));
     }
     return new BettererFiles(
-      filePaths.map(key => {
+      filePaths.map((key) => {
         return BettererFile.deserialise({ [key]: serialised[key] });
       })
     );
@@ -45,12 +45,12 @@ export class BettererFiles implements Serialisable<BettererFileMarksMap>, Printa
       hashMap[file.filePath] = file.fileHash;
       return hashMap;
     }, {} as BettererFileHashMap);
-    this._fileHashes = Object.keys(this._fileHashMap).map(filePath => this._fileHashMap[filePath]);
+    this._fileHashes = Object.keys(this._fileHashMap).map((filePath) => this._fileHashMap[filePath]);
     this._fileMarksMap = this._files.reduce((marksMap, file) => {
       marksMap[file.filePath] = file.fileMarks;
       return marksMap;
     }, {} as BettererFileMarksMap);
-    this._filePaths = this._files.map(file => file.filePath);
+    this._filePaths = this._files.map((file) => file.filePath);
   }
 
   public get files(): ReadonlyArray<BettererFile> {
@@ -74,7 +74,7 @@ export class BettererFiles implements Serialisable<BettererFileMarksMap>, Printa
   }
 
   public filter(files: BettererFilePaths): BettererFiles {
-    return new BettererFiles(this.files.filter(file => files.includes(file.filePath)));
+    return new BettererFiles(this.files.filter((file) => files.includes(file.filePath)));
   }
 
   public print(): string {

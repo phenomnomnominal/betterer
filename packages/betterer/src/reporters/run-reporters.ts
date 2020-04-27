@@ -42,5 +42,5 @@ export const runSerial: BettererRunReporter = {
     const diffReporter = getDiffReporter(test.betterer);
     diffReporter(result, expected);
     br();
-  }
+  },
 };

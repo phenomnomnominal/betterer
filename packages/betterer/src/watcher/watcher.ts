@@ -10,7 +10,7 @@ export function watch(context: BettererContext, change: WatchChangesHandler): FS
   const cwd = process.cwd();
   const watcher = chokidar(cwd, {
     ignoreInitial: true,
-    ignored: [...WATCH_IGNORES, ...(context.config.ignores || [])]
+    ignored: [...WATCH_IGNORES, ...(context.config.ignores || [])],
   });
   watcher.on('all', (event: string, path: string) => {
     // TODO: Debounce and group files:

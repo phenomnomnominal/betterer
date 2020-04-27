@@ -37,31 +37,31 @@ export const error = createLogger(chalk.bgRedBright.white(' erro '), chalk.bgBla
 const SPACER = chalk.bgBlack.yellowBright(' - ');
 
 function createLogger(name: string, icon: string): BettererLogger {
-  return function(...messages: BettererLoggerMessages): void {
+  return function (...messages: BettererLoggerMessages): void {
     if (previousLogger === 'CODE') {
       br();
     }
-    console.log(`${HEADING}${name}${icon}${SPACER}`, ...messages.map(m => chalk.whiteBright(m)));
+    console.log(`${HEADING}${name}${icon}${SPACER}`, ...messages.map((m) => chalk.whiteBright(m)));
     previousLogger = 'LOG';
   };
 }
 
-export const code = function(codeInfo: BettererLoggerCodeInfo): void {
+export const code = function (codeInfo: BettererLoggerCodeInfo): void {
   const { filePath, fileText, message } = codeInfo;
   const isJS = IS_JS_REGEXP.exec(path.extname(filePath));
   const options = {
-    highlightCode: !!isJS
+    highlightCode: !!isJS,
   };
   const lc = new LinesAndColumns(fileText);
   const startLocation = lc.locationForIndex(codeInfo.start);
   const endLocation = lc.locationForIndex(codeInfo.end);
   const start = {
     line: startLocation ? startLocation.line + 1 : 0,
-    column: startLocation ? startLocation.column + 1 : 0
+    column: startLocation ? startLocation.column + 1 : 0,
   };
   const end = {
     line: endLocation ? endLocation.line + 1 : 0,
-    column: endLocation ? endLocation.column + 1 : 0
+    column: endLocation ? endLocation.column + 1 : 0,
   };
 
   const codeFrame = codeFrameColumns(fileText, { start, end }, options);

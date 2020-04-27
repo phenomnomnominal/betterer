@@ -11,5 +11,5 @@ export const WATCH_IGNORES = [
   'Thumbs.db',
   '.gitignore',
   'package-lock.json',
-  'yarn.lock'
-].map(i => new RegExp(`${i}$`, 'i'));
+  'yarn.lock',
+].map((i) => new RegExp(`${i}$`, 'i'));

@@ -8,7 +8,7 @@ const DEFAULT_RESULTS_PATH = `./.betterer.results`;
 
 export function createConfig(partialConfig: BettererConfigPartial): BettererConfig {
   const cwd = partialConfig.cwd || process.cwd();
-  const configPaths = toArray<string>(partialConfig.configPaths || [DEFAULT_CONFIG_PATH]).map(configPath =>
+  const configPaths = toArray<string>(partialConfig.configPaths || [DEFAULT_CONFIG_PATH]).map((configPath) =>
     path.resolve(cwd, configPath)
   );
   const filters = toRegExps(toArray(partialConfig.filters));
@@ -19,7 +19,7 @@ export function createConfig(partialConfig: BettererConfigPartial): BettererConf
     configPaths,
     filters,
     ignores,
-    resultsPath
+    resultsPath,
   };
 }
 

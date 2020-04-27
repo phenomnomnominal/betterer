@@ -21,7 +21,7 @@ describe('betterer', () => {
 
     const onlyRun = await betterer({
       configPaths: [resolve('./.betterer.only.ts')],
-      resultsPath
+      resultsPath,
     });
 
     expect(onlyRun.ran).toEqual(['test 1', 'test 4']);

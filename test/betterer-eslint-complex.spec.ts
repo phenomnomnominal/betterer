@@ -2,6 +2,25 @@ import { betterer } from '@betterer/betterer/src';
 
 import { fixture } from './fixture';
 
+function eslintComplexFixture(): ReturnType<typeof fixture> {
+  const init = fixture('test-betterer-eslint-complex');
+  const { deleteFile, paths, resolve } = init;
+  const indexPath = resolve('./src/index.ts');
+  async function reset(): Promise<void> {
+    try {
+      await deleteFile(indexPath);
+    } catch {
+      // Moving on...
+    }
+    try {
+      await deleteFile(paths.results);
+    } catch {
+      // Moving on...
+    }
+  }
+  return { ...init, reset };
+}
+
 describe('betterer', () => {
   it('should report the status of a new eslint rule with a complex set up', async () => {
     const { logs, paths, readFile, reset, resolve, writeFile } = eslintComplexFixture();
@@ -47,22 +66,3 @@ describe('betterer', () => {
     await reset();
   });
 });
-
-function eslintComplexFixture(): ReturnType<typeof fixture> {
-  const init = fixture('test-betterer-eslint-complex');
-  const { deleteFile, paths, resolve } = init;
-  const indexPath = resolve('./src/index.ts');
-  async function reset(): Promise<void> {
-    try {
-      await deleteFile(indexPath);
-    } catch {
-      // Moving on...
-    }
-    try {
-      await deleteFile(paths.results);
-    } catch {
-      // Moving on...
-    }
-  }
-  return { ...init, reset };
-}

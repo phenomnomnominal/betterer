@@ -10,22 +10,22 @@ export const runnerParallel: BettererRunnerReporter = {
   },
   end(runs: BettererRuns, files: BettererFilePaths): void {
     let report = `checked ${files.length} files:\n`;
-    files.forEach(filePath => {
+    files.forEach((filePath) => {
       report += `\n  ${filePath}`;
     });
     report += '\n';
-    const better = runs.filter(run => run.isBetter);
-    const failed = runs.filter(run => run.isFailed);
-    const worse = runs.filter(run => run.isWorse);
-    better.forEach(run => {
+    const better = runs.filter((run) => run.isBetter);
+    const failed = runs.filter((run) => run.isFailed);
+    const worse = runs.filter((run) => run.isWorse);
+    better.forEach((run) => {
       report += `"${run.name}" got better! 😍`;
     });
-    failed.forEach(run => {
+    failed.forEach((run) => {
       report += `"${run.name}" failed to run. 🔥`;
     });
-    worse.forEach(run => {
+    worse.forEach((run) => {
       report += `"${run.name}" got worse. 😔`;
     });
     overwrite(report);
-  }
+  },
 };

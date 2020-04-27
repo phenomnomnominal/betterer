@@ -15,7 +15,7 @@ Register an error type with the handler:
 ```typescript
 import { registerError } from '@betterer/errors';
 
-const MY_ERROR = registerError(details => `Something went wrong: ${details}`);
+const MY_ERROR = registerError((details) => `Something went wrong: ${details}`);
 ```
 
 ### Log Error

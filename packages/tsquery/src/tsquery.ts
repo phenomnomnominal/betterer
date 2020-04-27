@@ -26,7 +26,7 @@ export function tsqueryBetterer(configFilePath: string, query: string): FileBett
       sourceFiles = tsquery.project(absoluteConfigFilePath);
     } else {
       sourceFiles = await Promise.all(
-        files.map(async filePath => {
+        files.map(async (filePath) => {
           const fileText = await fs.readFile(filePath, 'utf8');
           const sourceFile = tsquery.ast(fileText);
           sourceFile.fileName = filePath;
@@ -43,13 +43,13 @@ export function tsqueryBetterer(configFilePath: string, query: string): FileBett
 }
 
 function getFileMatches(query: string, sourceFile: SourceFile): ReadonlyArray<BettererFileInfo> {
-  return tsquery.query(sourceFile, query, { visitAllChildren: true }).map(match => {
+  return tsquery.query(sourceFile, query, { visitAllChildren: true }).map((match) => {
     return {
       message: 'TSQuery match',
       filePath: sourceFile.fileName,
       fileText: sourceFile.getFullText(),
       start: match.getStart(),
-      end: match.getEnd()
+      end: match.getEnd(),
     };
   });
 }

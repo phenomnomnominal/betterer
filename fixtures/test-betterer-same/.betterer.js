@@ -5,6 +5,6 @@ let start = 0;
 module.exports = {
   'stays the same': {
     test: () => start,
-    constraint: bigger
-  }
+    constraint: bigger,
+  },
 };

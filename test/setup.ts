@@ -2,7 +2,7 @@ console['log'] = (): void => {
   //
 };
 
-Date['now'] = function(): number {
+Date['now'] = function (): number {
   return 0;
 }.bind(Date);
 
