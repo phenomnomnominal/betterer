@@ -7,8 +7,12 @@
       "type": "extensionHost",
       "request": "launch",
       "runtimeExecutable": "${execPath}",
-      "args": ["--extensionDevelopmentPath=${workspaceRoot}/packages/extension"],
-      "outFiles": ["${workspaceRoot}/packages/extension/dist/client/**/*.js"]
+      "args": [
+        "--extensionDevelopmentPath=${workspaceRoot}/packages/extension"
+      ],
+      "outFiles": [
+        "${workspaceRoot}/packages/extension/dist/client/**/*.js"
+      ]
     },
     {
       "name": "Attach to Server",
@@ -17,13 +21,18 @@
       "protocol": "inspector",
       "address": "localhost",
       "port": 6060,
-      "outFiles": ["${workspaceRoot}/packages/extension/dist/server/**/*.js"]
+      "outFiles": [
+        "${workspaceRoot}/packages/extension/dist/server/**/*.js"
+      ]
     }
   ],
   "compounds": [
     {
       "name": "Client + Server",
-      "configurations": ["Launch Client", "Attach to Server"]
+      "configurations": [
+        "Launch Client",
+        "Attach to Server"
+      ],
     }
   ]
 }
