@@ -2,15 +2,12 @@ import { workspace, commands, ExtensionContext } from 'vscode';
 import { LanguageClient, CloseAction, ErrorAction } from 'vscode-languageclient';
 
 import { EXTENSION_NAME } from '../constants';
-import { getEnabled } from './config';
-import { createBettererConfig } from './commands/create-config';
-import { disableBetterer } from './commands/disable';
-import { enableBetterer } from './commands/enable';
-import { noBetterer, NoBettererLibraryRequest } from './requests/no-betterer';
-import { noConfig, NoConfigRequest } from './requests/no-config';
-import { COULDNT_START_CLIENT, COULDNT_START_SERVER } from './error-messages';
+import { disableBetterer, enableBetterer, initBetterer, COMMAND_NAMES } from './commands';
+import { CLIENT_START_FAILED, SERVER_START_FAILED } from './error-messages';
 import { getClientOptions, getServerOptions } from './options';
 import { error } from './logger';
+import { NoConfigRequest, NoLibraryRequest, noConfig, noLibrary } from './requests';
+import { getEnabled } from './settings';
 import { BettererStatus } from './status';
 
 export function activate(context: ExtensionContext): void {
@@ -26,15 +23,15 @@ export function activate(context: ExtensionContext): void {
         configurationListener.dispose();
         activated = true;
         realActivate(context);
-        return;
       }
+      return activated;
     });
   }
 
   context.subscriptions.push(
-    commands.registerCommand('betterer.createConfig', createBettererConfig),
-    commands.registerCommand('betterer.disable', disableBetterer),
-    commands.registerCommand('betterer.enable', enableBetterer)
+    commands.registerCommand(COMMAND_NAMES.disable, disableBetterer),
+    commands.registerCommand(COMMAND_NAMES.enable, enableBetterer),
+    commands.registerCommand(COMMAND_NAMES.init, initBetterer)
   );
 
   configurationChanged();
@@ -46,8 +43,8 @@ async function realActivate(context: ExtensionContext): Promise<void> {
       EXTENSION_NAME,
       getServerOptions(context),
       getClientOptions({
-        init(error: Error): boolean {
-          client.error(COULDNT_START_SERVER, error);
+        initFailed(error: Error): boolean {
+          client.error(SERVER_START_FAILED, error);
           return false;
         },
         error: (error, message, count): ErrorAction => {
@@ -58,26 +55,24 @@ async function realActivate(context: ExtensionContext): Promise<void> {
             return CloseAction.DoNotRestart;
           }
           return errorHandler.closed();
-        }
+        },
       })
     );
 
     const status = new BettererStatus(client);
-    const errorHandler = client.createDefaultErrorHandler();
-
-    const started = client.start();
+    const errorHandler = client.createDefaultErrorHandler(); const started = client.start();
 
     await client.onReady();
 
-    client.onRequest(NoConfigRequest, params => noConfig(client, status, params));
-    client.onRequest(NoBettererLibraryRequest, params => noBetterer(client, context, params));
+    client.onRequest(NoConfigRequest, (params) => noConfig(client, status, params));
+    client.onRequest(NoLibraryRequest, (params) => noLibrary(client, context, params));
 
     context.subscriptions.push(
-      commands.registerCommand('betterer.showOutputChannel', () => client.outputChannel.show()),
+      commands.registerCommand(COMMAND_NAMES.showOutput, () => client.outputChannel.show()),
       started,
       status
     );
   } catch {
-    error(COULDNT_START_CLIENT);
+    error(CLIENT_START_FAILED);
   }
 }

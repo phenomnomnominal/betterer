@@ -1,4 +1,5 @@
-import { IConnection, NotificationType, TextDocument } from 'vscode-languageserver';
+import { IConnection, NotificationType } from 'vscode-languageserver';
+import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Status } from './status';
 
 const ExitCalled = new NotificationType<[number, string], void>('betterer/exitCalled');

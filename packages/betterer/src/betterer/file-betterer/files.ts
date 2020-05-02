@@ -2,15 +2,15 @@ import { Printable } from '../../types';
 import { Serialisable } from '../types';
 import { BettererFile } from './file';
 import {
-  BettererFileMarksMap,
+  BettererFileIssues,
+  BettererFileIssuesMap,
   BettererFilePaths,
   BettererFileInfoMap,
   BettererFileHashMap,
-  BettererFileMarks,
   BettererFileHashes,
 } from './types';
 
-export class BettererFiles implements Serialisable<BettererFileMarksMap>, Printable {
+export class BettererFiles implements Serialisable<BettererFileIssuesMap>, Printable {
   static fromInfo(info: BettererFileInfoMap, included: BettererFilePaths): BettererFiles {
     return new BettererFiles(
       included
@@ -22,7 +22,7 @@ export class BettererFiles implements Serialisable<BettererFileMarksMap>, Printa
     );
   }
 
-  static deserialise(serialised: BettererFileMarksMap = {}, files: BettererFilePaths = []): BettererFiles {
+  static deserialise(serialised: BettererFileIssuesMap = {}, files: BettererFilePaths = []): BettererFiles {
     const serialisedFilePaths = Object.keys(serialised);
     let filePaths = serialisedFilePaths;
     if (files.length) {
@@ -35,7 +35,7 @@ export class BettererFiles implements Serialisable<BettererFileMarksMap>, Printa
     );
   }
 
-  private _fileMarksMap: BettererFileMarksMap = {};
+  private _fileIssuesMap: BettererFileIssuesMap = {};
   private _fileHashes: BettererFileHashes = [];
   private _fileHashMap: BettererFileHashMap = {};
   private _filePaths: BettererFilePaths = [];
@@ -46,10 +46,10 @@ export class BettererFiles implements Serialisable<BettererFileMarksMap>, Printa
       return hashMap;
     }, {} as BettererFileHashMap);
     this._fileHashes = Object.keys(this._fileHashMap).map((filePath) => this._fileHashMap[filePath]);
-    this._fileMarksMap = this._files.reduce((marksMap, file) => {
-      marksMap[file.filePath] = file.fileMarks;
-      return marksMap;
-    }, {} as BettererFileMarksMap);
+    this._fileIssuesMap = this._files.reduce((issuesMap, file) => {
+      issuesMap[file.filePath] = file.fileIssues;
+      return issuesMap;
+    }, {} as BettererFileIssuesMap);
     this._filePaths = this._files.map((file) => file.filePath);
   }
 
@@ -65,8 +65,8 @@ export class BettererFiles implements Serialisable<BettererFileMarksMap>, Printa
     return this._fileHashMap[filePath];
   }
 
-  public getFileMarks(filePath: string): BettererFileMarks {
-    return this._fileMarksMap[filePath];
+  public getFileIssues(filePath: string): BettererFileIssues {
+    return this._fileIssuesMap[filePath];
   }
 
   public getFilePaths(): BettererFilePaths {
@@ -89,8 +89,8 @@ export class BettererFiles implements Serialisable<BettererFileMarksMap>, Printa
         if (index !== 0) {
           printed += ',\n';
         }
-        const [line, column, length, message] = mark;
-        printed += `      [${line}, ${column}, ${length}, ${JSON.stringify(message)}]`;
+        const { line, col, length, message, hash } = mark;
+        printed += `      [${line}, ${col}, ${length}, ${JSON.stringify(message)}, ${hash}]`;
       });
       printed += `\n    ]`;
     });
@@ -98,11 +98,11 @@ export class BettererFiles implements Serialisable<BettererFileMarksMap>, Printa
     return printed;
   }
 
-  public serialise(): BettererFileMarksMap {
+  public serialise(): BettererFileIssuesMap {
     return this._files.reduce((serialised, file) => {
-      const { filePath, fileHash, fileMarks } = file;
-      serialised = { ...serialised, [`${filePath}:${fileHash}`]: fileMarks };
+      const { filePath, fileHash, fileIssues } = file;
+      serialised = { ...serialised, [`${filePath}:${fileHash}`]: fileIssues };
       return serialised;
-    }, {} as BettererFileMarksMap);
+    }, {} as BettererFileIssuesMap);
   }
 }

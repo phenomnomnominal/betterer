@@ -1,9 +1,10 @@
 import { workspace } from 'vscode';
 
-import { getEnabled, disable } from '../config';
+import { EXTENSION_NAME } from '../../constants';
+import { getEnabled, disable } from '../settings';
 import { DISABLE_COMMAND_REQUIRES_WORKSPACE, ALREADY_DISABLED } from '../error-messages';
-import { pickFolder } from '../folder-picker';
 import { error, info } from '../logger';
+import { pickFolder } from './folder-picker';
 
 export async function disableBetterer(): Promise<void> {
   const { workspaceFolders } = workspace;
@@ -12,13 +13,13 @@ export async function disableBetterer(): Promise<void> {
     return;
   }
 
-  const enabledFolders = workspaceFolders.filter(folder => getEnabled(folder));
+  const enabledFolders = workspaceFolders.filter((folder) => getEnabled(folder));
   if (enabledFolders.length === 0) {
     info(ALREADY_DISABLED(workspaceFolders));
     return;
   }
 
-  const folder = await pickFolder(enabledFolders, 'Select a workspace folder to disable betterer in');
+  const folder = await pickFolder(enabledFolders, `Select a workspace folder to disable ${EXTENSION_NAME} in`);
   if (!folder) {
     return;
   }

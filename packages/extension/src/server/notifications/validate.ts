@@ -1,10 +1,5 @@
-import {
-  IConnection,
-  NotificationHandler,
-  NotificationType,
-  TextDocument,
-  TextDocumentChangeEvent
-} from 'vscode-languageserver';
+import { IConnection, NotificationHandler, NotificationType, TextDocumentChangeEvent } from 'vscode-languageserver';
+import { TextDocument } from 'vscode-languageserver-textdocument';
 
 type ValidationNotificationType = NotificationType<TextDocument, void>;
 export const ValidateNotification = new NotificationType<TextDocument, void>('betterer/validate');
@@ -39,22 +34,22 @@ export class ValidationQueue {
     handler: ValidationNotificationHandler,
     versionProvider: (document: TextDocument) => number
   ): void {
-    this._connection.onNotification(type, document => {
+    this._connection.onNotification(type, (document) => {
       this._queue.push({
         method: type.method,
         document,
-        documentVersion: versionProvider ? versionProvider(document) : undefined
+        documentVersion: versionProvider ? versionProvider(document) : undefined,
       });
       this._trigger();
     });
     this._notificationHandlers.set(type.method, { handler, versionProvider });
   }
 
-  public addNotificationMessage(event: TextDocumentChangeEvent): void {
+  public addNotificationMessage(event: TextDocumentChangeEvent<TextDocument>): void {
     this._queue.push({
       method: ValidateNotification.method,
       document: event.document,
-      documentVersion: event.document.version
+      documentVersion: event.document.version,
     });
     this._trigger();
   }

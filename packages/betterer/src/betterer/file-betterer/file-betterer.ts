@@ -8,11 +8,13 @@ import {
   BettererFileTest,
   BettererFileInfoDiff,
   BettererFileExcluded,
-  BettererFileMarksMap,
+  BettererFileIssuesMap,
   BettererFileInfoMap,
+  BettererFileIssue,
 } from './types';
+import { BettererLoggerCodeInfo } from '@betterer/logger/src';
 
-export class FileBetterer extends SerialisableBetterer<BettererFiles, BettererFileMarksMap> {
+export class FileBetterer extends SerialisableBetterer<BettererFiles, BettererFileIssuesMap> {
   private _excluded: BettererFileExcluded = [];
 
   public readonly isFileBetterer = true;
@@ -51,36 +53,67 @@ export class FileBetterer extends SerialisableBetterer<BettererFiles, BettererFi
 
     if (previous === null) {
       return files.reduce((d, file) => {
-        d[file.filePath] = file.fileInfo;
+        d[file.filePath] = { new: file.fileInfo };
         return d;
       }, {} as BettererFileInfoDiff);
     }
 
     const filesWithChanges = files.filter((file) => {
       const { filePath } = file;
-      const currentMarks = current.getFileMarks(filePath);
-      const previousMarks = previous.getFileMarks(filePath);
-      if (!currentMarks || !previousMarks || currentMarks.length !== previousMarks.length) {
+      const currentIssues = current.getFileIssues(filePath);
+      const previousIssues = previous.getFileIssues(filePath);
+      if (!currentIssues || !previousIssues || currentIssues.length !== previousIssues.length) {
         return true;
       }
-      return currentMarks.some(([cLine, cColumn, cLength], index) => {
-        const [pLine, pColumn, pLength] = previousMarks[index];
-        return pLine !== cLine || pColumn !== cColumn || pLength !== cLength;
+      return currentIssues.some((c, index) => {
+        const p = previousIssues[index];
+        return p.line !== c.line || p.col !== c.col || p.length !== c.length;
       });
     });
 
     return filesWithChanges.reduce((d, file) => {
-      const currentMarks = current.getFileMarks(file.filePath);
-      const previousMarks = previous.getFileMarks(file.filePath);
-      d[file.filePath] = file.fileInfo.filter((_, index) => {
-        const [cLine, cCol, cLen] = currentMarks[index];
-        return (
-          !previousMarks ||
-          !previousMarks.find(([pLine, pCol, pLen]) => {
-            return pLine === cLine && pCol === cCol && pLen === cLen;
-          })
-        );
+      const currentIssues = current.getFileIssues(file.filePath);
+      const previousIssues = previous.getFileIssues(file.filePath);
+      const existingIssues = file.fileInfo.filter((_, index) => {
+        const c = currentIssues[index];
+        return !!previousIssues?.find((p) => {
+          return p.hash === c.hash && p.line === c.line && p.col === c.col && p.length === c.length;
+        });
       });
+      const movedIssues: Array<BettererLoggerCodeInfo> = [];
+      previousIssues.forEach((p) => {
+        const possibilities = currentIssues.filter((c) => {
+          return p.hash === c.hash;
+        });
+        const bestPossibility = possibilities.reduce((b, n) => {
+          if (!b) {
+            return n;
+          }
+          if (Math.abs(p.line - n.line) > Math.abs(p.line - b.line)) {
+            return b;
+          }
+          if (Math.abs(p.line - n.line) < Math.abs(p.line - b.line)) {
+            return n;
+          }
+          if (Math.abs(p.col - n.col) > Math.abs(p.col - b.col)) {
+            return b;
+          }
+          if (Math.abs(p.col - n.col) < Math.abs(p.col - b.col)) {
+            return n;
+          }
+          return b;
+        }, null as BettererFileIssue | null);
+        if (bestPossibility) {
+          movedIssues.push(file.fileInfo[currentIssues.indexOf(bestPossibility)]);
+        }
+      });
+      const newIssues = file.fileInfo.filter(issue => {
+        return !existingIssues.includes(issue) && !movedIssues.includes(issue);
+      })
+      d[file.filePath] = {
+        existing: [...existingIssues, ...movedIssues],
+        new: newIssues
+      }
       return d;
     }, {} as BettererFileInfoDiff);
   }
@@ -123,20 +156,20 @@ function constraint(current: BettererFiles, previous: BettererFiles): Constraint
   }
 
   const filesWithMore = existingFiles.filter((filePath) => {
-    const currentMarks = current.getFileMarks(filePath);
-    const previousMarks = previous.getFileMarks(filePath);
-    return currentMarks.length > previousMarks.length;
+    const currentIssues = current.getFileIssues(filePath);
+    const previousIssues = previous.getFileIssues(filePath);
+    return currentIssues.length > previousIssues.length;
   });
 
-  // If any file has new entries, then it's worse:
+  // If any file has more entries, then it's worse:
   if (filesWithMore.length > 0) {
     return ConstraintResult.worse;
   }
 
   const filesWithSame = existingFiles.filter((filePath) => {
-    const currentMarks = current.getFileMarks(filePath);
-    const previousMarks = previous.getFileMarks(filePath);
-    return currentMarks.length === previousMarks.length;
+    const currentIssues = current.getFileIssues(filePath);
+    const previousIssues = previous.getFileIssues(filePath);
+    return currentIssues.length === previousIssues.length;
   });
 
   // If all the files have the same number of entries as before, then it's the same:
@@ -150,7 +183,7 @@ function constraint(current: BettererFiles, previous: BettererFiles): Constraint
 }
 
 function goal(value: BettererFiles): boolean {
-  return value.files.every((file) => file.fileMarks.length === 0);
+  return value.files.every((file) => file.fileIssues.length === 0);
 }
 
 export function isFileBetterer(obj: unknown): obj is FileBetterer {

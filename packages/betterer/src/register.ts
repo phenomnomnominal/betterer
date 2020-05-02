@@ -12,7 +12,12 @@ export function registerExtensions(): void {
   const JS = EXTENSIONS[JS_EXTENSION];
 
   // Use TS-Node register to allow `.betterer.ts` config files:
-  register();
+  register({
+    transpileOnly: true,
+    compilerOptions: {
+      module: 'commonjs'
+    }
+  });
 
   // Force `.betterer.results` files to be loaded as JS:
   EXTENSIONS[RESULTS_EXTENTION] = (m: NodeModule, filePath: string): void => {

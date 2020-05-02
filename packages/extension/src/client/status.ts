@@ -1,24 +1,29 @@
 import { NotificationType, LanguageClient, State } from 'vscode-languageclient';
-import { window, StatusBarAlignment, workspace, StatusBarItem } from 'vscode';
-import { EXTENSION_NAME } from '../constants';
+import { window, StatusBarAlignment, StatusBarItem } from 'vscode';
 
-const SERVER_RUNNING = 'betterer extension is running.';
-const SERVER_STOPPED = 'betterer extension stopped.';
+import { EXTENSION_NAME } from '../constants';
+import { getAlwaysShowStatus } from './settings';
+import { COMMAND_NAMES } from './commands/names';
+import { error } from './logger';
+import { SERVER_PROCESS_ENDED, SERVER_PROCESS_SHUT_DOWN } from './error-messages';
+
+const SERVER_RUNNING = `${EXTENSION_NAME} is running.`;
+const SERVER_STOPPED = `${EXTENSION_NAME} stopped.`;
 
 export const enum Status {
   ok = 1,
   warn = 2,
   error = 3,
-  exit = 4
+  exit = 4,
 }
 
 interface StatusParams {
   state: Status;
 }
 
-const StatusNotification = new NotificationType<StatusParams, void>('betterer/status');
+const StatusNotification = new NotificationType<StatusParams, void>(`${EXTENSION_NAME}/status`);
 
-const ExitCalled = new NotificationType<[number, string], void>('betterer/exitCalled');
+const ExitCalled = new NotificationType<[number, string], void>(`${EXTENSION_NAME}/exitCalled`);
 
 export class BettererStatus {
   private _status = Status.ok;
@@ -29,7 +34,7 @@ export class BettererStatus {
   constructor(client: LanguageClient) {
     this._statusBarItem = window.createStatusBarItem(StatusBarAlignment.Right, 0);
     this._statusBarItem.text = EXTENSION_NAME;
-    this._statusBarItem.command = 'betterer.showOutputChannel';
+    this._statusBarItem.command = COMMAND_NAMES.showOutput;
     this._updateStatusBarVisibility();
 
     this._initEvents(client);
@@ -44,7 +49,7 @@ export class BettererStatus {
   }
 
   private async _initEvents(client: LanguageClient): Promise<void> {
-    client.onDidChangeState(event => {
+    client.onDidChangeState((event) => {
       if (event.newState === State.Running) {
         client.info(this._start());
       } else if (event.newState === State.Stopped) {
@@ -53,16 +58,17 @@ export class BettererStatus {
     });
 
     await client.onReady();
-    client.onNotification(StatusNotification, params => this.update(params.state));
 
-    client.onNotification(ExitCalled, params => {
+    client.onNotification(StatusNotification, (params) => this.update(params.state));
+    client.onNotification(ExitCalled, (params) => {
       this._exit();
-      const [code, error] = params;
+      const [code, message] = params;
       client.error(
-        `Server process exited with code ${code}. This usually indicates a misconfigured betterer setup.`,
-        error
+        SERVER_PROCESS_ENDED(code),
+        message,
+        true
       );
-      window.showErrorMessage(`betterer server shut down itself. See 'betterer' output channel for details.`);
+      error(SERVER_PROCESS_SHUT_DOWN);
     });
   }
 
@@ -87,17 +93,15 @@ export class BettererStatus {
   public update(status: Status): void {
     this._status = status;
     switch (status) {
-      case Status.ok:
-        this._statusBarItem.text = 'betterer';
-        break;
       case Status.warn:
-        this._statusBarItem.text = '$(alert) betterer';
+        this._statusBarItem.text = `$(alert) ${EXTENSION_NAME}`;
         break;
       case Status.error:
-        this._statusBarItem.text = '$(issue-opened) betterer';
+        this._statusBarItem.text = `$(issue-opened) ${EXTENSION_NAME}`;
         break;
       default:
-        this._statusBarItem.text = 'betterer';
+        this._statusBarItem.text = EXTENSION_NAME;
+        break;
     }
     this._updateStatusBarVisibility();
   }
@@ -111,9 +115,8 @@ export class BettererStatus {
   }
 
   private _updateStatusBarVisibility(): void {
-    const config = workspace.getConfiguration('betterer');
     this._showStatusBarItem(
-      (this._serverRunning && this._status !== Status.ok) || config.get('alwaysShowStatus', true)
+      (this._serverRunning && this._status !== Status.ok) || getAlwaysShowStatus()
     );
   }
 }

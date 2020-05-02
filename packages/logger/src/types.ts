@@ -7,4 +7,5 @@ export type BettererLoggerCodeInfo = {
   fileText: string;
   start: number;
   end: number;
+  hash?: string;
 };

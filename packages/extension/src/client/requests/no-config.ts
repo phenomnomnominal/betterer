@@ -1,7 +1,7 @@
 import { LanguageClient, TextDocumentIdentifier, RequestType } from 'vscode-languageclient';
 import { Uri, workspace } from 'vscode';
 
-import { NO_BETTERER_CONFIGURATION } from '../error-messages';
+import { BETTERER_CONFIG_FILE_NOT_FOUND } from '../error-messages';
 import { BettererStatus, Status } from '../status';
 
 type NoConfigParams = {
@@ -14,7 +14,7 @@ export const NoConfigRequest = new RequestType<NoConfigParams, NoConfigResult, v
 export function noConfig(client: LanguageClient, status: BettererStatus, params: NoConfigParams): NoConfigResult {
   const workspaceFolder = workspace.getWorkspaceFolder(Uri.parse(params.document.uri));
   if (workspaceFolder) {
-    client.warn(NO_BETTERER_CONFIGURATION(workspaceFolder));
+    client.warn(BETTERER_CONFIG_FILE_NOT_FOUND(workspaceFolder));
   }
   status.update(Status.warn);
   return {};

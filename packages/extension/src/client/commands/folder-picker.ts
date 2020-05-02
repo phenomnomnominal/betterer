@@ -5,7 +5,7 @@ export async function pickFolder(
   placeHolder: string
 ): Promise<WorkspaceFolder | null> {
   const selected = await window.showQuickPick(
-    folders.map(folder => {
+    folders.map((folder) => {
       return { label: folder.name, description: folder.uri.fsPath, folder };
     }),
     { placeHolder }

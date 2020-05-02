@@ -1,6 +1,8 @@
 import { Uri, workspace, WorkspaceConfiguration } from 'vscode';
 
-export type PackageManager = 'npm' | 'pnpm' | 'yarn';
+export function getAlwaysShowStatus(): boolean {
+  return workspace.getConfiguration('betterer').get('alwaysShowStatus', true)
+}
 
 export function getRuntime(): string {
   return workspace.getConfiguration('betterer').get('runtime', '');
@@ -16,10 +18,6 @@ export function enable(item: { uri: Uri }): void {
 
 export function disable(item: { uri: Uri }): void {
   updateEnabled(item, false);
-}
-
-export function getPackageManager(item: { uri: Uri }): PackageManager {
-  return getConfig(item).get('packageManager', 'npm');
 }
 
 function updateEnabled(item: { uri: Uri }, value: boolean): void {
