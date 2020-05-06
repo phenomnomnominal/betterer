@@ -1,1 +1,1 @@
-export * from './eslint';
+export { eslintBetterer } from './eslint';
