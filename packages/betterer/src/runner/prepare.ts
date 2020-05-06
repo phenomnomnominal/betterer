@@ -18,21 +18,21 @@ export async function prepare(config: BettererConfig): Promise<BettererContext> 
 
   let betterers: Array<Betterer> = [];
   await Promise.all(
-    configPaths.map(async configPath => {
+    configPaths.map(async (configPath) => {
       const more = await getBetterers(configPath);
       betterers = [...betterers, ...more];
     })
   );
 
   if (filters.length) {
-    betterers.forEach(betterer => {
-      if (!filters.some(filter => filter.test(betterer.name))) {
+    betterers.forEach((betterer) => {
+      if (!filters.some((filter) => filter.test(betterer.name))) {
         betterer.skip();
       }
     });
   }
 
-  const only = betterers.filter(betterer => betterer.isOnly);
+  const only = betterers.filter((betterer) => betterer.isOnly);
 
   let expected: BettererResults = {};
   if (resultsPath) {
@@ -44,8 +44,8 @@ export async function prepare(config: BettererConfig): Promise<BettererContext> 
     }
   }
 
-  const obsolete = Object.keys(expected).filter(name => !betterers.find(betterer => betterer.name === name));
-  obsolete.forEach(name => {
+  const obsolete = Object.keys(expected).filter((name) => !betterers.find((betterer) => betterer.name === name));
+  obsolete.forEach((name) => {
     delete expected[name];
   });
   stats.obsolete.push(...obsolete);
@@ -59,7 +59,7 @@ async function getBetterers(configPath: string): Promise<Array<Betterer>> {
   try {
     const imported = await import(configPath);
     const betterers = imported.default ? imported.default : imported;
-    return Object.keys(betterers).map(name => {
+    return Object.keys(betterers).map((name) => {
       const betterer = createBetterer(betterers[name]);
       betterer.name = name;
       return betterer;

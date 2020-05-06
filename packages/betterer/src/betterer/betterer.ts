@@ -63,7 +63,7 @@ function defaultDiff(_: unknown, serialisedCurrent: unknown, serialisedPrevious:
   console.log(
     diffStr
       .split('\n')
-      .map(line => `  ${line}`)
+      .map((line) => `  ${line}`)
       .join('\n')
   );
 }

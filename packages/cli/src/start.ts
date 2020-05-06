@@ -30,7 +30,7 @@ export async function start(cwd: string, argv: Array<string>): Promise<BettererS
   let { config, filter } = (commander as unknown) as CLIStartConfig;
 
   config = config && config.length ? config : [DEFAULT_CONFIG_PATH];
-  const configPaths = config.map(configPath => path.resolve(cwd, configPath));
+  const configPaths = config.map((configPath) => path.resolve(cwd, configPath));
 
   const resultsPath = path.resolve(cwd, commander.results);
 

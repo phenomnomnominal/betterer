@@ -54,7 +54,7 @@ export function report(context: BettererContext): void {
     success(`${better} ${getThings(better)} got better! 😍`);
   }
   if (completed.length) {
-    completed.forEach(testName => {
+    completed.forEach((testName) => {
       success(`"${testName}" met its goal! 🎉`);
     });
   }

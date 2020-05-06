@@ -11,8 +11,8 @@ export function tsqueryBetterer(configFilePath: string, query: string): FileBett
   return createFileBetterer(() => {
     const sourceFiles = tsquery.project(absPath);
     const matches: Array<BettererFileInfo> = [];
-    sourceFiles.forEach(sourceFile => {
-      tsquery.query(sourceFile, query, { visitAllChildren: true }).forEach(match => {
+    sourceFiles.forEach((sourceFile) => {
+      tsquery.query(sourceFile, query, { visitAllChildren: true }).forEach((match) => {
         matches.push({
           message: `TSQuery match`,
           filePath: sourceFile.fileName,

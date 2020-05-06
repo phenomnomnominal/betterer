@@ -35,16 +35,16 @@ export const error = createLogger(chalk.bgRedBright.white(' erro '), chalk.bgBla
 const SPACER = chalk.bgBlack.yellowBright(' - ');
 
 function createLogger(name: string, icon: string): (...args: Array<string>) => void {
-  return function(...messages: Array<string>): void {
+  return function (...messages: Array<string>): void {
     if (previousLogger === 'CODE') {
       br();
     }
-    console.log(`${HEADING}${name}${icon}${SPACER}`, ...messages.map(m => chalk.whiteBright(m)));
+    console.log(`${HEADING}${name}${icon}${SPACER}`, ...messages.map((m) => chalk.whiteBright(m)));
     previousLogger = 'LOG';
   };
 }
 
-export const code = function(codeInfo: LoggerCodeInfo): void {
+export const code = function (codeInfo: LoggerCodeInfo): void {
   const { filePath, fileText, message } = codeInfo;
   const isJS = IS_JS_REGEXP.exec(path.extname(filePath));
   const options = {

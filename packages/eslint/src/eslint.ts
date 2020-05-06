@@ -15,7 +15,7 @@ export function eslintBetterer(files: string | Array<string>, rule: ESLintRuleCo
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
   const filesArray = Array.isArray(files) ? files : [files];
-  const filesGlobs = filesArray.map(glob => path.resolve(cwd, glob));
+  const filesGlobs = filesArray.map((glob) => path.resolve(cwd, glob));
 
   return createFileBetterer(async () => {
     const [ruleName, ruleOptions] = rule;
@@ -35,9 +35,9 @@ export function eslintBetterer(files: string | Array<string>, rule: ESLintRuleCo
     // This will be slower than if ESLint handled it, so hopefully
     // they make it possible to do this soon!
     await Promise.all(
-      filesGlobs.map(async currentGlob => {
+      filesGlobs.map(async (currentGlob) => {
         const filePaths = await globAsync(currentGlob);
-        filePaths.map(filePath => {
+        filePaths.map((filePath) => {
           const linterOptions = cli.getConfigForFile(filePath);
           const runner = new CLIEngine({
             ...linterOptions,
@@ -49,9 +49,9 @@ export function eslintBetterer(files: string | Array<string>, rule: ESLintRuleCo
           });
 
           const report = runner.executeOnFiles([filePath]);
-          report.results.forEach(result => {
+          report.results.forEach((result) => {
             const { source, messages } = result;
-            messages.forEach(message => {
+            messages.forEach((message) => {
               if (source) {
                 errors.push(eslintMessageToBettererError(filePath, source, message));
               }

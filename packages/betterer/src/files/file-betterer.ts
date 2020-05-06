@@ -38,17 +38,17 @@ function constraint(
   const currentFiles = deserialisedCurrent.getFilePaths();
   const previousFiles = deserialisedPrevious.getFilePaths();
 
-  const newOrMovedUnchangedFiles = currentFiles.filter(file => {
+  const newOrMovedUnchangedFiles = currentFiles.filter((file) => {
     return !previousFiles.includes(file);
   });
-  const movedUnchangedFiles = newOrMovedUnchangedFiles.filter(file => {
+  const movedUnchangedFiles = newOrMovedUnchangedFiles.filter((file) => {
     const fileHash = deserialisedCurrent.getHash(file);
     return deserialisedPrevious.hasHash(fileHash);
   });
-  const newFiles = newOrMovedUnchangedFiles.filter(file => {
+  const newFiles = newOrMovedUnchangedFiles.filter((file) => {
     return !movedUnchangedFiles.includes(file);
   });
-  const existingFiles = currentFiles.filter(file => {
+  const existingFiles = currentFiles.filter((file) => {
     return !newOrMovedUnchangedFiles.includes(file);
   });
 
@@ -57,7 +57,7 @@ function constraint(
     return ConstraintResult.worse;
   }
 
-  const filesWithMore = existingFiles.filter(filePath => {
+  const filesWithMore = existingFiles.filter((filePath) => {
     const currentMarks = deserialisedCurrent.getFileMarks(filePath);
     const previousMarks = deserialisedPrevious.getFileMarks(filePath);
     return currentMarks.length > previousMarks.length;
@@ -68,7 +68,7 @@ function constraint(
     return ConstraintResult.worse;
   }
 
-  const filesWithSame = existingFiles.filter(filePath => {
+  const filesWithSame = existingFiles.filter((filePath) => {
     const currentMarks = deserialisedCurrent.getFileMarks(filePath);
     const previousMarks = deserialisedPrevious.getFileMarks(filePath);
     return currentMarks.length === previousMarks.length;
@@ -94,16 +94,16 @@ function diff(
 
   const files = current.getFilePaths();
   if (serialisedPrevious === null) {
-    files.forEach(file => {
+    files.forEach((file) => {
       const fileInfo = current.getFileInfo(file);
       const { length } = fileInfo;
       error(`${length} new ${getIssues(length)} in "${file}":`);
-      fileInfo.forEach(info => code(info));
+      fileInfo.forEach((info) => code(info));
     });
     return;
   }
 
-  const filesWithChanges = files.filter(file => {
+  const filesWithChanges = files.filter((file) => {
     const currentMarks = deserialisedCurrent.getFileMarks(file);
     const previousMarks = deserialisedPrevious.getFileMarks(file);
     if (!currentMarks || !previousMarks || currentMarks.length !== previousMarks.length) {
@@ -115,7 +115,7 @@ function diff(
     });
   });
 
-  filesWithChanges.forEach(file => {
+  filesWithChanges.forEach((file) => {
     const currentMarks = deserialisedCurrent.getFileMarks(file);
     const previousMarks = deserialisedPrevious.getFileMarks(file);
     const fileInfo = current.getFileInfo(file);
@@ -130,7 +130,7 @@ function diff(
     });
     const { length } = changed;
     error(`${length} new ${getIssues(length)} in "${file}":`);
-    changed.forEach(info => code(info));
+    changed.forEach((info) => code(info));
   });
   return;
 }

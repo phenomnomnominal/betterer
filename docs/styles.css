@@ -76,11 +76,7 @@ header {
   text-align: center;
   height: 100vh;
   display: flex;
-  background: linear-gradient(
-    300deg,
-    rgba(180, 190, 0, 1) 0%,
-    rgba(235, 255, 0, 1) 30%
-  );
+  background: linear-gradient(300deg, rgba(180, 190, 0, 1) 0%, rgba(235, 255, 0, 1) 30%);
 }
 
 .header__container {
