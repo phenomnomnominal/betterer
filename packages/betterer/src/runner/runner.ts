@@ -1,11 +1,11 @@
 import { ConstraintResult } from '@betterer/constraints';
 
-import { BettererFilePaths } from '../betterer';
 import { BettererContext, BettererRun, BettererRuns } from '../context';
+import { BettererFilePaths } from '../watcher';
 
 export async function parallel(context: BettererContext, files: BettererFilePaths = []): Promise<BettererRuns> {
-  const runs = context.getRuns(files);
   context.runnerStart(files);
+  const runs = await context.getRuns(files);
   await Promise.all(
     runs.map(async (run) => {
       await runTest(run);
@@ -17,8 +17,8 @@ export async function parallel(context: BettererContext, files: BettererFilePath
 }
 
 export async function serial(context: BettererContext): Promise<BettererRuns> {
-  const runs = context.getRuns();
   context.runnerStart();
+  const runs = await context.getRuns();
   await runs.reduce(async (p, run) => {
     await p;
     await runTest(run);
@@ -30,31 +30,31 @@ export async function serial(context: BettererContext): Promise<BettererRuns> {
 
 async function runTest(run: BettererRun): Promise<void> {
   const { test } = run;
-  const { betterer } = test;
 
-  if (betterer.isSkipped) {
+  if (test.isSkipped) {
     run.skipped();
     return;
   }
 
   run.start();
+  const timestamp = Date.now();
   let current: unknown;
   try {
-    current = await betterer.test(run);
+    current = await test.test(run);
   } catch {
     run.failed();
     return;
   }
   run.ran();
 
-  const goalComplete = await betterer.goal(current);
+  const goalComplete = await test.goal(current);
 
   if (run.isNew) {
-    run.new(current, goalComplete);
+    run.neww(current, goalComplete, timestamp);
     return;
   }
 
-  const comparison = await betterer.constraint(current, run.expected);
+  const comparison = await test.constraint(current, run.expected);
 
   if (comparison === ConstraintResult.same) {
     run.same(goalComplete);
@@ -62,7 +62,7 @@ async function runTest(run: BettererRun): Promise<void> {
   }
 
   if (comparison === ConstraintResult.better) {
-    run.better(current, goalComplete);
+    run.better(current, goalComplete, timestamp);
     return;
   }
 

@@ -8,7 +8,7 @@ export const contextParallel: BettererContextReporter = {
   start(): void {
     info('Running betterer in watch mode 🎉');
   },
-  complete(): void {
+  finish(): void {
     info('Stopping watch mode 👋');
   },
 };
@@ -17,11 +17,11 @@ export const contextSerial: BettererContextReporter = {
   start(): void {
     logo();
   },
-  complete(context: BettererContext): void {
+  finish(context: BettererContext): void {
     const { stats } = context;
     const ran = stats.ran.length;
     const failed = stats.failed.length;
-    const nnew = stats.new.length;
+    const neww = stats.new.length;
     const obsolete = stats.obsolete.length;
     const better = stats.better.length;
     const worse = stats.worse.length;
@@ -33,8 +33,8 @@ export const contextSerial: BettererContextReporter = {
     if (failed) {
       error(`${failed} ${getThings(failed)} failed to run. 🔥`);
     }
-    if (nnew) {
-      info(`${nnew} ${getThings(nnew)} got checked for the first time! 🎉`);
+    if (neww) {
+      info(`${neww} ${getThings(neww)} got checked for the first time! 🎉`);
     }
     if (obsolete) {
       info(`${obsolete} ${getThings(obsolete)} are no longer needed! 🤪`);
@@ -57,9 +57,9 @@ export const contextSerial: BettererContextReporter = {
       warn(`${skipped} ${getThings(skipped)} got skipped. ❌`);
     }
   },
-  error(error: BettererError, printed: string) {
+  error(error: BettererError, printed: Array<string>) {
     logError(error);
-    process.stdout.write(printed);
+    process.stdout.write(printed.join(''));
   },
 };
 

@@ -6,10 +6,10 @@ exports[\`regexp no hack comments\`] = {
   timestamp: 0,
   value: \`{
     \\"../src/exclude.ts:645618020\\": [
-      [0, 0, 7, \\"RegExp match\\"]
+      [0, 0, 7, \\"RegExp match\\", \\"645618020\\"]
     ],
     \\"../src/index.ts:645618020\\": [
-      [0, 0, 7, \\"RegExp match\\"]
+      [0, 0, 7, \\"RegExp match\\", \\"645618020\\"]
     ]
   }\`
 };"
@@ -21,7 +21,7 @@ exports[\`regexp no hack comments\`] = {
   timestamp: 0,
   value: \`{
     \\"../src/index.ts:645618020\\": [
-      [0, 0, 7, \\"RegExp match\\"]
+      [0, 0, 7, \\"RegExp match\\", \\"645618020\\"]
     ]
   }\`
 };"

@@ -1,16 +1,45 @@
-import { BettererFilePaths } from '../betterer';
-import { BettererTest } from './test';
-import { BettererRunStatus } from './run-status';
+import { BettererExpectedResult, NO_PREVIOUS_RESULT, deserialise } from '../results';
+import { BettererTest } from '../test';
+import { BettererFilePaths } from '../watcher';
+import { BettererContext } from './context';
+
+const enum BettererRunStatus {
+  better = 'better',
+  complete = 'complete',
+  failed = 'failed',
+  pending = 'pending',
+  neww = 'new',
+  same = 'same',
+  skipped = 'skipped',
+  worse = 'worse',
+}
 
 export class BettererRun {
-  private _expected: unknown;
-  private _hasUpdated = false;
-  private _isNew = false;
   private _result: unknown;
+  private _toPrint: unknown;
   private _status: BettererRunStatus = BettererRunStatus.pending;
 
-  constructor(private _test: BettererTest, private _files: BettererFilePaths) {
-    this._expected = this._getExpected();
+  private _expected: unknown;
+  private _timestamp: number | null = null;
+
+  private _isNew = true;
+  private _hasResult = false;
+
+  constructor(
+    private readonly _context: BettererContext,
+    private readonly _test: BettererTest,
+    expected: BettererExpectedResult,
+    private readonly _files: BettererFilePaths
+  ) {
+    if (expected === NO_PREVIOUS_RESULT) {
+      return;
+    } else {
+      this._isNew = false;
+      this._hasResult = true;
+      this._expected = this._test.getExpected(deserialise(this._test, expected.value), this._files);
+      this._toPrint = this._expected;
+      this._timestamp = expected.timestamp;
+    }
   }
 
   public get expected(): unknown {
@@ -21,18 +50,23 @@ export class BettererRun {
     return this._files;
   }
 
-  public get hasResult(): boolean {
-    // If you run a test for the first time and it is
-    // skipped or it fails, then it doesn't have a result:
-    return !(this.isNew && (this._status === BettererRunStatus.skipped || this._status === BettererRunStatus.failed));
+  public get shouldPrint(): boolean {
+    return !this.isComplete && this._hasResult;
   }
 
-  public get hasUpdated(): boolean {
-    return this._hasUpdated;
+  public get toPrint(): unknown {
+    return this._toPrint;
   }
 
   public get status(): string {
     return this._status;
+  }
+
+  public get timestamp(): number {
+    if (this._timestamp === null) {
+      throw new Error();
+    }
+    return this._timestamp;
   }
 
   public get isBetter(): boolean {
@@ -67,63 +101,68 @@ export class BettererRun {
     return this._result;
   }
 
+  public get context(): BettererContext {
+    return this._context;
+  }
+
   public get test(): BettererTest {
     return this._test;
   }
 
-  public better(result: unknown, goalComplete: boolean): void {
-    this._status = goalComplete ? BettererRunStatus.complete : BettererRunStatus.better;
-    this._hasUpdated = true;
+  public better(result: unknown, isComplete: boolean, timestamp: number): void {
+    this._status = isComplete ? BettererRunStatus.complete : BettererRunStatus.better;
+    this._hasResult = true;
     this._result = result;
-    this._test.context.runBetter(this);
+    this._toPrint = result;
+    this._timestamp = timestamp;
+    this._context.runBetter(this);
   }
 
   public end(): void {
-    this._test.context.runEnd(this);
+    this._context.runEnd(this);
   }
 
   public failed(): void {
     this._status = BettererRunStatus.failed;
-    this._test.context.runFailed(this);
+    this._context.runFailed(this);
   }
 
-  public new(result: unknown, goalComplete: boolean): void {
-    this._status = goalComplete ? BettererRunStatus.complete : BettererRunStatus.new;
-    this._hasUpdated = true;
+  public neww(result: unknown, isComplete: boolean, timestamp: number): void {
+    this._status = isComplete ? BettererRunStatus.complete : BettererRunStatus.neww;
+    this._hasResult = true;
     this._result = result;
-    this._test.context.runNew(this);
+    this._toPrint = result;
+    this._timestamp = timestamp;
+    this._context.runNew(this);
   }
 
   public ran(): void {
-    this._test.context.runRan(this);
+    this._context.runRan(this);
   }
 
   public start(): void {
-    this._test.context.runStart(this);
+    this._context.runStart(this);
   }
 
-  public same(goalComplete: boolean): void {
-    this._status = goalComplete ? BettererRunStatus.complete : BettererRunStatus.same;
-    this._result = this._expected;
-    this._test.context.runSame(this);
+  public same(isComplete: boolean): void {
+    this._status = isComplete ? BettererRunStatus.complete : BettererRunStatus.same;
+    this._hasResult = true;
+    this._toPrint = this._expected;
+    this._context.runSame(this);
   }
 
   public skipped(): void {
     this._status = BettererRunStatus.skipped;
-    this._test.context.runSkipped(this);
+    this._hasResult = true;
+    this._toPrint = this._expected;
+    this._context.runSkipped(this);
   }
 
   public worse(result: unknown): void {
     this._status = BettererRunStatus.worse;
+    this._hasResult = true;
     this._result = result;
-    this._test.context.runWorse(this);
-  }
-
-  private _getExpected(): unknown {
-    if (this.test.hasExpected) {
-      return this.test.betterer.getExpected(this);
-    }
-    this._isNew = true;
-    return;
+    this._toPrint = this._expected;
+    this._context.runWorse(this);
   }
 }

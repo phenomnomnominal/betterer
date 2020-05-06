@@ -1,8 +1,8 @@
 import { overwrite } from '@betterer/logger';
 
-import { BettererFilePaths } from '../betterer';
 import { BettererRuns } from '../context';
 import { BettererRunnerReporter } from './types';
+import { BettererFilePaths } from '../watcher';
 
 export const runnerParallel: BettererRunnerReporter = {
   start(files: BettererFilePaths): void {

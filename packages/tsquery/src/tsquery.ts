@@ -1,4 +1,4 @@
-import { FileBetterer, createFileBetterer, BettererFileInfo, BettererFileInfoMap } from '@betterer/betterer';
+import { BettererFileIssue, BettererFileIssues, BettererFileTest, BettererFileIssueMap } from '@betterer/betterer';
 import { tsquery } from '@phenomnomnominal/tsquery';
 import * as stack from 'callsite';
 import { promises as fs } from 'fs';
@@ -7,7 +7,7 @@ import { SourceFile } from 'typescript';
 
 import { CONFIG_PATH_REQUIRED, QUERY_REQUIRED } from './errors';
 
-export function tsqueryBetterer(configFilePath: string, query: string): FileBetterer {
+export function tsqueryBetterer(configFilePath: string, query: string): BettererFileTest {
   if (!configFilePath) {
     throw CONFIG_PATH_REQUIRED();
   }
@@ -19,7 +19,7 @@ export function tsqueryBetterer(configFilePath: string, query: string): FileBett
   const cwd = path.dirname(callee.getFileName());
   const absoluteConfigFilePath = path.resolve(cwd, configFilePath);
 
-  return createFileBetterer(async (files = []) => {
+  return new BettererFileTest(async (files = []) => {
     let sourceFiles: ReadonlyArray<SourceFile> = [];
 
     if (files.length === 0) {
@@ -38,11 +38,11 @@ export function tsqueryBetterer(configFilePath: string, query: string): FileBett
     return sourceFiles.reduce((fileInfoMap, sourceFile) => {
       fileInfoMap[sourceFile.fileName] = getFileMatches(query, sourceFile);
       return fileInfoMap;
-    }, {} as BettererFileInfoMap);
+    }, {} as BettererFileIssueMap<BettererFileIssue>);
   });
 }
 
-function getFileMatches(query: string, sourceFile: SourceFile): ReadonlyArray<BettererFileInfo> {
+function getFileMatches(query: string, sourceFile: SourceFile): BettererFileIssues<BettererFileIssue> {
   return tsquery.query(sourceFile, query, { visitAllChildren: true }).map((match) => {
     return {
       message: 'TSQuery match',

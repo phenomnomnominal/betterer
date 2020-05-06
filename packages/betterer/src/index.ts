@@ -7,27 +7,12 @@ import { parallel, serial } from './runner';
 import { isBoolean, isString } from './utils';
 import { watch } from './watcher';
 
-// Export constructors and creators:
-export {
-  Betterer,
-  isBetterer,
-  FileBetterer,
-  isFileBetterer,
-  createBetterer,
-  createFileBetterer,
-  BettererFiles,
-  BettererFile,
-} from './betterer';
-export { BettererContext, BettererRun, BettererTest, BettererStats } from './context';
-
-// Export all types:
-export * from './betterer/betterer/types';
-export * from './betterer/file-betterer/types';
-export * from './betterer/serialisable-betterer/types';
-export * from './betterer/types';
-export * from './config/types';
-export * from './context/results/types';
-export * from './context/types';
+export * from './config/public';
+export * from './context/public';
+export * from './reporters/public';
+export * from './results/public';
+export * from './test/public';
+export * from './watcher/public';
 
 registerExtensions();
 
@@ -49,8 +34,8 @@ export async function betterer(
 
     if (isBoolean(watchModeOrFilePath)) {
       const context = await BettererContext.create(finalConfig, parallelReporters);
-      const watcher = watch(context, (filePath) => {
-        parallel(context, [filePath]);
+      const watcher = watch(context, filePaths => {
+        parallel(context, filePaths);
       });
       return function (): void {
         watcher.close();
@@ -59,7 +44,7 @@ export async function betterer(
 
     const context = await BettererContext.create(finalConfig, serialReporters);
     const runs = await serial(context);
-    return await context.complete(runs);
+    return await context.process(runs);
   } catch (e) {
     logError(e);
     throw e;

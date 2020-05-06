@@ -4,7 +4,7 @@ import { isString, isUndefined } from '../utils';
 import { BettererConfig, BettererConfigPartial } from './types';
 
 const DEFAULT_CONFIG_PATH = './.betterer';
-const DEFAULT_RESULTS_PATH = `./.betterer.results`;
+const DEFAULT_RESULTS_PATH = './.betterer.results';
 
 export function createConfig(partialConfig: BettererConfigPartial): BettererConfig {
   const cwd = partialConfig.cwd || process.cwd();
@@ -20,6 +20,7 @@ export function createConfig(partialConfig: BettererConfigPartial): BettererConf
     filters,
     ignores,
     resultsPath,
+    cwd,
   };
 }
 

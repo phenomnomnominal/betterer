@@ -1,21 +1,20 @@
 import { watch as chokidar, FSWatcher } from 'chokidar';
 
 import { BettererContext } from '../context';
-import { WatchChangesHandler } from './types';
+import { BettererWatchChangeHandler } from './types';
 import { WATCH_IGNORES } from './ignores';
 
 const EMIT_EVENTS = ['add', 'change'];
 
-export function watch(context: BettererContext, change: WatchChangesHandler): FSWatcher {
-  const cwd = process.cwd();
-  const watcher = chokidar(cwd, {
+export function watch(context: BettererContext, change: BettererWatchChangeHandler): FSWatcher {
+  const watcher = chokidar(context.config.cwd, {
     ignoreInitial: true,
     ignored: [...WATCH_IGNORES, ...(context.config.ignores || [])],
   });
   watcher.on('all', (event: string, path: string) => {
     // TODO: Debounce and group files:
     if (EMIT_EVENTS.includes(event)) {
-      change(path);
+      change([path]);
     }
   });
   return watcher;

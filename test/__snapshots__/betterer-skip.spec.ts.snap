@@ -45,7 +45,7 @@ exports[\`test 2\`] = {
   timestamp: 0,
   value: \`{
     \\"../src/index.ts:4126639614\\": [
-      [0, 0, 7, \\"RegExp match\\"]
+      [0, 0, 7, \\"RegExp match\\", \\"645651780\\"]
     ]
   }\`
 };"

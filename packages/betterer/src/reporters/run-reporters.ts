@@ -1,7 +1,7 @@
 import { br, error, info, success, warn } from '@betterer/logger';
 
 import { BettererRun } from '../context';
-import { getDiffReporter } from './diffs';
+import { diff } from '../results';
 import { BettererRunReporter } from './types';
 
 export const runSerial: BettererRunReporter = {
@@ -16,7 +16,7 @@ export const runSerial: BettererRunReporter = {
   failed(run: BettererRun): void {
     error(`"${run.name}" failed to run. 🔥`);
   },
-  new(run: BettererRun): void {
+  neww(run: BettererRun): void {
     const { isComplete, name } = run;
     if (isComplete) {
       success(`"${name}" has already met its goal! ✨`);
@@ -36,11 +36,10 @@ export const runSerial: BettererRunReporter = {
     info(`running "${run.name}"!`);
   },
   worse(run: BettererRun): void {
-    const { expected, name, result, test } = run;
+    const { name } = run;
     error(`"${name}" got worse. 😔`);
     br();
-    const diffReporter = getDiffReporter(test.betterer);
-    diffReporter(result, expected);
+    diff(run);
     br();
   },
 };

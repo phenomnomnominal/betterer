@@ -4,5 +4,11 @@
   "description": "betterer-test-betterer-init",
   "private": true,
   "author": "Craig Spence <craigspence0@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "betterer": "betterer"
+  },
+  "devDependencies": {
+    "@betterer/cli": "^0.5.2"
+  }
 }

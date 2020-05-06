@@ -1,4 +1,4 @@
-import { FileBetterer, createFileBetterer, BettererFileInfoMap } from '@betterer/betterer';
+import { BettererFileIssue, BettererFileTest, BettererFileIssueMap } from '@betterer/betterer';
 import * as stack from 'callsite';
 import * as ts from 'typescript';
 import * as path from 'path';
@@ -7,7 +7,7 @@ import { CONFIG_PATH_REQUIRED, COMPILER_OPTIONS_REQUIRED } from './errors';
 
 const NEW_LINE = '\n';
 
-export function typescriptBetterer(configFilePath: string, extraCompilerOptions: ts.CompilerOptions): FileBetterer {
+export function typescriptBetterer(configFilePath: string, extraCompilerOptions: ts.CompilerOptions): BettererFileTest {
   if (!configFilePath) {
     throw CONFIG_PATH_REQUIRED();
   }
@@ -19,7 +19,7 @@ export function typescriptBetterer(configFilePath: string, extraCompilerOptions:
   const cwd = path.dirname(callee.getFileName());
   const absPath = path.resolve(cwd, configFilePath);
 
-  return createFileBetterer((files = []) => {
+  return new BettererFileTest((files = []) => {
     const { config } = ts.readConfigFile(absPath, ts.sys.readFile.bind(ts.sys));
     const { compilerOptions } = config;
     const basePath = path.dirname(absPath);
@@ -74,6 +74,6 @@ export function typescriptBetterer(configFilePath: string, extraCompilerOptions:
         },
       ];
       return fileInfoMap;
-    }, {} as BettererFileInfoMap);
+    }, {} as BettererFileIssueMap<BettererFileIssue>);
   });
 }

@@ -1,12 +1,12 @@
 import { BettererError } from '@betterer/errors';
 
-import { BettererFilePaths } from '../betterer';
 import { BettererContext, BettererRuns, BettererRun } from '../context';
+import { BettererFilePaths } from '../watcher';
 
 export type BettererContextReporter = {
   start?(): void;
-  complete?(context: BettererContext): void;
-  error?(error: BettererError, printed: string): void;
+  finish?(context: BettererContext): void;
+  error?(error: BettererError, printed: Array<string>): void;
 };
 
 export type BettererRunnerReporter = {
@@ -17,7 +17,7 @@ export type BettererRunnerReporter = {
 export type BettererRunReporter = {
   better?(run: BettererRun): void;
   failed?(run: BettererRun): void;
-  ['new']?(run: BettererRun): void;
+  neww?(run: BettererRun): void;
   same?(run: BettererRun): void;
   start?(run: BettererRun): void;
   worse?(run: BettererRun): void;

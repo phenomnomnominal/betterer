@@ -16,4 +16,5 @@ export type BettererConfig = {
   resultsPath: string;
   filters: BettererConfigFilters;
   ignores: BettererConfigIgnore;
+  cwd: string;
 };
