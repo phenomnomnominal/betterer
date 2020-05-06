@@ -1,6 +1,6 @@
-import { LoggerCodeInfo } from '@betterer/logger';
+import { BettererLoggerCodeInfo } from '@betterer/logger';
 
-export type BettererFileInfo = LoggerCodeInfo;
+export type BettererFileInfo = BettererLoggerCodeInfo;
 export type BettererFileInfoMap = Record<string, Array<BettererFileInfo>>;
 export type BettererFileMark = [number, number, number, string];
 export type BettererFileMarks = Array<BettererFileMark>;
