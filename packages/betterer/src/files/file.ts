@@ -2,7 +2,7 @@ import LinesAndColumns from 'lines-and-columns';
 import * as path from 'path';
 
 import { BettererConfig } from '../config';
-import { hash } from '../hasher';
+import { createHash } from '../hasher';
 import { Printable } from '../runner/printer';
 import { Serialisable } from '../runner/serialiser';
 import {
@@ -37,7 +37,7 @@ export class BettererFile implements Serialisable<BettererFileMarksMap>, Printab
     });
     Object.keys(file._fileMarkMap).forEach((filePath) => {
       const [{ fileText }] = fileInfo[filePath];
-      file._fileHashMap[filePath] = hash(fileText);
+      file._fileHashMap[filePath] = createHash(fileText);
       file._fileHashes.push(file._fileHashMap[filePath]);
       file._fileMarkMap[filePath].sort((a, b) => {
         const [aStart] = a;
@@ -113,8 +113,8 @@ export class BettererFile implements Serialisable<BettererFileMarksMap>, Printab
         if (index !== 0) {
           printed += ',\n';
         }
-        const [line, column, length, message] = mark;
-        printed += `      [${line}, ${column}, ${length}, ${JSON.stringify(message)}]`;
+        const [line, column, length, message, hash] = mark;
+        printed += `      [${line}, ${column}, ${length}, ${JSON.stringify(message)}, ${JSON.stringify(hash)}]`;
       });
       printed += `\n    ]`;
     });
@@ -126,7 +126,8 @@ export class BettererFile implements Serialisable<BettererFileMarksMap>, Printab
     const { fileText, start, end, message } = info;
     const lc = new LinesAndColumns(fileText);
     const { line, column } = lc.locationForIndex(start) || UNKNOWN_LOCATION;
-    return [line, column, end - start, message] as BettererFileMark;
+    const length = end - start;
+    return [line, column, length, message, createHash(fileText.substr(start, length))] as BettererFileMark;
   }
 
   private _getPath(resultsPath: string, filePath: string): string {
