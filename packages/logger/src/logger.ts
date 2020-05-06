@@ -4,7 +4,7 @@ import * as logUpdate from 'log-update';
 import LinesAndColumns from 'lines-and-columns';
 import * as path from 'path';
 
-import { BettererLogger, BettererLoggerMessages, BettererLoggerCodeInfo } from './types';
+import { BettererLogger, BettererLoggerMessages, BettererLoggerCodeInfo, BettererLoggerOverwriteDone } from './types';
 
 const ERROR_BLOCK = chalk.bgRed('  ');
 const IS_JS_REGEXP = /.t|jsx?$/;
@@ -70,6 +70,7 @@ export const code = function (codeInfo: BettererLoggerCodeInfo): void {
   previousLogger = 'CODE';
 };
 
-export function overwrite(content: string): void {
+export function overwrite(content: string): BettererLoggerOverwriteDone {
   logUpdate(`${LOGO}${NEW_LINE}${content}`);
+  return logUpdate.done.bind(logUpdate);
 }
