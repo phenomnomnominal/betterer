@@ -28,14 +28,14 @@ export class BettererFile implements Serialisable<BettererFileMarksMap>, Printab
   static fromInfo(config: BettererConfig, info: Array<BettererFileInfo>): BettererFile {
     const file = new BettererFile();
     const fileInfo: BettererFileInfoMap = {};
-    info.forEach(i => {
+    info.forEach((i) => {
       const relativePath = file._getPath(config.resultsPath, i.filePath);
       fileInfo[relativePath] = fileInfo[relativePath] || [];
       fileInfo[relativePath].push(i);
       file._fileMarkMap[relativePath] = file._fileMarkMap[relativePath] || [];
       file._fileMarkMap[relativePath].push(file._getMarks(i));
     });
-    Object.keys(file._fileMarkMap).forEach(filePath => {
+    Object.keys(file._fileMarkMap).forEach((filePath) => {
       const [{ fileText }] = fileInfo[filePath];
       file._fileHashMap[filePath] = hash(fileText);
       file._fileHashes.push(file._fileHashMap[filePath]);
@@ -51,7 +51,7 @@ export class BettererFile implements Serialisable<BettererFileMarksMap>, Printab
   static fromSerialised(serialised: BettererFileMarksMap | null): BettererFile {
     const file = new BettererFile();
     if (serialised) {
-      Object.keys(serialised).forEach(key => {
+      Object.keys(serialised).forEach((key) => {
         const [path, fileHash] = key.split(':');
         file._fileHashMap[path] = fileHash;
         file._fileHashes.push(fileHash);
@@ -91,9 +91,9 @@ export class BettererFile implements Serialisable<BettererFileMarksMap>, Printab
   public serialise(): BettererFileMarksMap {
     const serialised: BettererFileMarksMap = {};
     Object.keys(this._fileMarkMap)
-      .filter(filePath => !!this._fileMarkMap[filePath])
-      .filter(filePath => !this._excluded.some(exclude => exclude.test(filePath)))
-      .map(filePath => {
+      .filter((filePath) => !!this._fileMarkMap[filePath])
+      .filter((filePath) => !this._excluded.some((exclude) => exclude.test(filePath)))
+      .map((filePath) => {
         const marks = this._fileMarkMap[filePath];
         const fileHash = this._fileHashMap[filePath];
         serialised[`${filePath}:${fileHash}`] = marks;

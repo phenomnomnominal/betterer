@@ -13,17 +13,17 @@ export function regexpBetterer(files: string | Array<string>, regexp: RegExp): F
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
   const filesArray = Array.isArray(files) ? files : [files];
-  const filesGlobs = filesArray.map(glob => path.resolve(cwd, glob));
+  const filesGlobs = filesArray.map((glob) => path.resolve(cwd, glob));
 
   return createFileBetterer(async () => {
     regexp = new RegExp(regexp.source, regexp.flags.includes('g') ? regexp.flags : `${regexp.flags}g`);
 
     const errors: Array<BettererFileInfo> = [];
     await Promise.all(
-      filesGlobs.map(async currentGlob => {
+      filesGlobs.map(async (currentGlob) => {
         const filePaths = await globAsync(currentGlob);
         return Promise.all(
-          filePaths.map(async filePath => {
+          filePaths.map(async (filePath) => {
             let fileText;
             try {
               fileText = await readAsync(filePath, 'utf8');
