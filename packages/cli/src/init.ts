@@ -1,27 +1,39 @@
-import { error, info, warn, success } from '@betterer/logger';
+import { logError } from '@betterer/errors';
+import { info, warn, success } from '@betterer/logger';
 import * as commander from 'commander';
 import * as findUp from 'find-up';
-import { readFile, writeFile } from 'fs';
+import { promises as fs } from 'fs';
 import * as path from 'path';
-import { promisify } from 'util';
 
-import { DEFAULT_CONFIG_PATH } from './constants';
+import { configPath } from './options';
 
-const readFileAsync = promisify(readFile);
-const writeAsync = promisify(writeFile);
+import {
+  COULDNT_FIND_PACKAGE_JSON,
+  COULDNT_READ_PACKAGE_JSON,
+  COULDNT_WRITE_CONFIG_FILE,
+  COULDNT_WRITE_PACKAGE_JSON
+} from './errors';
+import { CLIArguments } from './types';
 
-const TEMPLATE = `module.exports = {\n  // Add tests here ☀️\n};`;
+const TEMPLATE = `export default {
+  // Add tests here ☀️
+};`;
 
-export async function init(cwd: string, argv: Array<string>): Promise<void> {
-  commander
-    .option('-c, --config [value]', 'Path to test definition file relative to CWD', `${DEFAULT_CONFIG_PATH}.ts`)
-    .parse(argv);
+export async function init(cwd: string, argv: CLIArguments): Promise<void> {
+  configPath(commander);
+
+  commander.parse(argv as Array<string>);
 
   const { config } = commander;
 
   info('initialising betterer... ☀️');
-  await createTestFile(cwd, config);
-  await updatePackageJSON(cwd);
+  try {
+    await createTestFile(cwd, config);
+    await updatePackageJSON(cwd);
+  } catch (e) {
+    logError(e);
+    throw e;
+  }
   success('initialised betterer! ☀️');
 }
 
@@ -31,7 +43,7 @@ async function createTestFile(cwd: string, configFilePath: string): Promise<void
 
   let exists = false;
   try {
-    exists = !!(await readFileAsync(configPath));
+    exists = !!(await fs.readFile(configPath));
   } catch {
     // Doesn't matter if it fails...
   }
@@ -42,10 +54,9 @@ async function createTestFile(cwd: string, configFilePath: string): Promise<void
   }
 
   try {
-    await writeAsync(configPath, TEMPLATE, 'utf8');
+    await fs.writeFile(configPath, TEMPLATE, 'utf8');
   } catch {
-    error(`couln't write to "${configPath}" 🔥`);
-    return;
+    throw COULDNT_WRITE_CONFIG_FILE(configPath);
   }
 
   success(`created "${configPath}" file! 🎉`);
@@ -59,12 +70,11 @@ async function updatePackageJSON(cwd: string): Promise<void> {
   try {
     packageJSONPath = await findUp('package.json', { cwd });
     if (!packageJSONPath) {
-      throw new Error();
+      throw COULDNT_FIND_PACKAGE_JSON();
     }
-    packageJSON = JSON.parse(await readFileAsync(packageJSONPath, 'utf-8'));
+    packageJSON = JSON.parse(await fs.readFile(packageJSONPath, 'utf-8'));
   } catch {
-    error(`couldn't read package.json 🔥`);
-    return;
+    throw COULDNT_READ_PACKAGE_JSON();
   }
 
   packageJSON.scripts = packageJSON.scripts || {};
@@ -82,16 +92,15 @@ async function updatePackageJSON(cwd: string): Promise<void> {
     // HACK:
     // It's easier to use require than to try to get `await import`
     // to work right for the package.json...
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    /* eslint-disable @typescript-eslint/no-var-requires */
     const { version } = require('../package.json');
     packageJSON.devDependencies['@betterer/cli'] = `^${version}`;
   }
 
   try {
-    await writeAsync(packageJSONPath, JSON.stringify(packageJSON, null, 2), 'utf-8');
+    await fs.writeFile(packageJSONPath, JSON.stringify(packageJSON, null, 2), 'utf-8');
   } catch {
-    error(`couldn't write package.json 🔥`);
-    return;
+    throw COULDNT_WRITE_PACKAGE_JSON();
   }
 
   success(`added "betterer" to package.json file! 🎉`);
