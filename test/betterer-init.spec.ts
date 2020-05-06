@@ -33,10 +33,11 @@ describe('betterer init', () => {
 
     await reset();
 
-    await init(fixturePath, ['node', './bin/betterer']);
-    await init(fixturePath, ['node', './bin/betterer']);
-
-    await reset();
+    expect(async () => {
+      await init(fixturePath, ['node', './bin/betterer']);
+      await init(fixturePath, ['node', './bin/betterer']);
+      await reset();
+    }).not.toThrow();
   });
 });
 
