@@ -6,15 +6,23 @@ import * as path from 'path';
 import { promisify } from 'util';
 
 import { BettererFileInfo, FileBetterer, createFileBetterer } from '@betterer/betterer';
+import { FILE_GLOB_REQUIRED, RULE_OPTIONS_REQUIRED } from './errors';
 
 const globAsync = promisify(glob);
 
 type ESLintRuleConfig = [string, Linter.RuleLevel | Linter.RuleLevelAndOptions];
 
-export function eslintBetterer(files: string | Array<string>, rule: ESLintRuleConfig): FileBetterer {
+export function eslintBetterer(globs: string | Array<string>, rule: ESLintRuleConfig): FileBetterer {
+  if (!globs) {
+    throw FILE_GLOB_REQUIRED();
+  }
+  if (!rule) {
+    throw RULE_OPTIONS_REQUIRED();
+  }
+
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
-  const filesArray = Array.isArray(files) ? files : [files];
+  const filesArray = Array.isArray(globs) ? globs : [globs];
   const filesGlobs = filesArray.map((glob) => path.resolve(cwd, glob));
 
   return createFileBetterer(async () => {

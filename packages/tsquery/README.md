@@ -4,11 +4,11 @@
 
 [![npm version](https://img.shields.io/npm/v/@betterer/tsquery.svg)](https://www.npmjs.com/package/@betterer/tsquery)
 
-TSQuery betterer for [**`betterer`**](https://github.com/phenomnomnominal/betterer).
+[**TSQuery**](https://github.com/phenomnomnominal/tsquery) betterer for [**`betterer`**](https://github.com/phenomnomnominal/betterer).
 
 ## Description
 
-Use this betterer to incrementally remove TSQuery matches from your codebase!
+Use this betterer to incrementally remove TSQuery matches from your codebase! See the [TSQuery doecumentation](https://github.com/phenomnomnominal/tsquery) for more details about the query syntax.
 
 ## Usage
 

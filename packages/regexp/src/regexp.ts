@@ -5,14 +5,22 @@ import * as glob from 'glob';
 import { promisify } from 'util';
 
 import { BettererFileInfo, FileBetterer, createFileBetterer } from '@betterer/betterer';
+import { FILE_GLOB_REQUIRED, REGEXP_REQUIRED } from './errors';
 
 const globAsync = promisify(glob);
 const readAsync = promisify(fs.readFile);
 
-export function regexpBetterer(files: string | Array<string>, regexp: RegExp): FileBetterer {
+export function regexpBetterer(globs: string | Array<string>, regexp: RegExp): FileBetterer {
+  if (!globs) {
+    throw FILE_GLOB_REQUIRED();
+  }
+  if (!regexp) {
+    throw REGEXP_REQUIRED();
+  }
+
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
-  const filesArray = Array.isArray(files) ? files : [files];
+  const filesArray = Array.isArray(globs) ? globs : [globs];
   const filesGlobs = filesArray.map((glob) => path.resolve(cwd, glob));
 
   return createFileBetterer(async () => {
