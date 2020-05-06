@@ -1,29 +1,29 @@
 // BETTERER RESULTS V1.
 exports[`no hack comments`] = {
-  timestamp: 1571698942758,
+  timestamp: 1588747442641,
   value: `{
-    "../packages/cli/src/cli.ts": [
+    "../packages/cli/src/cli.ts:2669622844": [
       [7, 2, 7, "RegExp match"]
     ],
-    "../packages/cli/src/init.ts": [
-      [88, 4, 7, "RegExp match"]
+    "../packages/cli/src/init.ts:4072721215": [
+      [81, 4, 7, "RegExp match"]
     ]
   }`
 };
 exports[`no raw console.log`] = {
-  timestamp: 1576893054238,
+  timestamp: 1588747443748,
   value: `{
-    "../packages/betterer/src/betterer/betterer.ts:2405625362": [
-      [71, 2, 11, "TSQuery match"]
+    "../packages/betterer/src/betterer/betterer.ts:2336670047": [
+      [62, 2, 11, "TSQuery match"]
     ],
-    "../packages/betterer/src/runner.ts:995603456": [
-      [160, 4, 11, "TSQuery match"]
+    "../packages/betterer/src/runner/process.ts:507235805": [
+      [27, 4, 11, "TSQuery match"]
     ],
-    "../packages/logger/src/logger.ts:3020313855": [
-      [12, 2, 11, "TSQuery match"],
-      [16, 2, 11, "TSQuery match"],
-      [50, 4, 11, "TSQuery match"],
-      [77, 2, 11, "TSQuery match"]
+    "../packages/logger/src/logger.ts:831716865": [
+      [8, 2, 11, "TSQuery match"],
+      [22, 2, 11, "TSQuery match"],
+      [41, 4, 11, "TSQuery match"],
+      [65, 2, 11, "TSQuery match"]
     ]
   }`
 };
