@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@betterer/betterer": "^0.5.2",
+    "@betterer/errors": "^0.5.0",
     "callsite": "^1.0.0",
     "glob": "^7.1.4",
     "tslib": "^1.10.0"
