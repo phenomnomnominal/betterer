@@ -1,13 +1,32 @@
 {
   "files": [],
   "references": [
-    { "path": "betterer" },
-    { "path": "cli" },
-    { "path": "constraints" },
-    { "path": "eslint" },
-    { "path": "logger" },
-    { "path": "regexp" },
-    { "path": "tsquery" },
-    { "path": "typescript" }
+    {
+      "path": "betterer"
+    },
+    {
+      "path": "cli"
+    },
+    {
+      "path": "constraints"
+    },
+    {
+      "path": "eslint"
+    },
+    {
+      "path": "errors"
+    },
+    {
+      "path": "logger"
+    },
+    {
+      "path": "regexp"
+    },
+    {
+      "path": "tsquery"
+    },
+    {
+      "path": "typescript"
+    }
   ]
 }
