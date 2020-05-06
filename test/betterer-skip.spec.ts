@@ -21,7 +21,7 @@ describe('betterer', () => {
 
     const skipRun = await betterer({
       configPaths: [resolve('./.betterer.skip.ts')],
-      resultsPath,
+      resultsPath
     });
 
     expect(skipRun.ran).toEqual([]);

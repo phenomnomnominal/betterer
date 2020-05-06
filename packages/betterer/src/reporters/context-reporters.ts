@@ -10,7 +10,7 @@ export const contextParallel: BettererContextReporter = {
   },
   finish(): void {
     info('Stopping watch mode 👋');
-  },
+  }
 };
 
 export const contextSerial: BettererContextReporter = {
@@ -60,7 +60,7 @@ export const contextSerial: BettererContextReporter = {
   error(error: BettererError, printed: Array<string>) {
     logError(error);
     process.stdout.write(printed.join(''));
-  },
+  }
 };
 
 function getThings(count: number): string {

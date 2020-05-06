@@ -6,7 +6,7 @@ import {
   LanguageClientOptions,
   RevealOutputChannelOn,
   InitializationFailedHandler,
-  ErrorHandler,
+  ErrorHandler
 } from 'vscode-languageclient';
 
 import { EXTENSION_NAME } from '../constants';
@@ -22,14 +22,14 @@ export function getServerOptions(context: ExtensionContext): ServerOptions {
       module: serverModule,
       transport: TransportKind.ipc,
       runtime,
-      options: { cwd },
+      options: { cwd }
     },
     debug: {
       module: serverModule,
       transport: TransportKind.ipc,
       runtime,
-      options: { execArgv: ['--nolazy', '--inspect=6060'], cwd },
-    },
+      options: { execArgv: ['--nolazy', '--inspect=6060'], cwd }
+    }
   };
 }
 
@@ -48,10 +48,10 @@ export function getClientOptions(errorHandlers: ClientErrorHandlers): LanguageCl
     synchronize: {
       fileEvents: [
         workspace.createFileSystemWatcher('**/.bettere{r.js,r.ts}'),
-        workspace.createFileSystemWatcher('**/package.json'),
-      ],
+        workspace.createFileSystemWatcher('**/package.json')
+      ]
     },
     initializationFailedHandler: initFailed,
-    errorHandler: { error, closed },
+    errorHandler: { error, closed }
   };
 }

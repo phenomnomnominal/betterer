@@ -1,7 +1,7 @@
 import { Uri, workspace, WorkspaceConfiguration } from 'vscode';
 
 export function getAlwaysShowStatus(): boolean {
-  return workspace.getConfiguration('betterer').get('alwaysShowStatus', true)
+  return workspace.getConfiguration('betterer').get('alwaysShowStatus', true);
 }
 
 export function getRuntime(): string {

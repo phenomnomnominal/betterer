@@ -22,7 +22,7 @@ describe('betterer', () => {
 
     await betterer({
       configPaths: [resolve('./.betterer.exclude.ts')],
-      resultsPath,
+      resultsPath
     });
 
     const excludeResult = await readFile(resultsPath);

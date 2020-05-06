@@ -4,5 +4,5 @@ export enum Numbers {
   one,
   two,
   three,
-  four,
+  four
 }

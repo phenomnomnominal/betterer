@@ -41,7 +41,7 @@ export function fixture(fixtureName: string): Fixture {
   const paths = {
     config: resolve(DEFAULT_CONFIG_PATH),
     fixture: fixturePath,
-    results: resolve(DEFAULT_RESULTS_PATH),
+    results: resolve(DEFAULT_RESULTS_PATH)
   };
 
   return {
@@ -69,6 +69,6 @@ export function fixture(fixtureName: string): Fixture {
       } catch {
         // Moving on...
       }
-    },
+    }
   };
 }

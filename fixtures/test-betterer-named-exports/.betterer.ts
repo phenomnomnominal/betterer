@@ -4,5 +4,5 @@ let start = 0;
 
 export const getsBetter = {
   test: () => start++,
-  constraint: bigger,
+  constraint: bigger
 };

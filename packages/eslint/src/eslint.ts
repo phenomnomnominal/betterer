@@ -57,8 +57,8 @@ function getFileIssues(
     useEslintrc: false,
     globals: Object.keys(linterOptions.globals || {}),
     rules: {
-      [ruleName]: ruleOptions,
-    },
+      [ruleName]: ruleOptions
+    }
   });
 
   const report = runner.executeOnFiles([filePath]);
@@ -71,21 +71,25 @@ function getFileIssues(
   });
 }
 
-function eslintMessageToBettererError(filePath: string, source: string, message: Linter.LintMessage): BettererFileIssue {
+function eslintMessageToBettererError(
+  filePath: string,
+  source: string,
+  message: Linter.LintMessage
+): BettererFileIssue {
   const lc = new LinesAndColumns(source);
   const startLocation = lc.indexForLocation({
     line: message.line - 1,
-    column: message.column - 1,
+    column: message.column - 1
   });
   const endLocation = lc.indexForLocation({
     line: message.endLine ? message.endLine - 1 : 0,
-    column: message.endColumn ? message.endColumn - 1 : 0,
+    column: message.endColumn ? message.endColumn - 1 : 0
   });
   return {
     message: message.message,
     filePath: filePath,
     fileText: source,
     start: startLocation as number,
-    end: endLocation as number,
+    end: endLocation as number
   };
 }

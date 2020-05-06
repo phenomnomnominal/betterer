@@ -71,7 +71,7 @@ async function getFileMatches(regexp: RegExp, filePath: string): Promise<Bettere
       filePath,
       fileText,
       start: match.index,
-      end: match.index + matchText.length,
+      end: match.index + matchText.length
     };
   });
 }

@@ -18,7 +18,7 @@ export function activate(context: ExtensionContext): void {
     if (activated) {
       return;
     }
-    workspace.workspaceFolders?.some(folder => {
+    workspace.workspaceFolders?.some((folder) => {
       if (getEnabled(folder)) {
         configurationListener.dispose();
         activated = true;
@@ -55,12 +55,13 @@ async function realActivate(context: ExtensionContext): Promise<void> {
             return CloseAction.DoNotRestart;
           }
           return errorHandler.closed();
-        },
+        }
       })
     );
 
     const status = new BettererStatus(client);
-    const errorHandler = client.createDefaultErrorHandler(); const started = client.start();
+    const errorHandler = client.createDefaultErrorHandler();
+    const started = client.start();
 
     await client.onReady();
 

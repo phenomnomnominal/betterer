@@ -9,9 +9,7 @@ type NoLibraryParams = {
 };
 type NoLibraryResult = {};
 
-export const NoLibraryRequest = new RequestType<NoLibraryParams, NoLibraryResult, void, void>(
-  'betterer/noLibrary'
-);
+export const NoLibraryRequest = new RequestType<NoLibraryParams, NoLibraryResult, void, void>('betterer/noLibrary');
 
 export async function noLibrary(
   client: LanguageClient,
@@ -28,7 +26,7 @@ export async function noLibrary(
       workspaces[workspaceUri] = true;
       updateNoLibraryState(context, { workspaces });
       const item = await info(`Failed to load betterer. See the output for more information.`, {
-        title: 'Go to output',
+        title: 'Go to output'
       });
       if (item) {
         client.outputChannel.show(true);

@@ -10,7 +10,7 @@ export function diff(run: BettererRun): unknown {
 
 const DIFF_OPTIONS = {
   aAnnotation: 'Result',
-  bAnnotation: 'Expected',
+  bAnnotation: 'Expected'
 };
 const NEW_LINE = '\n';
 

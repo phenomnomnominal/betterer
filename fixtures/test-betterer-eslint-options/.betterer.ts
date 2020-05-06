@@ -7,8 +7,8 @@ export default {
       'error',
       {
         selector: 'ExportDefaultDeclaration',
-        message: 'Prefer named exports',
-      },
-    ],
-  ]),
+        message: 'Prefer named exports'
+      }
+    ]
+  ])
 };

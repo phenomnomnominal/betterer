@@ -41,5 +41,5 @@ export const runSerial: BettererRunReporter = {
     br();
     diff(run);
     br();
-  },
+  }
 };

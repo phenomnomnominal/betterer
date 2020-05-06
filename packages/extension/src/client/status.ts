@@ -14,7 +14,7 @@ export const enum Status {
   ok = 1,
   warn = 2,
   error = 3,
-  exit = 4,
+  exit = 4
 }
 
 interface StatusParams {
@@ -63,11 +63,7 @@ export class BettererStatus {
     client.onNotification(ExitCalled, (params) => {
       this._exit();
       const [code, message] = params;
-      client.error(
-        SERVER_PROCESS_ENDED(code),
-        message,
-        true
-      );
+      client.error(SERVER_PROCESS_ENDED(code), message, true);
       error(SERVER_PROCESS_SHUT_DOWN);
     });
   }
@@ -115,8 +111,6 @@ export class BettererStatus {
   }
 
   private _updateStatusBarVisibility(): void {
-    this._showStatusBarItem(
-      (this._serverRunning && this._status !== Status.ok) || getAlwaysShowStatus()
-    );
+    this._showStatusBarItem((this._serverRunning && this._status !== Status.ok) || getAlwaysShowStatus());
   }
 }

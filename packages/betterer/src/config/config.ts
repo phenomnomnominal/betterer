@@ -20,7 +20,7 @@ export function createConfig(partialConfig: BettererConfigPartial): BettererConf
     filters,
     ignores,
     resultsPath,
-    cwd,
+    cwd
   };
 }
 

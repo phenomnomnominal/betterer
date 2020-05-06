@@ -38,7 +38,7 @@ export class ValidationQueue {
       this._queue.push({
         method: type.method,
         document,
-        documentVersion: versionProvider ? versionProvider(document) : undefined,
+        documentVersion: versionProvider ? versionProvider(document) : undefined
       });
       this._trigger();
     });
@@ -49,7 +49,7 @@ export class ValidationQueue {
     this._queue.push({
       method: ValidateNotification.method,
       document: event.document,
-      documentVersion: event.document.version,
+      documentVersion: event.document.version
     });
     this._trigger();
   }

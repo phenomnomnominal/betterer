@@ -5,7 +5,7 @@ import { COULDNT_READ_CONFIG } from '../errors';
 import { BettererReporters } from '../reporters';
 import { print, read, write, NO_PREVIOUS_RESULT, BettererExpectedResults, BettererExpectedResult } from '../results';
 import { BettererTest, BettererTests, isBettererTest } from '../test';
-import { BettererFilePaths } from '../watcher'
+import { BettererFilePaths } from '../watcher';
 import { BettererRun } from './run';
 import { BettererStats } from './statistics';
 import { BettererRuns } from './types';
@@ -20,7 +20,7 @@ export class BettererContext {
     return context;
   }
 
-  private constructor(public readonly config: BettererConfig, private _reporters?: BettererReporters) { }
+  private constructor(public readonly config: BettererConfig, private _reporters?: BettererReporters) {}
 
   public get stats(): BettererStats {
     if (!this._stats) {
@@ -30,9 +30,7 @@ export class BettererContext {
   }
 
   public async process(runs: BettererRuns): Promise<BettererStats> {
-    const printed: Array<string> = await Promise.all(runs
-      .filter((run) => run.shouldPrint)
-      .map((run) => print(run)));
+    const printed: Array<string> = await Promise.all(runs.filter((run) => run.shouldPrint).map((run) => print(run)));
     let error: BettererError | null = null;
     try {
       await write(printed, this.config.resultsPath);

@@ -4,7 +4,7 @@ import {
   BettererFileIssueMap,
   BettererFilePaths,
   BettererFileHashMap,
-  BettererFileHashes,
+  BettererFileHashes
 } from './types';
 
 export class BettererFiles<BettererFileIssueType> {

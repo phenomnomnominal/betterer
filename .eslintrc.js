@@ -5,12 +5,12 @@ const BASE_EXTENDS = [
   'plugin:@typescript-eslint/recommended',
   'plugin:@typescript-eslint/recommended-requiring-type-checking',
   'prettier/@typescript-eslint',
-  'plugin:prettier/recommended',
-]
+  'plugin:prettier/recommended'
+];
 
 const BASE_RULES = {
-  'eol-last': [2, "always"]
-}
+  'eol-last': [2, 'always']
+};
 
 module.exports = {
   env: {
@@ -43,11 +43,7 @@ module.exports = {
         jest: true
       },
       plugins: ['jest'],
-      extends: [
-        ...BASE_EXTENDS,
-        'plugin:jest/recommended',
-        'plugin:jest/style'
-      ]
+      extends: [...BASE_EXTENDS, 'plugin:jest/recommended', 'plugin:jest/style']
     },
     {
       files: ['docs/**/*'],

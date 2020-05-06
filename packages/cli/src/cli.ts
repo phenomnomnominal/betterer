@@ -5,7 +5,7 @@ import { CLIArguments } from './types';
 const enum Commands {
   start = 'start',
   init = 'init',
-  watch = 'watch',
+  watch = 'watch'
 }
 
 const COMMANDS: Array<string> = [Commands.start, Commands.init, Commands.watch];

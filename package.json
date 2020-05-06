@@ -10,13 +10,12 @@
   ],
   "scripts": {
     "betterer": "node ./packages/cli/./bin/betterer",
-    "build": "yarn clean && yarn && yarn compile && yarn lint && yarn test && yarn betterer",
+    "build": "yarn clean && yarn && yarn compile && yarn format && yarn lint && yarn test && yarn betterer",
     "clean": "rimraf reports && lerna exec \"rimraf dist\" && rimraf ./**/tsconfig.tsbuildinfo && lerna exec \"rimraf node_modules\" && rimraf node_modules",
     "compile": "tsc -b packages",
     "compile:watch": "tsc -b packages -w",
-    "format:code": "eslint \"./packages/**/src/*.{js,ts}\" \"./test/**/*.{js,ts}\" \"./*.{js,ts}\" --fix",
-    "format:files": "prettier \"**/!(*.snap)\" --write --loglevel=silent",
-    "lint": "yarn format:code && yarn format:files",
+    "lint": "eslint \"./packages/**/src/*.{js,ts}\" \"./test/**/*.{js,ts}\" \"./*.{js,ts}\" --fix",
+    "format": "prettier \"**/!(*.snap)\" --write --loglevel=silent",
     "test": "jest",
     "test:debug": "jest --runInBand",
     "prepublishOnly": "yarn run build"
@@ -55,6 +54,6 @@
     }
   },
   "lint-staged": {
-    "*.js": "eslint --fix"
+    "*": "yarn build"
   }
 }

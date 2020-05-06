@@ -5,6 +5,6 @@ module.exports = {
     test: () => {
       throw new Error();
     },
-    constraint: bigger,
-  },
+    constraint: bigger
+  }
 };

@@ -4,7 +4,7 @@ import {
   TextDocumentSyncKind,
   DidChangeWatchedFilesNotification,
   DidChangeConfigurationNotification,
-  DidChangeWorkspaceFoldersNotification,
+  DidChangeWorkspaceFoldersNotification
 } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
@@ -40,10 +40,10 @@ function init(): void {
           change: TextDocumentSyncKind.Incremental,
           willSaveWaitUntil: false,
           save: {
-            includeText: false,
-          },
-        },
-      },
+            includeText: false
+          }
+        }
+      }
     };
   });
 

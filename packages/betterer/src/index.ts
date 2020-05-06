@@ -34,7 +34,7 @@ export async function betterer(
 
     if (isBoolean(watchModeOrFilePath)) {
       const context = await BettererContext.create(finalConfig, parallelReporters);
-      const watcher = watch(context, filePaths => {
+      const watcher = watch(context, (filePaths) => {
         parallel(context, filePaths);
       });
       return function (): void {

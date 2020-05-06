@@ -11,7 +11,7 @@ const enum BettererRunStatus {
   neww = 'new',
   same = 'same',
   skipped = 'skipped',
-  worse = 'worse',
+  worse = 'worse'
 }
 
 export class BettererRun {

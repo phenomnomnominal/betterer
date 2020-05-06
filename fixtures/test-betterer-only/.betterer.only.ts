@@ -5,15 +5,15 @@ export default {
   'test 1': {
     test: () => Date.now(),
     constraint: bigger,
-    isOnly: true,
+    isOnly: true
   },
   'test 2': {
     test: () => Date.now(),
-    constraint: bigger,
+    constraint: bigger
   },
   'test 3': {
     test: () => Date.now(),
-    constraint: bigger,
+    constraint: bigger
   },
-  'test 4': regexpBetterer('./src/**/*.ts', /(\/\/\s*HACK)/i).only(),
+  'test 4': regexpBetterer('./src/**/*.ts', /(\/\/\s*HACK)/i).only()
 };

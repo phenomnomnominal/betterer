@@ -27,5 +27,5 @@ export const runnerParallel: BettererRunnerReporter = {
       report += `"${run.name}" got worse. 😔`;
     });
     overwrite(report);
-  },
+  }
 };

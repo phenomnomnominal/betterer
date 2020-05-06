@@ -17,5 +17,3 @@ test/__snapshots__/**
 .npmrc
 .prettierignore
 .yarnrc
-**/*.js
-**/*.ts

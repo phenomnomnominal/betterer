@@ -14,7 +14,7 @@ type Betterer = typeof betterer;
 export class Validator {
   private _betterer: Betterer | null = null;
 
-  constructor(private _connection: IConnection, private _documents: TextDocuments<TextDocument>) { }
+  constructor(private _connection: IConnection, private _documents: TextDocuments<TextDocument>) {}
 
   public async single(document: TextDocument): Promise<void> {
     // We validate document in a queue but open / close documents directly. So we need to deal with the
@@ -63,16 +63,22 @@ export class Validator {
   }
 }
 
-function createDiagnostic(name: string, start: Position, end: Position, message: string, severity: DiagnosticSeverity): Diagnostic {
+function createDiagnostic(
+  name: string,
+  start: Position,
+  end: Position,
+  message: string,
+  severity: DiagnosticSeverity
+): Diagnostic {
   return {
     message,
     severity,
     source: EXTENSION_NAME,
     range: {
       start,
-      end,
+      end
     },
-    code: `[${name}]`,
+    code: `[${name}]`
   };
 }
 

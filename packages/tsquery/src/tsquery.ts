@@ -49,7 +49,7 @@ function getFileMatches(query: string, sourceFile: SourceFile): BettererFileIssu
       filePath: sourceFile.fileName,
       fileText: sourceFile.getFullText(),
       start: match.getStart(),
-      end: match.getEnd(),
+      end: match.getEnd()
     };
   });
 }

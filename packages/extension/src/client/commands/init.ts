@@ -26,7 +26,10 @@ export async function initBetterer(): Promise<void> {
     return;
   }
 
-  const folder = await pickFolder(foldersWithoutConfig, `Select a workspace folder to initialise ${EXTENSION_NAME} in:`);
+  const folder = await pickFolder(
+    foldersWithoutConfig,
+    `Select a workspace folder to initialise ${EXTENSION_NAME} in:`
+  );
   if (!folder) {
     return;
   }

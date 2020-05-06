@@ -5,5 +5,5 @@ export class BettererFile<BettererFileIssueType> {
     public readonly filePath: string,
     public readonly fileHash: string,
     public readonly fileIssues: BettererFileIssues<BettererFileIssueType>
-  ) { }
+  ) {}
 }

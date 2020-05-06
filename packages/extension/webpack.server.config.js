@@ -11,20 +11,20 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/,
-      },
-    ],
+        exclude: /node_modules/
+      }
+    ]
   },
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: ['.ts', '.js']
   },
   output: {
     filename: 'server.js',
     path: path.resolve(__dirname, 'dist', 'server'),
     libraryTarget: 'commonjs2',
-    devtoolModuleFilenameTemplate: '../[resource-path]',
+    devtoolModuleFilenameTemplate: '../[resource-path]'
   },
   watchOptions: {
-    ignored: /node_modules/,
-  },
+    ignored: /node_modules/
+  }
 };

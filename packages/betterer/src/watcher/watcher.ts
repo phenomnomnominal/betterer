@@ -9,7 +9,7 @@ const EMIT_EVENTS = ['add', 'change'];
 export function watch(context: BettererContext, change: BettererWatchChangeHandler): FSWatcher {
   const watcher = chokidar(context.config.cwd, {
     ignoreInitial: true,
-    ignored: [...WATCH_IGNORES, ...(context.config.ignores || [])],
+    ignored: [...WATCH_IGNORES, ...(context.config.ignores || [])]
   });
   watcher.on('all', (event: string, path: string) => {
     // TODO: Debounce and group files:

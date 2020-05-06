@@ -7,7 +7,7 @@ export default {
   'test 1': {
     test: () => start++,
     constraint: bigger,
-    isSkipped: true,
+    isSkipped: true
   },
-  'test 2': regexpBetterer('./src/**/*.ts', /(\/\/\s*HACK)/i).skip(),
+  'test 2': regexpBetterer('./src/**/*.ts', /(\/\/\s*HACK)/i).skip()
 };

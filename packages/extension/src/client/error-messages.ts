@@ -22,7 +22,7 @@ export const ALREADY_CONFIGURED = (workspaceFolders: Array<WorkspaceFolder>): st
 
 const DISABLE_FOR_WORKSPACE = (workspaceFolder: WorkspaceFolder): string => {
   const { name } = workspaceFolder;
-  return `Alternatively you can disable ${NAME} for the workspace folder "${name}" by executing the 'Disable ${NAME}' command`
+  return `Alternatively you can disable ${NAME} for the workspace folder "${name}" by executing the 'Disable ${NAME}' command`;
 };
 
 export const BETTERER_CONFIG_FILE_NOT_FOUND = (workspaceFolder: WorkspaceFolder): string => {
@@ -31,12 +31,14 @@ No ${NAME} configuration (e.g. ${DEFAULT_CONFIG_FILE}) found for workspace: ${wo
 The workspace will not be validated. Consider executing the 'Initialise ${NAME}' command to add ${NAME} to the workspace.
 
 ${DISABLE_FOR_WORKSPACE(workspaceFolder)}
-  `
+  `;
 };
 
 export const BETTERER_LIBRARY_NOT_INSTALLED = (workspaceFolder: WorkspaceFolder): string => {
   return `
-To use ${NAME} please install it by running "npm install @betterer/cli -D" in the workspace folder "${workspaceFolder.name}".
+To use ${NAME} please install it by running "npm install @betterer/cli -D" in the workspace folder "${
+    workspaceFolder.name
+  }".
 You will need to reopen the workspace after installing ${NAME}.
 
 ${DISABLE_FOR_WORKSPACE(workspaceFolder)}
@@ -47,5 +49,6 @@ const SEE_OUTPUT_CHANNEL = `See the '${NAME}' output channel for details.`;
 
 export const CLIENT_START_FAILED = `The ${NAME} extension couldn't be started. ${SEE_OUTPUT_CHANNEL}`;
 export const SERVER_START_FAILED = `The ${NAME} server couldn't be started. ${SEE_OUTPUT_CHANNEL}`;
-export const SERVER_PROCESS_ENDED = (code: number): string => `Server process exited with code "${code}". This usually indicates an invalid ${NAME} configuration.`;
+export const SERVER_PROCESS_ENDED = (code: number): string =>
+  `Server process exited with code "${code}". This usually indicates an invalid ${NAME} configuration.`;
 export const SERVER_PROCESS_SHUT_DOWN = `The ${NAME} server shut down itself. ${SEE_OUTPUT_CHANNEL}`;
