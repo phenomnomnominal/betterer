@@ -8,13 +8,21 @@ Simple constraint functions for use with [**`betterer`**](https://github.com/phe
 
 ## Usage
 
+### Bigger
+
 ```typescript
-import { bigger, smaller } from '@betterer/constraints';
+import { bigger } from '@betterer/constraints';
 
 bigger(1, 2); // worse;
 bigger(1, 1); // worse;
 bigger(2, 1); // better;
 bigger(2, 2); // same;
+```
+
+### Smaller
+
+```typescript
+import { smaller } from '@betterer/constraints';
 
 smaller(2, 1); // worse;
 smaller(1, 1); // worse;
