@@ -60,8 +60,7 @@ describe('betterer init', () => {
     expect(async () => {
       await init(fixturePath, ['node', './bin/betterer']);
       await init(fixturePath, ['node', './bin/betterer']);
+      await reset();
     }).not.toThrow();
-
-    await reset();
   });
 });

@@ -34,7 +34,7 @@ module.exports = {
       rules: {
         ...BASE_RULES,
         '@typescript-eslint/unbound-method': 0,
-        '@typescript-eslint/no-use-before-define': 0
+        '@typescript-eslint/no-use-before-define': [0, { functions: false }]
       }
     },
     {
