@@ -6,7 +6,7 @@ exports[\`eslint enable complex rule\`] = {
   timestamp: 0,
   value: \`{
     \\"../src/index.ts:1015454386\\": [
-      [0, 0, 34, \\"Prefer named exports\\"]
+      [0, 0, 34, \\"Prefer named exports\\", \\"1332276585\\"]
     ]
   }\`
 };"

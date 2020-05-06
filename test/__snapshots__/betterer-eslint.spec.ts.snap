@@ -6,7 +6,7 @@ exports[\`eslint enable new rule\`] = {
   timestamp: 0,
   value: \`{
     \\"../src/index.ts:3201740415\\": [
-      [0, 0, 9, \\"Unexpected \\\\'debugger\\\\' statement.\\"]
+      [0, 0, 9, \\"Unexpected \\\\'debugger\\\\' statement.\\", \\"3201740415\\"]
     ]
   }\`
 };"
