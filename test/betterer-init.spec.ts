@@ -33,11 +33,16 @@ describe('betterer init', () => {
 
     await reset();
 
-    expect(async () => {
+    let throws = false;
+    try {
       await init(fixturePath, ['node', './bin/betterer']);
       await init(fixturePath, ['node', './bin/betterer']);
       await reset();
-    }).not.toThrow();
+    } catch {
+      throws = true;
+    }
+
+    expect(throws).toBe(false);
   });
 });
 
