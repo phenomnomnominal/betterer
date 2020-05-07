@@ -1,4 +1,4 @@
-import * as logDiff from 'jest-diff';
+import logDiff from 'jest-diff';
 
 import { BettererGoal, BettererGoalFunction, BettererTest, BettererConstraint, BettererDiff } from './types';
 

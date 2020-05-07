@@ -1,5 +1,5 @@
 import { codeFrameColumns } from '@babel/code-frame';
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 import * as logUpdate from 'log-update';
 import LinesAndColumns from 'lines-and-columns';
 import * as path from 'path';
