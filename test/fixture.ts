@@ -35,9 +35,11 @@ export function fixture(fixtureName: string): Fixture {
   }
 
   const logs: Array<string> = [];
-  jest.spyOn(console, 'log').mockImplementation((...messages) => {
-    logs.push(...messages.map((m) => m.replace(ANSI_REGEX, '')));
-  });
+  const log = (...messages: Array<string>): void => {
+    logs.push(...messages.filter((m) => !!m?.replace).map((m) => m.replace(ANSI_REGEX, '')));
+  };
+  jest.spyOn(console, 'log').mockImplementation(log);
+  jest.spyOn(console, 'error').mockImplementation(log);
 
   const paths = {
     config: resolve(DEFAULT_CONFIG_PATH),

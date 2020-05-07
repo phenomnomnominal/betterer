@@ -1,21 +1,32 @@
-import { error } from '@betterer/logger';
+import { br, error } from '@betterer/logger';
 
 import { BettererError } from './error';
-import { ErrorDetails, ErrorFactory, ErrorMessageFactory } from './types';
+import { BettererErrorDetails, BettererErrorFactory, BettererErrorMessageFactory } from './types';
 
-const ERROR_MESSAGES = new Map<symbol, ErrorMessageFactory>();
+const ERROR_MESSAGES = new Map<symbol, BettererErrorMessageFactory>();
 
 export function logError(err: BettererError): void {
   const factory = ERROR_MESSAGES.get(err.code);
   if (factory) {
-    error(factory(...err.details));
+    const errors = err.details.filter((detail) => detail instanceof Error);
+    const messages = err.details.filter((detail) => !errors.includes(detail));
+    error(factory(...messages));
+    errors.forEach((e) => {
+      if (e instanceof BettererError) {
+        logError(e);
+      }
+      br();
+      console.error(e);
+    });
   }
 }
 
-export function registerError(factory: ErrorMessageFactory): ErrorFactory {
+export function registerError(factory: BettererErrorMessageFactory): BettererErrorFactory {
   const code = Symbol();
   ERROR_MESSAGES.set(code, factory);
-  return function (...details: ErrorDetails): BettererError {
-    return new BettererError(code, details);
+  return function factory(...details: BettererErrorDetails): BettererError {
+    const error = new BettererError(code, ...details);
+    Error.captureStackTrace(error, factory);
+    return error;
   };
 }

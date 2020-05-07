@@ -1,4 +1,4 @@
-import { betterer } from '@betterer/betterer/src';
+import { betterer } from '@betterer/betterer';
 import { fixture } from './fixture';
 
 describe('betterer', () => {
@@ -40,6 +40,55 @@ describe('betterer', () => {
     const completedTestRun = await betterer({ configPaths, resultsPath });
 
     expect(completedTestRun.completed).toEqual(['typescript use strict mode']);
+
+    expect(logs).toMatchSnapshot();
+
+    await reset();
+  });
+
+  it('should run against a single file', async () => {
+    const { paths, resolve, reset, writeFile } = fixture('test-betterer-typescript');
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+    const indexPath = resolve('./src/index.ts');
+
+    await reset();
+
+    await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
+
+    const [run] = await betterer({ configPaths, resultsPath }, indexPath);
+
+    expect(run.isNew).toEqual(true);
+    expect(run.files).toEqual([indexPath]);
+
+    await reset();
+  });
+
+  it('should throw if there is no configFilePath', async () => {
+    const { paths, logs, reset } = fixture('test-betterer-typescript-no-config-file-path');
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+
+    await reset();
+
+    await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
+
+    expect(logs).toMatchSnapshot();
+
+    await reset();
+  });
+
+  it('should throw if there is no extraCompilerOptions', async () => {
+    const { paths, logs, reset } = fixture('test-betterer-typescript-no-compiler-options');
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+
+    await reset();
+
+    await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
 
     expect(logs).toMatchSnapshot();
 

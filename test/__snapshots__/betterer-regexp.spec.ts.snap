@@ -62,8 +62,8 @@ Array [
   "1 new issue in \\"../src/index.ts\\":",
   "
    RegExp match 
-  1 | // HACK:;
-> 2 | // HACK:;
+  1 | // HACK:
+> 2 | // HACK:
     | ^^^^^^^",
   "",
   "",
@@ -105,5 +105,39 @@ Array [
   "1 thing got better! 😍",
   " ☀️  betterer  succ  ✅  - ",
   "\\"regexp no hack comments\\" met its goal! 🎉",
+]
+`;
+
+exports[`betterer should throw if there is no globs 1`] = `
+Array [
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  erro  🔥  - ",
+  "could not read \\"/Users/craigspence/Documents/Dev Projects/betterer/fixtures/test-betterer-regexp-no-globs/.betterer\\". 😔",
+  " ☀️  betterer  erro  🔥  - ",
+  "For \`@betterer/regexp\` to work, you need to provide a file glob, e.g. \`'./src/**/*'\`. ❌",
+  "",
+]
+`;
+
+exports[`betterer should throw if there is no regexp 1`] = `
+Array [
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  erro  🔥  - ",
+  "could not read \\"/Users/craigspence/Documents/Dev Projects/betterer/fixtures/test-betterer-regexp-no-regexp/.betterer\\". 😔",
+  " ☀️  betterer  erro  🔥  - ",
+  "For \`@betterer/regexp\` to work, you need to provide a RegExp, e.g. \`/^foo$/\`. ❌",
+  "",
 ]
 `;

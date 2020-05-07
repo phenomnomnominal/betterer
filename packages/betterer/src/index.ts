@@ -5,7 +5,7 @@ import { registerExtensions } from './register';
 import { parallelReporters, serialReporters } from './reporters';
 import { parallel, serial } from './runner';
 import { isBoolean, isString } from './utils';
-import { watch } from './watcher';
+import { watch, BettererWatchStop } from './watcher';
 
 export * from './config/public';
 export * from './context/public';
@@ -17,12 +17,12 @@ export * from './watcher/public';
 registerExtensions();
 
 export async function betterer(config: BettererConfigPartial): Promise<BettererStats>;
-export async function betterer(config: BettererConfigPartial, watchMode: boolean): Promise<() => void>;
+export async function betterer(config: BettererConfigPartial, watchMode: boolean): Promise<BettererWatchStop>;
 export async function betterer(config: BettererConfigPartial, filePath: string): Promise<BettererRuns>;
 export async function betterer(
   config: BettererConfigPartial,
   watchModeOrFilePath?: boolean | string
-): Promise<BettererStats | BettererRuns | (() => void)> {
+): Promise<BettererStats | BettererRuns | BettererWatchStop> {
   try {
     const finalConfig = createConfig(config);
 
@@ -33,18 +33,20 @@ export async function betterer(
     }
 
     if (isBoolean(watchModeOrFilePath)) {
-      const context = await BettererContext.create(finalConfig, parallelReporters);
-      const watcher = watch(context, (filePaths) => {
-        parallel(context, filePaths);
+      let context: BettererContext;
+      let running: Promise<BettererRuns>;
+      const watcher = await watch(finalConfig, async (filePaths) => {
+        context = await BettererContext.create(finalConfig, parallelReporters);
+        running = parallel(context, filePaths);
       });
-      return function (): void {
-        watcher.close();
+      return async function (): Promise<void> {
+        await watcher.close();
+        await context?.process(await running);
       };
     }
 
     const context = await BettererContext.create(finalConfig, serialReporters);
-    const runs = await serial(context);
-    return await context.process(runs);
+    return await context.process(await serial(context));
   } catch (e) {
     logError(e);
     throw e;

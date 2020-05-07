@@ -1,10 +1,14 @@
-const { bigger } = require('@betterer/constraints/src');
+const { bigger, smaller } = require('@betterer/constraints');
 
 let start = 0;
 
 module.exports = {
-  'stays the same': {
+  [`doesn't get bigger`]: {
     test: () => start,
     constraint: bigger
+  },
+  [`doesn't get smaller`]: {
+    test: () => start,
+    constraint: smaller
   }
 };

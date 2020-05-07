@@ -127,8 +127,8 @@ export class BettererContext {
         test.setName(name);
         return test;
       });
-    } catch {
-      throw COULDNT_READ_CONFIG(configPath);
+    } catch (e) {
+      throw COULDNT_READ_CONFIG(configPath, e);
     }
   }
 

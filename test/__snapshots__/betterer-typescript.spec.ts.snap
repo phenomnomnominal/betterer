@@ -108,3 +108,36 @@ Array [
   "\\"typescript use strict mode\\" met its goal! 🎉",
 ]
 `;
+
+exports[`betterer should throw if there is no configFilePath 1`] = `
+Array [
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  erro  🔥  - ",
+  "could not read \\"/Users/craigspence/Documents/Dev Projects/betterer/fixtures/test-betterer-typescript-no-config-file-path/.betterer\\". 😔",
+  "For \`@betterer/tsquery\` to work, you need to provide the path to a tsconfig.json file, e.g. \`'./tsconfig.json'\`. ❌",
+  "",
+]
+`;
+
+exports[`betterer should throw if there is no extraCompilerOptions 1`] = `
+Array [
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  erro  🔥  - ",
+  "could not read \\"/Users/craigspence/Documents/Dev Projects/betterer/fixtures/test-betterer-typescript-no-compiler-options/.betterer\\". 😔",
+  " ☀️  betterer  erro  🔥  - ",
+  "For \`@betterer/typescript\` to work, you need to provide compiler options, e.g. \`{ strict: true }\`. ❌",
+  "",
+]
+`;

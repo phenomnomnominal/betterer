@@ -1,4 +1,4 @@
-import * as logDiff from 'jest-diff';
+import logDiff from 'jest-diff';
 
 import { BettererRun } from '../context';
 

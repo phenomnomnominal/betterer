@@ -1,11 +1,14 @@
-import { ErrorDetails } from './types';
+import { BettererErrorDetails } from './types';
 
 export class BettererError extends Error {
-  public details: ErrorDetails;
+  public details: BettererErrorDetails;
 
-  constructor(public code: symbol, ...details: ErrorDetails) {
+  constructor(public code: symbol, ...details: BettererErrorDetails) {
     super();
 
-    this.details = details;
+    Error.captureStackTrace(this, BettererError);
+    Object.setPrototypeOf(this, new.target.prototype);
+
+    this.details = details.flat();
   }
 }

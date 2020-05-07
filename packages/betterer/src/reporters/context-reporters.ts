@@ -10,6 +10,10 @@ export const contextParallel: BettererContextReporter = {
   },
   finish(): void {
     info('Stopping watch mode 👋');
+  },
+  error(error: BettererError, printed: Array<string>) {
+    logError(error);
+    process.stdout.write(printed.join(''));
   }
 };
 

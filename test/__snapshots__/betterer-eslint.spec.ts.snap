@@ -107,3 +107,37 @@ Array [
   "\\"eslint enable new rule\\" met its goal! 🎉",
 ]
 `;
+
+exports[`betterer should throw if there is no globs 1`] = `
+Array [
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  erro  🔥  - ",
+  "could not read \\"/Users/craigspence/Documents/Dev Projects/betterer/fixtures/test-betterer-eslint-no-globs/.betterer\\". 😔",
+  " ☀️  betterer  erro  🔥  - ",
+  "For \`@betterer/eslint\` to work, you need to provide a file glob, e.g. \`'./src/**/*'\`. ❌",
+  "",
+]
+`;
+
+exports[`betterer should throw if there is no rule 1`] = `
+Array [
+  "
+   \\\\ | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+ ",
+  " ☀️  betterer  erro  🔥  - ",
+  "could not read \\"/Users/craigspence/Documents/Dev Projects/betterer/fixtures/test-betterer-eslint-no-rule/.betterer\\". 😔",
+  " ☀️  betterer  erro  🔥  - ",
+  "For \`@betterer/eslint\` to work, you need to provide rule options, e.g. \`['no-debugger', 'error']\`. ❌",
+  "",
+]
+`;

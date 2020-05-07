@@ -3,7 +3,7 @@ import { BettererTest } from '../test';
 import { BettererFilePaths } from '../watcher';
 import { BettererContext } from './context';
 
-const enum BettererRunStatus {
+enum BettererRunStatus {
   better = 'better',
   complete = 'complete',
   failed = 'failed',

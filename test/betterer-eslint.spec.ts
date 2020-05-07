@@ -1,4 +1,4 @@
-import { betterer } from '@betterer/betterer/src';
+import { betterer } from '@betterer/betterer';
 
 import { fixture } from './fixture';
 
@@ -41,6 +41,55 @@ describe('betterer', () => {
     const completedTestRun = await betterer({ configPaths, resultsPath });
 
     expect(completedTestRun.completed).toEqual(['eslint enable new rule']);
+
+    expect(logs).toMatchSnapshot();
+
+    await reset();
+  });
+
+  it('should run against a single file', async () => {
+    const { paths, resolve, reset, writeFile } = fixture('test-betterer-eslint');
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+    const indexPath = resolve('./src/index.ts');
+
+    await reset();
+
+    await writeFile(indexPath, `debugger;`);
+
+    const [run] = await betterer({ configPaths, resultsPath }, indexPath);
+
+    expect(run.isNew).toEqual(true);
+    expect(run.files).toEqual([indexPath]);
+
+    await reset();
+  });
+
+  it('should throw if there is no globs', async () => {
+    const { paths, logs, reset } = fixture('test-betterer-eslint-no-globs');
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+
+    await reset();
+
+    await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
+
+    expect(logs).toMatchSnapshot();
+
+    await reset();
+  });
+
+  it('should throw if there is no rule', async () => {
+    const { paths, logs, reset } = fixture('test-betterer-eslint-no-rule');
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+
+    await reset();
+
+    await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
 
     expect(logs).toMatchSnapshot();
 
