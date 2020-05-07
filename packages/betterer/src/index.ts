@@ -1,6 +1,6 @@
 import { logo } from '@betterer/logger';
 
-import { BettererConfig } from './config';
+import { BettererConfigPartial, createConfig } from './config';
 import { registerExtensions } from './register';
 import { run, BettererStats } from './runner';
 
@@ -12,8 +12,9 @@ export * from './runner';
 
 registerExtensions();
 
-export async function betterer(config: BettererConfig): Promise<BettererStats> {
+export async function betterer(config: BettererConfigPartial): Promise<BettererStats> {
   logo();
-  const result = await run(config);
+  const finalConfig = createConfig(config);
+  const result = await run(finalConfig);
   return result.stats;
 }
