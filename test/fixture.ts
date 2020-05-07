@@ -1,13 +1,14 @@
 import { ensureFile, remove } from 'fs-extra';
 import * as fs from 'graceful-fs';
 import * as path from 'path';
-import stripAnsi from 'strip-ansi';
+import * as ansiRegex from 'ansi-regex';
 
 import { DEFAULT_CONFIG_PATH, DEFAULT_RESULTS_PATH } from '@betterer/cli/src/constants';
 
 const deleteFile = fs.promises.unlink;
 const readFile = fs.promises.readFile;
 const writeFile = fs.promises.writeFile;
+const ANSI_REGEX = ansiRegex();
 
 type Paths = {
   config: string;
@@ -34,7 +35,7 @@ export function fixture(fixtureName: string): Fixture {
 
   const logs: Array<string> = [];
   jest.spyOn(console, 'log').mockImplementation((...messages) => {
-    logs.push(...messages.map((m) => stripAnsi(m)));
+    logs.push(...messages.map((m) => m.replace(ANSI_REGEX, '')));
   });
 
   const paths = {
