@@ -1,4 +1,4 @@
-import { start } from '@betterer/cli/src';
+import { start } from '@betterer/cli';
 
 import { fixture } from './fixture';
 

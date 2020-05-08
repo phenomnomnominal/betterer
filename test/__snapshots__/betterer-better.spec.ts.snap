@@ -10,13 +10,17 @@ Array [
    / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
-  "running \\"gets better\\"!",
+  "running \\"should shrink\\"!",
   " ☀️  betterer  succ  ✅  - ",
-  "\\"gets better\\" got checked for the first time! 🎉",
+  "\\"should shrink\\" got checked for the first time! 🎉",
   " ☀️  betterer  info  💬  - ",
-  "1 thing got checked. 🤔",
+  "running \\"should grow\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"should grow\\" got checked for the first time! 🎉",
   " ☀️  betterer  info  💬  - ",
-  "1 thing got checked for the first time! 🎉",
+  "2 things got checked. 🤔",
+  " ☀️  betterer  info  💬  - ",
+  "2 things got checked for the first time! 🎉",
   "
    \\\\ | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
@@ -25,19 +29,27 @@ Array [
    / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
-  "running \\"gets better\\"!",
+  "running \\"should shrink\\"!",
   " ☀️  betterer  succ  ✅  - ",
-  "\\"gets better\\" got better! 😍",
+  "\\"should shrink\\" got better! 😍",
   " ☀️  betterer  info  💬  - ",
-  "1 thing got checked. 🤔",
+  "running \\"should grow\\"!",
   " ☀️  betterer  succ  ✅  - ",
-  "1 thing got better! 😍",
+  "\\"should grow\\" got better! 😍",
+  " ☀️  betterer  info  💬  - ",
+  "2 things got checked. 🤔",
+  " ☀️  betterer  succ  ✅  - ",
+  "2 things got better! 😍",
 ]
 `;
 
 exports[`betterer should work when a test gets better 2`] = `
 "// BETTERER RESULTS V1.
-exports[\`gets better\`] = {
+exports[\`should shrink\`] = {
+  timestamp: 0,
+  value: \`1\`
+};
+exports[\`should grow\`] = {
   timestamp: 0,
   value: \`1\`
 };"

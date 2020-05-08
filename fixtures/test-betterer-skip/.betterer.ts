@@ -1,5 +1,5 @@
-import { bigger } from '@betterer/constraints/src';
-import { regexpBetterer } from '@betterer/regexp/src';
+import { bigger } from '@betterer/constraints';
+import { regexpBetterer } from '@betterer/regexp';
 
 let start = 0;
 
