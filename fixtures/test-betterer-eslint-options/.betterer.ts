@@ -1,4 +1,4 @@
-import { eslintBetterer } from '@betterer/eslint/src';
+import { eslintBetterer } from '@betterer/eslint';
 
 export default {
   'eslint enable complex rule': eslintBetterer('./src/**/*.ts', [

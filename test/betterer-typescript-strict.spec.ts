@@ -1,4 +1,4 @@
-import { betterer } from '@betterer/betterer/src';
+import { betterer } from '@betterer/betterer';
 import { fixture } from './fixture';
 
 const INDEX_SOURCE = `export function extractIds(list) {

@@ -1,4 +1,4 @@
-import { betterer } from '@betterer/betterer/src';
+import { betterer } from '@betterer/betterer';
 import { fixture } from './fixture';
 
 describe('betterer', () => {
@@ -12,11 +12,11 @@ describe('betterer', () => {
 
     const firstRun = await betterer({ configPaths, resultsPath });
 
-    expect(firstRun.new).toEqual(['gets worse']);
+    expect(firstRun.new).toEqual(['should shrink', 'should grow']);
 
     const secondRun = await betterer({ configPaths, resultsPath });
 
-    expect(secondRun.worse).toEqual(['gets worse']);
+    expect(secondRun.worse).toEqual(['should shrink', 'should grow']);
 
     expect(logs).toMatchSnapshot();
 
