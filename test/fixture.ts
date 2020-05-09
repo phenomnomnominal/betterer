@@ -2,6 +2,8 @@ import { ensureFile, remove } from 'fs-extra';
 import * as fs from 'graceful-fs';
 import * as path from 'path';
 import * as ansiRegex from 'ansi-regex';
+import { BettererWatcher } from '@betterer/betterer/dist/watcher';
+import { BettererRuns } from '@betterer/betterer';
 
 const DEFAULT_CONFIG_PATH = './.betterer';
 const DEFAULT_RESULTS_PATH = `./.betterer.results`;
@@ -15,6 +17,7 @@ type Paths = {
   config: string;
   fixture: string;
   results: string;
+  cwd: string;
 };
 
 type Fixture = {
@@ -24,6 +27,7 @@ type Fixture = {
   readFile(filePath: string): Promise<string>;
   resolve(filePath: string): string;
   writeFile(filePath: string, text: string): Promise<void>;
+  waitForRun(watcher: BettererWatcher): Promise<BettererRuns>;
   reset(): Promise<void>;
 };
 
@@ -44,7 +48,8 @@ export function fixture(fixtureName: string): Fixture {
   const paths = {
     config: resolve(DEFAULT_CONFIG_PATH),
     fixture: fixturePath,
-    results: resolve(DEFAULT_RESULTS_PATH)
+    results: resolve(DEFAULT_RESULTS_PATH),
+    cwd: resolve('.')
   };
 
   return {
@@ -60,6 +65,13 @@ export function fixture(fixtureName: string): Fixture {
     async writeFile(filePath: string, text: string): Promise<void> {
       await ensureFile(filePath);
       return writeFile(resolve(filePath), text, 'utf8');
+    },
+    waitForRun(watcher): Promise<BettererRuns> {
+      return new Promise((resolve) => {
+        watcher.onRun((run) => {
+          resolve(run);
+        });
+      });
     },
     async reset(): Promise<void> {
       try {

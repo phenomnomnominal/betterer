@@ -20,7 +20,7 @@ export function regexpBetterer(globs: string | ReadonlyArray<string>, regexp: Re
   const globsArray = Array.isArray(globs) ? globs : [globs];
   const resolvedGlobs = globsArray.map((glob) => path.resolve(cwd, glob));
 
-  return new BettererFileTest(async (files = []) => {
+  return new BettererFileTest(async (files) => {
     regexp = new RegExp(regexp.source, regexp.flags.includes('g') ? regexp.flags : `${regexp.flags}g`);
 
     const testFiles = [...files];

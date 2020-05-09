@@ -47,25 +47,6 @@ describe('betterer', () => {
     await reset();
   });
 
-  it('should run against a single file', async () => {
-    const { paths, resolve, reset, writeFile } = fixture('test-betterer-regexp');
-
-    const configPaths = [paths.config];
-    const resultsPath = paths.results;
-    const indexPath = resolve('./src/index.ts');
-
-    await reset();
-
-    await writeFile(indexPath, `// HACK:`);
-
-    const [run] = await betterer({ configPaths, resultsPath }, indexPath);
-
-    expect(run.isNew).toEqual(true);
-    expect(run.files).toEqual([indexPath]);
-
-    await reset();
-  });
-
   it('should throw if there is no globs', async () => {
     const { paths, logs, reset } = fixture('test-betterer-regexp-no-globs');
 

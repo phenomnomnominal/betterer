@@ -1,6 +1,12 @@
 import { BettererError } from '@betterer/errors';
 
-import { BettererConfig, BettererConfigFilters, BettererConfigPaths } from '../config';
+import {
+  BettererConfig,
+  BettererConfigPartial,
+  BettererConfigFilters,
+  BettererConfigPaths,
+  createConfig
+} from '../config';
 import { COULDNT_READ_CONFIG } from '../errors';
 import { BettererReporters } from '../reporters';
 import { print, read, write, NO_PREVIOUS_RESULT, BettererExpectedResults, BettererExpectedResult } from '../results';
@@ -14,19 +20,23 @@ export class BettererContext {
   private _stats: BettererStats | null = null;
   private _tests: BettererTests = [];
 
-  public static async create(config: BettererConfig, reporters?: BettererReporters): Promise<BettererContext> {
-    const context = new BettererContext(config, reporters);
-    await context._init();
-    return context;
-  }
+  public config: BettererConfig;
 
-  private constructor(public readonly config: BettererConfig, private _reporters?: BettererReporters) {}
+  constructor(config: BettererConfigPartial, private _reporters?: BettererReporters) {
+    this.config = createConfig(config);
+    this._reporters?.context?.start?.();
+  }
 
   public get stats(): BettererStats {
     if (!this._stats) {
       throw new Error();
     }
     return this._stats;
+  }
+
+  public async setup(): Promise<void> {
+    this._tests = await this._initTests(this.config.configPaths);
+    this._initFilters(this.config.filters);
   }
 
   public async process(runs: BettererRuns): Promise<BettererStats> {
@@ -130,12 +140,6 @@ export class BettererContext {
     } catch (e) {
       throw COULDNT_READ_CONFIG(configPath, e);
     }
-  }
-
-  private async _init(): Promise<void> {
-    this._reporters?.context?.start?.();
-    this._tests = await this._initTests(this.config.configPaths);
-    this._initFilters(this.config.filters);
   }
 
   private async _initTests(configPaths: BettererConfigPaths = []): Promise<BettererTests> {

@@ -25,7 +25,7 @@ export function eslintBetterer(globs: string | ReadonlyArray<string>, rule: ESLi
   const globsArray = Array.isArray(globs) ? globs : [globs];
   const resolvedGlobs = globsArray.map((glob) => path.resolve(cwd, glob));
 
-  return new BettererFileTest(async (files = []) => {
+  return new BettererFileTest(async (files) => {
     const cli = new CLIEngine({});
 
     const testFiles = [...files];

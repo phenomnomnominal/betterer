@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`betterer.watch should tsquery run in watch mode 1`] = `
+Array [
+  " ☀️  betterer  info  💬  - ",
+  "Running betterer in watch mode 🎉",
+  " ☀️  betterer  info  💬  - ",
+  "Stopping watch mode 👋",
+]
+`;

@@ -47,48 +47,6 @@ describe('betterer', () => {
     await reset();
   });
 
-  it('should run against a single file', async () => {
-    const { paths, resolve, reset, writeFile } = fixture('test-betterer-tsquery');
-
-    const configPaths = [paths.config];
-    const resultsPath = paths.results;
-    const indexPath = resolve('./src/index.ts');
-
-    await reset();
-
-    await writeFile(indexPath, `console.log('foo');`);
-
-    const [run] = await betterer({ configPaths, resultsPath }, indexPath);
-
-    expect(run.isNew).toEqual(true);
-    expect(run.files).toEqual([indexPath]);
-
-    await reset();
-  });
-
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('should run in watch mode', async () => {
-    const { logs, paths, resolve, reset, writeFile } = fixture('test-betterer-tsquery');
-
-    const configPaths = [paths.config];
-    const resultsPath = paths.results;
-    const indexPath = resolve('./src/index.ts');
-
-    await reset();
-
-    const stop = await betterer({ configPaths, resultsPath }, true);
-
-    await writeFile(indexPath, `console.log('foo');`);
-    await writeFile(indexPath, `console.log('foo');\nconsole.log('foo');`);
-    await writeFile(indexPath, ``);
-
-    expect(logs).toMatchSnapshot();
-
-    await stop();
-
-    await reset();
-  });
-
   it('should throw if there is no configFilePath', async () => {
     const { paths, logs, reset } = fixture('test-betterer-tsquery-no-config-file-path');
 

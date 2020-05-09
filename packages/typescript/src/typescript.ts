@@ -19,7 +19,7 @@ export function typescriptBetterer(configFilePath: string, extraCompilerOptions:
   const cwd = path.dirname(callee.getFileName());
   const absPath = path.resolve(cwd, configFilePath);
 
-  return new BettererFileTest((files = []) => {
+  return new BettererFileTest((files) => {
     const { config } = ts.readConfigFile(absPath, ts.sys.readFile.bind(ts.sys));
     const { compilerOptions } = config;
     const basePath = path.dirname(absPath);

@@ -1,7 +1,7 @@
 {
-  "name": "betterer-test-betterer-init",
+  "name": "betterer-test-betterer-tsquery-single",
   "version": "0.0.1",
-  "description": "betterer-test-betterer-init",
+  "description": "betterer-test-betterer-tsquery-single",
   "private": true,
   "author": "Craig Spence <craigspence0@gmail.com>",
   "license": "MIT"

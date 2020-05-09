@@ -46,25 +46,6 @@ describe('betterer', () => {
     await reset();
   });
 
-  it('should run against a single file', async () => {
-    const { paths, resolve, reset, writeFile } = fixture('test-betterer-typescript');
-
-    const configPaths = [paths.config];
-    const resultsPath = paths.results;
-    const indexPath = resolve('./src/index.ts');
-
-    await reset();
-
-    await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
-
-    const [run] = await betterer({ configPaths, resultsPath }, indexPath);
-
-    expect(run.isNew).toEqual(true);
-    expect(run.files).toEqual([indexPath]);
-
-    await reset();
-  });
-
   it('should throw if there is no configFilePath', async () => {
     const { paths, logs, reset } = fixture('test-betterer-typescript-no-config-file-path');
 

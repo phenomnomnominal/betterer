@@ -19,7 +19,7 @@ export function tsqueryBetterer(configFilePath: string, query: string): Betterer
   const cwd = path.dirname(callee.getFileName());
   const absoluteConfigFilePath = path.resolve(cwd, configFilePath);
 
-  return new BettererFileTest(async (files = []) => {
+  return new BettererFileTest(async (files) => {
     let sourceFiles: ReadonlyArray<SourceFile> = [];
 
     if (files.length === 0) {

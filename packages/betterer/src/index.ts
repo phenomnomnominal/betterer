@@ -1,11 +1,10 @@
 import { logError } from '@betterer/errors';
-import { BettererConfigPartial, createConfig } from './config';
+import { BettererConfigPartial } from './config';
 import { BettererContext, BettererStats, BettererRuns } from './context';
 import { registerExtensions } from './register';
 import { parallelReporters, serialReporters } from './reporters';
 import { parallel, serial } from './runner';
-import { isBoolean, isString } from './utils';
-import { watch, BettererWatchStop } from './watcher';
+import { BettererWatcher } from './watcher';
 
 export * from './config/public';
 export * from './context/public';
@@ -16,39 +15,42 @@ export * from './watcher/public';
 
 registerExtensions();
 
-export async function betterer(config: BettererConfigPartial): Promise<BettererStats>;
-export async function betterer(config: BettererConfigPartial, watchMode: boolean): Promise<BettererWatchStop>;
-export async function betterer(config: BettererConfigPartial, filePath: string): Promise<BettererRuns>;
-export async function betterer(
-  config: BettererConfigPartial,
-  watchModeOrFilePath?: boolean | string
-): Promise<BettererStats | BettererRuns | BettererWatchStop> {
+export async function betterer(config: BettererConfigPartial): Promise<BettererStats> {
   try {
-    const finalConfig = createConfig(config);
-
-    if (isString(watchModeOrFilePath)) {
-      const filePath = watchModeOrFilePath;
-      const context = await BettererContext.create(finalConfig);
-      return parallel(context, [filePath]);
-    }
-
-    if (isBoolean(watchModeOrFilePath)) {
-      let context: BettererContext;
-      let running: Promise<BettererRuns>;
-      const watcher = await watch(finalConfig, async (filePaths) => {
-        context = await BettererContext.create(finalConfig, parallelReporters);
-        running = parallel(context, filePaths);
-      });
-      return async function (): Promise<void> {
-        await watcher.close();
-        await context?.process(await running);
-      };
-    }
-
-    const context = await BettererContext.create(finalConfig, serialReporters);
+    const context = new BettererContext(config, serialReporters);
+    await context.setup();
     return await context.process(await serial(context));
   } catch (e) {
     logError(e);
     throw e;
   }
 }
+
+betterer.single = async function bettererSingle(
+  config: BettererConfigPartial,
+  filePath: string
+): Promise<BettererRuns> {
+  try {
+    const context = new BettererContext(config);
+    await context.setup();
+    return parallel(context, [filePath]);
+  } catch (e) {
+    logError(e);
+    throw e;
+  }
+};
+
+betterer.watch = async function bettererWatch(config: BettererConfigPartial): Promise<BettererWatcher> {
+  try {
+    const context = new BettererContext(config, parallelReporters);
+    const watcher = new BettererWatcher(context, async (filePaths) => {
+      await context.setup();
+      return parallel(context, filePaths);
+    });
+    await watcher.setup();
+    return watcher;
+  } catch (e) {
+    logError(e);
+    throw e;
+  }
+};
