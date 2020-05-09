@@ -22,10 +22,8 @@ checking 2 files... 🤔
  
 checked 2 files:
 
-  <project>/fixtures/test-betterer-watch-debounce/src/fil
-e.ts
-  <project>/fixtures/test-betterer-watch-debounce/src/ind
-ex.ts
+  <project>/fixtures/test-betterer-watch-debounce/src/index.ts
+  <project>/fixtures/test-betterer-watch-debounce/src/file.ts
 
 ",
   " ☀️  betterer  info  💬  - ",

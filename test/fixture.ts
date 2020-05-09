@@ -42,8 +42,7 @@ export function fixture(fixtureName: string): Fixture {
     logs.push(
       ...messages
         .filter((m) => !!m?.replace)
-        .map((m) => m.replace(ANSI_REGEX, ''))
-        .map((m) => m.replace(new RegExp(process.cwd(), 'g'), '<project>'))
+        .map((m) => m.replace(ANSI_REGEX, '').replace(new RegExp(process.cwd(), 'g'), '<project>'))
     );
   };
   const write = (message: string | Uint8Array): boolean => {
@@ -53,6 +52,7 @@ export function fixture(fixtureName: string): Fixture {
   jest.spyOn(console, 'log').mockImplementation(log);
   jest.spyOn(console, 'error').mockImplementation(log);
   jest.spyOn(process.stdout, 'write').mockImplementation(write);
+  process.stdout.columns = 1000;
 
   const paths = {
     config: resolve(DEFAULT_CONFIG_PATH),
