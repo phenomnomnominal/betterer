@@ -8,19 +8,19 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.operating-system }}
+    runs-on: ${{ matrix['operating-system'] }}
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x]
-        operating-system: [windows-latest, ubuntu-latest, macOS-latest]
+        node-version: [10.x, 12.x, 14.x]
+        operating-system: [windows-latest, macOS-latest]
 
     steps:
       - uses: actions/checkout@v2
-      - name: Use node.js ${{ matrix.node-version }}
+      - name: Use node.js ${{ matrix['node-version'] }}
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix['node-version'] }}
       - name: Install dependencies
         uses: sergioramos/yarn-actions/install@master
         with:
