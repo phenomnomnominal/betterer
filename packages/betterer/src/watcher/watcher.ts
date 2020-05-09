@@ -28,7 +28,7 @@ export class BettererWatcher {
         this._files.push(path);
         setTimeout(() => {
           if (this._files.length) {
-            const changed = Array.from(new Set(this._files));
+            const changed = Array.from(new Set(this._files)).sort();
             this._files = [];
             this._handleChange(changed);
           }
