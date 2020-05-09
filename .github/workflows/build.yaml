@@ -25,5 +25,7 @@ jobs:
         uses: sergioramos/yarn-actions/install@master
         with:
           frozen-lockfile: true
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v2
       - name: Run build
         run: yarn run build
