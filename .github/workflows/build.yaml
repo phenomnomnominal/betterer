@@ -16,7 +16,7 @@ jobs:
         operating-system: [windows-latest, ubuntu-latest, macOS-latest]
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Use node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -25,5 +25,7 @@ jobs:
         uses: sergioramos/yarn-actions/install@master
         with:
           frozen-lockfile: true
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v2
       - name: Run build
         run: yarn run build
