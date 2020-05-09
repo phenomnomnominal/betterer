@@ -5,7 +5,7 @@ exports[`betterer should report the status of a new eslint rule with a complex s
 exports[\`eslint enable no-debugger rule\`] = {
   timestamp: 0,
   value: \`{
-    \\"../src/index.ts:3201740415\\": [
+    \\"src/index.ts:3201740415\\": [
       [0, 0, 9, \\"Unexpected \\\\'debugger\\\\' statement.\\", \\"3201740415\\"]
     ]
   }\`
@@ -57,9 +57,9 @@ Array [
   "\\"eslint enable no-debugger rule\\" got worse. 😔",
   "",
   " ☀️  betterer  warn  ⚠️  - ",
-  "1 existing issue in \\"../src/index.ts\\".",
+  "1 existing issue in \\"src/index.ts\\".",
   " ☀️  betterer  erro  🔥  - ",
-  "1 new issue in \\"../src/index.ts\\":",
+  "1 new issue in \\"src/index.ts\\":",
   "
    Unexpected 'debugger' statement. 
   1 | debugger;
@@ -98,11 +98,11 @@ Array [
   " ☀️  betterer  info  💬  - ",
   "running \\"eslint enable no-debugger rule\\"!",
   " ☀️  betterer  succ  ✅  - ",
-  "\\"eslint enable no-debugger rule\\" met its goal! 🎉",
+  "\\"eslint enable no-debugger rule\\" has already met its goal! ✨",
   " ☀️  betterer  info  💬  - ",
   "1 thing got checked. 🤔",
-  " ☀️  betterer  succ  ✅  - ",
-  "1 thing got better! 😍",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked for the first time! 🎉",
   " ☀️  betterer  succ  ✅  - ",
   "\\"eslint enable no-debugger rule\\" met its goal! 🎉",
 ]

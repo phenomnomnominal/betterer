@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`betterer should filter tests by name 1`] = `
+exports[`betterer cli should filter tests by name 1`] = `
 Array [
   "
    \\\\ | /     _          _   _                     

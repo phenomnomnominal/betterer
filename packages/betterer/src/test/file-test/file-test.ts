@@ -1,7 +1,7 @@
 import { ConstraintResult } from '@betterer/constraints';
 import * as path from 'path';
 
-import { BettererRun } from '../../context';
+import { BettererRun, BettererContext } from '../../context';
 import { createHash } from '../../hasher';
 import { BettererFilePaths } from '../../watcher';
 import { BettererTest } from '../test';
@@ -44,7 +44,7 @@ export class BettererFileTest extends BettererTest<
               if (!this._excluded.some((exclude: RegExp) => exclude.test(filePath)) && result[filePath].length) {
                 const issues = result[filePath];
                 const [{ fileText }] = issues;
-                const relativePath = this._getPath(resultsPath, filePath);
+                const relativePath = getRelativePath(resultsPath, filePath);
                 return new BettererFile(relativePath, createHash(fileText), issues);
               }
               return null;
@@ -82,19 +82,30 @@ export class BettererFileTest extends BettererTest<
     return this;
   }
 
-  public get excluded(): BettererFileExcluded {
-    return this._excluded;
-  }
-
-  public getExpected(expected: BettererFilesDeserialised, files: BettererFilePaths): BettererFilesDeserialised {
+  public getExpected(
+    context: BettererContext,
+    expected: BettererFilesDeserialised,
+    files: BettererFilePaths
+  ): BettererFilesDeserialised {
     if (!files.length) {
       return expected;
     }
-    return expected.filter(files);
+    return new BettererFiles(
+      expected.files.filter((file) => {
+        return files.includes(getAbsolutePath(context.config.resultsPath, file.filePath));
+      })
+    );
   }
+}
 
-  private _getPath(resultsPath: string, filePath: string): string {
-    const relativeFilePath = path.relative(resultsPath, filePath);
-    return path.sep === path.posix.sep ? relativeFilePath : relativeFilePath.split(path.sep).join(path.posix.sep);
-  }
+function getAbsolutePath(resultsPath: string, filePath: string): string {
+  return getNormalisedPath(path.resolve(path.dirname(resultsPath), filePath));
+}
+
+function getRelativePath(resultsPath: string, filePath: string): string {
+  return getNormalisedPath(path.relative(path.dirname(resultsPath), filePath));
+}
+
+function getNormalisedPath(filePath: string): string {
+  return path.sep === path.posix.sep ? filePath : filePath.split(path.sep).join(path.posix.sep);
 }

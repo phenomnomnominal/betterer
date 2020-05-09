@@ -1,8 +1,10 @@
 import { init } from '@betterer/cli';
 
-import { fixture } from './fixture';
+import { fixture } from '../fixture';
 
-describe('betterer init', () => {
+const ARGV = ['node', './bin/betterer'];
+
+describe('betterer cli', () => {
   it('should initialise betterer in a repo', async () => {
     const { paths, readFile, reset, resolve } = initFixture();
 
@@ -12,7 +14,7 @@ describe('betterer init', () => {
 
     await reset();
 
-    await init(fixturePath, ['node', './bin/betterer']);
+    await init(fixturePath, ARGV);
 
     const packageJSON = JSON.parse(await readFile(packageJSONPath));
 
@@ -35,8 +37,8 @@ describe('betterer init', () => {
 
     let throws = false;
     try {
-      await init(fixturePath, ['node', './bin/betterer']);
-      await init(fixturePath, ['node', './bin/betterer']);
+      await init(fixturePath, ARGV);
+      await init(fixturePath, ARGV);
       await reset();
     } catch {
       throws = true;

@@ -48,13 +48,7 @@ export function regexpBetterer(globs: string | ReadonlyArray<string>, regexp: Re
 
 async function getFileMatches(regexp: RegExp, filePath: string): Promise<BettererFileIssues<BettererFileIssue>> {
   const matches: Array<RegExpExecArray> = [];
-  let fileText: string;
-  try {
-    fileText = await fs.readFile(filePath, 'utf8');
-  } catch {
-    // Can't read file, move on;
-    return [];
-  }
+  const fileText = await fs.readFile(filePath, 'utf8');
 
   let currentMatch;
   do {

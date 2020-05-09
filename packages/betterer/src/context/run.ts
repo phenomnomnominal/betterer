@@ -1,17 +1,19 @@
+import * as assert from 'assert';
+
 import { BettererExpectedResult, NO_PREVIOUS_RESULT, deserialise } from '../results';
 import { BettererTest } from '../test';
 import { BettererFilePaths } from '../watcher';
 import { BettererContext } from './context';
 
 enum BettererRunStatus {
-  better = 'better',
-  complete = 'complete',
-  failed = 'failed',
-  pending = 'pending',
-  neww = 'new',
-  same = 'same',
-  skipped = 'skipped',
-  worse = 'worse'
+  better,
+  complete,
+  failed,
+  pending,
+  neww,
+  same,
+  skipped,
+  worse
 }
 
 export class BettererRun {
@@ -36,7 +38,7 @@ export class BettererRun {
     } else {
       this._isNew = false;
       this._hasResult = true;
-      this._expected = this._test.getExpected(deserialise(this._test, expected.value), this._files);
+      this._expected = this._test.getExpected(this._context, deserialise(this._test, expected.value), this._files);
       this._toPrint = this._expected;
       this._timestamp = expected.timestamp;
     }
@@ -58,15 +60,10 @@ export class BettererRun {
     return this._toPrint;
   }
 
-  public get status(): string {
-    return this._status;
-  }
-
   public get timestamp(): number {
-    if (this._timestamp === null) {
-      throw new Error();
-    }
-    return this._timestamp;
+    assert.notEqual(this._status, BettererRunStatus.pending);
+    assert.notEqual(this._timestamp, null);
+    return this._timestamp as number;
   }
 
   public get isBetter(): boolean {
@@ -110,6 +107,7 @@ export class BettererRun {
   }
 
   public better(result: unknown, isComplete: boolean, timestamp: number): void {
+    assert.equal(this._status, BettererRunStatus.pending);
     this._status = isComplete ? BettererRunStatus.complete : BettererRunStatus.better;
     this._hasResult = true;
     this._result = result;
@@ -123,11 +121,13 @@ export class BettererRun {
   }
 
   public failed(): void {
+    assert.equal(this._status, BettererRunStatus.pending);
     this._status = BettererRunStatus.failed;
     this._context.runFailed(this);
   }
 
   public neww(result: unknown, isComplete: boolean, timestamp: number): void {
+    assert.equal(this._status, BettererRunStatus.pending);
     this._status = isComplete ? BettererRunStatus.complete : BettererRunStatus.neww;
     this._hasResult = true;
     this._result = result;
@@ -144,14 +144,16 @@ export class BettererRun {
     this._context.runStart(this);
   }
 
-  public same(isComplete: boolean): void {
-    this._status = isComplete ? BettererRunStatus.complete : BettererRunStatus.same;
+  public same(): void {
+    assert.equal(this._status, BettererRunStatus.pending);
+    this._status = BettererRunStatus.same;
     this._hasResult = true;
     this._toPrint = this._expected;
     this._context.runSame(this);
   }
 
   public skipped(): void {
+    assert.equal(this._status, BettererRunStatus.pending);
     this._status = BettererRunStatus.skipped;
     this._hasResult = true;
     this._toPrint = this._expected;
@@ -159,6 +161,7 @@ export class BettererRun {
   }
 
   public worse(result: unknown): void {
+    assert.equal(this._status, BettererRunStatus.pending);
     this._status = BettererRunStatus.worse;
     this._hasResult = true;
     this._result = result;

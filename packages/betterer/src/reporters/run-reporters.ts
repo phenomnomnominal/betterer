@@ -25,11 +25,7 @@ export const runSerial: BettererRunReporter = {
     success(`"${name}" got checked for the first time! 🎉`);
   },
   same(run: BettererRun): void {
-    const { isComplete, name } = run;
-    if (isComplete) {
-      success(`"${name}" has already met its goal! ✨`);
-      return;
-    }
+    const { name } = run;
     warn(`"${name}" stayed the same. 😐`);
   },
   start(run: BettererRun): void {

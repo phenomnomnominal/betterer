@@ -14,9 +14,15 @@ Array [
   " ☀️  betterer  succ  ✅  - ",
   "\\"gets completed\\" got checked for the first time! 🎉",
   " ☀️  betterer  info  💬  - ",
-  "1 thing got checked. 🤔",
+  "running \\"already completed\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"already completed\\" has already met its goal! ✨",
   " ☀️  betterer  info  💬  - ",
-  "1 thing got checked for the first time! 🎉",
+  "2 things got checked. 🤔",
+  " ☀️  betterer  info  💬  - ",
+  "2 things got checked for the first time! 🎉",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"already completed\\" met its goal! 🎉",
   "
    \\\\ | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
@@ -29,9 +35,17 @@ Array [
   " ☀️  betterer  succ  ✅  - ",
   "\\"gets completed\\" got better! 😍",
   " ☀️  betterer  info  💬  - ",
-  "1 thing got checked. 🤔",
+  "running \\"already completed\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"already completed\\" has already met its goal! ✨",
+  " ☀️  betterer  info  💬  - ",
+  "2 things got checked. 🤔",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked for the first time! 🎉",
   " ☀️  betterer  succ  ✅  - ",
   "1 thing got better! 😍",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"already completed\\" met its goal! 🎉",
   "
    \\\\ | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
@@ -44,11 +58,19 @@ Array [
   " ☀️  betterer  succ  ✅  - ",
   "\\"gets completed\\" met its goal! 🎉",
   " ☀️  betterer  info  💬  - ",
-  "1 thing got checked. 🤔",
+  "running \\"already completed\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"already completed\\" has already met its goal! ✨",
+  " ☀️  betterer  info  💬  - ",
+  "2 things got checked. 🤔",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked for the first time! 🎉",
   " ☀️  betterer  succ  ✅  - ",
   "1 thing got better! 😍",
   " ☀️  betterer  succ  ✅  - ",
   "\\"gets completed\\" met its goal! 🎉",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"already completed\\" met its goal! 🎉",
 ]
 `;
 

@@ -36,10 +36,6 @@ export class BettererFiles<BettererFileIssueType> {
   }
 
   public getFileIssues(filePath: string): BettererFileIssues<BettererFileIssueType> {
-    return this._fileIssuesMap[filePath];
-  }
-
-  public filter(files: BettererFilePaths): BettererFiles<BettererFileIssueType> {
-    return new BettererFiles(this.files.filter((file) => files.includes(file.filePath)));
+    return this._fileIssuesMap[filePath] || [];
   }
 }

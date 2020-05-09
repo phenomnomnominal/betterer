@@ -1,12 +1,12 @@
 import { start } from '@betterer/cli';
 
-import { fixture } from './fixture';
+import { fixture } from '../fixture';
 
 '../fixtures/test-betterer-filter';
 
 const ARGV = ['node', './bin/betterer'];
 
-describe('betterer', () => {
+describe('betterer cli', () => {
   it('should filter tests by name', async () => {
     const { logs, paths, reset } = fixture('test-betterer-filter');
 

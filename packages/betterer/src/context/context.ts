@@ -1,4 +1,5 @@
 import { BettererError } from '@betterer/errors';
+import * as assert from 'assert';
 
 import {
   BettererConfig,
@@ -16,9 +17,20 @@ import { BettererRun } from './run';
 import { BettererStats } from './statistics';
 import { BettererRuns } from './types';
 
+enum BettererContextStatus {
+  notReady,
+  ready,
+  running,
+  end
+}
+
 export class BettererContext {
   private _stats: BettererStats | null = null;
   private _tests: BettererTests = [];
+  private _status = BettererContextStatus.notReady;
+
+  private _running: Promise<void> | null = null;
+  private _finish: Function | null = null;
 
   public config: BettererConfig;
 
@@ -27,36 +39,28 @@ export class BettererContext {
     this._reporters?.context?.start?.();
   }
 
-  public get stats(): BettererStats {
-    if (!this._stats) {
-      throw new Error();
-    }
-    return this._stats;
-  }
-
   public async setup(): Promise<void> {
+    if (this._status === BettererContextStatus.running) {
+      await this._running;
+    }
+    assert(this._status === BettererContextStatus.notReady || this._status === BettererContextStatus.end);
     this._tests = await this._initTests(this.config.configPaths);
     this._initFilters(this.config.filters);
+    this._status = BettererContextStatus.ready;
   }
 
-  public async process(runs: BettererRuns): Promise<BettererStats> {
-    const printed: Array<string> = await Promise.all(runs.filter((run) => run.shouldPrint).map((run) => print(run)));
-    let error: BettererError | null = null;
-    try {
-      await write(printed, this.config.resultsPath);
-    } catch (e) {
-      error = e;
-    }
-    this._reporters?.context?.finish?.(this);
-    if (error) {
-      this._reporters?.context?.error?.(error, printed);
-    }
-    return this.stats;
+  public tearDown(): void {
+    assert.equal(this._status, BettererContextStatus.end);
+    assert(this._stats);
+    this._reporters?.context?.finish?.(this._stats);
   }
 
-  public async getRuns(files: BettererFilePaths = []): Promise<BettererRuns> {
+  public async runnerStart(files: BettererFilePaths = []): Promise<BettererRuns> {
+    assert.equal(this._status, BettererContextStatus.ready);
+    this._stats = new BettererStats();
+    this._reporters?.runner?.start?.(files);
     const expectedRaw = await this._initExpected();
-    return this._tests.map((test) => {
+    const runs = this._tests.map((test) => {
       const { name } = test;
       let expected: BettererExpectedResult = NO_PREVIOUS_RESULT;
       if (Object.hasOwnProperty.call(expectedRaw, name)) {
@@ -64,65 +68,93 @@ export class BettererContext {
       }
       return new BettererRun(this, test, expected, files);
     });
-  }
-
-  public runnerStart(files: BettererFilePaths = []): void {
-    this._stats = new BettererStats();
-    this._reporters?.runner?.start?.(files);
+    this._status = BettererContextStatus.running;
+    this._running = new Promise((resolve) => {
+      this._finish = resolve;
+    });
+    return runs;
   }
 
   public runnerEnd(runs: BettererRuns, files: BettererFilePaths = []): void {
+    assert.equal(this._status, BettererContextStatus.running);
+    assert(this._finish);
     this._reporters?.runner?.end?.(runs, files);
-  }
-
-  public runBetter(run: BettererRun): void {
-    const { name } = run;
-    this.stats.better.push(name);
-    this._reporters?.run?.better?.(run);
-  }
-
-  public runEnd(run: BettererRun): void {
-    const { isComplete, name } = run;
-    if (isComplete) {
-      this.stats.completed.push(name);
-    }
-  }
-
-  public runFailed(run: BettererRun): void {
-    const { name } = run;
-    this.stats.failed.push(name);
-    this._reporters?.run?.failed?.(run);
-  }
-
-  public runNew(run: BettererRun): void {
-    const { name } = run;
-    this.stats.new.push(name);
-    this._reporters?.run?.neww?.(run);
-  }
-
-  public runRan(run: BettererRun): void {
-    this.stats.ran.push(run.name);
-  }
-
-  public runSame(run: BettererRun): void {
-    const { name } = run;
-    this.stats.same.push(name);
-    this._reporters?.run?.same?.(run);
-  }
-
-  public runSkipped(run: BettererRun): void {
-    const { name } = run;
-    this.stats.skipped.push(name);
+    this._status = BettererContextStatus.end;
+    this._finish();
   }
 
   public runStart(run: BettererRun): void {
     this._reporters?.run?.start?.(run);
   }
 
-  public runWorse(run: BettererRun): void {
+  public runBetter(run: BettererRun): void {
+    assert(this._stats);
     const { name } = run;
-    this.stats.worse.push(name);
+    this._stats.better.push(name);
+    this._reporters?.run?.better?.(run);
+  }
+
+  public runFailed(run: BettererRun): void {
+    assert(this._stats);
+    const { name } = run;
+    this._stats.failed.push(name);
+    this._reporters?.run?.failed?.(run);
+  }
+
+  public runNew(run: BettererRun): void {
+    assert(this._stats);
+    const { name } = run;
+    this._stats.new.push(name);
+    this._reporters?.run?.neww?.(run);
+  }
+
+  public runRan(run: BettererRun): void {
+    assert(this._stats);
+    this._stats.ran.push(run.name);
+  }
+
+  public runSame(run: BettererRun): void {
+    assert(this._stats);
+    const { name } = run;
+    this._stats.same.push(name);
+    this._reporters?.run?.same?.(run);
+  }
+
+  public runSkipped(run: BettererRun): void {
+    assert(this._stats);
+    const { name } = run;
+    this._stats.skipped.push(name);
+  }
+
+  public runWorse(run: BettererRun): void {
+    assert(this._stats);
+    const { name } = run;
+    this._stats.worse.push(name);
     this._reporters?.run?.worse?.(run);
+  }
+
+  public runEnd(run: BettererRun): void {
+    assert(this._stats);
+    const { isComplete, name } = run;
+    if (isComplete) {
+      this._stats.completed.push(name);
+    }
+  }
+
+  public async process(runs: BettererRuns): Promise<BettererStats> {
+    assert.equal(this._status, BettererContextStatus.end);
+    assert(this._stats);
+    const printed: Array<string> = await Promise.all(runs.filter((run) => run.shouldPrint).map((run) => print(run)));
+    let error: BettererError | null = null;
+    try {
+      await write(printed, this.config.resultsPath);
+    } catch (e) {
+      error = e;
+    }
+    if (error) {
+      this._reporters?.context?.error?.(error, printed);
+    }
+    return this._stats;
   }
 
   private async _getTests(configPath: string): Promise<BettererTests> {
@@ -142,7 +174,7 @@ export class BettererContext {
     }
   }
 
-  private async _initTests(configPaths: BettererConfigPaths = []): Promise<BettererTests> {
+  private async _initTests(configPaths: BettererConfigPaths): Promise<BettererTests> {
     let tests: BettererTests = [];
     await Promise.all(
       configPaths.map(async (configPath) => {
@@ -162,13 +194,14 @@ export class BettererContext {
   }
 
   private async _initExpected(): Promise<BettererExpectedResults> {
+    assert(this._stats);
     const expectedRaw = await read(this.config.resultsPath);
     const obsolete = Object.keys(expectedRaw).filter((name) => !this._tests.find((test) => test.name === name));
-    this.stats.obsolete.push(...obsolete);
+    this._stats.obsolete.push(...obsolete);
     return expectedRaw;
   }
 
-  private _initFilters(filters: BettererConfigFilters = []): void {
+  private _initFilters(filters: BettererConfigFilters): void {
     if (filters.length) {
       this._tests.forEach((test) => {
         if (!filters.some((filter) => filter.test(test.name))) {

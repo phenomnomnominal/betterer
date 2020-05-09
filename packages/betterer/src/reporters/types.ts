@@ -1,11 +1,11 @@
 import { BettererError } from '@betterer/errors';
 
-import { BettererContext, BettererRuns, BettererRun } from '../context';
+import { BettererRuns, BettererRun, BettererStats } from '../context';
 import { BettererFilePaths } from '../watcher';
 
 export type BettererContextReporter = {
   start(): void;
-  finish(context: BettererContext): void;
+  finish(stats: BettererStats): void;
   error(error: BettererError, printed: Array<string>): void;
 };
 

@@ -1,3 +1,5 @@
+import * as assert from 'assert';
+
 import { CONSTRAINT_FUNCTION_REQUIRED, TEST_FUNCTION_REQUIRED } from '../errors';
 import { isFunction } from '../utils';
 import { BettererFilePaths } from '../watcher';
@@ -11,6 +13,7 @@ import {
   BettererSerialiser
 } from './types';
 import { BettererTestState } from './test-state';
+import { BettererContext } from '../context';
 
 const IS_BETTERER_TEST = 'isBettererTest';
 
@@ -54,19 +57,13 @@ export class BettererTest<
     this._name = name;
   }
 
-  public hasName(): boolean {
-    return this._name != null;
-  }
-
   public get name(): string {
-    if (!this.hasName) {
-      throw new Error();
-    }
+    assert.notEqual(this._name, null);
     return this._name as string;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public getExpected(expected: DeserialisedType, _: BettererFilePaths): DeserialisedType {
+  public getExpected(_: BettererContext, expected: DeserialisedType, __: BettererFilePaths): DeserialisedType {
     return expected;
   }
 

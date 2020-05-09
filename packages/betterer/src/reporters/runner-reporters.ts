@@ -16,12 +16,16 @@ export const runnerParallel: BettererRunnerReporter = {
     report += '\n';
     const better = runs.filter((run) => run.isBetter);
     const failed = runs.filter((run) => run.isFailed);
+    const same = runs.filter((run) => run.isSame);
     const worse = runs.filter((run) => run.isWorse);
     better.forEach((run) => {
       report += `"${run.name}" got better! 😍`;
     });
     failed.forEach((run) => {
       report += `"${run.name}" failed to run. 🔥`;
+    });
+    same.forEach((run) => {
+      report += `"${run.name}" stayed the same. 😐`;
     });
     worse.forEach((run) => {
       report += `"${run.name}" got worse. 😔`;

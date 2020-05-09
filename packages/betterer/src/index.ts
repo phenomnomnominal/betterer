@@ -19,7 +19,10 @@ export async function betterer(config: BettererConfigPartial): Promise<BettererS
   try {
     const context = new BettererContext(config, serialReporters);
     await context.setup();
-    return await context.process(await serial(context));
+    const runs = await serial(context);
+    const stats = await context.process(runs);
+    context.tearDown();
+    return stats;
   } catch (e) {
     logError(e);
     throw e;
@@ -33,7 +36,9 @@ betterer.single = async function bettererSingle(
   try {
     const context = new BettererContext(config);
     await context.setup();
-    return parallel(context, [filePath]);
+    const runs = await parallel(context, [filePath]);
+    context.tearDown();
+    return runs;
   } catch (e) {
     logError(e);
     throw e;

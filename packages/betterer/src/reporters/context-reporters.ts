@@ -1,7 +1,7 @@
 import { BettererError, logError } from '@betterer/errors';
 import { error, info, success, warn, logo } from '@betterer/logger';
 
-import { BettererContext } from '../context';
+import { BettererStats } from '../context';
 import { BettererContextReporter } from './types';
 
 export const contextParallel: BettererContextReporter = {
@@ -21,8 +21,7 @@ export const contextSerial: BettererContextReporter = {
   start(): void {
     logo();
   },
-  finish(context: BettererContext): void {
-    const { stats } = context;
+  finish(stats: BettererStats): void {
     const ran = stats.ran.length;
     const failed = stats.failed.length;
     const neww = stats.new.length;

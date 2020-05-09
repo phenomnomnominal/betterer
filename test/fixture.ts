@@ -2,8 +2,7 @@ import { ensureFile, remove } from 'fs-extra';
 import * as fs from 'graceful-fs';
 import * as path from 'path';
 import * as ansiRegex from 'ansi-regex';
-import { BettererWatcher } from '@betterer/betterer/dist/watcher';
-import { BettererRuns } from '@betterer/betterer';
+import { BettererRuns, BettererWatcher } from '@betterer/betterer';
 
 const DEFAULT_CONFIG_PATH = './.betterer';
 const DEFAULT_RESULTS_PATH = `./.betterer.results`;
@@ -40,10 +39,20 @@ export function fixture(fixtureName: string): Fixture {
 
   const logs: Array<string> = [];
   const log = (...messages: Array<string>): void => {
-    logs.push(...messages.filter((m) => !!m?.replace).map((m) => m.replace(ANSI_REGEX, '')));
+    logs.push(
+      ...messages
+        .filter((m) => !!m?.replace)
+        .map((m) => m.replace(ANSI_REGEX, ''))
+        .map((m) => m.replace(new RegExp(process.cwd(), 'g'), '<project>'))
+    );
+  };
+  const write = (message: string | Uint8Array): boolean => {
+    log(message.toString());
+    return true;
   };
   jest.spyOn(console, 'log').mockImplementation(log);
   jest.spyOn(console, 'error').mockImplementation(log);
+  jest.spyOn(process.stdout, 'write').mockImplementation(write);
 
   const paths = {
     config: resolve(DEFAULT_CONFIG_PATH),

@@ -5,10 +5,10 @@ exports[`betterer should exclude specific files from results 1`] = `
 exports[\`regexp no hack comments\`] = {
   timestamp: 0,
   value: \`{
-    \\"../src/exclude.ts:645618020\\": [
+    \\"src/exclude.ts:645618020\\": [
       [0, 0, 7, \\"RegExp match\\", \\"645618020\\"]
     ],
-    \\"../src/index.ts:645618020\\": [
+    \\"src/index.ts:645618020\\": [
       [0, 0, 7, \\"RegExp match\\", \\"645618020\\"]
     ]
   }\`
@@ -20,7 +20,7 @@ exports[`betterer should exclude specific files from results 2`] = `
 exports[\`regexp no hack comments\`] = {
   timestamp: 0,
   value: \`{
-    \\"../src/index.ts:645618020\\": [
+    \\"src/index.ts:645618020\\": [
       [0, 0, 7, \\"RegExp match\\", \\"645618020\\"]
     ]
   }\`

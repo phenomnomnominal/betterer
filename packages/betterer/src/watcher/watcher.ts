@@ -16,11 +16,11 @@ export class BettererWatcher {
   constructor(private readonly _context: BettererContext, private readonly _onChange: BettererWatchChangeHandler) {}
 
   public async setup(): Promise<void> {
-    const { cwd, ignores } = this._context.config;
+    const { cwd, ignores, resultsPath } = this._context.config;
 
     const watcher = chokidar(cwd, {
       ignoreInitial: true,
-      ignored: [...WATCH_IGNORES, ...ignores]
+      ignored: [...WATCH_IGNORES, ...ignores, resultsPath]
     });
 
     watcher.on('all', (event: string, path: string) => {
@@ -48,8 +48,8 @@ export class BettererWatcher {
       await this._watcher.close();
     }
     if (this._runs) {
-      const runs = await this._handleRun(this._runs);
-      await this._context.process(runs);
+      await this._handleRun(this._runs);
+      this._context.tearDown();
     }
   }
 
@@ -65,6 +65,7 @@ export class BettererWatcher {
   private async _handleRun(running: Promise<BettererRuns>): Promise<BettererRuns> {
     const runs = await running;
     this._handlers.forEach((handler) => handler(runs));
+    await this._context.process(runs);
     return runs;
   }
 }
