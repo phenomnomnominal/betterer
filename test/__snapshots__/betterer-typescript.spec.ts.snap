@@ -122,7 +122,6 @@ Array [
   "could not read \\"<project>/fixtures/test-betterer-typescript-no-config-file-path/.betterer\\". 😔",
   " ☀️  betterer  erro  🔥  - ",
   "For \`@betterer/tsquery\` to work, you need to provide the path to a tsconfig.json file, e.g. \`'./tsconfig.json'\`. ❌",
-  "",
 ]
 `;
 
@@ -139,6 +138,5 @@ Array [
   "could not read \\"<project>/fixtures/test-betterer-typescript-no-compiler-options/.betterer\\". 😔",
   " ☀️  betterer  erro  🔥  - ",
   "For \`@betterer/typescript\` to work, you need to provide compiler options, e.g. \`{ strict: true }\`. ❌",
-  "",
 ]
 `;

@@ -121,7 +121,6 @@ Array [
   "could not read \\"<project>/fixtures/test-betterer-eslint-no-globs/.betterer\\". 😔",
   " ☀️  betterer  erro  🔥  - ",
   "For \`@betterer/eslint\` to work, you need to provide a file glob, e.g. \`'./src/**/*'\`. ❌",
-  "",
 ]
 `;
 
@@ -138,6 +137,5 @@ Array [
   "could not read \\"<project>/fixtures/test-betterer-eslint-no-rule/.betterer\\". 😔",
   " ☀️  betterer  erro  🔥  - ",
   "For \`@betterer/eslint\` to work, you need to provide rule options, e.g. \`['no-debugger', 'error']\`. ❌",
-  "",
 ]
 `;

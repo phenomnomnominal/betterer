@@ -26,7 +26,7 @@ export function regexpBetterer(globs: string | ReadonlyArray<string>, regexp: Re
     const testFiles = [...files];
     if (testFiles.length === 0) {
       await Promise.all(
-        resolvedGlobs.flatMap(async (currentGlob) => {
+        resolvedGlobs.map(async (currentGlob) => {
           const globFiles = await promisify(glob)(currentGlob);
           testFiles.push(...globFiles);
         })

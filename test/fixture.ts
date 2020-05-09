@@ -40,9 +40,7 @@ export function fixture(fixtureName: string): Fixture {
   const logs: Array<string> = [];
   const log = (...messages: Array<string>): void => {
     logs.push(
-      ...messages
-        .filter((m) => !!m?.replace)
-        .map((m) => m.replace(ANSI_REGEX, '').replace(new RegExp(process.cwd(), 'g'), '<project>'))
+      ...messages.map((m) => m.replace?.(ANSI_REGEX, '').replace?.(new RegExp(process.cwd(), 'g'), '<project>') || m)
     );
   };
   const write = (message: string | Uint8Array): boolean => {

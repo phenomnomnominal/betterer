@@ -9,6 +9,6 @@ export class BettererError extends Error {
     Error.captureStackTrace(this, BettererError);
     Object.setPrototypeOf(this, new.target.prototype);
 
-    this.details = details.flat();
+    this.details = details;
   }
 }

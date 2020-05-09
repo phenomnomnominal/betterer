@@ -13,7 +13,6 @@ Array [
   "could not read \\"<project>/fixtures/test-betterer-custom-no-constraint/.betterer\\". 😔",
   " ☀️  betterer  erro  🔥  - ",
   "For a custom betterer to work, it needs to have a \`constraint\` function. ❌",
-  "",
 ]
 `;
 
@@ -30,6 +29,5 @@ Array [
   "could not read \\"<project>/fixtures/test-betterer-custom-no-test/.betterer\\". 😔",
   " ☀️  betterer  erro  🔥  - ",
   "For a custom betterer to work, it needs to have a \`test\` function. ❌",
-  "",
 ]
 `;

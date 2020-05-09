@@ -42,7 +42,6 @@ async function runTest(run: BettererRun): Promise<void> {
     current = await test.test(run);
   } catch (e) {
     run.failed();
-    process.stderr.write(JSON.stringify(e));
     logError(e);
     return;
   }

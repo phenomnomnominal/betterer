@@ -31,7 +31,7 @@ export function eslintBetterer(globs: string | ReadonlyArray<string>, rule: ESLi
     const testFiles = [...files];
     if (testFiles.length === 0) {
       await Promise.all(
-        resolvedGlobs.flatMap(async (currentGlob) => {
+        resolvedGlobs.map(async (currentGlob) => {
           const globFiles = await globAsync(currentGlob);
           testFiles.push(...globFiles);
         })
@@ -63,12 +63,14 @@ function getFileIssues(
 
   const report = runner.executeOnFiles([filePath]);
   const resultsWithSource = report.results.filter((result) => result.source);
-  return resultsWithSource.flatMap((result) => {
-    const { source, messages } = result;
-    return messages.map((message) => {
-      return eslintMessageToBettererError(filePath, source as string, message);
-    });
-  });
+  return ([] as BettererFileIssues<BettererFileIssue>).concat(
+    ...resultsWithSource.map((result) => {
+      const { source, messages } = result;
+      return messages.map((message) => {
+        return eslintMessageToBettererError(filePath, source as string, message);
+      });
+    })
+  );
 }
 
 function eslintMessageToBettererError(

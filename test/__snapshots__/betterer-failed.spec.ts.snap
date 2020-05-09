@@ -57,6 +57,21 @@ Array [
   " ☀️  betterer  erro  🔥  - ",
   "\\"throws error\\" failed to run. 🔥",
   "",
+  "OH NO!",
+  "Error: OH NO!
+    at BettererTest.test (<project>/fixtures/test-betterer-failed/.betterer.js:6:13)
+    at <project>/packages/betterer/dist/runner/runner.js:1938:18
+    at step (<project>/node_modules/tslib/tslib.js:139:27)
+    at Object.next (<project>/node_modules/tslib/tslib.js:120:57)
+    at <project>/node_modules/tslib/tslib.js:113:75
+    at new Promise (<anonymous>)
+    at Object.__awaiter (<project>/node_modules/tslib/tslib.js:109:16)
+    at runTest (<project>/packages/betterer/dist/runner/runner.js:1877:18)
+    at Object.<anonymous> (<project>/packages/betterer/dist/runner/runner.js:1825:23)
+    at step (<project>/node_modules/tslib/tslib.js:139:27)
+    at Object.next (<project>/node_modules/tslib/tslib.js:120:57)
+    at fulfilled (<project>/node_modules/tslib/tslib.js:110:62)",
+  "",
   " ☀️  betterer  info  💬  - ",
   "0 things got checked. 🤔",
   " ☀️  betterer  erro  🔥  - ",
