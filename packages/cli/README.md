@@ -18,7 +18,7 @@ betterer init -c ./path/to/config
 
 | Name                     | Description                                  | Default          |
 | ------------------------ | -------------------------------------------- | ---------------- |
-| `-c`, `--config` [value] | Path to test definition file relative to CWD | `./.betterer.js` |
+| `-c`, `--config` [value] | Path to test definition file relative to CWD | `./.betterer.ts` |
 
 ### Start
 
@@ -30,7 +30,7 @@ betterer -c ./path/to/config -r ./path/to/results -w
 
 | Name                      | Description                                                                      | Default               |
 | ------------------------- | -------------------------------------------------------------------------------- | --------------------- |
-| `-c`, `--config` [value]  | Path to test definition file relative to CWD                                     | `./.betterer.js`      |
+| `-c`, `--config` [value]  | Path to test definition file relative to CWD                                     | `./.betterer.ts`      |
 | `-r`, `--results` [value] | Path to test results file relative to CWD                                        | `./.betterer.results` |
 | `-f`, `--filter` [value]  | Select tests to run by RegExp. Takes multiple values                             | `[.*]`                |
 | `-w`, `--watch`           | Run [**`betterer`**](https://github.com/phenomnomnominal/betterer) in watch mode | `false`               |
