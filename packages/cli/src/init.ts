@@ -10,7 +10,7 @@ import { DEFAULT_CONFIG_PATH } from './constants';
 const readFileAsync = promisify(readFile);
 const writeAsync = promisify(writeFile);
 
-const TEMPLATE = `module.exports = {\n  // Add tests here ☀️\n};`;
+const TEMPLATE = `export default {\n  // Add tests here ☀️\n};`;
 
 export async function init(cwd: string, argv: Array<string>): Promise<void> {
   commander

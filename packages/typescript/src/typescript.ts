@@ -1,27 +1,26 @@
-import * as ts from 'typescript';
+import { BettererFileIssue, BettererFileTest, BettererFileIssueMap } from '@betterer/betterer';
 import * as stack from 'callsite';
+import * as ts from 'typescript';
 import * as path from 'path';
 
-import { FileBetterer, createFileBetterer } from '@betterer/betterer';
 import { CONFIG_PATH_REQUIRED, COMPILER_OPTIONS_REQUIRED } from './errors';
 
-const readFile = ts.sys.readFile.bind(ts.sys);
-const readDirectory = ts.sys.readDirectory.bind(ts.sys);
+const NEW_LINE = '\n';
 
-export function typescriptBetterer(configFilePath: string, extraCompilerOptions?: ts.CompilerOptions): FileBetterer {
+export function typescriptBetterer(configFilePath: string, extraCompilerOptions: ts.CompilerOptions): BettererFileTest {
+  if (!configFilePath) {
+    throw CONFIG_PATH_REQUIRED();
+  }
+  if (!extraCompilerOptions) {
+    throw COMPILER_OPTIONS_REQUIRED();
+  }
+
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
   const absPath = path.resolve(cwd, configFilePath);
 
-  return createFileBetterer(() => {
-    if (!configFilePath) {
-      throw CONFIG_PATH_REQUIRED();
-    }
-    if (!extraCompilerOptions) {
-      throw COMPILER_OPTIONS_REQUIRED();
-    }
-
-    const { config } = ts.readConfigFile(absPath, readFile);
+  return new BettererFileTest((files) => {
+    const { config } = ts.readConfigFile(absPath, ts.sys.readFile.bind(ts.sys));
     const { compilerOptions } = config;
     const basePath = path.dirname(absPath);
 
@@ -32,19 +31,20 @@ export function typescriptBetterer(configFilePath: string, extraCompilerOptions?
     config.compilerOptions = fullCompilerOptions;
 
     const host = ts.createCompilerHost(fullCompilerOptions);
-    const parsed = ts.parseJsonConfigFileContent(
-      config,
-      {
-        ...host,
-        readDirectory,
-        useCaseSensitiveFileNames: host.useCaseSensitiveFileNames()
-      },
-      basePath
-    );
+    const configHost = {
+      ...host,
+      readDirectory: ts.sys.readDirectory.bind(ts.sys),
+      useCaseSensitiveFileNames: host.useCaseSensitiveFileNames()
+    };
+    const parsed = ts.parseJsonConfigFileContent(config, configHost, basePath);
+
+    if (files.length === 0) {
+      files = parsed.fileNames;
+    }
 
     const program = ts.createProgram({
       ...parsed,
-      rootNames: parsed.fileNames,
+      rootNames: files,
       host
     });
 
@@ -58,15 +58,22 @@ export function typescriptBetterer(configFilePath: string, extraCompilerOptions?
       ...semanticDiagnostics
     ]);
 
-    return allDiagnostics.map((diagnostic: ts.Diagnostic) => {
+    return allDiagnostics.reduce((fileInfoMap, diagnostic) => {
       const { file, start, length } = diagnostic as ts.DiagnosticWithLocation;
-      return {
-        message: ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n').replace(process.cwd(), '.'),
-        filePath: file.fileName,
-        fileText: file.getFullText(),
-        start,
-        end: start + length
-      };
-    });
+      const { fileName } = file;
+      const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, NEW_LINE).replace(process.cwd(), '.');
+      fileInfoMap[fileName] = fileInfoMap[fileName] || [];
+      fileInfoMap[fileName] = [
+        ...fileInfoMap[fileName],
+        {
+          message,
+          filePath: fileName,
+          fileText: file.getFullText(),
+          start,
+          end: start + length
+        }
+      ];
+      return fileInfoMap;
+    }, {} as BettererFileIssueMap<BettererFileIssue>);
   });
 }

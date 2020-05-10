@@ -5,10 +5,10 @@ exports[`betterer should exclude specific files from results 1`] = `
 exports[\`regexp no hack comments\`] = {
   timestamp: 0,
   value: \`{
-    \\"../src/exclude.ts:645618020\\": [
+    \\"src/exclude.ts:645618020\\": [
       [0, 0, 7, \\"RegExp match\\", \\"645618020\\"]
     ],
-    \\"../src/index.ts:645618020\\": [
+    \\"src/index.ts:645618020\\": [
       [0, 0, 7, \\"RegExp match\\", \\"645618020\\"]
     ]
   }\`
@@ -20,7 +20,7 @@ exports[`betterer should exclude specific files from results 2`] = `
 exports[\`regexp no hack comments\`] = {
   timestamp: 0,
   value: \`{
-    \\"../src/index.ts:645618020\\": [
+    \\"src/index.ts:645618020\\": [
       [0, 0, 7, \\"RegExp match\\", \\"645618020\\"]
     ]
   }\`
@@ -30,11 +30,11 @@ exports[\`regexp no hack comments\`] = {
 exports[`betterer should exclude specific files from results 3`] = `
 Array [
   "
-   \\\\ | /     _          _   _                     
+   / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"regexp no hack comments\\"!",
@@ -45,11 +45,11 @@ Array [
   " ☀️  betterer  info  💬  - ",
   "1 thing got checked for the first time! 🎉",
   "
-   \\\\ | /     _          _   _                     
+   / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"regexp no hack comments\\"!",

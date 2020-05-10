@@ -22,7 +22,7 @@ describe('betterer', () => {
 
     expect(sameTestRun.same).toEqual(['regexp no hack comments']);
 
-    await writeFile(indexPath, `// HACK:;\n// HACK:;`);
+    await writeFile(indexPath, `// HACK:\n// HACK:`);
 
     const worseTestRun = await betterer({ configPaths, resultsPath });
 
@@ -41,6 +41,36 @@ describe('betterer', () => {
     const completedTestRun = await betterer({ configPaths, resultsPath });
 
     expect(completedTestRun.completed).toEqual(['regexp no hack comments']);
+
+    expect(logs).toMatchSnapshot();
+
+    await reset();
+  });
+
+  it('should throw if there is no globs', async () => {
+    const { paths, logs, reset } = fixture('test-betterer-regexp-no-globs');
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+
+    await reset();
+
+    await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
+
+    expect(logs).toMatchSnapshot();
+
+    await reset();
+  });
+
+  it('should throw if there is no regexp', async () => {
+    const { paths, logs, reset } = fixture('test-betterer-regexp-no-regexp');
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+
+    await reset();
+
+    await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
 
     expect(logs).toMatchSnapshot();
 

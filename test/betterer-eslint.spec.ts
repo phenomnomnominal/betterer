@@ -46,4 +46,34 @@ describe('betterer', () => {
 
     await reset();
   });
+
+  it('should throw if there is no globs', async () => {
+    const { paths, logs, reset } = fixture('test-betterer-eslint-no-globs');
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+
+    await reset();
+
+    await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
+
+    expect(logs).toMatchSnapshot();
+
+    await reset();
+  });
+
+  it('should throw if there is no rule', async () => {
+    const { paths, logs, reset } = fixture('test-betterer-eslint-no-rule');
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+
+    await reset();
+
+    await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
+
+    expect(logs).toMatchSnapshot();
+
+    await reset();
+  });
 });

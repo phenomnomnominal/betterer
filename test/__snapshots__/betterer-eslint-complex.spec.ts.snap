@@ -5,7 +5,7 @@ exports[`betterer should report the status of a new eslint rule with a complex s
 exports[\`eslint enable no-debugger rule\`] = {
   timestamp: 0,
   value: \`{
-    \\"../src/index.ts:3201740415\\": [
+    \\"src/index.ts:3201740415\\": [
       [0, 0, 9, \\"Unexpected \\\\'debugger\\\\' statement.\\", \\"3201740415\\"]
     ]
   }\`
@@ -15,11 +15,11 @@ exports[\`eslint enable no-debugger rule\`] = {
 exports[`betterer should report the status of a new eslint rule with a complex set up 2`] = `
 Array [
   "
-   \\\\ | /     _          _   _                     
+   / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"eslint enable no-debugger rule\\"!",
@@ -30,11 +30,11 @@ Array [
   " ☀️  betterer  info  💬  - ",
   "1 thing got checked for the first time! 🎉",
   "
-   \\\\ | /     _          _   _                     
+   / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"eslint enable no-debugger rule\\"!",
@@ -45,19 +45,21 @@ Array [
   " ☀️  betterer  warn  ⚠️  - ",
   "1 thing stayed the same. 😐",
   "
-   \\\\ | /     _          _   _                     
+   / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"eslint enable no-debugger rule\\"!",
   " ☀️  betterer  erro  🔥  - ",
   "\\"eslint enable no-debugger rule\\" got worse. 😔",
   "",
+  " ☀️  betterer  warn  ⚠️  - ",
+  "1 existing issue in \\"src/index.ts\\".",
   " ☀️  betterer  erro  🔥  - ",
-  "1 new issue in \\"../src/index.ts\\":",
+  "1 new issue in \\"src/index.ts\\":",
   "
    Unexpected 'debugger' statement. 
   1 | debugger;
@@ -70,11 +72,11 @@ Array [
   " ☀️  betterer  erro  🔥  - ",
   "1 thing got worse. 😔",
   "
-   \\\\ | /     _          _   _                     
+   / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"eslint enable no-debugger rule\\"!",
@@ -87,20 +89,20 @@ Array [
   " ☀️  betterer  succ  ✅  - ",
   "\\"eslint enable no-debugger rule\\" met its goal! 🎉",
   "
-   \\\\ | /     _          _   _                     
+   / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"eslint enable no-debugger rule\\"!",
   " ☀️  betterer  succ  ✅  - ",
-  "\\"eslint enable no-debugger rule\\" met its goal! 🎉",
+  "\\"eslint enable no-debugger rule\\" has already met its goal! ✨",
   " ☀️  betterer  info  💬  - ",
   "1 thing got checked. 🤔",
-  " ☀️  betterer  succ  ✅  - ",
-  "1 thing got better! 😍",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked for the first time! 🎉",
   " ☀️  betterer  succ  ✅  - ",
   "\\"eslint enable no-debugger rule\\" met its goal! 🎉",
 ]

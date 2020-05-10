@@ -1,13 +1,83 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`betterer should stay the same when a file is moved 1`] = `
+Array [
+  "
+   / | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"typescript use strict mode\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"typescript use strict mode\\" got checked for the first time! 🎉",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked for the first time! 🎉",
+  "
+   / | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"typescript use strict mode\\"!",
+  " ☀️  betterer  warn  ⚠️  - ",
+  "\\"typescript use strict mode\\" stayed the same. 😐",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  warn  ⚠️  - ",
+  "1 thing stayed the same. 😐",
+]
+`;
+
+exports[`betterer should stay the same when an issue moves line 1`] = `
+Array [
+  "
+   / | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"typescript use strict mode\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"typescript use strict mode\\" got checked for the first time! 🎉",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked for the first time! 🎉",
+  "
+   / | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"typescript use strict mode\\"!",
+  " ☀️  betterer  warn  ⚠️  - ",
+  "\\"typescript use strict mode\\" stayed the same. 😐",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  warn  ⚠️  - ",
+  "1 thing stayed the same. 😐",
+]
+`;
+
 exports[`betterer should work when a test is the same 1`] = `
 Array [
   "
-   \\\\ | /     _          _   _                     
+   / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"doesn't get bigger\\"!",
@@ -22,11 +92,11 @@ Array [
   " ☀️  betterer  info  💬  - ",
   "2 things got checked for the first time! 🎉",
   "
-   \\\\ | /     _          _   _                     
+   / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"doesn't get bigger\\"!",

@@ -1,111 +1,71 @@
 import { ConstraintResult } from '@betterer/constraints';
-import { br, error, info, success, warn } from '@betterer/logger';
+import { logError } from '@betterer/errors';
 
-import { Betterer } from '../betterer';
-import { BettererConfig } from '../config';
-import { BettererResult, BettererContext } from '../context';
-import { prepare } from './prepare';
-import { process } from './process';
-import { serialise } from './serialiser';
+import { BettererContext, BettererRun, BettererRuns } from '../context';
+import { BettererFilePaths } from '../watcher';
 
-export async function run(config: BettererConfig): Promise<BettererContext> {
-  const context = await prepare(config);
-  const { betterers } = context;
-
-  await betterers.reduce(async (p, betterer) => {
-    await p;
-    await runTest(betterer, context);
-  }, Promise.resolve());
-
-  return await process(context);
+export async function parallel(context: BettererContext, files: BettererFilePaths): Promise<BettererRuns> {
+  const runs = await context.runnerStart(files);
+  await Promise.all(
+    runs.map(async (run) => {
+      await runTest(run);
+      run.end();
+    })
+  );
+  context.runnerEnd(runs, files);
+  return runs;
 }
 
-async function runTest(betterer: Betterer, context: BettererContext): Promise<void> {
-  const { config, expected, only, results, stats } = context;
-  const { test, constraint, goal, diff, isSkipped, name } = betterer;
+export async function serial(context: BettererContext): Promise<BettererRuns> {
+  const runs = await context.runnerStart();
+  await runs.reduce(async (p, run) => {
+    await p;
+    await runTest(run);
+    run.end();
+  }, Promise.resolve());
+  context.runnerEnd(runs);
+  return runs;
+}
 
-  if (only.length && !only.includes(betterer)) {
-    stats.skipped.push(name);
+async function runTest(run: BettererRun): Promise<void> {
+  const { test } = run;
+
+  if (test.isSkipped) {
+    run.skipped();
     return;
   }
 
-  if (isSkipped) {
-    stats.skipped.push(name);
-    return;
-  }
-
+  run.start();
+  const timestamp = Date.now();
   let current: unknown;
   try {
-    info(`running "${name}"!`);
-    current = await test(config);
-  } catch {
-    stats.failed.push(name);
-    error(`"${name}" failed to run. 🔥`);
+    current = await test.test(run);
+  } catch (e) {
+    run.failed();
+    logError(e);
     return;
   }
-  stats.ran.push(name);
+  run.ran();
 
-  // Get the serialised previous results from the test results file:
-  const serialisedPrevious = expected[name] ? JSON.parse(expected[name].value as string) : null;
+  const goalComplete = await test.goal(current);
 
-  // Serialise the current results so that the `constraint`, `diff`, and
-  // `goal` can be evaluated on the same shape object:
-  const serialisedCurrent = await serialise(current);
-
-  // New test:
-  if (!Object.hasOwnProperty.call(expected, name)) {
-    results[name] = update(current);
-    stats.new.push(name);
-    success(`"${name}" got checked for the first time! 🎉`);
+  if (run.isNew) {
+    run.neww(current, goalComplete, timestamp);
     return;
   }
 
-  const comparison = await constraint(serialisedCurrent, serialisedPrevious);
-  const isSame = comparison === ConstraintResult.same;
-  const isBetter = comparison === ConstraintResult.better;
+  const comparison = await test.constraint(current, run.expected);
 
-  // Same, but already met goal:
-  if (isSame && goal(serialisedCurrent)) {
-    stats.completed.push(name);
-    success(`"${name}" has already met its goal! ✨`);
+  if (comparison === ConstraintResult.same) {
+    run.same();
     return;
   }
 
-  // Same:
-  if (isSame) {
-    stats.same.push(name);
-    warn(`"${name}" stayed the same. 😐`);
+  if (comparison === ConstraintResult.better) {
+    run.better(current, goalComplete, timestamp);
     return;
   }
 
-  // Better:
-  if (isBetter) {
-    results[name] = update(current);
-    stats.better.push(name);
-
-    // Newly met goal:
-    if (goal(serialisedCurrent)) {
-      stats.completed.push(name);
-      success(`"${name}" met its goal! 🎉`);
-      return;
-    }
-
-    // Not reached goal yet:
-    success(`"${name}" got better! 😍`);
-    return;
-  }
-
-  // Worse:
-  stats.worse.push(name);
-  error(`"${name}" got worse. 😔`);
-  br();
-  diff(current, serialisedCurrent, serialisedPrevious);
-  br();
-}
-
-function update(value: unknown): BettererResult {
-  return {
-    timestamp: Date.now(),
-    value
-  };
+  run.worse(current);
+  return;
 }

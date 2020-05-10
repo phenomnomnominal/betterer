@@ -5,7 +5,7 @@ exports[`betterer should report the status of the TypeScript compiler in strict 
 exports[\`typescript use strict mode\`] = {
   timestamp: 0,
   value: \`{
-    \\"../src/index.ts:902979929\\": [
+    \\"src/index.ts:902979929\\": [
       [0, 27, 4, \\"Parameter \\\\'list\\\\' implicitly has an \\\\'any\\\\' type.\\", \\"2087656743\\"],
       [1, 18, 6, \\"Parameter \\\\'member\\\\' implicitly has an \\\\'any\\\\' type.\\", \\"1468198325\\"],
       [5, 9, 4, \\"\\\\'this\\\\' implicitly has type \\\\'any\\\\' because it does not have a type annotation.\\", \\"2087959715\\"],
@@ -20,11 +20,11 @@ exports[\`typescript use strict mode\`] = {
 exports[`betterer should report the status of the TypeScript compiler in strict mode 2`] = `
 Array [
   "
-   \\\\ | /     _          _   _                     
+   / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"typescript use strict mode\\"!",
@@ -35,11 +35,11 @@ Array [
   " ☀️  betterer  info  💬  - ",
   "1 thing got checked for the first time! 🎉",
   "
-   \\\\ | /     _          _   _                     
+   / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"typescript use strict mode\\"!",
@@ -50,19 +50,21 @@ Array [
   " ☀️  betterer  warn  ⚠️  - ",
   "1 thing stayed the same. 😐",
   "
-   \\\\ | /     _          _   _                     
+   / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"typescript use strict mode\\"!",
   " ☀️  betterer  erro  🔥  - ",
   "\\"typescript use strict mode\\" got worse. 😔",
   "",
+  " ☀️  betterer  warn  ⚠️  - ",
+  "6 existing issues in \\"src/index.ts\\".",
   " ☀️  betterer  erro  🔥  - ",
-  "1 new issue in \\"../src/index.ts\\":",
+  "1 new issue in \\"src/index.ts\\":",
   "
    The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type. 
   32 | const a = 'a';
@@ -76,11 +78,11 @@ Array [
   " ☀️  betterer  erro  🔥  - ",
   "1 thing got worse. 😔",
   "
-   \\\\ | /     _          _   _                     
+   / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"typescript use strict mode\\"!",
