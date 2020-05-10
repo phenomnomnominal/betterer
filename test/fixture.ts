@@ -40,7 +40,10 @@ export function fixture(fixtureName: string): Fixture {
   const logs: Array<string> = [];
   const log = (...messages: Array<string>): void => {
     logs.push(
-      ...messages.map((m) => m.replace?.(ANSI_REGEX, '').replace?.(new RegExp(process.cwd(), 'g'), '<project>') || m)
+      ...messages.map(
+        (m) =>
+          m.replace?.(ANSI_REGEX, '').replace?.(new RegExp(getNormalisedPath(process.cwd()), 'g'), '<project>') || m
+      )
     );
   };
   const write = (message: string | Uint8Array): boolean => {
@@ -93,4 +96,8 @@ export function fixture(fixtureName: string): Fixture {
       }
     }
   };
+}
+
+function getNormalisedPath(filePath: string): string {
+  return path.sep === path.posix.sep ? filePath : filePath.split(path.sep).join(path.posix.sep);
 }

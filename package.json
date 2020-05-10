@@ -10,8 +10,8 @@
   ],
   "scripts": {
     "betterer": "node ./packages/cli/./bin/betterer",
-    "build": "yarn clean && yarn && yarn compile && yarn format && yarn lint && yarn test && yarn betterer",
-    "clean": "rimraf reports && lerna exec \"rimraf dist\" && rimraf ./**/tsconfig.tsbuildinfo && lerna exec \"rimraf node_modules\" && rimraf node_modules",
+    "build": "yarn compile && yarn format && yarn lint && yarn test && yarn betterer",
+    "clean": "rimraf reports && lerna exec \"rimraf dist\" && rimraf ./**/tsconfig.tsbuildinfo && lerna exec \"rimraf node_modules\" && rimraf node_modules && yarn",
     "compile": "tsc -b packages",
     "compile:watch": "tsc -b packages -w",
     "lint": "eslint \"./packages/**/src/*.{js,ts}\" \"./test/**/*.{js,ts}\" \"./*.{js,ts}\" --fix",
