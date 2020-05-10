@@ -7,13 +7,8 @@ describe('betterer cli', () => {
     const { version } = require('../../packages/cli/package.json');
 
     const binPath = path.resolve(__dirname, '../../packages/cli/bin/betterer');
-    const osBinPath = !isWindows() ? binPath : `${binPath}.cmd`;
-    const result = execSync(`"${osBinPath}" -V`);
+    const result = execSync(`node "${binPath}" -V`);
 
     expect(result.toString()).toContain(version);
   });
 });
-
-function isWindows(): boolean {
-  return process.platform === 'win32';
-}
