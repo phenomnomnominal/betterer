@@ -7,10 +7,12 @@ import { BettererRuns, BettererWatcher } from '@betterer/betterer';
 const DEFAULT_CONFIG_PATH = './.betterer';
 const DEFAULT_RESULTS_PATH = `./.betterer.results`;
 
+const ANSI_REGEX = ansiRegex();
+const PROJECT_REGEXP = new RegExp(normalisePaths(process.cwd()), 'g');
+
 const deleteFile = fs.promises.unlink;
 const readFile = fs.promises.readFile;
 const writeFile = fs.promises.writeFile;
-const ANSI_REGEX = ansiRegex();
 
 type Paths = {
   config: string;
@@ -39,20 +41,17 @@ export function fixture(fixtureName: string): Fixture {
 
   const logs: Array<string> = [];
   const log = (...messages: Array<string>): void => {
-    logs.push(
-      ...messages.map(
-        (m) =>
-          m.replace?.(ANSI_REGEX, '').replace?.(new RegExp(getNormalisedPath(process.cwd()), 'g'), '<project>') || m
-      )
-    );
+    // Do some magic to sort out the logs for snapshots. This muchs up the snapshot of the printed logo,
+    // but that hardly matters...
+    logs.push(...messages.map((m) => (!isString(m) ? m : replaceProjectPath(normalisePaths(replaceAnsi(m))))));
   };
-  const write = (message: string | Uint8Array): boolean => {
-    log(message.toString());
-    return true;
-  };
+
   jest.spyOn(console, 'log').mockImplementation(log);
   jest.spyOn(console, 'error').mockImplementation(log);
-  jest.spyOn(process.stdout, 'write').mockImplementation(write);
+  jest.spyOn(process.stdout, 'write').mockImplementation((message: string | Uint8Array): boolean => {
+    log(message.toString());
+    return true;
+  });
   process.stdout.columns = 1000;
 
   const paths = {
@@ -98,6 +97,18 @@ export function fixture(fixtureName: string): Fixture {
   };
 }
 
-function getNormalisedPath(filePath: string): string {
-  return path.sep === path.posix.sep ? filePath : filePath.split(path.sep).join(path.posix.sep);
+function isString(message: unknown): message is string {
+  return typeof message === 'string';
+}
+
+function replaceAnsi(str: string): string {
+  return str.replace(ANSI_REGEX, '');
+}
+
+function replaceProjectPath(str: string): string {
+  return str.replace(PROJECT_REGEXP, '<project>');
+}
+
+function normalisePaths(str: string): string {
+  return str.split(path.win32.sep).join(path.posix.sep);
 }
