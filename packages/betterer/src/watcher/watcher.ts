@@ -1,6 +1,7 @@
 import { watch as chokidar, FSWatcher } from 'chokidar';
 
 import { BettererContext, BettererRuns } from '../context';
+import { getNormalisedPath } from '../utils';
 import { BettererWatchChangeHandler, BettererWatchRunHandler } from './types';
 import { WATCH_IGNORES } from './ignores';
 
@@ -23,9 +24,9 @@ export class BettererWatcher {
       ignored: [...WATCH_IGNORES, ...ignores, resultsPath]
     });
 
-    watcher.on('all', (event: string, path: string) => {
+    watcher.on('all', (event: string, filePath: string) => {
       if (EMIT_EVENTS.includes(event)) {
-        this._files.push(path);
+        this._files.push(getNormalisedPath(filePath));
         setTimeout(() => {
           if (this._files.length) {
             const changed = Array.from(new Set(this._files)).sort();

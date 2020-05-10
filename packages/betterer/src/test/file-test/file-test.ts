@@ -1,8 +1,8 @@
 import { ConstraintResult } from '@betterer/constraints';
-import * as path from 'path';
 
 import { BettererRun, BettererContext } from '../../context';
 import { createHash } from '../../hasher';
+import { getRelativePath, getAbsolutePath } from '../../utils';
 import { BettererFilePaths } from '../../watcher';
 import { BettererTest } from '../test';
 import { constraint } from './constraint';
@@ -96,16 +96,4 @@ export class BettererFileTest extends BettererTest<
       })
     );
   }
-}
-
-function getAbsolutePath(resultsPath: string, filePath: string): string {
-  return getNormalisedPath(path.resolve(path.dirname(resultsPath), filePath));
-}
-
-function getRelativePath(resultsPath: string, filePath: string): string {
-  return getNormalisedPath(path.relative(path.dirname(resultsPath), filePath));
-}
-
-function getNormalisedPath(filePath: string): string {
-  return path.sep === path.posix.sep ? filePath : filePath.split(path.sep).join(path.posix.sep);
 }
