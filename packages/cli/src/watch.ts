@@ -12,9 +12,11 @@ export async function watch(cwd: string, argv: CLIArguments): Promise<void> {
 
   const { config, results, filter } = (commander as unknown) as CLIWatchConfig;
 
-  const stop = await betterer({ configPaths: config, filters: filter, resultsPath: results, cwd }, true);
+  const watcher = await betterer.watch({ configPaths: config, filters: filter, resultsPath: results, cwd });
 
   return new Promise((): void => {
-    process.on('SIGINT', () => stop());
+    process.on('SIGINT', () => {
+      watcher.stop();
+    });
   });
 }
