@@ -6,5 +6,5 @@ export default {
   'no raw console.log': tsqueryBetterer(
     './tsconfig.json',
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
-  )
+  ).exclude(/logger\/src/, /betterer\/src\/reporters/)
 };

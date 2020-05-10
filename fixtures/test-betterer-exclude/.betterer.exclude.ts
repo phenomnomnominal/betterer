@@ -1,5 +1,5 @@
-import { regexpBetterer } from '@betterer/regexp/src';
+import { regexpBetterer } from '@betterer/regexp';
 
 export default {
-  'regexp no hack comments': regexpBetterer('./src/**/*.ts', /(\/\/\s*HACK)/i).exclude(/exclude.ts/)
+  'regexp no hack comments': regexpBetterer(['./src/**/*.ts'], /(\/\/\s*HACK)/i).exclude(/exclude.ts/)
 };

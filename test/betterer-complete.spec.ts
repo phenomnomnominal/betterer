@@ -1,4 +1,4 @@
-import { betterer } from '@betterer/betterer/src';
+import { betterer } from '@betterer/betterer';
 
 import { fixture } from './fixture';
 
@@ -15,7 +15,8 @@ describe('betterer', () => {
 
     const firstRun = await betterer({ configPaths, resultsPath });
 
-    expect(firstRun.new).toEqual(['gets completed']);
+    expect(firstRun.new).toEqual(['gets completed', 'already completed']);
+    expect(firstRun.completed).toEqual(['already completed']);
 
     const secondRun = await betterer({ configPaths, resultsPath });
 
@@ -23,7 +24,7 @@ describe('betterer', () => {
 
     const thirdRun = await betterer({ configPaths, resultsPath });
 
-    expect(thirdRun.completed).toEqual(['gets completed']);
+    expect(thirdRun.completed).toEqual(['gets completed', 'already completed']);
 
     expect(logs).toMatchSnapshot();
 

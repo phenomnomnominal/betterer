@@ -1,29 +1,20 @@
 // BETTERER RESULTS V1.
 exports[`no hack comments`] = {
-  timestamp: 1588747442641,
+  timestamp: 1588220899923,
   value: `{
-    "../packages/cli/src/cli.ts:2669622844": [
-      [7, 2, 7, "RegExp match"]
+    "packages/cli/src/cli.ts:1469128831": [
+      [12, 0, 7, "RegExp match", "645651780"]
     ],
-    "../packages/cli/src/init.ts:4072721215": [
-      [81, 4, 7, "RegExp match"]
+    "packages/cli/src/init.ts:3582404838": [
+      [91, 4, 7, "RegExp match", "645651780"]
     ]
   }`
 };
 exports[`no raw console.log`] = {
-  timestamp: 1588747443748,
+  timestamp: 1588744000724,
   value: `{
-    "../packages/betterer/src/betterer/betterer.ts:2336670047": [
-      [62, 2, 11, "TSQuery match"]
-    ],
-    "../packages/betterer/src/runner/process.ts:507235805": [
-      [27, 4, 11, "TSQuery match"]
-    ],
-    "../packages/logger/src/logger.ts:831716865": [
-      [8, 2, 11, "TSQuery match"],
-      [22, 2, 11, "TSQuery match"],
-      [41, 4, 11, "TSQuery match"],
-      [65, 2, 11, "TSQuery match"]
+    "packages/betterer/src/results/diff.ts:3147959047": [
+      [21, 4, 11, "TSQuery match", "3870399096"]
     ]
   }`
 };

@@ -2,5 +2,8 @@
 require('../dist')
   .start(process.cwd(), process.argv)
   .then(function (stats) {
-    process.exit(stats.worse.length !== 0 ? 1 : 0);
+    process.exitCode = stats.worse.length !== 0 ? 1 : 0;
+  })
+  .catch(function () {
+    process.exitCode = 1;
   });
