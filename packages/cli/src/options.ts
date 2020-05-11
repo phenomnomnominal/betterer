@@ -17,11 +17,7 @@ export function filters(commander: CommanderStatic): void {
   commander.option('-f, --filter [value]', 'RegExp filter for tests to run', argsToArray);
 }
 
-export function watchMode(commander: CommanderStatic): void {
-  commander.option('-w, --watch [value]', 'Run ☀️ betterer in watch mode');
-}
-
-export function ignore(commander: CommanderStatic): void {
+export function ignores(commander: CommanderStatic): void {
   commander.option('-i, --ignore [value]', 'RegExp filter for files at watch', argsToArray);
 }
 

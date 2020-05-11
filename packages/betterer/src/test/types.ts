@@ -6,14 +6,14 @@ import { BettererTest } from './test';
 
 export type BettererTests = ReadonlyArray<BettererTest>;
 
-export type BettererTestFunction<ResultType> = (run: BettererRun) => MaybeAsync<ResultType>;
+export type BettererTestFunction<DeserialisedType> = (run: BettererRun) => MaybeAsync<DeserialisedType>;
 
-export type BettererTestConstraint<ResultType, DeserialisedType = ResultType> = (
-  result: ResultType,
+export type BettererTestConstraint<DeserialisedType> = (
+  result: DeserialisedType,
   expected: DeserialisedType
 ) => MaybeAsync<ConstraintResult>;
 
-export type BettererTestGoal<ResultType> = (result: ResultType) => MaybeAsync<boolean>;
+export type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
 
 export type BettererTestStateOptions = {
   isOnly?: boolean;
@@ -23,26 +23,26 @@ export type BettererTestStateOptions = {
 export type BettererDiffer = (run: BettererRun) => void;
 export type BettererPrinter<SerialisedType> = (serialised: SerialisedType) => MaybeAsync<string>;
 
-export type BettererSerialise<ResultType, DeserialisedType = ResultType, SerialisedType = ResultType> = (
-  result: ResultType | DeserialisedType
+export type BettererSerialise<DeserialisedType, SerialisedType = DeserialisedType> = (
+  result: DeserialisedType
 ) => SerialisedType;
 export type BettererDeserialise<DeserialisedType, SerialisedType = DeserialisedType> = (
   serialised: SerialisedType
 ) => DeserialisedType;
-export type BettererSerialiser<ResultType, DeserialisedType = ResultType, SerialisedType = ResultType> = {
-  serialise: BettererSerialise<ResultType, DeserialisedType, SerialisedType>;
+export type BettererSerialiser<DeserialisedType, SerialisedType = DeserialisedType> = {
+  serialise: BettererSerialise<DeserialisedType, SerialisedType>;
   deserialise: BettererDeserialise<DeserialisedType, SerialisedType>;
 };
 
-export type BettererTestType<ResultType, DeserialisedType = ResultType, SerialisedType = ResultType> = {
+export type BettererTestType<DeserialisedType, SerialisedType = DeserialisedType> = {
   differ?: BettererDiffer;
   printer?: BettererPrinter<SerialisedType>;
-  serialiser?: BettererSerialiser<ResultType, DeserialisedType, SerialisedType>;
+  serialiser?: BettererSerialiser<DeserialisedType, SerialisedType>;
 };
 
-export type BettererTestOptions<ResultType, DeserialisedType = ResultType, SerialisedType = ResultType> = {
-  constraint: BettererTestConstraint<ResultType, DeserialisedType>;
-  goal?: ResultType | BettererTestGoal<ResultType>;
-  test: BettererTestFunction<ResultType>;
-} & BettererTestType<ResultType, DeserialisedType, SerialisedType> &
+export type BettererTestOptions<DeserialisedType, SerialisedType = DeserialisedType> = {
+  constraint: BettererTestConstraint<DeserialisedType>;
+  goal?: DeserialisedType | BettererTestGoal<DeserialisedType>;
+  test: BettererTestFunction<DeserialisedType>;
+} & BettererTestType<DeserialisedType, SerialisedType> &
   BettererTestStateOptions;

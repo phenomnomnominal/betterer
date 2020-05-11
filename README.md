@@ -1,10 +1,12 @@
-[![betterer](https://github.com/phenomnomnominal/betterer/blob/master/docs/logo.png)](https://phenomnomnominal.github.io/betterer/)
+[![Betterer](https://github.com/phenomnomnominal/betterer/blob/master/docs/logo.png)](https://phenomnomnominal.github.io/betterer/)
 
 [![npm version](https://img.shields.io/npm/v/@betterer/cli.svg)](https://www.npmjs.com/package/@betterer/cli)
 
+Are you working with a large team, or a legacy codebase? Want to make big sweeping changes over your project, but can't do it all in one go?
+
 **`Betterer`** makes it easier to make incremental improvements to your codebase!
 
-## Set up:
+## Adding Betterer to your project
 
 If you want everything to happen magically, run the following from the root of your project:
 
@@ -22,21 +24,21 @@ You'll then need to make your own test file and test commands.
 
 ---
 
-## Why?:
+## Why?
 
-Making widespread changes to a codebase can be really hard. Often when trying to make some sort improvement that affects a lot of code, one of two things happens:
+Making widespread changes to a codebase can be really hard. When trying to make some sort improvement that affects a lot of code, one of two things often happens:
 
 1. You start a really long-lived branch that is awful to maintain and often impossible to merge.
 
 2. You and your team have some agreement to make the improvement slowly over time, but it gets forgotten about and never really happens.
 
-**`Betterer`** is meant to help with this!
+**`Betterer`** is designed to help with this!
 
 ---
 
-## How?:
+## How?
 
-**`Betterer`** is built upon an idea popularised by [snapshot testing](https://jestjs.io/docs/en/snapshot-testing), where the status of a test is saved in a file in your codebase. But instead of a static value, **`betterer`** keeps track of a value as it changes over time, and makes sure that the value changes how you want it to change.
+**`Betterer`** is built upon an idea popularised by [snapshot testing](https://jestjs.io/docs/en/snapshot-testing), where the status of a test is saved in a file in your codebase. But instead of a static value, **`Betterer`** keeps track of a value as it changes over time, and makes sure that the value changes how you want it to change.
 
 When you want to make an improvement to your codebase, you just start by making a new test, defined in a `.betterer.ts` file:
 
@@ -50,32 +52,32 @@ export default {
 };
 ```
 
-Then you can run **`betterer`** from the command line:
+Then you can run **`Betterer`** from the command line:
 
 ```bash
 betterer
 ```
 
-**`Betterer`** will run your test the first time, and store the result in a new file called `.betterer.results`.
+**`Betterer`** will run your test the first time, and store a snapshot of the result in a new file called `.betterer.results`.
 
 ```js
 // BETTERER RESULTS V1.
 exports[`thing to improve`] = { timestamp: 1569148039311, value: `5` };
 ```
 
-The next step is to add **`betterer`** to your build pipeline. Whenever your code builds, **`betterer`** will run the test again and make sure the result hasn't got worse. If it gets better, then the `.betterer.results` file will be updated with the new value, which you can then commit to your codebase!
+The next step is to add **`Betterer`** to your build pipeline. Whenever your code builds, **`Betterer`** will run the test again and make sure the result hasn't got worse. If it gets better, then the `.betterer.results` file will be updated with the new value, which you can then commit to your codebase!
 
 Isn't that neat!? ☀️
 
 ---
 
-## Built-in **`betterers`**:
+## Built-in tests
 
-Each of these test configurations is called a **`betterer`**! The API should be flexible enough to do whatever you want, but **`betterer`** comes with a few out of the box:
+**`Betterer`** comes with a few tests of the box for some common use cases:
 
 ### ESLint
 
-If you want to enable a new [ESLint](https://eslint.org/) rule in your codebase, you can use the `eslintBetterer`:
+If you want to enable a new [ESLint](https://eslint.org/) rule in your codebase, you can use the `@betterer/eslint`:
 
 ```typescript
 import { eslintBetterer } from '@betterer/eslint';
@@ -87,7 +89,7 @@ export default {
 
 ### RegExp
 
-If you want to remove anything that matches a Regular Expression within your codebase, you can use the `regexpBetterer`:
+If you want to remove anything that matches a Regular Expression within your codebase, you can use `@betterer/regexp`:
 
 ```typescript
 import { regexpBetterer } from '@betterer/regexp';
@@ -101,7 +103,7 @@ export default {
 
 ### TSQuery
 
-If you want to remove anything that matches a [TSQuery](https://github.com/phenomnomnominal/tsquery) within your codebase, you can use the `tsqueryBetterer`:
+If you want to remove anything that matches a [TSQuery](https://github.com/phenomnomnominal/tsquery) within your codebase, you can use `@betterer/tsquery`:
 
 ```typescript
 import { tsqueryBetterer } from '@betterer/tsquery';
@@ -116,7 +118,7 @@ export default {
 
 ### TypeScript
 
-If you want to enable a new [TypeScript](https://www.typescriptlang.org/) compiler option to your codebase, you can use the `typescriptBetterer`:
+If you want to enable a new [TypeScript](https://www.typescriptlang.org/) compiler option to your codebase, you can use `@betterer/typescript`:
 
 ```typescript
 import { typescriptBetterer } from '@betterer/typescript';
@@ -130,19 +132,19 @@ export default {
 
 ---
 
-## Custom **`betterers`**:
+## Custom tests
 
-It's also pretty straightforward to write your own custom **`betterer`**. All you need to do is match the **`Betterer`** interface, which looks something like:
+It's also pretty straightforward to write your own custom tests. All you need to do is match the **`BettererTestOptions`** interface, which looks something like:
 
 ```typescript
-export type Betterer<T = number> = {
+export type BettererTestOptions<T = number> = {
   test: () => T | Promise<T>;
   constraint: (current: T, previous: T) => ConstraintResult | Promise<ConstraintResult>;
   goal: T;
 };
 ```
 
-To help you with create your own **`betterers`**, there are also some built-in constraints:
+To help you with create your own test, there are also some built-in constraints:
 
 ```typescript
 import { bigger, smaller } from '@betterer/constraints';
@@ -152,18 +154,51 @@ These pretty much do what they say on the box - make sure that the result from t
 
 ---
 
-## CLI Options:
+## CLI
 
-You can change the path to the test file, the path to the results file, or the tests you want to run, using the CLI:
+### Init
+
+Initialise **`Betterer`** in a project
 
 ```sh
-betterer -c ./path/to/config -r ./path/to/results -f my-test
+betterer init -c ./path/to/config
 ```
 
-### Options
+#### Init options
 
-| Name                      | Description                                  | Default               |
-| ------------------------- | -------------------------------------------- | --------------------- |
-| `-c`, `--config` [value]  | Path to test definition file relative to CWD | `./.betterer.ts`      |
-| `-r`, `--results` [value] | Path to test results file relative to CWD    | `./.betterer.results` |
-| `-f`, `--filter` [value]  | RegExp filter for tests to run               | `.*`                  |
+| Name                     | Description                                  | Default          |
+| ------------------------ | -------------------------------------------- | ---------------- |
+| `-c`, `--config` [value] | Path to test definition file relative to CWD | `./.betterer.ts` |
+
+### Start
+
+Run **`Betterer`**
+
+```sh
+betterer -c ./path/to/config -r ./path/to/results -w
+```
+
+#### Start options
+
+| Name                      | Description                                          | Default               |
+| ------------------------- | ---------------------------------------------------- | --------------------- |
+| `-c`, `--config` [value]  | Path to test definition file relative to CWD         | `./.betterer.ts`      |
+| `-r`, `--results` [value] | Path to test results file relative to CWD            | `./.betterer.results` |
+| `-f`, `--filter` [value]  | Select tests to run by RegExp. Takes multiple values | `[.*]`                |
+
+### Watch
+
+Run **`Betterer`** in watch mode
+
+```sh
+betterer watch -c ./path/to/config -r ./path/to/results
+```
+
+#### Watch options
+
+| Name                      | Description                                                              | Default               |
+| ------------------------- | ------------------------------------------------------------------------ | --------------------- |
+| `-c`, `--config` [value]  | Path to test definition file relative to CWD                             | `./.betterer.ts`      |
+| `-r`, `--results` [value] | Path to test results file relative to CWD                                | `./.betterer.results` |
+| `-f`, `--filter` [value]  | Select tests to run by RegExp. Takes multiple values                     | `[.*]`                |
+| `-i`, `--ignore` [value]  | Ignore files by RegExp when running in watch mode. Takes multiple values | `[]`                  |

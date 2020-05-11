@@ -19,9 +19,9 @@ const { version } = require('../package.json');
 export function cli(argv: CLIArguments): void {
   commander.version(version);
 
-  commander.command(Commands.start, 'run betterer');
-  commander.command(Commands.init, 'init betterer');
-  commander.command(Commands.watch, 'run betterer in watch mode');
+  commander.command(Commands.init, 'init Betterer in a project');
+  commander.command(Commands.start, 'run Betterer');
+  commander.command(Commands.watch, 'run Betterer in watch mode');
 
   const args = argv.slice(0);
   const [, , command] = args;

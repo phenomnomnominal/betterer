@@ -20,11 +20,12 @@ checking 2 files... 🤔
  .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
    / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  
-checked 2 files:
+  checked 2 files:
 
-  <project>/fixtures/test-betterer-watch-debounce/src/file.ts
-  <project>/fixtures/test-betterer-watch-debounce/src/index.ts
+    <project>/fixtures/test-betterer-watch-debounce/src/file.ts
+    <project>/fixtures/test-betterer-watch-debounce/src/index.ts
 
+  \\"tsquery no raw console.log\\" got checked for the first time! 🎉
 ",
   " ☀️  betterer  info  💬  - ",
   "Stopping watch mode 👋",
@@ -66,10 +67,11 @@ checking 1 files... 🤔
  .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
    / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  
-checked 1 files:
+  checked 1 files:
 
-  <project>/fixtures/test-betterer-watch/src/index.ts
-\\"tsquery no raw console.log\\" got worse. 😔
+    <project>/fixtures/test-betterer-watch/src/index.ts
+
+  \\"tsquery no raw console.log\\" got worse. 😔
 ",
   "
    / | /     _          _   _                     
@@ -87,10 +89,11 @@ checking 1 files... 🤔
  .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
    / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  
-checked 1 files:
+  checked 1 files:
 
-  <project>/fixtures/test-betterer-watch/src/index.ts
-\\"tsquery no raw console.log\\" stayed the same. 😐
+    <project>/fixtures/test-betterer-watch/src/index.ts
+
+  \\"tsquery no raw console.log\\" stayed the same. 😐
 ",
   "
    / | /     _          _   _                     
@@ -108,10 +111,11 @@ checking 1 files... 🤔
  .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
    / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  
-checked 1 files:
+  checked 1 files:
 
-  <project>/fixtures/test-betterer-watch/src/index.ts
-\\"tsquery no raw console.log\\" got better! 😍
+    <project>/fixtures/test-betterer-watch/src/index.ts
+
+ \\"tsquery no raw console.log\\" got better! 😍
 ",
   " ☀️  betterer  info  💬  - ",
   "Stopping watch mode 👋",

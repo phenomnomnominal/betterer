@@ -1,4 +1,4 @@
-import { code, error, warn } from '@betterer/logger';
+import { code, error, success, warn } from '@betterer/logger';
 
 import { BettererRun } from '../../context';
 import { BettererFileTest } from './file-test';
@@ -7,9 +7,12 @@ export function differ(run: BettererRun): void {
   const { diff } = run.test as BettererFileTest;
   Object.keys(diff).forEach((file) => {
     const issues = diff[file];
-    if (issues.existing?.length) {
-      const { length } = issues.existing;
-      warn(`${length} existing ${getIssues(length)} in "${file}".`);
+    const { existing, fixed } = issues;
+    if (fixed) {
+      success(`${fixed} fixed ${getIssues(fixed)} in "${file}".`);
+    }
+    if (existing) {
+      warn(`${existing} existing ${getIssues(existing)} in "${file}".`);
     }
     if (issues.neww?.length) {
       const { length } = issues.neww;

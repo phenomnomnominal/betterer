@@ -1,4 +1,4 @@
-import { BettererFileIssue, BettererFileTest, BettererFileIssueMap } from '@betterer/betterer';
+import { BettererFileTest, BettererFileIssuesMapRaw } from '@betterer/betterer';
 import * as stack from 'callsite';
 import * as ts from 'typescript';
 import * as path from 'path';
@@ -74,6 +74,6 @@ export function typescriptBetterer(configFilePath: string, extraCompilerOptions:
         }
       ];
       return fileInfoMap;
-    }, {} as BettererFileIssueMap<BettererFileIssue>);
+    }, {} as BettererFileIssuesMapRaw);
   });
 }

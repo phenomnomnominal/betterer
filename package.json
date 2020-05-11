@@ -4,7 +4,7 @@
   "private": true,
   "author": "Craig Spence <craigspence0@gmail.com>",
   "license": "MIT",
-  "description": "betterer makes it easier to make incremental improvements to your codebase",
+  "description": "Betterer makes it easier to make incremental improvements to your codebase",
   "workspaces": [
     "packages/*"
   ],

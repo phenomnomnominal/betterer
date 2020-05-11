@@ -1,4 +1,4 @@
-import { BettererFileIssue, BettererFileIssues, BettererFileTest, BettererFileIssueMap } from '@betterer/betterer';
+import { BettererFileTest, BettererFileIssuesMapRaw, BettererFileIssuesRaw } from '@betterer/betterer';
 import { tsquery } from '@phenomnomnominal/tsquery';
 import * as stack from 'callsite';
 import { promises as fs } from 'fs';
@@ -38,11 +38,11 @@ export function tsqueryBetterer(configFilePath: string, query: string): Betterer
     return sourceFiles.reduce((fileInfoMap, sourceFile) => {
       fileInfoMap[sourceFile.fileName] = getFileMatches(query, sourceFile);
       return fileInfoMap;
-    }, {} as BettererFileIssueMap<BettererFileIssue>);
+    }, {} as BettererFileIssuesMapRaw);
   });
 }
 
-function getFileMatches(query: string, sourceFile: SourceFile): BettererFileIssues<BettererFileIssue> {
+function getFileMatches(query: string, sourceFile: SourceFile): BettererFileIssuesRaw {
   return tsquery.query(sourceFile, query, { visitAllChildren: true }).map((match) => {
     return {
       message: 'TSQuery match',

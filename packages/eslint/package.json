@@ -1,6 +1,6 @@
 {
   "name": "@betterer/eslint",
-  "description": "ESLint betterer for @betterer/betterer",
+  "description": "ESLint test for @betterer/betterer",
   "version": "0.5.2",
   "license": "MIT",
   "publishConfig": {

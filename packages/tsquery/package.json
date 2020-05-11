@@ -1,6 +1,6 @@
 {
   "name": "@betterer/tsquery",
-  "description": "TSQuery betterer for @betterer/betterer",
+  "description": "TSQuery test for @betterer/betterer",
   "version": "0.5.2",
   "license": "MIT",
   "publishConfig": {

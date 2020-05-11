@@ -2,7 +2,6 @@ import * as assert from 'assert';
 
 import { CONSTRAINT_FUNCTION_REQUIRED, TEST_FUNCTION_REQUIRED } from '../errors';
 import { isFunction } from '../utils';
-import { BettererFilePaths } from '../watcher';
 import {
   BettererTestOptions,
   BettererTestConstraint,
@@ -13,28 +12,23 @@ import {
   BettererSerialiser
 } from './types';
 import { BettererTestState } from './test-state';
-import { BettererContext } from '../context';
 
 const IS_BETTERER_TEST = 'isBettererTest';
 
-export class BettererTest<
-  ResultType = unknown,
-  DeserialisedType = ResultType,
-  SerialisedType = ResultType
-> extends BettererTestState {
-  public readonly constraint: BettererTestConstraint<ResultType, DeserialisedType>;
-  public readonly goal: BettererTestGoal<ResultType>;
-  public readonly test: BettererTestFunction<ResultType>;
+export class BettererTest<DeserialisedType = unknown, SerialisedType = DeserialisedType> extends BettererTestState {
+  public readonly constraint: BettererTestConstraint<DeserialisedType>;
+  public readonly goal: BettererTestGoal<DeserialisedType>;
+  public readonly test: BettererTestFunction<DeserialisedType>;
 
   public differ?: BettererDiffer;
   public printer?: BettererPrinter<SerialisedType>;
-  public serialiser?: BettererSerialiser<ResultType, DeserialisedType, SerialisedType>;
+  public serialiser?: BettererSerialiser<DeserialisedType, SerialisedType>;
 
   public isBettererTest = IS_BETTERER_TEST;
 
   private _name: string | null = null;
 
-  constructor(options: BettererTestOptions<ResultType, DeserialisedType, SerialisedType>) {
+  constructor(options: BettererTestOptions<DeserialisedType, SerialisedType>) {
     super(options.isSkipped, options.isOnly);
 
     if (options.constraint == null) {
@@ -62,14 +56,9 @@ export class BettererTest<
     return this._name as string;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public getExpected(_: BettererContext, expected: DeserialisedType, __: BettererFilePaths): DeserialisedType {
-    return expected;
-  }
-
   private _createGoal(
-    options: BettererTestOptions<ResultType, DeserialisedType, SerialisedType>
-  ): BettererTestGoal<ResultType> {
+    options: BettererTestOptions<DeserialisedType, SerialisedType>
+  ): BettererTestGoal<DeserialisedType> {
     const hasGoal = Object.hasOwnProperty.call(options, 'goal');
     if (!hasGoal) {
       return (): boolean => false;

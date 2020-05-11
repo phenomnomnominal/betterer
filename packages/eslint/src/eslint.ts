@@ -1,4 +1,9 @@
-import { BettererFileIssue, BettererFileIssues, BettererFileTest, BettererFileIssueMap } from '@betterer/betterer';
+import {
+  BettererFileTest,
+  BettererFileIssueRaw,
+  BettererFileIssuesRaw,
+  BettererFileIssuesMapRaw
+} from '@betterer/betterer';
 import * as stack from 'callsite';
 import { CLIEngine, Linter } from 'eslint';
 import * as glob from 'glob';
@@ -42,15 +47,11 @@ export function eslintBetterer(globs: string | ReadonlyArray<string>, rule: ESLi
       const linterOptions = cli.getConfigForFile(filePath);
       fileInfoMap[filePath] = getFileIssues(linterOptions, rule, filePath);
       return fileInfoMap;
-    }, {} as BettererFileIssueMap<BettererFileIssue>);
+    }, {} as BettererFileIssuesMapRaw);
   });
 }
 
-function getFileIssues(
-  linterOptions: Linter.Config,
-  rule: ESLintRuleConfig,
-  filePath: string
-): BettererFileIssues<BettererFileIssue> {
+function getFileIssues(linterOptions: Linter.Config, rule: ESLintRuleConfig, filePath: string): BettererFileIssuesRaw {
   const [ruleName, ruleOptions] = rule;
   const runner = new CLIEngine({
     ...linterOptions,
@@ -63,7 +64,7 @@ function getFileIssues(
 
   const report = runner.executeOnFiles([filePath]);
   const resultsWithSource = report.results.filter((result) => result.source);
-  return ([] as BettererFileIssues<BettererFileIssue>).concat(
+  return ([] as BettererFileIssuesRaw).concat(
     ...resultsWithSource.map((result) => {
       const { source, messages } = result;
       return messages.map((message) => {
@@ -77,7 +78,7 @@ function eslintMessageToBettererError(
   filePath: string,
   source: string,
   message: Linter.LintMessage
-): BettererFileIssue {
+): BettererFileIssueRaw {
   const lc = new LinesAndColumns(source);
   const startLocation = lc.indexForLocation({
     line: message.line - 1,

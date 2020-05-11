@@ -26,7 +26,7 @@ export async function init(cwd: string, argv: CLIArguments): Promise<void> {
 
   const { config } = commander;
 
-  info('initialising betterer... ☀️');
+  info('initialising Betterer... ☀️');
   try {
     await createTestFile(cwd, config);
     await updatePackageJSON(cwd);
@@ -34,7 +34,7 @@ export async function init(cwd: string, argv: CLIArguments): Promise<void> {
     logError(e);
     throw e;
   }
-  success('initialised betterer! ☀️');
+  success('initialised Betterer! ☀️');
 }
 
 async function createTestFile(cwd: string, configFilePath: string): Promise<void> {

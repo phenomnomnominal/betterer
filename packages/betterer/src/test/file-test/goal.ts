@@ -1,5 +1,5 @@
-import { BettererFilesResult } from './types';
+import { BettererFiles } from './files';
 
-export function goal(value: BettererFilesResult): boolean {
-  return value.files.every((file) => file.fileIssues.length === 0);
+export function goal(value: BettererFiles): boolean {
+  return value.files.length === 0;
 }
