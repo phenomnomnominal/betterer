@@ -12,7 +12,7 @@ export function createConfig(partialConfig: BettererConfigPartial): BettererConf
     path.resolve(cwd, configPath)
   );
   const filters = toRegExps(toArray(partialConfig.filters));
-  const ignores = toRegExps(toArray(partialConfig.ignores));
+  const ignores = toArray<string>(partialConfig.ignores);
   const resultsPath = path.resolve(cwd, partialConfig.resultsPath || DEFAULT_RESULTS_PATH);
 
   return {

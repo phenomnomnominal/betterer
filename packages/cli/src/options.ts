@@ -18,7 +18,7 @@ export function filters(commander: CommanderStatic): void {
 }
 
 export function ignores(commander: CommanderStatic): void {
-  commander.option('-i, --ignore [value]', 'RegExp filter for files at watch', argsToArray);
+  commander.option('-i, --ignore [value]', 'Glob pattern for files to ignore', argsToArray);
 }
 
 function argsToArray(value: string, previous: CLIArguments = []): CLIArguments {
