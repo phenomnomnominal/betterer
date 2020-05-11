@@ -21,7 +21,7 @@ export const runnerParallel: BettererRunnerReporter = {
           report += `\n  "${name}" met its goal! 🎉`;
           return;
         }
-        report += `\n "${name}" got better! 😍`;
+        report += `\n  "${name}" got better! 😍`;
         return;
       }
       if (run.isFailed) {
