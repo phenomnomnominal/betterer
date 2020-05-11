@@ -1,14 +1,14 @@
-[![betterer](https://github.com/phenomnomnominal/betterer/blob/master/docs/logo.png)](https://phenomnomnominal.github.io/betterer/)
+[![Betterer](https://github.com/phenomnomnominal/betterer/blob/master/docs/logo.png)](https://phenomnomnominal.github.io/betterer/)
 
 # `@betterer/typescript`
 
 [![npm version](https://img.shields.io/npm/v/@betterer/typescript.svg)](https://www.npmjs.com/package/@betterer/typescript)
 
-TypeScript betterer for [**`betterer`**](https://github.com/phenomnomnominal/betterer).
+TypeScript test for [**`Betterer`**](https://github.com/phenomnomnominal/betterer).
 
 ## Description
 
-Use this betterer to incrementally introduce TypeScript configuration to your codebase!
+Use this test to incrementally introduce TypeScript configuration to your codebase!
 
 ## Usage
 

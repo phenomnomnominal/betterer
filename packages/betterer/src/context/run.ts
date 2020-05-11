@@ -37,10 +37,10 @@ export class BettererRun {
       return;
     } else {
       this._isNew = false;
-      this._hasResult = true;
-      this._expected = this._test.getExpected(this._context, deserialise(this._test, expected.value), this._files);
-      this._toPrint = this._expected;
+      this._expected = deserialise(this._test, expected.value);
       this._timestamp = expected.timestamp;
+      this._toPrint = this._expected;
+      this._hasResult = true;
     }
   }
 
@@ -109,10 +109,10 @@ export class BettererRun {
   public better(result: unknown, isComplete: boolean, timestamp: number): void {
     assert.equal(this._status, BettererRunStatus.pending);
     this._status = isComplete ? BettererRunStatus.complete : BettererRunStatus.better;
-    this._hasResult = true;
     this._result = result;
     this._toPrint = result;
     this._timestamp = timestamp;
+    this._hasResult = true;
     this._context.runBetter(this);
   }
 
@@ -129,10 +129,10 @@ export class BettererRun {
   public neww(result: unknown, isComplete: boolean, timestamp: number): void {
     assert.equal(this._status, BettererRunStatus.pending);
     this._status = isComplete ? BettererRunStatus.complete : BettererRunStatus.neww;
-    this._hasResult = true;
     this._result = result;
     this._toPrint = result;
     this._timestamp = timestamp;
+    this._hasResult = true;
     this._context.runNew(this);
   }
 
@@ -147,25 +147,28 @@ export class BettererRun {
   public same(): void {
     assert.equal(this._status, BettererRunStatus.pending);
     this._status = BettererRunStatus.same;
+    this._result = this._expected;
     this._hasResult = true;
-    this._toPrint = this._expected;
     this._context.runSame(this);
   }
 
   public skipped(): void {
     assert.equal(this._status, BettererRunStatus.pending);
     this._status = BettererRunStatus.skipped;
-    this._hasResult = true;
-    this._toPrint = this._expected;
+    if (this._expected !== NO_PREVIOUS_RESULT) {
+      this._result = this._expected;
+      this._toPrint = this._expected;
+      this._hasResult = true;
+    }
     this._context.runSkipped(this);
   }
 
   public worse(result: unknown): void {
     assert.equal(this._status, BettererRunStatus.pending);
     this._status = BettererRunStatus.worse;
-    this._hasResult = true;
     this._result = result;
     this._toPrint = this._expected;
+    this._hasResult = true;
     this._context.runWorse(this);
   }
 }

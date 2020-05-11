@@ -9,26 +9,41 @@ export const runnerParallel: BettererRunnerReporter = {
     overwrite(`checking ${files.length} files... 🤔`);
   },
   end(runs: BettererRuns, files: BettererFilePaths): void {
-    let report = `checked ${files.length} files:\n`;
+    let report = `  checked ${files.length} files:\n`;
     files.forEach((filePath) => {
-      report += `\n  ${filePath}`;
+      report += `\n    ${filePath}`;
     });
     report += '\n';
-    const better = runs.filter((run) => run.isBetter);
-    const failed = runs.filter((run) => run.isFailed);
-    const same = runs.filter((run) => run.isSame);
-    const worse = runs.filter((run) => run.isWorse);
-    better.forEach((run) => {
-      report += `"${run.name}" got better! 😍`;
-    });
-    failed.forEach((run) => {
-      report += `"${run.name}" failed to run. 🔥`;
-    });
-    same.forEach((run) => {
-      report += `"${run.name}" stayed the same. 😐`;
-    });
-    worse.forEach((run) => {
-      report += `"${run.name}" got worse. 😔`;
+    runs.forEach((run) => {
+      const { name, isComplete } = run;
+      if (run.isBetter) {
+        if (isComplete) {
+          report += `\n  "${name}" met its goal! 🎉`;
+          return;
+        }
+        report += `\n  "${name}" got better! 😍`;
+        return;
+      }
+      if (run.isFailed) {
+        report += `\n  "${run.name}" failed to run. 🔥`;
+        return;
+      }
+      if (run.isNew) {
+        if (isComplete) {
+          report += `\n  "${name}" has already met its goal! ✨`;
+          return;
+        }
+        report += `\n  "${name}" got checked for the first time! 🎉`;
+        return;
+      }
+      if (run.isSame) {
+        report += `\n  "${name}" stayed the same. 😐`;
+        return;
+      }
+      if (run.isWorse) {
+        report += `\n  "${name}" got worse. 😔`;
+        return;
+      }
     });
     overwrite(report);
   }

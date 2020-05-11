@@ -3,7 +3,7 @@ import { watch as chokidar, FSWatcher } from 'chokidar';
 import { BettererContext, BettererRuns } from '../context';
 import { getNormalisedPath } from '../utils';
 import { BettererWatchChangeHandler, BettererWatchRunHandler } from './types';
-import { WATCH_IGNORES } from './ignores';
+import { getIgnores } from './ignores';
 
 const EMIT_EVENTS = ['add', 'change'];
 const DEBOUNCE_TIME = 200;
@@ -21,7 +21,7 @@ export class BettererWatcher {
 
     const watcher = chokidar(cwd, {
       ignoreInitial: true,
-      ignored: [...WATCH_IGNORES, ...ignores, resultsPath]
+      ignored: [...(await getIgnores()), ...ignores, resultsPath]
     });
 
     watcher.on('all', (event: string, filePath: string) => {

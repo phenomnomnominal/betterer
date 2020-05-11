@@ -1,6 +1,6 @@
 {
   "name": "@betterer/regexp",
-  "description": "RegExp betterer for @betterer/betterer",
+  "description": "RegExp test for @betterer/betterer",
   "version": "0.5.2",
   "license": "MIT",
   "publishConfig": {

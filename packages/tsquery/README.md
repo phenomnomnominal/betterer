@@ -1,14 +1,14 @@
-[![betterer](https://github.com/phenomnomnominal/betterer/blob/master/docs/logo.png)](https://phenomnomnominal.github.io/betterer/)
+[![Betterer](https://github.com/phenomnomnominal/betterer/blob/master/docs/logo.png)](https://phenomnomnominal.github.io/betterer/)
 
 # `@betterer/tsquery`
 
 [![npm version](https://img.shields.io/npm/v/@betterer/tsquery.svg)](https://www.npmjs.com/package/@betterer/tsquery)
 
-[**TSQuery**](https://github.com/phenomnomnominal/tsquery) betterer for [**`betterer`**](https://github.com/phenomnomnominal/betterer).
+[**TSQuery**](https://github.com/phenomnomnominal/tsquery) test for [**`Betterer`**](https://github.com/phenomnomnominal/betterer).
 
 ## Description
 
-Use this betterer to incrementally remove TSQuery matches from your codebase! See the [TSQuery doecumentation](https://github.com/phenomnomnominal/tsquery) for more details about the query syntax.
+Use this test to incrementally remove TSQuery matches from your codebase! See the [TSQuery doecumentation](https://github.com/phenomnomnominal/tsquery) for more details about the query syntax.
 
 ## Usage
 

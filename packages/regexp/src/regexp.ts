@@ -1,4 +1,4 @@
-import { BettererFileIssue, BettererFileIssues, BettererFileTest, BettererFileIssueMap } from '@betterer/betterer';
+import { BettererFileTest, BettererFileIssuesMapRaw, BettererFileIssuesRaw } from '@betterer/betterer';
 import * as stack from 'callsite';
 import { promises as fs } from 'fs';
 import * as path from 'path';
@@ -42,11 +42,11 @@ export function regexpBetterer(globs: string | ReadonlyArray<string>, regexp: Re
     return testFiles.reduce((fileInfoMap, filePath, index) => {
       fileInfoMap[filePath] = matches[index];
       return fileInfoMap;
-    }, {} as BettererFileIssueMap<BettererFileIssue>);
+    }, {} as BettererFileIssuesMapRaw);
   });
 }
 
-async function getFileMatches(regexp: RegExp, filePath: string): Promise<BettererFileIssues<BettererFileIssue>> {
+async function getFileMatches(regexp: RegExp, filePath: string): Promise<BettererFileIssuesRaw> {
   const matches: Array<RegExpExecArray> = [];
   const fileText = await fs.readFile(filePath, 'utf8');
 

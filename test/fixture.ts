@@ -49,7 +49,9 @@ export function fixture(fixtureName: string): Fixture {
   jest.spyOn(console, 'log').mockImplementation(log);
   jest.spyOn(console, 'error').mockImplementation(log);
   jest.spyOn(process.stdout, 'write').mockImplementation((message: string | Uint8Array): boolean => {
-    log(message.toString());
+    if (message) {
+      log(message.toString());
+    }
     return true;
   });
   process.stdout.columns = 1000;

@@ -1,13 +1,13 @@
 export type BettererConfigPaths = ReadonlyArray<string>;
 export type BettererConfigFilters = ReadonlyArray<RegExp>;
-export type BettererConfigIgnore = ReadonlyArray<RegExp>;
+export type BettererConfigIgnore = ReadonlyArray<string>;
 
 export type BettererConfigPartial = Partial<{
   configPaths: BettererConfigPaths | string;
   resultsPath: string;
   filters: BettererConfigFilters | ReadonlyArray<string> | string;
   watch: boolean;
-  ignores: BettererConfigIgnore | ReadonlyArray<string> | string;
+  ignores: BettererConfigIgnore | string;
   cwd: string;
 }>;
 

@@ -1,41 +1,34 @@
 import { BettererFile } from './file';
-import {
-  BettererFileIssues,
-  BettererFileIssueMap,
-  BettererFilePaths,
-  BettererFileHashMap,
-  BettererFileHashes
-} from './types';
+import { BettererFilePaths } from './types';
 
-export class BettererFiles<BettererFileIssueType> {
-  private _fileIssuesMap: BettererFileIssueMap<BettererFileIssueType> = {};
-  private _fileHashes: BettererFileHashes = [];
-  private _fileHashMap: BettererFileHashMap = {};
+export class BettererFiles {
+  private _filesMap: Record<string, BettererFile> = {};
+  private _hashMap: Record<string, Array<BettererFile>> = {};
 
   public readonly filePaths: BettererFilePaths = [];
 
-  constructor(public readonly files: ReadonlyArray<BettererFile<BettererFileIssueType>>) {
-    this._fileHashMap = this.files.reduce((hashMap, file) => {
-      hashMap[file.filePath] = file.fileHash;
-      return hashMap;
-    }, {} as BettererFileHashMap);
-    this._fileHashes = Object.keys(this._fileHashMap).map((filePath) => this._fileHashMap[filePath]);
-    this._fileIssuesMap = this.files.reduce((issuesMap, file) => {
-      issuesMap[file.filePath] = file.fileIssues;
-      return issuesMap;
-    }, {} as BettererFileIssueMap<BettererFileIssueType>);
-    this.filePaths = this.files.map((file) => file.filePath);
+  constructor(public readonly files: ReadonlyArray<BettererFile>) {
+    this._filesMap = this.files.reduce((filesMap, file) => {
+      filesMap[file.filePath] = file;
+      return filesMap;
+    }, {} as Record<string, BettererFile>);
+    this._hashMap = {};
+    this.files.forEach((file) => {
+      this._hashMap[file.filePath] = this._hashMap[file.filePath] || [];
+      this._hashMap[file.filePath].push(file);
+    });
+    this.filePaths = this.files.map((file) => file.filePath).sort();
   }
 
   public hasHash(hash: string): boolean {
-    return this._fileHashes.includes(hash);
+    return !!this._hashMap[hash];
   }
 
-  public getFileHash(filePath: string): string {
-    return this._fileHashMap[filePath];
+  public getFiles(hash: string): ReadonlyArray<BettererFile> {
+    return this._hashMap[hash] || [];
   }
 
-  public getFileIssues(filePath: string): BettererFileIssues<BettererFileIssueType> {
-    return this._fileIssuesMap[filePath] || [];
+  public getFile(filePath: string): BettererFile | void {
+    return this._filesMap[filePath];
   }
 }

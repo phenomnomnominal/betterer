@@ -1,9 +1,8 @@
 import { ConstraintResult } from '@betterer/constraints';
 
-import { BettererRun, BettererContext } from '../../context';
+import { BettererRun } from '../../context';
 import { createHash } from '../../hasher';
 import { getRelativePath, getAbsolutePath } from '../../utils';
-import { BettererFilePaths } from '../../watcher';
 import { BettererTest } from '../test';
 import { constraint } from './constraint';
 import { differ } from './differ';
@@ -14,49 +13,54 @@ import { printer } from './printer';
 import { deserialise, serialise } from './serialiser';
 import {
   BettererFileExcluded,
-  BettererFilesResult,
-  BettererFilesDeserialised,
   BettererFileIssuesMapSerialised,
   BettererFileTestFunction,
-  BettererFileIssue,
   BettererFileTestDiff
 } from './types';
 
-export class BettererFileTest extends BettererTest<
-  BettererFilesResult,
-  BettererFilesDeserialised,
-  BettererFileIssuesMapSerialised
-> {
+export class BettererFileTest extends BettererTest<BettererFiles, BettererFileIssuesMapSerialised> {
   private _excluded: BettererFileExcluded = [];
   private _diff: BettererFileTestDiff | null = null;
 
   constructor(fileTest: BettererFileTestFunction) {
     super({
-      test: async (run: BettererRun): Promise<BettererFilesResult> => {
+      test: async (run: BettererRun): Promise<BettererFiles> => {
         const { context, files } = run;
+        const { resultsPath } = context.config;
 
+        const expected = run.expected as BettererFiles;
         const result = await fileTest(files);
 
-        const { resultsPath } = context.config;
+        let absolutePaths = Object.keys(result);
+        if (files.length) {
+          const expectedAbsolutePaths =
+            expected?.filePaths?.map((filePath) => getAbsolutePath(resultsPath, filePath)) || [];
+          absolutePaths = Array.from(new Set([...absolutePaths, ...expectedAbsolutePaths]));
+        }
+
         return new BettererFiles(
-          Object.keys(result)
-            .map((filePath) => {
-              if (!this._excluded.some((exclude: RegExp) => exclude.test(filePath)) && result[filePath].length) {
-                const issues = result[filePath];
-                const [{ fileText }] = issues;
-                const relativePath = getRelativePath(resultsPath, filePath);
-                return new BettererFile(relativePath, createHash(fileText), issues);
+          absolutePaths
+            .map((absolutePath) => {
+              if (!this._excluded.some((exclude: RegExp) => exclude.test(absolutePath))) {
+                const relativePath = getRelativePath(resultsPath, absolutePath);
+                const issues = result[absolutePath];
+                if (!issues) {
+                  return expected.getFile(relativePath);
+                }
+                if (issues.length === 0) {
+                  return null;
+                }
+                const [issue] = issues;
+                return new BettererFile(relativePath, createHash(issue.fileText), issues);
               }
               return null;
             })
-            .filter(Boolean) as ReadonlyArray<BettererFile<BettererFileIssue>>
+            .filter(Boolean) as ReadonlyArray<BettererFile>
         );
       },
-      constraint: (result: BettererFilesResult, expected: BettererFilesDeserialised): ConstraintResult => {
+      constraint: (result: BettererFiles, expected: BettererFiles): ConstraintResult => {
         const { diff, constraintResult } = constraint(result, expected);
-        if (diff) {
-          this._diff = diff;
-        }
+        this._diff = diff;
         return constraintResult;
       },
       goal,
@@ -80,20 +84,5 @@ export class BettererFileTest extends BettererTest<
   public exclude(...excludePatterns: BettererFileExcluded): this {
     this._excluded = [...this._excluded, ...excludePatterns];
     return this;
-  }
-
-  public getExpected(
-    context: BettererContext,
-    expected: BettererFilesDeserialised,
-    files: BettererFilePaths
-  ): BettererFilesDeserialised {
-    if (!files.length) {
-      return expected;
-    }
-    return new BettererFiles(
-      expected.files.filter((file) => {
-        return files.includes(getAbsolutePath(context.config.resultsPath, file.filePath));
-      })
-    );
   }
 }

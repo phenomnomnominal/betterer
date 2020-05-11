@@ -1,10 +1,10 @@
-[![betterer](https://github.com/phenomnomnominal/betterer/blob/master/docs/logo.png)](https://phenomnomnominal.github.io/betterer/)
+[![Betterer](https://github.com/phenomnomnominal/betterer/blob/master/docs/logo.png)](https://phenomnomnominal.github.io/betterer/)
 
 # `@betterer/logger`
 
 [![npm version](https://img.shields.io/npm/v/@betterer/logger.svg)](https://www.npmjs.com/package/@betterer/logger)
 
-Logger used within [**`betterer`**](https://github.com/phenomnomnominal/betterer).
+Logger used within [**`Betterer`**](https://github.com/phenomnomnominal/betterer).
 
 ## Usage
 

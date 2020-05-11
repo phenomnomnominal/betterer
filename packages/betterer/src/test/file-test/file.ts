@@ -1,9 +1,13 @@
 import { BettererFileIssues } from './types';
 
-export class BettererFile<BettererFileIssueType> {
+export class BettererFile {
+  public readonly key: string;
+
   constructor(
     public readonly filePath: string,
-    public readonly fileHash: string,
-    public readonly fileIssues: BettererFileIssues<BettererFileIssueType>
-  ) {}
+    public readonly hash: string,
+    public readonly issues: BettererFileIssues
+  ) {
+    this.key = `${filePath}:${hash}`;
+  }
 }

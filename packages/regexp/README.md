@@ -1,14 +1,14 @@
-[![betterer](https://github.com/phenomnomnominal/betterer/blob/master/docs/logo.png)](https://phenomnomnominal.github.io/betterer/)
+[![Betterer](https://github.com/phenomnomnominal/betterer/blob/master/docs/logo.png)](https://phenomnomnominal.github.io/betterer/)
 
 # `@betterer/regexp`
 
 [![npm version](https://img.shields.io/npm/v/@betterer/regexp.svg)](https://www.npmjs.com/package/@betterer/regexp)
 
-RegExp betterer for [**`betterer`**](https://github.com/phenomnomnominal/betterer).
+RegExp test for [**`Betterer`**](https://github.com/phenomnomnominal/betterer).
 
 ## Description
 
-Use this betterer to incrementally remove RegExp matches from your codebase!
+Use this test to incrementally remove RegExp matches from your codebase!
 
 ## Usage
 

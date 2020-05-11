@@ -3759,6 +3759,11 @@ gitconfiglocal@^1.0.0:
   dependencies:
     ini "^1.3.2"
 
+gitignore-globs@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/gitignore-globs/-/gitignore-globs-0.1.1.tgz#f6247c032f2bb4ac0abe84941d3fc423d8c1a40b"
+  integrity sha1-9iR8Ay8rtKwKvoSUHT/EI9jBpAs=
+
 glob-parent@^3.1.0:
   version "3.1.0"
   resolved "https://registry.npmjs.org/glob-parent/-/glob-parent-3.1.0.tgz#9e6af6299d8d3bd2bd40430832bd113df906c5ae"
