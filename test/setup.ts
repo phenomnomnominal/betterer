@@ -6,4 +6,4 @@ Date['now'] = function (): number {
   return 0;
 }.bind(Date);
 
-jest.setTimeout(1000000);
+jest.setTimeout(200000);

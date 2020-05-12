@@ -1,15 +1,37 @@
 import { betterer } from '@betterer/betterer';
 
-import { fixture } from './fixture';
+import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should work with a .betterer.ts file that uses ES modules', async () => {
-    const { logs, paths, readFile, reset } = fixture('test-betterer-config-ts-esm');
+    const { logs, paths, readFile, cleanup } = await createFixture('test-betterer-config-ts-esm', {
+      '.betterer.ts': `
+import { bigger } from '@betterer/constraints';
+
+let start = 0;
+
+export default {
+  'gets better': {
+    test: () => start++,
+    constraint: bigger
+  }
+};
+      `,
+      'tsconfig.json': `
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "include": ["./**/*.ts"],
+  "exclude": ["../node_modules/*", "./node_modules/*", "./dist/*"]
+}      
+      `
+    });
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
-
-    await reset();
 
     const firstRun = await betterer({ configPaths, resultsPath });
 
@@ -25,6 +47,6 @@ describe('betterer', () => {
 
     expect(result).toMatchSnapshot();
 
-    await reset();
+    await cleanup();
   });
 });
