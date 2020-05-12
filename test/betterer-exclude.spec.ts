@@ -1,15 +1,28 @@
-import { betterer } from '@betterer/betterer/src';
+import { betterer } from '@betterer/betterer';
 
-import { fixture } from './fixture';
+import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should exclude specific files from results', async () => {
-    const { logs, paths, readFile, reset, resolve, writeFile } = fixture('test-betterer-exclude');
+    const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('test-betterer-exclude', {
+      '.betterer.ts': `
+import { regexpBetterer } from '@betterer/regexp';
+
+export default {
+  'regexp no hack comments': regexpBetterer('./src/**/*.ts', /(\\/\\/\\s*HACK)/i)
+};      
+      `,
+      '.betterer.exclude.ts': `
+import { regexpBetterer } from '@betterer/regexp';
+
+export default {
+  'regexp no hack comments': regexpBetterer(['./src/**/*.ts'], /(\\/\\/\\s*HACK)/i).exclude(/exclude.ts/)
+};      
+      `
+    });
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
-
-    await reset();
 
     await writeFile(resolve('./src/index.ts'), '// Hack');
     await writeFile(resolve('./src/exclude.ts'), '// Hack');
@@ -31,6 +44,6 @@ describe('betterer', () => {
 
     expect(logs).toMatchSnapshot();
 
-    await reset();
+    await cleanup();
   });
 });

@@ -1,16 +1,13 @@
+import { BettererFileTest, BettererFileIssuesMapRaw, BettererFileIssuesRaw } from '@betterer/betterer';
 import * as stack from 'callsite';
-import * as fs from 'fs';
+import { promises as fs } from 'fs';
 import * as path from 'path';
 import * as glob from 'glob';
 import { promisify } from 'util';
 
-import { BettererFileInfo, FileBetterer, createFileBetterer } from '@betterer/betterer';
 import { FILE_GLOB_REQUIRED, REGEXP_REQUIRED } from './errors';
 
-const globAsync = promisify(glob);
-const readAsync = promisify(fs.readFile);
-
-export function regexpBetterer(globs: string | Array<string>, regexp: RegExp): FileBetterer {
+export function regexpBetterer(globs: string | ReadonlyArray<string>, regexp: RegExp): BettererFileTest {
   if (!globs) {
     throw FILE_GLOB_REQUIRED();
   }
@@ -20,45 +17,55 @@ export function regexpBetterer(globs: string | Array<string>, regexp: RegExp): F
 
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
-  const filesArray = Array.isArray(globs) ? globs : [globs];
-  const filesGlobs = filesArray.map((glob) => path.resolve(cwd, glob));
+  const globsArray = Array.isArray(globs) ? globs : [globs];
+  const resolvedGlobs = globsArray.map((glob) => path.resolve(cwd, glob));
 
-  return createFileBetterer(async () => {
+  return new BettererFileTest(async (files) => {
     regexp = new RegExp(regexp.source, regexp.flags.includes('g') ? regexp.flags : `${regexp.flags}g`);
 
-    const errors: Array<BettererFileInfo> = [];
-    await Promise.all(
-      filesGlobs.map(async (currentGlob) => {
-        const filePaths = await globAsync(currentGlob);
-        return Promise.all(
-          filePaths.map(async (filePath) => {
-            let fileText;
-            try {
-              fileText = await readAsync(filePath, 'utf8');
-            } catch {
-              // Can't read file, move on;
-              return;
-            }
+    const testFiles = [...files];
+    if (testFiles.length === 0) {
+      await Promise.all(
+        resolvedGlobs.map(async (currentGlob) => {
+          const globFiles = await promisify(glob)(currentGlob);
+          testFiles.push(...globFiles);
+        })
+      );
+    }
 
-            let currentMatch;
-            do {
-              currentMatch = regexp.exec(fileText);
-              if (currentMatch) {
-                const [matchText] = currentMatch;
-                errors.push({
-                  message: `RegExp match`,
-                  filePath,
-                  fileText,
-                  start: currentMatch.index,
-                  end: currentMatch.index + matchText.length
-                });
-              }
-            } while (currentMatch);
-          })
-        );
+    const matches = await Promise.all(
+      testFiles.map(async (filePath) => {
+        return await getFileMatches(regexp, filePath);
       })
     );
 
-    return errors;
+    return testFiles.reduce((fileInfoMap, filePath, index) => {
+      fileInfoMap[filePath] = matches[index];
+      return fileInfoMap;
+    }, {} as BettererFileIssuesMapRaw);
+  });
+}
+
+async function getFileMatches(regexp: RegExp, filePath: string): Promise<BettererFileIssuesRaw> {
+  const matches: Array<RegExpExecArray> = [];
+  const fileText = await fs.readFile(filePath, 'utf8');
+
+  let currentMatch;
+  do {
+    currentMatch = regexp.exec(fileText);
+    if (currentMatch) {
+      matches.push(currentMatch);
+    }
+  } while (currentMatch);
+
+  return matches.map((match) => {
+    const [matchText] = match;
+    return {
+      message: 'RegExp match',
+      filePath,
+      fileText,
+      start: match.index,
+      end: match.index + matchText.length
+    };
   });
 }

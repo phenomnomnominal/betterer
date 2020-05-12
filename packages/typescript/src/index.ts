@@ -1,1 +1,1 @@
-export * from './typescript';
+export { typescriptBetterer } from './typescript';

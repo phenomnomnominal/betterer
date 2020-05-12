@@ -29,7 +29,8 @@
   },
   "dependencies": {
     "@betterer/betterer": "^0.5.2",
-    "commander": "^3.0.1",
+    "@betterer/errors": "^0.5.0",
+    "commander": "^5.1.0",
     "find-up": "^4.1.0",
     "tslib": "^1.10.0"
   }

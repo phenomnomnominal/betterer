@@ -1,16 +1,56 @@
-import { betterer } from '@betterer/betterer/src';
+import { betterer } from '@betterer/betterer';
 
-import { fixture } from './fixture';
+import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should run specific tests', async () => {
-    const { logs, paths, readFile, reset, resolve, writeFile } = fixture('test-betterer-only');
+    const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('test-betterer-only', {
+      '.betterer.only.ts': `
+import { bigger } from '@betterer/constraints';
+import { regexpBetterer } from '@betterer/regexp';
+
+export default {
+  'test 1': {
+    test: () => Date.now(),
+    constraint: bigger,
+    isOnly: true
+  },
+  'test 2': {
+    test: () => Date.now(),
+    constraint: bigger
+  },
+  'test 3': {
+    test: () => Date.now(),
+    constraint: bigger
+  },
+  'test 4': regexpBetterer('./src/**/*.ts', /(\\/\\/\\s*HACK)/i).only()
+};
+        `,
+      '.betterer.ts': `
+import { bigger } from '@betterer/constraints';
+import { regexpBetterer } from '@betterer/regexp';
+
+export default {
+  'test 1': {
+    test: () => Date.now(),
+    constraint: bigger
+  },
+  'test 2': {
+    test: () => Date.now(),
+    constraint: bigger
+  },
+  'test 3': {
+    test: () => Date.now(),
+    constraint: bigger
+  },
+  'test 4': regexpBetterer('./src/**/*.ts', /(\\/\\/\\s*HACK)/i)
+};    
+      `
+    });
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
     const indexPath = resolve('./src/index.ts');
-
-    await reset();
 
     await writeFile(indexPath, `// HACK:`);
 
@@ -33,6 +73,6 @@ describe('betterer', () => {
 
     expect(result).toMatchSnapshot();
 
-    await reset();
+    await cleanup();
   });
 });

@@ -1,3 +1,9 @@
+import {
+  BettererFileTest,
+  BettererFileIssueRaw,
+  BettererFileIssuesRaw,
+  BettererFileIssuesMapRaw
+} from '@betterer/betterer';
 import * as stack from 'callsite';
 import { CLIEngine, Linter } from 'eslint';
 import * as glob from 'glob';
@@ -5,14 +11,13 @@ import LinesAndColumns from 'lines-and-columns';
 import * as path from 'path';
 import { promisify } from 'util';
 
-import { BettererFileInfo, FileBetterer, createFileBetterer } from '@betterer/betterer';
 import { FILE_GLOB_REQUIRED, RULE_OPTIONS_REQUIRED } from './errors';
 
 const globAsync = promisify(glob);
 
 type ESLintRuleConfig = [string, Linter.RuleLevel | Linter.RuleLevelAndOptions];
 
-export function eslintBetterer(globs: string | Array<string>, rule: ESLintRuleConfig): FileBetterer {
+export function eslintBetterer(globs: string | ReadonlyArray<string>, rule: ESLintRuleConfig): BettererFileTest {
   if (!globs) {
     throw FILE_GLOB_REQUIRED();
   }
@@ -22,58 +27,58 @@ export function eslintBetterer(globs: string | Array<string>, rule: ESLintRuleCo
 
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
-  const filesArray = Array.isArray(globs) ? globs : [globs];
-  const filesGlobs = filesArray.map((glob) => path.resolve(cwd, glob));
+  const globsArray = Array.isArray(globs) ? globs : [globs];
+  const resolvedGlobs = globsArray.map((glob) => path.resolve(cwd, glob));
 
-  return createFileBetterer(async () => {
-    const [ruleName, ruleOptions] = rule;
-
+  return new BettererFileTest(async (files) => {
     const cli = new CLIEngine({});
-    const errors: Array<BettererFileInfo> = [];
 
-    // This is way less than ideal. ESLint does not currently
-    // support running a single lint rule while using the
-    // rest of the current configuration.
-    //
-    // See https://github.com/eslint/eslint/issues/12666 for more.
-    //
-    // To get around this for now, we need to handle iterating
-    // over all the files and getting their configuration.
-    //
-    // This will be slower than if ESLint handled it, so hopefully
-    // they make it possible to do this soon!
-    await Promise.all(
-      filesGlobs.map(async (currentGlob) => {
-        const filePaths = await globAsync(currentGlob);
-        filePaths.map((filePath) => {
-          const linterOptions = cli.getConfigForFile(filePath);
-          const runner = new CLIEngine({
-            ...linterOptions,
-            useEslintrc: false,
-            globals: Object.keys(linterOptions.globals || {}),
-            rules: {
-              [ruleName]: ruleOptions
-            }
-          });
+    const testFiles = [...files];
+    if (testFiles.length === 0) {
+      await Promise.all(
+        resolvedGlobs.map(async (currentGlob) => {
+          const globFiles = await globAsync(currentGlob);
+          testFiles.push(...globFiles);
+        })
+      );
+    }
 
-          const report = runner.executeOnFiles([filePath]);
-          report.results.forEach((result) => {
-            const { source, messages } = result;
-            messages.forEach((message) => {
-              if (source) {
-                errors.push(eslintMessageToBettererError(filePath, source, message));
-              }
-            });
-          });
-        });
-      })
-    );
-
-    return errors;
+    return testFiles.reduce((fileInfoMap, filePath) => {
+      const linterOptions = cli.getConfigForFile(filePath);
+      fileInfoMap[filePath] = getFileIssues(linterOptions, rule, filePath);
+      return fileInfoMap;
+    }, {} as BettererFileIssuesMapRaw);
   });
 }
 
-function eslintMessageToBettererError(filePath: string, source: string, message: Linter.LintMessage): BettererFileInfo {
+function getFileIssues(linterOptions: Linter.Config, rule: ESLintRuleConfig, filePath: string): BettererFileIssuesRaw {
+  const [ruleName, ruleOptions] = rule;
+  const runner = new CLIEngine({
+    ...linterOptions,
+    useEslintrc: false,
+    globals: Object.keys(linterOptions.globals || {}),
+    rules: {
+      [ruleName]: ruleOptions
+    }
+  });
+
+  const report = runner.executeOnFiles([filePath]);
+  const resultsWithSource = report.results.filter((result) => result.source);
+  return ([] as BettererFileIssuesRaw).concat(
+    ...resultsWithSource.map((result) => {
+      const { source, messages } = result;
+      return messages.map((message) => {
+        return eslintMessageToBettererError(filePath, source as string, message);
+      });
+    })
+  );
+}
+
+function eslintMessageToBettererError(
+  filePath: string,
+  source: string,
+  message: Linter.LintMessage
+): BettererFileIssueRaw {
   const lc = new LinesAndColumns(source);
   const startLocation = lc.indexForLocation({
     line: message.line - 1,

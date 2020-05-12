@@ -1,11 +1,13 @@
+import { BettererFileTest, BettererFileIssuesMapRaw, BettererFileIssuesRaw } from '@betterer/betterer';
 import { tsquery } from '@phenomnomnominal/tsquery';
 import * as stack from 'callsite';
+import { promises as fs } from 'fs';
 import * as path from 'path';
+import { SourceFile } from 'typescript';
 
-import { BettererFileInfo, FileBetterer, createFileBetterer } from '@betterer/betterer';
 import { CONFIG_PATH_REQUIRED, QUERY_REQUIRED } from './errors';
 
-export function tsqueryBetterer(configFilePath: string, query: string): FileBetterer {
+export function tsqueryBetterer(configFilePath: string, query: string): BettererFileTest {
   if (!configFilePath) {
     throw CONFIG_PATH_REQUIRED();
   }
@@ -15,22 +17,39 @@ export function tsqueryBetterer(configFilePath: string, query: string): FileBett
 
   const [, callee] = stack();
   const cwd = path.dirname(callee.getFileName());
-  const absPath = path.resolve(cwd, configFilePath);
-  return createFileBetterer(() => {
-    const sourceFiles = tsquery.project(absPath);
-    const matches: Array<BettererFileInfo> = [];
-    sourceFiles.forEach((sourceFile) => {
-      tsquery.query(sourceFile, query, { visitAllChildren: true }).forEach((match) => {
-        matches.push({
-          message: `TSQuery match`,
-          filePath: sourceFile.fileName,
-          fileText: sourceFile.getFullText(),
-          start: match.getStart(),
-          end: match.getEnd()
-        });
-      });
-    });
+  const absoluteConfigFilePath = path.resolve(cwd, configFilePath);
 
-    return matches;
+  return new BettererFileTest(async (files) => {
+    let sourceFiles: ReadonlyArray<SourceFile> = [];
+
+    if (files.length === 0) {
+      sourceFiles = tsquery.project(absoluteConfigFilePath);
+    } else {
+      sourceFiles = await Promise.all(
+        files.map(async (filePath) => {
+          const fileText = await fs.readFile(filePath, 'utf8');
+          const sourceFile = tsquery.ast(fileText);
+          sourceFile.fileName = filePath;
+          return sourceFile;
+        })
+      );
+    }
+
+    return sourceFiles.reduce((fileInfoMap, sourceFile) => {
+      fileInfoMap[sourceFile.fileName] = getFileMatches(query, sourceFile);
+      return fileInfoMap;
+    }, {} as BettererFileIssuesMapRaw);
+  });
+}
+
+function getFileMatches(query: string, sourceFile: SourceFile): BettererFileIssuesRaw {
+  return tsquery.query(sourceFile, query, { visitAllChildren: true }).map((match) => {
+    return {
+      message: 'TSQuery match',
+      filePath: sourceFile.fileName,
+      fileText: sourceFile.getFullText(),
+      start: match.getStart(),
+      end: match.getEnd()
+    };
   });
 }

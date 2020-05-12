@@ -1,18 +1,77 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`betterer should print the results out when writing the file fails 1`] = `
+Array [
+  "
+   / | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"should shrink\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"should shrink\\" got checked for the first time! 🎉",
+  " ☀️  betterer  erro  🔥  - ",
+  "could not write results to \\"<project>/fixtures/test-betterer-failed-writing/.betterer.results\\". 😔",
+  "
+exports[\`should shrink\`] = {
+  timestamp: 0,
+  value: \`0\`
+};",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked for the first time! 🎉",
+]
+`;
+
+exports[`betterer should throws when reading the results file fails 1`] = `
+Array [
+  "
+   / | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+ ",
+  " ☀️  betterer  erro  🔥  - ",
+  "could not read results from \\"<project>/fixtures/test-betterer-failed-reading/.betterer.results\\". 😔",
+  " ☀️  betterer  erro  🔥  - ",
+  "could not read results from \\"<project>/fixtures/test-betterer-failed-reading/.betterer.results\\". 😔",
+]
+`;
+
 exports[`betterer should work when a test fails 1`] = `
 Array [
   "
-   \\\\ | /     _          _   _                     
+   / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ \\\\ / _ \\\\ __| __/ _ \\\\ '__/ _ \\\\ '__|
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | \\\\    |_.__/ \\\\___|\\\\__|\\\\__\\\\___|_|  \\\\___|_|   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"throws error\\"!",
   " ☀️  betterer  erro  🔥  - ",
   "\\"throws error\\" failed to run. 🔥",
+  "",
+  "OH NO!",
+  "Error: OH NO!
+    at BettererTest.test (<project>/fixtures/test-betterer-failed/.betterer.js:6:13)
+    at <project>/packages/betterer/dist/runner/runner.js:1938:18
+    at step (<project>/node_modules/tslib/tslib.js:139:27)
+    at Object.next (<project>/node_modules/tslib/tslib.js:120:57)
+    at <project>/node_modules/tslib/tslib.js:113:75
+    at new Promise (<anonymous>)
+    at Object.__awaiter (<project>/node_modules/tslib/tslib.js:109:16)
+    at runTest (<project>/packages/betterer/dist/runner/runner.js:1877:18)
+    at Object.<anonymous> (<project>/packages/betterer/dist/runner/runner.js:1825:23)
+    at step (<project>/node_modules/tslib/tslib.js:139:27)
+    at Object.next (<project>/node_modules/tslib/tslib.js:120:57)
+    at fulfilled (<project>/node_modules/tslib/tslib.js:110:62)",
+  "",
   " ☀️  betterer  info  💬  - ",
   "0 things got checked. 🤔",
   " ☀️  betterer  erro  🔥  - ",

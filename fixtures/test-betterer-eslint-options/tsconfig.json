@@ -1,4 +1,0 @@
-{
-  "extends": "../../tsconfig.json",
-  "include": ["./src/**/*", ".betterer.ts", "./.eslintrc.js"]
-}

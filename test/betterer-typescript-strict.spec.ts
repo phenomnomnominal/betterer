@@ -1,5 +1,6 @@
-import { betterer } from '@betterer/betterer/src';
-import { fixture } from './fixture';
+import { betterer } from '@betterer/betterer';
+
+import { createFixture } from './fixture';
 
 const INDEX_SOURCE = `export function extractIds(list) {
   return list.map(member => member.id);
@@ -35,13 +36,38 @@ sum.apply(null, [1, 2, 3]);
 
 describe('betterer', () => {
   it('should report the status of the TypeScript compiler in strict mode', async () => {
-    const { paths, logs, resolve, readFile, reset, writeFile } = fixture('test-betterer-typescript-strict');
+    const { paths, logs, resolve, readFile, cleanup, writeFile } = await createFixture(
+      'test-betterer-typescript-strict',
+      {
+        '.betterer.ts': `
+import { typescriptBetterer } from '@betterer/typescript';
+
+export default {
+  'typescript use strict mode': typescriptBetterer('./tsconfig.json', {
+    strict: true
+  })
+};
+        `,
+        'tsconfig.json': `
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["esnext"],
+    "moduleResolution": "node",
+    "target": "ES5",
+    "typeRoots": ["../../node_modules/@types/"],
+    "resolveJsonModule": true,
+    "strict": false
+  },
+  "include": ["./src/**/*", ".betterer.ts"]
+}
+        `
+      }
+    );
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
     const indexPath = resolve('./src/index.ts');
-
-    await reset();
 
     await writeFile(indexPath, INDEX_SOURCE);
 
@@ -71,6 +97,6 @@ describe('betterer', () => {
 
     expect(logs).toMatchSnapshot();
 
-    await reset();
+    await cleanup();
   });
 });

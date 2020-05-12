@@ -1,1 +1,1 @@
-export * from './tsquery';
+export { tsqueryBetterer } from './tsquery';

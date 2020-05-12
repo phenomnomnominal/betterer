@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`betterer should throw if there is no constraint 1`] = `
+Array [
+  "
+   / | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+ ",
+  " ☀️  betterer  erro  🔥  - ",
+  "could not read \\"<project>/fixtures/test-betterer-custom-no-constraint/.betterer\\". 😔",
+  " ☀️  betterer  erro  🔥  - ",
+  "For a test to work, it must have a \`constraint\` function. ❌",
+]
+`;
+
+exports[`betterer should throw if there is no test 1`] = `
+Array [
+  "
+   / | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+ ",
+  " ☀️  betterer  erro  🔥  - ",
+  "could not read \\"<project>/fixtures/test-betterer-custom-no-test/.betterer\\". 😔",
+  " ☀️  betterer  erro  🔥  - ",
+  "For a test to work, it must have a \`test\` function. ❌",
+]
+`;
