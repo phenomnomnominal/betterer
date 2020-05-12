@@ -23,9 +23,9 @@ type Paths = {
 
 export type FS = Record<string, string>;
 type Fixture = {
-  deleteFile(filePath: string): Promise<void>;
   logs: ReadonlyArray<string>;
   paths: Paths;
+  deleteFile(filePath: string): Promise<void>;
   readFile(filePath: string): Promise<string>;
   resolve(filePath: string): string;
   writeFile(filePath: string, text: string): Promise<void>;
