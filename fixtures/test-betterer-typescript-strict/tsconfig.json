@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["esnext"],
+    "moduleResolution": "node",
+    "target": "ES5",
+    "typeRoots": ["../../node_modules/@types/"],
+    "resolveJsonModule": true,
+    "strict": false
+  },
+  "include": ["./src/**/*", ".betterer.ts"]
+}

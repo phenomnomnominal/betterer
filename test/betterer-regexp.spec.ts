@@ -1,22 +1,16 @@
 import { betterer } from '@betterer/betterer';
 
-import { createFixture } from './fixture';
+import { fixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the existence of RegExp matches', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('test-betterer-regexp', {
-      '.betterer.js': `
-const { regexpBetterer } = require('@betterer/regexp');
-
-module.exports = {
-  'regexp no hack comments': regexpBetterer('./src/**/*.ts', /(\\/\\/\\s*HACK)/i)
-};      
-      `
-    });
+    const { logs, paths, readFile, reset, resolve, writeFile } = fixture('test-betterer-regexp');
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
     const indexPath = resolve('./src/index.ts');
+
+    await reset();
 
     await writeFile(indexPath, `// HACK:`);
 
@@ -50,48 +44,36 @@ module.exports = {
 
     expect(logs).toMatchSnapshot();
 
-    await cleanup();
+    await reset();
   });
 
   it('should throw if there is no globs', async () => {
-    const { paths, logs, cleanup } = await createFixture('test-betterer-regexp-no-globs', {
-      '.betterer.js': `
-const { regexpBetterer } = require('@betterer/regexp');
-
-module.exports = {
-  'regexp no hack comments': regexpBetterer()
-};
-      `
-    });
+    const { paths, logs, reset } = fixture('test-betterer-regexp-no-globs');
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
+
+    await reset();
 
     await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
 
     expect(logs).toMatchSnapshot();
 
-    await cleanup();
+    await reset();
   });
 
   it('should throw if there is no regexp', async () => {
-    const { paths, logs, cleanup } = await createFixture('test-betterer-regexp-no-regexp', {
-      '.betterer.js': `
-const { regexpBetterer } = require('@betterer/regexp');
-
-module.exports = {
-  'regexp no hack comments': regexpBetterer('./src/**/*.ts')
-};      
-      `
-    });
+    const { paths, logs, reset } = fixture('test-betterer-regexp-no-regexp');
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
+
+    await reset();
 
     await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
 
     expect(logs).toMatchSnapshot();
 
-    await cleanup();
+    await reset();
   });
 });

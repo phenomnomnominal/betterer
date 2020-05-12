@@ -1,27 +1,16 @@
 import { betterer } from '@betterer/betterer';
 import { promises as fs } from 'fs';
 
-import { createFixture } from './fixture';
+import { fixture } from './fixture';
 
 describe('betterer', () => {
   it(`should work when a test fails`, async () => {
-    const { logs, paths, readFile, cleanup } = await createFixture('test-betterer-failed', {
-      '.betterer.js': `
-const { bigger } = require('@betterer/constraints');
-
-module.exports = {
-  'throws error': {
-    test: () => {
-      throw new Error('OH NO!');
-    },
-    constraint: bigger
-  }
-};
-`
-    });
+    const { logs, paths, readFile, reset } = fixture('test-betterer-failed');
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
+
+    await reset();
 
     const firstRun = await betterer({ configPaths, resultsPath });
 
@@ -33,27 +22,16 @@ module.exports = {
 
     expect(result).toMatchSnapshot();
 
-    await cleanup();
+    await reset();
   });
 
   it('should print the results out when writing the file fails', async () => {
-    const { logs, paths, cleanup } = await createFixture('test-betterer-failed-writing', {
-      '.betterer.js': `
-const { smaller, bigger } = require('@betterer/constraints');
-
-let grows = 0;
-
-module.exports = {
-  'should shrink': {
-    test: () => grows++,
-    constraint: smaller
-  }
-};
-      `
-    });
+    const { logs, paths, reset } = fixture('test-betterer-failed-writing');
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
+
+    await reset();
 
     jest.spyOn(fs, 'writeFile').mockRejectedValueOnce(new Error());
 
@@ -61,28 +39,17 @@ module.exports = {
 
     expect(logs).toMatchSnapshot();
 
-    await cleanup();
+    await reset();
   });
 
   it('should throws when reading the results file fails', async () => {
-    const { logs, paths, cleanup, resolve, writeFile } = await createFixture('test-betterer-failed-reading', {
-      '.betterer.js': `
-const { smaller, bigger } = require('@betterer/constraints');
-
-let grows = 0;
-
-module.exports = {
-  'should shrink': {
-    test: () => grows++,
-    constraint: smaller
-  }
-};
-      `
-    });
+    const { logs, paths, reset, resolve, writeFile } = fixture('test-betterer-failed-reading');
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
     const indexPath = resolve('./src/index.ts');
+
+    await reset();
 
     await writeFile(resultsPath, 'throw new Error()');
 
@@ -91,6 +58,6 @@ module.exports = {
 
     expect(logs).toMatchSnapshot();
 
-    await cleanup();
+    await reset();
   });
 });

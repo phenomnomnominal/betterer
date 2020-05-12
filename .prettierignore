@@ -1,6 +1,5 @@
 .DS_Store
 dist
-fixtures
 node_modules
 reports
 lerna-debug.log

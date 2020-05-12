@@ -1,31 +1,15 @@
 import { betterer } from '@betterer/betterer';
 
-import { createFixture } from './fixture';
+import { fixture } from './fixture';
 
 describe('betterer', () => {
   it('should work when a test gets better', async () => {
-    const { logs, paths, readFile, cleanup } = await createFixture('test-betterer-better', {
-      '.betterer.js': `
-const { smaller, bigger } = require('@betterer/constraints');
-
-let grows = 0;
-let shrinks = 2;
-
-module.exports = {
-  'should shrink': {
-    test: () => shrinks--,
-    constraint: smaller
-  },
-  'should grow': {
-    test: () => grows++,
-    constraint: bigger
-  }
-};
-      `
-    });
+    const { logs, paths, readFile, reset } = fixture('test-betterer-better');
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
+
+    await reset();
 
     const firstRun = await betterer({ configPaths, resultsPath });
 
@@ -41,6 +25,6 @@ module.exports = {
 
     expect(result).toMatchSnapshot();
 
-    await cleanup();
+    await reset();
   });
 });
