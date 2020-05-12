@@ -1,36 +1,15 @@
 import { betterer } from '@betterer/betterer';
-import { createFixture } from './fixture';
+import { fixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the status of the TypeScript compiler', async () => {
-    const { paths, logs, resolve, readFile, cleanup, writeFile } = await createFixture('test-betterer-typescript', {
-      '.betterer.ts': `
-import { typescriptBetterer } from '@betterer/typescript';
-
-export default {
-  'typescript use strict mode': typescriptBetterer('./tsconfig.json', {
-    strict: true
-  })
-};
-      `,
-      'tsconfig.json': `
-{
-  "compilerOptions": {
-    "noEmit": true,
-    "lib": ["esnext"],
-    "moduleResolution": "node",
-    "target": "ES5",
-    "typeRoots": ["../../node_modules/@types/"],
-    "resolveJsonModule": true
-  },
-  "include": ["./src/**/*", ".betterer.ts"]
-}
-      `
-    });
+    const { paths, logs, resolve, readFile, reset, writeFile } = fixture('test-betterer-typescript');
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
     const indexPath = resolve('./src/index.ts');
+
+    await reset();
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
 
@@ -64,48 +43,36 @@ export default {
 
     expect(logs).toMatchSnapshot();
 
-    await cleanup();
+    await reset();
   });
 
   it('should throw if there is no configFilePath', async () => {
-    const { paths, logs, cleanup } = await createFixture('test-betterer-typescript-no-config-file-path', {
-      '.betterer.js': `
-const { typescriptBetterer } = require('@betterer/typescript');
-
-module.exports = {
-  'typescript use strict mode': typescriptBetterer()
-};
-      `
-    });
+    const { paths, logs, reset } = fixture('test-betterer-typescript-no-config-file-path');
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
+
+    await reset();
 
     await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
 
     expect(logs).toMatchSnapshot();
 
-    await cleanup();
+    await reset();
   });
 
   it('should throw if there is no extraCompilerOptions', async () => {
-    const { paths, logs, cleanup } = await createFixture('test-betterer-typescript-no-compiler-options', {
-      '.betterer.js': `
-const { typescriptBetterer } = require('@betterer/typescript');
-
-module.exports = {
-  'typescript use strict mode': typescriptBetterer('./tsconfig.json')
-};
-      `
-    });
+    const { paths, logs, reset } = fixture('test-betterer-typescript-no-compiler-options');
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
+
+    await reset();
 
     await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
 
     expect(logs).toMatchSnapshot();
 
-    await cleanup();
+    await reset();
   });
 });
