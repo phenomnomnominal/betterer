@@ -1,18 +1,33 @@
 import { start } from '@betterer/cli';
 
-import { fixture } from '../fixture';
-
-'../fixtures/test-betterer-filter';
+import { createFixture } from '../fixture';
 
 const ARGV = ['node', './bin/betterer'];
 
 describe('betterer cli', () => {
   it('should filter tests by name', async () => {
-    const { logs, paths, reset } = fixture('test-betterer-filter');
+    const { logs, paths, cleanup } = await createFixture('test-betterer-filter', {
+      '.betterer.js': `
+const { bigger } = require('@betterer/constraints');
+
+module.exports = {
+  'test 1': {
+    test: () => Date.now(),
+    constraint: bigger
+  },
+  'test 2': {
+    test: () => Date.now(),
+    constraint: bigger
+  },
+  'test 3': {
+    test: () => Date.now(),
+    constraint: bigger
+  }
+};
+      `
+    });
 
     const fixturePath = paths.fixture;
-
-    await reset();
 
     const firstRun = await start(fixturePath, ARGV);
 
@@ -28,6 +43,6 @@ describe('betterer cli', () => {
 
     expect(logs).toMatchSnapshot();
 
-    await reset();
+    await cleanup();
   });
 });

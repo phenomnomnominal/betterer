@@ -21,6 +21,7 @@ type Paths = {
   cwd: string;
 };
 
+export type FS = Record<string, string>;
 type Fixture = {
   deleteFile(filePath: string): Promise<void>;
   logs: ReadonlyArray<string>;
@@ -29,15 +30,42 @@ type Fixture = {
   resolve(filePath: string): string;
   writeFile(filePath: string, text: string): Promise<void>;
   waitForRun(watcher: BettererWatcher): Promise<BettererRuns>;
-  reset(): Promise<void>;
+  cleanup(): Promise<void>;
 };
 
-export function fixture(fixtureName: string): Fixture {
+export async function createFixture(fixtureName: string, fileStructure: FS): Promise<Fixture> {
   const fixturePath = path.resolve(__dirname, `../fixtures/${fixtureName}`);
 
   function resolve(itemPath: string): string {
     return path.resolve(fixturePath, itemPath);
   }
+
+  async function cleanup(): Promise<void> {
+    await remove(fixturePath);
+  }
+
+  async function write(filePath: string, text: string): Promise<void> {
+    const fullPath = resolve(filePath);
+    await ensureFile(fullPath);
+    return writeFile(fullPath, text.trim(), 'utf8');
+  }
+
+  try {
+    await cleanup();
+  } catch {
+    // Move on...
+  }
+
+  await Promise.all(
+    Object.keys(fileStructure).map(async (itemPath) => {
+      await write(itemPath, fileStructure[itemPath]);
+    })
+  );
+
+  // Wait long enough that the watch mode debounce doesn't get in the way:
+  await new Promise((resolve) => {
+    setTimeout(resolve, 500);
+  });
 
   const logs: Array<string> = [];
   const log = (...messages: Array<string>): void => {
@@ -58,9 +86,9 @@ export function fixture(fixtureName: string): Fixture {
 
   const paths = {
     config: resolve(DEFAULT_CONFIG_PATH),
+    cwd: resolve('.'),
     fixture: fixturePath,
-    results: resolve(DEFAULT_RESULTS_PATH),
-    cwd: resolve('.')
+    results: resolve(DEFAULT_RESULTS_PATH)
   };
 
   return {
@@ -73,10 +101,7 @@ export function fixture(fixtureName: string): Fixture {
     readFile(filePath: string): Promise<string> {
       return readFile(resolve(filePath), 'utf8');
     },
-    async writeFile(filePath: string, text: string): Promise<void> {
-      await ensureFile(filePath);
-      return writeFile(resolve(filePath), text, 'utf8');
-    },
+    writeFile: write,
     waitForRun(watcher): Promise<BettererRuns> {
       return new Promise((resolve) => {
         watcher.onRun((run) => {
@@ -84,18 +109,7 @@ export function fixture(fixtureName: string): Fixture {
         });
       });
     },
-    async reset(): Promise<void> {
-      try {
-        await remove(resolve('./src'));
-      } catch {
-        // Moving on...
-      }
-      try {
-        await deleteFile(paths.results);
-      } catch {
-        // Moving on...
-      }
-    }
+    cleanup
   };
 }
 

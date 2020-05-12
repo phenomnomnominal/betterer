@@ -1,16 +1,70 @@
 import { betterer } from '@betterer/betterer';
 
-import { fixture } from './fixture';
+import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the status of a new eslint rule with a complex set up', async () => {
-    const { logs, paths, readFile, reset, resolve, writeFile } = eslintComplexFixture();
+    const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('test-betterer-eslint-complex', {
+      '.betterer.ts': `
+import { eslintBetterer } from '@betterer/eslint';
+
+export default {
+  'eslint enable no-debugger rule': eslintBetterer('./src/**/*.ts', ['no-debugger', 'error'])
+};
+      `,
+      '.eslintrc.js': `
+const path = require('path');
+
+module.exports = {
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 2018,
+    project: path.resolve(__dirname, './tsconfig.json'),
+    sourceType: 'module'
+  },
+  plugins: ['@typescript-eslint'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking'
+  ],
+  rules: {
+    'no-debugger': 1
+  }
+};      
+      `,
+      'tsconfig.json': `
+{
+  "extends": "../../tsconfig.json",
+  "include": ["./src/**/*", ".betterer.ts", "./.eslintrc.js"]
+}
+      `,
+      'src/index.ts': `
+debugger;
+      `,
+      'src/directory/.eslintrc.js': `
+module.exports = {
+  rules: {
+    '@typescript-eslint/prefer-string-starts-ends-with': 'error'
+  }
+};
+      `,
+      'src/directory/index.ts': `
+'hello'[0] === 'h';
+
+export enum Numbers {
+  one,
+  two,
+  three,
+  four
+}
+      `
+    });
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
     const indexPath = resolve('./src/index.ts');
-
-    await reset();
 
     await writeFile(indexPath, `debugger;`);
 
@@ -44,25 +98,6 @@ describe('betterer', () => {
 
     expect(logs).toMatchSnapshot();
 
-    await reset();
+    await cleanup();
   });
 });
-
-function eslintComplexFixture(): ReturnType<typeof fixture> {
-  const init = fixture('test-betterer-eslint-complex');
-  const { deleteFile, paths, resolve } = init;
-  const indexPath = resolve('./src/index.ts');
-  async function reset(): Promise<void> {
-    try {
-      await deleteFile(indexPath);
-    } catch {
-      // Moving on...
-    }
-    try {
-      await deleteFile(paths.results);
-    } catch {
-      // Moving on...
-    }
-  }
-  return { ...init, reset };
-}
