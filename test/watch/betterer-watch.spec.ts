@@ -1,17 +1,39 @@
 import { betterer } from '@betterer/betterer';
 
-import { fixture } from '../fixture';
+import { createFixture } from '../fixture';
 
 describe('betterer.watch', () => {
   it('should run in watch mode', async () => {
-    const { logs, paths, resolve, reset, writeFile, waitForRun } = fixture('test-betterer-watch');
+    const { logs, paths, resolve, cleanup, writeFile, waitForRun } = await createFixture('test-betterer-watch', {
+      '.betterer.ts': `
+import { tsqueryBetterer } from '@betterer/tsquery';
+
+export default {
+  'tsquery no raw console.log': tsqueryBetterer(
+    './tsconfig.json',
+    'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
+  )
+};
+      `,
+      'tsconfig.json': `
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["esnext"],
+    "moduleResolution": "node",
+    "target": "ES5",
+    "typeRoots": ["../../node_modules/@types/"],
+    "resolveJsonModule": true
+  },
+  "include": ["./src/**/*", ".betterer.ts"]
+}
+      `
+    });
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
     const indexPath = resolve('./src/index.ts');
     const { cwd } = paths;
-
-    await reset();
 
     await writeFile(indexPath, `console.log('foo');console.log('foo');`);
 
@@ -41,19 +63,44 @@ describe('betterer.watch', () => {
 
     expect(logs).toMatchSnapshot();
 
-    await reset();
+    await cleanup();
   });
 
   it('should debounce runs when multiple files change', async () => {
-    const { logs, paths, resolve, reset, writeFile, waitForRun } = fixture('test-betterer-watch-debounce');
+    const { logs, paths, resolve, cleanup, writeFile, waitForRun } = await createFixture(
+      'test-betterer-watch-debounce',
+      {
+        '.betterer.ts': `
+import { tsqueryBetterer } from '@betterer/tsquery';
+
+export default {
+  'tsquery no raw console.log': tsqueryBetterer(
+    './tsconfig.json',
+    'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
+  )
+};
+      `,
+        'tsconfig.json': `
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["esnext"],
+    "moduleResolution": "node",
+    "target": "ES5",
+    "typeRoots": ["../../node_modules/@types/"],
+    "resolveJsonModule": true
+  },
+  "include": ["./src/**/*", ".betterer.ts"]
+}
+      `
+      }
+    );
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
     const indexPath = resolve('./src/index.ts');
     const filePath = resolve('./src/file.ts');
     const { cwd } = paths;
-
-    await reset();
 
     const watcher = await betterer.watch({ configPaths, resultsPath, cwd });
 
@@ -67,6 +114,6 @@ describe('betterer.watch', () => {
 
     expect(logs).toMatchSnapshot();
 
-    await reset();
+    await cleanup();
   });
 });
