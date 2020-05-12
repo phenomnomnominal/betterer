@@ -1,15 +1,26 @@
 import { betterer } from '@betterer/betterer';
 
-import { fixture } from './fixture';
+import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should work with a .betterer.ts file', async () => {
-    const { logs, paths, readFile, reset } = fixture('test-betterer-config-ts');
+    const { logs, paths, readFile, cleanup } = await createFixture('test-betterer-config-ts', {
+      '.betterer.ts': `
+const { bigger } = require('@betterer/constraints');
+
+let start = 0;
+
+module.exports = {
+  'gets better': {
+    test: () => start++,
+    constraint: bigger
+  }
+};
+      `
+    });
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
-
-    await reset();
 
     const firstRun = await betterer({ configPaths, resultsPath });
 
@@ -25,6 +36,6 @@ describe('betterer', () => {
 
     expect(result).toMatchSnapshot();
 
-    await reset();
+    await cleanup();
   });
 });
