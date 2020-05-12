@@ -2,10 +2,10 @@ import { BettererFile } from './file';
 import { BettererFilePaths } from './types';
 
 export class BettererFiles {
+  public readonly filePaths: BettererFilePaths = [];
+
   private _filesMap: Record<string, BettererFile> = {};
   private _hashMap: Record<string, Array<BettererFile>> = {};
-
-  public readonly filePaths: BettererFilePaths = [];
 
   constructor(public readonly files: ReadonlyArray<BettererFile>) {
     this._filesMap = this.files.reduce((filesMap, file) => {

@@ -14,7 +14,7 @@
     "clean": "rimraf reports && lerna exec \"rimraf dist\" && rimraf ./**/tsconfig.tsbuildinfo && lerna exec \"rimraf node_modules\" && rimraf node_modules && yarn",
     "compile": "tsc -b packages",
     "compile:watch": "tsc -b packages -w",
-    "lint": "eslint \"./packages/**/src/*.{js,ts}\" \"./test/**/*.{js,ts}\" \"./*.{js,ts}\" --fix",
+    "lint": "eslint \"./packages/**/src/**/*.{js,ts}\" \"./test/**/*.{js,ts}\" \"./*.{js,ts}\" --fix",
     "format": "prettier \"**/!(*.snap)\" --write --loglevel=silent",
     "test": "jest",
     "test:debug": "jest --runInBand",

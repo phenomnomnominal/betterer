@@ -25,14 +25,14 @@ enum BettererContextStatus {
 }
 
 export class BettererContext {
+  public config: BettererConfig;
+
   private _stats: BettererStats | null = null;
   private _tests: BettererTests = [];
   private _status = BettererContextStatus.notReady;
 
   private _running: Promise<void> | null = null;
   private _finish: Function | null = null;
-
-  public config: BettererConfig;
 
   constructor(config: BettererConfigPartial, private _reporters?: BettererReporters) {
     this.config = createConfig(config);
