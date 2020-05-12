@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "module": "ESNext",
-    "outDir": "./dist",
-    "rootDir": "./src"
-  },
-  "include": ["./**/*.ts"],
-  "exclude": ["../node_modules/*", "./node_modules/*", "./dist/*"]
-}
