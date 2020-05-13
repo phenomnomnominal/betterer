@@ -6,9 +6,9 @@ export type BettererConfigPartial = Partial<{
   configPaths: BettererConfigPaths | string;
   resultsPath: string;
   filters: BettererConfigFilters | ReadonlyArray<string> | string;
-  watch: boolean;
   ignores: BettererConfigIgnore | string;
   cwd: string;
+  update: boolean;
 }>;
 
 export type BettererConfig = {
@@ -17,4 +17,5 @@ export type BettererConfig = {
   filters: BettererConfigFilters;
   ignores: BettererConfigIgnore;
   cwd: string;
+  update: boolean;
 };

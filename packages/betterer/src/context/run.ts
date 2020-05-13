@@ -171,7 +171,7 @@ export class BettererRun {
     assert.equal(this._status, BettererRunStatus.pending);
     this._status = BettererRunStatus.worse;
     this._result = result;
-    this._toPrint = this._expected;
+    this._toPrint = this._context.config.update ? this._result : this._expected;
     this._hasResult = true;
     this._context.runWorse(this);
   }
