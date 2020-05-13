@@ -1,19 +1,19 @@
 // BETTERER RESULTS V1.
 exports[`no hack comments`] = {
-  timestamp: 1588220899923,
+  timestamp: 1589338467072,
   value: `{
-    "packages/cli/src/cli.ts:1469128831": [
+    "packages/cli/src/cli.ts:2439790794": [
       [12, 0, 7, "RegExp match", "645651780"]
     ],
-    "packages/cli/src/init.ts:3582404838": [
+    "packages/cli/src/init.ts:623049642": [
       [91, 4, 7, "RegExp match", "645651780"]
     ]
   }`
 };
 exports[`no raw console.log`] = {
-  timestamp: 1588744000724,
+  timestamp: 1589384448404,
   value: `{
-    "packages/betterer/src/results/diff.ts:3147959047": [
+    "packages/betterer/src/results/diff.ts:1023811315": [
       [21, 4, 11, "TSQuery match", "3870399096"]
     ]
   }`

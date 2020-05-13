@@ -1,18 +1,20 @@
+import { LanguageClient, RequestType } from 'vscode-languageclient';
 import { Uri, workspace, ExtensionContext } from 'vscode';
-import { RequestType, LanguageClient } from 'vscode-languageclient';
 
 import {
-  BETTERER_LIBRARY_NOT_INSTALLED_DETAILS,
-  BETTERER_LIBRARY_NOT_INSTALLED,
+  BETTERER_CONFIG_FILE_INVALID_DETAILS,
+  BETTERER_CONFIG_FILE_INVALID,
   BETTERER_OUTPUT_CHANNEL
 } from '../error-messages';
 import { info } from '../logger';
 import { BettererRequestParams } from './types';
-import { getNoLibraryState } from './state';
+import { getInvalidConfigState } from './state';
 
-export const BettererNoLibraryRequest = new RequestType<BettererRequestParams, void, void, void>('betterer/noLibrary');
+export const BettererInvalidConfigRequest = new RequestType<BettererRequestParams, void, void, void>(
+  'betterer/invalidConfig'
+);
 
-export async function noLibrary(
+export async function invalidConfig(
   client: LanguageClient,
   context: ExtensionContext,
   params: BettererRequestParams
@@ -22,10 +24,10 @@ export async function noLibrary(
   if (!workspaceFolder) {
     return;
   }
-  const alreadyShown = getNoLibraryState(context, uri);
+  const alreadyShown = getInvalidConfigState(context, uri);
   if (!alreadyShown) {
-    client.info(BETTERER_LIBRARY_NOT_INSTALLED_DETAILS(workspaceFolder));
-    const item = await info(BETTERER_LIBRARY_NOT_INSTALLED, {
+    client.info(BETTERER_CONFIG_FILE_INVALID_DETAILS(workspaceFolder));
+    const item = await info(BETTERER_CONFIG_FILE_INVALID, {
       title: BETTERER_OUTPUT_CHANNEL
     });
     if (item) {

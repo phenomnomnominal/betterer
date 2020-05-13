@@ -1,2 +1,2 @@
-export * from './no-config';
-export * from './no-library';
+export { BettererInvalidConfigRequest, invalidConfig } from './invalid-config';
+export { BettererNoLibraryRequest, noLibrary } from './no-library';

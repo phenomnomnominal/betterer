@@ -3,7 +3,7 @@ import { WorkspaceFolder } from 'vscode';
 import { EXTENSION_NAME } from '../constants';
 
 const NAME = EXTENSION_NAME;
-const DEFAULT_CONFIG_FILE = `.${NAME}.ts`;
+const DEFAULT_CONFIG_FILE = `.betterer.ts`;
 
 const COMMAND_REQUIRES_WORKSPACE = `if VS Code is opened on a workspace folder.`;
 
@@ -25,17 +25,25 @@ const DISABLE_FOR_WORKSPACE = (workspaceFolder: WorkspaceFolder): string => {
   return `Alternatively you can disable ${NAME} for the workspace folder "${name}" by executing the 'Disable ${NAME}' command`;
 };
 
-export const BETTERER_CONFIG_FILE_NOT_FOUND = (workspaceFolder: WorkspaceFolder): string => {
+const SEE_OUTPUT_CHANNEL = `See the ${NAME} output channel for details.`;
+
+export const BETTERER_OUTPUT_CHANNEL = `Open ${NAME} output channel`;
+
+export const BETTERER_CONFIG_FILE_INVALID = `Failed to load Betterer config. ${SEE_OUTPUT_CHANNEL}.`;
+export const BETTERER_CONFIG_FILE_INVALID_DETAILS = (workspaceFolder: WorkspaceFolder): string => {
   return `
-No ${NAME} configuration (e.g. ${DEFAULT_CONFIG_FILE}) found for workspace: ${workspaceFolder.name}
+
+Invlaid ${NAME} configuration file (e.g. ${DEFAULT_CONFIG_FILE}) found for workspace: ${workspaceFolder.name}
 The workspace will not be validated. Consider executing the 'Initialise ${NAME}' command to add ${NAME} to the workspace.
 
 ${DISABLE_FOR_WORKSPACE(workspaceFolder)}
   `;
 };
 
-export const BETTERER_LIBRARY_NOT_INSTALLED = (workspaceFolder: WorkspaceFolder): string => {
+export const BETTERER_LIBRARY_NOT_INSTALLED = `Failed to load Betterer config. ${SEE_OUTPUT_CHANNEL}.`;
+export const BETTERER_LIBRARY_NOT_INSTALLED_DETAILS = (workspaceFolder: WorkspaceFolder): string => {
   return `
+
 To use ${NAME} please install it by running "npm install @betterer/cli -D" in the workspace folder "${
     workspaceFolder.name
   }".
@@ -45,10 +53,8 @@ ${DISABLE_FOR_WORKSPACE(workspaceFolder)}
   `;
 };
 
-const SEE_OUTPUT_CHANNEL = `See the '${NAME}' output channel for details.`;
-
-export const CLIENT_START_FAILED = `The ${NAME} extension couldn't be started. ${SEE_OUTPUT_CHANNEL}`;
-export const SERVER_START_FAILED = `The ${NAME} server couldn't be started. ${SEE_OUTPUT_CHANNEL}`;
+export const CLIENT_START_FAILED = `The ${NAME} extension couldn't be started. 🔥 ${SEE_OUTPUT_CHANNEL}`;
+export const SERVER_START_FAILED = `The ${NAME} server couldn't be started. 🔥 ${SEE_OUTPUT_CHANNEL}`;
 export const SERVER_PROCESS_ENDED = (code: number): string =>
-  `Server process exited with code "${code}". This usually indicates an invalid ${NAME} configuration.`;
-export const SERVER_PROCESS_SHUT_DOWN = `The ${NAME} server shut down itself. ${SEE_OUTPUT_CHANNEL}`;
+  `Server process exited with code "${code}". 💥 This usually indicates an invalid ${NAME} configuration.`;
+export const SERVER_PROCESS_SHUT_DOWN = `The ${NAME} server shut down itself. 💥 ${SEE_OUTPUT_CHANNEL}`;

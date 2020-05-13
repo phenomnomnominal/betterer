@@ -1,16 +1,6 @@
 import { NotificationType } from 'vscode-languageserver';
 
 import { EXTENSION_NAME } from '../constants';
+import { BettererStatus } from '../status';
 
-export const enum Status {
-  ok = 1,
-  warn = 2,
-  error = 3,
-  exit = 4
-}
-
-type StatusParams = {
-  state: Status;
-};
-
-export const StatusNotification = new NotificationType<StatusParams, void>(`${EXTENSION_NAME}/status`);
+export const BettererStatusNotification = new NotificationType<BettererStatus, void>(`${EXTENSION_NAME}/status`);

@@ -32,8 +32,8 @@ export type BettererFileIssues = ReadonlyArray<BettererFileIssueRaw> | ReadonlyA
 export type BettererFileTestDiff = Record<
   string,
   {
-    fixed?: number;
-    existing?: number;
+    fixed?: ReadonlyArray<BettererFileIssueDeserialised>;
+    existing?: ReadonlyArray<BettererFileIssueDeserialised>;
     neww?: ReadonlyArray<BettererFileIssueRaw>;
   }
 >;

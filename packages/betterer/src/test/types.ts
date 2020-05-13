@@ -21,12 +21,14 @@ export type BettererTestStateOptions = {
 };
 
 export type BettererDiffer = (run: BettererRun) => void;
-export type BettererPrinter<SerialisedType> = (serialised: SerialisedType) => MaybeAsync<string>;
+export type BettererPrinter<SerialisedType> = (run: BettererRun, serialised: SerialisedType) => MaybeAsync<string>;
 
 export type BettererSerialise<DeserialisedType, SerialisedType = DeserialisedType> = (
+  run: BettererRun,
   result: DeserialisedType
 ) => SerialisedType;
 export type BettererDeserialise<DeserialisedType, SerialisedType = DeserialisedType> = (
+  run: BettererRun,
   serialised: SerialisedType
 ) => DeserialisedType;
 export type BettererSerialiser<DeserialisedType, SerialisedType = DeserialisedType> = {
@@ -46,3 +48,4 @@ export type BettererTestOptions<DeserialisedType, SerialisedType = DeserialisedT
   test: BettererTestFunction<DeserialisedType>;
 } & BettererTestType<DeserialisedType, SerialisedType> &
   BettererTestStateOptions;
+export type BettererTestMap = Record<string, BettererTest>;

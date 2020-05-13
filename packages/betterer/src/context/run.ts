@@ -37,7 +37,7 @@ export class BettererRun {
       return;
     } else {
       this._isNew = false;
-      this._expected = deserialise(this._test, expected.value);
+      this._expected = deserialise(this, expected.value);
       this._timestamp = expected.timestamp;
       this._toPrint = this._expected;
       this._hasResult = true;
@@ -84,6 +84,10 @@ export class BettererRun {
 
   public get isSame(): boolean {
     return this._status === BettererRunStatus.same;
+  }
+
+  public get isSkipped(): boolean {
+    return this._status === BettererRunStatus.skipped;
   }
 
   public get isWorse(): boolean {

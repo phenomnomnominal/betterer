@@ -1,5 +1,5 @@
-export * from './disable';
-export * from './enable';
-export * from './init';
+export { disableBetterer } from './disable';
+export { enableBetterer } from './enable';
+export { initBetterer } from './init';
 
-export * from './names';
+export { COMMAND_NAMES } from './names';

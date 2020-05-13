@@ -1,25 +1,21 @@
+import { betterer } from '@betterer/betterer';
 import { Files } from 'vscode-languageserver';
 
-import { betterer } from '@betterer/betterer';
-import { nodeRequire } from './require';
+import { nodeRequire } from '../utils';
 import { trace } from './trace';
 
-type Betterer = typeof betterer;
+export type BettererLibrary = typeof betterer;
 
-const pathToLibrary = new Map<string, Betterer>();
+const pathToLibrary = new Map<string, BettererLibrary>();
 
-export async function getLibrary(cwd: string): Promise<Betterer> {
+export async function getLibrary(cwd: string): Promise<BettererLibrary> {
   if (pathToLibrary.has(cwd)) {
-    return pathToLibrary.get(cwd) as Betterer;
+    return pathToLibrary.get(cwd) as BettererLibrary;
   }
   const libraryPath = await Files.resolve('@betterer/betterer', undefined, cwd, trace);
-  try {
-    const r = nodeRequire();
-    const library = r(libraryPath);
-    const bettererRunner = library.betterer;
-    pathToLibrary.set(cwd, bettererRunner);
-    return bettererRunner as Betterer;
-  } catch {
-    throw new Error();
-  }
+  const r = nodeRequire();
+  const library = r(libraryPath);
+  const bettererLibrary = library.betterer;
+  pathToLibrary.set(cwd, bettererLibrary);
+  return bettererLibrary as BettererLibrary;
 }

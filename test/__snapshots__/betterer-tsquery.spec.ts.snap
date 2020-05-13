@@ -118,7 +118,7 @@ Array [
    / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  erro  🔥  - ",
-  "could not read \\"<project>/fixtures/test-betterer-tsquery-no-config-file-path/.betterer\\". 😔",
+  "could not read config from \\"<project>/fixtures/test-betterer-tsquery-no-config-file-path/.betterer\\". 😔",
   " ☀️  betterer  erro  🔥  - ",
   "For \`@betterer/tsquery\` to work, you need to provide the path to a tsconfig.json file, e.g. \`'./tsconfig.json'\`. ❌",
 ]
@@ -134,7 +134,7 @@ Array [
    / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  erro  🔥  - ",
-  "could not read \\"<project>/fixtures/test-betterer-tsquery-no-query/.betterer\\". 😔",
+  "could not read config from \\"<project>/fixtures/test-betterer-tsquery-no-query/.betterer\\". 😔",
   " ☀️  betterer  erro  🔥  - ",
   "For \`@betterer/tsquery\` to work, you need to provide a query, e.g. \`'CallExpression > PropertyAccessExpression'\`. ❌",
 ]

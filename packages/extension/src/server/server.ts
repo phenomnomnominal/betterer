@@ -8,20 +8,22 @@ import {
 } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
-import { ValidateNotification, ValidationQueue } from './notifications/validate';
+import { createErrorHandler } from './error-handler';
+import { BettererValidateNotification, BettererValidationQueue } from './notifications';
 import { initTrace } from './trace';
-import { Validator } from './validator';
+import { BettererValidator } from './validator';
 
 function init(): void {
   const connection = createConnection();
 
   initTrace(connection.tracer);
+  createErrorHandler(connection);
 
   connection.console.info(`Betterer server running in node ${process.version}`);
 
-  const validationQueue = new ValidationQueue(connection);
+  const validationQueue = new BettererValidationQueue();
   const documents = new TextDocuments(TextDocument);
-  const validator = new Validator(connection, documents);
+  const validator = new BettererValidator(connection, documents);
   const queueValidate = validationQueue.addNotificationMessage.bind(validationQueue);
 
   connection.onInitialize(() => {
@@ -57,7 +59,7 @@ function init(): void {
   });
 
   validationQueue.onNotification(
-    ValidateNotification,
+    BettererValidateNotification,
     (document) => {
       validator.single(document);
     },

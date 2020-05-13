@@ -2,7 +2,6 @@ import { ConstraintResult } from '@betterer/constraints';
 
 import { BettererRun } from '../../context';
 import { createHash } from '../../hasher';
-import { getRelativePath, getAbsolutePath } from '../../utils';
 import { BettererTest } from '../test';
 import { constraint } from './constraint';
 import { differ } from './differ';
@@ -26,15 +25,13 @@ export class BettererFileTest extends BettererTest<BettererFiles, BettererFileIs
     super({
       test: async (run: BettererRun): Promise<BettererFiles> => {
         const { context, files } = run;
-        const { resultsPath } = context.config;
 
         const expected = run.expected as BettererFiles;
         const result = await fileTest(files);
 
         let absolutePaths = Object.keys(result);
         if (files.length) {
-          const expectedAbsolutePaths =
-            expected?.filePaths?.map((filePath) => getAbsolutePath(resultsPath, filePath)) || [];
+          const expectedAbsolutePaths = expected?.files.map((file) => file.absolutePath) || [];
           absolutePaths = Array.from(new Set([...absolutePaths, ...expectedAbsolutePaths]));
         }
 
@@ -42,16 +39,16 @@ export class BettererFileTest extends BettererTest<BettererFiles, BettererFileIs
           absolutePaths
             .map((absolutePath) => {
               if (!this._excluded.some((exclude: RegExp) => exclude.test(absolutePath))) {
-                const relativePath = getRelativePath(resultsPath, absolutePath);
+                const relativePath = context.getRelativePath(absolutePath);
                 const issues = result[absolutePath];
                 if (!issues) {
-                  return expected.getFile(relativePath);
+                  return expected.getFile(absolutePath);
                 }
                 if (issues.length === 0) {
                   return null;
                 }
                 const [issue] = issues;
-                return new BettererFile(relativePath, createHash(issue.fileText), issues);
+                return new BettererFile(relativePath, absolutePath, createHash(issue.fileText), issues);
               }
               return null;
             })
@@ -74,10 +71,7 @@ export class BettererFileTest extends BettererTest<BettererFiles, BettererFileIs
     });
   }
 
-  public get diff(): BettererFileTestDiff {
-    if (!this._diff) {
-      throw new Error();
-    }
+  public get diff(): BettererFileTestDiff | null {
     return this._diff;
   }
 

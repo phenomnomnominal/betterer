@@ -1,5 +1,6 @@
 import { BettererError } from '@betterer/errors';
 import * as assert from 'assert';
+import * as path from 'path';
 
 import {
   BettererConfig,
@@ -11,11 +12,13 @@ import {
 import { COULDNT_READ_CONFIG } from '../errors';
 import { BettererReporters } from '../reporters';
 import { print, read, write, NO_PREVIOUS_RESULT, BettererExpectedResults, BettererExpectedResult } from '../results';
-import { BettererTest, BettererTests, isBettererTest } from '../test';
+import { BettererTest, BettererTests, isBettererTest, BettererTestMap } from '../test';
+import { getNormalisedPath } from '../utils';
 import { BettererFilePaths } from '../watcher';
 import { BettererRun } from './run';
 import { BettererStats } from './statistics';
 import { BettererRuns } from './types';
+import { requireUncached } from '../require';
 
 enum BettererContextStatus {
   notReady,
@@ -44,7 +47,7 @@ export class BettererContext {
       await this._running;
     }
     assert(this._status === BettererContextStatus.notReady || this._status === BettererContextStatus.end);
-    this._tests = await this._initTests(this.config.configPaths);
+    this._tests = this._initTests(this.config.configPaths);
     this._initFilters(this.config.filters);
     this._status = BettererContextStatus.ready;
   }
@@ -157,10 +160,34 @@ export class BettererContext {
     return this._stats;
   }
 
-  private async _getTests(configPath: string): Promise<BettererTests> {
+  public getAbsolutePath(filePath: string): string {
+    return getNormalisedPath(path.resolve(path.dirname(this.config.resultsPath), filePath));
+  }
+
+  public getRelativePath(filePath: string): string {
+    return getNormalisedPath(path.relative(path.dirname(this.config.resultsPath), filePath));
+  }
+
+  private _initTests(configPaths: BettererConfigPaths): BettererTests {
+    let tests: BettererTests = [];
+    configPaths.map((configPath) => {
+      const more = this._getTests(configPath);
+      tests = [...tests, ...more];
+    });
+    const only = tests.find((test) => test.isOnly);
+    if (only) {
+      tests.forEach((test) => {
+        if (!test.isOnly) {
+          test.skip();
+        }
+      });
+    }
+    return tests;
+  }
+
+  private _getTests(configPath: string): BettererTests {
     try {
-      const imported = await import(configPath);
-      const tests = imported.default ? imported.default : imported;
+      const tests = requireUncached<BettererTestMap>(configPath);
       return Object.keys(tests).map((name) => {
         let test = tests[name];
         if (!isBettererTest(test)) {
@@ -172,25 +199,6 @@ export class BettererContext {
     } catch (e) {
       throw COULDNT_READ_CONFIG(configPath, e);
     }
-  }
-
-  private async _initTests(configPaths: BettererConfigPaths): Promise<BettererTests> {
-    let tests: BettererTests = [];
-    await Promise.all(
-      configPaths.map(async (configPath) => {
-        const more = await this._getTests(configPath);
-        tests = [...tests, ...more];
-      })
-    );
-    const only = tests.find((test) => test.isOnly);
-    if (only) {
-      tests.forEach((test) => {
-        if (!test.isOnly) {
-          test.skip();
-        }
-      });
-    }
-    return tests;
   }
 
   private async _initExpected(): Promise<BettererExpectedResults> {

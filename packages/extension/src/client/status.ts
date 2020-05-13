@@ -1,32 +1,21 @@
-import { NotificationType, LanguageClient, State } from 'vscode-languageclient';
 import { window, StatusBarAlignment, StatusBarItem } from 'vscode';
+import { NotificationType, LanguageClient, State } from 'vscode-languageclient';
 
 import { EXTENSION_NAME } from '../constants';
-import { getAlwaysShowStatus } from './settings';
-import { COMMAND_NAMES } from './commands/names';
-import { error } from './logger';
+import { BettererStatus } from '../status';
+import { COMMAND_NAMES } from './commands';
 import { SERVER_PROCESS_ENDED, SERVER_PROCESS_SHUT_DOWN } from './error-messages';
+import { error } from './logger';
+import { getAlwaysShowStatus } from './settings';
 
 const SERVER_RUNNING = `${EXTENSION_NAME} is running.`;
 const SERVER_STOPPED = `${EXTENSION_NAME} stopped.`;
 
-export const enum Status {
-  ok = 1,
-  warn = 2,
-  error = 3,
-  exit = 4
-}
+const BettererStatusNotification = new NotificationType<BettererStatus, void>(`${EXTENSION_NAME}/status`);
+const BettererExitCalled = new NotificationType<[number, string], void>(`${EXTENSION_NAME}/exitCalled`);
 
-interface StatusParams {
-  state: Status;
-}
-
-const StatusNotification = new NotificationType<StatusParams, void>(`${EXTENSION_NAME}/status`);
-
-const ExitCalled = new NotificationType<[number, string], void>(`${EXTENSION_NAME}/exitCalled`);
-
-export class BettererStatus {
-  private _status = Status.ok;
+export class BettererStatusBar {
+  private _status = BettererStatus.ok;
   private _serverRunning = false;
 
   private readonly _statusBarItem: StatusBarItem;
@@ -41,11 +30,27 @@ export class BettererStatus {
   }
 
   public get hasExited(): boolean {
-    return this._status === Status.exit;
+    return this._status === BettererStatus.exit;
   }
 
   public dispose(): void {
     this._statusBarItem.dispose();
+  }
+
+  public update(status: BettererStatus): void {
+    this._status = status;
+    switch (status) {
+      case BettererStatus.warn:
+        this._statusBarItem.text = `$(alert) ${EXTENSION_NAME}`;
+        break;
+      case BettererStatus.error:
+        this._statusBarItem.text = `$(issue-opened) ${EXTENSION_NAME}`;
+        break;
+      default:
+        this._statusBarItem.text = EXTENSION_NAME;
+        break;
+    }
+    this._updateStatusBarVisibility();
   }
 
   private async _initEvents(client: LanguageClient): Promise<void> {
@@ -59,8 +64,8 @@ export class BettererStatus {
 
     await client.onReady();
 
-    client.onNotification(StatusNotification, (params) => this.update(params.state));
-    client.onNotification(ExitCalled, (params) => {
+    client.onNotification(BettererStatusNotification, (status) => this.update(status));
+    client.onNotification(BettererExitCalled, (params) => {
       this._exit();
       const [code, message] = params;
       client.error(SERVER_PROCESS_ENDED(code), message, true);
@@ -83,23 +88,7 @@ export class BettererStatus {
   }
 
   private _exit(): void {
-    this._status = Status.exit;
-  }
-
-  public update(status: Status): void {
-    this._status = status;
-    switch (status) {
-      case Status.warn:
-        this._statusBarItem.text = `$(alert) ${EXTENSION_NAME}`;
-        break;
-      case Status.error:
-        this._statusBarItem.text = `$(issue-opened) ${EXTENSION_NAME}`;
-        break;
-      default:
-        this._statusBarItem.text = EXTENSION_NAME;
-        break;
-    }
-    this._updateStatusBarVisibility();
+    this._status = BettererStatus.exit;
   }
 
   private _showStatusBarItem(show: boolean): void {
@@ -111,6 +100,6 @@ export class BettererStatus {
   }
 
   private _updateStatusBarVisibility(): void {
-    this._showStatusBarItem((this._serverRunning && this._status !== Status.ok) || getAlwaysShowStatus());
+    this._showStatusBarItem((this._serverRunning && this._status !== BettererStatus.ok) || getAlwaysShowStatus());
   }
 }

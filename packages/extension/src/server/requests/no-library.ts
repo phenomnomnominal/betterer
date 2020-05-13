@@ -1,10 +1,4 @@
-import { RequestType, TextDocumentIdentifier } from 'vscode-languageserver';
+import { RequestType } from 'vscode-languageserver';
+import { BettererRequestParams } from './types';
 
-type NoBettererLibraryParams = {
-  source: TextDocumentIdentifier;
-};
-type NoBettererLibraryResult = {};
-
-export const NoBettererLibraryRequest = new RequestType<NoBettererLibraryParams, NoBettererLibraryResult, void, void>(
-  'betterer/noLibrary'
-);
+export const BettererNoLibraryRequest = new RequestType<BettererRequestParams, void, void, void>('betterer/noLibrary');
