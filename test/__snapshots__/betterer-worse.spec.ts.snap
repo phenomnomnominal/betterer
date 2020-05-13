@@ -1,5 +1,80 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`betterer should not stay worse if an update is forced 1`] = `
+"// BETTERER RESULTS V1.
+exports[\`tsquery no raw console.log\`] = {
+  timestamp: 0,
+  value: \`{
+    \\"src/index.ts:315583663\\": [
+      [0, 0, 11, \\"TSQuery match\\", \\"3870399096\\"],
+      [1, 0, 11, \\"TSQuery match\\", \\"3870399096\\"]
+    ]
+  }\`
+};"
+`;
+
+exports[`betterer should not stay worse if an update is forced 2`] = `
+Array [
+  "
+   / | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"tsquery no raw console.log\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"tsquery no raw console.log\\" got checked for the first time! 🎉",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked for the first time! 🎉",
+  "
+   / | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"tsquery no raw console.log\\"!",
+  " ☀️  betterer  erro  🔥  - ",
+  "\\"tsquery no raw console.log\\" got worse. 😔",
+  "",
+  " ☀️  betterer  warn  ⚠️  - ",
+  "1 existing issue in \\"src/index.ts\\".",
+  " ☀️  betterer  erro  🔥  - ",
+  "1 new issue in \\"src/index.ts\\":",
+  "
+   TSQuery match 
+  1 | console.log('foo');
+> 2 | console.log('foo');
+    | ^^^^^^^^^^^",
+  "",
+  "",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  erro  🔥  - ",
+  "1 thing got worse. 😔",
+  "
+   / | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"tsquery no raw console.log\\"!",
+  " ☀️  betterer  warn  ⚠️  - ",
+  "\\"tsquery no raw console.log\\" stayed the same. 😐",
+  " ☀️  betterer  info  💬  - ",
+  "1 thing got checked. 🤔",
+  " ☀️  betterer  warn  ⚠️  - ",
+  "1 thing stayed the same. 😐",
+]
+`;
+
 exports[`betterer should work when a test gets worse 1`] = `
 Array [
   "

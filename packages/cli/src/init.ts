@@ -5,7 +5,7 @@ import * as findUp from 'find-up';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 
-import { configPath } from './options';
+import { configPathOption } from './options';
 
 import {
   COULDNT_FIND_PACKAGE_JSON,
@@ -20,7 +20,7 @@ const TEMPLATE = `export default {
 };`;
 
 export async function init(cwd: string, argv: CLIArguments): Promise<void> {
-  configPath(commander);
+  configPathOption(commander);
 
   commander.parse(argv as Array<string>);
 

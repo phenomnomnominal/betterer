@@ -4,6 +4,7 @@ export type CLIStartConfig = {
   config: CLIArguments;
   filter: CLIArguments;
   results: string;
+  update: boolean;
 };
 
 export type CLIWatchConfig = CLIStartConfig & {

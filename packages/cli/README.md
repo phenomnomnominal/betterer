@@ -32,11 +32,12 @@ betterer -c ./path/to/config -r ./path/to/results -w
 
 #### Start options
 
-| Name                      | Description                                          | Default               |
-| ------------------------- | ---------------------------------------------------- | --------------------- |
-| `-c`, `--config` [value]  | Path to test definition file relative to CWD         | `./.betterer.ts`      |
-| `-r`, `--results` [value] | Path to test results file relative to CWD            | `./.betterer.results` |
-| `-f`, `--filter` [value]  | Select tests to run by RegExp. Takes multiple values | `[.*]`                |
+| Name                      | Description                                             | Default               |
+| ------------------------- | ------------------------------------------------------- | --------------------- |
+| `-c`, `--config` [value]  | Path to test definition file relative to CWD            | `./.betterer.ts`      |
+| `-r`, `--results` [value] | Path to test results file relative to CWD               | `./.betterer.results` |
+| `-f`, `--filter` [value]  | Select tests to run by RegExp. Takes multiple values    | `[.*]`                |
+| `-u`, `--update`          | Force update the results file, even if things get worse | `false`               |
 
 ### Watch
 
