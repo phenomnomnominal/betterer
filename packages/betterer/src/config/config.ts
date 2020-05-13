@@ -14,13 +14,15 @@ export function createConfig(partialConfig: BettererConfigPartial): BettererConf
   const filters = toRegExps(toArray(partialConfig.filters));
   const ignores = toArray<string>(partialConfig.ignores);
   const resultsPath = path.resolve(cwd, partialConfig.resultsPath || DEFAULT_RESULTS_PATH);
+  const update = partialConfig.update || false;
 
   return {
     configPaths,
     filters,
     ignores,
     resultsPath,
-    cwd
+    cwd,
+    update
   };
 }
 
