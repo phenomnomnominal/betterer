@@ -38,7 +38,9 @@ export function typescriptBetterer(configFilePath: string, extraCompilerOptions:
     };
     const parsed = ts.parseJsonConfigFileContent(config, configHost, basePath);
 
-    if (files.length === 0) {
+    if (files.length !== 0) {
+      files = parsed.fileNames.filter((fileName) => files.includes(fileName));
+    } else {
       files = parsed.fileNames;
     }
 

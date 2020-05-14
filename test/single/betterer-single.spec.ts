@@ -57,8 +57,62 @@ module.exports = {
     await cleanup();
   });
 
+  it('should ignore any files outside of the scope of the eslint test glob', async () => {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-eslint-single-irrelevant', {
+      '.betterer.js': `
+const { eslintBetterer } = require('@betterer/eslint');
+
+module.exports = {
+  'eslint enable new rule': eslintBetterer('./src/**/*.ts', ['no-debugger', 'error'])
+};    
+      `,
+      '.eslintrc.js': `
+const path = require('path');
+
+module.exports = {
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 2018,
+    project: path.resolve(__dirname, './tsconfig.json'),
+    sourceType: 'module'
+  },
+  plugins: ['@typescript-eslint'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking'
+  ],
+  rules: {
+    'no-debugger': 1
+  }
+};
+      `,
+      'tsconfig.json': `
+{
+  "extends": "../../tsconfig.json",
+  "include": ["./src/**/*", "./.betterer.js", "./.eslintrc.js"]
+}      
+      `
+    });
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+    const { cwd } = paths;
+    const testFile = resolve('./test/index.ts');
+
+    await writeFile(testFile, `debugger;`);
+
+    const [run] = await betterer.single({ configPaths, resultsPath, cwd }, testFile);
+
+    expect(run.isComplete).toEqual(true);
+    expect(run.files).toEqual([testFile]);
+
+    await cleanup();
+  });
+
   it('should run regexp against a single file', async () => {
-    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-regexp-single', {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-regexp-single-irrelevant', {
       '.betterer.js': `
 const { regexpBetterer } = require('@betterer/regexp');
 
@@ -79,6 +133,32 @@ module.exports = {
 
     expect(run.isNew).toEqual(true);
     expect(run.files).toEqual([indexPath]);
+
+    await cleanup();
+  });
+
+  it('should do ignore any files outside of the scope of the regexp test glob', async () => {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-regexp-single-irrelevant', {
+      '.betterer.js': `
+const { regexpBetterer } = require('@betterer/regexp');
+
+module.exports = {
+  'regexp no hack comments': regexpBetterer('./src/**/*.ts', /(\\/\\/\\s*HACK)/i)
+};
+      `
+    });
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+    const { cwd } = paths;
+    const testFile = resolve('./test/index.ts');
+
+    await writeFile(testFile, `// HACK:`);
+
+    const [run] = await betterer.single({ configPaths, resultsPath, cwd }, testFile);
+
+    expect(run.isComplete).toEqual(true);
+    expect(run.files).toEqual([testFile]);
 
     await cleanup();
   });
@@ -125,6 +205,48 @@ export default {
     await cleanup();
   });
 
+  it('should do ignore any files outside of the scope of the tsquery tsconfig', async () => {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-tsquery-single-irrevelent', {
+      '.betterer.ts': `
+import { tsqueryBetterer } from '@betterer/tsquery';
+
+export default {
+  'tsquery no raw console.log': tsqueryBetterer(
+    './tsconfig.json',
+    'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
+  )
+};
+      `,
+      'tsconfig.json': `
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["esnext"],
+    "moduleResolution": "node",
+    "target": "ES5",
+    "typeRoots": ["../../node_modules/@types/"],
+    "resolveJsonModule": true
+  },
+  "include": ["./src/**/*", ".betterer.ts"]
+}      
+      `
+    });
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+    const { cwd } = paths;
+    const testPath = resolve('./test/index.ts');
+
+    await writeFile(testPath, `console.log('foo');`);
+
+    const [run] = await betterer.single({ configPaths, resultsPath, cwd }, testPath);
+
+    expect(run.isNew).toEqual(true);
+    expect(run.files).toEqual([testPath]);
+
+    await cleanup();
+  });
+
   it('should run typescript against a single file', async () => {
     const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-typescript-single', {
       '.betterer.ts': `
@@ -162,6 +284,47 @@ export default {
 
     expect(run.isNew).toEqual(true);
     expect(run.files).toEqual([indexPath]);
+
+    await cleanup();
+  });
+
+  it('should do ignore any files outside of the scope of the typescript tsconfig', async () => {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-typescript-single-irrelevent', {
+      '.betterer.ts': `
+import { typescriptBetterer } from '@betterer/typescript';
+
+export default {
+  'typescript use strict mode': typescriptBetterer('./tsconfig.json', {
+    strict: true
+  })
+};
+      `,
+      'tsconfig.json': `
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["esnext"],
+    "moduleResolution": "node",
+    "target": "ES5",
+    "typeRoots": ["../../node_modules/@types/"],
+    "resolveJsonModule": true
+  },
+  "include": ["./src/**/*", ".betterer.ts"]
+}
+      `
+    });
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+    const { cwd } = paths;
+    const testPath = resolve('./test/index.ts');
+
+    await writeFile(testPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
+
+    const [run] = await betterer.single({ configPaths, resultsPath, cwd }, testPath);
+
+    expect(run.isNew).toEqual(true);
+    expect(run.files).toEqual([testPath]);
 
     await cleanup();
   });
