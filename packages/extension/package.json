@@ -1,10 +1,10 @@
 {
   "name": "betterer-vscode",
-  "displayName": "betterer",
+  "displayName": "Betterer",
   "publisher": "Betterer",
   "private": true,
   "description": "VSCode extension for @betterer/betterer",
-  "version": "0.5.0",
+  "version": "1.0.1",
   "main": "./dist/client/client.js",
   "author": "Craig Spence <craigspence0@gmail.com>",
   "homepage": "https://phenomnomnominal.github.io/betterer",
@@ -24,6 +24,11 @@
   "activationEvents": [
     "*"
   ],
+  "icon": "images/logo.png",
+  "galleryBanner": {
+    "color": "#eaff00",
+    "theme": "light"
+  },
   "contributes": {
     "configuration": {
       "type": "object",

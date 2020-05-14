@@ -1,19 +1,36 @@
-[![Betterer](https://github.com/phenomnomnominal/betterer/blob/master/docs/logo.png)](https://phenomnomnominal.github.io/betterer/)
+[![Betterer](https://raw.githubusercontent.com/phenomnomnominal/betterer/master/docs/logo.png)](https://phenomnomnominal.github.io/betterer/)
 
 # Betterer VS Code
 
+Are you working with a large team, or a legacy codebase? Want to make big sweeping changes over your project, but can't do it all in one go?
+
+Betterer makes it easier to make incremental improvements to your codebase!
+
+Find out more [here](https://github.com/phenomnomnominal/betterer)!
+
 ## Features
 
-Show Betterer issues inline in your code!
+[**Betterer**](https://github.com/phenomnomnominal/betterer) runs entirely in its own world, so the usual **ESLint** or **TypeScript** extensions can't report the issues. But everyone loves seeing red squiggly lines in the code editor, so **Betterer** now has [its very own VS Code Extension](https://marketplace.visualstudio.com/items?itemName=Betterer.betterer-vscode) 🤯!
 
-## Requirements
+### Initialise in a new project
 
-This extension will be activated by the presence of a `.betterer.js` or `.betterer.ts` file in the root for your workspace.
+You can run the `betterer.init` command in a project! It will generate config files and update your `package.json` with scripts and dependencies:
+
+![VS Code screen capture output showing Betterer being initialised in a project](https://dev-to-uploads.s3.amazonaws.com/i/mb9kc4z8eus1q7rl58ym.gif 'VS Code Extension Betterer init')
+
+### See all issues in a file
+
+And when you've got some tests setup, it will show you all the existing issues in a file, and when they were first created. And it will show you any new issues as you make them:
+
+![VS Code screen capture output showing Betterer highlighting issues in a project](https://dev-to-uploads.s3.amazonaws.com/i/1ewgkhl2rkq2co9pqwt4.gif 'VS Code Extension Betterer issues')
+
+I reckon that's pretty sweet!
 
 ## Release Notes
 
-### 0.0.1
+### 1.0.0
 
-Super beta release of Betterer VS Code!
+- Betterer initialisation
+- Inline Betterer issues
 
 ---
