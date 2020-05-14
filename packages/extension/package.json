@@ -4,7 +4,7 @@
   "publisher": "Betterer",
   "private": true,
   "description": "VSCode extension for @betterer/betterer",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "main": "./dist/client/client.js",
   "author": "Craig Spence <craigspence0@gmail.com>",
   "homepage": "https://phenomnomnominal.github.io/betterer",
@@ -97,8 +97,8 @@
     "vscode-uri": "^2.1.1"
   },
   "devDependencies": {
-    "typescript": "^3.7.4",
     "ts-loader": "^6.2.1",
+    "typescript": "^3.7.4",
     "vscode": "^1.1.36",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
