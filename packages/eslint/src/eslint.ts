@@ -32,7 +32,9 @@ export function eslintBetterer(globs: string | ReadonlyArray<string>, rule: ESLi
   const resolvedGlobs = globsArray.map((glob) => path.resolve(cwd, glob));
 
   return new BettererFileTest(async (files) => {
-    const cli = new CLIEngine({});
+    const cli = new CLIEngine({
+      cwd
+    });
 
     let testFiles: Array<string> = [];
     if (files.length !== 0) {
@@ -48,16 +50,22 @@ export function eslintBetterer(globs: string | ReadonlyArray<string>, rule: ESLi
 
     return testFiles.reduce((fileInfoMap, filePath) => {
       const linterOptions = cli.getConfigForFile(filePath);
-      fileInfoMap[filePath] = getFileIssues(linterOptions, rule, filePath);
+      fileInfoMap[filePath] = getFileIssues(cwd, linterOptions, rule, filePath);
       return fileInfoMap;
     }, {} as BettererFileIssuesMapRaw);
   });
 }
 
-function getFileIssues(linterOptions: Linter.Config, rule: ESLintRuleConfig, filePath: string): BettererFileIssuesRaw {
+function getFileIssues(
+  cwd: string,
+  linterOptions: Linter.Config,
+  rule: ESLintRuleConfig,
+  filePath: string
+): BettererFileIssuesRaw {
   const [ruleName, ruleOptions] = rule;
   const runner = new CLIEngine({
     ...linterOptions,
+    cwd,
     useEslintrc: false,
     globals: Object.keys(linterOptions.globals || {}),
     rules: {
