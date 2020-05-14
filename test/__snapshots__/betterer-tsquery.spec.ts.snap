@@ -26,9 +26,9 @@ Array [
   " ☀️  betterer  succ  ✅  - ",
   "\\"tsquery no raw console.log\\" got checked for the first time! 🎉",
   " ☀️  betterer  info  💬  - ",
-  "1 thing got checked. 🤔",
+  "1 test got checked. 🤔",
   " ☀️  betterer  info  💬  - ",
-  "1 thing got checked for the first time! 🎉",
+  "1 test got checked for the first time! 🎉",
   "
    / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
@@ -41,9 +41,9 @@ Array [
   " ☀️  betterer  warn  ⚠️  - ",
   "\\"tsquery no raw console.log\\" stayed the same. 😐",
   " ☀️  betterer  info  💬  - ",
-  "1 thing got checked. 🤔",
+  "1 test got checked. 🤔",
   " ☀️  betterer  warn  ⚠️  - ",
-  "1 thing stayed the same. 😐",
+  "1 test stayed the same. 😐",
   "
    / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
@@ -68,9 +68,9 @@ Array [
   "",
   "",
   " ☀️  betterer  info  💬  - ",
-  "1 thing got checked. 🤔",
+  "1 test got checked. 🤔",
   " ☀️  betterer  erro  🔥  - ",
-  "1 thing got worse. 😔",
+  "1 test got worse. 😔",
   "
    / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
@@ -83,9 +83,9 @@ Array [
   " ☀️  betterer  succ  ✅  - ",
   "\\"tsquery no raw console.log\\" met its goal! 🎉",
   " ☀️  betterer  info  💬  - ",
-  "1 thing got checked. 🤔",
+  "1 test got checked. 🤔",
   " ☀️  betterer  succ  ✅  - ",
-  "1 thing got better! 😍",
+  "1 test got better! 😍",
   " ☀️  betterer  succ  ✅  - ",
   "\\"tsquery no raw console.log\\" met its goal! 🎉",
   "
@@ -100,9 +100,9 @@ Array [
   " ☀️  betterer  succ  ✅  - ",
   "\\"tsquery no raw console.log\\" has already met its goal! ✨",
   " ☀️  betterer  info  💬  - ",
-  "1 thing got checked. 🤔",
+  "1 test got checked. 🤔",
   " ☀️  betterer  info  💬  - ",
-  "1 thing got checked for the first time! 🎉",
+  "1 test got checked for the first time! 🎉",
   " ☀️  betterer  succ  ✅  - ",
   "\\"tsquery no raw console.log\\" met its goal! 🎉",
 ]

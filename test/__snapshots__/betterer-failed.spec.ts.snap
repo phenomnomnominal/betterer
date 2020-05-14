@@ -21,9 +21,9 @@ exports[\`should shrink\`] = {
   value: \`0\`
 };",
   " ☀️  betterer  info  💬  - ",
-  "1 thing got checked. 🤔",
+  "1 test got checked. 🤔",
   " ☀️  betterer  info  💬  - ",
-  "1 thing got checked for the first time! 🎉",
+  "1 test got checked for the first time! 🎉",
 ]
 `;
 
@@ -73,9 +73,9 @@ Array [
     at fulfilled (<project>/node_modules/tslib/tslib.js:110:62)",
   "",
   " ☀️  betterer  info  💬  - ",
-  "0 things got checked. 🤔",
+  "0 tests got checked. 🤔",
   " ☀️  betterer  erro  🔥  - ",
-  "1 thing failed to run. 🔥",
+  "1 test failed to run. 🔥",
 ]
 `;
 
