@@ -1,11 +1,14 @@
 import { BettererFileTest, BettererFileIssuesMapRaw, BettererFileIssuesRaw } from '@betterer/betterer';
 import * as stack from 'callsite';
 import { promises as fs } from 'fs';
-import * as path from 'path';
 import * as glob from 'glob';
+import * as minimatch from 'minimatch';
+import * as path from 'path';
 import { promisify } from 'util';
 
 import { FILE_GLOB_REQUIRED, REGEXP_REQUIRED } from './errors';
+
+const globAsync = promisify(glob);
 
 export function regexpBetterer(globs: string | ReadonlyArray<string>, regexp: RegExp): BettererFileTest {
   if (!globs) {
@@ -23,11 +26,13 @@ export function regexpBetterer(globs: string | ReadonlyArray<string>, regexp: Re
   return new BettererFileTest(async (files) => {
     regexp = new RegExp(regexp.source, regexp.flags.includes('g') ? regexp.flags : `${regexp.flags}g`);
 
-    const testFiles = [...files];
-    if (testFiles.length === 0) {
+    let testFiles: Array<string> = [];
+    if (files.length !== 0) {
+      testFiles = files.filter((filePath) => resolvedGlobs.find((currentGlob) => minimatch(filePath, currentGlob)));
+    } else {
       await Promise.all(
         resolvedGlobs.map(async (currentGlob) => {
-          const globFiles = await promisify(glob)(currentGlob);
+          const globFiles = await globAsync(currentGlob);
           testFiles.push(...globFiles);
         })
       );

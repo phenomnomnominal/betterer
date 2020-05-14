@@ -25,13 +25,16 @@ export function tsqueryBetterer(configFilePath: string, query: string): Betterer
     if (files.length === 0) {
       sourceFiles = tsquery.project(absoluteConfigFilePath);
     } else {
+      const projectFiles = tsquery.projectFiles(absoluteConfigFilePath);
       sourceFiles = await Promise.all(
-        files.map(async (filePath) => {
-          const fileText = await fs.readFile(filePath, 'utf8');
-          const sourceFile = tsquery.ast(fileText);
-          sourceFile.fileName = filePath;
-          return sourceFile;
-        })
+        files
+          .filter((file) => projectFiles.includes(file))
+          .map(async (filePath) => {
+            const fileText = await fs.readFile(filePath, 'utf8');
+            const sourceFile = tsquery.ast(fileText);
+            sourceFile.fileName = filePath;
+            return sourceFile;
+          })
       );
     }
 
