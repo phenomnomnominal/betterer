@@ -15,12 +15,8 @@ export const runnerParallel: BettererRunnerReporter = {
     });
     report += '\n';
     runs.forEach((run) => {
-      const { name, isComplete } = run;
+      const { name } = run;
       if (run.isBetter) {
-        if (isComplete) {
-          report += `\n  "${name}" met its goal! 🎉`;
-          return;
-        }
         report += `\n  "${name}" got better! 😍`;
         return;
       }
@@ -29,10 +25,6 @@ export const runnerParallel: BettererRunnerReporter = {
         return;
       }
       if (run.isNew) {
-        if (isComplete) {
-          report += `\n  "${name}" has already met its goal! ✨`;
-          return;
-        }
         report += `\n  "${name}" got checked for the first time! 🎉`;
         return;
       }
@@ -42,6 +34,10 @@ export const runnerParallel: BettererRunnerReporter = {
       }
       if (run.isWorse) {
         report += `\n  "${name}" got worse. 😔`;
+        return;
+      }
+      if (run.isComplete) {
+        report += `\n  "${name}"${run.isNew ? ' already' : ''} met its goal! 🎉`;
         return;
       }
     });
