@@ -8,6 +8,7 @@ import * as stack from 'callsite';
 import { CLIEngine, Linter } from 'eslint';
 import * as glob from 'glob';
 import LinesAndColumns from 'lines-and-columns';
+import * as minimatch from 'minimatch';
 import * as path from 'path';
 import { promisify } from 'util';
 
@@ -33,8 +34,10 @@ export function eslintBetterer(globs: string | ReadonlyArray<string>, rule: ESLi
   return new BettererFileTest(async (files) => {
     const cli = new CLIEngine({});
 
-    const testFiles = [...files];
-    if (testFiles.length === 0) {
+    let testFiles: Array<string> = [];
+    if (files.length !== 0) {
+      testFiles = files.filter((filePath) => resolvedGlobs.find((currentGlob) => minimatch(filePath, currentGlob)));
+    } else {
       await Promise.all(
         resolvedGlobs.map(async (currentGlob) => {
           const globFiles = await globAsync(currentGlob);
