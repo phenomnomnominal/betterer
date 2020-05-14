@@ -1,12 +1,8 @@
 import { promises as fs } from 'fs';
-import { Module } from 'module';
 
+import { requireText } from '../require';
 import { COULDNT_READ_RESULTS } from '../errors';
 import { BettererExpectedResults } from './types';
-
-type ModulePrivate = {
-  _compile(source: string, path: string): void;
-};
 
 export async function read(resultsPath: string): Promise<BettererExpectedResults> {
   let file = '';
@@ -17,9 +13,7 @@ export async function read(resultsPath: string): Promise<BettererExpectedResults
   }
 
   try {
-    const m = new Module(resultsPath);
-    ((m as unknown) as ModulePrivate)._compile(file, resultsPath);
-    return m.exports;
+    return requireText(file);
   } catch {
     throw COULDNT_READ_RESULTS(resultsPath);
   }

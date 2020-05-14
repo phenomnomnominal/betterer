@@ -10,7 +10,8 @@ export function logError(err: Error | BettererError): void {
     const factory = ERROR_MESSAGES.get(err.code) as BettererErrorMessageFactory;
     const errors = err.details.filter((detail) => detail instanceof Error) as Array<Error>;
     const messages = err.details.filter((detail) => !(detail instanceof Error)) as Array<string>;
-    error(factory(...messages));
+    err.message = factory(...messages);
+    error(err.message);
     errors.forEach(logError);
     return;
   }

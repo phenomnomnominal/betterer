@@ -4,45 +4,44 @@ import { BettererFile } from './file';
 import { BettererFiles } from './files';
 import {
   BettererFileIssuesMapSerialised,
-  BettererFileIssues,
   BettererFileIssuesRaw,
   BettererFileIssuesDeserialised,
-  BettererFileIssuesSerialised,
-  BettererFileIssueRaw
+  BettererFileIssuesSerialised
 } from './types';
+import { BettererRun } from '../../context';
 
 const UNKNOWN_LOCATION = {
   line: 0,
   column: 0
 } as const;
 
-export function deserialise(serialised: BettererFileIssuesMapSerialised): BettererFiles {
+export function deserialise(run: BettererRun, serialised: BettererFileIssuesMapSerialised): BettererFiles {
   return new BettererFiles(
     Object.keys(serialised).map((key) => {
-      const [filePath, hash] = key.split(':');
+      const [relativePath, hash] = key.split(':');
       const issues = serialised[key].map((issue) => {
         const [line, column, length, message, hash] = issue;
         return { line, column, length, message, hash };
       });
-      return new BettererFile(filePath, hash, issues);
+      const absolutePath = run.context.getAbsolutePath(relativePath);
+      return new BettererFile(relativePath, absolutePath, hash, issues);
     })
   );
 }
 
-export function serialise(result: BettererFiles): BettererFileIssuesMapSerialised {
+export function serialise(_: BettererRun, result: BettererFiles): BettererFileIssuesMapSerialised {
   return result.files.reduce((serialised: BettererFileIssuesMapSerialised, file: BettererFile) => {
-    serialised[file.key] = serialiseDeserialised(sortLinesAndColumns(ensureDeserialised(file.issues)));
+    serialised[file.key] = serialiseDeserialised(sortLinesAndColumns(ensureDeserialised(file)));
     return serialised;
   }, {} as BettererFileIssuesMapSerialised);
 }
 
-export function ensureDeserialised(issues: BettererFileIssues): BettererFileIssuesDeserialised {
-  return isRaw(issues) ? rawToDeserialiseIssue(issues) : [...issues];
-}
-
-function isRaw(issues: BettererFileIssues): issues is BettererFileIssuesRaw {
-  const [issue] = issues;
-  return (issue as BettererFileIssueRaw).fileText != null;
+export function ensureDeserialised(file: BettererFile): BettererFileIssuesDeserialised {
+  try {
+    return file.issuesDeserialised;
+  } catch {
+    return rawToDeserialiseIssue(file.issuesRaw);
+  }
 }
 
 function rawToDeserialiseIssue(issues: BettererFileIssuesRaw): BettererFileIssuesDeserialised {

@@ -1,10 +1,10 @@
 import { ConstraintResult } from '@betterer/constraints';
 import * as assert from 'assert';
 
+import { BettererFile } from './file';
 import { BettererFiles } from './files';
 import { ensureDeserialised } from './serialiser';
 import { BettererFileTestDiff, BettererFileIssuesRaw, BettererFileIssueDeserialised } from './types';
-import { BettererFile } from './file';
 
 type BettererFileTestConstraintResult = {
   constraintResult: ConstraintResult;
@@ -20,17 +20,13 @@ export function constraint(current: BettererFiles, previous: BettererFiles): Bet
     return { constraintResult: ConstraintResult.same, diff };
   }
 
-  const hasNew = filePaths.filter((filePath) => {
-    return !!diff[filePath].neww?.length;
-  });
+  const hasNew = filePaths.filter((filePath) => !!diff[filePath].neww?.length);
 
   if (hasNew.length) {
     return { constraintResult: ConstraintResult.worse, diff };
   }
 
-  const hasFixed = filePaths.filter((filePath) => {
-    return !!diff[filePath].fixed;
-  });
+  const hasFixed = filePaths.filter((filePath) => !!diff[filePath].fixed?.length);
 
   if (hasFixed.length) {
     return { constraintResult: ConstraintResult.better, diff };
@@ -44,7 +40,7 @@ function getDiff(current: BettererFiles, previous: BettererFiles): BettererFileT
   const unchangedPreviousFiles: Array<BettererFile> = [];
   const unchangedCurrentFiles = current.files.filter((c) => {
     const previousFile = previous.files.find((p) => {
-      return p.hash === c.hash && p.filePath === c.filePath;
+      return p.hash === c.hash && p.absolutePath === c.absolutePath;
     });
     if (previousFile) {
       unchangedPreviousFiles.push(previousFile);
@@ -89,15 +85,15 @@ function getDiff(current: BettererFiles, previous: BettererFiles): BettererFileT
 
   const diff = {} as BettererFileTestDiff;
   filesWithChanges.forEach((file) => {
-    const { filePath } = file;
-    const currentFile = current.getFile(filePath);
-    const previousFile = previous.getFile(filePath);
+    const { absolutePath, relativePath } = file;
+    const currentFile = current.getFile(absolutePath);
+    const previousFile = previous.getFile(absolutePath);
 
     // If a file exists in the previous and not the current then all the issues are fixed:
     if (!currentFile) {
       assert(previousFile);
-      diff[filePath] = {
-        fixed: previousFile.issues.length
+      diff[relativePath] = {
+        fixed: previousFile.issuesDeserialised
       };
       return;
     }
@@ -105,15 +101,15 @@ function getDiff(current: BettererFiles, previous: BettererFiles): BettererFileT
     // If a file exists in the current and not the previous then all the issues are new:
     if (!previousFile) {
       assert(currentFile);
-      diff[filePath] = {
-        neww: currentFile.issues as BettererFileIssuesRaw
+      diff[relativePath] = {
+        neww: currentFile.issuesRaw
       };
       return;
     }
 
     // Convert all issues to their deserialised form for easier diffing:
-    const currentIssues = [...ensureDeserialised(currentFile.issues)];
-    const previousIssues = ensureDeserialised(previousFile.issues);
+    const currentIssues = [...ensureDeserialised(currentFile)];
+    const previousIssues = ensureDeserialised(previousFile);
 
     // Find all issues that exist in both current and previous:
     const unchangedPreviousIssues: Array<BettererFileIssueDeserialised> = [];
@@ -147,13 +143,13 @@ function getDiff(current: BettererFiles, previous: BettererFiles): BettererFileT
       // And then search through all the possibilities to find the closest issue:
       possibilities.forEach((possibility) => {
         assert(best);
-        if (Math.abs(line - possibility.line) > Math.abs(line - best.line)) {
+        if (Math.abs(line - possibility.line) >= Math.abs(line - best.line)) {
           return;
         }
         if (Math.abs(line - possibility.line) < Math.abs(line - best.line)) {
           best = possibility;
         }
-        if (Math.abs(column - possibility.column) > Math.abs(column - best.column)) {
+        if (Math.abs(column - possibility.column) >= Math.abs(column - best.column)) {
           return;
         }
         if (Math.abs(column - possibility.column) < Math.abs(column - best.column)) {
@@ -171,14 +167,14 @@ function getDiff(current: BettererFiles, previous: BettererFiles): BettererFileT
     });
 
     // Find the raw issue data so that diffs can be logged:
-    const newIssues = newOrMovedIssues.map((newIssue) => currentFile.issues[currentIssues.indexOf(newIssue)]);
+    const newIssues = newOrMovedIssues.map((newIssue) => currentFile.issuesRaw[currentIssues.indexOf(newIssue)]);
     const fixedIssues = fixedOrMovedIssues;
 
     // And finally construct the diff:
-    diff[file.filePath] = {
-      existing: unchangedPreviousIssues.length + movedIssues.length,
-      neww: newIssues as BettererFileIssuesRaw,
-      fixed: fixedIssues.length
+    diff[file.relativePath] = {
+      existing: [...unchangedPreviousIssues, ...movedIssues],
+      fixed: fixedIssues,
+      neww: newIssues as BettererFileIssuesRaw
     };
   });
 

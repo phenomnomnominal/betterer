@@ -10,9 +10,9 @@ Array [
    / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  erro  🔥  - ",
-  "could not read \\"<project>/fixtures/test-betterer-custom-no-constraint/.betterer\\". 😔",
+  "could not read config from \\"<project>/fixtures/test-betterer-custom-no-constraint/.betterer\\". 😔",
   " ☀️  betterer  erro  🔥  - ",
-  "For a test to work, it must have a \`constraint\` function. ❌",
+  "for a test to work, it must have a \`constraint\` function. ❌",
 ]
 `;
 
@@ -26,8 +26,8 @@ Array [
    / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  erro  🔥  - ",
-  "could not read \\"<project>/fixtures/test-betterer-custom-no-test/.betterer\\". 😔",
+  "could not read config from \\"<project>/fixtures/test-betterer-custom-no-test/.betterer\\". 😔",
   " ☀️  betterer  erro  🔥  - ",
-  "For a test to work, it must have a \`test\` function. ❌",
+  "for a test to work, it must have a \`test\` function. ❌",
 ]
 `;
