@@ -29,7 +29,7 @@ const SEE_OUTPUT_CHANNEL = `See the ${NAME} output channel for details.`;
 
 export const BETTERER_OUTPUT_CHANNEL = `Open ${NAME} output channel`;
 
-export const BETTERER_CONFIG_FILE_INVALID = `Failed to load Betterer config. ${SEE_OUTPUT_CHANNEL}.`;
+export const BETTERER_CONFIG_FILE_INVALID = `Failed to load ${NAME} config. ${SEE_OUTPUT_CHANNEL}.`;
 export const BETTERER_CONFIG_FILE_INVALID_DETAILS = (workspaceFolder: WorkspaceFolder): string => {
   return `
 
@@ -40,7 +40,7 @@ ${DISABLE_FOR_WORKSPACE(workspaceFolder)}
   `;
 };
 
-export const BETTERER_LIBRARY_NOT_INSTALLED = `Failed to load Betterer config. ${SEE_OUTPUT_CHANNEL}.`;
+export const BETTERER_LIBRARY_NOT_INSTALLED = `Failed to load ${NAME} library. ${SEE_OUTPUT_CHANNEL}.`;
 export const BETTERER_LIBRARY_NOT_INSTALLED_DETAILS = (workspaceFolder: WorkspaceFolder): string => {
   return `
 

@@ -5,8 +5,8 @@ import { LanguageClient, CloseAction, ErrorAction, ErrorHandler } from 'vscode-l
 import { EXTENSION_NAME } from '../constants';
 import { disableBetterer, enableBetterer, initBetterer, COMMAND_NAMES } from './commands';
 import { CLIENT_START_FAILED, SERVER_START_FAILED } from './error-messages';
-import { getClientOptions, getServerOptions } from './options';
 import { error } from './logger';
+import { getClientOptions, getServerOptions } from './options';
 import { BettererInvalidConfigRequest, BettererNoLibraryRequest, invalidConfig, noLibrary } from './requests';
 import { BettererStatusBar } from './status';
 

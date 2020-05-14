@@ -20,11 +20,13 @@ export class BettererValidationQueue {
   }
 
   public addNotificationMessage(event: TextDocumentChangeEvent<TextDocument>): void {
-    this._queue.push({
-      method: BettererValidateNotification.method,
-      document: event.document,
-      documentVersion: event.document.version
-    });
+    if (!this._queue.find((item) => item.document === event.document)) {
+      this._queue.push({
+        method: BettererValidateNotification.method,
+        document: event.document,
+        documentVersion: event.document.version
+      });
+    }
     this._trigger();
   }
 

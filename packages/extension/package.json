@@ -45,22 +45,22 @@
     },
     "commands": [
       {
-        "title": "Initialise betterer in workspace",
+        "title": "Initialise Betterer in the current workspace",
         "category": "betterer",
         "command": "betterer.init"
       },
       {
-        "title": "Enable betterer",
+        "title": "Enable Betterer",
         "category": "betterer",
         "command": "betterer.enable"
       },
       {
-        "title": "Disable betterer",
+        "title": "Disable Betterer",
         "category": "betterer",
         "command": "betterer.disable"
       },
       {
-        "title": "Show output channel",
+        "title": "Show Betterer output channel",
         "category": "betterer",
         "command": "betterer.showOutputChannel"
       }

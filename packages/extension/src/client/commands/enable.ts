@@ -1,10 +1,10 @@
 import { workspace } from 'vscode';
 
 import { EXTENSION_NAME } from '../../constants';
-import { getEnabled, enable } from '../settings';
 import { ENABLE_COMMAND_REQUIRES_WORKSPACE, ALREADY_ENABLED } from '../error-messages';
-import { pickFolder } from './folder-picker';
 import { error, info } from '../logger';
+import { getEnabled, enable } from '../settings';
+import { pickFolder } from './folder-picker';
 
 export async function enableBetterer(): Promise<void> {
   const { workspaceFolders } = workspace;
