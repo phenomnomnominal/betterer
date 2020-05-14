@@ -20,17 +20,13 @@ export function constraint(current: BettererFiles, previous: BettererFiles): Bet
     return { constraintResult: ConstraintResult.same, diff };
   }
 
-  const hasNew = filePaths.filter((filePath) => {
-    return !!diff[filePath].neww?.length;
-  });
+  const hasNew = filePaths.filter((filePath) => !!diff[filePath].neww?.length);
 
   if (hasNew.length) {
     return { constraintResult: ConstraintResult.worse, diff };
   }
 
-  const hasFixed = filePaths.filter((filePath) => {
-    return !!diff[filePath].fixed;
-  });
+  const hasFixed = filePaths.filter((filePath) => !!diff[filePath].fixed?.length);
 
   if (hasFixed.length) {
     return { constraintResult: ConstraintResult.better, diff };
