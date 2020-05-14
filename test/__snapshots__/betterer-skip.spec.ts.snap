@@ -18,9 +18,9 @@ Array [
   " ☀️  betterer  succ  ✅  - ",
   "\\"test 2\\" got checked for the first time! 🎉",
   " ☀️  betterer  info  💬  - ",
-  "2 things got checked. 🤔",
+  "2 tests got checked. 🤔",
   " ☀️  betterer  info  💬  - ",
-  "2 things got checked for the first time! 🎉",
+  "2 tests got checked for the first time! 🎉",
   "
    / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
@@ -29,9 +29,9 @@ Array [
    / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
-  "0 things got checked. 🤔",
+  "0 tests got checked. 🤔",
   " ☀️  betterer  warn  ⚠️  - ",
-  "2 things got skipped. ❌",
+  "2 tests got skipped. ❌",
 ]
 `;
 

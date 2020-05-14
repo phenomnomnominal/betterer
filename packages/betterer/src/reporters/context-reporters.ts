@@ -32,18 +32,18 @@ export const contextSerial: BettererContextReporter = {
     const skipped = stats.skipped.length;
     const { completed } = stats;
 
-    info(`${ran} ${getThings(ran)} got checked. 🤔`);
+    info(`${ran} ${getTests(ran)} got checked. 🤔`);
     if (failed) {
-      error(`${failed} ${getThings(failed)} failed to run. 🔥`);
+      error(`${failed} ${getTests(failed)} failed to run. 🔥`);
     }
     if (neww) {
-      info(`${neww} ${getThings(neww)} got checked for the first time! 🎉`);
+      info(`${neww} ${getTests(neww)} got checked for the first time! 🎉`);
     }
     if (obsolete) {
-      info(`${obsolete} ${getThings(obsolete)} are no longer needed! 🤪`);
+      info(`${obsolete} ${getTestsAre(obsolete)} are no longer needed! 🤪`);
     }
     if (better) {
-      success(`${better} ${getThings(better)} got better! 😍`);
+      success(`${better} ${getTests(better)} got better! 😍`);
     }
     if (completed.length) {
       completed.forEach((testName) => {
@@ -51,13 +51,13 @@ export const contextSerial: BettererContextReporter = {
       });
     }
     if (worse) {
-      error(`${worse} ${getThings(worse)} got worse. 😔`);
+      error(`${worse} ${getTests(worse)} got worse. 😔`);
     }
     if (same) {
-      warn(`${same} ${getThings(same)} stayed the same. 😐`);
+      warn(`${same} ${getTests(same)} stayed the same. 😐`);
     }
     if (skipped) {
-      warn(`${skipped} ${getThings(skipped)} got skipped. ❌`);
+      warn(`${skipped} ${getTests(skipped)} got skipped. ❌`);
     }
   },
   error(error: BettererError, printed: Array<string>) {
@@ -66,6 +66,10 @@ export const contextSerial: BettererContextReporter = {
   }
 };
 
-function getThings(count: number): string {
-  return count === 1 ? 'thing' : 'things';
+function getTests(count: number): string {
+  return count === 1 ? 'test' : 'tests';
+}
+
+function getTestsAre(count: number): string {
+  return `${getTests(count)} ${count === 1 ? 'is' : 'are'}`;
 }
