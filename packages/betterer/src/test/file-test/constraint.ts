@@ -36,92 +36,77 @@ export function constraint(result: BettererFiles, expected: BettererFiles): Bett
 }
 
 function getDiff(result: BettererFiles, expected: BettererFiles): BettererFileTestDiff {
-  // Find all files that exist in both result and expected:
-  const unchangedExpectedFiles: Array<BettererFile> = [];
-  const unchangedResultFiles = result.files.filter((r) => {
-    const expectedFile = expected.files.find((e) => {
-      return e.hash === r.hash && e.absolutePath === r.absolutePath;
-    });
-    if (expectedFile) {
-      unchangedExpectedFiles.push(expectedFile);
-    }
-    return !!expectedFile;
-  });
+  const diff = {} as BettererFileTestDiff;
 
-  // Any result files that aren't in expected are either new, have been moved, or have been changed:
-  const newOrMovedOrChangedFiles = result.files.filter((r) => !unchangedResultFiles.includes(r));
-  // And expected files that aren't in result are either fixed, have been moved, or have been changed:
-  const fixedOrMovedOrChangedFiles = expected.files.filter((e) => !unchangedExpectedFiles.includes(e));
+  const unchangedResultFiles = result.files.filter((r) =>
+    expected.files.find((e) => e.absolutePath === r.absolutePath && e.hash === r.hash)
+  );
 
-  // We can find the moved files by matching the file hashes:
-  fixedOrMovedOrChangedFiles.forEach((fixedOrMovedOrChangedFile, index) => {
+  const changedResultFiles = result.files.filter((r) =>
+    expected.files.find((e) => e.absolutePath === r.absolutePath && e.hash !== r.hash)
+  );
+
+  const newOrMovedFiles = result.files.filter((r) => !expected.files.find((e) => e.absolutePath === r.absolutePath));
+
+  const fixedOrMovedFiles = expected.files.filter((e) => !result.files.find((r) => r.absolutePath === e.absolutePath));
+
+  const movedFiles = new Map<BettererFile, BettererFile>();
+  fixedOrMovedFiles.forEach((fixedOrMovedFile, index) => {
     // A file may have been moved it has the same hash in both result and expected
-    const possibilities = newOrMovedOrChangedFiles.filter(
-      (newOrMovedOrChangedFile) => newOrMovedOrChangedFile.hash === fixedOrMovedOrChangedFile.hash
-    );
+    const possibilities = newOrMovedFiles.filter((newOrMovedFile) => newOrMovedFile.hash === fixedOrMovedFile.hash);
     if (!possibilities.length) {
       return;
     }
-    const best = possibilities.shift();
-    if (best) {
-      // Remove the moved file from the fixedOrMovedOrChangedFiles array:
-      fixedOrMovedOrChangedFiles.splice(index, 1);
-      // And from the newOrMovedOrChangedFiles array:
-      newOrMovedOrChangedFiles.splice(newOrMovedOrChangedFiles.indexOf(best), 1);
-    }
+
+    // Multiple possibilities means that the same content has been moved into multiple new files.
+    // So just count the first one as a move, the rest will be new files:
+    const [moved] = possibilities;
+    movedFiles.set(moved, fixedOrMovedFile);
+
+    // Remove the moved file from the fixedOrMovedFiles array:
+    fixedOrMovedFiles.splice(index, 1);
+    // And from the newOrMovedFiles array:
+    newOrMovedFiles.splice(newOrMovedFiles.indexOf(moved), 1);
   });
 
-  // Leaving us with the files that are new or changed:
-  const newOrChangedFiles = newOrMovedOrChangedFiles;
-  // And fixed or changed:
-  const fixedOrChangedFiles = fixedOrMovedOrChangedFiles;
+  // All the moved files have been removed from fixedOrMovedFiles and newOrMovedFiles:
+  const fixedFiles = fixedOrMovedFiles;
+  const newFiles = newOrMovedFiles;
 
-  const filesWithChanges = [...newOrChangedFiles, ...fixedOrChangedFiles];
+  fixedFiles.forEach((file) => {
+    diff[file.relativePath] = {
+      fixed: file.issuesDeserialised
+    };
+  });
 
-  // If there are no new, fixed, or changed files, there's nothing to diff:
-  if (filesWithChanges.length === 0) {
-    return {};
-  }
+  newFiles.forEach((file) => {
+    diff[file.relativePath] = {
+      neww: file.issuesRaw
+    };
+  });
 
-  const diff = {} as BettererFileTestDiff;
-  filesWithChanges.forEach((file) => {
-    const { absolutePath, relativePath } = file;
-    const resultFile = result.getFile(absolutePath);
-    const expectedFile = expected.getFile(absolutePath);
+  const existingFiles = [...unchangedResultFiles, ...changedResultFiles, ...Array.from(movedFiles.keys())];
+  existingFiles.forEach((resultFile) => {
+    const expectedFile = expected.getFile(resultFile.absolutePath) || movedFiles.get(resultFile);
 
-    // If a file exists in the expected and not the result then all the issues are fixed:
-    if (!resultFile) {
-      assert(expectedFile);
-      diff[relativePath] = {
-        fixed: expectedFile.issuesDeserialised
-      };
-      return;
-    }
-
-    // If a file exists in the result and not the expected then all the issues are new:
-    if (!expectedFile) {
-      assert(resultFile);
-      diff[relativePath] = {
-        neww: resultFile.issuesRaw
-      };
-      return;
-    }
+    assert(resultFile);
+    assert(expectedFile);
 
     // Convert all issues to their deserialised form for easier diffing:
     const resultIssues = [...ensureDeserialised(resultFile)];
     const expectedIssues = ensureDeserialised(expectedFile);
 
     // Find all issues that exist in both result and expected:
-    const unchangedExpectedIssues: Array<BettererFileIssueDeserialised> = [];
-    const unchangedResultIssues = resultIssues.filter((r) => {
-      const expectedIssue = expectedIssues.find((e) => {
-        return e.hash === r.hash && e.line === r.line && e.column === r.column && e.length === r.length;
-      });
-      if (expectedIssue) {
-        unchangedExpectedIssues.push(expectedIssue);
-      }
-      return !!expectedIssue;
-    });
+    const unchangedExpectedIssues = expectedIssues.filter((r) =>
+      resultIssues.find((e) => {
+        return e.line === r.line && e.column === r.column && e.length === r.length && e.hash === r.hash;
+      })
+    );
+    const unchangedResultIssues = resultIssues.filter((r) =>
+      expectedIssues.find((e) => {
+        return e.line === r.line && e.column === r.column && e.length === r.length && e.hash === r.hash;
+      })
+    );
 
     // Any result issues that aren't in expected are either new or have been moved:
     const newOrMovedIssues = resultIssues.filter((r) => !unchangedResultIssues.includes(r));
@@ -170,8 +155,13 @@ function getDiff(result: BettererFiles, expected: BettererFiles): BettererFileTe
     const newIssues = newOrMovedIssues.map((newIssue) => resultFile.issuesRaw[resultIssues.indexOf(newIssue)]);
     const fixedIssues = fixedOrMovedIssues;
 
-    // And finally construct the diff:
-    diff[file.relativePath] = {
+    // If there's no change, move on:
+    if (!newIssues.length && !fixedIssues.length) {
+      return;
+    }
+
+    // Otherwise construct the diff:
+    diff[resultFile.relativePath] = {
       existing: [...unchangedExpectedIssues, ...movedIssues],
       fixed: fixedIssues,
       neww: newIssues as BettererFileIssuesRaw
