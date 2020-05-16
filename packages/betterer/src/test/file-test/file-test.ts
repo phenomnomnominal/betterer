@@ -16,6 +16,7 @@ import {
   BettererFileTestFunction,
   BettererFileTestDiff
 } from './types';
+import { NO_PREVIOUS_RESULT } from '../../results';
 
 export class BettererFileTest extends BettererTest<BettererFiles, BettererFileIssuesMapSerialised> {
   private _excluded: BettererFileExcluded = [];
@@ -26,12 +27,12 @@ export class BettererFileTest extends BettererTest<BettererFiles, BettererFileIs
       test: async (run: BettererRun): Promise<BettererFiles> => {
         const { context, files } = run;
 
-        const expected = run.expected as BettererFiles;
+        const expected = run.expected as BettererFiles | typeof NO_PREVIOUS_RESULT;
         const result = await fileTest(files);
 
         let absolutePaths = Object.keys(result);
-        if (files.length) {
-          const expectedAbsolutePaths = expected?.files.map((file) => file.absolutePath) || [];
+        if (files.length && expected !== NO_PREVIOUS_RESULT) {
+          const expectedAbsolutePaths = expected.files.map((file) => file.absolutePath);
           absolutePaths = Array.from(new Set([...absolutePaths, ...expectedAbsolutePaths]));
         }
 
@@ -41,7 +42,7 @@ export class BettererFileTest extends BettererTest<BettererFiles, BettererFileIs
               if (!this._excluded.some((exclude: RegExp) => exclude.test(absolutePath))) {
                 const relativePath = context.getRelativePath(absolutePath);
                 const issues = result[absolutePath];
-                if (!issues) {
+                if (!issues && expected !== NO_PREVIOUS_RESULT) {
                   return expected.getFile(absolutePath);
                 }
                 if (issues.length === 0) {

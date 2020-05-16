@@ -34,6 +34,7 @@ export class BettererRun {
     private readonly _files: BettererFilePaths
   ) {
     if (expected === NO_PREVIOUS_RESULT) {
+      this._expected = NO_PREVIOUS_RESULT;
       return;
     } else {
       this._isNew = false;
@@ -44,7 +45,7 @@ export class BettererRun {
     }
   }
 
-  public get expected(): unknown {
+  public get expected(): unknown | typeof NO_PREVIOUS_RESULT {
     return this._expected;
   }
 
