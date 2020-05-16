@@ -1,10 +1,10 @@
 import { ConstraintResult } from './constraint-result';
 
-export function bigger(current: number, previous: number): ConstraintResult {
-  if (current === previous) {
+export function bigger(result: number, expected: number): ConstraintResult {
+  if (result === expected) {
     return ConstraintResult.same;
   }
-  if (current > previous) {
+  if (result > expected) {
     return ConstraintResult.better;
   }
   return ConstraintResult.worse;
