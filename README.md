@@ -43,10 +43,12 @@ Making widespread changes to a codebase can be really hard. When trying to make 
 When you want to make an improvement to your codebase, you just start by making a new test, defined in a `.betterer.ts` file:
 
 ```typescript
+import { smaller } from '@betterer/constraint';
+
 export default {
   'thing to improve': {
     test: () => runMyTest(),
-    constraint: (current, previous) => current < previous,
+    constraint: smaller,
     goal: 0
   }
 };
@@ -139,7 +141,7 @@ It's also pretty straightforward to write your own custom tests. All you need to
 ```typescript
 export type BettererTestOptions<T = number> = {
   test: () => T | Promise<T>;
-  constraint: (current: T, previous: T) => ConstraintResult | Promise<ConstraintResult>;
+  constraint: (result: T, expected: T) => ConstraintResult | Promise<ConstraintResult>;
   goal: T;
 };
 ```
