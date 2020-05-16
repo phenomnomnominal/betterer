@@ -1,7 +1,7 @@
 {
   "name": "@betterer/cli",
   "description": "betterer CLI",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -28,8 +28,8 @@
     "compile": "tsc -b ."
   },
   "dependencies": {
-    "@betterer/betterer": "^1.0.0",
-    "@betterer/errors": "^1.0.0",
+    "@betterer/betterer": "^1.0.2",
+    "@betterer/errors": "^1.0.2",
     "commander": "^5.1.0",
     "find-up": "^4.1.0",
     "tslib": "^2.0.0"
