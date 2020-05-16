@@ -137,7 +137,7 @@ module.exports = {
     await cleanup();
   });
 
-  it('should do ignore any files outside of the scope of the regexp test glob', async () => {
+  it('should ignore any files outside of the scope of the regexp test glob', async () => {
     const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-regexp-single-irrelevant', {
       '.betterer.js': `
 const { regexpBetterer } = require('@betterer/regexp');
@@ -205,7 +205,7 @@ export default {
     await cleanup();
   });
 
-  it('should do ignore any files outside of the scope of the tsquery tsconfig', async () => {
+  it('should ignore any files outside of the scope of the tsquery tsconfig', async () => {
     const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-tsquery-single-irrevelent', {
       '.betterer.ts': `
 import { tsqueryBetterer } from '@betterer/tsquery';
@@ -288,7 +288,7 @@ export default {
     await cleanup();
   });
 
-  it('should do ignore any files outside of the scope of the typescript tsconfig', async () => {
+  it('should ignore any files outside of the scope of the typescript tsconfig', async () => {
     const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-typescript-single-irrelevent', {
       '.betterer.ts': `
 import { typescriptBetterer } from '@betterer/typescript';
