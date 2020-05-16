@@ -30,7 +30,7 @@
     "glob": "^7.1.4",
     "lines-and-columns": "^1.1.6",
     "minimatch": "^3.0.4",
-    "tslib": "^1.10.0"
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
     "eslint": "*"

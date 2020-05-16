@@ -27,7 +27,7 @@
     "@betterer/betterer": "^1.0.0",
     "@betterer/errors": "^1.0.0",
     "callsite": "^1.0.0",
-    "tslib": "^1.10.0"
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
     "typescript": "*"

@@ -28,7 +28,7 @@
     "@betterer/errors": "^1.0.0",
     "@phenomnomnominal/tsquery": "^4.1.0",
     "callsite": "^1.0.0",
-    "tslib": "^1.10.0"
+    "tslib": "^2.0.0"
   },
   "devDependencies": {
     "@types/callsite": "^1.0.30"
