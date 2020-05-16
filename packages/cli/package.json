@@ -32,6 +32,6 @@
     "@betterer/errors": "^1.0.0",
     "commander": "^5.1.0",
     "find-up": "^4.1.0",
-    "tslib": "^1.10.0"
+    "tslib": "^2.0.0"
   }
 }
