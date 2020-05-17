@@ -142,7 +142,8 @@ It's also pretty straightforward to write your own custom tests. All you need to
 export type BettererTestOptions<T = number> = {
   test: () => T | Promise<T>;
   constraint: (result: T, expected: T) => ConstraintResult | Promise<ConstraintResult>;
-  goal: T;
+  goal?: T | (result: T) => boolean;
+  deadline?: Date;
 };
 ```
 

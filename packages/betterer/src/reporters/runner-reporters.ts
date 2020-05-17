@@ -20,6 +20,10 @@ export const runnerParallel: BettererRunnerReporter = {
         report += `\n  "${name}" got better! 😍`;
         return;
       }
+      if (run.isExpired) {
+        report += `\n  "${name}" has passed its deadline. ☠️`;
+        return;
+      }
       if (run.isFailed) {
         report += `\n  "${run.name}" failed to run. 🔥`;
         return;

@@ -44,8 +44,9 @@ export type BettererTestType<DeserialisedType, SerialisedType = DeserialisedType
 
 export type BettererTestOptions<DeserialisedType, SerialisedType = DeserialisedType> = {
   constraint: BettererTestConstraint<DeserialisedType>;
+  deadline?: Date | string;
   goal?: DeserialisedType | BettererTestGoal<DeserialisedType>;
   test: BettererTestFunction<DeserialisedType>;
 } & BettererTestType<DeserialisedType, SerialisedType> &
   BettererTestStateOptions;
-export type BettererTestMap = Record<string, BettererTest>;
+export type BettererTestMap = Record<string, BettererTest | BettererTestOptions<unknown, unknown>>;

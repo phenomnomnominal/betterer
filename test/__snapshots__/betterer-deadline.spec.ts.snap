@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`betterer should do nothing when a test is not past its deadline 1`] = `
+Array [
+  "
+   / | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"should grow\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"should grow\\" got checked for the first time! 🎉",
+  " ☀️  betterer  info  💬  - ",
+  "1 test got checked. 🤔",
+  " ☀️  betterer  info  💬  - ",
+  "1 test got checked for the first time! 🎉",
+]
+`;
+
+exports[`betterer should do nothing when a test is not past its deadline 2`] = `
+"// BETTERER RESULTS V1.
+exports[\`should grow\`] = {
+  timestamp: 1589714460851,
+  value: \`0\`
+};"
+`;
+
+exports[`betterer should mark a test as expired when is is past its deadline 1`] = `
+Array [
+  "
+   / | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+ ",
+  " ☀️  betterer  erro  🔥  - ",
+  "\\"should grow\\" has passed its deadline. ☠️",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"should grow\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"should grow\\" got checked for the first time! 🎉",
+  " ☀️  betterer  info  💬  - ",
+  "1 test got checked. 🤔",
+  " ☀️  betterer  erro  🔥  - ",
+  "\\"should grow\\" has passed its deadline. ☠️",
+  " ☀️  betterer  info  💬  - ",
+  "1 test got checked for the first time! 🎉",
+]
+`;
+
+exports[`betterer should mark a test as expired when is is past its deadline 2`] = `
+"// BETTERER RESULTS V1.
+exports[\`should grow\`] = {
+  timestamp: 1589714460851,
+  value: \`0\`
+};"
+`;

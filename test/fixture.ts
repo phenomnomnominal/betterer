@@ -1,3 +1,4 @@
+import * as assert from 'assert';
 import { ensureFile, remove } from 'fs-extra';
 import * as fs from 'graceful-fs';
 import * as path from 'path';
@@ -33,7 +34,11 @@ type Fixture = {
   cleanup(): Promise<void>;
 };
 
+const fixtureNames: Array<string> = [];
+
 export async function createFixture(fixtureName: string, fileStructure: FS): Promise<Fixture> {
+  assert(!fixtureNames.includes(fixtureName));
+
   const fixturePath = path.resolve(__dirname, `../fixtures/${fixtureName}`);
 
   function resolve(itemPath: string): string {

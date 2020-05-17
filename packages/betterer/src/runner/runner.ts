@@ -35,8 +35,7 @@ async function runTest(run: BettererRun): Promise<void> {
     return;
   }
 
-  run.start();
-  const timestamp = Date.now();
+  const timestamp = run.start();
   let result: unknown;
   try {
     result = await test.test(run);

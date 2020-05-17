@@ -30,9 +30,14 @@ export const contextSerial: BettererContextReporter = {
     const worse = stats.worse.length;
     const same = stats.same.length;
     const skipped = stats.skipped.length;
-    const { completed } = stats;
+    const { completed, expired } = stats;
 
     info(`${ran} ${getTests(ran)} got checked. 🤔`);
+    if (expired) {
+      expired.forEach((testName) => {
+        error(`"${testName}" has passed its deadline. ☠️`);
+      });
+    }
     if (failed) {
       error(`${failed} ${getTests(failed)} failed to run. 🔥`);
     }

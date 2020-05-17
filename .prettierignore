@@ -14,6 +14,7 @@ test/__snapshots__/**
 **/*.ico
 **/*.png
 .betterer.results
+.bettererignore
 .gitignore
 .npmrc
 .prettierignore

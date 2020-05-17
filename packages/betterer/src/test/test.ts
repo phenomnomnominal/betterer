@@ -19,6 +19,7 @@ export class BettererTest<DeserialisedType = unknown, SerialisedType = Deseriali
   public readonly constraint: BettererTestConstraint<DeserialisedType>;
   public readonly goal: BettererTestGoal<DeserialisedType>;
   public readonly test: BettererTestFunction<DeserialisedType>;
+  public readonly deadline: number;
 
   public differ?: BettererDiffer;
   public printer?: BettererPrinter<SerialisedType>;
@@ -40,6 +41,7 @@ export class BettererTest<DeserialisedType = unknown, SerialisedType = Deseriali
 
     this.constraint = options.constraint;
     this.goal = this._createGoal(options);
+    this.deadline = this._createDeadline(options);
     this.test = options.test;
 
     this.differ = options.differ;
@@ -52,8 +54,17 @@ export class BettererTest<DeserialisedType = unknown, SerialisedType = Deseriali
   }
 
   public get name(): string {
-    assert.notEqual(this._name, null);
+    assert.notStrictEqual(this._name, null);
     return this._name as string;
+  }
+
+  private _createDeadline(options: BettererTestOptions<DeserialisedType, SerialisedType>): number {
+    const { deadline } = options;
+    if (deadline == null) {
+      return 0;
+    }
+    const maybeDate = new Date(deadline).getTime();
+    return !isNaN(maybeDate) ? maybeDate : 0;
   }
 
   private _createGoal(
