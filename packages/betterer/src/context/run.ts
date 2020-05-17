@@ -7,7 +7,6 @@ import { BettererContext } from './context';
 
 enum BettererRunStatus {
   better,
-  complete,
   failed,
   pending,
   neww,
@@ -24,6 +23,8 @@ export class BettererRun {
   private _expected: unknown;
   private _timestamp: number | null = null;
 
+  private _isComplete = false;
+  private _isExpired = false;
   private _isNew = true;
   private _hasResult = false;
 
@@ -62,8 +63,8 @@ export class BettererRun {
   }
 
   public get timestamp(): number {
-    assert.notEqual(this._status, BettererRunStatus.pending);
-    assert.notEqual(this._timestamp, null);
+    assert.notStrictEqual(this._status, BettererRunStatus.pending);
+    assert.notStrictEqual(this._timestamp, null);
     return this._timestamp as number;
   }
 
@@ -72,7 +73,11 @@ export class BettererRun {
   }
 
   public get isComplete(): boolean {
-    return this._status === BettererRunStatus.complete;
+    return this._isComplete;
+  }
+
+  public get isExpired(): boolean {
+    return this._isExpired;
   }
 
   public get isFailed(): boolean {
@@ -113,7 +118,8 @@ export class BettererRun {
 
   public better(result: unknown, isComplete: boolean, timestamp: number): void {
     assert.equal(this._status, BettererRunStatus.pending);
-    this._status = isComplete ? BettererRunStatus.complete : BettererRunStatus.better;
+    this._status = BettererRunStatus.better;
+    this._isComplete = isComplete;
     this._result = result;
     this._toPrint = result;
     this._timestamp = timestamp;
@@ -133,7 +139,8 @@ export class BettererRun {
 
   public neww(result: unknown, isComplete: boolean, timestamp: number): void {
     assert.equal(this._status, BettererRunStatus.pending);
-    this._status = isComplete ? BettererRunStatus.complete : BettererRunStatus.neww;
+    this._status = BettererRunStatus.neww;
+    this._isComplete = isComplete;
     this._result = result;
     this._toPrint = result;
     this._timestamp = timestamp;
@@ -145,8 +152,11 @@ export class BettererRun {
     this._context.runRan(this);
   }
 
-  public start(): void {
+  public start(): number {
+    const startTime = Date.now();
+    this._isExpired = startTime > this._test.deadline;
     this._context.runStart(this);
+    return startTime;
   }
 
   public same(): void {

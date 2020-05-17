@@ -13,6 +13,9 @@ export const runSerial: BettererRunReporter = {
     }
     success(`"${name}" got better! 😍`);
   },
+  expired(run: BettererRun): void {
+    error(`"${run.name}" has passed its deadline. ☠️`);
+  },
   failed(run: BettererRun): void {
     error(`"${run.name}" failed to run. 🔥`);
   },

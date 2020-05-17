@@ -17,7 +17,7 @@
     "lint": "eslint \"./packages/**/src/**/*.{js,ts}\" \"./test/**/*.{js,ts}\" \"./*.{js,ts}\" --fix",
     "format": "prettier \"**/!(*.snap)\" --write --loglevel=silent",
     "test": "jest",
-    "test:debug": "jest --runInBand",
+    "test:debug": "jest --runInBand --collectCoverage=false",
     "prepublishOnly": "yarn run build"
   },
   "devDependencies": {

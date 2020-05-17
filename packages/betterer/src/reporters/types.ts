@@ -16,6 +16,7 @@ export type BettererRunnerReporter = {
 
 export type BettererRunReporter = {
   better(run: BettererRun): void;
+  expired(run: BettererRun): void;
   failed(run: BettererRun): void;
   neww(run: BettererRun): void;
   same(run: BettererRun): void;

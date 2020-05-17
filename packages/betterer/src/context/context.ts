@@ -12,7 +12,7 @@ import {
 import { COULDNT_READ_CONFIG } from '../errors';
 import { BettererReporters } from '../reporters';
 import { print, read, write, NO_PREVIOUS_RESULT, BettererExpectedResults, BettererExpectedResult } from '../results';
-import { BettererTest, BettererTests, isBettererTest, BettererTestMap } from '../test';
+import { BettererTest, BettererTests, isBettererTest, BettererTestMap, BettererTestOptions } from '../test';
 import { getNormalisedPath } from '../utils';
 import { BettererFilePaths } from '../watcher';
 import { BettererRun } from './run';
@@ -87,6 +87,12 @@ export class BettererContext {
   }
 
   public runStart(run: BettererRun): void {
+    assert(this._stats);
+    const { isExpired, name } = run;
+    if (isExpired) {
+      this._stats.expired.push(name);
+      this._reporters?.run?.expired?.(run);
+    }
     this._reporters?.run?.start?.(run);
   }
 
@@ -189,10 +195,14 @@ export class BettererContext {
     try {
       const tests = requireUncached<BettererTestMap>(configPath);
       return Object.keys(tests).map((name) => {
-        let test = tests[name];
-        if (!isBettererTest(test)) {
-          test = new BettererTest(tests[name]);
+        const maybeTest = tests[name];
+        let test: BettererTest | null = null;
+        if (isBettererTest(maybeTest)) {
+          test = maybeTest;
+        } else {
+          test = new BettererTest(tests[name] as BettererTestOptions<unknown, unknown>);
         }
+        assert(test);
         test.setName(name);
         return test;
       });
