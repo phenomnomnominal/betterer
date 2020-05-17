@@ -1,7 +1,7 @@
 {
   "name": "@betterer/regexp",
   "description": "RegExp test for @betterer/betterer",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -24,7 +24,7 @@
     "compile": "tsc -b ."
   },
   "dependencies": {
-    "@betterer/betterer": "^1.0.2",
+    "@betterer/betterer": "^1.1.0",
     "@betterer/errors": "^1.0.2",
     "callsite": "^1.0.0",
     "glob": "^7.1.4",
