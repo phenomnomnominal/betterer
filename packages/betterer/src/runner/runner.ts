@@ -56,7 +56,7 @@ async function runTest(run: BettererRun): Promise<void> {
   const comparison = await test.constraint(result, run.expected);
 
   if (comparison === ConstraintResult.same) {
-    run.same();
+    run.same(result);
     return;
   }
 

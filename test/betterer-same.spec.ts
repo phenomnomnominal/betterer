@@ -43,13 +43,15 @@ module.exports = {
   });
 
   it('should stay the same when a file is moved', async () => {
-    const { deleteFile, paths, logs, cleanup, resolve, writeFile } = await createFixture('test-betterer-same-move', {
-      'src/index.ts': `
+    const { deleteFile, paths, logs, cleanup, resolve, readFile, writeFile } = await createFixture(
+      'test-betterer-same-move',
+      {
+        'src/index.ts': `
 const a = 'a';
 const one = 1;
 console.log(a * one);
       `,
-      '.betterer.ts': `
+        '.betterer.ts': `
 import { typescriptBetterer } from '@betterer/typescript';
 
 export default {
@@ -58,7 +60,7 @@ export default {
   })
 };    
       `,
-      'tsconfig.json': `
+        'tsconfig.json': `
 {
   "compilerOptions": {
     "noEmit": true,
@@ -71,7 +73,8 @@ export default {
   "include": ["./src/**/*", ".betterer.ts"]
 }
       `
-    });
+      }
+    );
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
@@ -84,6 +87,10 @@ export default {
 
     expect(newTestRun.new).toEqual(['typescript use strict mode']);
 
+    const newTestRunResult = await readFile(resultsPath);
+
+    expect(newTestRunResult).toMatchSnapshot();
+
     await writeFile(movedPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
     await deleteFile(indexPath);
 
@@ -91,13 +98,17 @@ export default {
 
     expect(sameTestRun.same).toEqual(['typescript use strict mode']);
 
+    const sameTestRunResult = await readFile(resultsPath);
+
+    expect(sameTestRunResult).toMatchSnapshot();
+
     expect(logs).toMatchSnapshot();
 
     await cleanup();
   });
 
   it('should stay the same when an issue moves line', async () => {
-    const { paths, logs, cleanup, resolve, writeFile } = await createFixture('test-betterer-same-move', {
+    const { paths, logs, cleanup, resolve, readFile, writeFile } = await createFixture('test-betterer-same-move', {
       'src/index.ts': `
 const a = 'a';
 const one = 1;
@@ -137,11 +148,19 @@ export default {
 
     expect(newTestRun.new).toEqual(['typescript use strict mode']);
 
-    await writeFile(indexPath, `\n\nconst a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
+    const newTestRunResult = await readFile(resultsPath);
+
+    expect(newTestRunResult).toMatchSnapshot();
+
+    await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one + one);\nconsole.log(a * one);`);
 
     const sameTestRun = await betterer({ configPaths, resultsPath });
 
     expect(sameTestRun.same).toEqual(['typescript use strict mode']);
+
+    const sameTestRunResult = await readFile(resultsPath);
+
+    expect(sameTestRunResult).toMatchSnapshot();
 
     expect(logs).toMatchSnapshot();
 

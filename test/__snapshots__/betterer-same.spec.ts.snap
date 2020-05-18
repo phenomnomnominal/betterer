@@ -1,6 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`betterer should stay the same when a file is moved 1`] = `
+"// BETTERER RESULTS V1.
+exports[\`typescript use strict mode\`] = {
+  timestamp: 0,
+  value: \`{
+    \\"src/index.ts:1499252024\\": [
+      [2, 12, 1, \\"The left-hand side of an arithmetic operation must be of type \\\\'any\\\\', \\\\'number\\\\', \\\\'bigint\\\\' or an enum type.\\", \\"177604\\"]
+    ]
+  }\`
+};"
+`;
+
+exports[`betterer should stay the same when a file is moved 2`] = `
+"// BETTERER RESULTS V1.
+exports[\`typescript use strict mode\`] = {
+  timestamp: 0,
+  value: \`{
+    \\"src/moved.ts:1499252024\\": [
+      [2, 12, 1, \\"The left-hand side of an arithmetic operation must be of type \\\\'any\\\\', \\\\'number\\\\', \\\\'bigint\\\\' or an enum type.\\", \\"177604\\"]
+    ]
+  }\`
+};"
+`;
+
+exports[`betterer should stay the same when a file is moved 3`] = `
 Array [
   "
    / | /     _          _   _                     
@@ -36,6 +60,30 @@ Array [
 `;
 
 exports[`betterer should stay the same when an issue moves line 1`] = `
+"// BETTERER RESULTS V1.
+exports[\`typescript use strict mode\`] = {
+  timestamp: 0,
+  value: \`{
+    \\"src/index.ts:1499252024\\": [
+      [2, 12, 1, \\"The left-hand side of an arithmetic operation must be of type \\\\'any\\\\', \\\\'number\\\\', \\\\'bigint\\\\' or an enum type.\\", \\"177604\\"]
+    ]
+  }\`
+};"
+`;
+
+exports[`betterer should stay the same when an issue moves line 2`] = `
+"// BETTERER RESULTS V1.
+exports[\`typescript use strict mode\`] = {
+  timestamp: 0,
+  value: \`{
+    \\"src/index.ts:2615232350\\": [
+      [3, 12, 1, \\"The left-hand side of an arithmetic operation must be of type \\\\'any\\\\', \\\\'number\\\\', \\\\'bigint\\\\' or an enum type.\\", \\"177604\\"]
+    ]
+  }\`
+};"
+`;
+
+exports[`betterer should stay the same when an issue moves line 3`] = `
 Array [
   "
    / | /     _          _   _                     
