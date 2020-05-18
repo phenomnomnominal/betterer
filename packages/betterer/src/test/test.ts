@@ -61,10 +61,10 @@ export class BettererTest<DeserialisedType = unknown, SerialisedType = Deseriali
   private _createDeadline(options: BettererTestOptions<DeserialisedType, SerialisedType>): number {
     const { deadline } = options;
     if (deadline == null) {
-      return 0;
+      return Infinity;
     }
     const maybeDate = new Date(deadline).getTime();
-    return !isNaN(maybeDate) ? maybeDate : 0;
+    return !isNaN(maybeDate) ? maybeDate : Infinity;
   }
 
   private _createGoal(
