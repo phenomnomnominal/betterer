@@ -159,10 +159,11 @@ export class BettererRun {
     return startTime;
   }
 
-  public same(): void {
+  public same(result: unknown): void {
     assert.equal(this._status, BettererRunStatus.pending);
     this._status = BettererRunStatus.same;
-    this._result = this._expected;
+    this._result = result;
+    this._toPrint = result;
     this._hasResult = true;
     this._context.runSame(this);
   }
