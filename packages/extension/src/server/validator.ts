@@ -2,8 +2,10 @@ import {
   BettererFileTest,
   BettererFiles,
   BettererFileIssuesRaw,
-  BettererFileIssuesDeserialised,
-  BettererFile
+  BettererFile,
+  BettererFileIssueRaw,
+  BettererFileIssueDeserialised,
+  BettererFileIssues
 } from '@betterer/betterer';
 import { IConnection, TextDocuments, Diagnostic, DiagnosticSeverity, Position } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
@@ -63,7 +65,7 @@ export class BettererValidator {
               const file = files.getFile(filePath) as BettererFile;
 
               const fileDiff = test?.diff?.[file.relativePath];
-              let existingIssues: BettererFileIssuesDeserialised = [];
+              let existingIssues: BettererFileIssues = [];
               let newIssues: BettererFileIssuesRaw = [];
 
               if (fileDiff) {
@@ -72,29 +74,19 @@ export class BettererValidator {
               } else if (run.isNew) {
                 newIssues = file.issuesRaw;
               } else if (run.isSkipped || run.isSame) {
-                existingIssues = file.issuesDeserialised;
+                existingIssues = file.issuesRaw;
               }
-
-              existingIssues.forEach((issue) => {
-                const { message } = issue;
-                const { line, column, length } = issue;
-                const start = { line, character: column };
-                const end = document.positionAt(document.offsetAt(start) + length);
-                const timestamp = new Date(run.timestamp).toISOString().replace(/T/, ' ').replace(/\..+/, '');
-                const code = `since ${timestamp}`;
-                diagnostics.push(createDiagnostic(test.name, start, end, message, code, DiagnosticSeverity.Warning));
+              existingIssues.forEach((issue: BettererFileIssueRaw | BettererFileIssueDeserialised) => {
+                diagnostics.push(createWarning(test.name, run.timestamp, issue, document));
               });
               newIssues.forEach((issue) => {
-                const { message } = issue;
-                const start = document.positionAt(issue.start);
-                const end = document.positionAt(issue.end);
-                const code = 'new issue';
-                diagnostics.push(createDiagnostic(test.name, start, end, message, code, DiagnosticSeverity.Error));
+                diagnostics.push(createError(test.name, issue, document));
               });
             });
           this._connection.sendDiagnostics({ uri, diagnostics });
           this._connection.sendNotification(BettererStatusNotification, BettererStatus.ok);
         } catch (e) {
+          this._connection.sendDiagnostics({ uri, diagnostics: [] });
           if (isNoConfigError(e)) {
             this._connection.sendRequest(BettererInvalidConfigRequest, { source: { uri: document.uri } });
             this._connection.sendNotification(BettererStatusNotification, BettererStatus.warn);
@@ -105,14 +97,28 @@ export class BettererValidator {
   }
 }
 
+function isRaw(issue: BettererFileIssueRaw | BettererFileIssueDeserialised): issue is BettererFileIssueRaw {
+  return (issue as BettererFileIssueRaw).fileText != null;
+}
+
 function createDiagnostic(
   name: string,
-  start: Position,
-  end: Position,
-  message: string,
+  issue: BettererFileIssueRaw | BettererFileIssueDeserialised,
   code: string,
+  document: TextDocument,
   severity: DiagnosticSeverity
 ): Diagnostic {
+  const { message } = issue;
+  let start: Position | null = null;
+  let end: Position | null = null;
+  if (isRaw(issue)) {
+    start = document.positionAt(issue.start);
+    end = document.positionAt(issue.end);
+  } else {
+    const { line, column, length } = issue;
+    start = { line, character: column };
+    end = document.positionAt(document.offsetAt(start) + length);
+  }
   const range = { start, end };
   return {
     message,
@@ -121,6 +127,26 @@ function createDiagnostic(
     range,
     code: `[${name}] - ${code}`
   };
+}
+
+function createError(
+  name: string,
+  issue: BettererFileIssueRaw | BettererFileIssueDeserialised,
+  document: TextDocument
+): Diagnostic {
+  const code = 'new issue';
+  return createDiagnostic(name, issue, code, document, DiagnosticSeverity.Error);
+}
+
+function createWarning(
+  name: string,
+  timestamp: number,
+  issue: BettererFileIssueRaw | BettererFileIssueDeserialised,
+  document: TextDocument
+): Diagnostic {
+  const date = new Date(timestamp).toISOString().replace(/T/, ' ').replace(/\..+/, '');
+  const code = `since ${date}`;
+  return createDiagnostic(name, issue, code, document, DiagnosticSeverity.Warning);
 }
 
 function getFilePath(documentOrUri: URI | TextDocument | string): string | null {
