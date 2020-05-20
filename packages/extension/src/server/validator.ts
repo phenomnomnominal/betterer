@@ -52,6 +52,10 @@ export class BettererValidator {
 
       if (cwd && filePath && betterer) {
         const diagnostics: Array<Diagnostic> = [];
+        this._connection.sendDiagnostics({ uri, diagnostics });
+
+        const loading = load(this._connection);
+        let status = BettererStatus.ok;
 
         try {
           const runs = await betterer.single({ cwd }, filePath);
@@ -84,14 +88,16 @@ export class BettererValidator {
               });
             });
           this._connection.sendDiagnostics({ uri, diagnostics });
-          this._connection.sendNotification(BettererStatusNotification, BettererStatus.ok);
         } catch (e) {
-          this._connection.sendDiagnostics({ uri, diagnostics: [] });
           if (isNoConfigError(e)) {
             this._connection.sendRequest(BettererInvalidConfigRequest, { source: { uri: document.uri } });
-            this._connection.sendNotification(BettererStatusNotification, BettererStatus.warn);
+            status = BettererStatus.warn;
+          } else {
+            status = BettererStatus.error;
           }
         }
+        await loading();
+        this._connection.sendNotification(BettererStatusNotification, status);
       }
     });
   }
@@ -165,4 +171,22 @@ function getFilePath(documentOrUri: URI | TextDocument | string): string | null 
     return null;
   }
   return uri.fsPath;
+}
+
+const LOADING_DELAY_TIME = 200;
+const MINIMUM_LOADING_TIME = 1000;
+function load(connection: IConnection): () => Promise<void> {
+  let isLoading = false;
+  const loading = setTimeout(() => {
+    isLoading = true;
+    connection.sendNotification(BettererStatusNotification, BettererStatus.running);
+  }, LOADING_DELAY_TIME);
+  return async (): Promise<void> => {
+    if (isLoading) {
+      return new Promise((resolve) => {
+        setTimeout(resolve, MINIMUM_LOADING_TIME);
+      });
+    }
+    clearTimeout(loading);
+  };
 }
