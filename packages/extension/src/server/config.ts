@@ -6,6 +6,6 @@ export async function getEnabled(workspace: RemoteWorkspace): Promise<boolean> {
   return !!enable;
 }
 
-async function getConfig(workspace: RemoteWorkspace): Promise<WorkspaceConfiguration> {
+function getConfig(workspace: RemoteWorkspace): Promise<WorkspaceConfiguration> {
   return workspace.getConfiguration({ section: 'betterer' });
 }
