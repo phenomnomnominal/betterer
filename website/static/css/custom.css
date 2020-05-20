@@ -1,0 +1,267 @@
+@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (max-width: 1023px) {
+}
+
+@media only screen and (min-width: 1400px) {
+}
+
+@media only screen and (min-width: 1500px) {
+}
+
+body {
+  background-color: #050505;
+}
+
+code {
+  font-family: $mono;
+}
+
+code * {
+  font-family: inherit;
+}
+
+/* Dracula Theme v1.2.5
+ *
+ * https://github.com/dracula/highlightjs
+ *
+ * Copyright 2016-present, All rights reserved
+ *
+ * Code licensed under the MIT license
+ *
+ * @author Denis Ciccale <dciccale@gmail.com>
+ * @author Zeno Rocha <hi@zenorocha.com>
+ */
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #282a36;
+}
+
+.hljs-built_in,
+.hljs-selector-tag,
+.hljs-section,
+.hljs-link {
+  color: #8be9fd;
+}
+
+.hljs-keyword {
+  color: #ff79c6;
+}
+
+.hljs,
+.hljs-subst {
+  color: #f8f8f2;
+}
+
+.hljs-title {
+  color: #50fa7b;
+}
+
+.hljs-string,
+.hljs-meta,
+.hljs-name,
+.hljs-type,
+.hljs-attr,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition,
+.hljs-variable,
+.hljs-template-tag,
+.hljs-template-variable {
+  color: #f1fa8c;
+}
+
+.hljs-comment,
+.hljs-quote,
+.hljs-deletion {
+  color: #6272a4;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-title,
+.hljs-section,
+.hljs-doctag,
+.hljs-type,
+.hljs-name,
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-literal,
+.hljs-number {
+  color: #bd93f9;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+/* Header */
+.fixedHeaderContainer a {
+  color: black;
+}
+
+.fixedHeaderContainer header img {
+  margin: 0;
+}
+
+.fixedHeaderContainer header .headerTitleWithLogo {
+  margin-left: 0.5rem;
+}
+
+.fixedHeaderContainer header > a:hover {
+  transform: scale(1.1);
+  transition: transform 0.25s;
+}
+
+.fixedHeaderContainer header > a:active,
+.fixedHeaderContainer header > a:focus {
+  outline: solid;
+}
+
+.fixedHeaderContainer h2 {
+  font-family: $display;
+  text-shadow: 1px 1px red;
+}
+
+.navigationSlider .slidingNav ul li.siteNavItemActive.siteNavGroupActive a {
+  color: black;
+}
+.navigationSlider .slidingNav ul li a:active,
+.navigationSlider .slidingNav ul li a:focus,
+.navigationSlider .slidingNav ul li a:hover {
+  color: black;
+}
+
+.navigationSlider .slidingNav ul li a:active,
+.navigationSlider .slidingNav ul li a:focus {
+  outline: none;
+}
+
+@media only screen and (min-width: 1024px) {
+  .navigationSlider .slidingNav ul li a,
+  .navigationSlider .slidingNav ul li.siteNavItemActive.siteNavGroupActive a {
+    color: black;
+  }
+
+  .navigationSlider .slidingNav ul li a:active,
+  .navigationSlider .slidingNav ul li a:focus,
+  .navigationSlider .slidingNav ul li a:hover,
+  .navigationSlider .slidingNav ul li.siteNavItemActive.siteNavGroupActive a:active,
+  .navigationSlider .slidingNav ul li.siteNavItemActive.siteNavGroupActive a:focus,
+  .navigationSlider .slidingNav ul li.siteNavItemActive.siteNavGroupActive a:hover {
+    color: black;
+    transform: scale(1.1);
+    transition: transform 0.25s;
+  }
+
+  .navigationSlider .slidingNav ul li a:hover,
+  .navigationSlider .slidingNav ul li.siteNavItemActive.siteNavGroupActive a:hover {
+    transform: scale(1.1);
+    transition: transform 0.25s;
+  }
+
+  .navigationSlider .slidingNav ul li a:active,
+  .navigationSlider .slidingNav ul li a:focus,
+  .navigationSlider .slidingNav ul li.siteNavItemActive.siteNavGroupActive a:active,
+  .navigationSlider .slidingNav ul li.siteNavItemActive.siteNavGroupActive a:focus {
+    outline: solid;
+  }
+}
+/* End of Header */
+
+/* Footer */
+.nav-footer {
+  background: black;
+  color: white;
+}
+
+.nav-footer .sitemap {
+  flex-wrap: wrap;
+}
+
+@media only screen and (min-width: 640px) {
+  .nav-footer .sitemap {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.nav-footer .sitemap .nav-home {
+  display: inline-block;
+  text-align: center;
+  padding: 0;
+  margin: 0 0 2rem;
+  width: 100%;
+  height: 5rem;
+  opacity: 0.8;
+  transition: transform 0.5s;
+}
+
+.nav-footer .sitemap .nav-home:hover {
+  transform: scale(1.1);
+}
+
+.nav-footer .sitemap .nav-home img {
+  max-height: 100%;
+}
+
+.nav-footer .sitemap div {
+  text-align: left;
+}
+@media only screen and (min-width: 320px) {
+  .nav-footer .sitemap div {
+    text-align: center;
+  }
+}
+
+.nav-footer .sitemap a {
+  color: white;
+}
+
+.nav-footer .sitemap a:active,
+.nav-footer .sitemap a:focus,
+.nav-footer .sitemap a:hover {
+  color: #aeff00;
+  transform: scale(1.1);
+}
+
+.nav-footer .sitemap a:active,
+.nav-footer .sitemap a:focus {
+  outline: solid;
+}
+
+.nav-footer .sitemap h5 > a:active,
+.nav-footer .sitemap h5 > a:focus,
+.nav-footer .sitemap h5 > a:hover {
+  color: white;
+}
+
+.nav-footer .sitemap h5 {
+  color: white;
+}
+
+.nav-footer .sitemap h6,
+.nav-footer .sitemap h5 > a,
+.nav-footer .sitemap h6 > a {
+  color: white;
+}
+
+.nav-footer .copyright {
+  color: rgba(255, 255, 255, 0.4);
+}
+/* End of Footer */
+
+.projectTitle {
+  font-family: $display;
+  text-shadow: 2px 2px #ff0000;
+}
