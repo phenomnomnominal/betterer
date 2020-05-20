@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-require('../dist')
+require('../dist/watch')
   .watch(process.cwd(), process.argv)
   .then(function () {
-    process.exit(0);
+    process.exitCode = 0;
   });
