@@ -4,7 +4,8 @@ import {
   TextDocumentSyncKind,
   DidChangeWatchedFilesNotification,
   DidChangeConfigurationNotification,
-  DidChangeWorkspaceFoldersNotification
+  DidChangeWorkspaceFoldersNotification,
+  TextDocumentChangeEvent
 } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
@@ -24,16 +25,21 @@ function init(): void {
   const validationQueue = new BettererValidationQueue();
   const documents = new TextDocuments(TextDocument);
   const validator = new BettererValidator(connection, documents);
-  const queueValidate = validationQueue.addNotificationMessage.bind(validationQueue);
+
+  function clearDiagnostics(event: TextDocumentChangeEvent<TextDocument>): void {
+    connection.sendDiagnostics({ uri: event.document.uri, diagnostics: [] });
+  }
+
+  function queueValidate(event: TextDocumentChangeEvent<TextDocument>): void {
+    validationQueue.addNotificationMessage(event);
+  }
 
   connection.onInitialize(() => {
     documents.listen(connection);
     documents.onDidOpen(queueValidate);
-    documents.onDidChangeContent(queueValidate);
+    documents.onDidChangeContent(clearDiagnostics);
     documents.onDidSave(queueValidate);
-    documents.onDidClose((event) => {
-      connection.sendDiagnostics({ uri: event.document.uri, diagnostics: [] });
-    });
+    documents.onDidClose(clearDiagnostics);
 
     return {
       capabilities: {
