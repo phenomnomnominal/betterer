@@ -264,4 +264,15 @@ code * {
 .projectTitle {
   font-family: $display;
   text-shadow: 2px 2px #ff0000;
+  font-size: 400%;
+}
+
+@media only screen and (min-width: 640px) {
+  .projectTitle {
+    font-size: 500%;
+  }
+}
+
+.init-instructions {
+  width: 100%;
 }

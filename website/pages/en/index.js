@@ -7,11 +7,7 @@
 
 const React = require('react');
 
-const CompLibrary = require('../../core/CompLibrary.js');
-
-const MarkdownBlock = CompLibrary.MarkdownBlock; /* Used to read markdown */
-const Container = CompLibrary.Container;
-const GridBlock = CompLibrary.GridBlock;
+const { MarkdownBlock, Container, GridBlock } = require('../../core/CompLibrary.js');
 
 class HomeSplash extends React.Component {
   render() {
@@ -71,7 +67,7 @@ class HomeSplash extends React.Component {
               sandbox="allow-scripts allow-same-origin"
             ></iframe>
             <br />
-            <p>
+            <p className="init-instructions">
               Run this in your project to get started or <a href={docUrl('getting-started.html')}>learn more!</a>
             </p>
             <Button href="#try">Try It Out</Button>
