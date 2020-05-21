@@ -13,6 +13,11 @@
 @media only screen and (min-width: 1500px) {
 }
 
+html,
+body {
+  min-width: 320px;
+}
+
 body {
   background-color: #050505;
 }
@@ -264,15 +269,33 @@ code * {
 .projectTitle {
   font-family: $display;
   text-shadow: 2px 2px #ff0000;
-  font-size: 400%;
+  font-size: 500%;
+  margin-top: 2rem;
+}
+
+.projectTitle small {
+  display: none;
 }
 
 @media only screen and (min-width: 640px) {
   .projectTitle {
-    font-size: 500%;
+    font-size: 700%;
   }
 }
 
 .init-instructions {
   width: 100%;
+}
+
+.homeContainer .homeWrapper .projectLogo {
+  position: absolute;
+  width: 200%;
+  z-index: -1;
+  display: block;
+  margin: 0 -50%;
+}
+
+.homeContainer .homeWrapper .projectLogo img {
+  height: 500px;
+  max-height: 500px;
 }

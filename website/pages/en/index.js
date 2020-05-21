@@ -62,7 +62,7 @@ class HomeSplash extends React.Component {
           <PromoSection>
             <iframe
               title="get started code snippet"
-              class="header__get-started-snippet"
+              className="header__get-started-snippet"
               src="https://carbon.now.sh/embed/?bg=rgba(171%2C184%2C195%2C0)&t=3024-night&wt=none&l=application%2Fx-sh&ds=false&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=16px&ph=15px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=npx%2520%2540betterer%252Fcli%2520init%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520"
               sandbox="allow-scripts allow-same-origin"
             ></iframe>
