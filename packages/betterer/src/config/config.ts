@@ -3,26 +3,25 @@ import * as path from 'path';
 import { isString, isUndefined } from '../utils';
 import { BettererConfig, BettererConfigPartial } from './types';
 
-const DEFAULT_CONFIG_PATH = './.betterer';
-const DEFAULT_RESULTS_PATH = './.betterer.results';
+let baseConfig: BettererConfigPartial = {};
+export function config(partialConfig: BettererConfigPartial): void {
+  baseConfig = partialConfig;
+}
 
 export function createConfig(partialConfig: BettererConfigPartial): BettererConfig {
-  const cwd = partialConfig.cwd || process.cwd();
-  const configPaths = toArray<string>(partialConfig.configPaths || [DEFAULT_CONFIG_PATH]).map((configPath) =>
-    path.resolve(cwd, configPath)
-  );
-  const filters = toRegExps(toArray(partialConfig.filters));
-  const ignores = toArray<string>(partialConfig.ignores);
-  const resultsPath = path.resolve(cwd, partialConfig.resultsPath || DEFAULT_RESULTS_PATH);
-  const update = partialConfig.update || false;
+  const relativeConfig = {
+    configPaths: toArray<string>(partialConfig.configPaths || baseConfig.configPaths || ['./.betterer']),
+    filters: toRegExps(toArray(partialConfig.filters || baseConfig.filters)),
+    ignores: toArray<string>(partialConfig.ignores || baseConfig.ignores),
+    resultsPath: partialConfig.resultsPath || baseConfig.resultsPath || './.betterer.results',
+    cwd: partialConfig.cwd || baseConfig.cwd || process.cwd(),
+    update: partialConfig.update || baseConfig.update || false
+  };
 
   return {
-    configPaths,
-    filters,
-    ignores,
-    resultsPath,
-    cwd,
-    update
+    ...relativeConfig,
+    configPaths: relativeConfig.configPaths.map((configPath) => path.resolve(relativeConfig.cwd, configPath)),
+    resultsPath: path.resolve(relativeConfig.cwd, relativeConfig.resultsPath)
   };
 }
 
