@@ -15,7 +15,7 @@ export * from './watcher/public';
 
 registerExtensions();
 
-export async function betterer(config: BettererConfigPartial): Promise<BettererStats> {
+export async function betterer(config: BettererConfigPartial = {}): Promise<BettererStats> {
   try {
     const context = new BettererContext(config, serialReporters);
     await context.setup();
@@ -30,7 +30,7 @@ export async function betterer(config: BettererConfigPartial): Promise<BettererS
 }
 
 betterer.single = async function bettererSingle(
-  config: BettererConfigPartial,
+  config: BettererConfigPartial = {},
   filePath: string
 ): Promise<BettererRuns> {
   try {
@@ -45,7 +45,7 @@ betterer.single = async function bettererSingle(
   }
 };
 
-betterer.watch = async function bettererWatch(config: BettererConfigPartial): Promise<BettererWatcher> {
+betterer.watch = async function bettererWatch(config: BettererConfigPartial = {}): Promise<BettererWatcher> {
   try {
     const context = new BettererContext(config, parallelReporters);
     const watcher = new BettererWatcher(context, async (filePaths) => {
