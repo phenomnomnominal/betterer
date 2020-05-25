@@ -1,6 +1,6 @@
 module.exports = {
   title: 'Betterer',
-  tagline: '',
+  tagline: 'Improve, incrementally',
 
   url: 'https://phenomnomnominal.github.io',
   baseUrl: '/betterer/',
@@ -16,7 +16,6 @@ module.exports = {
 
   users: [],
 
-  /* path to images for header/footer */
   headerIcon: 'img/favicon.png',
   footerIcon: 'img/favicon.png',
   favicon: 'img/favicon.png',
@@ -26,12 +25,6 @@ module.exports = {
     secondaryColor: '#000000'
   },
 
-  fonts: {
-    mono: ['Roboto Mono', 'monospace'],
-    display: ['Pacifico', 'cursive'],
-    content: ['Roboto Slab', 'serif']
-  },
-
   copyright: `Copyright © ${new Date().getFullYear()} Craig Spence`,
 
   highlight: {
@@ -39,12 +32,10 @@ module.exports = {
     defaultLang: 'typescript'
   },
 
-  // Add custom scripts here that would be placed in <script> tags.
   scripts: ['https://buttons.github.io/buttons.js'],
   stylesheets: ['https://fonts.googleapis.com/css?family=Pacifico|Roboto+Mono|Roboto+Slab&display=swap'],
 
   onPageNav: 'separate',
-
   cleanUrl: true,
 
   // Open Graph and Twitter card images.

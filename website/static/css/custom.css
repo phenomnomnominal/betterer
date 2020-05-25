@@ -14,7 +14,8 @@
 }
 
 html,
-body {
+body,
+body > div {
   min-width: 320px;
 }
 
@@ -22,12 +23,25 @@ body {
   background-color: #050505;
 }
 
+p {
+  font-family: 'Roboto Slab', serif;
+}
+
 code {
-  font-family: $mono;
+  font-family: 'Roboto Mono', monospace;
 }
 
 code * {
   font-family: inherit;
+}
+
+.button:hover {
+  color: black;
+}
+
+.button:active,
+.button:focus {
+  outline: 2px solid black;
 }
 
 /* Dracula Theme v1.2.5
@@ -134,7 +148,7 @@ code * {
 }
 
 .fixedHeaderContainer h2 {
-  font-family: $display;
+  font-family: 'Pacifico', cursive;
   text-shadow: 1px 1px red;
 }
 
@@ -267,14 +281,20 @@ code * {
 /* End of Footer */
 
 .projectTitle {
-  font-family: $display;
-  text-shadow: 2px 2px #ff0000;
+  font-family: 'Pacifico', cursive;
+  text-shadow: #ff0000 2px 2px;
   font-size: 500%;
-  margin-top: 2rem;
+  margin: 0;
+  padding-top: 2rem;
 }
 
 .projectTitle small {
-  display: none;
+  font-size: 35%;
+  color: black;
+  text-shadow: #ffff00 0px 0px 10px;
+  margin: 0;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 @media only screen and (min-width: 640px) {
@@ -283,19 +303,48 @@ code * {
   }
 }
 
-.init-instructions {
-  width: 100%;
+.homeContainer .homeWrapper {
+  padding: 0;
+  min-height: 750px;
+  margin-bottom: -300px;
 }
 
 .homeContainer .homeWrapper .projectLogo {
   position: absolute;
-  width: 200%;
+  width: 100%;
   z-index: -1;
-  display: block;
-  margin: 0 -50%;
+
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+
+  animation: enter 100s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes enter {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
 }
 
 .homeContainer .homeWrapper .projectLogo img {
-  height: 500px;
+  display: block;
+  max-width: 500px;
   max-height: 500px;
+  width: auto;
+  height: auto;
+  margin: auto;
+}
+
+.projectInitScript {
+  margin-top: 2rem;
+  width: 100%;
+  height: 10rem;
 }

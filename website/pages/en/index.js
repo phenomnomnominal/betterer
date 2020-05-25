@@ -25,11 +25,13 @@ class HomeSplash extends React.Component {
       </div>
     );
 
-    const Logo = (props) => (
-      <div className="projectLogo">
-        <img src={props.img_src} alt="Project Logo" />
-      </div>
-    );
+    const Logo = (props) => {
+      return (
+        <div className="projectLogo">
+          <img src={props.img_src} alt="Project Logo" />
+        </div>
+      );
+    };
 
     const ProjectTitle = (props) => (
       <h2 className="projectTitle">
@@ -59,20 +61,18 @@ class HomeSplash extends React.Component {
         <Logo img_src={`${baseUrl}img/betterer.png`} />
         <div className="inner">
           <ProjectTitle tagline={siteConfig.tagline} title={siteConfig.title} />
+          <iframe
+            tabIndex="-1"
+            className="projectInitScript"
+            title="get started code snippet"
+            src="https://carbon.now.sh/embed/?bg=rgba(171%2C184%2C195%2C0)&t=3024-night&wt=none&l=application%2Fx-sh&ds=false&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=16px&ph=15px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=%2523%2520run%2520this%2520in%2520your%2520project%2520to%2520get%2520betterer%250Anpx%2520%2540betterer%252Fcli%2520init"
+            sandbox="allow-scripts allow-same-origin"
+          ></iframe>
+
           <PromoSection>
-            <iframe
-              title="get started code snippet"
-              className="header__get-started-snippet"
-              src="https://carbon.now.sh/embed/?bg=rgba(171%2C184%2C195%2C0)&t=3024-night&wt=none&l=application%2Fx-sh&ds=false&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=16px&ph=15px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=npx%2520%2540betterer%252Fcli%2520init%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520"
-              sandbox="allow-scripts allow-same-origin"
-            ></iframe>
-            <br />
-            <p className="init-instructions">
-              Run this in your project to get started or <a href={docUrl('getting-started.html')}>learn more!</a>
-            </p>
-            <Button href="#try">Try It Out</Button>
-            <Button href={docUrl('doc1.html')}>Example Link</Button>
-            <Button href={docUrl('doc2.html')}>Example Link 2</Button>
+            <Button href={docUrl('getting-started.html')}>Get started</Button>
+            <Button href={docUrl('tests.html')}>Examples</Button>
+            <Button href={docUrl('api.html')}>API Docs</Button>
           </PromoSection>
         </div>
       </SplashContainer>
@@ -144,16 +144,22 @@ class Index extends React.Component {
       <Block layout="fourColumn">
         {[
           {
-            content: 'This is the content of my feature',
+            content: "Create tests that identify improvements you'd like to make in your codebase",
             image: `${baseUrl}img/undraw_react.svg`,
             imageAlign: 'top',
-            title: 'Feature One'
+            title: 'Define goals'
+          },
+          {
+            content: 'Track the current status and ',
+            image: `${baseUrl}img/undraw_react.svg`,
+            imageAlign: 'top',
+            title: 'Prevent regressions'
           },
           {
             content: 'The content of my second feature',
             image: `${baseUrl}img/undraw_operating_system.svg`,
             imageAlign: 'top',
-            title: 'Feature Two'
+            title: 'Encourage improvement'
           }
         ]}
       </Block>
