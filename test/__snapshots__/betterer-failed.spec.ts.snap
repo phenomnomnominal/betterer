@@ -59,18 +59,18 @@ Array [
   "",
   "OH NO!",
   "Error: OH NO!
-    at BettererTest.test (<project>/fixtures/test-betterer-failed/.betterer.js:6:13)
-    at <project>/packages/betterer/dist/runner/runner.js:1939:18
-    at step (<project>/node_modules/tslib/tslib.js:140:27)
-    at Object.next (<project>/node_modules/tslib/tslib.js:121:57)
-    at <project>/node_modules/tslib/tslib.js:114:75
+    at BettererTest.test (<project>/fixtures/test-betterer-failed/.betterer<details>)
+    at <project>/packages/betterer/dist/runner/runner<details>
+    at step (<project>/node_modules/tslib/tslib<details>)
+    at Object.next (<project>/node_modules/tslib/tslib<details>)
+    at <project>/node_modules/tslib/tslib<details>
     at new Promise (<anonymous>)
-    at Object.__awaiter (<project>/node_modules/tslib/tslib.js:110:16)
-    at runTest (<project>/packages/betterer/dist/runner/runner.js:1882:18)
-    at Object.<anonymous> (<project>/packages/betterer/dist/runner/runner.js:1830:23)
-    at step (<project>/node_modules/tslib/tslib.js:140:27)
-    at Object.next (<project>/node_modules/tslib/tslib.js:121:57)
-    at fulfilled (<project>/node_modules/tslib/tslib.js:111:62)",
+    at Object.__awaiter (<project>/node_modules/tslib/tslib<details>)
+    at runTest (<project>/packages/betterer/dist/runner/runner<details>)
+    at Object.<anonymous> (<project>/packages/betterer/dist/runner/runner<details>)
+    at step (<project>/node_modules/tslib/tslib<details>)
+    at Object.next (<project>/node_modules/tslib/tslib<details>)
+    at fulfilled (<project>/node_modules/tslib/tslib<details>)",
   "",
   " ☀️  betterer  info  💬  - ",
   "0 tests got checked. 🤔",
