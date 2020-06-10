@@ -15,7 +15,7 @@ import { EXTENSION_NAME } from '../constants';
 import { BettererStatus } from '../status';
 import { isString } from '../utils';
 import { getLibrary, BettererLibrary } from './betterer';
-import { getEnabled } from './config';
+import { getEnabled, getBettererConfig } from './config';
 import { BettererInvalidConfigRequest, isNoConfigError, BettererNoLibraryRequest } from './requests';
 import { BettererStatusNotification } from './status';
 
@@ -23,15 +23,16 @@ export class BettererValidator {
   constructor(private _connection: IConnection, private _documents: TextDocuments<TextDocument>) {}
 
   public async single(document: TextDocument): Promise<void> {
+    const { workspace } = this._connection;
     if (!this._documents.get(document.uri)) {
       return Promise.resolve();
     }
 
-    const folders = await this._connection.workspace.getWorkspaceFolders();
+    const folders = await workspace.getWorkspaceFolders();
     folders?.map(async (folder) => {
       const uri = document.uri;
 
-      const enabled = await getEnabled(this._connection.workspace);
+      const enabled = await getEnabled(workspace);
       if (!enabled) {
         this._connection.sendDiagnostics({ uri, diagnostics: [] });
         return Promise.resolve();
@@ -58,7 +59,8 @@ export class BettererValidator {
         let status = BettererStatus.ok;
 
         try {
-          const runs = await betterer.single({ cwd }, filePath);
+          const config = await getBettererConfig(workspace);
+          const runs = await betterer.single({ ...config, cwd }, filePath);
 
           runs
             .filter((run) => !run.isFailed)
