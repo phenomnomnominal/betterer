@@ -11,5 +11,8 @@ Array [
  ",
   " ☀️  betterer  erro  🔥  - ",
   "could not read config from \\"<project>/fixtures/test-betterer-config/.betterer\\". 😔",
+  "",
+  "Error: Cannot find module '<project>/fixtures/test-betterer-config/.betterer' from 'packages/betterer/dist/require.js'",
+  "",
 ]
 `;

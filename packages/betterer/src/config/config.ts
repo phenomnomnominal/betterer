@@ -11,17 +11,19 @@ export function config(partialConfig: BettererConfigPartial): void {
 export function createConfig(partialConfig: BettererConfigPartial): BettererConfig {
   const relativeConfig = {
     configPaths: toArray<string>(partialConfig.configPaths || baseConfig.configPaths || ['./.betterer']),
+    resultsPath: partialConfig.resultsPath || baseConfig.resultsPath || './.betterer.results',
     filters: toRegExps(toArray(partialConfig.filters || baseConfig.filters)),
     ignores: toArray<string>(partialConfig.ignores || baseConfig.ignores),
-    resultsPath: partialConfig.resultsPath || baseConfig.resultsPath || './.betterer.results',
     cwd: partialConfig.cwd || baseConfig.cwd || process.cwd(),
     update: partialConfig.update || baseConfig.update || false
   };
+  const tsconfigPath = partialConfig.tsconfigPath || baseConfig.tsconfigPath;
 
   return {
     ...relativeConfig,
     configPaths: relativeConfig.configPaths.map((configPath) => path.resolve(relativeConfig.cwd, configPath)),
-    resultsPath: path.resolve(relativeConfig.cwd, relativeConfig.resultsPath)
+    resultsPath: path.resolve(relativeConfig.cwd, relativeConfig.resultsPath),
+    tsconfigPath: tsconfigPath ? path.resolve(relativeConfig.cwd, tsconfigPath) : null
   };
 }
 
