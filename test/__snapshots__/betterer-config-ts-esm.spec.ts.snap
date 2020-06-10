@@ -1,5 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`betterer should load a custom tsconfigPath 1`] = `
+Array [
+  "",
+  "⨯ Unable to compile TypeScript:
+error TS6046: Argument for '--target' option must be: 'es3', 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'esnext'.
+",
+  "TSError: ⨯ Unable to compile TypeScript:
+error TS6046: Argument for '--target' option must be: 'es3', 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'esnext'.
+
+    at createTSError (<project>/node_modules/ts-node/src/index.ts:434:12)
+    at reportTSError (<project>/node_modules/ts-node/src/index.ts:438:19)
+    at create (<project>/node_modules/ts-node/src/index.ts:449:36)
+    at Object.register (<project>/node_modules/ts-node/src/index.ts:349:19)
+    at Object.registerExtensions (<project>/packages/betterer/dist/register.js:502:15)
+    at <project>/packages/betterer/dist/index.js:2177:22
+    at step (<project>/node_modules/tslib/tslib.js:140:27)
+    at Object.next (<project>/node_modules/tslib/tslib.js:121:57)
+    at <project>/node_modules/tslib/tslib.js:114:75
+    at new Promise (<anonymous>)
+    at Object.__awaiter (<project>/node_modules/tslib/tslib.js:110:16)
+    at runContext (<project>/packages/betterer/dist/index.js:2151:18)
+    at Object.betterer (<project>/packages/betterer/dist/index.js:1849:10)
+    at <project>/test/betterer-config-ts-esm.spec.ts:23:73
+    at step (<project>/node_modules/tslib/tslib.js:140:27)
+    at Object.next (<project>/node_modules/tslib/tslib.js:121:57)
+    at <project>/node_modules/tslib/tslib.js:114:75
+    at new Promise (<anonymous>)
+    at Object.__awaiter (<project>/node_modules/tslib/tslib.js:110:16)
+    at <project>/test/betterer-config-ts-esm.spec.ts:21:78
+    at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+    at <project>/test/betterer-config-ts-esm.spec.ts:26:44
+    at step (<project>/node_modules/tslib/tslib.js:140:27)
+    at Object.next (<project>/node_modules/tslib/tslib.js:121:57)
+    at fulfilled (<project>/node_modules/tslib/tslib.js:111:62)",
+  "",
+]
+`;
+
 exports[`betterer should work with a .betterer.ts file that uses ES modules 1`] = `
 Array [
   "

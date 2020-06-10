@@ -11,5 +11,19 @@ Array [
  ",
   " ☀️  betterer  erro  🔥  - ",
   "could not read config from \\"<project>/fixtures/test-betterer-config/.betterer\\". 😔",
+  "",
+  "Cannot find module '<project>/fixtures/test-betterer-config/.betterer' from 'packages/betterer/dist/require.js'",
+  "Error: Cannot find module '<project>/fixtures/test-betterer-config/.betterer' from 'packages/betterer/dist/require.js'
+    at Resolver.resolveModule (<project>/node_modules/jest-resolve/build/index.js:308:11)
+    at Runtime._resolveModule (<project>/node_modules/jest-runtime/build/index.js:1060:32)
+    at Runtime._requireResolve (<project>/node_modules/jest-runtime/build/index.js:1097:19)
+    at Function.resolve (<project>/node_modules/jest-runtime/build/index.js:1491:12)
+    at Object.requireUncached (<project>/packages/betterer/src/require.ts:5:32)
+    at BettererContext._getTests (<project>/packages/betterer/src/context/context.ts:187:21)
+    at <project>/packages/betterer/src/context/context.ts:171:25
+    at Array.map (<anonymous>)
+    at BettererContext._initTests (<project>/packages/betterer/src/context/context.ts:170:17)
+    at BettererContext.<anonymous> (<project>/packages/betterer/src/context/context.ts:41:24)",
+  "",
 ]
 `;
