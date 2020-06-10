@@ -16,7 +16,7 @@ export function logError(err: ErrorLike | Error | BettererError): void {
     return;
   }
   br();
-  console.error(err.message, err.stack);
+  console.error(err.stack);
   br();
 }
 

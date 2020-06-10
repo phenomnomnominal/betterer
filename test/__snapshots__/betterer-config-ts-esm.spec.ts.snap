@@ -3,37 +3,7 @@
 exports[`betterer should load a custom tsconfigPath 1`] = `
 Array [
   "",
-  "⨯ Unable to compile TypeScript:
-error TS6046: Argument for '--target' option must be: 'es3', 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'esnext'.
-",
-  "TSError: ⨯ Unable to compile TypeScript:
-error TS6046: Argument for '--target' option must be: 'es3', 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'esnext'.
-
-    at createTSError (<file>)
-    at reportTSError (<file>)
-    at create (<file>)
-    at Object.register (<file>)
-    at Object.registerExtensions (<file>)
-    at <file>
-    at step (<file>)
-    at Object.next (<file>)
-    at <file>
-    at new Promise (<anonymous>)
-    at Object.__awaiter (<file>)
-    at runContext (<file>)
-    at Object.betterer (<file>)
-    at <file>
-    at step (<file>)
-    at Object.next (<file>)
-    at <file>
-    at new Promise (<anonymous>)
-    at Object.__awaiter (<file>)
-    at <file>
-    at Object.toThrow (<file>)
-    at <file>
-    at step (<file>)
-    at Object.next (<file>)
-    at fulfilled (<file>)",
+  "TSError: ⨯ Unable to compile TypeScript:",
   "",
 ]
 `;

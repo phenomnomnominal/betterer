@@ -10,7 +10,6 @@ const DEFAULT_RESULTS_PATH = `./.betterer.results`;
 
 const ANSI_REGEX = ansiRegex();
 const PROJECT_REGEXP = new RegExp(normalisePaths(process.cwd()), 'g');
-const FILE_DETAILS_REGEXP = /<project>.*\.(ts|js):\d+:\d+/g;
 
 const deleteFile = fs.promises.unlink;
 const readFile = fs.promises.readFile;
@@ -77,15 +76,14 @@ export async function createFixture(fixtureName: string, fileStructure: FS): Pro
   const log = (...messages: Array<string>): void => {
     // Do some magic to sort out the logs for snapshots. This muchs up the snapshot of the printed logo,
     // but that hardly matters...
-    logs.push(
-      ...messages.map((m) =>
-        !isString(m) ? m : replaceFileDetails(replaceProjectPath(normalisePaths(replaceAnsi(m))))
-      )
-    );
+    logs.push(...messages.map((m) => (!isString(m) ? m : replaceProjectPath(normalisePaths(replaceAnsi(m))))));
   };
 
   jest.spyOn(console, 'log').mockImplementation(log);
-  jest.spyOn(console, 'error').mockImplementation(log);
+  jest.spyOn(console, 'error').mockImplementation((message) => {
+    const [firstLine] = message.split('\n');
+    log(firstLine);
+  });
   jest.spyOn(process.stdout, 'write').mockImplementation((message: string | Uint8Array): boolean => {
     if (message) {
       log(message.toString());
@@ -133,10 +131,6 @@ function replaceAnsi(str: string): string {
 
 function replaceProjectPath(str: string): string {
   return str.replace(PROJECT_REGEXP, '<project>');
-}
-
-function replaceFileDetails(str: string): string {
-  return str.replace(FILE_DETAILS_REGEXP, '<file>');
 }
 
 function normalisePaths(str: string): string {
