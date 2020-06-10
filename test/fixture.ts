@@ -10,7 +10,7 @@ const DEFAULT_RESULTS_PATH = `./.betterer.results`;
 
 const ANSI_REGEX = ansiRegex();
 const PROJECT_REGEXP = new RegExp(normalisePaths(process.cwd()), 'g');
-const FILE_DETAILS_REGEXP = /\.(ts|js):\d+:\d+/g;
+const FILE_DETAILS_REGEXP = /<project>.*\.(ts|js):\d+:\d+/g;
 
 const deleteFile = fs.promises.unlink;
 const readFile = fs.promises.readFile;
@@ -136,7 +136,7 @@ function replaceProjectPath(str: string): string {
 }
 
 function replaceFileDetails(str: string): string {
-  return str.replace(FILE_DETAILS_REGEXP, '<details>');
+  return str.replace(FILE_DETAILS_REGEXP, '<file>');
 }
 
 function normalisePaths(str: string): string {

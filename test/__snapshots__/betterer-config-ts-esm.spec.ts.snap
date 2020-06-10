@@ -9,31 +9,31 @@ error TS6046: Argument for '--target' option must be: 'es3', 'es5', 'es6', 'es20
   "TSError: ⨯ Unable to compile TypeScript:
 error TS6046: Argument for '--target' option must be: 'es3', 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'esnext'.
 
-    at createTSError (<project>/node_modules/ts-node/src/index<details>)
-    at reportTSError (<project>/node_modules/ts-node/src/index<details>)
-    at create (<project>/node_modules/ts-node/src/index<details>)
-    at Object.register (<project>/node_modules/ts-node/src/index<details>)
-    at Object.registerExtensions (<project>/packages/betterer/dist/register<details>)
-    at <project>/packages/betterer/dist/index<details>
-    at step (<project>/node_modules/tslib/tslib<details>)
-    at Object.next (<project>/node_modules/tslib/tslib<details>)
-    at <project>/node_modules/tslib/tslib<details>
+    at createTSError (<file>)
+    at reportTSError (<file>)
+    at create (<file>)
+    at Object.register (<file>)
+    at Object.registerExtensions (<file>)
+    at <file>
+    at step (<file>)
+    at Object.next (<file>)
+    at <file>
     at new Promise (<anonymous>)
-    at Object.__awaiter (<project>/node_modules/tslib/tslib<details>)
-    at runContext (<project>/packages/betterer/dist/index<details>)
-    at Object.betterer (<project>/packages/betterer/dist/index<details>)
-    at <project>/test/betterer-config-ts-esm.spec<details>
-    at step (<project>/node_modules/tslib/tslib<details>)
-    at Object.next (<project>/node_modules/tslib/tslib<details>)
-    at <project>/node_modules/tslib/tslib<details>
+    at Object.__awaiter (<file>)
+    at runContext (<file>)
+    at Object.betterer (<file>)
+    at <file>
+    at step (<file>)
+    at Object.next (<file>)
+    at <file>
     at new Promise (<anonymous>)
-    at Object.__awaiter (<project>/node_modules/tslib/tslib<details>)
-    at <project>/test/betterer-config-ts-esm.spec<details>
-    at Object.toThrow (<project>/node_modules/expect/build/index<details>)
-    at <project>/test/betterer-config-ts-esm.spec<details>
-    at step (<project>/node_modules/tslib/tslib<details>)
-    at Object.next (<project>/node_modules/tslib/tslib<details>)
-    at fulfilled (<project>/node_modules/tslib/tslib<details>)",
+    at Object.__awaiter (<file>)
+    at <file>
+    at Object.toThrow (<file>)
+    at <file>
+    at step (<file>)
+    at Object.next (<file>)
+    at fulfilled (<file>)",
   "",
 ]
 `;

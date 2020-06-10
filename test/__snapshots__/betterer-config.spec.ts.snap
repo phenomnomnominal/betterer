@@ -14,16 +14,16 @@ Array [
   "",
   "Cannot find module '<project>/fixtures/test-betterer-config/.betterer' from 'packages/betterer/dist/require.js'",
   "Error: Cannot find module '<project>/fixtures/test-betterer-config/.betterer' from 'packages/betterer/dist/require.js'
-    at Resolver.resolveModule (<project>/node_modules/jest-resolve/build/index<details>)
-    at Runtime._resolveModule (<project>/node_modules/jest-runtime/build/index<details>)
-    at Runtime._requireResolve (<project>/node_modules/jest-runtime/build/index<details>)
-    at Function.resolve (<project>/node_modules/jest-runtime/build/index<details>)
-    at Object.requireUncached (<project>/packages/betterer/src/require<details>)
-    at BettererContext._getTests (<project>/packages/betterer/src/context/context<details>)
-    at <project>/packages/betterer/src/context/context<details>
+    at Resolver.resolveModule (<file>)
+    at Runtime._resolveModule (<file>)
+    at Runtime._requireResolve (<file>)
+    at Function.resolve (<file>)
+    at Object.requireUncached (<file>)
+    at BettererContext._getTests (<file>)
+    at <file>
     at Array.map (<anonymous>)
-    at BettererContext._initTests (<project>/packages/betterer/src/context/context<details>)
-    at BettererContext.<anonymous> (<project>/packages/betterer/src/context/context<details>)",
+    at BettererContext._initTests (<file>)
+    at BettererContext.<anonymous> (<file>)",
   "",
 ]
 `;
