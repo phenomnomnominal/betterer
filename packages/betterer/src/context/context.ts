@@ -2,13 +2,7 @@ import { BettererError } from '@betterer/errors';
 import * as assert from 'assert';
 import * as path from 'path';
 
-import {
-  BettererConfig,
-  BettererConfigPartial,
-  BettererConfigFilters,
-  BettererConfigPaths,
-  createConfig
-} from '../config';
+import { BettererConfig, BettererConfigFilters, BettererConfigPaths } from '../config';
 import { COULDNT_READ_CONFIG } from '../errors';
 import { BettererReporters } from '../reporters';
 import { print, read, write, NO_PREVIOUS_RESULT, BettererExpectedResults, BettererExpectedResult } from '../results';
@@ -28,8 +22,6 @@ enum BettererContextStatus {
 }
 
 export class BettererContext {
-  public config: BettererConfig;
-
   private _stats: BettererStats | null = null;
   private _tests: BettererTests = [];
   private _status = BettererContextStatus.notReady;
@@ -37,8 +29,7 @@ export class BettererContext {
   private _running: Promise<void> | null = null;
   private _finish: Function | null = null;
 
-  constructor(config: BettererConfigPartial, private _reporters?: BettererReporters) {
-    this.config = createConfig(config);
+  constructor(public readonly config: BettererConfig, private _reporters?: BettererReporters) {
     this._reporters?.context?.start?.();
   }
 

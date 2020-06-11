@@ -4,7 +4,7 @@
   "publisher": "Betterer",
   "private": true,
   "description": "VSCode extension for @betterer/betterer",
-  "version": "1.0.2",
+  "version": "1.2.0",
   "main": "./dist/client/client.js",
   "author": "Craig Spence <craigspence0@gmail.com>",
   "homepage": "https://phenomnomnominal.github.io/betterer",
@@ -34,17 +34,52 @@
       "type": "object",
       "title": "Betterer",
       "properties": {
+        "betterer.alwaysShowStatus": {
+          "type": "boolean",
+          "default": true,
+          "description": "Always show the betterer status bar item.",
+          "scope": "window"
+        },
         "betterer.enable": {
           "scope": "resource",
           "type": "boolean",
           "default": true,
           "description": "Controls whether betterer is enabled or not."
         },
-        "betterer.alwaysShowStatus": {
+        "betterer.configPath": {
+          "scope": "resource",
+          "type": "string",
+          "default": "./.betterer.ts",
+          "description": "Path to test definition file relative to working directory"
+        },
+        "betterer.resultsPath": {
+          "scope": "resource",
+          "type": "string",
+          "default": "./.betterer.results",
+          "description": "path to test results file relative to working directory"
+        },
+        "betterer.tsconfigPath": {
+          "scope": "resource",
+          "type": "string",
+          "default": "",
+          "description": "Path to TypeScript config file relative to working directory"
+        },
+        "betterer.filters": {
+          "scope": "resource",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            ".*"
+          ],
+          "description": "Select tests to run by RegExp. Takes multiple values"
+        },
+        "betterer.update": {
+          "scope": "resource",
           "type": "boolean",
-          "default": true,
-          "description": "Always show the betterer status bar item.",
-          "scope": "window"
+          "default": false,
+          "description": "Force update the results file, even if things get worse"
         }
       }
     },

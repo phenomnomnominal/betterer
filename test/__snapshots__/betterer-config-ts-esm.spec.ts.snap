@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`betterer should load a custom tsconfigPath 1`] = `
+Array [
+  "",
+  "TSError: ⨯ Unable to compile TypeScript:",
+  "",
+]
+`;
+
 exports[`betterer should work with a .betterer.ts file that uses ES modules 1`] = `
 Array [
   "

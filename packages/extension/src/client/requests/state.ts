@@ -1,7 +1,7 @@
 import { ExtensionContext, workspace, Uri } from 'vscode';
 
-const NO_LIBRARY_STATE_KEY = 'noLibraryMessageShown';
-const INVALID_CONFIG_STATE_KEY = 'invalidConfigMessageShown';
+const NO_LIBRARY_STATE_KEY = 'noLibraryMessageAlreadyShown';
+const INVALID_CONFIG_STATE_KEY = 'invalidConfigMessageAlreadyShown';
 
 type Workspaces = Record<string, boolean>;
 type State = {
@@ -21,7 +21,7 @@ function getState(key: string) {
     const workspaceUri = workspaceFolder.uri.toString();
     const result = workspaces[workspaceUri];
     workspaces[workspaceUri] = true;
-    context.globalState.update(NO_LIBRARY_STATE_KEY, workspaces);
+    context.globalState.update(key, { workspaces });
     return result;
   };
 }

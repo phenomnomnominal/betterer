@@ -46,6 +46,9 @@ export class BettererStatusBar {
       case BettererStatus.error:
         this._statusBarItem.text = `$(issue-opened) ${EXTENSION_NAME}`;
         break;
+      case BettererStatus.running:
+        this._statusBarItem.text = `$(loading~spin) ${EXTENSION_NAME}`;
+        break;
       default:
         this._statusBarItem.text = EXTENSION_NAME;
         break;
