@@ -1,20 +1,20 @@
-/**
- * Copyright (c) 2017-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
 const React = require('react');
 
 const { Container, GridBlock } = require('../../core/CompLibrary.js');
 
-function Help(props) {
-  const { config: siteConfig, language = '' } = props;
-  const { baseUrl, docsUrl } = siteConfig;
+module.exports = function Help({ config, language = '' }) {
+  const { baseUrl, docsUrl } = config;
+
   const docsPart = `${docsUrl ? `${docsUrl}/` : ''}`;
   const langPart = `${language ? `${language}/` : ''}`;
-  const docUrl = (doc) => `${baseUrl}${docsPart}${langPart}${doc}`;
+
+  function docUrl(doc) {
+    return `${baseUrl}${docsPart}${langPart}${doc}`;
+  }
+
+  function pageUrl(doc) {
+    return `${baseUrl}${langPart}${doc}`;
+  }
 
   const supportLinks = [
     {
@@ -22,11 +22,11 @@ function Help(props) {
       title: 'Browse Docs'
     },
     {
-      content: 'Ask questions about the documentation and project',
+      content: `[Ask questions](https://discord.com/channels/${config.discord}) about the documentation and project`,
       title: 'Join the community'
     },
     {
-      content: "Find out what's new with this project",
+      content: `Find out [what's new](${pageUrl('blog')}) with this project`,
       title: 'Stay up to date'
     }
   ];
@@ -44,6 +44,4 @@ function Help(props) {
       </Container>
     </div>
   );
-}
-
-module.exports = Help;
+};

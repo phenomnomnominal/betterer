@@ -35,6 +35,10 @@ code * {
   font-family: inherit;
 }
 
+.button {
+  background: rgba(0, 0, 0, 0.25);
+}
+
 .button:hover {
   color: black;
 }

@@ -47,5 +47,5 @@ module.exports = {
 
   repoUrl: 'https://github.com/phenomnomnominal/betterer',
   twitter: 'phenomnominal',
-  discord: 'PeT7Nz'
+  discord: '712304478799527976'
 };

@@ -7,4 +7,5 @@ yarn-error.log
 tsconfig.tsbuildinfo
 *.vsix
 packages/**/yarn.lock
+website/build
 fixtures

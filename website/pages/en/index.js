@@ -144,19 +144,19 @@ class Index extends React.Component {
       <Block layout="fourColumn">
         {[
           {
-            content: "Create tests that identify improvements you'd like to make in your codebase",
+            content: "Create tests that encapsulate improvements you'd like to make in your codebase",
             image: `${baseUrl}img/undraw_react.svg`,
             imageAlign: 'top',
             title: 'Define goals'
           },
           {
-            content: 'Track the current status and ',
+            content: 'Track the current status and prevent creating new issues',
             image: `${baseUrl}img/undraw_react.svg`,
             imageAlign: 'top',
             title: 'Prevent regressions'
           },
           {
-            content: 'The content of my second feature',
+            content: 'Set deadlines and ',
             image: `${baseUrl}img/undraw_operating_system.svg`,
             imageAlign: 'top',
             title: 'Encourage improvement'
