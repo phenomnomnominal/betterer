@@ -1,7 +1,7 @@
 import { logError } from '@betterer/errors';
 import { BettererConfig, BettererConfigPartial, createConfig } from './config';
 import { BettererContext, BettererStats, BettererRuns } from './context';
-import { parallelReporters, serialReporters } from './reporters';
+import { reporterParallel, reporterSerial } from './reporters';
 import { parallel, serial } from './runner';
 import { BettererWatcher } from './watcher';
 import { registerExtensions } from './register';
@@ -15,7 +15,7 @@ export * from './watcher/public';
 
 export function betterer(partialConfig: BettererConfigPartial = {}): Promise<BettererStats> {
   return runContext(partialConfig, async (config) => {
-    const context = new BettererContext(config, serialReporters);
+    const context = new BettererContext(config, reporterSerial);
     await context.setup();
     const runs = await serial(context);
     const stats = await context.process(runs);
@@ -39,7 +39,7 @@ betterer.single = async function bettererSingle(
 
 betterer.watch = function bettererWatch(partialConfig: BettererConfigPartial = {}): Promise<BettererWatcher> {
   return runContext(partialConfig, async (config) => {
-    const context = new BettererContext(config, parallelReporters);
+    const context = new BettererContext(config, reporterParallel);
     const watcher = new BettererWatcher(context, async (filePaths) => {
       await context.setup();
       return parallel(context, filePaths);
