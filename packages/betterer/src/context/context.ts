@@ -4,7 +4,7 @@ import * as path from 'path';
 
 import { BettererConfig, BettererConfigFilters, BettererConfigPaths } from '../config';
 import { COULDNT_READ_CONFIG } from '../errors';
-import { BettererReporters } from '../reporters';
+import { BettererReporter } from '../reporters';
 import { print, read, write, NO_PREVIOUS_RESULT, BettererExpectedResults, BettererExpectedResult } from '../results';
 import { BettererTest, BettererTests, isBettererTest, BettererTestMap, BettererTestOptions } from '../test';
 import { getNormalisedPath } from '../utils';
@@ -29,8 +29,8 @@ export class BettererContext {
   private _running: Promise<void> | null = null;
   private _finish: Function | null = null;
 
-  constructor(public readonly config: BettererConfig, private _reporters?: BettererReporters) {
-    this._reporters?.context?.start?.();
+  constructor(public readonly config: BettererConfig, private _reporter?: BettererReporter) {
+    this._reporter?.contextStart?.();
   }
 
   public async setup(): Promise<void> {
@@ -46,13 +46,13 @@ export class BettererContext {
   public tearDown(): void {
     assert.equal(this._status, BettererContextStatus.end);
     assert(this._stats);
-    this._reporters?.context?.finish?.(this._stats);
+    this._reporter?.contextEnd?.(this._stats);
   }
 
   public async runnerStart(files: BettererFilePaths = []): Promise<BettererRuns> {
     assert.equal(this._status, BettererContextStatus.ready);
     this._stats = new BettererStats();
-    this._reporters?.runner?.start?.(files);
+    this._reporter?.runsStart?.(files);
     const expectedRaw = await this._initExpected();
     const runs = this._tests.map((test) => {
       const { name } = test;
@@ -72,7 +72,7 @@ export class BettererContext {
   public runnerEnd(runs: BettererRuns, files: BettererFilePaths = []): void {
     assert.equal(this._status, BettererContextStatus.running);
     assert(this._finish);
-    this._reporters?.runner?.end?.(runs, files);
+    this._reporter?.runsEnd?.(runs, files);
     this._status = BettererContextStatus.end;
     this._finish();
   }
@@ -82,30 +82,26 @@ export class BettererContext {
     const { isExpired, name } = run;
     if (isExpired) {
       this._stats.expired.push(name);
-      this._reporters?.run?.expired?.(run);
     }
-    this._reporters?.run?.start?.(run);
+    this._reporter?.runStart?.(run);
   }
 
   public runBetter(run: BettererRun): void {
     assert(this._stats);
     const { name } = run;
     this._stats.better.push(name);
-    this._reporters?.run?.better?.(run);
   }
 
   public runFailed(run: BettererRun): void {
     assert(this._stats);
     const { name } = run;
     this._stats.failed.push(name);
-    this._reporters?.run?.failed?.(run);
   }
 
   public runNew(run: BettererRun): void {
     assert(this._stats);
     const { name } = run;
     this._stats.new.push(name);
-    this._reporters?.run?.neww?.(run);
   }
 
   public runRan(run: BettererRun): void {
@@ -117,7 +113,6 @@ export class BettererContext {
     assert(this._stats);
     const { name } = run;
     this._stats.same.push(name);
-    this._reporters?.run?.same?.(run);
   }
 
   public runSkipped(run: BettererRun): void {
@@ -130,7 +125,6 @@ export class BettererContext {
     assert(this._stats);
     const { name } = run;
     this._stats.worse.push(name);
-    this._reporters?.run?.worse?.(run);
   }
 
   public runEnd(run: BettererRun): void {
@@ -139,6 +133,7 @@ export class BettererContext {
     if (isComplete) {
       this._stats.completed.push(name);
     }
+    this._reporter?.runEnd?.(run);
   }
 
   public async process(runs: BettererRuns): Promise<BettererStats> {
@@ -152,7 +147,7 @@ export class BettererContext {
       error = e;
     }
     if (error) {
-      this._reporters?.context?.error?.(error, printed);
+      this._reporter?.contextError?.(error, printed);
     }
     return this._stats;
   }
