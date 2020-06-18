@@ -43,7 +43,7 @@ Making widespread changes to a codebase can be really hard. When trying to make 
 When you want to make an improvement to your codebase, you just start by making a new test, defined in a `.betterer.ts` file:
 
 ```typescript
-import { smaller } from '@betterer/constraint';
+import { smaller } from '@betterer/constraints';
 
 export default {
   'thing to improve': {
