@@ -1,9 +1,9 @@
 import { watch as chokidar, FSWatcher } from 'chokidar';
 
+import { getIgnores } from '../config';
 import { BettererContext, BettererRuns } from '../context';
 import { getNormalisedPath } from '../utils';
 import { BettererWatchChangeHandler, BettererWatchRunHandler } from './types';
-import { getIgnores } from './ignores';
 
 const EMIT_EVENTS = ['add', 'change'];
 const DEBOUNCE_TIME = 200;

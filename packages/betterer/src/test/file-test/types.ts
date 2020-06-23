@@ -40,7 +40,9 @@ export type BettererFileTestDiff = Record<
 
 export type BettererFileTestFunction = (files: BettererFilePaths) => MaybeAsync<BettererFileIssuesMapRaw>;
 
-export type BettererFileExcluded = ReadonlyArray<RegExp>;
+export type BettererFileGlobs = ReadonlyArray<string | ReadonlyArray<string>>;
+export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
 export type BettererFileTestOptions = BettererTestOptions<BettererFiles, BettererFileIssuesMapSerialised> & {
-  excluded: BettererFileExcluded;
+  included: ReadonlyArray<string>;
+  excluded: ReadonlyArray<RegExp>;
 };

@@ -26,19 +26,13 @@
   "dependencies": {
     "@betterer/betterer": "^1.2.1",
     "@betterer/errors": "^1.2.0",
-    "callsite": "^1.0.0",
-    "glob": "^7.1.4",
     "lines-and-columns": "^1.1.6",
-    "minimatch": "^3.0.4",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
     "eslint": "*"
   },
   "devDependencies": {
-    "@types/callsite": "^1.0.30",
-    "@types/glob": "^7.1.1",
-    "@types/minimatch": "^3.0.3",
     "eslint": "*"
   }
 }
