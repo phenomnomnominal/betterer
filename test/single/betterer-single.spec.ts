@@ -112,7 +112,7 @@ module.exports = {
   });
 
   it('should run regexp against a single file', async () => {
-    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-regexp-single-irrelevant', {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-regexp-single', {
       '.betterer.js': `
 const { regexpBetterer } = require('@betterer/regexp');
 

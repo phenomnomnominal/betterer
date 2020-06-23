@@ -15,3 +15,19 @@ export function isUndefined(value: unknown): value is undefined {
 export function getNormalisedPath(filePath: string): string {
   return path.sep === path.posix.sep ? filePath : filePath.split(path.sep).join(path.posix.sep);
 }
+
+export function flatten<T>(toFlatten: ReadonlyArray<T | ReadonlyArray<T>>): Array<T> {
+  const flattened: Array<T> = [];
+  toFlatten.forEach((t) => {
+    if (isItem<T>(t)) {
+      flattened.push(t);
+    } else {
+      flattened.push(...t);
+    }
+  });
+  return flattened;
+}
+
+function isItem<T>(pattern: unknown): pattern is T {
+  return !Array.isArray(pattern);
+}
