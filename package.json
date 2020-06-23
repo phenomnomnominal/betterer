@@ -12,6 +12,7 @@
     "betterer": "node ./packages/cli/./bin/betterer",
     "build": "yarn compile && yarn format && yarn lint && yarn test && yarn betterer",
     "clean": "rimraf reports && lerna exec \"rimraf dist\" && rimraf ./**/tsconfig.tsbuildinfo && lerna exec \"rimraf node_modules\" && rimraf node_modules && yarn",
+    "commit": "git cz",
     "compile": "tsc -b packages",
     "compile:watch": "tsc -b packages -w",
     "lint": "eslint \"./packages/**/src/**/*.{js,ts}\" \"./test/**/*.{js,ts}\" \"./*.{js,ts}\" --fix",
@@ -25,6 +26,9 @@
     "@betterer/logger": "*",
     "@betterer/regexp": "*",
     "@betterer/tsquery": "*",
+    "@commitlint/cli": "^9.0.1",
+    "@commitlint/config-conventional": "^9.0.1",
+    "@phenomnomnominal/commitlint-plugin": "^1.0.1",
     "@types/eslint": "^6.8.1",
     "@types/fs-extra": "^9.0.0",
     "@types/graceful-fs": "^4.1.3",
@@ -33,6 +37,7 @@
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "ansi-regex": "^5.0.0",
+    "cz-conventional-changelog": "^3.2.0",
     "eslint": "^7.0.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-jest": "^23.11.0",
@@ -42,7 +47,6 @@
     "husky": "^4.2.5",
     "jest": "^26.0.1",
     "lerna": "^3.21.0",
-    "lint-staged": "^10.1.7",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.5",
     "ts-jest": "^26.0.0",
@@ -50,10 +54,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "yarn build",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
-  "lint-staged": {
-    "*": "yarn build"
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }

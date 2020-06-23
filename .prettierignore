@@ -19,3 +19,4 @@ test/__snapshots__/**
 .npmrc
 .prettierignore
 .yarnrc
+*.patch
