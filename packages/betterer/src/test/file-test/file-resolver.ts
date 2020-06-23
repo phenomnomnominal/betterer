@@ -3,7 +3,7 @@ import * as globby from 'globby';
 import * as path from 'path';
 
 import { getIgnores } from '../../config';
-import { flatten } from '../../utils';
+import { flatten, getNormalisedPath } from '../../utils';
 import { BettererFilePaths } from '../../watcher';
 import { BettererFilePatterns, BettererFileGlobs } from './types';
 
@@ -48,7 +48,7 @@ export class BettererFileResolver {
   }
 
   public resolve(...pathSegments: Array<string>): string {
-    return path.resolve(this._cwd, ...pathSegments);
+    return getNormalisedPath(path.resolve(this._cwd, ...pathSegments));
   }
 
   private async _getValidPaths(): Promise<BettererFilePaths> {
