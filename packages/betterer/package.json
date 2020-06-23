@@ -27,14 +27,19 @@
     "@betterer/constraints": "^1.0.2",
     "@betterer/errors": "^1.2.0",
     "@betterer/logger": "^1.0.2",
+    "callsite": "^1.0.0",
     "chokidar": "^3.3.1",
     "djb2a": "^1.2.0",
     "find-up": "^4.1.0",
     "gitignore-globs": "^0.1.1",
+    "globby": "^11.0.1",
     "jest-diff": "^26.0.1",
     "lines-and-columns": "^1.1.6",
     "safe-string-literal": "^1.0.1",
     "ts-node": "^8.5.4",
     "tslib": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/callsite": "^1.0.30"
   }
 }

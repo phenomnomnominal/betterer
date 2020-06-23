@@ -2,19 +2,13 @@ import {
   BettererFileTest,
   BettererFileIssueRaw,
   BettererFileIssuesRaw,
-  BettererFileIssuesMapRaw
+  BettererFileIssuesMapRaw,
+  BettererFileResolver
 } from '@betterer/betterer';
-import * as stack from 'callsite';
 import { CLIEngine, Linter } from 'eslint';
-import * as glob from 'glob';
 import LinesAndColumns from 'lines-and-columns';
-import * as minimatch from 'minimatch';
-import * as path from 'path';
-import { promisify } from 'util';
 
 import { FILE_GLOB_REQUIRED, RULE_OPTIONS_REQUIRED } from './errors';
-
-const globAsync = promisify(glob);
 
 type ESLintRuleConfig = [string, Linter.RuleLevel | Linter.RuleLevelAndOptions];
 
@@ -26,29 +20,14 @@ export function eslintBetterer(globs: string | ReadonlyArray<string>, rule: ESLi
     throw RULE_OPTIONS_REQUIRED();
   }
 
-  const [, callee] = stack();
-  const cwd = path.dirname(callee.getFileName());
-  const globsArray = Array.isArray(globs) ? globs : [globs];
-  const resolvedGlobs = globsArray.map((glob) => path.resolve(cwd, glob));
+  const resolver = new BettererFileResolver();
+  resolver.include(globs);
 
-  return new BettererFileTest(async (files) => {
-    const cli = new CLIEngine({
-      cwd
-    });
+  return new BettererFileTest(resolver, (files) => {
+    const { cwd } = resolver;
+    const cli = new CLIEngine({ cwd });
 
-    let testFiles: Array<string> = [];
-    if (files.length !== 0) {
-      testFiles = files.filter((filePath) => resolvedGlobs.find((currentGlob) => minimatch(filePath, currentGlob)));
-    } else {
-      await Promise.all(
-        resolvedGlobs.map(async (currentGlob) => {
-          const globFiles = await globAsync(currentGlob);
-          testFiles.push(...globFiles);
-        })
-      );
-    }
-
-    return testFiles.reduce((fileInfoMap, filePath) => {
+    return files.reduce((fileInfoMap, filePath) => {
       const linterOptions = cli.getConfigForFile(filePath);
       fileInfoMap[filePath] = getFileIssues(cwd, linterOptions, rule, filePath);
       return fileInfoMap;
