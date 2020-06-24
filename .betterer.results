@@ -46,11 +46,8 @@ exports[`@typescript-eslint/restrict-template-expressions`] = {
   }`
 };
 exports[`@typescript-eslint/no-floating-promises`] = {
-  timestamp: 1592972181588,
+  timestamp: 1592976958176,
   value: `{
-    "packages/betterer/src/watcher/watcher.ts:4224050771": [
-      [62, 4, 28, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "233133894"]
-    ],
     "packages/cli/src/watch.ts:2535787765": [
       [24, 6, 15, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "733721943"]
     ],
