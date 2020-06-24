@@ -20,3 +20,4 @@ test/__snapshots__/**
 .prettierignore
 .yarnrc
 *.patch
+CHANGELOG.md
