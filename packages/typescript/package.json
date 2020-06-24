@@ -32,6 +32,6 @@
     "typescript": "*"
   },
   "devDependencies": {
-    "typescript": "*"
+    "typescript": "3.9.5"
   }
 }
