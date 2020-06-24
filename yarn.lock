@@ -1501,10 +1501,10 @@
   dependencies:
     "@types/node" ">= 8"
 
-"@phenomnomnominal/commitlint-plugin@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/@phenomnomnominal/commitlint-plugin/-/commitlint-plugin-1.1.0.tgz#06332533c6ff1988341d8c2a206134c9c7480f03"
-  integrity sha512-pSfgpBWN7Zw4MuDfi7pDXiKxJ11MRyypMFx10lAGzR4Zk57KVWdK2sWhJQCvbJoDS0SPbxCrWhQ/aEckoSMv8A==
+"@phenomnomnominal/commitlint-plugin@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/@phenomnomnominal/commitlint-plugin/-/commitlint-plugin-1.1.1.tgz#ea96cfc07488efba06d4bd028ebeb14d92da6b85"
+  integrity sha512-r5eWiv3SScWGe1a790sHczz4XIjuZ9hFWNu4JCUuZ/5K8LkvfiN8fA+AyoqPd4/mGIgw/6rKDNgi0K0ddVrlig==
 
 "@phenomnomnominal/tsquery@^4.1.0":
   version "4.1.0"
