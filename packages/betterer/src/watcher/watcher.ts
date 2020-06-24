@@ -23,7 +23,10 @@ export class BettererWatcher {
     const watcher = chokidar(cwd, {
       ignoreInitial: true,
       ignored: (itemPath: string) => {
-        return itemPath !== cwd && (itemPath === resultsPath || ignores.includes(itemPath) || isIgnored(itemPath));
+        return (
+          itemPath !== getNormalisedPath(cwd) &&
+          (itemPath === getNormalisedPath(resultsPath) || ignores.includes(itemPath) || isIgnored(itemPath))
+        );
       }
     });
 
