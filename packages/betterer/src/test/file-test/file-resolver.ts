@@ -2,7 +2,6 @@ import * as stack from 'callsite';
 import * as globby from 'globby';
 import * as path from 'path';
 
-import { getIgnores } from '../../config';
 import { flatten, getNormalisedPath } from '../../utils';
 import { BettererFilePaths } from '../../watcher';
 import { BettererFilePatterns, BettererFileGlobs } from './types';
@@ -67,7 +66,7 @@ export class BettererFileResolver {
     await Promise.all(
       this._included.map(async (currentGlob) => {
         const globFiles = await globby(currentGlob, {
-          ignore: await getIgnores()
+          gitignore: true
         });
         resolvedPaths.push(...globFiles);
       })

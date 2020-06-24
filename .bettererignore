@@ -1,9 +1,0 @@
-.DS_Store
-dist
-node_modules
-reports
-lerna-debug.log
-yarn-error.log
-tsconfig.tsbuildinfo
-*.vsix
-packages/**/yarn.lock
