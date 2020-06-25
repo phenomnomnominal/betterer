@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/phenomnomnominal/betterer/compare/v2.0.2...v2.1.0) (2020-06-25)
+
+
+### Features
+
+* **eslint ✨:** handle changing multiple rules at the same time ([#123](https://github.com/phenomnomnominal/betterer/issues/123)) ([04ef01a](https://github.com/phenomnomnominal/betterer/commit/04ef01a5a659b2df092b6f0ec32f19e80dac190b))
+
+
+
+
+
 ## [2.0.2](https://github.com/phenomnomnominal/betterer/compare/v2.0.1...v2.0.2) (2020-06-24)
 
 **Note:** Version bump only for package @betterer/typescript
