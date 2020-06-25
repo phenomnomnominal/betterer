@@ -8,10 +8,22 @@ import {
 import { CLIEngine, Linter } from 'eslint';
 import LinesAndColumns from 'lines-and-columns';
 
-import { FILE_GLOB_REQUIRED, RULE_OPTIONS_REQUIRED } from './errors';
+import { FILE_GLOB_REQUIRED, RULE_OPTIONS_REQUIRED, RULES_OPTIONS_REQUIRED } from './errors';
 
 type ESLintRuleConfig = [string, Linter.RuleLevel | Linter.RuleLevelAndOptions];
+type ESLintRulesConfig = Record<string, Linter.RuleLevel | Linter.RuleLevelAndOptions>;
 
+export function eslint(rules: ESLintRulesConfig): BettererFileTest {
+  if (!rules) {
+    throw RULES_OPTIONS_REQUIRED();
+  }
+
+  return createEslintTest(rules);
+}
+
+/**
+ * @deprecated Use {@link @betterer/eslint:eslint} instead!
+ */
 export function eslintBetterer(globs: string | ReadonlyArray<string>, rule: ESLintRuleConfig): BettererFileTest {
   if (!globs) {
     throw FILE_GLOB_REQUIRED();
@@ -20,36 +32,42 @@ export function eslintBetterer(globs: string | ReadonlyArray<string>, rule: ESLi
     throw RULE_OPTIONS_REQUIRED();
   }
 
-  const resolver = new BettererFileResolver();
-  resolver.include(globs);
+  const [ruleName, ruleOptions] = rule;
+  const test = createEslintTest({ [ruleName]: ruleOptions });
+  test.include(globs);
+  return test;
+}
 
+// We need an extra function so that `new BettererFileResolver()` is called
+// from the same depth in the call stack. This is gross, but it can go away
+// once we remove `eslintBetterer`:
+function createEslintTest(rules: ESLintRulesConfig): BettererFileTest {
+  const resolver = new BettererFileResolver(3);
   return new BettererFileTest(resolver, (files) => {
     const { cwd } = resolver;
     const cli = new CLIEngine({ cwd });
 
-    return files.reduce((fileInfoMap, filePath) => {
+    const issues: BettererFileIssuesMapRaw = {};
+    files.forEach((filePath) => {
       const linterOptions = cli.getConfigForFile(filePath);
-      fileInfoMap[filePath] = getFileIssues(cwd, linterOptions, rule, filePath);
-      return fileInfoMap;
-    }, {} as BettererFileIssuesMapRaw);
+      issues[filePath] = getFileIssues(cwd, linterOptions, rules, filePath);
+    });
+    return issues;
   });
 }
 
 function getFileIssues(
   cwd: string,
   linterOptions: Linter.Config,
-  rule: ESLintRuleConfig,
+  rules: ESLintRulesConfig,
   filePath: string
 ): BettererFileIssuesRaw {
-  const [ruleName, ruleOptions] = rule;
   const runner = new CLIEngine({
     ...linterOptions,
     cwd,
     useEslintrc: false,
     globals: Object.keys(linterOptions.globals || {}),
-    rules: {
-      [ruleName]: ruleOptions
-    }
+    rules
   });
 
   const report = runner.executeOnFiles([filePath]);

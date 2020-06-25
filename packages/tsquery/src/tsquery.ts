@@ -4,13 +4,13 @@ import {
   BettererFileIssuesRaw,
   BettererFileResolver
 } from '@betterer/betterer';
-import { tsquery } from '@phenomnomnominal/tsquery';
+import { tsquery as tsq } from '@phenomnomnominal/tsquery';
 import { promises as fs } from 'fs';
 import { SourceFile } from 'typescript';
 
 import { CONFIG_PATH_REQUIRED, QUERY_REQUIRED } from './errors';
 
-export function tsqueryBetterer(configFilePath: string, query: string): BettererFileTest {
+export function tsquery(configFilePath: string, query: string): BettererFileTest {
   if (!configFilePath) {
     throw CONFIG_PATH_REQUIRED();
   }
@@ -24,11 +24,11 @@ export function tsqueryBetterer(configFilePath: string, query: string): Betterer
   return new BettererFileTest(resolver, async () => {
     let sourceFiles: ReadonlyArray<SourceFile> = [];
 
-    const projectFiles = await resolver.validate(tsquery.projectFiles(absoluteConfigFilePath));
+    const projectFiles = await resolver.validate(tsq.projectFiles(absoluteConfigFilePath));
     sourceFiles = await Promise.all(
       projectFiles.map(async (filePath) => {
         const fileText = await fs.readFile(filePath, 'utf8');
-        const sourceFile = tsquery.ast(fileText);
+        const sourceFile = tsq.ast(fileText);
         sourceFile.fileName = filePath;
         return sourceFile;
       })
@@ -42,7 +42,7 @@ export function tsqueryBetterer(configFilePath: string, query: string): Betterer
 }
 
 function getFileMatches(query: string, sourceFile: SourceFile): BettererFileIssuesRaw {
-  return tsquery.query(sourceFile, query, { visitAllChildren: true }).map((match) => {
+  return tsq.query(sourceFile, query, { visitAllChildren: true }).map((match) => {
     return {
       message: 'TSQuery match',
       filePath: sourceFile.fileName,

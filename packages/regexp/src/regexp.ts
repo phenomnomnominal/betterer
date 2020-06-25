@@ -8,39 +8,58 @@ import { promises as fs } from 'fs';
 
 import { FILE_GLOB_REQUIRED, REGEXP_REQUIRED } from './errors';
 
-export function regexpBetterer(globs: string | ReadonlyArray<string>, regexp: RegExp): BettererFileTest {
-  if (!globs) {
-    throw FILE_GLOB_REQUIRED();
-  }
-  if (!regexp) {
+export function regexp(pattern: RegExp): BettererFileTest {
+  if (!pattern) {
     throw REGEXP_REQUIRED();
   }
 
-  const resolver = new BettererFileResolver();
-  resolver.include(globs);
+  return createRegExpTest(pattern);
+}
 
+/**
+ * @deprecated Use {@link @betterer/regexp:regexp} instead!
+ */
+export function regexpBetterer(globs: string | ReadonlyArray<string>, pattern: RegExp): BettererFileTest {
+  if (!globs) {
+    throw FILE_GLOB_REQUIRED();
+  }
+  if (!pattern) {
+    throw REGEXP_REQUIRED();
+  }
+
+  const test = createRegExpTest(pattern);
+  test.include(globs);
+  return test;
+}
+
+// We need an extra function so that `new BettererFileResolver()` is called
+// from the same depth in the call stack. This is gross, but it can go away
+// once we remove `regexpBetterer`:
+function createRegExpTest(pattern: RegExp): BettererFileTest {
+  const resolver = new BettererFileResolver(3);
   return new BettererFileTest(resolver, async (files) => {
-    regexp = new RegExp(regexp.source, regexp.flags.includes('g') ? regexp.flags : `${regexp.flags}g`);
+    pattern = new RegExp(pattern.source, pattern.flags.includes('g') ? pattern.flags : `${pattern.flags}g`);
     const matches = await Promise.all(
       files.map(async (filePath) => {
-        return await getFileMatches(regexp, filePath);
+        return await getFileMatches(pattern, filePath);
       })
     );
 
-    return files.reduce((fileInfoMap, filePath, index) => {
-      fileInfoMap[filePath] = matches[index];
-      return fileInfoMap;
-    }, {} as BettererFileIssuesMapRaw);
+    const issues: BettererFileIssuesMapRaw = {};
+    files.forEach((filePath, index) => {
+      issues[filePath] = matches[index];
+    });
+    return issues;
   });
 }
 
-async function getFileMatches(regexp: RegExp, filePath: string): Promise<BettererFileIssuesRaw> {
+async function getFileMatches(pattern: RegExp, filePath: string): Promise<BettererFileIssuesRaw> {
   const matches: Array<RegExpExecArray> = [];
   const fileText = await fs.readFile(filePath, 'utf8');
 
   let currentMatch;
   do {
-    currentMatch = regexp.exec(fileText);
+    currentMatch = pattern.exec(fileText);
     if (currentMatch) {
       matches.push(currentMatch);
     }

@@ -6,19 +6,18 @@ describe('betterer', () => {
   it('should handlex complex eslint rule options', async () => {
     const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('test-betterer-eslint-options', {
       '.betterer.ts': `
-import { eslintBetterer } from '@betterer/eslint';
+import { eslint } from '@betterer/eslint';
 
 export default {
-  'eslint enable complex rule': eslintBetterer('./src/**/*.ts', [
-    'no-restricted-syntax',
-    [
+  'eslint enable complex rule': eslint({ 
+    'no-restricted-syntax': [
       'error',
       {
         selector: 'ExportDefaultDeclaration',
         message: 'Prefer named exports'
       }
     ]
-  ])
+  }).include('./src/**/*.ts')
 };
       `,
       '.eslintrc.js': `
