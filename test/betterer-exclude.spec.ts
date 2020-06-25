@@ -6,17 +6,17 @@ describe('betterer', () => {
   it('should exclude specific files from results', async () => {
     const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('test-betterer-exclude', {
       '.betterer.ts': `
-import { regexpBetterer } from '@betterer/regexp';
+import { regexp } from '@betterer/regexp';
 
 export default {
-  'regexp no hack comments': regexpBetterer('./src/**/*.ts', /(\\/\\/\\s*HACK)/i)
+  'regexp no hack comments': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
 };      
       `,
       '.betterer.exclude.ts': `
-import { regexpBetterer } from '@betterer/regexp';
+import { regexp } from '@betterer/regexp';
 
 export default {
-  'regexp no hack comments': regexpBetterer(['./src/**/*.ts'], /(\\/\\/\\s*HACK)/i).exclude(/exclude.ts/)
+  'regexp no hack comments': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts').exclude(/exclude.ts/)
 };      
       `
     });

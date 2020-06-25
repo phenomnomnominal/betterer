@@ -52,10 +52,10 @@ const one = 1;
 console.log(a * one);
       `,
         '.betterer.ts': `
-import { typescriptBetterer } from '@betterer/typescript';
+import { typescript } from '@betterer/typescript';
 
 export default {
-  'typescript use strict mode': typescriptBetterer('./tsconfig.json', {
+  'typescript use strict mode': typescript('./tsconfig.json', {
     strict: true
   })
 };    
@@ -115,10 +115,10 @@ const one = 1;
 console.log(a * one);
       `,
       '.betterer.ts': `
-import { typescriptBetterer } from '@betterer/typescript';
+import { typescript } from '@betterer/typescript';
 
 export default {
-  'typescript use strict mode': typescriptBetterer('./tsconfig.json', {
+  'typescript use strict mode': typescript('./tsconfig.json', {
     strict: true
   })
 };    

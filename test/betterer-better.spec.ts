@@ -51,20 +51,20 @@ module.exports = {
   it('should work when a test changes and makes the results better', async () => {
     const { logs, paths, readFile, cleanup, resolve } = await createFixture('test-betterer-better-change-test', {
       '.betterer.ts': `
-import { tsqueryBetterer } from '@betterer/tsquery';
+import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'no raw console calls': tsqueryBetterer(
+  'no raw console calls': tsquery(
     './tsconfig.json',
     'CallExpression > PropertyAccessExpression[expression.name="console"]'
   )
 };  
       `,
       '.betterer.changed.ts': `
-import { tsqueryBetterer } from '@betterer/tsquery';
+import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'no raw console calls': tsqueryBetterer(
+  'no raw console calls': tsquery(
     './tsconfig.json',
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
   )

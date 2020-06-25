@@ -46,10 +46,10 @@ module.exports = {
   it('should not stay worse if an update is forced', async () => {
     const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('test-betterer-update', {
       '.betterer.ts': `
-import { tsqueryBetterer } from '@betterer/tsquery';
+import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'tsquery no raw console.log': tsqueryBetterer(
+  'tsquery no raw console.log': tsquery(
     './tsconfig.json',
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
   )

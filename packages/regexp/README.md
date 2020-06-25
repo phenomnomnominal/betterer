@@ -13,10 +13,10 @@ Use this test to incrementally remove RegExp matches from your codebase!
 ## Usage
 
 ```typescript
-import { regexpBetterer } from '@betterer/regexp';
+import { regexp } from '@betterer/regexp';
 
 export default {
-  'no hack comments': regexpBetterer('**/*.ts', /(\/\/\s*HACK)/i)
+  'no hack comments': regexp(/(\/\/\s*HACK)/i).include('**/*.ts')
 };
 ```
 
@@ -25,10 +25,10 @@ export default {
 Skip a test by calling `.skip()`:
 
 ```typescript
-import { regexpBetterer } from '@betterer/regexp';
+import { regexp } from '@betterer/regexp';
 
 export default {
-  'no hack comments': regexpBetterer(...).skip()
+  'no hack comments': regexp(...).skip()
 };
 ```
 
@@ -37,10 +37,10 @@ export default {
 Run a test by itself by calling `.only()`:
 
 ```typescript
-import { regexpBetterer } from '@betterer/regexp';
+import { regexp } from '@betterer/regexp';
 
 export default {
-  'no hack comments': regexpBetterer(...).only()
+  'no hack comments': regexp(...).only()
 };
 ```
 
@@ -49,9 +49,9 @@ export default {
 Exclude files from a test by calling `.exclude()`:
 
 ```typescript
-import { regexpBetterer } from '@betterer/regexp';
+import { regexp } from '@betterer/regexp';
 
 export default {
-  'no hack comments': regexpBetterer(...).exclude(/excluded-file-regexp/)
+  'no hack comments': regexp(...).exclude(/excluded-file-regexp/)
 };
 ```

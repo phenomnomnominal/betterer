@@ -7,7 +7,7 @@ describe('betterer', () => {
     const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('test-betterer-skip', {
       '.betterer.skip.ts': `
 import { bigger } from '@betterer/constraints';
-import { regexpBetterer } from '@betterer/regexp';
+import { regexp } from '@betterer/regexp';
 
 let start = 0;
 
@@ -17,12 +17,12 @@ export default {
     constraint: bigger,
     isSkipped: true
   },
-  'test 2': regexpBetterer('./src/**/*.ts', /(\\/\\/\\s*HACK)/i).skip()
+  'test 2': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts').skip()
 };
       `,
       '.betterer.ts': `
 import { bigger } from '@betterer/constraints';
-import { regexpBetterer } from '@betterer/regexp';
+import { regexp } from '@betterer/regexp';
 
 let start = 0;
 
@@ -31,7 +31,7 @@ export default {
     test: () => start++,
     constraint: bigger
   },
-  'test 2': regexpBetterer('./src/**/*.ts', /(\\/\\/\\s*HACK)/i)
+  'test 2': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
 };
       `
     });

@@ -6,10 +6,10 @@ describe('betterer.watch', () => {
   it('should run in watch mode', async () => {
     const { logs, paths, resolve, cleanup, writeFile, waitForRun } = await createFixture('test-betterer-watch', {
       '.betterer.ts': `
-import { tsqueryBetterer } from '@betterer/tsquery';
+import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'tsquery no raw console.log': tsqueryBetterer(
+  'tsquery no raw console.log': tsquery(
     './tsconfig.json',
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
   )
@@ -71,10 +71,10 @@ export default {
       'test-betterer-watch-debounce',
       {
         '.betterer.ts': `
-import { tsqueryBetterer } from '@betterer/tsquery';
+import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'tsquery no raw console.log': tsqueryBetterer(
+  'tsquery no raw console.log': tsquery(
     './tsconfig.json',
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
   )
@@ -122,10 +122,10 @@ export default {
       'test-betterer-watch-debounce',
       {
         '.betterer.ts': `
-import { tsqueryBetterer } from '@betterer/tsquery';
+import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'tsquery no raw console.log': tsqueryBetterer(
+  'tsquery no raw console.log': tsquery(
     './tsconfig.json',
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
   )

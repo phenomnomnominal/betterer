@@ -13,10 +13,10 @@ Use this test to incrementally introduce TypeScript configuration to your codeba
 ## Usage
 
 ```typescript
-import { typescriptBetterer } from '@betterer/typescript';
+import { typescript } from '@betterer/typescript';
 
 export default {
-  'stricter compilation': typescriptBetterer('./tsconfig.json', {
+  'stricter compilation': typescript('./tsconfig.json', {
     strict: true
   })
 };
@@ -27,10 +27,10 @@ export default {
 Skip a test by calling `.skip()`:
 
 ```typescript
-import { typescriptBetterer } from '@betterer/typescript';
+import { typescript } from '@betterer/typescript';
 
 export default {
-  'stricter compilation': typescriptBetterer(...).skip()
+  'stricter compilation': typescript(...).skip()
 };
 ```
 
@@ -39,10 +39,10 @@ export default {
 Run a test by itself by calling `.only()`:
 
 ```typescript
-import { typescriptBetterer } from '@betterer/typescript';
+import { typescript } from '@betterer/typescript';
 
 export default {
-  'stricter compilation': typescriptBetterer(...).only()
+  'stricter compilation': typescript(...).only()
 };
 ```
 
@@ -51,9 +51,9 @@ export default {
 Exclude files from a test by calling `.exclude()`:
 
 ```typescript
-import { typescriptBetterer } from '@betterer/typescript';
+import { typescript } from '@betterer/typescript';
 
 export default {
-  'stricter compilation': typescriptBetterer(...).exclude(/excluded-file-regexp/)
+  'stricter compilation': typescript(...).exclude(/excluded-file-regexp/)
 };
 ```

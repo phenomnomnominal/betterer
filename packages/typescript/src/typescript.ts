@@ -6,7 +6,7 @@ import { CONFIG_PATH_REQUIRED, COMPILER_OPTIONS_REQUIRED } from './errors';
 
 const NEW_LINE = '\n';
 
-export function typescriptBetterer(configFilePath: string, extraCompilerOptions: ts.CompilerOptions): BettererFileTest {
+export function typescript(configFilePath: string, extraCompilerOptions: ts.CompilerOptions): BettererFileTest {
   if (!configFilePath) {
     throw CONFIG_PATH_REQUIRED();
   }
