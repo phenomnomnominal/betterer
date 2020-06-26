@@ -1,83 +1,84 @@
-/**
- * Copyright (c) 2017-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
 const React = require('react');
-
 const { MarkdownBlock, Container, GridBlock } = require('../../core/CompLibrary.js');
 
-class HomeSplash extends React.Component {
-  render() {
-    const { siteConfig, language = '' } = this.props;
-    const { baseUrl, docsUrl } = siteConfig;
-    const docsPart = `${docsUrl ? `${docsUrl}/` : ''}`;
-    const langPart = `${language ? `${language}/` : ''}`;
-    const docUrl = (doc) => `${baseUrl}${docsPart}${langPart}${doc}`;
+function HomeSplash(props) {
+  const { siteConfig, language = '' } = props;
+  const { baseUrl, docsUrl } = siteConfig;
 
-    const SplashContainer = (props) => (
-      <div className="homeContainer">
-        <div className="homeSplashFade">
-          <div className="wrapper homeWrapper">{props.children}</div>
-        </div>
-      </div>
-    );
+  const docsPart = `${docsUrl ? `${docsUrl}/` : ''}`;
+  const langPart = `${language ? `${language}/` : ''}`;
 
-    const Logo = (props) => {
-      return (
-        <div className="projectLogo">
-          <img src={props.img_src} alt="Project Logo" />
-        </div>
-      );
-    };
-
-    const ProjectTitle = (props) => (
-      <h2 className="projectTitle">
-        {props.title}
-        <small>{props.tagline}</small>
-      </h2>
-    );
-
-    const PromoSection = (props) => (
-      <div className="section promoSection">
-        <div className="promoRow">
-          <div className="pluginRowBlock">{props.children}</div>
-        </div>
-      </div>
-    );
-
-    const Button = (props) => (
-      <div className="pluginWrapper buttonWrapper">
-        <a className="button" href={props.href} target={props.target}>
-          {props.children}
-        </a>
-      </div>
-    );
-
-    return (
-      <SplashContainer>
-        <Logo img_src={`${baseUrl}img/betterer.png`} />
-        <div className="inner">
-          <ProjectTitle tagline={siteConfig.tagline} title={siteConfig.title} />
-          <iframe
-            tabIndex="-1"
-            className="projectInitScript"
-            title="get started code snippet"
-            src="https://carbon.now.sh/embed/?bg=rgba(171%2C184%2C195%2C0)&t=3024-night&wt=none&l=application%2Fx-sh&ds=false&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=16px&ph=15px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=%2523%2520run%2520this%2520in%2520your%2520project%2520to%2520get%2520betterer%250Anpx%2520%2540betterer%252Fcli%2520init"
-            sandbox="allow-scripts allow-same-origin"
-          ></iframe>
-
-          <PromoSection>
-            <Button href={docUrl('getting-started.html')}>Get started</Button>
-            <Button href={docUrl('tests.html')}>Examples</Button>
-            <Button href={docUrl('api.html')}>API Docs</Button>
-          </PromoSection>
-        </div>
-      </SplashContainer>
-    );
+  function docUrl(doc) {
+    return `${baseUrl}${docsPart}${langPart}${doc}`;
   }
+
+  return (
+    <HomeSplashContainer>
+      <HomeLogo img_src={`${baseUrl}img/betterer.png`} />
+      <HomeTitle title={siteConfig.title} tagline={siteConfig.tagline} />
+      <HomeCode />
+      <HomePromoSection>
+        <HomeButton href={docUrl('getting-started.html')}>Get started</HomeButton>
+        <HomeButton href={docUrl('tests.html')}>Examples</HomeButton>
+        <HomeButton href={docUrl('api.html')}>API Docs</HomeButton>
+      </HomePromoSection>
+    </HomeSplashContainer>
+  );
+}
+
+function HomeSplashContainer(props) {
+  return (
+    <div className="homeContainer">
+      <div className="homeWrapper">{props.children}</div>
+    </div>
+  );
+}
+
+function HomeLogo(props) {
+  return (
+    <div className="projectLogo">
+      <img src={props.img_src} alt="Betterer Logo" />
+    </div>
+  );
+}
+
+function HomeTitle(props) {
+  return (
+    <h2 className="projectTitle">
+      {props.title}
+      <small>{props.tagline}</small>
+    </h2>
+  );
+}
+
+function HomeCode() {
+  return (
+    <iframe
+      tabIndex="-1"
+      className="projectInitScript"
+      title="Betterer Get Started code snippet"
+      src="https://carbon.now.sh/embed/?bg=rgba(171%2C184%2C195%2C0)&t=3024-night&wt=none&l=application%2Fx-sh&ds=false&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=16px&ph=15px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=%2523%2520run%2520this%2520in%2520your%2520project%2520to%2520get%2520betterer%250Anpx%2520%2540betterer%252Fcli%2520init"
+      sandbox="allow-scripts allow-same-origin"
+    ></iframe>
+  );
+}
+
+function HomePromoSection(props) {
+  return (
+    <div className="section promoSection">
+      <div className="promoRow">
+        <div className="pluginRowBlock">{props.children}</div>
+      </div>
+    </div>
+  );
+}
+
+function HomeButton(props) {
+  return (
+    <a className="button" href={props.href} target={props.target}>
+      {props.children}
+    </a>
+  );
 }
 
 class Index extends React.Component {
@@ -183,7 +184,7 @@ class Index extends React.Component {
       return (
         <div className="productShowcaseSection paddingBottom">
           <h2>Who is Using This?</h2>
-          <p>This project is used by all these people</p>
+          <p>This project is used by some people:</p>
           <div className="logos">{showcase}</div>
           <div className="more-users">
             <a className="button" href={pageUrl('users.html')}>

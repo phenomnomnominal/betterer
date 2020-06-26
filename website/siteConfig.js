@@ -14,7 +14,14 @@ module.exports = {
     { blog: true, label: 'Blog' }
   ],
 
-  users: [],
+  users: [
+    {
+      infoLink: 'https://engineering.atspotify.com',
+      caption: 'Spotify',
+      image: 'img/spotify.png',
+      pinned: true
+    }
+  ],
 
   headerIcon: 'img/favicon.png',
   footerIcon: 'img/favicon.png',
@@ -33,7 +40,7 @@ module.exports = {
   },
 
   scripts: ['https://buttons.github.io/buttons.js'],
-  stylesheets: ['https://fonts.googleapis.com/css?family=Pacifico|Roboto+Mono|Roboto+Slab&display=swap'],
+  stylesheets: ['https://fonts.googleapis.com/css?family=Pacifico|Roboto+Mono&display=swap'],
 
   onPageNav: 'separate',
   cleanUrl: true,

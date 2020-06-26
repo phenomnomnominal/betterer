@@ -2,7 +2,8 @@ const React = require('react');
 
 const { Container, GridBlock } = require('../../core/CompLibrary.js');
 
-module.exports = function Help({ config, language = '' }) {
+module.exports = function Help(props) {
+  const { config, language = '' } = props;
   const { baseUrl, docsUrl } = config;
 
   const docsPart = `${docsUrl ? `${docsUrl}/` : ''}`;
