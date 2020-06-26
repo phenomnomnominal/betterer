@@ -6,10 +6,10 @@ describe('betterer.single', () => {
   it('should run eslint against a single file', async () => {
     const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-eslint-single', {
       '.betterer.js': `
-const { eslintBetterer } = require('@betterer/eslint');
+const { eslint } = require('@betterer/eslint');
 
 module.exports = {
-  'eslint enable new rule': eslintBetterer('./src/**/*.ts', ['no-debugger', 'error'])
+  'eslint enable new rule': eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
 };    
       `,
       '.eslintrc.js': `
@@ -60,10 +60,10 @@ module.exports = {
   it('should ignore any files outside of the scope of the eslint test glob', async () => {
     const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-eslint-single-irrelevant', {
       '.betterer.js': `
-const { eslintBetterer } = require('@betterer/eslint');
+const { eslint } = require('@betterer/eslint');
 
 module.exports = {
-  'eslint enable new rule': eslintBetterer('./src/**/*.ts', ['no-debugger', 'error'])
+  'eslint enable new rule': eslint({ 'no-debugger': 'error'}).include('./src/**/*.ts')
 };    
       `,
       '.eslintrc.js': `
@@ -112,12 +112,12 @@ module.exports = {
   });
 
   it('should run regexp against a single file', async () => {
-    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-regexp-single-irrelevant', {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-regexp-single', {
       '.betterer.js': `
-const { regexpBetterer } = require('@betterer/regexp');
+const { regexp } = require('@betterer/regexp');
 
 module.exports = {
-  'regexp no hack comments': regexpBetterer('./src/**/*.ts', /(\\/\\/\\s*HACK)/i)
+  'regexp no hack comments': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
 };
       `
     });
@@ -140,10 +140,10 @@ module.exports = {
   it('should ignore any files outside of the scope of the regexp test glob', async () => {
     const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-regexp-single-irrelevant', {
       '.betterer.js': `
-const { regexpBetterer } = require('@betterer/regexp');
+const { regexp } = require('@betterer/regexp');
 
 module.exports = {
-  'regexp no hack comments': regexpBetterer('./src/**/*.ts', /(\\/\\/\\s*HACK)/i)
+  'regexp no hack comments': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
 };
       `
     });
@@ -166,10 +166,10 @@ module.exports = {
   it('should run tsquery against a single file', async () => {
     const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-tsquery-single', {
       '.betterer.ts': `
-import { tsqueryBetterer } from '@betterer/tsquery';
+import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'tsquery no raw console.log': tsqueryBetterer(
+  'tsquery no raw console.log': tsquery(
     './tsconfig.json',
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
   )
@@ -208,10 +208,10 @@ export default {
   it('should ignore any files outside of the scope of the tsquery tsconfig', async () => {
     const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-tsquery-single-irrevelent', {
       '.betterer.ts': `
-import { tsqueryBetterer } from '@betterer/tsquery';
+import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'tsquery no raw console.log': tsqueryBetterer(
+  'tsquery no raw console.log': tsquery(
     './tsconfig.json',
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
   )
@@ -250,10 +250,10 @@ export default {
   it('should run typescript against a single file', async () => {
     const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-typescript-single', {
       '.betterer.ts': `
-import { typescriptBetterer } from '@betterer/typescript';
+import { typescript } from '@betterer/typescript';
 
 export default {
-  'typescript use strict mode': typescriptBetterer('./tsconfig.json', {
+  'typescript use strict mode': typescript('./tsconfig.json', {
     strict: true
   })
 };
@@ -291,10 +291,10 @@ export default {
   it('should ignore any files outside of the scope of the typescript tsconfig', async () => {
     const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-typescript-single-irrelevent', {
       '.betterer.ts': `
-import { typescriptBetterer } from '@betterer/typescript';
+import { typescript } from '@betterer/typescript';
 
 export default {
-  'typescript use strict mode': typescriptBetterer('./tsconfig.json', {
+  'typescript use strict mode': typescript('./tsconfig.json', {
     strict: true
   })
 };

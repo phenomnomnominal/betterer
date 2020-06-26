@@ -4,7 +4,7 @@ import * as commander from 'commander';
 import { startOptions } from './options';
 import { CLIArguments, CLIStartConfig } from './types';
 
-export async function start(cwd: string, argv: CLIArguments): Promise<BettererStats> {
+export function start(cwd: string, argv: CLIArguments): Promise<BettererStats> {
   startOptions(commander);
 
   commander.parse(argv as Array<string>);

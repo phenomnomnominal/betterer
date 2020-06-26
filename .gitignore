@@ -8,4 +8,4 @@ tsconfig.tsbuildinfo
 *.vsix
 packages/**/yarn.lock
 website/build
-fixtures
+*.patch

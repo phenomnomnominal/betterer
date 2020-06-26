@@ -1,63 +1,65 @@
-import { BettererFileTest, BettererFileIssuesMapRaw, BettererFileIssuesRaw } from '@betterer/betterer';
-import * as stack from 'callsite';
+import {
+  BettererFileTest,
+  BettererFileIssuesMapRaw,
+  BettererFileIssuesRaw,
+  BettererFileResolver
+} from '@betterer/betterer';
 import { promises as fs } from 'fs';
-import * as glob from 'glob';
-import * as minimatch from 'minimatch';
-import * as path from 'path';
-import { promisify } from 'util';
 
 import { FILE_GLOB_REQUIRED, REGEXP_REQUIRED } from './errors';
 
-const globAsync = promisify(glob);
-
-export function regexpBetterer(globs: string | ReadonlyArray<string>, regexp: RegExp): BettererFileTest {
-  if (!globs) {
-    throw FILE_GLOB_REQUIRED();
-  }
-  if (!regexp) {
+export function regexp(pattern: RegExp): BettererFileTest {
+  if (!pattern) {
     throw REGEXP_REQUIRED();
   }
 
-  const [, callee] = stack();
-  const cwd = path.dirname(callee.getFileName());
-  const globsArray = Array.isArray(globs) ? globs : [globs];
-  const resolvedGlobs = globsArray.map((glob) => path.resolve(cwd, glob));
+  return createRegExpTest(pattern);
+}
 
-  return new BettererFileTest(async (files) => {
-    regexp = new RegExp(regexp.source, regexp.flags.includes('g') ? regexp.flags : `${regexp.flags}g`);
+/**
+ * @deprecated Use {@link @betterer/regexp:regexp} instead!
+ */
+export function regexpBetterer(globs: string | ReadonlyArray<string>, pattern: RegExp): BettererFileTest {
+  if (!globs) {
+    throw FILE_GLOB_REQUIRED();
+  }
+  if (!pattern) {
+    throw REGEXP_REQUIRED();
+  }
 
-    let testFiles: Array<string> = [];
-    if (files.length !== 0) {
-      testFiles = files.filter((filePath) => resolvedGlobs.find((currentGlob) => minimatch(filePath, currentGlob)));
-    } else {
-      await Promise.all(
-        resolvedGlobs.map(async (currentGlob) => {
-          const globFiles = await globAsync(currentGlob);
-          testFiles.push(...globFiles);
-        })
-      );
-    }
+  const test = createRegExpTest(pattern);
+  test.include(globs);
+  return test;
+}
 
+// We need an extra function so that `new BettererFileResolver()` is called
+// from the same depth in the call stack. This is gross, but it can go away
+// once we remove `regexpBetterer`:
+function createRegExpTest(pattern: RegExp): BettererFileTest {
+  const resolver = new BettererFileResolver(3);
+  return new BettererFileTest(resolver, async (files) => {
+    pattern = new RegExp(pattern.source, pattern.flags.includes('g') ? pattern.flags : `${pattern.flags}g`);
     const matches = await Promise.all(
-      testFiles.map(async (filePath) => {
-        return await getFileMatches(regexp, filePath);
+      files.map(async (filePath) => {
+        return await getFileMatches(pattern, filePath);
       })
     );
 
-    return testFiles.reduce((fileInfoMap, filePath, index) => {
-      fileInfoMap[filePath] = matches[index];
-      return fileInfoMap;
-    }, {} as BettererFileIssuesMapRaw);
+    const issues: BettererFileIssuesMapRaw = {};
+    files.forEach((filePath, index) => {
+      issues[filePath] = matches[index];
+    });
+    return issues;
   });
 }
 
-async function getFileMatches(regexp: RegExp, filePath: string): Promise<BettererFileIssuesRaw> {
+async function getFileMatches(pattern: RegExp, filePath: string): Promise<BettererFileIssuesRaw> {
   const matches: Array<RegExpExecArray> = [];
   const fileText = await fs.readFile(filePath, 'utf8');
 
   let currentMatch;
   do {
-    currentMatch = regexp.exec(fileText);
+    currentMatch = pattern.exec(fileText);
     if (currentMatch) {
       matches.push(currentMatch);
     }

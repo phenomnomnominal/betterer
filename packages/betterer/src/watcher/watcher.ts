@@ -1,9 +1,9 @@
 import { watch as chokidar, FSWatcher } from 'chokidar';
+import * as globby from 'globby';
 
 import { BettererContext, BettererRuns } from '../context';
 import { getNormalisedPath } from '../utils';
 import { BettererWatchChangeHandler, BettererWatchRunHandler } from './types';
-import { getIgnores } from './ignores';
 
 const EMIT_EVENTS = ['add', 'change'];
 const DEBOUNCE_TIME = 200;
@@ -19,9 +19,15 @@ export class BettererWatcher {
   public async setup(): Promise<void> {
     const { cwd, ignores, resultsPath } = this._context.config;
 
+    const isIgnored = globby.gitignore.sync();
     const watcher = chokidar(cwd, {
       ignoreInitial: true,
-      ignored: [...(await getIgnores()), ...ignores, resultsPath]
+      ignored: (itemPath: string) => {
+        return (
+          itemPath !== getNormalisedPath(cwd) &&
+          (itemPath === getNormalisedPath(resultsPath) || ignores.includes(itemPath) || isIgnored(itemPath))
+        );
+      }
     });
 
     watcher.on('all', (event: string, filePath: string) => {
@@ -60,7 +66,7 @@ export class BettererWatcher {
 
   private _handleChange(changed: Array<string>): void {
     this._runs = this._onChange(changed);
-    this._handleRun(this._runs);
+    void this._handleRun(this._runs);
   }
 
   private async _handleRun(running: Promise<BettererRuns>): Promise<BettererRuns> {

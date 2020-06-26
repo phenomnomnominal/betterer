@@ -1,7 +1,7 @@
 {
   "name": "@betterer/betterer",
   "description": "Main engine for runing betterer tests",
-  "version": "1.2.0",
+  "version": "2.0.2",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -24,17 +24,22 @@
     "compile": "tsc -b ."
   },
   "dependencies": {
-    "@betterer/constraints": "^1.0.2",
-    "@betterer/errors": "^1.2.0",
-    "@betterer/logger": "^1.0.2",
+    "@betterer/constraints": "^2.0.0",
+    "@betterer/errors": "^2.0.1",
+    "@betterer/logger": "^2.0.1",
+    "callsite": "^1.0.0",
     "chokidar": "^3.3.1",
     "djb2a": "^1.2.0",
     "find-up": "^4.1.0",
     "gitignore-globs": "^0.1.1",
-    "jest-diff": "^26.0.1",
+    "globby": "^11.0.1",
+    "jest-diff": "^26.1.0",
     "lines-and-columns": "^1.1.6",
     "safe-string-literal": "^1.0.1",
-    "ts-node": "^8.5.4",
+    "ts-node": "^8.10.2",
     "tslib": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/callsite": "^1.0.30"
   }
 }

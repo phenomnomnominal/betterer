@@ -13,10 +13,10 @@ Use this test to incrementally remove TSQuery matches from your codebase! See th
 ## Usage
 
 ```typescript
-import { tsqueryBetterer } from '@betterer/tsquery';
+import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'no raw console.log': tsqueryBetterer(
+  'no raw console.log': tsquery(
     './tsconfig.json',
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
   )
@@ -28,10 +28,10 @@ export default {
 Skip a test by calling `.skip()`:
 
 ```typescript
-import { tsqueryBetterer } from '@betterer/tsquery';
+import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'no raw console.log': tsqueryBetterer(...).skip()
+  'no raw console.log': tsquery(...).skip()
 };
 ```
 
@@ -40,10 +40,10 @@ export default {
 Run a test by itself by calling `.only()`:
 
 ```typescript
-import { tsqueryBetterer } from '@betterer/tsquery';
+import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'no raw console.log': tsqueryBetterer(...).only()
+  'no raw console.log': tsquery(...).only()
 };
 ```
 
@@ -52,9 +52,9 @@ export default {
 Exclude files from a test by calling `.exclude()`:
 
 ```typescript
-import { tsqueryBetterer } from '@betterer/tsquery';
+import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'no raw console.log': tsqueryBetterer(...).exclude(/excluded-file-regexp/)
+  'no raw console.log': tsquery(...).exclude(/excluded-file-regexp/)
 };
 ```

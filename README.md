@@ -43,7 +43,7 @@ Making widespread changes to a codebase can be really hard. When trying to make 
 When you want to make an improvement to your codebase, you just start by making a new test, defined in a `.betterer.ts` file:
 
 ```typescript
-import { smaller } from '@betterer/constraint';
+import { smaller } from '@betterer/constraints';
 
 export default {
   'thing to improve': {
@@ -82,10 +82,10 @@ Isn't that neat!? ☀️
 If you want to enable a new [ESLint](https://eslint.org/) rule in your codebase, you can use the `@betterer/eslint`:
 
 ```typescript
-import { eslintBetterer } from '@betterer/eslint';
+import { eslint } from '@betterer/eslint';
 
 export default {
-  'no more debuggers': eslintBetterer('./src/**/*.ts', ['no-debugger', 'error'])
+  'no more debuggers': eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
 };
 ```
 
@@ -94,10 +94,10 @@ export default {
 If you want to remove anything that matches a Regular Expression within your codebase, you can use `@betterer/regexp`:
 
 ```typescript
-import { regexpBetterer } from '@betterer/regexp';
+import { regexp } from '@betterer/regexp';
 
 export default {
-  'no hack comments': regexpBetterer('**/*.ts', /(\/\/\s*HACK)/i)
+  'no hack comments': regexp(/(\/\/\s*HACK)/i).include('**/*.ts')
 };
 ```
 
@@ -108,10 +108,10 @@ export default {
 If you want to remove anything that matches a [TSQuery](https://github.com/phenomnomnominal/tsquery) within your codebase, you can use `@betterer/tsquery`:
 
 ```typescript
-import { tsqueryBetterer } from '@betterer/tsquery';
+import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'no raw console.log': tsqueryBetterer(
+  'no raw console.log': tsquery(
     './tsconfig.json',
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
   )
@@ -123,10 +123,10 @@ export default {
 If you want to enable a new [TypeScript](https://www.typescriptlang.org/) compiler option to your codebase, you can use `@betterer/typescript`:
 
 ```typescript
-import { typescriptBetterer } from '@betterer/typescript';
+import { typescript } from '@betterer/typescript';
 
 export default {
-  'stricter compilation': typescriptBetterer('./tsconfig.json', {
+  'stricter compilation': typescript('./tsconfig.json', {
     strict: true
   })
 };

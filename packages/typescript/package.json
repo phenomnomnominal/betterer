@@ -1,7 +1,7 @@
 {
   "name": "@betterer/typescript",
   "description": "TypeScript test for @betterer/betterer",
-  "version": "1.2.0",
+  "version": "2.1.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -24,16 +24,14 @@
     "compile": "tsc -b ."
   },
   "dependencies": {
-    "@betterer/betterer": "^1.2.0",
-    "@betterer/errors": "^1.2.0",
-    "callsite": "^1.0.0",
+    "@betterer/betterer": "^2.0.2",
+    "@betterer/errors": "^2.0.1",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
     "typescript": "*"
   },
   "devDependencies": {
-    "@types/callsite": "^1.0.30",
-    "typescript": "*"
+    "typescript": "3.9.5"
   }
 }

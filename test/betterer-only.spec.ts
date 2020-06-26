@@ -7,7 +7,7 @@ describe('betterer', () => {
     const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('test-betterer-only', {
       '.betterer.only.ts': `
 import { bigger } from '@betterer/constraints';
-import { regexpBetterer } from '@betterer/regexp';
+import { regexp } from '@betterer/regexp';
 
 export default {
   'test 1': {
@@ -23,12 +23,12 @@ export default {
     test: () => Date.now(),
     constraint: bigger
   },
-  'test 4': regexpBetterer('./src/**/*.ts', /(\\/\\/\\s*HACK)/i).only()
+  'test 4': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts').only()
 };
         `,
       '.betterer.ts': `
 import { bigger } from '@betterer/constraints';
-import { regexpBetterer } from '@betterer/regexp';
+import { regexp } from '@betterer/regexp';
 
 export default {
   'test 1': {
@@ -43,7 +43,7 @@ export default {
     test: () => Date.now(),
     constraint: bigger
   },
-  'test 4': regexpBetterer('./src/**/*.ts', /(\\/\\/\\s*HACK)/i)
+  'test 4': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
 };    
       `
     });

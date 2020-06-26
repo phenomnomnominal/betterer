@@ -2,7 +2,6 @@ import {
   BettererFileTest,
   BettererFiles,
   BettererFileIssuesRaw,
-  BettererFile,
   BettererFileIssueRaw,
   BettererFileIssueDeserialised,
   BettererFileIssues
@@ -68,7 +67,7 @@ export class BettererValidator {
             .map((run) => {
               const test = run.test as BettererFileTest;
               const files = run.result as BettererFiles;
-              const file = files.getFile(filePath) as BettererFile;
+              const file = files.getFile(filePath);
 
               const fileDiff = test?.diff?.[file.relativePath];
               let existingIssues: BettererFileIssues = [];

@@ -1,7 +1,7 @@
 {
   "name": "@betterer/eslint",
   "description": "ESLint test for @betterer/betterer",
-  "version": "1.2.0",
+  "version": "2.1.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -24,21 +24,15 @@
     "compile": "tsc -b ."
   },
   "dependencies": {
-    "@betterer/betterer": "^1.2.0",
-    "@betterer/errors": "^1.2.0",
-    "callsite": "^1.0.0",
-    "glob": "^7.1.4",
+    "@betterer/betterer": "^2.0.2",
+    "@betterer/errors": "^2.0.1",
     "lines-and-columns": "^1.1.6",
-    "minimatch": "^3.0.4",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "eslint": "*"
+    "eslint": ">=5.0.0"
   },
   "devDependencies": {
-    "@types/callsite": "^1.0.30",
-    "@types/glob": "^7.1.1",
-    "@types/minimatch": "^3.0.3",
-    "eslint": "*"
+    "eslint": ">=5.0.0"
   }
 }

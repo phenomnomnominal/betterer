@@ -1,5 +1,4 @@
-import { BettererFileTest, BettererFileIssuesMapRaw } from '@betterer/betterer';
-import * as stack from 'callsite';
+import { BettererFileTest, BettererFileIssuesMapRaw, BettererFileResolver } from '@betterer/betterer';
 import * as ts from 'typescript';
 import * as path from 'path';
 
@@ -7,7 +6,7 @@ import { CONFIG_PATH_REQUIRED, COMPILER_OPTIONS_REQUIRED } from './errors';
 
 const NEW_LINE = '\n';
 
-export function typescriptBetterer(configFilePath: string, extraCompilerOptions: ts.CompilerOptions): BettererFileTest {
+export function typescript(configFilePath: string, extraCompilerOptions: ts.CompilerOptions): BettererFileTest {
   if (!configFilePath) {
     throw CONFIG_PATH_REQUIRED();
   }
@@ -15,11 +14,10 @@ export function typescriptBetterer(configFilePath: string, extraCompilerOptions:
     throw COMPILER_OPTIONS_REQUIRED();
   }
 
-  const [, callee] = stack();
-  const cwd = path.dirname(callee.getFileName());
-  const absPath = path.resolve(cwd, configFilePath);
+  const resolver = new BettererFileResolver();
+  const absPath = resolver.resolve(configFilePath);
 
-  return new BettererFileTest((files) => {
+  return new BettererFileTest(resolver, async () => {
     const { config } = ts.readConfigFile(absPath, ts.sys.readFile.bind(ts.sys));
     const { compilerOptions } = config;
     const basePath = path.dirname(absPath);
@@ -38,12 +36,7 @@ export function typescriptBetterer(configFilePath: string, extraCompilerOptions:
     };
     const parsed = ts.parseJsonConfigFileContent(config, configHost, basePath);
 
-    if (files.length !== 0) {
-      files = parsed.fileNames.filter((fileName) => files.includes(fileName));
-    } else {
-      files = parsed.fileNames;
-    }
-
+    const files = await resolver.validate(parsed.fileNames);
     const program = ts.createProgram({
       ...parsed,
       rootNames: files,

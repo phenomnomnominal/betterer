@@ -6,10 +6,10 @@ describe('betterer', () => {
   it('should report the status of a new eslint rule with a complex set up', async () => {
     const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('test-betterer-eslint-complex', {
       '.betterer.ts': `
-import { eslintBetterer } from '@betterer/eslint';
+import { eslint } from '@betterer/eslint';
 
 export default {
-  'eslint enable no-debugger rule': eslintBetterer('./src/**/*.ts', ['no-debugger', 'error'])
+  'eslint enable no-debugger rule': eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
 };
       `,
       '.eslintrc.js': `
