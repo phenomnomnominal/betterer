@@ -11,11 +11,13 @@ export function startOptions(commander: CommanderStatic): void {
   tsconfigPathOption(commander);
   filtersOption(commander);
   ignoresOption(commander);
+  silentOption(commander);
   updateOption(commander);
 }
 
 export function watchOptions(commander: CommanderStatic): void {
   startOptions(commander);
+  silentOption(commander);
   updateOption(commander);
 }
 
@@ -41,6 +43,10 @@ function filtersOption(commander: CommanderStatic): void {
 
 function ignoresOption(commander: CommanderStatic): void {
   commander.option('-i, --ignore [value]', 'Glob pattern for files to ignore', argsToArray);
+}
+
+function silentOption(commander: CommanderStatic): void {
+  commander.option('-s, --silent', 'Disable all logging');
 }
 
 function updateOption(commander: CommanderStatic): void {

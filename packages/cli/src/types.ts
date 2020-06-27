@@ -5,6 +5,7 @@ export type CLIStartConfig = {
   filter: CLIArguments;
   tsconfig: string;
   results: string;
+  silent: boolean;
   update: boolean;
 };
 

@@ -17,18 +17,29 @@ const LOGO = chalk.yellowBright(`
  `);
 const NEW_LINE = '\n';
 
+let muted = false;
+
+export function mute(): void {
+  muted = true;
+}
+
+export function unmute(): void {
+  muted = false;
+}
+
 export function logo(): void {
-  console.log(LOGO);
+  log(LOGO);
 }
 
 export function br(): void {
-  console.log('');
+  log('');
 }
 
 const HEADING = chalk.bgBlack.yellowBright.bold(` ☀️  betterer `);
 
 let previousLogger: 'LOG' | 'CODE' = 'LOG';
 
+export const debug = createLogger(chalk.bgBlueBright.white(' debg '), chalk.bgBlack(' 🤔 '));
 export const success = createLogger(chalk.bgGreenBright.black(' succ '), chalk.bgBlack(' ✅ '));
 export const info = createLogger(chalk.bgWhiteBright.black(' info '), chalk.bgBlack(' 💬 '));
 export const warn = createLogger(chalk.bgYellowBright.black(' warn '), chalk.bgBlack(' ⚠️ '));
@@ -36,12 +47,18 @@ export const error = createLogger(chalk.bgRedBright.white(' erro '), chalk.bgBla
 
 const SPACER = chalk.bgBlack.yellowBright(' - ');
 
+function log(...args: Array<string>): void {
+  if (!muted) {
+    console.log(...args);
+  }
+}
+
 function createLogger(name: string, icon: string): BettererLogger {
   return function (...messages: BettererLoggerMessages): void {
     if (previousLogger === 'CODE') {
       br();
     }
-    console.log(`${HEADING}${name}${icon}${SPACER}`, ...messages.map((m) => chalk.whiteBright(m)));
+    log(`${HEADING}${name}${icon}${SPACER}`, ...messages.map((m) => chalk.whiteBright(m)));
     previousLogger = 'LOG';
   };
 }
@@ -66,11 +83,13 @@ export const code = function (codeInfo: BettererLoggerCodeInfo): void {
 
   const codeFrame = codeFrameColumns(fileText, { start, end }, options);
   const codeMessage = chalk.bgBlack.white(` ${message} ${NEW_LINE}`);
-  console.log(`${NEW_LINE}${ERROR_BLOCK}${codeMessage}${codeFrame}`);
+  log(`${NEW_LINE}${ERROR_BLOCK}${codeMessage}${codeFrame}`);
   previousLogger = 'CODE';
 };
 
 export function overwrite(content: string): BettererLoggerOverwriteDone {
-  logUpdate(`${LOGO}${NEW_LINE}${content}`);
+  if (!muted) {
+    logUpdate(`${LOGO}${NEW_LINE}${content}`);
+  }
   return logUpdate.done.bind(logUpdate);
 }

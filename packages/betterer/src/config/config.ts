@@ -1,3 +1,4 @@
+import { mute, unmute } from '@betterer/logger';
 import * as path from 'path';
 
 import { isString, isUndefined } from '../utils';
@@ -15,9 +16,12 @@ export function createConfig(partialConfig: BettererConfigPartial): BettererConf
     filters: toRegExps(toArray(partialConfig.filters || baseConfig.filters)),
     ignores: toArray<string>(partialConfig.ignores || baseConfig.ignores),
     cwd: partialConfig.cwd || baseConfig.cwd || process.cwd(),
+    silent: partialConfig.silent || baseConfig.silent || false,
     update: partialConfig.update || baseConfig.update || false
   };
   const tsconfigPath = partialConfig.tsconfigPath || baseConfig.tsconfigPath;
+
+  relativeConfig.silent ? mute() : unmute();
 
   return {
     ...relativeConfig,
