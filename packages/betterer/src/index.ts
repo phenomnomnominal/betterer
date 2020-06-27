@@ -3,6 +3,7 @@ import { BettererConfig, BettererConfigPartial, createConfig } from './config';
 import { BettererContext, BettererStats, BettererRuns } from './context';
 import { reporterParallel, reporterSerial } from './reporters';
 import { parallel, serial } from './runner';
+import { BettererScores, score } from './scorer';
 import { BettererWatcher } from './watcher';
 import { registerExtensions } from './register';
 
@@ -10,6 +11,7 @@ export * from './config/public';
 export * from './context/public';
 export * from './reporters/public';
 export * from './results/public';
+export * from './scorer/public';
 export * from './test/public';
 export * from './watcher/public';
 
@@ -35,6 +37,10 @@ betterer.single = async function bettererSingle(
     context.tearDown();
     return runs;
   });
+};
+
+betterer.score = async function bettererScore(partialConfig: BettererConfigPartial = {}): Promise<BettererScores> {
+  return await score(createConfig(partialConfig));
 };
 
 betterer.watch = function bettererWatch(partialConfig: BettererConfigPartial = {}): Promise<BettererWatcher> {

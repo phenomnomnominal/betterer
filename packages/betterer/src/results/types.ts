@@ -5,10 +5,8 @@ export type BettererResult = {
   value: unknown;
 };
 export type BettererResults = Record<string, BettererResult>;
-export type BettererExpectedResult =
-  | {
-      timestamp: number;
-      value: string;
-    }
-  | typeof NO_PREVIOUS_RESULT;
+export type BettererExpectedResult = {
+  timestamp: number;
+  value: string;
+};
 export type BettererExpectedResults = Record<string, BettererExpectedResult>;

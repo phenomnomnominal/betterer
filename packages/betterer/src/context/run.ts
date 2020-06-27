@@ -31,7 +31,7 @@ export class BettererRun {
   constructor(
     private readonly _context: BettererContext,
     private readonly _test: BettererTest,
-    expected: BettererExpectedResult,
+    expected: BettererExpectedResult | typeof NO_PREVIOUS_RESULT,
     private readonly _files: BettererFilePaths
   ) {
     if (expected === NO_PREVIOUS_RESULT) {
