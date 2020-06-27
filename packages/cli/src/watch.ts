@@ -9,7 +9,7 @@ export async function watch(cwd: string, argv: CLIArguments): Promise<void> {
 
   commander.parse(argv as Array<string>);
 
-  const { config, results, filter, ignore, tsconfig } = (commander as unknown) as CLIWatchConfig;
+  const { config, results, filter, ignore, silent, tsconfig } = (commander as unknown) as CLIWatchConfig;
 
   const watcher = await betterer.watch({
     configPaths: config,
@@ -17,7 +17,8 @@ export async function watch(cwd: string, argv: CLIArguments): Promise<void> {
     filters: filter,
     ignores: ignore,
     resultsPath: results,
-    tsconfigPath: tsconfig
+    tsconfigPath: tsconfig,
+    silent
   });
 
   return new Promise((): void => {
