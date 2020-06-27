@@ -30,7 +30,7 @@ export class BettererContext {
   private _finish: Function | null = null;
 
   constructor(public readonly config: BettererConfig, private _reporter?: BettererReporter) {
-    this._reporter?.contextStart?.();
+    this._reporter?.contextStart?.(this);
   }
 
   public async setup(): Promise<void> {
@@ -46,13 +46,12 @@ export class BettererContext {
   public tearDown(): void {
     assert.equal(this._status, BettererContextStatus.end);
     assert(this._stats);
-    this._reporter?.contextEnd?.(this._stats);
+    this._reporter?.contextEnd?.(this, this._stats);
   }
 
   public async runnerStart(files: BettererFilePaths = []): Promise<BettererRuns> {
     assert.equal(this._status, BettererContextStatus.ready);
     this._stats = new BettererStats();
-    this._reporter?.runsStart?.(files);
     const expectedRaw = await this._initExpected();
     const runs = this._tests.map((test) => {
       const { name } = test;
@@ -62,6 +61,7 @@ export class BettererContext {
       }
       return new BettererRun(this, test, expected, files);
     });
+    this._reporter?.runsStart?.(runs, files);
     this._status = BettererContextStatus.running;
     this._running = new Promise((resolve) => {
       this._finish = resolve;
@@ -147,7 +147,7 @@ export class BettererContext {
       error = e;
     }
     if (error) {
-      this._reporter?.contextError?.(error, printed);
+      this._reporter?.contextError?.(this, error, printed);
     }
     return this._stats;
   }

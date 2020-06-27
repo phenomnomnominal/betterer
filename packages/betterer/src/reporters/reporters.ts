@@ -1,61 +1,78 @@
 import { BettererError, logError } from '@betterer/errors';
 import { error, info, success, warn, logo, overwrite, br } from '@betterer/logger';
 
-import { BettererStats, BettererRuns, BettererRun } from '../context';
+import { BettererContext, BettererRun, BettererRuns, BettererStats } from '../context';
+import {
+  watchEnd,
+  watchStart,
+  filesChecked,
+  filesChecking,
+  testBetter,
+  testComplete,
+  testExpired,
+  testFailed,
+  testNew,
+  testRunning,
+  testSame,
+  testSkipped,
+  testWorse,
+  testObsolete
+} from '../messages';
 import { diff } from '../results';
 import { BettererFilePaths } from '../watcher';
 import { BettererReporter } from './types';
 
-function contextError(error: BettererError, printed: Array<string>): void {
+function contextError(_: BettererContext, error: BettererError, printed: Array<string>): void {
   logError(error);
   process.stdout.write(printed.join(''));
 }
 
 export const reporterParallel: BettererReporter = {
   contextStart(): void {
-    info('Running betterer in watch mode 🎉');
+    info(watchStart());
   },
   contextEnd(): void {
-    info('Stopping watch mode 👋');
+    info(watchEnd());
   },
   contextError,
-  runsStart(files: BettererFilePaths): void {
-    overwrite(`checking ${files.length} files... 🤔`);
+  runsStart(_: BettererRuns, files: BettererFilePaths): void {
+    overwrite(filesChecking(files.length));
   },
   runsEnd(runs: BettererRuns, files: BettererFilePaths): void {
-    let report = `  checked ${files.length} files:\n`;
+    let report = `  ${filesChecked(files.length)}:\n`;
     files.forEach((filePath) => {
       report += `\n    ${filePath}`;
     });
     report += '\n';
     runs.forEach((run) => {
-      const { name } = run;
+      const name = quote(run.name);
+
       if (run.isBetter) {
-        report += `\n  "${name}" got better! 😍`;
+        report += `\n  ${testBetter(name)}`;
         return;
       }
       if (run.isExpired) {
-        report += `\n  "${name}" has passed its deadline. ☠️`;
+        report += `\n  ${testExpired(name)}`;
         return;
       }
       if (run.isFailed) {
-        report += `\n  "${run.name}" failed to run. 🔥`;
+        report += `\n  ${testFailed(run.name)}`;
         return;
       }
       if (run.isNew) {
-        report += `\n  "${name}" got checked for the first time! 🎉`;
+        report += `\n  ${testNew(name)}`;
         return;
       }
       if (run.isSame) {
-        report += `\n  "${name}" stayed the same. 😐`;
+        report += `\n  ${testSame(name)}`;
         return;
       }
       if (run.isWorse) {
-        report += `\n  "${name}" got worse. 😔`;
+        report += `\n  ${testWorse(name)}`;
         return;
       }
       if (run.isComplete) {
-        report += `\n  "${name}"${run.isNew ? ' already' : ''} met its goal! 🎉`;
+        report += `\n  ${testComplete(name, run.isNew)}`;
         return;
       }
     });
@@ -67,86 +84,82 @@ export const reporterSerial: BettererReporter = {
   contextStart(): void {
     logo();
   },
-  contextEnd(stats: BettererStats): void {
+  contextEnd(_: BettererContext, stats: BettererStats): void {
     const ran = stats.ran.length;
     const failed = stats.failed.length;
     const neww = stats.new.length;
-    const obsolete = stats.obsolete.length;
     const better = stats.better.length;
     const worse = stats.worse.length;
     const same = stats.same.length;
     const skipped = stats.skipped.length;
-    const { completed, expired } = stats;
+    const { completed, expired, obsolete } = stats;
 
-    info(`${ran} ${getTests(ran)} got checked. 🤔`);
+    info(`${getTests(ran)} got checked. 🤔`);
     if (expired) {
       expired.forEach((testName) => {
-        error(`"${testName}" has passed its deadline. ☠️`);
+        error(testExpired(quote(testName)));
       });
     }
     if (failed) {
-      error(`${failed} ${getTests(failed)} failed to run. 🔥`);
+      error(testFailed(getTests(failed)));
     }
     if (neww) {
-      info(`${neww} ${getTests(neww)} got checked for the first time! 🎉`);
+      info(testNew(getTests(neww)));
     }
     if (obsolete) {
-      info(`${obsolete} ${getTestsAre(obsolete)} are no longer needed! 🤪`);
+      obsolete.forEach((testName) => {
+        error(testObsolete(quote(testName)));
+      });
     }
     if (better) {
-      success(`${better} ${getTests(better)} got better! 😍`);
+      success(testBetter(getTests(better)));
     }
     if (completed.length) {
       completed.forEach((testName) => {
-        success(`"${testName}" met its goal! 🎉`);
+        success(testComplete(quote(testName)));
       });
     }
     if (worse) {
-      error(`${worse} ${getTests(worse)} got worse. 😔`);
+      error(testWorse(getTests(worse)));
     }
     if (same) {
-      warn(`${same} ${getTests(same)} stayed the same. 😐`);
+      warn(testSame(getTests(same)));
     }
     if (skipped) {
-      warn(`${skipped} ${getTests(skipped)} got skipped. ❌`);
+      warn(testSkipped(getTests(skipped)));
     }
   },
   contextError,
   runStart(run: BettererRun): void {
-    const { isExpired, name } = run;
-    if (isExpired) {
-      error(`"${name}" has passed its deadline. ☠️`);
+    const name = quote(run.name);
+    if (run.isExpired) {
+      error(testExpired(name));
     }
-    info(`running "${name}"!`);
+    info(testRunning(name));
   },
   runEnd(run: BettererRun): void {
-    const { name } = run;
+    const name = quote(run.name);
+    if (run.isComplete) {
+      success(testComplete(name, run.isNew));
+      return;
+    }
     if (run.isBetter) {
-      if (run.isComplete) {
-        success(`"${name}" met its goal! 🎉`);
-        return;
-      }
-      success(`"${name}" got better! 😍`);
+      success(testBetter(name));
       return;
     }
     if (run.isFailed) {
-      error(`"${run.name}" failed to run. 🔥`);
+      error(testFailed(name));
       return;
     }
     if (run.isNew) {
-      if (run.isComplete) {
-        success(`"${name}" has already met its goal! ✨`);
-        return;
-      }
-      success(`"${name}" got checked for the first time! 🎉`);
+      success(testNew(name));
       return;
     }
     if (run.isSame) {
-      warn(`"${name}" stayed the same. 😐`);
+      warn(testSame(name));
     }
     if (run.isWorse) {
-      const { name } = run;
-      error(`"${name}" got worse. 😔`);
+      error(testWorse(name));
       br();
       diff(run);
       br();
@@ -155,9 +168,15 @@ export const reporterSerial: BettererReporter = {
 };
 
 function getTests(count: number): string {
-  return count === 1 ? 'test' : 'tests';
+  return `${count} ${count === 1 ? 'test' : 'tests'}`;
 }
 
-function getTestsAre(count: number): string {
-  return `${getTests(count)} ${count === 1 ? 'is' : 'are'}`;
+function quote(str: string): string {
+  if (!str.startsWith('"')) {
+    str = `"${str}`;
+  }
+  if (!str.endsWith('"')) {
+    str = `${str}"`;
+  }
+  return str;
 }

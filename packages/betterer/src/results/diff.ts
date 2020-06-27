@@ -19,6 +19,6 @@ function defaultDiff(run: BettererRun): void {
   const diffStr = logDiff(result, expected, DIFF_OPTIONS) || '';
   const lines = diffStr.split(NEW_LINE);
   lines.forEach((line) => {
-    console.log(`  ${line}`);
+    process.stdout.write(`  ${line}`);
   });
 }

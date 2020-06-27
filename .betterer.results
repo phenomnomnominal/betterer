@@ -10,21 +10,13 @@ exports[`no hack comments`] = {
     ]
   }`
 };
-exports[`no raw console.log`] = {
-  timestamp: 1589384448404,
-  value: `{
-    "packages/betterer/src/results/diff.ts:1023811315": [
-      [21, 4, 11, "TSQuery match", "3870399096"]
-    ]
-  }`
-};
 exports[`new eslint rules`] = {
   timestamp: 1593096621756,
   value: `{
     "packages/betterer/src/config/config.ts:4152254717": [
       [34, 2, 72, "Unsafe return of an any[] typed value", "2233173152"]
     ],
-    "packages/betterer/src/context/context.ts:3853906370": [
+    "packages/betterer/src/context/context.ts:1823827282": [
       [29, 19, 8, "Don\'t use \`Function\` as a type. The \`Function\` type accepts any function-like value.\\nIt provides no type safety when calling the function, which can be a common source of bugs.\\nIt also accepts things like class declarations, which will throw at runtime as they will not be called with \`new\`.\\nIf you are expecting the function to accept certain arguments, you should explicitly define the function shape.", "4136871687"],
       [146, 6, 9, "Unsafe assignment of an any value.", "166477157"]
     ],
