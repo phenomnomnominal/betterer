@@ -9,10 +9,11 @@ export function score(cwd: string, argv: CLIArguments): Promise<BettererScores> 
 
   commander.parse(argv as Array<string>);
 
-  const { results } = (commander as unknown) as CLIScoreConfig;
+  const { results, silent } = (commander as unknown) as CLIScoreConfig;
 
   return betterer.score({
     cwd,
-    resultsPath: results
+    resultsPath: results,
+    silent
   });
 }

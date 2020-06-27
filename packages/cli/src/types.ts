@@ -15,4 +15,5 @@ export type CLIWatchConfig = CLIStartConfig & {
 
 export type CLIScoreConfig = {
   results: string;
+  silent: boolean;
 };

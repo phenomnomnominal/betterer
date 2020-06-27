@@ -6,6 +6,7 @@ export function initOptions(commander: CommanderStatic): void {
 }
 
 export function scoreOptions(commander: CommanderStatic): void {
+  silentOption(commander);
   resultsPathOption(commander);
 }
 

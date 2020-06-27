@@ -39,7 +39,7 @@ const HEADING = chalk.bgBlack.yellowBright.bold(` ☀️  betterer `);
 
 let previousLogger: 'LOG' | 'CODE' = 'LOG';
 
-export const debug = createLogger(chalk.bgBlueBright.white(' debg '), chalk.bgBlack(' 🤔 '));
+export const debug = createLogger(chalk.bgBlue.white(' debg '), chalk.bgBlack(' 🤔 '));
 export const success = createLogger(chalk.bgGreenBright.black(' succ '), chalk.bgBlack(' ✅ '));
 export const info = createLogger(chalk.bgWhiteBright.black(' info '), chalk.bgBlack(' 💬 '));
 export const warn = createLogger(chalk.bgYellowBright.black(' warn '), chalk.bgBlack(' ⚠️ '));
