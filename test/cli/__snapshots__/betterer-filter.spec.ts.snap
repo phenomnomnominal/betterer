@@ -41,7 +41,7 @@ Array [
   " ☀️  betterer  warn  ⚠️  - ",
   "1 test stayed the same. 😐",
   " ☀️  betterer  warn  ⚠️  - ",
-  "2 tests got skipped. ❌",
+  "2 tests got skipped. 🚫",
   "
    / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
@@ -62,6 +62,6 @@ Array [
   " ☀️  betterer  warn  ⚠️  - ",
   "2 tests stayed the same. 😐",
   " ☀️  betterer  warn  ⚠️  - ",
-  "1 test got skipped. ❌",
+  "1 test got skipped. 🚫",
 ]
 `;

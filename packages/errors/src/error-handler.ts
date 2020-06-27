@@ -16,6 +16,7 @@ export function logError(err: ErrorLike | Error | BettererError): void {
     return;
   }
   br();
+  // eslint-disable-next-line no-console
   console.error(err.stack);
   br();
 }
