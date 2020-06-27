@@ -10,6 +10,7 @@ export type BettererConfigPartial = Partial<{
   ignores: BettererConfigIgnore | string;
   cwd: string;
   update: boolean;
+  silent: boolean;
 }>;
 
 export type BettererConfig = {
@@ -20,4 +21,5 @@ export type BettererConfig = {
   ignores: BettererConfigIgnore;
   cwd: string;
   update: boolean;
+  silent: boolean;
 };
