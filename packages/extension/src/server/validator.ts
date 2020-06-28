@@ -6,6 +6,7 @@ import {
   BettererFileIssueDeserialised,
   BettererFileIssues
 } from '@betterer/betterer';
+import * as assert from 'assert';
 import { IConnection, TextDocuments, Diagnostic, DiagnosticSeverity, Position } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { URI } from 'vscode-uri';
@@ -68,6 +69,7 @@ export class BettererValidator {
               const test = run.test as BettererFileTest;
               const files = run.result as BettererFiles;
               const file = files.getFile(filePath);
+              assert(file);
 
               const fileDiff = test?.diff?.[file.relativePath];
               let existingIssues: BettererFileIssues = [];

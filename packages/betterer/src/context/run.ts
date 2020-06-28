@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 
-import { BettererExpectedResult, NO_PREVIOUS_RESULT, deserialise } from '../results';
+import { BettererExpectedResult, NO_PREVIOUS_RESULT, deserialise, diff } from '../results';
 import { BettererTest } from '../test';
 import { BettererFilePaths } from '../watcher';
 import { BettererContext } from './context';
@@ -186,5 +186,9 @@ export class BettererRun {
     this._toPrint = this._context.config.update ? this._result : this._expected;
     this._hasResult = true;
     this._context.runWorse(this);
+  }
+
+  public diff(): void {
+    diff(this);
   }
 }

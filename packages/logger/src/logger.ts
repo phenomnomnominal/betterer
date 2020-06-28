@@ -49,6 +49,7 @@ const SPACER = chalk.bgBlack.yellowBright(' - ');
 
 function log(...args: Array<string>): void {
   if (!muted) {
+    // eslint-disable-next-line no-console
     console.log(...args);
   }
 }

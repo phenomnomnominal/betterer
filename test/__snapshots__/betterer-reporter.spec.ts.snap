@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`betterer --reporter should throw when a hook is not a function 1`] = `
+Array [
+  " ☀️  betterer  erro  🔥  - ",
+  "could not require \\"<project>/fixtures/test-betterer-reporter-hook-not-a-function/reporter.js\\". 😔",
+  " ☀️  betterer  erro  🔥  - ",
+  "\\"contextStart\\" is not a function. 😔",
+]
+`;
+
+exports[`betterer --reporter should throw when there is an invalid hook 1`] = `
+Array [
+  " ☀️  betterer  erro  🔥  - ",
+  "could not require \\"<project>/fixtures/test-betterer-reporter-invalid-hook/reporter.js\\". 😔",
+  " ☀️  betterer  erro  🔥  - ",
+  "\\"notAHook\\" is not a valid reporter hook name. 😔",
+]
+`;
+
+exports[`betterer --reporter should throw when there is nothing exported 1`] = `
+Array [
+  " ☀️  betterer  erro  🔥  - ",
+  "could not require \\"<project>/fixtures/test-betterer-reporter-nothing/reporter.js\\". 😔",
+  " ☀️  betterer  erro  🔥  - ",
+  "\\"<project>/fixtures/test-betterer-reporter-nothing/reporter.js\\" didn't create a reporter. 😔",
+]
+`;

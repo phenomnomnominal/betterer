@@ -15,15 +15,14 @@ export function startOptions(commander: CommanderStatic): void {
   resultsPathOption(commander);
   tsconfigPathOption(commander);
   filtersOption(commander);
-  ignoresOption(commander);
   silentOption(commander);
   updateOption(commander);
+  reportersOption(commander);
 }
 
 export function watchOptions(commander: CommanderStatic): void {
   startOptions(commander);
-  silentOption(commander);
-  updateOption(commander);
+  ignoresOption(commander);
 }
 
 function configPathOption(commander: CommanderStatic): void {
@@ -31,7 +30,11 @@ function configPathOption(commander: CommanderStatic): void {
 }
 
 function configPathsOption(commander: CommanderStatic): void {
-  commander.option('-c, --config [value]', 'Path to test definition file relative to CWD', argsToArray);
+  commander.option(
+    '-c, --config [value]',
+    'Path to test definition file relative to CWD. Takes multiple values',
+    argsToArray
+  );
 }
 
 function resultsPathOption(commander: CommanderStatic): void {
@@ -43,11 +46,19 @@ function tsconfigPathOption(commander: CommanderStatic): void {
 }
 
 function filtersOption(commander: CommanderStatic): void {
-  commander.option('-f, --filter [value]', 'RegExp filter for tests to run', argsToArray);
+  commander.option('-f, --filter [value]', 'RegExp filter for tests to run. Takes multiple values', argsToArray);
 }
 
 function ignoresOption(commander: CommanderStatic): void {
-  commander.option('-i, --ignore [value]', 'Glob pattern for files to ignore', argsToArray);
+  commander.option('-i, --ignore [value]', 'Glob pattern for files to ignore. Takes multiple values', argsToArray);
+}
+
+function reportersOption(commander: CommanderStatic): void {
+  commander.option(
+    '-R, --reporter [value]',
+    'npm package name for a Betterer reporter. Takes multiple values',
+    argsToArray
+  );
 }
 
 function silentOption(commander: CommanderStatic): void {

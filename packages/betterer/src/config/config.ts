@@ -17,7 +17,8 @@ export function createConfig(partialConfig: BettererConfigPartial): BettererConf
     ignores: toArray<string>(partialConfig.ignores || baseConfig.ignores),
     cwd: partialConfig.cwd || baseConfig.cwd || process.cwd(),
     silent: partialConfig.silent || baseConfig.silent || false,
-    update: partialConfig.update || baseConfig.update || false
+    update: partialConfig.update || baseConfig.update || false,
+    reporters: partialConfig.reporters || baseConfig.reporters || []
   };
   const tsconfigPath = partialConfig.tsconfigPath || baseConfig.tsconfigPath;
 

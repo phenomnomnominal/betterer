@@ -25,6 +25,7 @@ const WIP_RULES = {
 
 const OVERRIDE_RULES = {
   ...BASE_RULES,
+  'no-console': 2,
   '@typescript-eslint/unbound-method': 0,
   '@typescript-eslint/no-use-before-define': [2, { functions: false }],
   '@typescript-eslint/member-ordering': 2,
