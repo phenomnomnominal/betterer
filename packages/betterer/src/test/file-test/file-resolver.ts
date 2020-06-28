@@ -66,6 +66,7 @@ export class BettererFileResolver {
     await Promise.all(
       this._included.map(async (currentGlob) => {
         const globFiles = await globby(currentGlob, {
+          cwd: this.cwd,
           gitignore: true
         });
         resolvedPaths.push(...globFiles);
