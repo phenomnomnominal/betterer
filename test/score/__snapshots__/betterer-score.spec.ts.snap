@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`betterer score should score authors based on git history 1`] = `
+Object {
+  "Blossom": 505,
+  "Bubbles": 2,
+  "Buttercup": 6,
+  "Mojo Jojo": -3,
+}
+`;
+
+exports[`betterer score should score authors based on git history 2`] = `
+Array [
+  " ☀️  betterer  info  💬  - ",
+  "🏆 Betterer leaderboard! 🏆",
+  " ☀️  betterer  succ  ✅  - ",
+  "🥇 Blossom on 505 points",
+  " ☀️  betterer  succ  ✅  - ",
+  "🥈 Buttercup on 6 points",
+  " ☀️  betterer  succ  ✅  - ",
+  "🥉 Bubbles on 2 points",
+  " ☀️  betterer  erro  🔥  - ",
+  "👍 Mojo Jojo on -3 points",
+]
+`;

@@ -55,11 +55,11 @@ export class BettererContext {
     const expectedRaw = await this._initExpected();
     const runs = this._tests.map((test) => {
       const { name } = test;
-      let expected: BettererExpectedResult = NO_PREVIOUS_RESULT;
+      let expected: BettererExpectedResult | null = null;
       if (Object.hasOwnProperty.call(expectedRaw, name)) {
         expected = expectedRaw[name];
       }
-      return new BettererRun(this, test, expected, files);
+      return new BettererRun(this, test, expected || NO_PREVIOUS_RESULT, files);
     });
     this._reporter?.runsStart?.(runs, files);
     this._status = BettererContextStatus.running;

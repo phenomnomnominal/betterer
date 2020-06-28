@@ -5,10 +5,11 @@ import { CLIArguments } from './types';
 const enum Commands {
   start = 'start',
   init = 'init',
-  watch = 'watch'
+  watch = 'watch',
+  score = 'score'
 }
 
-const COMMANDS: Array<string> = [Commands.start, Commands.init, Commands.watch];
+const COMMANDS: Array<string> = [Commands.start, Commands.score, Commands.init, Commands.watch];
 
 // HACK:
 // It's easier to use require than to try to get `await import`
@@ -20,6 +21,7 @@ export function cli(argv: CLIArguments): void {
   commander.version(version);
 
   commander.command(Commands.init, 'init Betterer in a project');
+  commander.command(Commands.score, 'see who is making your code the most Betterer');
   commander.command(Commands.start, 'run Betterer');
   commander.command(Commands.watch, 'run Betterer in watch mode');
 
