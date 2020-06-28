@@ -13,3 +13,5 @@ export const COULDNT_LOAD_REPORTER = registerError((reporterName) => `could not 
 export const NO_REPORTER_LOADED = registerError((reporterName) => `"${reporterName}" didn't create a reporter. 😔`);
 export const UNKNOWN_HOOK_NAME = registerError((hookName) => `"${hookName}" is not a valid reporter hook name. 😔`);
 export const HOOK_NOT_A_FUNCTION = registerError((hookName) => `"${hookName}" is not a function. 😔`);
+
+export const COULDNT_GET_SCORES = registerError(() => `couldn't get score, \`git show\` failed.`);

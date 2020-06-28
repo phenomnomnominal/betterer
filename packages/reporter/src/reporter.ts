@@ -1,8 +1,9 @@
 import { error, info, success, warn, logo, br } from '@betterer/logger';
 
-import { BettererContext, BettererReporter, BettererRun, BettererStats } from '@betterer/betterer';
+import { BettererContext, BettererReporter, BettererRun, BettererStats, BettererScores } from '@betterer/betterer';
 import {
   testBetter,
+  testChecked,
   testComplete,
   testExpired,
   testFailed,
@@ -11,7 +12,10 @@ import {
   testSame,
   testSkipped,
   testWorse,
-  testObsolete
+  testObsolete,
+  scoreHeader,
+  scoreList,
+  getTests
 } from './messages';
 import { contextError, quote } from './utils';
 
@@ -29,7 +33,7 @@ export const defaultReporter: BettererReporter = {
     const skipped = stats.skipped.length;
     const { completed, expired, obsolete } = stats;
 
-    info(`${getTests(ran)} got checked. 🤔`);
+    info(testChecked(getTests(ran)));
     if (expired) {
       expired.forEach((testName) => {
         error(testExpired(quote(testName)));
@@ -99,9 +103,22 @@ export const defaultReporter: BettererReporter = {
       run.diff();
       br();
     }
+  },
+  score(scores: BettererScores): void {
+    const authorScores = Object.entries(scores);
+    const sorted = authorScores.sort(([, aScore], [, bScore]) => bScore - aScore);
+    info(scoreHeader());
+    sorted.forEach(([author, score], index) => {
+      const result = scoreList(author, score, index);
+      if (score > 0 && index < 3) {
+        success(result);
+        return;
+      }
+      if (score > 0) {
+        warn(result);
+        return;
+      }
+      error(result);
+    });
   }
 };
-
-function getTests(count: number): string {
-  return `${count} ${count === 1 ? 'test' : 'tests'}`;
-}

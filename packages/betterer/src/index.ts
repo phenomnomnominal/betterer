@@ -42,7 +42,9 @@ betterer.single = async function bettererSingle(
 };
 
 betterer.score = async function bettererScore(partialConfig: BettererConfigPartial = {}): Promise<BettererScores> {
-  return await score(createConfig(partialConfig));
+  const config = createConfig(partialConfig);
+  const reporter = loadReporters(config.reporters.length ? config.reporters : [DEFAULT_REPORTER]);
+  return await score(config, reporter);
 };
 
 betterer.watch = function bettererWatch(partialConfig: BettererConfigPartial = {}): Promise<BettererWatcher> {

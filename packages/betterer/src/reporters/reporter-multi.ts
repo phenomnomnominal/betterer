@@ -1,6 +1,7 @@
 import { BettererError } from '@betterer/errors';
 
 import { BettererContext, BettererRun, BettererRuns, BettererStats } from '../context';
+import { BettererScores } from '../scorer';
 import { BettererFilePaths } from '../test';
 import { BettererReporter } from './types';
 
@@ -27,5 +28,8 @@ export class BettererMultiReporter implements BettererReporter {
   }
   runEnd(run: BettererRun): void {
     this._reporters.forEach((r) => r.runEnd?.(run));
+  }
+  score(scores: BettererScores): void {
+    this._reporters.forEach((r) => r.score?.(scores));
   }
 }

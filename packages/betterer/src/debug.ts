@@ -13,8 +13,8 @@ export const scorer = {
   addTest(author: string, testName: string, addScore: number): string {
     return `"${author}" added test "${testName}": +${addScore} points`;
   },
-  removeTest(author: string, testName: string, removeScore: number): string {
-    return `"${author}" removed test "${testName}": -${removeScore} points`;
+  completeTest(author: string, testName: string, removeScore: number): string {
+    return `"${author}" completed test "${testName}": +${removeScore} points`;
   },
   changeIssues(author: string, testName: string, changeScore: number): string | void {
     if (changeScore > 0) {
