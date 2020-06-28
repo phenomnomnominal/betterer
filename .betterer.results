@@ -11,7 +11,7 @@ exports[`no hack comments`] = {
   }`
 };
 exports[`new eslint rules`] = {
-  timestamp: 1593096621756,
+  timestamp: 1593340893272,
   value: `{
     "packages/betterer/src/config/config.ts:4152254717": [
       [34, 2, 72, "Unsafe return of an any[] typed value", "2233173152"]
@@ -115,12 +115,9 @@ exports[`new eslint rules`] = {
       [63, 4, 71, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2936064845"],
       [69, 6, 27, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "3607138074"]
     ],
-    "packages/extension/src/server/validator.ts:3637606391": [
-      [47, 10, 90, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "1821734533"],
-      [71, 44, 17, "Computed name [file.relativePath] resolves to an any value.", "50828020"],
-      [79, 16, 26, "Unsafe assignment of an any value.", "3761557800"],
-      [81, 16, 31, "Unsafe assignment of an any value.", "3291696295"],
-      [93, 12, 94, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2449957056"]
+    "packages/extension/src/server/validator.ts:3258157153": [
+      [48, 10, 90, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "1821734533"],
+      [95, 12, 94, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2449957056"]
     ],
     "packages/typescript/src/typescript.ts:405611543": [
       [20, 12, 6, "Unsafe array destructuring of a tuple element with an any value.", "1544266319"],
