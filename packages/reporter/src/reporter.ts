@@ -1,12 +1,7 @@
-import { BettererError, logError } from '@betterer/errors';
-import { error, info, success, warn, logo, overwrite, br } from '@betterer/logger';
+import { error, info, success, warn, logo, br } from '@betterer/logger';
 
-import { BettererContext, BettererRun, BettererRuns, BettererStats } from '../context';
+import { BettererContext, BettererReporter, BettererRun, BettererStats } from '@betterer/betterer';
 import {
-  watchEnd,
-  watchStart,
-  filesChecked,
-  filesChecking,
   testBetter,
   testComplete,
   testExpired,
@@ -17,70 +12,10 @@ import {
   testSkipped,
   testWorse,
   testObsolete
-} from '../messages';
-import { diff } from '../results';
-import { BettererFilePaths } from '../watcher';
-import { BettererReporter } from './types';
+} from './messages';
+import { contextError, quote } from './utils';
 
-function contextError(_: BettererContext, error: BettererError, printed: Array<string>): void {
-  logError(error);
-  process.stdout.write(printed.join(''));
-}
-
-export const reporterParallel: BettererReporter = {
-  contextStart(): void {
-    info(watchStart());
-  },
-  contextEnd(): void {
-    info(watchEnd());
-  },
-  contextError,
-  runsStart(_: BettererRuns, files: BettererFilePaths): void {
-    overwrite(filesChecking(files.length));
-  },
-  runsEnd(runs: BettererRuns, files: BettererFilePaths): void {
-    let report = `  ${filesChecked(files.length)}:\n`;
-    files.forEach((filePath) => {
-      report += `\n    ${filePath}`;
-    });
-    report += '\n';
-    runs.forEach((run) => {
-      const name = quote(run.name);
-
-      if (run.isBetter) {
-        report += `\n  ${testBetter(name)}`;
-        return;
-      }
-      if (run.isExpired) {
-        report += `\n  ${testExpired(name)}`;
-        return;
-      }
-      if (run.isFailed) {
-        report += `\n  ${testFailed(run.name)}`;
-        return;
-      }
-      if (run.isNew) {
-        report += `\n  ${testNew(name)}`;
-        return;
-      }
-      if (run.isSame) {
-        report += `\n  ${testSame(name)}`;
-        return;
-      }
-      if (run.isWorse) {
-        report += `\n  ${testWorse(name)}`;
-        return;
-      }
-      if (run.isComplete) {
-        report += `\n  ${testComplete(name, run.isNew)}`;
-        return;
-      }
-    });
-    overwrite(report);
-  }
-};
-
-export const reporterSerial: BettererReporter = {
+export const defaultReporter: BettererReporter = {
   contextStart(): void {
     logo();
   },
@@ -161,7 +96,7 @@ export const reporterSerial: BettererReporter = {
     if (run.isWorse) {
       error(testWorse(name));
       br();
-      diff(run);
+      run.diff();
       br();
     }
   }
@@ -169,14 +104,4 @@ export const reporterSerial: BettererReporter = {
 
 function getTests(count: number): string {
   return `${count} ${count === 1 ? 'test' : 'tests'}`;
-}
-
-function quote(str: string): string {
-  if (!str.startsWith('"')) {
-    str = `"${str}`;
-  }
-  if (!str.endsWith('"')) {
-    str = `${str}"`;
-  }
-  return str;
 }
