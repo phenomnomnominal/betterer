@@ -1,10 +1,3 @@
-export function filesChecking(files: number): string {
-  return `checking ${files} files... 🤔`;
-}
-export function filesChecked(files: number): string {
-  return `checked ${files} files`;
-}
-
 export function testBetter(context: string): string {
   return `${context} got better! 😍`;
 }
@@ -34,11 +27,4 @@ export function testSkipped(context: string): string {
 }
 export function testWorse(context: string): string {
   return `${context} got worse. 😔`;
-}
-
-export function watchStart(): string {
-  return 'Running betterer in watch mode 🎉';
-}
-export function watchEnd(): string {
-  return 'Stopping watch mode 👋';
 }

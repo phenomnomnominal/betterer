@@ -9,15 +9,16 @@ export function start(cwd: string, argv: CLIArguments): Promise<BettererStats> {
 
   commander.parse(argv as Array<string>);
 
-  const { config, results, filter, tsconfig, silent, update } = (commander as unknown) as CLIStartConfig;
+  const { config, results, filter, silent, reporter, tsconfig, update } = (commander as unknown) as CLIStartConfig;
 
   return betterer({
     configPaths: config,
     cwd,
     filters: filter,
+    reporters: reporter,
     resultsPath: results,
-    tsconfigPath: tsconfig,
     silent,
+    tsconfigPath: tsconfig,
     update
   });
 }

@@ -12,3 +12,9 @@ export type BettererReporter = {
   runStart?(run: BettererRun): void;
   runEnd?(run: BettererRun): void;
 };
+
+export type BettererReporterNames = ReadonlyArray<string>;
+
+export type BettererReporterModule = {
+  reporter: BettererReporter;
+};
