@@ -9,7 +9,7 @@ import { BettererExpectedResults } from '../results';
 import { BettererScores } from './types';
 
 const ADDED_BETTERER = 500;
-const SCORE_LOG_ARGS = ['--stat', '--decorate', '--follow', '-p', '--'];
+const SCORE_LOG_ARGS = ['--stat', '--decorate', '--follow', '--no-color', '-p', '--'];
 
 export async function score(config: BettererConfig, reporter: BettererReporter): Promise<BettererScores> {
   const { cwd, resultsPath } = config;
