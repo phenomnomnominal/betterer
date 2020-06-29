@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.2](https://github.com/phenomnomnominal/betterer/compare/v2.2.1...v2.2.2) (2020-06-29)
+
+
+### Bug Fixes
+
+* **betterer 🐛:** add new line character to the end of the generated reports file ([#135](https://github.com/phenomnomnominal/betterer/issues/135)) ([9c3e441](https://github.com/phenomnomnominal/betterer/commit/9c3e441bb4751def29e225cf5bf8ba9a6e8dca62))
+* **betterer 🐛:** run git log with --no-color to prevent parsing error ([#134](https://github.com/phenomnomnominal/betterer/issues/134)) ([b1c7513](https://github.com/phenomnomnominal/betterer/commit/b1c7513cbded6a2fa492ae513777a65353796e70))
+
+
+
+
+
 ## [2.2.1](https://github.com/phenomnomnominal/betterer/compare/v2.2.0...v2.2.1) (2020-06-29)
 
 
