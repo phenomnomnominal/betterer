@@ -9,7 +9,8 @@ exports[\`regexp no hack comments\`] = {
       [0, 0, 7, \\"RegExp match\\", \\"645651780\\"]
     ]
   }\`
-};"
+};
+"
 `;
 
 exports[`betterer regexpBetterer (deprecated) should report the existence of RegExp matches 2`] = `
@@ -149,7 +150,8 @@ exports[\`regexp no hack comments\`] = {
       [0, 0, 7, \\"RegExp match\\", \\"645651780\\"]
     ]
   }\`
-};"
+};
+"
 `;
 
 exports[`betterer should report the existence of RegExp matches 2`] = `

@@ -9,7 +9,8 @@ exports[\`typescript use strict mode\`] = {
       [2, 12, 1, \\"The left-hand side of an arithmetic operation must be of type \\\\'any\\\\', \\\\'number\\\\', \\\\'bigint\\\\' or an enum type.\\", \\"177604\\"]
     ]
   }\`
-};"
+};
+"
 `;
 
 exports[`betterer should stay the same when a file is moved 2`] = `
@@ -21,7 +22,8 @@ exports[\`typescript use strict mode\`] = {
       [2, 12, 1, \\"The left-hand side of an arithmetic operation must be of type \\\\'any\\\\', \\\\'number\\\\', \\\\'bigint\\\\' or an enum type.\\", \\"177604\\"]
     ]
   }\`
-};"
+};
+"
 `;
 
 exports[`betterer should stay the same when a file is moved 3`] = `
@@ -68,7 +70,8 @@ exports[\`typescript use strict mode\`] = {
       [2, 12, 1, \\"The left-hand side of an arithmetic operation must be of type \\\\'any\\\\', \\\\'number\\\\', \\\\'bigint\\\\' or an enum type.\\", \\"177604\\"]
     ]
   }\`
-};"
+};
+"
 `;
 
 exports[`betterer should stay the same when an issue moves line 2`] = `
@@ -80,7 +83,8 @@ exports[\`typescript use strict mode\`] = {
       [3, 12, 1, \\"The left-hand side of an arithmetic operation must be of type \\\\'any\\\\', \\\\'number\\\\', \\\\'bigint\\\\' or an enum type.\\", \\"177604\\"]
     ]
   }\`
-};"
+};
+"
 `;
 
 exports[`betterer should stay the same when an issue moves line 3`] = `
@@ -167,8 +171,10 @@ exports[\`doesn't get bigger\`] = {
   timestamp: 0,
   value: \`0\`
 };
+
 exports[\`doesn't get smaller\`] = {
   timestamp: 0,
   value: \`0\`
-};"
+};
+"
 `;

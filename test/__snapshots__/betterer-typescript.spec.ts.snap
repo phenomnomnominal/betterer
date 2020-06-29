@@ -9,7 +9,8 @@ exports[\`typescript use strict mode\`] = {
       [2, 12, 1, \\"The left-hand side of an arithmetic operation must be of type \\\\'any\\\\', \\\\'number\\\\', \\\\'bigint\\\\' or an enum type.\\", \\"177604\\"]
     ]
   }\`
-};"
+};
+"
 `;
 
 exports[`betterer should report the status of the TypeScript compiler 2`] = `
@@ -150,7 +151,8 @@ exports[\`typescript use strict mode\`] = {
       [2, 12, 1, \\"The left-hand side of an arithmetic operation must be of type \\\\'any\\\\', \\\\'number\\\\', \\\\'bigint\\\\' or an enum type.\\", \\"177604\\"]
     ]
   }\`
-};"
+};
+"
 `;
 
 exports[`betterer typescriptBetterer (deprecated) should report the status of the TypeScript compiler 2`] = `

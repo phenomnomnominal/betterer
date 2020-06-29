@@ -9,7 +9,8 @@ exports[\`eslint enable complex rule\`] = {
       [0, 0, 34, \\"Prefer named exports\\", \\"1332276585\\"]
     ]
   }\`
-};"
+};
+"
 `;
 
 exports[`betterer should handlex complex eslint rule options 2`] = `

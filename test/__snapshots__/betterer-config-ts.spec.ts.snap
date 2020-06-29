@@ -40,5 +40,6 @@ exports[`betterer should work with a .betterer.ts file 2`] = `
 exports[\`gets better\`] = {
   timestamp: 0,
   value: \`1\`
-};"
+};
+"
 `;

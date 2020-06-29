@@ -40,5 +40,6 @@ exports[`betterer should work with named exports in the config file 2`] = `
 exports[\`getsBetter\`] = {
   timestamp: 0,
   value: \`1\`
-};"
+};
+"
 `;

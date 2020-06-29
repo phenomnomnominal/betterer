@@ -14,7 +14,8 @@ exports[\`typescript use strict mode\`] = {
       [29, 16, 9, \\"Argument of type \\\\'[number, number, number]\\\\' is not assignable to parameter of type \\\\'[number, number]\\\\'.\\\\\\\\n  Types of property \\\\'length\\\\' are incompatible.\\\\\\\\n    Type \\\\'3\\\\' is not assignable to type \\\\'2\\\\'.\\", \\"2320562899\\"]
     ]
   }\`
-};"
+};
+"
 `;
 
 exports[`betterer should report the status of the TypeScript compiler in strict mode 2`] = `
