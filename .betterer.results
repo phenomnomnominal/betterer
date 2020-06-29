@@ -10,6 +10,7 @@ exports[`no hack comments`] = {
     ]
   }`
 };
+
 exports[`new eslint rules`] = {
   timestamp: 1593340893272,
   value: `{
