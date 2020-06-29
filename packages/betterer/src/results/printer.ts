@@ -12,7 +12,7 @@ export async function print(run: BettererRun): Promise<string> {
   const printer = test.printer || defaultPrinter;
   const printedValue = await printer(run, serialise(run));
   const escaped = escape(printedValue, UNESCAPED);
-  return `\nexports[\`${name}\`] = {\n  timestamp: ${timestamp},\n  value: \`${escaped}\`\n};`;
+  return `\nexports[\`${name}\`] = {\n  timestamp: ${timestamp},\n  value: \`${escaped}\`\n};\n`;
 }
 
 function defaultPrinter(_: BettererRun, value: unknown): string {

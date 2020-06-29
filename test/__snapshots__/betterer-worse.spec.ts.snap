@@ -10,7 +10,8 @@ exports[\`tsquery no raw console.log\`] = {
       [1, 0, 11, \\"TSQuery match\\", \\"3870399096\\"]
     ]
   }\`
-};"
+};
+"
 `;
 
 exports[`betterer should not stay worse if an update is forced 2`] = `
@@ -138,8 +139,10 @@ exports[\`should shrink\`] = {
   timestamp: 0,
   value: \`0\`
 };
+
 exports[\`should grow\`] = {
   timestamp: 0,
   value: \`2\`
-};"
+};
+"
 `;

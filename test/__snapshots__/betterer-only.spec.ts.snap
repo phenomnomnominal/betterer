@@ -59,14 +59,17 @@ exports[\`test 1\`] = {
   timestamp: 0,
   value: \`0\`
 };
+
 exports[\`test 2\`] = {
   timestamp: 0,
   value: \`0\`
 };
+
 exports[\`test 3\`] = {
   timestamp: 0,
   value: \`0\`
 };
+
 exports[\`test 4\`] = {
   timestamp: 0,
   value: \`{
@@ -74,5 +77,6 @@ exports[\`test 4\`] = {
       [0, 0, 7, \\"RegExp match\\", \\"645651780\\"]
     ]
   }\`
-};"
+};
+"
 `;

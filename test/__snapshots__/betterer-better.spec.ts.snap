@@ -45,7 +45,8 @@ exports[\`no raw console calls\`] = {
       [2, 0, 11, \\"TSQuery match\\", \\"3870399096\\"]
     ]
   }\`
-};"
+};
+"
 `;
 
 exports[`betterer should work when a test gets better 1`] = `
@@ -97,8 +98,10 @@ exports[\`should shrink\`] = {
   timestamp: 0,
   value: \`1\`
 };
+
 exports[\`should grow\`] = {
   timestamp: 0,
   value: \`1\`
-};"
+};
+"
 `;

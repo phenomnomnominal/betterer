@@ -9,7 +9,8 @@ exports[\`eslint enable new rule\`] = {
       [0, 0, 9, \\"Unexpected \\\\'debugger\\\\' statement.\\", \\"3201740415\\"]
     ]
   }\`
-};"
+};
+"
 `;
 
 exports[`betterer eslintBetterer (deprecated) should report the status of a new eslint rule 2`] = `
@@ -149,7 +150,8 @@ exports[\`eslint enable new rule\`] = {
       [0, 0, 9, \\"Unexpected \\\\'debugger\\\\' statement.\\", \\"3201740415\\"]
     ]
   }\`
-};"
+};
+"
 `;
 
 exports[`betterer should report the status of a new eslint rule 2`] = `

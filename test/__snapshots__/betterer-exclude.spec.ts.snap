@@ -12,7 +12,8 @@ exports[\`regexp no hack comments\`] = {
       [0, 0, 7, \\"RegExp match\\", \\"645618020\\"]
     ]
   }\`
-};"
+};
+"
 `;
 
 exports[`betterer should exclude specific files from results 2`] = `
@@ -24,7 +25,8 @@ exports[\`regexp no hack comments\`] = {
       [0, 0, 7, \\"RegExp match\\", \\"645618020\\"]
     ]
   }\`
-};"
+};
+"
 `;
 
 exports[`betterer should exclude specific files from results 3`] = `

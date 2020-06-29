@@ -9,7 +9,8 @@ exports[\`tsquery no raw console.log\`] = {
       [0, 0, 11, \\"TSQuery match\\", \\"3870399096\\"]
     ]
   }\`
-};"
+};
+"
 `;
 
 exports[`betterer should report the existence of TSQuery matches 2`] = `
@@ -149,7 +150,8 @@ exports[\`tsquery no raw console.log\`] = {
       [0, 0, 11, \\"TSQuery match\\", \\"3870399096\\"]
     ]
   }\`
-};"
+};
+"
 `;
 
 exports[`betterer tsqueryBetterer (deprecated) should report the existence of TSQuery matches 2`] = `

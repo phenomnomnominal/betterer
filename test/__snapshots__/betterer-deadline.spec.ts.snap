@@ -25,7 +25,8 @@ exports[`betterer should do nothing when a test is not past its deadline 2`] = `
 exports[\`should grow\`] = {
   timestamp: 1589714460851,
   value: \`0\`
-};"
+};
+"
 `;
 
 exports[`betterer should mark a test as expired when is is past its deadline 1`] = `
@@ -57,5 +58,6 @@ exports[`betterer should mark a test as expired when is is past its deadline 2`]
 exports[\`should grow\`] = {
   timestamp: 1589714460851,
   value: \`0\`
-};"
+};
+"
 `;

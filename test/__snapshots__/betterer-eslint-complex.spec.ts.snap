@@ -9,7 +9,8 @@ exports[\`eslint enable no-debugger rule\`] = {
       [0, 0, 9, \\"Unexpected \\\\'debugger\\\\' statement.\\", \\"3201740415\\"]
     ]
   }\`
-};"
+};
+"
 `;
 
 exports[`betterer should report the status of a new eslint rule with a complex set up 2`] = `
