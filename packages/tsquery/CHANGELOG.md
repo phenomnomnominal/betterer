@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.1](https://github.com/phenomnomnominal/betterer/compare/v2.2.0...v2.2.1) (2020-06-29)
+
+**Note:** Version bump only for package @betterer/tsquery
+
+
+
+
+
 # [2.2.0](https://github.com/phenomnomnominal/betterer/compare/v2.1.0...v2.2.0) (2020-06-28)
 
 **Note:** Version bump only for package @betterer/tsquery
