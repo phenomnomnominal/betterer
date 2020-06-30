@@ -40,15 +40,16 @@ Array [
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"tsquery no raw console.log\\"!",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"tsquery no raw console.log\\" got worse. 😔",
+  " ☀️  betterer  info  💬  - ",
+  "\\"tsquery no raw console.log\\" got force updated. 🆙",
   "",
   " ☀️  betterer  warn  🚨  - ",
   "1 existing issue in \\"src/index.ts\\".",
   " ☀️  betterer  erro  🔥  - ",
   "1 new issue in \\"src/index.ts\\":",
   "
-   TSQuery match 
+   TSQuery match
+
   1 | console.log('foo');
 > 2 | console.log('foo');
     | ^^^^^^^^^^^",
@@ -56,8 +57,8 @@ Array [
   "",
   " ☀️  betterer  info  💬  - ",
   "1 test got checked. 🤔",
-  " ☀️  betterer  erro  🔥  - ",
-  "1 test got worse. 😔",
+  " ☀️  betterer  info  💬  - ",
+  "1 test got force updated. 🆙",
   "
    / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
@@ -130,6 +131,8 @@ Array [
   "2 tests got checked. 🤔",
   " ☀️  betterer  erro  🔥  - ",
   "2 tests got worse. 😔",
+  " ☀️  betterer  erro  🔥  - ",
+  "Run \`betterer --update\` to force an update of the results file. 🆙",
 ]
 `;
 

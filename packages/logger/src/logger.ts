@@ -83,8 +83,8 @@ export const code = function (codeInfo: BettererLoggerCodeInfo): void {
   };
 
   const codeFrame = codeFrameColumns(fileText, { start, end }, options);
-  const codeMessage = chalk.bgBlack.white(` ${message} ${NEW_LINE}`);
-  log(`${NEW_LINE}${ERROR_BLOCK}${codeMessage}${codeFrame}`);
+  const codeMessage = chalk.bgBlack.white(message.trim());
+  log(`${NEW_LINE}${ERROR_BLOCK} ${codeMessage.split(NEW_LINE).join(`\n${ERROR_BLOCK} `)}\n\n${codeFrame}`);
   previousLogger = 'CODE';
 };
 

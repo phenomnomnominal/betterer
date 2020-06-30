@@ -62,7 +62,8 @@ Array [
   " ☀️  betterer  erro  🔥  - ",
   "1 new issue in \\"src/index.ts\\":",
   "
-   The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type. 
+   The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+
   1 | const a = 'a';
   2 | const one = 1;
 > 3 | console.log(a * one, one * a);
@@ -73,6 +74,8 @@ Array [
   "1 test got checked. 🤔",
   " ☀️  betterer  erro  🔥  - ",
   "1 test got worse. 😔",
+  " ☀️  betterer  erro  🔥  - ",
+  "Run \`betterer --update\` to force an update of the results file. 🆙",
   "
    / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
@@ -204,7 +207,8 @@ Array [
   " ☀️  betterer  erro  🔥  - ",
   "1 new issue in \\"src/index.ts\\":",
   "
-   The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type. 
+   The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+
   1 | const a = 'a';
   2 | const one = 1;
 > 3 | console.log(a * one, one * a);
@@ -215,6 +219,8 @@ Array [
   "1 test got checked. 🤔",
   " ☀️  betterer  erro  🔥  - ",
   "1 test got worse. 😔",
+  " ☀️  betterer  erro  🔥  - ",
+  "Run \`betterer --update\` to force an update of the results file. 🆙",
   "
    / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 

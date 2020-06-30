@@ -7,6 +7,7 @@ import {
   testFailed,
   testNew,
   testSame,
+  testUpdated,
   testWorse,
   contextError,
   quote
@@ -51,6 +52,10 @@ export const watchReporter: BettererReporter = {
       }
       if (run.isSame) {
         report += `\n  ${testSame(name)}`;
+        return;
+      }
+      if (run.isUpdated) {
+        report += `\n  ${testUpdated(name)}`;
         return;
       }
       if (run.isWorse) {

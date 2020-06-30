@@ -62,7 +62,8 @@ Array [
   " ☀️  betterer  erro  🔥  - ",
   "1 new issue in \\"src/index.ts\\":",
   "
-   RegExp match 
+   RegExp match
+
   1 | // HACK:
 > 2 | // HACK:
     | ^^^^^^^",
@@ -72,6 +73,8 @@ Array [
   "1 test got checked. 🤔",
   " ☀️  betterer  erro  🔥  - ",
   "1 test got worse. 😔",
+  " ☀️  betterer  erro  🔥  - ",
+  "Run \`betterer --update\` to force an update of the results file. 🆙",
   "
    / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
@@ -203,7 +206,8 @@ Array [
   " ☀️  betterer  erro  🔥  - ",
   "1 new issue in \\"src/index.ts\\":",
   "
-   RegExp match 
+   RegExp match
+
   1 | // HACK:
 > 2 | // HACK:
     | ^^^^^^^",
@@ -213,6 +217,8 @@ Array [
   "1 test got checked. 🤔",
   " ☀️  betterer  erro  🔥  - ",
   "1 test got worse. 😔",
+  " ☀️  betterer  erro  🔥  - ",
+  "Run \`betterer --update\` to force an update of the results file. 🆙",
   "
    / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
