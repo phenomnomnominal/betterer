@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.3](https://github.com/phenomnomnominal/betterer/compare/v2.2.2...v2.2.3) (2020-06-30)
+
+**Note:** Version bump only for package @betterer/betterer
+
+
+
+
+
 ## [2.2.2](https://github.com/phenomnomnominal/betterer/compare/v2.2.1...v2.2.2) (2020-06-29)
 
 
