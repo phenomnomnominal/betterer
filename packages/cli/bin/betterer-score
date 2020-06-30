@@ -1,6 +1,0 @@
-#!/usr/bin/env node
-require('../dist/score')
-  .score(process.cwd(), process.argv)
-  .then(function () {
-    process.exitCode = 0;
-  });

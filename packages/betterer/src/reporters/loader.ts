@@ -14,8 +14,7 @@ const HOOK_NAMES: ReadonlyArray<keyof BettererReporter> = [
   'runsStart',
   'runsEnd',
   'runStart',
-  'runEnd',
-  'score'
+  'runEnd'
 ];
 
 export function loadReporters(reporterNames: BettererReporterNames): BettererMultiReporter {

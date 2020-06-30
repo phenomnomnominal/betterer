@@ -13,8 +13,3 @@ export type CLIStartConfig = {
 export type CLIWatchConfig = CLIStartConfig & {
   ignore: CLIArguments;
 };
-
-export type CLIScoreConfig = {
-  results: string;
-  silent: boolean;
-};
