@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/phenomnomnominal/betterer/compare/v2.2.3...v2.3.0) (2020-06-30)
+
+
+### Features
+
+* **betterer ✨:** removing score mechanism from core lib ([#139](https://github.com/phenomnomnominal/betterer/issues/139)) ([145c883](https://github.com/phenomnomnominal/betterer/commit/145c8830741d9ec9d999e09b94671fc405de21c9))
+
+
+
+
+
 ## [2.2.3](https://github.com/phenomnomnominal/betterer/compare/v2.2.2...v2.2.3) (2020-06-30)
 
 **Note:** Version bump only for package @betterer/cli

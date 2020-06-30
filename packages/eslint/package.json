@@ -1,7 +1,7 @@
 {
   "name": "@betterer/eslint",
   "description": "ESLint test for @betterer/betterer",
-  "version": "2.2.3",
+  "version": "2.3.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -24,7 +24,7 @@
     "compile": "tsc -b ."
   },
   "dependencies": {
-    "@betterer/betterer": "^2.2.3",
+    "@betterer/betterer": "^2.3.0",
     "@betterer/errors": "^2.2.3",
     "lines-and-columns": "^1.1.6",
     "tslib": "^2.0.0"
