@@ -35,18 +35,3 @@ export function testWorse(context: string): string {
 export function getTests(count: number): string {
   return `${count} ${count === 1 ? 'test' : 'tests'}`;
 }
-
-const SCORE_EMOJIS = ['🥇', '🥈', '🥉'];
-const DEFAULT_SCORE_EMOJI = '👍';
-
-export function scoreHeader(): string {
-  return `🏆 Betterer leaderboard! 🏆`;
-}
-
-export function scoreList(author: string, score: number, place: number): string {
-  return `${SCORE_EMOJIS[place] || DEFAULT_SCORE_EMOJI} ${author} on ${getPoints(score)}`;
-}
-
-function getPoints(score: number): string {
-  return `${score} ${score === 1 ? 'point' : 'points'}`;
-}

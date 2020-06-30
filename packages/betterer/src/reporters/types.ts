@@ -1,7 +1,6 @@
 import { BettererError } from '@betterer/errors';
 
 import { BettererContext, BettererRun, BettererRuns, BettererStats } from '../context';
-import { BettererScores } from '../scorer';
 import { BettererFilePaths } from '../watcher';
 
 export type BettererReporter = {
@@ -12,7 +11,6 @@ export type BettererReporter = {
   runsEnd?(runs: BettererRuns, files: BettererFilePaths): void;
   runStart?(run: BettererRun): void;
   runEnd?(run: BettererRun): void;
-  score?(scores: BettererScores): void;
 };
 
 export type BettererReporterNames = ReadonlyArray<string>;

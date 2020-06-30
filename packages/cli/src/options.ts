@@ -5,11 +5,6 @@ export function initOptions(commander: CommanderStatic): void {
   configPathOption(commander);
 }
 
-export function scoreOptions(commander: CommanderStatic): void {
-  silentOption(commander);
-  resultsPathOption(commander);
-}
-
 export function startOptions(commander: CommanderStatic): void {
   configPathsOption(commander);
   resultsPathOption(commander);
