@@ -52,11 +52,11 @@ Array [
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"typescript use strict mode\\"!",
-  " ☀️  betterer  warn  ⚠️  - ",
+  " ☀️  betterer  warn  🚨  - ",
   "\\"typescript use strict mode\\" stayed the same. 😐",
   " ☀️  betterer  info  💬  - ",
   "1 test got checked. 🤔",
-  " ☀️  betterer  warn  ⚠️  - ",
+  " ☀️  betterer  warn  🚨  - ",
   "1 test stayed the same. 😐",
 ]
 `;
@@ -113,11 +113,11 @@ Array [
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"typescript use strict mode\\"!",
-  " ☀️  betterer  warn  ⚠️  - ",
+  " ☀️  betterer  warn  🚨  - ",
   "\\"typescript use strict mode\\" stayed the same. 😐",
   " ☀️  betterer  info  💬  - ",
   "1 test got checked. 🤔",
-  " ☀️  betterer  warn  ⚠️  - ",
+  " ☀️  betterer  warn  🚨  - ",
   "1 test stayed the same. 😐",
 ]
 `;
@@ -152,15 +152,15 @@ Array [
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"doesn't get bigger\\"!",
-  " ☀️  betterer  warn  ⚠️  - ",
+  " ☀️  betterer  warn  🚨  - ",
   "\\"doesn't get bigger\\" stayed the same. 😐",
   " ☀️  betterer  info  💬  - ",
   "running \\"doesn't get smaller\\"!",
-  " ☀️  betterer  warn  ⚠️  - ",
+  " ☀️  betterer  warn  🚨  - ",
   "\\"doesn't get smaller\\" stayed the same. 😐",
   " ☀️  betterer  info  💬  - ",
   "2 tests got checked. 🤔",
-  " ☀️  betterer  warn  ⚠️  - ",
+  " ☀️  betterer  warn  🚨  - ",
   "2 tests stayed the same. 😐",
 ]
 `;
