@@ -21,14 +21,15 @@ exports[`new eslint rules`] = {
       [29, 19, 8, "Don\'t use \`Function\` as a type. The \`Function\` type accepts any function-like value.\\nIt provides no type safety when calling the function, which can be a common source of bugs.\\nIt also accepts things like class declarations, which will throw at runtime as they will not be called with \`new\`.\\nIf you are expecting the function to accept certain arguments, you should explicitly define the function shape.", "4136871687"],
       [152, 6, 9, "Unsafe assignment of an any value.", "166477157"]
     ],
-    "packages/betterer/src/errors.ts:29397898": [
+    "packages/betterer/src/errors.ts:2984110573": [
       [7, 96, 10, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "3805115554"],
       [8, 99, 11, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "2365839858"],
       [9, 99, 11, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "2365839858"],
       [11, 91, 12, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "362595323"],
       [12, 70, 12, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "362595323"],
       [13, 65, 8, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "92641249"],
-      [14, 67, 8, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "92641249"]
+      [14, 67, 8, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "92641249"],
+      [17, 59, 11, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "2365839858"]
     ],
     "packages/betterer/src/register.ts:845928349": [
       [17, 8, 39, "Unsafe assignment of an any value.", "2552944516"],
