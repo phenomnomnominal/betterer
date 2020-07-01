@@ -1,7 +1,7 @@
 {
   "name": "@betterer/reporter",
   "description": "Default reporter @betterer/betterer",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -24,7 +24,7 @@
     "compile": "tsc -b ."
   },
   "dependencies": {
-    "@betterer/betterer": "^2.4.0",
+    "@betterer/betterer": "^2.4.1",
     "@betterer/errors": "^2.4.0",
     "@betterer/logger": "^2.4.0",
     "tslib": "^2.0.0"

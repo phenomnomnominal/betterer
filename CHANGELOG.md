@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.1](https://github.com/phenomnomnominal/betterer/compare/v2.4.0...v2.4.1) (2020-07-01)
+
+
+### Bug Fixes
+
+* **betterer 🐛:** correctly handle blank lines ([#143](https://github.com/phenomnomnominal/betterer/issues/143)) ([07680be](https://github.com/phenomnomnominal/betterer/commit/07680bec9b214b09591fa9e0dc3efbc263fbf333))
+
+
+
+
+
 # [2.4.0](https://github.com/phenomnomnominal/betterer/compare/v2.3.0...v2.4.0) (2020-07-01)
 
 
