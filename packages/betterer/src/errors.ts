@@ -13,3 +13,7 @@ export const COULDNT_LOAD_REPORTER = registerError((reporterName) => `could not 
 export const NO_REPORTER_LOADED = registerError((reporterName) => `"${reporterName}" didn't create a reporter. 😔`);
 export const UNKNOWN_HOOK_NAME = registerError((hookName) => `"${hookName}" is not a valid reporter hook name. 😔`);
 export const HOOK_NOT_A_FUNCTION = registerError((hookName) => `"${hookName}" is not a function. 😔`);
+
+export const COULDNT_RESOLVE_MERGE_CONFLICT = registerError(
+  (resultsPath) => `could not resolve merge conflict in "${resultsPath}". 😔`
+);
