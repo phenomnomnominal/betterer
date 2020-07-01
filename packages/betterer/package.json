@@ -1,7 +1,7 @@
 {
   "name": "@betterer/betterer",
   "description": "Main engine for runing betterer tests",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -25,10 +25,10 @@
   },
   "dependencies": {
     "@betterer/constraints": "^2.0.0",
-    "@betterer/errors": "^2.2.3",
-    "@betterer/logger": "^2.2.3",
-    "@betterer/reporter": "^2.3.0",
-    "@betterer/watch-reporter": "^2.3.0",
+    "@betterer/errors": "^2.4.0",
+    "@betterer/logger": "^2.4.0",
+    "@betterer/reporter": "^2.4.0",
+    "@betterer/watch-reporter": "^2.4.0",
     "callsite": "^1.0.0",
     "chokidar": "^3.3.1",
     "djb2a": "^1.2.0",
