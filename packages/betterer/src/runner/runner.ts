@@ -65,6 +65,11 @@ async function runTest(run: BettererRun): Promise<void> {
     return;
   }
 
+  if (run.context.config.update) {
+    run.update(result);
+    return;
+  }
+
   run.worse(result);
   return;
 }

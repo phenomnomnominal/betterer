@@ -12,6 +12,7 @@ enum BettererRunStatus {
   neww,
   same,
   skipped,
+  update,
   worse
 }
 
@@ -94,6 +95,10 @@ export class BettererRun {
 
   public get isSkipped(): boolean {
     return this._status === BettererRunStatus.skipped;
+  }
+
+  public get isUpdated(): boolean {
+    return this._status === BettererRunStatus.update;
   }
 
   public get isWorse(): boolean {
@@ -179,11 +184,20 @@ export class BettererRun {
     this._context.runSkipped(this);
   }
 
+  public update(result: unknown): void {
+    assert.equal(this._status, BettererRunStatus.pending);
+    this._status = BettererRunStatus.update;
+    this._result = result;
+    this._toPrint = result;
+    this._hasResult = true;
+    this._context.runUpdate(this);
+  }
+
   public worse(result: unknown): void {
     assert.equal(this._status, BettererRunStatus.pending);
     this._status = BettererRunStatus.worse;
     this._result = result;
-    this._toPrint = this._context.config.update ? this._result : this._expected;
+    this._toPrint = this._expected;
     this._hasResult = true;
     this._context.runWorse(this);
   }

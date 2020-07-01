@@ -8,11 +8,13 @@ import {
   testExpired,
   testFailed,
   testNew,
+  testObsolete,
   testRunning,
   testSame,
   testSkipped,
+  testUpdated,
   testWorse,
-  testObsolete,
+  updateInstructions,
   getTests
 } from './messages';
 import { contextError, quote } from './utils';
@@ -22,13 +24,14 @@ export const defaultReporter: BettererReporter = {
     logo();
   },
   contextEnd(_: BettererContext, stats: BettererStats): void {
-    const ran = stats.ran.length;
+    const better = stats.better.length;
     const failed = stats.failed.length;
     const neww = stats.new.length;
-    const better = stats.better.length;
-    const worse = stats.worse.length;
+    const ran = stats.ran.length;
     const same = stats.same.length;
     const skipped = stats.skipped.length;
+    const updated = stats.updated.length;
+    const worse = stats.worse.length;
     const { completed, expired, obsolete } = stats;
 
     info(testChecked(getTests(ran)));
@@ -56,14 +59,18 @@ export const defaultReporter: BettererReporter = {
         success(testComplete(quote(testName)));
       });
     }
-    if (worse) {
-      error(testWorse(getTests(worse)));
-    }
     if (same) {
       warn(testSame(getTests(same)));
     }
     if (skipped) {
       warn(testSkipped(getTests(skipped)));
+    }
+    if (updated) {
+      info(testUpdated(getTests(updated)));
+    }
+    if (worse) {
+      error(testWorse(getTests(worse)));
+      error(updateInstructions());
     }
   },
   contextError,
@@ -94,6 +101,13 @@ export const defaultReporter: BettererReporter = {
     }
     if (run.isSame) {
       warn(testSame(name));
+    }
+    if (run.isUpdated) {
+      info(testUpdated(name));
+      br();
+      run.diff();
+      br();
+      return;
     }
     if (run.isWorse) {
       error(testWorse(name));

@@ -10,5 +10,6 @@ export class BettererStats {
   public readonly same: BettererTestNames = [];
   public readonly obsolete: BettererTestNames = [];
   public readonly skipped: BettererTestNames = [];
+  public readonly updated: BettererTestNames = [];
   public readonly worse: BettererTestNames = [];
 }

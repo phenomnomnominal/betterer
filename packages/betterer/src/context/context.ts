@@ -121,6 +121,12 @@ export class BettererContext {
     this._stats.skipped.push(name);
   }
 
+  public runUpdate(run: BettererRun): void {
+    assert(this._stats);
+    const { name } = run;
+    this._stats.updated.push(name);
+  }
+
   public runWorse(run: BettererRun): void {
     assert(this._stats);
     const { name } = run;

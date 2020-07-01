@@ -84,7 +84,7 @@ export default {
 
     const worseTestRun = await betterer({ configPaths, resultsPath, update: true });
 
-    expect(worseTestRun.worse).toEqual(['tsquery no raw console.log']);
+    expect(worseTestRun.updated).toEqual(['tsquery no raw console.log']);
 
     const result = await readFile(resultsPath);
 

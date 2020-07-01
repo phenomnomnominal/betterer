@@ -28,8 +28,15 @@ export function testSame(context: string): string {
 export function testSkipped(context: string): string {
   return `${context} got skipped. 🚫`;
 }
+export function testUpdated(context: string): string {
+  return `${context} got force updated. 🆙`;
+}
 export function testWorse(context: string): string {
   return `${context} got worse. 😔`;
+}
+
+export function updateInstructions(): string {
+  return `Run \`betterer --update\` to force an update of the results file. 🆙`;
 }
 
 export function getTests(count: number): string {
