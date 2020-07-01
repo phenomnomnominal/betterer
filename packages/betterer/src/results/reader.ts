@@ -46,12 +46,12 @@ function extractConflicts(file: string): [string, string] {
 
   while (lines.length) {
     const line = lines.shift();
-    assert(line);
+    assert(line != null);
     if (line.startsWith(MERGE_CONFLICT_START)) {
       // get our file
       while (lines.length) {
         const conflictLine = lines.shift();
-        assert(conflictLine);
+        assert(conflictLine != null);
         if (conflictLine === MERGE_CONFLICT_SEP) {
           skip = false;
           break;
@@ -66,7 +66,7 @@ function extractConflicts(file: string): [string, string] {
       // get their file
       while (lines.length) {
         const conflictLine = lines.shift();
-        assert(conflictLine);
+        assert(conflictLine != null);
         if (conflictLine.startsWith(MERGE_CONFLICT_END)) {
           break;
         } else {
