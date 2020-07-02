@@ -1,9 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`betterer should exclude specific files from results 1`] = `
-"// BETTERER RESULTS V1.
+"// BETTERER RESULTS V2.
 exports[\`regexp no hack comments\`] = {
-  timestamp: 0,
   value: \`{
     \\"src/exclude.ts:645618020\\": [
       [0, 0, 7, \\"RegExp match\\", \\"645618020\\"]
@@ -17,9 +16,8 @@ exports[\`regexp no hack comments\`] = {
 `;
 
 exports[`betterer should exclude specific files from results 2`] = `
-"// BETTERER RESULTS V1.
+"// BETTERER RESULTS V2.
 exports[\`regexp no hack comments\`] = {
-  timestamp: 0,
   value: \`{
     \\"src/index.ts:645618020\\": [
       [0, 0, 7, \\"RegExp match\\", \\"645618020\\"]

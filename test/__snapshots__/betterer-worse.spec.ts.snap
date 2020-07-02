@@ -1,9 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`betterer should not stay worse if an update is forced 1`] = `
-"// BETTERER RESULTS V1.
+"// BETTERER RESULTS V2.
 exports[\`tsquery no raw console.log\`] = {
-  timestamp: 0,
   value: \`{
     \\"src/index.ts:315583663\\": [
       [0, 0, 11, \\"TSQuery match\\", \\"3870399096\\"],
@@ -137,14 +136,12 @@ Array [
 `;
 
 exports[`betterer should work when a test gets worse 2`] = `
-"// BETTERER RESULTS V1.
+"// BETTERER RESULTS V2.
 exports[\`should shrink\`] = {
-  timestamp: 0,
   value: \`0\`
 };
 
 exports[\`should grow\`] = {
-  timestamp: 0,
   value: \`2\`
 };
 "

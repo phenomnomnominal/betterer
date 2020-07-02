@@ -17,7 +17,6 @@ Array [
   "could not write results to \\"<project>/fixtures/test-betterer-failed-writing/.betterer.results\\". 😔",
   "
 exports[\`should shrink\`] = {
-  timestamp: 0,
   value: \`0\`
 };
 ",
@@ -67,4 +66,4 @@ Array [
 ]
 `;
 
-exports[`betterer should work when a test fails 2`] = `"// BETTERER RESULTS V1."`;
+exports[`betterer should work when a test fails 2`] = `"// BETTERER RESULTS V2."`;

@@ -1,6 +1,5 @@
-// BETTERER RESULTS V1.
+// BETTERER RESULTS V2.
 exports[`no hack comments`] = {
-  timestamp: 1589338467072,
   value: `{
     "packages/cli/src/cli.ts:2439790794": [
       [12, 0, 7, "RegExp match", "645651780"]
@@ -12,7 +11,6 @@ exports[`no hack comments`] = {
 };
 
 exports[`new eslint rules`] = {
-  timestamp: 1593526033477,
   value: `{
     "packages/betterer/src/config/config.ts:2688898251": [
       [35, 2, 72, "Unsafe return of an any[] typed value", "2233173152"]
@@ -121,7 +119,7 @@ exports[`new eslint rules`] = {
       [63, 4, 71, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2936064845"],
       [69, 6, 27, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "3607138074"]
     ],
-    "packages/extension/src/server/validator.ts:3258157153": [
+    "packages/extension/src/server/validator.ts:2916623605": [
       [48, 10, 90, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "1821734533"],
       [95, 12, 94, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2449957056"]
     ],

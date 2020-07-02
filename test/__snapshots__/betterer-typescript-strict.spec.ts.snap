@@ -1,9 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`betterer should report the status of the TypeScript compiler in strict mode 1`] = `
-"// BETTERER RESULTS V1.
+"// BETTERER RESULTS V2.
 exports[\`typescript use strict mode\`] = {
-  timestamp: 0,
   value: \`{
     \\"src/index.ts:3281126131\\": [
       [0, 27, 4, \\"Parameter \\\\'list\\\\' implicitly has an \\\\'any\\\\' type.\\", \\"2087656743\\"],

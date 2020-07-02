@@ -74,4 +74,4 @@ Array [
 ]
 `;
 
-exports[`betterer should work when a test meets its goal 2`] = `"// BETTERER RESULTS V1."`;
+exports[`betterer should work when a test meets its goal 2`] = `"// BETTERER RESULTS V2."`;

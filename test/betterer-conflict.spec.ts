@@ -16,9 +16,8 @@ export default {
 };
               `,
       '.betterer.results': `
-// BETTERER RESULTS V1.
+// BETTERER RESULTS V2.
 exports[\`no raw console calls\`] = {
-  timestamp: 0,
   value: \`{
 |||<<<<<<< our-change
     \\"src/index.ts:315583663\\": [
