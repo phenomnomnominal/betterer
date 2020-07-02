@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/phenomnomnominal/betterer/compare/v2.4.1...v3.0.0) (2020-07-02)
+
+
+### Features
+
+* **betterer ✨:** removing timestamps ([#146](https://github.com/phenomnomnominal/betterer/issues/146)) ([10906e5](https://github.com/phenomnomnominal/betterer/commit/10906e519d3cffd111e4b6ce435718f3dd3d32a2))
+
+
+### BREAKING CHANGES
+
+* **betterer ✨:** Remove timestamps from results file
+
+
+
+
+
 ## [2.4.1](https://github.com/phenomnomnominal/betterer/compare/v2.4.0...v2.4.1) (2020-07-01)
 
 
