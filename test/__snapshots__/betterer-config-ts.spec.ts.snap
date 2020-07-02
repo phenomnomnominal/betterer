@@ -36,9 +36,8 @@ Array [
 `;
 
 exports[`betterer should work with a .betterer.ts file 2`] = `
-"// BETTERER RESULTS V1.
+"// BETTERER RESULTS V2.
 exports[\`gets better\`] = {
-  timestamp: 0,
   value: \`1\`
 };
 "

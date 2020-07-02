@@ -84,10 +84,10 @@ export class BettererValidator {
                 existingIssues = file.issuesRaw;
               }
               existingIssues.forEach((issue: BettererFileIssueRaw | BettererFileIssueDeserialised) => {
-                diagnostics.push(createWarning(test.name, run.timestamp, issue, document));
+                diagnostics.push(createWarning(test.name, 'existing issue', issue, document));
               });
               newIssues.forEach((issue) => {
-                diagnostics.push(createError(test.name, issue, document));
+                diagnostics.push(createError(test.name, 'new issue', issue, document));
               });
             });
           this._connection.sendDiagnostics({ uri, diagnostics });
@@ -113,7 +113,7 @@ function isRaw(issue: BettererFileIssueRaw | BettererFileIssueDeserialised): iss
 function createDiagnostic(
   name: string,
   issue: BettererFileIssueRaw | BettererFileIssueDeserialised,
-  code: string,
+  extra: string,
   document: TextDocument,
   severity: DiagnosticSeverity
 ): Diagnostic {
@@ -129,33 +129,32 @@ function createDiagnostic(
     end = document.positionAt(document.offsetAt(start) + length);
   }
   const range = { start, end };
+  const code = `[${name}]${extra ? ` - ${extra}` : ''}`;
   return {
     message,
     severity,
     source: EXTENSION_NAME,
     range,
-    code: `[${name}] - ${code}`
+    code
   };
 }
 
 function createError(
   name: string,
+  extra: string,
   issue: BettererFileIssueRaw | BettererFileIssueDeserialised,
   document: TextDocument
 ): Diagnostic {
-  const code = 'new issue';
-  return createDiagnostic(name, issue, code, document, DiagnosticSeverity.Error);
+  return createDiagnostic(name, issue, extra, document, DiagnosticSeverity.Error);
 }
 
 function createWarning(
   name: string,
-  timestamp: number,
+  extra: string,
   issue: BettererFileIssueRaw | BettererFileIssueDeserialised,
   document: TextDocument
 ): Diagnostic {
-  const date = new Date(timestamp).toISOString().replace(/T/, ' ').replace(/\..+/, '');
-  const code = `since ${date}`;
-  return createDiagnostic(name, issue, code, document, DiagnosticSeverity.Warning);
+  return createDiagnostic(name, issue, extra, document, DiagnosticSeverity.Warning);
 }
 
 function getFilePath(documentOrUri: URI | TextDocument | string): string | null {

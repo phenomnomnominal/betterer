@@ -1,9 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`betterer should report the existence of TSQuery matches 1`] = `
-"// BETTERER RESULTS V1.
+"// BETTERER RESULTS V2.
 exports[\`tsquery no raw console.log\`] = {
-  timestamp: 0,
   value: \`{
     \\"src/index.ts:4087252068\\": [
       [0, 0, 11, \\"TSQuery match\\", \\"3870399096\\"]
@@ -145,9 +144,8 @@ Array [
 `;
 
 exports[`betterer tsqueryBetterer (deprecated) should report the existence of TSQuery matches 1`] = `
-"// BETTERER RESULTS V1.
+"// BETTERER RESULTS V2.
 exports[\`tsquery no raw console.log\`] = {
-  timestamp: 0,
   value: \`{
     \\"src/index.ts:4087252068\\": [
       [0, 0, 11, \\"TSQuery match\\", \\"3870399096\\"]

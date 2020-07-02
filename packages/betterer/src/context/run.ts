@@ -41,7 +41,6 @@ export class BettererRun {
     } else {
       this._isNew = false;
       this._expected = deserialise(this, expected.value);
-      this._timestamp = expected.timestamp;
       this._toPrint = this._expected;
       this._hasResult = true;
     }
@@ -121,13 +120,12 @@ export class BettererRun {
     return this._test;
   }
 
-  public better(result: unknown, isComplete: boolean, timestamp: number): void {
+  public better(result: unknown, isComplete: boolean): void {
     assert.equal(this._status, BettererRunStatus.pending);
     this._status = BettererRunStatus.better;
     this._isComplete = isComplete;
     this._result = result;
     this._toPrint = result;
-    this._timestamp = timestamp;
     this._hasResult = true;
     this._context.runBetter(this);
   }
@@ -142,13 +140,12 @@ export class BettererRun {
     this._context.runFailed(this);
   }
 
-  public neww(result: unknown, isComplete: boolean, timestamp: number): void {
+  public neww(result: unknown, isComplete: boolean): void {
     assert.equal(this._status, BettererRunStatus.pending);
     this._status = BettererRunStatus.neww;
     this._isComplete = isComplete;
     this._result = result;
     this._toPrint = result;
-    this._timestamp = timestamp;
     this._hasResult = true;
     this._context.runNew(this);
   }
@@ -157,11 +154,11 @@ export class BettererRun {
     this._context.runRan(this);
   }
 
-  public start(): number {
+  public start(): void {
     const startTime = Date.now();
     this._isExpired = startTime > this._test.deadline;
     this._context.runStart(this);
-    return startTime;
+    this._timestamp = startTime;
   }
 
   public same(result: unknown): void {

@@ -36,14 +36,12 @@ Array [
 `;
 
 exports[`betterer should skip a test 2`] = `
-"// BETTERER RESULTS V1.
+"// BETTERER RESULTS V2.
 exports[\`test 1\`] = {
-  timestamp: 0,
   value: \`0\`
 };
 
 exports[\`test 2\`] = {
-  timestamp: 0,
   value: \`{
     \\"src/index.ts:4126639614\\": [
       [0, 0, 7, \\"RegExp match\\", \\"645651780\\"]

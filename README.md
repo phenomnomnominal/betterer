@@ -63,8 +63,8 @@ betterer
 **`Betterer`** will run your test the first time, and store a snapshot of the result in a new file called `.betterer.results`.
 
 ```js
-// BETTERER RESULTS V1.
-exports[`thing to improve`] = { timestamp: 1569148039311, value: `5` };
+// BETTERER RESULTS V2.
+exports[`thing to improve`] = { value: `5` };
 ```
 
 The next step is to add **`Betterer`** to your build pipeline. Whenever your code builds, **`Betterer`** will run the test again and make sure the result hasn't got worse. If it gets better, then the `.betterer.results` file will be updated with the new value, which you can then commit to your codebase!

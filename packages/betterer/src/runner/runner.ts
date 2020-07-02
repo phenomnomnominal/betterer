@@ -35,7 +35,7 @@ async function runTest(run: BettererRun): Promise<void> {
     return;
   }
 
-  const timestamp = run.start();
+  run.start();
   let result: unknown;
   try {
     result = await test.test(run);
@@ -49,7 +49,7 @@ async function runTest(run: BettererRun): Promise<void> {
   const goalComplete = await test.goal(result);
 
   if (run.isNew) {
-    run.neww(result, goalComplete, timestamp);
+    run.neww(result, goalComplete);
     return;
   }
 
@@ -61,7 +61,7 @@ async function runTest(run: BettererRun): Promise<void> {
   }
 
   if (comparison === ConstraintResult.better) {
-    run.better(result, goalComplete, timestamp);
+    run.better(result, goalComplete);
     return;
   }
 

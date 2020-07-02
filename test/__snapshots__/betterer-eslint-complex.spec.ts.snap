@@ -1,9 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`betterer should report the status of a new eslint rule with a complex set up 1`] = `
-"// BETTERER RESULTS V1.
+"// BETTERER RESULTS V2.
 exports[\`eslint enable no-debugger rule\`] = {
-  timestamp: 0,
   value: \`{
     \\"src/index.ts:3201740415\\": [
       [0, 0, 9, \\"Unexpected \\\\'debugger\\\\' statement.\\", \\"3201740415\\"]

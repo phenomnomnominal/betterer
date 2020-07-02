@@ -36,9 +36,8 @@ Array [
 `;
 
 exports[`betterer should work when a test changes and makes the results better 2`] = `
-"// BETTERER RESULTS V1.
+"// BETTERER RESULTS V2.
 exports[\`no raw console calls\`] = {
-  timestamp: 0,
   value: \`{
     \\"src/index.ts:913095150\\": [
       [0, 0, 11, \\"TSQuery match\\", \\"3870399096\\"],
@@ -93,14 +92,12 @@ Array [
 `;
 
 exports[`betterer should work when a test gets better 2`] = `
-"// BETTERER RESULTS V1.
+"// BETTERER RESULTS V2.
 exports[\`should shrink\`] = {
-  timestamp: 0,
   value: \`1\`
 };
 
 exports[\`should grow\`] = {
-  timestamp: 0,
   value: \`1\`
 };
 "
