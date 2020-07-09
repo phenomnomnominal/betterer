@@ -132,7 +132,7 @@
     "vscode-uri": "^2.1.2"
   },
   "devDependencies": {
-    "ts-loader": "^7.0.5",
+    "ts-loader": "^8.0.0",
     "typescript": "^3.9.5",
     "vscode": "^1.1.36",
     "webpack": "^4.41.5",
