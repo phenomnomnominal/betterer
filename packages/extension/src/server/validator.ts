@@ -57,8 +57,9 @@ export class BettererValidator {
 
         const loading = load(this._connection);
         let status = BettererStatus.ok;
-
+        const extensionCwd = process.cwd();
         try {
+          process.chdir(cwd);
           const config = await getBettererConfig(workspace);
           const runs = await betterer.single({ ...config, cwd }, filePath);
 
@@ -98,6 +99,8 @@ export class BettererValidator {
           } else {
             status = BettererStatus.error;
           }
+        } finally {
+          process.chdir(extensionCwd);
         }
         await loading();
         this._connection.sendNotification(BettererStatusNotification, status);
