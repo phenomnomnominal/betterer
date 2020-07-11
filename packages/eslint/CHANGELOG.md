@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1](https://github.com/phenomnomnominal/betterer/compare/v3.0.0...v3.0.1) (2020-07-11)
+
+
+### Bug Fixes
+
+* **extension 🐛:** cd to projct cwd before making checks to avoid braking eslintrc files ([#159](https://github.com/phenomnomnominal/betterer/issues/159)) ([7b05ea9](https://github.com/phenomnomnominal/betterer/commit/7b05ea9f720bfecf3f93226ee0e766dc21e9d028))
+
+
+
+
+
 # [3.0.0](https://github.com/phenomnomnominal/betterer/compare/v2.4.1...v3.0.0) (2020-07-02)
 
 **Note:** Version bump only for package @betterer/eslint
