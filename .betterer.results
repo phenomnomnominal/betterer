@@ -119,9 +119,9 @@ exports[`new eslint rules`] = {
       [63, 4, 71, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2936064845"],
       [69, 6, 27, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "3607138074"]
     ],
-    "packages/extension/src/server/validator.ts:2916623605": [
+    "packages/extension/src/server/validator.ts:2557653799": [
       [48, 10, 90, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "1821734533"],
-      [95, 12, 94, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2449957056"]
+      [96, 12, 94, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2449957056"]
     ],
     "packages/typescript/src/typescript.ts:405611543": [
       [20, 12, 6, "Unsafe array destructuring of a tuple element with an any value.", "1544266319"],

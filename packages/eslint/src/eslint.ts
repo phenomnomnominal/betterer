@@ -5,7 +5,7 @@ import {
   BettererFileIssuesMapRaw,
   BettererFileResolver
 } from '@betterer/betterer';
-import { CLIEngine, Linter } from 'eslint';
+import { Linter, ESLint } from 'eslint';
 import LinesAndColumns from 'lines-and-columns';
 
 import { FILE_GLOB_REQUIRED, RULE_OPTIONS_REQUIRED, RULES_OPTIONS_REQUIRED } from './errors';
@@ -43,35 +43,38 @@ export function eslintBetterer(globs: string | ReadonlyArray<string>, rule: ESLi
 // once we remove `eslintBetterer`:
 function createEslintTest(rules: ESLintRulesConfig): BettererFileTest {
   const resolver = new BettererFileResolver(3);
-  return new BettererFileTest(resolver, (files) => {
+  return new BettererFileTest(resolver, async (files) => {
     const { cwd } = resolver;
-    const cli = new CLIEngine({ cwd });
+    const cli = new ESLint({ cwd });
 
     const issues: BettererFileIssuesMapRaw = {};
-    files.forEach((filePath) => {
-      const linterOptions = cli.getConfigForFile(filePath);
-      issues[filePath] = getFileIssues(cwd, linterOptions, rules, filePath);
-    });
+    await Promise.all(
+      files.map(async (filePath) => {
+        const linterOptions = (await cli.calculateConfigForFile(filePath)) as Linter.Config;
+        issues[filePath] = await getFileIssues(cwd, linterOptions, rules, filePath);
+      })
+    );
     return issues;
   });
 }
 
-function getFileIssues(
+async function getFileIssues(
   cwd: string,
   linterOptions: Linter.Config,
   rules: ESLintRulesConfig,
   filePath: string
-): BettererFileIssuesRaw {
-  const runner = new CLIEngine({
-    ...linterOptions,
-    cwd,
+): Promise<BettererFileIssuesRaw> {
+  const runner = new ESLint({
+    baseConfig: {
+      ...linterOptions,
+      rules
+    },
     useEslintrc: false,
-    globals: Object.keys(linterOptions.globals || {}),
-    rules
+    cwd
   });
 
-  const report = runner.executeOnFiles([filePath]);
-  const resultsWithSource = report.results.filter((result) => result.source);
+  const result = await runner.lintFiles([filePath]);
+  const resultsWithSource = result.filter((result) => result.source);
   return ([] as BettererFileIssuesRaw).concat(
     ...resultsWithSource.map((result) => {
       const { source, messages } = result;
