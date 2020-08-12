@@ -32,7 +32,7 @@
     "callsite": "^1.0.0",
     "chokidar": "^3.3.1",
     "djb2a": "^1.2.0",
-    "find-up": "^4.1.0",
+    "find-up": "^5.0.0",
     "gitignore-globs": "^0.1.1",
     "globby": "^11.0.1",
     "jest-diff": "^26.1.0",
