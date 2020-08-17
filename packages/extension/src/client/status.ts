@@ -1,6 +1,5 @@
-import { window, StatusBarAlignment, StatusBarItem } from 'vscode';
-import { NotificationType, LanguageClient, State } from 'vscode-languageclient';
-
+import { StatusBarAlignment, StatusBarItem, window } from 'vscode';
+import { LanguageClient, NotificationType, State } from 'vscode-languageclient';
 import { EXTENSION_NAME } from '../constants';
 import { BettererStatus } from '../status';
 import { COMMAND_NAMES } from './commands';
@@ -23,7 +22,7 @@ export class BettererStatusBar {
   constructor(client: LanguageClient) {
     this._statusBarItem = window.createStatusBarItem(StatusBarAlignment.Right, 0);
     this._statusBarItem.text = EXTENSION_NAME;
-    this._statusBarItem.command = COMMAND_NAMES.showOutput;
+    this._statusBarItem.command = COMMAND_NAMES.showOutputChannel;
     this._updateStatusBarVisibility();
 
     this._initEvents(client);
