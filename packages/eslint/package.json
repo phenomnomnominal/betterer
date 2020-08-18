@@ -21,7 +21,9 @@
     "url": "https://github.com/phenomnomnominal/betterer/issues"
   },
   "scripts": {
-    "compile": "tsc -b ."
+    "compile": "tsc -b .",
+    "api": "ts-api-guardian --out ../../goldens/api/@betterer/eslint.d.ts dist/index.d.ts",
+    "test:api": "ts-api-guardian --verify ../../goldens/api/@betterer/eslint.d.ts dist/index.d.ts"
   },
   "dependencies": {
     "@betterer/betterer": "^3.0.2",
