@@ -6,37 +6,14 @@ import {
 } from '@betterer/betterer';
 import { promises as fs } from 'fs';
 
-import { FILE_GLOB_REQUIRED, REGEXP_REQUIRED } from './errors';
+import { REGEXP_REQUIRED } from './errors';
 
 export function regexp(pattern: RegExp): BettererFileTest {
   if (!pattern) {
     throw REGEXP_REQUIRED();
   }
 
-  return createRegExpTest(pattern);
-}
-
-/**
- * @deprecated Use {@link @betterer/regexp:regexp} instead!
- */
-export function regexpBetterer(globs: string | ReadonlyArray<string>, pattern: RegExp): BettererFileTest {
-  if (!globs) {
-    throw FILE_GLOB_REQUIRED();
-  }
-  if (!pattern) {
-    throw REGEXP_REQUIRED();
-  }
-
-  const test = createRegExpTest(pattern);
-  test.include(globs);
-  return test;
-}
-
-// We need an extra function so that `new BettererFileResolver()` is called
-// from the same depth in the call stack. This is gross, but it can go away
-// once we remove `regexpBetterer`:
-function createRegExpTest(pattern: RegExp): BettererFileTest {
-  const resolver = new BettererFileResolver(3);
+  const resolver = new BettererFileResolver();
   return new BettererFileTest(resolver, async (files) => {
     pattern = new RegExp(pattern.source, pattern.flags.includes('g') ? pattern.flags : `${pattern.flags}g`);
     const matches = await Promise.all(
