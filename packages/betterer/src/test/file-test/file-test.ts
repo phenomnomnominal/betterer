@@ -1,4 +1,4 @@
-import { ConstraintResult } from '@betterer/constraints';
+import { BettererConstraintResult } from '@betterer/constraints';
 
 import { BettererRun } from '../../context';
 import { createHash } from '../../hasher';
@@ -33,7 +33,7 @@ export class BettererFileTest extends BettererTest<BettererFiles, BettererFileIs
         this._test = this._test || this._createTest(fileTest);
         return await this._test(run);
       },
-      constraint: async (result: BettererFiles, expected: BettererFiles): Promise<ConstraintResult> => {
+      constraint: async (result: BettererFiles, expected: BettererFiles): Promise<BettererConstraintResult> => {
         this._constraint = this._constraint || this._createConstraint();
         return await this._constraint(result, expected);
       },
@@ -96,10 +96,10 @@ export class BettererFileTest extends BettererTest<BettererFiles, BettererFileIs
   }
 
   private _createConstraint() {
-    return (result: BettererFiles, expected: BettererFiles): ConstraintResult => {
-      const { diff, constraintResult } = constraint(result, expected);
+    return (result: BettererFiles, expected: BettererFiles): BettererConstraintResult => {
+      const { diff, BettererConstraintResult } = constraint(result, expected);
       this._diff = diff;
-      return constraintResult;
+      return BettererConstraintResult;
     };
   }
 }

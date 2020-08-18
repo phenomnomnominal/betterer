@@ -1,11 +1,11 @@
-import { ConstraintResult } from './constraint-result';
+import { BettererConstraintResult } from './constraint-result';
 
-export function smaller(result: number, expected: number): ConstraintResult {
+export function smaller(result: number, expected: number): BettererConstraintResult {
   if (result === expected) {
-    return ConstraintResult.same;
+    return BettererConstraintResult.same;
   }
   if (result < expected) {
-    return ConstraintResult.better;
+    return BettererConstraintResult.better;
   }
-  return ConstraintResult.worse;
+  return BettererConstraintResult.worse;
 }
