@@ -4,7 +4,7 @@ import * as assert from 'assert';
 import { BettererFile } from './file';
 import { BettererFiles } from './files';
 import { ensureDeserialised } from './serialiser';
-import { BettererFileTestDiff, BettererFileIssuesRaw, BettererFileIssueDeserialised } from './types';
+import { BettererFileTestDiff, BettererFileIssueDeserialised } from './types';
 
 type BettererFileTestConstraintResult = {
   constraintResult: ConstraintResult;
@@ -115,11 +115,14 @@ function getDiff(result: BettererFiles, expected: BettererFiles): BettererFileTe
 
     // We can find the moved issues by matching the issue hashes:
     const movedIssues: Array<BettererFileIssueDeserialised> = [];
-    fixedOrMovedIssues.forEach((fixedOrMovedIssue, index) => {
+    const fixedIssues: Array<BettererFileIssueDeserialised> = [];
+    fixedOrMovedIssues.forEach((fixedOrMovedIssue) => {
       const { hash, line, column } = fixedOrMovedIssue;
       // An issue may have been moved it has the same hash in both result and expected
       const possibilities = newOrMovedIssues.filter((newOrMovedIssue) => newOrMovedIssue.hash === hash);
       if (!possibilities.length) {
+        // If there is no matching has the issue must have been fixed:
+        fixedIssues.push(fixedOrMovedIssue);
         return;
       }
       // Start by marking the first possibility as best:
@@ -143,17 +146,15 @@ function getDiff(result: BettererFiles, expected: BettererFiles): BettererFileTe
       });
 
       assert(best);
-      // Remove the moved issue from the fixedOrMovedIssues array:
-      fixedOrMovedIssues.splice(index, 1);
+
       // Remove the moved issue from the newOrMovedIssues array:
       newOrMovedIssues.splice(newOrMovedIssues.indexOf(best), 1);
-      // And add the moved issue to the movedIssues array:
+
       movedIssues.push(best);
     });
 
     // Find the raw issue data so that diffs can be logged:
     const newIssues = newOrMovedIssues.map((newIssue) => resultFile.issuesRaw[resultIssues.indexOf(newIssue)]);
-    const fixedIssues = fixedOrMovedIssues;
 
     // If there's no change, move on:
     if (!newIssues.length && !fixedIssues.length) {
@@ -164,7 +165,7 @@ function getDiff(result: BettererFiles, expected: BettererFiles): BettererFileTe
     diff[resultFile.relativePath] = {
       existing: [...unchangedExpectedIssues, ...movedIssues],
       fixed: fixedIssues,
-      neww: newIssues as BettererFileIssuesRaw
+      neww: newIssues
     };
   });
 

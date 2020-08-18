@@ -118,6 +118,67 @@ Array [
 ]
 `;
 
+exports[`betterer should stay the same when multiple issue move line 1`] = `
+"// BETTERER RESULTS V2.
+exports[\`typescript use strict mode\`] = {
+  value: \`{
+    \\"src/index.ts:3120621594\\": [
+      [2, 12, 1, \\"The left-hand side of an arithmetic operation must be of type \\\\'any\\\\', \\\\'number\\\\', \\\\'bigint\\\\' or an enum type.\\", \\"177604\\"],
+      [3, 18, 1, \\"The right-hand side of an arithmetic operation must be of type \\\\'any\\\\', \\\\'number\\\\', \\\\'bigint\\\\' or an enum type.\\", \\"177604\\"]
+    ]
+  }\`
+};
+"
+`;
+
+exports[`betterer should stay the same when multiple issue move line 2`] = `
+"// BETTERER RESULTS V2.
+exports[\`typescript use strict mode\`] = {
+  value: \`{
+    \\"src/index.ts:435470967\\": [
+      [4, 12, 1, \\"The left-hand side of an arithmetic operation must be of type \\\\'any\\\\', \\\\'number\\\\', \\\\'bigint\\\\' or an enum type.\\", \\"177604\\"],
+      [5, 18, 1, \\"The right-hand side of an arithmetic operation must be of type \\\\'any\\\\', \\\\'number\\\\', \\\\'bigint\\\\' or an enum type.\\", \\"177604\\"]
+    ]
+  }\`
+};
+"
+`;
+
+exports[`betterer should stay the same when multiple issue move line 3`] = `
+Array [
+  "
+   / | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"typescript use strict mode\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"typescript use strict mode\\" got checked for the first time! 🎉",
+  " ☀️  betterer  info  💬  - ",
+  "1 test got checked. 🤔",
+  " ☀️  betterer  info  💬  - ",
+  "1 test got checked for the first time! 🎉",
+  "
+   / | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"typescript use strict mode\\"!",
+  " ☀️  betterer  warn  🚨  - ",
+  "\\"typescript use strict mode\\" stayed the same. 😐",
+  " ☀️  betterer  info  💬  - ",
+  "1 test got checked. 🤔",
+  " ☀️  betterer  warn  🚨  - ",
+  "1 test stayed the same. 😐",
+]
+`;
+
 exports[`betterer should work when a test is the same 1`] = `
 Array [
   "
