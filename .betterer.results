@@ -112,7 +112,7 @@ exports[`new eslint rules`] = {
       [21, 2, 59, "Unsafe return of type Promise<any> from function with return type Promise<WorkspaceConfiguration>.", "3903064458"]
     ],
     "packages/extension/src/server/notifications/validate.ts:2562732250": [
-      [18, 4, 38, "Unsafe asignment of type Map<any, any> to a variable of type Map<string, { handler: NotificationHandler<TextDocument>; versionProvider: BettererVersionProvider; }>.", "2572650248"]
+      [18, 4, 38, "Unsafe assignment of type Map<any, any> to a variable of type Map<string, { handler: NotificationHandler<TextDocument>; versionProvider: BettererVersionProvider; }>.", "2572650248"]
     ],
     "packages/extension/src/server/server.ts:2004201515": [
       [62, 4, 68, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "280309533"],
