@@ -75,7 +75,7 @@ export class BettererTest<DeserialisedType = unknown, SerialisedType = Deseriali
       return (): boolean => false;
     }
     const { goal } = options;
-    if (isFunction(goal)) {
+    if (isFunction<BettererTestGoal<DeserialisedType>>(goal)) {
       return goal;
     }
     return (value: unknown): boolean => value === goal;

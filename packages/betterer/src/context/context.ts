@@ -11,7 +11,7 @@ import { getNormalisedPath } from '../utils';
 import { BettererFilePaths } from '../watcher';
 import { BettererRun } from './run';
 import { BettererStats } from './statistics';
-import { BettererRuns } from './types';
+import { BettererRuns, Resolve } from './types';
 import { requireUncached } from '../require';
 
 enum BettererContextStatus {
@@ -27,7 +27,7 @@ export class BettererContext {
   private _status = BettererContextStatus.notReady;
 
   private _running: Promise<void> | null = null;
-  private _finish: Function | null = null;
+  private _finish: Resolve | null = null;
 
   constructor(public readonly config: BettererConfig, private _reporter?: BettererReporter) {
     this._reporter?.contextStart?.(this);
@@ -64,7 +64,7 @@ export class BettererContext {
     this._reporter?.runsStart?.(runs, files);
     this._status = BettererContextStatus.running;
     this._running = new Promise((resolve) => {
-      this._finish = resolve;
+      this._finish = resolve as Resolve;
     });
     return runs;
   }
