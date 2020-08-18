@@ -14,7 +14,6 @@ const BASE_RULES = {
 
 // These rules are currently being fixed with Betterer
 const WIP_RULES = {
-  '@typescript-eslint/ban-types': 0,
   '@typescript-eslint/restrict-template-expressions': 0,
   '@typescript-eslint/no-floating-promises': 0,
   '@typescript-eslint/no-unsafe-assignment': 0,
