@@ -1,1 +1,1 @@
-export { regexpBetterer, regexp } from './regexp';
+export { regexp } from './regexp';
