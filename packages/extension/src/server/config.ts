@@ -19,5 +19,5 @@ export async function getBettererConfig(workspace: RemoteWorkspace): Promise<Bet
 }
 
 function getConfig(workspace: RemoteWorkspace): Promise<WorkspaceConfiguration> {
-  return workspace.getConfiguration({ section: 'betterer' });
+  return workspace.getConfiguration({ section: 'betterer' }) as Promise<WorkspaceConfiguration>;
 }
