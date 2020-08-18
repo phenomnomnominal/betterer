@@ -1,4 +1,3 @@
-import { BettererError } from '@betterer/errors';
 import * as assert from 'assert';
 import * as path from 'path';
 
@@ -146,13 +145,9 @@ export class BettererContext {
     assert.equal(this._status, BettererContextStatus.end);
     assert(this._stats);
     const printed: Array<string> = await Promise.all(runs.filter((run) => run.shouldPrint).map((run) => print(run)));
-    let error: BettererError | null = null;
     try {
       await write(printed, this.config.resultsPath);
-    } catch (e) {
-      error = e;
-    }
-    if (error) {
+    } catch (error) {
       this._reporter?.contextError?.(this, error, printed);
     }
     return this._stats;

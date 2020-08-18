@@ -1,20 +1,17 @@
 // BETTERER RESULTS V2.
 exports[`no hack comments`] = {
   value: `{
-    "packages/cli/src/cli.ts:2439790794": [
+    "packages/cli/src/cli.ts:1198167316": [
       [12, 0, 7, "RegExp match", "645651780"]
     ],
-    "packages/cli/src/init.ts:4030003562": [
-      [91, 4, 7, "RegExp match", "645651780"]
+    "packages/cli/src/init.ts:12338297": [
+      [92, 4, 7, "RegExp match", "645651780"]
     ]
   }`
 };
 
 exports[`new eslint rules`] = {
   value: `{
-    "packages/betterer/src/context/context.ts:3760583342": [
-      [152, 6, 9, "Unsafe assignment of an any value.", "166477157"]
-    ],
     "packages/betterer/src/errors.ts:2984110573": [
       [7, 96, 10, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "3805115554"],
       [8, 99, 11, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "2365839858"],
@@ -25,37 +22,8 @@ exports[`new eslint rules`] = {
       [14, 67, 8, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "92641249"],
       [17, 59, 11, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "2365839858"]
     ],
-    "packages/betterer/src/register.ts:845928349": [
-      [17, 8, 39, "Unsafe assignment of an any value.", "2552944516"],
-      [20, 8, 29, "Unsafe assignment of an any value.", "4025951506"],
-      [20, 13, 24, "Unsafe member access [JS_EXTENSION] on an any value.", "1928379798"],
-      [22, 7, 24, "Unsafe member access [TS_EXTENSION] on an any value.", "1899174408"],
-      [37, 2, 29, "Unsafe member access [RESULTS_EXTENTION] on an any value.", "1793441202"],
-      [38, 4, 2, "Unsafe call of an any typed value.", "5862300"]
-    ],
-    "packages/betterer/src/results/deserialiser.ts:3618777338": [
-      [4, 8, 31, "Unsafe assignment of an any value.", "624767152"]
-    ],
-    "packages/cli/src/cli.ts:2439790794": [
-      [16, 6, 40, "Unsafe assignment of an any value.", "959029483"]
-    ],
     "packages/cli/src/errors.ts:4053971182": [
       [2, 90, 10, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "3805115554"]
-    ],
-    "packages/cli/src/init.ts:4030003562": [
-      [74, 4, 69, "Unsafe assignment of an any value.", "3315440333"],
-      [79, 2, 47, "Unsafe assignment of an any value.", "4106472126"],
-      [79, 2, 19, "Unsafe member access .scripts on an any value.", "3595083989"],
-      [79, 24, 19, "Unsafe member access .scripts on an any value.", "3595083989"],
-      [80, 6, 19, "Unsafe member access .scripts on an any value.", "3595083989"],
-      [84, 4, 19, "Unsafe member access .scripts on an any value.", "3595083989"],
-      [87, 2, 63, "Unsafe assignment of an any value.", "4237347454"],
-      [87, 2, 27, "Unsafe member access .devDependencies on an any value.", "2927433783"],
-      [87, 32, 27, "Unsafe member access .devDependencies on an any value.", "2927433783"],
-      [88, 6, 27, "Unsafe member access .devDependencies on an any value.", "2927433783"],
-      [95, 10, 40, "Unsafe assignment of an any value.", "959029483"],
-      [96, 4, 27, "Unsafe member access .devDependencies on an any value.", "2927433783"],
-      [96, 55, 7, "Invalid type \\"any\\" of template literal expression.", "800248767"]
     ],
     "packages/cli/src/watch.ts:176597381": [
       [26, 6, 15, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "733721943"]
@@ -85,20 +53,6 @@ exports[`new eslint rules`] = {
       [27, 4, 25, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "3494514196"],
       [73, 6, 32, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "694099710"]
     ],
-    "packages/extension/src/server/betterer.ts:4211891793": [
-      [16, 8, 24, "Unsafe assignment of an any value.", "1072779174"],
-      [17, 8, 34, "Unsafe assignment of an any value.", "1696192854"],
-      [17, 26, 16, "Unsafe member access .betterer on an any value.", "2086049363"]
-    ],
-    "packages/extension/src/server/config.ts:877464978": [
-      [12, 4, 23, "Unsafe assignment of an any value.", "4217090156"],
-      [13, 4, 7, "Unsafe assignment of an any value.", "1789297334"],
-      [14, 4, 11, "Unsafe assignment of an any value.", "2365839858"],
-      [15, 4, 55, "Unsafe assignment of an any value.", "1958731456"]
-    ],
-    "packages/extension/src/server/notifications/validate.ts:2562732250": [
-      [18, 4, 38, "Unsafe assignment of type Map<any, any> to a variable of type Map<string, { handler: NotificationHandler<TextDocument>; versionProvider: BettererVersionProvider; }>.", "2572650248"]
-    ],
     "packages/extension/src/server/server.ts:2004201515": [
       [62, 4, 68, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "280309533"],
       [63, 4, 71, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2936064845"],
@@ -107,26 +61,6 @@ exports[`new eslint rules`] = {
     "packages/extension/src/server/validator.ts:2557653799": [
       [48, 10, 90, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "1821734533"],
       [96, 12, 94, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2449957056"]
-    ],
-    "packages/typescript/src/typescript.ts:405611543": [
-      [20, 12, 6, "Unsafe array destructuring of a tuple element with an any value.", "1544266319"],
-      [21, 10, 28, "Unsafe assignment of an any value.", "1730011879"],
-      [24, 10, 85, "Unsafe assignment of an any value.", "1072556674"],
-      [28, 4, 44, "Unsafe assignment of an any value.", "2615138127"],
-      [28, 4, 22, "Unsafe member access .compilerOptions on an any value.", "3579262450"]
-    ],
-    "test/cli/betterer-init.spec.ts:41535933": [
-      [23, 10, 57, "Unsafe assignment of an any value.", "1827640456"],
-      [25, 11, 19, "Unsafe member access .scripts on an any value.", "3595083989"],
-      [26, 11, 27, "Unsafe member access .devDependencies on an any value.", "2927433783"]
-    ],
-    "test/cli/betterer-version.spec.ts:2875213250": [
-      [6, 10, 56, "Unsafe assignment of an any value.", "702246347"]
-    ],
-    "test/fixture.ts:4010096081": [
-      [83, 10, 33, "Unsafe assignment of an any value.", "2802723694"],
-      [83, 24, 13, "Unsafe member access .split on an any value.", "2353790866"],
-      [83, 24, 13, "Unsafe call of an any typed value.", "2353790866"]
     ]
   }`
 };

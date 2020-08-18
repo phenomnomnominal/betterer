@@ -1,4 +1,4 @@
-import { init } from '@betterer/cli';
+import { init, BettererPackageJSON } from '@betterer/cli';
 
 import { createFixture } from '../fixture';
 
@@ -21,7 +21,7 @@ describe('betterer cli', () => {
 
     await init(fixturePath, ARGV);
 
-    const packageJSON = JSON.parse(await readFile(packageJSONPath));
+    const packageJSON = JSON.parse(await readFile(packageJSONPath)) as BettererPackageJSON;
 
     expect(packageJSON.scripts.betterer).toEqual('betterer');
     expect(packageJSON.devDependencies['@betterer/cli']).toBeDefined();
