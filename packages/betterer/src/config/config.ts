@@ -13,7 +13,7 @@ export function createConfig(partialConfig: BettererConfigPartial): BettererConf
   const relativeConfig = {
     configPaths: toArray<string>(partialConfig.configPaths || baseConfig.configPaths || ['./.betterer']),
     resultsPath: partialConfig.resultsPath || baseConfig.resultsPath || './.betterer.results',
-    filters: toRegExps(toArray(partialConfig.filters || baseConfig.filters)),
+    filters: toRegExps(toArray<string | RegExp>(partialConfig.filters || baseConfig.filters)),
     ignores: toArray<string>(partialConfig.ignores || baseConfig.ignores),
     cwd: partialConfig.cwd || baseConfig.cwd || process.cwd(),
     silent: partialConfig.silent || baseConfig.silent || false,
@@ -32,8 +32,8 @@ export function createConfig(partialConfig: BettererConfigPartial): BettererConf
   };
 }
 
-function toArray<T>(value: unknown): Array<T> {
-  return Array.isArray(value) ? value : isUndefined(value) ? [] : [value];
+function toArray<T>(value?: ReadonlyArray<T> | Array<T> | T): Array<T> {
+  return Array.isArray(value) ? value : isUndefined(value) ? [] : [value as T];
 }
 
 function toRegExps(value: ReadonlyArray<string | RegExp>): ReadonlyArray<RegExp> {
