@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.2](https://github.com/phenomnomnominal/betterer/compare/v3.0.1...v3.0.2) (2020-08-18)
+
+
+### Bug Fixes
+
+* **betterer 🐛:** asignment -> assignment ([#212](https://github.com/phenomnomnominal/betterer/issues/212)) ([83f87af](https://github.com/phenomnomnominal/betterer/commit/83f87af05307f01f69dc1c05338c976daafbecf1))
+* **betterer 🐛:** handle the case when multiple issues are moved ([#213](https://github.com/phenomnomnominal/betterer/issues/213)) ([9c63fbf](https://github.com/phenomnomnominal/betterer/commit/9c63fbf316f08b28073c26efed002fedb18b90d3))
+* **extension 🐛:** can't launch VSC extension due to wrong command name ([#210](https://github.com/phenomnomnominal/betterer/issues/210)) ([0a9d262](https://github.com/phenomnomnominal/betterer/commit/0a9d26246cf3914998949c75c6db4f1378dbcd5e))
+
+
+
+
+
 ## [3.0.1](https://github.com/phenomnomnominal/betterer/compare/v3.0.0...v3.0.1) (2020-07-11)
 
 

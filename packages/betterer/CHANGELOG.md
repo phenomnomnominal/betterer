@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.2](https://github.com/phenomnomnominal/betterer/compare/v3.0.1...v3.0.2) (2020-08-18)
+
+
+### Bug Fixes
+
+* **betterer 🐛:** handle the case when multiple issues are moved ([#213](https://github.com/phenomnomnominal/betterer/issues/213)) ([9c63fbf](https://github.com/phenomnomnominal/betterer/commit/9c63fbf316f08b28073c26efed002fedb18b90d3))
+
+
+
+
+
 # [3.0.0](https://github.com/phenomnomnominal/betterer/compare/v2.4.1...v3.0.0) (2020-07-02)
 
 
