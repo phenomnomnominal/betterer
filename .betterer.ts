@@ -6,8 +6,6 @@ export default {
 
   'new eslint rules': eslint({
     '@typescript-eslint/restrict-template-expressions': 2,
-    '@typescript-eslint/no-floating-promises': 2,
-    '@typescript-eslint/no-unsafe-call': 2,
-    '@typescript-eslint/no-unsafe-member-access': 2
+    '@typescript-eslint/no-floating-promises': 2
   }).include('./packages/**/src/**/*.{js,ts}', './test/**/*.{js,ts}', './*.{js,ts}')
 };
