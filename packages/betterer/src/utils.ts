@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-export function isFunction(value: unknown): value is Function {
+export function isFunction<T>(value: unknown): value is T {
   return typeof value === 'function';
 }
 

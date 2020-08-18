@@ -12,8 +12,7 @@ exports[`no hack comments`] = {
 
 exports[`new eslint rules`] = {
   value: `{
-    "packages/betterer/src/context/context.ts:186886150": [
-      [29, 19, 8, "Don\'t use \`Function\` as a type. The \`Function\` type accepts any function-like value.\\nIt provides no type safety when calling the function, which can be a common source of bugs.\\nIt also accepts things like class declarations, which will throw at runtime as they will not be called with \`new\`.\\nIf you are expecting the function to accept certain arguments, you should explicitly define the function shape.", "4136871687"],
+    "packages/betterer/src/context/context.ts:3760583342": [
       [152, 6, 9, "Unsafe assignment of an any value.", "166477157"]
     ],
     "packages/betterer/src/errors.ts:2984110573": [
@@ -36,9 +35,6 @@ exports[`new eslint rules`] = {
     ],
     "packages/betterer/src/results/deserialiser.ts:3618777338": [
       [4, 8, 31, "Unsafe assignment of an any value.", "624767152"]
-    ],
-    "packages/betterer/src/utils.ts:38796100": [
-      [2, 53, 8, "Don\'t use \`Function\` as a type. The \`Function\` type accepts any function-like value.\\nIt provides no type safety when calling the function, which can be a common source of bugs.\\nIt also accepts things like class declarations, which will throw at runtime as they will not be called with \`new\`.\\nIf you are expecting the function to accept certain arguments, you should explicitly define the function shape.", "4136871687"]
     ],
     "packages/cli/src/cli.ts:2439790794": [
       [16, 6, 40, "Unsafe assignment of an any value.", "959029483"]
@@ -76,8 +72,8 @@ exports[`new eslint rules`] = {
       [14, 4, 39, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2731829246"],
       [24, 4, 43, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "4071897381"]
     ],
-    "packages/extension/src/client/extension.ts:1878081441": [
-      [60, 4, 27, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "1648678109"]
+    "packages/extension/src/client/extension.ts:2763828744": [
+      [59, 4, 27, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "1648678109"]
     ],
     "packages/extension/src/client/requests/state.ts:545404786": [
       [23, 4, 48, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "3664587686"]
@@ -85,9 +81,9 @@ exports[`new eslint rules`] = {
     "packages/extension/src/client/settings.ts:3918432042": [
       [23, 2, 40, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2460760654"]
     ],
-    "packages/extension/src/client/status.ts:3141128984": [
-      [28, 4, 25, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "3494514196"],
-      [74, 6, 32, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "694099710"]
+    "packages/extension/src/client/status.ts:2071927473": [
+      [27, 4, 25, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "3494514196"],
+      [73, 6, 32, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "694099710"]
     ],
     "packages/extension/src/server/betterer.ts:4211891793": [
       [16, 8, 24, "Unsafe assignment of an any value.", "1072779174"],
