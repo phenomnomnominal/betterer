@@ -82,8 +82,8 @@ exports[`new eslint rules`] = {
       [14, 4, 39, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2731829246"],
       [24, 4, 43, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "4071897381"]
     ],
-    "packages/extension/src/client/extension.ts:1878081441": [
-      [60, 4, 27, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "1648678109"]
+    "packages/extension/src/client/extension.ts:2763828744": [
+      [59, 4, 27, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "1648678109"]
     ],
     "packages/extension/src/client/requests/state.ts:545404786": [
       [23, 4, 48, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "3664587686"]
@@ -91,9 +91,9 @@ exports[`new eslint rules`] = {
     "packages/extension/src/client/settings.ts:3918432042": [
       [23, 2, 40, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2460760654"]
     ],
-    "packages/extension/src/client/status.ts:3141128984": [
-      [28, 4, 25, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "3494514196"],
-      [74, 6, 32, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "694099710"]
+    "packages/extension/src/client/status.ts:2071927473": [
+      [27, 4, 25, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "3494514196"],
+      [73, 6, 32, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "694099710"]
     ],
     "packages/extension/src/server/betterer.ts:4211891793": [
       [16, 8, 24, "Unsafe assignment of an any value.", "1072779174"],
