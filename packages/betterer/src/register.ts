@@ -6,6 +6,8 @@ export const JS_EXTENSION = '.js';
 export const RESULTS_EXTENTION = '.results';
 export const TS_EXTENSION = '.ts';
 
+type Extensions = typeof require.extensions;
+
 let isRegistered = false;
 export function registerExtensions(config: BettererConfig): void {
   if (isRegistered) {
@@ -15,7 +17,7 @@ export function registerExtensions(config: BettererConfig): void {
 
   // Need to do this so that webpack doesn't remove it
   // during the extension bundle...
-  const EXTENSIONS = eval(`require.extensions`);
+  const EXTENSIONS: Extensions = eval(`require.extensions`) as Extensions;
 
   // Get the original JS module require:
   const JS = EXTENSIONS[JS_EXTENSION];

@@ -16,7 +16,6 @@ const BASE_RULES = {
 const WIP_RULES = {
   '@typescript-eslint/restrict-template-expressions': 0,
   '@typescript-eslint/no-floating-promises': 0,
-  '@typescript-eslint/no-unsafe-assignment': 0,
   '@typescript-eslint/no-unsafe-call': 0,
   '@typescript-eslint/no-unsafe-member-access': 0
 };

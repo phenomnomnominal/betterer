@@ -6,6 +6,7 @@ import { promises as fs } from 'fs';
 import * as path from 'path';
 
 import { initOptions } from './options';
+import { BettererPackageJSON } from './types';
 
 import {
   COULDNT_FIND_PACKAGE_JSON,
@@ -72,7 +73,7 @@ async function updatePackageJSON(cwd: string): Promise<void> {
     if (!packageJSONPath) {
       throw COULDNT_FIND_PACKAGE_JSON();
     }
-    packageJSON = JSON.parse(await fs.readFile(packageJSONPath, 'utf-8'));
+    packageJSON = JSON.parse(await fs.readFile(packageJSONPath, 'utf-8')) as BettererPackageJSON;
   } catch {
     throw COULDNT_READ_PACKAGE_JSON();
   }
@@ -93,7 +94,7 @@ async function updatePackageJSON(cwd: string): Promise<void> {
     // It's easier to use require than to try to get `await import`
     // to work right for the package.json...
     /* eslint-disable @typescript-eslint/no-var-requires */
-    const { version } = require('../package.json');
+    const { version } = require('../package.json') as BettererPackageJSON;
     packageJSON.devDependencies['@betterer/cli'] = `^${version}`;
   }
 

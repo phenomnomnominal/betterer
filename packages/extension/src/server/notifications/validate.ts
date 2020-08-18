@@ -7,17 +7,12 @@ import { BettererValidationNotification, BettererVersionProvider } from './types
 export const BettererValidateNotification = new NotificationType<TextDocument, void>('betterer/validate');
 
 export class BettererValidationQueue {
-  private _queue: Array<BettererValidationNotification>;
-  private _notificationHandlers: Map<
+  private _queue: Array<BettererValidationNotification> = [];
+  private _notificationHandlers = new Map<
     string,
     { handler: NotificationHandler<TextDocument>; versionProvider: BettererVersionProvider }
-  >;
+  >();
   private _timer: NodeJS.Immediate | null = null;
-
-  constructor() {
-    this._queue = [];
-    this._notificationHandlers = new Map();
-  }
 
   public addNotificationMessage(event: TextDocumentChangeEvent<TextDocument>): void {
     if (!this._queue.find((item) => item.document === event.document)) {

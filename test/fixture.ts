@@ -80,7 +80,7 @@ export async function createFixture(fixtureName: string, fileStructure: FS): Pro
   };
 
   jest.spyOn(console, 'log').mockImplementation(log);
-  jest.spyOn(console, 'error').mockImplementation((message) => {
+  jest.spyOn(console, 'error').mockImplementation((message: string) => {
     const [firstLine] = message.split('\n');
     log(firstLine);
   });

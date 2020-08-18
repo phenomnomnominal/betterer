@@ -1,6 +1,6 @@
 import * as commander from 'commander';
 
-import { CLIArguments } from './types';
+import { CLIArguments, BettererPackageJSON } from './types';
 
 const enum Commands {
   start = 'start',
@@ -14,7 +14,7 @@ const COMMANDS: Array<string> = [Commands.start, Commands.init, Commands.watch];
 // It's easier to use require than to try to get `await import`
 // to work right for the package.json...
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { version } = require('../package.json');
+const { version } = require('../package.json') as BettererPackageJSON;
 
 export function cli(argv: CLIArguments): void {
   commander.version(version);

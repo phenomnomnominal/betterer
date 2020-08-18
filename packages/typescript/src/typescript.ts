@@ -6,6 +6,12 @@ import { CONFIG_PATH_REQUIRED, COMPILER_OPTIONS_REQUIRED } from './errors';
 
 const NEW_LINE = '\n';
 
+type TypeScriptReadConfigResult = {
+  config: {
+    compilerOptions: ts.CompilerOptions;
+  };
+};
+
 export function typescript(configFilePath: string, extraCompilerOptions: ts.CompilerOptions): BettererFileTest {
   if (!configFilePath) {
     throw CONFIG_PATH_REQUIRED();
@@ -18,7 +24,7 @@ export function typescript(configFilePath: string, extraCompilerOptions: ts.Comp
   const absPath = resolver.resolve(configFilePath);
 
   return new BettererFileTest(resolver, async () => {
-    const { config } = ts.readConfigFile(absPath, ts.sys.readFile.bind(ts.sys));
+    const { config } = ts.readConfigFile(absPath, ts.sys.readFile.bind(ts.sys)) as TypeScriptReadConfigResult;
     const { compilerOptions } = config;
     const basePath = path.dirname(absPath);
 
