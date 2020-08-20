@@ -30,7 +30,7 @@
   "dependencies": {
     "@betterer/betterer": "^3.0.3",
     "@betterer/errors": "^3.0.0",
-    "commander": "^5.1.0",
+    "commander": "^6.0.0",
     "find-up": "^5.0.0",
     "tslib": "^2.0.0"
   }
