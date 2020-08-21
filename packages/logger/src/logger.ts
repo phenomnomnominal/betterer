@@ -19,19 +19,19 @@ const NEW_LINE = '\n';
 
 let muted = false;
 
-export function mute(): void {
+export function muteΔ(): void {
   muted = true;
 }
 
-export function unmute(): void {
+export function unmuteΔ(): void {
   muted = false;
 }
 
-export function logo(): void {
+export function logoΔ(): void {
   log(LOGO);
 }
 
-export function br(): void {
+export function brΔ(): void {
   log('');
 }
 
@@ -39,11 +39,11 @@ const HEADING = chalk.bgBlack.yellowBright.bold(` ☀️  betterer `);
 
 let previousLogger: 'LOG' | 'CODE' = 'LOG';
 
-export const debug = createLogger(chalk.bgBlue.white(' debg '), chalk.bgBlack(' 🤔 '));
-export const success = createLogger(chalk.bgGreenBright.black(' succ '), chalk.bgBlack(' ✅ '));
-export const info = createLogger(chalk.bgWhiteBright.black(' info '), chalk.bgBlack(' 💬 '));
-export const warn = createLogger(chalk.bgYellowBright.black(' warn '), chalk.bgBlack(' 🚨 '));
-export const error = createLogger(chalk.bgRedBright.white(' erro '), chalk.bgBlack(' 🔥 '));
+export const debugΔ = createLogger(chalk.bgBlue.white(' debg '), chalk.bgBlack(' 🤔 '));
+export const successΔ = createLogger(chalk.bgGreenBright.black(' succ '), chalk.bgBlack(' ✅ '));
+export const infoΔ = createLogger(chalk.bgWhiteBright.black(' info '), chalk.bgBlack(' 💬 '));
+export const warnΔ = createLogger(chalk.bgYellowBright.black(' warn '), chalk.bgBlack(' 🚨 '));
+export const errorΔ = createLogger(chalk.bgRedBright.white(' erro '), chalk.bgBlack(' 🔥 '));
 
 const SPACER = chalk.bgBlack.yellowBright(' - ');
 
@@ -57,14 +57,14 @@ function log(...args: Array<string>): void {
 function createLogger(name: string, icon: string): BettererLogger {
   return function (...messages: BettererLoggerMessages): void {
     if (previousLogger === 'CODE') {
-      br();
+      brΔ();
     }
     log(`${HEADING}${name}${icon}${SPACER}`, ...messages.map((m) => chalk.whiteBright(m)));
     previousLogger = 'LOG';
   };
 }
 
-export const code = function (codeInfo: BettererLoggerCodeInfo): void {
+export function codeΔ(codeInfo: BettererLoggerCodeInfo): void {
   const { filePath, fileText, message } = codeInfo;
   const isJS = IS_JS_REGEXP.exec(path.extname(filePath));
   const options = {
@@ -86,9 +86,9 @@ export const code = function (codeInfo: BettererLoggerCodeInfo): void {
   const codeMessage = chalk.bgBlack.white(message.trim());
   log(`${NEW_LINE}${ERROR_BLOCK} ${codeMessage.split(NEW_LINE).join(`\n${ERROR_BLOCK} `)}\n\n${codeFrame}`);
   previousLogger = 'CODE';
-};
+}
 
-export function overwrite(content: string): BettererLoggerOverwriteDone {
+export function overwriteΔ(content: string): BettererLoggerOverwriteDone {
   if (!muted) {
     logUpdate(`${LOGO}${NEW_LINE}${content}`);
   }
