@@ -1,4 +1,4 @@
-import { error, info, success, warn, logo, br } from '@betterer/logger';
+import { errorΔ, infoΔ, successΔ, warnΔ, logoΔ, brΔ } from '@betterer/logger';
 
 import { BettererContext, BettererReporter, BettererRun, BettererStats } from '@betterer/betterer';
 import {
@@ -21,7 +21,7 @@ import { contextErrorΔ, quoteΔ } from './utils';
 
 export const defaultReporter: BettererReporter = {
   contextStart(): void {
-    logo();
+    logoΔ();
   },
   contextEnd(_: BettererContext, stats: BettererStats): void {
     const better = stats.better.length;
@@ -34,86 +34,86 @@ export const defaultReporter: BettererReporter = {
     const worse = stats.worse.length;
     const { completed, expired, obsolete } = stats;
 
-    info(testCheckedΔ(getTestsΔ(ran)));
+    infoΔ(testCheckedΔ(getTestsΔ(ran)));
     if (expired) {
       expired.forEach((testName) => {
-        error(testExpiredΔ(quoteΔ(testName)));
+        errorΔ(testExpiredΔ(quoteΔ(testName)));
       });
     }
     if (failed) {
-      error(testFailedΔ(getTestsΔ(failed)));
+      errorΔ(testFailedΔ(getTestsΔ(failed)));
     }
     if (neww) {
-      info(testNewΔ(getTestsΔ(neww)));
+      infoΔ(testNewΔ(getTestsΔ(neww)));
     }
     if (obsolete) {
       obsolete.forEach((testName) => {
-        error(testObsoleteΔ(quoteΔ(testName)));
+        errorΔ(testObsoleteΔ(quoteΔ(testName)));
       });
     }
     if (better) {
-      success(testBetterΔ(getTestsΔ(better)));
+      successΔ(testBetterΔ(getTestsΔ(better)));
     }
     if (completed.length) {
       completed.forEach((testName) => {
-        success(testCompleteΔ(quoteΔ(testName)));
+        successΔ(testCompleteΔ(quoteΔ(testName)));
       });
     }
     if (same) {
-      warn(testSameΔ(getTestsΔ(same)));
+      warnΔ(testSameΔ(getTestsΔ(same)));
     }
     if (skipped) {
-      warn(testSkippedΔ(getTestsΔ(skipped)));
+      warnΔ(testSkippedΔ(getTestsΔ(skipped)));
     }
     if (updated) {
-      info(testUpdatedΔ(getTestsΔ(updated)));
+      infoΔ(testUpdatedΔ(getTestsΔ(updated)));
     }
     if (worse) {
-      error(testWorseΔ(getTestsΔ(worse)));
-      error(updateInstructionsΔ());
+      errorΔ(testWorseΔ(getTestsΔ(worse)));
+      errorΔ(updateInstructionsΔ());
     }
   },
   contextError: contextErrorΔ,
   runStart(run: BettererRun): void {
     const name = quoteΔ(run.name);
     if (run.isExpired) {
-      error(testExpiredΔ(name));
+      errorΔ(testExpiredΔ(name));
     }
-    info(testRunningΔ(name));
+    infoΔ(testRunningΔ(name));
   },
   runEnd(run: BettererRun): void {
     const name = quoteΔ(run.name);
     if (run.isComplete) {
-      success(testCompleteΔ(name, run.isNew));
+      successΔ(testCompleteΔ(name, run.isNew));
       return;
     }
     if (run.isBetter) {
-      success(testBetterΔ(name));
+      successΔ(testBetterΔ(name));
       return;
     }
     if (run.isFailed) {
-      error(testFailedΔ(name));
+      errorΔ(testFailedΔ(name));
       return;
     }
     if (run.isNew) {
-      success(testNewΔ(name));
+      successΔ(testNewΔ(name));
       return;
     }
     if (run.isSame) {
-      warn(testSameΔ(name));
+      warnΔ(testSameΔ(name));
     }
     if (run.isUpdated) {
-      info(testUpdatedΔ(name));
-      br();
+      infoΔ(testUpdatedΔ(name));
+      brΔ();
       run.diff();
-      br();
+      brΔ();
       return;
     }
     if (run.isWorse) {
-      error(testWorseΔ(name));
-      br();
+      errorΔ(testWorseΔ(name));
+      brΔ();
       run.diff();
-      br();
+      brΔ();
     }
   }
 };

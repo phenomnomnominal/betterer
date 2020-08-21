@@ -1,4 +1,4 @@
-import { br, error } from '@betterer/logger';
+import { brΔ, errorΔ } from '@betterer/logger';
 
 import { BettererError } from './error';
 import { BettererErrorDetails, BettererErrorFactory, BettererErrorMessageFactory, ErrorLike } from './types';
@@ -11,14 +11,14 @@ export function logError(err: ErrorLike | Error | BettererError): void {
     const errors = err.details.filter((detail) => isErrorLike(detail)) as Array<ErrorLike>;
     const messages = err.details.filter((detail) => !errors.includes(detail as ErrorLike)) as Array<string>;
     err.message = factory(...messages);
-    error(err.message);
+    errorΔ(err.message);
     errors.forEach(logError);
     return;
   }
-  br();
+  brΔ();
   // eslint-disable-next-line no-console
   console.error(err.stack);
-  br();
+  brΔ();
 }
 
 export function registerError(factory: BettererErrorMessageFactory): BettererErrorFactory {

@@ -1,5 +1,5 @@
 import { BettererRuns, BettererReporter, BettererFilePaths } from '@betterer/betterer';
-import { info, overwrite } from '@betterer/logger';
+import { infoΔ, overwriteΔ } from '@betterer/logger';
 import {
   testBetterΔ,
   testCompleteΔ,
@@ -17,14 +17,14 @@ import { watchEnd, watchStart, filesChecked, filesChecking } from './messages';
 
 export const watchReporter: BettererReporter = {
   contextStart(): void {
-    info(watchStart());
+    infoΔ(watchStart());
   },
   contextEnd(): void {
-    info(watchEnd());
+    infoΔ(watchEnd());
   },
   contextError: contextErrorΔ,
   runsStart(_: BettererRuns, files: BettererFilePaths): void {
-    overwrite(filesChecking(files.length));
+    overwriteΔ(filesChecking(files.length));
   },
   runsEnd(runs: BettererRuns, files: BettererFilePaths): void {
     let report = `  ${filesChecked(files.length)}:\n`;
@@ -67,6 +67,6 @@ export const watchReporter: BettererReporter = {
         return;
       }
     });
-    overwrite(report);
+    overwriteΔ(report);
   }
 };
