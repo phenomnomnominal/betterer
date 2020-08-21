@@ -14,13 +14,13 @@ import {
   COULDNT_WRITE_CONFIG_FILE,
   COULDNT_WRITE_PACKAGE_JSON
 } from './errors';
-import { CLIArguments } from './types';
+import { BettererCLIArguments } from './types';
 
 const TEMPLATE = `export default {
   // Add tests here ☀️
 };`;
 
-export async function init(cwd: string, argv: CLIArguments): Promise<void> {
+export async function initΔ(cwd: string, argv: BettererCLIArguments): Promise<void> {
   initOptions(commander);
 
   commander.parse(argv as Array<string>);

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 require('../dist/watch')
-  .watch(process.cwd(), process.argv)
+  .watchΔ(process.cwd(), process.argv)
   .then(function () {
     process.exitCode = 0;
   });

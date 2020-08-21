@@ -1,10 +1,10 @@
 // BETTERER RESULTS V2.
 exports[`no hack comments`] = {
   value: `{
-    "packages/cli/src/cli.ts:1198167316": [
+    "packages/cli/src/cli.ts:2275900736": [
       [12, 0, 7, "RegExp match", "645651780"]
     ],
-    "packages/cli/src/init.ts:12338297": [
+    "packages/cli/src/init.ts:118084717": [
       [92, 4, 7, "RegExp match", "645651780"]
     ]
   }`
@@ -25,8 +25,8 @@ exports[`new eslint rules`] = {
     "packages/cli/src/errors.ts:4053971182": [
       [2, 90, 10, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "3805115554"]
     ],
-    "packages/cli/src/watch.ts:176597381": [
-      [26, 6, 15, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "733721943"]
+    "packages/cli/src/watch.ts:249340913": [
+      [34, 6, 15, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "733721943"]
     ],
     "packages/extension/src/client/commands/disable.ts:1676199082": [
       [11, 4, 42, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "829060112"],
