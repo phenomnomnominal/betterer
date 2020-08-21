@@ -62,7 +62,7 @@ export function typescript(configFilePath: string, extraCompilerOptions: ts.Comp
     return allDiagnostics.reduce((fileInfoMap, diagnostic) => {
       const { file, start, length } = diagnostic as ts.DiagnosticWithLocation;
       const { fileName } = file;
-      const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, NEW_LINE).replace(process.cwd(), '.');
+      const message = resolver.forceRelativePaths(ts.flattenDiagnosticMessageText(diagnostic.messageText, NEW_LINE));
       fileInfoMap[fileName] = fileInfoMap[fileName] || [];
       fileInfoMap[fileName] = [
         ...fileInfoMap[fileName],
