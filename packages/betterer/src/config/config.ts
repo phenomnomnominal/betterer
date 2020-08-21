@@ -1,4 +1,4 @@
-import { mute, unmute } from '@betterer/logger';
+import { muteΔ, unmuteΔ } from '@betterer/logger';
 import * as path from 'path';
 
 import { isString, isUndefined } from '../utils';
@@ -22,7 +22,7 @@ export function createConfig(partialConfig: BettererConfigPartial): BettererConf
   };
   const tsconfigPath = partialConfig.tsconfigPath || baseConfig.tsconfigPath;
 
-  relativeConfig.silent ? mute() : unmute();
+  relativeConfig.silent ? muteΔ() : unmuteΔ();
 
   return {
     ...relativeConfig,

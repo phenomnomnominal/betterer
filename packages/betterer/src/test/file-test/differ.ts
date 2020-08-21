@@ -1,4 +1,4 @@
-import { code, error, success, warn } from '@betterer/logger';
+import { codeΔ, errorΔ, successΔ, warnΔ } from '@betterer/logger';
 import * as assert from 'assert';
 
 import { BettererRun } from '../../context';
@@ -11,15 +11,15 @@ export function differ(run: BettererRun): void {
     const issues = diff[file];
     const { existing, fixed } = issues;
     if (fixed?.length) {
-      success(`${fixed.length} fixed ${getIssues(fixed.length)} in "${file}".`);
+      successΔ(`${fixed.length} fixed ${getIssues(fixed.length)} in "${file}".`);
     }
     if (existing?.length) {
-      warn(`${existing.length} existing ${getIssues(existing.length)} in "${file}".`);
+      warnΔ(`${existing.length} existing ${getIssues(existing.length)} in "${file}".`);
     }
     if (issues.neww?.length) {
       const { length } = issues.neww;
-      error(`${length} new ${getIssues(length)} in "${file}":`);
-      issues.neww.forEach((info) => code(info));
+      errorΔ(`${length} new ${getIssues(length)} in "${file}":`);
+      issues.neww.forEach((info) => codeΔ(info));
     }
   });
 }

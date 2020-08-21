@@ -8,12 +8,14 @@ Logger used within [**`Betterer`**](https://github.com/phenomnomnominal/betterer
 
 ## Usage
 
+> ## 🚨🚨🚨 THIS PACKAGE SHOULD ONLY BE USED WITHIN THE BETTERER MONOREPO 🚨🚨🚨
+
 ### Code
 
 ```typescript
-import { code } from '@betterer/logger';
+import { codeΔ } from '@betterer/logger';
 
-code({
+codeΔ({
   filePath: './file.js',
   fileText: 'function add (a, b) {\n  return a + b;\n}',
   start: 24,
@@ -28,9 +30,9 @@ code({
 ### Error
 
 ```typescript
-import { error } from '@betterer/logger';
+import { errorΔ } from '@betterer/logger';
 
-error('message');
+errorΔ('message');
 ```
 
 ![Example output for error logger](/packages/logger/images/error.png?raw=true)
@@ -40,9 +42,9 @@ error('message');
 ### Info
 
 ```typescript
-import { info } from '@betterer/logger';
+import { infoΔ } from '@betterer/logger';
 
-info('message');
+infoΔ('message');
 ```
 
 ![Example output for info logger](/packages/logger/images/info.png?raw=true)
@@ -52,9 +54,9 @@ info('message');
 ### Success
 
 ```typescript
-import { success } from '@betterer/logger';
+import { successΔ } from '@betterer/logger';
 
-success('message');
+successΔ('message');
 ```
 
 ![Example output for success logger](/packages/logger/images/success.png?raw=true)
@@ -64,9 +66,9 @@ success('message');
 ### Warning
 
 ```typescript
-import { warn } from '@betterer/logger';
+import { warnΔ } from '@betterer/logger';
 
-warn('message');
+warnΔ('message');
 ```
 
 ![Example output for warn logger](/packages/logger/images/warn.png?raw=true)
