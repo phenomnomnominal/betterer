@@ -1,16 +1,16 @@
 import { BettererRuns, BettererReporter, BettererFilePaths } from '@betterer/betterer';
 import { info, overwrite } from '@betterer/logger';
 import {
-  testBetter,
-  testComplete,
-  testExpired,
-  testFailed,
-  testNew,
-  testSame,
-  testUpdated,
-  testWorse,
-  contextError,
-  quote
+  testBetterΔ,
+  testCompleteΔ,
+  testExpiredΔ,
+  testFailedΔ,
+  testNewΔ,
+  testSameΔ,
+  testUpdatedΔ,
+  testWorseΔ,
+  contextErrorΔ,
+  quoteΔ
 } from '@betterer/reporter';
 
 import { watchEnd, watchStart, filesChecked, filesChecking } from './messages';
@@ -22,7 +22,7 @@ export const watchReporter: BettererReporter = {
   contextEnd(): void {
     info(watchEnd());
   },
-  contextError,
+  contextError: contextErrorΔ,
   runsStart(_: BettererRuns, files: BettererFilePaths): void {
     overwrite(filesChecking(files.length));
   },
@@ -33,37 +33,37 @@ export const watchReporter: BettererReporter = {
     });
     report += '\n';
     runs.forEach((run) => {
-      const name = quote(run.name);
+      const name = quoteΔ(run.name);
       if (run.isBetter) {
-        report += `\n  ${testBetter(name)}`;
+        report += `\n  ${testBetterΔ(name)}`;
         return;
       }
       if (run.isExpired) {
-        report += `\n  ${testExpired(name)}`;
+        report += `\n  ${testExpiredΔ(name)}`;
         return;
       }
       if (run.isFailed) {
-        report += `\n  ${testFailed(run.name)}`;
+        report += `\n  ${testFailedΔ(run.name)}`;
         return;
       }
       if (run.isNew) {
-        report += `\n  ${testNew(name)}`;
+        report += `\n  ${testNewΔ(name)}`;
         return;
       }
       if (run.isSame) {
-        report += `\n  ${testSame(name)}`;
+        report += `\n  ${testSameΔ(name)}`;
         return;
       }
       if (run.isUpdated) {
-        report += `\n  ${testUpdated(name)}`;
+        report += `\n  ${testUpdatedΔ(name)}`;
         return;
       }
       if (run.isWorse) {
-        report += `\n  ${testWorse(name)}`;
+        report += `\n  ${testWorseΔ(name)}`;
         return;
       }
       if (run.isComplete) {
-        report += `\n  ${testComplete(name, run.isNew)}`;
+        report += `\n  ${testCompleteΔ(name, run.isNew)}`;
         return;
       }
     });
