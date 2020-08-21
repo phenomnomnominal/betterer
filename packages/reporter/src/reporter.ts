@@ -2,22 +2,22 @@ import { errorΔ, infoΔ, successΔ, warnΔ, logoΔ, brΔ } from '@betterer/logg
 
 import { BettererContext, BettererReporter, BettererRun, BettererStats } from '@betterer/betterer';
 import {
-  testBetter,
-  testChecked,
-  testComplete,
-  testExpired,
-  testFailed,
-  testNew,
-  testObsolete,
-  testRunning,
-  testSame,
-  testSkipped,
-  testUpdated,
-  testWorse,
-  updateInstructions,
-  getTests
+  testBetterΔ,
+  testCheckedΔ,
+  testCompleteΔ,
+  testExpiredΔ,
+  testFailedΔ,
+  testNewΔ,
+  testObsoleteΔ,
+  testRunningΔ,
+  testSameΔ,
+  testSkippedΔ,
+  testUpdatedΔ,
+  testWorseΔ,
+  updateInstructionsΔ,
+  getTestsΔ
 } from './messages';
-import { contextError, quote } from './utils';
+import { contextErrorΔ, quoteΔ } from './utils';
 
 export const defaultReporter: BettererReporter = {
   contextStart(): void {
@@ -34,83 +34,83 @@ export const defaultReporter: BettererReporter = {
     const worse = stats.worse.length;
     const { completed, expired, obsolete } = stats;
 
-    infoΔ(testChecked(getTests(ran)));
+    infoΔ(testCheckedΔ(getTestsΔ(ran)));
     if (expired) {
       expired.forEach((testName) => {
-        errorΔ(testExpired(quote(testName)));
+        errorΔ(testExpiredΔ(quoteΔ(testName)));
       });
     }
     if (failed) {
-      errorΔ(testFailed(getTests(failed)));
+      errorΔ(testFailedΔ(getTestsΔ(failed)));
     }
     if (neww) {
-      infoΔ(testNew(getTests(neww)));
+      infoΔ(testNewΔ(getTestsΔ(neww)));
     }
     if (obsolete) {
       obsolete.forEach((testName) => {
-        errorΔ(testObsolete(quote(testName)));
+        errorΔ(testObsoleteΔ(quoteΔ(testName)));
       });
     }
     if (better) {
-      successΔ(testBetter(getTests(better)));
+      successΔ(testBetterΔ(getTestsΔ(better)));
     }
     if (completed.length) {
       completed.forEach((testName) => {
-        successΔ(testComplete(quote(testName)));
+        successΔ(testCompleteΔ(quoteΔ(testName)));
       });
     }
     if (same) {
-      warnΔ(testSame(getTests(same)));
+      warnΔ(testSameΔ(getTestsΔ(same)));
     }
     if (skipped) {
-      warnΔ(testSkipped(getTests(skipped)));
+      warnΔ(testSkippedΔ(getTestsΔ(skipped)));
     }
     if (updated) {
-      infoΔ(testUpdated(getTests(updated)));
+      infoΔ(testUpdatedΔ(getTestsΔ(updated)));
     }
     if (worse) {
-      errorΔ(testWorse(getTests(worse)));
-      errorΔ(updateInstructions());
+      errorΔ(testWorseΔ(getTestsΔ(worse)));
+      errorΔ(updateInstructionsΔ());
     }
   },
-  contextError,
+  contextError: contextErrorΔ,
   runStart(run: BettererRun): void {
-    const name = quote(run.name);
+    const name = quoteΔ(run.name);
     if (run.isExpired) {
-      errorΔ(testExpired(name));
+      errorΔ(testExpiredΔ(name));
     }
-    infoΔ(testRunning(name));
+    infoΔ(testRunningΔ(name));
   },
   runEnd(run: BettererRun): void {
-    const name = quote(run.name);
+    const name = quoteΔ(run.name);
     if (run.isComplete) {
-      successΔ(testComplete(name, run.isNew));
+      successΔ(testCompleteΔ(name, run.isNew));
       return;
     }
     if (run.isBetter) {
-      successΔ(testBetter(name));
+      successΔ(testBetterΔ(name));
       return;
     }
     if (run.isFailed) {
-      errorΔ(testFailed(name));
+      errorΔ(testFailedΔ(name));
       return;
     }
     if (run.isNew) {
-      successΔ(testNew(name));
+      successΔ(testNewΔ(name));
       return;
     }
     if (run.isSame) {
-      warnΔ(testSame(name));
+      warnΔ(testSameΔ(name));
     }
     if (run.isUpdated) {
-      infoΔ(testUpdated(name));
+      infoΔ(testUpdatedΔ(name));
       brΔ();
       run.diff();
       brΔ();
       return;
     }
     if (run.isWorse) {
-      errorΔ(testWorse(name));
+      errorΔ(testWorseΔ(name));
       brΔ();
       run.diff();
       brΔ();
