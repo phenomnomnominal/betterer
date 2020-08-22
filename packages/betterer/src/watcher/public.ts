@@ -1,2 +1,1 @@
-export { BettererWatcher } from './watcher';
-export * from './types';
+export { BettererFilePaths, BettererWatcher, BettererWatchRunHandler } from './types';

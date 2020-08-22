@@ -1,10 +1,10 @@
 import { BettererConstraintResult } from '@betterer/constraints';
 import { logError } from '@betterer/errors';
 
-import { BettererContext, BettererRun, BettererRuns } from '../context';
+import { BettererContextΔ, BettererRunΔ, BettererRunsΔ } from '../context';
 import { BettererFilePaths } from '../watcher';
 
-export async function parallel(context: BettererContext, files: BettererFilePaths): Promise<BettererRuns> {
+export async function parallel(context: BettererContextΔ, files: BettererFilePaths): Promise<BettererRunsΔ> {
   const runs = await context.runnerStart(files);
   await Promise.all(
     runs.map(async (run) => {
@@ -16,7 +16,7 @@ export async function parallel(context: BettererContext, files: BettererFilePath
   return runs;
 }
 
-export async function serial(context: BettererContext): Promise<BettererRuns> {
+export async function serial(context: BettererContextΔ): Promise<BettererRunsΔ> {
   const runs = await context.runnerStart();
   await runs.reduce(async (p, run) => {
     await p;
@@ -27,7 +27,7 @@ export async function serial(context: BettererContext): Promise<BettererRuns> {
   return runs;
 }
 
-async function runTest(run: BettererRun): Promise<void> {
+async function runTest(run: BettererRunΔ): Promise<void> {
   const { test } = run;
 
   if (test.isSkipped) {

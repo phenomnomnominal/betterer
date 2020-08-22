@@ -1,2 +1,8 @@
 export { config } from './config';
-export * from './types';
+export {
+  BettererConfig,
+  BettererConfigFilters,
+  BettererConfigIgnore,
+  BettererConfigPartial,
+  BettererConfigPaths
+} from './types';

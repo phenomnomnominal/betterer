@@ -1,6 +1,6 @@
-import { BettererTestNames } from './types';
+import { BettererTestNames, BettererStats } from './types';
 
-export class BettererStats {
+export class BettererStatsΔ implements BettererStats {
   public readonly better: BettererTestNames = [];
   public readonly completed: BettererTestNames = [];
   public readonly expired: BettererTestNames = [];
