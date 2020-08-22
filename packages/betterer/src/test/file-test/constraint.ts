@@ -1,4 +1,4 @@
-import { ConstraintResult } from '@betterer/constraints';
+import { BettererConstraintResult } from '@betterer/constraints';
 import * as assert from 'assert';
 
 import { BettererFile } from './file';
@@ -6,33 +6,33 @@ import { BettererFiles } from './files';
 import { ensureDeserialised } from './serialiser';
 import { BettererFileTestDiff, BettererFileIssueDeserialised } from './types';
 
-type BettererFileTestConstraintResult = {
-  constraintResult: ConstraintResult;
+type BettererFileTestBettererConstraintResult = {
+  BettererConstraintResult: BettererConstraintResult;
   diff: BettererFileTestDiff;
 };
 
-export function constraint(result: BettererFiles, expected: BettererFiles): BettererFileTestConstraintResult {
+export function constraint(result: BettererFiles, expected: BettererFiles): BettererFileTestBettererConstraintResult {
   const diff = getDiff(result, expected);
 
   const filePaths = Object.keys(diff);
 
   if (filePaths.length === 0) {
-    return { constraintResult: ConstraintResult.same, diff };
+    return { BettererConstraintResult: BettererConstraintResult.same, diff };
   }
 
   const hasNew = filePaths.filter((filePath) => !!diff[filePath].neww?.length);
 
   if (hasNew.length) {
-    return { constraintResult: ConstraintResult.worse, diff };
+    return { BettererConstraintResult: BettererConstraintResult.worse, diff };
   }
 
   const hasFixed = filePaths.filter((filePath) => !!diff[filePath].fixed?.length);
 
   if (hasFixed.length) {
-    return { constraintResult: ConstraintResult.better, diff };
+    return { BettererConstraintResult: BettererConstraintResult.better, diff };
   }
 
-  return { constraintResult: ConstraintResult.same, diff };
+  return { BettererConstraintResult: BettererConstraintResult.same, diff };
 }
 
 function getDiff(result: BettererFiles, expected: BettererFiles): BettererFileTestDiff {

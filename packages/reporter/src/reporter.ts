@@ -1,27 +1,27 @@
-import { error, info, success, warn, logo, br } from '@betterer/logger';
+import { errorΔ, infoΔ, successΔ, warnΔ, logoΔ, brΔ } from '@betterer/logger';
 
 import { BettererContext, BettererReporter, BettererRun, BettererStats } from '@betterer/betterer';
 import {
-  testBetter,
-  testChecked,
-  testComplete,
-  testExpired,
-  testFailed,
-  testNew,
-  testObsolete,
-  testRunning,
-  testSame,
-  testSkipped,
-  testUpdated,
-  testWorse,
-  updateInstructions,
-  getTests
+  testBetterΔ,
+  testCheckedΔ,
+  testCompleteΔ,
+  testExpiredΔ,
+  testFailedΔ,
+  testNewΔ,
+  testObsoleteΔ,
+  testRunningΔ,
+  testSameΔ,
+  testSkippedΔ,
+  testUpdatedΔ,
+  testWorseΔ,
+  updateInstructionsΔ,
+  getTestsΔ
 } from './messages';
-import { contextError, quote } from './utils';
+import { contextErrorΔ, quoteΔ } from './utils';
 
 export const defaultReporter: BettererReporter = {
   contextStart(): void {
-    logo();
+    logoΔ();
   },
   contextEnd(_: BettererContext, stats: BettererStats): void {
     const better = stats.better.length;
@@ -34,86 +34,86 @@ export const defaultReporter: BettererReporter = {
     const worse = stats.worse.length;
     const { completed, expired, obsolete } = stats;
 
-    info(testChecked(getTests(ran)));
+    infoΔ(testCheckedΔ(getTestsΔ(ran)));
     if (expired) {
       expired.forEach((testName) => {
-        error(testExpired(quote(testName)));
+        errorΔ(testExpiredΔ(quoteΔ(testName)));
       });
     }
     if (failed) {
-      error(testFailed(getTests(failed)));
+      errorΔ(testFailedΔ(getTestsΔ(failed)));
     }
     if (neww) {
-      info(testNew(getTests(neww)));
+      infoΔ(testNewΔ(getTestsΔ(neww)));
     }
     if (obsolete) {
       obsolete.forEach((testName) => {
-        error(testObsolete(quote(testName)));
+        errorΔ(testObsoleteΔ(quoteΔ(testName)));
       });
     }
     if (better) {
-      success(testBetter(getTests(better)));
+      successΔ(testBetterΔ(getTestsΔ(better)));
     }
     if (completed.length) {
       completed.forEach((testName) => {
-        success(testComplete(quote(testName)));
+        successΔ(testCompleteΔ(quoteΔ(testName)));
       });
     }
     if (same) {
-      warn(testSame(getTests(same)));
+      warnΔ(testSameΔ(getTestsΔ(same)));
     }
     if (skipped) {
-      warn(testSkipped(getTests(skipped)));
+      warnΔ(testSkippedΔ(getTestsΔ(skipped)));
     }
     if (updated) {
-      info(testUpdated(getTests(updated)));
+      infoΔ(testUpdatedΔ(getTestsΔ(updated)));
     }
     if (worse) {
-      error(testWorse(getTests(worse)));
-      error(updateInstructions());
+      errorΔ(testWorseΔ(getTestsΔ(worse)));
+      errorΔ(updateInstructionsΔ());
     }
   },
-  contextError,
+  contextError: contextErrorΔ,
   runStart(run: BettererRun): void {
-    const name = quote(run.name);
+    const name = quoteΔ(run.name);
     if (run.isExpired) {
-      error(testExpired(name));
+      errorΔ(testExpiredΔ(name));
     }
-    info(testRunning(name));
+    infoΔ(testRunningΔ(name));
   },
   runEnd(run: BettererRun): void {
-    const name = quote(run.name);
+    const name = quoteΔ(run.name);
     if (run.isComplete) {
-      success(testComplete(name, run.isNew));
+      successΔ(testCompleteΔ(name, run.isNew));
       return;
     }
     if (run.isBetter) {
-      success(testBetter(name));
+      successΔ(testBetterΔ(name));
       return;
     }
     if (run.isFailed) {
-      error(testFailed(name));
+      errorΔ(testFailedΔ(name));
       return;
     }
     if (run.isNew) {
-      success(testNew(name));
+      successΔ(testNewΔ(name));
       return;
     }
     if (run.isSame) {
-      warn(testSame(name));
+      warnΔ(testSameΔ(name));
     }
     if (run.isUpdated) {
-      info(testUpdated(name));
-      br();
+      infoΔ(testUpdatedΔ(name));
+      brΔ();
       run.diff();
-      br();
+      brΔ();
       return;
     }
     if (run.isWorse) {
-      error(testWorse(name));
-      br();
+      errorΔ(testWorseΔ(name));
+      brΔ();
       run.diff();
-      br();
+      brΔ();
     }
   }
 };

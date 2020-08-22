@@ -1,4 +1,4 @@
-import { ConstraintResult } from '@betterer/constraints';
+import { BettererConstraintResult } from '@betterer/constraints';
 import { logError } from '@betterer/errors';
 
 import { BettererContext, BettererRun, BettererRuns } from '../context';
@@ -55,12 +55,12 @@ async function runTest(run: BettererRun): Promise<void> {
 
   const comparison = await test.constraint(result, run.expected);
 
-  if (comparison === ConstraintResult.same) {
+  if (comparison === BettererConstraintResult.same) {
     run.same(result);
     return;
   }
 
-  if (comparison === ConstraintResult.better) {
+  if (comparison === BettererConstraintResult.better) {
     run.better(result, goalComplete);
     return;
   }

@@ -49,7 +49,7 @@ module.exports = {
 
     await writeFile(indexPath, `debugger;`);
 
-    const [run] = await betterer.single({ configPaths, resultsPath, cwd }, indexPath);
+    const [run] = await betterer.single(indexPath, { configPaths, resultsPath, cwd });
 
     expect(run.isNew).toEqual(true);
     expect(run.files).toEqual([indexPath]);
@@ -103,7 +103,7 @@ module.exports = {
 
     await writeFile(testFile, `debugger;`);
 
-    const [run] = await betterer.single({ configPaths, resultsPath, cwd }, testFile);
+    const [run] = await betterer.single(testFile, { configPaths, resultsPath, cwd });
 
     expect(run.isComplete).toEqual(true);
     expect(run.files).toEqual([testFile]);
@@ -129,7 +129,7 @@ module.exports = {
 
     await writeFile(indexPath, `// HACK:`);
 
-    const [run] = await betterer.single({ configPaths, resultsPath, cwd }, indexPath);
+    const [run] = await betterer.single(indexPath, { configPaths, resultsPath, cwd });
 
     expect(run.isNew).toEqual(true);
     expect(run.files).toEqual([indexPath]);
@@ -155,7 +155,7 @@ module.exports = {
 
     await writeFile(testFile, `// HACK:`);
 
-    const [run] = await betterer.single({ configPaths, resultsPath, cwd }, testFile);
+    const [run] = await betterer.single(testFile, { configPaths, resultsPath, cwd });
 
     expect(run.isComplete).toEqual(true);
     expect(run.files).toEqual([testFile]);
@@ -197,7 +197,7 @@ export default {
 
     await writeFile(indexPath, `console.log('foo');`);
 
-    const [run] = await betterer.single({ configPaths, resultsPath, cwd }, indexPath);
+    const [run] = await betterer.single(indexPath, { configPaths, resultsPath, cwd });
 
     expect(run.isNew).toEqual(true);
     expect(run.files).toEqual([indexPath]);
@@ -239,7 +239,7 @@ export default {
 
     await writeFile(testPath, `console.log('foo');`);
 
-    const [run] = await betterer.single({ configPaths, resultsPath, cwd }, testPath);
+    const [run] = await betterer.single(testPath, { configPaths, resultsPath, cwd });
 
     expect(run.isNew).toEqual(true);
     expect(run.files).toEqual([testPath]);
@@ -280,7 +280,7 @@ export default {
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
 
-    const [run] = await betterer.single({ configPaths, resultsPath, cwd }, indexPath);
+    const [run] = await betterer.single(indexPath, { configPaths, resultsPath, cwd });
 
     expect(run.isNew).toEqual(true);
     expect(run.files).toEqual([indexPath]);
@@ -321,7 +321,7 @@ export default {
 
     await writeFile(testPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
 
-    const [run] = await betterer.single({ configPaths, resultsPath, cwd }, testPath);
+    const [run] = await betterer.single(testPath, { configPaths, resultsPath, cwd });
 
     expect(run.isNew).toEqual(true);
     expect(run.files).toEqual([testPath]);

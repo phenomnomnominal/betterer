@@ -1,4 +1,4 @@
-import { init, BettererPackageJSON } from '@betterer/cli';
+import { initΔ, BettererPackageJSON } from '@betterer/cli';
 
 import { createFixture } from '../fixture';
 
@@ -19,7 +19,7 @@ describe('betterer cli', () => {
     const fixturePath = paths.fixture;
     const packageJSONPath = resolve('./package.json');
 
-    await init(fixturePath, ARGV);
+    await initΔ(fixturePath, ARGV);
 
     const packageJSON = JSON.parse(await readFile(packageJSONPath)) as BettererPackageJSON;
 
@@ -47,8 +47,8 @@ describe('betterer cli', () => {
 
     let throws = false;
     try {
-      await init(fixturePath, ARGV);
-      await init(fixturePath, ARGV);
+      await initΔ(fixturePath, ARGV);
+      await initΔ(fixturePath, ARGV);
       await cleanup();
     } catch {
       throws = true;

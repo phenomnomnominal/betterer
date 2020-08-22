@@ -50,6 +50,10 @@ export class BettererFileResolver {
     return getNormalisedPath(path.resolve(this._cwd, ...pathSegments));
   }
 
+  public forceRelativePaths(message: string): string {
+    return message.replace(new RegExp(this._cwd, 'g'), '.');
+  }
+
   private async _getValidPaths(): Promise<BettererFilePaths> {
     const resolved = await this._resolveIncludeGlobs();
     return this._filterExcludedFiles(resolved);
