@@ -26,10 +26,7 @@ export function betterer(partialConfig?: BettererConfigPartial): Promise<Bettere
   }, partialConfig);
 }
 
-betterer.single = async function bettererSingle(
-  filePath: string,
-  partialConfig?: BettererConfigPartial
-): Promise<BettererRuns> {
+export function single(filePath: string, partialConfig?: BettererConfigPartial): Promise<BettererRuns> {
   return runContext(async (config) => {
     const context = new BettererContext(config);
     await context.setup();
@@ -37,9 +34,10 @@ betterer.single = async function bettererSingle(
     context.tearDown();
     return runs;
   }, partialConfig);
-};
+}
+betterer.single = single;
 
-betterer.watch = function bettererWatch(partialConfig?: BettererConfigPartial): Promise<BettererWatcher> {
+export function watch(partialConfig?: BettererConfigPartial): Promise<BettererWatcher> {
   return runContext(async (config) => {
     const reporter = loadReporters(config.reporters.length ? config.reporters : [WATCH_REPORTER]);
     const context = new BettererContext(config, reporter);
@@ -50,7 +48,8 @@ betterer.watch = function bettererWatch(partialConfig?: BettererConfigPartial): 
     await watcher.setup();
     return watcher;
   }, partialConfig);
-};
+}
+betterer.watch = watch;
 
 async function runContext<RunResult, RunFunction extends (config: BettererConfig) => Promise<RunResult>>(
   run: RunFunction,

@@ -1,27 +1,7 @@
 export declare function betterer(partialConfig?: BettererConfigPartial): Promise<BettererStats>;
 export declare namespace betterer {
-    var single: (partialConfig: Partial<{
-        configPaths: string | import("./config").BettererConfigPaths;
-        cwd: string;
-        filters: string | import("./config").BettererConfigFilters | readonly string[];
-        ignores: string | import("./config").BettererConfigIgnore;
-        reporters: import("./reporters").BettererReporterNames;
-        resultsPath: string;
-        silent: boolean;
-        tsconfigPath: string;
-        update: boolean;
-    }> | undefined, filePath: string) => Promise<BettererRuns>;
-    var watch: (partialConfig?: Partial<{
-        configPaths: string | import("./config").BettererConfigPaths;
-        cwd: string;
-        filters: string | import("./config").BettererConfigFilters | readonly string[];
-        ignores: string | import("./config").BettererConfigIgnore;
-        reporters: import("./reporters").BettererReporterNames;
-        resultsPath: string;
-        silent: boolean;
-        tsconfigPath: string;
-        update: boolean;
-    }>) => Promise<BettererWatcher>;
+    var single: typeof import(".").single;
+    var watch: typeof import(".").watch;
 }
 
 export declare type BettererConfig = {
@@ -133,6 +113,7 @@ export declare class BettererFileResolver {
     constructor(depth?: number);
     exclude(...excludePatterns: BettererFilePatterns): this;
     files(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
+    forceRelativePaths(message: string): string;
     include(...includePatterns: BettererFileGlobs): this;
     resolve(...pathSegments: Array<string>): string;
     validate(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
@@ -252,7 +233,7 @@ export declare class BettererTest<DeserialisedType = unknown, SerialisedType = D
     setName(name: string): void;
 }
 
-export declare type BettererTestConstraint<DeserialisedType> = (result: DeserialisedType, expected: DeserialisedType) => MaybeAsync<ConstraintResult>;
+export declare type BettererTestConstraint<DeserialisedType> = (result: DeserialisedType, expected: DeserialisedType) => MaybeAsync<BettererConstraintResult>;
 
 export declare type BettererTestFunction<DeserialisedType> = (run: BettererRun) => MaybeAsync<DeserialisedType>;
 
@@ -302,3 +283,7 @@ export declare function isBettererTest(test: unknown): test is BettererTest;
 export declare const NO_PREVIOUS_RESULT: unique symbol;
 
 export declare type Resolve = Parameters<ConstructorParameters<typeof Promise>[0]>[0];
+
+export declare function single(filePath: string, partialConfig?: BettererConfigPartial): Promise<BettererRuns>;
+
+export declare function watch(partialConfig?: BettererConfigPartial): Promise<BettererWatcher>;
