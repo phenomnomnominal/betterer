@@ -106,6 +106,8 @@ export declare type BettererFileIssuesRaw = ReadonlyArray<BettererFileIssueRaw>;
 
 export declare type BettererFileIssuesSerialised = ReadonlyArray<BettererFileIssueSerialised>;
 
+export declare type BettererFilePaths = ReadonlyArray<string>;
+
 export declare type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
 
 export declare class BettererFileResolver {

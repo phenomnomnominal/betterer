@@ -22,8 +22,7 @@
   },
   "scripts": {
     "compile": "tsc -b .",
-    "api": "ts-api-guardian --out ../../goldens/api/@betterer/typescript.d.ts dist/index.d.ts --allowModuleIdentifiers ts",
-    "test:api": "ts-api-guardian --verify ../../goldens/api/@betterer/typescript.d.ts dist/index.d.ts --allowModuleIdentifiers ts"
+    "api": "ts-api-guardian --out ../../goldens/api/@betterer/typescript.d.ts dist/index.d.ts --allowModuleIdentifiers ts"
   },
   "dependencies": {
     "@betterer/betterer": "^3.0.3",

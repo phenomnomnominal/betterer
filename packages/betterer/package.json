@@ -22,8 +22,7 @@
   },
   "scripts": {
     "compile": "tsc -b .",
-    "api": "ts-api-guardian --out ../../goldens/api/@betterer/betterer.d.ts dist/index.d.ts",
-    "test:api": "ts-api-guardian --verify ../../goldens/api/@betterer/betterer.d.ts dist/index.d.ts"
+    "api": "ts-api-guardian --out ../../goldens/api/@betterer/betterer.d.ts dist/index.d.ts"
   },
   "dependencies": {
     "@betterer/constraints": "^3.0.0",
