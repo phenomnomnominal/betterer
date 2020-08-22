@@ -11,6 +11,7 @@ const GOLDENS_DIR = path.resolve(__dirname, '../goldens/api/@betterer');
 
 const API_OPTIONS = { allowModuleIdentifiers: ['ts'] };
 
+const CRLF = '\r\n';
 const CHUNK_SPLIT = '\n\n';
 
 void (async function () {
@@ -36,19 +37,13 @@ void (async function () {
       const packageGolden = await fs.readFile(packageGoldenPath, 'utf-8');
       const packageAPI = publicApi(packageDeclarationPath, API_OPTIONS);
 
-      if (packageGolden === packageAPI) {
+      const isDefinitelyValid = packageGolden === packageAPI;
+      const isProbablyValid = isDefinitelyValid || checkForOutOfOrder(packageAPI, packageGolden);
+      if (isProbablyValid) {
         successΔ(`No Breaking API changes found in "@betterer/${packageName}" 👍`);
-        return;
-      }
-
-      const testChunks = packageAPI.split(CHUNK_SPLIT);
-      const goldenChunks = packageAPI.split(CHUNK_SPLIT);
-      const newChunks = testChunks.filter((chunk) => !packageGolden.includes(chunk));
-      const missingChunks = goldenChunks.filter((chunk) => !packageAPI.includes(chunk));
-
-      if (newChunks.length === 0 && missingChunks.length === 0) {
-        infoΔ(`Almost definitely no Breaking API changes found in "@betterer/${packageName}" 👍`);
-        infoΔ(`There's a *slight* chance this could be a false positive, so maybe just double check it! 😬`);
+        if (!isDefinitelyValid) {
+          infoΔ(`There's a *slight* chance this could be a false positive, so maybe just double check it! 😬`);
+        }
         return;
       }
 
@@ -60,3 +55,15 @@ void (async function () {
     })
   );
 })();
+
+function checkForOutOfOrder(generated: string, golden: string): boolean {
+  const generatedChunks = normaliseNewLines(generated).split(CHUNK_SPLIT);
+  const goldenChunks = normaliseNewLines(golden).split(CHUNK_SPLIT);
+  const newChunks = generatedChunks.filter((chunk) => !golden.includes(chunk));
+  const missingChunks = goldenChunks.filter((chunk) => !generated.includes(chunk));
+  return newChunks.length === 0 && missingChunks.length === 0;
+}
+
+function normaliseNewLines(str: string): string {
+  return str.replace(new RegExp(CRLF, 'g'), '\n');
+}
