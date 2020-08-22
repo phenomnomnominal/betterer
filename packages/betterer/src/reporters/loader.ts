@@ -1,6 +1,6 @@
 import { COULDNT_LOAD_REPORTER, NO_REPORTER_LOADED, UNKNOWN_HOOK_NAME, HOOK_NOT_A_FUNCTION } from '../errors';
 import { requireUncached } from '../require';
-import { BettererMultiReporter } from './reporter-multi';
+import { BettererMultiReporterΩ } from './reporter-multi';
 import { BettererReporterNames, BettererReporter, BettererReporterModule } from './types';
 import { isFunction } from '../utils';
 
@@ -17,7 +17,7 @@ const HOOK_NAMES: ReadonlyArray<keyof BettererReporter> = [
   'runEnd'
 ];
 
-export function loadReporters(reporterNames: BettererReporterNames): BettererMultiReporter {
+export function loadReporters(reporterNames: BettererReporterNames): BettererMultiReporterΩ {
   const reporters: Array<BettererReporter> = reporterNames.map((name) => {
     try {
       const module: BettererReporterModule = requireUncached(name);
@@ -30,7 +30,7 @@ export function loadReporters(reporterNames: BettererReporterNames): BettererMul
       throw COULDNT_LOAD_REPORTER(name, e);
     }
   });
-  return new BettererMultiReporter(reporters);
+  return new BettererMultiReporterΩ(reporters);
 }
 
 function validate(result: unknown): asserts result is BettererReporter {

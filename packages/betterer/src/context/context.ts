@@ -9,8 +9,8 @@ import { print, read, write, NO_PREVIOUS_RESULT, BettererExpectedResults, Better
 import { BettererTest, BettererTests, isBettererTest, BettererTestMap, BettererTestOptions } from '../test';
 import { getNormalisedPath } from '../utils';
 import { BettererFilePaths } from '../watcher';
-import { BettererRunΔ, BettererRunsΔ } from './run';
-import { BettererStatsΔ } from './statistics';
+import { BettererRunΩ, BettererRunsΩ } from './run';
+import { BettererStatsΩ } from './statistics';
 import { Resolve, BettererContext } from './types';
 
 enum BettererContextStatus {
@@ -20,8 +20,8 @@ enum BettererContextStatus {
   end
 }
 
-export class BettererContextΔ implements BettererContext {
-  private _stats: BettererStatsΔ | null = null;
+export class BettererContextΩ implements BettererContext {
+  private _stats: BettererStatsΩ | null = null;
   private _tests: BettererTests = [];
   private _status = BettererContextStatus.notReady;
 
@@ -48,9 +48,9 @@ export class BettererContextΔ implements BettererContext {
     this._reporter?.contextEnd?.(this, this._stats);
   }
 
-  public async runnerStart(files: BettererFilePaths = []): Promise<BettererRunsΔ> {
+  public async runnerStart(files: BettererFilePaths = []): Promise<BettererRunsΩ> {
     assert.equal(this._status, BettererContextStatus.ready);
-    this._stats = new BettererStatsΔ();
+    this._stats = new BettererStatsΩ();
     const expectedRaw = await this._initExpected();
     const runs = this._tests.map((test) => {
       const { name } = test;
@@ -58,7 +58,7 @@ export class BettererContextΔ implements BettererContext {
       if (Object.hasOwnProperty.call(expectedRaw, name)) {
         expected = expectedRaw[name];
       }
-      return new BettererRunΔ(this, test, expected || NO_PREVIOUS_RESULT, files);
+      return new BettererRunΩ(this, test, expected || NO_PREVIOUS_RESULT, files);
     });
     this._reporter?.runsStart?.(runs, files);
     this._status = BettererContextStatus.running;
@@ -68,7 +68,7 @@ export class BettererContextΔ implements BettererContext {
     return runs;
   }
 
-  public runnerEnd(runs: BettererRunsΔ, files: BettererFilePaths = []): void {
+  public runnerEnd(runs: BettererRunsΩ, files: BettererFilePaths = []): void {
     assert.equal(this._status, BettererContextStatus.running);
     assert(this._finish);
     this._reporter?.runsEnd?.(runs, files);
@@ -76,7 +76,7 @@ export class BettererContextΔ implements BettererContext {
     this._finish();
   }
 
-  public runStart(run: BettererRunΔ): void {
+  public runStart(run: BettererRunΩ): void {
     assert(this._stats);
     const { isExpired, name } = run;
     if (isExpired) {
@@ -85,54 +85,54 @@ export class BettererContextΔ implements BettererContext {
     this._reporter?.runStart?.(run);
   }
 
-  public runBetter(run: BettererRunΔ): void {
+  public runBetter(run: BettererRunΩ): void {
     assert(this._stats);
     const { name } = run;
     this._stats.better.push(name);
   }
 
-  public runFailed(run: BettererRunΔ): void {
+  public runFailed(run: BettererRunΩ): void {
     assert(this._stats);
     const { name } = run;
     this._stats.failed.push(name);
   }
 
-  public runNew(run: BettererRunΔ): void {
+  public runNew(run: BettererRunΩ): void {
     assert(this._stats);
     const { name } = run;
     this._stats.new.push(name);
   }
 
-  public runRan(run: BettererRunΔ): void {
+  public runRan(run: BettererRunΩ): void {
     assert(this._stats);
     this._stats.ran.push(run.name);
   }
 
-  public runSame(run: BettererRunΔ): void {
+  public runSame(run: BettererRunΩ): void {
     assert(this._stats);
     const { name } = run;
     this._stats.same.push(name);
   }
 
-  public runSkipped(run: BettererRunΔ): void {
+  public runSkipped(run: BettererRunΩ): void {
     assert(this._stats);
     const { name } = run;
     this._stats.skipped.push(name);
   }
 
-  public runUpdate(run: BettererRunΔ): void {
+  public runUpdate(run: BettererRunΩ): void {
     assert(this._stats);
     const { name } = run;
     this._stats.updated.push(name);
   }
 
-  public runWorse(run: BettererRunΔ): void {
+  public runWorse(run: BettererRunΩ): void {
     assert(this._stats);
     const { name } = run;
     this._stats.worse.push(name);
   }
 
-  public runEnd(run: BettererRunΔ): void {
+  public runEnd(run: BettererRunΩ): void {
     assert(this._stats);
     const { isComplete, name } = run;
     if (isComplete) {
@@ -141,7 +141,7 @@ export class BettererContextΔ implements BettererContext {
     this._reporter?.runEnd?.(run);
   }
 
-  public async process(runs: BettererRunsΔ): Promise<BettererStatsΔ> {
+  public async process(runs: BettererRunsΩ): Promise<BettererStatsΩ> {
     assert.equal(this._status, BettererContextStatus.end);
     assert(this._stats);
     const printed: Array<string> = await Promise.all(runs.filter((run) => run.shouldPrint).map((run) => print(run)));

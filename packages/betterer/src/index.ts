@@ -24,12 +24,12 @@ export {
   BettererFileIssuesRaw,
   BettererFileIssuesSerialised,
   BettererFilePatterns,
-  BettererFileResolver,
-  BettererFileTest,
-  BettererFileTestDiff,
+  BettererFileResolver, //
+  BettererFileTest, //
+  BettererFileTestDiff, //
   BettererFileTestFunction,
   BettererFileTestOptions,
-  BettererFiles,
+  BettererFiles, //
   BettererPrinter,
   BettererSerialise,
   BettererSerialiser,
@@ -37,10 +37,6 @@ export {
   BettererTestConstraint,
   BettererTestFunction,
   BettererTestGoal,
-  BettererTestMap,
-  BettererTestOptions,
-  BettererTestStateOptions,
-  BettererTestType,
-  BettererTests
+  BettererTestOptions
 } from './test/public';
 export { BettererFilePaths, BettererWatcher, BettererWatchRunHandler } from './watcher/public';

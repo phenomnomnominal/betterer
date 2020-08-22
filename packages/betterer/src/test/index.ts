@@ -28,7 +28,5 @@ export {
   BettererTestGoal,
   BettererTestMap,
   BettererTestOptions,
-  BettererTestStateOptions,
-  BettererTestType,
   BettererTests
 } from './types';
