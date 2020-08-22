@@ -35,10 +35,10 @@ void (async function () {
       const packageGoldenPath = path.join(GOLDENS_DIR, `${packageName}${DECLARATION_EXTENSION}`);
 
       const packageGolden = await fs.readFile(packageGoldenPath, 'utf-8');
-      const packageAPI = publicApi(packageDeclarationPath, API_OPTIONS);
+      const packageGenerated = publicApi(packageDeclarationPath, API_OPTIONS);
 
-      const isDefinitelyValid = packageGolden === packageAPI;
-      const isProbablyValid = isDefinitelyValid || checkForOutOfOrder(packageAPI, packageGolden);
+      const isDefinitelyValid = packageGolden === packageGenerated;
+      const isProbablyValid = isDefinitelyValid || checkForOutOfOrder(packageGenerated, packageGolden);
       if (isProbablyValid) {
         successΔ(`No Breaking API changes found in "@betterer/${packageName}" 👍`);
         if (!isDefinitelyValid) {
@@ -47,8 +47,14 @@ void (async function () {
         return;
       }
 
-      errorΔ(`Breaking API changes found in "@betterer/${packageName}" 👎`);
+      packageGenerated.split('').map((generatedChar, i) => {
+        const goldenChar = packageGolden[i];
+        if (generatedChar !== goldenChar) {
+          console.log(generatedChar, goldenChar, generatedChar.charCodeAt(0), goldenChar.charCodeAt(0));
+        }
+      });
 
+      errorΔ(`Breaking API changes found in "@betterer/${packageName}" 👎`);
       const diff = verifyAgainstGoldenFile(packageDeclarationPath, packageGoldenPath, API_OPTIONS);
       process.stdout.write(`\n${diff}\n`);
       process.exitCode = 1;
