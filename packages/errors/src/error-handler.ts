@@ -1,18 +1,24 @@
 import { brΔ, errorΔ } from '@betterer/logger';
 
-import { BettererError } from './error';
-import { BettererErrorDetails, BettererErrorFactory, BettererErrorMessageFactory, ErrorLike } from './types';
+import { BettererErrorΩ } from './error';
+import {
+  BettererError,
+  BettererErrorDetails,
+  BettererErrorFactory,
+  BettererErrorMessageFactory,
+  ErrorLike
+} from './types';
 
 const ERROR_MESSAGES = new Map<symbol, BettererErrorMessageFactory>();
 
-export function logError(err: ErrorLike | Error | BettererError): void {
+export function logErrorΔ(err: ErrorLike | Error | BettererError): void {
   if (isBettererError(err)) {
     const factory = ERROR_MESSAGES.get(err.code) as BettererErrorMessageFactory;
     const errors = err.details.filter((detail) => isErrorLike(detail)) as Array<ErrorLike>;
     const messages = err.details.filter((detail) => !errors.includes(detail as ErrorLike)) as Array<string>;
     err.message = factory(...messages);
     errorΔ(err.message);
-    errors.forEach(logError);
+    errors.forEach(logErrorΔ);
     return;
   }
   brΔ();
@@ -25,7 +31,7 @@ export function registerError(factory: BettererErrorMessageFactory): BettererErr
   const code = Symbol();
   ERROR_MESSAGES.set(code, factory);
   return function factory(...details: BettererErrorDetails): BettererError {
-    const error = new BettererError(code, ...details);
+    const error = new BettererErrorΩ(code, ...details);
     Error.captureStackTrace(error, factory);
     return error;
   };
