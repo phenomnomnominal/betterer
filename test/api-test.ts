@@ -50,7 +50,9 @@ void (async function () {
       packageGenerated.split('').map((generatedChar, i) => {
         const goldenChar = packageGolden[i];
         if (generatedChar !== goldenChar) {
-          console.log(generatedChar, goldenChar, generatedChar.charCodeAt(0), goldenChar.charCodeAt(0));
+          process.stdout.write(
+            `${generatedChar} ${goldenChar} ${generatedChar.charCodeAt(0)} ${goldenChar.charCodeAt(0)}\n`
+          );
         }
       });
 
