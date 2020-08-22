@@ -61,7 +61,7 @@ export class BettererValidator {
         try {
           process.chdir(cwd);
           const config = await getBettererConfig(workspace);
-          const runs = await betterer.single({ ...config, cwd }, filePath);
+          const runs = await betterer.single(filePath, { ...config, cwd });
 
           runs
             .filter((run) => !run.isFailed)
