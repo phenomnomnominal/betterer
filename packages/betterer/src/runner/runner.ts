@@ -1,5 +1,5 @@
 import { BettererConstraintResult } from '@betterer/constraints';
-import { logError } from '@betterer/errors';
+import { logErrorΔ } from '@betterer/errors';
 
 import { BettererContext, BettererRun, BettererRuns } from '../context';
 import { BettererFilePaths } from '../watcher';
@@ -41,7 +41,7 @@ async function runTest(run: BettererRun): Promise<void> {
     result = await test.test(run);
   } catch (e) {
     run.failed();
-    logError(e);
+    logErrorΔ(e);
     return;
   }
   run.ran();
