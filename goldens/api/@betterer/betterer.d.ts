@@ -1,7 +1,7 @@
 export declare function betterer(partialConfig?: BettererConfigPartial): Promise<BettererStats>;
 export declare namespace betterer {
-    var single: typeof import(".").single;
-    var watch: typeof import(".").watch;
+    var single: typeof import("./betterer").single;
+    var watch: typeof import("./betterer").watch;
 }
 
 export declare type BettererConfig = {
@@ -34,37 +34,15 @@ export declare type BettererConfigPartial = Partial<{
 
 export declare type BettererConfigPaths = ReadonlyArray<string>;
 
-export declare class BettererContext {
+export declare type BettererContext = {
     readonly config: BettererConfig;
-    constructor(config: BettererConfig, _reporter?: BettererReporter | undefined);
-    getAbsolutePath(filePath: string): string;
-    getRelativePath(filePath: string): string;
-    process(runs: BettererRuns): Promise<BettererStats>;
-    runBetter(run: BettererRun): void;
-    runEnd(run: BettererRun): void;
-    runFailed(run: BettererRun): void;
-    runNew(run: BettererRun): void;
-    runRan(run: BettererRun): void;
-    runSame(run: BettererRun): void;
-    runSkipped(run: BettererRun): void;
-    runStart(run: BettererRun): void;
-    runUpdate(run: BettererRun): void;
-    runWorse(run: BettererRun): void;
-    runnerEnd(runs: BettererRuns, files?: BettererFilePaths): void;
-    runnerStart(files?: BettererFilePaths): Promise<BettererRuns>;
-    setup(): Promise<void>;
-    tearDown(): void;
-}
+    getAbsolutePath(path: string): string;
+    getRelativePath(path: string): string;
+};
 
 export declare type BettererDeserialise<DeserialisedType, SerialisedType = DeserialisedType> = (run: BettererRun, serialised: SerialisedType) => DeserialisedType;
 
 export declare type BettererDiffer = (run: BettererRun) => void;
-
-export declare type BettererExpectedResult = {
-    value: string;
-};
-
-export declare type BettererExpectedResults = Record<string, BettererExpectedResult>;
 
 export declare class BettererFile {
     readonly absolutePath: string;
@@ -159,44 +137,28 @@ export declare type BettererReporter = {
     runEnd?(run: BettererRun): void;
 };
 
-export declare type BettererReporterModule = {
-    reporter: BettererReporter;
-};
-
 export declare type BettererReporterNames = ReadonlyArray<string>;
 
-export declare class BettererRun {
-    get context(): BettererContext;
-    get expected(): unknown | typeof NO_PREVIOUS_RESULT;
-    get files(): BettererFilePaths;
-    get isBetter(): boolean;
-    get isComplete(): boolean;
-    get isExpired(): boolean;
-    get isFailed(): boolean;
-    get isNew(): boolean;
-    get isSame(): boolean;
-    get isSkipped(): boolean;
-    get isUpdated(): boolean;
-    get isWorse(): boolean;
-    get name(): string;
-    get result(): unknown;
-    get shouldPrint(): boolean;
-    get test(): BettererTest;
-    get timestamp(): number;
-    get toPrint(): unknown;
-    constructor(_context: BettererContext, _test: BettererTest, expected: BettererExpectedResult | typeof NO_PREVIOUS_RESULT, _files: BettererFilePaths);
-    better(result: unknown, isComplete: boolean): void;
+export declare type BettererRun = {
+    readonly context: BettererContext;
+    readonly expected: unknown | typeof NO_PREVIOUS_RESULT;
+    readonly files: BettererFilePaths;
+    readonly name: string;
+    readonly result: unknown;
+    readonly shouldPrint: boolean;
+    readonly test: BettererTest;
+    readonly timestamp: number;
+    readonly isBetter: boolean;
+    readonly isComplete: boolean;
+    readonly isExpired: boolean;
+    readonly isFailed: boolean;
+    readonly isNew: boolean;
+    readonly isSame: boolean;
+    readonly isSkipped: boolean;
+    readonly isUpdated: boolean;
+    readonly isWorse: boolean;
     diff(): void;
-    end(): void;
-    failed(): void;
-    neww(result: unknown, isComplete: boolean): void;
-    ran(): void;
-    same(result: unknown): void;
-    skipped(): void;
-    start(): void;
-    update(result: unknown): void;
-    worse(result: unknown): void;
-}
+};
 
 export declare type BettererRuns = ReadonlyArray<BettererRun>;
 
@@ -207,19 +169,19 @@ export declare type BettererSerialiser<DeserialisedType, SerialisedType = Deseri
     deserialise: BettererDeserialise<DeserialisedType, SerialisedType>;
 };
 
-export declare class BettererStats {
+export declare type BettererStats = {
     readonly better: BettererTestNames;
     readonly completed: BettererTestNames;
     readonly expired: BettererTestNames;
     readonly failed: BettererTestNames;
     readonly new: BettererTestNames;
-    readonly obsolete: BettererTestNames;
     readonly ran: BettererTestNames;
     readonly same: BettererTestNames;
+    readonly obsolete: BettererTestNames;
     readonly skipped: BettererTestNames;
     readonly updated: BettererTestNames;
     readonly worse: BettererTestNames;
-}
+};
 
 export declare class BettererTest<DeserialisedType = unknown, SerialisedType = DeserialisedType> extends BettererTestState {
     readonly constraint: BettererTestConstraint<DeserialisedType>;
@@ -241,51 +203,21 @@ export declare type BettererTestFunction<DeserialisedType> = (run: BettererRun) 
 
 export declare type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
 
-export declare type BettererTestMap = Record<string, BettererTest | BettererTestOptions<unknown, unknown>>;
-
-export declare type BettererTestNames = Array<string>;
-
 export declare type BettererTestOptions<DeserialisedType, SerialisedType = DeserialisedType> = {
     constraint: BettererTestConstraint<DeserialisedType>;
     deadline?: Date | string;
     goal?: DeserialisedType | BettererTestGoal<DeserialisedType>;
     test: BettererTestFunction<DeserialisedType>;
-} & BettererTestType<DeserialisedType, SerialisedType> & BettererTestStateOptions;
-
-export declare type BettererTests = ReadonlyArray<BettererTest>;
-
-export declare type BettererTestStateOptions = {
-    isOnly?: boolean;
-    isSkipped?: boolean;
-};
-
-export declare type BettererTestType<DeserialisedType, SerialisedType = DeserialisedType> = {
     differ?: BettererDiffer;
     printer?: BettererPrinter<SerialisedType>;
     serialiser?: BettererSerialiser<DeserialisedType, SerialisedType>;
-};
+} & BettererTestStateOptions;
 
-export declare type BettererWatchChangeHandler = (filePaths: BettererFilePaths) => Promise<BettererRuns>;
-
-export declare class BettererWatcher {
-    constructor(_context: BettererContext, _onChange: BettererWatchChangeHandler);
-    onRun(handler: BettererWatchRunHandler): void;
-    setup(): Promise<void>;
+export declare type BettererWatcher = {
     stop(): Promise<void>;
-}
+    onRun(handler: BettererWatchRunHandler): void;
+};
 
 export declare type BettererWatchRunHandler = (runs: BettererRuns) => void;
 
-export declare type BettererWatchStop = () => Promise<void>;
-
 export declare function config(partialConfig: BettererConfigPartial): void;
-
-export declare function isBettererTest(test: unknown): test is BettererTest;
-
-export declare const NO_PREVIOUS_RESULT: unique symbol;
-
-export declare type Resolve = Parameters<ConstructorParameters<typeof Promise>[0]>[0];
-
-export declare function single(filePath: string, partialConfig?: BettererConfigPartial): Promise<BettererRuns>;
-
-export declare function watch(partialConfig?: BettererConfigPartial): Promise<BettererWatcher>;
