@@ -1,4 +1,4 @@
-import { brΔ, errorΔ, infoΔ, successΔ } from '@betterer/logger';
+import { successΔ, errorΔ, infoΔ } from '@betterer/logger';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 import { publicApi, verifyAgainstGoldenFile } from 'ts-api-guardian';
@@ -14,11 +14,7 @@ const API_OPTIONS = { allowModuleIdentifiers: ['ts'] };
 const CRLF = '\r\n';
 const CHUNK_SPLIT = '\n\n';
 
-const INTERNAL_TOKENS = ['Ω'];
-
 void (async function () {
-  infoΔ('Validating API for @betterer packages... ☀️');
-
   const items = await fs.readdir(PACKAGES_DIR);
 
   const testDirectory = await Promise.all(
@@ -33,56 +29,42 @@ void (async function () {
     return packageName && !EXCLUDED_PACKAGES.includes(packageName);
   });
 
-  const results = await Promise.all(
-    validPackages.map(
-      async (packageName): Promise<boolean> => {
-        const packageDeclarationPath = path.join(PACKAGES_DIR, packageName, BUILT_DECLARATION);
-        const packageGoldenPath = path.join(GOLDENS_DIR, `${packageName}${DECLARATION_EXTENSION}`);
+  await Promise.all(
+    validPackages.map(async (packageName) => {
+      const packageDeclarationPath = path.join(PACKAGES_DIR, packageName, BUILT_DECLARATION);
+      const packageGoldenPath = path.join(GOLDENS_DIR, `${packageName}${DECLARATION_EXTENSION}`);
 
-        const packageGoldenRaw = await fs.readFile(packageGoldenPath, 'utf-8');
-        const packageGeneratedRaw = publicApi(packageDeclarationPath, API_OPTIONS);
-        const packageGolden = normaliseFile(packageGoldenRaw);
-        const packageGenerated = normaliseFile(packageGeneratedRaw);
+      const packageGoldenRaw = await fs.readFile(packageGoldenPath, 'utf-8');
+      const packageGeneratedRaw = publicApi(packageDeclarationPath, API_OPTIONS);
+      const packageGolden = normaliseFile(packageGoldenRaw);
+      const packageGenerated = normaliseFile(packageGeneratedRaw);
 
-        const foundToken = INTERNAL_TOKENS.find((token) => {
-          return checkForBannedTokens(packageGolden, token) || checkForBannedTokens(packageGenerated, token);
-        });
-        if (foundToken) {
-          errorΔ(
-            `Found "${foundToken}" in the API for "@betterer/${packageName}. This means internal code has been exposed.`
-          );
-          return false;
+      const isDefinitelyValid = packageGolden === packageGenerated;
+      const isProbablyValid = isDefinitelyValid || checkForOutOfOrder(packageGenerated, packageGolden);
+      if (isProbablyValid) {
+        successΔ(`No Breaking API changes found in "@betterer/${packageName}" 👍`);
+        if (!isDefinitelyValid) {
+          infoΔ(`There's a *slight* chance this could be a false positive, so maybe just double check it! 😬`);
         }
-
-        const isDefinitelyValid = packageGolden === packageGenerated;
-        const isProbablyValid = isDefinitelyValid || checkForOutOfOrder(packageGenerated, packageGolden);
-        if (isProbablyValid) {
-          successΔ(`No Breaking API changes found in "@betterer/${packageName}" 👍`);
-          if (!isDefinitelyValid) {
-            infoΔ(`There's a *slight* chance this could be a false positive, so maybe just double check it! 😬`);
-          }
-          return true;
-        }
-
-        errorΔ(`Breaking API changes found in "@betterer/${packageName}" 👎`);
-        const diff = verifyAgainstGoldenFile(packageDeclarationPath, packageGoldenPath, API_OPTIONS);
-        brΔ();
-        process.stdout.write(diff);
-        brΔ();
-        return false;
+        return;
       }
-    )
+
+      packageGenerated.split('').map((generatedChar, i) => {
+        const goldenChar = packageGolden[i];
+        if (generatedChar !== goldenChar) {
+          process.stdout.write(
+            `${generatedChar} ${goldenChar} ${generatedChar.charCodeAt(0)} ${goldenChar.charCodeAt(0)}\n`
+          );
+        }
+      });
+
+      errorΔ(`Breaking API changes found in "@betterer/${packageName}" 👎`);
+      const diff = verifyAgainstGoldenFile(packageDeclarationPath, packageGoldenPath, API_OPTIONS);
+      process.stdout.write(`\n${diff}\n`);
+      process.exitCode = 1;
+    })
   );
-
-  const failed = results.filter((result) => !result);
-  if (failed.length) {
-    process.exitCode = 1;
-  }
 })();
-
-function checkForBannedTokens(types: string, token: string): boolean {
-  return types.includes(token);
-}
 
 function checkForOutOfOrder(generated: string, golden: string): boolean {
   const generatedChunks = generated.split(CHUNK_SPLIT);
