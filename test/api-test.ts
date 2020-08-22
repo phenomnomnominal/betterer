@@ -34,8 +34,10 @@ void (async function () {
       const packageDeclarationPath = path.join(PACKAGES_DIR, packageName, BUILT_DECLARATION);
       const packageGoldenPath = path.join(GOLDENS_DIR, `${packageName}${DECLARATION_EXTENSION}`);
 
-      const packageGolden = await fs.readFile(packageGoldenPath, 'utf-8');
-      const packageGenerated = publicApi(packageDeclarationPath, API_OPTIONS);
+      const packageGoldenRaw = await fs.readFile(packageGoldenPath, 'utf-8');
+      const packageGeneratedRaw = publicApi(packageDeclarationPath, API_OPTIONS);
+      const packageGolden = normaliseFile(packageGoldenRaw);
+      const packageGenerated = normaliseFile(packageGeneratedRaw);
 
       const isDefinitelyValid = packageGolden === packageGenerated;
       const isProbablyValid = isDefinitelyValid || checkForOutOfOrder(packageGenerated, packageGolden);
@@ -65,13 +67,13 @@ void (async function () {
 })();
 
 function checkForOutOfOrder(generated: string, golden: string): boolean {
-  const generatedChunks = normaliseNewLines(generated).split(CHUNK_SPLIT);
-  const goldenChunks = normaliseNewLines(golden).split(CHUNK_SPLIT);
+  const generatedChunks = generated.split(CHUNK_SPLIT);
+  const goldenChunks = golden.split(CHUNK_SPLIT);
   const newChunks = generatedChunks.filter((chunk) => !golden.includes(chunk));
   const missingChunks = goldenChunks.filter((chunk) => !generated.includes(chunk));
   return newChunks.length === 0 && missingChunks.length === 0;
 }
 
-function normaliseNewLines(str: string): string {
-  return str.replace(new RegExp(CRLF, 'g'), '\n');
+function normaliseFile(str: string): string {
+  return str.replace(new RegExp(CRLF, 'g'), '\n').trim();
 }
