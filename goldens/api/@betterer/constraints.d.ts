@@ -1,9 +1,9 @@
-export declare function bigger(result: number, expected: number): ConstraintResult;
-
-export declare enum ConstraintResult {
+export declare enum BettererConstraintResult {
     better = "better",
     same = "same",
     worse = "worse"
 }
 
-export declare function smaller(result: number, expected: number): ConstraintResult;
+export declare function bigger(result: number, expected: number): BettererConstraintResult;
+
+export declare function smaller(result: number, expected: number): BettererConstraintResult;

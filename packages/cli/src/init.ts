@@ -1,4 +1,4 @@
-import { logError } from '@betterer/errors';
+import { logErrorΔ } from '@betterer/errors';
 import { infoΔ, warnΔ, successΔ } from '@betterer/logger';
 import * as commander from 'commander';
 import * as findUp from 'find-up';
@@ -32,7 +32,7 @@ export async function initΔ(cwd: string, argv: BettererCLIArguments): Promise<v
     await createTestFile(cwd, config);
     await updatePackageJSON(cwd);
   } catch (e) {
-    logError(e);
+    logErrorΔ(e);
     throw e;
   }
   successΔ('initialised Betterer! ☀️');

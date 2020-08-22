@@ -1,3 +1,8 @@
-export { BettererError } from './error';
-export { logError, registerError } from './error-handler';
-export * from './types';
+export { logErrorΔ, registerError } from './error-handler';
+export {
+  BettererError,
+  BettererErrorDetails,
+  BettererErrorFactory,
+  BettererErrorMessageFactory,
+  ErrorLike
+} from './types';

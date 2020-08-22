@@ -5,8 +5,6 @@ import { BettererFilePaths } from '../../watcher';
 import { BettererTestOptions } from '../types';
 import { BettererFiles } from './files';
 
-export { BettererFilePaths } from '../../watcher';
-
 export type BettererFileIssueRaw = BettererLoggerCodeInfo & {
   hash?: string;
 };
