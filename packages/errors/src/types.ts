@@ -1,4 +1,7 @@
-import { BettererError } from './error';
+export type BettererError = Error & {
+  code: symbol;
+  details: BettererErrorDetails;
+};
 
 export type BettererErrorDetails = ReadonlyArray<string | Error | BettererError>;
 export type BettererErrorFactory = (...details: BettererErrorDetails) => BettererError;
