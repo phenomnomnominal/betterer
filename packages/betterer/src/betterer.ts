@@ -1,4 +1,4 @@
-import { logError } from '@betterer/errors';
+import { logErrorΔ } from '@betterer/errors';
 
 import { BettererConfig, BettererConfigPartial, createConfig } from './config';
 import { BettererContextΩ, BettererStats, BettererRuns } from './context';
@@ -54,7 +54,7 @@ async function runContext<RunResult, RunFunction extends (config: BettererConfig
     registerExtensions(config);
     return await run(config);
   } catch (e) {
-    logError(e);
+    logErrorΔ(e);
     throw e;
   }
 }

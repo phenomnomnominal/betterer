@@ -2,14 +2,22 @@ import { betterer } from '@betterer/betterer';
 import * as commander from 'commander';
 
 import { watchOptions } from './options';
-import { CLIArguments, CLIWatchConfig } from './types';
+import { BettererCLIArguments, BettererCLIWatchConfig } from './types';
 
-export async function watch(cwd: string, argv: CLIArguments): Promise<void> {
+export async function watchΔ(cwd: string, argv: BettererCLIArguments): Promise<void> {
   watchOptions(commander);
 
   commander.parse(argv as Array<string>);
 
-  const { config, results, filter, ignore, reporter, silent, tsconfig } = (commander as unknown) as CLIWatchConfig;
+  const {
+    config,
+    results,
+    filter,
+    ignore,
+    reporter,
+    silent,
+    tsconfig
+  } = (commander as unknown) as BettererCLIWatchConfig;
 
   const watcher = await betterer.watch({
     configPaths: config,

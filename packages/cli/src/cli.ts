@@ -1,6 +1,6 @@
 import * as commander from 'commander';
 
-import { CLIArguments, BettererPackageJSON } from './types';
+import { BettererCLIArguments, BettererPackageJSON } from './types';
 
 const enum Commands {
   start = 'start',
@@ -16,7 +16,7 @@ const COMMANDS: Array<string> = [Commands.start, Commands.init, Commands.watch];
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { version } = require('../package.json') as BettererPackageJSON;
 
-export function cli(argv: CLIArguments): void {
+export function cliΔ(argv: BettererCLIArguments): void {
   commander.version(version);
 
   commander.command(Commands.init, 'init Betterer in a project');

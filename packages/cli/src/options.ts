@@ -1,5 +1,5 @@
 import { CommanderStatic } from 'commander';
-import { CLIArguments } from './types';
+import { BettererCLIArguments } from './types';
 
 export function initOptions(commander: CommanderStatic): void {
   configPathOption(commander);
@@ -64,6 +64,6 @@ function updateOption(commander: CommanderStatic): void {
   commander.option('-u, --update', 'Force update the results file, even if things get worse');
 }
 
-function argsToArray(value: string, previous: CLIArguments = []): CLIArguments {
+function argsToArray(value: string, previous: BettererCLIArguments = []): BettererCLIArguments {
   return previous.concat([value]);
 }

@@ -20,16 +20,18 @@ const MY_ERROR = registerError((details) => `Something went wrong: ${details}`);
 
 ### Log Error
 
+> ## 🚨🚨🚨 THIS FUNCTION SHOULD ONLY BE USED WITHIN THE BETTERER MONOREPO 🚨🚨🚨
+
 Log a registered error type:
 
 ```typescript
-import { logError, registerError } from '@betterer/errors';
+import { logErrorΔ, registerError } from '@betterer/errors';
 
 const MY_ERROR = registerError(details => `Something went wrong: "${details}"`);
 
 try {
     throw MY_ERROR('OOPS!):
 } catch (e) {
-    logError(e); // 'Something went wrong: "OOPS"'
+    logErrorΔ(e); // 'Something went wrong: "OOPS"'
 }
 ```

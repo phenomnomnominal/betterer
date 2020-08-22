@@ -9,7 +9,7 @@ export function config(partialConfig: BettererConfigPartial): void {
   baseConfig = partialConfig;
 }
 
-export function createConfig(partialConfig: BettererConfigPartial): BettererConfig {
+export function createConfig(partialConfig: BettererConfigPartial = {}): BettererConfig {
   const relativeConfig = {
     configPaths: toArray<string>(partialConfig.configPaths || baseConfig.configPaths || ['./.betterer']),
     resultsPath: partialConfig.resultsPath || baseConfig.resultsPath || './.betterer.results',

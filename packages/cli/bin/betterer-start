@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 require('../dist/start')
-  .start(process.cwd(), process.argv)
+  .startΔ(process.cwd(), process.argv)
   .then(function (stats) {
     process.exitCode = stats.worse.length !== 0 ? 1 : 0;
   })

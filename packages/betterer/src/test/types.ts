@@ -34,6 +34,11 @@ export type BettererSerialiser<DeserialisedType, SerialisedType = DeserialisedTy
   deserialise: BettererDeserialise<DeserialisedType, SerialisedType>;
 };
 
+export type BettererTestStateOptions = {
+  isOnly?: boolean;
+  isSkipped?: boolean;
+};
+
 export type BettererTestOptions<DeserialisedType, SerialisedType = DeserialisedType> = {
   constraint: BettererTestConstraint<DeserialisedType>;
   deadline?: Date | string;
@@ -42,6 +47,6 @@ export type BettererTestOptions<DeserialisedType, SerialisedType = DeserialisedT
   differ?: BettererDiffer;
   printer?: BettererPrinter<SerialisedType>;
   serialiser?: BettererSerialiser<DeserialisedType, SerialisedType>;
-};
+} & BettererTestStateOptions;
 
 export type BettererTestMap = Record<string, BettererTest | BettererTestOptions<unknown, unknown>>;

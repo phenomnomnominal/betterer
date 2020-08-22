@@ -1,5 +1,6 @@
 export { betterer } from './betterer';
 export {
+  config,
   BettererConfig,
   BettererConfigFilters,
   BettererConfigIgnore,
