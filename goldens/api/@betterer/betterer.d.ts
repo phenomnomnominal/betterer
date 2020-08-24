@@ -36,23 +36,13 @@ export declare type BettererConfigPaths = ReadonlyArray<string>;
 
 export declare type BettererContext = {
     readonly config: BettererConfig;
-    getAbsolutePath(path: string): string;
-    getRelativePath(path: string): string;
+    getAbsolutePathΔ(path: string): string;
+    getRelativePathΔ(path: string): string;
 };
 
 export declare type BettererDeserialise<DeserialisedType, SerialisedType = DeserialisedType> = (run: BettererRun, serialised: SerialisedType) => DeserialisedType;
 
 export declare type BettererDiffer = (run: BettererRun) => void;
-
-export declare class BettererFile {
-    readonly absolutePath: string;
-    readonly hash: string;
-    get issuesDeserialised(): BettererFileIssuesDeserialised;
-    get issuesRaw(): BettererFileIssuesRaw;
-    readonly key: string;
-    readonly relativePath: string;
-    constructor(relativePath: string, absolutePath: string, hash: string, issues: BettererFileIssues);
-}
 
 export declare type BettererFileGlobs = ReadonlyArray<string | ReadonlyArray<string>>;
 
@@ -70,11 +60,7 @@ export declare type BettererFileIssueRaw = BettererLoggerCodeInfo & {
 
 export declare type BettererFileIssues = ReadonlyArray<BettererFileIssueRaw> | ReadonlyArray<BettererFileIssueDeserialised>;
 
-export declare type BettererFileIssuesDeserialised = ReadonlyArray<BettererFileIssueDeserialised>;
-
 export declare type BettererFileIssueSerialised = [number, number, number, string, string];
-
-export declare type BettererFileIssuesMapDeserialised = Record<string, BettererFileIssuesDeserialised>;
 
 export declare type BettererFileIssuesMapRaw = Record<string, BettererFileIssuesRaw>;
 
@@ -91,22 +77,22 @@ export declare type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<
 export declare class BettererFileResolver {
     get cwd(): string;
     constructor(depth?: number);
-    exclude(...excludePatterns: BettererFilePatterns): this;
-    files(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
+    excludeΔ(...excludePatterns: BettererFilePatterns): this;
+    filesΔ(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
     forceRelativePaths(message: string): string;
-    include(...includePatterns: BettererFileGlobs): this;
+    includeΔ(...includePatterns: BettererFileGlobs): this;
     resolve(...pathSegments: Array<string>): string;
     validate(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
 }
 
-export declare class BettererFiles {
-    readonly files: ReadonlyArray<BettererFile>;
-    constructor(files: ReadonlyArray<BettererFile>);
-    getFile(absolutePath: string): BettererFile | void;
-}
+export declare type BettererFiles = {
+    readonly filesΔ: ReadonlyArray<BettererFile>;
+    getFileΔ(absolutePath: string): BettererFile | void;
+};
 
 export declare class BettererFileTest extends BettererTest<BettererFiles, BettererFileIssuesMapSerialised> {
     get diff(): BettererFileTestDiff | null;
+    isBettererFileTest: string;
     constructor(_resolver: BettererFileResolver, fileTest: BettererFileTestFunction);
     exclude(...excludePatterns: BettererFilePatterns): this;
     include(...includePatterns: BettererFileGlobs): this;
@@ -119,11 +105,6 @@ export declare type BettererFileTestDiff = Record<string, {
 }>;
 
 export declare type BettererFileTestFunction = (files: BettererFilePaths) => MaybeAsync<BettererFileIssuesMapRaw>;
-
-export declare type BettererFileTestOptions = BettererTestOptions<BettererFiles, BettererFileIssuesMapSerialised> & {
-    included: ReadonlyArray<string>;
-    excluded: ReadonlyArray<RegExp>;
-};
 
 export declare type BettererPrinter<SerialisedType> = (run: BettererRun, serialised: SerialisedType) => MaybeAsync<string>;
 
@@ -143,7 +124,6 @@ export declare type BettererRun = {
     readonly context: BettererContext;
     readonly expected: unknown | typeof NO_PREVIOUS_RESULT;
     readonly files: BettererFilePaths;
-    readonly name: string;
     readonly result: unknown;
     readonly shouldPrint: boolean;
     readonly test: BettererTest;
@@ -202,6 +182,8 @@ export declare type BettererTestConstraint<DeserialisedType> = (result: Deserial
 export declare type BettererTestFunction<DeserialisedType> = (run: BettererRun) => MaybeAsync<DeserialisedType>;
 
 export declare type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
+
+export declare type BettererTestNames = Array<string>;
 
 export declare type BettererTestOptions<DeserialisedType, SerialisedType = DeserialisedType> = {
     constraint: BettererTestConstraint<DeserialisedType>;

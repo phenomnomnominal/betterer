@@ -105,10 +105,6 @@ export class BettererRunΩ implements BettererRun {
     return this._status === BettererRunStatus.worse;
   }
 
-  public get name(): string {
-    return this._test.name;
-  }
-
   public get result(): unknown {
     return this._result;
   }

@@ -8,11 +8,11 @@ import { serialise } from './serialiser';
 const UNESCAPED = '"\n';
 
 export async function print(run: BettererRunΩ): Promise<string> {
-  const { name, test } = run;
+  const { test } = run;
   const printer = test.printer || defaultPrinter;
   const printedValue = await printer(run, serialise(run));
   const escaped = escape(printedValue, UNESCAPED);
-  return `\nexports[\`${name}\`] = {\n  value: \`${escaped}\`\n};\n`;
+  return `\nexports[\`${test.name}\`] = {\n  value: \`${escaped}\`\n};\n`;
 }
 
 function defaultPrinter(_: BettererRunΩ, value: unknown): string {

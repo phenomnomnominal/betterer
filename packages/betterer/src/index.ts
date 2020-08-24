@@ -7,34 +7,30 @@ export {
   BettererConfigPartial,
   BettererConfigPaths
 } from './config/public';
-export { BettererContext, BettererRun, BettererRuns, BettererStats } from './context/public';
+export { BettererContext, BettererRun, BettererRuns, BettererStats, BettererTestNames } from './context/public';
 export { BettererReporter, BettererReporterNames } from './reporters/public';
 export {
   BettererDeserialise,
   BettererDiffer,
-  BettererFile,
   BettererFileGlobs,
   BettererFileIssueDeserialised,
   BettererFileIssueRaw,
   BettererFileIssueSerialised,
   BettererFileIssues,
-  BettererFileIssuesDeserialised,
-  BettererFileIssuesMapDeserialised,
   BettererFileIssuesMapRaw,
   BettererFileIssuesMapSerialised,
   BettererFileIssuesRaw,
   BettererFileIssuesSerialised,
   BettererFilePatterns,
-  BettererFileResolver, //
+  BettererFileResolver,
   BettererFileTest, //
-  BettererFileTestDiff, //
+  BettererFileTestDiff,
   BettererFileTestFunction,
-  BettererFileTestOptions,
-  BettererFiles, //
+  BettererFiles,
   BettererPrinter,
   BettererSerialise,
   BettererSerialiser,
-  BettererTest,
+  BettererTest, //
   BettererTestConstraint,
   BettererTestFunction,
   BettererTestGoal,

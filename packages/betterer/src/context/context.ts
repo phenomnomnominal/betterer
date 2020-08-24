@@ -6,7 +6,14 @@ import { COULDNT_READ_CONFIG } from '../errors';
 import { BettererReporter } from '../reporters';
 import { requireUncached } from '../require';
 import { print, read, write, NO_PREVIOUS_RESULT, BettererExpectedResults, BettererExpectedResult } from '../results';
-import { BettererTest, BettererTests, isBettererTest, BettererTestMap, BettererTestOptions } from '../test';
+import {
+  BettererTest,
+  BettererTests,
+  isBettererTest,
+  BettererTestMap,
+  BettererTestOptions,
+  isBettererFileTest
+} from '../test';
 import { getNormalisedPath } from '../utils';
 import { BettererFilePaths } from '../watcher';
 import { BettererRunΩ, BettererRunsΩ } from './run';
@@ -52,14 +59,19 @@ export class BettererContextΩ implements BettererContext {
     assert.equal(this._status, BettererContextStatus.ready);
     this._stats = new BettererStatsΩ();
     const expectedRaw = await this._initExpected();
-    const runs = this._tests.map((test) => {
-      const { name } = test;
-      let expected: BettererExpectedResult | null = null;
-      if (Object.hasOwnProperty.call(expectedRaw, name)) {
-        expected = expectedRaw[name];
-      }
-      return new BettererRunΩ(this, test, expected || NO_PREVIOUS_RESULT, files);
-    });
+    const runs = this._tests
+      .filter((test) => {
+        // Only run BettererFileTests when a list of files is given:
+        return !files.length || isBettererFileTest(test);
+      })
+      .map((test) => {
+        const { name } = test;
+        let expected: BettererExpectedResult | null = null;
+        if (Object.hasOwnProperty.call(expectedRaw, name)) {
+          expected = expectedRaw[name];
+        }
+        return new BettererRunΩ(this, test, expected || NO_PREVIOUS_RESULT, files);
+      });
     this._reporter?.runsStart?.(runs, files);
     this._status = BettererContextStatus.running;
     this._running = new Promise((resolve) => {
@@ -78,65 +90,56 @@ export class BettererContextΩ implements BettererContext {
 
   public runStart(run: BettererRunΩ): void {
     assert(this._stats);
-    const { isExpired, name } = run;
-    if (isExpired) {
-      this._stats.expired.push(name);
+    if (run.isExpired) {
+      this._stats.expired.push(run.test.name);
     }
     this._reporter?.runStart?.(run);
   }
 
   public runBetter(run: BettererRunΩ): void {
     assert(this._stats);
-    const { name } = run;
-    this._stats.better.push(name);
+    this._stats.better.push(run.test.name);
   }
 
   public runFailed(run: BettererRunΩ): void {
     assert(this._stats);
-    const { name } = run;
-    this._stats.failed.push(name);
+    this._stats.failed.push(run.test.name);
   }
 
   public runNew(run: BettererRunΩ): void {
     assert(this._stats);
-    const { name } = run;
-    this._stats.new.push(name);
+    this._stats.new.push(run.test.name);
   }
 
   public runRan(run: BettererRunΩ): void {
     assert(this._stats);
-    this._stats.ran.push(run.name);
+    this._stats.ran.push(run.test.name);
   }
 
   public runSame(run: BettererRunΩ): void {
     assert(this._stats);
-    const { name } = run;
-    this._stats.same.push(name);
+    this._stats.same.push(run.test.name);
   }
 
   public runSkipped(run: BettererRunΩ): void {
     assert(this._stats);
-    const { name } = run;
-    this._stats.skipped.push(name);
+    this._stats.skipped.push(run.test.name);
   }
 
   public runUpdate(run: BettererRunΩ): void {
     assert(this._stats);
-    const { name } = run;
-    this._stats.updated.push(name);
+    this._stats.updated.push(run.test.name);
   }
 
   public runWorse(run: BettererRunΩ): void {
     assert(this._stats);
-    const { name } = run;
-    this._stats.worse.push(name);
+    this._stats.worse.push(run.test.name);
   }
 
   public runEnd(run: BettererRunΩ): void {
     assert(this._stats);
-    const { isComplete, name } = run;
-    if (isComplete) {
-      this._stats.completed.push(name);
+    if (run.isComplete) {
+      this._stats.completed.push(run.test.name);
     }
     this._reporter?.runEnd?.(run);
   }
@@ -153,11 +156,11 @@ export class BettererContextΩ implements BettererContext {
     return this._stats;
   }
 
-  public getAbsolutePath(filePath: string): string {
+  public getAbsolutePathΔ(filePath: string): string {
     return getNormalisedPath(path.resolve(path.dirname(this.config.resultsPath), filePath));
   }
 
-  public getRelativePath(filePath: string): string {
+  public getRelativePathΔ(filePath: string): string {
     return getNormalisedPath(path.relative(path.dirname(this.config.resultsPath), filePath));
   }
 

@@ -1,5 +1,5 @@
-import { BettererFiles } from './files';
+import { BettererFiles } from './types';
 
 export function goal(value: BettererFiles): boolean {
-  return value.files.length === 0;
+  return value.filesΔ.length === 0;
 }
