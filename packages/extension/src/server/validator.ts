@@ -22,7 +22,7 @@ import { BettererStatusNotification } from './status';
 export class BettererValidator {
   constructor(private _connection: IConnection, private _documents: TextDocuments<TextDocument>) {}
 
-  public async single(document: TextDocument): Promise<void> {
+  public async validate(document: TextDocument): Promise<void> {
     const { workspace } = this._connection;
     if (!this._documents.get(document.uri)) {
       return Promise.resolve();
@@ -61,7 +61,7 @@ export class BettererValidator {
         try {
           process.chdir(cwd);
           const config = await getBettererConfig(workspace);
-          const runs = await betterer.single(filePath, { ...config, cwd });
+          const runs = await betterer.file(filePath, { ...config, cwd });
 
           runs
             .filter((run) => !run.isFailed)

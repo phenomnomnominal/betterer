@@ -19,7 +19,7 @@ export function betterer(partialConfig?: BettererConfigPartial): Promise<Bettere
   }, partialConfig);
 }
 
-export async function single(filePath: string, partialConfig?: BettererConfigPartial): Promise<BettererRuns> {
+export async function file(filePath: string, partialConfig?: BettererConfigPartial): Promise<BettererRuns> {
   return runContext(async (config) => {
     const context = new BettererContextΩ(config);
     await context.setup();
@@ -28,7 +28,7 @@ export async function single(filePath: string, partialConfig?: BettererConfigPar
     return runs;
   }, partialConfig);
 }
-betterer.single = single;
+betterer.file = file;
 
 export function watch(partialConfig?: BettererConfigPartial): Promise<BettererWatcher> {
   return runContext(async (config) => {

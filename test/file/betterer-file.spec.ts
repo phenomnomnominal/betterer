@@ -2,9 +2,9 @@ import { betterer } from '@betterer/betterer';
 
 import { createFixture } from '../fixture';
 
-describe('betterer.single', () => {
-  it('should run eslint against a single file', async () => {
-    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-eslint-single', {
+describe('betterer.file', () => {
+  it('should run eslint against a file', async () => {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-eslint-file', {
       '.betterer.js': `
 const { eslint } = require('@betterer/eslint');
 
@@ -49,7 +49,7 @@ module.exports = {
 
     await writeFile(indexPath, `debugger;`);
 
-    const [run] = await betterer.single(indexPath, { configPaths, resultsPath, cwd });
+    const [run] = await betterer.file(indexPath, { configPaths, resultsPath, cwd });
 
     expect(run.isNew).toEqual(true);
     expect(run.files).toEqual([indexPath]);
@@ -58,7 +58,7 @@ module.exports = {
   });
 
   it('should ignore any files outside of the scope of the eslint test glob', async () => {
-    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-eslint-single-irrelevant', {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-eslint-file-irrelevant', {
       '.betterer.js': `
 const { eslint } = require('@betterer/eslint');
 
@@ -103,7 +103,7 @@ module.exports = {
 
     await writeFile(testFile, `debugger;`);
 
-    const [run] = await betterer.single(testFile, { configPaths, resultsPath, cwd });
+    const [run] = await betterer.file(testFile, { configPaths, resultsPath, cwd });
 
     expect(run.isComplete).toEqual(true);
     expect(run.files).toEqual([testFile]);
@@ -111,8 +111,8 @@ module.exports = {
     await cleanup();
   });
 
-  it('should run regexp against a single file', async () => {
-    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-regexp-single', {
+  it('should run regexp against a file', async () => {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-regexp-file', {
       '.betterer.js': `
 const { regexp } = require('@betterer/regexp');
 
@@ -129,7 +129,7 @@ module.exports = {
 
     await writeFile(indexPath, `// HACK:`);
 
-    const [run] = await betterer.single(indexPath, { configPaths, resultsPath, cwd });
+    const [run] = await betterer.file(indexPath, { configPaths, resultsPath, cwd });
 
     expect(run.isNew).toEqual(true);
     expect(run.files).toEqual([indexPath]);
@@ -138,7 +138,7 @@ module.exports = {
   });
 
   it('should ignore any files outside of the scope of the regexp test glob', async () => {
-    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-regexp-single-irrelevant', {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-regexp-file-irrelevant', {
       '.betterer.js': `
 const { regexp } = require('@betterer/regexp');
 
@@ -155,7 +155,7 @@ module.exports = {
 
     await writeFile(testFile, `// HACK:`);
 
-    const [run] = await betterer.single(testFile, { configPaths, resultsPath, cwd });
+    const [run] = await betterer.file(testFile, { configPaths, resultsPath, cwd });
 
     expect(run.isComplete).toEqual(true);
     expect(run.files).toEqual([testFile]);
@@ -163,8 +163,8 @@ module.exports = {
     await cleanup();
   });
 
-  it('should run tsquery against a single file', async () => {
-    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-tsquery-single', {
+  it('should run tsquery against a file', async () => {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-tsquery-file', {
       '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 
@@ -197,7 +197,7 @@ export default {
 
     await writeFile(indexPath, `console.log('foo');`);
 
-    const [run] = await betterer.single(indexPath, { configPaths, resultsPath, cwd });
+    const [run] = await betterer.file(indexPath, { configPaths, resultsPath, cwd });
 
     expect(run.isNew).toEqual(true);
     expect(run.files).toEqual([indexPath]);
@@ -206,7 +206,7 @@ export default {
   });
 
   it('should ignore any files outside of the scope of the tsquery tsconfig', async () => {
-    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-tsquery-single-irrevelent', {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-tsquery-file-irrevelent', {
       '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 
@@ -239,7 +239,7 @@ export default {
 
     await writeFile(testPath, `console.log('foo');`);
 
-    const [run] = await betterer.single(testPath, { configPaths, resultsPath, cwd });
+    const [run] = await betterer.file(testPath, { configPaths, resultsPath, cwd });
 
     expect(run.isNew).toEqual(true);
     expect(run.files).toEqual([testPath]);
@@ -247,8 +247,8 @@ export default {
     await cleanup();
   });
 
-  it('should run typescript against a single file', async () => {
-    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-typescript-single', {
+  it('should run typescript against a file', async () => {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-typescript-file', {
       '.betterer.ts': `
 import { typescript } from '@betterer/typescript';
 
@@ -280,7 +280,7 @@ export default {
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
 
-    const [run] = await betterer.single(indexPath, { configPaths, resultsPath, cwd });
+    const [run] = await betterer.file(indexPath, { configPaths, resultsPath, cwd });
 
     expect(run.isNew).toEqual(true);
     expect(run.files).toEqual([indexPath]);
@@ -289,7 +289,7 @@ export default {
   });
 
   it('should ignore any files outside of the scope of the typescript tsconfig', async () => {
-    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-typescript-single-irrelevent', {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-typescript-file-irrelevent', {
       '.betterer.ts': `
 import { typescript } from '@betterer/typescript';
 
@@ -321,7 +321,7 @@ export default {
 
     await writeFile(testPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
 
-    const [run] = await betterer.single(testPath, { configPaths, resultsPath, cwd });
+    const [run] = await betterer.file(testPath, { configPaths, resultsPath, cwd });
 
     expect(run.isNew).toEqual(true);
     expect(run.files).toEqual([testPath]);
