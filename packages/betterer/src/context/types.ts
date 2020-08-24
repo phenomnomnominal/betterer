@@ -10,13 +10,9 @@ export type Resolve = Parameters<ConstructorParameters<typeof Promise>[0]>[0];
 
 export type BettererContext = {
   readonly config: BettererConfig;
-
-  getAbsolutePathΔ(path: string): string;
-  getRelativePathΔ(path: string): string;
 };
 
 export type BettererRun = {
-  readonly context: BettererContext;
   readonly expected: unknown | typeof NO_PREVIOUS_RESULT;
   readonly files: BettererFilePaths;
   readonly result: unknown;

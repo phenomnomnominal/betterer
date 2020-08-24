@@ -36,11 +36,9 @@ export declare type BettererConfigPaths = ReadonlyArray<string>;
 
 export declare type BettererContext = {
     readonly config: BettererConfig;
-    getAbsolutePathΔ(path: string): string;
-    getRelativePathΔ(path: string): string;
 };
 
-export declare type BettererDeserialise<DeserialisedType, SerialisedType = DeserialisedType> = (run: BettererRun, serialised: SerialisedType) => DeserialisedType;
+export declare type BettererDeserialise<DeserialisedType, SerialisedType = DeserialisedType> = (serialised: SerialisedType) => DeserialisedType;
 
 export declare type BettererDiffer = (run: BettererRun) => void;
 
@@ -121,7 +119,6 @@ export declare type BettererReporter = {
 export declare type BettererReporterNames = ReadonlyArray<string>;
 
 export declare type BettererRun = {
-    readonly context: BettererContext;
     readonly expected: unknown | typeof NO_PREVIOUS_RESULT;
     readonly files: BettererFilePaths;
     readonly result: unknown;
@@ -142,7 +139,7 @@ export declare type BettererRun = {
 
 export declare type BettererRuns = ReadonlyArray<BettererRun>;
 
-export declare type BettererSerialise<DeserialisedType, SerialisedType = DeserialisedType> = (run: BettererRun, result: DeserialisedType) => SerialisedType;
+export declare type BettererSerialise<DeserialisedType, SerialisedType = DeserialisedType> = (result: DeserialisedType) => SerialisedType;
 
 export declare type BettererSerialiser<DeserialisedType, SerialisedType = DeserialisedType> = {
     serialise: BettererSerialise<DeserialisedType, SerialisedType>;

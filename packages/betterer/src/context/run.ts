@@ -109,10 +109,6 @@ export class BettererRunΩ implements BettererRun {
     return this._result;
   }
 
-  public get context(): BettererContextΩ {
-    return this._context;
-  }
-
   public get test(): BettererTest {
     return this._test;
   }

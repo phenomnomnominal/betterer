@@ -1,5 +1,6 @@
 import { BettererConstraintResult } from '@betterer/constraints';
 
+import { getConfig } from '../../config';
 import { BettererRun } from '../../context';
 import { createHash } from '../../hasher';
 import { NO_PREVIOUS_RESULT } from '../../results';
@@ -22,6 +23,7 @@ import {
   BettererFileTestFunction,
   BettererFileTestDiff
 } from './types';
+import { getRelativePath } from '../../utils';
 
 const IS_BETTERER_FILE_TEST = 'isBettererTest';
 
@@ -69,7 +71,7 @@ export class BettererFileTest extends BettererTest<BettererFiles, BettererFileIs
 
   private _createTest(fileTest: BettererFileTestFunction): BettererTestFunction<BettererFiles> {
     return async (run: BettererRun): Promise<BettererFiles> => {
-      const { context, files } = run;
+      const { files } = run;
 
       const expected = run.expected as BettererFiles | typeof NO_PREVIOUS_RESULT;
       const result = await fileTest(await this._resolver.filesΔ(files));
@@ -84,7 +86,8 @@ export class BettererFileTest extends BettererTest<BettererFiles, BettererFileIs
       return new BettererFilesΩ(
         absolutePaths
           .map((absolutePath) => {
-            const relativePath = context.getRelativePathΔ(absolutePath);
+            const { resultsPath } = getConfig();
+            const relativePath = getRelativePath(resultsPath, absolutePath);
             const issues = result[absolutePath];
             if (!issues && expected !== NO_PREVIOUS_RESULT) {
               return expected.getFileΔ(absolutePath);

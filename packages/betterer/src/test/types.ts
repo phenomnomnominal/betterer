@@ -20,12 +20,10 @@ export type BettererDiffer = (run: BettererRun) => void;
 export type BettererPrinter<SerialisedType> = (run: BettererRun, serialised: SerialisedType) => MaybeAsync<string>;
 
 export type BettererSerialise<DeserialisedType, SerialisedType = DeserialisedType> = (
-  run: BettererRun,
   result: DeserialisedType
 ) => SerialisedType;
 
 export type BettererDeserialise<DeserialisedType, SerialisedType = DeserialisedType> = (
-  run: BettererRun,
   serialised: SerialisedType
 ) => DeserialisedType;
 

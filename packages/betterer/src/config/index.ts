@@ -1,4 +1,4 @@
-export { config, createConfig } from './config';
+export { config, createConfig, getConfig } from './config';
 export {
   BettererConfig,
   BettererConfigFilters,

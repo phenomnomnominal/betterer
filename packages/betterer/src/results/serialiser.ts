@@ -3,9 +3,9 @@ import { BettererRunΩ } from '../context';
 export function serialise(run: BettererRunΩ): unknown {
   const { test, toPrint } = run;
   const serialiser = test.serialiser?.serialise || defaultSerialiser;
-  return serialiser(run, toPrint);
+  return serialiser(toPrint);
 }
 
-function defaultSerialiser(_: BettererRunΩ, result: unknown): unknown {
+function defaultSerialiser(result: unknown): unknown {
   return result;
 }

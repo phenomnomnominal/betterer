@@ -16,6 +16,14 @@ export function getNormalisedPath(filePath: string): string {
   return path.sep === path.posix.sep ? filePath : filePath.split(path.sep).join(path.posix.sep);
 }
 
+export function getAbsolutePath(resultsPath: string, filePath: string): string {
+  return getNormalisedPath(path.resolve(path.dirname(resultsPath), filePath));
+}
+
+export function getRelativePath(resultsPath: string, filePath: string): string {
+  return getNormalisedPath(path.relative(path.dirname(resultsPath), filePath));
+}
+
 export function flatten<T>(toFlatten: ReadonlyArray<T | ReadonlyArray<T>>): Array<T> {
   const flattened: Array<T> = [];
   toFlatten.forEach((t) => {

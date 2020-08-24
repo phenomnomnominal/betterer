@@ -8,7 +8,7 @@ export async function parallel(context: BettererContextΩ, files: BettererFilePa
   const runs = await context.runnerStart(files);
   await Promise.all(
     runs.map(async (run) => {
-      await runTest(run);
+      await runTest(run, context.config.update);
       run.end();
     })
   );
@@ -20,14 +20,14 @@ export async function serial(context: BettererContextΩ): Promise<BettererRunsΩ
   const runs = await context.runnerStart();
   await runs.reduce(async (p, run) => {
     await p;
-    await runTest(run);
+    await runTest(run, context.config.update);
     run.end();
   }, Promise.resolve());
   context.runnerEnd(runs);
   return runs;
 }
 
-async function runTest(run: BettererRunΩ): Promise<void> {
+async function runTest(run: BettererRunΩ, update: boolean): Promise<void> {
   const { test } = run;
 
   if (test.isSkipped) {
@@ -65,7 +65,7 @@ async function runTest(run: BettererRunΩ): Promise<void> {
     return;
   }
 
-  if (run.context.config.update) {
+  if (update) {
     run.update(result);
     return;
   }
