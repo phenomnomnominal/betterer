@@ -21,18 +21,6 @@ export class BettererFileResolver {
     return this._cwd;
   }
 
-  public exclude(...excludePatterns: BettererFilePatterns): this {
-    this._excluded = [...this._excluded, ...flatten(excludePatterns)];
-    return this;
-  }
-
-  public async files(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
-    if (!filePaths.length) {
-      return this._getValidPaths();
-    }
-    return this.validate(filePaths);
-  }
-
   public async validate(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
     if (this._included.length === 0) {
       return this._filterExcludedFiles(filePaths);
@@ -41,17 +29,29 @@ export class BettererFileResolver {
     return filePaths.filter((filePath) => validPaths.includes(filePath));
   }
 
-  public include(...includePatterns: BettererFileGlobs): this {
-    this._included = [...this._included, ...flatten(includePatterns).map((pattern) => this.resolve(pattern))];
-    return this;
-  }
-
   public resolve(...pathSegments: Array<string>): string {
     return getNormalisedPath(path.resolve(this._cwd, ...pathSegments));
   }
 
   public forceRelativePaths(message: string): string {
     return message.replace(new RegExp(this._cwd, 'g'), '.');
+  }
+
+  public includeΔ(...includePatterns: BettererFileGlobs): this {
+    this._included = [...this._included, ...flatten(includePatterns).map((pattern) => this.resolve(pattern))];
+    return this;
+  }
+
+  public excludeΔ(...excludePatterns: BettererFilePatterns): this {
+    this._excluded = [...this._excluded, ...flatten(excludePatterns)];
+    return this;
+  }
+
+  public async filesΔ(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
+    if (!filePaths.length) {
+      return this._getValidPaths();
+    }
+    return this.validate(filePaths);
   }
 
   private async _getValidPaths(): Promise<BettererFilePaths> {

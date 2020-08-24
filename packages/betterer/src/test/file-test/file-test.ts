@@ -9,20 +9,25 @@ import { BettererTestFunction, BettererTestConstraint } from '../types';
 import { constraint } from './constraint';
 import { differ } from './differ';
 import { BettererFile } from './file';
-import { BettererFiles } from './files';
+import { BettererFileResolver } from './file-resolver';
+import { BettererFilesΩ } from './files';
 import { goal } from './goal';
 import { printer } from './printer';
 import { deserialise, serialise } from './serialiser';
 import {
+  BettererFiles,
   BettererFilePatterns,
   BettererFileGlobs,
   BettererFileIssuesMapSerialised,
   BettererFileTestFunction,
   BettererFileTestDiff
 } from './types';
-import { BettererFileResolver } from './file-resolver';
+
+const IS_BETTERER_FILE_TEST = 'isBettererTest';
 
 export class BettererFileTest extends BettererTest<BettererFiles, BettererFileIssuesMapSerialised> {
+  public isBettererFileTest = IS_BETTERER_FILE_TEST;
+
   private _diff: BettererFileTestDiff | null = null;
   private _constraint: BettererTestConstraint<BettererFiles> | null = null;
   private _test: BettererTestFunction<BettererFiles> | null = null;
@@ -53,12 +58,12 @@ export class BettererFileTest extends BettererTest<BettererFiles, BettererFileIs
   }
 
   public exclude(...excludePatterns: BettererFilePatterns): this {
-    this._resolver.exclude(...excludePatterns);
+    this._resolver.excludeΔ(...excludePatterns);
     return this;
   }
 
   public include(...includePatterns: BettererFileGlobs): this {
-    this._resolver.include(...includePatterns);
+    this._resolver.includeΔ(...includePatterns);
     return this;
   }
 
@@ -67,22 +72,22 @@ export class BettererFileTest extends BettererTest<BettererFiles, BettererFileIs
       const { context, files } = run;
 
       const expected = run.expected as BettererFiles | typeof NO_PREVIOUS_RESULT;
-      const result = await fileTest(await this._resolver.files(files));
+      const result = await fileTest(await this._resolver.filesΔ(files));
 
       let absolutePaths: BettererFilePaths = Object.keys(result);
       if (files.length && expected !== NO_PREVIOUS_RESULT) {
-        const expectedAbsolutePaths = expected.files.map((file) => file.absolutePath);
+        const expectedAbsolutePaths = expected.filesΔ.map((file) => file.absolutePath);
         absolutePaths = Array.from(new Set([...absolutePaths, ...expectedAbsolutePaths]));
       }
       absolutePaths = await this._resolver.validate(absolutePaths);
 
-      return new BettererFiles(
+      return new BettererFilesΩ(
         absolutePaths
           .map((absolutePath) => {
-            const relativePath = context.getRelativePath(absolutePath);
+            const relativePath = context.getRelativePathΔ(absolutePath);
             const issues = result[absolutePath];
             if (!issues && expected !== NO_PREVIOUS_RESULT) {
-              return expected.getFile(absolutePath);
+              return expected.getFileΔ(absolutePath);
             }
             if (issues.length === 0) {
               return null;
@@ -97,9 +102,13 @@ export class BettererFileTest extends BettererTest<BettererFiles, BettererFileIs
 
   private _createConstraint() {
     return (result: BettererFiles, expected: BettererFiles): BettererConstraintResult => {
-      const { diff, BettererConstraintResult } = constraint(result, expected);
+      const { diff, constraintResult } = constraint(result, expected);
       this._diff = diff;
-      return BettererConstraintResult;
+      return constraintResult;
     };
   }
+}
+
+export function isBettererFileTest(test: unknown): test is BettererFileTest {
+  return (test as BettererFileTest)?.isBettererFileTest === IS_BETTERER_FILE_TEST;
 }

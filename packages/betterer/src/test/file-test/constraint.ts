@@ -2,53 +2,54 @@ import { BettererConstraintResult } from '@betterer/constraints';
 import * as assert from 'assert';
 
 import { BettererFile } from './file';
-import { BettererFiles } from './files';
 import { ensureDeserialised } from './serialiser';
-import { BettererFileTestDiff, BettererFileIssueDeserialised } from './types';
+import { BettererFiles, BettererFileTestDiff, BettererFileIssueDeserialised } from './types';
 
-type BettererFileTestBettererConstraintResult = {
-  BettererConstraintResult: BettererConstraintResult;
+type BettererFileTestConstraintResult = {
+  constraintResult: BettererConstraintResult;
   diff: BettererFileTestDiff;
 };
 
-export function constraint(result: BettererFiles, expected: BettererFiles): BettererFileTestBettererConstraintResult {
+export function constraint(result: BettererFiles, expected: BettererFiles): BettererFileTestConstraintResult {
   const diff = getDiff(result, expected);
 
   const filePaths = Object.keys(diff);
 
   if (filePaths.length === 0) {
-    return { BettererConstraintResult: BettererConstraintResult.same, diff };
+    return { constraintResult: BettererConstraintResult.same, diff };
   }
 
   const hasNew = filePaths.filter((filePath) => !!diff[filePath].neww?.length);
 
   if (hasNew.length) {
-    return { BettererConstraintResult: BettererConstraintResult.worse, diff };
+    return { constraintResult: BettererConstraintResult.worse, diff };
   }
 
   const hasFixed = filePaths.filter((filePath) => !!diff[filePath].fixed?.length);
 
   if (hasFixed.length) {
-    return { BettererConstraintResult: BettererConstraintResult.better, diff };
+    return { constraintResult: BettererConstraintResult.better, diff };
   }
 
-  return { BettererConstraintResult: BettererConstraintResult.same, diff };
+  return { constraintResult: BettererConstraintResult.same, diff };
 }
 
 function getDiff(result: BettererFiles, expected: BettererFiles): BettererFileTestDiff {
   const diff = {} as BettererFileTestDiff;
 
-  const unchangedResultFiles = result.files.filter((r) =>
-    expected.files.find((e) => e.absolutePath === r.absolutePath && e.hash === r.hash)
+  const unchangedResultFiles = result.filesΔ.filter((r) =>
+    expected.filesΔ.find((e) => e.absolutePath === r.absolutePath && e.hash === r.hash)
   );
 
-  const changedResultFiles = result.files.filter((r) =>
-    expected.files.find((e) => e.absolutePath === r.absolutePath && e.hash !== r.hash)
+  const changedResultFiles = result.filesΔ.filter((r) =>
+    expected.filesΔ.find((e) => e.absolutePath === r.absolutePath && e.hash !== r.hash)
   );
 
-  const newOrMovedFiles = result.files.filter((r) => !expected.files.find((e) => e.absolutePath === r.absolutePath));
+  const newOrMovedFiles = result.filesΔ.filter((r) => !expected.filesΔ.find((e) => e.absolutePath === r.absolutePath));
 
-  const fixedOrMovedFiles = expected.files.filter((e) => !result.files.find((r) => r.absolutePath === e.absolutePath));
+  const fixedOrMovedFiles = expected.filesΔ.filter(
+    (e) => !result.filesΔ.find((r) => r.absolutePath === e.absolutePath)
+  );
 
   const movedFiles = new Map<BettererFile, BettererFile>();
   fixedOrMovedFiles.forEach((fixedOrMovedFile, index) => {
@@ -87,7 +88,7 @@ function getDiff(result: BettererFiles, expected: BettererFiles): BettererFileTe
 
   const existingFiles = [...unchangedResultFiles, ...changedResultFiles, ...Array.from(movedFiles.keys())];
   existingFiles.forEach((resultFile) => {
-    const expectedFile = expected.getFile(resultFile.absolutePath) || movedFiles.get(resultFile);
+    const expectedFile = expected.getFileΔ(resultFile.absolutePath) || movedFiles.get(resultFile);
 
     assert(resultFile);
     assert(expectedFile);

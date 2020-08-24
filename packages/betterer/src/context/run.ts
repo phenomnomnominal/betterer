@@ -3,7 +3,8 @@ import * as assert from 'assert';
 import { BettererExpectedResult, NO_PREVIOUS_RESULT, deserialise, diff } from '../results';
 import { BettererTest } from '../test';
 import { BettererFilePaths } from '../watcher';
-import { BettererContext } from './context';
+import { BettererContextΩ } from './context';
+import { BettererRun } from './types';
 
 enum BettererRunStatus {
   better,
@@ -16,7 +17,7 @@ enum BettererRunStatus {
   worse
 }
 
-export class BettererRun {
+export class BettererRunΩ implements BettererRun {
   private _result: unknown;
   private _toPrint: unknown;
   private _status: BettererRunStatus = BettererRunStatus.pending;
@@ -30,7 +31,7 @@ export class BettererRun {
   private _hasResult = false;
 
   constructor(
-    private readonly _context: BettererContext,
+    private readonly _context: BettererContextΩ,
     private readonly _test: BettererTest,
     expected: BettererExpectedResult | typeof NO_PREVIOUS_RESULT,
     private readonly _files: BettererFilePaths
@@ -104,15 +105,11 @@ export class BettererRun {
     return this._status === BettererRunStatus.worse;
   }
 
-  public get name(): string {
-    return this._test.name;
-  }
-
   public get result(): unknown {
     return this._result;
   }
 
-  public get context(): BettererContext {
+  public get context(): BettererContextΩ {
     return this._context;
   }
 
@@ -203,3 +200,5 @@ export class BettererRun {
     diff(this);
   }
 }
+
+export type BettererRunsΩ = ReadonlyArray<BettererRunΩ>;

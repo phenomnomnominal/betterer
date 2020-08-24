@@ -75,14 +75,14 @@ export const defaultReporter: BettererReporter = {
   },
   contextError: contextErrorΔ,
   runStart(run: BettererRun): void {
-    const name = quoteΔ(run.name);
+    const name = quoteΔ(run.test.name);
     if (run.isExpired) {
       errorΔ(testExpiredΔ(name));
     }
     infoΔ(testRunningΔ(name));
   },
   runEnd(run: BettererRun): void {
-    const name = quoteΔ(run.name);
+    const name = quoteΔ(run.test.name);
     if (run.isComplete) {
       successΔ(testCompleteΔ(name, run.isNew));
       return;

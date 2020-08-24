@@ -9,7 +9,7 @@
     "packages/*"
   ],
   "scripts": {
-    "api": "lerna run api",
+    "api": "yarn compile && lerna run api",
     "betterer": "node ./packages/cli/./bin/betterer",
     "build": "yarn compile && yarn format && yarn lint && yarn test && yarn test:api && yarn betterer",
     "clean": "rimraf reports && lerna exec \"rimraf dist\" && rimraf ./**/tsconfig.tsbuildinfo && lerna exec \"rimraf node_modules\" && rimraf node_modules && yarn",

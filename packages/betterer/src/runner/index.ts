@@ -1,1 +1,1 @@
-export * from './runner';
+export { parallel, serial } from './runner';

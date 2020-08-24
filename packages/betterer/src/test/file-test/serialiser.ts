@@ -1,8 +1,9 @@
 import LinesAndColumns from 'lines-and-columns';
 import { createHash } from '../../hasher';
 import { BettererFile } from './file';
-import { BettererFiles } from './files';
+import { BettererFilesΩ } from './files';
 import {
+  BettererFiles,
   BettererFileIssuesMapSerialised,
   BettererFileIssuesRaw,
   BettererFileIssuesDeserialised,
@@ -16,21 +17,21 @@ const UNKNOWN_LOCATION = {
 } as const;
 
 export function deserialise(run: BettererRun, serialised: BettererFileIssuesMapSerialised): BettererFiles {
-  return new BettererFiles(
+  return new BettererFilesΩ(
     Object.keys(serialised).map((key) => {
       const [relativePath, hash] = key.split(':');
       const issues = serialised[key].map((issue) => {
         const [line, column, length, message, hash] = issue;
         return { line, column, length, message, hash };
       });
-      const absolutePath = run.context.getAbsolutePath(relativePath);
+      const absolutePath = run.context.getAbsolutePathΔ(relativePath);
       return new BettererFile(relativePath, absolutePath, hash, issues);
     })
   );
 }
 
 export function serialise(_: BettererRun, result: BettererFiles): BettererFileIssuesMapSerialised {
-  return result.files.reduce((serialised: BettererFileIssuesMapSerialised, file: BettererFile) => {
+  return result.filesΔ.reduce((serialised: BettererFileIssuesMapSerialised, file: BettererFile) => {
     serialised[file.key] = serialiseDeserialised(sortLinesAndColumns(ensureDeserialised(file)));
     return serialised;
   }, {} as BettererFileIssuesMapSerialised);

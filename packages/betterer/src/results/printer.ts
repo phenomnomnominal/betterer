@@ -1,20 +1,20 @@
 import { escape } from 'safe-string-literal';
 
 import { isString } from '../utils';
-import { BettererRun } from '../context';
+import { BettererRunΩ } from '../context';
 import { serialise } from './serialiser';
 
 // Characters that we avoid escaping to make snapshots easier to visually diff
 const UNESCAPED = '"\n';
 
-export async function print(run: BettererRun): Promise<string> {
-  const { name, test } = run;
+export async function print(run: BettererRunΩ): Promise<string> {
+  const { test } = run;
   const printer = test.printer || defaultPrinter;
   const printedValue = await printer(run, serialise(run));
   const escaped = escape(printedValue, UNESCAPED);
-  return `\nexports[\`${name}\`] = {\n  value: \`${escaped}\`\n};\n`;
+  return `\nexports[\`${test.name}\`] = {\n  value: \`${escaped}\`\n};\n`;
 }
 
-function defaultPrinter(_: BettererRun, value: unknown): string {
+function defaultPrinter(_: BettererRunΩ, value: unknown): string {
   return isString(value) ? value : JSON.stringify(value);
 }

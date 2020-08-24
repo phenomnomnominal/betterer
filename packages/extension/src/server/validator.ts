@@ -65,11 +65,11 @@ export class BettererValidator {
 
           runs
             .filter((run) => !run.isFailed)
-            .filter((run) => (run.result as BettererFiles).getFile(filePath))
+            .filter((run) => (run.result as BettererFiles).getFileΔ(filePath))
             .map((run) => {
               const test = run.test as BettererFileTest;
               const files = run.result as BettererFiles;
-              const file = files.getFile(filePath);
+              const file = files.getFileΔ(filePath);
               assert(file);
 
               const fileDiff = test?.diff?.[file.relativePath];

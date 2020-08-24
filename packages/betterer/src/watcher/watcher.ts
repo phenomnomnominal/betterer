@@ -1,20 +1,20 @@
 import { watch as chokidar, FSWatcher } from 'chokidar';
 import * as globby from 'globby';
 
-import { BettererContext, BettererRuns } from '../context';
+import { BettererContextΩ, BettererRunsΩ } from '../context';
 import { getNormalisedPath } from '../utils';
-import { BettererWatchChangeHandler, BettererWatchRunHandler } from './types';
+import { BettererWatchChangeHandlerΩ, BettererWatchRunHandler, BettererWatcher } from './types';
 
 const EMIT_EVENTS = ['add', 'change'];
 const DEBOUNCE_TIME = 200;
 
-export class BettererWatcher {
+export class BettererWatcherΩ implements BettererWatcher {
   private _files: Array<string> = [];
   private _handlers: Array<BettererWatchRunHandler> = [];
-  private _runs: Promise<BettererRuns> | null = null;
+  private _runs: Promise<BettererRunsΩ> | null = null;
   private _watcher: FSWatcher | null = null;
 
-  constructor(private readonly _context: BettererContext, private readonly _onChange: BettererWatchChangeHandler) {}
+  constructor(private readonly _context: BettererContextΩ, private readonly _onChange: BettererWatchChangeHandlerΩ) {}
 
   public async setup(): Promise<void> {
     const { cwd, ignores, resultsPath } = this._context.config;
@@ -69,7 +69,7 @@ export class BettererWatcher {
     void this._handleRun(this._runs);
   }
 
-  private async _handleRun(running: Promise<BettererRuns>): Promise<BettererRuns> {
+  private async _handleRun(running: Promise<BettererRunsΩ>): Promise<BettererRunsΩ> {
     const runs = await running;
     this._handlers.forEach((handler) => handler(runs));
     await this._context.process(runs);

@@ -2,8 +2,7 @@ import { BettererLoggerCodeInfo } from '@betterer/logger';
 
 import { MaybeAsync } from '../../types';
 import { BettererFilePaths } from '../../watcher';
-import { BettererTestOptions } from '../types';
-import { BettererFiles } from './files';
+import { BettererFile } from './file';
 
 export type BettererFileIssueRaw = BettererLoggerCodeInfo & {
   hash?: string;
@@ -40,7 +39,8 @@ export type BettererFileTestFunction = (files: BettererFilePaths) => MaybeAsync<
 
 export type BettererFileGlobs = ReadonlyArray<string | ReadonlyArray<string>>;
 export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
-export type BettererFileTestOptions = BettererTestOptions<BettererFiles, BettererFileIssuesMapSerialised> & {
-  included: ReadonlyArray<string>;
-  excluded: ReadonlyArray<RegExp>;
+
+export type BettererFiles = {
+  readonly filesΔ: ReadonlyArray<BettererFile>;
+  getFileΔ(absolutePath: string): BettererFile | void;
 };

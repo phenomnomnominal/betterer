@@ -4,7 +4,7 @@ import { BettererContext, BettererRun, BettererRuns, BettererStats } from '../co
 import { BettererFilePaths } from '../watcher';
 import { BettererReporter } from './types';
 
-export class BettererMultiReporter implements BettererReporter {
+export class BettererMultiReporterΩ implements BettererReporter {
   constructor(private _reporters: Array<BettererReporter>) {}
 
   contextStart(context: BettererContext): void {
