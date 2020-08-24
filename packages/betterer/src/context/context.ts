@@ -1,5 +1,4 @@
 import * as assert from 'assert';
-import * as path from 'path';
 
 import { BettererConfig, BettererConfigFilters, BettererConfigPaths } from '../config';
 import { COULDNT_READ_CONFIG } from '../errors';
@@ -14,7 +13,6 @@ import {
   BettererTestOptions,
   isBettererFileTest
 } from '../test';
-import { getNormalisedPath } from '../utils';
 import { BettererFilePaths } from '../watcher';
 import { BettererRunΩ, BettererRunsΩ } from './run';
 import { BettererStatsΩ } from './statistics';
@@ -154,14 +152,6 @@ export class BettererContextΩ implements BettererContext {
       this._reporter?.contextError?.(this, error, printed);
     }
     return this._stats;
-  }
-
-  public getAbsolutePathΔ(filePath: string): string {
-    return getNormalisedPath(path.resolve(path.dirname(this.config.resultsPath), filePath));
-  }
-
-  public getRelativePathΔ(filePath: string): string {
-    return getNormalisedPath(path.relative(path.dirname(this.config.resultsPath), filePath));
   }
 
   private _initTests(configPaths: BettererConfigPaths): BettererTests {

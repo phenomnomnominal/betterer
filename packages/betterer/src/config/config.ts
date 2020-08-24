@@ -1,3 +1,4 @@
+import * as assert from 'assert';
 import { muteΔ, unmuteΔ } from '@betterer/logger';
 import * as path from 'path';
 
@@ -5,6 +6,7 @@ import { isString, isUndefined } from '../utils';
 import { BettererConfig, BettererConfigPartial } from './types';
 
 let baseConfig: BettererConfigPartial = {};
+let globalConfig: BettererConfig | null = null;
 export function config(partialConfig: BettererConfigPartial): void {
   baseConfig = partialConfig;
 }
@@ -24,12 +26,18 @@ export function createConfig(partialConfig: BettererConfigPartial = {}): Bettere
 
   relativeConfig.silent ? muteΔ() : unmuteΔ();
 
-  return {
+  globalConfig = {
     ...relativeConfig,
     configPaths: relativeConfig.configPaths.map((configPath) => path.resolve(relativeConfig.cwd, configPath)),
     resultsPath: path.resolve(relativeConfig.cwd, relativeConfig.resultsPath),
     tsconfigPath: tsconfigPath ? path.resolve(relativeConfig.cwd, tsconfigPath) : null
   };
+  return getConfig();
+}
+
+export function getConfig(): BettererConfig {
+  assert(globalConfig);
+  return globalConfig;
 }
 
 function toArray<T>(value?: ReadonlyArray<T> | Array<T> | T): Array<T> {
