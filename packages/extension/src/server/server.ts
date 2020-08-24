@@ -67,7 +67,7 @@ function init(): void {
   validationQueue.onNotification(
     BettererValidateNotification,
     (document) => {
-      validator.single(document);
+      void validator.validate(document);
     },
     (document) => document.version
   );

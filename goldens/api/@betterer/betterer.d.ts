@@ -1,6 +1,6 @@
 export declare function betterer(partialConfig?: BettererConfigPartial): Promise<BettererStats>;
 export declare namespace betterer {
-    var single: typeof import("./betterer").single;
+    var file: typeof import("./betterer").file;
     var watch: typeof import("./betterer").watch;
 }
 
