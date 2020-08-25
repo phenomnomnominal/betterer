@@ -1,15 +1,13 @@
-import { BettererConstraintResult } from '@betterer/constraints';
-
 import { getConfig } from '../../config';
 import { BettererRun } from '../../context';
 import { createHash } from '../../hasher';
-import { NO_PREVIOUS_RESULT } from '../../results';
 import { BettererFilePaths } from '../../watcher';
+import { getRelativePath } from '../../utils';
 import { BettererTest } from '../test';
-import { BettererTestFunction, BettererTestConstraint } from '../types';
+import { BettererTestFunction } from '../types';
 import { constraint } from './constraint';
 import { differ } from './differ';
-import { BettererFile } from './file';
+import { BettererFileΩ } from './file';
 import { BettererFileResolver } from './file-resolver';
 import { BettererFilesΩ } from './files';
 import { goal } from './goal';
@@ -21,17 +19,19 @@ import {
   BettererFileGlobs,
   BettererFileIssuesMapSerialised,
   BettererFileTestFunction,
-  BettererFileTestDiff
+  BettererFileTestDiff,
+  BettererFile
 } from './types';
-import { getRelativePath } from '../../utils';
 
 const IS_BETTERER_FILE_TEST = 'isBettererTest';
 
-export class BettererFileTest extends BettererTest<BettererFiles, BettererFileIssuesMapSerialised> {
+export class BettererFileTest extends BettererTest<
+  BettererFiles,
+  BettererFileIssuesMapSerialised,
+  BettererFileTestDiff
+> {
   public isBettererFileTest = IS_BETTERER_FILE_TEST;
 
-  private _diff: BettererFileTestDiff | null = null;
-  private _constraint: BettererTestConstraint<BettererFiles> | null = null;
   private _test: BettererTestFunction<BettererFiles> | null = null;
 
   constructor(private _resolver: BettererFileResolver, fileTest: BettererFileTestFunction) {
@@ -40,10 +40,7 @@ export class BettererFileTest extends BettererTest<BettererFiles, BettererFileIs
         this._test = this._test || this._createTest(fileTest);
         return await this._test(run);
       },
-      constraint: async (result: BettererFiles, expected: BettererFiles): Promise<BettererConstraintResult> => {
-        this._constraint = this._constraint || this._createConstraint();
-        return await this._constraint(result, expected);
-      },
+      constraint,
       goal,
 
       serialiser: {
@@ -53,10 +50,6 @@ export class BettererFileTest extends BettererTest<BettererFiles, BettererFileIs
       differ,
       printer
     });
-  }
-
-  public get diff(): BettererFileTestDiff | null {
-    return this._diff;
   }
 
   public exclude(...excludePatterns: BettererFilePatterns): this {
@@ -73,11 +66,11 @@ export class BettererFileTest extends BettererTest<BettererFiles, BettererFileIs
     return async (run: BettererRun): Promise<BettererFiles> => {
       const { files } = run;
 
-      const expected = run.expected as BettererFiles | typeof NO_PREVIOUS_RESULT;
+      const expected = run.expected.value as BettererFiles;
       const result = await fileTest(await this._resolver.filesΔ(files));
 
       let absolutePaths: BettererFilePaths = Object.keys(result);
-      if (files.length && expected !== NO_PREVIOUS_RESULT) {
+      if (files.length && !run.isNew) {
         const expectedAbsolutePaths = expected.filesΔ.map((file) => file.absolutePath);
         absolutePaths = Array.from(new Set([...absolutePaths, ...expectedAbsolutePaths]));
       }
@@ -89,25 +82,17 @@ export class BettererFileTest extends BettererTest<BettererFiles, BettererFileIs
             const { resultsPath } = getConfig();
             const relativePath = getRelativePath(resultsPath, absolutePath);
             const issues = result[absolutePath];
-            if (!issues && expected !== NO_PREVIOUS_RESULT) {
+            if (!issues && !run.isNew) {
               return expected.getFileΔ(absolutePath);
             }
             if (issues.length === 0) {
               return null;
             }
             const [issue] = issues;
-            return new BettererFile(relativePath, absolutePath, createHash(issue.fileText), issues);
+            return new BettererFileΩ(relativePath, absolutePath, createHash(issue.fileText), issues);
           })
           .filter(Boolean) as ReadonlyArray<BettererFile>
       );
-    };
-  }
-
-  private _createConstraint() {
-    return (result: BettererFiles, expected: BettererFiles): BettererConstraintResult => {
-      const { diff, constraintResult } = constraint(result, expected);
-      this._diff = diff;
-      return constraintResult;
     };
   }
 }

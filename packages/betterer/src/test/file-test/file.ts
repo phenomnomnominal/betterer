@@ -7,7 +7,7 @@ import {
   BettererFileIssuesDeserialised
 } from './types';
 
-export class BettererFile {
+export class BettererFileΩ {
   public readonly key: string;
 
   private _issuesDeserialised: BettererFileIssuesDeserialised | null = null;

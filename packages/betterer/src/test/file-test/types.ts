@@ -1,8 +1,8 @@
 import { BettererLoggerCodeInfo } from '@betterer/logger';
 
+import { BettererDiff } from '../../results';
 import { MaybeAsync } from '../../types';
 import { BettererFilePaths } from '../../watcher';
-import { BettererFile } from './file';
 
 export type BettererFileIssueRaw = BettererLoggerCodeInfo & {
   hash?: string;
@@ -26,7 +26,7 @@ export type BettererFileIssuesMapSerialised = Record<string, BettererFileIssuesS
 
 export type BettererFileIssues = ReadonlyArray<BettererFileIssueRaw> | ReadonlyArray<BettererFileIssueDeserialised>;
 
-export type BettererFileTestDiff = Record<
+export type BettererFilesDiff = Record<
   string,
   {
     fixed?: ReadonlyArray<BettererFileIssueDeserialised>;
@@ -34,11 +34,21 @@ export type BettererFileTestDiff = Record<
     neww?: ReadonlyArray<BettererFileIssueRaw>;
   }
 >;
+export type BettererFileTestDiff = BettererDiff<BettererFiles, BettererFilesDiff>;
 
 export type BettererFileTestFunction = (files: BettererFilePaths) => MaybeAsync<BettererFileIssuesMapRaw>;
 
 export type BettererFileGlobs = ReadonlyArray<string | ReadonlyArray<string>>;
 export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
+
+export type BettererFile = {
+  readonly key: string;
+  readonly relativePath: string;
+  readonly absolutePath: string;
+  readonly hash: string;
+  readonly issuesRaw: BettererFileIssuesRaw;
+  readonly issuesDeserialised: BettererFileIssuesDeserialised;
+};
 
 export type BettererFiles = {
   readonly filesΔ: ReadonlyArray<BettererFile>;

@@ -105,14 +105,14 @@ export const defaultReporter: BettererReporter = {
     if (run.isUpdated) {
       infoΔ(testUpdatedΔ(name));
       brΔ();
-      run.diff();
+      run.diff.log();
       brΔ();
       return;
     }
     if (run.isWorse) {
       errorΔ(testWorseΔ(name));
       brΔ();
-      run.diff();
+      run.diff.log();
       brΔ();
     }
   }

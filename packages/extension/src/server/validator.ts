@@ -1,10 +1,10 @@
 import {
-  BettererFileTest,
   BettererFiles,
   BettererFileIssuesRaw,
   BettererFileIssueRaw,
   BettererFileIssueDeserialised,
-  BettererFileIssues
+  BettererFileIssues,
+  BettererFileTestDiff
 } from '@betterer/betterer';
 import * as assert from 'assert';
 import { IConnection, TextDocuments, Diagnostic, DiagnosticSeverity, Position } from 'vscode-languageserver';
@@ -65,14 +65,12 @@ export class BettererValidator {
 
           runs
             .filter((run) => !run.isFailed)
-            .filter((run) => (run.result as BettererFiles).getFileΔ(filePath))
+            .filter((run) => (run.result.value as BettererFiles).getFileΔ(filePath))
             .map((run) => {
-              const test = run.test as BettererFileTest;
-              const files = run.result as BettererFiles;
-              const file = files.getFileΔ(filePath);
+              const file = (run.result.value as BettererFiles).getFileΔ(filePath);
               assert(file);
 
-              const fileDiff = test?.diff?.[file.relativePath];
+              const fileDiff = (run.diff as BettererFileTestDiff).diff[file.relativePath];
               let existingIssues: BettererFileIssues = [];
               let newIssues: BettererFileIssuesRaw = [];
 
@@ -85,10 +83,10 @@ export class BettererValidator {
                 existingIssues = file.issuesRaw;
               }
               existingIssues.forEach((issue: BettererFileIssueRaw | BettererFileIssueDeserialised) => {
-                diagnostics.push(createWarning(test.name, 'existing issue', issue, document));
+                diagnostics.push(createWarning(run.name, 'existing issue', issue, document));
               });
               newIssues.forEach((issue) => {
-                diagnostics.push(createError(test.name, 'new issue', issue, document));
+                diagnostics.push(createError(run.name, 'new issue', issue, document));
               });
             });
           this._connection.sendDiagnostics({ uri, diagnostics });
