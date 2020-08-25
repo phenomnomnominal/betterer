@@ -33,7 +33,7 @@ export const watchReporter: BettererReporter = {
     });
     report += '\n';
     runs.forEach((run) => {
-      const name = quoteΔ(run.test.name);
+      const name = quoteΔ(run.name);
       if (run.isBetter) {
         report += `\n  ${testBetterΔ(name)}`;
         return;

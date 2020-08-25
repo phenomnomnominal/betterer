@@ -15,6 +15,7 @@ export type BettererContext = {
 export type BettererRun = {
   readonly expected: unknown | typeof NO_PREVIOUS_RESULT;
   readonly files: BettererFilePaths;
+  readonly name: string;
   readonly result: unknown;
   readonly shouldPrint: boolean;
   readonly test: BettererTest;

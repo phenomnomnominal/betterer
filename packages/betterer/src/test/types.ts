@@ -4,8 +4,6 @@ import { BettererRun } from '../context';
 import { MaybeAsync } from '../types';
 import { BettererTest } from './test';
 
-export type BettererTests = ReadonlyArray<BettererTest>;
-
 export type BettererTestFunction<DeserialisedType> = (run: BettererRun) => MaybeAsync<DeserialisedType>;
 
 export type BettererTestConstraint<DeserialisedType> = (
@@ -37,7 +35,7 @@ export type BettererTestStateOptions = {
   isSkipped?: boolean;
 };
 
-export type BettererTestOptions<DeserialisedType, SerialisedType = DeserialisedType> = {
+export type BettererTestOptions<DeserialisedType = unknown, SerialisedType = DeserialisedType> = {
   constraint: BettererTestConstraint<DeserialisedType>;
   deadline?: Date | string;
   goal?: DeserialisedType | BettererTestGoal<DeserialisedType>;
@@ -47,4 +45,5 @@ export type BettererTestOptions<DeserialisedType, SerialisedType = DeserialisedT
   serialiser?: BettererSerialiser<DeserialisedType, SerialisedType>;
 } & BettererTestStateOptions;
 
-export type BettererTestMap = Record<string, BettererTest | BettererTestOptions<unknown, unknown>>;
+export type BettererTestMap = Record<string, BettererTest>;
+export type BettererTestOptionsMap = Record<string, BettererTest | BettererTestOptions>;

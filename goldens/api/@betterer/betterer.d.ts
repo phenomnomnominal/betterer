@@ -121,6 +121,7 @@ export declare type BettererReporterNames = ReadonlyArray<string>;
 export declare type BettererRun = {
     readonly expected: unknown | typeof NO_PREVIOUS_RESULT;
     readonly files: BettererFilePaths;
+    readonly name: string;
     readonly result: unknown;
     readonly shouldPrint: boolean;
     readonly test: BettererTest;
@@ -166,12 +167,10 @@ export declare class BettererTest<DeserialisedType = unknown, SerialisedType = D
     differ?: BettererDiffer;
     readonly goal: BettererTestGoal<DeserialisedType>;
     isBettererTest: string;
-    get name(): string;
     printer?: BettererPrinter<SerialisedType>;
     serialiser?: BettererSerialiser<DeserialisedType, SerialisedType>;
     readonly test: BettererTestFunction<DeserialisedType>;
     constructor(options: BettererTestOptions<DeserialisedType, SerialisedType>);
-    setName(name: string): void;
 }
 
 export declare type BettererTestConstraint<DeserialisedType> = (result: DeserialisedType, expected: DeserialisedType) => MaybeAsync<BettererConstraintResult>;
@@ -182,7 +181,7 @@ export declare type BettererTestGoal<DeserialisedType> = (result: DeserialisedTy
 
 export declare type BettererTestNames = Array<string>;
 
-export declare type BettererTestOptions<DeserialisedType, SerialisedType = DeserialisedType> = {
+export declare type BettererTestOptions<DeserialisedType = unknown, SerialisedType = DeserialisedType> = {
     constraint: BettererTestConstraint<DeserialisedType>;
     deadline?: Date | string;
     goal?: DeserialisedType | BettererTestGoal<DeserialisedType>;
