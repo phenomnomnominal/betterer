@@ -1,6 +1,7 @@
-export { BettererFileTest, BettererFile, BettererFiles, isBettererFileTest } from './file-test';
-export { BettererTest, isBettererTest } from './test';
 export {
+  BettererFileTest,
+  BettererFiles,
+  isBettererFileTest,
   BettererFileGlobs,
   BettererFileIssueDeserialised,
   BettererFileIssueRaw,
@@ -14,8 +15,11 @@ export {
   BettererFileIssuesSerialised,
   BettererFilePatterns,
   BettererFileTestDiff,
-  BettererFileTestFunction
-} from './file-test/types';
+  BettererFileTestFunction,
+  BettererFile,
+  BettererFilesDiff
+} from './file-test';
+export { BettererTest, isBettererTest } from './test';
 export {
   BettererDeserialise,
   BettererDiffer,
@@ -27,5 +31,6 @@ export {
   BettererTestGoal,
   BettererTestMap,
   BettererTestOptionsMap,
-  BettererTestOptions
+  BettererTestOptions,
+  BettererTestStateOptions
 } from './types';

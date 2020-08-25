@@ -1,8 +1,8 @@
 export { BettererFileTest } from './file-test';
-export { BettererFile } from './file';
 export { BettererFileResolver } from './file-resolver';
 export {
   BettererFiles,
+  BettererFilesDiff,
   BettererFileGlobs,
   BettererFileIssueDeserialised,
   BettererFileIssueRaw,

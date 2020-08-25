@@ -2,9 +2,10 @@ import LinesAndColumns from 'lines-and-columns';
 import { getConfig } from '../../config';
 import { createHash } from '../../hasher';
 import { getAbsolutePath } from '../../utils';
-import { BettererFile } from './file';
+import { BettererFileΩ } from './file';
 import { BettererFilesΩ } from './files';
 import {
+  BettererFile,
   BettererFiles,
   BettererFileIssuesMapSerialised,
   BettererFileIssuesRaw,
@@ -27,7 +28,7 @@ export function deserialise(serialised: BettererFileIssuesMapSerialised): Better
       });
       const { resultsPath } = getConfig();
       const absolutePath = getAbsolutePath(resultsPath, relativePath);
-      return new BettererFile(relativePath, absolutePath, hash, issues);
+      return new BettererFileΩ(relativePath, absolutePath, hash, issues);
     })
   );
 }

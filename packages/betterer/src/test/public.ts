@@ -13,7 +13,8 @@ export {
   BettererFileTest,
   BettererFileTestDiff,
   BettererFileTestFunction,
-  BettererFiles
+  BettererFiles,
+  BettererFilesDiff
 } from './file-test/public';
 export { BettererTest } from './test';
 export {

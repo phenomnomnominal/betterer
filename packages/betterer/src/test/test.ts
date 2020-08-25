@@ -13,19 +13,23 @@ import { BettererTestState } from './test-state';
 
 const IS_BETTERER_TEST = 'isBettererTest';
 
-export class BettererTest<DeserialisedType = unknown, SerialisedType = DeserialisedType> extends BettererTestState {
+export class BettererTest<
+  DeserialisedType = unknown,
+  SerialisedType = DeserialisedType,
+  DiffType = null
+> extends BettererTestState {
   public readonly constraint: BettererTestConstraint<DeserialisedType>;
   public readonly goal: BettererTestGoal<DeserialisedType>;
   public readonly test: BettererTestFunction<DeserialisedType>;
   public readonly deadline: number;
 
-  public differ?: BettererDiffer;
-  public printer?: BettererPrinter<SerialisedType>;
-  public serialiser?: BettererSerialiser<DeserialisedType, SerialisedType>;
+  public readonly differ?: BettererDiffer<DeserialisedType, DiffType>;
+  public readonly printer?: BettererPrinter<SerialisedType>;
+  public readonly serialiser?: BettererSerialiser<DeserialisedType, SerialisedType>;
 
-  public isBettererTest = IS_BETTERER_TEST;
+  public readonly isBettererTest = IS_BETTERER_TEST;
 
-  constructor(options: BettererTestOptions<DeserialisedType, SerialisedType>) {
+  constructor(options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>) {
     super(options.isSkipped, options.isOnly);
 
     if (options.constraint == null) {
@@ -45,7 +49,7 @@ export class BettererTest<DeserialisedType = unknown, SerialisedType = Deseriali
     this.serialiser = options.serialiser;
   }
 
-  private _createDeadline(options: BettererTestOptions<DeserialisedType, SerialisedType>): number {
+  private _createDeadline(options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>): number {
     const { deadline } = options;
     if (deadline == null) {
       return Infinity;
@@ -55,7 +59,7 @@ export class BettererTest<DeserialisedType = unknown, SerialisedType = Deseriali
   }
 
   private _createGoal(
-    options: BettererTestOptions<DeserialisedType, SerialisedType>
+    options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>
   ): BettererTestGoal<DeserialisedType> {
     const hasGoal = Object.hasOwnProperty.call(options, 'goal');
     if (!hasGoal) {

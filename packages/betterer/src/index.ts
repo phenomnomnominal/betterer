@@ -8,6 +8,7 @@ export {
   BettererConfigPaths
 } from './config/public';
 export { BettererContext, BettererRun, BettererRuns, BettererStats, BettererTestNames } from './context/public';
+export { BettererDiff, BettererResult } from './results/public';
 export { BettererReporter, BettererReporterNames } from './reporters/public';
 export {
   BettererDeserialise,
@@ -27,6 +28,7 @@ export {
   BettererFileTestDiff,
   BettererFileTestFunction,
   BettererFiles,
+  BettererFilesDiff,
   BettererPrinter,
   BettererSerialise,
   BettererSerialiser,

@@ -1,5 +1,4 @@
-import { BettererFile } from './file';
-import { BettererFiles } from './types';
+import { BettererFile, BettererFiles } from './types';
 
 export class BettererFilesΩ implements BettererFiles {
   private _fileMap: Record<string, BettererFile> = {};

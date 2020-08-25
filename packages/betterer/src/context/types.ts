@@ -1,6 +1,6 @@
 import { BettererFilePaths } from '../watcher';
 import { BettererConfig } from '../config';
-import { NO_PREVIOUS_RESULT } from '../results';
+import { BettererDiff, BettererResult } from '../results';
 import { BettererTest } from '../test';
 
 export type BettererRuns = ReadonlyArray<BettererRun>;
@@ -13,11 +13,11 @@ export type BettererContext = {
 };
 
 export type BettererRun = {
-  readonly expected: unknown | typeof NO_PREVIOUS_RESULT;
+  readonly diff: BettererDiff;
+  readonly expected: BettererResult;
   readonly files: BettererFilePaths;
   readonly name: string;
-  readonly result: unknown;
-  readonly shouldPrint: boolean;
+  readonly result: BettererResult;
   readonly test: BettererTest;
   readonly timestamp: number;
 
@@ -30,8 +30,6 @@ export type BettererRun = {
   readonly isSkipped: boolean;
   readonly isUpdated: boolean;
   readonly isWorse: boolean;
-
-  diff(): void;
 };
 
 export type BettererStats = {
