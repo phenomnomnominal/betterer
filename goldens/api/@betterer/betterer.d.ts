@@ -40,7 +40,7 @@ export declare type BettererContext = {
 
 export declare type BettererDeserialise<DeserialisedType, SerialisedType = DeserialisedType> = (serialised: SerialisedType) => DeserialisedType;
 
-export declare type BettererDiff<DeserialisedType = unknown, DiffType = unknown> = {
+export declare type BettererDiff<DeserialisedType = unknown, DiffType = null> = {
     expected: DeserialisedType;
     result: DeserialisedType;
     diff: DiffType;
