@@ -32,6 +32,7 @@ export class BettererRunΩ implements BettererRun {
 
   constructor(
     private readonly _context: BettererContextΩ,
+    private readonly _name: string,
     private readonly _test: BettererTest,
     expected: BettererExpectedResult | typeof NO_PREVIOUS_RESULT,
     private readonly _files: BettererFilePaths
@@ -45,6 +46,10 @@ export class BettererRunΩ implements BettererRun {
       this._toPrint = this._expected;
       this._hasResult = true;
     }
+  }
+
+  public get name(): string {
+    return this._name;
   }
 
   public get expected(): unknown | typeof NO_PREVIOUS_RESULT {

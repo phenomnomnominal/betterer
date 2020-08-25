@@ -1,5 +1,3 @@
-import * as assert from 'assert';
-
 import { CONSTRAINT_FUNCTION_REQUIRED, TEST_FUNCTION_REQUIRED } from '../errors';
 import { isFunction } from '../utils';
 import {
@@ -27,8 +25,6 @@ export class BettererTest<DeserialisedType = unknown, SerialisedType = Deseriali
 
   public isBettererTest = IS_BETTERER_TEST;
 
-  private _name: string | null = null;
-
   constructor(options: BettererTestOptions<DeserialisedType, SerialisedType>) {
     super(options.isSkipped, options.isOnly);
 
@@ -47,15 +43,6 @@ export class BettererTest<DeserialisedType = unknown, SerialisedType = Deseriali
     this.differ = options.differ;
     this.printer = options.printer;
     this.serialiser = options.serialiser;
-  }
-
-  public setName(name: string): void {
-    this._name = name;
-  }
-
-  public get name(): string {
-    assert.notStrictEqual(this._name, null);
-    return this._name as string;
   }
 
   private _createDeadline(options: BettererTestOptions<DeserialisedType, SerialisedType>): number {

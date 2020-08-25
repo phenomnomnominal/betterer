@@ -1,6 +1,6 @@
-import { BettererRun } from '../context';
+import { BettererRunΩ } from '../context';
 
-export function deserialise(run: BettererRun, serialised: string): unknown {
+export function deserialise(run: BettererRunΩ, serialised: string): unknown {
   const { test } = run;
   const parsed = JSON.parse(serialised) as unknown;
   const deserialiser = test.serialiser?.deserialise || defaultDeserialiser;
