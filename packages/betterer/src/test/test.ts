@@ -16,7 +16,7 @@ const IS_BETTERER_TEST = 'isBettererTest';
 export class BettererTest<
   DeserialisedType = unknown,
   SerialisedType = DeserialisedType,
-  DiffType = null
+  DiffType = unknown
 > extends BettererTestState {
   public readonly constraint: BettererTestConstraint<DeserialisedType>;
   public readonly goal: BettererTestGoal<DeserialisedType>;

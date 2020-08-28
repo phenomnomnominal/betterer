@@ -46,6 +46,7 @@ export default {
     const diffSummary = await ciΔ(fixturePath, ARGV);
 
     expect(diffSummary.expected).not.toBeNull();
+    expect(diffSummary.hasDiff).toEqual(true);
 
     expect(logs).toMatchSnapshot();
 

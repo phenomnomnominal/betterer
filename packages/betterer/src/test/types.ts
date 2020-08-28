@@ -38,7 +38,7 @@ export type BettererTestStateOptions = {
   isSkipped?: boolean;
 };
 
-export type BettererTestOptions<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> = {
+export type BettererTestOptions<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = unknown> = {
   constraint: BettererTestConstraint<DeserialisedType>;
   deadline?: Date | string;
   goal?: DeserialisedType | BettererTestGoal<DeserialisedType>;

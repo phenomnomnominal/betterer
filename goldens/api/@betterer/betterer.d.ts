@@ -181,7 +181,7 @@ export declare type BettererSummary = {
     readonly worse: BettererRuns;
 };
 
-export declare class BettererTest<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> extends BettererTestState {
+export declare class BettererTest<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = unknown> extends BettererTestState {
     readonly constraint: BettererTestConstraint<DeserialisedType>;
     readonly deadline: number;
     readonly differ?: BettererDiffer<DeserialisedType, DiffType>;
@@ -199,7 +199,7 @@ export declare type BettererTestFunction<DeserialisedType> = (run: BettererRun) 
 
 export declare type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
 
-export declare type BettererTestOptions<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> = {
+export declare type BettererTestOptions<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = unknown> = {
     constraint: BettererTestConstraint<DeserialisedType>;
     deadline?: Date | string;
     goal?: DeserialisedType | BettererTestGoal<DeserialisedType>;
