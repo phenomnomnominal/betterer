@@ -2,7 +2,7 @@ import { watch as chokidar, FSWatcher } from 'chokidar';
 import * as globby from 'globby';
 
 import { BettererContextΩ, BettererSummary } from '../context';
-import { getNormalisedPath } from '../utils';
+import { normalisedPath } from '../utils';
 import { BettererWatchChangeHandler, BettererWatchRunHandler, BettererWatcher } from './types';
 
 const EMIT_EVENTS = ['add', 'change'];
@@ -24,15 +24,15 @@ export class BettererWatcherΩ implements BettererWatcher {
       ignoreInitial: true,
       ignored: (itemPath: string) => {
         return (
-          itemPath !== getNormalisedPath(cwd) &&
-          (itemPath === getNormalisedPath(resultsPath) || ignores.includes(itemPath) || isIgnored(itemPath))
+          itemPath !== normalisedPath(cwd) &&
+          (itemPath === normalisedPath(resultsPath) || ignores.includes(itemPath) || isIgnored(itemPath))
         );
       }
     });
 
     watcher.on('all', (event: string, filePath: string) => {
       if (EMIT_EVENTS.includes(event)) {
-        this._files.push(getNormalisedPath(filePath));
+        this._files.push(normalisedPath(filePath));
         setTimeout(() => {
           if (this._files.length) {
             const changed = Array.from(new Set(this._files)).sort();
