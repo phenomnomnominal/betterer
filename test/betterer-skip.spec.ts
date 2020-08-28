@@ -6,17 +6,17 @@ describe('betterer', () => {
   it('should skip a test', async () => {
     const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture('test-betterer-skip', {
       '.betterer.skip.ts': `
+import { BettererTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
 import { regexp } from '@betterer/regexp';
 
 let start = 0;
 
 export default {
-  'test 1': {
+  'test 1': new BettererTest({
     test: () => start++,
-    constraint: bigger,
-    isSkipped: true
-  },
+    constraint: bigger
+  }).skip(),
   'test 2': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts').skip()
 };
       `,

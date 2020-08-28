@@ -9,15 +9,10 @@ import {
   BettererPrinter,
   BettererSerialiser
 } from './types';
-import { BettererTestState } from './test-state';
 
 const IS_BETTERER_TEST = 'isBettererTest';
 
-export class BettererTest<
-  DeserialisedType = unknown,
-  SerialisedType = DeserialisedType,
-  DiffType = unknown
-> extends BettererTestState {
+export class BettererTest<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = unknown> {
   public readonly constraint: BettererTestConstraint<DeserialisedType>;
   public readonly goal: BettererTestGoal<DeserialisedType>;
   public readonly test: BettererTestFunction<DeserialisedType>;
@@ -29,9 +24,10 @@ export class BettererTest<
 
   public readonly isBettererTest = IS_BETTERER_TEST;
 
-  constructor(options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>) {
-    super(options.isSkipped, options.isOnly);
+  private _isOnly = false;
+  private _isSkipped = false;
 
+  constructor(options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>) {
     if (options.constraint == null) {
       throw CONSTRAINT_FUNCTION_REQUIRED();
     }
@@ -47,6 +43,24 @@ export class BettererTest<
     this.differ = options.differ;
     this.printer = options.printer;
     this.serialiser = options.serialiser;
+  }
+
+  public get isOnly(): boolean {
+    return this._isOnly;
+  }
+
+  public get isSkipped(): boolean {
+    return this._isSkipped;
+  }
+
+  public only(): this {
+    this._isOnly = true;
+    return this;
+  }
+
+  public skip(): this {
+    this._isSkipped = true;
+    return this;
   }
 
   private _createDeadline(options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>): number {
