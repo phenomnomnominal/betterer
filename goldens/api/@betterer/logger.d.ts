@@ -8,6 +8,8 @@ export declare type BettererLoggerCodeInfo = {
     end: number;
 };
 
+export declare type BettererLoggerDiffOptions = DiffOptions;
+
 export declare type BettererLoggerMessages = ReadonlyArray<string>;
 
 export declare type BettererLoggerOverwriteDone = typeof logUpdate['done'];
@@ -17,6 +19,8 @@ export declare function brΔ(): void;
 export declare function codeΔ(codeInfo: BettererLoggerCodeInfo): void;
 
 export declare const debugΔ: BettererLogger;
+
+export declare function diffΔ(expected: unknown, result: unknown, options?: DiffOptions): void;
 
 export declare const errorΔ: BettererLogger;
 

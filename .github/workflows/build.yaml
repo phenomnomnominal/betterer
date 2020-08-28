@@ -26,4 +26,4 @@ jobs:
         with:
           frozen-lockfile: true
       - name: Run build
-        run: yarn run build
+        run: yarn run build:ci

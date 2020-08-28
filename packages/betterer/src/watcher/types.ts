@@ -1,8 +1,8 @@
-import { BettererRunsΩ, BettererRuns } from '../context';
+import { BettererSummary } from '../context';
 
 export type BettererFilePaths = ReadonlyArray<string>;
-export type BettererWatchChangeHandlerΩ = (filePaths: BettererFilePaths) => Promise<BettererRunsΩ>;
-export type BettererWatchRunHandler = (runs: BettererRuns) => void;
+export type BettererWatchChangeHandler = (filePaths: BettererFilePaths) => Promise<BettererSummary>;
+export type BettererWatchRunHandler = (summary: BettererSummary) => void;
 
 export type BettererWatcher = {
   stop(): Promise<void>;

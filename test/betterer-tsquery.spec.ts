@@ -4,8 +4,10 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the existence of TSQuery matches', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('test-betterer-tsquery', {
-      '.betterer.ts': `
+    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture(
+      'test-betterer-tsquery',
+      {
+        '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 
 export default {
@@ -15,7 +17,7 @@ export default {
 )
 };      
     `,
-      'tsconfig.json': `
+        'tsconfig.json': `
 {
 "compilerOptions": {
   "noEmit": true,
@@ -28,7 +30,8 @@ export default {
 "include": ["./src/**/*", ".betterer.ts"]
 }      
     `
-    });
+      }
+    );
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
@@ -38,17 +41,17 @@ export default {
 
     const newTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(newTestRun.new).toEqual(['tsquery no raw console.log']);
+    expect(runNames(newTestRun.new)).toEqual(['tsquery no raw console.log']);
 
     const sameTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(sameTestRun.same).toEqual(['tsquery no raw console.log']);
+    expect(runNames(sameTestRun.same)).toEqual(['tsquery no raw console.log']);
 
     await writeFile(indexPath, `console.log('foo');\nconsole.log('foo');`);
 
     const worseTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(worseTestRun.worse).toEqual(['tsquery no raw console.log']);
+    expect(runNames(worseTestRun.worse)).toEqual(['tsquery no raw console.log']);
 
     const result = await readFile(resultsPath);
 
@@ -58,11 +61,11 @@ export default {
 
     const betterTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(betterTestRun.better).toEqual(['tsquery no raw console.log']);
+    expect(runNames(betterTestRun.better)).toEqual(['tsquery no raw console.log']);
 
     const completedTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(completedTestRun.completed).toEqual(['tsquery no raw console.log']);
+    expect(runNames(completedTestRun.completed)).toEqual(['tsquery no raw console.log']);
 
     expect(logs).toMatchSnapshot();
 

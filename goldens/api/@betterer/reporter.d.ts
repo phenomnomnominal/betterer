@@ -1,5 +1,3 @@
-export declare function contextErrorΔ(_: BettererContext, error: BettererError, printed: Array<string>): void;
-
 export declare function getTestsΔ(count: number): string;
 
 export declare function quoteΔ(str: string): string;

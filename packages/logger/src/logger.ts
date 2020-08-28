@@ -1,5 +1,6 @@
 import { codeFrameColumns } from '@babel/code-frame';
 import * as chalk from 'chalk';
+import logDiff, { DiffOptions } from 'jest-diff';
 import * as logUpdate from 'log-update';
 import LinesAndColumns from 'lines-and-columns';
 import * as path from 'path';
@@ -93,4 +94,14 @@ export function overwriteΔ(content: string): BettererLoggerOverwriteDone {
     logUpdate(`${LOGO}${NEW_LINE}${content}`);
   }
   return logUpdate.done.bind(logUpdate);
+}
+
+const DEFAULT_DIFF_OPTIONS: DiffOptions = {
+  aAnnotation: 'Expected',
+  bAnnotation: 'Result'
+};
+
+export function diffΔ(expected: unknown, result: unknown, options: DiffOptions = DEFAULT_DIFF_OPTIONS): void {
+  // eslint-disable-next-line no-console
+  console.log(logDiff(expected, result, options));
 }

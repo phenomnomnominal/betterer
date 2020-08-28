@@ -13,6 +13,7 @@ export function config(partialConfig: BettererConfigPartial): void {
 
 export function createConfig(partialConfig: BettererConfigPartial = {}): BettererConfig {
   const relativeConfig = {
+    allowDiff: partialConfig.allowDiff ?? true,
     configPaths: toArray<string>(partialConfig.configPaths || baseConfig.configPaths || ['./.betterer']),
     resultsPath: partialConfig.resultsPath || baseConfig.resultsPath || './.betterer.results',
     filters: toRegExps(toArray<string | RegExp>(partialConfig.filters || baseConfig.filters)),

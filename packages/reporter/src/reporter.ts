@@ -1,7 +1,8 @@
-import { errorΔ, infoΔ, successΔ, warnΔ, logoΔ, brΔ } from '@betterer/logger';
+import { errorΔ, infoΔ, successΔ, warnΔ, logoΔ, brΔ, diffΔ } from '@betterer/logger';
 
-import { BettererContext, BettererReporter, BettererRun, BettererStats } from '@betterer/betterer';
+import { BettererContext, BettererReporter, BettererRun, BettererSummary } from '@betterer/betterer';
 import {
+  getTestsΔ,
   testBetterΔ,
   testCheckedΔ,
   testCompleteΔ,
@@ -14,30 +15,31 @@ import {
   testSkippedΔ,
   testUpdatedΔ,
   testWorseΔ,
-  updateInstructionsΔ,
-  getTestsΔ
+  unexpectedDiffΔ,
+  updateInstructionsΔ
 } from './messages';
-import { contextErrorΔ, quoteΔ } from './utils';
+import { quoteΔ } from './utils';
 
 export const defaultReporter: BettererReporter = {
   contextStart(): void {
     logoΔ();
   },
-  contextEnd(_: BettererContext, stats: BettererStats): void {
-    const better = stats.better.length;
-    const failed = stats.failed.length;
-    const neww = stats.new.length;
-    const ran = stats.ran.length;
-    const same = stats.same.length;
-    const skipped = stats.skipped.length;
-    const updated = stats.updated.length;
-    const worse = stats.worse.length;
-    const { completed, expired, obsolete } = stats;
+  contextEnd(_: BettererContext, summary: BettererSummary): void {
+    const better = summary.better.length;
+    const failed = summary.failed.length;
+    const neww = summary.new.length;
+    const ran = summary.ran.length;
+    const same = summary.same.length;
+    const skipped = summary.skipped.length;
+    const updated = summary.updated.length;
+    const worse = summary.worse.length;
+
+    const { completed, expired, obsolete } = summary;
 
     infoΔ(testCheckedΔ(getTestsΔ(ran)));
     if (expired) {
-      expired.forEach((testName) => {
-        errorΔ(testExpiredΔ(quoteΔ(testName)));
+      expired.forEach((run) => {
+        errorΔ(testExpiredΔ(quoteΔ(run.name)));
       });
     }
     if (failed) {
@@ -47,16 +49,16 @@ export const defaultReporter: BettererReporter = {
       infoΔ(testNewΔ(getTestsΔ(neww)));
     }
     if (obsolete) {
-      obsolete.forEach((testName) => {
-        errorΔ(testObsoleteΔ(quoteΔ(testName)));
+      obsolete.forEach((runName) => {
+        errorΔ(testObsoleteΔ(quoteΔ(runName)));
       });
     }
     if (better) {
       successΔ(testBetterΔ(getTestsΔ(better)));
     }
-    if (completed.length) {
-      completed.forEach((testName) => {
-        successΔ(testCompleteΔ(quoteΔ(testName)));
+    if (completed) {
+      completed.forEach((run) => {
+        successΔ(testCompleteΔ(quoteΔ(run.name)));
       });
     }
     if (same) {
@@ -72,8 +74,14 @@ export const defaultReporter: BettererReporter = {
       errorΔ(testWorseΔ(getTestsΔ(worse)));
       errorΔ(updateInstructionsΔ());
     }
+
+    if (summary.hasDiff) {
+      errorΔ(unexpectedDiffΔ());
+      brΔ();
+      diffΔ(summary.expected, summary.result);
+      brΔ();
+    }
   },
-  contextError: contextErrorΔ,
   runStart(run: BettererRun): void {
     const name = quoteΔ(run.name);
     if (run.isExpired) {

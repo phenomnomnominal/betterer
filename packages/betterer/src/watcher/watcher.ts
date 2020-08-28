@@ -1,9 +1,9 @@
 import { watch as chokidar, FSWatcher } from 'chokidar';
 import * as globby from 'globby';
 
-import { BettererContextΩ, BettererRunsΩ } from '../context';
+import { BettererContextΩ, BettererSummary } from '../context';
 import { getNormalisedPath } from '../utils';
-import { BettererWatchChangeHandlerΩ, BettererWatchRunHandler, BettererWatcher } from './types';
+import { BettererWatchChangeHandler, BettererWatchRunHandler, BettererWatcher } from './types';
 
 const EMIT_EVENTS = ['add', 'change'];
 const DEBOUNCE_TIME = 200;
@@ -11,10 +11,10 @@ const DEBOUNCE_TIME = 200;
 export class BettererWatcherΩ implements BettererWatcher {
   private _files: Array<string> = [];
   private _handlers: Array<BettererWatchRunHandler> = [];
-  private _runs: Promise<BettererRunsΩ> | null = null;
+  private _running: Promise<BettererSummary> | null = null;
   private _watcher: FSWatcher | null = null;
 
-  constructor(private readonly _context: BettererContextΩ, private readonly _onChange: BettererWatchChangeHandlerΩ) {}
+  constructor(private readonly _context: BettererContextΩ, private readonly _onChange: BettererWatchChangeHandler) {}
 
   public async setup(): Promise<void> {
     const { cwd, ignores, resultsPath } = this._context.config;
@@ -54,9 +54,10 @@ export class BettererWatcherΩ implements BettererWatcher {
     if (this._watcher) {
       await this._watcher.close();
     }
-    if (this._runs) {
-      await this._handleRun(this._runs);
-      this._context.tearDown();
+    if (this._running) {
+      await this._handleRun(this._running);
+      this._context.end();
+      await this._context.save();
     }
   }
 
@@ -65,14 +66,13 @@ export class BettererWatcherΩ implements BettererWatcher {
   }
 
   private _handleChange(changed: Array<string>): void {
-    this._runs = this._onChange(changed);
-    void this._handleRun(this._runs);
+    this._running = this._onChange(changed);
+    void this._handleRun(this._running);
   }
 
-  private async _handleRun(running: Promise<BettererRunsΩ>): Promise<BettererRunsΩ> {
-    const runs = await running;
-    this._handlers.forEach((handler) => handler(runs));
-    await this._context.process(runs);
-    return runs;
+  private async _handleRun(running: Promise<BettererSummary>): Promise<BettererSummary> {
+    const summary = await running;
+    this._handlers.forEach((handler) => handler(summary));
+    return summary;
   }
 }

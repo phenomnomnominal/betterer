@@ -4,9 +4,7 @@ import { BettererDiff, BettererResult } from '../results';
 import { BettererTest } from '../test';
 
 export type BettererRuns = ReadonlyArray<BettererRun>;
-export type BettererTestNames = Array<string>;
-
-export type Resolve = Parameters<ConstructorParameters<typeof Promise>[0]>[0];
+export type BettererRunNames = Array<string>;
 
 export type BettererContext = {
   readonly config: BettererConfig;
@@ -32,16 +30,21 @@ export type BettererRun = {
   readonly isWorse: boolean;
 };
 
-export type BettererStats = {
-  readonly better: BettererTestNames;
-  readonly completed: BettererTestNames;
-  readonly expired: BettererTestNames;
-  readonly failed: BettererTestNames;
-  readonly new: BettererTestNames;
-  readonly ran: BettererTestNames;
-  readonly same: BettererTestNames;
-  readonly obsolete: BettererTestNames;
-  readonly skipped: BettererTestNames;
-  readonly updated: BettererTestNames;
-  readonly worse: BettererTestNames;
+export type BettererSummary = {
+  readonly runs: BettererRuns;
+  readonly obsolete: BettererRunNames;
+  readonly result: string;
+  readonly expected: string | null;
+  readonly hasDiff: boolean;
+
+  readonly better: BettererRuns;
+  readonly completed: BettererRuns;
+  readonly expired: BettererRuns;
+  readonly failed: BettererRuns;
+  readonly new: BettererRuns;
+  readonly ran: BettererRuns;
+  readonly same: BettererRuns;
+  readonly skipped: BettererRuns;
+  readonly updated: BettererRuns;
+  readonly worse: BettererRuns;
 };

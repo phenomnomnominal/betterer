@@ -1,6 +1,6 @@
 import { BettererError } from '@betterer/errors';
 
-import { BettererContext, BettererRun, BettererRuns, BettererStats } from '../context';
+import { BettererContext, BettererRun, BettererRuns, BettererSummary } from '../context';
 import { BettererFilePaths } from '../watcher';
 import { BettererReporter } from './types';
 
@@ -10,11 +10,11 @@ export class BettererMultiReporterΩ implements BettererReporter {
   contextStart(context: BettererContext): void {
     this._reporters.forEach((r) => r.contextStart?.(context));
   }
-  contextEnd(context: BettererContext, stats: BettererStats): void {
-    this._reporters.forEach((r) => r.contextEnd?.(context, stats));
+  contextEnd(context: BettererContext, summary: BettererSummary): void {
+    this._reporters.forEach((r) => r.contextEnd?.(context, summary));
   }
-  contextError(context: BettererContext, error: BettererError, printed: Array<string>): void {
-    this._reporters.forEach((r) => r.contextError?.(context, error, printed));
+  contextError(context: BettererContext, error: BettererError): void {
+    this._reporters.forEach((r) => r.contextError?.(context, error));
   }
   runsStart(runs: BettererRuns, files: BettererFilePaths): void {
     this._reporters.forEach((r) => r.runsStart?.(runs, files));

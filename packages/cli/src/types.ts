@@ -1,5 +1,14 @@
 export type BettererCLIArguments = ReadonlyArray<string>;
 
+export type BettererCLICIConfig = {
+  config: BettererCLIArguments;
+  filter: BettererCLIArguments;
+  reporter: BettererCLIArguments;
+  results: string;
+  silent: boolean;
+  tsconfig: string;
+};
+
 export type BettererCLIStartConfig = {
   config: BettererCLIArguments;
   filter: BettererCLIArguments;

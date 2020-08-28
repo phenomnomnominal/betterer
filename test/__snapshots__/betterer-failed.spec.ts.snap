@@ -1,32 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`betterer should print the results out when writing the file fails 1`] = `
-Array [
-  "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"should shrink\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"should shrink\\" got checked for the first time! 🎉",
-  " ☀️  betterer  erro  🔥  - ",
-  "could not write results to \\"<project>/fixtures/test-betterer-failed-writing/.betterer.results\\". 😔",
-  "
-exports[\`should shrink\`] = {
-  value: \`0\`
-};
-",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked for the first time! 🎉",
-]
-`;
-
 exports[`betterer should throws when reading the results file fails 1`] = `
 Array [
   "

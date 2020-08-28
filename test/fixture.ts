@@ -3,7 +3,7 @@ import { ensureFile, remove } from 'fs-extra';
 import * as fs from 'graceful-fs';
 import * as path from 'path';
 import * as ansiRegex from 'ansi-regex';
-import { BettererRuns, BettererWatcher } from '@betterer/betterer';
+import { BettererRuns, BettererWatcher, BettererRunNames, BettererSummary } from '@betterer/betterer';
 
 const DEFAULT_CONFIG_PATH = './.betterer';
 const DEFAULT_RESULTS_PATH = `./.betterer.results`;
@@ -30,8 +30,9 @@ type Fixture = {
   readFile(filePath: string): Promise<string>;
   resolve(filePath: string): string;
   writeFile(filePath: string, text: string): Promise<void>;
-  waitForRun(watcher: BettererWatcher): Promise<BettererRuns>;
+  waitForRun(watcher: BettererWatcher): Promise<BettererSummary>;
   cleanup(): Promise<void>;
+  runNames(runs: BettererRuns): BettererRunNames;
 };
 
 const fixtureNames: Array<string> = [];
@@ -101,6 +102,7 @@ export async function createFixture(fixtureName: string, fileStructure: FS): Pro
 
   return {
     paths,
+    runNames,
     resolve,
     logs,
     deleteFile(filePath: string): Promise<void> {
@@ -110,15 +112,19 @@ export async function createFixture(fixtureName: string, fileStructure: FS): Pro
       return readFile(resolve(filePath), 'utf8');
     },
     writeFile: write,
-    waitForRun(watcher): Promise<BettererRuns> {
+    waitForRun(watcher): Promise<BettererSummary> {
       return new Promise((resolve) => {
-        watcher.onRun((run) => {
-          resolve(run);
+        watcher.onRun((summary) => {
+          resolve(summary);
         });
       });
     },
     cleanup
   };
+}
+
+function runNames(runs: BettererRuns): BettererRunNames {
+  return runs.map((run) => run.name);
 }
 
 function isString(message: unknown): message is string {

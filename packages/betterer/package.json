@@ -36,7 +36,6 @@
     "find-up": "^5.0.0",
     "gitignore-globs": "^0.1.1",
     "globby": "^11.0.1",
-    "jest-diff": "^26.1.0",
     "lines-and-columns": "^1.1.6",
     "safe-string-literal": "^1.0.1",
     "ts-node": "^9.0.0",

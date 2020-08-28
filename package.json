@@ -11,7 +11,9 @@
   "scripts": {
     "api": "yarn compile && lerna run api",
     "betterer": "node ./packages/cli/./bin/betterer",
+    "betterer:ci": "node ./packages/cli/./bin/betterer-ci",
     "build": "yarn compile && yarn format && yarn lint && yarn test && yarn test:api && yarn betterer",
+    "build:ci": "yarn compile && yarn format && yarn lint && yarn test && yarn test:api && yarn betterer:ci",
     "clean": "rimraf reports && lerna exec \"rimraf dist\" && rimraf ./**/tsconfig.tsbuildinfo && lerna exec \"rimraf node_modules\" && rimraf node_modules && yarn",
     "commit": "git cz",
     "compile": "tsc -b packages",
