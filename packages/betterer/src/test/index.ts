@@ -31,6 +31,5 @@ export {
   BettererTestGoal,
   BettererTestMap,
   BettererTestOptionsMap,
-  BettererTestOptions,
-  BettererTestStateOptions
+  BettererTestOptions
 } from './types';
