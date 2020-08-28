@@ -25,6 +25,6 @@
     "api": "ts-api-guardian --out ../../goldens/api/@betterer/constraints.d.ts dist/index.d.ts"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.1"
   }
 }

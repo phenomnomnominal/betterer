@@ -27,6 +27,6 @@
   "dependencies": {
     "@betterer/betterer": "^3.0.3",
     "@betterer/errors": "^3.0.0",
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.1"
   }
 }

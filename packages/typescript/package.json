@@ -27,12 +27,12 @@
   "dependencies": {
     "@betterer/betterer": "^3.0.3",
     "@betterer/errors": "^3.0.0",
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.1"
   },
   "peerDependencies": {
     "typescript": "*"
   },
   "devDependencies": {
-    "typescript": "3.9.7"
+    "typescript": "^4.0.2"
   }
 }
