@@ -2,8 +2,6 @@ import { betterer } from '@betterer/betterer';
 
 import { createFixture } from './fixture';
 
-'../fixtures/test-betterer-complete';
-
 describe('betterer', () => {
   it(`should work when a test meets its goal`, async () => {
     const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-complete', {
