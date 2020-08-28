@@ -2,7 +2,7 @@ import { betterer } from '@betterer/betterer';
 
 import { createFixture } from './fixture';
 
-'../fixtures/test-betterer-complete';
+('../fixtures/test-betterer-complete');
 
 describe('betterer', () => {
   it(`should work when a test meets its goal`, async () => {
