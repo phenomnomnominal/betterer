@@ -27,7 +27,7 @@ betterer init -c ./path/to/config
 Run [**`Betterer`**](https://github.com/phenomnomnominal/betterer)
 
 ```sh
-betterer -c ./path/to/config -r ./path/to/results -w
+betterer -c ./path/to/config -r ./path/to/results
 ```
 
 #### Start options
@@ -65,10 +65,10 @@ betterer watch -c ./path/to/config -r ./path/to/results
 
 ### CI
 
-Run [**`Betterer`**](https://github.com/phenomnomnominal/betterer) in CI mode, so that any diff triggers a failure
+Run [**`Betterer`**](https://github.com/phenomnomnominal/betterer) in CI mode, so that any change to the test results file causesyarn api a failure
 
 ```sh
-betterer ci -c ./path/to/config -r ./path/to/results -w
+betterer ci -c ./path/to/config -r ./path/to/results
 ```
 
 #### CI options
@@ -80,5 +80,4 @@ betterer ci -c ./path/to/config -r ./path/to/results -w
 | `-t`, `--tsconfig` [value] | Path to TypeScript config file relative to CWD                              | `null`                |
 | `-f`, `--filter` [value]   | Select tests to run by RegExp. Takes multiple values                        | `[]`                  |
 | `-s`, `--silent`           | Disable all logging                                                         | `false`               |
-| `-u`, `--update`           | Force update the results file, even if things get worse                     | `false`               |
 | `-R`, `--reporter` [value] | npm package name or file path to a Betterer reporter. Takes multiple values | Default reporter      |
