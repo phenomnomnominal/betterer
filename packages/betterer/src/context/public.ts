@@ -1,1 +1,1 @@
-export { BettererRuns, BettererTestNames, Resolve, BettererContext, BettererRun, BettererStats } from './types';
+export { BettererRuns, BettererRunNames, BettererContext, BettererRun, BettererSummary } from './types';

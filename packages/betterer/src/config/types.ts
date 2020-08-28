@@ -4,19 +4,8 @@ export type BettererConfigPaths = ReadonlyArray<string>;
 export type BettererConfigFilters = ReadonlyArray<RegExp>;
 export type BettererConfigIgnore = ReadonlyArray<string>;
 
-export type BettererConfigPartial = Partial<{
-  configPaths: BettererConfigPaths | string;
-  cwd: string;
-  filters: BettererConfigFilters | ReadonlyArray<string> | string;
-  ignores: BettererConfigIgnore | string;
-  reporters: BettererReporterNames;
-  resultsPath: string;
-  silent: boolean;
-  tsconfigPath: string;
-  update: boolean;
-}>;
-
 export type BettererConfig = {
+  allowDiff: boolean;
   configPaths: BettererConfigPaths;
   cwd: string;
   filters: BettererConfigFilters;
@@ -27,3 +16,16 @@ export type BettererConfig = {
   tsconfigPath: string | null;
   update: boolean;
 };
+
+export type BettererConfigPartial = Partial<{
+  allowDiff: boolean;
+  configPaths: BettererConfigPaths | string;
+  cwd: string;
+  filters: BettererConfigFilters | ReadonlyArray<string> | string;
+  ignores: BettererConfigIgnore | string;
+  reporters: BettererReporterNames;
+  resultsPath: string;
+  silent: boolean;
+  tsconfigPath: string;
+  update: boolean;
+}>;

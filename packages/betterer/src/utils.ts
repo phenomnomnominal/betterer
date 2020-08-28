@@ -12,16 +12,23 @@ export function isUndefined(value: unknown): value is undefined {
   return typeof value === 'undefined';
 }
 
-export function getNormalisedPath(filePath: string): string {
+export function normalisedPath(filePath: string): string {
   return path.sep === path.posix.sep ? filePath : filePath.split(path.sep).join(path.posix.sep);
 }
 
 export function getAbsolutePath(resultsPath: string, filePath: string): string {
-  return getNormalisedPath(path.resolve(path.dirname(resultsPath), filePath));
+  return normalisedPath(path.resolve(path.dirname(resultsPath), filePath));
 }
 
 export function getRelativePath(resultsPath: string, filePath: string): string {
-  return getNormalisedPath(path.relative(path.dirname(resultsPath), filePath));
+  return normalisedPath(path.relative(path.dirname(resultsPath), filePath));
+}
+
+const NEW_LINE = '\n';
+const NEW_LINES = /\r\n|\r|\n/g;
+
+export function normaliseNewlines(str: string): string {
+  return str.replace(NEW_LINES, NEW_LINE);
 }
 
 export function flatten<T>(toFlatten: ReadonlyArray<T | ReadonlyArray<T>>): Array<T> {

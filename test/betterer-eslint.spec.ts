@@ -4,15 +4,17 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the status of a new eslint rule', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('test-betterer-eslint', {
-      '.betterer.js': `
+    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture(
+      'test-betterer-eslint',
+      {
+        '.betterer.js': `
 const { eslint } = require('@betterer/eslint');
 
 module.exports = {
   'eslint enable new rule': eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
 };      
       `,
-      '.eslintrc.js': `
+        '.eslintrc.js': `
 const path = require('path');
 
 module.exports = {
@@ -34,13 +36,14 @@ module.exports = {
   }
 };
       `,
-      'tsconfig.json': `
+        'tsconfig.json': `
 {
   "extends": "../../tsconfig.json",
   "include": ["./src/**/*", "./.betterer.js", "./.eslintrc.js"]
 }
       `
-    });
+      }
+    );
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
@@ -50,17 +53,17 @@ module.exports = {
 
     const newTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(newTestRun.new).toEqual(['eslint enable new rule']);
+    expect(runNames(newTestRun.new)).toEqual(['eslint enable new rule']);
 
     const sameTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(sameTestRun.same).toEqual(['eslint enable new rule']);
+    expect(runNames(sameTestRun.same)).toEqual(['eslint enable new rule']);
 
     await writeFile(indexPath, `debugger;\ndebugger;`);
 
     const worseTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(worseTestRun.worse).toEqual(['eslint enable new rule']);
+    expect(runNames(worseTestRun.worse)).toEqual(['eslint enable new rule']);
 
     const result = await readFile(resultsPath);
 
@@ -70,11 +73,11 @@ module.exports = {
 
     const betterTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(betterTestRun.better).toEqual(['eslint enable new rule']);
+    expect(runNames(betterTestRun.better)).toEqual(['eslint enable new rule']);
 
     const completedTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(completedTestRun.completed).toEqual(['eslint enable new rule']);
+    expect(runNames(completedTestRun.completed)).toEqual(['eslint enable new rule']);
 
     expect(logs).toMatchSnapshot();
 

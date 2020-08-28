@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+require('../dist/ci')
+  .ciΔ(process.cwd(), process.argv)
+  .then(function (summary) {
+    process.exitCode = summary.expected ? 1 : 0;
+  })
+  .catch(function () {
+    process.exitCode = 1;
+  });

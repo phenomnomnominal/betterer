@@ -1,4 +1,4 @@
-import { brΔ, errorΔ, infoΔ, successΔ } from '@betterer/logger';
+import { brΔ, errorΔ, infoΔ, successΔ, warnΔ } from '@betterer/logger';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 import { publicApi, verifyAgainstGoldenFile } from 'ts-api-guardian';
@@ -23,8 +23,8 @@ void (async function () {
 
   const testDirectory = await Promise.all(
     items.map(async (item) => {
-      const stats = await fs.lstat(path.join(PACKAGES_DIR, item));
-      return stats.isDirectory();
+      const stat = await fs.lstat(path.join(PACKAGES_DIR, item));
+      return stat.isDirectory();
     })
   );
 
@@ -64,7 +64,7 @@ void (async function () {
           return true;
         }
 
-        errorΔ(`Breaking API changes found in "@betterer/${packageName}" 👎`);
+        warnΔ(`API changes found in "@betterer/${packageName}" 🚨`);
         const diff = verifyAgainstGoldenFile(packageDeclarationPath, packageGoldenPath, API_OPTIONS);
         brΔ();
         process.stdout.write(diff);

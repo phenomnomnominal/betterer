@@ -25,6 +25,7 @@ export class BettererRunΩ implements BettererRun {
 
   private _isComplete = false;
   private _isExpired = false;
+  private _isRan = false;
 
   constructor(
     private readonly _context: BettererContextΩ,
@@ -77,6 +78,10 @@ export class BettererRunΩ implements BettererRun {
     return this._expected.isNew;
   }
 
+  public get isRan(): boolean {
+    return this._isRan;
+  }
+
   public get isSame(): boolean {
     return this._status === BettererRunStatus.same;
   }
@@ -107,7 +112,6 @@ export class BettererRunΩ implements BettererRun {
     this._status = BettererRunStatus.better;
     this._isComplete = isComplete;
     this._result = result;
-    this._context.runBetter(this);
   }
 
   public end(): void {
@@ -117,19 +121,17 @@ export class BettererRunΩ implements BettererRun {
   public failed(): void {
     assert.equal(this._status, BettererRunStatus.pending);
     this._status = BettererRunStatus.failed;
-    this._context.runFailed(this);
   }
 
-  public neww(result: BettererResultΩ, isComplete: boolean): void {
+  public new(result: BettererResultΩ, isComplete: boolean): void {
     assert.equal(this._status, BettererRunStatus.pending);
     this._status = BettererRunStatus.neww;
     this._isComplete = isComplete;
     this._result = result;
-    this._context.runNew(this);
   }
 
   public ran(): void {
-    this._context.runRan(this);
+    this._isRan = true;
   }
 
   public start(): void {
@@ -143,27 +145,25 @@ export class BettererRunΩ implements BettererRun {
     assert.equal(this._status, BettererRunStatus.pending);
     this._status = BettererRunStatus.same;
     this._result = result;
-    this._context.runSame(this);
   }
 
   public skipped(): void {
     assert.equal(this._status, BettererRunStatus.pending);
     this._status = BettererRunStatus.skipped;
-    this._context.runSkipped(this);
   }
 
   public update(result: BettererResultΩ): void {
     assert.equal(this._status, BettererRunStatus.pending);
     this._status = BettererRunStatus.update;
     this._result = result;
-    this._diff = this._context.runUpdate(this);
+    this._diff = this._context.runDiff(this);
   }
 
   public worse(result: BettererResultΩ): void {
     assert.equal(this._status, BettererRunStatus.pending);
     this._status = BettererRunStatus.worse;
     this._result = result;
-    this._diff = this._context.runWorse(this);
+    this._diff = this._context.runDiff(this);
   }
 }
 

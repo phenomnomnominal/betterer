@@ -1,10 +1,10 @@
-import { BettererStats, betterer } from '@betterer/betterer';
+import { BettererSummary, betterer } from '@betterer/betterer';
 import * as commander from 'commander';
 
 import { startOptions } from './options';
 import { BettererCLIArguments, BettererCLIStartConfig } from './types';
 
-export function startΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererStats> {
+export function startΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSummary> {
   startOptions(commander);
 
   commander.parse(argv as Array<string>);

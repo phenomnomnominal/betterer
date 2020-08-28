@@ -43,19 +43,22 @@ export default {
 
     await writeFile(indexPath, `console.log('foo');\nconsole.log('foo');console.log('foo');`);
 
-    const [worseRun] = await waitForRun(watcher);
+    const worseSummary = await waitForRun(watcher);
+    const [worseRun] = worseSummary.runs;
 
     expect(worseRun.isWorse).toBe(true);
 
     await writeFile(indexPath, `console.log('foo');console.log('foo');`);
 
-    const [sameRun] = await waitForRun(watcher);
+    const sameSummary = await waitForRun(watcher);
+    const [sameRun] = sameSummary.runs;
 
     expect(sameRun.isSame).toBe(true);
 
     await writeFile(indexPath, `console.log('bar');`);
 
-    const [betterRun] = await waitForRun(watcher);
+    const betterSummary = await waitForRun(watcher);
+    const [betterRun] = betterSummary.runs;
 
     expect(betterRun.isBetter).toBe(true);
 
@@ -106,11 +109,11 @@ export default {
 
     await writeFile(indexPath, `console.log('foo');`);
     await writeFile(filePath, `console.log('foo');\nconsole.log('foo');`);
-    const runs = await waitForRun(watcher);
+    const summary = await waitForRun(watcher);
 
     await watcher.stop();
 
-    expect(runs).toHaveLength(1);
+    expect(summary.runs).toHaveLength(1);
 
     expect(logs).toMatchSnapshot();
 
@@ -165,7 +168,9 @@ ignored.ts
     await writeFile(indexPath, `console.log('foo');`);
     await writeFile(ignoredPath, `console.log('foo');`);
     await writeFile(nestedPath, `console.log('foo');`);
-    const [run] = await waitForRun(watcher);
+
+    const summary = await waitForRun(watcher);
+    const [run] = summary.runs;
 
     await watcher.stop();
 

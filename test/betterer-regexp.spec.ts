@@ -4,15 +4,18 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the existence of RegExp matches', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('test-betterer-regexp', {
-      '.betterer.js': `
+    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture(
+      'test-betterer-regexp',
+      {
+        '.betterer.js': `
 const { regexp } = require('@betterer/regexp');
 
 module.exports = {
 'regexp no hack comments': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
 };      
     `
-    });
+      }
+    );
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
@@ -22,17 +25,17 @@ module.exports = {
 
     const newTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(newTestRun.new).toEqual(['regexp no hack comments']);
+    expect(runNames(newTestRun.new)).toEqual(['regexp no hack comments']);
 
     const sameTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(sameTestRun.same).toEqual(['regexp no hack comments']);
+    expect(runNames(sameTestRun.same)).toEqual(['regexp no hack comments']);
 
     await writeFile(indexPath, `// HACK:\n// HACK:`);
 
     const worseTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(worseTestRun.worse).toEqual(['regexp no hack comments']);
+    expect(runNames(worseTestRun.worse)).toEqual(['regexp no hack comments']);
 
     const result = await readFile(resultsPath);
 
@@ -42,11 +45,11 @@ module.exports = {
 
     const betterTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(betterTestRun.better).toEqual(['regexp no hack comments']);
+    expect(runNames(betterTestRun.better)).toEqual(['regexp no hack comments']);
 
     const completedTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(completedTestRun.completed).toEqual(['regexp no hack comments']);
+    expect(runNames(completedTestRun.completed)).toEqual(['regexp no hack comments']);
 
     expect(logs).toMatchSnapshot();
 

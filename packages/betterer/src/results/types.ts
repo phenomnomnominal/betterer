@@ -3,7 +3,7 @@ export type BettererExpectedResult = {
 };
 export type BettererExpectedResults = Record<string, BettererExpectedResult>;
 
-export type BettererDiff<DeserialisedType = unknown, DiffType = null> = {
+export type BettererDiff<DeserialisedType = unknown, DiffType = unknown> = {
   expected: DeserialisedType;
   result: DeserialisedType;
   diff: DiffType;

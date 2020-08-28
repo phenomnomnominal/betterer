@@ -42,3 +42,7 @@ export function updateInstructionsΔ(): string {
 export function getTestsΔ(count: number): string {
   return `${count} ${count === 1 ? 'test' : 'tests'}`;
 }
+
+export function unexpectedDiffΔ(): string {
+  return 'Unexpected diff found:';
+}

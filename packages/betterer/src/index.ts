@@ -1,4 +1,4 @@
-export { betterer } from './betterer';
+export { betterer, file, watch } from './betterer';
 export {
   config,
   BettererConfig,
@@ -7,7 +7,7 @@ export {
   BettererConfigPartial,
   BettererConfigPaths
 } from './config/public';
-export { BettererContext, BettererRun, BettererRuns, BettererStats, BettererTestNames } from './context/public';
+export { BettererContext, BettererRun, BettererRuns, BettererSummary, BettererRunNames } from './context/public';
 export { BettererDiff, BettererResult } from './results/public';
 export { BettererReporter, BettererReporterNames } from './reporters/public';
 export {

@@ -16,6 +16,6 @@ export {
   testWorseΔ,
   updateInstructionsΔ
 } from './messages';
-export { contextErrorΔ, quoteΔ } from './utils';
+export { quoteΔ } from './utils';
 
 export const reporter = defaultReporter;

@@ -1,6 +1,15 @@
 import { CommanderStatic } from 'commander';
 import { BettererCLIArguments } from './types';
 
+export function ciOptions(commander: CommanderStatic): void {
+  configPathsOption(commander);
+  resultsPathOption(commander);
+  tsconfigPathOption(commander);
+  filtersOption(commander);
+  silentOption(commander);
+  reportersOption(commander);
+}
+
 export function initOptions(commander: CommanderStatic): void {
   configPathOption(commander);
 }

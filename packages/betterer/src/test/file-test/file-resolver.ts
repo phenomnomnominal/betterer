@@ -2,7 +2,7 @@ import * as stack from 'callsite';
 import * as globby from 'globby';
 import * as path from 'path';
 
-import { flatten, getNormalisedPath } from '../../utils';
+import { flatten, normalisedPath } from '../../utils';
 import { BettererFilePaths } from '../../watcher';
 import { BettererFilePatterns, BettererFileGlobs } from './types';
 
@@ -30,7 +30,7 @@ export class BettererFileResolver {
   }
 
   public resolve(...pathSegments: Array<string>): string {
-    return getNormalisedPath(path.resolve(this._cwd, ...pathSegments));
+    return normalisedPath(path.resolve(this._cwd, ...pathSegments));
   }
 
   public forceRelativePaths(message: string): string {

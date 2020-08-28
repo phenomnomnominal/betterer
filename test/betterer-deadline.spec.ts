@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should do nothing when a test is not past its deadline', async () => {
-    const { logs, paths, readFile, cleanup } = await createFixture('test-betterer-deadline-in-future', {
+    const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-deadline-in-future', {
       '.betterer.js': `
 const { bigger } = require('@betterer/constraints');
 
@@ -28,7 +28,7 @@ module.exports = {
 
     const firstRun = await betterer({ configPaths, resultsPath });
 
-    expect(firstRun.expired).toEqual([]);
+    expect(runNames(firstRun.expired)).toEqual([]);
 
     expect(logs).toMatchSnapshot();
 
@@ -40,7 +40,7 @@ module.exports = {
   });
 
   it('should mark a test as expired when is is past its deadline', async () => {
-    const { logs, paths, readFile, cleanup } = await createFixture('test-betterer-deadline-in-past', {
+    const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-deadline-in-past', {
       '.betterer.js': `
 const { bigger } = require('@betterer/constraints');
 
@@ -66,7 +66,7 @@ module.exports = {
 
     const firstRun = await betterer({ configPaths, resultsPath });
 
-    expect(firstRun.expired).toEqual(['should grow']);
+    expect(runNames(firstRun.expired)).toEqual(['should grow']);
 
     expect(logs).toMatchSnapshot();
 

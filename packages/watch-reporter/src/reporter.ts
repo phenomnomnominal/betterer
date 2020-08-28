@@ -1,4 +1,4 @@
-import { BettererRuns, BettererReporter, BettererFilePaths } from '@betterer/betterer';
+import { BettererRuns, BettererReporter, BettererFilePaths, BettererRun } from '@betterer/betterer';
 import { infoΔ, overwriteΔ } from '@betterer/logger';
 import {
   testBetterΔ,
@@ -7,9 +7,9 @@ import {
   testFailedΔ,
   testNewΔ,
   testSameΔ,
+  testSkippedΔ,
   testUpdatedΔ,
   testWorseΔ,
-  contextErrorΔ,
   quoteΔ
 } from '@betterer/reporter';
 
@@ -22,7 +22,6 @@ export const watchReporter: BettererReporter = {
   contextEnd(): void {
     infoΔ(watchEnd());
   },
-  contextError: contextErrorΔ,
   runsStart(_: BettererRuns, files: BettererFilePaths): void {
     overwriteΔ(filesChecking(files.length));
   },
@@ -33,40 +32,42 @@ export const watchReporter: BettererReporter = {
     });
     report += '\n';
     runs.forEach((run) => {
-      const name = quoteΔ(run.name);
-      if (run.isBetter) {
-        report += `\n  ${testBetterΔ(name)}`;
-        return;
-      }
-      if (run.isExpired) {
-        report += `\n  ${testExpiredΔ(name)}`;
-        return;
-      }
-      if (run.isFailed) {
-        report += `\n  ${testFailedΔ(name)}`;
-        return;
-      }
-      if (run.isNew) {
-        report += `\n  ${testNewΔ(name)}`;
-        return;
-      }
-      if (run.isSame) {
-        report += `\n  ${testSameΔ(name)}`;
-        return;
-      }
-      if (run.isUpdated) {
-        report += `\n  ${testUpdatedΔ(name)}`;
-        return;
-      }
-      if (run.isWorse) {
-        report += `\n  ${testWorseΔ(name)}`;
-        return;
-      }
-      if (run.isComplete) {
-        report += `\n  ${testCompleteΔ(name, run.isNew)}`;
-        return;
-      }
+      const status = statusMessage(run);
+      report += `\n  ${status}`;
+      return;
     });
     overwriteΔ(report);
   }
 };
+
+function statusMessage(run: BettererRun): string {
+  const name = quoteΔ(run.name);
+  if (run.isBetter) {
+    return testBetterΔ(name);
+  }
+  if (run.isComplete) {
+    return testCompleteΔ(name);
+  }
+  if (run.isExpired) {
+    return testExpiredΔ(name);
+  }
+  if (run.isFailed) {
+    return testFailedΔ(name);
+  }
+  if (run.isNew) {
+    return testNewΔ(name);
+  }
+  if (run.isSame) {
+    return testSameΔ(name);
+  }
+  if (run.isSkipped) {
+    return testSkippedΔ(name);
+  }
+  if (run.isUpdated) {
+    return testUpdatedΔ(name);
+  }
+  if (run.isWorse) {
+    return testWorseΔ(name);
+  }
+  throw new Error();
+}

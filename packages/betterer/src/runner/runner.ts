@@ -1,31 +1,29 @@
 import { BettererConstraintResult } from '@betterer/constraints';
 import { logErrorΔ } from '@betterer/errors';
 
-import { BettererContextΩ, BettererRunΩ, BettererRunsΩ } from '../context';
+import { BettererContextΩ, BettererRunΩ, BettererSummary } from '../context';
 import { BettererFilePaths } from '../watcher';
 import { BettererResultΩ } from '../results';
 
-export async function parallel(context: BettererContextΩ, files: BettererFilePaths): Promise<BettererRunsΩ> {
-  const runs = await context.runnerStart(files);
-  await Promise.all(
-    runs.map(async (run) => {
-      await runTest(run, context.config.update);
-      run.end();
-    })
-  );
-  context.runnerEnd(runs, files);
-  return runs;
+export async function parallel(context: BettererContextΩ, files: BettererFilePaths): Promise<BettererSummary> {
+  return context.start(async (runs) => {
+    await Promise.all(
+      runs.map(async (run) => {
+        await runTest(run, context.config.update);
+        run.end();
+      })
+    );
+  }, files);
 }
 
-export async function serial(context: BettererContextΩ): Promise<BettererRunsΩ> {
-  const runs = await context.runnerStart();
-  await runs.reduce(async (p, run) => {
-    await p;
-    await runTest(run, context.config.update);
-    run.end();
-  }, Promise.resolve());
-  context.runnerEnd(runs);
-  return runs;
+export async function serial(context: BettererContextΩ): Promise<BettererSummary> {
+  return context.start(async (runs) => {
+    await runs.reduce(async (p, run) => {
+      await p;
+      await runTest(run, context.config.update);
+      run.end();
+    }, Promise.resolve());
+  });
 }
 
 async function runTest(run: BettererRunΩ, update: boolean): Promise<void> {
@@ -50,7 +48,7 @@ async function runTest(run: BettererRunΩ, update: boolean): Promise<void> {
   const goalComplete = await test.goal(result.value);
 
   if (run.isNew) {
-    run.neww(result, goalComplete);
+    run.new(result, goalComplete);
     return;
   }
 
