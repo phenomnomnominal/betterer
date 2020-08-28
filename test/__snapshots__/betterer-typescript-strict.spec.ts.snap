@@ -10,7 +10,7 @@ exports[\`typescript use strict mode\`] = {
       [5, 9, 4, \\"\\\\'this\\\\' implicitly has type \\\\'any\\\\' because it does not have a type annotation.\\", \\"2087959715\\"],
       [17, 9, 6, \\"Object is possibly \\\\'undefined\\\\'.\\", \\"1682699846\\"],
       [21, 10, 3, \\"Property \\\\'bar\\\\' has no initializer and is not definitely assigned in the constructor.\\", \\"193415156\\"],
-      [29, 16, 9, \\"Argument of type \\\\'[number, number, number]\\\\' is not assignable to parameter of type \\\\'[number, number]\\\\'.\\\\\\\\n  Types of property \\\\'length\\\\' are incompatible.\\\\\\\\n    Type \\\\'3\\\\' is not assignable to type \\\\'2\\\\'.\\", \\"2320562899\\"]
+      [29, 16, 9, \\"Argument of type \\\\'[number, number, number]\\\\' is not assignable to parameter of type \\\\'[num1: number, num2: number]\\\\'.\\\\\\\\n  Source has 3 element(s) but target allows only 2.\\", \\"2320562899\\"]
     ]
   }\`
 };
