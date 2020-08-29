@@ -4,7 +4,8 @@ node_modules
 reports
 lerna-debug.log
 yarn-error.log
-tsconfig.tsbuildinfo
+*.tsbuildinfo
 *.vsix
 packages/**/yarn.lock
+packages/extension/.vscode-test
 *.patch

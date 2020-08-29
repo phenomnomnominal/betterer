@@ -1,4 +1,3 @@
-// A launch configuration that compiles the extension and then opens it inside a new window
 {
   "version": "0.2.0",
   "configurations": [
@@ -18,6 +17,18 @@
       "address": "localhost",
       "port": 6060,
       "outFiles": ["${workspaceRoot}/packages/extension/dist/server/**/*.js"]
+    },
+    {
+      "name": "Run Extension Tests",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": [
+        "--disable-extensions",
+        "--extensionDevelopmentPath=${workspaceRoot}/packages/extension",
+        "--extensionTestsPath=${workspaceFolder}/packages/extension/dist/test/run.js"
+      ],
+      "outFiles": ["${workspaceRoot}/packages/extension/dist/test/**/*.js"]
     }
   ],
   "compounds": [

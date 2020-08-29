@@ -5,9 +5,11 @@
   "author": "Craig Spence <craigspence0@gmail.com>",
   "license": "MIT",
   "description": "Betterer makes it easier to make incremental improvements to your codebase",
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
   "scripts": {
     "api": "yarn compile && lerna run api",
     "betterer": "node ./packages/cli/./bin/betterer",
