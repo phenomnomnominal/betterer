@@ -1,10 +1,9 @@
 import { betterer } from '@betterer/betterer';
-
-import { createFixture } from './fixture';
+import { createFixtureΔ } from '@betterer/fixture';
 
 describe('betterer', () => {
   it('should do nothing when a test is not past its deadline', async () => {
-    const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-deadline-in-future', {
+    const { logs, paths, readFile, cleanup, runNames } = await createFixtureΔ('test-betterer-deadline-in-future', {
       '.betterer.js': `
 const { bigger } = require('@betterer/constraints');
 
@@ -40,7 +39,7 @@ module.exports = {
   });
 
   it('should mark a test as expired when is is past its deadline', async () => {
-    const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-deadline-in-past', {
+    const { logs, paths, readFile, cleanup, runNames } = await createFixtureΔ('test-betterer-deadline-in-past', {
       '.betterer.js': `
 const { bigger } = require('@betterer/constraints');
 

@@ -1,10 +1,9 @@
 import { betterer } from '@betterer/betterer';
-
-import { createFixture } from './fixture';
+import { createFixtureΔ } from '@betterer/fixture';
 
 describe('betterer --reporter', () => {
   it('should throw when there is nothing exported', async () => {
-    const { logs, paths, cleanup, resolve } = await createFixture('test-betterer-reporter-nothing', {
+    const { logs, paths, cleanup, resolve } = await createFixtureΔ('test-betterer-reporter-nothing', {
       'reporter.js': ``
     });
 
@@ -20,7 +19,7 @@ describe('betterer --reporter', () => {
   });
 
   it('should throw when there is an invalid hook', async () => {
-    const { logs, paths, cleanup, resolve } = await createFixture('test-betterer-reporter-invalid-hook', {
+    const { logs, paths, cleanup, resolve } = await createFixtureΔ('test-betterer-reporter-invalid-hook', {
       'reporter.js': `
 module.exports.reporter = {
     notAHook: ''
@@ -40,7 +39,7 @@ module.exports.reporter = {
   });
 
   it('should throw when a hook is not a function', async () => {
-    const { logs, paths, cleanup, resolve } = await createFixture('test-betterer-reporter-hook-not-a-function', {
+    const { logs, paths, cleanup, resolve } = await createFixtureΔ('test-betterer-reporter-hook-not-a-function', {
       'reporter.js': `
 module.exports.reporter = {
     contextStart: ''

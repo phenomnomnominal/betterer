@@ -5,6 +5,7 @@
     "packages/constraints",
     "packages/errors",
     "packages/eslint",
+    "packages/fixture",
     "packages/logger",
     "packages/regexp",
     "packages/tsquery",

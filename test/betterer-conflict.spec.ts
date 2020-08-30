@@ -1,10 +1,9 @@
 import { betterer } from '@betterer/betterer';
-
-import { createFixture } from './fixture';
+import { createFixtureΔ } from '@betterer/fixture';
 
 describe('betterer', () => {
   it('should work when there is a merge conflict in the results file', async () => {
-    const { logs, paths, readFile, cleanup } = await createFixture('test-betterer-conflict', {
+    const { logs, paths, readFile, cleanup } = await createFixtureΔ('test-betterer-conflict', {
       '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 

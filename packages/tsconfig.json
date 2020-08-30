@@ -17,6 +17,9 @@
       "path": "errors"
     },
     {
+      "path": "fixture"
+    },
+    {
       "path": "logger"
     },
     {
