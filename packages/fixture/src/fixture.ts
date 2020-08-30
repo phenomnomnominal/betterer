@@ -13,9 +13,14 @@ export async function createFixtureΔ(fixtureName: string, files: FixtureFileSys
   const packages = await findUp('packages', { cwd: __dirname, type: 'directory' });
   assert(packages);
   const fixturesPath = path.resolve(packages, '../fixtures');
-  const fixtureNames = await fs.readdir(fixturesPath);
-  if (fixtureNames.includes(fixtureName)) {
-    warnΔ(`There is already a fixture in use called "${fixtureName}"`);
+
+  try {
+    const fixtureNames = await fs.readdir(fixturesPath);
+    if (fixtureNames.includes(fixtureName)) {
+      warnΔ(`There is already a fixture in use called "${fixtureName}"`);
+    }
+  } catch {
+    // Move on...
   }
 
   const fixturePath = path.resolve(fixturesPath, fixtureName);
