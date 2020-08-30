@@ -1,12 +1,11 @@
 import { initΔ, BettererPackageJSON } from '@betterer/cli';
-
-import { createFixture } from '../fixture';
+import { createFixtureΔ } from '@betterer/fixture';
 
 const ARGV = ['node', './bin/betterer'];
 
 describe('betterer cli', () => {
   it('should initialise betterer in a repo', async () => {
-    const { paths, readFile, cleanup, resolve } = await createFixture('test-betterer-init', {
+    const { paths, readFile, cleanup, resolve } = await createFixtureΔ('test-betterer-init', {
       'package.json': `
       {
         "name": "betterer-test-betterer-init",
@@ -16,7 +15,7 @@ describe('betterer cli', () => {
     });
 
     const configPath = `${paths.config}.ts`;
-    const fixturePath = paths.fixture;
+    const fixturePath = paths.cwd;
     const packageJSONPath = resolve('./package.json');
 
     await initΔ(fixturePath, ARGV);
@@ -34,7 +33,7 @@ describe('betterer cli', () => {
   });
 
   it('should work multiple times', async () => {
-    const { paths, cleanup } = await createFixture('test-betterer-init', {
+    const { paths, cleanup } = await createFixtureΔ('test-betterer-init', {
       'package.json': `
       {
         "name": "betterer-test-betterer-init",
@@ -43,7 +42,7 @@ describe('betterer cli', () => {
       `
     });
 
-    const fixturePath = paths.fixture;
+    const fixturePath = paths.cwd;
 
     let throws = false;
     try {

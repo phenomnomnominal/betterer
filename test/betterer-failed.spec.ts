@@ -1,10 +1,9 @@
 import { betterer } from '@betterer/betterer';
-
-import { createFixture } from './fixture';
+import { createFixtureΔ } from '@betterer/fixture';
 
 describe('betterer', () => {
   it(`should work when a test fails`, async () => {
-    const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-failed', {
+    const { logs, paths, readFile, cleanup, runNames } = await createFixtureΔ('test-betterer-failed', {
       '.betterer.js': `
 const { bigger } = require('@betterer/constraints');
 
@@ -36,7 +35,7 @@ module.exports = {
   });
 
   it('should throws when reading the results file fails', async () => {
-    const { logs, paths, cleanup, resolve, writeFile } = await createFixture('test-betterer-failed-reading', {
+    const { logs, paths, cleanup, resolve, writeFile } = await createFixtureΔ('test-betterer-failed-reading', {
       '.betterer.js': `
 const { smaller } = require('@betterer/constraints');
 

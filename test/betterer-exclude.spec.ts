@@ -1,10 +1,9 @@
 import { betterer } from '@betterer/betterer';
-
-import { createFixture } from './fixture';
+import { createFixtureΔ } from '@betterer/fixture';
 
 describe('betterer', () => {
   it('should exclude specific files from results', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('test-betterer-exclude', {
+    const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixtureΔ('test-betterer-exclude', {
       '.betterer.ts': `
 import { regexp } from '@betterer/regexp';
 
