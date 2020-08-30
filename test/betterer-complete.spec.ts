@@ -1,10 +1,9 @@
 import { betterer } from '@betterer/betterer';
-
-import { createFixture } from './fixture';
+import { createFixtureΔ } from '@betterer/fixture';
 
 describe('betterer', () => {
   it(`should work when a test meets its goal`, async () => {
-    const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-complete', {
+    const { logs, paths, readFile, cleanup, runNames } = await createFixtureΔ('test-betterer-complete', {
       '.betterer.js': `
 const { bigger } = require('@betterer/constraints');
 

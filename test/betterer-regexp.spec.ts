@@ -1,10 +1,9 @@
 import { betterer } from '@betterer/betterer';
-
-import { createFixture } from './fixture';
+import { createFixtureΔ } from '@betterer/fixture';
 
 describe('betterer', () => {
   it('should report the existence of RegExp matches', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture(
+    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixtureΔ(
       'test-betterer-regexp',
       {
         '.betterer.js': `
@@ -57,7 +56,7 @@ module.exports = {
   });
 
   it('should throw if there is no regexp', async () => {
-    const { paths, logs, cleanup } = await createFixture('test-betterer-regexp-no-regexp', {
+    const { paths, logs, cleanup } = await createFixtureΔ('test-betterer-regexp-no-regexp', {
       '.betterer.js': `
 const { regexp } = require('@betterer/regexp');
 

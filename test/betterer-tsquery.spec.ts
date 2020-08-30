@@ -1,10 +1,9 @@
 import { betterer } from '@betterer/betterer';
-
-import { createFixture } from './fixture';
+import { createFixtureΔ } from '@betterer/fixture';
 
 describe('betterer', () => {
   it('should report the existence of TSQuery matches', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture(
+    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixtureΔ(
       'test-betterer-tsquery',
       {
         '.betterer.ts': `
@@ -73,7 +72,7 @@ export default {
   });
 
   it('should throw if there is no configFilePath', async () => {
-    const { paths, logs, cleanup } = await createFixture('test-betterer-tsquery-no-config-file-path', {
+    const { paths, logs, cleanup } = await createFixtureΔ('test-betterer-tsquery-no-config-file-path', {
       '.betterer.js': `
 const { tsquery } = require('@betterer/tsquery');
 
@@ -94,7 +93,7 @@ module.exports = {
   });
 
   it('should throw if there is no query', async () => {
-    const { paths, logs, cleanup } = await createFixture('test-betterer-tsquery-no-query', {
+    const { paths, logs, cleanup } = await createFixtureΔ('test-betterer-tsquery-no-query', {
       '.betterer.js': `
 const { tsquery } = require('@betterer/tsquery');
 

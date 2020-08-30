@@ -1,11 +1,12 @@
 import { betterer } from '@betterer/betterer';
-
-import { createFixture } from './fixture';
+import { createFixtureΔ } from '@betterer/fixture';
 
 describe('betterer', () => {
   it('should run specific tests', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture('test-betterer-only', {
-      '.betterer.only.ts': `
+    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixtureΔ(
+      'test-betterer-only',
+      {
+        '.betterer.only.ts': `
 import { BettererTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
 import { regexp } from '@betterer/regexp';
@@ -26,7 +27,7 @@ export default {
   'test 4': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts').only()
 };
         `,
-      '.betterer.ts': `
+        '.betterer.ts': `
 import { bigger } from '@betterer/constraints';
 import { regexp } from '@betterer/regexp';
 
@@ -46,7 +47,8 @@ export default {
   'test 4': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
 };    
       `
-    });
+      }
+    );
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;

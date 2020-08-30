@@ -1,10 +1,9 @@
 import { betterer } from '@betterer/betterer';
-
-import { createFixture } from './fixture';
+import { createFixtureΔ } from '@betterer/fixture';
 
 describe('betterer --silent', () => {
   it('should silence all console output', async () => {
-    const { logs, paths, cleanup } = await createFixture('test-betterer-silent', {
+    const { logs, paths, cleanup } = await createFixtureΔ('test-betterer-silent', {
       '.betterer.js': `
 const { smaller } = require('@betterer/constraints');
 
@@ -31,7 +30,7 @@ module.exports = {
   });
 
   it('should be possible to unsilence a subsequent run', async () => {
-    const { logs, paths, cleanup } = await createFixture('test-betterer-silent-then-not-silen', {
+    const { logs, paths, cleanup } = await createFixtureΔ('test-betterer-silent-then-not-silen', {
       '.betterer.js': `
 const { smaller } = require('@betterer/constraints');
 

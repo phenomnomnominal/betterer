@@ -1,9 +1,9 @@
 import { betterer } from '@betterer/betterer';
-import { createFixture } from './fixture';
+import { createFixtureΔ } from '@betterer/fixture';
 
 describe('betterer', () => {
   it('should report the status of the TypeScript compiler', async () => {
-    const { paths, logs, resolve, readFile, cleanup, writeFile, runNames } = await createFixture(
+    const { paths, logs, resolve, readFile, cleanup, writeFile, runNames } = await createFixtureΔ(
       'test-betterer-typescript',
       {
         '.betterer.ts': `
@@ -71,7 +71,7 @@ export default {
   });
 
   it('should throw if there is no configFilePath', async () => {
-    const { paths, logs, cleanup } = await createFixture('test-betterer-typescript-no-config-file-path', {
+    const { paths, logs, cleanup } = await createFixtureΔ('test-betterer-typescript-no-config-file-path', {
       '.betterer.js': `
 const { typescript } = require('@betterer/typescript');
 
@@ -92,7 +92,7 @@ module.exports = {
   });
 
   it('should throw if there is no extraCompilerOptions', async () => {
-    const { paths, logs, cleanup } = await createFixture('test-betterer-typescript-no-compiler-options', {
+    const { paths, logs, cleanup } = await createFixtureΔ('test-betterer-typescript-no-compiler-options', {
       '.betterer.js': `
 const { typescript } = require('@betterer/typescript');
 

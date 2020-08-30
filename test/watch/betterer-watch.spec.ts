@@ -1,10 +1,9 @@
 import { betterer } from '@betterer/betterer';
-
-import { createFixture } from '../fixture';
+import { createFixtureΔ } from '@betterer/fixture';
 
 describe('betterer.watch', () => {
   it('should run in watch mode', async () => {
-    const { logs, paths, resolve, cleanup, writeFile, waitForRun } = await createFixture('test-betterer-watch', {
+    const { logs, paths, resolve, cleanup, writeFile, waitForRun } = await createFixtureΔ('test-betterer-watch', {
       '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 
@@ -70,7 +69,7 @@ export default {
   });
 
   it('should debounce runs when multiple files change', async () => {
-    const { logs, paths, resolve, cleanup, writeFile, waitForRun } = await createFixture(
+    const { logs, paths, resolve, cleanup, writeFile, waitForRun } = await createFixtureΔ(
       'test-betterer-watch-debounce',
       {
         '.betterer.ts': `
@@ -121,7 +120,7 @@ export default {
   });
 
   it('should ignore .gitignored files', async () => {
-    const { logs, paths, resolve, cleanup, writeFile, waitForRun } = await createFixture(
+    const { logs, paths, resolve, cleanup, writeFile, waitForRun } = await createFixtureΔ(
       'test-betterer-watch-debounce',
       {
         '.betterer.ts': `

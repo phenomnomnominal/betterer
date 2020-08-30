@@ -1,9 +1,9 @@
 import { betterer } from '@betterer/betterer';
-import { createFixture } from './fixture';
+import { createFixtureΔ } from '@betterer/fixture';
 
 describe('betterer', () => {
   it(`should work when a test is the same`, async () => {
-    const { paths, logs, readFile, cleanup, runNames } = await createFixture('test-betterer-same', {
+    const { paths, logs, readFile, cleanup, runNames } = await createFixtureΔ('test-betterer-same', {
       '.betterer.js': `
 const { bigger, smaller } = require('@betterer/constraints');
 
@@ -43,7 +43,7 @@ module.exports = {
   });
 
   it('should stay the same when a file is moved', async () => {
-    const { deleteFile, paths, logs, cleanup, resolve, readFile, writeFile, runNames } = await createFixture(
+    const { deleteFile, paths, logs, cleanup, resolve, readFile, writeFile, runNames } = await createFixtureΔ(
       'test-betterer-same-move',
       {
         'src/index.ts': `
@@ -106,7 +106,7 @@ export default {
   });
 
   it('should stay the same when an issue moves line', async () => {
-    const { paths, logs, cleanup, resolve, readFile, writeFile, runNames } = await createFixture(
+    const { paths, logs, cleanup, resolve, readFile, writeFile, runNames } = await createFixtureΔ(
       'test-betterer-same-move',
       {
         'src/index.ts': `
@@ -167,7 +167,7 @@ export default {
   });
 
   it('should stay the same when multiple issue move line', async () => {
-    const { paths, logs, cleanup, resolve, readFile, writeFile, runNames } = await createFixture(
+    const { paths, logs, cleanup, resolve, readFile, writeFile, runNames } = await createFixtureΔ(
       'test-betterer-same-move-multiple',
       {
         'src/index.ts': `
