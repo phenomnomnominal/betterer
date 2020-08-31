@@ -1,7 +1,7 @@
 module.exports = {
   setupFilesAfterEnv: ['./test/setup.ts'],
   globals: {
-    tsConfig: 'tsconfig.json'
+    tsConfig: 'tsconfig.test.json'
   },
   moduleFileExtensions: ['ts', 'js'],
   collectCoverage: true,

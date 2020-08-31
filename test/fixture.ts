@@ -1,4 +1,6 @@
-import { createFixtureDirectoryΔ } from '@betterer/fixture';
+import { createFixtureDirectoryΔ, FixtureFactory } from '@betterer/fixture';
 import * as path from 'path';
 
-export const createFixture = await createFixtureDirectoryΔ(path.resolve(__dirname, '../fixtures'));
+export const createFixture = async (): Promise<FixtureFactory> => {
+  return await createFixtureDirectoryΔ(path.resolve(__dirname, '../fixtures'));
+};
