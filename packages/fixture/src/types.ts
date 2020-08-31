@@ -23,7 +23,6 @@ export type Fixture = FixtureFileSystem & {
   logs: ReadonlyArray<string>;
   waitForRun(watcher: BettererWatcher): Promise<BettererSummary>;
   runNames(runs: BettererRuns): BettererRunNames;
-  sleep(ms: number): Promise<void>;
 };
 
 export type FixtureLogs = ReadonlyArray<string>;

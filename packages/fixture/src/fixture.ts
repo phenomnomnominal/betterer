@@ -6,7 +6,6 @@ import * as path from 'path';
 import { createFixtureFS } from './fs';
 import { createFixtureLogs } from './logging';
 import { Fixture, FixtureFileSystemFiles, FixtureFactory } from './types';
-import { sleep } from './utils';
 
 export async function createFixtureDirectoryΔ(fixturesPath: string): Promise<FixtureFactory> {
   try {
@@ -38,7 +37,6 @@ export async function createFixtureDirectoryΔ(fixturesPath: string): Promise<Fi
       ...fixtureFS,
       logs: fixtureLogs,
       runNames,
-      sleep,
       waitForRun(watcher): Promise<BettererSummary> {
         return new Promise((resolve) => watcher.onRun(resolve));
       }
