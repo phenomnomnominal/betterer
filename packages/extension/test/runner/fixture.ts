@@ -6,7 +6,7 @@ import { vscode } from './vscode';
 export async function createFixture(fixtureName: string, files: FixtureFileSystemFiles): Promise<Fixture> {
   const { rootPath } = vscode.workspace;
   assert.ok(rootPath);
-  const create = createFixtureDirectoryΔ(rootPath);
+  const create = await createFixtureDirectoryΔ(rootPath);
 
   const fixture = await create(fixtureName, files);
 

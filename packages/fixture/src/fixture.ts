@@ -8,7 +8,13 @@ import { createFixtureLogs } from './logging';
 import { Fixture, FixtureFileSystemFiles, FixtureFactory } from './types';
 import { sleep } from './utils';
 
-export function createFixtureDirectoryΔ(fixturesPath: string): FixtureFactory {
+export async function createFixtureDirectoryΔ(fixturesPath: string): Promise<FixtureFactory> {
+  try {
+    await fs.mkdir(fixturesPath);
+  } catch {
+    // Move on...
+  }
+
   return async function createFixtureΔ(fixtureName: string, files: FixtureFileSystemFiles): Promise<Fixture> {
     try {
       const fixtureNames = await fs.readdir(fixturesPath);

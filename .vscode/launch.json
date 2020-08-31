@@ -24,7 +24,6 @@
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": [
-        "--disable-extensions",
         "--extensionDevelopmentPath=${workspaceRoot}/packages/extension",
         "--extensionTestsPath=${workspaceFolder}/packages/extension/dist/test/runner/run.js",
         "${workspaceRoot}/fixtures",
