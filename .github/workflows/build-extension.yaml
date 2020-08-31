@@ -27,7 +27,7 @@ jobs:
           frozen-lockfile: true
       - name: Run build
         run: yarn compile
-      - name: Run build
+      - name: Run build extension
         run: yarn build:extension
       - name: Run extension test
         uses: GabrielBB/xvfb-action@v1.0
