@@ -16,6 +16,7 @@
     "betterer:ci": "node ./packages/cli/./bin/betterer-ci",
     "build": "yarn compile && yarn format && yarn lint && yarn test && yarn test:api && yarn betterer",
     "build:ci": "yarn compile && yarn format && yarn lint && yarn test && yarn test:api && yarn betterer:ci",
+    "build:extension": "lerna run build:extension",
     "clean": "rimraf reports && lerna exec \"rimraf dist\" && rimraf ./**/tsconfig.tsbuildinfo && lerna exec \"rimraf node_modules\" && rimraf node_modules && yarn",
     "commit": "git cz",
     "compile": "tsc -b packages",
@@ -25,6 +26,7 @@
     "test": "jest",
     "test:api": "ts-node ./test/api-test.ts",
     "test:debug": "jest --runInBand --collectCoverage=false",
+    "test:extension": "lerna run test:extension",
     "prepublishOnly": "yarn run build"
   },
   "types": "test/betterer-public-api.d.ts",

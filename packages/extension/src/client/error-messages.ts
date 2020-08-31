@@ -11,13 +11,13 @@ export const DISABLE_COMMAND_REQUIRES_WORKSPACE = `${NAME} can only be disabled 
 export const ENABLE_COMMAND_REQUIRES_WORKSPACE = `${NAME} can only be enabled ${COMMAND_REQUIRES_WORKSPACE}`;
 export const INIT_COMMAND_REQUIRES_WORKSPACE = `${NAME} can only be initialised ${COMMAND_REQUIRES_WORKSPACE}`;
 
-export const ALREADY_ENABLED = (workspaceFolders: Array<WorkspaceFolder>): string =>
+export const ALREADY_ENABLED = (workspaceFolders: ReadonlyArray<WorkspaceFolder>): string =>
   `${NAME} is already enabled in ${workspaceFolders.length === 1 ? 'the workspace' : 'all workspaces'}.`;
 
-export const ALREADY_DISABLED = (workspaceFolders: Array<WorkspaceFolder>): string =>
+export const ALREADY_DISABLED = (workspaceFolders: ReadonlyArray<WorkspaceFolder>): string =>
   `${NAME} is already disabled in ${workspaceFolders.length === 1 ? 'the workspace' : 'all workspaces'}.`;
 
-export const ALREADY_CONFIGURED = (workspaceFolders: Array<WorkspaceFolder>): string =>
+export const ALREADY_CONFIGURED = (workspaceFolders: ReadonlyArray<WorkspaceFolder>): string =>
   workspaceFolders.length === 1 ? `The workspace already uses ${NAME}.` : `All workspaces already use ${NAME}.`;
 
 const DISABLE_FOR_WORKSPACE = (workspaceFolder: WorkspaceFolder): string => {

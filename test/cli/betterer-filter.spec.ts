@@ -1,11 +1,12 @@
 import { startΔ } from '@betterer/cli';
-import { createFixtureΔ } from '@betterer/fixture';
+
+import { createFixture } from '../fixture';
 
 const ARGV = ['node', './bin/betterer'];
 
 describe('betterer cli', () => {
   it('should filter tests by name', async () => {
-    const { logs, paths, cleanup, runNames } = await createFixtureΔ('test-betterer-filter', {
+    const { logs, paths, cleanup, runNames } = await createFixture('test-betterer-filter', {
       '.betterer.js': `
 const { bigger } = require('@betterer/constraints');
 

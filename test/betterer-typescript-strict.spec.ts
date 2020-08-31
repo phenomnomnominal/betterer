@@ -1,5 +1,6 @@
 import { betterer } from '@betterer/betterer';
-import { createFixtureΔ } from '@betterer/fixture';
+
+import { createFixture } from './fixture';
 
 const INDEX_SOURCE = `export function extractIds(list) {
   return list.map(member => member.id);
@@ -35,7 +36,7 @@ sum.apply(null, [1, 2, 3]);
 
 describe('betterer', () => {
   it('should report the status of the TypeScript compiler in strict mode', async () => {
-    const { paths, logs, resolve, readFile, cleanup, writeFile, runNames } = await createFixtureΔ(
+    const { paths, logs, resolve, readFile, cleanup, writeFile, runNames } = await createFixture(
       'test-betterer-typescript-strict',
       {
         '.betterer.ts': `

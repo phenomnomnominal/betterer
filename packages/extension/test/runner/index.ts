@@ -7,7 +7,7 @@ async function main() {
     await runTests({
       extensionDevelopmentPath: path.resolve(__dirname, '../'),
       extensionTestsPath: path.resolve(__dirname, './run'),
-      launchArgs: []
+      launchArgs: [path.resolve(__dirname, '../../../../', 'fixtures'), '--disable-extensions']
     });
   } catch (err) {
     errorΔ('Failed to run tests');
@@ -16,3 +16,6 @@ async function main() {
 }
 
 main();
+
+export { vscode } from './vscode';
+export { createFixture } from './fixture';

@@ -9,6 +9,7 @@ export type Paths = {
 export type FixtureFileSystem = {
   paths: Paths;
 
+  deleteDirectory(filePath: string): Promise<void>;
   deleteFile(filePath: string): Promise<void>;
   readFile(filePath: string): Promise<string>;
   resolve(filePath: string): string;
@@ -22,6 +23,9 @@ export type Fixture = FixtureFileSystem & {
   logs: ReadonlyArray<string>;
   waitForRun(watcher: BettererWatcher): Promise<BettererSummary>;
   runNames(runs: BettererRuns): BettererRunNames;
+  sleep(ms: number): Promise<void>;
 };
 
 export type FixtureLogs = ReadonlyArray<string>;
+
+export type FixtureFactory = (fixtureName: string, files: FixtureFileSystemFiles) => Promise<Fixture>;

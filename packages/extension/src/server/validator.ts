@@ -11,6 +11,7 @@ import { IConnection, TextDocuments, Diagnostic, DiagnosticSeverity, Position } 
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { URI } from 'vscode-uri';
 
+import { info } from './console';
 import { EXTENSION_NAME } from '../constants';
 import { BettererStatus } from '../status';
 import { isString } from '../utils';
@@ -34,13 +35,16 @@ export class BettererValidator {
 
       const enabled = await getEnabled(workspace);
       if (!enabled) {
+        info(`Validator: Betterer disabled, clearing diagnostics for "${uri}".`);
         this._connection.sendDiagnostics({ uri, diagnostics: [] });
         return Promise.resolve();
       }
 
       const cwd = getFilePath(folder.uri);
       const filePath = getFilePath(document);
+      assert(filePath);
 
+      info(`Validator: Getting Betterer for "${filePath}".`);
       let betterer: BettererLibrary | null = null;
       if (cwd) {
         try {
@@ -53,14 +57,20 @@ export class BettererValidator {
 
       if (cwd && filePath && betterer) {
         const diagnostics: Array<Diagnostic> = [];
+        info(`Validator: About to run Betterer, clearing diagnostics for "${uri}".`);
         this._connection.sendDiagnostics({ uri, diagnostics });
 
         const loading = load(this._connection);
         let status = BettererStatus.ok;
         const extensionCwd = process.cwd();
         try {
+          info(`Validator: Setting CWD to "${cwd}".`);
           process.chdir(cwd);
+
+          info(`Validator: Getting Betterer config.`);
           const config = await getBettererConfig(workspace);
+
+          info(`Validator: Running Betterer for "${filePath}".`);
           const { runs } = await betterer.file(filePath, { ...config, cwd });
 
           runs
@@ -69,19 +79,25 @@ export class BettererValidator {
             .map((run) => {
               const file = (run.result.value as BettererFiles).getFileΔ(filePath);
               assert(file);
+              info(`Validator: Got file from Betterer for "${run.name}"`);
 
-              const fileDiff = (run.diff as BettererFileTestDiff).diff[file.relativePath];
               let existingIssues: BettererFileIssues = [];
               let newIssues: BettererFileIssuesRaw = [];
 
-              if (fileDiff) {
-                existingIssues = fileDiff.existing || [];
-                newIssues = fileDiff.neww || [];
-              } else if (run.isNew) {
+              if (run.isNew) {
                 newIssues = file.issuesRaw;
               } else if (run.isSkipped || run.isSame) {
                 existingIssues = file.issuesRaw;
+              } else {
+                const fileDiff = (run.diff as BettererFileTestDiff).diff[file.relativePath];
+                info(`Validator: Got diff from Betterer for "${file.relativePath}"`);
+                existingIssues = fileDiff.existing || [];
+                newIssues = fileDiff.neww || [];
               }
+
+              info(`Validator: Got "${existingIssues.length}" existing issues for "${file.relativePath}"`);
+              info(`Validator: Got "${newIssues.length}" new issues for "${file.relativePath}"`);
+
               existingIssues.forEach((issue: BettererFileIssueRaw | BettererFileIssueDeserialised) => {
                 diagnostics.push(createWarning(run.name, 'existing issue', issue, document));
               });
@@ -98,6 +114,7 @@ export class BettererValidator {
             status = BettererStatus.error;
           }
         } finally {
+          info(`Validator: Restoring CWD to "${extensionCwd}".`);
           process.chdir(extensionCwd);
         }
         await loading();

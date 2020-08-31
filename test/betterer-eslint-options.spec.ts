@@ -1,12 +1,11 @@
 import { betterer } from '@betterer/betterer';
-import { createFixtureΔ } from '@betterer/fixture';
+
+import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should handlex complex eslint rule options', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixtureΔ(
-      'test-betterer-eslint-options',
-      {
-        '.betterer.ts': `
+    const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('test-betterer-eslint-options', {
+      '.betterer.ts': `
 import { eslint } from '@betterer/eslint';
 
 export default {
@@ -21,7 +20,7 @@ export default {
   }).include('./src/**/*.ts')
 };
       `,
-        '.eslintrc.js': `
+      '.eslintrc.js': `
 const path = require('path');
 
 module.exports = {
@@ -43,14 +42,13 @@ module.exports = {
   }
 };      
       `,
-        'tsconfig.json': `
+      'tsconfig.json': `
 {
   "extends": "../../tsconfig.json",
   "include": ["./src/**/*", ".betterer.ts", "./.eslintrc.js"]
 }
       `
-      }
-    );
+    });
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;

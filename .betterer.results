@@ -28,17 +28,17 @@ exports[`new eslint rules`] = {
     "packages/cli/src/watch.ts:249340913": [
       [34, 6, 15, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "733721943"]
     ],
-    "packages/extension/src/client/commands/disable.ts:1676199082": [
+    "packages/extension/src/client/commands/disable.ts:1771312113": [
       [11, 4, 42, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "829060112"],
       [17, 4, 41, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2714035641"]
     ],
-    "packages/extension/src/client/commands/enable.ts:240861284": [
+    "packages/extension/src/client/commands/enable.ts:1424520405": [
       [11, 4, 41, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "3801738949"],
       [17, 4, 40, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2505016204"]
     ],
-    "packages/extension/src/client/commands/init.ts:2622237704": [
+    "packages/extension/src/client/commands/init.ts:336142224": [
       [14, 4, 39, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2731829246"],
-      [24, 4, 43, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "4071897381"]
+      [25, 4, 43, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "4071897381"]
     ],
     "packages/extension/src/client/extension.ts:2763828744": [
       [59, 4, 27, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "1648678109"]
@@ -53,13 +53,13 @@ exports[`new eslint rules`] = {
       [27, 4, 25, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "3494514196"],
       [73, 6, 32, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "694099710"]
     ],
-    "packages/extension/src/server/server.ts:483047395": [
-      [62, 4, 68, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "280309533"],
-      [63, 4, 71, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2936064845"]
+    "packages/extension/src/server/server.ts:4285555774": [
+      [66, 4, 68, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "280309533"],
+      [67, 4, 71, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2936064845"]
     ],
-    "packages/extension/src/server/validator.ts:3523409524": [
-      [48, 10, 90, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "1821734533"],
-      [94, 12, 94, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2449957056"]
+    "packages/extension/src/server/validator.ts:2458904581": [
+      [52, 10, 90, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "1821734533"],
+      [110, 12, 94, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2449957056"]
     ]
   }`
 };

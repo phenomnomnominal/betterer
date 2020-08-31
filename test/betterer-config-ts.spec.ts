@@ -1,9 +1,10 @@
 import { betterer } from '@betterer/betterer';
-import { createFixtureΔ } from '@betterer/fixture';
+
+import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should work with a .betterer.ts file', async () => {
-    const { logs, paths, readFile, cleanup, runNames } = await createFixtureΔ('test-betterer-config-ts', {
+    const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-config-ts', {
       '.betterer.ts': `
 const { bigger } = require('@betterer/constraints');
 

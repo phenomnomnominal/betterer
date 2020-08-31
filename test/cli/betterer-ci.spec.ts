@@ -1,11 +1,12 @@
 import { ciΔ } from '@betterer/cli';
-import { createFixtureΔ } from '@betterer/fixture';
+
+import { createFixture } from '../fixture';
 
 const ARGV = ['node', './bin/betterer'];
 
 describe('betterer ci', () => {
   it('should add a diff to the summary if there is any change to the results file', async () => {
-    const { paths, logs, cleanup, resolve, writeFile } = await createFixtureΔ('test-betterer-ci-diff', {
+    const { paths, logs, cleanup, resolve, writeFile } = await createFixture('test-betterer-ci-diff', {
       'src/index.ts': `
 const a = 'a';
 const one = 1;

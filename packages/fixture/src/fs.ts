@@ -21,6 +21,10 @@ export async function createFixtureFS(fixturePath: string, files: FixtureFileSys
     return fs.writeFile(fullPath, text.trim(), 'utf8');
   }
 
+  async function deleteDirectory(directoryPath: string): Promise<void> {
+    return remove(directoryPath);
+  }
+
   async function deleteFile(filePath: string): Promise<void> {
     return fs.unlink(resolve(filePath));
   }
@@ -47,5 +51,5 @@ export async function createFixtureFS(fixturePath: string, files: FixtureFileSys
     })
   );
 
-  return { paths, deleteFile, resolve, cleanup, readFile, writeFile };
+  return { paths, deleteDirectory, deleteFile, resolve, cleanup, readFile, writeFile };
 }

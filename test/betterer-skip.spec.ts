@@ -1,12 +1,11 @@
 import { betterer } from '@betterer/betterer';
-import { createFixtureΔ } from '@betterer/fixture';
+
+import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should skip a test', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixtureΔ(
-      'test-betterer-skip',
-      {
-        '.betterer.skip.ts': `
+    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture('test-betterer-skip', {
+      '.betterer.skip.ts': `
 import { BettererTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
 import { regexp } from '@betterer/regexp';
@@ -21,7 +20,7 @@ export default {
   'test 2': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts').skip()
 };
       `,
-        '.betterer.ts': `
+      '.betterer.ts': `
 import { bigger } from '@betterer/constraints';
 import { regexp } from '@betterer/regexp';
 
@@ -35,8 +34,7 @@ export default {
   'test 2': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
 };
       `
-      }
-    );
+    });
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;

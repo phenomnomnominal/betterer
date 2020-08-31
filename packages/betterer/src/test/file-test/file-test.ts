@@ -23,14 +23,14 @@ import {
   BettererFile
 } from './types';
 
-const IS_BETTERER_FILE_TEST = 'isBettererTest';
+const IS_BETTERER_FILE_TEST = 'isBettererFileTest';
 
 export class BettererFileTest extends BettererTest<
   BettererFiles,
   BettererFileIssuesMapSerialised,
   BettererFileTestDiff
 > {
-  public isBettererFileTest = IS_BETTERER_FILE_TEST;
+  public readonly isBettererFileTest = IS_BETTERER_FILE_TEST;
 
   private _test: BettererTestFunction<BettererFiles> | null = null;
 

@@ -1,13 +1,17 @@
-export declare function createFixtureΔ(fixtureName: string, files: FixtureFileSystemFiles): Promise<Fixture>;
+export declare function createFixtureDirectoryΔ(fixturesPath: string): FixtureFactory;
 
 export declare type Fixture = FixtureFileSystem & {
     logs: ReadonlyArray<string>;
     waitForRun(watcher: BettererWatcher): Promise<BettererSummary>;
     runNames(runs: BettererRuns): BettererRunNames;
+    sleep(ms: number): Promise<void>;
 };
+
+export declare type FixtureFactory = (fixtureName: string, files: FixtureFileSystemFiles) => Promise<Fixture>;
 
 export declare type FixtureFileSystem = {
     paths: Paths;
+    deleteDirectory(filePath: string): Promise<void>;
     deleteFile(filePath: string): Promise<void>;
     readFile(filePath: string): Promise<string>;
     resolve(filePath: string): string;

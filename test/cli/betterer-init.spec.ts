@@ -1,11 +1,12 @@
 import { initΔ, BettererPackageJSON } from '@betterer/cli';
-import { createFixtureΔ } from '@betterer/fixture';
+
+import { createFixture } from '../fixture';
 
 const ARGV = ['node', './bin/betterer'];
 
 describe('betterer cli', () => {
   it('should initialise betterer in a repo', async () => {
-    const { paths, readFile, cleanup, resolve } = await createFixtureΔ('test-betterer-init', {
+    const { paths, readFile, cleanup, resolve } = await createFixture('test-betterer-init', {
       'package.json': `
       {
         "name": "betterer-test-betterer-init",
@@ -33,7 +34,7 @@ describe('betterer cli', () => {
   });
 
   it('should work multiple times', async () => {
-    const { paths, cleanup } = await createFixtureΔ('test-betterer-init', {
+    const { paths, cleanup } = await createFixture('test-betterer-init', {
       'package.json': `
       {
         "name": "betterer-test-betterer-init",
