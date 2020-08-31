@@ -134,7 +134,9 @@
     "vscode-uri": "^2.1.2"
   },
   "devDependencies": {
+    "@betterer/betterer": "^3.0.3",
     "@betterer/cli": "^3.0.3",
+    "@betterer/errors": "^3.0.0",
     "@betterer/logger": "^3.0.0",
     "@types/jest-cli": "^24.3.0",
     "@types/vscode": "^1.48.0",
