@@ -1,4 +1,4 @@
--name: 'build-extension'
+name: 'build-extension'
 on:
   pull_request:
   push:
