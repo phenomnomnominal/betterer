@@ -13,8 +13,7 @@ describe('Betterer VSCode Extension', () => {
 
     await vscode.commands.executeCommand('betterer.init');
 
-    // Wait for init to run:
-    await sleep(20000);
+    await sleep(30000);
 
     const packageJSON = await readFile('package.json');
     const pack = JSON.parse(packageJSON) as BettererPackageJSON;
@@ -95,7 +94,7 @@ module.exports = {
 
     await vscode.workspace.openTextDocument(indexUri);
 
-    await sleep(5000);
+    await sleep(30000);
 
     const indexDiagnosticTuple = vscode.languages.getDiagnostics().find((diagnostic) => {
       const [url] = diagnostic;
@@ -171,7 +170,7 @@ export function extractIds(list) {
 
     await vscode.workspace.openTextDocument(indexUri);
 
-    await sleep(20000);
+    await sleep(30000);
 
     const indexDiagnosticTuple = vscode.languages.getDiagnostics().find((diagnostic) => {
       const [url] = diagnostic;
