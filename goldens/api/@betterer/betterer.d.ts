@@ -104,7 +104,7 @@ export declare type BettererFilesDiff = Record<string, {
 }>;
 
 export declare class BettererFileTest extends BettererTest<BettererFiles, BettererFileIssuesMapSerialised, BettererFileTestDiff> {
-    isBettererFileTest: string;
+    readonly isBettererFileTest = "isBettererFileTest";
     constructor(_resolver: BettererFileResolver, fileTest: BettererFileTestFunction);
     exclude(...excludePatterns: BettererFilePatterns): this;
     include(...includePatterns: BettererFileGlobs): this;

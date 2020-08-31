@@ -1,2 +1,2 @@
-export { createFixtureΔ } from './fixture';
-export { Fixture, FixtureFileSystem, FixtureFileSystemFiles, Paths } from './types';
+export { createFixtureDirectoryΔ } from './fixture';
+export { Fixture, FixtureFactory, FixtureFileSystem, FixtureFileSystemFiles, Paths } from './types';

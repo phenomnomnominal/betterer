@@ -108,10 +108,7 @@ export class BettererRunΩ implements BettererRun {
   }
 
   public better(result: BettererResultΩ, isComplete: boolean): void {
-    assert.equal(this._status, BettererRunStatus.pending);
-    this._status = BettererRunStatus.better;
-    this._isComplete = isComplete;
-    this._result = result;
+    this._updateResult(BettererRunStatus.better, result, isComplete);
   }
 
   public end(): void {
@@ -124,10 +121,7 @@ export class BettererRunΩ implements BettererRun {
   }
 
   public new(result: BettererResultΩ, isComplete: boolean): void {
-    assert.equal(this._status, BettererRunStatus.pending);
-    this._status = BettererRunStatus.neww;
-    this._isComplete = isComplete;
-    this._result = result;
+    this._updateResult(BettererRunStatus.neww, result, isComplete);
   }
 
   public ran(): void {
@@ -142,9 +136,7 @@ export class BettererRunΩ implements BettererRun {
   }
 
   public same(result: BettererResultΩ): void {
-    assert.equal(this._status, BettererRunStatus.pending);
-    this._status = BettererRunStatus.same;
-    this._result = result;
+    this._updateResult(BettererRunStatus.same, result);
   }
 
   public skipped(): void {
@@ -153,17 +145,20 @@ export class BettererRunΩ implements BettererRun {
   }
 
   public update(result: BettererResultΩ): void {
-    assert.equal(this._status, BettererRunStatus.pending);
-    this._status = BettererRunStatus.update;
-    this._result = result;
+    this._updateResult(BettererRunStatus.update, result);
     this._diff = this._context.runDiff(this);
   }
 
   public worse(result: BettererResultΩ): void {
-    assert.equal(this._status, BettererRunStatus.pending);
-    this._status = BettererRunStatus.worse;
-    this._result = result;
+    this._updateResult(BettererRunStatus.worse, result);
     this._diff = this._context.runDiff(this);
+  }
+
+  private _updateResult(status: BettererRunStatus, result: BettererResultΩ, isComplete = false) {
+    assert.equal(this._status, BettererRunStatus.pending);
+    this._status = status;
+    this._isComplete = isComplete;
+    this._result = result;
   }
 }
 

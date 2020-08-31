@@ -1,9 +1,10 @@
 import { betterer } from '@betterer/betterer';
-import { createFixtureΔ } from '@betterer/fixture';
+
+import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should work when a test gets worse', async () => {
-    const { paths, logs, resolve, readFile, cleanup, runNames } = await createFixtureΔ('test-betterer-worse', {
+    const { paths, logs, resolve, readFile, cleanup, runNames } = await createFixture('test-betterer-worse', {
       '.betterer.js': `
   const { smaller, bigger } = require('@betterer/constraints');
 
@@ -44,7 +45,7 @@ module.exports = {
   });
 
   it('should not stay worse if an update is forced', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixtureΔ(
+    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture(
       'test-betterer-update',
       {
         '.betterer.ts': `

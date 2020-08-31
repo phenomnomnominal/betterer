@@ -1,4 +1,4 @@
-name: 'build'
+name: 'build-extension'
 on:
   pull_request:
   push:
@@ -12,8 +12,8 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x]
-        operating-system: [windows-latest, macOS-latest, ubuntu-latest]
+        node-version: [14.x]
+        operating-system: [macOS-latest]
 
     steps:
       - uses: actions/checkout@v2
@@ -26,4 +26,8 @@ jobs:
         with:
           frozen-lockfile: true
       - name: Run build
-        run: yarn build:ci
+        run: yarn compile && yarn build:extension
+      - name: Run extension test
+        uses: GabrielBB/xvfb-action@v1.0
+        with:
+          run: yarn test:extension

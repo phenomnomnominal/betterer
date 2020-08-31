@@ -9,6 +9,7 @@ import {
 } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
+import { initConsole, info } from './console';
 import { createErrorHandler } from './error-handler';
 import { BettererValidateNotification, BettererValidationQueue } from './notifications';
 import { initTrace } from './trace';
@@ -18,19 +19,22 @@ function init(): void {
   const connection = createConnection();
 
   initTrace(connection.tracer);
+  initConsole(connection.console);
   createErrorHandler(connection);
 
-  connection.console.info(`Betterer server running in node ${process.version}`);
+  info(`Server: Betterer server running in node ${process.version}`);
 
   const validationQueue = new BettererValidationQueue();
   const documents = new TextDocuments(TextDocument);
   const validator = new BettererValidator(connection, documents);
 
   function clearDiagnostics(event: TextDocumentChangeEvent<TextDocument>): void {
+    info(`Server: Clearing diagnostics for "${event.document.uri}".`);
     connection.sendDiagnostics({ uri: event.document.uri, diagnostics: [] });
   }
 
   function queueValidate(event: TextDocumentChangeEvent<TextDocument>): void {
+    info(`Server: Queueing validation for "${event.document.uri}".`);
     validationQueue.addNotificationMessage(event);
   }
 
@@ -67,6 +71,7 @@ function init(): void {
   validationQueue.onNotification(
     BettererValidateNotification,
     (document) => {
+      info(`Server: Validating document "${document.uri}".`);
       void validator.validate(document);
     },
     (document) => document.version
@@ -75,7 +80,8 @@ function init(): void {
   connection.listen();
 
   function environmentChanged(): void {
-    documents.all().forEach((document) => validationQueue.addNotificationMessage({ document }));
+    info('Server: Environment changed, revalidating all documents:');
+    documents.all().forEach((document) => queueValidate({ document }));
   }
 }
 

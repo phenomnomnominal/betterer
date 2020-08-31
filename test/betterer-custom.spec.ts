@@ -1,9 +1,10 @@
 import { betterer } from '@betterer/betterer';
-import { createFixtureΔ } from '@betterer/fixture';
+
+import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should throw if there is no constraint', async () => {
-    const { paths, logs, cleanup } = await createFixtureΔ('test-betterer-custom-no-constraint', {
+    const { paths, logs, cleanup } = await createFixture('test-betterer-custom-no-constraint', {
       '.betterer.js': `
 module.exports = {
   'custom test no constraint': {}
@@ -22,7 +23,7 @@ module.exports = {
   });
 
   it('should throw if there is no test', async () => {
-    const { paths, logs, cleanup } = await createFixtureΔ('test-betterer-custom-no-test', {
+    const { paths, logs, cleanup } = await createFixture('test-betterer-custom-no-test', {
       '.betterer.js': `
   const { smaller } = require('@betterer/constraints');
 

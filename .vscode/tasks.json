@@ -1,0 +1,11 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Make Fixtures Directory",
+      "type": "process",
+      "command": "mkdir",
+      "args": ["fixtures"]
+    }
+  ]
+}

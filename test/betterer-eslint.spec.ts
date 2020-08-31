@@ -1,9 +1,10 @@
 import { betterer } from '@betterer/betterer';
-import { createFixtureΔ } from '@betterer/fixture';
+
+import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the status of a new eslint rule', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixtureΔ(
+    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture(
       'test-betterer-eslint',
       {
         '.betterer.js': `
@@ -84,7 +85,7 @@ module.exports = {
   });
 
   it('should throw if there are no rules', async () => {
-    const { paths, logs, cleanup } = await createFixtureΔ('test-betterer-eslint-no-rule', {
+    const { paths, logs, cleanup } = await createFixture('test-betterer-eslint-no-rule', {
       '.betterer.js': `
 const { eslint } = require('@betterer/eslint');
 

@@ -11,9 +11,11 @@ Fixture tools used within [**`Betterer`**](https://github.com/phenomnomnominal/b
 ### Code
 
 ```typescript
-import { createFixtureΔ } from '@betterer/fixture';
+import { createFixtureDirectoryΔ } from '@betterer/fixture';
 
-createFixtureΔ('fixture-name', {
+const createFixture = await createFixtureDirectoryΔ(__dirname);
+
+await createFixture('fixture-name', {
   'index.ts': `
 // File contents.
   `,

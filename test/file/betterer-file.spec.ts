@@ -1,9 +1,10 @@
 import { betterer } from '@betterer/betterer';
-import { createFixtureΔ } from '@betterer/fixture';
+
+import { createFixture } from '../fixture';
 
 describe('betterer.file', () => {
   it('should run eslint against a file', async () => {
-    const { paths, resolve, cleanup, writeFile } = await createFixtureΔ('test-betterer-eslint-file', {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-eslint-file', {
       '.betterer.js': `
 const { eslint } = require('@betterer/eslint');
 
@@ -58,7 +59,7 @@ module.exports = {
   });
 
   it('should ignore any files outside of the scope of the eslint test glob', async () => {
-    const { paths, resolve, cleanup, writeFile } = await createFixtureΔ('test-betterer-eslint-file-irrelevant', {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-eslint-file-irrelevant', {
       '.betterer.js': `
 const { eslint } = require('@betterer/eslint');
 
@@ -113,7 +114,7 @@ module.exports = {
   });
 
   it('should run regexp against a file', async () => {
-    const { paths, resolve, cleanup, writeFile } = await createFixtureΔ('test-betterer-regexp-file', {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-regexp-file', {
       '.betterer.js': `
 const { regexp } = require('@betterer/regexp');
 
@@ -140,7 +141,7 @@ module.exports = {
   });
 
   it('should ignore any files outside of the scope of the regexp test glob', async () => {
-    const { paths, resolve, cleanup, writeFile } = await createFixtureΔ('test-betterer-regexp-file-irrelevant', {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-regexp-file-irrelevant', {
       '.betterer.js': `
 const { regexp } = require('@betterer/regexp');
 
@@ -167,7 +168,7 @@ module.exports = {
   });
 
   it('should run tsquery against a file', async () => {
-    const { paths, resolve, cleanup, writeFile } = await createFixtureΔ('test-betterer-tsquery-file', {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-tsquery-file', {
       '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 
@@ -210,7 +211,7 @@ export default {
   });
 
   it('should ignore any files outside of the scope of the tsquery tsconfig', async () => {
-    const { paths, resolve, cleanup, writeFile } = await createFixtureΔ('test-betterer-tsquery-file-irrevelent', {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-tsquery-file-irrevelent', {
       '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 
@@ -253,7 +254,7 @@ export default {
   });
 
   it('should run typescript against a file', async () => {
-    const { paths, resolve, cleanup, writeFile } = await createFixtureΔ('test-betterer-typescript-file', {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-typescript-file', {
       '.betterer.ts': `
 import { typescript } from '@betterer/typescript';
 
@@ -295,7 +296,7 @@ export default {
   });
 
   it('should ignore any files outside of the scope of the typescript tsconfig', async () => {
-    const { paths, resolve, cleanup, writeFile } = await createFixtureΔ('test-betterer-typescript-file-irrelevent', {
+    const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-typescript-file-irrelevent', {
       '.betterer.ts': `
 import { typescript } from '@betterer/typescript';
 

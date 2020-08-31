@@ -1,9 +1,10 @@
 import { betterer } from '@betterer/betterer';
-import { createFixtureΔ } from '@betterer/fixture';
+
+import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should work with named exports in the config file', async () => {
-    const { logs, paths, readFile, cleanup, runNames } = await createFixtureΔ('test-betterer-named-exports', {
+    const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-named-exports', {
       '.betterer.ts': `
 import { bigger } from '@betterer/constraints';
 
