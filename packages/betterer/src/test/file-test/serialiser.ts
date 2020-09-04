@@ -6,7 +6,6 @@ import { BettererFileΩ } from './file';
 import { BettererFilesΩ } from './files';
 import {
   BettererFile,
-  BettererFiles,
   BettererFileIssuesMapSerialised,
   BettererFileIssuesRaw,
   BettererFileIssuesDeserialised,
@@ -18,7 +17,7 @@ const UNKNOWN_LOCATION = {
   column: 0
 } as const;
 
-export function deserialise(serialised: BettererFileIssuesMapSerialised): BettererFiles {
+export function deserialise(serialised: BettererFileIssuesMapSerialised): BettererFilesΩ {
   return new BettererFilesΩ(
     Object.keys(serialised).map((key) => {
       const [relativePath, hash] = key.split(':');
@@ -33,22 +32,14 @@ export function deserialise(serialised: BettererFileIssuesMapSerialised): Better
   );
 }
 
-export function serialise(result: BettererFiles): BettererFileIssuesMapSerialised {
+export function serialise(result: BettererFilesΩ): BettererFileIssuesMapSerialised {
   return result.filesΔ.reduce((serialised: BettererFileIssuesMapSerialised, file: BettererFile) => {
-    serialised[file.key] = serialiseDeserialised(sortLinesAndColumns(ensureDeserialised(file)));
+    serialised[file.key] = serialiseDeserialised(sortLinesAndColumns(file.issues));
     return serialised;
   }, {} as BettererFileIssuesMapSerialised);
 }
 
-export function ensureDeserialised(file: BettererFile): BettererFileIssuesDeserialised {
-  try {
-    return file.issuesDeserialised;
-  } catch {
-    return rawToDeserialiseIssue(file.issuesRaw);
-  }
-}
-
-function rawToDeserialiseIssue(issues: BettererFileIssuesRaw): BettererFileIssuesDeserialised {
+export function rawToDeserialiseIssue(issues: BettererFileIssuesRaw): BettererFileIssuesDeserialised {
   return issues.map((issue) => {
     const { fileText, start, end, message } = issue;
     const lc = new LinesAndColumns(fileText);

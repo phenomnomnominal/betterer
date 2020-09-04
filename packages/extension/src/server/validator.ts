@@ -1,9 +1,7 @@
 import {
   BettererFiles,
-  BettererFileIssuesRaw,
-  BettererFileIssueRaw,
   BettererFileIssueDeserialised,
-  BettererFileIssues,
+  BettererFileIssuesDeserialised,
   BettererFileTestDiff
 } from '@betterer/betterer';
 import * as assert from 'assert';
@@ -81,24 +79,24 @@ export class BettererValidator {
               assert(file);
               info(`Validator: Got file from Betterer for "${run.name}"`);
 
-              let existingIssues: BettererFileIssues = [];
-              let newIssues: BettererFileIssuesRaw = [];
+              let existingIssues: BettererFileIssuesDeserialised = [];
+              let newIssues: BettererFileIssuesDeserialised = [];
 
               if (run.isNew) {
-                newIssues = file.issuesRaw;
+                newIssues = file.issues;
               } else if (run.isSkipped || run.isSame) {
-                existingIssues = file.issuesRaw;
+                existingIssues = file.issues;
               } else {
                 const fileDiff = (run.diff as BettererFileTestDiff).diff[file.relativePath];
                 info(`Validator: Got diff from Betterer for "${file.relativePath}"`);
                 existingIssues = fileDiff.existing || [];
-                newIssues = fileDiff.neww || [];
+                newIssues = fileDiff.new || [];
               }
 
               info(`Validator: Got "${existingIssues.length}" existing issues for "${file.relativePath}"`);
               info(`Validator: Got "${newIssues.length}" new issues for "${file.relativePath}"`);
 
-              existingIssues.forEach((issue: BettererFileIssueRaw | BettererFileIssueDeserialised) => {
+              existingIssues.forEach((issue: BettererFileIssueDeserialised) => {
                 diagnostics.push(createWarning(run.name, 'existing issue', issue, document));
               });
               newIssues.forEach((issue) => {
@@ -124,13 +122,9 @@ export class BettererValidator {
   }
 }
 
-function isRaw(issue: BettererFileIssueRaw | BettererFileIssueDeserialised): issue is BettererFileIssueRaw {
-  return (issue as BettererFileIssueRaw).fileText != null;
-}
-
 function createDiagnostic(
   name: string,
-  issue: BettererFileIssueRaw | BettererFileIssueDeserialised,
+  issue: BettererFileIssueDeserialised,
   extra: string,
   document: TextDocument,
   severity: DiagnosticSeverity
@@ -138,14 +132,9 @@ function createDiagnostic(
   const { message } = issue;
   let start: Position | null = null;
   let end: Position | null = null;
-  if (isRaw(issue)) {
-    start = document.positionAt(issue.start);
-    end = document.positionAt(issue.end);
-  } else {
-    const { line, column, length } = issue;
-    start = { line, character: column };
-    end = document.positionAt(document.offsetAt(start) + length);
-  }
+  const { line, column, length } = issue;
+  start = { line, character: column };
+  end = document.positionAt(document.offsetAt(start) + length);
   const range = { start, end };
   const code = `[${name}]${extra ? ` - ${extra}` : ''}`;
   return {
@@ -160,7 +149,7 @@ function createDiagnostic(
 function createError(
   name: string,
   extra: string,
-  issue: BettererFileIssueRaw | BettererFileIssueDeserialised,
+  issue: BettererFileIssueDeserialised,
   document: TextDocument
 ): Diagnostic {
   return createDiagnostic(name, issue, extra, document, DiagnosticSeverity.Error);
@@ -169,7 +158,7 @@ function createError(
 function createWarning(
   name: string,
   extra: string,
-  issue: BettererFileIssueRaw | BettererFileIssueDeserialised,
+  issue: BettererFileIssueDeserialised,
   document: TextDocument
 ): Diagnostic {
   return createDiagnostic(name, issue, extra, document, DiagnosticSeverity.Warning);

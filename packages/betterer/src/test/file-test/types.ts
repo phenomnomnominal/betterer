@@ -26,14 +26,12 @@ export type BettererFileIssuesMapSerialised = Record<string, BettererFileIssuesS
 
 export type BettererFileIssues = ReadonlyArray<BettererFileIssueRaw> | ReadonlyArray<BettererFileIssueDeserialised>;
 
-export type BettererFilesDiff = Record<
-  string,
-  {
-    fixed?: ReadonlyArray<BettererFileIssueDeserialised>;
-    existing?: ReadonlyArray<BettererFileIssueDeserialised>;
-    neww?: ReadonlyArray<BettererFileIssueRaw>;
-  }
->;
+export type BettererFileDiff = {
+  fixed?: ReadonlyArray<BettererFileIssueDeserialised>;
+  existing?: ReadonlyArray<BettererFileIssueDeserialised>;
+  new?: ReadonlyArray<BettererFileIssueDeserialised>;
+};
+export type BettererFilesDiff = Record<string, BettererFileDiff>;
 export type BettererFileTestDiff = BettererDiff<BettererFiles, BettererFilesDiff>;
 
 export type BettererFileTestFunction = (files: BettererFilePaths) => MaybeAsync<BettererFileIssuesMapRaw>;
@@ -46,11 +44,9 @@ export type BettererFile = {
   readonly relativePath: string;
   readonly absolutePath: string;
   readonly hash: string;
-  readonly issuesRaw: BettererFileIssuesRaw;
-  readonly issuesDeserialised: BettererFileIssuesDeserialised;
+  readonly issues: BettererFileIssuesDeserialised;
 };
 
 export type BettererFiles = {
-  readonly filesΔ: ReadonlyArray<BettererFile>;
   getFileΔ(absolutePath: string): BettererFile | void;
 };

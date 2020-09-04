@@ -14,29 +14,27 @@ import { goal } from './goal';
 import { printer } from './printer';
 import { deserialise, serialise } from './serialiser';
 import {
-  BettererFiles,
   BettererFilePatterns,
   BettererFileGlobs,
   BettererFileIssuesMapSerialised,
   BettererFileTestFunction,
-  BettererFileTestDiff,
-  BettererFile
+  BettererFileTestDiff
 } from './types';
 
 const IS_BETTERER_FILE_TEST = 'isBettererFileTest';
 
 export class BettererFileTest extends BettererTest<
-  BettererFiles,
+  BettererFilesΩ,
   BettererFileIssuesMapSerialised,
   BettererFileTestDiff
 > {
   public readonly isBettererFileTest = IS_BETTERER_FILE_TEST;
 
-  private _test: BettererTestFunction<BettererFiles> | null = null;
+  private _test: BettererTestFunction<BettererFilesΩ> | null = null;
 
   constructor(private _resolver: BettererFileResolver, fileTest: BettererFileTestFunction) {
     super({
-      test: async (run: BettererRun): Promise<BettererFiles> => {
+      test: async (run: BettererRun): Promise<BettererFilesΩ> => {
         this._test = this._test || this._createTest(fileTest);
         return await this._test(run);
       },
@@ -62,11 +60,11 @@ export class BettererFileTest extends BettererTest<
     return this;
   }
 
-  private _createTest(fileTest: BettererFileTestFunction): BettererTestFunction<BettererFiles> {
-    return async (run: BettererRun): Promise<BettererFiles> => {
+  private _createTest(fileTest: BettererFileTestFunction): BettererTestFunction<BettererFilesΩ> {
+    return async (run: BettererRun): Promise<BettererFilesΩ> => {
       const { files } = run;
 
-      const expected = run.expected.value as BettererFiles;
+      const expected = run.expected.value as BettererFilesΩ;
       const result = await fileTest(await this._resolver.filesΔ(files));
 
       let absolutePaths: BettererFilePaths = Object.keys(result);
@@ -91,7 +89,7 @@ export class BettererFileTest extends BettererTest<
             const [issue] = issues;
             return new BettererFileΩ(relativePath, absolutePath, createHash(issue.fileText), issues);
           })
-          .filter(Boolean) as ReadonlyArray<BettererFile>
+          .filter(Boolean) as ReadonlyArray<BettererFileΩ>
       );
     };
   }

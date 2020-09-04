@@ -10,7 +10,7 @@ enum BettererRunStatus {
   better,
   failed,
   pending,
-  neww,
+  new,
   same,
   skipped,
   update,
@@ -121,7 +121,7 @@ export class BettererRunΩ implements BettererRun {
   }
 
   public new(result: BettererResultΩ, isComplete: boolean): void {
-    this._updateResult(BettererRunStatus.neww, result, isComplete);
+    this._updateResult(BettererRunStatus.new, result, isComplete);
   }
 
   public ran(): void {

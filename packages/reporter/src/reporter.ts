@@ -27,7 +27,6 @@ export const defaultReporter: BettererReporter = {
   contextEnd(_: BettererContext, summary: BettererSummary): void {
     const better = summary.better.length;
     const failed = summary.failed.length;
-    const neww = summary.new.length;
     const ran = summary.ran.length;
     const same = summary.same.length;
     const skipped = summary.skipped.length;
@@ -45,8 +44,8 @@ export const defaultReporter: BettererReporter = {
     if (failed) {
       errorΔ(testFailedΔ(getTestsΔ(failed)));
     }
-    if (neww) {
-      infoΔ(testNewΔ(getTestsΔ(neww)));
+    if (summary.new.length) {
+      infoΔ(testNewΔ(getTestsΔ(summary.new.length)));
     }
     if (obsolete) {
       obsolete.forEach((runName) => {

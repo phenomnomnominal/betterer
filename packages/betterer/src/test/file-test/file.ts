@@ -1,16 +1,18 @@
 import * as assert from 'assert';
 
+import { rawToDeserialiseIssue } from './serialiser';
 import {
   BettererFileIssues,
   BettererFileIssueRaw,
   BettererFileIssuesRaw,
-  BettererFileIssuesDeserialised
+  BettererFileIssuesDeserialised,
+  BettererFile
 } from './types';
 
-export class BettererFileΩ {
+export class BettererFileΩ implements BettererFile {
   public readonly key: string;
 
-  private _issuesDeserialised: BettererFileIssuesDeserialised | null = null;
+  private _issues: BettererFileIssuesDeserialised;
   private _issuesRaw: BettererFileIssuesRaw | null = null;
 
   constructor(
@@ -23,8 +25,9 @@ export class BettererFileΩ {
 
     if (isRaw(issues)) {
       this._issuesRaw = issues;
+      this._issues = rawToDeserialiseIssue(this._issuesRaw);
     } else {
-      this._issuesDeserialised = issues;
+      this._issues = issues;
     }
   }
 
@@ -33,9 +36,8 @@ export class BettererFileΩ {
     return this._issuesRaw;
   }
 
-  public get issuesDeserialised(): BettererFileIssuesDeserialised {
-    assert(this._issuesDeserialised);
-    return this._issuesDeserialised;
+  public get issues(): BettererFileIssuesDeserialised {
+    return this._issues;
   }
 }
 

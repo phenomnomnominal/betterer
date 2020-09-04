@@ -1,9 +1,9 @@
 import { BettererConstraintResult } from '@betterer/constraints';
 
 import { differ } from './differ';
-import { BettererFiles } from './types';
+import { BettererFilesΩ } from './files';
 
-export function constraint(result: BettererFiles, expected: BettererFiles): BettererConstraintResult {
+export function constraint(result: BettererFilesΩ, expected: BettererFilesΩ): BettererConstraintResult {
   const { diff } = differ(expected, result);
 
   const filePaths = Object.keys(diff);
@@ -12,7 +12,7 @@ export function constraint(result: BettererFiles, expected: BettererFiles): Bett
     return BettererConstraintResult.same;
   }
 
-  const hasNew = filePaths.filter((filePath) => !!diff[filePath].neww?.length);
+  const hasNew = filePaths.filter((filePath) => !!diff[filePath].new?.length);
 
   if (hasNew.length) {
     return BettererConstraintResult.worse;

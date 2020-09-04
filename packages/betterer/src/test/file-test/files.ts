@@ -1,15 +1,16 @@
-import { BettererFile, BettererFiles } from './types';
+import { BettererFiles } from './types';
+import { BettererFileΩ } from './file';
 
 export class BettererFilesΩ implements BettererFiles {
-  private _fileMap: Record<string, BettererFile> = {};
+  private _fileMap: Record<string, BettererFileΩ> = {};
 
-  constructor(public readonly filesΔ: ReadonlyArray<BettererFile>) {
+  constructor(public readonly filesΔ: ReadonlyArray<BettererFileΩ>) {
     this.filesΔ.forEach((file) => {
       this._fileMap[file.absolutePath] = file;
     });
   }
 
-  public getFileΔ(absolutePath: string): BettererFile | void {
+  public getFileΔ(absolutePath: string): BettererFileΩ | void {
     return this._fileMap[absolutePath];
   }
 }
