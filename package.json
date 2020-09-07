@@ -41,7 +41,7 @@
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.3.1",
     "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-jest": "^23.17.1",
+    "eslint-plugin-jest": "^24.0.0",
     "eslint-plugin-prettier": "^3.1.4",
     "fs-extra": "^9.0.1",
     "graceful-fs": "^4.2.3",
