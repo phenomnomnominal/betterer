@@ -3,21 +3,17 @@ export {
   BettererFiles,
   isBettererFileTest,
   BettererFileGlobs,
-  BettererFileIssueDeserialised,
-  BettererFileIssueRaw,
-  BettererFileIssueSerialised,
-  BettererFileIssues,
-  BettererFileIssuesDeserialised,
-  BettererFileIssuesMapDeserialised,
-  BettererFileIssuesMapRaw,
-  BettererFileIssuesMapSerialised,
-  BettererFileIssuesRaw,
-  BettererFileIssuesSerialised,
   BettererFilePatterns,
   BettererFileTestDiff,
   BettererFileTestFunction,
   BettererFile,
-  BettererFilesDiff
+  BettererFilesDiff,
+  BettererFileDiff,
+  BettererFileIssue,
+  BettererFileIssueSerialised,
+  BettererFileIssues,
+  BettererFileIssuesMapSerialised,
+  BettererFileResolver
 } from './file-test';
 export { BettererTest, isBettererTest } from './test';
 export {

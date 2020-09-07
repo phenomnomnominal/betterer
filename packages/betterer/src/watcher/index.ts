@@ -1,2 +1,2 @@
 export { BettererWatcherΩ } from './watcher';
-export { BettererFilePaths, BettererWatchRunHandler, BettererWatcher } from './types';
+export { BettererFilePaths, BettererWatchRunHandler, BettererWatcher, BettererWatchChangeHandler } from './types';

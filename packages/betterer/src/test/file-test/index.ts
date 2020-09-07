@@ -3,19 +3,14 @@ export { BettererFileResolver } from './file-resolver';
 export {
   BettererFiles,
   BettererFileGlobs,
-  BettererFileIssueDeserialised,
-  BettererFileIssueRaw,
-  BettererFileIssueSerialised,
-  BettererFileIssues,
-  BettererFileIssuesDeserialised,
-  BettererFileIssuesMapDeserialised,
-  BettererFileIssuesMapRaw,
-  BettererFileIssuesMapSerialised,
-  BettererFileIssuesRaw,
-  BettererFileIssuesSerialised,
   BettererFilePatterns,
   BettererFileTestDiff,
   BettererFileTestFunction,
   BettererFile,
-  BettererFilesDiff
+  BettererFileDiff,
+  BettererFilesDiff,
+  BettererFileIssue,
+  BettererFileIssues,
+  BettererFileIssueSerialised,
+  BettererFileIssuesMapSerialised
 } from './types';

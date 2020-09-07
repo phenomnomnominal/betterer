@@ -4,7 +4,7 @@ import { BettererConfig } from '../config';
 import { COULDNT_READ_CONFIG } from '../errors';
 import { BettererReporter } from '../reporters';
 import { requireUncached } from '../require';
-import { BettererResults, BettererDiff } from '../results';
+import { BettererResults, BettererDiff, BettererResultΩ } from '../results';
 import {
   BettererTest,
   isBettererTest,
@@ -14,15 +14,15 @@ import {
   isBettererFileTest
 } from '../test';
 import { BettererFilePaths } from '../watcher';
-import { BettererRunΩ, BettererRunsΩ } from './run';
+import { BettererRunΩ } from './run';
 import { BettererSummaryΩ } from './summary';
-import { BettererContext, BettererRunNames, BettererSummary, BettererRun } from './types';
+import { BettererContext, BettererRunNames, BettererSummary, BettererRun, BettererRuns } from './types';
 
-export type BettererRunner = (runs: BettererRunsΩ) => Promise<void>;
+export type BettererRunner = (runs: BettererRuns) => Promise<void>;
 
 export class BettererContextΩ implements BettererContext {
   private _results: BettererResults;
-  private _summary: BettererSummaryΩ | null = null;
+  private _summary: BettererSummary | null = null;
   private _tests: BettererTestMap = {};
 
   private _running: Promise<void> | null = null;
@@ -52,7 +52,8 @@ export class BettererContextΩ implements BettererContext {
         .map(async (name) => {
           const test = this._tests[name];
           const expected = await this._results.getResult(name, test);
-          return new BettererRunΩ(this, name, test, expected, files);
+          const expectedΩ = expected as BettererResultΩ;
+          return new BettererRunΩ(this, name, test, expectedΩ, files);
         })
     );
     const obsolete = await this._initObsolete();

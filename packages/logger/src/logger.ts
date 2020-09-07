@@ -72,17 +72,17 @@ export function codeΔ(codeInfo: BettererLoggerCodeInfo): void {
     highlightCode: !!isJS
   };
   const lc = new LinesAndColumns(fileText);
-  const startLocation = lc.locationForIndex(codeInfo.start);
-  const endLocation = lc.locationForIndex(codeInfo.end);
+  const startLocation = codeInfo;
+  const startIndex = lc.indexForLocation(startLocation) || 0;
+  const endLocation = lc.locationForIndex(startIndex + codeInfo.length) || startLocation;
   const start = {
-    line: startLocation ? startLocation.line + 1 : 0,
-    column: startLocation ? startLocation.column + 1 : 0
+    line: startLocation.line + 1,
+    column: startLocation.column + 1
   };
   const end = {
-    line: endLocation ? endLocation.line + 1 : 0,
-    column: endLocation ? endLocation.column + 1 : 0
+    line: endLocation.line + 1,
+    column: endLocation.column + 1
   };
-
   const codeFrame = codeFrameColumns(fileText, { start, end }, options);
   const codeMessage = chalk.bgBlack.white(message.trim());
   log(`${NEW_LINE}${ERROR_BLOCK} ${codeMessage.split(NEW_LINE).join(`\n${ERROR_BLOCK} `)}\n\n${codeFrame}`);

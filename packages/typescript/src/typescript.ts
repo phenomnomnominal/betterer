@@ -1,4 +1,4 @@
-import { BettererFileTest, BettererFileIssuesMapRaw, BettererFileResolver } from '@betterer/betterer';
+import { BettererFileTest, BettererFileResolver } from '@betterer/betterer';
 import * as ts from 'typescript';
 import * as path from 'path';
 
@@ -23,7 +23,7 @@ export function typescript(configFilePath: string, extraCompilerOptions: ts.Comp
   const resolver = new BettererFileResolver();
   const absPath = resolver.resolve(configFilePath);
 
-  return new BettererFileTest(resolver, async () => {
+  return new BettererFileTest(resolver, async (_, files) => {
     const { config } = ts.readConfigFile(absPath, ts.sys.readFile.bind(ts.sys)) as TypeScriptReadConfigResult;
     const { compilerOptions } = config;
     const basePath = path.dirname(absPath);
@@ -42,10 +42,10 @@ export function typescript(configFilePath: string, extraCompilerOptions: ts.Comp
     };
     const parsed = ts.parseJsonConfigFileContent(config, configHost, basePath);
 
-    const files = await resolver.validate(parsed.fileNames);
+    const rootNames = await resolver.validate(parsed.fileNames);
     const program = ts.createProgram({
       ...parsed,
-      rootNames: files,
+      rootNames,
       host
     });
 
@@ -59,22 +59,13 @@ export function typescript(configFilePath: string, extraCompilerOptions: ts.Comp
       ...semanticDiagnostics
     ]);
 
-    return allDiagnostics.reduce((fileInfoMap, diagnostic) => {
-      const { file, start, length } = diagnostic as ts.DiagnosticWithLocation;
-      const { fileName } = file;
+    allDiagnostics.forEach((diagnostic) => {
+      const { start, length } = diagnostic as ts.DiagnosticWithLocation;
+      const source = (diagnostic as ts.DiagnosticWithLocation).file;
+      const { fileName } = source;
+      const file = files.addFile(fileName, source.getFullText());
       const message = resolver.forceRelativePaths(ts.flattenDiagnosticMessageText(diagnostic.messageText, NEW_LINE));
-      fileInfoMap[fileName] = fileInfoMap[fileName] || [];
-      fileInfoMap[fileName] = [
-        ...fileInfoMap[fileName],
-        {
-          message,
-          filePath: fileName,
-          fileText: file.getFullText(),
-          start,
-          end: start + length
-        }
-      ];
-      return fileInfoMap;
-    }, {} as BettererFileIssuesMapRaw);
+      file.addIssue(start, start + length, message);
+    });
   });
 }

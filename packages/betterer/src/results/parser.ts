@@ -2,7 +2,7 @@ import * as assert from 'assert';
 
 import { requireText } from '../require';
 import { COULDNT_READ_RESULTS, COULDNT_RESOLVE_MERGE_CONFLICT } from '../errors';
-import { read } from './reader';
+import { read } from '../reader';
 import { BettererExpectedResults } from './types';
 
 const MERGE_CONFLICT_ANCESTOR = '|||||||';

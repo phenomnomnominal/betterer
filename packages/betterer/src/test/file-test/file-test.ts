@@ -1,26 +1,20 @@
-import { getConfig } from '../../config';
 import { BettererRun } from '../../context';
-import { createHash } from '../../hasher';
-import { BettererFilePaths } from '../../watcher';
-import { getRelativePath } from '../../utils';
 import { BettererTest } from '../test';
 import { BettererTestFunction } from '../types';
 import { constraint } from './constraint';
 import { differ } from './differ';
-import { BettererFileΩ } from './file';
 import { BettererFileResolver } from './file-resolver';
 import { BettererFilesΩ } from './files';
 import { goal } from './goal';
 import { printer } from './printer';
 import { deserialise, serialise } from './serialiser';
 import {
-  BettererFiles,
   BettererFilePatterns,
   BettererFileGlobs,
   BettererFileIssuesMapSerialised,
   BettererFileTestFunction,
   BettererFileTestDiff,
-  BettererFile
+  BettererFiles
 } from './types';
 
 const IS_BETTERER_FILE_TEST = 'isBettererFileTest';
@@ -64,35 +58,30 @@ export class BettererFileTest extends BettererTest<
 
   private _createTest(fileTest: BettererFileTestFunction): BettererTestFunction<BettererFiles> {
     return async (run: BettererRun): Promise<BettererFiles> => {
-      const { files } = run;
+      const { filePaths } = run;
 
-      const expected = run.expected.value as BettererFiles;
-      const result = await fileTest(await this._resolver.filesΔ(files));
+      const expectedΩ = run.expected.value as BettererFilesΩ;
+      const relevantFilePaths = await this._resolver.files(filePaths);
+      const files = new BettererFilesΩ();
+      await fileTest(relevantFilePaths, files);
 
-      let absolutePaths: BettererFilePaths = Object.keys(result);
-      if (files.length && !run.isNew) {
-        const expectedAbsolutePaths = expected.filesΔ.map((file) => file.absolutePath);
-        absolutePaths = Array.from(new Set([...absolutePaths, ...expectedAbsolutePaths]));
+      if (filePaths.length && !run.isNew) {
+        // Get any filePaths that have expected issues but weren't included in this run:
+        const excludedFilesWithIssues = expectedΩ.files
+          .map((file) => file.absolutePath)
+          .filter((filePath) => !filePaths.includes(filePath));
+
+        // Filter them based on the current resolver:
+        const relevantExcludedFilePaths = await this._resolver.validate(excludedFilesWithIssues);
+
+        // Add the existing issues to the new result:
+        relevantExcludedFilePaths.forEach((filePath) => {
+          const expectedFile = expectedΩ.getFile(filePath);
+          const file = files.addFileHash(filePath, expectedFile.hash);
+          file.addIssues(expectedFile.issues);
+        });
       }
-      absolutePaths = await this._resolver.validate(absolutePaths);
-
-      return new BettererFilesΩ(
-        absolutePaths
-          .map((absolutePath) => {
-            const { resultsPath } = getConfig();
-            const relativePath = getRelativePath(resultsPath, absolutePath);
-            const issues = result[absolutePath];
-            if (!issues && !run.isNew) {
-              return expected.getFileΔ(absolutePath);
-            }
-            if (issues.length === 0) {
-              return null;
-            }
-            const [issue] = issues;
-            return new BettererFileΩ(relativePath, absolutePath, createHash(issue.fileText), issues);
-          })
-          .filter(Boolean) as ReadonlyArray<BettererFile>
-      );
+      return files;
     };
   }
 }

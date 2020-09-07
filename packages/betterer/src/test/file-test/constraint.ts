@@ -12,7 +12,7 @@ export function constraint(result: BettererFiles, expected: BettererFiles): Bett
     return BettererConstraintResult.same;
   }
 
-  const hasNew = filePaths.filter((filePath) => !!diff[filePath].neww?.length);
+  const hasNew = filePaths.filter((filePath) => !!diff[filePath].new?.length);
 
   if (hasNew.length) {
     return BettererConstraintResult.worse;

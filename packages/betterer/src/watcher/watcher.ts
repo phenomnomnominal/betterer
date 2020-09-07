@@ -1,7 +1,7 @@
 import { watch as chokidar, FSWatcher } from 'chokidar';
 import * as globby from 'globby';
 
-import { BettererContextΩ, BettererSummary } from '../context';
+import { BettererContext, BettererContextΩ, BettererSummary } from '../context';
 import { normalisedPath } from '../utils';
 import { BettererWatchChangeHandler, BettererWatchRunHandler, BettererWatcher } from './types';
 
@@ -14,10 +14,11 @@ export class BettererWatcherΩ implements BettererWatcher {
   private _running: Promise<BettererSummary> | null = null;
   private _watcher: FSWatcher | null = null;
 
-  constructor(private readonly _context: BettererContextΩ, private readonly _onChange: BettererWatchChangeHandler) {}
+  constructor(private readonly _context: BettererContext, private readonly _onChange: BettererWatchChangeHandler) {}
 
   public async setup(): Promise<void> {
-    const { cwd, ignores, resultsPath } = this._context.config;
+    const contextΩ = this._context as BettererContextΩ;
+    const { cwd, ignores, resultsPath } = contextΩ.config;
 
     const isIgnored = globby.gitignore.sync();
     const watcher = chokidar(cwd, {
@@ -56,8 +57,9 @@ export class BettererWatcherΩ implements BettererWatcher {
     }
     if (this._running) {
       await this._handleRun(this._running);
-      this._context.end();
-      await this._context.save();
+      const contextΩ = this._context as BettererContextΩ;
+      contextΩ.end();
+      await contextΩ.save();
     }
   }
 

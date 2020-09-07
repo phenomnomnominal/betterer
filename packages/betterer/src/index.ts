@@ -14,20 +14,14 @@ export {
   BettererDeserialise,
   BettererDiffer,
   BettererFileGlobs,
-  BettererFileIssueDeserialised,
-  BettererFileIssueRaw,
-  BettererFileIssueSerialised,
-  BettererFileIssues,
-  BettererFileIssuesMapRaw,
-  BettererFileIssuesMapSerialised,
-  BettererFileIssuesRaw,
-  BettererFileIssuesSerialised,
   BettererFilePatterns,
   BettererFileResolver,
   BettererFileTest, //
   BettererFileTestDiff,
   BettererFileTestFunction,
+  BettererFile,
   BettererFiles,
+  BettererFileDiff,
   BettererFilesDiff,
   BettererPrinter,
   BettererSerialise,
@@ -36,6 +30,8 @@ export {
   BettererTestConstraint,
   BettererTestFunction,
   BettererTestGoal,
-  BettererTestOptions
+  BettererTestOptions,
+  BettererFileIssue,
+  BettererFileIssues
 } from './test/public';
 export { BettererFilePaths, BettererWatcher, BettererWatchRunHandler } from './watcher/public';

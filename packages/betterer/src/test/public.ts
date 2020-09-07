@@ -1,20 +1,16 @@
 export {
   BettererFileGlobs,
-  BettererFileIssueDeserialised,
-  BettererFileIssueRaw,
-  BettererFileIssueSerialised,
-  BettererFileIssues,
-  BettererFileIssuesMapRaw,
-  BettererFileIssuesMapSerialised,
-  BettererFileIssuesRaw,
-  BettererFileIssuesSerialised,
   BettererFilePatterns,
   BettererFileResolver,
   BettererFileTest,
   BettererFileTestDiff,
   BettererFileTestFunction,
+  BettererFile,
   BettererFiles,
-  BettererFilesDiff
+  BettererFileDiff,
+  BettererFilesDiff,
+  BettererFileIssue,
+  BettererFileIssues
 } from './file-test/public';
 export { BettererTest } from './test';
 export {

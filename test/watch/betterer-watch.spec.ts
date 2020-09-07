@@ -174,7 +174,7 @@ ignored.ts
 
     await watcher.stop();
 
-    expect(run.files).toHaveLength(1);
+    expect(run.filePaths).toHaveLength(1);
 
     expect(logs).toMatchSnapshot();
 

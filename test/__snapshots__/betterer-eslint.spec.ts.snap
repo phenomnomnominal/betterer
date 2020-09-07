@@ -57,9 +57,9 @@ Array [
   "\\"eslint enable new rule\\" got worse. 😔",
   "",
   " ☀️  betterer  warn  🚨  - ",
-  "1 existing issue in \\"src/index.ts\\".",
+  "1 existing issue in \\"<project>/fixtures/test-betterer-eslint/src/index.ts\\".",
   " ☀️  betterer  erro  🔥  - ",
-  "1 new issue in \\"src/index.ts\\":",
+  "1 new issue in \\"<project>/fixtures/test-betterer-eslint/src/index.ts\\":",
   "
    Unexpected 'debugger' statement.
 

@@ -7,10 +7,12 @@ export function printer(serialised: BettererFileIssuesMapSerialised): string {
     .forEach((filePath, index) => {
       const file = `    "${filePath}": [\n`;
       printed += prependNewline(index, file);
-      serialised[filePath].forEach((mark, index) => {
-        const [line, column, length, message, hash] = mark;
-        const issue = `      [${line}, ${column}, ${length}, ${JSON.stringify(message)}, ${JSON.stringify(hash)}]`;
-        printed += prependNewline(index, issue);
+      serialised[filePath].forEach((issue, index) => {
+        const [line, column, length, message, hash] = issue;
+        const printedIssue = `      [${line}, ${column}, ${length}, ${JSON.stringify(message)}, ${JSON.stringify(
+          hash
+        )}]`;
+        printed += prependNewline(index, printedIssue);
       });
       printed += `\n    ]`;
     });

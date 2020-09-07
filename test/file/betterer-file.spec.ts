@@ -53,7 +53,7 @@ module.exports = {
     const [run] = summary.runs;
 
     expect(run.isNew).toEqual(true);
-    expect(run.files).toEqual([indexPath]);
+    expect(run.filePaths).toEqual([indexPath]);
 
     await cleanup();
   });
@@ -108,7 +108,7 @@ module.exports = {
     const [run] = summary.runs;
 
     expect(run.isComplete).toEqual(true);
-    expect(run.files).toEqual([testFile]);
+    expect(run.filePaths).toEqual([testFile]);
 
     await cleanup();
   });
@@ -135,7 +135,7 @@ module.exports = {
     const [run] = summary.runs;
 
     expect(run.isNew).toEqual(true);
-    expect(run.files).toEqual([indexPath]);
+    expect(run.filePaths).toEqual([indexPath]);
 
     await cleanup();
   });
@@ -162,7 +162,7 @@ module.exports = {
     const [run] = summary.runs;
 
     expect(run.isComplete).toEqual(true);
-    expect(run.files).toEqual([testFile]);
+    expect(run.filePaths).toEqual([testFile]);
 
     await cleanup();
   });
@@ -205,7 +205,7 @@ export default {
     const [run] = summary.runs;
 
     expect(run.isNew).toEqual(true);
-    expect(run.files).toEqual([indexPath]);
+    expect(run.filePaths).toEqual([indexPath]);
 
     await cleanup();
   });
@@ -248,7 +248,7 @@ export default {
     const [run] = summary.runs;
 
     expect(run.isNew).toEqual(true);
-    expect(run.files).toEqual([testPath]);
+    expect(run.filePaths).toEqual([testPath]);
 
     await cleanup();
   });
@@ -290,7 +290,7 @@ export default {
     const [run] = summary.runs;
 
     expect(run.isNew).toEqual(true);
-    expect(run.files).toEqual([indexPath]);
+    expect(run.filePaths).toEqual([indexPath]);
 
     await cleanup();
   });
@@ -332,7 +332,7 @@ export default {
     const [run] = summary.runs;
 
     expect(run.isNew).toEqual(true);
-    expect(run.files).toEqual([testPath]);
+    expect(run.filePaths).toEqual([testPath]);
 
     await cleanup();
   });

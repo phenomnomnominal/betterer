@@ -43,9 +43,9 @@ Array [
   "\\"tsquery no raw console.log\\" got force updated. 🆙",
   "",
   " ☀️  betterer  warn  🚨  - ",
-  "1 existing issue in \\"src/index.ts\\".",
+  "1 existing issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\".",
   " ☀️  betterer  erro  🔥  - ",
-  "1 new issue in \\"src/index.ts\\":",
+  "1 new issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\":",
   "
    TSQuery match
 

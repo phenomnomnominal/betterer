@@ -47,7 +47,7 @@ export class BettererFileResolver {
     return this;
   }
 
-  public async filesΔ(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
+  public async files(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
     if (!filePaths.length) {
       return this._getValidPaths();
     }
