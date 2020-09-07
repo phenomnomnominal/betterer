@@ -18,8 +18,9 @@ import { codeΔ } from '@betterer/logger';
 codeΔ({
   filePath: './file.js',
   fileText: 'function add (a, b) {\n  return a + b;\n}',
-  start: 24,
-  end: 37
+  line: 1,
+  column: 3,
+  length: 13
 });
 ```
 

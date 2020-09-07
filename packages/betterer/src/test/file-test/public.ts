@@ -1,15 +1,14 @@
 export { BettererFileTest } from './file-test';
 export { BettererFileResolver } from './file-resolver';
 export {
+  BettererFile,
   BettererFiles,
-  BettererFilesDiff,
   BettererFileGlobs,
-  BettererFileIssueDeserialised,
-  BettererFileIssuesDeserialised,
-  BettererFileIssueRaw,
-  BettererFileIssuesMapRaw,
-  BettererFileIssuesRaw,
   BettererFilePatterns,
+  BettererFileDiff,
+  BettererFilesDiff,
   BettererFileTestDiff,
-  BettererFileTestFunction
+  BettererFileTestFunction,
+  BettererFileIssue,
+  BettererFileIssues
 } from './types';

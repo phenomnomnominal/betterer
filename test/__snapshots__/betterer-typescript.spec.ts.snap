@@ -57,9 +57,9 @@ Array [
   "\\"typescript use strict mode\\" got worse. 😔",
   "",
   " ☀️  betterer  warn  🚨  - ",
-  "1 existing issue in \\"src/index.ts\\".",
+  "1 existing issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\".",
   " ☀️  betterer  erro  🔥  - ",
-  "1 new issue in \\"src/index.ts\\":",
+  "1 new issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\":",
   "
    The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
 

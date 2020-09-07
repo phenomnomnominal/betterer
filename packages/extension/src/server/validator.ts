@@ -1,9 +1,4 @@
-import {
-  BettererFiles,
-  BettererFileIssueDeserialised,
-  BettererFileIssuesDeserialised,
-  BettererFileTestDiff
-} from '@betterer/betterer';
+import { BettererFiles, BettererFileIssue, BettererFileIssues, BettererFileTestDiff } from '@betterer/betterer';
 import * as assert from 'assert';
 import { IConnection, TextDocuments, Diagnostic, DiagnosticSeverity, Position } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
@@ -71,38 +66,47 @@ export class BettererValidator {
           info(`Validator: Running Betterer for "${filePath}".`);
           const { runs } = await betterer.file(filePath, { ...config, cwd });
 
-          runs
-            .filter((run) => !run.isFailed)
-            .filter((run) => (run.result.value as BettererFiles).getFileΔ(filePath))
-            .map((run) => {
-              const file = (run.result.value as BettererFiles).getFileΔ(filePath);
-              assert(file);
-              info(`Validator: Got file from Betterer for "${run.name}"`);
+          runs.forEach((run) => {
+            if (run.isFailed) {
+              return;
+            }
 
-              let existingIssues: BettererFileIssuesDeserialised = [];
-              let newIssues: BettererFileIssuesDeserialised = [];
+            const value = run.result.value as BettererFiles;
+            if (!value) {
+              return;
+            }
 
-              if (run.isNew) {
-                newIssues = file.issues;
-              } else if (run.isSkipped || run.isSame) {
-                existingIssues = file.issues;
-              } else {
-                const fileDiff = (run.diff as BettererFileTestDiff).diff[file.relativePath];
-                info(`Validator: Got diff from Betterer for "${file.relativePath}"`);
-                existingIssues = fileDiff.existing || [];
-                newIssues = fileDiff.new || [];
-              }
+            const issues = value.getIssues(filePath);
+            if (!issues) {
+              return;
+            }
 
-              info(`Validator: Got "${existingIssues.length}" existing issues for "${file.relativePath}"`);
-              info(`Validator: Got "${newIssues.length}" new issues for "${file.relativePath}"`);
+            info(`Validator: Got issues from Betterer for "${run.name}"`);
 
-              existingIssues.forEach((issue: BettererFileIssueDeserialised) => {
-                diagnostics.push(createWarning(run.name, 'existing issue', issue, document));
-              });
-              newIssues.forEach((issue) => {
-                diagnostics.push(createError(run.name, 'new issue', issue, document));
-              });
+            let existingIssues: BettererFileIssues = [];
+            let newIssues: BettererFileIssues = [];
+
+            if (run.isNew) {
+              newIssues = issues;
+            } else if (run.isSkipped || run.isSame) {
+              existingIssues = issues;
+            } else {
+              const fileDiff = (run.diff as BettererFileTestDiff).diff[filePath];
+              info(`Validator: Got diff from Betterer for "${filePath}"`);
+              existingIssues = fileDiff.existing || [];
+              newIssues = fileDiff.new || [];
+            }
+
+            info(`Validator: Got "${existingIssues.length}" existing issues for "${filePath}"`);
+            info(`Validator: Got "${newIssues.length}" new issues for "${filePath}"`);
+
+            existingIssues.forEach((issue: BettererFileIssue) => {
+              diagnostics.push(createWarning(run.name, 'existing issue', issue, document));
             });
+            newIssues.forEach((issue) => {
+              diagnostics.push(createError(run.name, 'new issue', issue, document));
+            });
+          });
           this._connection.sendDiagnostics({ uri, diagnostics });
         } catch (e) {
           if (isNoConfigError(e)) {
@@ -124,15 +128,14 @@ export class BettererValidator {
 
 function createDiagnostic(
   name: string,
-  issue: BettererFileIssueDeserialised,
+  issue: BettererFileIssue,
   extra: string,
   document: TextDocument,
   severity: DiagnosticSeverity
 ): Diagnostic {
-  const { message } = issue;
+  const { line, column, length, message } = issue;
   let start: Position | null = null;
   let end: Position | null = null;
-  const { line, column, length } = issue;
   start = { line, character: column };
   end = document.positionAt(document.offsetAt(start) + length);
   const range = { start, end };
@@ -146,21 +149,11 @@ function createDiagnostic(
   };
 }
 
-function createError(
-  name: string,
-  extra: string,
-  issue: BettererFileIssueDeserialised,
-  document: TextDocument
-): Diagnostic {
+function createError(name: string, extra: string, issue: BettererFileIssue, document: TextDocument): Diagnostic {
   return createDiagnostic(name, issue, extra, document, DiagnosticSeverity.Error);
 }
 
-function createWarning(
-  name: string,
-  extra: string,
-  issue: BettererFileIssueDeserialised,
-  document: TextDocument
-): Diagnostic {
+function createWarning(name: string, extra: string, issue: BettererFileIssue, document: TextDocument): Diagnostic {
   return createDiagnostic(name, issue, extra, document, DiagnosticSeverity.Warning);
 }
 

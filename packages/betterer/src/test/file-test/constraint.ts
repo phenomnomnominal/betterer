@@ -1,9 +1,9 @@
 import { BettererConstraintResult } from '@betterer/constraints';
 
 import { differ } from './differ';
-import { BettererFilesΩ } from './files';
+import { BettererFiles } from './types';
 
-export function constraint(result: BettererFilesΩ, expected: BettererFilesΩ): BettererConstraintResult {
+export function constraint(result: BettererFiles, expected: BettererFiles): BettererConstraintResult {
   const { diff } = differ(expected, result);
 
   const filePaths = Object.keys(diff);

@@ -13,7 +13,7 @@ export type BettererContext = {
 export type BettererRun = {
   readonly diff: BettererDiff;
   readonly expected: BettererResult;
-  readonly files: BettererFilePaths;
+  readonly filePaths: BettererFilePaths;
   readonly name: string;
   readonly result: BettererResult;
   readonly test: BettererTest;

@@ -5,10 +5,10 @@ import { BettererTest } from '../test';
 import { parse } from './parser';
 import { BettererRuns, BettererRun } from '../context';
 import { print, defaultPrinter } from './printer';
-import { read } from './reader';
-import { write } from './writer';
+import { read } from '../reader';
+import { write } from '../writer';
 import { BettererResultΩ } from './result';
-import { BettererDiff } from './types';
+import { BettererDiff, BettererResult } from './types';
 import { defaultDiffer } from './differ';
 
 const RESULTS_HEADER = `// BETTERER RESULTS V2.`;
@@ -21,7 +21,7 @@ export class BettererResults {
     return Object.keys(results);
   }
 
-  public async getResult(name: string, test: BettererTest): Promise<BettererResultΩ> {
+  public async getResult(name: string, test: BettererTest): Promise<BettererResult> {
     const results = await parse(this._config.resultsPath);
     if (Object.hasOwnProperty.call(results, name)) {
       assert(results[name]);

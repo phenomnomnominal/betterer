@@ -1,7 +1,7 @@
 import { BettererConstraintResult } from '@betterer/constraints';
 import { logErrorΔ } from '@betterer/errors';
 
-import { BettererContextΩ, BettererRunΩ, BettererSummary } from '../context';
+import { BettererContextΩ, BettererRun, BettererRunΩ, BettererSummary } from '../context';
 import { BettererFilePaths } from '../watcher';
 import { BettererResultΩ } from '../results';
 
@@ -9,8 +9,9 @@ export async function parallel(context: BettererContextΩ, files: BettererFilePa
   return context.start(async (runs) => {
     await Promise.all(
       runs.map(async (run) => {
-        await runTest(run, context.config.update);
-        run.end();
+        const runΩ = run as BettererRunΩ;
+        await runTest(runΩ, context.config.update);
+        runΩ.end();
       })
     );
   }, files);
@@ -20,55 +21,57 @@ export async function serial(context: BettererContextΩ): Promise<BettererSummar
   return context.start(async (runs) => {
     await runs.reduce(async (p, run) => {
       await p;
-      await runTest(run, context.config.update);
-      run.end();
+      const runΩ = run as BettererRunΩ;
+      await runTest(runΩ, context.config.update);
+      runΩ.end();
     }, Promise.resolve());
   });
 }
 
-async function runTest(run: BettererRunΩ, update: boolean): Promise<void> {
-  const { test } = run;
+async function runTest(run: BettererRun, update: boolean): Promise<void> {
+  const runΩ = run as BettererRunΩ;
+  const { test } = runΩ;
 
   if (test.isSkipped) {
-    run.skipped();
+    runΩ.skipped();
     return;
   }
 
-  run.start();
+  runΩ.start();
   let result: BettererResultΩ;
   try {
-    result = new BettererResultΩ(await test.test(run));
+    result = new BettererResultΩ(await test.test(runΩ));
   } catch (e) {
-    run.failed();
+    runΩ.failed();
     logErrorΔ(e);
     return;
   }
-  run.ran();
+  runΩ.ran();
 
   const goalComplete = await test.goal(result.value);
 
-  if (run.isNew) {
-    run.new(result, goalComplete);
+  if (runΩ.isNew) {
+    runΩ.new(result, goalComplete);
     return;
   }
 
-  const comparison = await test.constraint(result.value, run.expected.value);
+  const comparison = await test.constraint(result.value, runΩ.expected.value);
 
   if (comparison === BettererConstraintResult.same) {
-    run.same(result);
+    runΩ.same(result);
     return;
   }
 
   if (comparison === BettererConstraintResult.better) {
-    run.better(result, goalComplete);
+    runΩ.better(result, goalComplete);
     return;
   }
 
   if (update) {
-    run.update(result);
+    runΩ.update(result);
     return;
   }
 
-  run.worse(result);
+  runΩ.worse(result);
   return;
 }

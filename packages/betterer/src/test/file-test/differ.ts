@@ -3,35 +3,28 @@ import * as assert from 'assert';
 
 import { BettererFileΩ } from './file';
 import { BettererFilesΩ } from './files';
-import {
-  BettererFileTestDiff,
-  BettererFileIssueDeserialised,
-  BettererFileIssuesMapDeserialised,
-  BettererFileIssuesMapRaw,
-  BettererFilesDiff
-} from './types';
+import { BettererFileTestDiff, BettererFileIssue, BettererFilesDiff, BettererFiles, BettererFile } from './types';
 
-export function differ(expected: BettererFilesΩ, result: BettererFilesΩ): BettererFileTestDiff {
-  const fixedIssuesByFile: BettererFileIssuesMapDeserialised = {};
-  const existingIssuesByFile: BettererFileIssuesMapDeserialised = {};
-  const newIssuesByFile: BettererFileIssuesMapDeserialised = {};
-  const newIssuesRawByFile: BettererFileIssuesMapRaw = {};
+export function differ(expected: BettererFiles, result: BettererFiles): BettererFileTestDiff {
+  const diff: BettererFilesDiff = {};
+  const expectedΩ = expected as BettererFilesΩ;
+  const resultΩ = result as BettererFilesΩ;
 
-  const unchangedResultFiles = result.filesΔ.filter((r) =>
-    expected.filesΔ.find((e) => e.absolutePath === r.absolutePath && e.hash === r.hash)
+  const unchangedResultFiles = resultΩ.files.filter((r) =>
+    expectedΩ.files.find((e) => e.absolutePath === r.absolutePath && e.hash === r.hash)
   );
 
-  const changedResultFiles = result.filesΔ.filter((r) =>
-    expected.filesΔ.find((e) => e.absolutePath === r.absolutePath && e.hash !== r.hash)
+  const changedResultFiles = resultΩ.files.filter((r) =>
+    expectedΩ.files.find((e) => e.absolutePath === r.absolutePath && e.hash !== r.hash)
   );
 
-  const newOrMovedFiles = result.filesΔ.filter((r) => !expected.filesΔ.find((e) => e.absolutePath === r.absolutePath));
+  const newOrMovedFiles = resultΩ.files.filter((r) => !expectedΩ.files.find((e) => e.absolutePath === r.absolutePath));
 
-  const fixedOrMovedFiles = expected.filesΔ.filter(
-    (e) => !result.filesΔ.find((r) => r.absolutePath === e.absolutePath)
+  const fixedOrMovedFiles = expectedΩ.files.filter(
+    (e) => !resultΩ.files.find((r) => r.absolutePath === e.absolutePath)
   );
 
-  const movedFiles = new Map<BettererFileΩ, BettererFileΩ>();
+  const movedFiles = new Map<BettererFile, BettererFile>();
   fixedOrMovedFiles.forEach((fixedOrMovedFile, index) => {
     // A file may have been moved it has the same hash in both result and expected
     const possibilities = newOrMovedFiles.filter((newOrMovedFile) => newOrMovedFile.hash === fixedOrMovedFile.hash);
@@ -55,17 +48,20 @@ export function differ(expected: BettererFilesΩ, result: BettererFilesΩ): Bett
   const newFiles = newOrMovedFiles;
 
   fixedFiles.forEach((file) => {
-    fixedIssuesByFile[file.relativePath] = file.issues;
+    diff[file.absolutePath] = {
+      fixed: file.issues
+    };
   });
 
   newFiles.forEach((file) => {
-    newIssuesByFile[file.relativePath] = file.issues;
-    newIssuesRawByFile[file.relativePath] = file.issuesRaw;
+    diff[file.absolutePath] = {
+      new: file.issues
+    };
   });
 
   const existingFiles = [...unchangedResultFiles, ...changedResultFiles, ...Array.from(movedFiles.keys())];
   existingFiles.forEach((resultFile) => {
-    const expectedFile = expected.getFileΔ(resultFile.absolutePath) || movedFiles.get(resultFile);
+    const expectedFile = expectedΩ.getFile(resultFile.absolutePath) || movedFiles.get(resultFile);
 
     assert(resultFile);
     assert(expectedFile);
@@ -92,8 +88,8 @@ export function differ(expected: BettererFilesΩ, result: BettererFilesΩ): Bett
     const fixedOrMovedIssues = expectedIssues.filter((e) => !unchangedExpectedIssues.includes(e));
 
     // We can find the moved issues by matching the issue hashes:
-    const movedIssues: Array<BettererFileIssueDeserialised> = [];
-    const fixedIssues: Array<BettererFileIssueDeserialised> = [];
+    const movedIssues: Array<BettererFileIssue> = [];
+    const fixedIssues: Array<BettererFileIssue> = [];
     fixedOrMovedIssues.forEach((fixedOrMovedIssue) => {
       const { hash, line, column } = fixedOrMovedIssue;
       // An issue may have been moved it has the same hash in both result and expected
@@ -132,7 +128,6 @@ export function differ(expected: BettererFilesΩ, result: BettererFilesΩ): Bett
     });
 
     // Find the raw issue data so that diffs can be logged:
-    const newIssuesRaw = newOrMovedIssues.map((newIssue) => resultFile.issuesRaw[resultIssues.indexOf(newIssue)]);
     const newIssues = newOrMovedIssues.map((newIssue) => resultFile.issues[resultIssues.indexOf(newIssue)]);
 
     // If there's no change, move on:
@@ -141,23 +136,14 @@ export function differ(expected: BettererFilesΩ, result: BettererFilesΩ): Bett
     }
 
     // Otherwise construct the diff:
-    existingIssuesByFile[resultFile.relativePath] = [...unchangedExpectedIssues, ...movedIssues];
-    fixedIssuesByFile[resultFile.relativePath] = fixedIssues;
-    newIssuesByFile[resultFile.relativePath] = newIssues;
-    newIssuesRawByFile[resultFile.relativePath] = newIssuesRaw;
-  });
-
-  const diff: BettererFilesDiff = {};
-  const filePaths = Array.from(
-    new Set([...Object.keys(existingIssuesByFile), ...Object.keys(fixedIssuesByFile), ...Object.keys(newIssuesByFile)])
-  );
-  filePaths.forEach((filePath) => {
-    diff[filePath] = {
-      existing: existingIssuesByFile[filePath],
-      fixed: fixedIssuesByFile[filePath],
-      new: newIssuesByFile[filePath]
+    diff[resultFile.absolutePath] = {
+      existing: [...unchangedExpectedIssues, ...movedIssues],
+      fixed: fixedIssues,
+      new: newIssues
     };
   });
+
+  const filePaths = Object.keys(diff);
 
   return {
     expected,
@@ -165,19 +151,25 @@ export function differ(expected: BettererFilesΩ, result: BettererFilesΩ): Bett
     diff,
     log() {
       filePaths.forEach((filePath) => {
-        const existing = existingIssuesByFile[filePath] || [];
-        const fixed = fixedIssuesByFile[filePath] || [];
+        const existing = diff[filePath].existing || [];
+        const fixed = diff[filePath].fixed || [];
         if (fixed?.length) {
           successΔ(`${fixed.length} fixed ${getIssues(fixed.length)} in "${filePath}".`);
         }
         if (existing?.length) {
           warnΔ(`${existing.length} existing ${getIssues(existing.length)} in "${filePath}".`);
         }
-        const newRaw = newIssuesRawByFile[filePath] || [];
-        if (newRaw.length) {
-          const { length } = newRaw;
+        const newIssues = diff[filePath].new || [];
+        if (newIssues.length) {
+          const { length } = newIssues;
           errorΔ(`${length} new ${getIssues(length)} in "${filePath}":`);
-          newRaw.forEach((info) => codeΔ(info));
+
+          newIssues.forEach((issue) => {
+            const fileΩ = resultΩ.getFile(filePath) as BettererFileΩ;
+            const { fileText } = fileΩ;
+            const { line, column, length, message } = issue;
+            codeΔ({ message, filePath, fileText, line, column, length });
+          });
         }
       });
     }

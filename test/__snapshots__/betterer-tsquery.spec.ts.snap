@@ -57,9 +57,9 @@ Array [
   "\\"tsquery no raw console.log\\" got worse. 😔",
   "",
   " ☀️  betterer  warn  🚨  - ",
-  "1 existing issue in \\"src/index.ts\\".",
+  "1 existing issue in \\"<project>/fixtures/test-betterer-tsquery/src/index.ts\\".",
   " ☀️  betterer  erro  🔥  - ",
-  "1 new issue in \\"src/index.ts\\":",
+  "1 new issue in \\"<project>/fixtures/test-betterer-tsquery/src/index.ts\\":",
   "
    TSQuery match
 

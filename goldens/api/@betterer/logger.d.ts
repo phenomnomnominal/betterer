@@ -4,8 +4,9 @@ export declare type BettererLoggerCodeInfo = {
     message: string;
     filePath: string;
     fileText: string;
-    start: number;
-    end: number;
+    line: number;
+    column: number;
+    length: number;
 };
 
 export declare type BettererLoggerDiffOptions = DiffOptions;

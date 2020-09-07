@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 
-import { normaliseNewlines } from '../utils';
+import { normaliseNewlines } from './utils';
 
 export async function read(resultsPath: string): Promise<string | null> {
   try {

@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 
-import { COULDNT_WRITE_RESULTS } from '../errors';
+import { COULDNT_WRITE_RESULTS } from './errors';
 
 export async function write(toWrite: string, resultsPath: string): Promise<void> {
   try {
