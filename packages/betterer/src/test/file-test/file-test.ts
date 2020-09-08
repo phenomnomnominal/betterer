@@ -62,7 +62,7 @@ export class BettererFileTest extends BettererTest<
 
       const expectedΩ = run.expected.value as BettererFilesΩ;
       const relevantFilePaths = await this._resolver.files(filePaths);
-      const files = new BettererFilesΩ();
+      const files = new BettererFilesΩ(this._resolver);
       await fileTest(relevantFilePaths, files);
 
       if (filePaths.length && !run.isNew) {
@@ -76,9 +76,7 @@ export class BettererFileTest extends BettererTest<
 
         // Add the existing issues to the new result:
         relevantExcludedFilePaths.forEach((filePath) => {
-          const expectedFile = expectedΩ.getFile(filePath);
-          const file = files.addFileHash(filePath, expectedFile.hash);
-          file.addIssues(expectedFile.issues);
+          files.addExpectedIssues(expectedΩ.getFile(filePath));
         });
       }
       return files;

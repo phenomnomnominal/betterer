@@ -1,7 +1,7 @@
 import { getConfig } from '../../config';
 import { getAbsolutePath } from '../../utils';
 import { BettererFilesΩ } from './files';
-import { BettererFile, BettererFileIssues, BettererFileIssuesMapSerialised, BettererFiles } from './types';
+import { BettererFiles, BettererFileIssues, BettererFileIssuesMapSerialised, BettererFileBase } from './types';
 
 export function deserialise(serialised: BettererFileIssuesMapSerialised): BettererFiles {
   const deserialised = new BettererFilesΩ();
@@ -13,8 +13,7 @@ export function deserialise(serialised: BettererFileIssuesMapSerialised): Better
     });
     const { resultsPath } = getConfig();
     const absolutePath = getAbsolutePath(resultsPath, relativePath);
-    const file = deserialised.addFileHash(absolutePath, fileHash);
-    issues.forEach((issue) => file.addIssue(issue.line, issue.column, issue.length, issue.message, issue.hash));
+    deserialised.addExpectedIssues({ absolutePath, key, hash: fileHash, issues });
   });
   return deserialised;
 }
@@ -23,7 +22,7 @@ export function serialise(result: BettererFiles): BettererFileIssuesMapSerialise
   const resultΩ = result as BettererFilesΩ;
   return resultΩ.files
     .filter((file) => file.issues.length)
-    .reduce((serialised: BettererFileIssuesMapSerialised, file: BettererFile) => {
+    .reduce((serialised: BettererFileIssuesMapSerialised, file: BettererFileBase) => {
       serialised[file.key] = sortLinesAndColumns(file.issues).map((issue) => [
         issue.line,
         issue.column,

@@ -3,7 +3,7 @@ import * as assert from 'assert';
 
 import { BettererFileΩ } from './file';
 import { BettererFilesΩ } from './files';
-import { BettererFile, BettererFileIssue, BettererFileTestDiff, BettererFiles, BettererFilesDiff } from './types';
+import { BettererFileTestDiff, BettererFileIssue, BettererFilesDiff, BettererFiles, BettererFileBase } from './types';
 
 export function differ(expected: BettererFiles, result: BettererFiles): BettererFileTestDiff {
   const diff: BettererFilesDiff = {};
@@ -24,7 +24,7 @@ export function differ(expected: BettererFiles, result: BettererFiles): Betterer
     (e) => !resultΩ.files.find((r) => r.absolutePath === e.absolutePath)
   );
 
-  const movedFiles = new Map<BettererFile, BettererFile>();
+  const movedFiles = new Map<BettererFileBase, BettererFileBase>();
   fixedOrMovedFiles.forEach((fixedOrMovedFile, index) => {
     // A file may have been moved it has the same hash in both result and expected
     const possibilities = newOrMovedFiles.filter((newOrMovedFile) => newOrMovedFile.hash === fixedOrMovedFile.hash);
@@ -61,7 +61,7 @@ export function differ(expected: BettererFiles, result: BettererFiles): Betterer
 
   const existingFiles = [...unchangedResultFiles, ...changedResultFiles, ...Array.from(movedFiles.keys())];
   existingFiles.forEach((resultFile) => {
-    const expectedFile = expectedΩ.getFile(resultFile.absolutePath) || movedFiles.get(resultFile);
+    const expectedFile = movedFiles.get(resultFile) || expectedΩ.getFile(resultFile.absolutePath);
 
     assert(resultFile);
     assert(expectedFile);

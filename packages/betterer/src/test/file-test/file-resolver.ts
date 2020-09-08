@@ -33,10 +33,6 @@ export class BettererFileResolver {
     return normalisedPath(path.resolve(this._cwd, ...pathSegments));
   }
 
-  public forceRelativePaths(message: string): string {
-    return message.replace(new RegExp(this._cwd, 'g'), '.');
-  }
-
   public includeΔ(...includePatterns: BettererFileGlobs): this {
     this._included = [...this._included, ...flatten(includePatterns).map((pattern) => this.resolve(pattern))];
     return this;
