@@ -1,4 +1,4 @@
-import { BettererRunNames, BettererSummary, BettererRuns } from './types';
+import { BettererRunNames, BettererRuns, BettererSummary } from './types';
 import { BettererRunΩ } from './run';
 
 export class BettererSummaryΩ implements BettererSummary {

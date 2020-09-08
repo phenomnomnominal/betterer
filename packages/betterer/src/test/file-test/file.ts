@@ -4,7 +4,7 @@ import LinesAndColumns from 'lines-and-columns';
 import { getConfig } from '../../config';
 import { createHash } from '../../hasher';
 import { getRelativePath, isString } from '../../utils';
-import { BettererFileIssue, BettererFileIssues, BettererFile } from './types';
+import { BettererFile, BettererFileIssue, BettererFileIssues } from './types';
 
 const UNKNOWN_LOCATION = {
   line: 0,

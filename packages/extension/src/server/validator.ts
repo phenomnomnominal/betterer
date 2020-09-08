@@ -1,6 +1,6 @@
-import { BettererFiles, BettererFileIssue, BettererFileIssues, BettererFileTestDiff } from '@betterer/betterer';
+import { BettererFileIssue, BettererFileIssues, BettererFileTestDiff, BettererFiles } from '@betterer/betterer';
 import * as assert from 'assert';
-import { IConnection, TextDocuments, Diagnostic, DiagnosticSeverity, Position } from 'vscode-languageserver';
+import { Diagnostic, DiagnosticSeverity, IConnection, Position, TextDocuments } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { URI } from 'vscode-uri';
 
@@ -8,9 +8,9 @@ import { info } from './console';
 import { EXTENSION_NAME } from '../constants';
 import { BettererStatus } from '../status';
 import { isString } from '../utils';
-import { getLibrary, BettererLibrary } from './betterer';
-import { getEnabled, getBettererConfig } from './config';
-import { BettererInvalidConfigRequest, isNoConfigError, BettererNoLibraryRequest } from './requests';
+import { BettererLibrary, getLibrary } from './betterer';
+import { getBettererConfig, getEnabled } from './config';
+import { BettererInvalidConfigRequest, BettererNoLibraryRequest, isNoConfigError } from './requests';
 import { BettererStatusNotification } from './status';
 
 export class BettererValidator {

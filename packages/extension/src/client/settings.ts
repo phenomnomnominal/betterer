@@ -1,4 +1,4 @@
-import { Uri, workspace, WorkspaceConfiguration } from 'vscode';
+import { Uri, WorkspaceConfiguration, workspace } from 'vscode';
 
 export function getAlwaysShowStatus(): boolean {
   return workspace.getConfiguration('betterer').get('alwaysShowStatus', true);
