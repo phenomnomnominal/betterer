@@ -1,4 +1,4 @@
-import { BettererRunNames, BettererRuns, BettererSummary, BettererWatcher } from '@betterer/betterer';
+import { BettererRuns, BettererWatcher, BettererRunNames, BettererSummary } from '@betterer/betterer';
 
 export type Paths = {
   config: string;

@@ -1,4 +1,4 @@
-import { BettererError, BettererErrorDetails } from './types';
+import { BettererErrorDetails, BettererError } from './types';
 
 export class BettererErrorΩ extends Error implements BettererError {
   public details: BettererErrorDetails;

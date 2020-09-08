@@ -1,7 +1,7 @@
-import { COULDNT_LOAD_REPORTER, HOOK_NOT_A_FUNCTION, NO_REPORTER_LOADED, UNKNOWN_HOOK_NAME } from '../errors';
+import { COULDNT_LOAD_REPORTER, NO_REPORTER_LOADED, UNKNOWN_HOOK_NAME, HOOK_NOT_A_FUNCTION } from '../errors';
 import { requireUncached } from '../require';
 import { BettererMultiReporterΩ } from './reporter-multi';
-import { BettererReporter, BettererReporterModule, BettererReporterNames } from './types';
+import { BettererReporterNames, BettererReporter, BettererReporterModule } from './types';
 import { isFunction } from '../utils';
 
 export const DEFAULT_REPORTER = '@betterer/reporter';

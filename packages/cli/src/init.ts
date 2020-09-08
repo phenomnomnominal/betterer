@@ -1,12 +1,12 @@
 import { logErrorΔ } from '@betterer/errors';
-import { infoΔ, successΔ, warnΔ } from '@betterer/logger';
+import { infoΔ, warnΔ, successΔ } from '@betterer/logger';
 import * as commander from 'commander';
 import * as findUp from 'find-up';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 
 import { initOptions } from './options';
-import { BettererCLIArguments, BettererPackageJSON } from './types';
+import { BettererPackageJSON } from './types';
 
 import {
   COULDNT_FIND_PACKAGE_JSON,
@@ -14,6 +14,7 @@ import {
   COULDNT_WRITE_CONFIG_FILE,
   COULDNT_WRITE_PACKAGE_JSON
 } from './errors';
+import { BettererCLIArguments } from './types';
 
 const TEMPLATE = `export default {
   // Add tests here ☀️

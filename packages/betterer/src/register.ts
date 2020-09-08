@@ -1,4 +1,4 @@
-import { RegisterOptions, register } from 'ts-node';
+import { register, RegisterOptions } from 'ts-node';
 
 import { BettererConfig } from './config';
 

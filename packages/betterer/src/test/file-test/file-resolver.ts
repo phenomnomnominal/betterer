@@ -4,7 +4,7 @@ import * as path from 'path';
 
 import { flatten, normalisedPath } from '../../utils';
 import { BettererFilePaths } from '../../watcher';
-import { BettererFileGlobs, BettererFilePatterns } from './types';
+import { BettererFilePatterns, BettererFileGlobs } from './types';
 
 export class BettererFileResolver {
   private _cwd: string;

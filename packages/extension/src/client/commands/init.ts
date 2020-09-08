@@ -1,9 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { WorkspaceFolder, window, workspace } from 'vscode';
+import { workspace, window, WorkspaceFolder } from 'vscode';
 
 import { EXTENSION_NAME } from '../../constants';
-import { ALREADY_CONFIGURED, INIT_COMMAND_REQUIRES_WORKSPACE } from '../error-messages';
+import { INIT_COMMAND_REQUIRES_WORKSPACE, ALREADY_CONFIGURED } from '../error-messages';
 import { error, info } from '../logger';
 import { pickFolder } from './folder-picker';
 

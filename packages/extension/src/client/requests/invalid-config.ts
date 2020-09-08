@@ -1,9 +1,9 @@
 import { LanguageClient, RequestType } from 'vscode-languageclient';
-import { ExtensionContext, Uri, workspace } from 'vscode';
+import { Uri, workspace, ExtensionContext } from 'vscode';
 
 import {
-  BETTERER_CONFIG_FILE_INVALID,
   BETTERER_CONFIG_FILE_INVALID_DETAILS,
+  BETTERER_CONFIG_FILE_INVALID,
   BETTERER_OUTPUT_CHANNEL
 } from '../error-messages';
 import { info } from '../logger';

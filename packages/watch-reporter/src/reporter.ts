@@ -1,7 +1,6 @@
-import { BettererFilePaths, BettererReporter, BettererRun, BettererRuns } from '@betterer/betterer';
+import { BettererRuns, BettererReporter, BettererFilePaths, BettererRun } from '@betterer/betterer';
 import { infoΔ, overwriteΔ } from '@betterer/logger';
 import {
-  quoteΔ,
   testBetterΔ,
   testCompleteΔ,
   testExpiredΔ,
@@ -10,10 +9,11 @@ import {
   testSameΔ,
   testSkippedΔ,
   testUpdatedΔ,
-  testWorseΔ
+  testWorseΔ,
+  quoteΔ
 } from '@betterer/reporter';
 
-import { filesChecked, filesChecking, watchEnd, watchStart } from './messages';
+import { watchEnd, watchStart, filesChecked, filesChecking } from './messages';
 
 export const watchReporter: BettererReporter = {
   contextStart(): void {

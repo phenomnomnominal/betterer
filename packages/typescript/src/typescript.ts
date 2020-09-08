@@ -1,8 +1,8 @@
-import { BettererFileResolver, BettererFileTest } from '@betterer/betterer';
-import * as path from 'path';
+import { BettererFileTest, BettererFileResolver } from '@betterer/betterer';
 import * as ts from 'typescript';
+import * as path from 'path';
 
-import { COMPILER_OPTIONS_REQUIRED, CONFIG_PATH_REQUIRED } from './errors';
+import { CONFIG_PATH_REQUIRED, COMPILER_OPTIONS_REQUIRED } from './errors';
 
 const NEW_LINE = '\n';
 

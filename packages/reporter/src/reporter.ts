@@ -1,4 +1,4 @@
-import { brΔ, diffΔ, errorΔ, infoΔ, logoΔ, successΔ, warnΔ } from '@betterer/logger';
+import { errorΔ, infoΔ, successΔ, warnΔ, logoΔ, brΔ, diffΔ } from '@betterer/logger';
 
 import { BettererContext, BettererReporter, BettererRun, BettererSummary } from '@betterer/betterer';
 import {

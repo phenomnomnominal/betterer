@@ -1,6 +1,6 @@
 import { createHash } from '../../hasher';
 import { BettererFileΩ } from './file';
-import { BettererFile, BettererFileIssues, BettererFiles } from './types';
+import { BettererFiles, BettererFileIssues, BettererFile } from './types';
 
 export class BettererFilesΩ implements BettererFiles {
   private _fileMap: Record<string, BettererFile> = {};

@@ -1,7 +1,7 @@
 import { getConfig } from '../../config';
 import { getAbsolutePath } from '../../utils';
 import { BettererFilesΩ } from './files';
-import { BettererFile, BettererFileIssues, BettererFileIssuesMapSerialised, BettererFiles } from './types';
+import { BettererFile, BettererFiles, BettererFileIssues, BettererFileIssuesMapSerialised } from './types';
 
 export function deserialise(serialised: BettererFileIssuesMapSerialised): BettererFiles {
   const deserialised = new BettererFilesΩ();

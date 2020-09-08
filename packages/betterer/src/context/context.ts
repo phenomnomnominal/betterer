@@ -4,19 +4,19 @@ import { BettererConfig } from '../config';
 import { COULDNT_READ_CONFIG } from '../errors';
 import { BettererReporter } from '../reporters';
 import { requireUncached } from '../require';
-import { BettererDiff, BettererResults, BettererResultΩ } from '../results';
+import { BettererResults, BettererDiff, BettererResultΩ } from '../results';
 import {
   BettererTest,
+  isBettererTest,
   BettererTestMap,
-  BettererTestOptions,
   BettererTestOptionsMap,
-  isBettererFileTest,
-  isBettererTest
+  BettererTestOptions,
+  isBettererFileTest
 } from '../test';
 import { BettererFilePaths } from '../watcher';
 import { BettererRunΩ } from './run';
 import { BettererSummaryΩ } from './summary';
-import { BettererContext, BettererRun, BettererRunNames, BettererRuns, BettererSummary } from './types';
+import { BettererContext, BettererRunNames, BettererSummary, BettererRun, BettererRuns } from './types';
 
 export type BettererRunner = (runs: BettererRuns) => Promise<void>;
 
