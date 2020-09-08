@@ -1,31 +1,43 @@
+import * as assert from 'assert';
 import { createHash } from '../../hasher';
 import { BettererFileΩ } from './file';
-import { BettererFiles, BettererFileIssues, BettererFile } from './types';
+import { BettererFileResolver } from './file-resolver';
+import { BettererFiles, BettererFileIssues, BettererFile, BettererFileBase } from './types';
 
 export class BettererFilesΩ implements BettererFiles {
-  private _fileMap: Record<string, BettererFile> = {};
+  private _fileMap: Record<string, BettererFile | void> = {};
+  private _fileIssues: Record<string, BettererFileBase | void> = {};
 
-  public get files(): ReadonlyArray<BettererFile> {
-    return Object.values(this._fileMap);
+  constructor(private _resolver?: BettererFileResolver) {}
+
+  public get files(): ReadonlyArray<BettererFileBase> {
+    return Object.values(this._fileMap).filter(Boolean) as ReadonlyArray<BettererFileBase>;
   }
 
-  public getFile(absolutePath: string): BettererFile {
-    return this._fileMap[absolutePath];
-  }
-
-  public addFileHash(absolutePath: string, fileHash: string): BettererFile {
-    const file = this.getFile(absolutePath) || new BettererFileΩ(absolutePath, fileHash);
-    this._fileMap[absolutePath] = file;
+  public getFile(absolutePath: string): BettererFileBase {
+    const file = this._fileMap[absolutePath];
+    assert(file);
     return file;
   }
 
   public addFile(absolutePath: string, fileText: string): BettererFile {
-    const file = this.getFile(absolutePath) || new BettererFileΩ(absolutePath, createHash(fileText), fileText);
+    assert(this._resolver);
+    const existingFile = this._fileMap[absolutePath];
+    if (existingFile) {
+      return existingFile;
+    }
+    const file = new BettererFileΩ(absolutePath, createHash(fileText), this._resolver, fileText);
     this._fileMap[absolutePath] = file;
     return file;
   }
 
+  public addExpectedIssues(file: BettererFileBase): void {
+    this._fileIssues[file.absolutePath] = file;
+  }
+
   public getIssues(absolutePath: string): BettererFileIssues {
-    return this._fileMap[absolutePath].issues;
+    const file = this._fileMap[absolutePath] || this._fileIssues[absolutePath];
+    assert(file);
+    return file.issues;
   }
 }

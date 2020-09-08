@@ -18,17 +18,6 @@ export type BettererFileTestFunction = (filePaths: BettererFilePaths, files: Bet
 export type BettererFileGlobs = ReadonlyArray<string | ReadonlyArray<string>>;
 export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
 
-export type BettererFile = {
-  readonly absolutePath: string;
-  readonly hash: string;
-  readonly issues: BettererFileIssues;
-  readonly key: string;
-  addIssues(issues: BettererFileIssues): void;
-  addIssue(start: number, end: number, message: string, hash?: string): void;
-  addIssue(line: number, col: number, length: number, message: string, hash: string): void;
-  addIssue(startLine: number, startCol: number, endLine: number, endCol: number, message: string, hash?: string): void;
-};
-
 export type BettererFileIssue = {
   readonly line: number;
   readonly column: number;
@@ -38,6 +27,19 @@ export type BettererFileIssue = {
 };
 
 export type BettererFileIssues = ReadonlyArray<BettererFileIssue>;
+
+export type BettererFileBase = {
+  readonly absolutePath: string;
+  readonly hash: string;
+  readonly issues: BettererFileIssues;
+  readonly key: string;
+};
+
+export type BettererFile = BettererFileBase & {
+  addIssue(start: number, end: number, message: string, hash?: string): void;
+  addIssue(line: number, col: number, length: number, message: string, hash?: string): void;
+  addIssue(startLine: number, startCol: number, endLine: number, endCol: number, message: string, hash?: string): void;
+};
 
 export type BettererFiles = {
   addFile(absolutePath: string, fileText: string): BettererFile;

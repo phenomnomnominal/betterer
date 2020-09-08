@@ -64,7 +64,7 @@ export function typescript(configFilePath: string, extraCompilerOptions: ts.Comp
       const source = (diagnostic as ts.DiagnosticWithLocation).file;
       const { fileName } = source;
       const file = files.addFile(fileName, source.getFullText());
-      const message = resolver.forceRelativePaths(ts.flattenDiagnosticMessageText(diagnostic.messageText, NEW_LINE));
+      const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, NEW_LINE);
       file.addIssue(start, start + length, message);
     });
   });

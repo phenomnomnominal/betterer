@@ -20,6 +20,7 @@ export {
   BettererFileTestDiff,
   BettererFileTestFunction,
   BettererFile,
+  BettererFileBase,
   BettererFiles,
   BettererFileDiff,
   BettererFilesDiff,

@@ -51,15 +51,17 @@ export declare type BettererDiff<DeserialisedType = unknown, DiffType = unknown>
 
 export declare type BettererDiffer<DeserialisedType, DiffType> = (expected: DeserialisedType, result: DeserialisedType) => DiffType;
 
-export declare type BettererFile = {
+export declare type BettererFile = BettererFileBase & {
+    addIssue(start: number, end: number, message: string, hash?: string): void;
+    addIssue(line: number, col: number, length: number, message: string, hash?: string): void;
+    addIssue(startLine: number, startCol: number, endLine: number, endCol: number, message: string, hash?: string): void;
+};
+
+export declare type BettererFileBase = {
     readonly absolutePath: string;
     readonly hash: string;
     readonly issues: BettererFileIssues;
     readonly key: string;
-    addIssues(issues: BettererFileIssues): void;
-    addIssue(start: number, end: number, message: string, hash?: string): void;
-    addIssue(line: number, col: number, length: number, message: string, hash: string): void;
-    addIssue(startLine: number, startCol: number, endLine: number, endCol: number, message: string, hash?: string): void;
 };
 
 export declare type BettererFileDiff = {
@@ -89,7 +91,6 @@ export declare class BettererFileResolver {
     constructor(depth?: number);
     excludeΔ(...excludePatterns: BettererFilePatterns): this;
     files(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
-    forceRelativePaths(message: string): string;
     includeΔ(...includePatterns: BettererFileGlobs): this;
     resolve(...pathSegments: Array<string>): string;
     validate(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
