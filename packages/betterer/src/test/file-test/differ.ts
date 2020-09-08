@@ -61,7 +61,7 @@ export function differ(expected: BettererFiles, result: BettererFiles): Betterer
 
   const existingFiles = [...unchangedResultFiles, ...changedResultFiles, ...Array.from(movedFiles.keys())];
   existingFiles.forEach((resultFile) => {
-    const expectedFile = expectedΩ.getFile(resultFile.absolutePath) || movedFiles.get(resultFile);
+    const expectedFile = movedFiles.get(resultFile) || expectedΩ.getFile(resultFile.absolutePath);
 
     assert(resultFile);
     assert(expectedFile);

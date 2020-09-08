@@ -5,8 +5,7 @@ import { BettererFileResolver } from './file-resolver';
 import { BettererFiles, BettererFileIssues, BettererFile, BettererFileBase } from './types';
 
 export class BettererFilesΩ implements BettererFiles {
-  private _fileMap: Record<string, BettererFile | void> = {};
-  private _fileIssues: Record<string, BettererFileBase | void> = {};
+  private _fileMap: Record<string, BettererFileBase | void> = {};
 
   constructor(private _resolver?: BettererFileResolver) {}
 
@@ -22,22 +21,20 @@ export class BettererFilesΩ implements BettererFiles {
 
   public addFile(absolutePath: string, fileText: string): BettererFile {
     assert(this._resolver);
+    const file = new BettererFileΩ(absolutePath, createHash(fileText), this._resolver, fileText);
     const existingFile = this._fileMap[absolutePath];
     if (existingFile) {
-      return existingFile;
+      file.addIssues(existingFile.issues);
     }
-    const file = new BettererFileΩ(absolutePath, createHash(fileText), this._resolver, fileText);
     this._fileMap[absolutePath] = file;
     return file;
   }
 
   public addExpectedIssues(file: BettererFileBase): void {
-    this._fileIssues[file.absolutePath] = file;
+    this._fileMap[file.absolutePath] = file;
   }
 
   public getIssues(absolutePath: string): BettererFileIssues {
-    const file = this._fileMap[absolutePath] || this._fileIssues[absolutePath];
-    assert(file);
-    return file.issues;
+    return this.getFile(absolutePath).issues;
   }
 }
