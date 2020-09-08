@@ -1,4 +1,4 @@
-import { watch as chokidar, FSWatcher } from 'chokidar';
+import { FSWatcher, watch as chokidar } from 'chokidar';
 import * as globby from 'globby';
 
 import { BettererContext, BettererContextΩ, BettererSummary } from '../context';

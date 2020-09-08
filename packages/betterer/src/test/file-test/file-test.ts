@@ -9,11 +9,11 @@ import { goal } from './goal';
 import { printer } from './printer';
 import { deserialise, serialise } from './serialiser';
 import {
-  BettererFilePatterns,
   BettererFileGlobs,
   BettererFileIssuesMapSerialised,
-  BettererFileTestFunction,
+  BettererFilePatterns,
   BettererFileTestDiff,
+  BettererFileTestFunction,
   BettererFiles
 } from './types';
 

@@ -1,15 +1,15 @@
 import {
-  createConnection,
-  TextDocuments,
-  TextDocumentSyncKind,
-  DidChangeWatchedFilesNotification,
   DidChangeConfigurationNotification,
+  DidChangeWatchedFilesNotification,
   DidChangeWorkspaceFoldersNotification,
-  TextDocumentChangeEvent
+  TextDocumentChangeEvent,
+  TextDocumentSyncKind,
+  TextDocuments,
+  createConnection
 } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
-import { initConsole, info } from './console';
+import { info, initConsole } from './console';
 import { createErrorHandler } from './error-handler';
 import { BettererValidateNotification, BettererValidationQueue } from './notifications';
 import { initTrace } from './trace';

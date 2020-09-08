@@ -5,7 +5,7 @@ import * as logUpdate from 'log-update';
 import LinesAndColumns from 'lines-and-columns';
 import * as path from 'path';
 
-import { BettererLogger, BettererLoggerMessages, BettererLoggerCodeInfo, BettererLoggerOverwriteDone } from './types';
+import { BettererLogger, BettererLoggerCodeInfo, BettererLoggerMessages, BettererLoggerOverwriteDone } from './types';
 
 const ERROR_BLOCK = chalk.bgRed('  ');
 const IS_JS_REGEXP = /.t|jsx?$/;

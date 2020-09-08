@@ -1,12 +1,12 @@
 import * as path from 'path';
 import { ExtensionContext, workspace } from 'vscode';
 import {
-  ServerOptions,
-  TransportKind,
+  ErrorHandler,
+  InitializationFailedHandler,
   LanguageClientOptions,
   RevealOutputChannelOn,
-  InitializationFailedHandler,
-  ErrorHandler
+  ServerOptions,
+  TransportKind
 } from 'vscode-languageclient';
 
 import { EXTENSION_NAME } from '../constants';

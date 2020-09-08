@@ -1,13 +1,13 @@
 import { CONSTRAINT_FUNCTION_REQUIRED, TEST_FUNCTION_REQUIRED } from '../errors';
 import { isFunction } from '../utils';
 import {
-  BettererTestOptions,
-  BettererTestConstraint,
-  BettererTestGoal,
-  BettererTestFunction,
   BettererDiffer,
   BettererPrinter,
-  BettererSerialiser
+  BettererSerialiser,
+  BettererTestConstraint,
+  BettererTestFunction,
+  BettererTestGoal,
+  BettererTestOptions
 } from './types';
 
 const IS_BETTERER_TEST = 'isBettererTest';

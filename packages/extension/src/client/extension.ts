@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import { commands, ExtensionContext } from 'vscode';
+import { ExtensionContext, commands } from 'vscode';
 import { CloseAction, ErrorAction, ErrorHandler, LanguageClient } from 'vscode-languageclient';
 import { EXTENSION_NAME } from '../constants';
 import { COMMAND_NAMES, disableBetterer, enableBetterer, initBetterer } from './commands';
