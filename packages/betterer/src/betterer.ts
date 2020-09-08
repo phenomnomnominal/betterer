@@ -3,9 +3,9 @@ import { logErrorΔ } from '@betterer/errors';
 import { BettererConfig, BettererConfigPartial, createConfig } from './config';
 import { BettererContextΩ, BettererSummary } from './context';
 import { registerExtensions } from './register';
-import { loadReporters, DEFAULT_REPORTER, WATCH_REPORTER } from './reporters';
+import { DEFAULT_REPORTER, WATCH_REPORTER, loadReporters } from './reporters';
 import { parallel, serial } from './runner';
-import { BettererWatcherΩ, BettererWatcher } from './watcher';
+import { BettererWatcher, BettererWatcherΩ } from './watcher';
 
 export function betterer(partialConfig?: BettererConfigPartial): Promise<BettererSummary> {
   return runContext(async (config) => {

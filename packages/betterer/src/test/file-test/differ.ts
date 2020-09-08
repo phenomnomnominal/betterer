@@ -3,7 +3,7 @@ import * as assert from 'assert';
 
 import { BettererFileΩ } from './file';
 import { BettererFilesΩ } from './files';
-import { BettererFileTestDiff, BettererFileIssue, BettererFilesDiff, BettererFiles, BettererFile } from './types';
+import { BettererFile, BettererFileIssue, BettererFileTestDiff, BettererFiles, BettererFilesDiff } from './types';
 
 export function differ(expected: BettererFiles, result: BettererFiles): BettererFileTestDiff {
   const diff: BettererFilesDiff = {};

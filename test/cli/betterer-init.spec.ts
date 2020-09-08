@@ -1,4 +1,4 @@
-import { initΔ, BettererPackageJSON } from '@betterer/cli';
+import { BettererPackageJSON, initΔ } from '@betterer/cli';
 
 import { createFixture } from '../fixture';
 

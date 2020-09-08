@@ -1,4 +1,4 @@
-import { BettererFileTest, BettererFileResolver } from '@betterer/betterer';
+import { BettererFileResolver, BettererFileTest } from '@betterer/betterer';
 import { promises as fs } from 'fs';
 
 import { REGEXP_REQUIRED } from './errors';

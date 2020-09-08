@@ -1,6 +1,6 @@
-import { BettererFileTest, BettererFileResolver } from '@betterer/betterer';
+import { BettererFileResolver, BettererFileTest } from '@betterer/betterer';
 import * as assert from 'assert';
-import { Linter, ESLint } from 'eslint';
+import { ESLint, Linter } from 'eslint';
 
 import { RULES_OPTIONS_REQUIRED } from './errors';
 
