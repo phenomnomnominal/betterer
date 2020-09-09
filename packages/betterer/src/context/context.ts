@@ -42,27 +42,27 @@ export class BettererContextΩ implements BettererContext {
     this._initFilters();
   }
 
-  public async start(runner: BettererRunner, files: BettererFilePaths = []): Promise<BettererSummary> {
+  public async start(runner: BettererRunner, filePaths: BettererFilePaths = []): Promise<BettererSummary> {
     const runs = await Promise.all(
       Object.keys(this._tests)
         .filter((name) => {
           const test = this._tests[name];
-          // Only run BettererFileTests when a list of files is given:
-          return !files.length || isBettererFileTest(test);
+          // Only run BettererFileTests when a list of filePaths is given:
+          return !filePaths.length || isBettererFileTest(test);
         })
         .map(async (name) => {
           const test = this._tests[name];
           const { isSkipped, config } = test;
           const expected = await this._results.getResult(name, config);
           const expectedΩ = expected as BettererResultΩ;
-          return new BettererRunΩ(this, name, config, expectedΩ, files, isSkipped);
+          return new BettererRunΩ(this, name, config, expectedΩ, filePaths, isSkipped);
         })
     );
     const obsolete = await this._initObsolete();
-    this._reporter?.runsStart?.(runs, files);
+    this._reporter?.runsStart?.(runs, filePaths);
     this._running = runner(runs);
     await this._running;
-    this._reporter?.runsEnd?.(runs, files);
+    this._reporter?.runsEnd?.(runs, filePaths);
     const expected = await this._results.read();
     const result = await this._results.print(runs);
     const hasDiff = !!expected && expected !== result;
@@ -121,7 +121,6 @@ export class BettererContextΩ implements BettererContext {
         } else {
           test = maybeTest;
         }
-        assert(test);
         tests[name] = test;
       });
       return tests;

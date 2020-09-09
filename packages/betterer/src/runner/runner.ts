@@ -5,7 +5,7 @@ import { BettererContextΩ, BettererRun, BettererRunΩ, BettererSummary } from '
 import { BettererFilePaths } from '../watcher';
 import { BettererResultΩ } from '../results';
 
-export async function parallel(context: BettererContextΩ, files: BettererFilePaths): Promise<BettererSummary> {
+export async function parallel(context: BettererContextΩ, filePaths: BettererFilePaths): Promise<BettererSummary> {
   return context.start(async (runs) => {
     await Promise.all(
       runs.map(async (run) => {
@@ -14,7 +14,7 @@ export async function parallel(context: BettererContextΩ, files: BettererFilePa
         runΩ.end();
       })
     );
-  }, files);
+  }, filePaths);
 }
 
 export async function serial(context: BettererContextΩ): Promise<BettererSummary> {
