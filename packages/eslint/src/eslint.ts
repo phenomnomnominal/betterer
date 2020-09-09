@@ -12,7 +12,7 @@ export function eslint(rules: ESLintRulesConfig): BettererFileTest {
   }
 
   const resolver = new BettererFileResolver();
-  return new BettererFileTest(resolver, async (filePaths, files) => {
+  return new BettererFileTest(resolver, async (filePaths, fileTestResult) => {
     const { cwd } = resolver;
     const cli = new ESLint({ cwd });
 
@@ -28,11 +28,11 @@ export function eslint(rules: ESLintRulesConfig): BettererFileTest {
 
         const lintResults = await runner.lintFiles([filePath]);
         lintResults
-          .filter((result) => result.source)
-          .forEach((result) => {
-            const { messages, source } = result;
+          .filter((lintResult) => lintResult.source)
+          .forEach((lintResult) => {
+            const { messages, source } = lintResult;
             assert(source);
-            const file = files.addFile(filePath, source);
+            const file = fileTestResult.addFile(filePath, source);
             messages.forEach((message) => {
               const startLine = message.line - 1;
               const startColumn = message.column - 1;

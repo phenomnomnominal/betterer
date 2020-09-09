@@ -15,13 +15,13 @@ export function tsquery(configFilePath: string, query: string): BettererFileTest
   const resolver = new BettererFileResolver();
   const absoluteConfigFilePath = resolver.resolve(configFilePath);
 
-  return new BettererFileTest(resolver, async (_, files) => {
+  return new BettererFileTest(resolver, async (_, fileTestResult) => {
     const projectFiles = await resolver.validate(tsq.projectFiles(absoluteConfigFilePath));
     await Promise.all(
       projectFiles.map(async (filePath) => {
         const fileText = await fs.readFile(filePath, 'utf8');
         const sourceFile = tsq.ast(fileText);
-        const file = files.addFile(filePath, fileText);
+        const file = fileTestResult.addFile(filePath, fileText);
         tsq.query(sourceFile, query, { visitAllChildren: true }).forEach((match) => {
           file.addIssue(match.getStart(), match.getEnd(), 'TSQuery match');
         });

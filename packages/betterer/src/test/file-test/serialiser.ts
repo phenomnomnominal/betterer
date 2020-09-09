@@ -1,10 +1,10 @@
 import { getConfig } from '../../config';
 import { getAbsolutePath } from '../../utils';
-import { BettererFilesΩ } from './files';
-import { BettererFiles, BettererFileIssues, BettererFileIssuesMapSerialised, BettererFileBase } from './types';
+import { BettererFileTestResultΩ } from './file-test-result';
+import { BettererFileTestResult, BettererFileIssues, BettererFileIssuesMapSerialised, BettererFileBase } from './types';
 
-export function deserialise(serialised: BettererFileIssuesMapSerialised): BettererFiles {
-  const deserialised = new BettererFilesΩ();
+export function deserialise(serialised: BettererFileIssuesMapSerialised): BettererFileTestResult {
+  const deserialised = new BettererFileTestResultΩ();
   Object.keys(serialised).map((key) => {
     const [relativePath, fileHash] = key.split(':');
     const issues = serialised[key].map((issue) => {
@@ -13,13 +13,13 @@ export function deserialise(serialised: BettererFileIssuesMapSerialised): Better
     });
     const { resultsPath } = getConfig();
     const absolutePath = getAbsolutePath(resultsPath, relativePath);
-    deserialised.addExpectedIssues({ absolutePath, key, hash: fileHash, issues });
+    deserialised.addExpected({ absolutePath, key, hash: fileHash, issues });
   });
   return deserialised;
 }
 
-export function serialise(result: BettererFiles): BettererFileIssuesMapSerialised {
-  const resultΩ = result as BettererFilesΩ;
+export function serialise(result: BettererFileTestResult): BettererFileIssuesMapSerialised {
+  const resultΩ = result as BettererFileTestResultΩ;
   return resultΩ.files
     .filter((file) => file.issues.length)
     .reduce((serialised: BettererFileIssuesMapSerialised, file: BettererFileBase) => {

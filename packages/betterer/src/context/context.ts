@@ -8,8 +8,9 @@ import { BettererDiff, BettererResults, BettererResultΩ } from '../results';
 import {
   BettererTest,
   BettererTestMap,
-  BettererTestOptions,
-  BettererTestOptionsMap,
+  BettererTestConfigPartial,
+  BettererTestConfigMap,
+  BettererTestState,
   isBettererFileTest,
   isBettererTest
 } from '../test';
@@ -51,9 +52,10 @@ export class BettererContextΩ implements BettererContext {
         })
         .map(async (name) => {
           const test = this._tests[name];
-          const expected = await this._results.getResult(name, test);
+          const { isSkipped, config } = test;
+          const expected = await this._results.getResult(name, config);
           const expectedΩ = expected as BettererResultΩ;
-          return new BettererRunΩ(this, name, test, expectedΩ, files);
+          return new BettererRunΩ(this, name, config, expectedΩ, files, isSkipped);
         })
     );
     const obsolete = await this._initObsolete();
@@ -109,15 +111,15 @@ export class BettererContextΩ implements BettererContext {
 
   private _getTests(configPath: string): BettererTestMap {
     try {
-      const testOptions = requireUncached<BettererTestOptionsMap>(configPath);
+      const testOptions = requireUncached<BettererTestConfigMap>(configPath);
       const tests: BettererTestMap = {};
       Object.keys(testOptions).forEach((name) => {
         const maybeTest = testOptions[name];
-        let test: BettererTest | null = null;
-        if (isBettererTest(maybeTest)) {
-          test = maybeTest;
+        let test: BettererTestState | null = null;
+        if (!isBettererTest(maybeTest)) {
+          test = new BettererTest(testOptions[name] as BettererTestConfigPartial);
         } else {
-          test = new BettererTest(testOptions[name] as BettererTestOptions);
+          test = maybeTest;
         }
         assert(test);
         tests[name] = test;

@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 
 import { BettererDiff, BettererResult } from '../results';
-import { BettererTest } from '../test';
+import { BettererTestConfig } from '../test';
 import { BettererFilePaths } from '../watcher';
 import { BettererContextΩ } from './context';
 import { BettererContext, BettererRun } from './types';
@@ -20,7 +20,7 @@ enum BettererRunStatus {
 export class BettererRunΩ implements BettererRun {
   private _diff: BettererDiff | null = null;
   private _result: BettererResult | null = null;
-  private _status: BettererRunStatus = BettererRunStatus.pending;
+  private _status: BettererRunStatus;
   private _timestamp: number | null = null;
 
   private _isComplete = false;
@@ -30,10 +30,13 @@ export class BettererRunΩ implements BettererRun {
   constructor(
     private readonly _context: BettererContext,
     private readonly _name: string,
-    private readonly _test: BettererTest,
+    private readonly _test: BettererTestConfig,
     private readonly _expected: BettererResult,
-    private readonly _filePaths: BettererFilePaths
-  ) {}
+    private readonly _filePaths: BettererFilePaths,
+    isSkipped: boolean
+  ) {
+    this._status = isSkipped ? BettererRunStatus.skipped : BettererRunStatus.pending;
+  }
 
   public get diff(): BettererDiff {
     assert(this._diff);
@@ -103,7 +106,7 @@ export class BettererRunΩ implements BettererRun {
     return this._result;
   }
 
-  public get test(): BettererTest {
+  public get test(): BettererTestConfig {
     return this._test;
   }
 
@@ -139,11 +142,6 @@ export class BettererRunΩ implements BettererRun {
 
   public same(result: BettererResult): void {
     this._updateResult(BettererRunStatus.same, result);
-  }
-
-  public skipped(): void {
-    assert.strictEqual(this._status, BettererRunStatus.pending);
-    this._status = BettererRunStatus.skipped;
   }
 
   public update(result: BettererResult): void {

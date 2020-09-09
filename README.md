@@ -136,10 +136,10 @@ export default {
 
 ## Custom tests
 
-It's also pretty straightforward to write your own custom tests. All you need to do is match the **`BettererTestOptions`** interface, which looks something like:
+It's also pretty straightforward to write your own custom tests. All you need to do is match the **`BettererTestConfigPartial`** interface, which looks something like:
 
 ```typescript
-export type BettererTestOptions<T = number> = {
+export type BettererTestConfigPartial<T = number> = {
   test: () => T | Promise<T>;
   constraint: (result: T, expected: T) => BettererConstraintResult | Promise<BettererConstraintResult>;
   goal?: T | (result: T) => boolean;

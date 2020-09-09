@@ -2,9 +2,9 @@ import * as assert from 'assert';
 import { createHash } from '../../hasher';
 import { BettererFileΩ } from './file';
 import { BettererFileResolver } from './file-resolver';
-import { BettererFiles, BettererFileIssues, BettererFile, BettererFileBase } from './types';
+import { BettererFileTestResult, BettererFileIssues, BettererFile, BettererFileBase } from './types';
 
-export class BettererFilesΩ implements BettererFiles {
+export class BettererFileTestResultΩ implements BettererFileTestResult {
   private _fileMap: Record<string, BettererFileBase | void> = {};
 
   constructor(private _resolver?: BettererFileResolver) {}
@@ -30,7 +30,7 @@ export class BettererFilesΩ implements BettererFiles {
     return file;
   }
 
-  public addExpectedIssues(file: BettererFileBase): void {
+  public addExpected(file: BettererFileBase): void {
     this._fileMap[file.absolutePath] = file;
   }
 

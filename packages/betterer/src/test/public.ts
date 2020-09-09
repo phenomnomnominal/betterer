@@ -7,12 +7,13 @@ export {
   BettererFileTestFunction,
   BettererFileBase,
   BettererFile,
-  BettererFiles,
+  BettererFileTestResult,
   BettererFileDiff,
   BettererFilesDiff,
   BettererFileIssue,
   BettererFileIssues
 } from './file-test/public';
+export { BettererTestState } from './test-state';
 export { BettererTest } from './test';
 export {
   BettererDeserialise,
@@ -23,5 +24,6 @@ export {
   BettererTestConstraint,
   BettererTestFunction,
   BettererTestGoal,
-  BettererTestOptions
+  BettererTestConfigPartial,
+  BettererTestConfig
 } from './types';
