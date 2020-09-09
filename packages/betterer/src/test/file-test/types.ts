@@ -11,9 +11,12 @@ export type BettererFileDiff = {
   new?: BettererFileIssues;
 };
 export type BettererFilesDiff = Record<string, BettererFileDiff>;
-export type BettererFileTestDiff = BettererDiff<BettererFiles, BettererFilesDiff>;
+export type BettererFileTestDiff = BettererDiff<BettererFileTestResult, BettererFilesDiff>;
 
-export type BettererFileTestFunction = (filePaths: BettererFilePaths, files: BettererFiles) => MaybeAsync<void>;
+export type BettererFileTestFunction = (
+  filePaths: BettererFilePaths,
+  fileTestResult: BettererFileTestResult
+) => MaybeAsync<void>;
 
 export type BettererFileGlobs = ReadonlyArray<string | ReadonlyArray<string>>;
 export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
@@ -41,7 +44,7 @@ export type BettererFile = BettererFileBase & {
   addIssue(startLine: number, startCol: number, endLine: number, endCol: number, message: string, hash?: string): void;
 };
 
-export type BettererFiles = {
+export type BettererFileTestResult = {
   addFile(absolutePath: string, fileText: string): BettererFile;
   getIssues(absolutePath: string): BettererFileIssues;
 };

@@ -57,9 +57,9 @@ exports[`new eslint rules`] = {
       [66, 4, 68, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "280309533"],
       [67, 4, 71, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2936064845"]
     ],
-    "packages/extension/src/server/validator.ts:2644119949": [
-      [45, 10, 90, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "1821734533"],
-      [112, 12, 94, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2449957056"]
+    "packages/extension/src/server/validator.ts:2184596839": [
+      [50, 10, 90, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "1821734533"],
+      [117, 12, 94, "Promises must be handled appropriately or explicitly marked as ignored with the \`void\` operator.", "2449957056"]
     ]
   }`
 };

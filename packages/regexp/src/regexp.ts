@@ -9,12 +9,12 @@ export function regexp(pattern: RegExp): BettererFileTest {
   }
 
   const resolver = new BettererFileResolver();
-  return new BettererFileTest(resolver, async (filePaths, files) => {
+  return new BettererFileTest(resolver, async (filePaths, fileTestResult) => {
     pattern = new RegExp(pattern.source, pattern.flags.includes('g') ? pattern.flags : `${pattern.flags}g`);
     await Promise.all(
       filePaths.map(async (filePath) => {
         const fileText = await fs.readFile(filePath, 'utf8');
-        const file = files.addFile(filePath, fileText);
+        const file = fileTestResult.addFile(filePath, fileText);
         const matches = getFileMatches(pattern, fileText);
         matches.forEach((match) => {
           const [matchText] = match;

@@ -3,7 +3,7 @@ export { BettererFileResolver } from './file-resolver';
 export {
   BettererFileBase,
   BettererFile,
-  BettererFiles,
+  BettererFileTestResult,
   BettererFileGlobs,
   BettererFilePatterns,
   BettererFileDiff,

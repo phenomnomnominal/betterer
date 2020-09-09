@@ -2,7 +2,7 @@ import { BettererConstraintResult } from '@betterer/constraints';
 
 import { BettererRun } from '../context';
 import { MaybeAsync } from '../types';
-import { BettererTest } from './test';
+import { BettererTestState } from './test-state';
 
 export type BettererTestFunction<DeserialisedType> = (run: BettererRun) => MaybeAsync<DeserialisedType>;
 
@@ -33,7 +33,11 @@ export type BettererSerialiser<DeserialisedType, SerialisedType = DeserialisedTy
   deserialise: BettererDeserialise<DeserialisedType, SerialisedType>;
 };
 
-export type BettererTestOptions<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = unknown> = {
+export type BettererTestConfigPartial<
+  DeserialisedType = unknown,
+  SerialisedType = DeserialisedType,
+  DiffType = unknown
+> = {
   constraint: BettererTestConstraint<DeserialisedType>;
   deadline?: Date | string;
   goal?: DeserialisedType | BettererTestGoal<DeserialisedType>;
@@ -43,5 +47,15 @@ export type BettererTestOptions<DeserialisedType = unknown, SerialisedType = Des
   serialiser?: BettererSerialiser<DeserialisedType, SerialisedType>;
 };
 
-export type BettererTestMap = Record<string, BettererTest>;
-export type BettererTestOptionsMap = Record<string, BettererTest | BettererTestOptions>;
+export type BettererTestConfig<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = unknown> = {
+  constraint: BettererTestConstraint<DeserialisedType>;
+  deadline: number;
+  goal: BettererTestGoal<DeserialisedType>;
+  test: BettererTestFunction<DeserialisedType>;
+  differ?: BettererDiffer<DeserialisedType, DiffType>;
+  printer?: BettererPrinter<SerialisedType>;
+  serialiser?: BettererSerialiser<DeserialisedType, SerialisedType>;
+};
+
+export type BettererTestMap = Record<string, BettererTestState>;
+export type BettererTestConfigMap = Record<string, BettererTestState | BettererTestConfigPartial>;

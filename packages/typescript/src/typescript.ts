@@ -23,7 +23,7 @@ export function typescript(configFilePath: string, extraCompilerOptions: ts.Comp
   const resolver = new BettererFileResolver();
   const absPath = resolver.resolve(configFilePath);
 
-  return new BettererFileTest(resolver, async (_, files) => {
+  return new BettererFileTest(resolver, async (_, fileTestResult) => {
     const { config } = ts.readConfigFile(absPath, ts.sys.readFile.bind(ts.sys)) as TypeScriptReadConfigResult;
     const { compilerOptions } = config;
     const basePath = path.dirname(absPath);
@@ -63,7 +63,7 @@ export function typescript(configFilePath: string, extraCompilerOptions: ts.Comp
       const { start, length } = diagnostic as ts.DiagnosticWithLocation;
       const source = (diagnostic as ts.DiagnosticWithLocation).file;
       const { fileName } = source;
-      const file = files.addFile(fileName, source.getFullText());
+      const file = fileTestResult.addFile(fileName, source.getFullText());
       const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, NEW_LINE);
       file.addIssue(start, start + length, message);
     });

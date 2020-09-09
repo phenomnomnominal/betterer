@@ -2,13 +2,19 @@ import { codeΔ, errorΔ, successΔ, warnΔ } from '@betterer/logger';
 import * as assert from 'assert';
 
 import { BettererFileΩ } from './file';
-import { BettererFilesΩ } from './files';
-import { BettererFileTestDiff, BettererFileIssue, BettererFilesDiff, BettererFiles, BettererFileBase } from './types';
+import { BettererFileTestResultΩ } from './file-test-result';
+import {
+  BettererFileTestDiff,
+  BettererFileIssue,
+  BettererFilesDiff,
+  BettererFileTestResult,
+  BettererFileBase
+} from './types';
 
-export function differ(expected: BettererFiles, result: BettererFiles): BettererFileTestDiff {
+export function differ(expected: BettererFileTestResult, result: BettererFileTestResult): BettererFileTestDiff {
   const diff: BettererFilesDiff = {};
-  const expectedΩ = expected as BettererFilesΩ;
-  const resultΩ = result as BettererFilesΩ;
+  const expectedΩ = expected as BettererFileTestResultΩ;
+  const resultΩ = result as BettererFileTestResultΩ;
 
   const unchangedResultFiles = resultΩ.files.filter((r) =>
     expectedΩ.files.find((e) => e.absolutePath === r.absolutePath && e.hash === r.hash)

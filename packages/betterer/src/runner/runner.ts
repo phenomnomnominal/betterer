@@ -32,8 +32,7 @@ async function runTest(run: BettererRun, update: boolean): Promise<void> {
   const runΩ = run as BettererRunΩ;
   const { test } = runΩ;
 
-  if (test.isSkipped) {
-    runΩ.skipped();
+  if (run.isSkipped) {
     return;
   }
 

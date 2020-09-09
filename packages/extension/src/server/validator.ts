@@ -1,4 +1,9 @@
-import { BettererFileIssue, BettererFileIssues, BettererFileTestDiff, BettererFiles } from '@betterer/betterer';
+import {
+  BettererFileIssue,
+  BettererFileIssues,
+  BettererFileTestDiff,
+  BettererFileTestResult
+} from '@betterer/betterer';
 import * as assert from 'assert';
 import { Diagnostic, DiagnosticSeverity, IConnection, Position, TextDocuments } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
@@ -71,7 +76,7 @@ export class BettererValidator {
               return;
             }
 
-            const value = run.result.value as BettererFiles;
+            const value = run.result.value as BettererFileTestResult;
             if (!value) {
               return;
             }

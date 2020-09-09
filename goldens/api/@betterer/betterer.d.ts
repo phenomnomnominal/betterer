@@ -96,23 +96,23 @@ export declare class BettererFileResolver {
     validate(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
 }
 
-export declare type BettererFiles = {
-    addFile(absolutePath: string, fileText: string): BettererFile;
-    getIssues(absolutePath: string): BettererFileIssues;
-};
-
 export declare type BettererFilesDiff = Record<string, BettererFileDiff>;
 
-export declare class BettererFileTest extends BettererTest<BettererFiles, BettererFileIssuesMapSerialised, BettererFileTestDiff> {
+export declare class BettererFileTest extends BettererTestState {
     readonly isBettererFileTest = "isBettererFileTest";
     constructor(_resolver: BettererFileResolver, fileTest: BettererFileTestFunction);
     exclude(...excludePatterns: BettererFilePatterns): this;
     include(...includePatterns: BettererFileGlobs): this;
 }
 
-export declare type BettererFileTestDiff = BettererDiff<BettererFiles, BettererFilesDiff>;
+export declare type BettererFileTestDiff = BettererDiff<BettererFileTestResult, BettererFilesDiff>;
 
-export declare type BettererFileTestFunction = (filePaths: BettererFilePaths, files: BettererFiles) => MaybeAsync<void>;
+export declare type BettererFileTestFunction = (filePaths: BettererFilePaths, fileTestResult: BettererFileTestResult) => MaybeAsync<void>;
+
+export declare type BettererFileTestResult = {
+    addFile(absolutePath: string, fileText: string): BettererFile;
+    getIssues(absolutePath: string): BettererFileIssues;
+};
 
 export declare type BettererPrinter<SerialisedType> = (serialised: SerialisedType) => MaybeAsync<string>;
 
@@ -139,7 +139,7 @@ export declare type BettererRun = {
     readonly filePaths: BettererFilePaths;
     readonly name: string;
     readonly result: BettererResult;
-    readonly test: BettererTest;
+    readonly test: BettererTestConfig;
     readonly timestamp: number;
     readonly isBetter: boolean;
     readonly isComplete: boolean;
@@ -181,29 +181,21 @@ export declare type BettererSummary = {
     readonly worse: BettererRuns;
 };
 
-export declare class BettererTest<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = unknown> {
-    readonly constraint: BettererTestConstraint<DeserialisedType>;
-    readonly deadline: number;
-    readonly differ?: BettererDiffer<DeserialisedType, DiffType>;
-    readonly goal: BettererTestGoal<DeserialisedType>;
-    readonly isBettererTest = "isBettererTest";
-    get isOnly(): boolean;
-    get isSkipped(): boolean;
-    readonly printer?: BettererPrinter<SerialisedType>;
-    readonly serialiser?: BettererSerialiser<DeserialisedType, SerialisedType>;
-    readonly test: BettererTestFunction<DeserialisedType>;
-    constructor(options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>);
-    only(): this;
-    skip(): this;
+export declare class BettererTest<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = unknown> extends BettererTestState {
+    constructor(config: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>);
 }
 
-export declare type BettererTestConstraint<DeserialisedType> = (result: DeserialisedType, expected: DeserialisedType) => MaybeAsync<BettererConstraintResult>;
+export declare type BettererTestConfig<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = unknown> = {
+    constraint: BettererTestConstraint<DeserialisedType>;
+    deadline: number;
+    goal: BettererTestGoal<DeserialisedType>;
+    test: BettererTestFunction<DeserialisedType>;
+    differ?: BettererDiffer<DeserialisedType, DiffType>;
+    printer?: BettererPrinter<SerialisedType>;
+    serialiser?: BettererSerialiser<DeserialisedType, SerialisedType>;
+};
 
-export declare type BettererTestFunction<DeserialisedType> = (run: BettererRun) => MaybeAsync<DeserialisedType>;
-
-export declare type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
-
-export declare type BettererTestOptions<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = unknown> = {
+export declare type BettererTestConfigPartial<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = unknown> = {
     constraint: BettererTestConstraint<DeserialisedType>;
     deadline?: Date | string;
     goal?: DeserialisedType | BettererTestGoal<DeserialisedType>;
@@ -212,6 +204,22 @@ export declare type BettererTestOptions<DeserialisedType = unknown, SerialisedTy
     printer?: BettererPrinter<SerialisedType>;
     serialiser?: BettererSerialiser<DeserialisedType, SerialisedType>;
 };
+
+export declare type BettererTestConstraint<DeserialisedType> = (result: DeserialisedType, expected: DeserialisedType) => MaybeAsync<BettererConstraintResult>;
+
+export declare type BettererTestFunction<DeserialisedType> = (run: BettererRun) => MaybeAsync<DeserialisedType>;
+
+export declare type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
+
+export declare class BettererTestState {
+    get config(): BettererTestConfig;
+    readonly isBettererTest = "isBettererTest";
+    get isOnly(): boolean;
+    get isSkipped(): boolean;
+    constructor(_config: BettererTestConfig);
+    only(): this;
+    skip(): this;
+}
 
 export declare type BettererWatcher = {
     stop(): Promise<void>;
