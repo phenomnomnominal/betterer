@@ -1,5 +1,5 @@
 import { RemoteWorkspace } from 'vscode-languageserver';
-import { BettererConfigPartial } from '@betterer/betterer';
+import { BettererBaseConfigPartial } from '@betterer/betterer';
 
 type BettererExtensionConfig = {
   configPath: string;
@@ -15,9 +15,9 @@ export async function getEnabled(workspace: RemoteWorkspace): Promise<boolean> {
   return !!enable;
 }
 
-export async function getBettererConfig(workspace: RemoteWorkspace): Promise<BettererConfigPartial> {
+export async function getBettererConfig(workspace: RemoteWorkspace): Promise<BettererBaseConfigPartial> {
   const { configPath, filters, resultsPath, tsconfigPath, update } = await getConfig(workspace);
-  const config: BettererConfigPartial = {
+  const config: BettererBaseConfigPartial = {
     configPaths: configPath,
     filters,
     resultsPath,

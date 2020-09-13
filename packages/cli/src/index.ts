@@ -6,6 +6,7 @@ export { watchΔ } from './watch';
 export {
   BettererCLICIConfig,
   BettererCLIArguments,
+  BettererCLIInitConfig,
   BettererCLIStartConfig,
   BettererCLIWatchConfig,
   BettererPackageJSON

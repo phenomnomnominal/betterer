@@ -3,11 +3,11 @@ import { muteΔ, unmuteΔ } from '@betterer/logger';
 import * as path from 'path';
 
 import { isString, isUndefined } from '../utils';
-import { BettererConfig, BettererConfigPartial } from './types';
+import { BettererConfig, BettererConfigPartial, BettererBaseConfigPartial } from './types';
 
-let baseConfig: BettererConfigPartial = {};
+let baseConfig: BettererBaseConfigPartial = {};
 let globalConfig: BettererConfig | null = null;
-export function config(partialConfig: BettererConfigPartial): void {
+export function config(partialConfig: BettererBaseConfigPartial): void {
   baseConfig = partialConfig;
 }
 
@@ -17,10 +17,10 @@ export function createConfig(partialConfig: BettererConfigPartial = {}): Bettere
     configPaths: toArray<string>(partialConfig.configPaths || baseConfig.configPaths || ['./.betterer']),
     resultsPath: partialConfig.resultsPath || baseConfig.resultsPath || './.betterer.results',
     filters: toRegExps(toArray<string | RegExp>(partialConfig.filters || baseConfig.filters)),
-    ignores: toArray<string>(partialConfig.ignores || baseConfig.ignores),
+    ignores: toArray<string>(partialConfig.ignores),
     cwd: partialConfig.cwd || baseConfig.cwd || process.cwd(),
     silent: partialConfig.silent || baseConfig.silent || false,
-    update: partialConfig.update || baseConfig.update || false,
+    update: partialConfig.update || false,
     reporters: partialConfig.reporters || baseConfig.reporters || []
   };
   const tsconfigPath = partialConfig.tsconfigPath || baseConfig.tsconfigPath;

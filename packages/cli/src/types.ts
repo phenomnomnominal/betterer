@@ -23,6 +23,10 @@ export type BettererCLIWatchConfig = BettererCLIStartConfig & {
   ignore: BettererCLIArguments;
 };
 
+export type BettererCLIInitConfig = {
+  config: string;
+};
+
 export type BettererPackageJSON = {
   version: string;
   scripts: Record<string, string> & { betterer: string };

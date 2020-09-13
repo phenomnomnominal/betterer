@@ -4,8 +4,10 @@ export {
   BettererConfig,
   BettererConfigFilters,
   BettererConfigIgnore,
-  BettererConfigPartial,
-  BettererConfigPaths
+  BettererConfigPaths,
+  BettererBaseConfigPartial,
+  BettererStartConfigPartial,
+  BettererWatchConfigPartial
 } from './config/public';
 export { BettererContext, BettererRun, BettererRuns, BettererSummary, BettererRunNames } from './context/public';
 export { BettererDiff, BettererResult } from './results/public';
