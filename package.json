@@ -27,7 +27,7 @@
     "@betterer/logger": "*",
     "@betterer/regexp": "*",
     "@betterer/tsquery": "*",
-    "@commitlint/cli": "^9.1.2",
+    "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "@phenomnomnominal/commitlint-plugin": "^1.1.1",
     "@types/eslint": "^7.2.2",
