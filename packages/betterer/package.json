@@ -37,6 +37,7 @@
     "globby": "^11.0.1",
     "jest-diff": "^26.1.0",
     "lines-and-columns": "^1.1.6",
+    "minimatch": "^3.0.4",
     "safe-string-literal": "^1.0.1",
     "ts-node": "^9.0.0",
     "tslib": "^2.0.1"
