@@ -1,5 +1,7 @@
 import { FSWatcher, watch as chokidar } from 'chokidar';
 import * as globby from 'globby';
+import * as minimatch from 'minimatch';
+import * as path from 'path';
 
 import { BettererContext, BettererContextΩ, BettererSummary } from '../context';
 import { normalisedPath } from '../utils';
@@ -7,6 +9,7 @@ import { BettererWatchChangeHandler, BettererWatchRunHandler, BettererWatcher } 
 
 const EMIT_EVENTS = ['add', 'change'];
 const DEBOUNCE_TIME = 200;
+const GIT_DIRECTORY = '.git/**';
 
 export class BettererWatcherΩ implements BettererWatcher {
   private _files: Array<string> = [];
@@ -20,13 +23,16 @@ export class BettererWatcherΩ implements BettererWatcher {
     const contextΩ = this._context as BettererContextΩ;
     const { cwd, ignores, resultsPath } = contextΩ.config;
 
-    const isIgnored = globby.gitignore.sync();
+    const isGitIgnored = globby.gitignore.sync();
+    const watchIgnores = [...ignores, GIT_DIRECTORY].map((ignore) => path.join(cwd, ignore));
     const watcher = chokidar(cwd, {
       ignoreInitial: true,
       ignored: (itemPath: string) => {
         return (
           itemPath !== normalisedPath(cwd) &&
-          (itemPath === normalisedPath(resultsPath) || ignores.includes(itemPath) || isIgnored(itemPath))
+          (itemPath === normalisedPath(resultsPath) ||
+            watchIgnores.some((ignore) => minimatch(itemPath, ignore, { matchBase: true })) ||
+            isGitIgnored(itemPath))
         );
       }
     });

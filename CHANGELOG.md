@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/phenomnomnominal/betterer/compare/v3.0.3...v3.1.0) (2020-09-18)
+
+
+### Features
+
+* **betterer ✨:** make --ignore implementation useful ([#288](https://github.com/phenomnomnominal/betterer/issues/288)) ([19abdb3](https://github.com/phenomnomnominal/betterer/commit/19abdb3b15acbd1b3e63cd4c94dfbb4e294e6b46))
+
+
+### Reverts
+
+* Revert "Ignore git changes in watch (#287)" ([aff032a](https://github.com/phenomnomnominal/betterer/commit/aff032ad74371e2e10c04acb4fefa88e4a50cbb4)), closes [#287](https://github.com/phenomnomnominal/betterer/issues/287)
+
+
+
+
+
 ## [3.0.3](https://github.com/phenomnomnominal/betterer/compare/v3.0.2...v3.0.3) (2020-08-20)
 
 
