@@ -30,9 +30,9 @@
     "tslib": "^2.0.1"
   },
   "peerDependencies": {
-    "eslint": ">=7.0.0"
+    "eslint": ">=5.0.0"
   },
   "devDependencies": {
-    "eslint": ">=7.0.0"
+    "eslint": ">=5.0.0"
   }
 }
