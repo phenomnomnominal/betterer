@@ -234,8 +234,6 @@ export declare type BettererWatcher = {
 
 export declare type BettererWatchRunHandler = (summary: BettererSummary) => void;
 
-export declare function config(partialConfig: BettererBaseConfigPartial): void;
-
 export declare function file(filePath: string, partialConfig?: BettererBaseConfigPartial): Promise<BettererSummary>;
 
 export declare function watch(partialConfig?: BettererWatchConfigPartial): Promise<BettererWatcher>;

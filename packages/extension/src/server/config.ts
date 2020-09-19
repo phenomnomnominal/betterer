@@ -7,7 +7,6 @@ type BettererExtensionConfig = {
   filters: Array<string>;
   resultsPath: string;
   tsconfigPath: string;
-  update: boolean;
 };
 
 export async function getEnabled(workspace: RemoteWorkspace): Promise<boolean> {
@@ -16,12 +15,11 @@ export async function getEnabled(workspace: RemoteWorkspace): Promise<boolean> {
 }
 
 export async function getBettererConfig(workspace: RemoteWorkspace): Promise<BettererBaseConfigPartial> {
-  const { configPath, filters, resultsPath, tsconfigPath, update } = await getConfig(workspace);
+  const { configPath, filters, resultsPath, tsconfigPath } = await getConfig(workspace);
   const config: BettererBaseConfigPartial = {
     configPaths: configPath,
     filters,
-    resultsPath,
-    update: !!update
+    resultsPath
   };
   if (tsconfigPath !== '') {
     config.tsconfigPath = tsconfigPath;

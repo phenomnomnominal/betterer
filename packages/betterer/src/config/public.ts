@@ -1,4 +1,3 @@
-export { config } from './config';
 export {
   BettererConfig,
   BettererConfigFilters,

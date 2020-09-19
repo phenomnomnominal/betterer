@@ -1,6 +1,5 @@
 export { betterer, file, watch } from './betterer';
 export {
-  config,
   BettererConfig,
   BettererConfigFilters,
   BettererConfigIgnore,
