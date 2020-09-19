@@ -25,7 +25,7 @@ export class BettererStatusBar {
     this._statusBarItem.command = COMMAND_NAMES.showOutputChannel;
     this._updateStatusBarVisibility();
 
-    this._initEvents(client);
+    void this._initEvents(client);
   }
 
   public get hasExited(): boolean {
@@ -71,7 +71,7 @@ export class BettererStatusBar {
       this._exit();
       const [code, message] = params;
       client.error(SERVER_PROCESS_ENDED(code), message, true);
-      error(SERVER_PROCESS_SHUT_DOWN);
+      void error(SERVER_PROCESS_SHUT_DOWN);
     });
   }
 

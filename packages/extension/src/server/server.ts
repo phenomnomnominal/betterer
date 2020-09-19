@@ -60,14 +60,14 @@ function init(): void {
   connection.onNotification(DidChangeWatchedFilesNotification.type, environmentChanged);
 
   connection.onInitialized(() => {
-    connection.client.register(DidChangeConfigurationNotification.type);
-    connection.client.register(DidChangeWorkspaceFoldersNotification.type);
+    void connection.client.register(DidChangeConfigurationNotification.type);
+    void connection.client.register(DidChangeWorkspaceFoldersNotification.type);
   });
 
   validationQueue.onNotification(
     BettererValidateNotification,
     (document) => {
-      validator.single(document);
+      void validator.single(document);
     },
     (document) => document.version
   );

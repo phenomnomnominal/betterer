@@ -46,7 +46,7 @@ export class BettererValidator {
         try {
           betterer = await getLibrary(cwd);
         } catch {
-          this._connection.sendRequest(BettererNoLibraryRequest, { source: { uri: document.uri } });
+          void this._connection.sendRequest(BettererNoLibraryRequest, { source: { uri: document.uri } });
           return;
         }
       }
@@ -94,7 +94,7 @@ export class BettererValidator {
           this._connection.sendDiagnostics({ uri, diagnostics });
         } catch (e) {
           if (isNoConfigError(e)) {
-            this._connection.sendRequest(BettererInvalidConfigRequest, { source: { uri: document.uri } });
+            void this._connection.sendRequest(BettererInvalidConfigRequest, { source: { uri: document.uri } });
             status = BettererStatus.warn;
           } else {
             status = BettererStatus.error;

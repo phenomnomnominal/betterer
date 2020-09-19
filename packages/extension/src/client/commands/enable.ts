@@ -9,13 +9,13 @@ import { pickFolder } from './folder-picker';
 export async function enableBetterer(): Promise<void> {
   const { workspaceFolders } = workspace;
   if (!workspaceFolders) {
-    error(ENABLE_COMMAND_REQUIRES_WORKSPACE);
+    void error(ENABLE_COMMAND_REQUIRES_WORKSPACE);
     return;
   }
 
   const disabledFolders = workspaceFolders.filter((folder) => !getEnabled(folder));
   if (disabledFolders.length === 0) {
-    info(ALREADY_ENABLED(workspaceFolders));
+    void info(ALREADY_ENABLED(workspaceFolders));
     return;
   }
 

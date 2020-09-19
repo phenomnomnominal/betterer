@@ -1,11 +1,6 @@
 import * as assert from 'assert';
 
-import {
-  BettererFileIssues,
-  BettererFileIssueRaw,
-  BettererFileIssuesRaw,
-  BettererFileIssuesDeserialised
-} from './types';
+import { BettererFileIssues, BettererFileIssuesRaw, BettererFileIssuesDeserialised } from './types';
 
 export class BettererFile {
   public readonly key: string;
@@ -41,5 +36,5 @@ export class BettererFile {
 
 function isRaw(issues: BettererFileIssues): issues is BettererFileIssuesRaw {
   const [issue] = issues;
-  return (issue as BettererFileIssueRaw).fileText != null;
+  return 'fileText' in issue && issue.fileText != null;
 }

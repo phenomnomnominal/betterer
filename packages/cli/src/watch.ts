@@ -24,7 +24,7 @@ export async function watch(cwd: string, argv: CLIArguments): Promise<void> {
 
   return new Promise((): void => {
     process.on('SIGINT', () => {
-      watcher.stop();
+      void watcher.stop();
     });
   });
 }
