@@ -21,7 +21,7 @@ export function disable(item: { uri: Uri }): void {
 }
 
 function updateEnabled(item: { uri: Uri }, value: boolean): void {
-  getConfig(item).update('enable', value);
+  void getConfig(item).update('enable', value);
 }
 
 function getConfig(item: { uri: Uri }): WorkspaceConfiguration {

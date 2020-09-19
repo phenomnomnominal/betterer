@@ -12,7 +12,7 @@ const CONFIG_FILES = ['.betterer.ts', '.betterer.js'];
 export async function initBetterer(): Promise<void> {
   const { workspaceFolders } = workspace;
   if (!workspaceFolders) {
-    error(INIT_COMMAND_REQUIRES_WORKSPACE);
+    void error(INIT_COMMAND_REQUIRES_WORKSPACE);
     return;
   }
 
@@ -22,7 +22,7 @@ export async function initBetterer(): Promise<void> {
     })
   );
   if (foldersWithoutConfig.length === 0) {
-    info(ALREADY_CONFIGURED(workspaceFolders));
+    void info(ALREADY_CONFIGURED(workspaceFolders));
     return;
   }
 
