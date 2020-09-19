@@ -74,12 +74,6 @@
             ".*"
           ],
           "description": "Select tests to run by RegExp. Takes multiple values"
-        },
-        "betterer.update": {
-          "scope": "resource",
-          "type": "boolean",
-          "default": false,
-          "description": "Force update the results file, even if things get worse"
         }
       }
     },

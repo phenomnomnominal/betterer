@@ -9,6 +9,10 @@ export declare type BettererCLICIConfig = {
     tsconfig: string;
 };
 
+export declare type BettererCLIInitConfig = {
+    config: string;
+};
+
 export declare type BettererCLIStartConfig = {
     config: BettererCLIArguments;
     filter: BettererCLIArguments;

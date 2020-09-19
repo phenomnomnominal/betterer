@@ -6,7 +6,7 @@ import { promises as fs } from 'fs';
 import * as path from 'path';
 
 import { initOptions } from './options';
-import { BettererCLIArguments, BettererPackageJSON } from './types';
+import { BettererCLIArguments, BettererCLIInitConfig, BettererPackageJSON } from './types';
 
 import {
   COULDNT_FIND_PACKAGE_JSON,
@@ -24,7 +24,7 @@ export async function initΔ(cwd: string, argv: BettererCLIArguments): Promise<v
 
   commander.parse(argv as Array<string>);
 
-  const { config } = commander;
+  const { config } = (commander as unknown) as BettererCLIInitConfig;
 
   infoΔ('initialising Betterer... ☀️');
   try {

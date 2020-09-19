@@ -1,4 +1,4 @@
-import { betterer, config } from '@betterer/betterer';
+import { betterer } from '@betterer/betterer';
 
 import { createFixture } from './fixture';
 
@@ -27,13 +27,11 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    config({ configPaths, resultsPath });
-
-    const firstRun = await betterer();
+    const firstRun = await betterer({ configPaths, resultsPath });
 
     expect(runNames(firstRun.new)).toEqual(['should shrink', 'should grow']);
 
-    const secondRun = await betterer();
+    const secondRun = await betterer({ configPaths, resultsPath });
 
     expect(runNames(secondRun.better)).toEqual(['should shrink', 'should grow']);
 
@@ -42,8 +40,6 @@ module.exports = {
     const result = await readFile(resultsPath);
 
     expect(result).toMatchSnapshot();
-
-    config({});
 
     await cleanup();
   });

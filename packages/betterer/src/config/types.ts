@@ -17,15 +17,25 @@ export type BettererConfig = {
   update: boolean;
 };
 
-export type BettererConfigPartial = Partial<{
-  allowDiff: boolean;
+export type BettererBaseConfigPartial = Partial<{
   configPaths: BettererConfigPaths | string;
   cwd: string;
   filters: BettererConfigFilters | ReadonlyArray<string> | string;
-  ignores: BettererConfigIgnore | string;
   reporters: BettererReporterNames;
   resultsPath: string;
   silent: boolean;
   tsconfigPath: string;
-  update: boolean;
 }>;
+
+export type BettererStartConfigPartial = BettererBaseConfigPartial &
+  Partial<{
+    allowDiff: boolean;
+    update: boolean;
+  }>;
+
+export type BettererWatchConfigPartial = BettererBaseConfigPartial &
+  Partial<{
+    ignores: BettererConfigIgnore;
+  }>;
+
+export type BettererConfigPartial = BettererBaseConfigPartial & BettererStartConfigPartial & BettererWatchConfigPartial;
