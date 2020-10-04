@@ -9,21 +9,3 @@ exports[`no hack comments`] = {
     ]
   }`
 };
-
-exports[`new eslint rules`] = {
-  value: `{
-    "packages/betterer/src/errors.ts:2984110573": [
-      [7, 96, 10, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "3805115554"],
-      [8, 99, 11, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "2365839858"],
-      [9, 99, 11, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "2365839858"],
-      [11, 91, 12, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "362595323"],
-      [12, 70, 12, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "362595323"],
-      [13, 65, 8, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "92641249"],
-      [14, 67, 8, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "92641249"],
-      [17, 59, 11, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "2365839858"]
-    ],
-    "packages/cli/src/errors.ts:4053971182": [
-      [2, 90, 10, "Invalid type \\"string | Error | BettererError\\" of template literal expression.", "3805115554"]
-    ]
-  }`
-};
