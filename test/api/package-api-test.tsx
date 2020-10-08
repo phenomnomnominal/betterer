@@ -27,39 +27,39 @@ export const PackageAPITest: FC<PackageAPITestProps> = function PackageAPITest({
 };
 
 function getMessage(packageName: string, state?: BettererPackageAPITestState): string {
-  if (state?.valid) {
+  if (state && state.valid) {
     return `No Breaking API changes found in "@betterer/${packageName}".`;
   }
-  if (state?.exposedInternals) {
-    return `Found "${state?.exposedInternals}" in the API for "@betterer/${packageName}. This means internal code has been exposed.`;
+  if (state && state.exposedInternals) {
+    return `Found "${state.exposedInternals}" in the API for "@betterer/${packageName}. This means internal code has been exposed.`;
   }
-  if (state?.valid === false) {
+  if (state && state.valid === false) {
     return `API changes found in "@betterer/${packageName}" 🚨`;
   }
   return `Validating API for "@betterer/${packageName}" ...`;
 }
 
 function getIndicator(state?: BettererPackageAPITestState): string {
-  if (state?.valid) {
+  if (state && state.valid) {
     return state.isDefinitelyValid ? '✅' : '🤷‍♂️';
   }
-  if (state?.exposedInternals) {
+  if (state && state.exposedInternals) {
     return '🔥';
   }
-  if (state?.valid === false) {
+  if (state && state.valid === false) {
     return '🚨';
   }
   return '🤔';
 }
 
 function getColour(state?: BettererPackageAPITestState): string {
-  if (state?.valid) {
+  if (state && state.valid) {
     return state.isDefinitelyValid ? 'greenBright' : 'green';
   }
-  if (state?.exposedInternals) {
+  if (state && state.exposedInternals) {
     return 'redBright';
   }
-  if (state?.valid === false) {
+  if (state && state.valid === false) {
     return 'orangeBright';
   }
   return 'whiteBright';
