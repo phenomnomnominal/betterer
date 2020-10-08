@@ -19,6 +19,7 @@
     "typeRoots": ["./node_modules/@types/"],
     "resolveJsonModule": true,
     "composite": true,
-    "incremental": true
+    "incremental": true,
+    "jsx": "react"
   }
 }
