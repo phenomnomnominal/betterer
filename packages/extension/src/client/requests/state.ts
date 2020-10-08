@@ -21,7 +21,7 @@ function getState(key: string) {
     const workspaceUri = workspaceFolder.uri.toString();
     const result = workspaces[workspaceUri];
     workspaces[workspaceUri] = true;
-    context.globalState.update(key, { workspaces });
+    void context.globalState.update(key, { workspaces });
     return result;
   };
 }

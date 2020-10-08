@@ -57,6 +57,6 @@ export async function activate(context: ExtensionContext): Promise<void> {
       status
     );
   } catch {
-    error(CLIENT_START_FAILED);
+    void error(CLIENT_START_FAILED);
   }
 }
