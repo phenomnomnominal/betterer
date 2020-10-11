@@ -1,23 +1,10 @@
 import { betterer } from '@betterer/betterer';
-import commander from 'commander';
 
 import { watchOptions } from './options';
-import { BettererCLIArguments, BettererCLIWatchConfig } from './types';
+import { BettererCLIArguments } from './types';
 
 export async function watchΔ(cwd: string, argv: BettererCLIArguments): Promise<void> {
-  watchOptions(commander);
-
-  commander.parse(argv as Array<string>);
-
-  const {
-    config,
-    results,
-    filter,
-    ignore,
-    reporter,
-    silent,
-    tsconfig
-  } = (commander as unknown) as BettererCLIWatchConfig;
+  const { config, results, filter, ignore, reporter, silent, tsconfig } = watchOptions(argv);
 
   const watcher = await betterer.watch({
     configPaths: config,
