@@ -3,7 +3,9 @@ export declare type BettererError = Error & {
     details: BettererErrorDetails;
 };
 
-export declare type BettererErrorDetails = ReadonlyArray<string | Error | BettererError>;
+export declare type BettererErrorDetail = string | ErrorLike | BettererError;
+
+export declare type BettererErrorDetails = ReadonlyArray<BettererErrorDetail>;
 
 export declare type BettererErrorFactory = (...details: BettererErrorDetails) => BettererError;
 
@@ -16,4 +18,4 @@ export declare type ErrorLike = {
 
 export declare function logErrorΔ(err: ErrorLike | Error | BettererError): void;
 
-export declare function registerError(factory: BettererErrorMessageFactory): BettererErrorFactory;
+export declare function registerError(messageFactory: BettererErrorMessageFactory): BettererErrorFactory;

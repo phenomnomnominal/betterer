@@ -3,8 +3,8 @@ import { BettererError, BettererErrorDetails } from './types';
 export class BettererErrorΩ extends Error implements BettererError {
   public details: BettererErrorDetails;
 
-  constructor(public code: symbol, ...details: BettererErrorDetails) {
-    super();
+  constructor(message: string, public code: symbol, ...details: BettererErrorDetails) {
+    super(message);
 
     Error.captureStackTrace(this, BettererErrorΩ);
     Object.setPrototypeOf(this, new.target.prototype);
