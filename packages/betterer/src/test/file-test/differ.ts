@@ -1,5 +1,5 @@
 import { codeΔ, errorΔ, successΔ, warnΔ } from '@betterer/logger';
-import * as assert from 'assert';
+import assert from 'assert';
 
 import { BettererFileΩ } from './file';
 import { BettererFileTestResultΩ } from './file-test-result';

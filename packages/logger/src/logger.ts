@@ -1,7 +1,7 @@
 import { codeFrameColumns } from '@babel/code-frame';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import logDiff, { DiffOptions } from 'jest-diff';
-import * as logUpdate from 'log-update';
+import logUpdate from 'log-update';
 import LinesAndColumns from 'lines-and-columns';
 import * as path from 'path';
 

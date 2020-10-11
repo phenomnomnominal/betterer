@@ -1,5 +1,5 @@
 import { BettererPackageJSON } from '@betterer/cli';
-import * as assert from 'assert';
+import assert from 'assert';
 
 import { vscode, createFixture } from './runner';
 

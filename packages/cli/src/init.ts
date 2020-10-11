@@ -1,7 +1,7 @@
 import { logErrorΔ } from '@betterer/errors';
 import { infoΔ, successΔ, warnΔ } from '@betterer/logger';
-import * as commander from 'commander';
-import * as findUp from 'find-up';
+import commander from 'commander';
+import findUp from 'find-up';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 

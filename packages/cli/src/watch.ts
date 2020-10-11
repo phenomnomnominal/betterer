@@ -1,5 +1,5 @@
 import { betterer } from '@betterer/betterer';
-import * as commander from 'commander';
+import commander from 'commander';
 
 import { watchOptions } from './options';
 import { BettererCLIArguments, BettererCLIWatchConfig } from './types';
