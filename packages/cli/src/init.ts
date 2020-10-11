@@ -1,12 +1,11 @@
 import { logErrorΔ } from '@betterer/errors';
 import { infoΔ, successΔ, warnΔ } from '@betterer/logger';
-import commander from 'commander';
 import findUp from 'find-up';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 
 import { initOptions } from './options';
-import { BettererCLIArguments, BettererCLIInitConfig, BettererPackageJSON } from './types';
+import { BettererCLIArguments, BettererPackageJSON } from './types';
 
 import {
   COULDNT_FIND_PACKAGE_JSON,
@@ -20,11 +19,7 @@ const TEMPLATE = `export default {
 };`;
 
 export async function initΔ(cwd: string, argv: BettererCLIArguments): Promise<void> {
-  initOptions(commander);
-
-  commander.parse(argv as Array<string>);
-
-  const { config } = (commander as unknown) as BettererCLIInitConfig;
+  const { config } = initOptions(argv);
 
   infoΔ('initialising Betterer... ☀️');
   try {
