@@ -1,4 +1,4 @@
-import * as logUpdate from 'log-update';
+import logUpdate from 'log-update';
 import { DiffOptions } from 'jest-diff';
 
 export type BettererLoggerMessages = ReadonlyArray<string>;

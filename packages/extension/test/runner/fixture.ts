@@ -1,5 +1,5 @@
 import { createFixtureDirectoryΔ, FixtureFileSystemFiles, Fixture } from '@betterer/fixture';
-import * as assert from 'assert';
+import assert from 'assert';
 
 import { vscode } from './vscode';
 

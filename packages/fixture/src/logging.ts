@@ -1,4 +1,4 @@
-import * as ansiRegex from 'ansi-regex';
+import ansiRegex from 'ansi-regex';
 import * as path from 'path';
 
 import { FixtureLogs } from './types';

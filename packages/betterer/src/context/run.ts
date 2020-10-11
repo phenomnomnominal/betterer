@@ -1,4 +1,4 @@
-import * as assert from 'assert';
+import assert from 'assert';
 
 import { BettererDiff, BettererResult } from '../results';
 import { BettererTestConfig } from '../test';

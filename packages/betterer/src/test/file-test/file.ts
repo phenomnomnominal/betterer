@@ -1,4 +1,4 @@
-import * as assert from 'assert';
+import assert from 'assert';
 import LinesAndColumns from 'lines-and-columns';
 
 import { getConfig } from '../../config';

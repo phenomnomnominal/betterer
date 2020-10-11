@@ -1,5 +1,5 @@
 import { BettererSummary, betterer } from '@betterer/betterer';
-import * as commander from 'commander';
+import commander from 'commander';
 
 import { ciOptions } from './options';
 import { BettererCLIArguments, BettererCLICIConfig } from './types';

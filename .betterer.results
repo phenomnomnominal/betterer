@@ -1,10 +1,10 @@
 // BETTERER RESULTS V2.
 exports[`no hack comments`] = {
   value: `{
-    "packages/cli/src/cli.ts:2275900736": [
+    "packages/cli/src/cli.ts:3907603544": [
       [12, 0, 7, "RegExp match", "645651780"]
     ],
-    "packages/cli/src/init.ts:973259922": [
+    "packages/cli/src/init.ts:4076525074": [
       [91, 4, 7, "RegExp match", "645651780"]
     ]
   }`
