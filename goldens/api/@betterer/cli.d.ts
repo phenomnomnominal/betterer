@@ -1,4 +1,4 @@
-export declare type BettererCLIArguments = ReadonlyArray<string>;
+export declare type BettererCLIArguments = Array<string>;
 
 export declare type BettererCLICIConfig = {
     config: BettererCLIArguments;

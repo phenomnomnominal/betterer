@@ -3,20 +3,18 @@ import { brΔ, errorΔ } from '@betterer/logger';
 import { BettererErrorΩ } from './error';
 import {
   BettererError,
+  BettererErrorDetail,
   BettererErrorDetails,
   BettererErrorFactory,
   BettererErrorMessageFactory,
   ErrorLike
 } from './types';
 
-const ERROR_MESSAGES = new Map<symbol, BettererErrorMessageFactory>();
+const ERROR_CODES: Array<symbol> = [];
 
 export function logErrorΔ(err: ErrorLike | Error | BettererError): void {
   if (isBettererError(err)) {
-    const factory = ERROR_MESSAGES.get(err.code) as BettererErrorMessageFactory;
     const errors = err.details.filter((detail) => isErrorLike(detail)) as Array<ErrorLike>;
-    const messages = err.details.filter((detail) => !errors.includes(detail as ErrorLike)) as Array<string>;
-    err.message = factory(...messages);
     errorΔ(err.message);
     errors.forEach(logErrorΔ);
     return;
@@ -27,20 +25,21 @@ export function logErrorΔ(err: ErrorLike | Error | BettererError): void {
   brΔ();
 }
 
-export function registerError(factory: BettererErrorMessageFactory): BettererErrorFactory {
+export function registerError(messageFactory: BettererErrorMessageFactory): BettererErrorFactory {
   const code = Symbol();
-  ERROR_MESSAGES.set(code, factory);
+  ERROR_CODES.push(code);
   return function factory(...details: BettererErrorDetails): BettererError {
-    const error = new BettererErrorΩ(code, ...details);
+    const messages = details.filter((detail) => !isErrorLike(detail)) as Array<string>;
+    const error = new BettererErrorΩ(messageFactory(...messages), code, ...details);
     Error.captureStackTrace(error, factory);
     return error;
   };
 }
 
-function isBettererError(err: unknown): err is BettererError {
-  return !!ERROR_MESSAGES.has((err as BettererError).code);
+function isBettererError(err: ErrorLike | Error | BettererError): err is BettererError {
+  return !!ERROR_CODES.includes((err as BettererError).code);
 }
 
-function isErrorLike(err: unknown): err is ErrorLike {
+function isErrorLike(err: BettererErrorDetail): err is ErrorLike {
   return (err as ErrorLike).message != null && (err as ErrorLike).stack !== null;
 }
