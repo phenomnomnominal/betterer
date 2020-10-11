@@ -29,9 +29,8 @@ export function registerError(messageFactory: BettererErrorMessageFactory): Bett
   const code = Symbol();
   ERROR_CODES.push(code);
   return function factory(...details: BettererErrorDetails): BettererError {
-    const error = new BettererErrorΩ(code, ...details);
     const messages = details.filter((detail) => !isErrorLike(detail)) as Array<string>;
-    error.message = messageFactory(...messages);
+    const error = new BettererErrorΩ(messageFactory(...messages), code, ...details);
     Error.captureStackTrace(error, factory);
     return error;
   };
