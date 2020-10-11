@@ -1,6 +1,6 @@
 import { FSWatcher, watch as chokidar } from 'chokidar';
-import * as globby from 'globby';
-import * as minimatch from 'minimatch';
+import globby from 'globby';
+import minimatch from 'minimatch';
 import * as path from 'path';
 
 import { BettererContext, BettererContextΩ, BettererSummary } from '../context';

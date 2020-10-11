@@ -1,5 +1,5 @@
 import { BettererPackageJSON } from '@betterer/cli';
-import * as assert from 'assert';
+import assert from 'assert';
 
 import { vscode, createFixture } from './runner';
 
@@ -214,7 +214,7 @@ function waitFor<T>(test: () => T, timeout = 600000): Promise<T> {
 
   return new Promise((resolve, reject) => {
     const id = setInterval(() => {
-      wait(id, resolve as Resolve, reject);
+      void wait(id, resolve as Resolve, reject);
     }, 1000);
   });
 }

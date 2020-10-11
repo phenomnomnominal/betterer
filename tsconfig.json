@@ -20,6 +20,7 @@
     "resolveJsonModule": true,
     "composite": true,
     "incremental": true,
-    "jsx": "react"
+    "jsx": "react",
+    "esModuleInterop": true
   }
 }

@@ -3,7 +3,8 @@ export type BettererError = Error & {
   details: BettererErrorDetails;
 };
 
-export type BettererErrorDetails = ReadonlyArray<string | Error | BettererError>;
+export type BettererErrorDetail = string | ErrorLike | BettererError;
+export type BettererErrorDetails = ReadonlyArray<BettererErrorDetail>;
 export type BettererErrorFactory = (...details: BettererErrorDetails) => BettererError;
 export type BettererErrorMessageFactory = (...details: BettererErrorDetails) => string;
 

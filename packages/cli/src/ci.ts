@@ -1,15 +1,11 @@
 import { BettererSummary, betterer } from '@betterer/betterer';
-import * as commander from 'commander';
+import commander from 'commander';
 
 import { ciOptions } from './options';
-import { BettererCLIArguments, BettererCLICIConfig } from './types';
+import { BettererCLIArguments } from './types';
 
 export function ciΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSummary> {
-  ciOptions(commander);
-
-  commander.parse(argv as Array<string>);
-
-  const { config, results, filter, silent, reporter, tsconfig } = (commander as unknown) as BettererCLICIConfig;
+  const { config, results, filter, silent, reporter, tsconfig } = ciOptions(commander, argv);
 
   return betterer({
     allowDiff: false,

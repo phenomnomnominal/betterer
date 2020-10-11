@@ -1,5 +1,5 @@
-import * as stack from 'callsite';
-import * as globby from 'globby';
+import stack from 'callsite';
+import globby from 'globby';
 import * as path from 'path';
 
 import { flatten, normalisedPath } from '../../utils';

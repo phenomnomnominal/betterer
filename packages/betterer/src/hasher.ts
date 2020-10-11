@@ -1,4 +1,4 @@
-import * as djb2a from 'djb2a';
+import djb2a from 'djb2a';
 
 import { normaliseNewlines } from './utils';
 

@@ -4,7 +4,7 @@ import {
   BettererFileTestDiff,
   BettererFileTestResult
 } from '@betterer/betterer';
-import * as assert from 'assert';
+import assert from 'assert';
 import { Diagnostic, DiagnosticSeverity, IConnection, Position, TextDocuments } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { URI } from 'vscode-uri';

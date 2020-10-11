@@ -1,4 +1,4 @@
-import * as assert from 'assert';
+import assert from 'assert';
 import { muteΔ, unmuteΔ } from '@betterer/logger';
 import * as path from 'path';
 

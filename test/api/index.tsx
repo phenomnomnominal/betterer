@@ -1,29 +1,20 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Box, render } from 'ink';
 
-import { PackageAPITest, PackageAPITestProps } from './package-api-test';
-import { getPackages, testPackage } from './test';
+import { BettererLoggerTask } from '@betterer/logger';
+import { getPackages, testPackageAPI } from './test-package-api';
 
 export const APITest: FC = function APITest() {
-  const [packageTestProps, setPackageTestProps] = useState<Array<PackageAPITestProps>>([]);
+  const [packageNames, setPackageNames] = useState<Array<string>>([]);
 
   useEffect(() => {
-    (async () => {
-      const packageNames = await getPackages();
-      const packageTests = packageNames.map((packageName) => {
-        return {
-          name: packageName,
-          running: testPackage(packageName)
-        };
-      });
-      setPackageTestProps(packageTests);
-    })();
+    (async () => setPackageNames(await getPackages()))();
   }, []);
 
   return (
     <Box flexDirection="column">
-      {packageTestProps.map(({ name, running }) => (
-        <PackageAPITest key={name} name={name} running={running} />
+      {packageNames.map((packageName) => (
+        <BettererLoggerTask key={packageName} context={testPackageAPI(packageName)} />
       ))}
     </Box>
   );

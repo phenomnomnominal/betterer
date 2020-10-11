@@ -1,7 +1,8 @@
+import { registerError } from '@betterer/errors';
+import { BettererLoggerTaskContext, BettererLoggerTaskStatus, BettererTaskLogger } from '@betterer/logger';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 import { publicApi, verifyAgainstGoldenFile } from 'ts-api-guardian';
-import { BettererPackageAPITestState, getState } from './state';
 
 const EXCLUDED_PACKAGES = ['extension'];
 const DECLARATION_EXTENSION = '.d.ts';
@@ -9,7 +10,7 @@ const BUILT_DECLARATION = `dist/index${DECLARATION_EXTENSION}`;
 const PACKAGES_DIR = path.resolve(__dirname, '../../packages');
 const GOLDENS_DIR = path.resolve(__dirname, '../../goldens/api/@betterer');
 
-const API_OPTIONS = { allowModuleIdentifiers: ['ts'] };
+const API_OPTIONS = { allowModuleIdentifiers: ['ts', 'react'] };
 
 const CRLF = '\r\n';
 const CHUNK_SPLIT = '\n\n';
@@ -32,7 +33,23 @@ export async function getPackages(): Promise<Array<string>> {
   });
 }
 
-export async function testPackage(packageName: string): Promise<BettererPackageAPITestState> {
+export const PACKAGE_API_DIFF = registerError(
+  (packageName) => `API changes found in "@betterer/${packageName.toString()}"`
+);
+
+export function testPackageAPI(packageName: string): BettererLoggerTaskContext {
+  return {
+    name: packageName,
+    run: (logger) => runTestPackageAPI(logger, packageName)
+  };
+}
+
+export async function runTestPackageAPI(
+  logger: BettererTaskLogger,
+  packageName: string
+): Promise<string | BettererLoggerTaskStatus> {
+  logger.status(`Validating API for "@betterer/${packageName}" ...`);
+
   const packageDeclarationPath = path.join(PACKAGES_DIR, packageName, BUILT_DECLARATION);
   const packageGoldenPath = path.join(GOLDENS_DIR, `${packageName}${DECLARATION_EXTENSION}`);
 
@@ -46,17 +63,24 @@ export async function testPackage(packageName: string): Promise<BettererPackageA
   });
 
   if (foundToken) {
-    return getState({ exposedInternals: foundToken });
+    return `Found "${foundToken}" in the API for "@betterer/${packageName}. This means internal code has been exposed.`;
   }
 
   const isDefinitelyValid = packageGolden === packageGenerated;
   const isProbablyValid = isDefinitelyValid || checkForOutOfOrder(packageGenerated, packageGolden);
   if (isProbablyValid) {
-    return getState({ valid: true, isDefinitelyValid });
+    if (isDefinitelyValid) {
+      return `No Breaking API changes found in "@betterer/${packageName}".`;
+    }
+    return [
+      '🤷‍♂️',
+      'green',
+      `No Breaking API changes found in "@betterer/${packageName}". There's a *slight* chance this could be a false positive, so maybe just double check it! 😬`
+    ];
   }
 
   const diff = verifyAgainstGoldenFile(packageDeclarationPath, packageGoldenPath, API_OPTIONS);
-  return getState({ valid: false, diff });
+  throw PACKAGE_API_DIFF(packageName, diff);
 }
 
 function checkForBannedTokens(types: string, token: string): boolean {

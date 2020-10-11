@@ -1,4 +1,4 @@
-import * as assert from 'assert';
+import assert from 'assert';
 import { createHash } from '../../hasher';
 import { BettererFileΩ } from './file';
 import { BettererFileResolver } from './file-resolver';

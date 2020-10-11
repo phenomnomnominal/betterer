@@ -1,20 +1,28 @@
 import { CommanderStatic } from 'commander';
-import { BettererCLIArguments } from './types';
+import {
+  BettererCLIArguments,
+  BettererCLICIConfig,
+  BettererCLIInitConfig,
+  BettererCLIStartConfig,
+  BettererCLIWatchConfig
+} from './types';
 
-export function ciOptions(commander: CommanderStatic): void {
+export function ciOptions(commander: CommanderStatic, argv: BettererCLIArguments): BettererCLICIConfig {
   configPathsOption(commander);
   resultsPathOption(commander);
   tsconfigPathOption(commander);
   filtersOption(commander);
   silentOption(commander);
   reportersOption(commander);
+  return (commander.parse(argv) as unknown) as BettererCLICIConfig;
 }
 
-export function initOptions(commander: CommanderStatic): void {
+export function initOptions(commander: CommanderStatic, argv: BettererCLIArguments): BettererCLIInitConfig {
   configPathOption(commander);
+  return (commander.parse(argv) as unknown) as BettererCLIInitConfig;
 }
 
-export function startOptions(commander: CommanderStatic): void {
+export function startOptions(commander: CommanderStatic, argv: BettererCLIArguments): BettererCLIStartConfig {
   configPathsOption(commander);
   resultsPathOption(commander);
   tsconfigPathOption(commander);
@@ -22,11 +30,19 @@ export function startOptions(commander: CommanderStatic): void {
   silentOption(commander);
   updateOption(commander);
   reportersOption(commander);
+  return (commander.parse(argv) as unknown) as BettererCLIStartConfig;
 }
 
-export function watchOptions(commander: CommanderStatic): void {
-  startOptions(commander);
+export function watchOptions(commander: CommanderStatic, argv: BettererCLIArguments): BettererCLIWatchConfig {
+  configPathsOption(commander);
+  resultsPathOption(commander);
+  tsconfigPathOption(commander);
+  filtersOption(commander);
+  silentOption(commander);
+  updateOption(commander);
+  reportersOption(commander);
   ignoresOption(commander);
+  return (commander.parse(argv) as unknown) as BettererCLIWatchConfig;
 }
 
 function configPathOption(commander: CommanderStatic): void {
