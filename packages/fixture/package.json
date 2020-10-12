@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@betterer/betterer": "^3.0.3",
-    "@betterer/logger": "^3.0.0",
+    "@betterer/errors": "^3.1.0",
     "ansi-regex": "^5.0.0",
     "fs-extra": "^9.0.1",
     "graceful-fs": "^4.2.3"
