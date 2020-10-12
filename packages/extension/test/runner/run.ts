@@ -1,8 +1,10 @@
-import { errorΔ, infoΔ } from '@betterer/logger';
+import { registerError } from '@betterer/errors';
 import { runCLI } from '@jest/core';
 import * as path from 'path';
 
 const ARGS = { _: [], $0: '' };
+
+const EXTENSION_E2E_TEST_FAILED = registerError((failureMessage) => `${failureMessage.toString()}`);
 
 export async function run(
   testRootPath: string,
@@ -16,16 +18,8 @@ export async function run(
     const { results } = await runCLI({ ...ARGS, config, testEnvironment }, [projectRootPath]);
 
     results.testResults.forEach((testResult) => {
-      testResult.testResults
-        .filter((assertionResult) => assertionResult.status === 'passed')
-        .forEach(({ ancestorTitles, title, status }) => {
-          infoΔ(`${ancestorTitles} - ${title} (${status})`);
-        });
-    });
-
-    results.testResults.forEach((testResult) => {
       if (testResult.failureMessage) {
-        errorΔ(testResult.failureMessage);
+        throw EXTENSION_E2E_TEST_FAILED(testResult.failureMessage);
       }
     });
 
