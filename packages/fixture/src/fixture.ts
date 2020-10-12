@@ -1,11 +1,15 @@
 import { BettererRunNames, BettererRuns, BettererSummary } from '@betterer/betterer';
-import { warnΔ } from '@betterer/logger';
+import { registerError } from '@betterer/errors';
 import { promises as fs } from 'graceful-fs';
 import * as path from 'path';
 
 import { createFixtureFS } from './fs';
 import { createFixtureLogs } from './logging';
 import { Fixture, FixtureFactory, FixtureFileSystemFiles } from './types';
+
+const DUPLICATE_FIXTURE_NAME = registerError(
+  (fixtureName) => `There is already a fixture in use called "${fixtureName.toString()}"`
+);
 
 export async function createFixtureDirectoryΔ(fixturesPath: string): Promise<FixtureFactory> {
   try {
@@ -15,13 +19,9 @@ export async function createFixtureDirectoryΔ(fixturesPath: string): Promise<Fi
   }
 
   return async function createFixtureΔ(fixtureName: string, files: FixtureFileSystemFiles): Promise<Fixture> {
-    try {
-      const fixtureNames = await fs.readdir(fixturesPath);
-      if (fixtureNames.includes(fixtureName)) {
-        warnΔ(`There is already a fixture in use called "${fixtureName}"`);
-      }
-    } catch {
-      // Move on...
+    const fixtureNames = await fs.readdir(fixturesPath);
+    if (fixtureNames.includes(fixtureName)) {
+      throw DUPLICATE_FIXTURE_NAME(fixtureName);
     }
 
     const fixturePath = path.resolve(fixturesPath, fixtureName);
@@ -29,9 +29,7 @@ export async function createFixtureDirectoryΔ(fixturesPath: string): Promise<Fi
     const fixtureLogs = createFixtureLogs();
 
     // Wait long enough that the watch mode debounce doesn't get in the way:
-    await new Promise((resolve) => {
-      setTimeout(resolve, 500);
-    });
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     return {
       ...fixtureFS,
