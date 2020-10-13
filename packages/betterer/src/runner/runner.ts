@@ -1,5 +1,4 @@
 import { BettererConstraintResult } from '@betterer/constraints';
-import { logErrorΔ } from '@betterer/errors';
 
 import { BettererContextΩ, BettererRun, BettererRunΩ, BettererSummary } from '../context';
 import { BettererFilePaths } from '../watcher';
@@ -11,7 +10,7 @@ export async function parallel(context: BettererContextΩ, filePaths: BettererFi
       runs.map(async (run) => {
         const runΩ = run as BettererRunΩ;
         await runTest(runΩ, context.config.update);
-        runΩ.end();
+        await runΩ.end();
       })
     );
   }, filePaths);
@@ -23,7 +22,7 @@ export async function serial(context: BettererContextΩ): Promise<BettererSummar
       await p;
       const runΩ = run as BettererRunΩ;
       await runTest(runΩ, context.config.update);
-      runΩ.end();
+      await runΩ.end();
     }, Promise.resolve());
   });
 }
@@ -36,13 +35,12 @@ async function runTest(run: BettererRun, update: boolean): Promise<void> {
     return;
   }
 
-  runΩ.start();
+  await runΩ.start();
   let result: BettererResultΩ;
   try {
     result = new BettererResultΩ(await test.test(runΩ));
   } catch (e) {
-    runΩ.failed();
-    logErrorΔ(e);
+    await runΩ.failed(e);
     return;
   }
   runΩ.ran();

@@ -1,3 +1,4 @@
+import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
 import { BettererConfig } from '../config';
@@ -30,7 +31,6 @@ export class BettererContextΩ implements BettererContext {
 
   constructor(public readonly config: BettererConfig, private _reporter?: BettererReporter) {
     this._results = new BettererResults(config);
-    this._reporter?.contextStart?.(this);
   }
 
   public async setup(): Promise<void> {
@@ -59,10 +59,10 @@ export class BettererContextΩ implements BettererContext {
         })
     );
     const obsolete = await this._initObsolete();
-    this._reporter?.runsStart?.(runs, filePaths);
+    await this._reporter?.runsStart?.(runs, filePaths);
     this._running = runner(runs);
     await this._running;
-    this._reporter?.runsEnd?.(runs, filePaths);
+    await this._reporter?.runsEnd?.(runs, filePaths);
     const expected = await this._results.read();
     const result = await this._results.print(runs);
     const hasDiff = !!expected && expected !== result;
@@ -70,21 +70,25 @@ export class BettererContextΩ implements BettererContext {
     return this._summary;
   }
 
-  public runStart(run: BettererRun): void {
-    this._reporter?.runStart?.(run);
+  public async runStart(run: BettererRun): Promise<void> {
+    await this._reporter?.runStart?.(run);
   }
 
   public runDiff(run: BettererRun): BettererDiff {
     return this._results.getDiff(run);
   }
 
-  public runEnd(run: BettererRun): void {
-    this._reporter?.runEnd?.(run);
+  public async runEnd(run: BettererRun): Promise<void> {
+    await this._reporter?.runEnd?.(run);
   }
 
-  public end(): void {
+  public async runError(run: BettererRun, error: BettererError): Promise<void> {
+    await this._reporter?.runError?.(run, error);
+  }
+
+  public async end(): Promise<void> {
     assert(this._summary);
-    this._reporter?.contextEnd?.(this, this._summary);
+    await this._reporter?.contextEnd?.(this, this._summary);
   }
 
   public async save(): Promise<void> {

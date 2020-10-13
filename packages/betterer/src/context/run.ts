@@ -1,3 +1,4 @@
+import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
 import { BettererDiff, BettererResult } from '../results';
@@ -114,12 +115,14 @@ export class BettererRunΩ implements BettererRun {
     this._updateResult(BettererRunStatus.better, result, isComplete);
   }
 
-  public end(): void {
+  public async end(): Promise<void> {
     const contextΩ = this._context as BettererContextΩ;
-    contextΩ.runEnd(this);
+    await contextΩ.runEnd(this);
   }
 
-  public failed(): void {
+  public async failed(e: BettererError): Promise<void> {
+    const contextΩ = this._context as BettererContextΩ;
+    await contextΩ.runError(this, e);
     assert.strictEqual(this._status, BettererRunStatus.pending);
     this._status = BettererRunStatus.failed;
   }
@@ -132,11 +135,11 @@ export class BettererRunΩ implements BettererRun {
     this._isRan = true;
   }
 
-  public start(): void {
+  public async start(): Promise<void> {
     const startTime = Date.now();
     this._isExpired = startTime > this._test.deadline;
     const contextΩ = this._context as BettererContextΩ;
-    contextΩ.runStart(this);
+    await contextΩ.runStart(this);
     this._timestamp = startTime;
   }
 

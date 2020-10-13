@@ -1,21 +1,13 @@
 import { COULDNT_LOAD_REPORTER, HOOK_NOT_A_FUNCTION, NO_REPORTER_LOADED, UNKNOWN_HOOK_NAME } from '../errors';
 import { requireUncached } from '../require';
+import { isFunction } from '../utils';
 import { BettererMultiReporterΩ } from './reporter-multi';
 import { BettererReporter, BettererReporterModule, BettererReporterNames } from './types';
-import { isFunction } from '../utils';
 
 export const DEFAULT_REPORTER = '@betterer/reporter';
 export const WATCH_REPORTER = '@betterer/watch-reporter';
 
-const HOOK_NAMES: ReadonlyArray<keyof BettererReporter> = [
-  'contextStart',
-  'contextEnd',
-  'contextError',
-  'runsStart',
-  'runsEnd',
-  'runStart',
-  'runEnd'
-];
+const HOOK_NAMES = Object.keys(BettererMultiReporterΩ.prototype) as ReadonlyArray<keyof BettererReporter>;
 
 export function loadReporters(reporterNames: BettererReporterNames): BettererMultiReporterΩ {
   const reporters: Array<BettererReporter> = reporterNames.map((name) => {
