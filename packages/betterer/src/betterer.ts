@@ -18,14 +18,15 @@ export function betterer(partialConfig?: BettererStartConfigPartial): Promise<Be
   return runContext(async (config) => {
     const reporter = loadReporters(config.reporters.length ? config.reporters : [DEFAULT_REPORTER]);
     const context = new BettererContextΩ(config, reporter);
+    await reporter.contextStart(context);
     try {
       await context.setup();
       const summary = await serial(context);
-      context.end();
+      await context.end();
       await context.save();
       return summary;
     } catch (error) {
-      reporter.contextError(context, error);
+      await reporter.contextError(context, error);
       throw error;
     }
   }, partialConfig);
@@ -36,7 +37,7 @@ export async function file(filePath: string, partialConfig?: BettererBaseConfigP
     const context = new BettererContextΩ(config);
     await context.setup();
     const summary = await parallel(context, [filePath]);
-    context.end();
+    await context.end();
     return summary;
   }, partialConfig);
 }
@@ -46,6 +47,7 @@ export function watch(partialConfig?: BettererWatchConfigPartial): Promise<Bette
   return runContext(async (config) => {
     const reporter = loadReporters(config.reporters.length ? config.reporters : [WATCH_REPORTER]);
     const context = new BettererContextΩ(config, reporter);
+    await reporter.contextStart(context);
     try {
       const watcher = new BettererWatcherΩ(context, async (filePaths) => {
         await context.setup();
@@ -54,7 +56,7 @@ export function watch(partialConfig?: BettererWatchConfigPartial): Promise<Bette
       await watcher.setup();
       return watcher;
     } catch (error) {
-      reporter.contextError(context, error);
+      await reporter.contextError(context, error);
       throw error;
     }
   }, partialConfig);
