@@ -711,17 +711,6 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@jest/types@^26.5.0":
-  version "26.5.0"
-  resolved "https://registry.npmjs.org/@jest/types/-/types-26.5.0.tgz#163f6e00c5ac9bb6fc91c3802eaa9d0dd6e1474a"
-  integrity sha512-nH9DFLqaIhB+RVgjivemvMiFSWw/BKwbZGxBAMv8CCTvUyFoK8RwHhAlmlXIvMBrf5Z3YQ4p9cq3Qh9EDctGvA==
-  dependencies:
-    "@types/istanbul-lib-coverage" "^2.0.0"
-    "@types/istanbul-reports" "^3.0.0"
-    "@types/node" "*"
-    "@types/yargs" "^15.0.0"
-    chalk "^4.0.0"
-
 "@jest/types@^26.5.2":
   version "26.5.2"
   resolved "https://registry.npmjs.org/@jest/types/-/types-26.5.2.tgz#44c24f30c8ee6c7f492ead9ec3f3c62a5289756d"
@@ -5591,17 +5580,7 @@ jest-diff@^25.2.1:
     jest-get-type "^25.2.6"
     pretty-format "^25.5.0"
 
-jest-diff@^26.1.0:
-  version "26.5.0"
-  resolved "https://registry.npmjs.org/jest-diff/-/jest-diff-26.5.0.tgz#bd01cef2d00b2668a0207ef47ab8eb1e33613253"
-  integrity sha512-CmDMMPkVMxrrh0Dv/4M9kh1tsYsZnYTQMMTvIFpePBSk9wMVfcyfg30TCq+oR9AzGbw8vsI50Gk1HmlMMlhoJg==
-  dependencies:
-    chalk "^4.0.0"
-    diff-sequences "^26.5.0"
-    jest-get-type "^26.3.0"
-    pretty-format "^26.5.0"
-
-jest-diff@^26.5.2:
+jest-diff@^26.1.0, jest-diff@^26.5.2:
   version "26.5.2"
   resolved "https://registry.npmjs.org/jest-diff/-/jest-diff-26.5.2.tgz#8e26cb32dc598e8b8a1b9deff55316f8313c8053"
   integrity sha512-HCSWDUGwsov5oTlGzrRM+UPJI/Dpqi9jzeV0fdRNi3Ch5bnoXhnyJMmVg2juv9081zLIy3HGPI5mcuGgXM2xRA==
@@ -7530,16 +7509,6 @@ pretty-format@^25.2.1, pretty-format@^25.5.0:
   integrity sha512-kbo/kq2LQ/A/is0PQwsEHM7Ca6//bGPPvU6UnsdDRSKTWxT/ru/xb88v4BJf6a69H+uTytOEsTusT9ksd/1iWQ==
   dependencies:
     "@jest/types" "^25.5.0"
-    ansi-regex "^5.0.0"
-    ansi-styles "^4.0.0"
-    react-is "^16.12.0"
-
-pretty-format@^26.5.0:
-  version "26.5.0"
-  resolved "https://registry.npmjs.org/pretty-format/-/pretty-format-26.5.0.tgz#3320e4952f8e6918fc8c26c6df7aad9734818ac2"
-  integrity sha512-NcgRuuTutUJ9+Br4P19DFThpJYnYBiugfRmZEA6pXrUeG+IcMSmppb88rU+iPA+XAJcjTYlCb5Ed6miHg/Qqqw==
-  dependencies:
-    "@jest/types" "^26.5.0"
     ansi-regex "^5.0.0"
     ansi-styles "^4.0.0"
     react-is "^16.12.0"
