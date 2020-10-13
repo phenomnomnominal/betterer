@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState, useReducer } from 'react';
-import { Box } from 'ink';
+import { Box, useApp } from 'ink';
 
 import { INITIAL_STATE, reducer, BettererTasksContext } from './state';
 import { BettererTaskStatus } from './status';
@@ -10,24 +10,27 @@ export type BettererTasksProps = {
 };
 
 export const BettererTasks: FC<BettererTasksProps> = function BettererTask({ children, name }) {
+  const app = useApp();
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const [status, setStatus] = useState<BettererTaskStatusMessage | null>(null);
 
   useEffect(() => {
     const { done, error, running } = state;
-    const runningStatus = running ? `${running} running... ` : '';
-    const doneStatus = done ? `${done} done. ` : '';
-    const errorStatus = error ? `${error} errored! ` : '';
+    const runningStatus = running ? `${running} tasks running... ` : '';
+    const doneStatus = done ? `${done} tasks done! ` : '';
+    const errorStatus = error ? `${error} tasks errored! ` : '';
     const result = `${runningStatus}${doneStatus}${errorStatus}`;
-    if (state.error > 0) {
-      setStatus(['💥', 'redBright', result]);
-      return;
+    let status: BettererTaskStatusMessage = ['🌟', 'whiteBright', result];
+    if (error > 0) {
+      status = ['💥', 'redBright', result];
+    } else if (running === 0) {
+      status = ['🎉', 'greenBright', result];
     }
-    if (state.running === 0) {
-      setStatus(['✅', 'greenBright', result]);
-      return;
+    setStatus(status);
+    const shouldExit = running === 0 && (error > 0 || done > 0);
+    if (shouldExit) {
+      setImmediate(app.exit);
     }
-    setStatus(['🌟', 'whiteBright', result]);
   }, [state]);
 
   return (
