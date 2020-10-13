@@ -68,7 +68,7 @@ async function runContext<RunResult, RunFunction extends (config: BettererConfig
   partialConfig: BettererConfigPartial = {}
 ): Promise<RunResult> {
   try {
-    const config = createConfig(partialConfig);
+    const config = await createConfig(partialConfig);
     registerExtensions(config);
     return await run(config);
   } catch (error) {
