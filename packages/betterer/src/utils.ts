@@ -1,11 +1,19 @@
 import * as path from 'path';
 
+export function isBoolean(value: unknown): value is boolean {
+  return typeof value === 'boolean';
+}
+
 export function isFunction<T>(value: unknown): value is T {
   return typeof value === 'function';
 }
 
 export function isString(value: unknown): value is string {
   return typeof value === 'string';
+}
+
+export function isRegExp(value: unknown): value is string {
+  return Object.prototype.toString.call(value) === '[object RegExp]';
 }
 
 export function isUndefined(value: unknown): value is undefined {

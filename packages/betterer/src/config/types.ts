@@ -20,7 +20,7 @@ export type BettererConfig = {
 export type BettererBaseConfigPartial = Partial<{
   configPaths: BettererConfigPaths | string;
   cwd: string;
-  filters: BettererConfigFilters | ReadonlyArray<string> | string;
+  filters: ReadonlyArray<string | RegExp> | string;
   reporters: BettererReporterNames;
   resultsPath: string;
   silent: boolean;

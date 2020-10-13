@@ -7,25 +7,28 @@ import { BettererReporter } from './types';
 export class BettererMultiReporterΩ implements BettererReporter {
   constructor(private _reporters: Array<BettererReporter>) {}
 
-  contextStart(context: BettererContext): void {
-    this._reporters.forEach((r) => r.contextStart?.(context));
+  async contextStart(context: BettererContext): Promise<void> {
+    await Promise.all(this._reporters.map((r) => r.contextStart?.(context)));
   }
-  contextEnd(context: BettererContext, summary: BettererSummary): void {
-    this._reporters.forEach((r) => r.contextEnd?.(context, summary));
+  async contextEnd(context: BettererContext, summary: BettererSummary): Promise<void> {
+    await Promise.all(this._reporters.map((r) => r.contextEnd?.(context, summary)));
   }
-  contextError(context: BettererContext, error: BettererError): void {
-    this._reporters.forEach((r) => r.contextError?.(context, error));
+  async contextError(context: BettererContext, error: BettererError): Promise<void> {
+    await Promise.all(this._reporters.map((r) => r.contextError?.(context, error)));
   }
-  runsStart(runs: BettererRuns, files: BettererFilePaths): void {
-    this._reporters.forEach((r) => r.runsStart?.(runs, files));
+  async runsStart(runs: BettererRuns, files: BettererFilePaths): Promise<void> {
+    await Promise.all(this._reporters.map((r) => r.runsStart?.(runs, files)));
   }
-  runsEnd(runs: BettererRuns, files: BettererFilePaths): void {
-    this._reporters.forEach((r) => r.runsEnd?.(runs, files));
+  async runsEnd(runs: BettererRuns, files: BettererFilePaths): Promise<void> {
+    await Promise.all(this._reporters.map((r) => r.runsEnd?.(runs, files)));
   }
-  runStart(run: BettererRun): void {
-    this._reporters.forEach((r) => r.runStart?.(run));
+  async runStart(run: BettererRun): Promise<void> {
+    await Promise.all(this._reporters.map((r) => r.runStart?.(run)));
   }
-  runEnd(run: BettererRun): void {
-    this._reporters.forEach((r) => r.runEnd?.(run));
+  async runEnd(run: BettererRun): Promise<void> {
+    await Promise.all(this._reporters.map((r) => r.runEnd?.(run)));
+  }
+  async runError(run: BettererRun, error: BettererError): Promise<void> {
+    await Promise.all(this._reporters.map((r) => r.runError?.(run, error)));
   }
 }

@@ -7,7 +7,7 @@ export declare namespace betterer {
 export declare type BettererBaseConfigPartial = Partial<{
     configPaths: BettererConfigPaths | string;
     cwd: string;
-    filters: BettererConfigFilters | ReadonlyArray<string> | string;
+    filters: ReadonlyArray<string | RegExp> | string;
     reporters: BettererReporterNames;
     resultsPath: string;
     silent: boolean;
@@ -114,13 +114,14 @@ export declare type BettererFileTestResult = {
 export declare type BettererPrinter<SerialisedType> = (serialised: SerialisedType) => MaybeAsync<string>;
 
 export declare type BettererReporter = {
-    contextStart?(context: BettererContext): void;
-    contextEnd?(context: BettererContext, summary: BettererSummary): void;
-    contextError?(context: BettererContext, error: BettererError): void;
-    runsStart?(runs: BettererRuns, files: BettererFilePaths): void;
-    runsEnd?(runs: BettererRuns, files: BettererFilePaths): void;
-    runStart?(run: BettererRun): void;
-    runEnd?(run: BettererRun): void;
+    contextStart?(context: BettererContext): Promise<void> | void;
+    contextEnd?(context: BettererContext, summary: BettererSummary): Promise<void> | void;
+    contextError?(context: BettererContext, error: BettererError): Promise<void> | void;
+    runsStart?(runs: BettererRuns, files: BettererFilePaths): Promise<void> | void;
+    runsEnd?(runs: BettererRuns, files: BettererFilePaths): Promise<void> | void;
+    runStart?(run: BettererRun): Promise<void> | void;
+    runEnd?(run: BettererRun): Promise<void> | void;
+    runError?(run: BettererRun, error: BettererError): Promise<void> | void;
 };
 
 export declare type BettererReporterNames = ReadonlyArray<string>;
