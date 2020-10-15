@@ -2,6 +2,7 @@ import commander from 'commander';
 import {
   BettererCLIArguments,
   BettererCLICIConfig,
+  BettererCLIEnvConfig,
   BettererCLIInitConfig,
   BettererCLIStartConfig,
   BettererCLIWatchConfig
@@ -14,7 +15,7 @@ export function ciOptions(argv: BettererCLIArguments): BettererCLICIConfig {
   filtersOption();
   silentOption();
   reportersOption();
-  return (commander.parse(argv) as unknown) as BettererCLICIConfig;
+  return setEnv<BettererCLICIConfig>(argv);
 }
 
 export function initOptions(argv: BettererCLIArguments): BettererCLIInitConfig {
@@ -30,7 +31,7 @@ export function startOptions(argv: BettererCLIArguments): BettererCLIStartConfig
   silentOption();
   updateOption();
   reportersOption();
-  return (commander.parse(argv) as unknown) as BettererCLIStartConfig;
+  return setEnv<BettererCLIStartConfig>(argv);
 }
 
 export function watchOptions(argv: BettererCLIArguments): BettererCLIWatchConfig {
@@ -42,7 +43,23 @@ export function watchOptions(argv: BettererCLIArguments): BettererCLIWatchConfig
   updateOption();
   reportersOption();
   ignoresOption();
-  return (commander.parse(argv) as unknown) as BettererCLIWatchConfig;
+  return setEnv<BettererCLIWatchConfig>(argv);
+}
+
+function setEnv<T extends BettererCLIEnvConfig>(argv: BettererCLIArguments): T {
+  commander.option('-d, --debug', 'Enable verbose debug logging', false);
+  commander.option('-l, --debug-log [value]', 'File path to save verbose debug logging to disk', './betterer.log');
+
+  const parsed = (commander.parse(argv) as unknown) as T;
+  if (parsed.debug) {
+    process.env.DEBUG = '1';
+    process.env.DEBUG_TIME = '1';
+    process.env.DEBUG_VALUES = '1';
+    if (parsed.debugLog) {
+      process.env.DEBUG_LOG = parsed.debugLog;
+    }
+  }
+  return parsed;
 }
 
 function configPathOption(): void {
