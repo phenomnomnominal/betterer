@@ -1,6 +1,11 @@
 export type BettererCLIArguments = Array<string>;
 
-export type BettererCLICIConfig = {
+export type BettererCLIEnvConfig = {
+  debug: boolean;
+  debugLog: string;
+};
+
+export type BettererCLICIConfig = BettererCLIEnvConfig & {
   config: BettererCLIArguments;
   filter: BettererCLIArguments;
   reporter: BettererCLIArguments;
@@ -9,7 +14,7 @@ export type BettererCLICIConfig = {
   tsconfig: string;
 };
 
-export type BettererCLIStartConfig = {
+export type BettererCLIStartConfig = BettererCLIEnvConfig & {
   config: BettererCLIArguments;
   filter: BettererCLIArguments;
   reporter: BettererCLIArguments;

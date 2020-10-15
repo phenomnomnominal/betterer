@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`betterer should doesn't break in debug mode 1`] = `
+Array [
+  "betterer starting 0
+",
+  "
+   / | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"should shrink\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"should shrink\\" got checked for the first time! 🎉",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"should grow\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"should grow\\" got checked for the first time! 🎉",
+  " ☀️  betterer  info  💬  - ",
+  "2 tests got checked. 🤔",
+  " ☀️  betterer  info  💬  - ",
+  "2 tests got checked for the first time! 🎉",
+  "betterer starting 0
+",
+  "
+   / | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"should shrink\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"should shrink\\" got better! 😍",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"should grow\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"should grow\\" got better! 😍",
+  " ☀️  betterer  info  💬  - ",
+  "2 tests got checked. 🤔",
+  " ☀️  betterer  succ  ✅  - ",
+  "2 tests got better! 😍",
+  "betterer starting 0
+",
+  "
+   / | /     _          _   _                     
+ '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+ ",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"should shrink\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"should shrink\\" got better! 😍",
+  " ☀️  betterer  info  💬  - ",
+  "running \\"should grow\\"!",
+  " ☀️  betterer  succ  ✅  - ",
+  "\\"should grow\\" got better! 😍",
+  " ☀️  betterer  info  💬  - ",
+  "2 tests got checked. 🤔",
+  " ☀️  betterer  succ  ✅  - ",
+  "2 tests got better! 😍",
+]
+`;

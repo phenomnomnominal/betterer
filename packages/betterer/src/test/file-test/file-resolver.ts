@@ -12,6 +12,13 @@ export class BettererFileResolver {
   private _included: Array<string> = [];
 
   constructor(depth = 2) {
+    // In DEBUG mode there is a Proxy that wraps each function call.
+    // That means that each function call results in two entries in
+    // the call stack, so we adjust here:
+    if (process.env.DEBUG) {
+      depth = depth * 2;
+    }
+
     const callStack = stack();
     const callee = callStack[depth];
     this._cwd = path.dirname(callee.getFileName());

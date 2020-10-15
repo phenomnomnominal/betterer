@@ -40,7 +40,6 @@ const HEADING = chalk.bgBlack.yellowBright.bold(` ☀️  betterer `);
 
 let previousLogger: 'LOG' | 'CODE' = 'LOG';
 
-export const debugΔ = createLogger(chalk.bgBlue.white(' debg '), chalk.bgBlack(' 🤔 '));
 export const successΔ = createLogger(chalk.bgGreenBright.black(' succ '), chalk.bgBlack(' ✅ '));
 export const infoΔ = createLogger(chalk.bgWhiteBright.black(' info '), chalk.bgBlack(' 💬 '));
 export const warnΔ = createLogger(chalk.bgYellowBright.black(' warn '), chalk.bgBlack(' 🚨 '));
