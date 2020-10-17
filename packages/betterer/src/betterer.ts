@@ -9,17 +9,11 @@ import {
   createConfig
 } from './config';
 import { BettererContextΩ, BettererSummary } from './context';
-import { BettererDebugOptions, debug } from './debug';
+import { debug } from './debug';
 import { registerExtensions } from './register';
 import { DEFAULT_REPORTER, WATCH_REPORTER, loadReporters } from './reporters';
 import { parallel, serial } from './runner';
 import { BettererWatcher, BettererWatcherΩ } from './watcher';
-
-const DEBUG_OPTIONS: BettererDebugOptions = {
-  header: 'betterer',
-  include: [/@betterer\//],
-  ignore: [new RegExp(require.resolve('./utils'))]
-};
 
 export function betterer(partialConfig?: BettererStartConfigPartial): Promise<BettererSummary> {
   return runContext(async (config) => {
@@ -74,7 +68,15 @@ async function runContext<RunResult, RunFunction extends (config: BettererConfig
   run: RunFunction,
   partialConfig: BettererConfigPartial = {}
 ): Promise<RunResult> {
-  debug(DEBUG_OPTIONS);
+  debug({
+    header: 'betterer',
+    include: [/@betterer\//],
+    ignore: [new RegExp(require.resolve('./utils'))],
+    enabled: !!process.env.DEBUG,
+    time: !!process.env.DEBUG_TIME,
+    values: !!process.env.DEBUG_VALUES,
+    logPath: process.env.DEBUG_LOG
+  });
 
   try {
     const config = await createConfig(partialConfig);
