@@ -21,13 +21,14 @@ export class BettererWatcherΩ implements BettererWatcher {
 
   public async setup(): Promise<void> {
     const contextΩ = this._context as BettererContextΩ;
-    const { cwd, ignores, resultsPath } = contextΩ.config;
+    const { cwd, resultsPath } = contextΩ.config;
 
-    const isGitIgnored = globby.gitignore.sync();
-    const watchIgnores = [...ignores, GIT_DIRECTORY].map((ignore) => path.join(cwd, ignore));
     const watcher = chokidar(cwd, {
       ignoreInitial: true,
       ignored: (itemPath: string) => {
+        const isGitIgnored = globby.gitignore.sync();
+        const { ignores } = contextΩ.config;
+        const watchIgnores = [...ignores, GIT_DIRECTORY].map((ignore) => path.join(cwd, ignore));
         return (
           itemPath !== normalisedPath(cwd) &&
           (itemPath === normalisedPath(resultsPath) ||

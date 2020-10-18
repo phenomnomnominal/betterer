@@ -1,7 +1,6 @@
 import { BettererRun } from '../../context';
 import { createTestConfig } from '../config';
-import { BettererTestState } from '../test-state';
-import { BettererTestFunction } from '../types';
+import { BettererTestBase, BettererTestConfig, BettererTestFunction } from '../types';
 import { constraint } from './constraint';
 import { differ } from './differ';
 import { BettererFileResolver } from './file-resolver';
@@ -9,25 +8,49 @@ import { BettererFileTestResultΩ } from './file-test-result';
 import { goal } from './goal';
 import { printer } from './printer';
 import { deserialise, serialise } from './serialiser';
-import { BettererFileGlobs, BettererFilePatterns, BettererFileTestFunction, BettererFileTestResult } from './types';
+import {
+  BettererFileGlobs,
+  BettererFileIssuesMapSerialised,
+  BettererFilePatterns,
+  BettererFilesDiff,
+  BettererFileTestFunction,
+  BettererFileTestResult
+} from './types';
 
 const IS_BETTERER_FILE_TEST = 'isBettererFileTest';
+const IS_BETTERER_TEST = 'isBettererTest';
 
-export class BettererFileTest extends BettererTestState {
+export class BettererFileTest
+  implements BettererTestBase<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff> {
   public readonly isBettererFileTest = IS_BETTERER_FILE_TEST;
+  public readonly isBettererTest = IS_BETTERER_TEST;
+
+  private _config: BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff>;
+  private _isOnly = false;
+  private _isSkipped = false;
 
   constructor(private _resolver: BettererFileResolver, fileTest: BettererFileTestFunction) {
-    super(
-      createTestConfig({
-        test: createTest(_resolver, fileTest),
-        constraint,
-        goal,
+    this._config = createTestConfig({
+      test: createTest(_resolver, fileTest),
+      constraint,
+      goal,
 
-        serialiser: { deserialise, serialise },
-        differ,
-        printer
-      })
-    );
+      serialiser: { deserialise, serialise },
+      differ,
+      printer
+    }) as BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff>;
+  }
+
+  public get config(): BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff> {
+    return this._config;
+  }
+
+  public get isOnly(): boolean {
+    return this._isOnly;
+  }
+
+  public get isSkipped(): boolean {
+    return this._isSkipped;
   }
 
   public exclude(...excludePatterns: BettererFilePatterns): this {
@@ -39,6 +62,16 @@ export class BettererFileTest extends BettererTestState {
     this._resolver.includeΔ(...includePatterns);
     return this;
   }
+
+  public only(): this {
+    this._isOnly = true;
+    return this;
+  }
+
+  public skip(): this {
+    this._isSkipped = true;
+    return this;
+  }
 }
 
 function createTest(
@@ -48,12 +81,13 @@ function createTest(
   return async (run: BettererRun): Promise<BettererFileTestResult> => {
     const { filePaths } = run;
 
-    const expectedΩ = run.expected.value as BettererFileTestResultΩ;
     const relevantFilePaths = await resolver.files(filePaths);
     const files = new BettererFileTestResultΩ(resolver);
     await fileTest(relevantFilePaths, files);
 
     if (filePaths.length && !run.isNew) {
+      const expectedΩ = run.expected.result as BettererFileTestResultΩ;
+
       // Get any filePaths that have expected issues but weren't included in this run:
       const excludedFilesWithIssues = expectedΩ.files
         .map((file) => file.absolutePath)

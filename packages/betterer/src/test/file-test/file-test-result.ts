@@ -13,6 +13,10 @@ export class BettererFileTestResultΩ implements BettererFileTestResult {
     return Object.values(this._fileMap).filter(Boolean) as ReadonlyArray<BettererFileBase>;
   }
 
+  public get value(): number {
+    return this.files.reduce((sum, file) => sum + file.issues.length, 0);
+  }
+
   public getFile(absolutePath: string): BettererFileBase {
     const file = this._fileMap[absolutePath];
     assert(file);

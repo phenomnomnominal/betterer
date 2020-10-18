@@ -1,9 +1,4 @@
-import {
-  BettererFileIssue,
-  BettererFileIssues,
-  BettererFileTestDiff,
-  BettererFileTestResult
-} from '@betterer/betterer';
+import { BettererFileIssue, BettererFileIssues, BettererFilesDiff, BettererFileTestResult } from '@betterer/betterer';
 import assert from 'assert';
 import { Diagnostic, DiagnosticSeverity, IConnection, Position, TextDocuments } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
@@ -96,7 +91,7 @@ export class BettererValidator {
             } else if (run.isSkipped || run.isSame) {
               existingIssues = issues;
             } else {
-              const fileDiff = (run.diff as BettererFileTestDiff).diff[filePath];
+              const fileDiff = (run.diff.diff as BettererFilesDiff)[filePath];
               info(`Validator: Got diff from Betterer for "${filePath}"`);
               existingIssues = fileDiff.existing || [];
               newIssues = fileDiff.new || [];

@@ -3,14 +3,14 @@ export type BettererExpectedResult = {
 };
 export type BettererExpectedResults = Record<string, BettererExpectedResult>;
 
-export type BettererDiff<DeserialisedType = unknown, DiffType = unknown> = {
-  expected: DeserialisedType;
-  result: DeserialisedType;
-  diff: DiffType;
-  log: () => void;
+export type BettererResultValueBasic = number;
+export type BettererResultValueComplex = {
+  value: number;
 };
+export type BettererResultValue = BettererResultValueBasic | BettererResultValueComplex;
 
 export type BettererResult = {
   isNew: boolean;
   value: unknown;
+  result: BettererResultValue;
 };

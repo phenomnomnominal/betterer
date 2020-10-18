@@ -1,25 +1,47 @@
-import { CONSTRAINT_FUNCTION_REQUIRED, TEST_FUNCTION_REQUIRED } from '../errors';
+import { diffΔ } from '@betterer/logger';
+import { CONSTRAINT_FUNCTION_REQUIRED, GOAL_FUNCTION_REQUIRED, TEST_FUNCTION_REQUIRED } from '../errors';
+import { BettererResultValue } from '../results';
 import { isFunction } from '../utils';
-import { BettererTestConfig, BettererTestConfigPartial, BettererTestGoal } from './types';
+import {
+  BettererTestConfig,
+  BettererTestConfigPartial,
+  BettererTestConfigComplexPartial,
+  BettererTestGoal,
+  BettererDiff
+} from './types';
 
-export function createTestConfig<DeserialisedType, SerialisedType, DiffType>(
+export function createTestConfig<DeserialisedType extends BettererResultValue, SerialisedType, DiffType>(
   config: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>
-): BettererTestConfig {
+): BettererTestConfig<DeserialisedType, SerialisedType, DiffType> | BettererTestConfig<number> {
   if (config.constraint == null) {
     throw CONSTRAINT_FUNCTION_REQUIRED();
   }
+
   if (config.test == null) {
     throw TEST_FUNCTION_REQUIRED();
   }
 
-  const { constraint, test, differ, printer, serialiser } = config;
-  const goal = createGoal(config);
   const deadline = createDeadline(config);
 
-  return { constraint, goal, deadline, test, differ, printer, serialiser } as BettererTestConfig;
+  if (isComplex(config)) {
+    if (config.goal == null) {
+      throw GOAL_FUNCTION_REQUIRED();
+    }
+    return { ...config, deadline } as BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
+  }
+
+  const goal = createGoal(config);
+  return {
+    ...config,
+    differ: defaultDiffer,
+    printer: defaultPrinter,
+    serialiser: { deserialise: defaultDeserialiser, serialise: defaultSerialiser },
+    goal,
+    deadline
+  } as BettererTestConfig<number>;
 }
 
-function createDeadline<DeserialisedType, SerialisedType, DiffType>(
+function createDeadline<DeserialisedType extends BettererResultValue, SerialisedType, DiffType>(
   options: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>
 ): number {
   const { deadline } = options;
@@ -30,7 +52,7 @@ function createDeadline<DeserialisedType, SerialisedType, DiffType>(
   return !isNaN(maybeDate) ? maybeDate : Infinity;
 }
 
-function createGoal<DeserialisedType, SerialisedType, DiffType>(
+function createGoal<DeserialisedType extends BettererResultValue, SerialisedType, DiffType>(
   options: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>
 ): BettererTestGoal<DeserialisedType> {
   const hasGoal = Object.hasOwnProperty.call(options, 'goal');
@@ -41,5 +63,35 @@ function createGoal<DeserialisedType, SerialisedType, DiffType>(
   if (isFunction<BettererTestGoal<DeserialisedType>>(goal)) {
     return goal;
   }
-  return (value: unknown): boolean => value === goal;
+  return (value: DeserialisedType): boolean => value === goal;
+}
+
+function isComplex<DeserialisedType extends BettererResultValue, SerialisedType, DiffType>(
+  config: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>
+): config is BettererTestConfigComplexPartial<DeserialisedType, SerialisedType, DiffType> {
+  const maybeComplex = config as BettererTestConfigComplexPartial<DeserialisedType, SerialisedType, DiffType>;
+  return !!(maybeComplex.differ && maybeComplex.printer && maybeComplex.serialiser);
+}
+
+export function defaultDiffer(expected: number, result: number): BettererDiff<number, null> {
+  return {
+    expected,
+    result,
+    diff: null,
+    log(): void {
+      diffΔ(expected, result);
+    }
+  };
+}
+
+function defaultPrinter(serialised: number): string {
+  return JSON.stringify(serialised);
+}
+
+function defaultDeserialiser(serialised: number): number {
+  return serialised;
+}
+
+function defaultSerialiser(deserialised: number): number {
+  return deserialised;
 }

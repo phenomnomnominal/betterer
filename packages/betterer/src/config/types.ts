@@ -2,14 +2,14 @@ import { BettererReporterNames } from '../reporters';
 
 export type BettererConfigPaths = ReadonlyArray<string>;
 export type BettererConfigFilters = ReadonlyArray<RegExp>;
-export type BettererConfigIgnore = ReadonlyArray<string>;
+export type BettererConfigIgnores = ReadonlyArray<string>;
 
 export type BettererConfig = {
   allowDiff: boolean;
   configPaths: BettererConfigPaths;
   cwd: string;
   filters: BettererConfigFilters;
-  ignores: BettererConfigIgnore;
+  ignores: BettererConfigIgnores;
   reporters: BettererReporterNames;
   resultsPath: string;
   silent: boolean;
@@ -35,7 +35,7 @@ export type BettererStartConfigPartial = BettererBaseConfigPartial &
 
 export type BettererWatchConfigPartial = BettererBaseConfigPartial &
   Partial<{
-    ignores: BettererConfigIgnore;
+    ignores: BettererConfigIgnores;
   }>;
 
 export type BettererConfigPartial = BettererBaseConfigPartial & BettererStartConfigPartial & BettererWatchConfigPartial;

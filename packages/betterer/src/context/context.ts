@@ -5,13 +5,14 @@ import { BettererConfig } from '../config';
 import { COULDNT_READ_CONFIG } from '../errors';
 import { BettererReporter } from '../reporters';
 import { requireUncached } from '../require';
-import { BettererDiff, BettererResults, BettererResultΩ } from '../results';
+import { BettererResults, BettererResultΩ } from '../results';
 import {
+  BettererDiff,
   BettererTest,
+  BettererTestBase,
   BettererTestMap,
-  BettererTestConfigPartial,
   BettererTestConfigMap,
-  BettererTestState,
+  BettererTestConfigPartial,
   isBettererFileTest,
   isBettererTest
 } from '../test';
@@ -30,7 +31,7 @@ export class BettererContextΩ implements BettererContext {
   private _running: Promise<void> | null = null;
 
   constructor(public readonly config: BettererConfig, private _reporter?: BettererReporter) {
-    this._results = new BettererResults(config);
+    this._results = new BettererResults(this.config.resultsPath);
   }
 
   public async setup(): Promise<void> {
@@ -53,7 +54,7 @@ export class BettererContextΩ implements BettererContext {
         .map(async (name) => {
           const test = this._tests[name];
           const { isSkipped, config } = test;
-          const expected = await this._results.getResult(name, config);
+          const expected = await this._results.getExpectedResult(name, config);
           const expectedΩ = expected as BettererResultΩ;
           return new BettererRunΩ(this, name, config, expectedΩ, filePaths, isSkipped);
         })
@@ -119,7 +120,7 @@ export class BettererContextΩ implements BettererContext {
       const tests: BettererTestMap = {};
       Object.keys(testOptions).forEach((name) => {
         const maybeTest = testOptions[name];
-        let test: BettererTestState | null = null;
+        let test: BettererTestBase | null = null;
         if (!isBettererTest(maybeTest)) {
           test = new BettererTest(testOptions[name] as BettererTestConfigPartial);
         } else {
@@ -134,8 +135,8 @@ export class BettererContextΩ implements BettererContext {
   }
 
   private async _initObsolete(): Promise<BettererRunNames> {
-    const resultNames = await this._results.getResultNames();
-    return resultNames.filter((expectedName) => !Object.keys(this._tests).find((name) => name === expectedName));
+    const expectedNames = await this._results.getExpectedNames();
+    return expectedNames.filter((expectedName) => !Object.keys(this._tests).find((name) => name === expectedName));
   }
 
   private _initFilters(): void {

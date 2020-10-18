@@ -4,7 +4,6 @@ export {
   BettererFileTestResult,
   BettererFileGlobs,
   BettererFilePatterns,
-  BettererFileTestDiff,
   BettererFileTestFunction,
   BettererFileBase,
   BettererFile,
