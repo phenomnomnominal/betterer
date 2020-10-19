@@ -9,6 +9,7 @@ export {
   BettererFile,
   BettererFileDiff,
   BettererFilesDiff,
+  BettererFileTestDiff,
   BettererFileIssue,
   BettererFileIssues
 } from './types';

@@ -30,7 +30,7 @@ export {
   BettererFileDiff,
   BettererFileIssue,
   BettererFileTestResult,
-  BettererFilesDiff,
+  BettererFileTestDiff,
   BettererFileIssues,
   BettererPrinter,
   BettererSerialise,

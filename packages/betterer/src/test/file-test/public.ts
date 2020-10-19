@@ -7,7 +7,7 @@ export {
   BettererFileGlobs,
   BettererFilePatterns,
   BettererFileDiff,
-  BettererFilesDiff,
+  BettererFileTestDiff,
   BettererFileTestFunction,
   BettererFileIssue,
   BettererFileIssues

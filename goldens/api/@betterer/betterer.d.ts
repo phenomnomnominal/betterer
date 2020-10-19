@@ -93,8 +93,6 @@ export declare class BettererFileResolver {
     validate(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
 }
 
-export declare type BettererFilesDiff = Record<string, BettererFileDiff>;
-
 export declare class BettererFileTest implements BettererTestBase<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff> {
     get config(): BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff>;
     readonly isBettererFileTest = "isBettererFileTest";
@@ -107,6 +105,8 @@ export declare class BettererFileTest implements BettererTestBase<BettererFileTe
     only(): this;
     skip(): this;
 }
+
+export declare type BettererFileTestDiff = BettererDiff<BettererFileTestResult, BettererFilesDiff>;
 
 export declare type BettererFileTestFunction = (filePaths: BettererFilePaths, fileTestResult: BettererFileTestResult) => MaybeAsync<void>;
 
