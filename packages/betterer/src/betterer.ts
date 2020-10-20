@@ -1,4 +1,5 @@
 import { logErrorΔ } from '@betterer/errors';
+import { debug } from '@phenomnomnominal/debug';
 
 import {
   BettererConfig,
@@ -9,7 +10,6 @@ import {
   createConfig
 } from './config';
 import { BettererContextΩ, BettererSummary } from './context';
-import { debug } from './debug';
 import { registerExtensions } from './register';
 import { DEFAULT_REPORTER, WATCH_REPORTER, loadReporters } from './reporters';
 import { parallel, serial } from './runner';

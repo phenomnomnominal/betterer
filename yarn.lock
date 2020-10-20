@@ -1548,6 +1548,15 @@
   resolved "https://registry.npmjs.org/@phenomnomnominal/commitlint-plugin/-/commitlint-plugin-1.1.1.tgz#ea96cfc07488efba06d4bd028ebeb14d92da6b85"
   integrity sha512-r5eWiv3SScWGe1a790sHczz4XIjuZ9hFWNu4JCUuZ/5K8LkvfiN8fA+AyoqPd4/mGIgw/6rKDNgi0K0ddVrlig==
 
+"@phenomnomnominal/debug@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/@phenomnomnominal/debug/-/debug-0.1.0.tgz#9ed2aac43dd16753ec7c596d057cebd212fa3c5b"
+  integrity sha512-JthutQNL3gA1ZraCzRspH50U9+jQpddjYhRD3uemEN2UJNF1XMyG5Yqnmhz5jpZyMLSHzWEJQzQb1dfz2+z1aw==
+  dependencies:
+    esprima "^4.0.1"
+    esquery "^1.3.1"
+    tslib "^2.0.3"
+
 "@phenomnomnominal/tsquery@^4.1.0":
   version "4.1.1"
   resolved "https://registry.npmjs.org/@phenomnomnominal/tsquery/-/tsquery-4.1.1.tgz#42971b83590e9d853d024ddb04a18085a36518df"
@@ -1642,20 +1651,6 @@
   dependencies:
     "@types/estree" "*"
     "@types/json-schema" "*"
-
-"@types/esprima@^4.0.2":
-  version "4.0.2"
-  resolved "https://registry.npmjs.org/@types/esprima/-/esprima-4.0.2.tgz#0303602d0644086d4802635d7abc9ac0eec57207"
-  integrity sha512-DKqdyuy7Go7ir6iKhZ0jUvgt/h9Q5zb9xS+fLeeXD2QSHv8gC6TimgujBBGfw8dHrpx4+u2HlMv7pkYOOfuUqg==
-  dependencies:
-    "@types/estree" "*"
-
-"@types/esquery@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/@types/esquery/-/esquery-1.0.1.tgz#687eba6440fda7d00fc81a91fe7d737b06c4c2f6"
-  integrity sha512-6u3GyW2v1rJ+euHNxtI1p2pg1dU49xflCp7DupiLYH7jlVEqK9Hc754jnqybwXtDC/kN8qYneRWJx+6PBaujeQ==
-  dependencies:
-    "@types/estree" "*"
 
 "@types/estree@*":
   version "0.0.45"
