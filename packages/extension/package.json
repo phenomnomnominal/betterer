@@ -136,7 +136,7 @@
     "typescript": "^4.0.2",
     "vscode": "^1.1.37",
     "webpack": "^5.1.3",
-    "webpack-cli": "^3.3.12",
+    "webpack-cli": "^4.1.0",
     "webpack-node-externals": "^2.5.2"
   }
 }
