@@ -69,6 +69,9 @@ export class BettererValidator {
           const config = await getBettererConfig(workspace);
 
           info(`Validator: Running Betterer for "${filePath}".`);
+          process.env.DEBUG = '1';
+          process.env.DEBUG_TIME = '1';
+          process.env.DEBUG_VALUES = '1';
           const { runs } = await betterer.file(filePath, { ...config, cwd });
 
           runs.forEach((run) => {
@@ -76,12 +79,12 @@ export class BettererValidator {
               return;
             }
 
-            const value = run.result.value as BettererFileTestResult;
-            if (!value) {
+            const result = run.result.result as BettererFileTestResult;
+            if (!result) {
               return;
             }
 
-            const issues = value.getIssues(filePath);
+            const issues = result.getIssues(filePath);
             if (!issues) {
               return;
             }
