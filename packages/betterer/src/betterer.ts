@@ -1,3 +1,5 @@
+import { debug } from '@phenomnomnominal/debug';
+
 import {
   BettererConfigPartial,
   BettererBaseConfigPartial,
