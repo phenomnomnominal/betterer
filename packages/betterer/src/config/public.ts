@@ -1,7 +1,7 @@
 export {
   BettererConfig,
   BettererConfigFilters,
-  BettererConfigIgnore,
+  BettererConfigIgnores,
   BettererConfigPaths,
   BettererConfigPartial,
   BettererBaseConfigPartial,

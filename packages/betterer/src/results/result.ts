@@ -1,15 +1,17 @@
-import { BettererResult } from './types';
+import assert from 'assert';
+
+import { BettererResult, BettererResultValue, BettererResultValueComplex } from './types';
 
 const NO_PREVIOUS_RESULT = Symbol('No Previous Result');
 
 export class BettererResultΩ implements BettererResult {
   private readonly _isNew: boolean;
-  private readonly _value: unknown;
+  private readonly _result: BettererResultValue | null = null;
 
-  constructor(value: unknown | typeof NO_PREVIOUS_RESULT = NO_PREVIOUS_RESULT) {
-    this._isNew = value === NO_PREVIOUS_RESULT;
-    if (!this._isNew) {
-      this._value = value;
+  constructor(result: BettererResultValue | typeof NO_PREVIOUS_RESULT = NO_PREVIOUS_RESULT) {
+    this._isNew = result === NO_PREVIOUS_RESULT;
+    if (result !== NO_PREVIOUS_RESULT) {
+      this._result = result;
     }
   }
 
@@ -17,7 +19,17 @@ export class BettererResultΩ implements BettererResult {
     return this._isNew;
   }
 
-  public get value(): unknown {
-    return this._value;
+  public get value(): number {
+    const result = this.result;
+    return isComplexBettererResult(result) ? result.value : result;
   }
+
+  public get result(): BettererResultValue {
+    assert(this._result !== null);
+    return this._result;
+  }
+}
+
+function isComplexBettererResult(value: unknown): value is BettererResultValueComplex {
+  return !!(value as BettererResultValueComplex).value;
 }

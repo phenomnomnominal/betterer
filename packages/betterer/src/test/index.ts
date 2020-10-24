@@ -4,24 +4,25 @@ export {
   isBettererFileTest,
   BettererFileGlobs,
   BettererFilePatterns,
-  BettererFileTestDiff,
   BettererFileTestFunction,
   BettererFileBase,
   BettererFile,
   BettererFilesDiff,
+  BettererFileTestDiff,
   BettererFileDiff,
   BettererFileIssue,
   BettererFileIssues,
   BettererFileResolver
 } from './file-test';
-export { BettererTestState, isBettererTest } from './test-state';
-export { BettererTest } from './test';
+export { BettererTest, isBettererTest } from './test';
 export {
   BettererDeserialise,
+  BettererDiff,
   BettererDiffer,
   BettererPrinter,
   BettererSerialise,
   BettererSerialiser,
+  BettererTestBase,
   BettererTestConstraint,
   BettererTestFunction,
   BettererTestGoal,

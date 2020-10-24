@@ -1,7 +1,7 @@
 import { BettererFilePaths } from '../watcher';
 import { BettererConfig } from '../config';
-import { BettererDiff, BettererResult } from '../results';
-import { BettererTestConfig } from '../test';
+import { BettererResult } from '../results';
+import { BettererDiff, BettererTestConfig } from '../test';
 
 export type BettererRuns = ReadonlyArray<BettererRun>;
 export type BettererRunNames = Array<string>;

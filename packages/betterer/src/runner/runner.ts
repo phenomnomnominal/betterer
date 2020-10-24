@@ -45,14 +45,14 @@ async function runTest(run: BettererRun, update: boolean): Promise<void> {
   }
   runΩ.ran();
 
-  const goalComplete = await test.goal(result.value);
+  const goalComplete = await test.goal(result.result);
 
   if (runΩ.isNew) {
     runΩ.new(result, goalComplete);
     return;
   }
 
-  const comparison = await test.constraint(result.value, runΩ.expected.value);
+  const comparison = await test.constraint(result.result, runΩ.expected.result);
 
   if (comparison === BettererConstraintResult.same) {
     runΩ.same(result);

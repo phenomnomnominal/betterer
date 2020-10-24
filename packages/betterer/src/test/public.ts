@@ -3,20 +3,19 @@ export {
   BettererFilePatterns,
   BettererFileResolver,
   BettererFileTest,
-  BettererFileTestDiff,
   BettererFileTestFunction,
   BettererFileBase,
   BettererFile,
   BettererFileTestResult,
   BettererFileDiff,
-  BettererFilesDiff,
+  BettererFileTestDiff,
   BettererFileIssue,
   BettererFileIssues
 } from './file-test/public';
-export { BettererTestState } from './test-state';
 export { BettererTest } from './test';
 export {
   BettererDeserialise,
+  BettererDiff,
   BettererDiffer,
   BettererPrinter,
   BettererSerialise,
@@ -24,6 +23,5 @@ export {
   BettererTestConstraint,
   BettererTestFunction,
   BettererTestGoal,
-  BettererTestConfigPartial,
   BettererTestConfig
 } from './types';

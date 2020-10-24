@@ -4,12 +4,12 @@ export {
   BettererFileTestResult,
   BettererFileGlobs,
   BettererFilePatterns,
-  BettererFileTestDiff,
   BettererFileTestFunction,
   BettererFileBase,
   BettererFile,
   BettererFileDiff,
   BettererFilesDiff,
+  BettererFileTestDiff,
   BettererFileIssue,
   BettererFileIssues
 } from './types';

@@ -1,7 +1,7 @@
 export { createConfig, getConfig } from './config';
 export {
   BettererConfigFilters,
-  BettererConfigIgnore,
+  BettererConfigIgnores,
   BettererConfigPaths,
   BettererConfigPartial,
   BettererBaseConfigPartial,
