@@ -71,7 +71,7 @@ async function runContext<RunResult, RunFunction extends (config: BettererConfig
   debug({
     header: 'betterer',
     include: [/@betterer\//],
-    ignore: [new RegExp(require.resolve('./utils'))],
+    ignore: [require.resolve('./utils')],
     enabled: !!process.env.DEBUG,
     time: !!process.env.DEBUG_TIME,
     values: !!process.env.DEBUG_VALUES,
