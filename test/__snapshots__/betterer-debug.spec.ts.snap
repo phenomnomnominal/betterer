@@ -4,6 +4,42 @@ exports[`betterer should doesn't break in debug mode 1`] = `
 Array [
   "betterer starting 0
 ",
+  "▸ loadReporters args: 
+",
+  "▸▸ requireUncached args: 
+",
+  "▸▸ requireUncached time: 0ms return: 
+",
+  "▸▸ BettererMultiReporterΩ args: 
+",
+  "▸▸ BettererMultiReporterΩ time: 0ms return: 
+",
+  "▸ loadReporters time: 0ms return: 
+",
+  "▸ createConfig args: 
+",
+  "▸▸ unmuteΔ args: 
+",
+  "▸▸ unmuteΔ time: 0ms return: 
+",
+  "▸ createConfig time: 0ms return: 
+",
+  "▸ registerExtensions args: 
+",
+  "▸ registerExtensions time: 0ms return: 
+",
+  "▸ BettererContextΩ args: 
+",
+  "▸▸ BettererResults args: 
+",
+  "▸▸ BettererResults time: 0ms return: 
+",
+  "▸ BettererContextΩ time: 0ms return: 
+",
+  "▸ BettererMultiReporterΩ.contextStart args: 
+",
+  "▸▸ logoΔ args: 
+",
   "
    / | /     _          _   _                     
  '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
@@ -11,59 +47,297 @@ Array [
  .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
    / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  ",
+  "▸▸ logoΔ time: 0ms return: 
+",
+  "▸ BettererMultiReporterΩ.contextStart time: 0ms return: 
+",
+  "▸ BettererContextΩ.setup args: 
+",
+  "▸▸ BettererContextΩ._initTests args: 
+",
+  "▸▸▸ BettererContextΩ._getTests args: 
+",
+  "▸▸▸▸ requireUncached args: 
+",
+  "▸▸▸▸ requireUncached time: 0ms return: 
+",
+  "▸▸▸▸ isBettererTest args: 
+",
+  "▸▸▸▸ isBettererTest time: 0ms return: 
+",
+  "▸▸▸▸ BettererTest args: 
+",
+  "▸▸▸▸▸ createTestConfig args: 
+",
+  "▸▸▸▸▸ createTestConfig time: 0ms return: 
+",
+  "▸▸▸▸ BettererTest time: 0ms return: 
+",
+  "▸▸▸▸ isBettererTest args: 
+",
+  "▸▸▸▸ isBettererTest time: 0ms return: 
+",
+  "▸▸▸▸ BettererTest args: 
+",
+  "▸▸▸▸▸ createTestConfig args: 
+",
+  "▸▸▸▸▸ createTestConfig time: 0ms return: 
+",
+  "▸▸▸▸ BettererTest time: 0ms return: 
+",
+  "▸▸▸ BettererContextΩ._getTests time: 0ms return: 
+",
+  "▸▸ BettererContextΩ._initTests time: 0ms return: 
+",
+  "▸▸ BettererContextΩ._initFilters args: 
+",
+  "▸▸ BettererContextΩ._initFilters time: 0ms return: 
+",
+  "▸ BettererContextΩ.setup time: 0ms return: 
+",
+  "▸ serial args: 
+",
+  "▸▸ BettererContextΩ.start args: 
+",
+  "▸▸▸ BettererResults.getResult args: 
+",
+  "▸▸▸▸ parse args: 
+",
+  "▸▸▸▸▸ read args: 
+",
+  "▸▸▸▸▸▸ BettererResults.getResult args: 
+",
+  "▸▸▸▸▸▸▸ parse args: 
+",
+  "▸▸▸▸▸▸▸▸ read args: 
+",
+  "▸▸▸▸▸▸▸▸ read time: 0ms return: 
+",
+  "▸▸▸▸▸▸▸ parse time: 0ms return: 
+",
+  "▸▸▸▸▸▸▸ BettererResultΩ args: 
+",
+  "▸▸▸▸▸▸▸ BettererResultΩ time: 0ms return: 
+",
+  "▸▸▸▸▸▸ BettererResults.getResult time: 0ms return: 
+",
+  "▸▸▸▸▸▸ BettererRunΩ args: 
+",
+  "▸▸▸▸▸▸ BettererRunΩ time: 0ms return: 
+",
+  "▸▸▸▸▸ read time: 0ms return: 
+",
+  "▸▸▸▸ parse time: 0ms return: 
+",
+  "▸▸▸▸ BettererResultΩ args: 
+",
+  "▸▸▸▸ BettererResultΩ time: 0ms return: 
+",
+  "▸▸▸ BettererResults.getResult time: 0ms return: 
+",
+  "▸▸▸ BettererRunΩ args: 
+",
+  "▸▸▸ BettererRunΩ time: 0ms return: 
+",
+  "▸▸▸ BettererContextΩ._initObsolete args: 
+",
+  "▸▸▸▸ BettererResults.getResultNames args: 
+",
+  "▸▸▸▸▸ parse args: 
+",
+  "▸▸▸▸▸▸ read args: 
+",
+  "▸▸▸▸▸▸ read time: 0ms return: 
+",
+  "▸▸▸▸▸ parse time: 0ms return: 
+",
+  "▸▸▸▸ BettererResults.getResultNames time: 0ms return: 
+",
+  "▸▸▸ BettererContextΩ._initObsolete time: 0ms return: 
+",
+  "▸▸▸ BettererMultiReporterΩ.runsStart args: 
+",
+  "▸▸▸ BettererMultiReporterΩ.runsStart time: 0ms return: 
+",
+  "▸▸▸ runner args: 
+",
+  "▸▸▸▸ BettererRunΩ.start args: 
+",
+  "▸▸▸▸▸ BettererContextΩ.runStart args: 
+",
+  "▸▸▸▸▸▸ BettererMultiReporterΩ.runStart args: 
+",
+  "▸▸▸▸▸▸▸ infoΔ args: 
+",
   " ☀️  betterer  info  💬  - ",
   "running \\"should shrink\\"!",
+  "▸▸▸▸▸▸▸ infoΔ time: 0ms return: 
+",
+  "▸▸▸▸▸▸ BettererMultiReporterΩ.runStart time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererContextΩ.runStart time: 0ms return: 
+",
+  "▸▸▸▸ BettererRunΩ.start time: 0ms return: 
+",
+  "▸▸▸▸ BettererResultΩ args: 
+",
+  "▸▸▸▸ BettererResultΩ time: 0ms return: 
+",
+  "▸▸▸▸ BettererRunΩ.ran args: 
+",
+  "▸▸▸▸ BettererRunΩ.ran time: 0ms return: 
+",
+  "▸▸▸▸ BettererRunΩ.new args: 
+",
+  "▸▸▸▸▸ BettererRunΩ._updateResult args: 
+",
+  "▸▸▸▸▸ BettererRunΩ._updateResult time: 0ms return: 
+",
+  "▸▸▸▸ BettererRunΩ.new time: 0ms return: 
+",
+  "▸▸▸▸ BettererRunΩ.end args: 
+",
+  "▸▸▸▸▸ BettererContextΩ.runEnd args: 
+",
+  "▸▸▸▸▸▸ BettererMultiReporterΩ.runEnd args: 
+",
+  "▸▸▸▸▸▸▸ successΔ args: 
+",
   " ☀️  betterer  succ  ✅  - ",
   "\\"should shrink\\" got checked for the first time! 🎉",
+  "▸▸▸▸▸▸▸ successΔ time: 0ms return: 
+",
+  "▸▸▸▸▸▸ BettererMultiReporterΩ.runEnd time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererContextΩ.runEnd time: 0ms return: 
+",
+  "▸▸▸▸ BettererRunΩ.end time: 0ms return: 
+",
+  "▸▸▸▸ BettererRunΩ.start args: 
+",
+  "▸▸▸▸▸ BettererContextΩ.runStart args: 
+",
+  "▸▸▸▸▸▸ BettererMultiReporterΩ.runStart args: 
+",
+  "▸▸▸▸▸▸▸ infoΔ args: 
+",
   " ☀️  betterer  info  💬  - ",
   "running \\"should grow\\"!",
+  "▸▸▸▸▸▸▸ infoΔ time: 0ms return: 
+",
+  "▸▸▸▸▸▸ BettererMultiReporterΩ.runStart time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererContextΩ.runStart time: 0ms return: 
+",
+  "▸▸▸▸ BettererRunΩ.start time: 0ms return: 
+",
+  "▸▸▸▸ BettererResultΩ args: 
+",
+  "▸▸▸▸ BettererResultΩ time: 0ms return: 
+",
+  "▸▸▸▸ BettererRunΩ.ran args: 
+",
+  "▸▸▸▸ BettererRunΩ.ran time: 0ms return: 
+",
+  "▸▸▸▸ BettererRunΩ.new args: 
+",
+  "▸▸▸▸▸ BettererRunΩ._updateResult args: 
+",
+  "▸▸▸▸▸ BettererRunΩ._updateResult time: 0ms return: 
+",
+  "▸▸▸▸ BettererRunΩ.new time: 0ms return: 
+",
+  "▸▸▸▸ BettererRunΩ.end args: 
+",
+  "▸▸▸▸▸ BettererContextΩ.runEnd args: 
+",
+  "▸▸▸▸▸▸ BettererMultiReporterΩ.runEnd args: 
+",
+  "▸▸▸▸▸▸▸ successΔ args: 
+",
   " ☀️  betterer  succ  ✅  - ",
   "\\"should grow\\" got checked for the first time! 🎉",
+  "▸▸▸▸▸▸▸ successΔ time: 0ms return: 
+",
+  "▸▸▸▸▸▸ BettererMultiReporterΩ.runEnd time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererContextΩ.runEnd time: 0ms return: 
+",
+  "▸▸▸▸ BettererRunΩ.end time: 0ms return: 
+",
+  "▸▸▸ runner time: 0ms return: 
+",
+  "▸▸▸ BettererMultiReporterΩ.runsEnd args: 
+",
+  "▸▸▸ BettererMultiReporterΩ.runsEnd time: 0ms return: 
+",
+  "▸▸▸ BettererResults.read args: 
+",
+  "▸▸▸▸ read args: 
+",
+  "▸▸▸▸ read time: 0ms return: 
+",
+  "▸▸▸ BettererResults.read time: 0ms return: 
+",
+  "▸▸▸ BettererResults.print args: 
+",
+  "▸▸▸▸ defaultPrinter args: 
+",
+  "▸▸▸▸ defaultPrinter time: 0ms return: 
+",
+  "▸▸▸▸ defaultPrinter args: 
+",
+  "▸▸▸▸ defaultPrinter time: 0ms return: 
+",
+  "▸▸▸▸ print args: 
+",
+  "▸▸▸▸ print time: 0ms return: 
+",
+  "▸▸▸▸ print args: 
+",
+  "▸▸▸▸ print time: 0ms return: 
+",
+  "▸▸▸ BettererResults.print time: 0ms return: 
+",
+  "▸▸▸ BettererSummaryΩ args: 
+",
+  "▸▸▸ BettererSummaryΩ time: 0ms return: 
+",
+  "▸▸ BettererContextΩ.start time: 0ms return: 
+",
+  "▸ serial time: 0ms return: 
+",
+  "▸ BettererContextΩ.end args: 
+",
+  "▸▸ BettererMultiReporterΩ.contextEnd args: 
+",
+  "▸▸▸ infoΔ args: 
+",
   " ☀️  betterer  info  💬  - ",
   "2 tests got checked. 🤔",
+  "▸▸▸ infoΔ time: 0ms return: 
+",
+  "▸▸▸ infoΔ args: 
+",
   " ☀️  betterer  info  💬  - ",
   "2 tests got checked for the first time! 🎉",
-  "betterer starting 0
+  "▸▸▸ infoΔ time: 0ms return: 
 ",
-  "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"should shrink\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"should shrink\\" got better! 😍",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"should grow\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"should grow\\" got better! 😍",
-  " ☀️  betterer  info  💬  - ",
-  "2 tests got checked. 🤔",
-  " ☀️  betterer  succ  ✅  - ",
-  "2 tests got better! 😍",
-  "betterer starting 0
+  "▸▸ BettererMultiReporterΩ.contextEnd time: 0ms return: 
 ",
-  "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"should shrink\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"should shrink\\" got better! 😍",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"should grow\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"should grow\\" got better! 😍",
-  " ☀️  betterer  info  💬  - ",
-  "2 tests got checked. 🤔",
-  " ☀️  betterer  succ  ✅  - ",
-  "2 tests got better! 😍",
+  "▸ BettererContextΩ.end time: 0ms return: 
+",
+  "▸ BettererContextΩ.save args: 
+",
+  "▸▸ BettererResults.write args: 
+",
+  "▸▸▸ write args: 
+",
+  "▸▸▸ write time: 0ms return: 
+",
+  "▸▸ BettererResults.write time: 0ms return: 
+",
+  "▸ BettererContextΩ.save time: 0ms return: 
+",
 ]
 `;

@@ -24,8 +24,8 @@
     "lint": "eslint \"./packages/**/src/**/*.{js,ts}\" \"./test/**/*.{js,ts}\" \"./*.{js,ts}\" --fix",
     "format": "prettier \"**/!(*.snap)\" --write --loglevel=silent",
     "test": "jest",
-    "test:api": "ts-node -P ./tsconfig.test.json ./test/api ",
-    "test:debug": "jest --runInBand --collectCoverage=false",
+    "test:api": "ts-node -P ./tsconfig.test-debug.json ./test/api ",
+    "test:debug": "jest --config=./jest-debug.config.js --runInBand",
     "test:extension": "lerna run test:extension",
     "prepublishOnly": "yarn run build"
   },

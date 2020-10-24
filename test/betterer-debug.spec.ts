@@ -28,12 +28,7 @@ module.exports = {
     const resultsPath = paths.results;
 
     process.env.DEBUG = '1';
-
-    await betterer({ configPaths, resultsPath });
-
     process.env.DEBUG_TIME = '1';
-    await betterer({ configPaths, resultsPath });
-
     process.env.DEBUG_VALUES = '1';
     await betterer({ configPaths, resultsPath });
 

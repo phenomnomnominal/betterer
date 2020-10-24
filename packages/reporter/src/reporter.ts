@@ -1,4 +1,10 @@
-import { BettererContext, BettererReporter, BettererRun, BettererSummary } from '@betterer/betterer';
+import {
+  BettererConfigPartial,
+  BettererContext,
+  BettererReporter,
+  BettererRun,
+  BettererSummary
+} from '@betterer/betterer';
 import { BettererError, logErrorΔ } from '@betterer/errors';
 import { brΔ, diffΔ, errorΔ, infoΔ, logoΔ, successΔ, warnΔ } from '@betterer/logger';
 
@@ -22,6 +28,9 @@ import {
 import { quoteΔ } from './utils';
 
 export const defaultReporter: BettererReporter = {
+  configError(_: BettererConfigPartial, error: BettererError): void {
+    logErrorΔ(error);
+  },
   contextStart(): void {
     logoΔ();
   },
@@ -81,6 +90,9 @@ export const defaultReporter: BettererReporter = {
       diffΔ(summary.expected, summary.result);
       brΔ();
     }
+  },
+  contextError(_: BettererContext, error: BettererError): void {
+    logErrorΔ(error);
   },
   runStart(run: BettererRun): void {
     const name = quoteΔ(run.name);

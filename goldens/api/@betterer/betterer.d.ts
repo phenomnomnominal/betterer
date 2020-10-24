@@ -31,6 +31,8 @@ export declare type BettererConfigFilters = ReadonlyArray<RegExp>;
 
 export declare type BettererConfigIgnores = ReadonlyArray<string>;
 
+export declare type BettererConfigPartial = BettererBaseConfigPartial & BettererStartConfigPartial & BettererWatchConfigPartial;
+
 export declare type BettererConfigPaths = ReadonlyArray<string>;
 
 export declare type BettererContext = {
@@ -118,6 +120,7 @@ export declare type BettererFileTestResult = BettererResultValueComplex & {
 export declare type BettererPrinter<SerialisedType> = (serialised: SerialisedType) => MaybeAsync<string>;
 
 export declare type BettererReporter = {
+    configError?(config: BettererConfigPartial, error: BettererError): Promise<void> | void;
     contextStart?(context: BettererContext): Promise<void> | void;
     contextEnd?(context: BettererContext, summary: BettererSummary): Promise<void> | void;
     contextError?(context: BettererContext, error: BettererError): Promise<void> | void;

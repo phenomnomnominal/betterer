@@ -30,11 +30,10 @@
     "@betterer/logger": "^3.1.0",
     "@betterer/reporter": "^3.1.0",
     "@betterer/watch-reporter": "^3.1.0",
+    "@phenomnomnominal/debug": "^0.2.0",
     "callsite": "^1.0.0",
     "chokidar": "^3.3.1",
     "djb2a": "^1.2.0",
-    "esprima": "^4.0.1",
-    "esquery": "^1.3.1",
     "gitignore-globs": "^0.1.1",
     "globby": "^11.0.1",
     "lines-and-columns": "^1.1.6",
@@ -44,8 +43,6 @@
     "tslib": "^2.0.3"
   },
   "devDependencies": {
-    "@types/callsite": "^1.0.30",
-    "@types/esprima": "^4.0.2",
-    "@types/esquery": "^1.0.1"
+    "@types/callsite": "^1.0.30"
   }
 }
