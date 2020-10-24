@@ -4,186 +4,6 @@ exports[`betterer should doesn't break in debug mode 1`] = `
 Array [
   "betterer starting 0
 ",
-  "▸ createConfig args: 
-",
-  "▸▸ unmuteΔ args: 
-",
-  "▸▸ unmuteΔ time: 0ms return: 
-",
-  "▸▸ registerError args: 
-",
-  "▸▸ registerError time: 0ms return: 
-",
-  "▸▸ messageFactory args: 
-",
-  "▸▸ messageFactory time: 0ms return: 
-",
-  "▸▸ BettererErrorΩ args: 
-",
-  "▸▸ BettererErrorΩ time: 0ms return: 
-",
-  "▸▸ registerError args: 
-",
-  "▸▸ registerError time: 0ms return: 
-",
-  "▸▸ messageFactory args: 
-",
-  "▸▸ messageFactory time: 0ms return: 
-",
-  "▸▸ BettererErrorΩ args: 
-",
-  "▸▸ BettererErrorΩ time: 0ms return: 
-",
-  "▸▸ registerError args: 
-",
-  "▸▸ registerError time: 0ms return: 
-",
-  "▸▸ messageFactory args: 
-",
-  "▸▸ messageFactory time: 0ms return: 
-",
-  "▸▸ BettererErrorΩ args: 
-",
-  "▸▸ BettererErrorΩ time: 0ms return: 
-",
-  "▸▸ registerError args: 
-",
-  "▸▸ registerError time: 0ms return: 
-",
-  "▸▸ messageFactory args: 
-",
-  "▸▸ messageFactory time: 0ms return: 
-",
-  "▸▸ BettererErrorΩ args: 
-",
-  "▸▸ BettererErrorΩ time: 0ms return: 
-",
-  "▸▸ registerError args: 
-",
-  "▸▸ registerError time: 0ms return: 
-",
-  "▸▸ messageFactory args: 
-",
-  "▸▸ messageFactory time: 0ms return: 
-",
-  "▸▸ BettererErrorΩ args: 
-",
-  "▸▸ BettererErrorΩ time: 0ms return: 
-",
-  "▸▸ registerError args: 
-",
-  "▸▸ registerError time: 0ms return: 
-",
-  "▸▸ messageFactory args: 
-",
-  "▸▸ messageFactory time: 0ms return: 
-",
-  "▸▸ BettererErrorΩ args: 
-",
-  "▸▸ BettererErrorΩ time: 0ms return: 
-",
-  "▸▸ registerError args: 
-",
-  "▸▸ registerError time: 0ms return: 
-",
-  "▸▸ messageFactory args: 
-",
-  "▸▸ messageFactory time: 0ms return: 
-",
-  "▸▸ BettererErrorΩ args: 
-",
-  "▸▸ BettererErrorΩ time: 0ms return: 
-",
-  "▸▸ registerError args: 
-",
-  "▸▸ registerError time: 0ms return: 
-",
-  "▸▸ messageFactory args: 
-",
-  "▸▸ messageFactory time: 0ms return: 
-",
-  "▸▸ BettererErrorΩ args: 
-",
-  "▸▸ BettererErrorΩ time: 0ms return: 
-",
-  "▸▸ registerError args: 
-",
-  "▸▸ registerError time: 0ms return: 
-",
-  "▸▸ messageFactory args: 
-",
-  "▸▸ messageFactory time: 0ms return: 
-",
-  "▸▸ BettererErrorΩ args: 
-",
-  "▸▸ BettererErrorΩ time: 0ms return: 
-",
-  "▸▸ registerError args: 
-",
-  "▸▸ registerError time: 0ms return: 
-",
-  "▸▸ messageFactory args: 
-",
-  "▸▸ messageFactory time: 0ms return: 
-",
-  "▸▸ BettererErrorΩ args: 
-",
-  "▸▸ BettererErrorΩ time: 0ms return: 
-",
-  "▸▸ registerError args: 
-",
-  "▸▸ registerError time: 0ms return: 
-",
-  "▸▸ messageFactory args: 
-",
-  "▸▸ messageFactory time: 0ms return: 
-",
-  "▸▸ BettererErrorΩ args: 
-",
-  "▸▸ BettererErrorΩ time: 0ms return: 
-",
-  "▸▸ registerError args: 
-",
-  "▸▸ registerError time: 0ms return: 
-",
-  "▸▸ messageFactory args: 
-",
-  "▸▸ messageFactory time: 0ms return: 
-",
-  "▸▸ BettererErrorΩ args: 
-",
-  "▸▸ BettererErrorΩ time: 0ms return: 
-",
-  "▸▸ registerError args: 
-",
-  "▸▸ registerError time: 0ms return: 
-",
-  "▸▸ messageFactory args: 
-",
-  "▸▸ messageFactory time: 0ms return: 
-",
-  "▸▸ BettererErrorΩ args: 
-",
-  "▸▸ BettererErrorΩ time: 0ms return: 
-",
-  "▸▸ registerError args: 
-",
-  "▸▸ registerError time: 0ms return: 
-",
-  "▸▸ messageFactory args: 
-",
-  "▸▸ messageFactory time: 0ms return: 
-",
-  "▸▸ BettererErrorΩ args: 
-",
-  "▸▸ BettererErrorΩ time: 0ms return: 
-",
-  "▸ createConfig time: 0ms return: 
-",
-  "▸ registerExtensions args: 
-",
-  "▸ registerExtensions time: 0ms return: 
-",
   "▸ loadReporters args: 
 ",
   "▸▸ requireUncached args: 
@@ -195,6 +15,18 @@ Array [
   "▸▸ BettererMultiReporterΩ time: 0ms return: 
 ",
   "▸ loadReporters time: 0ms return: 
+",
+  "▸ createConfig args: 
+",
+  "▸▸ unmuteΔ args: 
+",
+  "▸▸ unmuteΔ time: 0ms return: 
+",
+  "▸ createConfig time: 0ms return: 
+",
+  "▸ registerExtensions args: 
+",
+  "▸ registerExtensions time: 0ms return: 
 ",
   "▸ BettererContextΩ args: 
 ",

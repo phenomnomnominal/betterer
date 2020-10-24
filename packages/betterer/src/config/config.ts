@@ -114,7 +114,11 @@ async function validateFilePath<PropertyName extends keyof BettererConfig>(
 
 function validate(value: unknown, message: string): asserts value is boolean {
   // Wrap the AssertionError in a BettererError for logging:
-  assert(value, registerError(() => message)());
+  try {
+    assert(value);
+  } catch {
+    throw registerError(() => message)();
+  }
 }
 
 function recieved(value: unknown): string {
