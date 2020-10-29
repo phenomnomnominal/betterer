@@ -1,7 +1,7 @@
 {
   "name": "@betterer/eslint",
   "description": "ESLint test for @betterer/betterer",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -25,15 +25,15 @@
     "api": "ts-api-guardian --out ../../goldens/api/@betterer/eslint.d.ts dist/index.d.ts"
   },
   "dependencies": {
-    "@betterer/betterer": "^3.1.0",
-    "@betterer/errors": "^3.1.0",
+    "@betterer/betterer": "^3.1.1",
+    "@betterer/errors": "^3.1.1",
     "lines-and-columns": "^1.1.6",
     "tslib": "^2.0.3"
   },
   "peerDependencies": {
-    "eslint": ">=5.0.0"
+    "eslint": ">=7.0.0"
   },
   "devDependencies": {
-    "eslint": ">=5.0.0"
+    "eslint": ">=7.0.0"
   }
 }

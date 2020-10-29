@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/phenomnomnominal/betterer/compare/v3.1.0...v3.1.1) (2020-10-29)
+
+
+### Bug Fixes
+
+* **eslint 🐛:** fix no-floating-promises errors ([#291](https://github.com/phenomnomnominal/betterer/issues/291)) ([bba3d8c](https://github.com/phenomnomnominal/betterer/commit/bba3d8cf1ddb23abcc466ea87e65d0d7b0b6501a))
+* **eslint 🐛:** fix restrict-template-expressions ([#115](https://github.com/phenomnomnominal/betterer/issues/115)) ([#306](https://github.com/phenomnomnominal/betterer/issues/306)) ([2229b93](https://github.com/phenomnomnominal/betterer/commit/2229b937b83a2a0d1a416a0a61aa42460665f3b5))
+
+
+
+
+
 # [3.1.0](https://github.com/phenomnomnominal/betterer/compare/v3.0.3...v3.1.0) (2020-09-18)
 
 **Note:** Version bump only for package @betterer/cli

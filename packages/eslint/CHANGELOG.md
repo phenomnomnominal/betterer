@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/phenomnomnominal/betterer/compare/v3.1.0...v3.1.1) (2020-10-29)
+
+
+### Bug Fixes
+
+* **eslint 🐛:** fix eslint peer dependency ([#366](https://github.com/phenomnomnominal/betterer/issues/366)) ([bfa999e](https://github.com/phenomnomnominal/betterer/commit/bfa999ee8087cd2cb1bec9eca42ea4e8a503c431))
+
+
+
+
+
 # [3.1.0](https://github.com/phenomnomnominal/betterer/compare/v3.0.3...v3.1.0) (2020-09-18)
 
 **Note:** Version bump only for package @betterer/eslint
