@@ -137,8 +137,8 @@
     "jest-cli": "^26.4.2",
     "ts-loader": "^8.0.3",
     "vscode-test": "^1.4.0",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12",
+    "webpack": "^5.1.3",
+    "webpack-cli": "^4.1.0",
     "webpack-node-externals": "^2.5.2"
   }
 }
