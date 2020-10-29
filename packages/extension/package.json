@@ -4,7 +4,7 @@
   "publisher": "Betterer",
   "private": true,
   "description": "VSCode extension for @betterer/betterer",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "main": "./dist/client/client.js",
   "author": "Craig Spence <craigspence0@gmail.com>",
   "homepage": "https://phenomnomnominal.github.io/betterer",
