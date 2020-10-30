@@ -1,4 +1,4 @@
-import { COULDNT_LOAD_REPORTER, HOOK_NOT_A_FUNCTION, NO_REPORTER_LOADED, UNKNOWN_HOOK_NAME } from '../errors';
+import { BettererError } from '@betterer/errors';
 import { requireUncached } from '../require';
 import { isFunction } from '../utils';
 import { BettererMultiReporterΩ } from './reporter-multi';
@@ -14,12 +14,12 @@ export function loadReporters(reporterNames: BettererReporterNames): BettererMul
     try {
       const module: BettererReporterModule = requireUncached(name);
       if (!module || !module.reporter) {
-        throw NO_REPORTER_LOADED(name);
+        throw new BettererError(`"${name}" didn't create a reporter. 😔`);
       }
       validate(module.reporter);
       return module.reporter;
     } catch (e) {
-      throw COULDNT_LOAD_REPORTER(name, e);
+      throw new BettererError(`could not require "${name}". 😔`, e);
     }
   });
   return new BettererMultiReporterΩ(reporters);
@@ -30,10 +30,10 @@ function validate(result: unknown): asserts result is BettererReporter {
   Object.keys(reporter).forEach((key) => {
     const hookName = key as keyof BettererReporter;
     if (!HOOK_NAMES.includes(hookName)) {
-      throw UNKNOWN_HOOK_NAME(hookName);
+      throw new BettererError(`"${hookName}" is not a valid reporter hook name. 😔`);
     }
     if (!isFunction(reporter[hookName])) {
-      throw HOOK_NOT_A_FUNCTION(hookName);
+      throw new BettererError(`"${hookName}" is not a function. 😔`);
     }
   });
 }

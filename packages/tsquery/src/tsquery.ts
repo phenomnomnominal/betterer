@@ -1,15 +1,18 @@
 import { BettererFileResolver, BettererFileTest } from '@betterer/betterer';
+import { BettererError } from '@betterer/errors';
 import { tsquery as tsq } from '@phenomnomnominal/tsquery';
 import { promises as fs } from 'fs';
 
-import { CONFIG_PATH_REQUIRED, QUERY_REQUIRED } from './errors';
-
 export function tsquery(configFilePath: string, query: string): BettererFileTest {
   if (!configFilePath) {
-    throw CONFIG_PATH_REQUIRED();
+    throw new BettererError(
+      "For `@betterer/tsquery` to work, you need to provide the path to a tsconfig.json file, e.g. `'./tsconfig.json'`. ❌"
+    );
   }
   if (!query) {
-    throw QUERY_REQUIRED();
+    throw new BettererError(
+      "For `@betterer/tsquery` to work, you need to provide a query, e.g. `'CallExpression > PropertyAccessExpression'`. ❌"
+    );
   }
 
   const resolver = new BettererFileResolver();

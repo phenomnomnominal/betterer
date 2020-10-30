@@ -1,7 +1,7 @@
+import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
 import { requireText } from '../require';
-import { COULDNT_READ_RESULTS, COULDNT_RESOLVE_MERGE_CONFLICT } from '../errors';
 import { read } from '../reader';
 import { BettererExpectedResults } from './types';
 
@@ -21,14 +21,14 @@ export async function parse(resultsPath: string): Promise<BettererExpectedResult
       const [ours, theirs] = extractConflicts(file);
       return { ...requireText(ours), ...requireText(theirs) };
     } catch (e) {
-      throw COULDNT_RESOLVE_MERGE_CONFLICT(resultsPath, e);
+      throw new BettererError(`could not resolve merge conflict in "${resultsPath}". 😔`, e);
     }
   }
 
   try {
     return requireText(file);
   } catch {
-    throw COULDNT_READ_RESULTS(resultsPath);
+    throw new BettererError(`could not read results from "${resultsPath}". 😔`);
   }
 }
 

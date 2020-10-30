@@ -1,15 +1,11 @@
 import { BettererRunNames, BettererRuns, BettererSummary } from '@betterer/betterer';
-import { registerError } from '@betterer/errors';
+import { BettererError } from '@betterer/errors';
 import { promises as fs } from 'graceful-fs';
 import * as path from 'path';
 
 import { createFixtureFS } from './fs';
 import { createFixtureLogs } from './logging';
 import { Fixture, FixtureFactory, FixtureFileSystemFiles } from './types';
-
-const DUPLICATE_FIXTURE_NAME = registerError(
-  (fixtureName) => `There is already a fixture in use called "${fixtureName.toString()}"`
-);
 
 export async function createFixtureDirectoryΔ(fixturesPath: string): Promise<FixtureFactory> {
   try {
@@ -21,7 +17,7 @@ export async function createFixtureDirectoryΔ(fixturesPath: string): Promise<Fi
   return async function createFixtureΔ(fixtureName: string, files: FixtureFileSystemFiles): Promise<Fixture> {
     const fixtureNames = await fs.readdir(fixturesPath);
     if (fixtureNames.includes(fixtureName)) {
-      throw DUPLICATE_FIXTURE_NAME(fixtureName);
+      throw new BettererError(`There is already a fixture in use called "${fixtureName.toString()}"`);
     }
 
     const fixturePath = path.resolve(fixturesPath, fixtureName);

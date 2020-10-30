@@ -1,5 +1,5 @@
+import { BettererError } from '@betterer/errors/dist/error';
 import { diffΔ } from '@betterer/logger';
-import { CONSTRAINT_FUNCTION_REQUIRED, GOAL_FUNCTION_REQUIRED, TEST_FUNCTION_REQUIRED } from '../errors';
 import { BettererResultValue } from '../results';
 import { isFunction } from '../utils';
 import {
@@ -14,18 +14,18 @@ export function createTestConfig<DeserialisedType extends BettererResultValue, S
   config: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>
 ): BettererTestConfig<DeserialisedType, SerialisedType, DiffType> | BettererTestConfig<number> {
   if (config.constraint == null) {
-    throw CONSTRAINT_FUNCTION_REQUIRED();
+    throw new BettererError('for a test to work, it must have a `constraint` function. ❌');
   }
 
   if (config.test == null) {
-    throw TEST_FUNCTION_REQUIRED();
+    throw new BettererError('for a test to work, it must have a `test` function. ❌');
   }
 
   const deadline = createDeadline(config);
 
   if (isComplex(config)) {
     if (config.goal == null) {
-      throw GOAL_FUNCTION_REQUIRED();
+      throw new BettererError('for a test to work, it must have a `goal` function. ❌');
     }
     return { ...config, deadline } as BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
   }

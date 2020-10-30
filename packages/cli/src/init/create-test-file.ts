@@ -1,12 +1,10 @@
-import { registerError } from '@betterer/errors';
+import { BettererError } from '@betterer/errors';
 import { BettererTaskContext, BettererTaskLogger } from '@betterer/logger';
 import { promises as fs } from 'fs';
 
 const TEMPLATE = `export default {
   // Add tests here ☀️
 };`;
-
-const COULDNT_WRITE_CONFIG_FILE = registerError((configPath) => `could not read "${configPath.toString()}".`);
 
 export function createTestFile(configPath: string): BettererTaskContext {
   return {
@@ -34,6 +32,6 @@ async function runCreateTestFile(logger: BettererTaskLogger, configPath: string)
     await fs.writeFile(configPath, TEMPLATE, 'utf8');
     logger.info(`created "${configPath}"!`);
   } catch {
-    throw COULDNT_WRITE_CONFIG_FILE(configPath);
+    throw new BettererError(`could not read "${configPath}".`);
   }
 }
