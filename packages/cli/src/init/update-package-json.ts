@@ -1,13 +1,9 @@
-import { registerError } from '@betterer/errors';
+import { BettererError } from '@betterer/errors';
 import { BettererTaskContext, BettererTaskLogger } from '@betterer/logger';
 import findUp from 'find-up';
 import { promises as fs } from 'fs';
 
 import { BettererPackageJSON } from '../types';
-
-const COULDNT_FIND_PACKAGE_JSON = registerError(() => 'could not find "package.json".');
-const COULDNT_READ_PACKAGE_JSON = registerError(() => 'could not read "package.json".');
-const COULDNT_WRITE_PACKAGE_JSON = registerError(() => 'could not write "package.json".');
 
 export function updatePackageJSON(cwd: string): BettererTaskContext {
   return {
@@ -24,11 +20,11 @@ async function runUpdatePackageJSON(cwd: string, logger: BettererTaskLogger): Pr
   try {
     packageJSONPath = await findUp('package.json', { cwd });
     if (!packageJSONPath) {
-      throw COULDNT_FIND_PACKAGE_JSON();
+      throw new BettererError('could not find "package.json".');
     }
     packageJSON = JSON.parse(await fs.readFile(packageJSONPath, 'utf-8')) as BettererPackageJSON;
   } catch {
-    throw COULDNT_READ_PACKAGE_JSON();
+    throw new BettererError('could not read "package.json".');
   }
 
   packageJSON.scripts = packageJSON.scripts || {};
@@ -55,6 +51,6 @@ async function runUpdatePackageJSON(cwd: string, logger: BettererTaskLogger): Pr
   try {
     await fs.writeFile(packageJSONPath, JSON.stringify(packageJSON, null, 2), 'utf-8');
   } catch {
-    throw COULDNT_WRITE_PACKAGE_JSON();
+    throw new BettererError('could not write "package.json".');
   }
 }

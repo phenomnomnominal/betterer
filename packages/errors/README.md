@@ -8,14 +8,14 @@ Error handler used within [**`Betterer`**](https://github.com/phenomnomnominal/b
 
 ## Usage
 
-### Register Error
+### BettererError
 
-Register an error type with the handler:
+Create an error:
 
 ```typescript
-import { registerError } from '@betterer/errors';
+import { BettererError } from '@betterer/errors';
 
-const MY_ERROR = registerError((details) => `Something went wrong: ${details}`);
+const error = new BettererError(`Something went wrong: "OOPS!"`, { some: 'details' });
 ```
 
 ### Log Error
@@ -25,12 +25,10 @@ const MY_ERROR = registerError((details) => `Something went wrong: ${details}`);
 Log a registered error type:
 
 ```typescript
-import { logErrorΔ, registerError } from '@betterer/errors';
-
-const MY_ERROR = registerError(details => `Something went wrong: "${details}"`);
+import { BettererError, logErrorΔ } from '@betterer/errors';
 
 try {
-    throw MY_ERROR('OOPS!):
+    throw new BettererError(`Something went wrong: "OOPS!"`):
 } catch (e) {
     logErrorΔ(e); // 'Something went wrong: "OOPS"'
 }

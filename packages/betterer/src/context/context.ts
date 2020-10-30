@@ -2,7 +2,6 @@ import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
 import { BettererConfig } from '../config';
-import { COULDNT_READ_CONFIG } from '../errors';
 import { BettererReporter } from '../reporters';
 import { requireUncached } from '../require';
 import { BettererResults, BettererResultΩ } from '../results';
@@ -130,7 +129,7 @@ export class BettererContextΩ implements BettererContext {
       });
       return tests;
     } catch (e) {
-      throw COULDNT_READ_CONFIG(configPath, e);
+      throw new BettererError(`could not read config from "${configPath}". 😔`, e);
     }
   }
 

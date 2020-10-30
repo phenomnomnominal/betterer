@@ -1,4 +1,4 @@
-import { registerError } from '@betterer/errors';
+import { BettererError } from '@betterer/errors';
 import { BettererTaskContext, BettererTaskStatusMessage, BettererTaskLogger } from '@betterer/logger';
 import { promises as fs } from 'fs';
 import * as path from 'path';
@@ -32,10 +32,6 @@ export async function getPackages(): Promise<Array<string>> {
     return packageName && !EXCLUDED_PACKAGES.includes(packageName);
   });
 }
-
-export const PACKAGE_API_DIFF = registerError(
-  (packageName) => `API changes found in "@betterer/${packageName.toString()}"`
-);
 
 export function testPackageAPI(packageName: string): BettererTaskContext {
   return {
@@ -80,7 +76,7 @@ export async function runTestPackageAPI(
   }
 
   const diff = verifyAgainstGoldenFile(packageDeclarationPath, packageGoldenPath, API_OPTIONS);
-  throw PACKAGE_API_DIFF(packageName, diff);
+  throw new BettererError(`API changes found in "@betterer/${packageName.toString()}"`, diff);
 }
 
 function checkForBannedTokens(types: string, token: string): boolean {

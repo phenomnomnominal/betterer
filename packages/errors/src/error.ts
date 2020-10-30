@@ -1,14 +1,21 @@
-import { BettererError, BettererErrorDetails } from './types';
+import { BettererErrorDetails, ErrorLike } from './types';
 
-export class BettererErrorΩ extends Error implements BettererError {
+const ERRORS: Array<BettererError> = [];
+
+export class BettererError extends Error {
   public details: BettererErrorDetails;
 
-  constructor(message: string, public code: symbol, ...details: BettererErrorDetails) {
+  constructor(message: string, ...details: BettererErrorDetails) {
     super(message);
 
-    Error.captureStackTrace(this, BettererErrorΩ);
+    Error.captureStackTrace(this, BettererError);
     Object.setPrototypeOf(this, new.target.prototype);
 
     this.details = details;
+    ERRORS.push(this);
   }
+}
+
+export function isBettererError(err: ErrorLike | Error | BettererError): err is BettererError {
+  return !!ERRORS.includes(err as BettererError);
 }

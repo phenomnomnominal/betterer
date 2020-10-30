@@ -1,8 +1,7 @@
 import { BettererFileResolver, BettererFileTest } from '@betterer/betterer';
+import { BettererError } from '@betterer/errors';
 import * as path from 'path';
 import * as ts from 'typescript';
-
-import { COMPILER_OPTIONS_REQUIRED, CONFIG_PATH_REQUIRED } from './errors';
 
 const NEW_LINE = '\n';
 
@@ -14,10 +13,14 @@ type TypeScriptReadConfigResult = {
 
 export function typescript(configFilePath: string, extraCompilerOptions: ts.CompilerOptions): BettererFileTest {
   if (!configFilePath) {
-    throw CONFIG_PATH_REQUIRED();
+    throw new BettererError(
+      "For `@betterer/typescript` to work, you need to provide the path to a tsconfig.json file, e.g. `'./tsconfig.json'`. ❌"
+    );
   }
   if (!extraCompilerOptions) {
-    throw COMPILER_OPTIONS_REQUIRED();
+    throw new BettererError(
+      'For `@betterer/typescript` to work, you need to provide compiler options, e.g. `{ strict: true }`. ❌'
+    );
   }
 
   const resolver = new BettererFileResolver();

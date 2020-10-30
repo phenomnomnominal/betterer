@@ -1,4 +1,4 @@
-import { registerError } from '@betterer/errors';
+import { BettererError } from '@betterer/errors';
 import { muteΔ, unmuteΔ } from '@betterer/logger';
 import assert from 'assert';
 import { promises as fs } from 'fs';
@@ -117,7 +117,7 @@ function validate(value: unknown, message: string): asserts value is boolean {
   try {
     assert(value);
   } catch {
-    throw registerError(() => message)();
+    throw new BettererError(message);
   }
 }
 

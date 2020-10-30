@@ -1,14 +1,15 @@
 import { BettererFileResolver, BettererFileTest } from '@betterer/betterer';
+import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 import { ESLint, Linter } from 'eslint';
-
-import { RULES_OPTIONS_REQUIRED } from './errors';
 
 type ESLintRulesConfig = Record<string, Linter.RuleLevel | Linter.RuleLevelAndOptions>;
 
 export function eslint(rules: ESLintRulesConfig): BettererFileTest {
   if (!rules) {
-    throw RULES_OPTIONS_REQUIRED();
+    throw new BettererError(
+      "For `@betterer/eslint` to work, you need to provide rule options, e.g. `{ 'no-debugger': 'error' }`. ❌"
+    );
   }
 
   const resolver = new BettererFileResolver();

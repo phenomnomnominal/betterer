@@ -1,11 +1,10 @@
 import { BettererFileResolver, BettererFileTest } from '@betterer/betterer';
+import { BettererError } from '@betterer/errors';
 import { promises as fs } from 'fs';
-
-import { REGEXP_REQUIRED } from './errors';
 
 export function regexp(pattern: RegExp): BettererFileTest {
   if (!pattern) {
-    throw REGEXP_REQUIRED();
+    throw new BettererError('For `@betterer/regexp` to work, you need to provide a RegExp, e.g. `/^foo$/`. ❌');
   }
 
   const resolver = new BettererFileResolver();
