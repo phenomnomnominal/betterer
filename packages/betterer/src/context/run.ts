@@ -1,11 +1,11 @@
 import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
+import { BettererReporterΩ } from '../reporters';
 import { BettererResult } from '../results';
 import { BettererDiff, BettererTestConfig } from '../test';
 import { BettererFilePaths } from '../watcher';
-import { BettererContextΩ } from './context';
-import { BettererContext, BettererRun } from './types';
+import { BettererRun } from './types';
 
 enum BettererRunStatus {
   better,
@@ -29,7 +29,7 @@ export class BettererRunΩ implements BettererRun {
   private _isRan = false;
 
   constructor(
-    private readonly _context: BettererContext,
+    private readonly _reporter: BettererReporterΩ,
     private readonly _name: string,
     private readonly _test: BettererTestConfig,
     private readonly _expected: BettererResult,
@@ -116,13 +116,11 @@ export class BettererRunΩ implements BettererRun {
   }
 
   public async end(): Promise<void> {
-    const contextΩ = this._context as BettererContextΩ;
-    await contextΩ.runEnd(this);
+    await this._reporter.runEnd(this);
   }
 
   public async failed(e: BettererError): Promise<void> {
-    const contextΩ = this._context as BettererContextΩ;
-    await contextΩ.runError(this, e);
+    await this._reporter.runError(this, e);
     assert.strictEqual(this._status, BettererRunStatus.pending);
     this._status = BettererRunStatus.failed;
   }
@@ -138,8 +136,7 @@ export class BettererRunΩ implements BettererRun {
   public async start(): Promise<void> {
     const startTime = Date.now();
     this._isExpired = startTime > this._test.deadline;
-    const contextΩ = this._context as BettererContextΩ;
-    await contextΩ.runStart(this);
+    await this._reporter.runStart(this);
     this._timestamp = startTime;
   }
 
@@ -149,14 +146,12 @@ export class BettererRunΩ implements BettererRun {
 
   public update(result: BettererResult): void {
     this._updateResult(BettererRunStatus.update, result);
-    const contextΩ = this._context as BettererContextΩ;
-    this._diff = contextΩ.runDiff(this);
+    this._diff = this.test.differ(this.expected.result, this.result.result);
   }
 
   public worse(result: BettererResult): void {
     this._updateResult(BettererRunStatus.worse, result);
-    const contextΩ = this._context as BettererContextΩ;
-    this._diff = contextΩ.runDiff(this);
+    this._diff = this.test.differ(this.expected.result, this.result.result);
   }
 
   private _updateResult(status: BettererRunStatus, result: BettererResult, isComplete = false) {

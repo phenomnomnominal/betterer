@@ -1,8 +1,8 @@
 import assert from 'assert';
 
-import { BettererRun, BettererRuns } from '../context';
+import { BettererRuns } from '../context';
 import { read } from '../reader';
-import { BettererTestConfig, BettererDiff } from '../test';
+import { BettererTestConfig } from '../test';
 import { write } from '../writer';
 import { parse } from './parser';
 import { print } from './printer';
@@ -27,10 +27,6 @@ export class BettererResults {
       return new BettererResultΩ(test.serialiser.deserialise(parsed));
     }
     return new BettererResultΩ();
-  }
-
-  public getDiff(run: BettererRun): BettererDiff {
-    return run.test.differ(run.expected.result, run.result.result);
   }
 
   public read(): Promise<string | null> {

@@ -5,7 +5,7 @@ import { BettererContext, BettererRun, BettererRuns, BettererSummary } from '../
 import { BettererFilePaths } from '../watcher';
 import { BettererReporter } from './types';
 
-export class BettererMultiReporterΩ implements BettererReporter {
+export class BettererReporterΩ implements BettererReporter {
   constructor(private _reporters: Array<BettererReporter>) {}
 
   async configError(partialConfig: BettererConfigPartial, error: BettererError): Promise<void> {
