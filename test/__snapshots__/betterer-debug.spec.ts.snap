@@ -10,9 +10,9 @@ Array [
 ",
   "▸▸ requireUncached time: 0ms return: 
 ",
-  "▸▸ BettererMultiReporterΩ args: 
+  "▸▸ BettererReporterΩ args: 
 ",
-  "▸▸ BettererMultiReporterΩ time: 0ms return: 
+  "▸▸ BettererReporterΩ time: 0ms return: 
 ",
   "▸ loadReporters time: 0ms return: 
 ",
@@ -36,7 +36,7 @@ Array [
 ",
   "▸ BettererContextΩ time: 0ms return: 
 ",
-  "▸ BettererMultiReporterΩ.contextStart args: 
+  "▸ BettererReporterΩ.contextStart args: 
 ",
   "▸▸ logoΔ args: 
 ",
@@ -49,7 +49,7 @@ Array [
  ",
   "▸▸ logoΔ time: 0ms return: 
 ",
-  "▸ BettererMultiReporterΩ.contextStart time: 0ms return: 
+  "▸ BettererReporterΩ.contextStart time: 0ms return: 
 ",
   "▸ BettererContextΩ.setup args: 
 ",
@@ -97,7 +97,7 @@ Array [
 ",
   "▸ serial args: 
 ",
-  "▸▸ BettererContextΩ.start args: 
+  "▸▸ BettererContextΩ.run args: 
 ",
   "▸▸▸ BettererResults.getExpectedResult args: 
 ",
@@ -155,27 +155,23 @@ Array [
 ",
   "▸▸▸ BettererContextΩ._initObsolete time: 0ms return: 
 ",
-  "▸▸▸ BettererMultiReporterΩ.runsStart args: 
+  "▸▸▸ BettererReporterΩ.runsStart args: 
 ",
-  "▸▸▸ BettererMultiReporterΩ.runsStart time: 0ms return: 
+  "▸▸▸ BettererReporterΩ.runsStart time: 0ms return: 
 ",
   "▸▸▸ runner args: 
 ",
   "▸▸▸▸ BettererRunΩ.start args: 
 ",
-  "▸▸▸▸▸ BettererContextΩ.runStart args: 
+  "▸▸▸▸▸ BettererReporterΩ.runStart args: 
 ",
-  "▸▸▸▸▸▸ BettererMultiReporterΩ.runStart args: 
-",
-  "▸▸▸▸▸▸▸ infoΔ args: 
+  "▸▸▸▸▸▸ infoΔ args: 
 ",
   " ☀️  betterer  info  💬  - ",
   "running \\"should shrink\\"!",
-  "▸▸▸▸▸▸▸ infoΔ time: 0ms return: 
+  "▸▸▸▸▸▸ infoΔ time: 0ms return: 
 ",
-  "▸▸▸▸▸▸ BettererMultiReporterΩ.runStart time: 0ms return: 
-",
-  "▸▸▸▸▸ BettererContextΩ.runStart time: 0ms return: 
+  "▸▸▸▸▸ BettererReporterΩ.runStart time: 0ms return: 
 ",
   "▸▸▸▸ BettererRunΩ.start time: 0ms return: 
 ",
@@ -197,37 +193,29 @@ Array [
 ",
   "▸▸▸▸ BettererRunΩ.end args: 
 ",
-  "▸▸▸▸▸ BettererContextΩ.runEnd args: 
+  "▸▸▸▸▸ BettererReporterΩ.runEnd args: 
 ",
-  "▸▸▸▸▸▸ BettererMultiReporterΩ.runEnd args: 
-",
-  "▸▸▸▸▸▸▸ successΔ args: 
+  "▸▸▸▸▸▸ successΔ args: 
 ",
   " ☀️  betterer  succ  ✅  - ",
   "\\"should shrink\\" got checked for the first time! 🎉",
-  "▸▸▸▸▸▸▸ successΔ time: 0ms return: 
+  "▸▸▸▸▸▸ successΔ time: 0ms return: 
 ",
-  "▸▸▸▸▸▸ BettererMultiReporterΩ.runEnd time: 0ms return: 
-",
-  "▸▸▸▸▸ BettererContextΩ.runEnd time: 0ms return: 
+  "▸▸▸▸▸ BettererReporterΩ.runEnd time: 0ms return: 
 ",
   "▸▸▸▸ BettererRunΩ.end time: 0ms return: 
 ",
   "▸▸▸▸ BettererRunΩ.start args: 
 ",
-  "▸▸▸▸▸ BettererContextΩ.runStart args: 
+  "▸▸▸▸▸ BettererReporterΩ.runStart args: 
 ",
-  "▸▸▸▸▸▸ BettererMultiReporterΩ.runStart args: 
-",
-  "▸▸▸▸▸▸▸ infoΔ args: 
+  "▸▸▸▸▸▸ infoΔ args: 
 ",
   " ☀️  betterer  info  💬  - ",
   "running \\"should grow\\"!",
-  "▸▸▸▸▸▸▸ infoΔ time: 0ms return: 
+  "▸▸▸▸▸▸ infoΔ time: 0ms return: 
 ",
-  "▸▸▸▸▸▸ BettererMultiReporterΩ.runStart time: 0ms return: 
-",
-  "▸▸▸▸▸ BettererContextΩ.runStart time: 0ms return: 
+  "▸▸▸▸▸ BettererReporterΩ.runStart time: 0ms return: 
 ",
   "▸▸▸▸ BettererRunΩ.start time: 0ms return: 
 ",
@@ -249,27 +237,23 @@ Array [
 ",
   "▸▸▸▸ BettererRunΩ.end args: 
 ",
-  "▸▸▸▸▸ BettererContextΩ.runEnd args: 
+  "▸▸▸▸▸ BettererReporterΩ.runEnd args: 
 ",
-  "▸▸▸▸▸▸ BettererMultiReporterΩ.runEnd args: 
-",
-  "▸▸▸▸▸▸▸ successΔ args: 
+  "▸▸▸▸▸▸ successΔ args: 
 ",
   " ☀️  betterer  succ  ✅  - ",
   "\\"should grow\\" got checked for the first time! 🎉",
-  "▸▸▸▸▸▸▸ successΔ time: 0ms return: 
+  "▸▸▸▸▸▸ successΔ time: 0ms return: 
 ",
-  "▸▸▸▸▸▸ BettererMultiReporterΩ.runEnd time: 0ms return: 
-",
-  "▸▸▸▸▸ BettererContextΩ.runEnd time: 0ms return: 
+  "▸▸▸▸▸ BettererReporterΩ.runEnd time: 0ms return: 
 ",
   "▸▸▸▸ BettererRunΩ.end time: 0ms return: 
 ",
   "▸▸▸ runner time: 0ms return: 
 ",
-  "▸▸▸ BettererMultiReporterΩ.runsEnd args: 
+  "▸▸▸ BettererReporterΩ.runsEnd args: 
 ",
-  "▸▸▸ BettererMultiReporterΩ.runsEnd time: 0ms return: 
+  "▸▸▸ BettererReporterΩ.runsEnd time: 0ms return: 
 ",
   "▸▸▸ BettererResults.read args: 
 ",
@@ -295,13 +279,13 @@ Array [
 ",
   "▸▸▸ BettererSummaryΩ time: 0ms return: 
 ",
-  "▸▸ BettererContextΩ.start time: 0ms return: 
+  "▸▸ BettererContextΩ.run time: 0ms return: 
 ",
   "▸ serial time: 0ms return: 
 ",
   "▸ BettererContextΩ.end args: 
 ",
-  "▸▸ BettererMultiReporterΩ.contextEnd args: 
+  "▸▸ BettererReporterΩ.contextEnd args: 
 ",
   "▸▸▸ infoΔ args: 
 ",
@@ -315,7 +299,7 @@ Array [
   "2 tests got checked for the first time! 🎉",
   "▸▸▸ infoΔ time: 0ms return: 
 ",
-  "▸▸ BettererMultiReporterΩ.contextEnd time: 0ms return: 
+  "▸▸ BettererReporterΩ.contextEnd time: 0ms return: 
 ",
   "▸ BettererContextΩ.end time: 0ms return: 
 ",

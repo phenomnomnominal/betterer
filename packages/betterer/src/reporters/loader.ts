@@ -1,15 +1,15 @@
 import { BettererError } from '@betterer/errors';
 import { requireUncached } from '../require';
 import { isFunction } from '../utils';
-import { BettererMultiReporterΩ } from './reporter-multi';
+import { BettererReporterΩ } from './reporter';
 import { BettererReporter, BettererReporterModule, BettererReporterNames } from './types';
 
 export const DEFAULT_REPORTER = '@betterer/reporter';
 export const WATCH_REPORTER = '@betterer/watch-reporter';
 
-const HOOK_NAMES = Object.keys(BettererMultiReporterΩ.prototype) as ReadonlyArray<keyof BettererReporter>;
+const HOOK_NAMES = Object.keys(BettererReporterΩ.prototype) as ReadonlyArray<keyof BettererReporter>;
 
-export function loadReporters(reporterNames: BettererReporterNames): BettererMultiReporterΩ {
+export function loadReporters(reporterNames: BettererReporterNames): BettererReporterΩ {
   const reporters: Array<BettererReporter> = reporterNames.map((name) => {
     try {
       const module: BettererReporterModule = requireUncached(name);
@@ -22,7 +22,7 @@ export function loadReporters(reporterNames: BettererReporterNames): BettererMul
       throw new BettererError(`could not require "${name}". 😔`, e);
     }
   });
-  return new BettererMultiReporterΩ(reporters);
+  return new BettererReporterΩ(reporters);
 }
 
 function validate(result: unknown): asserts result is BettererReporter {
