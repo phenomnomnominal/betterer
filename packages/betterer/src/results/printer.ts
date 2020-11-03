@@ -1,9 +1,6 @@
-import { escape } from 'safe-string-literal';
-
-// Characters that we avoid escaping to make snapshots easier to visually diff
-const UNESCAPED = '"\n';
+import { escape } from './escaper';
 
 export function print(name: string, printedValue: string): string {
-  const escaped = escape(printedValue, UNESCAPED);
+  const escaped = escape(printedValue);
   return `\nexports[\`${name}\`] = {\n  value: \`${escaped}\`\n};\n`;
 }

@@ -51,6 +51,13 @@ export function flatten<T>(toFlatten: ReadonlyArray<T | ReadonlyArray<T>>): Arra
   return flattened;
 }
 
+export function swapKeyValues(toSwap: Record<string, string>): Record<string, string> {
+  return Object.keys(toSwap).reduce((p: Record<string, string>, n: string) => {
+    p[toSwap[n]] = n;
+    return p;
+  }, {} as Record<string, string>);
+}
+
 function isItem<T>(pattern: unknown): pattern is T {
   return !Array.isArray(pattern);
 }

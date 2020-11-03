@@ -1787,9 +1787,9 @@
   integrity sha1-aaI6OtKcrwCX8G7aWbNh7i8GOfY=
 
 "@types/node@*", "@types/node@>= 8", "@types/node@^14.11.8":
-  version "14.14.5"
-  resolved "https://registry.npmjs.org/@types/node/-/node-14.14.5.tgz#e92d3b8f76583efa26c1a63a21c9d3c1143daa29"
-  integrity sha512-H5Wn24s/ZOukBmDn03nnGTp18A60ny9AmCwnEcgJiTgSGsCO7k+NWP7zjCCbhlcnVCoI+co52dUAt9GMhOSULw==
+  version "14.14.6"
+  resolved "https://registry.npmjs.org/@types/node/-/node-14.14.6.tgz#146d3da57b3c636cc0d1769396ce1cfa8991147f"
+  integrity sha512-6QlRuqsQ/Ox/aJEQWBEJG7A9+u7oSYl3mem/K8IzxXG/kAGbV1YPD9Bg9Zw3vyxC/YP+zONKwy8hGkSt1jxFMw==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -7790,11 +7790,6 @@ safe-regex@^1.1.0:
   dependencies:
     ret "~0.1.10"
 
-safe-string-literal@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/safe-string-literal/-/safe-string-literal-1.0.1.tgz#ca6d332bad223ce3233c38142e05c1c3cc7f76bb"
-  integrity sha512-qxlBSDdbeaJbk7tPeNg04+maY8B6HFBRuePIOfDqTZzbD4NXZTbrpRVcJGsmG88OpB30SYKJDqFjvUqnujdpew==
-
 "safer-buffer@>= 2.1.2 < 3", safer-buffer@^2.0.2, safer-buffer@^2.1.0, safer-buffer@~2.1.0:
   version "2.1.2"
   resolved "https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
@@ -9109,9 +9104,9 @@ webpack-sources@^2.1.1:
     source-map "^0.6.1"
 
 webpack@^5.1.3:
-  version "5.3.1"
-  resolved "https://registry.npmjs.org/webpack/-/webpack-5.3.1.tgz#733b2ab9e556bad5c29724a6d562b93e98694bbc"
-  integrity sha512-pQfG9Mjyis1HkHb5gpXYF+ymjnuq7/7ssE+m1VdiyulwmCpxjXDPNcNXyObb7vGBZ4vEXnsjPCXUYSQLf1TJAQ==
+  version "5.3.2"
+  resolved "https://registry.npmjs.org/webpack/-/webpack-5.3.2.tgz#f88f6f2c54eaa1f68c8f37d8984657eaf68b00f0"
+  integrity sha512-DXsfHoI6lQAR3KnQh7+FsRfs9fs+TEvzXCA35UbKv4kVuzslg7QCMAcpFRZNDMjdtm9N/PoO54XEzGN9TeacQg==
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.45"

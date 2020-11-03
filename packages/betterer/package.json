@@ -1,7 +1,7 @@
 {
   "name": "@betterer/betterer",
   "description": "Main engine for runing betterer tests",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -28,8 +28,8 @@
     "@betterer/constraints": "^3.1.1",
     "@betterer/errors": "^3.1.1",
     "@betterer/logger": "^3.1.1",
-    "@betterer/reporter": "^3.1.1",
-    "@betterer/watch-reporter": "^3.1.1",
+    "@betterer/reporter": "^3.1.2",
+    "@betterer/watch-reporter": "^3.1.2",
     "@phenomnomnominal/debug": "^0.2.0",
     "callsite": "^1.0.0",
     "chokidar": "^3.3.1",
@@ -38,7 +38,6 @@
     "globby": "^11.0.1",
     "lines-and-columns": "^1.1.6",
     "minimatch": "^3.0.4",
-    "safe-string-literal": "^1.0.1",
     "ts-node": "^9.0.0",
     "tslib": "^2.0.3"
   },

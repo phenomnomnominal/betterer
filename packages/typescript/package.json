@@ -1,7 +1,7 @@
 {
   "name": "@betterer/typescript",
   "description": "TypeScript test for @betterer/betterer",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -25,7 +25,7 @@
     "api": "ts-api-guardian --out ../../goldens/api/@betterer/typescript.d.ts dist/index.d.ts --allowModuleIdentifiers ts"
   },
   "dependencies": {
-    "@betterer/betterer": "^3.1.1",
+    "@betterer/betterer": "^3.1.2",
     "@betterer/errors": "^3.1.1",
     "tslib": "^2.0.3"
   },
