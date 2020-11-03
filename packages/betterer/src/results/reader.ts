@@ -3,6 +3,7 @@ import { promises as fs } from 'fs';
 
 import { requireText } from '../require';
 import { COULDNT_READ_RESULTS, COULDNT_RESOLVE_MERGE_CONFLICT } from '../errors';
+import { unescape } from './escaper';
 import { BettererExpectedResults } from './types';
 
 const MERGE_CONFLICT_ANCESTOR = '|||||||';
@@ -21,14 +22,14 @@ export async function read(resultsPath: string): Promise<BettererExpectedResults
   if (hasMergeConflicts(file)) {
     try {
       const [ours, theirs] = extractConflicts(file);
-      return { ...requireText(ours), ...requireText(theirs) };
+      return unescape({ ...requireText(ours), ...requireText(theirs) });
     } catch (e) {
       throw COULDNT_RESOLVE_MERGE_CONFLICT(resultsPath, e);
     }
   }
 
   try {
-    return requireText(file);
+    return unescape(requireText(file));
   } catch {
     throw COULDNT_READ_RESULTS(resultsPath);
   }
