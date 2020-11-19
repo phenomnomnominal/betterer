@@ -59,26 +59,24 @@ export function typescript(configFilePath: string, extraCompilerOptions: ts.Comp
       ...semanticDiagnostics
     ]);
 
-    return allDiagnostics.reduce((fileInfoMap, diagnostic) => {
-      const { file, start, length } = diagnostic;
-      // If there is no location, skip it
-      if (file === undefined || start === undefined || length === undefined) {
+    return allDiagnostics
+      .filter(({ file, start, length }) => file && start != null && length != null)
+      .reduce((fileInfoMap, diagnostic) => {
+        const { file, start, length } = diagnostic as ts.DiagnosticWithLocation;
+        const { fileName } = file;
+        const message = resolver.forceRelativePaths(ts.flattenDiagnosticMessageText(diagnostic.messageText, NEW_LINE));
+        fileInfoMap[fileName] = fileInfoMap[fileName] || [];
+        fileInfoMap[fileName] = [
+          ...fileInfoMap[fileName],
+          {
+            message,
+            filePath: fileName,
+            fileText: file.getFullText(),
+            start,
+            end: start + length
+          }
+        ];
         return fileInfoMap;
-      }
-      const { fileName } = file;
-      const message = resolver.forceRelativePaths(ts.flattenDiagnosticMessageText(diagnostic.messageText, NEW_LINE));
-      fileInfoMap[fileName] = fileInfoMap[fileName] || [];
-      fileInfoMap[fileName] = [
-        ...fileInfoMap[fileName],
-        {
-          message,
-          filePath: fileName,
-          fileText: file.getFullText(),
-          start,
-          end: start + length
-        }
-      ];
-      return fileInfoMap;
-    }, {} as BettererFileIssuesMapRaw);
+      }, {} as BettererFileIssuesMapRaw);
   });
 }
