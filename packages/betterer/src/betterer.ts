@@ -16,7 +16,6 @@ import { BettererWatcher, BettererWatcherΩ } from './watcher';
 export function betterer(partialConfig: BettererStartConfigPartial = {}): Promise<BettererSummary> {
   return runContext(
     async (context) => {
-      await context.setup();
       const summary = await serial(context);
       await context.end();
       await context.save();
@@ -30,7 +29,6 @@ export function betterer(partialConfig: BettererStartConfigPartial = {}): Promis
 export async function file(filePath: string, partialConfig?: BettererBaseConfigPartial): Promise<BettererSummary> {
   return runContext(
     async (context) => {
-      await context.setup();
       const summary = await parallel(context, [filePath]);
       await context.end();
       return summary;
@@ -45,7 +43,6 @@ export function watch(partialConfig?: BettererWatchConfigPartial): Promise<Bette
   return runContext(
     async (context) => {
       const watcher = new BettererWatcherΩ(context, async (filePaths) => {
-        await context.setup();
         return parallel(context, filePaths);
       });
       await watcher.setup();
@@ -90,10 +87,10 @@ async function runContext<RunResult, RunFunction extends (context: BettererConte
   const context = new BettererContextΩ(config, reporter);
 
   try {
-    await reporter.contextStart(context);
+    await context.start();
     return await run(context);
   } catch (error) {
-    await reporter.contextError(context, error);
+    await context.error(error);
     throw error;
   }
 }

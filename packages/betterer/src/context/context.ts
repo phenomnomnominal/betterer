@@ -32,16 +32,18 @@ export class BettererContextΩ implements BettererContext {
     this._results = new BettererResults(this.config.resultsPath);
   }
 
-  public async setup(): Promise<void> {
+  public async start(): Promise<void> {
+    await this._reporter.contextStart(this);
+  }
+
+  public async run(runner: BettererRunner, filePaths: BettererFilePaths = []): Promise<BettererSummary> {
     if (this._running) {
       await this._running;
     }
 
     this._tests = this._initTests();
     this._initFilters();
-  }
 
-  public async run(runner: BettererRunner, filePaths: BettererFilePaths = []): Promise<BettererSummary> {
     const runs = await Promise.all(
       Object.keys(this._tests)
         .filter((name) => {
@@ -72,6 +74,10 @@ export class BettererContextΩ implements BettererContext {
   public async end(): Promise<void> {
     assert(this._summary);
     await this._reporter.contextEnd(this, this._summary);
+  }
+
+  public async error(error: BettererError): Promise<void> {
+    await this._reporter.contextError(this, error);
   }
 
   public async save(): Promise<void> {

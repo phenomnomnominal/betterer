@@ -32,9 +32,11 @@ Array [
 ",
   "▸ BettererContextΩ time: 0ms return: 
 ",
-  "▸ BettererReporterΩ.contextStart args: 
+  "▸ BettererContextΩ.start args: 
 ",
-  "▸▸ logoΔ args: 
+  "▸▸ BettererReporterΩ.contextStart args: 
+",
+  "▸▸▸ logoΔ args: 
 ",
   "
    / | /     _          _   _                     
@@ -43,57 +45,55 @@ Array [
  .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
    / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
  ",
-  "▸▸ logoΔ time: 0ms return: 
+  "▸▸▸ logoΔ time: 0ms return: 
 ",
-  "▸ BettererReporterΩ.contextStart time: 0ms return: 
+  "▸▸ BettererReporterΩ.contextStart time: 0ms return: 
 ",
-  "▸ BettererContextΩ.setup args: 
-",
-  "▸▸ BettererContextΩ._initTests args: 
-",
-  "▸▸▸ BettererContextΩ._getTests args: 
-",
-  "▸▸▸▸ requireUncached args: 
-",
-  "▸▸▸▸ requireUncached time: 0ms return: 
-",
-  "▸▸▸▸ isBettererTest args: 
-",
-  "▸▸▸▸ isBettererTest time: 0ms return: 
-",
-  "▸▸▸▸ BettererTest args: 
-",
-  "▸▸▸▸▸ createTestConfig args: 
-",
-  "▸▸▸▸▸ createTestConfig time: 0ms return: 
-",
-  "▸▸▸▸ BettererTest time: 0ms return: 
-",
-  "▸▸▸▸ isBettererTest args: 
-",
-  "▸▸▸▸ isBettererTest time: 0ms return: 
-",
-  "▸▸▸▸ BettererTest args: 
-",
-  "▸▸▸▸▸ createTestConfig args: 
-",
-  "▸▸▸▸▸ createTestConfig time: 0ms return: 
-",
-  "▸▸▸▸ BettererTest time: 0ms return: 
-",
-  "▸▸▸ BettererContextΩ._getTests time: 0ms return: 
-",
-  "▸▸ BettererContextΩ._initTests time: 0ms return: 
-",
-  "▸▸ BettererContextΩ._initFilters args: 
-",
-  "▸▸ BettererContextΩ._initFilters time: 0ms return: 
-",
-  "▸ BettererContextΩ.setup time: 0ms return: 
+  "▸ BettererContextΩ.start time: 0ms return: 
 ",
   "▸ serial args: 
 ",
   "▸▸ BettererContextΩ.run args: 
+",
+  "▸▸▸ BettererContextΩ._initTests args: 
+",
+  "▸▸▸▸ BettererContextΩ._getTests args: 
+",
+  "▸▸▸▸▸ requireUncached args: 
+",
+  "▸▸▸▸▸ requireUncached time: 0ms return: 
+",
+  "▸▸▸▸▸ isBettererTest args: 
+",
+  "▸▸▸▸▸ isBettererTest time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTest args: 
+",
+  "▸▸▸▸▸▸ createTestConfig args: 
+",
+  "▸▸▸▸▸▸ createTestConfig time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTest time: 0ms return: 
+",
+  "▸▸▸▸▸ isBettererTest args: 
+",
+  "▸▸▸▸▸ isBettererTest time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTest args: 
+",
+  "▸▸▸▸▸▸ createTestConfig args: 
+",
+  "▸▸▸▸▸▸ createTestConfig time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTest time: 0ms return: 
+",
+  "▸▸▸▸ BettererContextΩ._getTests time: 0ms return: 
+",
+  "▸▸▸ BettererContextΩ._initTests time: 0ms return: 
+",
+  "▸▸▸ BettererContextΩ._initFilters args: 
+",
+  "▸▸▸ BettererContextΩ._initFilters time: 0ms return: 
 ",
   "▸▸▸ BettererResults.getExpectedResult args: 
 ",
