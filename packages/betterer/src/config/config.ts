@@ -1,5 +1,4 @@
 import { BettererError } from '@betterer/errors';
-import { muteΔ, unmuteΔ } from '@betterer/logger';
 import assert from 'assert';
 import { promises as fs } from 'fs';
 import * as path from 'path';
@@ -22,8 +21,6 @@ export async function createConfig(partialConfig: BettererConfigPartial = {}): P
     tsconfigPath: partialConfig.tsconfigPath || null,
     update: partialConfig.update || false
   };
-
-  relativeConfig.silent ? muteΔ() : unmuteΔ();
 
   validateConfig(relativeConfig);
 
