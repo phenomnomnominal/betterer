@@ -11,8 +11,8 @@ export class BettererReporterΩ implements BettererReporter {
   async configError(partialConfig: BettererConfigPartial, error: BettererError): Promise<void> {
     await Promise.all(this._reporters.map((r) => r.configError?.(partialConfig, error)));
   }
-  async contextStart(context: BettererContext): Promise<void> {
-    await Promise.all(this._reporters.map((r) => r.contextStart?.(context)));
+  async contextStart(context: BettererContext, lifecycle: Promise<BettererSummary>): Promise<void> {
+    await Promise.all(this._reporters.map((r) => r.contextStart?.(context, lifecycle)));
   }
   async contextEnd(context: BettererContext, summary: BettererSummary): Promise<void> {
     await Promise.all(this._reporters.map((r) => r.contextEnd?.(context, summary)));
@@ -26,8 +26,8 @@ export class BettererReporterΩ implements BettererReporter {
   async runsEnd(runs: BettererRuns, files: BettererFilePaths): Promise<void> {
     await Promise.all(this._reporters.map((r) => r.runsEnd?.(runs, files)));
   }
-  async runStart(run: BettererRun): Promise<void> {
-    await Promise.all(this._reporters.map((r) => r.runStart?.(run)));
+  async runStart(run: BettererRun, lifecycle: Promise<void>): Promise<void> {
+    await Promise.all(this._reporters.map((r) => r.runStart?.(run, lifecycle)));
   }
   async runEnd(run: BettererRun): Promise<void> {
     await Promise.all(this._reporters.map((r) => r.runEnd?.(run)));
