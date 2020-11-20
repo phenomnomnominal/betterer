@@ -18,16 +18,6 @@ const LOGO = chalk.yellowBright(`
  `);
 const NEW_LINE = '\n';
 
-let muted = false;
-
-export function muteΔ(): void {
-  muted = true;
-}
-
-export function unmuteΔ(): void {
-  muted = false;
-}
-
 export function logoΔ(): void {
   log(LOGO);
 }
@@ -48,10 +38,8 @@ export const errorΔ = createLogger(chalk.bgRedBright.white(' erro '), chalk.bgB
 const SPACER = chalk.bgBlack.yellowBright(' - ');
 
 function log(...args: Array<string>): void {
-  if (!muted) {
-    // eslint-disable-next-line no-console
-    console.log(...args);
-  }
+  // eslint-disable-next-line no-console
+  console.log(...args);
 }
 
 function createLogger(name: string, icon: string): BettererLogger {
@@ -89,9 +77,7 @@ export function codeΔ(codeInfo: BettererLoggerCodeInfo): void {
 }
 
 export function overwriteΔ(content: string): BettererLoggerOverwriteDone {
-  if (!muted) {
-    logUpdate(`${LOGO}${NEW_LINE}${content}`);
-  }
+  logUpdate(`${LOGO}${NEW_LINE}${content}`);
   return logUpdate.done.bind(logUpdate);
 }
 

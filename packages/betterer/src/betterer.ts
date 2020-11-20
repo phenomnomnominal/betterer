@@ -77,7 +77,9 @@ async function runContext<RunResult, RunFunction extends (context: BettererConte
   try {
     config = await createConfig(partialConfig);
     registerExtensions(config);
-    if (config.reporters.length) {
+    if (config.silent) {
+      reporter = loadReporters([]);
+    } else if (config.reporters.length > 0) {
       reporter = loadReporters(config.reporters);
     }
   } catch (error) {
