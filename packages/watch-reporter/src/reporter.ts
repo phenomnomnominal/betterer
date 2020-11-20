@@ -1,5 +1,5 @@
 import { BettererFilePaths, BettererReporter, BettererRun, BettererRuns } from '@betterer/betterer';
-import { infoΔ, overwriteΔ } from '@betterer/logger';
+import { BettererConsoleLogger, LOGO } from '@betterer/logger';
 import {
   quoteΔ,
   testBetterΔ,
@@ -12,18 +12,21 @@ import {
   testUpdatedΔ,
   testWorseΔ
 } from '@betterer/reporter';
+import logUpdate from 'log-update';
 
 import { filesChecked, filesChecking, watchEnd, watchStart } from './messages';
 
+const logger = new BettererConsoleLogger();
+
 export const watchReporter: BettererReporter = {
   contextStart(): void {
-    infoΔ(watchStart());
+    logger.info(watchStart());
   },
   contextEnd(): void {
-    infoΔ(watchEnd());
+    logger.info(watchEnd());
   },
   runsStart(_: BettererRuns, files: BettererFilePaths): void {
-    overwriteΔ(filesChecking(files.length));
+    overwrite(filesChecking(files.length));
   },
   runsEnd(runs: BettererRuns, files: BettererFilePaths): void {
     let report = `  ${filesChecked(files.length)}:\n`;
@@ -36,7 +39,7 @@ export const watchReporter: BettererReporter = {
       report += `\n  ${status}`;
       return;
     });
-    overwriteΔ(report);
+    overwrite(report);
   }
 };
 
@@ -70,4 +73,9 @@ function statusMessage(run: BettererRun): string {
     return testWorseΔ(name);
   }
   throw new Error();
+}
+
+function overwrite(content: string): typeof logUpdate['done'] {
+  logUpdate(`${LOGO}${'\n'}${content}`);
+  return logUpdate.done.bind(logUpdate);
 }

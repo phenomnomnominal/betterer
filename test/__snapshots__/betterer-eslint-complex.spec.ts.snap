@@ -15,11 +15,11 @@ exports[\`eslint enable no-debugger rule\`] = {
 exports[`betterer should report the status of a new eslint rule with a complex set up 2`] = `
 Array [
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"eslint enable no-debugger rule\\"!",
@@ -30,11 +30,11 @@ Array [
   " ☀️  betterer  info  💬  - ",
   "1 test got checked for the first time! 🎉",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"eslint enable no-debugger rule\\"!",
@@ -45,17 +45,16 @@ Array [
   " ☀️  betterer  warn  🚨  - ",
   "1 test stayed the same. 😐",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"eslint enable no-debugger rule\\"!",
   " ☀️  betterer  erro  🔥  - ",
   "\\"eslint enable no-debugger rule\\" got worse. 😔",
-  "",
   " ☀️  betterer  warn  🚨  - ",
   "1 existing issue in \\"<project>/fixtures/test-betterer-eslint-complex/src/index.ts\\".",
   " ☀️  betterer  erro  🔥  - ",
@@ -66,8 +65,6 @@ Array [
   1 | debugger;
 > 2 | debugger;
     | ^^^^^^^^^",
-  "",
-  "",
   " ☀️  betterer  info  💬  - ",
   "1 test got checked. 🤔",
   " ☀️  betterer  erro  🔥  - ",
@@ -75,11 +72,11 @@ Array [
   " ☀️  betterer  erro  🔥  - ",
   "Run \`betterer --update\` to force an update of the results file. 🆙",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"eslint enable no-debugger rule\\"!",
@@ -92,11 +89,11 @@ Array [
   " ☀️  betterer  succ  ✅  - ",
   "\\"eslint enable no-debugger rule\\" met its goal! 🎉",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"eslint enable no-debugger rule\\"!",

@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { Text } from 'ink';
 
-import { BettererTaskStatusMessage } from './types';
+import { BettererTaskLog } from './types';
 
 export type BettererTaskStatusProps = {
   name: string;
-  status: BettererTaskStatusMessage | null;
+  status: BettererTaskLog | null;
 };
 
 export const BettererTaskStatus: FC<BettererTaskStatusProps> = function BettererTaskStatus({ name, status }) {

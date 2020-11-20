@@ -13,7 +13,7 @@ export function updatePackageJSON(cwd: string): BettererTaskContext {
 }
 
 async function runUpdatePackageJSON(cwd: string, logger: BettererTaskLogger): Promise<void> {
-  logger.status('adding "betterer" to package.json file...');
+  logger.progress('adding "betterer" to package.json file...');
 
   let packageJSON;
   let packageJSONPath;

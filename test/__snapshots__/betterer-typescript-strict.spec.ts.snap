@@ -20,11 +20,11 @@ exports[\`typescript use strict mode\`] = {
 exports[`betterer should report the status of the TypeScript compiler in strict mode 2`] = `
 Array [
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"typescript use strict mode\\"!",
@@ -35,11 +35,11 @@ Array [
   " ☀️  betterer  info  💬  - ",
   "1 test got checked for the first time! 🎉",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"typescript use strict mode\\"!",
@@ -50,17 +50,16 @@ Array [
   " ☀️  betterer  warn  🚨  - ",
   "1 test stayed the same. 😐",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"typescript use strict mode\\"!",
   " ☀️  betterer  erro  🔥  - ",
   "\\"typescript use strict mode\\" got worse. 😔",
-  "",
   " ☀️  betterer  warn  🚨  - ",
   "6 existing issues in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\".",
   " ☀️  betterer  erro  🔥  - ",
@@ -72,8 +71,6 @@ Array [
   33 | const one = 1;
 > 34 | console.log(a * one);
      |             ^",
-  "",
-  "",
   " ☀️  betterer  info  💬  - ",
   "1 test got checked. 🤔",
   " ☀️  betterer  erro  🔥  - ",
@@ -81,11 +78,11 @@ Array [
   " ☀️  betterer  erro  🔥  - ",
   "Run \`betterer --update\` to force an update of the results file. 🆙",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"typescript use strict mode\\"!",

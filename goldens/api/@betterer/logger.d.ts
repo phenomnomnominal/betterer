@@ -1,4 +1,23 @@
-export declare type BettererLogger = (...messages: BettererLoggerMessages) => void;
+export declare class BettererConsoleLogger implements BettererLogger {
+    debug: BettererLogMessage;
+    error: BettererLogMessage;
+    info: BettererLogMessage;
+    success: BettererLogMessage;
+    warn: BettererLogMessage;
+    constructor();
+    code(codeInfo: BettererLoggerCodeInfo): void;
+}
+
+export declare type BettererLogCode = (codeInfo: BettererLoggerCodeInfo) => void;
+
+export declare type BettererLogger = {
+    code: BettererLogCode;
+    debug: BettererLogMessage;
+    error: BettererLogMessage;
+    info: BettererLogMessage;
+    success: BettererLogMessage;
+    warn: BettererLogMessage;
+};
 
 export declare type BettererLoggerCodeInfo = {
     message: string;
@@ -9,11 +28,11 @@ export declare type BettererLoggerCodeInfo = {
     length: number;
 };
 
-export declare type BettererLoggerDiffOptions = DiffOptions;
-
 export declare type BettererLoggerMessages = ReadonlyArray<string>;
 
-export declare type BettererLoggerOverwriteDone = typeof logUpdate['done'];
+export declare type BettererLogMessage = (...messages: BettererLoggerMessages) => void;
+
+export declare const BettererLogo: FC;
 
 export declare const BettererTask: FC<BettererTaskProps>;
 
@@ -21,7 +40,7 @@ export declare type BettererTaskColour = typeof ForegroundColor;
 
 export declare type BettererTaskContext = {
     name: string;
-    run: (logger: BettererTaskLogger) => Promise<BettererTaskStatusMessage | string | void>;
+    run: (logger: BettererTaskLogger) => Promise<BettererTaskLog | string | void>;
 };
 
 export declare type BettererTaskError = Error & {
@@ -29,12 +48,13 @@ export declare type BettererTaskError = Error & {
     message: string;
 };
 
-export declare type BettererTaskLogger = {
-    status: BettererTaskUpdate;
-    debug: BettererTaskUpdate;
-    info: BettererTaskUpdate;
-    warn: BettererTaskUpdate;
+export declare type BettererTaskLog = [indicator: string, colour: BettererTaskColour, message: string];
+
+export declare type BettererTaskLogger = BettererLogger & {
+    progress: BettererTaskStatusUpdate;
 };
+
+export declare type BettererTaskLogs = ReadonlyArray<BettererTaskLog>;
 
 export declare type BettererTaskProps = {
     context: BettererTaskContext;
@@ -44,28 +64,19 @@ export declare const BettererTasks: FC<BettererTasksProps>;
 
 export declare type BettererTasksProps = {
     name: string;
+    statusMessage: (state: BettererTasksState) => string;
 };
 
-export declare type BettererTaskStatusMessage = [indicator: string, colour: BettererTaskColour, message: string];
+export declare type BettererTasksState = {
+    running: number;
+    done: number;
+    error: number;
+};
 
-export declare type BettererTaskStatusMessages = ReadonlyArray<BettererTaskStatusMessage>;
+export declare type BettererTaskStatusUpdate = (status: string) => void;
 
-export declare type BettererTaskUpdate = (status: string) => void;
+export declare function codeΔ(codeInfo: BettererLoggerCodeInfo): string;
 
-export declare function brΔ(): void;
+export declare function diffΔ<T>(expected: T, result: T): string | null;
 
-export declare function codeΔ(codeInfo: BettererLoggerCodeInfo): void;
-
-export declare function diffΔ(expected: unknown, result: unknown, options?: DiffOptions): void;
-
-export declare const errorΔ: BettererLogger;
-
-export declare const infoΔ: BettererLogger;
-
-export declare function logoΔ(): void;
-
-export declare function overwriteΔ(content: string): BettererLoggerOverwriteDone;
-
-export declare const successΔ: BettererLogger;
-
-export declare const warnΔ: BettererLogger;
+export declare const LOGO = "\n   \\ | /     _         _   _                     \n '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ \n---ooooo--- | '_ \\/ _ \\ __| __/ _ \\ '__/ _ \\ '__|\n .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   \n   / | \\    |_.__/\\___|\\__|\\__\\___|_|  \\___|_|   \n ";
