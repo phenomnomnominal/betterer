@@ -8,12 +8,14 @@ export type BettererRunNames = Array<string>;
 
 export type BettererContext = {
   readonly config: BettererConfig;
+  readonly lifecycle: Promise<BettererSummary>;
 };
 
 export type BettererRun = {
   readonly diff: BettererDiff;
   readonly expected: BettererResult;
   readonly filePaths: BettererFilePaths;
+  readonly lifecycle: Promise<void>;
   readonly name: string;
   readonly result: BettererResult;
   readonly test: BettererTestConfig;

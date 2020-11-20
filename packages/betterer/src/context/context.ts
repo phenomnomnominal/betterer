@@ -5,6 +5,7 @@ import { BettererConfig } from '../config';
 import { BettererReporterΩ } from '../reporters';
 import { requireUncached } from '../require';
 import { BettererResults, BettererResultΩ } from '../results';
+import { defer, Defer } from '../utils';
 import {
   BettererTest,
   BettererTestBase,
@@ -27,13 +28,19 @@ export class BettererContextΩ implements BettererContext {
   private _tests: BettererTestMap = {};
 
   private _running: Promise<void> | null = null;
+  private _lifecycle: Defer<BettererSummary>;
 
   constructor(public readonly config: BettererConfig, private _reporter: BettererReporterΩ) {
     this._results = new BettererResults(this.config.resultsPath);
+    this._lifecycle = defer();
+  }
+
+  public get lifecycle(): Promise<BettererSummary> {
+    return this._lifecycle.promise;
   }
 
   public async start(): Promise<void> {
-    await this._reporter.contextStart(this);
+    await this._reporter.contextStart(this, this.lifecycle);
   }
 
   public async run(runner: BettererRunner, filePaths: BettererFilePaths = []): Promise<BettererSummary> {
@@ -73,10 +80,12 @@ export class BettererContextΩ implements BettererContext {
 
   public async end(): Promise<void> {
     assert(this._summary);
+    this._lifecycle.resolve(this._summary);
     await this._reporter.contextEnd(this, this._summary);
   }
 
   public async error(error: BettererError): Promise<void> {
+    this._lifecycle.reject(error);
     await this._reporter.contextError(this, error);
   }
 
