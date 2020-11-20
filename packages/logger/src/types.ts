@@ -1,8 +1,5 @@
-import logUpdate from 'log-update';
-import { DiffOptions } from 'jest-diff';
-
 export type BettererLoggerMessages = ReadonlyArray<string>;
-export type BettererLogger = (...messages: BettererLoggerMessages) => void;
+export type BettererLogMessage = (...messages: BettererLoggerMessages) => void;
 
 export type BettererLoggerCodeInfo = {
   message: string;
@@ -13,6 +10,13 @@ export type BettererLoggerCodeInfo = {
   length: number;
 };
 
-export type BettererLoggerOverwriteDone = typeof logUpdate['done'];
+export type BettererLogCode = (codeInfo: BettererLoggerCodeInfo) => void;
 
-export type BettererLoggerDiffOptions = DiffOptions;
+export type BettererLogger = {
+  code: BettererLogCode;
+  debug: BettererLogMessage;
+  error: BettererLogMessage;
+  info: BettererLogMessage;
+  success: BettererLogMessage;
+  warn: BettererLogMessage;
+};

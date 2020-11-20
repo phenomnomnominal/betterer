@@ -8,6 +8,30 @@ Array [
 ",
   "▸▸ requireUncached args: 
 ",
+  "▸▸▸ BettererConsoleLogger args: 
+",
+  "▸▸▸▸ BettererConsoleLogger._createLogger args: 
+",
+  "▸▸▸▸ BettererConsoleLogger._createLogger time: 0ms return: 
+",
+  "▸▸▸▸ BettererConsoleLogger._createLogger args: 
+",
+  "▸▸▸▸ BettererConsoleLogger._createLogger time: 0ms return: 
+",
+  "▸▸▸▸ BettererConsoleLogger._createLogger args: 
+",
+  "▸▸▸▸ BettererConsoleLogger._createLogger time: 0ms return: 
+",
+  "▸▸▸▸ BettererConsoleLogger._createLogger args: 
+",
+  "▸▸▸▸ BettererConsoleLogger._createLogger time: 0ms return: 
+",
+  "▸▸▸▸ BettererConsoleLogger._createLogger args: 
+",
+  "▸▸▸▸ BettererConsoleLogger._createLogger time: 0ms return: 
+",
+  "▸▸▸ BettererConsoleLogger time: 0ms return: 
+",
   "▸▸ requireUncached time: 0ms return: 
 ",
   "▸▸ BettererReporterΩ args: 
@@ -36,17 +60,13 @@ Array [
 ",
   "▸▸ BettererReporterΩ.contextStart args: 
 ",
-  "▸▸▸ logoΔ args: 
-",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
  ",
-  "▸▸▸ logoΔ time: 0ms return: 
-",
   "▸▸ BettererReporterΩ.contextStart time: 0ms return: 
 ",
   "▸ BettererContextΩ.start time: 0ms return: 
@@ -161,11 +181,11 @@ Array [
 ",
   "▸▸▸▸▸ BettererReporterΩ.runStart args: 
 ",
-  "▸▸▸▸▸▸ infoΔ args: 
+  "▸▸▸▸▸▸ BettererConsoleLogger._log args: 
 ",
   " ☀️  betterer  info  💬  - ",
   "running \\"should shrink\\"!",
-  "▸▸▸▸▸▸ infoΔ time: 0ms return: 
+  "▸▸▸▸▸▸ BettererConsoleLogger._log time: 0ms return: 
 ",
   "▸▸▸▸▸ BettererReporterΩ.runStart time: 0ms return: 
 ",
@@ -191,11 +211,11 @@ Array [
 ",
   "▸▸▸▸▸ BettererReporterΩ.runEnd args: 
 ",
-  "▸▸▸▸▸▸ successΔ args: 
+  "▸▸▸▸▸▸ BettererConsoleLogger._log args: 
 ",
   " ☀️  betterer  succ  ✅  - ",
   "\\"should shrink\\" got checked for the first time! 🎉",
-  "▸▸▸▸▸▸ successΔ time: 0ms return: 
+  "▸▸▸▸▸▸ BettererConsoleLogger._log time: 0ms return: 
 ",
   "▸▸▸▸▸ BettererReporterΩ.runEnd time: 0ms return: 
 ",
@@ -205,11 +225,11 @@ Array [
 ",
   "▸▸▸▸▸ BettererReporterΩ.runStart args: 
 ",
-  "▸▸▸▸▸▸ infoΔ args: 
+  "▸▸▸▸▸▸ BettererConsoleLogger._log args: 
 ",
   " ☀️  betterer  info  💬  - ",
   "running \\"should grow\\"!",
-  "▸▸▸▸▸▸ infoΔ time: 0ms return: 
+  "▸▸▸▸▸▸ BettererConsoleLogger._log time: 0ms return: 
 ",
   "▸▸▸▸▸ BettererReporterΩ.runStart time: 0ms return: 
 ",
@@ -235,11 +255,11 @@ Array [
 ",
   "▸▸▸▸▸ BettererReporterΩ.runEnd args: 
 ",
-  "▸▸▸▸▸▸ successΔ args: 
+  "▸▸▸▸▸▸ BettererConsoleLogger._log args: 
 ",
   " ☀️  betterer  succ  ✅  - ",
   "\\"should grow\\" got checked for the first time! 🎉",
-  "▸▸▸▸▸▸ successΔ time: 0ms return: 
+  "▸▸▸▸▸▸ BettererConsoleLogger._log time: 0ms return: 
 ",
   "▸▸▸▸▸ BettererReporterΩ.runEnd time: 0ms return: 
 ",
@@ -291,17 +311,17 @@ Array [
 ",
   "▸▸ BettererReporterΩ.contextEnd args: 
 ",
-  "▸▸▸ infoΔ args: 
+  "▸▸▸ BettererConsoleLogger._log args: 
 ",
   " ☀️  betterer  info  💬  - ",
   "2 tests got checked. 🤔",
-  "▸▸▸ infoΔ time: 0ms return: 
+  "▸▸▸ BettererConsoleLogger._log time: 0ms return: 
 ",
-  "▸▸▸ infoΔ args: 
+  "▸▸▸ BettererConsoleLogger._log args: 
 ",
   " ☀️  betterer  info  💬  - ",
   "2 tests got checked for the first time! 🎉",
-  "▸▸▸ infoΔ time: 0ms return: 
+  "▸▸▸ BettererConsoleLogger._log time: 0ms return: 
 ",
   "▸▸ BettererReporterΩ.contextEnd time: 0ms return: 
 ",

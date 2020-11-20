@@ -1,4 +1,5 @@
 import { BettererConstraintResult } from '@betterer/constraints';
+import { BettererLogger } from '@betterer/logger';
 
 import { BettererRun } from '../context';
 import { BettererResultValue } from '../results';
@@ -21,7 +22,7 @@ export type BettererDiff<DeserialisedType extends BettererResultValue = Betterer
   expected: DeserialisedType;
   result: DeserialisedType;
   diff: DiffType;
-  log: () => void;
+  log: (logger: BettererLogger) => void;
 };
 
 export type BettererDiffer<DeserialisedType extends BettererResultValue, DiffType> = (

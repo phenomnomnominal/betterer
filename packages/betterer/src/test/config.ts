@@ -1,5 +1,5 @@
-import { BettererError } from '@betterer/errors/dist/error';
-import { diffΔ } from '@betterer/logger';
+import { BettererError } from '@betterer/errors';
+import { BettererLogger, diffΔ } from '@betterer/logger';
 import { BettererResultValue } from '../results';
 import { isFunction } from '../utils';
 import {
@@ -78,8 +78,11 @@ export function defaultDiffer(expected: number, result: number): BettererDiff<nu
     expected,
     result,
     diff: null,
-    log(): void {
-      diffΔ(expected, result);
+    log(logger: BettererLogger): void {
+      const diff = diffΔ(expected, result);
+      if (diff) {
+        logger.error(diff);
+      }
     }
   };
 }

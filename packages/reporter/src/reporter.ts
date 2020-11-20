@@ -6,7 +6,7 @@ import {
   BettererSummary
 } from '@betterer/betterer';
 import { BettererError, logErrorΔ } from '@betterer/errors';
-import { brΔ, diffΔ, errorΔ, infoΔ, logoΔ, successΔ, warnΔ } from '@betterer/logger';
+import { BettererConsoleLogger, diffΔ, LOGO } from '@betterer/logger';
 
 import {
   getTestsΔ,
@@ -27,12 +27,15 @@ import {
 } from './messages';
 import { quoteΔ } from './utils';
 
+const logger = new BettererConsoleLogger();
+
 export const defaultReporter: BettererReporter = {
   configError(_: BettererConfigPartial, error: BettererError): void {
     logErrorΔ(error);
   },
   contextStart(): void {
-    logoΔ();
+    // eslint-disable-next-line no-console
+    console.log(LOGO);
   },
   contextEnd(_: BettererContext, summary: BettererSummary): void {
     const better = summary.better.length;
@@ -45,50 +48,52 @@ export const defaultReporter: BettererReporter = {
 
     const { completed, expired, obsolete } = summary;
 
-    infoΔ(testCheckedΔ(getTestsΔ(ran)));
+    logger.info(testCheckedΔ(getTestsΔ(ran)));
     if (expired) {
       expired.forEach((run) => {
-        errorΔ(testExpiredΔ(quoteΔ(run.name)));
+        logger.error(testExpiredΔ(quoteΔ(run.name)));
       });
     }
     if (failed) {
-      errorΔ(testFailedΔ(getTestsΔ(failed)));
+      logger.error(testFailedΔ(getTestsΔ(failed)));
     }
     if (summary.new.length) {
-      infoΔ(testNewΔ(getTestsΔ(summary.new.length)));
+      logger.info(testNewΔ(getTestsΔ(summary.new.length)));
     }
     if (obsolete) {
       obsolete.forEach((runName) => {
-        errorΔ(testObsoleteΔ(quoteΔ(runName)));
+        logger.error(testObsoleteΔ(quoteΔ(runName)));
       });
     }
     if (better) {
-      successΔ(testBetterΔ(getTestsΔ(better)));
+      logger.success(testBetterΔ(getTestsΔ(better)));
     }
     if (completed) {
       completed.forEach((run) => {
-        successΔ(testCompleteΔ(quoteΔ(run.name)));
+        logger.success(testCompleteΔ(quoteΔ(run.name)));
       });
     }
     if (same) {
-      warnΔ(testSameΔ(getTestsΔ(same)));
+      logger.warn(testSameΔ(getTestsΔ(same)));
     }
     if (skipped) {
-      warnΔ(testSkippedΔ(getTestsΔ(skipped)));
+      logger.warn(testSkippedΔ(getTestsΔ(skipped)));
     }
     if (updated) {
-      infoΔ(testUpdatedΔ(getTestsΔ(updated)));
+      logger.info(testUpdatedΔ(getTestsΔ(updated)));
     }
     if (worse) {
-      errorΔ(testWorseΔ(getTestsΔ(worse)));
-      errorΔ(updateInstructionsΔ());
+      logger.error(testWorseΔ(getTestsΔ(worse)));
+      logger.error(updateInstructionsΔ());
     }
 
     if (summary.hasDiff) {
-      errorΔ(unexpectedDiffΔ());
-      brΔ();
-      diffΔ(summary.expected, summary.result);
-      brΔ();
+      logger.error(unexpectedDiffΔ());
+      /* eslint-disable no-console */
+      console.log();
+      console.log(diffΔ(summary.expected, summary.result) as string);
+      console.log();
+      /* eslint-enable no-console */
     }
   },
   contextError(_: BettererContext, error: BettererError): void {
@@ -97,43 +102,47 @@ export const defaultReporter: BettererReporter = {
   runStart(run: BettererRun): void {
     const name = quoteΔ(run.name);
     if (run.isExpired) {
-      errorΔ(testExpiredΔ(name));
+      logger.error(testExpiredΔ(name));
     }
-    infoΔ(testRunningΔ(name));
+    logger.info(testRunningΔ(name));
   },
   runEnd(run: BettererRun): void {
     const name = quoteΔ(run.name);
     if (run.isComplete) {
-      successΔ(testCompleteΔ(name, run.isNew));
+      logger.success(testCompleteΔ(name, run.isNew));
       return;
     }
     if (run.isBetter) {
-      successΔ(testBetterΔ(name));
+      logger.success(testBetterΔ(name));
       return;
     }
     if (run.isFailed) {
-      errorΔ(testFailedΔ(name));
+      logger.error(testFailedΔ(name));
       return;
     }
     if (run.isNew) {
-      successΔ(testNewΔ(name));
+      logger.success(testNewΔ(name));
       return;
     }
     if (run.isSame) {
-      warnΔ(testSameΔ(name));
+      logger.warn(testSameΔ(name));
     }
     if (run.isUpdated) {
-      infoΔ(testUpdatedΔ(name));
-      brΔ();
-      run.diff.log();
-      brΔ();
+      logger.info(testUpdatedΔ(name));
+      // eslint-disable-next-line no-console
+      console.log();
+      run.diff.log(logger);
+      // eslint-disable-next-line no-console
+      console.log();
       return;
     }
     if (run.isWorse) {
-      errorΔ(testWorseΔ(name));
-      brΔ();
-      run.diff.log();
-      brΔ();
+      logger.error(testWorseΔ(name));
+      // eslint-disable-next-line no-console
+      console.log();
+      run.diff.log(logger);
+      // eslint-disable-next-line no-console
+      console.log();
     }
   },
   runError(_: BettererRun, error: BettererError) {

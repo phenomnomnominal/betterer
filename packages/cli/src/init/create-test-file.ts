@@ -14,7 +14,7 @@ export function createTestFile(configPath: string): BettererTaskContext {
 }
 
 async function runCreateTestFile(logger: BettererTaskLogger, configPath: string): Promise<void> {
-  logger.status(`creating "${configPath}" file...`);
+  logger.progress(`creating "${configPath}" file...`);
 
   let exists = false;
   try {

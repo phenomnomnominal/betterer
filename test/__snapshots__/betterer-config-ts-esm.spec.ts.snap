@@ -2,20 +2,18 @@
 
 exports[`betterer should load a custom tsconfigPath 1`] = `
 Array [
-  "",
   "TSError: ⨯ Unable to compile TypeScript:",
-  "",
 ]
 `;
 
 exports[`betterer should work with a .betterer.ts file that uses ES modules 1`] = `
 Array [
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"gets better\\"!",
@@ -26,11 +24,11 @@ Array [
   " ☀️  betterer  info  💬  - ",
   "1 test got checked for the first time! 🎉",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
  ",
   " ☀️  betterer  info  💬  - ",
   "running \\"gets better\\"!",
