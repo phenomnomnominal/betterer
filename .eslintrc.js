@@ -37,7 +37,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['**/*.ts'],
+      files: ['**/*.ts', '**/*.tsx'],
       extends: BASE_EXTENDS,
       rules: OVERRIDE_RULES
     },
