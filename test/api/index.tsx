@@ -1,7 +1,7 @@
-import React, { FC, useEffect, useState } from 'react';
-import { render } from 'ink';
-
 import { BettererTask, BettererTasks, BettererTasksState } from '@betterer/logger';
+import { render } from 'ink';
+import React, { FC, useEffect, useState } from 'react';
+
 import { getPackages, testPackageAPI } from './test-package-api';
 
 export const APITest: FC = function APITest() {
@@ -23,10 +23,10 @@ export const APITest: FC = function APITest() {
 render(<APITest />);
 
 function statusMessage(state: BettererTasksState): string {
-  const { done, error, running } = state;
+  const { done, errors, running } = state;
   const runningStatus = running ? `${tests(running)} running... ` : '';
   const doneStatus = done ? `${tests(done)} done! ` : '';
-  const errorStatus = error ? `${tests(error)} errored! ` : '';
+  const errorStatus = errors ? `${tests(errors)} errored! ` : '';
   return `${runningStatus}${doneStatus}${errorStatus}`;
 }
 

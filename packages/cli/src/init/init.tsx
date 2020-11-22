@@ -1,6 +1,6 @@
 import { BettererTask, BettererTasks, BettererTasksState } from '@betterer/logger';
-import React, { FC } from 'react';
 import * as path from 'path';
+import React, { FC } from 'react';
 
 import { BettererCLIInitConfig } from '../types';
 import { createTestFile } from './create-test-file';
@@ -20,10 +20,10 @@ export const Init: FC<InitProps> = function Init({ cwd, config }) {
 };
 
 function statusMessage(state: BettererTasksState): string {
-  const { done, error, running } = state;
+  const { done, errors, running } = state;
   const runningStatus = running ? `${tasks(running)} running... ` : '';
   const doneStatus = done ? `${tasks(done)} done! ` : '';
-  const errorStatus = error ? `${tasks(error)} errored! ` : '';
+  const errorStatus = errors ? `${tasks(errors)} errored! ` : '';
   return `${runningStatus}${doneStatus}${errorStatus}`;
 }
 

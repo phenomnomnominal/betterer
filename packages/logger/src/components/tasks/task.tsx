@@ -1,12 +1,12 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
 import chalk from 'chalk';
 import { Box, Text } from 'ink';
+import React, { FC, useContext, useEffect, useState } from 'react';
 
+import { BettererLoggerCodeInfo } from '../../types';
+import { codeΔ } from '../../code';
 import { BettererTasksContext } from './state';
 import { BettererTaskStatus } from './status';
 import { BettererTaskContext, BettererTaskLog, BettererTaskLogs } from './types';
-import { BettererLoggerCodeInfo } from '../../types';
-import { codeΔ } from '../../code';
 
 export type BettererTaskProps = {
   context: BettererTaskContext;
@@ -82,7 +82,7 @@ export const BettererTask: FC<BettererTaskProps> = function BettererTask({ conte
         dispatch({ type: 'stop' });
       } catch (error) {
         statusError((error as Error).message);
-        dispatch({ type: 'error' });
+        dispatch({ type: 'error', error: error as Error });
         process.exitCode = 1;
       }
       setRunning(false);
