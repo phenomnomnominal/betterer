@@ -120,6 +120,6 @@ Array [
   " ☀️  betterer  erro  🔥  - ",
   "could not read config from \\"<project>/fixtures/test-betterer-regexp-no-regexp/.betterer\\". 😔",
   " ☀️  betterer  erro  🔥  - ",
-  "For \`@betterer/regexp\` to work, you need to provide a RegExp, e.g. \`/^foo$/\`. ❌",
+  "for \`@betterer/regexp\` to work, you need to provide a RegExp, e.g. \`/^foo$/\`. ❌",
 ]
 `;

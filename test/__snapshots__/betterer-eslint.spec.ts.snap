@@ -120,6 +120,6 @@ Array [
   " ☀️  betterer  erro  🔥  - ",
   "could not read config from \\"<project>/fixtures/test-betterer-eslint-no-rule/.betterer\\". 😔",
   " ☀️  betterer  erro  🔥  - ",
-  "For \`@betterer/eslint\` to work, you need to provide rule options, e.g. \`{ 'no-debugger': 'error' }\`. ❌",
+  "for \`@betterer/eslint\` to work, you need to provide rule options, e.g. \`{ 'no-debugger': 'error' }\`. ❌",
 ]
 `;

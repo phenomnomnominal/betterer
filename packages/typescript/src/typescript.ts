@@ -14,12 +14,12 @@ type TypeScriptReadConfigResult = {
 export function typescript(configFilePath: string, extraCompilerOptions: ts.CompilerOptions): BettererFileTest {
   if (!configFilePath) {
     throw new BettererError(
-      "For `@betterer/typescript` to work, you need to provide the path to a tsconfig.json file, e.g. `'./tsconfig.json'`. ❌"
+      "for `@betterer/typescript` to work, you need to provide the path to a tsconfig.json file, e.g. `'./tsconfig.json'`. ❌"
     );
   }
   if (!extraCompilerOptions) {
     throw new BettererError(
-      'For `@betterer/typescript` to work, you need to provide compiler options, e.g. `{ strict: true }`. ❌'
+      'for `@betterer/typescript` to work, you need to provide compiler options, e.g. `{ strict: true }`. ❌'
     );
   }
 

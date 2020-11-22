@@ -28,7 +28,7 @@ Log a registered error type:
 import { BettererError, logErrorΔ } from '@betterer/errors';
 
 try {
-    throw new BettererError(`Something went wrong: "OOPS!"`):
+    throw new BettererError(`something went wrong: "OOPS!"`):
 } catch (e) {
     logErrorΔ(e); // 'Something went wrong: "OOPS"'
 }

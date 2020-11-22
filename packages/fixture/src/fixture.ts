@@ -17,7 +17,7 @@ export async function createFixtureDirectoryΔ(fixturesPath: string): Promise<Fi
   return async function createFixtureΔ(fixtureName: string, files: FixtureFileSystemFiles): Promise<Fixture> {
     const fixtureNames = await fs.readdir(fixturesPath);
     if (fixtureNames.includes(fixtureName)) {
-      throw new BettererError(`There is already a fixture in use called "${fixtureName.toString()}"`);
+      throw new BettererError(`there is already a fixture in use called "${fixtureName.toString()}"`);
     }
 
     const fixturePath = path.resolve(fixturesPath, fixtureName);

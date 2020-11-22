@@ -6,12 +6,12 @@ import { promises as fs } from 'fs';
 export function tsquery(configFilePath: string, query: string): BettererFileTest {
   if (!configFilePath) {
     throw new BettererError(
-      "For `@betterer/tsquery` to work, you need to provide the path to a tsconfig.json file, e.g. `'./tsconfig.json'`. ❌"
+      "for `@betterer/tsquery` to work, you need to provide the path to a tsconfig.json file, e.g. `'./tsconfig.json'`. ❌"
     );
   }
   if (!query) {
     throw new BettererError(
-      "For `@betterer/tsquery` to work, you need to provide a query, e.g. `'CallExpression > PropertyAccessExpression'`. ❌"
+      "for `@betterer/tsquery` to work, you need to provide a query, e.g. `'CallExpression > PropertyAccessExpression'`. ❌"
     );
   }
 
