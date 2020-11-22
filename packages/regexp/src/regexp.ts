@@ -4,7 +4,7 @@ import { promises as fs } from 'fs';
 
 export function regexp(pattern: RegExp): BettererFileTest {
   if (!pattern) {
-    throw new BettererError('For `@betterer/regexp` to work, you need to provide a RegExp, e.g. `/^foo$/`. ❌');
+    throw new BettererError('for `@betterer/regexp` to work, you need to provide a RegExp, e.g. `/^foo$/`. ❌');
   }
 
   const resolver = new BettererFileResolver();

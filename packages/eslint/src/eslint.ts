@@ -8,7 +8,7 @@ type ESLintRulesConfig = Record<string, Linter.RuleLevel | Linter.RuleLevelAndOp
 export function eslint(rules: ESLintRulesConfig): BettererFileTest {
   if (!rules) {
     throw new BettererError(
-      "For `@betterer/eslint` to work, you need to provide rule options, e.g. `{ 'no-debugger': 'error' }`. ❌"
+      "for `@betterer/eslint` to work, you need to provide rule options, e.g. `{ 'no-debugger': 'error' }`. ❌"
     );
   }
 
