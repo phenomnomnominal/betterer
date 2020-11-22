@@ -1,13 +1,12 @@
 import { BettererConsoleLogger } from '@betterer/logger';
 
 import { BettererError, isBettererError } from './error';
-import { BettererErrorDetail, ErrorLike } from './types';
 
 const logger = new BettererConsoleLogger();
 
-export function logErrorΔ(err: ErrorLike | Error | BettererError): void {
+export function logErrorΔ(err: Error | BettererError): void {
   if (isBettererError(err)) {
-    const errors = err.details.filter((detail) => isErrorLike(detail)) as Array<ErrorLike>;
+    const errors = err.details.filter((detail) => isError(detail)) as Array<Error>;
     logger.error(err.message);
     errors.forEach(logErrorΔ);
     return;
@@ -19,6 +18,6 @@ export function logErrorΔ(err: ErrorLike | Error | BettererError): void {
   /* eslint-enable no-console */
 }
 
-function isErrorLike(err: BettererErrorDetail): err is ErrorLike {
-  return (err as ErrorLike).message != null && (err as ErrorLike).stack !== null;
+function isError(err: unknown): err is Error {
+  return (err as Error).message != null && (err as Error).stack !== null;
 }
