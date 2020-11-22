@@ -1,3 +1,3 @@
-export { BettererError } from './error';
+export { BettererError, isBettererError } from './error';
 export { logErrorΔ } from './error-handler';
-export { BettererErrorDetail, BettererErrorDetails, ErrorLike } from './types';
+export { BettererErrorDetail, BettererErrorDetails } from './types';
