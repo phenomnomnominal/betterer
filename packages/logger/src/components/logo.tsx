@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
 import { Box, Text } from 'ink';
+import React, { FC } from 'react';
 
 import { LOGO } from '../logo';
 

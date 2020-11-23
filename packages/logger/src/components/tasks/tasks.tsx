@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useState, useReducer } from 'react';
 import { Box, useApp } from 'ink';
+import React, { FC, useEffect, useState, useReducer } from 'react';
 
 import { INITIAL_STATE, reducer, BettererTasksContext, BettererTasksState } from './state';
 import { BettererTaskStatus } from './status';
@@ -16,16 +16,16 @@ export const BettererTasks: FC<BettererTasksProps> = function BettererTask({ chi
   const [status, setStatus] = useState<BettererTaskLog | null>(null);
 
   useEffect(() => {
-    const { done, error, running } = state;
+    const { done, errors, running } = state;
     const result = statusMessage(state);
     let status: BettererTaskLog = ['🌟', 'whiteBright', result];
-    if (error > 0) {
+    if (errors > 0) {
       status = ['💥', 'redBright', result];
     } else if (running === 0) {
       status = ['🎉', 'greenBright', result];
     }
     setStatus(status);
-    const shouldExit = running === 0 && (error > 0 || done > 0);
+    const shouldExit = running === 0 && (errors > 0 || done > 0);
     if (shouldExit) {
       setImmediate(app.exit);
     }

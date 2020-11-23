@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
 import { Text } from 'ink';
+import React, { FC } from 'react';
 
 import { BettererTaskLog } from './types';
 

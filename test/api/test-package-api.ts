@@ -59,7 +59,9 @@ export async function runTestPackageAPI(
   });
 
   if (foundToken) {
-    return `Found "${foundToken}" in the API for "@betterer/${packageName}. This means internal code has been exposed.`;
+    throw new BettererError(
+      `found "${foundToken}" in the API for "@betterer/${packageName}. This means internal code has been exposed.`
+    );
   }
 
   const isDefinitelyValid = packageGolden === packageGenerated;

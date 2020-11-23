@@ -1,5 +1,5 @@
-import React from 'react';
 import { render } from 'ink';
+import React from 'react';
 
 import { Init } from './init/init';
 import { initOptions } from './options';
