@@ -7598,9 +7598,9 @@ safe-regex@^1.1.0:
     ret "~0.1.10"
 
 safe-string-literal@^1.0.1:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/safe-string-literal/-/safe-string-literal-1.0.2.tgz#e8e953b6abe3ccf8ee1c1e33b94d523b7c88676b"
-  integrity sha512-bl0I323m3cnUHpSFTYpuasZRAjAtyF5jYr7+2GOenAFlCgD41/lB2Dk/OxGTHN2l2j3mVXP73JkwvL6Ca+B/oA==
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/safe-string-literal/-/safe-string-literal-1.0.4.tgz#82b208410d33b01e77173071309d1f459233001e"
+  integrity sha512-t3AEgYa5CJhbMVgjypp74stVKny8Wrj5f2855lZZ0QCLTLoIGpshqIKbtQ9deuwuMCEh0HKoxS6nkuARtvLrAA==
 
 "safer-buffer@>= 2.1.2 < 3", safer-buffer@^2.0.2, safer-buffer@^2.1.0, safer-buffer@~2.1.0:
   version "2.1.2"
