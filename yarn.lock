@@ -3,9 +3,9 @@
 
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.3", "@babel/code-frame@^7.8.3":
-  version "7.10.4"
-  resolved "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.10.4.tgz#168da1a36e90da68ae8d49c0f1b48c7c6249213a"
-  integrity sha512-vG6SvB6oYEhvgisZNFRmRCUkLz11c7rp+tbNTynGqc6mS1d5ATd/sGyV6W0KZZnXRKMTzZDRgQT3Ou9jhpAfUg==
+  version "7.12.11"
+  resolved "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.12.11.tgz#f4ad435aa263db935b8f10f2c552d23fb716a63f"
+  integrity sha512-Zt1yodBx1UcyiePMSkWnU4hPqhwq7hGi2nFL1LeA3EUl+q2LQx16MISgJ0+z7dnmgvP9QtIleuETGOiOH1RcIw==
   dependencies:
     "@babel/highlight" "^7.10.4"
 
@@ -1802,23 +1802,10 @@
     "@typescript-eslint/types" "4.10.0"
     "@typescript-eslint/visitor-keys" "4.10.0"
 
-"@typescript-eslint/scope-manager@4.9.1":
-  version "4.9.1"
-  resolved "https://registry.npmjs.org/@typescript-eslint/scope-manager/-/scope-manager-4.9.1.tgz#cc2fde310b3f3deafe8436a924e784eaab265103"
-  integrity sha512-sa4L9yUfD/1sg9Kl8OxPxvpUcqxKXRjBeZxBuZSSV1v13hjfEJkn84n0An2hN8oLQ1PmEl2uA6FkI07idXeFgQ==
-  dependencies:
-    "@typescript-eslint/types" "4.9.1"
-    "@typescript-eslint/visitor-keys" "4.9.1"
-
 "@typescript-eslint/types@4.10.0":
   version "4.10.0"
   resolved "https://registry.npmjs.org/@typescript-eslint/types/-/types-4.10.0.tgz#12f983750ebad867f0c806e705c1953cd6415789"
   integrity sha512-+dt5w1+Lqyd7wIPMa4XhJxUuE8+YF+vxQ6zxHyhLGHJjHiunPf0wSV8LtQwkpmAsRi1lEOoOIR30FG5S2HS33g==
-
-"@typescript-eslint/types@4.9.1":
-  version "4.9.1"
-  resolved "https://registry.npmjs.org/@typescript-eslint/types/-/types-4.9.1.tgz#a1a7dd80e4e5ac2c593bc458d75dd1edaf77faa2"
-  integrity sha512-fjkT+tXR13ks6Le7JiEdagnwEFc49IkOyys7ueWQ4O8k4quKPwPJudrwlVOJCUQhXo45PrfIvIarcrEjFTNwUA==
 
 "@typescript-eslint/typescript-estree@4.10.0":
   version "4.10.0"
@@ -1834,34 +1821,12 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
-"@typescript-eslint/typescript-estree@4.9.1":
-  version "4.9.1"
-  resolved "https://registry.npmjs.org/@typescript-eslint/typescript-estree/-/typescript-estree-4.9.1.tgz#6e5b86ff5a5f66809e1f347469fadeec69ac50bf"
-  integrity sha512-bzP8vqwX6Vgmvs81bPtCkLtM/Skh36NE6unu6tsDeU/ZFoYthlTXbBmpIrvosgiDKlWTfb2ZpPELHH89aQjeQw==
-  dependencies:
-    "@typescript-eslint/types" "4.9.1"
-    "@typescript-eslint/visitor-keys" "4.9.1"
-    debug "^4.1.1"
-    globby "^11.0.1"
-    is-glob "^4.0.1"
-    lodash "^4.17.15"
-    semver "^7.3.2"
-    tsutils "^3.17.1"
-
 "@typescript-eslint/visitor-keys@4.10.0":
   version "4.10.0"
   resolved "https://registry.npmjs.org/@typescript-eslint/visitor-keys/-/visitor-keys-4.10.0.tgz#9478822329a9bc8ebcc80623d7f79a01da5ee451"
   integrity sha512-hPyz5qmDMuZWFtHZkjcCpkAKHX8vdu1G3YsCLEd25ryZgnJfj6FQuJ5/O7R+dB1ueszilJmAFMtlU4CA6se3Jg==
   dependencies:
     "@typescript-eslint/types" "4.10.0"
-    eslint-visitor-keys "^2.0.0"
-
-"@typescript-eslint/visitor-keys@4.9.1":
-  version "4.9.1"
-  resolved "https://registry.npmjs.org/@typescript-eslint/visitor-keys/-/visitor-keys-4.9.1.tgz#d76374a58c4ead9e92b454d186fea63487b25ae1"
-  integrity sha512-9gspzc6UqLQHd7lXQS7oWs+hrYggspv/rk6zzEMhCbYwPE/sF7oxo7GAjkS35Tdlt7wguIG+ViWCPtVZHz/ybQ==
-  dependencies:
-    "@typescript-eslint/types" "4.9.1"
     eslint-visitor-keys "^2.0.0"
 
 "@webassemblyjs/ast@1.9.1":
