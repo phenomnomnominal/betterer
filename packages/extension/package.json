@@ -126,7 +126,7 @@
     "package": "vsce package --yarn"
   },
   "dependencies": {
-    "vscode-languageclient": "^6.1.3",
+    "vscode-languageclient": "^7.0.0",
     "vscode-languageserver": "^6.1.1",
     "vscode-languageserver-textdocument": "^1.0.1",
     "vscode-uri": "^3.0.0"
