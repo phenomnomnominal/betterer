@@ -24,6 +24,9 @@
     "compile": "tsc -b .",
     "api": "ts-api-guardian --out ../../goldens/api/@betterer/tsquery.d.ts dist/index.d.ts"
   },
+  "engines": { 
+    "node": ">=12"
+  },
   "dependencies": {
     "@betterer/betterer": "^3.1.2",
     "@betterer/errors": "^3.1.1",

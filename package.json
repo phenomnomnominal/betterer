@@ -32,6 +32,9 @@
     "test:extension": "lerna run test:extension",
     "prepublishOnly": "yarn run build"
   },
+  "engines": { 
+    "node": ">=12"
+  },
   "types": "test/betterer-public-api.d.ts",
   "devDependencies": {
     "@betterer/cli": "*",

@@ -24,6 +24,9 @@
     "compile": "tsc -b .",
     "api": "ts-api-guardian --out ../../goldens/api/@betterer/logger.d.ts dist/index.d.ts"
   },
+  "engines": { 
+    "node": ">=12"
+  },
   "dependencies": {
     "@babel/code-frame": "^7.10.3",
     "chalk": "^4.1.0",
