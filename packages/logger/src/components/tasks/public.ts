@@ -8,5 +8,7 @@ export {
   BettererTaskLog,
   BettererTaskLogs,
   BettererTaskStatusUpdate,
-  BettererTaskLogger
+  BettererTaskStatusUpdateAsync,
+  BettererTaskLogger,
+  BettererTaskLoggerAsync
 } from './types';

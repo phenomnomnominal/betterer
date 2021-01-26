@@ -10,6 +10,8 @@ export declare class BettererConsoleLogger implements BettererLogger {
 
 export declare type BettererLogCode = (codeInfo: BettererLoggerCodeInfo) => void;
 
+export declare type BettererLogCodeAsync = (codeInfo: BettererLoggerCodeInfo) => Promise<void>;
+
 export declare type BettererLogger = {
     code: BettererLogCode;
     debug: BettererLogMessage;
@@ -17,6 +19,15 @@ export declare type BettererLogger = {
     info: BettererLogMessage;
     success: BettererLogMessage;
     warn: BettererLogMessage;
+};
+
+export declare type BettererLoggerAsync = {
+    code: BettererLogCodeAsync;
+    debug: BettererLogMessageAsync;
+    error: BettererLogMessageAsync;
+    info: BettererLogMessageAsync;
+    success: BettererLogMessageAsync;
+    warn: BettererLogMessageAsync;
 };
 
 export declare type BettererLoggerCodeInfo = {
@@ -28,9 +39,11 @@ export declare type BettererLoggerCodeInfo = {
     length: number;
 };
 
-export declare type BettererLoggerMessages = ReadonlyArray<string>;
+export declare type BettererLoggerMessages = Array<string>;
 
 export declare type BettererLogMessage = (...messages: BettererLoggerMessages) => void;
+
+export declare type BettererLogMessageAsync = (...messages: BettererLoggerMessages) => Promise<void>;
 
 export declare const BettererLogo: FC;
 
@@ -54,6 +67,10 @@ export declare type BettererTaskLogger = BettererLogger & {
     progress: BettererTaskStatusUpdate;
 };
 
+export declare type BettererTaskLoggerAsync = BettererLoggerAsync & {
+    progress: BettererTaskStatusUpdateAsync;
+};
+
 export declare type BettererTaskLogs = ReadonlyArray<BettererTaskLog>;
 
 export declare type BettererTaskProps = {
@@ -75,6 +92,8 @@ export declare type BettererTasksState = {
 };
 
 export declare type BettererTaskStatusUpdate = (status: string) => void;
+
+export declare type BettererTaskStatusUpdateAsync = (status: string) => Promise<void>;
 
 export declare function codeΔ(codeInfo: BettererLoggerCodeInfo): string;
 

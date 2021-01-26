@@ -1,5 +1,5 @@
 import { BettererError } from '@betterer/errors';
-import { BettererTaskContext, BettererTaskLog, BettererTaskLogger } from '@betterer/logger';
+import { BettererTaskLog, BettererTaskLoggerAsync } from '@betterer/logger';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 import { publicApi, verifyAgainstGoldenFile } from 'ts-api-guardian';
@@ -33,18 +33,8 @@ export async function getPackages(): Promise<Array<string>> {
   });
 }
 
-export function testPackageAPI(packageName: string): BettererTaskContext {
-  return {
-    name: packageName,
-    run: (logger) => runTestPackageAPI(logger, packageName)
-  };
-}
-
-export async function runTestPackageAPI(
-  logger: BettererTaskLogger,
-  packageName: string
-): Promise<string | BettererTaskLog> {
-  logger.progress(`Validating API for "@betterer/${packageName}" ...`);
+export async function run(logger: BettererTaskLoggerAsync, packageName: string): Promise<string | BettererTaskLog> {
+  await logger.progress(`Validating API for "@betterer/${packageName}" ...`);
 
   const packageDeclarationPath = path.join(PACKAGES_DIR, packageName, BUILT_DECLARATION);
   const packageGoldenPath = path.join(GOLDENS_DIR, `${packageName}${DECLARATION_EXTENSION}`);

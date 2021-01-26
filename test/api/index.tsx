@@ -1,20 +1,33 @@
 import { BettererTask, BettererTasks, BettererTasksState } from '@betterer/logger';
+import { workerRequire, WorkerModule } from '@phenomnomnominal/worker-require';
 import { render } from 'ink';
 import React, { FC, useEffect, useState } from 'react';
 
-import { getPackages, testPackageAPI } from './test-package-api';
+const testPackageApi = workerRequire<WorkerModule<typeof import('./test-package-api')>>('./test-package-api');
 
 export const APITest: FC = function APITest() {
   const [packageNames, setPackageNames] = useState<Array<string>>([]);
 
   useEffect(() => {
-    (async () => setPackageNames(await getPackages()))();
+    void (async () => {
+      const packageNames = await testPackageApi.getPackages();
+      setPackageNames(packageNames);
+    })();
   }, []);
 
   return (
     <BettererTasks name="Test Package APIs" statusMessage={statusMessage}>
       {packageNames.map((packageName) => (
-        <BettererTask key={packageName} context={testPackageAPI(packageName)} />
+        <BettererTask
+          key={packageName}
+          context={{
+            name: packageName,
+            run: async (logger) => {
+              await testPackageApi.run(logger, packageName);
+              testPackageApi.destroy();
+            }
+          }}
+        />
       ))}
     </BettererTasks>
   );
