@@ -31,6 +31,7 @@
   "dependencies": {
     "@betterer/betterer": "^3.1.2",
     "@betterer/errors": "^3.1.1",
+    "@phenomnomnominal/worker-require": "^0.0.13",
     "commander": "^5.1.0",
     "find-up": "^5.0.0",
     "ink": "^3.0.7",

@@ -1,19 +1,12 @@
 import { BettererError } from '@betterer/errors';
-import { BettererTaskContext, BettererTaskLogger } from '@betterer/logger';
+import { BettererTaskLoggerAsync } from '@betterer/logger';
 import findUp from 'find-up';
 import { promises as fs } from 'fs';
 
 import { BettererPackageJSON } from '../types';
 
-export function updatePackageJSON(cwd: string): BettererTaskContext {
-  return {
-    name: 'Update package.json',
-    run: (logger) => runUpdatePackageJSON(cwd, logger)
-  };
-}
-
-async function runUpdatePackageJSON(cwd: string, logger: BettererTaskLogger): Promise<void> {
-  logger.progress('adding "betterer" to package.json file...');
+export async function run(logger: BettererTaskLoggerAsync, cwd: string): Promise<void> {
+  await logger.progress('adding "betterer" to package.json file...');
 
   let packageJSON;
   let packageJSONPath;
@@ -29,15 +22,15 @@ async function runUpdatePackageJSON(cwd: string, logger: BettererTaskLogger): Pr
 
   packageJSON.scripts = packageJSON.scripts || {};
   if (packageJSON.scripts.betterer) {
-    logger.warn('"betterer" script already exists, moving on...');
+    await logger.warn('"betterer" script already exists, moving on...');
   } else {
     packageJSON.scripts.betterer = 'betterer';
-    logger.info('added "betterer" script to package.json file.');
+    await logger.info('added "betterer" script to package.json file.');
   }
 
   packageJSON.devDependencies = packageJSON.devDependencies || {};
   if (packageJSON.devDependencies['@betterer/cli']) {
-    logger.warn('"@betterer/cli" dependency already exists, moving on...');
+    await logger.warn('"@betterer/cli" dependency already exists, moving on...');
   } else {
     // HACK:
     // It's easier to use require than to try to get `await import`
@@ -45,7 +38,7 @@ async function runUpdatePackageJSON(cwd: string, logger: BettererTaskLogger): Pr
     /* eslint-disable @typescript-eslint/no-var-requires */
     const { version } = require(packageJSONPath) as BettererPackageJSON;
     packageJSON.devDependencies['@betterer/cli'] = `^${version}`;
-    logger.info('added "@betterer/cli" dependency to package.json file');
+    await logger.info('added "@betterer/cli" dependency to package.json file');
   }
 
   try {

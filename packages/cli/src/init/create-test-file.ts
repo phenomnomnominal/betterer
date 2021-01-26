@@ -1,20 +1,13 @@
 import { BettererError } from '@betterer/errors';
-import { BettererTaskContext, BettererTaskLogger } from '@betterer/logger';
+import { BettererTaskLoggerAsync } from '@betterer/logger';
 import { promises as fs } from 'fs';
 
 const TEMPLATE = `export default {
   // Add tests here ☀️
 };`;
 
-export function createTestFile(configPath: string): BettererTaskContext {
-  return {
-    name: 'Create test file',
-    run: (logger) => runCreateTestFile(logger, configPath)
-  };
-}
-
-async function runCreateTestFile(logger: BettererTaskLogger, configPath: string): Promise<void> {
-  logger.progress(`creating "${configPath}" file...`);
+export async function run(logger: BettererTaskLoggerAsync, configPath: string): Promise<void> {
+  await logger.progress(`creating "${configPath}" file...`);
 
   let exists = false;
   try {
@@ -24,13 +17,13 @@ async function runCreateTestFile(logger: BettererTaskLogger, configPath: string)
   }
 
   if (exists) {
-    logger.warn(`"${configPath}" already exists, moving on...`);
+    await logger.warn(`"${configPath}" already exists, moving on...`);
     return;
   }
 
   try {
     await fs.writeFile(configPath, TEMPLATE, 'utf8');
-    logger.info(`created "${configPath}"!`);
+    await logger.info(`created "${configPath}"!`);
   } catch {
     throw new BettererError(`could not read "${configPath}".`);
   }
