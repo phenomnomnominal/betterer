@@ -3,7 +3,7 @@ import { createContext, Dispatch } from 'react';
 export type BettererTasksState = {
   running: number;
   done: number;
-  errors: Array<Error>;
+  errors: number;
   startTime: number;
   shouldExit: boolean;
 };
@@ -17,7 +17,6 @@ export type BettererTasksAction =
     }
   | {
       type: 'error';
-      error: Error;
     };
 
 export type BettererTasksContextType = Dispatch<BettererTasksAction>;
@@ -25,7 +24,7 @@ export type BettererTasksContextType = Dispatch<BettererTasksAction>;
 export const INITIAL_STATE: BettererTasksState = {
   running: 0,
   done: 0,
-  errors: [],
+  errors: 0,
   startTime: Date.now(),
   shouldExit: false
 };
@@ -52,7 +51,7 @@ export function reducer(state: BettererTasksState, action: BettererTasksAction):
         ...state,
         running: state.running - 1,
         done: state.done + 1,
-        errors: [...state.errors, action.error]
+        errors: state.errors + 1
       };
       return getShouldExit(newState);
     }

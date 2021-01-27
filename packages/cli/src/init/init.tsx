@@ -41,7 +41,7 @@ function statusMessage(state: BettererTasksState): string {
   const { done, errors, running } = state;
   const runningStatus = running ? `${tasks(running)} running... ` : '';
   const doneStatus = done ? `${tasks(done)} done! ` : '';
-  const errorStatus = errors.length ? `${tasks(errors.length)} errored! ` : '';
+  const errorStatus = errors ? `${tasks(errors)} errored! ` : '';
   return `${runningStatus}${doneStatus}${errorStatus}`;
 }
 

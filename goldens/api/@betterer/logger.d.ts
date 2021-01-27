@@ -87,7 +87,7 @@ export declare type BettererTasksProps = {
 export declare type BettererTasksState = {
     running: number;
     done: number;
-    errors: Array<Error>;
+    errors: number;
     startTime: number;
     shouldExit: boolean;
 };

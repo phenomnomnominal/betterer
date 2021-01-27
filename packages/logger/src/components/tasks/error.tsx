@@ -1,12 +1,12 @@
 import { BettererError, isBettererError } from '@betterer/errors';
 import { Box, Text } from 'ink';
 import React, { FC } from 'react';
-import { BettererTaskErrors } from './errors';
 
 export type BettererTaskErrorProps = {
   error: Error | BettererError;
 };
 
+let errorCount = 0;
 let detailCount = 0;
 
 export const BettererTaskError: FC<BettererTaskErrorProps> = function BettererTaskError({ error }) {
@@ -34,7 +34,9 @@ export const BettererTaskError: FC<BettererTaskErrorProps> = function BettererTa
           </Box>
         ))}
       </Box>
-      <BettererTaskErrors errors={errors} />
+      {errors.map((error) => (
+        <BettererTaskError key={errorCount++} error={error} />
+      ))}
     </>
   );
 };

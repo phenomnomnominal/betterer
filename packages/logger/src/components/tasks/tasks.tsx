@@ -1,7 +1,6 @@
 import { Box, useApp } from 'ink';
 import React, { FC, useCallback, useEffect, useReducer, useState } from 'react';
 
-import { BettererTaskErrors } from './errors';
 import { INITIAL_STATE, reducer, BettererTasksContext, BettererTasksState } from './state';
 import { BettererTaskStatus } from './status';
 import { BettererTaskLog } from './types';
@@ -34,7 +33,7 @@ export const BettererTasks: FC<BettererTasksProps> = function BettererTask({ chi
   const { errors, running, shouldExit } = state;
   const result = `${statusMessage(state)}`;
   let status: BettererTaskLog = ['🌟', 'whiteBright', result];
-  if (errors.length > 0) {
+  if (errors > 0) {
     status = ['💥', 'redBright', result];
   } else if (running === 0 && shouldExit) {
     status = ['🎉', 'greenBright', result];
@@ -46,9 +45,6 @@ export const BettererTasks: FC<BettererTasksProps> = function BettererTask({ chi
       <Box flexDirection="column">
         <BettererTaskStatus name={`${name} (${formatter.format(time)}ms)`} status={status} />
         {children}
-        <Box flexDirection="column" paddingBottom={errors.length ? 2 : 0}>
-          <BettererTaskErrors errors={errors} />
-        </Box>
       </Box>
     </BettererTasksContext.Provider>
   );

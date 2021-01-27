@@ -4,6 +4,7 @@ import React, { FC, useContext, useEffect, useState } from 'react';
 
 import { BettererLoggerCodeInfo } from '../../types';
 import { codeΔ } from '../../code';
+import { BettererTaskError } from './error';
 import { BettererTasksContext } from './state';
 import { BettererTaskStatus } from './status';
 import { BettererTaskContext, BettererTaskLog } from './types';
@@ -19,6 +20,7 @@ export const BettererTask: FC<BettererTaskProps> = function BettererTask({ conte
   const [running, setRunning] = useState(true);
   const [status, setStatus] = useState<BettererTaskLog | null>(null);
   const [messageLogs, setMessageLogs] = useTaskLogs();
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     void (async () => {
@@ -77,7 +79,8 @@ export const BettererTask: FC<BettererTaskProps> = function BettererTask({ conte
         dispatch({ type: 'stop' });
       } catch (error) {
         statusError((error as Error).message);
-        dispatch({ type: 'error', error: error as Error });
+        setError(error);
+        dispatch({ type: 'error' });
         process.exitCode = 1;
       }
       setRunning(false);
@@ -94,6 +97,7 @@ export const BettererTask: FC<BettererTaskProps> = function BettererTask({ conte
           ))}
         </Box>
       ) : null}
+      {error && <BettererTaskError error={error} />}
       {running && status && <BettererTaskStatus name={name} status={status} />}
     </Box>
   );
