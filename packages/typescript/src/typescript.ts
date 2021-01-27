@@ -62,13 +62,15 @@ export function typescript(configFilePath: string, extraCompilerOptions: ts.Comp
       ...semanticDiagnostics
     ]);
 
-    allDiagnostics.forEach((diagnostic) => {
-      const { start, length } = diagnostic as ts.DiagnosticWithLocation;
-      const source = (diagnostic as ts.DiagnosticWithLocation).file;
-      const { fileName } = source;
-      const file = fileTestResult.addFile(fileName, source.getFullText());
-      const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, NEW_LINE);
-      file.addIssue(start, start + length, message);
-    });
+    allDiagnostics
+      .filter(({ file, start, length }) => file && start != null && length != null)
+      .forEach((diagnostic) => {
+        const { start, length } = diagnostic as ts.DiagnosticWithLocation;
+        const source = (diagnostic as ts.DiagnosticWithLocation).file;
+        const { fileName } = source;
+        const file = fileTestResult.addFile(fileName, source.getFullText());
+        const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, NEW_LINE);
+        file.addIssue(start, start + length, message);
+      });
   });
 }
