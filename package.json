@@ -32,7 +32,7 @@
     "test:extension": "lerna run test:extension",
     "prepublishOnly": "yarn run build"
   },
-  "engines": { 
+  "engines": {
     "node": ">=12"
   },
   "types": "test/betterer-public-api.d.ts",

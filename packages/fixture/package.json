@@ -22,7 +22,7 @@
     "compile": "tsc -b .",
     "api": "ts-api-guardian --out ../../goldens/api/@betterer/fixture.d.ts dist/index.d.ts"
   },
-  "engines": { 
+  "engines": {
     "node": ">=12"
   },
   "dependencies": {

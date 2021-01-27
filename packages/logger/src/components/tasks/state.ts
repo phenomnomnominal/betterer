@@ -3,8 +3,9 @@ import { createContext, Dispatch } from 'react';
 export type BettererTasksState = {
   running: number;
   done: number;
-  errors: number;
-  error: Error | null;
+  errors: Array<Error>;
+  startTime: number;
+  shouldExit: boolean;
 };
 
 export type BettererTasksAction =
@@ -14,15 +15,19 @@ export type BettererTasksAction =
   | {
       type: 'stop';
     }
-  | { type: 'error'; error: Error };
+  | {
+      type: 'error';
+      error: Error;
+    };
 
 export type BettererTasksContextType = Dispatch<BettererTasksAction>;
 
 export const INITIAL_STATE: BettererTasksState = {
   running: 0,
   done: 0,
-  errors: 0,
-  error: null
+  errors: [],
+  startTime: Date.now(),
+  shouldExit: false
 };
 
 export const BettererTasksContext = createContext<BettererTasksContextType>(() => void 0);
@@ -30,12 +35,33 @@ export const BettererTasksContext = createContext<BettererTasksContextType>(() =
 export function reducer(state: BettererTasksState, action: BettererTasksAction): BettererTasksState {
   switch (action.type) {
     case 'start':
-      return { ...state, running: state.running + 1 };
-    case 'stop':
-      return { ...state, running: state.running - 1, done: state.done + 1 };
-    case 'error':
-      return { ...state, running: state.running - 1, errors: state.errors + 1, error: action.error };
+      return {
+        ...state,
+        running: state.running + 1
+      };
+    case 'stop': {
+      const newState = {
+        ...state,
+        running: state.running - 1,
+        done: state.done + 1
+      };
+      return getShouldExit(newState);
+    }
+    case 'error': {
+      const newState = {
+        ...state,
+        running: state.running - 1,
+        done: state.done + 1,
+        errors: [...state.errors, action.error]
+      };
+      return getShouldExit(newState);
+    }
     default:
       return state;
   }
+}
+
+function getShouldExit(state: BettererTasksState): BettererTasksState {
+  const shouldExit = state.running === 0;
+  return { ...state, shouldExit };
 }
