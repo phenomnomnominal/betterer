@@ -24,11 +24,12 @@
     "compile": "tsc -b .",
     "api": "ts-api-guardian --out ../../goldens/api/@betterer/logger.d.ts dist/index.d.ts"
   },
-  "engines": { 
+  "engines": {
     "node": ">=12"
   },
   "dependencies": {
     "@babel/code-frame": "^7.10.3",
+    "@betterer/errors": "^3.1.1",
     "chalk": "^4.1.0",
     "ink": "^3.0.7",
     "jest-diff": "^26.6.2",

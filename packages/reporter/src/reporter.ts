@@ -5,7 +5,7 @@ import {
   BettererRun,
   BettererSummary
 } from '@betterer/betterer';
-import { BettererError, logErrorΔ } from '@betterer/errors';
+import { BettererError, isBettererError } from '@betterer/errors';
 import { BettererConsoleLogger, diffΔ, LOGO } from '@betterer/logger';
 
 import {
@@ -149,3 +149,21 @@ export const defaultReporter: BettererReporter = {
     logErrorΔ(error);
   }
 };
+
+function logErrorΔ(err: Error | BettererError): void {
+  if (isBettererError(err)) {
+    const errors = err.details.filter((detail) => isError(detail)) as Array<Error>;
+    logger.error(err.message);
+    errors.forEach(logErrorΔ);
+    return;
+  }
+  /* eslint-disable no-console */
+  console.log();
+  console.error(err.stack);
+  console.log();
+  /* eslint-enable no-console */
+}
+
+function isError(err: unknown): err is Error {
+  return (err as Error).message != null && (err as Error).stack !== null;
+}

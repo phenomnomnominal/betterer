@@ -4,9 +4,11 @@ import React, { FC, useContext, useEffect, useState } from 'react';
 
 import { BettererLoggerCodeInfo } from '../../types';
 import { codeΔ } from '../../code';
+import { BettererTaskError } from './error';
 import { BettererTasksContext } from './state';
 import { BettererTaskStatus } from './status';
-import { BettererTaskContext, BettererTaskLog, BettererTaskLogs } from './types';
+import { BettererTaskContext, BettererTaskLog } from './types';
+import { useTaskLogs } from './use-task-logs';
 
 export type BettererTaskProps = {
   context: BettererTaskContext;
@@ -17,16 +19,11 @@ export const BettererTask: FC<BettererTaskProps> = function BettererTask({ conte
   const { name, run } = context;
   const [running, setRunning] = useState(true);
   const [status, setStatus] = useState<BettererTaskLog | null>(null);
-  const [logMessages, setLogMessages] = useState<BettererTaskLogs>([]);
+  const [messageLogs, setMessageLogs] = useTaskLogs();
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     void (async () => {
-      let runLogMessages: BettererTaskLogs = [];
-      function addLogMessage(log: BettererTaskLog) {
-        runLogMessages = [...runLogMessages, log];
-        setLogMessages(runLogMessages);
-      }
-
       function statusError(status: string): void {
         setStatus(['🔥', 'redBright', status]);
       }
@@ -41,22 +38,22 @@ export const BettererTask: FC<BettererTaskProps> = function BettererTask({ conte
         const { message } = codeInfo;
         const codeFrame = codeΔ(codeInfo);
         logInfo(message.trim());
-        addLogMessage(['💻', 'magentaBright', codeFrame]);
+        setMessageLogs(['💻', 'magentaBright', codeFrame]);
       }
       function logDebug(log: string): void {
-        addLogMessage(['🤯', 'blueBright', log]);
+        setMessageLogs(['🤯', 'blueBright', log]);
       }
       function logError(log: string): void {
-        addLogMessage(['🔥', 'redBright', log]);
+        setMessageLogs(['🔥', 'redBright', log]);
       }
       function logInfo(log: string): void {
-        addLogMessage(['💭', 'gray', log]);
+        setMessageLogs(['💭', 'gray', log]);
       }
       function logSuccess(log: string): void {
-        addLogMessage(['✅', 'greenBright', log]);
+        setMessageLogs(['✅', 'greenBright', log]);
       }
       function logWarning(log: string): void {
-        addLogMessage(['🚨', 'yellowBright', log]);
+        setMessageLogs(['🚨', 'yellowBright', log]);
       }
 
       dispatch({ type: 'start' });
@@ -82,7 +79,8 @@ export const BettererTask: FC<BettererTaskProps> = function BettererTask({ conte
         dispatch({ type: 'stop' });
       } catch (error) {
         statusError((error as Error).message);
-        dispatch({ type: 'error', error: error as Error });
+        setError(error);
+        dispatch({ type: 'error' });
         process.exitCode = 1;
       }
       setRunning(false);
@@ -92,13 +90,14 @@ export const BettererTask: FC<BettererTaskProps> = function BettererTask({ conte
   return (
     <Box flexDirection="column">
       {!running && status && <BettererTaskStatus name={name} status={status} />}
-      {logMessages.length ? (
+      {messageLogs.length ? (
         <Box flexDirection="column">
-          {logMessages.map((log, index) => (
+          {messageLogs.map((log, index) => (
             <Text key={`${name}-log-${index}`}>{prependLogBlock(log)}</Text>
           ))}
         </Box>
       ) : null}
+      {error && <BettererTaskError error={error} />}
       {running && status && <BettererTaskStatus name={name} status={status} />}
     </Box>
   );

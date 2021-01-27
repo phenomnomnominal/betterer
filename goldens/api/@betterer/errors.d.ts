@@ -9,5 +9,3 @@ export declare type BettererErrorDetail = string | Error | BettererError;
 export declare type BettererErrorDetails = ReadonlyArray<BettererErrorDetail>;
 
 export declare function isBettererError(err: unknown): err is BettererError;
-
-export declare function logErrorΔ(err: Error | BettererError): void;

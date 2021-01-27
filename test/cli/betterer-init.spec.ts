@@ -34,10 +34,10 @@ describe('betterer cli', () => {
   });
 
   it('should work multiple times', async () => {
-    const { paths, cleanup } = await createFixture('test-betterer-init', {
+    const { paths, cleanup } = await createFixture('test-betterer-init-multiple', {
       'package.json': `
       {
-        "name": "betterer-test-betterer-init",
+        "name": "betterer-test-betterer-init-multiple",
         "version": "0.0.1"
       }
       `
