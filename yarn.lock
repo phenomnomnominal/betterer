@@ -1675,10 +1675,10 @@
   resolved "https://registry.npmjs.org/@phenomnomnominal/commitlint-plugin/-/commitlint-plugin-1.1.1.tgz#ea96cfc07488efba06d4bd028ebeb14d92da6b85"
   integrity sha512-r5eWiv3SScWGe1a790sHczz4XIjuZ9hFWNu4JCUuZ/5K8LkvfiN8fA+AyoqPd4/mGIgw/6rKDNgi0K0ddVrlig==
 
-"@phenomnomnominal/debug@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.npmjs.org/@phenomnomnominal/debug/-/debug-0.2.0.tgz#a2c206e395adc8ccb37466872980816682baddc1"
-  integrity sha512-poh7bUQjIm3vTWCxZRoLZ5wj5TZpTy69YAEGie//aobwYrsLxciy9NsT8yClt2dsx7RHvMtXgl4DivHnbL7RGw==
+"@phenomnomnominal/debug@^0.2.4":
+  version "0.2.4"
+  resolved "https://registry.npmjs.org/@phenomnomnominal/debug/-/debug-0.2.4.tgz#c4a2b0c264762fa44e3c99cb6e7561b9f3ada607"
+  integrity sha512-wpDufADI3AxSAPR19y4CgtWDUDNam47Gm+yTNbIBAKNf8MwAr37riYC+3Jf6QFVE5+jvuHVPJsidEbP7TeHPgA==
   dependencies:
     esprima "^4.0.1"
     esquery "^1.3.1"

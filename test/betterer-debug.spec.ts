@@ -3,7 +3,7 @@ import { betterer } from '@betterer/betterer';
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
-  it(`should doesn't break in debug mode`, async () => {
+  it(`doesn't break in debug mode`, async () => {
     const { logs, paths, cleanup } = await createFixture('test-betterer-debug', {
       '.betterer.js': `
 const { smaller, bigger } = require('@betterer/constraints');
