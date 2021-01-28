@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`betterer should doesn't break in debug mode 1`] = `
+exports[`betterer doesn't break in debug mode 1`] = `
 Array [
   "betterer starting 0
 ",

@@ -7,7 +7,7 @@ import { BettererReporter, BettererReporterModule, BettererReporterNames } from 
 export const DEFAULT_REPORTER = '@betterer/reporter';
 export const WATCH_REPORTER = '@betterer/watch-reporter';
 
-const HOOK_NAMES = Object.keys(BettererReporterΩ.prototype) as ReadonlyArray<keyof BettererReporter>;
+const HOOK_NAMES = Object.getOwnPropertyNames(BettererReporterΩ.prototype) as ReadonlyArray<keyof BettererReporter>;
 
 export function loadReporters(reporterNames: BettererReporterNames): BettererReporterΩ {
   const reporters: Array<BettererReporter> = reporterNames.map((name) => {

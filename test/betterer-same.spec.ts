@@ -108,7 +108,7 @@ export default {
 
   it('should stay the same when an issue moves line', async () => {
     const { paths, logs, cleanup, resolve, readFile, writeFile, runNames } = await createFixture(
-      'test-betterer-same-move',
+      'test-betterer-same-move-line',
       {
         'src/index.ts': `
 const a = 'a';
