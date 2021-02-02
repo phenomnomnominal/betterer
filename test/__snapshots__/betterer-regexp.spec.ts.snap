@@ -264,8 +264,6 @@ Array [
   ▸
 
 Error: \\"regexp no hack comments\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
-      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 🔥 regexp no hack comments: \\"regexp no hack comments\\" got worse. 😔
 ",
   "
@@ -284,8 +282,6 @@ Error: \\"regexp no hack comments\\" got worse. 😔
   ▸
 
 Error: \\"regexp no hack comments\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
-      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 🔥 regexp no hack comments: \\"regexp no hack comments\\" got worse. 😔
 ",
   "
@@ -305,8 +301,6 @@ Error: \\"regexp no hack comments\\" got worse. 😔
   ▸
 
 Error: \\"regexp no hack comments\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
-      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 ",
   "
    / | /     _         _   _
@@ -325,8 +319,6 @@ Error: \\"regexp no hack comments\\" got worse. 😔
   ▸
 
 Error: \\"regexp no hack comments\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
-      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 
 1 test got checked. 🤔
 1 test got worse. 😔
@@ -500,28 +492,8 @@ Array [
 
 
 Error: could not read config from \\"<project>/fixtures/test-betterer-regexp-no-regexp/.betterer\\". 😔
-      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:0:0)
-      at <project>/packages/betterer/dist/context/context.js:0:0
-      at Array.map (<anonymous>)
-      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:0:0)
-      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:0:0)
-      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:0:0)
-      at <project>/packages/betterer/dist/betterer.js:0:0
-      at runContext (<project>/packages/betterer/dist/betterer.js:0:0)
-      at <project>/test/betterer-regexp.spec.ts:0:0
-      at Object.<anonymous> (<project>/test/betterer-regexp.spec.ts:0:0)
 
 Error: for \`@betterer/regexp\` to work, you need to provide a RegExp, e.g. \`/^foo$/\`. ❌
-      at regexp (<project>/packages/regexp/dist/regexp.js:0:0)
-      at Object.<anonymous> (<project>/fixtures/test-betterer-regexp-no-regexp/.betterer.js:0:0)
-      at Runtime._execModule (<project>/node_modules/jest-runtime/build/index.js:0:0)
-      at Runtime._loadModule (<project>/node_modules/jest-runtime/build/index.js:0:0)
-      at Runtime.requireModule (<project>/node_modules/jest-runtime/build/index.js:0:0)
-      at Runtime.requireModuleOrMock (<project>/node_modules/jest-runtime/build/index.js:0:0)
-      at Object.requireUncached (<project>/packages/betterer/dist/require.js:0:0)
-      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:0:0)
-      at <project>/packages/betterer/dist/context/context.js:0:0
-      at Array.map (<anonymous>)
 ",
   "
    / | /     _         _   _
@@ -532,28 +504,8 @@ Error: for \`@betterer/regexp\` to work, you need to provide a RegExp, e.g. \`/^
 
 
 Error: could not read config from \\"<project>/fixtures/test-betterer-regexp-no-regexp/.betterer\\". 😔
-      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:0:0)
-      at <project>/packages/betterer/dist/context/context.js:0:0
-      at Array.map (<anonymous>)
-      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:0:0)
-      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:0:0)
-      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:0:0)
-      at <project>/packages/betterer/dist/betterer.js:0:0
-      at runContext (<project>/packages/betterer/dist/betterer.js:0:0)
-      at <project>/test/betterer-regexp.spec.ts:0:0
-      at Object.<anonymous> (<project>/test/betterer-regexp.spec.ts:0:0)
 
 Error: for \`@betterer/regexp\` to work, you need to provide a RegExp, e.g. \`/^foo$/\`. ❌
-      at regexp (<project>/packages/regexp/dist/regexp.js:0:0)
-      at Object.<anonymous> (<project>/fixtures/test-betterer-regexp-no-regexp/.betterer.js:0:0)
-      at Runtime._execModule (<project>/node_modules/jest-runtime/build/index.js:0:0)
-      at Runtime._loadModule (<project>/node_modules/jest-runtime/build/index.js:0:0)
-      at Runtime.requireModule (<project>/node_modules/jest-runtime/build/index.js:0:0)
-      at Runtime.requireModuleOrMock (<project>/node_modules/jest-runtime/build/index.js:0:0)
-      at Object.requireUncached (<project>/packages/betterer/dist/require.js:0:0)
-      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:0:0)
-      at <project>/packages/betterer/dist/context/context.js:0:0
-      at Array.map (<anonymous>)
 ",
 ]
 `;

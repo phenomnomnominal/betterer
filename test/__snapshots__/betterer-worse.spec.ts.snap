@@ -516,8 +516,6 @@ Array [
   ▸ + 1
 
 Error: \\"should shrink\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
-      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 🔥 should shrink: \\"should shrink\\" got worse. 😔
   ▸ - Expected
   ▸ + Result
@@ -541,8 +539,6 @@ Error: \\"should shrink\\" got worse. 😔
   ▸ + 1
 
 Error: \\"should shrink\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
-      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 🔥 should shrink: \\"should shrink\\" got worse. 😔
   ▸ - Expected
   ▸ + Result
@@ -567,8 +563,6 @@ Error: \\"should shrink\\" got worse. 😔
   ▸ + 1
 
 Error: \\"should shrink\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
-      at <project>/packages/logger/dist/components/tasks/task.js:0:0
   ▸ - Expected
   ▸ + Result
   ▸
@@ -592,8 +586,6 @@ Error: \\"should shrink\\" got worse. 😔
   ▸ + 1
 
 Error: \\"should shrink\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
-      at <project>/packages/logger/dist/components/tasks/task.js:0:0
   ▸ - Expected
   ▸ + Result
   ▸
@@ -617,8 +609,6 @@ Error: \\"should shrink\\" got worse. 😔
   ▸ + 1
 
 Error: \\"should shrink\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
-      at <project>/packages/logger/dist/components/tasks/task.js:0:0
   ▸ - Expected
   ▸ + Result
   ▸
@@ -626,8 +616,6 @@ Error: \\"should shrink\\" got worse. 😔
   ▸ + 1
 
 Error: \\"should grow\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
-      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 🔥 should grow: \\"should grow\\" got worse. 😔
 ",
   "
@@ -646,8 +634,6 @@ Error: \\"should grow\\" got worse. 😔
   ▸ + 1
 
 Error: \\"should shrink\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
-      at <project>/packages/logger/dist/components/tasks/task.js:0:0
   ▸ - Expected
   ▸ + Result
   ▸
@@ -655,8 +641,6 @@ Error: \\"should shrink\\" got worse. 😔
   ▸ + 1
 
 Error: \\"should grow\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
-      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 🔥 should grow: \\"should grow\\" got worse. 😔
 ",
   "
@@ -675,8 +659,6 @@ Error: \\"should grow\\" got worse. 😔
   ▸ + 1
 
 Error: \\"should shrink\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
-      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 🔥 should grow: \\"should grow\\" got worse. 😔
   ▸ - Expected
   ▸ + Result
@@ -685,8 +667,6 @@ Error: \\"should shrink\\" got worse. 😔
   ▸ + 1
 
 Error: \\"should grow\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
-      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 ",
   "
    / | /     _         _   _
@@ -704,8 +684,6 @@ Error: \\"should grow\\" got worse. 😔
   ▸ + 1
 
 Error: \\"should shrink\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
-      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 🔥 should grow: \\"should grow\\" got worse. 😔
   ▸ - Expected
   ▸ + Result
@@ -714,8 +692,6 @@ Error: \\"should shrink\\" got worse. 😔
   ▸ + 1
 
 Error: \\"should grow\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
-      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 
 2 tests got checked. 🤔
 2 tests got worse. 😔

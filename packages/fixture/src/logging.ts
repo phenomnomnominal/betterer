@@ -5,7 +5,7 @@ import { FixtureLogs } from './types';
 
 const ANSI_REGEX = ansiRegex();
 const PROJECT_REGEXP = new RegExp(normalisePaths(process.cwd()), 'g');
-const STACK_TRACK_LOCATION_REGEXP = /(\.[a-z]+):\d+:\d+/;
+const STACK_TRACK_LINE_REGEXP = /\s+at\s+/;
 
 export function createFixtureLogs(): FixtureLogs {
   const logs: Array<string> = [];
@@ -18,10 +18,10 @@ export function createFixtureLogs(): FixtureLogs {
         return;
       }
       const lines = message.replace(/\r/g, '').split('\n');
-      const formattedLines = lines.map((line) => {
+      const filteredLines = lines.filter((line) => !isStackTraceLine(line));
+      const formattedLines = filteredLines.map((line) => {
         line = replaceAnsi(line);
         line = replaceProjectPath(normalisePaths(line));
-        line = replaceStackTraceLocation(line);
         line = line.trimEnd();
         return line;
       });
@@ -58,12 +58,12 @@ function replaceAnsi(str: string): string {
   return str.replace(ANSI_REGEX, '');
 }
 
-function replaceProjectPath(str: string): string {
-  return str.replace(PROJECT_REGEXP, '<project>');
+function isStackTraceLine(str: string): boolean {
+  return !!STACK_TRACK_LINE_REGEXP.exec(str);
 }
 
-function replaceStackTraceLocation(str: string): string {
-  return str.replace(STACK_TRACK_LOCATION_REGEXP, '$1:0:0');
+function replaceProjectPath(str: string): string {
+  return str.replace(PROJECT_REGEXP, '<project>');
 }
 
 function normalisePaths(str: string): string {

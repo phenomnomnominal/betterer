@@ -272,8 +272,6 @@ Array [
   ▸
 
 Error: \\"typescript use strict mode\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
-      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. 😔
 ",
   "
@@ -293,8 +291,6 @@ Error: \\"typescript use strict mode\\" got worse. 😔
   ▸
 
 Error: \\"typescript use strict mode\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
-      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. 😔
 ",
   "
@@ -315,8 +311,6 @@ Error: \\"typescript use strict mode\\" got worse. 😔
   ▸
 
 Error: \\"typescript use strict mode\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
-      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 ",
   "
    / | /     _         _   _
@@ -336,8 +330,6 @@ Error: \\"typescript use strict mode\\" got worse. 😔
   ▸
 
 Error: \\"typescript use strict mode\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
-      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 
 1 test got checked. 🤔
 1 test got worse. 😔
