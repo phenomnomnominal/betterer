@@ -17,10 +17,6 @@ export function createFixtureLogs(): FixtureLogs {
         logs.push(message);
         return;
       }
-      const trimmed = message.trim();
-      if (trimmed.length === 0) {
-        return;
-      }
       const lines = message.replace(/\r/g, '').split('\n');
       const formattedLines = lines.map((line) => {
         line = replaceAnsi(line);
@@ -29,7 +25,12 @@ export function createFixtureLogs(): FixtureLogs {
         line = line.trimEnd();
         return line;
       });
-      logs.push(formattedLines.join('\n'));
+      message = formattedLines.join('\n');
+      const trimmed = message.trim();
+      if (trimmed.length === 0) {
+        return;
+      }
+      logs.push(message);
     });
   };
 
