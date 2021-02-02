@@ -8,11 +8,72 @@ Array [
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
    / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  erro  🔥  - ",
-  "could not read config from \\"<project>/fixtures/test-betterer-custom-no-constraint/.betterer\\". 😔",
-  " ☀️  betterer  erro  🔥  - ",
-  "for a test to work, it must have a \`constraint\` function. ❌",
+ 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: could not read config from \\"<project>/fixtures/test-betterer-custom-no-constraint/.betterer\\". 😔
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2211:13)
+      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at Array.map (<anonymous>)
+      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:2107:29)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1959:24)
+      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:911:18)
+      at <project>/packages/betterer/dist/betterer.js:909:47
+      at runContext (<project>/packages/betterer/dist/betterer.js:1074:18)
+      at <project>/test/betterer-custom.spec.ts:16:34
+      at Object.<anonymous> (<project>/test/betterer-custom.spec.ts:16:9)
+
+Error: for a test to work, it must have a \`constraint\` function. ❌
+      at Object.createTestConfig (<project>/packages/betterer/dist/test/config.js:1146:11)
+      at new BettererTest (<project>/packages/betterer/dist/test/test.js:517:29)
+      at <project>/packages/betterer/dist/context/context.js:2192:18
+      at Array.forEach (<anonymous>)
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2175:32)
+      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at Array.map (<anonymous>)
+      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:2107:29)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1959:24)
+      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:911:18)
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: could not read config from \\"<project>/fixtures/test-betterer-custom-no-constraint/.betterer\\". 😔
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2211:13)
+      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at Array.map (<anonymous>)
+      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:2107:29)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1959:24)
+      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:911:18)
+      at <project>/packages/betterer/dist/betterer.js:909:47
+      at runContext (<project>/packages/betterer/dist/betterer.js:1074:18)
+      at <project>/test/betterer-custom.spec.ts:16:34
+      at Object.<anonymous> (<project>/test/betterer-custom.spec.ts:16:9)
+
+Error: for a test to work, it must have a \`constraint\` function. ❌
+      at Object.createTestConfig (<project>/packages/betterer/dist/test/config.js:1146:11)
+      at new BettererTest (<project>/packages/betterer/dist/test/test.js:517:29)
+      at <project>/packages/betterer/dist/context/context.js:2192:18
+      at Array.forEach (<anonymous>)
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2175:32)
+      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at Array.map (<anonymous>)
+      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:2107:29)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1959:24)
+      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:911:18)
+",
 ]
 `;
 
@@ -24,10 +85,71 @@ Array [
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
    / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  erro  🔥  - ",
-  "could not read config from \\"<project>/fixtures/test-betterer-custom-no-test/.betterer\\". 😔",
-  " ☀️  betterer  erro  🔥  - ",
-  "for a test to work, it must have a \`test\` function. ❌",
+ 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: could not read config from \\"<project>/fixtures/test-betterer-custom-no-test/.betterer\\". 😔
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2211:13)
+      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at Array.map (<anonymous>)
+      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:2107:29)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1959:24)
+      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:911:18)
+      at <project>/packages/betterer/dist/betterer.js:909:47
+      at runContext (<project>/packages/betterer/dist/betterer.js:1074:18)
+      at <project>/test/betterer-custom.spec.ts:34:34
+      at Object.<anonymous> (<project>/test/betterer-custom.spec.ts:34:9)
+
+Error: for a test to work, it must have a \`test\` function. ❌
+      at Object.createTestConfig (<project>/packages/betterer/dist/test/config.js:1159:11)
+      at new BettererTest (<project>/packages/betterer/dist/test/test.js:517:29)
+      at <project>/packages/betterer/dist/context/context.js:2192:18
+      at Array.forEach (<anonymous>)
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2175:32)
+      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at Array.map (<anonymous>)
+      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:2107:29)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1959:24)
+      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:911:18)
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: could not read config from \\"<project>/fixtures/test-betterer-custom-no-test/.betterer\\". 😔
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2211:13)
+      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at Array.map (<anonymous>)
+      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:2107:29)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1959:24)
+      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:911:18)
+      at <project>/packages/betterer/dist/betterer.js:909:47
+      at runContext (<project>/packages/betterer/dist/betterer.js:1074:18)
+      at <project>/test/betterer-custom.spec.ts:34:34
+      at Object.<anonymous> (<project>/test/betterer-custom.spec.ts:34:9)
+
+Error: for a test to work, it must have a \`test\` function. ❌
+      at Object.createTestConfig (<project>/packages/betterer/dist/test/config.js:1159:11)
+      at new BettererTest (<project>/packages/betterer/dist/test/test.js:517:29)
+      at <project>/packages/betterer/dist/context/context.js:2192:18
+      at Array.forEach (<anonymous>)
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2175:32)
+      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at Array.map (<anonymous>)
+      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:2107:29)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1959:24)
+      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:911:18)
+",
 ]
 `;

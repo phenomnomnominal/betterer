@@ -13,6 +13,7 @@ enum BettererRunStatus {
   failed,
   pending,
   new,
+  obsolete,
   same,
   skipped,
   update,
@@ -36,9 +37,11 @@ export class BettererRunΩ implements BettererRun {
     private readonly _test: BettererTestConfig,
     private readonly _expected: BettererResult,
     private readonly _filePaths: BettererFilePaths,
-    isSkipped: boolean
+    isSkipped: boolean,
+    isObsolete: boolean
   ) {
     this._status = isSkipped ? BettererRunStatus.skipped : BettererRunStatus.pending;
+    this._status = isObsolete ? BettererRunStatus.obsolete : this._status;
     this._lifecycle = defer();
   }
 
@@ -87,6 +90,10 @@ export class BettererRunΩ implements BettererRun {
 
   public get isNew(): boolean {
     return this._expected.isNew;
+  }
+
+  public get isObsolete(): boolean {
+    return this._status === BettererRunStatus.obsolete;
   }
 
   public get isRan(): boolean {
@@ -144,7 +151,7 @@ export class BettererRunΩ implements BettererRun {
 
   public async start(): Promise<void> {
     const startTime = Date.now();
-    this._isExpired = startTime > this._test.deadline;
+    this._isExpired = startTime >= this._test.deadline;
     await this._reporter.runStart(this, this._lifecycle.promise);
     this._timestamp = startTime;
   }

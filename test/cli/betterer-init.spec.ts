@@ -6,7 +6,7 @@ const ARGV = ['node', './bin/betterer'];
 
 describe('betterer cli', () => {
   it('should initialise betterer in a repo', async () => {
-    const { paths, readFile, cleanup, resolve } = await createFixture('test-betterer-init', {
+    const { logs, paths, readFile, cleanup, resolve } = await createFixture('test-betterer-init', {
       'package.json': `
       {
         "name": "betterer-test-betterer-init",
@@ -30,11 +30,13 @@ describe('betterer cli', () => {
 
     expect(config).toEqual('export default {\n  // Add tests here ☀️\n};');
 
+    expect(logs).toMatchSnapshot();
+
     await cleanup();
   });
 
   it('should work multiple times', async () => {
-    const { paths, cleanup } = await createFixture('test-betterer-init-multiple', {
+    const { logs, paths, cleanup } = await createFixture('test-betterer-init-multiple', {
       'package.json': `
       {
         "name": "betterer-test-betterer-init-multiple",
@@ -55,5 +57,7 @@ describe('betterer cli', () => {
     }
 
     expect(throws).toBe(false);
+
+    expect(logs).toMatchSnapshot();
   });
 });

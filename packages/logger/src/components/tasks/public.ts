@@ -4,7 +4,6 @@ export { BettererTasks, BettererTasksProps } from './tasks';
 export {
   BettererTaskColour,
   BettererTaskContext,
-  BettererTaskError,
   BettererTaskLog,
   BettererTaskLogs,
   BettererTaskStatusUpdate,

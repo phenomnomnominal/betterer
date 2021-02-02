@@ -1,7 +1,6 @@
 import { defaultReporter } from './reporter';
 
 export {
-  getTestsΔ,
   testBetterΔ,
   testCheckedΔ,
   testCompleteΔ,

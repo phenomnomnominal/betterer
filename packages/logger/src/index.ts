@@ -3,11 +3,12 @@ export { codeΔ } from './code';
 export { diffΔ } from './diff';
 export { LOGO } from './logo';
 export {
+  BettererErrorLog,
+  BettererErrorLogProps,
   BettererLogo,
   BettererTask,
   BettererTaskColour,
   BettererTaskContext,
-  BettererTaskError,
   BettererTaskProps,
   BettererTaskLog,
   BettererTaskLogs,

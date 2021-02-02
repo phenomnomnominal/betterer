@@ -51,6 +51,7 @@ export class BettererContextΩ implements BettererContext {
     this._tests = this._initTests();
     this._initFilters();
 
+    const obsolete = await this._initObsolete();
     const runs = await Promise.all(
       Object.keys(this._tests)
         .filter((name) => {
@@ -61,12 +62,12 @@ export class BettererContextΩ implements BettererContext {
         .map(async (name) => {
           const test = this._tests[name];
           const { isSkipped, config } = test;
+          const isObsolete = obsolete.includes(name);
           const expected = await this._results.getExpectedResult(name, config);
           const expectedΩ = expected as BettererResultΩ;
-          return new BettererRunΩ(this._reporter, name, config, expectedΩ, filePaths, isSkipped);
+          return new BettererRunΩ(this._reporter, name, config, expectedΩ, filePaths, isSkipped, isObsolete);
         })
     );
-    const obsolete = await this._initObsolete();
     await this._reporter.runsStart(runs, filePaths);
     this._running = runner(runs);
     await this._running;
@@ -74,7 +75,7 @@ export class BettererContextΩ implements BettererContext {
     const expected = await this._results.read();
     const result = await this._results.print(runs);
     const hasDiff = !!expected && expected !== result;
-    this._summary = new BettererSummaryΩ(runs, obsolete, result, hasDiff && !this.config.allowDiff ? expected : null);
+    this._summary = new BettererSummaryΩ(runs, result, hasDiff && !this.config.allowDiff ? expected : null);
     return this._summary;
   }
 

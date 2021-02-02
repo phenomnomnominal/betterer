@@ -8,7 +8,7 @@ export function testCompleteΔ(context: string, isNew = false): string {
   return `${context}${isNew ? ' has already' : ''} met its goal! ${isNew ? '✨' : '🎉'}`;
 }
 export function testExpiredΔ(context: string): string {
-  return `${context} has passed its deadline. ☠️`;
+  return `${context} has passed its deadline. 👻`;
 }
 export function testFailedΔ(context: string): string {
   return `${context} failed to run. 🔥`;
@@ -37,10 +37,6 @@ export function testWorseΔ(context: string): string {
 
 export function updateInstructionsΔ(): string {
   return `Run \`betterer --update\` to force an update of the results file. 🆙`;
-}
-
-export function getTestsΔ(count: number): string {
-  return `${count} ${count === 1 ? 'test' : 'tests'}`;
 }
 
 export function unexpectedDiffΔ(): string {

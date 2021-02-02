@@ -20,92 +20,470 @@ Array [
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
    / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"typescript use strict mode\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"typescript use strict mode\\" got checked for the first time! 🎉",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked for the first time! 🎉",
+ 
+",
   "
    / | /     _         _   _                     
  '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
    / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"typescript use strict mode\\"!",
-  " ☀️  betterer  warn  🚨  - ",
-  "\\"typescript use strict mode\\" stayed the same. 😐",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  warn  🚨  - ",
-  "1 test stayed the same. 😐",
+ 
+🌟 Betterer (0ms): 
+",
   "
    / | /     _         _   _                     
  '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
    / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"typescript use strict mode\\"!",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"typescript use strict mode\\" got worse. 😔",
-  " ☀️  betterer  warn  🚨  - ",
-  "1 existing issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\".",
-  " ☀️  betterer  erro  🔥  - ",
-  "1 new issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\":",
+ 
+🌟 Betterer (0ms): 1 test running...
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+",
   "
-   The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 1 test running...
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
 
-  1 | const a = 'a';
-  2 | const one = 1;
-> 3 | console.log(a * one, one * a);
-    |                            ^",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  erro  🔥  - ",
-  "1 test got worse. 😔",
-  " ☀️  betterer  erro  🔥  - ",
-  "Run \`betterer --update\` to force an update of the results file. 🆙",
+1 test got checked. 🤔
+1 test got checked for the first time! 🎉
+
+",
   "
    / | /     _         _   _                     
  '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
    / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"typescript use strict mode\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"typescript use strict mode\\" met its goal! 🎉",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  succ  ✅  - ",
-  "1 test got better! 😍",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"typescript use strict mode\\" met its goal! 🎉",
+ 
+",
   "
    / | /     _         _   _                     
  '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
    / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"typescript use strict mode\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"typescript use strict mode\\" has already met its goal! ✨",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked for the first time! 🎉",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"typescript use strict mode\\" met its goal! 🎉",
+ 
+🌟 Betterer (0ms): 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 1 test running...
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 1 test running...
+✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. 😐
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. 😐
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. 😐
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. 😐
+
+1 test got checked. 🤔
+1 test stayed the same. 😐
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 1 test running...
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 1 test running...
+  ▸ 1 existing issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\".
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 1 test running...
+  ▸ 1 new issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\":
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 1 test running...
+  ▸ The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 1 test running...
+  ▸
+  ▸   // <project>/fixtures/test-betterer-typescript/src/index.ts
+  ▸   1 | const a = 'a';
+  ▸   2 | const one = 1;
+  ▸ > 3 | console.log(a * one, one * a);
+  ▸     |                            ^ The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+  ▸
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 1 test running...
+  ▸
+  ▸   // <project>/fixtures/test-betterer-typescript/src/index.ts
+  ▸   1 | const a = 'a';
+  ▸   2 | const one = 1;
+  ▸ > 3 | console.log(a * one, one * a);
+  ▸     |                            ^ The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+  ▸
+🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. 😔
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 1 test running...
+  ▸
+  ▸   // <project>/fixtures/test-betterer-typescript/src/index.ts
+  ▸   1 | const a = 'a';
+  ▸   2 | const one = 1;
+  ▸ > 3 | console.log(a * one, one * a);
+  ▸     |                            ^ The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+  ▸
+
+Error: \\"typescript use strict mode\\" got worse. 😔
+      at run (<project>/packages/reporter/dist/components/Runs.js:1299:17)
+      at <project>/packages/logger/dist/components/tasks/task.js:1414:35
+🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. 😔
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+💥 Betterer (0ms): 1 test done! 1 test errored!
+  ▸
+  ▸   // <project>/fixtures/test-betterer-typescript/src/index.ts
+  ▸   1 | const a = 'a';
+  ▸   2 | const one = 1;
+  ▸ > 3 | console.log(a * one, one * a);
+  ▸     |                            ^ The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+  ▸
+
+Error: \\"typescript use strict mode\\" got worse. 😔
+      at run (<project>/packages/reporter/dist/components/Runs.js:1299:17)
+      at <project>/packages/logger/dist/components/tasks/task.js:1414:35
+🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. 😔
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+💥 Betterer (0ms): 1 test done! 1 test errored!
+🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. 😔
+  ▸
+  ▸   // <project>/fixtures/test-betterer-typescript/src/index.ts
+  ▸   1 | const a = 'a';
+  ▸   2 | const one = 1;
+  ▸ > 3 | console.log(a * one, one * a);
+  ▸     |                            ^ The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+  ▸
+
+Error: \\"typescript use strict mode\\" got worse. 😔
+      at run (<project>/packages/reporter/dist/components/Runs.js:1299:17)
+      at <project>/packages/logger/dist/components/tasks/task.js:1414:35
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+💥 Betterer (0ms): 1 test done! 1 test errored!
+🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. 😔
+  ▸
+  ▸   // <project>/fixtures/test-betterer-typescript/src/index.ts
+  ▸   1 | const a = 'a';
+  ▸   2 | const one = 1;
+  ▸ > 3 | console.log(a * one, one * a);
+  ▸     |                            ^ The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+  ▸
+
+Error: \\"typescript use strict mode\\" got worse. 😔
+      at run (<project>/packages/reporter/dist/components/Runs.js:1299:17)
+      at <project>/packages/logger/dist/components/tasks/task.js:1414:35
+
+1 test got checked. 🤔
+1 test got worse. 😔
+
+Run \`betterer --update\` to force an update of the results file. 🆙
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 1 test running...
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 1 test running...
+✅ typescript use strict mode: \\"typescript use strict mode\\" met its goal! 🎉
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" met its goal! 🎉
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" met its goal! 🎉
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" met its goal! 🎉
+
+1 test got checked. 🤔
+1 test got better! 😍
+\\"typescript use strict mode\\" met its goal! 🎉)
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 1 test running...
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 1 test running...
+✅ typescript use strict mode: \\"typescript use strict mode\\" has already met its goal! ✨
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" has already met its goal! ✨
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" has already met its goal! ✨
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" has already met its goal! ✨
+
+1 test got checked. 🤔
+1 test got checked for the first time! 🎉
+\\"typescript use strict mode\\" met its goal! 🎉)
+
+",
 ]
 `;
 
@@ -117,11 +495,72 @@ Array [
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
    / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  erro  🔥  - ",
-  "could not read config from \\"<project>/fixtures/test-betterer-typescript-no-config-file-path/.betterer\\". 😔",
-  " ☀️  betterer  erro  🔥  - ",
-  "for \`@betterer/typescript\` to work, you need to provide the path to a tsconfig.json file, e.g. \`'./tsconfig.json'\`. ❌",
+ 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: could not read config from \\"<project>/fixtures/test-betterer-typescript-no-config-file-path/.betterer\\". 😔
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2211:13)
+      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at Array.map (<anonymous>)
+      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:2107:29)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1959:24)
+      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:911:18)
+      at <project>/packages/betterer/dist/betterer.js:909:47
+      at runContext (<project>/packages/betterer/dist/betterer.js:1074:18)
+      at <project>/test/betterer-typescript.spec.ts:64:34
+      at Object.<anonymous> (<project>/test/betterer-typescript.spec.ts:64:9)
+
+Error: for \`@betterer/typescript\` to work, you need to provide the path to a tsconfig.json file, e.g. \`'./tsconfig.json'\`. ❌
+      at typescript (<project>/packages/typescript/dist/typescript.js:709:11)
+      at Object.<anonymous> (<project>/fixtures/test-betterer-typescript-no-config-file-path/.betterer.js:4:33)
+      at Runtime._execModule (<project>/node_modules/jest-runtime/build/index.js:1299:24)
+      at Runtime._loadModule (<project>/node_modules/jest-runtime/build/index.js:898:12)
+      at Runtime.requireModule (<project>/node_modules/jest-runtime/build/index.js:746:10)
+      at Runtime.requireModuleOrMock (<project>/node_modules/jest-runtime/build/index.js:919:21)
+      at Object.requireUncached (<project>/packages/betterer/dist/require.js:328:29)
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2168:43)
+      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at Array.map (<anonymous>)
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: could not read config from \\"<project>/fixtures/test-betterer-typescript-no-config-file-path/.betterer\\". 😔
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2211:13)
+      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at Array.map (<anonymous>)
+      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:2107:29)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1959:24)
+      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:911:18)
+      at <project>/packages/betterer/dist/betterer.js:909:47
+      at runContext (<project>/packages/betterer/dist/betterer.js:1074:18)
+      at <project>/test/betterer-typescript.spec.ts:64:34
+      at Object.<anonymous> (<project>/test/betterer-typescript.spec.ts:64:9)
+
+Error: for \`@betterer/typescript\` to work, you need to provide the path to a tsconfig.json file, e.g. \`'./tsconfig.json'\`. ❌
+      at typescript (<project>/packages/typescript/dist/typescript.js:709:11)
+      at Object.<anonymous> (<project>/fixtures/test-betterer-typescript-no-config-file-path/.betterer.js:4:33)
+      at Runtime._execModule (<project>/node_modules/jest-runtime/build/index.js:1299:24)
+      at Runtime._loadModule (<project>/node_modules/jest-runtime/build/index.js:898:12)
+      at Runtime.requireModule (<project>/node_modules/jest-runtime/build/index.js:746:10)
+      at Runtime.requireModuleOrMock (<project>/node_modules/jest-runtime/build/index.js:919:21)
+      at Object.requireUncached (<project>/packages/betterer/dist/require.js:328:29)
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2168:43)
+      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at Array.map (<anonymous>)
+",
 ]
 `;
 
@@ -133,10 +572,71 @@ Array [
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
    / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  erro  🔥  - ",
-  "could not read config from \\"<project>/fixtures/test-betterer-typescript-no-compiler-options/.betterer\\". 😔",
-  " ☀️  betterer  erro  🔥  - ",
-  "for \`@betterer/typescript\` to work, you need to provide compiler options, e.g. \`{ strict: true }\`. ❌",
+ 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: could not read config from \\"<project>/fixtures/test-betterer-typescript-no-compiler-options/.betterer\\". 😔
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2211:13)
+      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at Array.map (<anonymous>)
+      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:2107:29)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1959:24)
+      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:911:18)
+      at <project>/packages/betterer/dist/betterer.js:909:47
+      at runContext (<project>/packages/betterer/dist/betterer.js:1074:18)
+      at <project>/test/betterer-typescript.spec.ts:80:34
+      at Object.<anonymous> (<project>/test/betterer-typescript.spec.ts:80:9)
+
+Error: for \`@betterer/typescript\` to work, you need to provide compiler options, e.g. \`{ strict: true }\`. ❌
+      at typescript (<project>/packages/typescript/dist/typescript.js:722:11)
+      at Object.<anonymous> (<project>/fixtures/test-betterer-typescript-no-compiler-options/.betterer.js:4:33)
+      at Runtime._execModule (<project>/node_modules/jest-runtime/build/index.js:1299:24)
+      at Runtime._loadModule (<project>/node_modules/jest-runtime/build/index.js:898:12)
+      at Runtime.requireModule (<project>/node_modules/jest-runtime/build/index.js:746:10)
+      at Runtime.requireModuleOrMock (<project>/node_modules/jest-runtime/build/index.js:919:21)
+      at Object.requireUncached (<project>/packages/betterer/dist/require.js:328:29)
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2168:43)
+      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at Array.map (<anonymous>)
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: could not read config from \\"<project>/fixtures/test-betterer-typescript-no-compiler-options/.betterer\\". 😔
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2211:13)
+      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at Array.map (<anonymous>)
+      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:2107:29)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1959:24)
+      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:911:18)
+      at <project>/packages/betterer/dist/betterer.js:909:47
+      at runContext (<project>/packages/betterer/dist/betterer.js:1074:18)
+      at <project>/test/betterer-typescript.spec.ts:80:34
+      at Object.<anonymous> (<project>/test/betterer-typescript.spec.ts:80:9)
+
+Error: for \`@betterer/typescript\` to work, you need to provide compiler options, e.g. \`{ strict: true }\`. ❌
+      at typescript (<project>/packages/typescript/dist/typescript.js:722:11)
+      at Object.<anonymous> (<project>/fixtures/test-betterer-typescript-no-compiler-options/.betterer.js:4:33)
+      at Runtime._execModule (<project>/node_modules/jest-runtime/build/index.js:1299:24)
+      at Runtime._loadModule (<project>/node_modules/jest-runtime/build/index.js:898:12)
+      at Runtime.requireModule (<project>/node_modules/jest-runtime/build/index.js:746:10)
+      at Runtime.requireModuleOrMock (<project>/node_modules/jest-runtime/build/index.js:919:21)
+      at Object.requireUncached (<project>/packages/betterer/dist/require.js:328:29)
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2168:43)
+      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at Array.map (<anonymous>)
+",
 ]
 `;

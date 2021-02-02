@@ -2,66 +2,636 @@
 
 exports[`betterer should throw when there is invalid config 1`] = `
 Array [
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`1234\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`{}\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"configPaths\\" must be an array of strings. Recieved \`[1234]\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"configPaths\\" must be an array of strings. Recieved \`[true]\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"configPaths\\" must be an array of strings. Recieved \`[{}]\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"configPaths\\" must be an array of strings. Recieved \`[1234]\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"cwd\\" must be a string. Recieved \`1234\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"cwd\\" must be a string. Recieved \`{}\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"filters\\" must be an array of strings or RegExps. Recieved \`[1234]\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"filters\\" must be an array of strings or RegExps. Recieved \`[true]\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"filters\\" must be an array of strings or RegExps. Recieved \`[{}]\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"filters\\" must be an array of strings or RegExps. Recieved \`[1234]\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"ignores\\" must be an array of strings. Recieved \`[1234]\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"ignores\\" must be an array of strings. Recieved \`[true]\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"ignores\\" must be an array of strings. Recieved \`[{}]\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"ignores\\" must be an array of strings. Recieved \`[1234]\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"reporters\\" must be an array of strings. Recieved \`[1234]\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"reporters\\" must be an array of strings. Recieved \`[true]\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"reporters\\" must be an array of strings. Recieved \`[{}]\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"reporters\\" must be an array of strings. Recieved \`[1234]\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"resultsPath\\" must be a string. Recieved \`1234\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"resultsPath\\" must be a string. Recieved \`true\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"resultsPath\\" must be a string. Recieved \`{}\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"silent\\" must be \`true\` or \`false\`. Recieved \`1234\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"silent\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"silent\\" must be \`true\` or \`false\`. Recieved \`{}\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"update\\" must be \`true\` or \`false\`. Recieved \`1234\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"update\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"update\\" must be \`true\` or \`false\`. Recieved \`{}\`.",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`1234\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateBool (<project>/packages/betterer/dist/config/config.js:1767:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1728:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateBool (<project>/packages/betterer/dist/config/config.js:1767:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1728:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`{}\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateBool (<project>/packages/betterer/dist/config/config.js:1767:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1728:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"configPaths\\" must be an array of strings. Recieved \`[1234]\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateStringArray (<project>/packages/betterer/dist/config/config.js:1796:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1748:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"configPaths\\" must be an array of strings. Recieved \`[true]\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateStringArray (<project>/packages/betterer/dist/config/config.js:1796:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1748:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"configPaths\\" must be an array of strings. Recieved \`[{}]\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateStringArray (<project>/packages/betterer/dist/config/config.js:1796:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1748:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"configPaths\\" must be an array of strings. Recieved \`[1234]\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateStringArray (<project>/packages/betterer/dist/config/config.js:1796:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1748:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"cwd\\" must be a string. Recieved \`1234\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateString (<project>/packages/betterer/dist/config/config.js:1774:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1740:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"cwd\\" must be a string. Recieved \`{}\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateString (<project>/packages/betterer/dist/config/config.js:1774:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1740:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[1234]\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateStringRegExpArray (<project>/packages/betterer/dist/config/config.js:1816:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1760:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[true]\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateStringRegExpArray (<project>/packages/betterer/dist/config/config.js:1816:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1760:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[{}]\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateStringRegExpArray (<project>/packages/betterer/dist/config/config.js:1816:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1760:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[1234]\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateStringRegExpArray (<project>/packages/betterer/dist/config/config.js:1816:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1760:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"ignores\\" must be an array of strings. Recieved \`[1234]\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateStringArray (<project>/packages/betterer/dist/config/config.js:1796:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1752:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"ignores\\" must be an array of strings. Recieved \`[true]\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateStringArray (<project>/packages/betterer/dist/config/config.js:1796:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1752:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"ignores\\" must be an array of strings. Recieved \`[{}]\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateStringArray (<project>/packages/betterer/dist/config/config.js:1796:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1752:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"ignores\\" must be an array of strings. Recieved \`[1234]\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateStringArray (<project>/packages/betterer/dist/config/config.js:1796:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1752:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"reporters\\" must be an array of strings. Recieved \`[1234]\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateStringArray (<project>/packages/betterer/dist/config/config.js:1796:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1756:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"reporters\\" must be an array of strings. Recieved \`[true]\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateStringArray (<project>/packages/betterer/dist/config/config.js:1796:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1756:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"reporters\\" must be an array of strings. Recieved \`[{}]\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateStringArray (<project>/packages/betterer/dist/config/config.js:1796:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1756:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"reporters\\" must be an array of strings. Recieved \`[1234]\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateStringArray (<project>/packages/betterer/dist/config/config.js:1796:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1756:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"resultsPath\\" must be a string. Recieved \`1234\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateString (<project>/packages/betterer/dist/config/config.js:1774:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1744:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"resultsPath\\" must be a string. Recieved \`true\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateString (<project>/packages/betterer/dist/config/config.js:1774:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1744:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"resultsPath\\" must be a string. Recieved \`{}\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateString (<project>/packages/betterer/dist/config/config.js:1774:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1744:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`1234\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateBool (<project>/packages/betterer/dist/config/config.js:1767:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1732:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateBool (<project>/packages/betterer/dist/config/config.js:1767:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1732:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`{}\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateBool (<project>/packages/betterer/dist/config/config.js:1767:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1732:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"update\\" must be \`true\` or \`false\`. Recieved \`1234\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateBool (<project>/packages/betterer/dist/config/config.js:1767:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1736:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"update\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateBool (<project>/packages/betterer/dist/config/config.js:1767:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1736:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at <project>/test/betterer-config.spec.ts:51:13
+
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: \\"update\\" must be \`true\` or \`false\`. Recieved \`{}\`.
+      at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
+      at validateBool (<project>/packages/betterer/dist/config/config.js:1767:3)
+      at validateConfig (<project>/packages/betterer/dist/config/config.js:1736:3)
+      at Object.createConfig (<project>/packages/betterer/dist/config/config.js:1674:3)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1020:29)
+      at Object.betterer (<project>/packages/betterer/dist/betterer.js:904:10)
+      at <project>/test/betterer-config.spec.ts:53:55
+      at Object.toThrow (<project>/node_modules/expect/build/index.js:223:56)
+      at <project>/test/betterer-config.spec.ts:53:126
+      at Object.<anonymous> (<project>/test/betterer-config.spec.ts:50:9)
+
+",
 ]
 `;
 
@@ -73,9 +643,71 @@ Array [
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
    / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  erro  🔥  - ",
-  "could not read config from \\"<project>/fixtures/test-betterer-config/.betterer\\". 😔",
-  "Error: Cannot find module '<project>/fixtures/test-betterer-config/.betterer' from 'packages/betterer/dist/require.js'",
+ 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: could not read config from \\"<project>/fixtures/test-betterer-config/.betterer\\". 😔
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2211:13)
+      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at Array.map (<anonymous>)
+      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:2107:29)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1959:24)
+      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:911:18)
+      at <project>/packages/betterer/dist/betterer.js:909:47
+      at runContext (<project>/packages/betterer/dist/betterer.js:1074:18)
+      at <project>/test/betterer-config.spec.ts:10:34
+      at Object.<anonymous> (<project>/test/betterer-config.spec.ts:10:9)
+
+Error: Cannot find module '<project>/fixtures/test-betterer-config/.betterer' from 'packages/betterer/dist/require.js'
+      at Resolver.resolveModule (<project>/node_modules/jest-resolve/build/index.js:306:11)
+      at Runtime._resolveModule (<project>/node_modules/jest-runtime/build/index.js:1145:32)
+      at Runtime._requireResolve (<project>/node_modules/jest-runtime/build/index.js:1182:19)
+      at Function.resolve (<project>/node_modules/jest-runtime/build/index.js:1595:29)
+      at Object.requireUncached (<project>/packages/betterer/src/require.ts:9:32)
+      at BettererContextΩ._getTests (<project>/packages/betterer/src/context/context.ts:117:27)
+      at <project>/packages/betterer/src/context/context.ts:101:25
+      at Array.map (<anonymous>)
+      at BettererContextΩ._initTests (<project>/packages/betterer/src/context/context.ts:100:29)
+      at BettererContextΩ.run (<project>/packages/betterer/src/context/context.ts:51:24)
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: could not read config from \\"<project>/fixtures/test-betterer-config/.betterer\\". 😔
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2211:13)
+      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at Array.map (<anonymous>)
+      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:2107:29)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1959:24)
+      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:911:18)
+      at <project>/packages/betterer/dist/betterer.js:909:47
+      at runContext (<project>/packages/betterer/dist/betterer.js:1074:18)
+      at <project>/test/betterer-config.spec.ts:10:34
+      at Object.<anonymous> (<project>/test/betterer-config.spec.ts:10:9)
+
+Error: Cannot find module '<project>/fixtures/test-betterer-config/.betterer' from 'packages/betterer/dist/require.js'
+      at Resolver.resolveModule (<project>/node_modules/jest-resolve/build/index.js:306:11)
+      at Runtime._resolveModule (<project>/node_modules/jest-runtime/build/index.js:1145:32)
+      at Runtime._requireResolve (<project>/node_modules/jest-runtime/build/index.js:1182:19)
+      at Function.resolve (<project>/node_modules/jest-runtime/build/index.js:1595:29)
+      at Object.requireUncached (<project>/packages/betterer/src/require.ts:9:32)
+      at BettererContextΩ._getTests (<project>/packages/betterer/src/context/context.ts:117:27)
+      at <project>/packages/betterer/src/context/context.ts:101:25
+      at Array.map (<anonymous>)
+      at BettererContextΩ._initTests (<project>/packages/betterer/src/context/context.ts:100:29)
+      at BettererContextΩ.run (<project>/packages/betterer/src/context/context.ts:51:24)
+",
 ]
 `;

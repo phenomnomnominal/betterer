@@ -2,27 +2,96 @@
 
 exports[`betterer --reporter should throw when a hook is not a function 1`] = `
 Array [
-  " ☀️  betterer  erro  🔥  - ",
-  "could not require \\"<project>/fixtures/test-betterer-reporter-hook-not-a-function/reporter.js\\". 😔",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"contextStart\\" is not a function. 😔",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: could not require \\"<project>/fixtures/test-betterer-reporter-hook-not-a-function/reporter.js\\". 😔
+      at <project>/packages/betterer/dist/reporters/loader.js:640:13
+      at Array.map (<anonymous>)
+      at Object.loadReporters (<project>/packages/betterer/dist/reporters/loader.js:603:43)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1043:32)
+      at <project>/test/betterer-reporter.spec.ts:43:34
+      at Object.<anonymous> (<project>/test/betterer-reporter.spec.ts:43:9)
+
+Error: \\"contextStart\\" is not a function. 😔
+      at <project>/packages/betterer/dist/reporters/loader.js:689:13
+      at Array.forEach (<anonymous>)
+      at validate (<project>/packages/betterer/dist/reporters/loader.js:662:25)
+      at <project>/packages/betterer/dist/reporters/loader.js:632:7
+      at Array.map (<anonymous>)
+      at Object.loadReporters (<project>/packages/betterer/dist/reporters/loader.js:603:43)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1043:32)
+      at <project>/test/betterer-reporter.spec.ts:43:34
+      at Object.<anonymous> (<project>/test/betterer-reporter.spec.ts:43:9)
+
+",
 ]
 `;
 
 exports[`betterer --reporter should throw when there is an invalid hook 1`] = `
 Array [
-  " ☀️  betterer  erro  🔥  - ",
-  "could not require \\"<project>/fixtures/test-betterer-reporter-invalid-hook/reporter.js\\". 😔",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"notAHook\\" is not a valid reporter hook name. 😔",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: could not require \\"<project>/fixtures/test-betterer-reporter-invalid-hook/reporter.js\\". 😔
+      at <project>/packages/betterer/dist/reporters/loader.js:640:13
+      at Array.map (<anonymous>)
+      at Object.loadReporters (<project>/packages/betterer/dist/reporters/loader.js:603:43)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1043:32)
+      at <project>/test/betterer-reporter.spec.ts:28:34
+      at Object.<anonymous> (<project>/test/betterer-reporter.spec.ts:28:9)
+
+Error: \\"notAHook\\" is not a valid reporter hook name. 😔
+      at <project>/packages/betterer/dist/reporters/loader.js:676:13
+      at Array.forEach (<anonymous>)
+      at validate (<project>/packages/betterer/dist/reporters/loader.js:662:25)
+      at <project>/packages/betterer/dist/reporters/loader.js:632:7
+      at Array.map (<anonymous>)
+      at Object.loadReporters (<project>/packages/betterer/dist/reporters/loader.js:603:43)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1043:32)
+      at <project>/test/betterer-reporter.spec.ts:28:34
+      at Object.<anonymous> (<project>/test/betterer-reporter.spec.ts:28:9)
+
+",
 ]
 `;
 
 exports[`betterer --reporter should throw when there is nothing exported 1`] = `
 Array [
-  " ☀️  betterer  erro  🔥  - ",
-  "could not require \\"<project>/fixtures/test-betterer-reporter-nothing/reporter.js\\". 😔",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"<project>/fixtures/test-betterer-reporter-nothing/reporter.js\\" didn't create a reporter. 😔",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: could not require \\"<project>/fixtures/test-betterer-reporter-nothing/reporter.js\\". 😔
+      at <project>/packages/betterer/dist/reporters/loader.js:640:13
+      at Array.map (<anonymous>)
+      at Object.loadReporters (<project>/packages/betterer/dist/reporters/loader.js:603:43)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1043:32)
+      at <project>/test/betterer-reporter.spec.ts:13:34
+      at Object.<anonymous> (<project>/test/betterer-reporter.spec.ts:13:9)
+
+Error: \\"<project>/fixtures/test-betterer-reporter-nothing/reporter.js\\" didn't create a reporter. 😔
+      at <project>/packages/betterer/dist/reporters/loader.js:624:15
+      at Array.map (<anonymous>)
+      at Object.loadReporters (<project>/packages/betterer/dist/reporters/loader.js:603:43)
+      at runContext (<project>/packages/betterer/dist/betterer.js:1043:32)
+      at <project>/test/betterer-reporter.spec.ts:13:34
+      at Object.<anonymous> (<project>/test/betterer-reporter.spec.ts:13:9)
+
+",
 ]
 `;

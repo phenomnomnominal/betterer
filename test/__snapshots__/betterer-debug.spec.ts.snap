@@ -8,30 +8,6 @@ Array [
 ",
   "▸▸ requireUncached args: 
 ",
-  "▸▸▸ BettererConsoleLogger args: 
-",
-  "▸▸▸▸ BettererConsoleLogger._createLogger args: 
-",
-  "▸▸▸▸ BettererConsoleLogger._createLogger time: 0ms return: 
-",
-  "▸▸▸▸ BettererConsoleLogger._createLogger args: 
-",
-  "▸▸▸▸ BettererConsoleLogger._createLogger time: 0ms return: 
-",
-  "▸▸▸▸ BettererConsoleLogger._createLogger args: 
-",
-  "▸▸▸▸ BettererConsoleLogger._createLogger time: 0ms return: 
-",
-  "▸▸▸▸ BettererConsoleLogger._createLogger args: 
-",
-  "▸▸▸▸ BettererConsoleLogger._createLogger time: 0ms return: 
-",
-  "▸▸▸▸ BettererConsoleLogger._createLogger args: 
-",
-  "▸▸▸▸ BettererConsoleLogger._createLogger time: 0ms return: 
-",
-  "▸▸▸ BettererConsoleLogger time: 0ms return: 
-",
   "▸▸ requireUncached time: 0ms return: 
 ",
   "▸▸ BettererReporterΩ args: 
@@ -60,13 +36,18 @@ Array [
 ",
   "▸▸ BettererReporterΩ.contextStart args: 
 ",
+  "▸▸▸ BettererLogo args: 
+",
+  "▸▸▸ BettererLogo time: 0ms return: 
+",
   "
    / | /     _         _   _                     
  '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
    / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- ",
+ 
+",
   "▸▸ BettererReporterΩ.contextStart time: 0ms return: 
 ",
   "▸ BettererContextΩ.start time: 0ms return: 
@@ -115,6 +96,22 @@ Array [
 ",
   "▸▸▸ BettererContextΩ._initFilters time: 0ms return: 
 ",
+  "▸▸▸ BettererContextΩ._initObsolete args: 
+",
+  "▸▸▸▸ BettererResults.getExpectedNames args: 
+",
+  "▸▸▸▸▸ parse args: 
+",
+  "▸▸▸▸▸▸ read args: 
+",
+  "▸▸▸▸▸▸ read time: 0ms return: 
+",
+  "▸▸▸▸▸ parse time: 0ms return: 
+",
+  "▸▸▸▸ BettererResults.getExpectedNames time: 0ms return: 
+",
+  "▸▸▸ BettererContextΩ._initObsolete time: 0ms return: 
+",
   "▸▸▸ BettererResults.getExpectedResult args: 
 ",
   "▸▸▸▸ parse args: 
@@ -155,23 +152,44 @@ Array [
 ",
   "▸▸▸ BettererRunΩ time: 0ms return: 
 ",
-  "▸▸▸ BettererContextΩ._initObsolete args: 
-",
-  "▸▸▸▸ BettererResults.getExpectedNames args: 
-",
-  "▸▸▸▸▸ parse args: 
-",
-  "▸▸▸▸▸▸ read args: 
-",
-  "▸▸▸▸▸▸ read time: 0ms return: 
-",
-  "▸▸▸▸▸ parse time: 0ms return: 
-",
-  "▸▸▸▸ BettererResults.getExpectedNames time: 0ms return: 
-",
-  "▸▸▸ BettererContextΩ._initObsolete time: 0ms return: 
-",
   "▸▸▸ BettererReporterΩ.runsStart args: 
+",
+  "▸▸▸▸ BettererLogo args: 
+",
+  "▸▸▸▸ BettererLogo time: 0ms return: 
+",
+  "▸▸▸▸ BettererTasks args: 
+",
+  "▸▸▸▸ BettererTasks time: 0ms return: 
+",
+  "▸▸▸▸ BettererTaskStatus args: 
+",
+  "▸▸▸▸ BettererTaskStatus time: 0ms return: 
+",
+  "▸▸▸▸ BettererTask args: 
+",
+  "▸▸▸▸▸ useTaskLogs args: 
+",
+  "▸▸▸▸▸ useTaskLogs time: 0ms return: 
+",
+  "▸▸▸▸ BettererTask time: 0ms return: 
+",
+  "▸▸▸▸ BettererTask args: 
+",
+  "▸▸▸▸▸ useTaskLogs args: 
+",
+  "▸▸▸▸▸ useTaskLogs time: 0ms return: 
+",
+  "▸▸▸▸ BettererTask time: 0ms return: 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 
 ",
   "▸▸▸ BettererReporterΩ.runsStart time: 0ms return: 
 ",
@@ -181,12 +199,6 @@ Array [
 ",
   "▸▸▸▸▸ BettererReporterΩ.runStart args: 
 ",
-  "▸▸▸▸▸▸ BettererConsoleLogger._log args: 
-",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"should shrink\\"!",
-  "▸▸▸▸▸▸ BettererConsoleLogger._log time: 0ms return: 
-",
   "▸▸▸▸▸ BettererReporterΩ.runStart time: 0ms return: 
 ",
   "▸▸▸▸ BettererRunΩ.start time: 0ms return: 
@@ -210,12 +222,6 @@ Array [
   "▸▸▸▸ BettererRunΩ.end args: 
 ",
   "▸▸▸▸▸ BettererReporterΩ.runEnd args: 
-",
-  "▸▸▸▸▸▸ BettererConsoleLogger._log args: 
-",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"should shrink\\" got checked for the first time! 🎉",
-  "▸▸▸▸▸▸ BettererConsoleLogger._log time: 0ms return: 
 ",
   "▸▸▸▸▸ BettererReporterΩ.runEnd time: 0ms return: 
 ",
@@ -225,12 +231,6 @@ Array [
 ",
   "▸▸▸▸▸ BettererReporterΩ.runStart args: 
 ",
-  "▸▸▸▸▸▸ BettererConsoleLogger._log args: 
-",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"should grow\\"!",
-  "▸▸▸▸▸▸ BettererConsoleLogger._log time: 0ms return: 
-",
   "▸▸▸▸▸ BettererReporterΩ.runStart time: 0ms return: 
 ",
   "▸▸▸▸ BettererRunΩ.start time: 0ms return: 
@@ -254,12 +254,6 @@ Array [
   "▸▸▸▸ BettererRunΩ.end args: 
 ",
   "▸▸▸▸▸ BettererReporterΩ.runEnd args: 
-",
-  "▸▸▸▸▸▸ BettererConsoleLogger._log args: 
-",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"should grow\\" got checked for the first time! 🎉",
-  "▸▸▸▸▸▸ BettererConsoleLogger._log time: 0ms return: 
 ",
   "▸▸▸▸▸ BettererReporterΩ.runEnd time: 0ms return: 
 ",
@@ -274,6 +268,195 @@ Array [
   "▸▸▸ BettererResults.read args: 
 ",
   "▸▸▸▸ read args: 
+",
+  "▸▸▸▸▸ reducer args: 
+",
+  "▸▸▸▸▸ reducer time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTasks args: 
+",
+  "▸▸▸▸▸▸ reducer args: 
+",
+  "▸▸▸▸▸▸ reducer time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTasks time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTaskStatus args: 
+",
+  "▸▸▸▸▸ BettererTaskStatus time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTask args: 
+",
+  "▸▸▸▸▸▸ useTaskLogs args: 
+",
+  "▸▸▸▸▸▸ useTaskLogs time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTask time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTaskStatus args: 
+",
+  "▸▸▸▸▸ BettererTaskStatus time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTask args: 
+",
+  "▸▸▸▸▸▸ useTaskLogs args: 
+",
+  "▸▸▸▸▸▸ useTaskLogs time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTask time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTaskStatus args: 
+",
+  "▸▸▸▸▸ BettererTaskStatus time: 0ms return: 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 2 tests running...
+🤔 should shrink: running \\"should shrink\\"!
+🤔 should grow: running \\"should grow\\"!
+",
+  "▸▸▸▸▸ BettererTask args: 
+",
+  "▸▸▸▸▸▸ useTaskLogs args: 
+",
+  "▸▸▸▸▸▸ useTaskLogs time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTask time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTaskStatus args: 
+",
+  "▸▸▸▸▸ BettererTaskStatus time: 0ms return: 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 2 tests running...
+✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
+🤔 should grow: running \\"should grow\\"!
+",
+  "▸▸▸▸▸ reducer args: 
+",
+  "▸▸▸▸▸ reducer time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTasks args: 
+",
+  "▸▸▸▸▸ BettererTasks time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTaskStatus args: 
+",
+  "▸▸▸▸▸ BettererTaskStatus time: 0ms return: 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 1 test running... 1 test done!
+✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
+🤔 should grow: running \\"should grow\\"!
+",
+  "▸▸▸▸▸ BettererTask args: 
+",
+  "▸▸▸▸▸▸ useTaskLogs args: 
+",
+  "▸▸▸▸▸▸ useTaskLogs time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTask time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTaskStatus args: 
+",
+  "▸▸▸▸▸ BettererTaskStatus time: 0ms return: 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 1 test running... 1 test done!
+✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
+🤔 should grow: running \\"should grow\\"!
+",
+  "▸▸▸▸▸ BettererTask args: 
+",
+  "▸▸▸▸▸▸ useTaskLogs args: 
+",
+  "▸▸▸▸▸▸ useTaskLogs time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTask time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTaskStatus args: 
+",
+  "▸▸▸▸▸ BettererTaskStatus time: 0ms return: 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 1 test running... 1 test done!
+✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+",
+  "▸▸▸▸▸ reducer args: 
+",
+  "▸▸▸▸▸ reducer time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTasks args: 
+",
+  "▸▸▸▸▸ BettererTasks time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTaskStatus args: 
+",
+  "▸▸▸▸▸ BettererTaskStatus time: 0ms return: 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🎉 Betterer (0ms): 2 tests done!
+✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+",
+  "▸▸▸▸▸ BettererTask args: 
+",
+  "▸▸▸▸▸▸ useTaskLogs args: 
+",
+  "▸▸▸▸▸▸ useTaskLogs time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTask time: 0ms return: 
+",
+  "▸▸▸▸▸ BettererTaskStatus args: 
+",
+  "▸▸▸▸▸ BettererTaskStatus time: 0ms return: 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🎉 Betterer (0ms): 2 tests done!
+✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
 ",
   "▸▸▸▸ read time: 0ms return: 
 ",
@@ -311,17 +494,32 @@ Array [
 ",
   "▸▸ BettererReporterΩ.contextEnd args: 
 ",
-  "▸▸▸ BettererConsoleLogger._log args: 
+  "▸▸▸ BettererLogo args: 
 ",
-  " ☀️  betterer  info  💬  - ",
-  "2 tests got checked. 🤔",
-  "▸▸▸ BettererConsoleLogger._log time: 0ms return: 
+  "▸▸▸ BettererLogo time: 0ms return: 
 ",
-  "▸▸▸ BettererConsoleLogger._log args: 
+  "▸▸▸ BettererTasks args: 
 ",
-  " ☀️  betterer  info  💬  - ",
-  "2 tests got checked for the first time! 🎉",
-  "▸▸▸ BettererConsoleLogger._log time: 0ms return: 
+  "▸▸▸ BettererTasks time: 0ms return: 
+",
+  "▸▸▸ BettererTaskStatus args: 
+",
+  "▸▸▸ BettererTaskStatus time: 0ms return: 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🎉 Betterer (0ms): 2 tests done!
+✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+
+2 tests got checked. 🤔
+2 tests got checked for the first time! 🎉
+
 ",
   "▸▸ BettererReporterΩ.contextEnd time: 0ms return: 
 ",

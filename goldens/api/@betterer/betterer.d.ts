@@ -162,6 +162,7 @@ export declare type BettererRun = {
     readonly isExpired: boolean;
     readonly isFailed: boolean;
     readonly isNew: boolean;
+    readonly isObsolete: boolean;
     readonly isSame: boolean;
     readonly isSkipped: boolean;
     readonly isUpdated: boolean;
@@ -186,7 +187,6 @@ export declare type BettererStartConfigPartial = BettererBaseConfigPartial & Par
 
 export declare type BettererSummary = {
     readonly runs: BettererRuns;
-    readonly obsolete: BettererRunNames;
     readonly result: string;
     readonly expected: string | null;
     readonly hasDiff: boolean;
@@ -195,6 +195,7 @@ export declare type BettererSummary = {
     readonly expired: BettererRuns;
     readonly failed: BettererRuns;
     readonly new: BettererRuns;
+    readonly obsolete: BettererRuns;
     readonly ran: BettererRuns;
     readonly same: BettererRuns;
     readonly skipped: BettererRuns;

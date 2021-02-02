@@ -8,9 +8,44 @@ Array [
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
    / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  erro  🔥  - ",
-  "could not read results from \\"<project>/fixtures/test-betterer-failed-reading/.betterer.results\\". 😔",
+ 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: could not read results from \\"<project>/fixtures/test-betterer-failed-reading/.betterer.results\\". 😔
+      at Object.parse (<project>/packages/betterer/dist/results/parser.js:1067:11)
+      at BettererResults.getExpectedNames (<project>/packages/betterer/dist/results/results.js:816:32)
+      at BettererContextΩ._initObsolete (<project>/packages/betterer/dist/context/context.js:2220:31)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1968:31)
+      at <project>/packages/betterer/dist/betterer.js:909:32
+      at runContext (<project>/packages/betterer/dist/betterer.js:1074:12)
+      at <project>/test/betterer-failed.spec.ts:49:34
+      at Object.<anonymous> (<project>/test/betterer-failed.spec.ts:49:9)
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+
+Error: could not read results from \\"<project>/fixtures/test-betterer-failed-reading/.betterer.results\\". 😔
+      at Object.parse (<project>/packages/betterer/dist/results/parser.js:1067:11)
+      at BettererResults.getExpectedNames (<project>/packages/betterer/dist/results/results.js:816:32)
+      at BettererContextΩ._initObsolete (<project>/packages/betterer/dist/context/context.js:2220:31)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1968:31)
+      at <project>/packages/betterer/dist/betterer.js:909:32
+      at runContext (<project>/packages/betterer/dist/betterer.js:1074:12)
+      at <project>/test/betterer-failed.spec.ts:49:34
+      at Object.<anonymous> (<project>/test/betterer-failed.spec.ts:49:9)
+",
 ]
 `;
 
@@ -22,16 +57,121 @@ Array [
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
    / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"throws error\\"!",
-  "Error: OH NO!",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"throws error\\" failed to run. 🔥",
-  " ☀️  betterer  info  💬  - ",
-  "0 tests got checked. 🤔",
-  " ☀️  betterer  erro  🔥  - ",
-  "1 test failed to run. 🔥",
+ 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 1 test running...
+🤔 throws error: running \\"throws error\\"!
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 1 test running...
+🔥 throws error: OH NO!
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+🌟 Betterer (0ms): 1 test running...
+
+Error: OH NO!
+      at Object.test (<project>/fixtures/test-betterer-failed/.betterer.js:6:13)
+      at runTest (<project>/packages/betterer/dist/runner/runner.js:977:55)
+      at <project>/packages/betterer/dist/runner/runner.js:926:7
+      at <project>/packages/betterer/dist/runner/runner.js:915:5
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:2023:5)
+      at <project>/packages/betterer/dist/betterer.js:909:32
+      at runContext (<project>/packages/betterer/dist/betterer.js:1074:12)
+      at Object.<anonymous> (<project>/test/betterer-failed.spec.ts:23:26)
+🔥 throws error: OH NO!
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+💥 Betterer (0ms): 1 test done! 1 test errored!
+
+Error: OH NO!
+      at Object.test (<project>/fixtures/test-betterer-failed/.betterer.js:6:13)
+      at runTest (<project>/packages/betterer/dist/runner/runner.js:977:55)
+      at <project>/packages/betterer/dist/runner/runner.js:926:7
+      at <project>/packages/betterer/dist/runner/runner.js:915:5
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:2023:5)
+      at <project>/packages/betterer/dist/betterer.js:909:32
+      at runContext (<project>/packages/betterer/dist/betterer.js:1074:12)
+      at Object.<anonymous> (<project>/test/betterer-failed.spec.ts:23:26)
+🔥 throws error: OH NO!
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+💥 Betterer (0ms): 1 test done! 1 test errored!
+🔥 throws error: OH NO!
+
+Error: OH NO!
+      at Object.test (<project>/fixtures/test-betterer-failed/.betterer.js:6:13)
+      at runTest (<project>/packages/betterer/dist/runner/runner.js:977:55)
+      at <project>/packages/betterer/dist/runner/runner.js:926:7
+      at <project>/packages/betterer/dist/runner/runner.js:915:5
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:2023:5)
+      at <project>/packages/betterer/dist/betterer.js:909:32
+      at runContext (<project>/packages/betterer/dist/betterer.js:1074:12)
+      at Object.<anonymous> (<project>/test/betterer-failed.spec.ts:23:26)
+",
+  "
+   / | /     _         _   _                     
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
+ 
+💥 Betterer (0ms): 1 test done! 1 test errored!
+🔥 throws error: OH NO!
+
+Error: OH NO!
+      at Object.test (<project>/fixtures/test-betterer-failed/.betterer.js:6:13)
+      at runTest (<project>/packages/betterer/dist/runner/runner.js:977:55)
+      at <project>/packages/betterer/dist/runner/runner.js:926:7
+      at <project>/packages/betterer/dist/runner/runner.js:915:5
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:2023:5)
+      at <project>/packages/betterer/dist/betterer.js:909:32
+      at runContext (<project>/packages/betterer/dist/betterer.js:1074:12)
+      at Object.<anonymous> (<project>/test/betterer-failed.spec.ts:23:26)
+
+0 tests got checked. 🤔
+1 test failed to run. 🔥
+
+",
 ]
 `;
 

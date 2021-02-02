@@ -7,10 +7,11 @@ import { BettererLoggerCodeInfo } from './types';
 const IS_JS_REGEXP = /.t|jsx?$/;
 
 export function codeΔ(codeInfo: BettererLoggerCodeInfo): string {
-  const { filePath, fileText } = codeInfo;
+  const { filePath, fileText, message } = codeInfo;
   const isJS = IS_JS_REGEXP.exec(path.extname(filePath));
   const options = {
-    highlightCode: !!isJS
+    highlightCode: !!isJS,
+    message
   };
   const lc = new LinesAndColumns(fileText);
   const startLocation = codeInfo;
@@ -24,5 +25,5 @@ export function codeΔ(codeInfo: BettererLoggerCodeInfo): string {
     line: endLocation.line + 1,
     column: endLocation.column + 1
   };
-  return codeFrameColumns(fileText, { start, end }, options);
+  return `\n  // ${filePath}\n${codeFrameColumns(fileText, { start, end }, options)}\n`;
 }

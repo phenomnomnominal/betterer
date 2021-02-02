@@ -4,7 +4,7 @@ import React, { FC, useContext, useEffect, useState } from 'react';
 
 import { BettererLoggerCodeInfo } from '../../types';
 import { codeΔ } from '../../code';
-import { BettererTaskError } from './error';
+import { BettererErrorLog } from '../error-log';
 import { BettererTasksContext } from './state';
 import { BettererTaskStatus } from './status';
 import { BettererTaskContext, BettererTaskLog } from './types';
@@ -97,7 +97,7 @@ export const BettererTask: FC<BettererTaskProps> = function BettererTask({ conte
           ))}
         </Box>
       ) : null}
-      {error && <BettererTaskError error={error} />}
+      {error && <BettererErrorLog error={error} />}
       {running && status && <BettererTaskStatus name={name} status={status} />}
     </Box>
   );

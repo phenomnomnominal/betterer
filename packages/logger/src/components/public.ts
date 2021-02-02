@@ -2,7 +2,6 @@ export {
   BettererTask,
   BettererTaskColour,
   BettererTaskContext,
-  BettererTaskError,
   BettererTaskLogger,
   BettererTaskLoggerAsync,
   BettererTaskProps,
@@ -14,4 +13,5 @@ export {
   BettererTasksProps,
   BettererTasksState
 } from './tasks/public';
+export { BettererErrorLog, BettererErrorLogProps } from './error-log';
 export { BettererLogo } from './logo';
