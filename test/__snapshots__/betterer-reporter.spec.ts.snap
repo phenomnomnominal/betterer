@@ -3,12 +3,12 @@
 exports[`betterer --reporter should throw when a hook is not a function 1`] = `
 Array [
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: could not require \\"<project>/fixtures/test-betterer-reporter-hook-not-a-function/reporter.js\\". 😔
       at <project>/packages/betterer/dist/reporters/loader.js:640:13
@@ -36,12 +36,12 @@ Error: \\"contextStart\\" is not a function. 😔
 exports[`betterer --reporter should throw when there is an invalid hook 1`] = `
 Array [
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: could not require \\"<project>/fixtures/test-betterer-reporter-invalid-hook/reporter.js\\". 😔
       at <project>/packages/betterer/dist/reporters/loader.js:640:13
@@ -69,12 +69,12 @@ Error: \\"notAHook\\" is not a valid reporter hook name. 😔
 exports[`betterer --reporter should throw when there is nothing exported 1`] = `
 Array [
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: could not require \\"<project>/fixtures/test-betterer-reporter-nothing/reporter.js\\". 😔
       at <project>/packages/betterer/dist/reporters/loader.js:640:13

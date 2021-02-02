@@ -11,8 +11,23 @@ export function createFixtureLogs(): FixtureLogs {
   const log = (...messages: Array<string>): void => {
     // Do some magic to sort out the logs for snapshots. This mucks up the snapshot of the printed logo,
     // but that hardly matters...
-    const filtered = messages.filter((message) => message.trim().length).map((m) => m.replace(/\r/g, ''));
-    logs.push(...filtered.map((m) => (!isString(m) ? m : replaceProjectPath(normalisePaths(replaceAnsi(m))))));
+    messages.forEach((message) => {
+      if (!isString(message)) {
+        logs.push(message);
+        return;
+      }
+      const trimmed = message.trim();
+      if (trimmed.length === 0) {
+        return;
+      }
+      const lines = message.replace(/\r/g, '').split('\n');
+      const formattedLines = lines.map((line) => {
+        line = replaceProjectPath(normalisePaths(replaceAnsi(line)));
+        line = line.trimEnd();
+        return line;
+      });
+      logs.push(formattedLines.join('\n'));
+    });
   };
 
   jest.spyOn(console, 'log').mockImplementation(log);

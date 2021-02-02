@@ -3,12 +3,12 @@
 exports[`betterer should throw when there is invalid config 1`] = `
 Array [
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`1234\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -24,12 +24,12 @@ Error: \\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`1234\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -45,12 +45,12 @@ Error: \\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`{}\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -66,12 +66,12 @@ Error: \\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`{}\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"configPaths\\" must be an array of strings. Recieved \`[1234]\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -87,12 +87,12 @@ Error: \\"configPaths\\" must be an array of strings. Recieved \`[1234]\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"configPaths\\" must be an array of strings. Recieved \`[true]\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -108,12 +108,12 @@ Error: \\"configPaths\\" must be an array of strings. Recieved \`[true]\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"configPaths\\" must be an array of strings. Recieved \`[{}]\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -129,12 +129,12 @@ Error: \\"configPaths\\" must be an array of strings. Recieved \`[{}]\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"configPaths\\" must be an array of strings. Recieved \`[1234]\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -150,12 +150,12 @@ Error: \\"configPaths\\" must be an array of strings. Recieved \`[1234]\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"cwd\\" must be a string. Recieved \`1234\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -171,12 +171,12 @@ Error: \\"cwd\\" must be a string. Recieved \`1234\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"cwd\\" must be a string. Recieved \`{}\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -192,12 +192,12 @@ Error: \\"cwd\\" must be a string. Recieved \`{}\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[1234]\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -213,12 +213,12 @@ Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[1234]\`
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[true]\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -234,12 +234,12 @@ Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[true]\`
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[{}]\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -255,12 +255,12 @@ Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[{}]\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[1234]\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -276,12 +276,12 @@ Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[1234]\`
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"ignores\\" must be an array of strings. Recieved \`[1234]\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -297,12 +297,12 @@ Error: \\"ignores\\" must be an array of strings. Recieved \`[1234]\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"ignores\\" must be an array of strings. Recieved \`[true]\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -318,12 +318,12 @@ Error: \\"ignores\\" must be an array of strings. Recieved \`[true]\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"ignores\\" must be an array of strings. Recieved \`[{}]\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -339,12 +339,12 @@ Error: \\"ignores\\" must be an array of strings. Recieved \`[{}]\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"ignores\\" must be an array of strings. Recieved \`[1234]\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -360,12 +360,12 @@ Error: \\"ignores\\" must be an array of strings. Recieved \`[1234]\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"reporters\\" must be an array of strings. Recieved \`[1234]\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -381,12 +381,12 @@ Error: \\"reporters\\" must be an array of strings. Recieved \`[1234]\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"reporters\\" must be an array of strings. Recieved \`[true]\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -402,12 +402,12 @@ Error: \\"reporters\\" must be an array of strings. Recieved \`[true]\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"reporters\\" must be an array of strings. Recieved \`[{}]\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -423,12 +423,12 @@ Error: \\"reporters\\" must be an array of strings. Recieved \`[{}]\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"reporters\\" must be an array of strings. Recieved \`[1234]\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -444,12 +444,12 @@ Error: \\"reporters\\" must be an array of strings. Recieved \`[1234]\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"resultsPath\\" must be a string. Recieved \`1234\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -465,12 +465,12 @@ Error: \\"resultsPath\\" must be a string. Recieved \`1234\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"resultsPath\\" must be a string. Recieved \`true\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -486,12 +486,12 @@ Error: \\"resultsPath\\" must be a string. Recieved \`true\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"resultsPath\\" must be a string. Recieved \`{}\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -507,12 +507,12 @@ Error: \\"resultsPath\\" must be a string. Recieved \`{}\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`1234\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -528,12 +528,12 @@ Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`1234\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -549,12 +549,12 @@ Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`{}\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -570,12 +570,12 @@ Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`{}\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"update\\" must be \`true\` or \`false\`. Recieved \`1234\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -591,12 +591,12 @@ Error: \\"update\\" must be \`true\` or \`false\`. Recieved \`1234\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"update\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -612,12 +612,12 @@ Error: \\"update\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
 
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: \\"update\\" must be \`true\` or \`false\`. Recieved \`{}\`.
       at validate (<project>/packages/betterer/dist/config/config.js:1859:11)
@@ -638,20 +638,20 @@ Error: \\"update\\" must be \`true\` or \`false\`. Recieved \`{}\`.
 exports[`betterer should throw when there is not a config file 1`] = `
 Array [
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: could not read config from \\"<project>/fixtures/test-betterer-config/.betterer\\". 😔
       at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2211:13)
@@ -678,12 +678,12 @@ Error: Cannot find module '<project>/fixtures/test-betterer-config/.betterer' fr
       at BettererContextΩ.run (<project>/packages/betterer/src/context/context.ts:51:24)
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 
 Error: could not read config from \\"<project>/fixtures/test-betterer-config/.betterer\\". 😔
       at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2211:13)

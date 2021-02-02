@@ -2,7 +2,7 @@
 
 exports[`betterer cli should initialise betterer in a repo 1`] = `
 Array [
-  "🌟 Initialising Betterer (0ms): 
+  "🌟 Initialising Betterer (0ms):
 ",
   "🎉 Initialising Betterer (0ms): 2 tasks done!
 ✅ Create test file: done!
@@ -15,7 +15,7 @@ Array [
 
 exports[`betterer cli should work multiple times 1`] = `
 Array [
-  "🌟 Initialising Betterer (0ms): 
+  "🌟 Initialising Betterer (0ms):
 ",
   "🎉 Initialising Betterer (0ms): 2 tasks done!
 ✅ Create test file: done!
@@ -23,7 +23,7 @@ Array [
 ✅ Update package.json: done!
   ▸ added \\"@betterer/cli\\" dependency to package.json file
 ",
-  "🌟 Initialising Betterer (0ms): 
+  "🌟 Initialising Betterer (0ms):
 ",
   "🎉 Initialising Betterer (0ms): 2 tasks done!
 ✅ Create test file: done!
