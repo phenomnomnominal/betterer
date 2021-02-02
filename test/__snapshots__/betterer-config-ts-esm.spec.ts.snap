@@ -15,14 +15,14 @@ Error: ⨯ Unable to compile TypeScript:
 
   error TS6046: Argument for '--target' option must be: 'es3', 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'esnext'.
 
-      at createTSError (<project>/node_modules/ts-node/src/index.ts:513:12)
-      at reportTSError (<project>/node_modules/ts-node/src/index.ts:517:19)
-      at create (<project>/node_modules/ts-node/src/index.ts:528:36)
-      at Object.register (<project>/node_modules/ts-node/src/index.ts:410:19)
-      at Object.registerExtensions (<project>/packages/betterer/dist/register.js:502:15)
-      at runContext (<project>/packages/betterer/dist/betterer.js:1024:16)
-      at <project>/test/betterer-config-ts-esm.spec.ts:36:34
-      at Object.<anonymous> (<project>/test/betterer-config-ts-esm.spec.ts:36:9)
+      at createTSError (<project>/node_modules/ts-node/src/index.ts:0:0)
+      at reportTSError (<project>/node_modules/ts-node/src/index.ts:0:0)
+      at create (<project>/node_modules/ts-node/src/index.ts:0:0)
+      at Object.register (<project>/node_modules/ts-node/src/index.ts:0:0)
+      at Object.registerExtensions (<project>/packages/betterer/dist/register.js:0:0)
+      at runContext (<project>/packages/betterer/dist/betterer.js:0:0)
+      at <project>/test/betterer-config-ts-esm.spec.ts:0:0
+      at Object.<anonymous> (<project>/test/betterer-config-ts-esm.spec.ts:0:0)
 
 ",
 ]

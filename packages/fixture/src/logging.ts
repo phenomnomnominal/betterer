@@ -5,6 +5,7 @@ import { FixtureLogs } from './types';
 
 const ANSI_REGEX = ansiRegex();
 const PROJECT_REGEXP = new RegExp(normalisePaths(process.cwd()), 'g');
+const STACK_TRACK_LOCATION_REGEXP = /(\.[a-z]+):\d+:\d+/;
 
 export function createFixtureLogs(): FixtureLogs {
   const logs: Array<string> = [];
@@ -22,7 +23,9 @@ export function createFixtureLogs(): FixtureLogs {
       }
       const lines = message.replace(/\r/g, '').split('\n');
       const formattedLines = lines.map((line) => {
-        line = replaceProjectPath(normalisePaths(replaceAnsi(line)));
+        line = replaceAnsi(line);
+        line = replaceProjectPath(normalisePaths(line));
+        line = replaceStackTraceLocation(line);
         line = line.trimEnd();
         return line;
       });
@@ -56,6 +59,10 @@ function replaceAnsi(str: string): string {
 
 function replaceProjectPath(str: string): string {
   return str.replace(PROJECT_REGEXP, '<project>');
+}
+
+function replaceStackTraceLocation(str: string): string {
+  return str.replace(STACK_TRACK_LOCATION_REGEXP, '$1:0:0');
 }
 
 function normalisePaths(str: string): string {

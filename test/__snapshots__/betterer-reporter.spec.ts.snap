@@ -11,23 +11,23 @@ Array [
 
 
 Error: could not require \\"<project>/fixtures/test-betterer-reporter-hook-not-a-function/reporter.js\\". 😔
-      at <project>/packages/betterer/dist/reporters/loader.js:640:13
+      at <project>/packages/betterer/dist/reporters/loader.js:0:0
       at Array.map (<anonymous>)
-      at Object.loadReporters (<project>/packages/betterer/dist/reporters/loader.js:603:43)
-      at runContext (<project>/packages/betterer/dist/betterer.js:1043:32)
-      at <project>/test/betterer-reporter.spec.ts:43:34
-      at Object.<anonymous> (<project>/test/betterer-reporter.spec.ts:43:9)
+      at Object.loadReporters (<project>/packages/betterer/dist/reporters/loader.js:0:0)
+      at runContext (<project>/packages/betterer/dist/betterer.js:0:0)
+      at <project>/test/betterer-reporter.spec.ts:0:0
+      at Object.<anonymous> (<project>/test/betterer-reporter.spec.ts:0:0)
 
 Error: \\"contextStart\\" is not a function. 😔
-      at <project>/packages/betterer/dist/reporters/loader.js:689:13
+      at <project>/packages/betterer/dist/reporters/loader.js:0:0
       at Array.forEach (<anonymous>)
-      at validate (<project>/packages/betterer/dist/reporters/loader.js:662:25)
-      at <project>/packages/betterer/dist/reporters/loader.js:632:7
+      at validate (<project>/packages/betterer/dist/reporters/loader.js:0:0)
+      at <project>/packages/betterer/dist/reporters/loader.js:0:0
       at Array.map (<anonymous>)
-      at Object.loadReporters (<project>/packages/betterer/dist/reporters/loader.js:603:43)
-      at runContext (<project>/packages/betterer/dist/betterer.js:1043:32)
-      at <project>/test/betterer-reporter.spec.ts:43:34
-      at Object.<anonymous> (<project>/test/betterer-reporter.spec.ts:43:9)
+      at Object.loadReporters (<project>/packages/betterer/dist/reporters/loader.js:0:0)
+      at runContext (<project>/packages/betterer/dist/betterer.js:0:0)
+      at <project>/test/betterer-reporter.spec.ts:0:0
+      at Object.<anonymous> (<project>/test/betterer-reporter.spec.ts:0:0)
 
 ",
 ]
@@ -44,23 +44,23 @@ Array [
 
 
 Error: could not require \\"<project>/fixtures/test-betterer-reporter-invalid-hook/reporter.js\\". 😔
-      at <project>/packages/betterer/dist/reporters/loader.js:640:13
+      at <project>/packages/betterer/dist/reporters/loader.js:0:0
       at Array.map (<anonymous>)
-      at Object.loadReporters (<project>/packages/betterer/dist/reporters/loader.js:603:43)
-      at runContext (<project>/packages/betterer/dist/betterer.js:1043:32)
-      at <project>/test/betterer-reporter.spec.ts:28:34
-      at Object.<anonymous> (<project>/test/betterer-reporter.spec.ts:28:9)
+      at Object.loadReporters (<project>/packages/betterer/dist/reporters/loader.js:0:0)
+      at runContext (<project>/packages/betterer/dist/betterer.js:0:0)
+      at <project>/test/betterer-reporter.spec.ts:0:0
+      at Object.<anonymous> (<project>/test/betterer-reporter.spec.ts:0:0)
 
 Error: \\"notAHook\\" is not a valid reporter hook name. 😔
-      at <project>/packages/betterer/dist/reporters/loader.js:676:13
+      at <project>/packages/betterer/dist/reporters/loader.js:0:0
       at Array.forEach (<anonymous>)
-      at validate (<project>/packages/betterer/dist/reporters/loader.js:662:25)
-      at <project>/packages/betterer/dist/reporters/loader.js:632:7
+      at validate (<project>/packages/betterer/dist/reporters/loader.js:0:0)
+      at <project>/packages/betterer/dist/reporters/loader.js:0:0
       at Array.map (<anonymous>)
-      at Object.loadReporters (<project>/packages/betterer/dist/reporters/loader.js:603:43)
-      at runContext (<project>/packages/betterer/dist/betterer.js:1043:32)
-      at <project>/test/betterer-reporter.spec.ts:28:34
-      at Object.<anonymous> (<project>/test/betterer-reporter.spec.ts:28:9)
+      at Object.loadReporters (<project>/packages/betterer/dist/reporters/loader.js:0:0)
+      at runContext (<project>/packages/betterer/dist/betterer.js:0:0)
+      at <project>/test/betterer-reporter.spec.ts:0:0
+      at Object.<anonymous> (<project>/test/betterer-reporter.spec.ts:0:0)
 
 ",
 ]
@@ -77,20 +77,20 @@ Array [
 
 
 Error: could not require \\"<project>/fixtures/test-betterer-reporter-nothing/reporter.js\\". 😔
-      at <project>/packages/betterer/dist/reporters/loader.js:640:13
+      at <project>/packages/betterer/dist/reporters/loader.js:0:0
       at Array.map (<anonymous>)
-      at Object.loadReporters (<project>/packages/betterer/dist/reporters/loader.js:603:43)
-      at runContext (<project>/packages/betterer/dist/betterer.js:1043:32)
-      at <project>/test/betterer-reporter.spec.ts:13:34
-      at Object.<anonymous> (<project>/test/betterer-reporter.spec.ts:13:9)
+      at Object.loadReporters (<project>/packages/betterer/dist/reporters/loader.js:0:0)
+      at runContext (<project>/packages/betterer/dist/betterer.js:0:0)
+      at <project>/test/betterer-reporter.spec.ts:0:0
+      at Object.<anonymous> (<project>/test/betterer-reporter.spec.ts:0:0)
 
 Error: \\"<project>/fixtures/test-betterer-reporter-nothing/reporter.js\\" didn't create a reporter. 😔
-      at <project>/packages/betterer/dist/reporters/loader.js:624:15
+      at <project>/packages/betterer/dist/reporters/loader.js:0:0
       at Array.map (<anonymous>)
-      at Object.loadReporters (<project>/packages/betterer/dist/reporters/loader.js:603:43)
-      at runContext (<project>/packages/betterer/dist/betterer.js:1043:32)
-      at <project>/test/betterer-reporter.spec.ts:13:34
-      at Object.<anonymous> (<project>/test/betterer-reporter.spec.ts:13:9)
+      at Object.loadReporters (<project>/packages/betterer/dist/reporters/loader.js:0:0)
+      at runContext (<project>/packages/betterer/dist/betterer.js:0:0)
+      at <project>/test/betterer-reporter.spec.ts:0:0
+      at Object.<anonymous> (<project>/test/betterer-reporter.spec.ts:0:0)
 
 ",
 ]

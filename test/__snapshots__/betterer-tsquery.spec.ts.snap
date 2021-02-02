@@ -264,8 +264,8 @@ Array [
   ▸
 
 Error: \\"tsquery no raw console.log\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:1299:17)
-      at <project>/packages/logger/dist/components/tasks/task.js:1414:35
+      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
+      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. 😔
 ",
   "
@@ -284,8 +284,8 @@ Error: \\"tsquery no raw console.log\\" got worse. 😔
   ▸
 
 Error: \\"tsquery no raw console.log\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:1299:17)
-      at <project>/packages/logger/dist/components/tasks/task.js:1414:35
+      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
+      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. 😔
 ",
   "
@@ -305,8 +305,8 @@ Error: \\"tsquery no raw console.log\\" got worse. 😔
   ▸
 
 Error: \\"tsquery no raw console.log\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:1299:17)
-      at <project>/packages/logger/dist/components/tasks/task.js:1414:35
+      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
+      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 ",
   "
    / | /     _         _   _
@@ -325,8 +325,8 @@ Error: \\"tsquery no raw console.log\\" got worse. 😔
   ▸
 
 Error: \\"tsquery no raw console.log\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:1299:17)
-      at <project>/packages/logger/dist/components/tasks/task.js:1414:35
+      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
+      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 
 1 test got checked. 🤔
 1 test got worse. 😔
@@ -500,27 +500,27 @@ Array [
 
 
 Error: could not read config from \\"<project>/fixtures/test-betterer-tsquery-no-config-file-path/.betterer\\". 😔
-      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2211:13)
-      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:0:0)
+      at <project>/packages/betterer/dist/context/context.js:0:0
       at Array.map (<anonymous>)
-      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:2107:29)
-      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1959:24)
-      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:911:18)
-      at <project>/packages/betterer/dist/betterer.js:909:47
-      at runContext (<project>/packages/betterer/dist/betterer.js:1074:18)
-      at <project>/test/betterer-tsquery.spec.ts:65:34
-      at Object.<anonymous> (<project>/test/betterer-tsquery.spec.ts:65:9)
+      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:0:0)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:0:0)
+      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:0:0)
+      at <project>/packages/betterer/dist/betterer.js:0:0
+      at runContext (<project>/packages/betterer/dist/betterer.js:0:0)
+      at <project>/test/betterer-tsquery.spec.ts:0:0
+      at Object.<anonymous> (<project>/test/betterer-tsquery.spec.ts:0:0)
 
 Error: for \`@betterer/tsquery\` to work, you need to provide the path to a tsconfig.json file, e.g. \`'./tsconfig.json'\`. ❌
-      at tsquery (<project>/packages/tsquery/dist/tsquery.js:473:11)
-      at Object.<anonymous> (<project>/fixtures/test-betterer-tsquery-no-config-file-path/.betterer.js:4:31)
-      at Runtime._execModule (<project>/node_modules/jest-runtime/build/index.js:1299:24)
-      at Runtime._loadModule (<project>/node_modules/jest-runtime/build/index.js:898:12)
-      at Runtime.requireModule (<project>/node_modules/jest-runtime/build/index.js:746:10)
-      at Runtime.requireModuleOrMock (<project>/node_modules/jest-runtime/build/index.js:919:21)
-      at Object.requireUncached (<project>/packages/betterer/dist/require.js:328:29)
-      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2168:43)
-      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at tsquery (<project>/packages/tsquery/dist/tsquery.js:0:0)
+      at Object.<anonymous> (<project>/fixtures/test-betterer-tsquery-no-config-file-path/.betterer.js:0:0)
+      at Runtime._execModule (<project>/node_modules/jest-runtime/build/index.js:0:0)
+      at Runtime._loadModule (<project>/node_modules/jest-runtime/build/index.js:0:0)
+      at Runtime.requireModule (<project>/node_modules/jest-runtime/build/index.js:0:0)
+      at Runtime.requireModuleOrMock (<project>/node_modules/jest-runtime/build/index.js:0:0)
+      at Object.requireUncached (<project>/packages/betterer/dist/require.js:0:0)
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:0:0)
+      at <project>/packages/betterer/dist/context/context.js:0:0
       at Array.map (<anonymous>)
 ",
   "
@@ -532,27 +532,27 @@ Error: for \`@betterer/tsquery\` to work, you need to provide the path to a tsco
 
 
 Error: could not read config from \\"<project>/fixtures/test-betterer-tsquery-no-config-file-path/.betterer\\". 😔
-      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2211:13)
-      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:0:0)
+      at <project>/packages/betterer/dist/context/context.js:0:0
       at Array.map (<anonymous>)
-      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:2107:29)
-      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1959:24)
-      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:911:18)
-      at <project>/packages/betterer/dist/betterer.js:909:47
-      at runContext (<project>/packages/betterer/dist/betterer.js:1074:18)
-      at <project>/test/betterer-tsquery.spec.ts:65:34
-      at Object.<anonymous> (<project>/test/betterer-tsquery.spec.ts:65:9)
+      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:0:0)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:0:0)
+      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:0:0)
+      at <project>/packages/betterer/dist/betterer.js:0:0
+      at runContext (<project>/packages/betterer/dist/betterer.js:0:0)
+      at <project>/test/betterer-tsquery.spec.ts:0:0
+      at Object.<anonymous> (<project>/test/betterer-tsquery.spec.ts:0:0)
 
 Error: for \`@betterer/tsquery\` to work, you need to provide the path to a tsconfig.json file, e.g. \`'./tsconfig.json'\`. ❌
-      at tsquery (<project>/packages/tsquery/dist/tsquery.js:473:11)
-      at Object.<anonymous> (<project>/fixtures/test-betterer-tsquery-no-config-file-path/.betterer.js:4:31)
-      at Runtime._execModule (<project>/node_modules/jest-runtime/build/index.js:1299:24)
-      at Runtime._loadModule (<project>/node_modules/jest-runtime/build/index.js:898:12)
-      at Runtime.requireModule (<project>/node_modules/jest-runtime/build/index.js:746:10)
-      at Runtime.requireModuleOrMock (<project>/node_modules/jest-runtime/build/index.js:919:21)
-      at Object.requireUncached (<project>/packages/betterer/dist/require.js:328:29)
-      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2168:43)
-      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at tsquery (<project>/packages/tsquery/dist/tsquery.js:0:0)
+      at Object.<anonymous> (<project>/fixtures/test-betterer-tsquery-no-config-file-path/.betterer.js:0:0)
+      at Runtime._execModule (<project>/node_modules/jest-runtime/build/index.js:0:0)
+      at Runtime._loadModule (<project>/node_modules/jest-runtime/build/index.js:0:0)
+      at Runtime.requireModule (<project>/node_modules/jest-runtime/build/index.js:0:0)
+      at Runtime.requireModuleOrMock (<project>/node_modules/jest-runtime/build/index.js:0:0)
+      at Object.requireUncached (<project>/packages/betterer/dist/require.js:0:0)
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:0:0)
+      at <project>/packages/betterer/dist/context/context.js:0:0
       at Array.map (<anonymous>)
 ",
 ]
@@ -577,27 +577,27 @@ Array [
 
 
 Error: could not read config from \\"<project>/fixtures/test-betterer-tsquery-no-query/.betterer\\". 😔
-      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2211:13)
-      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:0:0)
+      at <project>/packages/betterer/dist/context/context.js:0:0
       at Array.map (<anonymous>)
-      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:2107:29)
-      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1959:24)
-      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:911:18)
-      at <project>/packages/betterer/dist/betterer.js:909:47
-      at runContext (<project>/packages/betterer/dist/betterer.js:1074:18)
-      at <project>/test/betterer-tsquery.spec.ts:81:34
-      at Object.<anonymous> (<project>/test/betterer-tsquery.spec.ts:81:9)
+      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:0:0)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:0:0)
+      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:0:0)
+      at <project>/packages/betterer/dist/betterer.js:0:0
+      at runContext (<project>/packages/betterer/dist/betterer.js:0:0)
+      at <project>/test/betterer-tsquery.spec.ts:0:0
+      at Object.<anonymous> (<project>/test/betterer-tsquery.spec.ts:0:0)
 
 Error: for \`@betterer/tsquery\` to work, you need to provide a query, e.g. \`'CallExpression > PropertyAccessExpression'\`. ❌
-      at tsquery (<project>/packages/tsquery/dist/tsquery.js:486:11)
-      at Object.<anonymous> (<project>/fixtures/test-betterer-tsquery-no-query/.betterer.js:4:31)
-      at Runtime._execModule (<project>/node_modules/jest-runtime/build/index.js:1299:24)
-      at Runtime._loadModule (<project>/node_modules/jest-runtime/build/index.js:898:12)
-      at Runtime.requireModule (<project>/node_modules/jest-runtime/build/index.js:746:10)
-      at Runtime.requireModuleOrMock (<project>/node_modules/jest-runtime/build/index.js:919:21)
-      at Object.requireUncached (<project>/packages/betterer/dist/require.js:328:29)
-      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2168:43)
-      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at tsquery (<project>/packages/tsquery/dist/tsquery.js:0:0)
+      at Object.<anonymous> (<project>/fixtures/test-betterer-tsquery-no-query/.betterer.js:0:0)
+      at Runtime._execModule (<project>/node_modules/jest-runtime/build/index.js:0:0)
+      at Runtime._loadModule (<project>/node_modules/jest-runtime/build/index.js:0:0)
+      at Runtime.requireModule (<project>/node_modules/jest-runtime/build/index.js:0:0)
+      at Runtime.requireModuleOrMock (<project>/node_modules/jest-runtime/build/index.js:0:0)
+      at Object.requireUncached (<project>/packages/betterer/dist/require.js:0:0)
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:0:0)
+      at <project>/packages/betterer/dist/context/context.js:0:0
       at Array.map (<anonymous>)
 ",
   "
@@ -609,27 +609,27 @@ Error: for \`@betterer/tsquery\` to work, you need to provide a query, e.g. \`'C
 
 
 Error: could not read config from \\"<project>/fixtures/test-betterer-tsquery-no-query/.betterer\\". 😔
-      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2211:13)
-      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:0:0)
+      at <project>/packages/betterer/dist/context/context.js:0:0
       at Array.map (<anonymous>)
-      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:2107:29)
-      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1959:24)
-      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:911:18)
-      at <project>/packages/betterer/dist/betterer.js:909:47
-      at runContext (<project>/packages/betterer/dist/betterer.js:1074:18)
-      at <project>/test/betterer-tsquery.spec.ts:81:34
-      at Object.<anonymous> (<project>/test/betterer-tsquery.spec.ts:81:9)
+      at BettererContextΩ._initTests (<project>/packages/betterer/dist/context/context.js:0:0)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:0:0)
+      at Object.serial (<project>/packages/betterer/dist/runner/runner.js:0:0)
+      at <project>/packages/betterer/dist/betterer.js:0:0
+      at runContext (<project>/packages/betterer/dist/betterer.js:0:0)
+      at <project>/test/betterer-tsquery.spec.ts:0:0
+      at Object.<anonymous> (<project>/test/betterer-tsquery.spec.ts:0:0)
 
 Error: for \`@betterer/tsquery\` to work, you need to provide a query, e.g. \`'CallExpression > PropertyAccessExpression'\`. ❌
-      at tsquery (<project>/packages/tsquery/dist/tsquery.js:486:11)
-      at Object.<anonymous> (<project>/fixtures/test-betterer-tsquery-no-query/.betterer.js:4:31)
-      at Runtime._execModule (<project>/node_modules/jest-runtime/build/index.js:1299:24)
-      at Runtime._loadModule (<project>/node_modules/jest-runtime/build/index.js:898:12)
-      at Runtime.requireModule (<project>/node_modules/jest-runtime/build/index.js:746:10)
-      at Runtime.requireModuleOrMock (<project>/node_modules/jest-runtime/build/index.js:919:21)
-      at Object.requireUncached (<project>/packages/betterer/dist/require.js:328:29)
-      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:2168:43)
-      at <project>/packages/betterer/dist/context/context.js:2112:38
+      at tsquery (<project>/packages/tsquery/dist/tsquery.js:0:0)
+      at Object.<anonymous> (<project>/fixtures/test-betterer-tsquery-no-query/.betterer.js:0:0)
+      at Runtime._execModule (<project>/node_modules/jest-runtime/build/index.js:0:0)
+      at Runtime._loadModule (<project>/node_modules/jest-runtime/build/index.js:0:0)
+      at Runtime.requireModule (<project>/node_modules/jest-runtime/build/index.js:0:0)
+      at Runtime.requireModuleOrMock (<project>/node_modules/jest-runtime/build/index.js:0:0)
+      at Object.requireUncached (<project>/packages/betterer/dist/require.js:0:0)
+      at BettererContextΩ._getTests (<project>/packages/betterer/dist/context/context.js:0:0)
+      at <project>/packages/betterer/dist/context/context.js:0:0
       at Array.map (<anonymous>)
 ",
 ]

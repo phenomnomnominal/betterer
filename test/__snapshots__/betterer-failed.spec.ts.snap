@@ -19,14 +19,14 @@ Array [
 
 
 Error: could not read results from \\"<project>/fixtures/test-betterer-failed-reading/.betterer.results\\". 😔
-      at Object.parse (<project>/packages/betterer/dist/results/parser.js:1067:11)
-      at BettererResults.getExpectedNames (<project>/packages/betterer/dist/results/results.js:816:32)
-      at BettererContextΩ._initObsolete (<project>/packages/betterer/dist/context/context.js:2220:31)
-      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1968:31)
-      at <project>/packages/betterer/dist/betterer.js:909:32
-      at runContext (<project>/packages/betterer/dist/betterer.js:1074:12)
-      at <project>/test/betterer-failed.spec.ts:49:34
-      at Object.<anonymous> (<project>/test/betterer-failed.spec.ts:49:9)
+      at Object.parse (<project>/packages/betterer/dist/results/parser.js:0:0)
+      at BettererResults.getExpectedNames (<project>/packages/betterer/dist/results/results.js:0:0)
+      at BettererContextΩ._initObsolete (<project>/packages/betterer/dist/context/context.js:0:0)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:0:0)
+      at <project>/packages/betterer/dist/betterer.js:0:0
+      at runContext (<project>/packages/betterer/dist/betterer.js:0:0)
+      at <project>/test/betterer-failed.spec.ts:0:0
+      at Object.<anonymous> (<project>/test/betterer-failed.spec.ts:0:0)
 ",
   "
    / | /     _         _   _
@@ -37,14 +37,14 @@ Error: could not read results from \\"<project>/fixtures/test-betterer-failed-re
 
 
 Error: could not read results from \\"<project>/fixtures/test-betterer-failed-reading/.betterer.results\\". 😔
-      at Object.parse (<project>/packages/betterer/dist/results/parser.js:1067:11)
-      at BettererResults.getExpectedNames (<project>/packages/betterer/dist/results/results.js:816:32)
-      at BettererContextΩ._initObsolete (<project>/packages/betterer/dist/context/context.js:2220:31)
-      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:1968:31)
-      at <project>/packages/betterer/dist/betterer.js:909:32
-      at runContext (<project>/packages/betterer/dist/betterer.js:1074:12)
-      at <project>/test/betterer-failed.spec.ts:49:34
-      at Object.<anonymous> (<project>/test/betterer-failed.spec.ts:49:9)
+      at Object.parse (<project>/packages/betterer/dist/results/parser.js:0:0)
+      at BettererResults.getExpectedNames (<project>/packages/betterer/dist/results/results.js:0:0)
+      at BettererContextΩ._initObsolete (<project>/packages/betterer/dist/context/context.js:0:0)
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:0:0)
+      at <project>/packages/betterer/dist/betterer.js:0:0
+      at runContext (<project>/packages/betterer/dist/betterer.js:0:0)
+      at <project>/test/betterer-failed.spec.ts:0:0
+      at Object.<anonymous> (<project>/test/betterer-failed.spec.ts:0:0)
 ",
 ]
 `;
@@ -98,14 +98,14 @@ Array [
 🌟 Betterer (0ms): 1 test running...
 
 Error: OH NO!
-      at Object.test (<project>/fixtures/test-betterer-failed/.betterer.js:6:13)
-      at runTest (<project>/packages/betterer/dist/runner/runner.js:977:55)
-      at <project>/packages/betterer/dist/runner/runner.js:926:7
-      at <project>/packages/betterer/dist/runner/runner.js:915:5
-      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:2023:5)
-      at <project>/packages/betterer/dist/betterer.js:909:32
-      at runContext (<project>/packages/betterer/dist/betterer.js:1074:12)
-      at Object.<anonymous> (<project>/test/betterer-failed.spec.ts:23:26)
+      at Object.test (<project>/fixtures/test-betterer-failed/.betterer.js:0:0)
+      at runTest (<project>/packages/betterer/dist/runner/runner.js:0:0)
+      at <project>/packages/betterer/dist/runner/runner.js:0:0
+      at <project>/packages/betterer/dist/runner/runner.js:0:0
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:0:0)
+      at <project>/packages/betterer/dist/betterer.js:0:0
+      at runContext (<project>/packages/betterer/dist/betterer.js:0:0)
+      at Object.<anonymous> (<project>/test/betterer-failed.spec.ts:0:0)
 🔥 throws error: OH NO!
 ",
   "
@@ -118,14 +118,14 @@ Error: OH NO!
 💥 Betterer (0ms): 1 test done! 1 test errored!
 
 Error: OH NO!
-      at Object.test (<project>/fixtures/test-betterer-failed/.betterer.js:6:13)
-      at runTest (<project>/packages/betterer/dist/runner/runner.js:977:55)
-      at <project>/packages/betterer/dist/runner/runner.js:926:7
-      at <project>/packages/betterer/dist/runner/runner.js:915:5
-      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:2023:5)
-      at <project>/packages/betterer/dist/betterer.js:909:32
-      at runContext (<project>/packages/betterer/dist/betterer.js:1074:12)
-      at Object.<anonymous> (<project>/test/betterer-failed.spec.ts:23:26)
+      at Object.test (<project>/fixtures/test-betterer-failed/.betterer.js:0:0)
+      at runTest (<project>/packages/betterer/dist/runner/runner.js:0:0)
+      at <project>/packages/betterer/dist/runner/runner.js:0:0
+      at <project>/packages/betterer/dist/runner/runner.js:0:0
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:0:0)
+      at <project>/packages/betterer/dist/betterer.js:0:0
+      at runContext (<project>/packages/betterer/dist/betterer.js:0:0)
+      at Object.<anonymous> (<project>/test/betterer-failed.spec.ts:0:0)
 🔥 throws error: OH NO!
 ",
   "
@@ -139,14 +139,14 @@ Error: OH NO!
 🔥 throws error: OH NO!
 
 Error: OH NO!
-      at Object.test (<project>/fixtures/test-betterer-failed/.betterer.js:6:13)
-      at runTest (<project>/packages/betterer/dist/runner/runner.js:977:55)
-      at <project>/packages/betterer/dist/runner/runner.js:926:7
-      at <project>/packages/betterer/dist/runner/runner.js:915:5
-      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:2023:5)
-      at <project>/packages/betterer/dist/betterer.js:909:32
-      at runContext (<project>/packages/betterer/dist/betterer.js:1074:12)
-      at Object.<anonymous> (<project>/test/betterer-failed.spec.ts:23:26)
+      at Object.test (<project>/fixtures/test-betterer-failed/.betterer.js:0:0)
+      at runTest (<project>/packages/betterer/dist/runner/runner.js:0:0)
+      at <project>/packages/betterer/dist/runner/runner.js:0:0
+      at <project>/packages/betterer/dist/runner/runner.js:0:0
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:0:0)
+      at <project>/packages/betterer/dist/betterer.js:0:0
+      at runContext (<project>/packages/betterer/dist/betterer.js:0:0)
+      at Object.<anonymous> (<project>/test/betterer-failed.spec.ts:0:0)
 ",
   "
    / | /     _         _   _
@@ -159,14 +159,14 @@ Error: OH NO!
 🔥 throws error: OH NO!
 
 Error: OH NO!
-      at Object.test (<project>/fixtures/test-betterer-failed/.betterer.js:6:13)
-      at runTest (<project>/packages/betterer/dist/runner/runner.js:977:55)
-      at <project>/packages/betterer/dist/runner/runner.js:926:7
-      at <project>/packages/betterer/dist/runner/runner.js:915:5
-      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:2023:5)
-      at <project>/packages/betterer/dist/betterer.js:909:32
-      at runContext (<project>/packages/betterer/dist/betterer.js:1074:12)
-      at Object.<anonymous> (<project>/test/betterer-failed.spec.ts:23:26)
+      at Object.test (<project>/fixtures/test-betterer-failed/.betterer.js:0:0)
+      at runTest (<project>/packages/betterer/dist/runner/runner.js:0:0)
+      at <project>/packages/betterer/dist/runner/runner.js:0:0
+      at <project>/packages/betterer/dist/runner/runner.js:0:0
+      at BettererContextΩ.run (<project>/packages/betterer/dist/context/context.js:0:0)
+      at <project>/packages/betterer/dist/betterer.js:0:0
+      at runContext (<project>/packages/betterer/dist/betterer.js:0:0)
+      at Object.<anonymous> (<project>/test/betterer-failed.spec.ts:0:0)
 
 0 tests got checked. 🤔
 1 test failed to run. 🔥

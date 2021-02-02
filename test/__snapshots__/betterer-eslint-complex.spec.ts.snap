@@ -264,9 +264,9 @@ Array [
   ▸
 
 Error: \\"eslint enable no-debugger rule\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:1299:17)
-      at processTicksAndRejections (internal/process/task_queues.js:97:5)
-      at <project>/packages/logger/dist/components/tasks/task.js:1414:35
+      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
+      at processTicksAndRejections (internal/process/task_queues.js:0:0)
+      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 🔥 eslint enable no-debugger rule: \\"eslint enable no-debugger rule\\" got worse. 😔
 ",
   "
@@ -285,9 +285,9 @@ Error: \\"eslint enable no-debugger rule\\" got worse. 😔
   ▸
 
 Error: \\"eslint enable no-debugger rule\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:1299:17)
-      at processTicksAndRejections (internal/process/task_queues.js:97:5)
-      at <project>/packages/logger/dist/components/tasks/task.js:1414:35
+      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
+      at processTicksAndRejections (internal/process/task_queues.js:0:0)
+      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 🔥 eslint enable no-debugger rule: \\"eslint enable no-debugger rule\\" got worse. 😔
 ",
   "
@@ -307,9 +307,9 @@ Error: \\"eslint enable no-debugger rule\\" got worse. 😔
   ▸
 
 Error: \\"eslint enable no-debugger rule\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:1299:17)
-      at processTicksAndRejections (internal/process/task_queues.js:97:5)
-      at <project>/packages/logger/dist/components/tasks/task.js:1414:35
+      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
+      at processTicksAndRejections (internal/process/task_queues.js:0:0)
+      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 ",
   "
    / | /     _         _   _
@@ -328,9 +328,9 @@ Error: \\"eslint enable no-debugger rule\\" got worse. 😔
   ▸
 
 Error: \\"eslint enable no-debugger rule\\" got worse. 😔
-      at run (<project>/packages/reporter/dist/components/Runs.js:1299:17)
-      at processTicksAndRejections (internal/process/task_queues.js:97:5)
-      at <project>/packages/logger/dist/components/tasks/task.js:1414:35
+      at run (<project>/packages/reporter/dist/components/Runs.js:0:0)
+      at processTicksAndRejections (internal/process/task_queues.js:0:0)
+      at <project>/packages/logger/dist/components/tasks/task.js:0:0
 
 1 test got checked. 🤔
 1 test got worse. 😔
