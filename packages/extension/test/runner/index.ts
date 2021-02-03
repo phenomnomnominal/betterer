@@ -12,7 +12,8 @@ async function main() {
       extensionTestsPath: path.resolve(__dirname, './run.js'),
       launchArgs: [fixturesPath, '--disable-extensions']
     });
-  } catch {
+  } catch (e) {
+    process.stderr.write(JSON.stringify(e));
     process.exitCode = 1;
   }
 }
