@@ -1,11 +1,11 @@
 import { BettererError } from '@betterer/errors';
-import { RequestType } from 'vscode-languageserver';
+import { RequestType } from 'vscode-languageserver/node';
 
 import { BettererRequestParams } from './types';
 
 const POSSIBLE_ERROR_MESSAGES = ['could not read config from', 'for a test to work'];
 
-export const BettererInvalidConfigRequest = new RequestType<BettererRequestParams, void, void, void>(
+export const BettererInvalidConfigRequest = new RequestType<BettererRequestParams, void, void>(
   'betterer/invalidConfig'
 );
 

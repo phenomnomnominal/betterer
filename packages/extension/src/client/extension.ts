@@ -1,6 +1,6 @@
 import * as assert from 'assert';
-import { commands, ExtensionContext } from 'vscode';
-import { CloseAction, ErrorAction, ErrorHandler, LanguageClient } from 'vscode-languageclient';
+import { ExtensionContext, commands } from 'vscode';
+import { CloseAction, ErrorAction, ErrorHandler, LanguageClient } from 'vscode-languageclient/node';
 import { EXTENSION_NAME } from '../constants';
 import { COMMAND_NAMES, disableBetterer, enableBetterer, initBetterer } from './commands';
 import { CLIENT_START_FAILED, SERVER_START_FAILED } from './error-messages';

@@ -1,12 +1,12 @@
 import {
-  createConnection,
-  TextDocuments,
-  TextDocumentSyncKind,
   DidChangeWatchedFilesNotification,
   DidChangeConfigurationNotification,
   DidChangeWorkspaceFoldersNotification,
-  TextDocumentChangeEvent
-} from 'vscode-languageserver';
+  TextDocumentChangeEvent,
+  TextDocumentSyncKind,
+  TextDocuments,
+  createConnection
+} from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { createErrorHandler } from './error-handler';

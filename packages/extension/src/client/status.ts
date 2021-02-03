@@ -1,5 +1,5 @@
 import { StatusBarAlignment, StatusBarItem, window } from 'vscode';
-import { LanguageClient, NotificationType, State } from 'vscode-languageclient';
+import { LanguageClient, NotificationType, State } from 'vscode-languageclient/node';
 import { EXTENSION_NAME } from '../constants';
 import { BettererStatus } from '../status';
 import { COMMAND_NAMES } from './commands';
@@ -10,8 +10,8 @@ import { getAlwaysShowStatus } from './settings';
 const SERVER_RUNNING = `${EXTENSION_NAME} is running.`;
 const SERVER_STOPPED = `${EXTENSION_NAME} stopped.`;
 
-const BettererStatusNotification = new NotificationType<BettererStatus, void>(`${EXTENSION_NAME}/status`);
-const BettererExitCalled = new NotificationType<[number, string], void>(`${EXTENSION_NAME}/exitCalled`);
+const BettererStatusNotification = new NotificationType<BettererStatus>(`${EXTENSION_NAME}/status`);
+const BettererExitCalled = new NotificationType<[number, string]>(`${EXTENSION_NAME}/exitCalled`);
 
 export class BettererStatusBar {
   private _status = BettererStatus.ok;
