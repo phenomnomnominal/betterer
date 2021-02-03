@@ -72,7 +72,7 @@ export class BettererValidator {
           process.env.DEBUG = '1';
           process.env.DEBUG_TIME = '1';
           process.env.DEBUG_VALUES = '1';
-          const { runs } = await betterer.file(filePath, { ...config, cwd });
+          const { runs } = await betterer({ ...config, cwd }, [filePath]);
 
           runs.forEach((run) => {
             if (run.isFailed) {

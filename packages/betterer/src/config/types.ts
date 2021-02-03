@@ -31,11 +31,13 @@ export type BettererStartConfigPartial = BettererBaseConfigPartial &
   Partial<{
     allowDiff: boolean;
     update: boolean;
+    watch: false;
   }>;
 
 export type BettererWatchConfigPartial = BettererBaseConfigPartial &
   Partial<{
     ignores: BettererConfigIgnores;
+    watch: true;
   }>;
 
-export type BettererConfigPartial = BettererBaseConfigPartial & BettererStartConfigPartial & BettererWatchConfigPartial;
+export type BettererConfigPartial = BettererStartConfigPartial | BettererWatchConfigPartial;

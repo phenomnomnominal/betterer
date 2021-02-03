@@ -1,62 +1,40 @@
 import { debug } from '@phenomnomnominal/debug';
 
-import {
-  BettererConfigPartial,
-  BettererBaseConfigPartial,
-  BettererStartConfigPartial,
-  BettererWatchConfigPartial,
-  createConfig
-} from './config';
+import { BettererConfigPartial, BettererStartConfigPartial, BettererWatchConfigPartial, createConfig } from './config';
 import { BettererContextΩ, BettererSummary } from './context';
 import { registerExtensions } from './register';
-import { DEFAULT_REPORTER, WATCH_REPORTER, loadReporters, BettererReporterNames } from './reporters';
-import { parallel, serial } from './runner';
-import { BettererWatcher, BettererWatcherΩ } from './watcher';
+import { DEFAULT_REPORTER, WATCH_REPORTER, loadReporters } from './reporters';
+import { runTests } from './runner';
+import { BettererFilePaths, BettererWatcher, BettererWatcherΩ } from './watcher';
 
-export function betterer(partialConfig: BettererStartConfigPartial = {}): Promise<BettererSummary> {
-  return runContext(
-    async (context) => {
-      const summary = await serial(context);
-      await context.end();
-      await context.save();
-      return summary;
-    },
-    [DEFAULT_REPORTER],
-    partialConfig
-  );
-}
-
-export async function file(filePath: string, partialConfig?: BettererBaseConfigPartial): Promise<BettererSummary> {
-  return runContext(
-    async (context) => {
-      const summary = await parallel(context, [filePath]);
-      await context.end();
-      return summary;
-    },
-    [],
-    partialConfig
-  );
-}
-betterer.file = file;
-
-export function watch(partialConfig?: BettererWatchConfigPartial): Promise<BettererWatcher> {
-  return runContext(
-    async (context) => {
+export function betterer(
+  partialConfig?: BettererStartConfigPartial,
+  filePaths?: BettererFilePaths
+): Promise<BettererSummary>;
+export function betterer(partialConfig?: BettererWatchConfigPartial): Promise<BettererWatcher>;
+export function betterer(
+  partialConfig: BettererConfigPartial = {},
+  filePaths: BettererFilePaths = []
+): Promise<BettererSummary | BettererWatcher> {
+  if (partialConfig.watch) {
+    return runContext(async (context) => {
       const watcher = new BettererWatcherΩ(context, async (filePaths) => {
-        return parallel(context, filePaths);
+        return runTests(context, filePaths);
       });
       await watcher.setup();
       return watcher;
-    },
-    [WATCH_REPORTER],
-    partialConfig
-  );
+    }, partialConfig);
+  }
+  return runContext(async (context) => {
+    const summary = await runTests(context, filePaths);
+    await context.end();
+    await context.save();
+    return summary;
+  }, partialConfig);
 }
-betterer.watch = watch;
 
 async function runContext<RunResult, RunFunction extends (context: BettererContextΩ) => Promise<RunResult>>(
   run: RunFunction,
-  defaultReporters: BettererReporterNames,
   partialConfig: BettererConfigPartial = {}
 ): Promise<RunResult> {
   debug({
@@ -70,7 +48,8 @@ async function runContext<RunResult, RunFunction extends (context: BettererConte
   });
 
   let config = null;
-  let reporter = loadReporters(defaultReporters);
+  const reporterName = partialConfig.watch ? WATCH_REPORTER : DEFAULT_REPORTER;
+  let reporter = loadReporters([reporterName]);
   try {
     config = await createConfig(partialConfig);
     registerExtensions(config);

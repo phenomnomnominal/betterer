@@ -17,12 +17,12 @@ export function createFixtureLogs(options?: FixtureOptions): FixtureLogs {
         logs.push(message);
         return;
       }
+      message = replaceAnsi(message);
       const lines = message.replace(/\r/g, '').split('\n');
       const filteredLines = lines
         .filter((line) => !isStackTraceLine(line))
         .filter((line) => !isFiltered(line, options));
       const formattedLines = filteredLines.map((line) => {
-        line = replaceAnsi(line);
         line = replaceProjectPath(normalisePaths(line));
         line = line.trimEnd();
         return line;

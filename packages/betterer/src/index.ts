@@ -1,4 +1,4 @@
-export { betterer, file, watch } from './betterer';
+export { betterer } from './betterer';
 export {
   BettererConfig,
   BettererConfigFilters,

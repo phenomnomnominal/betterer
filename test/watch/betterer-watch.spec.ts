@@ -39,7 +39,7 @@ export default {
 
     await betterer({ configPaths, resultsPath, cwd });
 
-    const watcher = await betterer.watch({ configPaths, resultsPath, cwd });
+    const watcher = await betterer({ configPaths, resultsPath, cwd, watch: true });
 
     await writeFile(indexPath, `console.log('foo');\nconsole.log('foo');console.log('foo');`);
 
@@ -105,7 +105,7 @@ export default {
     const filePath = resolve('./src/file.ts');
     const { cwd } = paths;
 
-    const watcher = await betterer.watch({ configPaths, resultsPath, cwd });
+    const watcher = await betterer({ configPaths, resultsPath, cwd, watch: true });
 
     await writeFile(indexPath, `console.log('foo');`);
     await writeFile(filePath, `console.log('foo');\nconsole.log('foo');`);
@@ -163,7 +163,7 @@ ignored.ts
     const nestedPath = resolve('./src/nested/ignored.ts');
     const { cwd } = paths;
 
-    const watcher = await betterer.watch({ configPaths, resultsPath, cwd });
+    const watcher = await betterer({ configPaths, resultsPath, cwd, watch: true });
 
     await writeFile(indexPath, `console.log('foo');`);
     await writeFile(ignoredPath, `console.log('foo');`);

@@ -52,7 +52,7 @@ Array [
 ",
   "▸ BettererContextΩ.start time: 0ms return:
 ",
-  "▸ serial args:
+  "▸ runTests args:
 ",
   "▸▸ BettererContextΩ.run args:
 ",
@@ -199,9 +199,25 @@ Array [
 ",
   "▸▸▸▸▸ BettererReporterΩ.runStart args:
 ",
-  "▸▸▸▸▸ BettererReporterΩ.runStart time: 0ms return:
+  "▸▸▸▸▸▸ BettererRunΩ.start args:
+",
+  "▸▸▸▸▸▸▸ BettererReporterΩ.runStart args:
+",
+  "▸▸▸▸▸▸▸ BettererReporterΩ.runStart time: 0ms return:
+",
+  "▸▸▸▸▸▸ BettererReporterΩ.runStart time: 0ms return:
+",
+  "▸▸▸▸▸ BettererRunΩ.start time: 0ms return:
 ",
   "▸▸▸▸ BettererRunΩ.start time: 0ms return:
+",
+  "▸▸▸▸ BettererResultΩ args:
+",
+  "▸▸▸▸ BettererResultΩ time: 0ms return:
+",
+  "▸▸▸▸ BettererRunΩ.ran args:
+",
+  "▸▸▸▸ BettererRunΩ.ran time: 0ms return:
 ",
   "▸▸▸▸ BettererResultΩ args:
 ",
@@ -219,30 +235,6 @@ Array [
 ",
   "▸▸▸▸ BettererRunΩ.new time: 0ms return:
 ",
-  "▸▸▸▸ BettererRunΩ.end args:
-",
-  "▸▸▸▸▸ BettererReporterΩ.runEnd args:
-",
-  "▸▸▸▸▸ BettererReporterΩ.runEnd time: 0ms return:
-",
-  "▸▸▸▸ BettererRunΩ.end time: 0ms return:
-",
-  "▸▸▸▸ BettererRunΩ.start args:
-",
-  "▸▸▸▸▸ BettererReporterΩ.runStart args:
-",
-  "▸▸▸▸▸ BettererReporterΩ.runStart time: 0ms return:
-",
-  "▸▸▸▸ BettererRunΩ.start time: 0ms return:
-",
-  "▸▸▸▸ BettererResultΩ args:
-",
-  "▸▸▸▸ BettererResultΩ time: 0ms return:
-",
-  "▸▸▸▸ BettererRunΩ.ran args:
-",
-  "▸▸▸▸ BettererRunΩ.ran time: 0ms return:
-",
   "▸▸▸▸ BettererRunΩ.new args:
 ",
   "▸▸▸▸▸ BettererRunΩ._updateResult args:
@@ -255,7 +247,15 @@ Array [
 ",
   "▸▸▸▸▸ BettererReporterΩ.runEnd args:
 ",
-  "▸▸▸▸▸ BettererReporterΩ.runEnd time: 0ms return:
+  "▸▸▸▸▸▸ BettererRunΩ.end args:
+",
+  "▸▸▸▸▸▸▸ BettererReporterΩ.runEnd args:
+",
+  "▸▸▸▸▸▸▸ BettererReporterΩ.runEnd time: 0ms return:
+",
+  "▸▸▸▸▸▸ BettererReporterΩ.runEnd time: 0ms return:
+",
+  "▸▸▸▸▸ BettererRunΩ.end time: 0ms return:
 ",
   "▸▸▸▸ BettererRunΩ.end time: 0ms return:
 ",
@@ -488,7 +488,7 @@ Array [
 ",
   "▸▸ BettererContextΩ.run time: 0ms return:
 ",
-  "▸ serial time: 0ms return:
+  "▸ runTests time: 0ms return:
 ",
   "▸ BettererContextΩ.end args:
 ",

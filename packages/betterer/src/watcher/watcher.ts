@@ -1,4 +1,4 @@
-import { FSWatcher, watch as chokidar } from 'chokidar';
+import { FSWatcher, watch } from 'chokidar';
 import globby from 'globby';
 import minimatch from 'minimatch';
 import * as path from 'path';
@@ -23,7 +23,7 @@ export class BettererWatcherΩ implements BettererWatcher {
     const contextΩ = this._context as BettererContextΩ;
     const { cwd, resultsPath } = contextΩ.config;
 
-    const watcher = chokidar(cwd, {
+    const watcher = watch(cwd, {
       ignoreInitial: true,
       ignored: (itemPath: string) => {
         const isGitIgnored = globby.gitignore.sync();

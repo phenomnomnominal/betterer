@@ -1,8 +1,5 @@
-export declare function betterer(partialConfig?: BettererStartConfigPartial): Promise<BettererSummary>;
-export declare namespace betterer {
-    var file: typeof import("./betterer").file;
-    var watch: typeof import("./betterer").watch;
-}
+export declare function betterer(partialConfig?: BettererStartConfigPartial, filePaths?: BettererFilePaths): Promise<BettererSummary>;
+export declare function betterer(partialConfig?: BettererWatchConfigPartial): Promise<BettererWatcher>;
 
 export declare type BettererBaseConfigPartial = Partial<{
     configPaths: BettererConfigPaths | string;
@@ -31,7 +28,7 @@ export declare type BettererConfigFilters = ReadonlyArray<RegExp>;
 
 export declare type BettererConfigIgnores = ReadonlyArray<string>;
 
-export declare type BettererConfigPartial = BettererBaseConfigPartial & BettererStartConfigPartial & BettererWatchConfigPartial;
+export declare type BettererConfigPartial = BettererStartConfigPartial | BettererWatchConfigPartial;
 
 export declare type BettererConfigPaths = ReadonlyArray<string>;
 
@@ -183,6 +180,7 @@ export declare type BettererSerialiser<DeserialisedType extends BettererResultVa
 export declare type BettererStartConfigPartial = BettererBaseConfigPartial & Partial<{
     allowDiff: boolean;
     update: boolean;
+    watch: false;
 }>;
 
 export declare type BettererSummary = {
@@ -231,6 +229,7 @@ export declare type BettererTestGoal<DeserialisedType extends BettererResultValu
 
 export declare type BettererWatchConfigPartial = BettererBaseConfigPartial & Partial<{
     ignores: BettererConfigIgnores;
+    watch: true;
 }>;
 
 export declare type BettererWatcher = {
@@ -239,7 +238,3 @@ export declare type BettererWatcher = {
 };
 
 export declare type BettererWatchRunHandler = (summary: BettererSummary) => void;
-
-export declare function file(filePath: string, partialConfig?: BettererBaseConfigPartial): Promise<BettererSummary>;
-
-export declare function watch(partialConfig?: BettererWatchConfigPartial): Promise<BettererWatcher>;

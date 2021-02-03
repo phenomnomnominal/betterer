@@ -6,7 +6,7 @@ import { BettererCLIArguments } from './types';
 export async function watchΔ(cwd: string, argv: BettererCLIArguments): Promise<void> {
   const { config, results, filter, ignore, reporter, silent, tsconfig } = watchOptions(argv);
 
-  const watcher = await betterer.watch({
+  const watcher = await betterer({
     configPaths: config,
     cwd,
     filters: filter,
@@ -14,7 +14,8 @@ export async function watchΔ(cwd: string, argv: BettererCLIArguments): Promise<
     reporters: reporter,
     resultsPath: results,
     silent,
-    tsconfigPath: tsconfig
+    tsconfigPath: tsconfig,
+    watch: true
   });
 
   return new Promise((): void => {

@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 
-import { codeΔ } from './code';
+import { code } from './code';
 import { BettererLogMessage, BettererLogger, BettererLoggerCodeInfo, BettererLoggerMessages } from './types';
 
 const ERROR_BLOCK = chalk.bgRed('  ');
@@ -25,7 +25,7 @@ export class BettererConsoleLogger implements BettererLogger {
 
   public code(codeInfo: BettererLoggerCodeInfo): void {
     const { message } = codeInfo;
-    const codeFrame = codeΔ(codeInfo);
+    const codeFrame = code(codeInfo);
     const codeMessage = chalk.bgBlack.white(message.trim());
     this._log(`${NEW_LINE}${ERROR_BLOCK} ${codeMessage.split(NEW_LINE).join(`\n${ERROR_BLOCK} `)}\n\n${codeFrame}`);
   }

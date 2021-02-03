@@ -58,7 +58,7 @@ module.exports = {
     await writeFile(resultsPath, 'throw new Error()');
 
     await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
-    await expect(async () => await betterer.file(indexPath, { configPaths, resultsPath })).rejects.toThrow();
+    await expect(async () => await betterer({ configPaths, resultsPath }, [indexPath])).rejects.toThrow();
 
     expect(logs).toMatchSnapshot();
 
