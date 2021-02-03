@@ -7,7 +7,7 @@ import {
   RevealOutputChannelOn,
   ServerOptions,
   TransportKind
-} from 'vscode-languageclient';
+} from 'vscode-languageclient/node';
 
 import { EXTENSION_NAME } from '../constants';
 import { getRuntime } from './settings';

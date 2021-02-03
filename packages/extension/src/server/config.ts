@@ -1,4 +1,4 @@
-import { RemoteWorkspace } from 'vscode-languageserver';
+import { RemoteWorkspace } from 'vscode-languageserver/node';
 import { BettererBaseConfigPartial } from '@betterer/betterer';
 
 type BettererExtensionConfig = {
