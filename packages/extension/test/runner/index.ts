@@ -13,9 +13,9 @@ async function main() {
       launchArgs: [fixturesPath, '--disable-extensions']
     });
   } catch (e) {
-    process.stderr.write((e as Error).name);
-    process.stderr.write((e as Error).message);
-    process.stderr.write((e as Error).stack);
+    process.stderr.write((e as Error).name || '');
+    process.stderr.write((e as Error).message || '');
+    process.stderr.write((e as Error).stack || '');
     process.exitCode = 1;
   }
 }
