@@ -58,7 +58,7 @@ module.exports = {
     });
 
     jest.spyOn(Date, 'now').mockImplementation(() => {
-      return 1589714460851;
+      return new Date().getTime();
     });
 
     const configPaths = [paths.config];

@@ -1,20 +1,11 @@
-import { BettererRunNames, BettererRuns, BettererSummary } from './types';
+import { BettererRuns, BettererSummary } from './types';
 import { BettererRunΩ } from './run';
 
 export class BettererSummaryΩ implements BettererSummary {
-  constructor(
-    private _runs: BettererRuns,
-    private _obsolete: BettererRunNames,
-    private _result: string,
-    private _expected: string | null
-  ) {}
+  constructor(private _runs: BettererRuns, private _result: string, private _expected: string | null) {}
 
   public get runs(): BettererRuns {
     return this._runs;
-  }
-
-  public get obsolete(): BettererRunNames {
-    return this._obsolete;
   }
 
   public get result(): string {
@@ -50,6 +41,10 @@ export class BettererSummaryΩ implements BettererSummary {
       const runΩ = run as BettererRunΩ;
       return runΩ.isNew && runΩ.isRan;
     });
+  }
+
+  public get obsolete(): BettererRuns {
+    return this._runs.filter((run) => run.isObsolete);
   }
 
   public get ran(): BettererRuns {

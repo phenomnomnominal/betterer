@@ -8,6 +8,12 @@ export declare class BettererConsoleLogger implements BettererLogger {
     code(codeInfo: BettererLoggerCodeInfo): void;
 }
 
+export declare const BettererErrorLog: FC<BettererErrorLogProps>;
+
+export declare type BettererErrorLogProps = {
+    error: Error | BettererError;
+};
+
 export declare type BettererLogCode = (codeInfo: BettererLoggerCodeInfo) => void;
 
 export declare type BettererLogCodeAsync = (codeInfo: BettererLoggerCodeInfo) => Promise<void>;
@@ -56,11 +62,6 @@ export declare type BettererTaskContext = {
     run: (logger: BettererTaskLogger) => Promise<BettererTaskLog | string | void>;
 };
 
-export declare type BettererTaskError = Error & {
-    details: string;
-    message: string;
-};
-
 export declare type BettererTaskLog = [indicator: string, colour: BettererTaskColour, message: string];
 
 export declare type BettererTaskLogger = BettererLogger & {
@@ -82,6 +83,7 @@ export declare const BettererTasks: FC<BettererTasksProps>;
 export declare type BettererTasksProps = {
     name: string;
     statusMessage: (state: BettererTasksState) => string;
+    exit?: boolean;
 };
 
 export declare type BettererTasksState = {

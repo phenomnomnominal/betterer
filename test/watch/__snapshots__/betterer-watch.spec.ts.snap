@@ -2,24 +2,24 @@
 
 exports[`betterer.watch should debounce runs when multiple files change 1`] = `
 Array [
-  " ☀️  betterer  info  💬  - ",
+  " ☀️  betterer  info  💬  -",
   "Running betterer in watch mode 🎉",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 checking 2 files... 🤔
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
   checked 2 files:
 
     <project>/fixtures/test-betterer-watch-debounce/src/file.ts
@@ -27,38 +27,38 @@ checking 2 files... 🤔
 
   \\"tsquery no raw console.log\\" got checked for the first time! 🎉
 ",
-  " ☀️  betterer  info  💬  - ",
+  " ☀️  betterer  info  💬  -",
   "Stopping watch mode 👋",
 ]
 `;
 
 exports[`betterer.watch should ignore .gitignored files 1`] = `
 Array [
-  " ☀️  betterer  info  💬  - ",
+  " ☀️  betterer  info  💬  -",
   "Running betterer in watch mode 🎉",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 checking 1 files... 🤔
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
   checked 1 files:
 
     <project>/fixtures/test-betterer-watch-debounce/src/index.ts
 
   \\"tsquery no raw console.log\\" got checked for the first time! 🎉
 ",
-  " ☀️  betterer  info  💬  - ",
+  " ☀️  betterer  info  💬  -",
   "Stopping watch mode 👋",
 ]
 `;
@@ -66,38 +66,94 @@ checking 1 files... 🤔
 exports[`betterer.watch should run in watch mode 1`] = `
 Array [
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"tsquery no raw console.log\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"tsquery no raw console.log\\" got checked for the first time! 🎉",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked for the first time! 🎉",
-  " ☀️  betterer  info  💬  - ",
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms):
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+
+1 test got checked. 🤔
+1 test got checked for the first time! 🎉
+
+",
+  " ☀️  betterer  info  💬  -",
   "Running betterer in watch mode 🎉",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 checking 1 files... 🤔
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
   checked 1 files:
 
     <project>/fixtures/test-betterer-watch/src/index.ts
@@ -105,21 +161,21 @@ checking 1 files... 🤔
   \\"tsquery no raw console.log\\" got worse. 😔
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 checking 1 files... 🤔
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
   checked 1 files:
 
     <project>/fixtures/test-betterer-watch/src/index.ts
@@ -127,28 +183,28 @@ checking 1 files... 🤔
   \\"tsquery no raw console.log\\" stayed the same. 😐
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 checking 1 files... 🤔
 ",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- 
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
   checked 1 files:
 
     <project>/fixtures/test-betterer-watch/src/index.ts
 
   \\"tsquery no raw console.log\\" got better! 😍
 ",
-  " ☀️  betterer  info  💬  - ",
+  " ☀️  betterer  info  💬  -",
   "Stopping watch mode 👋",
 ]
 `;

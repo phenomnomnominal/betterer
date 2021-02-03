@@ -1,5 +1,6 @@
 import { Box, useApp } from 'ink';
 import React, { FC, useCallback, useEffect, useReducer, useState } from 'react';
+import { performance } from 'perf_hooks';
 
 import { INITIAL_STATE, reducer, BettererTasksContext, BettererTasksState } from './state';
 import { BettererTaskStatus } from './status';
@@ -8,36 +9,45 @@ import { BettererTaskLog } from './types';
 export type BettererTasksProps = {
   name: string;
   statusMessage: (state: BettererTasksState) => string;
+  exit?: boolean;
 };
 
-export const BettererTasks: FC<BettererTasksProps> = function BettererTask({ children, name, statusMessage }) {
+export const BettererTasks: FC<BettererTasksProps> = function BettererTask({
+  children,
+  exit = true,
+  name,
+  statusMessage
+}) {
   const app = useApp();
   const formatter = Intl.NumberFormat();
 
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const [time, setTime] = useState(0);
 
+  const { errors, shouldExit } = state;
+
   const updateTime = useCallback(() => {
-    setTime(Date.now() - state.startTime);
+    setTime(Math.floor(performance.now() - state.startTime));
   }, [state.startTime]);
 
   useEffect(() => {
-    if (state.shouldExit) {
+    if (shouldExit) {
       return;
     }
     const timer = setInterval(updateTime, getTimerInterval());
     updateTime();
     return () => clearInterval(timer);
-  }, [state.shouldExit]);
+  }, [shouldExit]);
 
-  const { errors, running, shouldExit } = state;
   const result = `${statusMessage(state)}`;
   let status: BettererTaskLog = ['🌟', 'whiteBright', result];
   if (errors > 0) {
     status = ['💥', 'redBright', result];
-  } else if (running === 0 && shouldExit) {
+  } else if (shouldExit) {
     status = ['🎉', 'greenBright', result];
-    setImmediate(app.exit);
+    if (exit) {
+      setImmediate(() => app.exit());
+    }
   }
 
   return (

@@ -16,117 +16,689 @@ exports[\`tsquery no raw console.log\`] = {
 exports[`betterer should not stay worse if an update is forced 2`] = `
 Array [
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"tsquery no raw console.log\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"tsquery no raw console.log\\" got checked for the first time! 🎉",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked for the first time! 🎉",
-  "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"tsquery no raw console.log\\"!",
-  " ☀️  betterer  info  💬  - ",
-  "\\"tsquery no raw console.log\\" got force updated. 🆙",
-  " ☀️  betterer  warn  🚨  - ",
-  "1 existing issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\".",
-  " ☀️  betterer  erro  🔥  - ",
-  "1 new issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\":",
-  "
-   TSQuery match
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-  1 | console.log('foo');
-> 2 | console.log('foo');
-    | ^^^^^^^^^^^",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got force updated. 🆙",
+",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"tsquery no raw console.log\\"!",
-  " ☀️  betterer  warn  🚨  - ",
-  "\\"tsquery no raw console.log\\" stayed the same. 😐",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  warn  🚨  - ",
-  "1 test stayed the same. 😐",
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms):
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+
+1 test got checked. 🤔
+1 test got checked for the first time! 🎉
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms):
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+  ▸ 1 existing issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\".
+🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+  ▸ 1 new issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\":
+🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+  ▸ TSQuery match
+🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+  ▸
+  ▸   // <project>/fixtures/test-betterer-update/src/index.ts
+  ▸   1 | console.log('foo');
+  ▸ > 2 | console.log('foo');
+  ▸     | ^^^^^^^^^^^ TSQuery match
+  ▸
+🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+  ▸
+  ▸   // <project>/fixtures/test-betterer-update/src/index.ts
+  ▸   1 | console.log('foo');
+  ▸ > 2 | console.log('foo');
+  ▸     | ^^^^^^^^^^^ TSQuery match
+  ▸
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got force updated. 🆙
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+  ▸
+  ▸   // <project>/fixtures/test-betterer-update/src/index.ts
+  ▸   1 | console.log('foo');
+  ▸ > 2 | console.log('foo');
+  ▸     | ^^^^^^^^^^^ TSQuery match
+  ▸
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got force updated. 🆙
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got force updated. 🆙
+  ▸
+  ▸   // <project>/fixtures/test-betterer-update/src/index.ts
+  ▸   1 | console.log('foo');
+  ▸ > 2 | console.log('foo');
+  ▸     | ^^^^^^^^^^^ TSQuery match
+  ▸
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got force updated. 🆙
+  ▸
+  ▸   // <project>/fixtures/test-betterer-update/src/index.ts
+  ▸   1 | console.log('foo');
+  ▸ > 2 | console.log('foo');
+  ▸     | ^^^^^^^^^^^ TSQuery match
+  ▸
+
+1 test got checked. 🤔
+1 test got force updated. 🆙
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms):
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" stayed the same. 😐
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" stayed the same. 😐
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" stayed the same. 😐
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" stayed the same. 😐
+
+1 test got checked. 🤔
+1 test stayed the same. 😐
+
+",
 ]
 `;
 
 exports[`betterer should work when a test gets worse 1`] = `
 Array [
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"should shrink\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"should shrink\\" got checked for the first time! 🎉",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"should grow\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"should grow\\" got checked for the first time! 🎉",
-  " ☀️  betterer  info  💬  - ",
-  "2 tests got checked. 🤔",
-  " ☀️  betterer  info  💬  - ",
-  "2 tests got checked for the first time! 🎉",
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+",
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"should shrink\\"!",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"should shrink\\" got worse. 😔",
-  " ☀️  betterer  erro  🔥  - ",
-  "- Expected
-+ Result
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-- 0
-+ 1",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"should grow\\"!",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"should grow\\" got worse. 😔",
-  " ☀️  betterer  erro  🔥  - ",
-  "- Expected
-+ Result
+🌟 Betterer (0ms):
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-- 2
-+ 1",
-  " ☀️  betterer  info  💬  - ",
-  "2 tests got checked. 🤔",
-  " ☀️  betterer  erro  🔥  - ",
-  "2 tests got worse. 😔",
-  " ☀️  betterer  erro  🔥  - ",
-  "Run \`betterer --update\` to force an update of the results file. 🆙",
+🌟 Betterer (0ms): 2 tests running...
+🤔 should shrink: running \\"should shrink\\"!
+🤔 should grow: running \\"should grow\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 2 tests running...
+✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
+🤔 should grow: running \\"should grow\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running... 1 test done!
+✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
+🤔 should grow: running \\"should grow\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running... 1 test done!
+✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
+🤔 should grow: running \\"should grow\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running... 1 test done!
+✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 2 tests done!
+✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 2 tests done!
+✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 2 tests done!
+✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+
+2 tests got checked. 🤔
+2 tests got checked for the first time! 🎉
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms):
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 2 tests running...
+🤔 should shrink: running \\"should shrink\\"!
+🤔 should grow: running \\"should grow\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 2 tests running...
+  ▸ - Expected
+  ▸ + Result
+  ▸
+  ▸ - 0
+  ▸ + 1
+🤔 should shrink: running \\"should shrink\\"!
+🤔 should grow: running \\"should grow\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 2 tests running...
+  ▸ - Expected
+  ▸ + Result
+  ▸
+  ▸ - 0
+  ▸ + 1
+🤔 should shrink: running \\"should shrink\\"!
+  ▸ - Expected
+  ▸ + Result
+  ▸
+  ▸ - 2
+  ▸ + 1
+🤔 should grow: running \\"should grow\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 2 tests running...
+  ▸ - Expected
+  ▸ + Result
+  ▸
+  ▸ - 0
+  ▸ + 1
+🔥 should shrink: \\"should shrink\\" got worse. 😔
+  ▸ - Expected
+  ▸ + Result
+  ▸
+  ▸ - 2
+  ▸ + 1
+🤔 should grow: running \\"should grow\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 2 tests running...
+  ▸ - Expected
+  ▸ + Result
+  ▸
+  ▸ - 0
+  ▸ + 1
+
+Error: \\"should shrink\\" got worse. 😔
+🔥 should shrink: \\"should shrink\\" got worse. 😔
+  ▸ - Expected
+  ▸ + Result
+  ▸
+  ▸ - 2
+  ▸ + 1
+🤔 should grow: running \\"should grow\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+💥 Betterer (0ms): 1 test running... 1 test done! 1 test errored!
+  ▸ - Expected
+  ▸ + Result
+  ▸
+  ▸ - 0
+  ▸ + 1
+
+Error: \\"should shrink\\" got worse. 😔
+🔥 should shrink: \\"should shrink\\" got worse. 😔
+  ▸ - Expected
+  ▸ + Result
+  ▸
+  ▸ - 2
+  ▸ + 1
+🤔 should grow: running \\"should grow\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+💥 Betterer (0ms): 1 test running... 1 test done! 1 test errored!
+🔥 should shrink: \\"should shrink\\" got worse. 😔
+  ▸ - Expected
+  ▸ + Result
+  ▸
+  ▸ - 0
+  ▸ + 1
+
+Error: \\"should shrink\\" got worse. 😔
+  ▸ - Expected
+  ▸ + Result
+  ▸
+  ▸ - 2
+  ▸ + 1
+🤔 should grow: running \\"should grow\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+💥 Betterer (0ms): 1 test running... 1 test done! 1 test errored!
+🔥 should shrink: \\"should shrink\\" got worse. 😔
+  ▸ - Expected
+  ▸ + Result
+  ▸
+  ▸ - 0
+  ▸ + 1
+
+Error: \\"should shrink\\" got worse. 😔
+  ▸ - Expected
+  ▸ + Result
+  ▸
+  ▸ - 2
+  ▸ + 1
+🔥 should grow: \\"should grow\\" got worse. 😔
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+💥 Betterer (0ms): 1 test running... 1 test done! 1 test errored!
+🔥 should shrink: \\"should shrink\\" got worse. 😔
+  ▸ - Expected
+  ▸ + Result
+  ▸
+  ▸ - 0
+  ▸ + 1
+
+Error: \\"should shrink\\" got worse. 😔
+  ▸ - Expected
+  ▸ + Result
+  ▸
+  ▸ - 2
+  ▸ + 1
+
+Error: \\"should grow\\" got worse. 😔
+🔥 should grow: \\"should grow\\" got worse. 😔
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+💥 Betterer (0ms): 2 tests done! 2 tests errored!
+🔥 should shrink: \\"should shrink\\" got worse. 😔
+  ▸ - Expected
+  ▸ + Result
+  ▸
+  ▸ - 0
+  ▸ + 1
+
+Error: \\"should shrink\\" got worse. 😔
+  ▸ - Expected
+  ▸ + Result
+  ▸
+  ▸ - 2
+  ▸ + 1
+
+Error: \\"should grow\\" got worse. 😔
+🔥 should grow: \\"should grow\\" got worse. 😔
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+💥 Betterer (0ms): 2 tests done! 2 tests errored!
+🔥 should shrink: \\"should shrink\\" got worse. 😔
+  ▸ - Expected
+  ▸ + Result
+  ▸
+  ▸ - 0
+  ▸ + 1
+
+Error: \\"should shrink\\" got worse. 😔
+🔥 should grow: \\"should grow\\" got worse. 😔
+  ▸ - Expected
+  ▸ + Result
+  ▸
+  ▸ - 2
+  ▸ + 1
+
+Error: \\"should grow\\" got worse. 😔
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+💥 Betterer (0ms): 2 tests done! 2 tests errored!
+🔥 should shrink: \\"should shrink\\" got worse. 😔
+  ▸ - Expected
+  ▸ + Result
+  ▸
+  ▸ - 0
+  ▸ + 1
+
+Error: \\"should shrink\\" got worse. 😔
+🔥 should grow: \\"should grow\\" got worse. 😔
+  ▸ - Expected
+  ▸ + Result
+  ▸
+  ▸ - 2
+  ▸ + 1
+
+Error: \\"should grow\\" got worse. 😔
+
+2 tests got checked. 🤔
+2 tests got worse. 😔
+
+Run \`betterer --update\` to force an update of the results file. 🆙
+
+",
 ]
 `;
 

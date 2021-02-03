@@ -2,14 +2,14 @@ import { BettererError, isBettererError } from '@betterer/errors';
 import { Box, Text } from 'ink';
 import React, { FC } from 'react';
 
-export type BettererTaskErrorProps = {
+export type BettererErrorLogProps = {
   error: Error | BettererError;
 };
 
 let errorCount = 0;
 let detailCount = 0;
 
-export const BettererTaskError: FC<BettererTaskErrorProps> = function BettererTaskError({ error }) {
+export const BettererErrorLog: FC<BettererErrorLogProps> = function BettererErrorLog({ error }) {
   let errors: Array<Error | BettererError> = [];
   let details: Array<string> = [];
   if (isBettererError(error)) {
@@ -24,8 +24,8 @@ export const BettererTaskError: FC<BettererTaskErrorProps> = function BettererTa
           <Text>{error.message}</Text>
         </Box>
         {error.stack && (
-          <Box paddingLeft={2} paddingTop={1}>
-            <Text>{error.stack}</Text>
+          <Box paddingLeft={2}>
+            <Text>{processStack(error.stack)}</Text>
           </Box>
         )}
         {details.map((detail) => (
@@ -35,7 +35,7 @@ export const BettererTaskError: FC<BettererTaskErrorProps> = function BettererTa
         ))}
       </Box>
       {errors.map((error) => (
-        <BettererTaskError key={errorCount++} error={error} />
+        <BettererErrorLog key={errorCount++} error={error} />
       ))}
     </>
   );
@@ -43,4 +43,9 @@ export const BettererTaskError: FC<BettererTaskErrorProps> = function BettererTa
 
 function isError(value: unknown): value is Error | BettererError {
   return (value as Error).message != null && (value as Error).stack !== null;
+}
+
+function processStack(stack: string): string {
+  const [, ...stackLines] = stack.split('\n');
+  return stackLines.slice(0, 10).join('\n');
 }

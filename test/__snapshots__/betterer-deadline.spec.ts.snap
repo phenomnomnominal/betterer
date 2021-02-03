@@ -3,20 +3,76 @@
 exports[`betterer should do nothing when a test is not past its deadline 1`] = `
 Array [
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"should grow\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"should grow\\" got checked for the first time! 🎉",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked for the first time! 🎉",
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms):
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+🤔 should grow: running \\"should grow\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+
+1 test got checked. 🤔
+1 test got checked for the first time! 🎉
+
+",
 ]
 `;
 
@@ -31,24 +87,82 @@ exports[\`should grow\`] = {
 exports[`betterer should mark a test as expired when is is past its deadline 1`] = `
 Array [
   "
-   / | /     _         _   _                     
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __ 
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"should grow\\" has passed its deadline. ☠️",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"should grow\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"should grow\\" got checked for the first time! 🎉",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"should grow\\" has passed its deadline. ☠️",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked for the first time! 🎉",
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms):
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+  ▸ \\"should grow\\" has passed its deadline. 👻
+🤔 should grow: running \\"should grow\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+  ▸ \\"should grow\\" has passed its deadline. 👻
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+  ▸ \\"should grow\\" has passed its deadline. 👻
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+  ▸ \\"should grow\\" has passed its deadline. 👻
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+  ▸ \\"should grow\\" has passed its deadline. 👻
+
+1 test got checked. 🤔
+\\"should grow\\" has passed its deadline. 👻)
+1 test got checked for the first time! 🎉
+
+",
 ]
 `;
 

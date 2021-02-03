@@ -6,7 +6,7 @@ export declare type Fixture = FixtureFileSystem & {
     runNames(runs: BettererRuns): BettererRunNames;
 };
 
-export declare type FixtureFactory = (fixtureName: string, files: FixtureFileSystemFiles) => Promise<Fixture>;
+export declare type FixtureFactory = (fixtureName: string, files: FixtureFileSystemFiles, options?: FixtureOptions) => Promise<Fixture>;
 
 export declare type FixtureFileSystem = {
     paths: Paths;
@@ -19,6 +19,10 @@ export declare type FixtureFileSystem = {
 };
 
 export declare type FixtureFileSystemFiles = Record<string, string>;
+
+export declare type FixtureOptions = {
+    logFilters?: Array<RegExp>;
+};
 
 export declare type Paths = {
     config: string;

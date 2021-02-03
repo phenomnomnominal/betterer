@@ -31,11 +31,12 @@ async function runTest(run: BettererRun, update: boolean): Promise<void> {
   const runΩ = run as BettererRunΩ;
   const { test } = runΩ;
 
+  await runΩ.start();
+
   if (run.isSkipped) {
     return;
   }
 
-  await runΩ.start();
   let result: BettererResultΩ;
   try {
     result = new BettererResultΩ(await test.test(runΩ));

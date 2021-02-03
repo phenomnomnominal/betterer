@@ -1,5 +1,3 @@
-export declare function getTestsΔ(count: number): string;
-
 export declare function quoteΔ(str: string): string;
 
 export declare const reporter: import("@betterer/betterer").BettererReporter;

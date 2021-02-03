@@ -1,4 +1,5 @@
 import { createContext, Dispatch } from 'react';
+import { performance } from 'perf_hooks';
 
 export type BettererTasksState = {
   running: number;
@@ -25,7 +26,7 @@ export const INITIAL_STATE: BettererTasksState = {
   running: 0,
   done: 0,
   errors: 0,
-  startTime: Date.now(),
+  startTime: performance.now(),
   shouldExit: false
 };
 
@@ -39,21 +40,19 @@ export function reducer(state: BettererTasksState, action: BettererTasksAction):
         running: state.running + 1
       };
     case 'stop': {
-      const newState = {
+      return getShouldExit({
         ...state,
         running: state.running - 1,
         done: state.done + 1
-      };
-      return getShouldExit(newState);
+      });
     }
     case 'error': {
-      const newState = {
+      return getShouldExit({
         ...state,
         running: state.running - 1,
         done: state.done + 1,
         errors: state.errors + 1
-      };
-      return getShouldExit(newState);
+      });
     }
     default:
       return state;
