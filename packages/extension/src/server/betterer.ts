@@ -1,5 +1,5 @@
 import { betterer } from '@betterer/betterer';
-import { Files } from 'vscode-languageserver';
+import { Files } from 'vscode-languageserver/node';
 
 import { nodeRequire } from '../utils';
 import { trace } from './trace';

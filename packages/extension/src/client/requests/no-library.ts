@@ -1,5 +1,5 @@
 import { ExtensionContext, Uri, workspace } from 'vscode';
-import { LanguageClient, RequestType } from 'vscode-languageclient';
+import { LanguageClient, RequestType } from 'vscode-languageclient/node';
 
 import {
   BETTERER_LIBRARY_NOT_INSTALLED,
@@ -10,7 +10,7 @@ import { info } from '../logger';
 import { BettererRequestParams } from './types';
 import { getNoLibraryState } from './state';
 
-export const BettererNoLibraryRequest = new RequestType<BettererRequestParams, void, void, void>('betterer/noLibrary');
+export const BettererNoLibraryRequest = new RequestType<BettererRequestParams, void, void>('betterer/noLibrary');
 
 export async function noLibrary(
   client: LanguageClient,

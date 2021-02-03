@@ -6,7 +6,7 @@ import {
   TextDocumentSyncKind,
   TextDocuments,
   createConnection
-} from 'vscode-languageserver';
+} from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { info, initConsole } from './console';

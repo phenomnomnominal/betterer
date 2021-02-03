@@ -1,10 +1,10 @@
-import { IConnection, NotificationType } from 'vscode-languageserver';
+import { Connection, NotificationType } from 'vscode-languageserver/node';
 
 import { isString } from '../utils';
 
-const BettererExitCalled = new NotificationType<[number, string], void>('betterer/exitCalled');
+const BettererExitCalled = new NotificationType<[number, string]>('betterer/exitCalled');
 
-export function createErrorHandler(connection: IConnection): void {
+export function createErrorHandler(connection: Connection): void {
   const nodeExit = process.exit;
   process.exit = ((code?: number): void => {
     const stack = new Error('stack');

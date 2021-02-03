@@ -4,7 +4,7 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { BettererValidationNotification, BettererVersionProvider } from './types';
 
-export const BettererValidateNotification = new NotificationType<TextDocument, void>('betterer/validate');
+export const BettererValidateNotification = new NotificationType<TextDocument>('betterer/validate');
 
 export class BettererValidationQueue {
   private _queue: Array<BettererValidationNotification> = [];
@@ -26,7 +26,7 @@ export class BettererValidationQueue {
   }
 
   public onNotification(
-    type: NotificationType<TextDocument, void>,
+    type: NotificationType<TextDocument>,
     handler: NotificationHandler<TextDocument>,
     versionProvider: (params: TextDocument) => number
   ): void {

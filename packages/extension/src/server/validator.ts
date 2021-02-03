@@ -5,7 +5,7 @@ import {
   BettererFileTestResult
 } from '@betterer/betterer';
 import assert from 'assert';
-import { Diagnostic, DiagnosticSeverity, IConnection, Position, TextDocuments } from 'vscode-languageserver';
+import { Diagnostic, DiagnosticSeverity, Connection, Position, TextDocuments } from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { URI } from 'vscode-uri';
 
@@ -19,7 +19,7 @@ import { BettererInvalidConfigRequest, BettererNoLibraryRequest, isNoConfigError
 import { BettererStatusNotification } from './status';
 
 export class BettererValidator {
-  constructor(private _connection: IConnection, private _documents: TextDocuments<TextDocument>) {}
+  constructor(private _connection: Connection, private _documents: TextDocuments<TextDocument>) {}
 
   public async validate(document: TextDocument): Promise<void> {
     const { workspace } = this._connection;
@@ -185,7 +185,7 @@ function getFilePath(documentOrUri: URI | TextDocument | string): string | null 
 
 const LOADING_DELAY_TIME = 200;
 const MINIMUM_LOADING_TIME = 1000;
-function load(connection: IConnection): () => Promise<void> {
+function load(connection: Connection): () => Promise<void> {
   let isLoading = false;
   const loading = setTimeout(() => {
     isLoading = true;
