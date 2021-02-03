@@ -27,4 +27,12 @@ export type Fixture = FixtureFileSystem & {
 
 export type FixtureLogs = ReadonlyArray<string>;
 
-export type FixtureFactory = (fixtureName: string, files: FixtureFileSystemFiles) => Promise<Fixture>;
+export type FixtureOptions = {
+  logFilters?: Array<RegExp>;
+};
+
+export type FixtureFactory = (
+  fixtureName: string,
+  files: FixtureFileSystemFiles,
+  options?: FixtureOptions
+) => Promise<Fixture>;

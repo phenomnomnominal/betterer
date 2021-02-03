@@ -6,14 +6,20 @@ const ARGV = ['node', './bin/betterer'];
 
 describe('betterer cli', () => {
   it('should initialise betterer in a repo', async () => {
-    const { logs, paths, readFile, cleanup, resolve } = await createFixture('test-betterer-init', {
-      'package.json': `
+    const { logs, paths, readFile, cleanup, resolve } = await createFixture(
+      'test-betterer-init',
+      {
+        'package.json': `
       {
         "name": "betterer-test-betterer-init",
         "version": "0.0.1"
       }
       `
-    });
+      },
+      {
+        logFilters: [/🌟 Initialising Betterer/]
+      }
+    );
 
     const configPath = `${paths.config}.ts`;
     const fixturePath = paths.cwd;
@@ -36,14 +42,20 @@ describe('betterer cli', () => {
   });
 
   it('should work multiple times', async () => {
-    const { logs, paths, cleanup } = await createFixture('test-betterer-init-multiple', {
-      'package.json': `
+    const { logs, paths, cleanup } = await createFixture(
+      'test-betterer-init-multiple',
+      {
+        'package.json': `
       {
         "name": "betterer-test-betterer-init-multiple",
         "version": "0.0.1"
       }
       `
-    });
+      },
+      {
+        logFilters: [/🌟 Initialising Betterer/]
+      }
+    );
 
     const fixturePath = paths.cwd;
 
