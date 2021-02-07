@@ -3,9 +3,9 @@ import assert from 'assert';
 
 import { BettererReporterΩ } from '../reporters';
 import { BettererResult } from '../results';
+import { BettererFilePaths } from '../runner';
 import { BettererDiff, BettererTestConfig } from '../test';
 import { Defer, defer } from '../utils';
-import { BettererFilePaths } from '../watcher';
 import { BettererRun } from './types';
 
 enum BettererRunStatus {

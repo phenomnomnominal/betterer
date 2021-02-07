@@ -2,8 +2,8 @@ import stack from 'callsite';
 import globby from 'globby';
 import * as path from 'path';
 
+import { BettererFilePaths } from '../../runner';
 import { flatten, normalisedPath } from '../../utils';
-import { BettererFilePaths } from '../../watcher';
 import { BettererFileGlobs, BettererFilePatterns } from './types';
 
 export class BettererFileResolver {
@@ -15,7 +15,7 @@ export class BettererFileResolver {
     // In DEBUG mode there is a Proxy that wraps each function call.
     // That means that each function call results in two entries in
     // the call stack, so we adjust here:
-    if (process.env.DEBUG) {
+    if (process.env.BETTERER_DEBUG) {
       depth = depth * 2;
     }
 

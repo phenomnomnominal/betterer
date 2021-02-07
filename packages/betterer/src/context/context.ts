@@ -5,6 +5,7 @@ import { BettererConfig } from '../config';
 import { BettererReporterΩ } from '../reporters';
 import { requireUncached } from '../require';
 import { BettererResults, BettererResultΩ } from '../results';
+import { BettererFilePaths } from '../runner';
 import { defer, Defer } from '../utils';
 import {
   BettererTest,
@@ -15,7 +16,6 @@ import {
   isBettererFileTest,
   isBettererTest
 } from '../test';
-import { BettererFilePaths } from '../watcher';
 import { BettererRunΩ } from './run';
 import { BettererSummaryΩ } from './summary';
 import { BettererContext, BettererRunNames, BettererRuns, BettererSummary } from './types';

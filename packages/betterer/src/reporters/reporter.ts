@@ -2,7 +2,7 @@ import { BettererError } from '@betterer/errors';
 
 import { BettererConfigPartial } from '../config';
 import { BettererContext, BettererRun, BettererRuns, BettererSummary } from '../context';
-import { BettererFilePaths } from '../watcher';
+import { BettererFilePaths } from '../runner';
 import { BettererReporter } from './types';
 
 export class BettererReporterΩ implements BettererReporter {

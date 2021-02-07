@@ -1,5 +1,8 @@
-export declare function betterer(partialConfig?: BettererStartConfigPartial, filePaths?: BettererFilePaths): Promise<BettererSummary>;
-export declare function betterer(partialConfig?: BettererWatchConfigPartial): Promise<BettererWatcher>;
+export declare function betterer(partialConfig?: BettererStartConfigPartial): Promise<BettererSummary>;
+export declare namespace betterer {
+    var watch: typeof import("./betterer").watch;
+    var runner: typeof import("./betterer").runner;
+}
 
 export declare type BettererBaseConfigPartial = Partial<{
     configPaths: BettererConfigPaths | string;
@@ -166,7 +169,14 @@ export declare type BettererRun = {
     readonly isWorse: boolean;
 };
 
+export declare type BettererRunHandler = (summary: BettererSummary) => void;
+
 export declare type BettererRunNames = Array<string>;
+
+export declare type BettererRunner = {
+    queue(filePaths?: string | BettererFilePaths, handler?: BettererRunHandler): Promise<void>;
+    stop(): Promise<BettererSummary>;
+};
 
 export declare type BettererRuns = ReadonlyArray<BettererRun>;
 
@@ -232,9 +242,6 @@ export declare type BettererWatchConfigPartial = BettererBaseConfigPartial & Par
     watch: true;
 }>;
 
-export declare type BettererWatcher = {
-    stop(): Promise<void>;
-    onRun(handler: BettererWatchRunHandler): void;
-};
+export declare function runner(partialConfig?: BettererBaseConfigPartial): Promise<BettererRunner>;
 
-export declare type BettererWatchRunHandler = (summary: BettererSummary) => void;
+export declare function watch(partialConfig?: BettererWatchConfigPartial): Promise<BettererRunner>;

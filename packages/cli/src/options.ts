@@ -52,11 +52,11 @@ function setEnv<T extends BettererCLIEnvConfig>(argv: BettererCLIArguments): T {
 
   const parsed = (commander.parse(argv) as unknown) as T;
   if (parsed.debug) {
-    process.env.DEBUG = '1';
-    process.env.DEBUG_TIME = '1';
+    process.env.BETTERER_DEBUG = '1';
+    process.env.BETTERER_BETTERER_DEBUG_TIME = '1';
     process.env.DEBUG_VALUES = '1';
     if (parsed.debugLog) {
-      process.env.DEBUG_LOG = parsed.debugLog;
+      process.env.BETTERER_DEBUG_LOG = parsed.debugLog;
     }
   }
   return parsed;
@@ -99,7 +99,7 @@ function reportersOption(): void {
 }
 
 function silentOption(): void {
-  commander.option('-s, --silent', 'Disable all logging');
+  commander.option('-s, --silent', 'Disable all default reporters. Custom reporters still work normally.');
 }
 
 function updateOption(): void {

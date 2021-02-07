@@ -1,75 +1,47 @@
 import { debug } from '@phenomnomnominal/debug';
 
-import { BettererConfigPartial, BettererStartConfigPartial, BettererWatchConfigPartial, createConfig } from './config';
-import { BettererContextΩ, BettererSummary } from './context';
-import { registerExtensions } from './register';
-import { DEFAULT_REPORTER, WATCH_REPORTER, loadReporters } from './reporters';
-import { runTests } from './runner';
-import { BettererFilePaths, BettererWatcher, BettererWatcherΩ } from './watcher';
+import { BettererBaseConfigPartial, BettererStartConfigPartial, BettererWatchConfigPartial } from './config';
+import { BettererSummary } from './context';
+import { BettererRunner, BettererRunnerΩ, BettererWatcherΩ } from './runner';
 
-export function betterer(
-  partialConfig?: BettererStartConfigPartial,
-  filePaths?: BettererFilePaths
-): Promise<BettererSummary>;
-export function betterer(partialConfig?: BettererWatchConfigPartial): Promise<BettererWatcher>;
-export function betterer(
-  partialConfig: BettererConfigPartial = {},
-  filePaths: BettererFilePaths = []
-): Promise<BettererSummary | BettererWatcher> {
-  if (partialConfig.watch) {
-    return runContext(async (context) => {
-      const watcher = new BettererWatcherΩ(context, async (filePaths) => {
-        return runTests(context, filePaths);
-      });
-      await watcher.setup();
-      return watcher;
-    }, partialConfig);
-  }
-  return runContext(async (context) => {
-    const summary = await runTests(context, filePaths);
-    await context.end();
-    await context.save();
-    return summary;
-  }, partialConfig);
+export async function betterer(partialConfig: BettererStartConfigPartial = {}): Promise<BettererSummary> {
+  initDebug();
+  const runner = new BettererRunnerΩ();
+  await runner.start(partialConfig);
+  await runner.queue();
+  return runner.stop();
 }
 
-async function runContext<RunResult, RunFunction extends (context: BettererContextΩ) => Promise<RunResult>>(
-  run: RunFunction,
-  partialConfig: BettererConfigPartial = {}
-): Promise<RunResult> {
-  debug({
-    header: 'betterer',
-    include: [/@betterer\//],
-    ignore: [require.resolve('./utils')],
-    enabled: !!process.env.DEBUG,
-    time: !!process.env.DEBUG_TIME,
-    values: !!process.env.DEBUG_VALUES,
-    logPath: process.env.DEBUG_LOG
-  });
+export async function runner(partialConfig?: BettererBaseConfigPartial): Promise<BettererRunner> {
+  initDebug();
+  const runner = new BettererRunnerΩ();
+  await runner.start(partialConfig);
+  return runner;
+}
+betterer.runner = runner;
 
-  let config = null;
-  const reporterName = partialConfig.watch ? WATCH_REPORTER : DEFAULT_REPORTER;
-  let reporter = loadReporters([reporterName]);
-  try {
-    config = await createConfig(partialConfig);
-    registerExtensions(config);
-    if (config.silent) {
-      reporter = loadReporters([]);
-    } else if (config.reporters.length > 0) {
-      reporter = loadReporters(config.reporters);
-    }
-  } catch (error) {
-    await reporter.configError(partialConfig, error);
-    throw error;
-  }
+export async function watch(partialConfig: BettererWatchConfigPartial = {}): Promise<BettererRunner> {
+  initDebug();
+  partialConfig.watch = true;
+  const runner = new BettererRunnerΩ();
+  const context = await runner.start(partialConfig);
+  const watcher = new BettererWatcherΩ(context, runner);
+  await watcher.setup();
+  return watcher;
+}
+betterer.watch = watch;
 
-  const context = new BettererContextΩ(config, reporter);
-
-  try {
-    await context.start();
-    return await run(context);
-  } catch (error) {
-    await context.error(error);
-    throw error;
+function initDebug() {
+  const enabled = !!process.env.BETTERER_DEBUG;
+  if (enabled) {
+    debug({
+      header: 'betterer',
+      include: [/@betterer\//],
+      ignore: [require.resolve('./utils')],
+      enabled,
+      time: !!process.env.BETTERER_DEBUG_TIME,
+      values: !!process.env.BETTERER_DEBUG_VALUES,
+      logPath: process.env.BETTERER_DEBUG_LOG
+    });
   }
 }

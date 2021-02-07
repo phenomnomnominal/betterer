@@ -1,10 +1,12 @@
 import { betterer } from '@betterer/betterer';
+import { BettererSummary } from '@betterer/betterer/src';
+import assert from 'assert';
 
 import { createFixture } from '../fixture';
 
 describe('betterer.watch', () => {
   it('should run in watch mode', async () => {
-    const { logs, paths, resolve, cleanup, writeFile, waitForRun } = await createFixture('test-betterer-watch', {
+    const { logs, paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-watch', {
       '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 
@@ -39,30 +41,45 @@ export default {
 
     await betterer({ configPaths, resultsPath, cwd });
 
-    const watcher = await betterer({ configPaths, resultsPath, cwd, watch: true });
+    const summaryDefers = [defer<BettererSummary>(), defer<BettererSummary>(), defer<BettererSummary>()];
+    const [worse, same, better] = summaryDefers;
+
+    const runner = await betterer.watch({
+      configPaths,
+      resultsPath,
+      cwd,
+      reporters: [
+        {
+          contextEnd(_, summary) {
+            const summaryDefer = summaryDefers.shift();
+            summaryDefer?.resolve(summary);
+          }
+        }
+      ]
+    });
 
     await writeFile(indexPath, `console.log('foo');\nconsole.log('foo');console.log('foo');`);
 
-    const worseSummary = await waitForRun(watcher);
+    const worseSummary = await worse.promise;
     const [worseRun] = worseSummary.runs;
 
     expect(worseRun.isWorse).toBe(true);
 
     await writeFile(indexPath, `console.log('foo');console.log('foo');`);
 
-    const sameSummary = await waitForRun(watcher);
+    const sameSummary = await same.promise;
     const [sameRun] = sameSummary.runs;
 
     expect(sameRun.isSame).toBe(true);
 
     await writeFile(indexPath, `console.log('bar');`);
 
-    const betterSummary = await waitForRun(watcher);
+    const betterSummary = await better.promise;
     const [betterRun] = betterSummary.runs;
 
     expect(betterRun.isBetter).toBe(true);
 
-    await watcher.stop();
+    await runner.stop();
 
     expect(logs).toMatchSnapshot();
 
@@ -105,13 +122,13 @@ export default {
     const filePath = resolve('./src/file.ts');
     const { cwd } = paths;
 
-    const watcher = await betterer({ configPaths, resultsPath, cwd, watch: true });
+    const runner = await betterer.watch({ configPaths, resultsPath, cwd });
 
     await writeFile(indexPath, `console.log('foo');`);
     await writeFile(filePath, `console.log('foo');\nconsole.log('foo');`);
-    const summary = await waitForRun(watcher);
+    const summary = await waitForRun(runner);
 
-    await watcher.stop();
+    await runner.stop();
 
     expect(summary.runs).toHaveLength(1);
 
@@ -163,16 +180,16 @@ ignored.ts
     const nestedPath = resolve('./src/nested/ignored.ts');
     const { cwd } = paths;
 
-    const watcher = await betterer({ configPaths, resultsPath, cwd, watch: true });
+    const runner = await betterer.watch({ configPaths, resultsPath, cwd });
 
     await writeFile(indexPath, `console.log('foo');`);
     await writeFile(ignoredPath, `console.log('foo');`);
     await writeFile(nestedPath, `console.log('foo');`);
 
-    const summary = await waitForRun(watcher);
+    const summary = await waitForRun(runner);
     const [run] = summary.runs;
 
-    await watcher.stop();
+    await runner.stop();
 
     expect(run.filePaths).toHaveLength(1);
 
@@ -181,3 +198,23 @@ ignored.ts
     await cleanup();
   });
 });
+
+type Resolve<T> = (value: T) => void;
+type Reject = (error: Error) => void;
+type Defer<T> = {
+  promise: Promise<T>;
+  resolve: Resolve<T>;
+  reject: Reject;
+};
+
+function defer<T>(): Defer<T> {
+  let resolve: Resolve<T> | null = null;
+  let reject: Reject | null = null;
+  const promise = new Promise<T>((res, rej) => {
+    resolve = res;
+    reject = rej;
+  });
+  assert(resolve);
+  assert(reject);
+  return { promise, resolve, reject };
+}

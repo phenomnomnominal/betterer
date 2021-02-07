@@ -37,14 +37,14 @@
         "betterer.alwaysShowStatus": {
           "type": "boolean",
           "default": true,
-          "description": "Always show the betterer status bar item.",
+          "description": "Always show the Betterer status bar item.",
           "scope": "window"
         },
         "betterer.enable": {
           "scope": "resource",
           "type": "boolean",
           "default": true,
-          "description": "Controls whether betterer is enabled or not."
+          "description": "Controls whether Betterer is enabled or not."
         },
         "betterer.configPath": {
           "scope": "resource",
@@ -56,13 +56,25 @@
           "scope": "resource",
           "type": "string",
           "default": "./.betterer.results",
-          "description": "path to test results file relative to working directory"
+          "description": "Path to test results file relative to working directory"
         },
         "betterer.tsconfigPath": {
           "scope": "resource",
           "type": "string",
           "default": "",
           "description": "Path to TypeScript config file relative to working directory"
+        },
+        "betterer.debug": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": false,
+          "description": "Controls whether Betterer debug logging is enabled or not. Requires restart."
+        },
+        "betterer.debugLogPath": {
+          "scope": "resource",
+          "type": "string",
+          "default": "./.betterer-debug.log",
+          "description": "Path to Betterer debug log output relative to working directory. Requires restart."
         },
         "betterer.filters": {
           "scope": "resource",
