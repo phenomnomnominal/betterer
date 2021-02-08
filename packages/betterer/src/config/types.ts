@@ -1,8 +1,10 @@
-import { BettererReporterNames } from '../reporters';
+import { BettererReporter } from '../reporters';
 
 export type BettererConfigPaths = ReadonlyArray<string>;
 export type BettererConfigFilters = ReadonlyArray<RegExp>;
 export type BettererConfigIgnores = ReadonlyArray<string>;
+export type BettererConfigReporter = string | BettererReporter;
+export type BettererConfigReporters = ReadonlyArray<BettererConfigReporter>;
 
 export type BettererConfig = {
   allowDiff: boolean;
@@ -10,7 +12,7 @@ export type BettererConfig = {
   cwd: string;
   filters: BettererConfigFilters;
   ignores: BettererConfigIgnores;
-  reporters: BettererReporterNames;
+  reporters: BettererConfigReporters;
   resultsPath: string;
   silent: boolean;
   tsconfigPath: string | null;
@@ -21,7 +23,7 @@ export type BettererBaseConfigPartial = Partial<{
   configPaths: BettererConfigPaths | string;
   cwd: string;
   filters: ReadonlyArray<string | RegExp> | string;
-  reporters: BettererReporterNames;
+  reporters: BettererConfigReporters;
   resultsPath: string;
   silent: boolean;
   tsconfigPath: string;

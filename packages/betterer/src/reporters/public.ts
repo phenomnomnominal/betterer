@@ -1,1 +1,1 @@
-export { BettererReporter, BettererReporterNames } from './types';
+export { BettererReporter } from './types';

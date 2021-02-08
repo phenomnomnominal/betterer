@@ -5,7 +5,7 @@ import * as path from 'path';
 
 import { BettererContext, BettererContextΩ, BettererSummary } from '../context';
 import { normalisedPath } from '../utils';
-import { BettererWatchChangeHandler, BettererWatchRunHandler, BettererWatcher } from './types';
+import { BettererWatchChangeHandler, BettererWatcher } from './types';
 
 const EMIT_EVENTS = ['add', 'change'];
 const DEBOUNCE_TIME = 200;
@@ -13,7 +13,6 @@ const GIT_DIRECTORY = '.git/**';
 
 export class BettererWatcherΩ implements BettererWatcher {
   private _files: Array<string> = [];
-  private _handlers: Array<BettererWatchRunHandler> = [];
   private _running: Promise<BettererSummary> | null = null;
   private _watcher: FSWatcher | null = null;
 
@@ -70,10 +69,6 @@ export class BettererWatcherΩ implements BettererWatcher {
     }
   }
 
-  public onRun(handler: BettererWatchRunHandler): void {
-    this._handlers.push(handler);
-  }
-
   private _handleChange(changed: Array<string>): void {
     this._running = this._onChange(changed);
     void this._handleRun(this._running);
@@ -81,7 +76,6 @@ export class BettererWatcherΩ implements BettererWatcher {
 
   private async _handleRun(running: Promise<BettererSummary>): Promise<BettererSummary> {
     const summary = await running;
-    this._handlers.forEach((handler) => handler(summary));
     return summary;
   }
 }

@@ -1,10 +1,11 @@
-import { betterer } from '@betterer/betterer';
+import { betterer, BettererSummary } from '@betterer/betterer';
+import assert from 'assert';
 
 import { createFixture } from '../fixture';
 
 describe('betterer.watch', () => {
   it('should run in watch mode', async () => {
-    const { logs, paths, resolve, cleanup, writeFile, waitForRun } = await createFixture('test-betterer-watch', {
+    const { logs, paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-watch', {
       '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 
@@ -39,25 +40,41 @@ export default {
 
     await betterer({ configPaths, resultsPath, cwd });
 
-    const watcher = await betterer.watch({ configPaths, resultsPath, cwd });
+    const summaryDefers = [defer<BettererSummary>(), defer<BettererSummary>(), defer<BettererSummary>()];
+    const [worse, same, better] = summaryDefers;
+
+    const watcher = await betterer.watch({
+      configPaths,
+      resultsPath,
+      cwd,
+      reporters: [
+        '@betterer/watch-reporter',
+        {
+          runsEnd(summary) {
+            const summaryDefer = summaryDefers.shift();
+            summaryDefer?.resolve(summary);
+          }
+        }
+      ]
+    });
 
     await writeFile(indexPath, `console.log('foo');\nconsole.log('foo');console.log('foo');`);
 
-    const worseSummary = await waitForRun(watcher);
+    const worseSummary = await worse.promise;
     const [worseRun] = worseSummary.runs;
 
     expect(worseRun.isWorse).toBe(true);
 
     await writeFile(indexPath, `console.log('foo');console.log('foo');`);
 
-    const sameSummary = await waitForRun(watcher);
+    const sameSummary = await same.promise;
     const [sameRun] = sameSummary.runs;
 
     expect(sameRun.isSame).toBe(true);
 
     await writeFile(indexPath, `console.log('bar');`);
 
-    const betterSummary = await waitForRun(watcher);
+    const betterSummary = await better.promise;
     const [betterRun] = betterSummary.runs;
 
     expect(betterRun.isBetter).toBe(true);
@@ -70,10 +87,8 @@ export default {
   });
 
   it('should debounce runs when multiple files change', async () => {
-    const { logs, paths, resolve, cleanup, writeFile, waitForRun } = await createFixture(
-      'test-betterer-watch-debounce',
-      {
-        '.betterer.ts': `
+    const { logs, paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-watch-debounce', {
+      '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 
 export default {
@@ -83,7 +98,7 @@ export default {
   )
 };
       `,
-        'tsconfig.json': `
+      'tsconfig.json': `
 {
   "compilerOptions": {
     "noEmit": true,
@@ -96,8 +111,7 @@ export default {
   "include": ["./src/**/*", ".betterer.ts"]
 }
       `
-      }
-    );
+    });
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
@@ -105,11 +119,25 @@ export default {
     const filePath = resolve('./src/file.ts');
     const { cwd } = paths;
 
-    const watcher = await betterer.watch({ configPaths, resultsPath, cwd });
+    const runDefer = defer<BettererSummary>();
+
+    const watcher = await betterer.watch({
+      configPaths,
+      resultsPath,
+      cwd,
+      reporters: [
+        '@betterer/watch-reporter',
+        {
+          runsEnd(summary) {
+            runDefer.resolve(summary);
+          }
+        }
+      ]
+    });
 
     await writeFile(indexPath, `console.log('foo');`);
     await writeFile(filePath, `console.log('foo');\nconsole.log('foo');`);
-    const summary = await waitForRun(watcher);
+    const summary = await runDefer.promise;
 
     await watcher.stop();
 
@@ -121,10 +149,8 @@ export default {
   });
 
   it('should ignore .gitignored files', async () => {
-    const { logs, paths, resolve, cleanup, writeFile, waitForRun } = await createFixture(
-      'test-betterer-watch-debounce',
-      {
-        '.betterer.ts': `
+    const { logs, paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-watch-gitignored', {
+      '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 
 export default {
@@ -134,7 +160,7 @@ export default {
   )
 };
       `,
-        'tsconfig.json': `
+      'tsconfig.json': `
 {
   "compilerOptions": {
     "noEmit": true,
@@ -147,14 +173,13 @@ export default {
   "include": ["./src/**/*", ".betterer.ts"]
 }
       `,
-        './src/.gitignore': `
+      './src/.gitignore': `
 ignored.ts
       `,
-        './src/nested/.gitignore': `
+      './src/nested/.gitignore': `
 ignored.ts
         `
-      }
-    );
+    });
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
@@ -163,13 +188,27 @@ ignored.ts
     const nestedPath = resolve('./src/nested/ignored.ts');
     const { cwd } = paths;
 
-    const watcher = await betterer.watch({ configPaths, resultsPath, cwd });
+    const runDefer = defer<BettererSummary>();
+
+    const watcher = await betterer.watch({
+      configPaths,
+      resultsPath,
+      cwd,
+      reporters: [
+        '@betterer/watch-reporter',
+        {
+          runsEnd(summary) {
+            runDefer.resolve(summary);
+          }
+        }
+      ]
+    });
 
     await writeFile(indexPath, `console.log('foo');`);
     await writeFile(ignoredPath, `console.log('foo');`);
     await writeFile(nestedPath, `console.log('foo');`);
 
-    const summary = await waitForRun(watcher);
+    const summary = await runDefer.promise;
     const [run] = summary.runs;
 
     await watcher.stop();
@@ -181,3 +220,23 @@ ignored.ts
     await cleanup();
   });
 });
+
+type Resolve<T> = (value: T) => void;
+type Reject = (error: Error) => void;
+type Defer<T> = {
+  promise: Promise<T>;
+  resolve: Resolve<T>;
+  reject: Reject;
+};
+
+function defer<T>(): Defer<T> {
+  let resolve: Resolve<T> | null = null;
+  let reject: Reject | null = null;
+  const promise = new Promise<T>((res, rej) => {
+    resolve = res;
+    reject = rej;
+  });
+  assert(resolve);
+  assert(reject);
+  return { promise, resolve, reject };
+}

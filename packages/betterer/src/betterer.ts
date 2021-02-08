@@ -9,7 +9,7 @@ import {
 } from './config';
 import { BettererContextΩ, BettererSummary } from './context';
 import { registerExtensions } from './register';
-import { DEFAULT_REPORTER, WATCH_REPORTER, loadReporters, BettererReporterNames } from './reporters';
+import { DEFAULT_REPORTER, WATCH_REPORTER, loadReporters } from './reporters';
 import { parallel, serial } from './runner';
 import { BettererWatcher, BettererWatcherΩ } from './watcher';
 
@@ -56,7 +56,7 @@ betterer.watch = watch;
 
 async function runContext<RunResult, RunFunction extends (context: BettererContextΩ) => Promise<RunResult>>(
   run: RunFunction,
-  defaultReporters: BettererReporterNames,
+  defaultReporters: Array<string>,
   partialConfig: BettererConfigPartial = {}
 ): Promise<RunResult> {
   debug({
@@ -76,7 +76,8 @@ async function runContext<RunResult, RunFunction extends (context: BettererConte
     registerExtensions(config);
     if (config.silent) {
       reporter = loadReporters([]);
-    } else if (config.reporters.length > 0) {
+    }
+    if (config.reporters.length > 0) {
       reporter = loadReporters(config.reporters);
     }
   } catch (error) {
