@@ -14,16 +14,16 @@ const HOOK_NAMES = Object.getOwnPropertyNames(BettererReporterΩ.prototype) as R
 export function loadReporters(reporterConfig: BettererConfigReporters): BettererReporterΩ {
   const reporters: Array<BettererReporter> = reporterConfig.map((reporter) => {
     if (isString(reporter)) {
-      let module: BettererReporterModule;
       try {
-        module = requireUncached(reporter);
+        const module: BettererReporterModule = requireUncached(reporter);
+        if (!module || !module.reporter) {
+          throw new BettererError(`"${reporter}" didn't create a reporter. 😔`);
+        }
+        validate(module.reporter);
+        return module.reporter;
       } catch (e) {
         throw new BettererError(`could not require "${reporter}". 😔`, e);
       }
-      if (!module || !module.reporter) {
-        throw new BettererError(`"${reporter}" didn't create a reporter. 😔`);
-      }
-      reporter = module.reporter;
     }
     validate(reporter);
     return reporter;

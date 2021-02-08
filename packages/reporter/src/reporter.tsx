@@ -24,14 +24,14 @@ function createReporter(): BettererReporter {
     contextStart(): void {
       app = restart();
     },
-    contextEnd(_: BettererContext, summary: BettererSummary): void {
-      app.rerender(<Reporter runs={summary.runs} summary={summary} />);
-    },
     contextError(_: BettererContext, error: BettererError): Promise<void> {
       return renderError(error);
     },
     runsStart(runs: BettererRuns): void {
       app.rerender(<Reporter runs={runs} />);
+    },
+    runsEnd(summary: BettererSummary): void {
+      app.rerender(<Reporter runs={summary.runs} summary={summary} />);
     }
   };
 

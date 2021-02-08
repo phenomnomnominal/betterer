@@ -10,7 +10,14 @@ export {
   BettererStartConfigPartial,
   BettererWatchConfigPartial
 } from './config/public';
-export { BettererContext, BettererRun, BettererRuns, BettererSummary, BettererRunNames } from './context/public';
+export {
+  BettererContext,
+  BettererRun,
+  BettererRunNames,
+  BettererRuns,
+  BettererSummary,
+  BettererSummaries
+} from './context/public';
 export {
   BettererResult,
   BettererResultValue,

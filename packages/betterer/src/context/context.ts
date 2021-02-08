@@ -18,24 +18,24 @@ import {
 } from '../test';
 import { BettererRunΩ } from './run';
 import { BettererSummaryΩ } from './summary';
-import { BettererContext, BettererRunNames, BettererRuns, BettererSummary } from './types';
+import { BettererContext, BettererRunNames, BettererRuns, BettererSummaries, BettererSummary } from './types';
 
 export type BettererRunner = (runs: BettererRuns) => Promise<void>;
 
 export class BettererContextΩ implements BettererContext {
   private _results: BettererResults;
-  private _summary: BettererSummary | null = null;
+  private _summaries: BettererSummaries = [];
   private _tests: BettererTestMap = {};
 
   private _running: Promise<void> | null = null;
-  private _lifecycle: Defer<BettererSummary>;
+  private _lifecycle: Defer<BettererSummaries>;
 
   constructor(public readonly config: BettererConfig, private _reporter: BettererReporterΩ) {
     this._results = new BettererResults(this.config.resultsPath);
     this._lifecycle = defer();
   }
 
-  public get lifecycle(): Promise<BettererSummary> {
+  public get lifecycle(): Promise<BettererSummaries> {
     return this._lifecycle.promise;
   }
 
@@ -71,18 +71,19 @@ export class BettererContextΩ implements BettererContext {
     await this._reporter.runsStart(runs, filePaths);
     this._running = runner(runs);
     await this._running;
-    await this._reporter.runsEnd(runs, filePaths);
     const expected = await this._results.read();
     const result = await this._results.print(runs);
     const hasDiff = !!expected && expected !== result;
-    this._summary = new BettererSummaryΩ(runs, result, hasDiff && !this.config.allowDiff ? expected : null);
-    return this._summary;
+    const summary = new BettererSummaryΩ(runs, result, hasDiff && !this.config.allowDiff ? expected : null);
+    this._summaries.push(summary);
+    await this._reporter.runsEnd(summary, filePaths);
+    return summary;
   }
 
   public async end(): Promise<void> {
-    assert(this._summary);
-    this._lifecycle.resolve(this._summary);
-    await this._reporter.contextEnd(this, this._summary);
+    assert(this._summaries);
+    this._lifecycle.resolve(this._summaries);
+    await this._reporter.contextEnd(this, this._summaries);
   }
 
   public async error(error: BettererError): Promise<void> {
@@ -91,8 +92,9 @@ export class BettererContextΩ implements BettererContext {
   }
 
   public async save(): Promise<void> {
-    assert(this._summary);
-    await this._results.write(this._summary.result);
+    const summary = this._summaries[this._summaries.length - 1];
+    assert(summary);
+    await this._results.write(summary.result);
   }
 
   private _initTests(): BettererTestMap {

@@ -59,7 +59,6 @@ function validateConfig(config: BettererConfig): void {
   validateString('resultsPath', config.resultsPath);
   validateStringArray('configPaths', config.configPaths);
   validateStringArray('ignores', config.ignores);
-  validateStringArray('reporters', config.reporters);
   validateStringRegExpArray('filters', config.filters);
 }
 

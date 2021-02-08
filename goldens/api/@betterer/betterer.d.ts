@@ -1,14 +1,14 @@
 export declare function betterer(partialConfig?: BettererStartConfigPartial): Promise<BettererSummary>;
 export declare namespace betterer {
-    var watch: typeof import("./betterer").watch;
     var runner: typeof import("./betterer").runner;
+    var watch: typeof import("./betterer").watch;
 }
 
 export declare type BettererBaseConfigPartial = Partial<{
     configPaths: BettererConfigPaths | string;
     cwd: string;
     filters: ReadonlyArray<string | RegExp> | string;
-    reporters: BettererReporterNames;
+    reporters: BettererConfigReporters;
     resultsPath: string;
     silent: boolean;
     tsconfigPath: string;
@@ -20,7 +20,7 @@ export declare type BettererConfig = {
     cwd: string;
     filters: BettererConfigFilters;
     ignores: BettererConfigIgnores;
-    reporters: BettererReporterNames;
+    reporters: BettererConfigReporters;
     resultsPath: string;
     silent: boolean;
     tsconfigPath: string | null;
@@ -35,9 +35,11 @@ export declare type BettererConfigPartial = BettererStartConfigPartial | Bettere
 
 export declare type BettererConfigPaths = ReadonlyArray<string>;
 
+export declare type BettererConfigReporters = ReadonlyArray<BettererConfigReporter>;
+
 export declare type BettererContext = {
     readonly config: BettererConfig;
-    readonly lifecycle: Promise<BettererSummary>;
+    readonly lifecycle: Promise<BettererSummaries>;
 };
 
 export declare type BettererDeserialise<DeserialisedType extends BettererResultValue, SerialisedType> = (serialised: SerialisedType) => DeserialisedType;
@@ -122,17 +124,15 @@ export declare type BettererPrinter<SerialisedType> = (serialised: SerialisedTyp
 
 export declare type BettererReporter = {
     configError?(config: BettererConfigPartial, error: BettererError): Promise<void> | void;
-    contextStart?(context: BettererContext, lifecycle: Promise<BettererSummary>): Promise<void> | void;
-    contextEnd?(context: BettererContext, summary: BettererSummary): Promise<void> | void;
+    contextStart?(context: BettererContext, lifecycle: Promise<BettererSummaries>): Promise<void> | void;
+    contextEnd?(context: BettererContext, summary: BettererSummaries): Promise<void> | void;
     contextError?(context: BettererContext, error: BettererError): Promise<void> | void;
     runsStart?(runs: BettererRuns, files: BettererFilePaths): Promise<void> | void;
-    runsEnd?(runs: BettererRuns, files: BettererFilePaths): Promise<void> | void;
+    runsEnd?(summary: BettererSummary, files: BettererFilePaths): Promise<void> | void;
     runStart?(run: BettererRun, lifecycle: Promise<void>): Promise<void> | void;
     runEnd?(run: BettererRun): Promise<void> | void;
     runError?(run: BettererRun, error: BettererError): Promise<void> | void;
 };
-
-export declare type BettererReporterNames = ReadonlyArray<string>;
 
 export declare type BettererResult = {
     isNew: boolean;
@@ -192,6 +192,8 @@ export declare type BettererStartConfigPartial = BettererBaseConfigPartial & Par
     update: boolean;
     watch: false;
 }>;
+
+export declare type BettererSummaries = Array<BettererSummary>;
 
 export declare type BettererSummary = {
     readonly runs: BettererRuns;
