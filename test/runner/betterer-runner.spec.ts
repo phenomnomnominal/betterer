@@ -1,4 +1,5 @@
 import { betterer } from '@betterer/betterer';
+import path from 'path';
 
 import { createFixture } from '../fixture';
 
@@ -55,7 +56,7 @@ module.exports = {
     const [run] = summary.runs;
 
     expect(run.isNew).toEqual(true);
-    expect(run.filePaths).toEqual([indexPath]);
+    expect(run.filePaths).toEqual([normalisedPath(indexPath)]);
 
     await cleanup();
   });
@@ -102,17 +103,17 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
     const { cwd } = paths;
-    const testFile = resolve('./test/index.ts');
+    const testPath = resolve('./test/index.ts');
 
-    await writeFile(testFile, `debugger;`);
+    await writeFile(testPath, `debugger;`);
 
     const runner = await betterer.runner({ configPaths, resultsPath, cwd });
-    await runner.queue(testFile);
+    await runner.queue(testPath);
     const summary = await runner.stop();
     const [run] = summary.runs;
 
     expect(run.isComplete).toEqual(true);
-    expect(run.filePaths).toEqual([testFile]);
+    expect(run.filePaths).toEqual([normalisedPath(testPath)]);
 
     await cleanup();
   });
@@ -141,7 +142,7 @@ module.exports = {
     const [run] = summary.runs;
 
     expect(run.isNew).toEqual(true);
-    expect(run.filePaths).toEqual([indexPath]);
+    expect(run.filePaths).toEqual([normalisedPath(indexPath)]);
 
     await cleanup();
   });
@@ -160,17 +161,17 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
     const { cwd } = paths;
-    const testFile = resolve('./test/index.ts');
+    const testPath = resolve('./test/index.ts');
 
-    await writeFile(testFile, `// HACK:`);
+    await writeFile(testPath, `// HACK:`);
 
     const runner = await betterer.runner({ configPaths, resultsPath, cwd });
-    await runner.queue(testFile);
+    await runner.queue(testPath);
     const summary = await runner.stop();
     const [run] = summary.runs;
 
     expect(run.isComplete).toEqual(true);
-    expect(run.filePaths).toEqual([testFile]);
+    expect(run.filePaths).toEqual([normalisedPath(testPath)]);
 
     await cleanup();
   });
@@ -215,7 +216,7 @@ export default {
     const [run] = summary.runs;
 
     expect(run.isNew).toEqual(true);
-    expect(run.filePaths).toEqual([indexPath]);
+    expect(run.filePaths).toEqual([normalisedPath(indexPath)]);
 
     await cleanup();
   });
@@ -260,7 +261,7 @@ export default {
     const [run] = summary.runs;
 
     expect(run.isNew).toEqual(true);
-    expect(run.filePaths).toEqual([testPath]);
+    expect(run.filePaths).toEqual([normalisedPath(testPath)]);
 
     await cleanup();
   });
@@ -304,7 +305,7 @@ export default {
     const [run] = summary.runs;
 
     expect(run.isNew).toEqual(true);
-    expect(run.filePaths).toEqual([indexPath]);
+    expect(run.filePaths).toEqual([normalisedPath(indexPath)]);
 
     await cleanup();
   });
@@ -348,8 +349,12 @@ export default {
     const [run] = summary.runs;
 
     expect(run.isNew).toEqual(true);
-    expect(run.filePaths).toEqual([testPath]);
+    expect(run.filePaths).toEqual([normalisedPath(testPath)]);
 
     await cleanup();
   });
 });
+
+function normalisedPath(filePath: string): string {
+  return path.sep === path.posix.sep ? filePath : filePath.split(path.sep).join(path.posix.sep);
+}

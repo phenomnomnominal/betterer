@@ -23,7 +23,7 @@ export function createFixtureLogs(options?: FixtureOptions): FixtureLogs {
         .filter((line) => !isStackTraceLine(line))
         .filter((line) => !isFiltered(line, options));
       const formattedLines = filteredLines.map((line) => {
-        line = replaceProjectPath(normalisePaths(line));
+        line = replaceProjectPath(normalisedPath(line));
         line = line.trimEnd();
         return line;
       });
@@ -73,6 +73,6 @@ function replaceProjectPath(str: string): string {
   return str.replace(PROJECT_REGEXP, '<project>');
 }
 
-function normalisePaths(str: string): string {
-  return str.split(path.win32.sep).join(path.posix.sep);
+function normalisedPath(filePath: string): string {
+  return path.sep === path.posix.sep ? filePath : filePath.split(path.sep).join(path.posix.sep);
 }
