@@ -4,7 +4,7 @@ import { promises as fs } from 'fs';
 import * as path from 'path';
 
 import { isBoolean, isRegExp, isString, isUndefined } from '../utils';
-import { BettererConfig, BettererConfigPartial } from './types';
+import { BettererConfig, BettererConfigPartial, BettererConfigReporter } from './types';
 
 let globalConfig: BettererConfig | null = null;
 
@@ -15,7 +15,7 @@ export async function createConfig(partialConfig: BettererConfigPartial = {}): P
     cwd: partialConfig.cwd || process.cwd(),
     filters: toRegExps(toArray<string | RegExp>(partialConfig.filters)),
     ignores: toArray<string>(partialConfig.ignores),
-    reporters: toArray<string>(partialConfig.reporters),
+    reporters: toArray<BettererConfigReporter>(partialConfig.reporters),
     resultsPath: partialConfig.resultsPath || './.betterer.results',
     silent: partialConfig.silent || false,
     tsconfigPath: partialConfig.tsconfigPath || null,
@@ -49,7 +49,6 @@ function validateConfig(config: BettererConfig): void {
   validateString('resultsPath', config.resultsPath);
   validateStringArray('configPaths', config.configPaths);
   validateStringArray('ignores', config.ignores);
-  validateStringArray('reporters', config.reporters);
   validateStringRegExpArray('filters', config.filters);
 }
 

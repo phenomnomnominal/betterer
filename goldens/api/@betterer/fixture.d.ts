@@ -2,7 +2,6 @@ export declare function createFixtureDirectoryΔ(fixturesPath: string): Promise<
 
 export declare type Fixture = FixtureFileSystem & {
     logs: ReadonlyArray<string>;
-    waitForRun(watcher: BettererWatcher): Promise<BettererSummary>;
     runNames(runs: BettererRuns): BettererRunNames;
 };
 

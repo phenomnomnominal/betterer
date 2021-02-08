@@ -1,4 +1,4 @@
-import { BettererRunNames, BettererRuns, BettererSummary } from '@betterer/betterer';
+import { BettererRunNames, BettererRuns } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import { promises as fs } from 'graceful-fs';
 import * as path from 'path';
@@ -34,10 +34,7 @@ export async function createFixtureDirectoryΔ(fixturesPath: string): Promise<Fi
     return {
       ...fixtureFS,
       logs: fixtureLogs,
-      runNames,
-      waitForRun(watcher): Promise<BettererSummary> {
-        return new Promise((resolve) => watcher.onRun(resolve));
-      }
+      runNames
     };
   };
 }

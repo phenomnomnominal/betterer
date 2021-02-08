@@ -1,4 +1,4 @@
-import { BettererFilePaths, BettererReporter, BettererRun, BettererRuns } from '@betterer/betterer';
+import { BettererFilePaths, BettererReporter, BettererRun, BettererRuns, BettererSummary } from '@betterer/betterer';
 import { BettererConsoleLogger, LOGO } from '@betterer/logger';
 import {
   quoteΔ,
@@ -28,13 +28,13 @@ export const watchReporter: BettererReporter = {
   runsStart(_: BettererRuns, files: BettererFilePaths): void {
     overwrite(filesChecking(files.length));
   },
-  runsEnd(runs: BettererRuns, files: BettererFilePaths): void {
+  runsEnd(summary: BettererSummary, files: BettererFilePaths): void {
     let report = `  ${filesChecked(files.length)}:\n`;
     files.forEach((filePath) => {
       report += `\n    ${filePath}`;
     });
     report += '\n';
-    runs.forEach((run) => {
+    summary.runs.forEach((run) => {
       const status = statusMessage(run);
       report += `\n  ${status}`;
       return;

@@ -1,4 +1,4 @@
-import { BettererRunNames, BettererRuns, BettererSummary, BettererWatcher } from '@betterer/betterer';
+import { BettererRunNames, BettererRuns } from '@betterer/betterer';
 
 export type Paths = {
   config: string;
@@ -21,7 +21,6 @@ export type FixtureFileSystemFiles = Record<string, string>;
 
 export type Fixture = FixtureFileSystem & {
   logs: ReadonlyArray<string>;
-  waitForRun(watcher: BettererWatcher): Promise<BettererSummary>;
   runNames(runs: BettererRuns): BettererRunNames;
 };
 

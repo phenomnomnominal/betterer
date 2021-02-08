@@ -54,7 +54,7 @@ checking 1 files... 🤔
 
   checked 1 files:
 
-    <project>/fixtures/test-betterer-watch-debounce/src/index.ts
+    <project>/fixtures/test-betterer-watch-gitignored/src/index.ts
 
   \\"tsquery no raw console.log\\" got checked for the first time! 🎉
 ",

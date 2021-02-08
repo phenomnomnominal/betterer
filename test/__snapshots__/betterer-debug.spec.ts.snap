@@ -261,10 +261,6 @@ Array [
 ",
   "▸▸▸ runner time: 0ms return:
 ",
-  "▸▸▸ BettererReporterΩ.runsEnd args:
-",
-  "▸▸▸ BettererReporterΩ.runsEnd time: 0ms return:
-",
   "▸▸▸ BettererResults.read args:
 ",
   "▸▸▸▸ read args:
@@ -486,25 +482,19 @@ Array [
 ",
   "▸▸▸ BettererSummaryΩ time: 0ms return:
 ",
-  "▸▸ BettererContextΩ.run time: 0ms return:
+  "▸▸▸ BettererReporterΩ.runsEnd args:
 ",
-  "▸ serial time: 0ms return:
+  "▸▸▸▸ BettererLogo args:
 ",
-  "▸ BettererContextΩ.end args:
+  "▸▸▸▸ BettererLogo time: 0ms return:
 ",
-  "▸▸ BettererReporterΩ.contextEnd args:
+  "▸▸▸▸ BettererTasks args:
 ",
-  "▸▸▸ BettererLogo args:
+  "▸▸▸▸ BettererTasks time: 0ms return:
 ",
-  "▸▸▸ BettererLogo time: 0ms return:
+  "▸▸▸▸ BettererTaskStatus args:
 ",
-  "▸▸▸ BettererTasks args:
-",
-  "▸▸▸ BettererTasks time: 0ms return:
-",
-  "▸▸▸ BettererTaskStatus args:
-",
-  "▸▸▸ BettererTaskStatus time: 0ms return:
+  "▸▸▸▸ BettererTaskStatus time: 0ms return:
 ",
   "
    / | /     _         _   _
@@ -520,6 +510,16 @@ Array [
 2 tests got checked. 🤔
 2 tests got checked for the first time! 🎉
 
+",
+  "▸▸▸ BettererReporterΩ.runsEnd time: 0ms return:
+",
+  "▸▸ BettererContextΩ.run time: 0ms return:
+",
+  "▸ serial time: 0ms return:
+",
+  "▸ BettererContextΩ.end args:
+",
+  "▸▸ BettererReporterΩ.contextEnd args:
 ",
   "▸▸ BettererReporterΩ.contextEnd time: 0ms return:
 ",

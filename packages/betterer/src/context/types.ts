@@ -8,7 +8,7 @@ export type BettererRunNames = Array<string>;
 
 export type BettererContext = {
   readonly config: BettererConfig;
-  readonly lifecycle: Promise<BettererSummary>;
+  readonly lifecycle: Promise<BettererSummaries>;
 };
 
 export type BettererRun = {
@@ -51,3 +51,4 @@ export type BettererSummary = {
   readonly updated: BettererRuns;
   readonly worse: BettererRuns;
 };
+export type BettererSummaries = Array<BettererSummary>;

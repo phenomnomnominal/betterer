@@ -38,7 +38,7 @@ betterer -c ./path/to/config -r ./path/to/results
 | `-r`, `--results` [value]  | Path to test results file relative to CWD                                   | `./.betterer.results` |
 | `-t`, `--tsconfig` [value] | Path to TypeScript config file relative to CWD                              | `null`                |
 | `-f`, `--filter` [value]   | Select tests to run by RegExp. Takes multiple values                        | `[]`                  |
-| `-s`, `--silent`           | Disable all logging                                                         | `false`               |
+| `-s`, `--silent`           | Disable all default reporters. Custom reporters still work normally.        | `false`               |
 | `-u`, `--update`           | Force update the results file, even if things get worse                     | `false`               |
 | `-R`, `--reporter` [value] | npm package name or file path to a Betterer reporter. Takes multiple values | Default reporter      |
 
@@ -58,7 +58,7 @@ betterer watch -c ./path/to/config -r ./path/to/results
 | `-r`, `--results` [value]  | Path to test results file relative to CWD                                   | `./.betterer.results` |
 | `-t`, `--tsconfig` [value] | Path to TypeScript config file relative to CWD                              | `null`                |
 | `-f`, `--filter` [value]   | Select tests to run by RegExp. Takes multiple values                        | `[]`                  |
-| `-s`, `--silent`           | Disable all logging                                                         | `false`               |
+| `-s`, `--silent`           | Disable all default reporters. Custom reporters still work normally.        | `false`               |
 | `-u`, `--update`           | Force update the results file, even if things get worse                     | `false`               |
 | `-i`, `--ignore` [value]   | Ignore files by Glob when running in watch mode. Takes multiple values      | `[]`                  |
 | `-R`, `--reporter` [value] | npm package name or file path to a Betterer reporter. Takes multiple values | Default reporter      |
@@ -79,5 +79,5 @@ betterer ci -c ./path/to/config -r ./path/to/results
 | `-r`, `--results` [value]  | Path to test results file relative to CWD                                   | `./.betterer.results` |
 | `-t`, `--tsconfig` [value] | Path to TypeScript config file relative to CWD                              | `null`                |
 | `-f`, `--filter` [value]   | Select tests to run by RegExp. Takes multiple values                        | `[]`                  |
-| `-s`, `--silent`           | Disable all logging                                                         | `false`               |
+| `-s`, `--silent`           | Disable all default reporters. Custom reporters still work normally.        | `false`               |
 | `-R`, `--reporter` [value] | npm package name or file path to a Betterer reporter. Takes multiple values | Default reporter      |
