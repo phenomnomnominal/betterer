@@ -59,8 +59,9 @@ module.exports = {
 
     await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
     await expect(async () => {
-      const runner = await betterer.file({ configPaths, resultsPath });
-      await runner.run([indexPath]);
+      const runner = await betterer.runner({ configPaths, resultsPath });
+      await runner.queue([indexPath]);
+      await runner.stop();
     }).rejects.toThrow();
 
     expect(logs).toMatchSnapshot();

@@ -43,15 +43,18 @@ export class BettererRunnerΩ implements BettererRunner {
     const filePaths: BettererFilePaths = Array.isArray(filePathOrPaths) ? filePathOrPaths : [filePathOrPaths as string];
     const normalisedPaths = filePaths.map(normalisedPath);
     this._jobs.push({ paths: normalisedPaths, handler });
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       setTimeout(() => {
-        try {
-          void this._processQueue();
-        } catch (error) {
-          assert(this._context);
-          void this._context.error(error);
-        }
-        resolve();
+        void (async () => {
+          try {
+            await this._processQueue();
+          } catch (error) {
+            assert(this._context);
+            await this._context.error(error);
+            reject(error);
+          }
+          resolve();
+        })();
       }, DEBOUNCE_TIME);
     });
   }
