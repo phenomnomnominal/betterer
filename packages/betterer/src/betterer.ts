@@ -14,6 +14,7 @@ import { parallel, serial } from './runner';
 import { BettererWatcher, BettererWatcherΩ } from './watcher';
 
 export function betterer(partialConfig: BettererStartConfigPartial = {}): Promise<BettererSummary> {
+  initDebug();
   return runContext(
     async (context) => {
       const summary = await serial(context);
@@ -27,6 +28,7 @@ export function betterer(partialConfig: BettererStartConfigPartial = {}): Promis
 }
 
 export async function file(filePath: string, partialConfig?: BettererBaseConfigPartial): Promise<BettererSummary> {
+  initDebug();
   return runContext(
     async (context) => {
       const summary = await parallel(context, [filePath]);
@@ -40,6 +42,7 @@ export async function file(filePath: string, partialConfig?: BettererBaseConfigP
 betterer.file = file;
 
 export function watch(partialConfig?: BettererWatchConfigPartial): Promise<BettererWatcher> {
+  initDebug();
   return runContext(
     async (context) => {
       const watcher = new BettererWatcherΩ(context, async (filePaths) => {
@@ -93,5 +96,20 @@ async function runContext<RunResult, RunFunction extends (context: BettererConte
   } catch (error) {
     await context.error(error);
     throw error;
+  }
+}
+
+function initDebug(): void {
+  const enabled = !!process.env.BETTERER_DEBUG;
+  if (enabled) {
+    debug({
+      header: 'betterer',
+      include: [/@betterer\//],
+      ignore: [require.resolve('./utils')],
+      enabled,
+      time: !!process.env.BETTERER_DEBUG_TIME,
+      values: !!process.env.BETTERER_DEBUG_VALUES,
+      logPath: process.env.BETTERER_DEBUG_LOG
+    });
   }
 }
