@@ -4,7 +4,7 @@ import * as path from 'path';
 import { FixtureLogs, FixtureOptions } from './types';
 
 const ANSI_REGEX = ansiRegex();
-const PROJECT_REGEXP = new RegExp(normalisePaths(process.cwd()), 'g');
+const PROJECT_REGEXP = new RegExp(normalisedPath(process.cwd()), 'g');
 const STACK_TRACK_LINE_REGEXP = /\s+at\s+/;
 
 export function createFixtureLogs(options?: FixtureOptions): FixtureLogs {
