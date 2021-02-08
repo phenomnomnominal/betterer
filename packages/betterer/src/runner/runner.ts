@@ -42,7 +42,7 @@ export class BettererRunnerΩ implements BettererRunner {
   public queue(filePathOrPaths: string | BettererFilePaths = [], handler?: BettererRunHandler): Promise<void> {
     const filePaths: BettererFilePaths = Array.isArray(filePathOrPaths) ? filePathOrPaths : [filePathOrPaths as string];
     const normalisedPaths = filePaths.map(normalisedPath);
-    this._jobs.push({ paths: normalisedPaths, handler });
+    this._jobs.push({ filePaths: normalisedPaths, handler });
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         void (async () => {
@@ -69,13 +69,13 @@ export class BettererRunnerΩ implements BettererRunner {
 
   private async _processQueue(): Promise<void> {
     if (this._jobs.length) {
-      const paths = new Set<string>();
+      const filePaths = new Set<string>();
       this._jobs.forEach((job) => {
-        job.paths.forEach((path) => {
-          paths.add(path);
+        job.filePaths.forEach((path) => {
+          filePaths.add(path);
         });
       });
-      const changed = Array.from(paths).sort();
+      const changed = Array.from(filePaths).sort();
       const handlers = this._jobs.map((job) => job.handler);
 
       this._jobs = [];

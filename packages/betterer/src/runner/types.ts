@@ -9,7 +9,7 @@ export type BettererRunner = {
 };
 
 export type BettererRunnerJob = {
-  paths: BettererFilePaths;
+  filePaths: BettererFilePaths;
   handler?: BettererRunHandler;
 };
 export type BettererRunnerJobs = Array<BettererRunnerJob>;
