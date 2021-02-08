@@ -2,7 +2,7 @@ import { BettererError } from '@betterer/errors';
 
 import { BettererConfigPartial } from '../config';
 import { BettererContext, BettererRun, BettererRuns, BettererSummary, BettererSummaries } from '../context';
-import { BettererFilePaths } from '../watcher';
+import { BettererFilePaths } from '../runner';
 
 export type BettererReporter = {
   configError?(config: BettererConfigPartial, error: BettererError): Promise<void> | void;

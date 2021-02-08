@@ -1,7 +1,7 @@
 import { BettererResultValueComplex } from '../../results';
+import { BettererFilePaths } from '../../runner';
 import { BettererDiff } from '../../test';
 import { MaybeAsync } from '../../types';
-import { BettererFilePaths } from '../../watcher';
 
 export type BettererFileIssueSerialised = [line: number, column: number, length: number, message: string, hash: string];
 export type BettererFileIssuesMapSerialised = Record<string, ReadonlyArray<BettererFileIssueSerialised>>;

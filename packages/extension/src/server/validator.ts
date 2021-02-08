@@ -2,19 +2,20 @@ import {
   BettererFileIssue,
   BettererFileIssues,
   BettererFileTestDiff,
-  BettererFileTestResult
+  BettererFileTestResult,
+  BettererSummary
 } from '@betterer/betterer';
-import assert from 'assert';
+
 import { Diagnostic, DiagnosticSeverity, Connection, Position, TextDocuments } from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { URI } from 'vscode-uri';
 
-import { info } from './console';
 import { EXTENSION_NAME } from '../constants';
 import { BettererStatus } from '../status';
 import { isString } from '../utils';
-import { BettererLibrary, getLibrary } from './betterer';
+import { getRunner, hasBetterer } from './betterer';
 import { getBettererConfig, getDebug, getEnabled } from './config';
+import { info } from './console';
 import { BettererInvalidConfigRequest, BettererNoLibraryRequest, isNoConfigError } from './requests';
 import { BettererStatusNotification } from './status';
 
@@ -22,118 +23,139 @@ export class BettererValidator {
   constructor(private _connection: Connection, private _documents: TextDocuments<TextDocument>) {}
 
   public async validate(document: TextDocument): Promise<void> {
+    const { uri } = document;
     const { workspace } = this._connection;
 
-    if (!this._documents.get(document.uri)) {
-      return Promise.resolve();
+    if (!this._documents.get(uri)) {
+      return;
     }
 
     await getDebug(workspace);
 
     const folders = await workspace.getWorkspaceFolders();
-    folders?.map(async (folder) => {
-      const uri = document.uri;
+    if (!folders) {
+      return;
+    }
 
+    folders.map(async (folder) => {
       const enabled = await getEnabled(workspace);
       if (!enabled) {
         info(`Validator: Betterer disabled, clearing diagnostics for "${uri}".`);
         this._connection.sendDiagnostics({ uri, diagnostics: [] });
-        return Promise.resolve();
+        return;
       }
 
       const cwd = getFilePath(folder.uri);
-      const filePath = getFilePath(document);
-      assert(filePath);
-
-      info(`Validator: Getting Betterer for "${filePath}".`);
-      let betterer: BettererLibrary | null = null;
-      if (cwd) {
-        try {
-          betterer = await getLibrary(cwd);
-        } catch {
-          void this._connection.sendRequest(BettererNoLibraryRequest, { source: { uri: document.uri } });
-          return;
-        }
+      if (!cwd) {
+        return;
       }
 
-      if (cwd && filePath && betterer) {
-        const diagnostics: Array<Diagnostic> = [];
-        info(`Validator: About to run Betterer, clearing diagnostics for "${uri}".`);
-        this._connection.sendDiagnostics({ uri, diagnostics });
+      const filePath = getFilePath(document);
+      if (!filePath) {
+        return;
+      }
 
-        const loading = load(this._connection);
-        let status = BettererStatus.ok;
-        const extensionCwd = process.cwd();
-        try {
+      info(`Validator: Getting Betterer for "${filePath}".`);
+      try {
+        await hasBetterer(cwd);
+      } catch {
+        void this._connection.sendRequest(BettererNoLibraryRequest, { source: { uri } });
+        return;
+      }
+
+      info(`Validator: About to run Betterer, clearing diagnostics for "${uri}".`);
+      this._connection.sendDiagnostics({ uri, diagnostics: [] });
+
+      const loading = load(this._connection);
+      let status = BettererStatus.ok;
+      const extensionCwd = process.cwd();
+      try {
+        if (extensionCwd !== cwd) {
           info(`Validator: Setting CWD to "${cwd}".`);
           process.chdir(cwd);
+        }
 
-          info(`Validator: Getting Betterer config.`);
-          const config = await getBettererConfig(workspace);
+        info(`Validator: Getting Betterer config.`);
+        const config = await getBettererConfig(cwd, workspace);
 
-          info(`Validator: Running Betterer for "${filePath}".`);
-          process.env.DEBUG = '1';
-          process.env.DEBUG_TIME = '1';
-          process.env.DEBUG_VALUES = '1';
-          const { runs } = await betterer.file(filePath, { ...config, cwd });
-
-          runs.forEach((run) => {
-            if (run.isFailed) {
-              return;
-            }
-
-            const result = run.result.result as BettererFileTestResult;
-            if (!result) {
-              return;
-            }
-
-            const issues = result.getIssues(filePath);
-            if (!issues) {
-              return;
-            }
-
-            info(`Validator: Got issues from Betterer for "${run.name}"`);
-
-            let existingIssues: BettererFileIssues = [];
-            let newIssues: BettererFileIssues = [];
-
-            if (run.isNew) {
-              newIssues = issues;
-            } else if (run.isSkipped || run.isSame) {
-              existingIssues = issues;
-            } else {
-              const fileDiff = ((run.diff as unknown) as BettererFileTestDiff).diff[filePath];
-              info(`Validator: Got diff from Betterer for "${filePath}"`);
-              existingIssues = fileDiff.existing || [];
-              newIssues = fileDiff.new || [];
-            }
-
-            info(`Validator: Got "${existingIssues.length}" existing issues for "${filePath}"`);
-            info(`Validator: Got "${newIssues.length}" new issues for "${filePath}"`);
-
-            existingIssues.forEach((issue: BettererFileIssue) => {
-              diagnostics.push(createWarning(run.name, 'existing issue', issue, document));
-            });
-            newIssues.forEach((issue) => {
-              diagnostics.push(createError(run.name, 'new issue', issue, document));
-            });
-          });
-          this._connection.sendDiagnostics({ uri, diagnostics });
-        } catch (e) {
-          if (isNoConfigError(e)) {
-            void this._connection.sendRequest(BettererInvalidConfigRequest, { source: { uri: document.uri } });
-            status = BettererStatus.warn;
-          } else {
-            status = BettererStatus.error;
-          }
-        } finally {
+        info(`Validator: Running Betterer for "${filePath}".`);
+        const runner = await getRunner(cwd, config);
+        await runner.queue(filePath, (summary) => {
+          this.report(document, summary);
+        });
+      } catch (e) {
+        if (isNoConfigError(e)) {
+          void this._connection.sendRequest(BettererInvalidConfigRequest, { source: { uri: document.uri } });
+          status = BettererStatus.warn;
+        } else {
+          status = BettererStatus.error;
+        }
+      } finally {
+        if (cwd !== extensionCwd) {
           info(`Validator: Restoring CWD to "${extensionCwd}".`);
           process.chdir(extensionCwd);
         }
-        await loading();
-        this._connection.sendNotification(BettererStatusNotification, status);
       }
+
+      await loading();
+      this._connection.sendNotification(BettererStatusNotification, status);
     });
+  }
+
+  public report(document: TextDocument, summary: BettererSummary): void {
+    const filePath = getFilePath(document);
+    if (!filePath) {
+      return;
+    }
+
+    const diagnostics: Array<Diagnostic> = [];
+
+    const { runs } = summary;
+    const run = runs[runs.length - 1];
+    if (run.isFailed) {
+      return;
+    }
+
+    const result = run.result.result as BettererFileTestResult;
+    if (!result) {
+      return;
+    }
+
+    let issues: BettererFileIssues;
+    try {
+      issues = result.getIssues(filePath);
+    } catch {
+      return;
+    }
+
+    info(`Validator: Got issues from Betterer for "${run.name}"`);
+
+    let existingIssues: BettererFileIssues = [];
+    let newIssues: BettererFileIssues = [];
+
+    if (run.isNew) {
+      newIssues = issues;
+    } else if (run.isSkipped || run.isSame) {
+      existingIssues = issues;
+    } else {
+      const fileDiff = ((run.diff as unknown) as BettererFileTestDiff).diff[filePath];
+      info(`Validator: Got diff from Betterer for "${filePath}"`);
+      existingIssues = fileDiff.existing || [];
+      newIssues = fileDiff.new || [];
+    }
+
+    info(`Validator: Got "${existingIssues.length}" existing issues for "${filePath}"`);
+    info(`Validator: Got "${newIssues.length}" new issues for "${filePath}"`);
+
+    existingIssues.forEach((issue: BettererFileIssue) => {
+      diagnostics.push(createWarning(run.name, 'existing issue', issue, document));
+    });
+    newIssues.forEach((issue) => {
+      diagnostics.push(createError(run.name, 'new issue', issue, document));
+    });
+
+    const { uri } = document;
+    this._connection.sendDiagnostics({ uri, diagnostics });
   }
 }
 

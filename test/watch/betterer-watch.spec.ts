@@ -43,7 +43,7 @@ export default {
     const summaryDefers = [defer<BettererSummary>(), defer<BettererSummary>(), defer<BettererSummary>()];
     const [worse, same, better] = summaryDefers;
 
-    const watcher = await betterer.watch({
+    const runner = await betterer.watch({
       configPaths,
       resultsPath,
       cwd,
@@ -79,7 +79,7 @@ export default {
 
     expect(betterRun.isBetter).toBe(true);
 
-    await watcher.stop();
+    await runner.stop();
 
     expect(logs).toMatchSnapshot();
 
@@ -121,7 +121,7 @@ export default {
 
     const runDefer = defer<BettererSummary>();
 
-    const watcher = await betterer.watch({
+    const runner = await betterer.watch({
       configPaths,
       resultsPath,
       cwd,
@@ -139,7 +139,7 @@ export default {
     await writeFile(filePath, `console.log('foo');\nconsole.log('foo');`);
     const summary = await runDefer.promise;
 
-    await watcher.stop();
+    await runner.stop();
 
     expect(summary.runs).toHaveLength(1);
 
@@ -190,7 +190,7 @@ ignored.ts
 
     const runDefer = defer<BettererSummary>();
 
-    const watcher = await betterer.watch({
+    const runner = await betterer.watch({
       configPaths,
       resultsPath,
       cwd,
@@ -211,7 +211,7 @@ ignored.ts
     const summary = await runDefer.promise;
     const [run] = summary.runs;
 
-    await watcher.stop();
+    await runner.stop();
 
     expect(run.filePaths).toHaveLength(1);
 

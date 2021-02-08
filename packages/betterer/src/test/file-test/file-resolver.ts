@@ -2,8 +2,8 @@ import stack from 'callsite';
 import globby from 'globby';
 import * as path from 'path';
 
+import { BettererFilePaths } from '../../runner';
 import { flatten, normalisedPath } from '../../utils';
-import { BettererFilePaths } from '../../watcher';
 import { BettererFileGlobs, BettererFilePatterns } from './types';
 
 export class BettererFileResolver {

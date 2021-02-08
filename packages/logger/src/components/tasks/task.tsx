@@ -3,7 +3,7 @@ import { Box, Text } from 'ink';
 import React, { FC, useContext, useEffect, useState } from 'react';
 
 import { BettererLoggerCodeInfo } from '../../types';
-import { codeΔ } from '../../code';
+import { code } from '../../code';
 import { BettererErrorLog } from '../error-log';
 import { BettererTasksContext } from './state';
 import { BettererTaskStatus } from './status';
@@ -36,7 +36,7 @@ export const BettererTask: FC<BettererTaskProps> = function BettererTask({ conte
 
       function logCode(codeInfo: BettererLoggerCodeInfo): void {
         const { message } = codeInfo;
-        const codeFrame = codeΔ(codeInfo);
+        const codeFrame = code(codeInfo);
         logInfo(message.trim());
         setMessageLogs(['💻', 'magentaBright', codeFrame]);
       }

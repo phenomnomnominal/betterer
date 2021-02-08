@@ -4,22 +4,29 @@ import { promises as fs } from 'fs';
 import * as path from 'path';
 
 import { isBoolean, isRegExp, isString, isUndefined } from '../utils';
-import { BettererConfig, BettererConfigPartial, BettererConfigReporter } from './types';
+import {
+  BettererConfig,
+  BettererConfigReporter,
+  BettererConfigPartial,
+  BettererStartConfigPartial,
+  BettererWatchConfigPartial
+} from './types';
 
 let globalConfig: BettererConfig | null = null;
 
 export async function createConfig(partialConfig: BettererConfigPartial = {}): Promise<BettererConfig> {
   const relativeConfig = {
-    allowDiff: partialConfig.allowDiff ?? true,
+    allowDiff: (partialConfig as BettererStartConfigPartial).allowDiff ?? true,
     configPaths: partialConfig.configPaths ? toArray<string>(partialConfig.configPaths) : ['./.betterer'],
     cwd: partialConfig.cwd || process.cwd(),
     filters: toRegExps(toArray<string | RegExp>(partialConfig.filters)),
-    ignores: toArray<string>(partialConfig.ignores),
+    ignores: toArray<string>((partialConfig as BettererWatchConfigPartial).ignores),
     reporters: toArray<BettererConfigReporter>(partialConfig.reporters),
     resultsPath: partialConfig.resultsPath || './.betterer.results',
     silent: partialConfig.silent || false,
     tsconfigPath: partialConfig.tsconfigPath || null,
-    update: partialConfig.update || false
+    update: (partialConfig as BettererStartConfigPartial).update || false,
+    watch: partialConfig.watch
   };
 
   validateConfig(relativeConfig);
@@ -32,7 +39,10 @@ export async function createConfig(partialConfig: BettererConfigPartial = {}): P
   };
 
   const config = getConfig();
-  await validateFilePath('tsconfigPath', config.tsconfigPath);
+  if (config.tsconfigPath) {
+    await validateFilePath('tsconfigPath', config.tsconfigPath);
+  }
+
   return config;
 }
 

@@ -214,7 +214,7 @@ function waitFor<T>(test: () => T, timeout = 600000): Promise<T> {
 
   return new Promise((resolve, reject) => {
     const id = setInterval(() => {
-      wait(id, resolve as Resolve, reject);
-    }, 1000);
+      void wait(id, resolve as Resolve, reject);
+    }, 10000);
   });
 }

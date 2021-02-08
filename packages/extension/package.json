@@ -37,14 +37,14 @@
         "betterer.alwaysShowStatus": {
           "type": "boolean",
           "default": true,
-          "description": "Always show the betterer status bar item.",
+          "description": "Always show the Betterer status bar item.",
           "scope": "window"
         },
         "betterer.enable": {
           "scope": "resource",
           "type": "boolean",
           "default": true,
-          "description": "Controls whether betterer is enabled or not."
+          "description": "Controls whether Betterer is enabled or not."
         },
         "betterer.configPath": {
           "scope": "resource",
@@ -56,7 +56,7 @@
           "scope": "resource",
           "type": "string",
           "default": "./.betterer.results",
-          "description": "path to test results file relative to working directory"
+          "description": "Path to test results file relative to working directory"
         },
         "betterer.tsconfigPath": {
           "scope": "resource",

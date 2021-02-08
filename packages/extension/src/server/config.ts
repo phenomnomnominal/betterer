@@ -1,5 +1,7 @@
-import { RemoteWorkspace } from 'vscode-languageserver/node';
 import { BettererBaseConfigPartial } from '@betterer/betterer';
+import { promises as fs } from 'fs';
+import path from 'path';
+import { RemoteWorkspace } from 'vscode-languageserver/node';
 
 type BettererExtensionConfig = {
   configPath: string;
@@ -27,7 +29,7 @@ export async function getDebug(workspace: RemoteWorkspace): Promise<void> {
   }
 }
 
-export async function getBettererConfig(workspace: RemoteWorkspace): Promise<BettererBaseConfigPartial> {
+export async function getBettererConfig(cwd: string, workspace: RemoteWorkspace): Promise<BettererBaseConfigPartial> {
   const { configPath, filters, resultsPath, tsconfigPath } = await getConfig(workspace);
   const config: BettererBaseConfigPartial = {
     configPaths: configPath,
@@ -35,7 +37,12 @@ export async function getBettererConfig(workspace: RemoteWorkspace): Promise<Bet
     resultsPath
   };
   if (tsconfigPath !== '') {
-    config.tsconfigPath = tsconfigPath;
+    try {
+      await fs.readFile(path.resolve(cwd, tsconfigPath));
+      config.tsconfigPath = tsconfigPath;
+    } catch {
+      // Cannot read `tsconfigPath`
+    }
   }
   return config;
 }

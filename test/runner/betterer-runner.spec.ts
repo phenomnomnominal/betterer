@@ -1,8 +1,9 @@
 import { betterer } from '@betterer/betterer';
+import path from 'path';
 
 import { createFixture } from '../fixture';
 
-describe('betterer.file', () => {
+describe('betterer.runner', () => {
   it('should run eslint against a file', async () => {
     const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-eslint-file', {
       '.betterer.js': `
@@ -49,11 +50,13 @@ module.exports = {
 
     await writeFile(indexPath, `debugger;`);
 
-    const summary = await betterer.file(indexPath, { configPaths, resultsPath, cwd });
+    const runner = await betterer.runner({ configPaths, resultsPath, cwd });
+    await runner.queue(indexPath);
+    const summary = await runner.stop();
     const [run] = summary.runs;
 
     expect(run.isNew).toEqual(true);
-    expect(run.filePaths).toEqual([indexPath]);
+    expect(run.filePaths).toEqual([normalisedPath(indexPath)]);
 
     await cleanup();
   });
@@ -100,15 +103,17 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
     const { cwd } = paths;
-    const testFile = resolve('./test/index.ts');
+    const testPath = resolve('./test/index.ts');
 
-    await writeFile(testFile, `debugger;`);
+    await writeFile(testPath, `debugger;`);
 
-    const summary = await betterer.file(testFile, { configPaths, resultsPath, cwd });
+    const runner = await betterer.runner({ configPaths, resultsPath, cwd });
+    await runner.queue(testPath);
+    const summary = await runner.stop();
     const [run] = summary.runs;
 
     expect(run.isComplete).toEqual(true);
-    expect(run.filePaths).toEqual([testFile]);
+    expect(run.filePaths).toEqual([normalisedPath(testPath)]);
 
     await cleanup();
   });
@@ -131,11 +136,13 @@ module.exports = {
 
     await writeFile(indexPath, `// HACK:`);
 
-    const summary = await betterer.file(indexPath, { configPaths, resultsPath, cwd });
+    const runner = await betterer.runner({ configPaths, resultsPath, cwd });
+    await runner.queue(indexPath);
+    const summary = await runner.stop();
     const [run] = summary.runs;
 
     expect(run.isNew).toEqual(true);
-    expect(run.filePaths).toEqual([indexPath]);
+    expect(run.filePaths).toEqual([normalisedPath(indexPath)]);
 
     await cleanup();
   });
@@ -154,15 +161,17 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
     const { cwd } = paths;
-    const testFile = resolve('./test/index.ts');
+    const testPath = resolve('./test/index.ts');
 
-    await writeFile(testFile, `// HACK:`);
+    await writeFile(testPath, `// HACK:`);
 
-    const summary = await betterer.file(testFile, { configPaths, resultsPath, cwd });
+    const runner = await betterer.runner({ configPaths, resultsPath, cwd });
+    await runner.queue(testPath);
+    const summary = await runner.stop();
     const [run] = summary.runs;
 
     expect(run.isComplete).toEqual(true);
-    expect(run.filePaths).toEqual([testFile]);
+    expect(run.filePaths).toEqual([normalisedPath(testPath)]);
 
     await cleanup();
   });
@@ -201,11 +210,13 @@ export default {
 
     await writeFile(indexPath, `console.log('foo');`);
 
-    const summary = await betterer.file(indexPath, { configPaths, resultsPath, cwd });
+    const runner = await betterer.runner({ configPaths, resultsPath, cwd });
+    await runner.queue(indexPath);
+    const summary = await runner.stop();
     const [run] = summary.runs;
 
     expect(run.isNew).toEqual(true);
-    expect(run.filePaths).toEqual([indexPath]);
+    expect(run.filePaths).toEqual([normalisedPath(indexPath)]);
 
     await cleanup();
   });
@@ -244,11 +255,13 @@ export default {
 
     await writeFile(testPath, `console.log('foo');`);
 
-    const summary = await betterer.file(testPath, { configPaths, resultsPath, cwd });
+    const runner = await betterer.runner({ configPaths, resultsPath, cwd });
+    await runner.queue(testPath);
+    const summary = await runner.stop();
     const [run] = summary.runs;
 
     expect(run.isNew).toEqual(true);
-    expect(run.filePaths).toEqual([testPath]);
+    expect(run.filePaths).toEqual([normalisedPath(testPath)]);
 
     await cleanup();
   });
@@ -286,11 +299,13 @@ export default {
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
 
-    const summary = await betterer.file(indexPath, { configPaths, resultsPath, cwd });
+    const runner = await betterer.runner({ configPaths, resultsPath, cwd });
+    await runner.queue(indexPath);
+    const summary = await runner.stop();
     const [run] = summary.runs;
 
     expect(run.isNew).toEqual(true);
-    expect(run.filePaths).toEqual([indexPath]);
+    expect(run.filePaths).toEqual([normalisedPath(indexPath)]);
 
     await cleanup();
   });
@@ -328,12 +343,18 @@ export default {
 
     await writeFile(testPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
 
-    const summary = await betterer.file(testPath, { configPaths, resultsPath, cwd });
+    const runner = await betterer.runner({ configPaths, resultsPath, cwd });
+    await runner.queue(testPath);
+    const summary = await runner.stop();
     const [run] = summary.runs;
 
     expect(run.isNew).toEqual(true);
-    expect(run.filePaths).toEqual([testPath]);
+    expect(run.filePaths).toEqual([normalisedPath(testPath)]);
 
     await cleanup();
   });
 });
+
+function normalisedPath(filePath: string): string {
+  return path.sep === path.posix.sep ? filePath : filePath.split(path.sep).join(path.posix.sep);
+}

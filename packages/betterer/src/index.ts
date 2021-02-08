@@ -1,4 +1,4 @@
-export { betterer, file, watch } from './betterer';
+export { betterer, runner, watch } from './betterer';
 export {
   BettererConfig,
   BettererConfigFilters,
@@ -25,6 +25,7 @@ export {
   BettererResultValueComplex
 } from './results/public';
 export { BettererReporter } from './reporters/public';
+export { BettererFilePaths, BettererRunner, BettererRunHandler } from './runner/public';
 export {
   BettererDeserialise,
   BettererDiff,
@@ -50,4 +51,3 @@ export {
   BettererTestGoal,
   BettererTestConfig
 } from './test/public';
-export { BettererFilePaths, BettererWatcher } from './watcher/public';

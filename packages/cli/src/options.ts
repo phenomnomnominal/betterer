@@ -99,7 +99,7 @@ function reportersOption(): void {
 }
 
 function silentOption(): void {
-  commander.option('-s, --silent', 'Disable all default reporters. Custom reporters still work normally. ');
+  commander.option('-s, --silent', 'Disable all default reporters. Custom reporters still work normally.');
 }
 
 function updateOption(): void {
