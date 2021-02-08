@@ -14,7 +14,7 @@ import { EXTENSION_NAME } from '../constants';
 import { BettererStatus } from '../status';
 import { isString } from '../utils';
 import { getRunner, hasBetterer } from './betterer';
-import { getBettererConfig, getEnabled } from './config';
+import { getBettererConfig, getDebug, getEnabled } from './config';
 import { info } from './console';
 import { BettererInvalidConfigRequest, BettererNoLibraryRequest, isNoConfigError } from './requests';
 import { BettererStatusNotification } from './status';
@@ -29,6 +29,8 @@ export class BettererValidator {
     if (!this._documents.get(uri)) {
       return;
     }
+
+    await getDebug(workspace);
 
     const folders = await workspace.getWorkspaceFolders();
     if (!folders) {

@@ -68,13 +68,13 @@
           "scope": "resource",
           "type": "boolean",
           "default": false,
-          "description": "Controls whether Betterer debug logging is enabled or not. Requires restart."
+          "description": "Controls whether Betterer debug logging is enabled or not. You'll need to restart VS Code after you change this!"
         },
         "betterer.debugLogPath": {
           "scope": "resource",
           "type": "string",
           "default": "./.betterer-debug.log",
-          "description": "Path to Betterer debug log output relative to working directory. Requires restart."
+          "description": "Path to Betterer debug log output relative to working directory. You'll need to restart VS Code after you change this!"
         },
         "betterer.filters": {
           "scope": "resource",

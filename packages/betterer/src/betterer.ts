@@ -31,7 +31,7 @@ export async function watch(partialConfig: BettererWatchConfigPartial = {}): Pro
 }
 betterer.watch = watch;
 
-function initDebug() {
+function initDebug(): void {
   const enabled = !!process.env.BETTERER_DEBUG;
   if (enabled) {
     debug({
