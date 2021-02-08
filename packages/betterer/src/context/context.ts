@@ -73,7 +73,7 @@ export class BettererContext {
     assert(this._finish);
     this._reporter?.runsEnd?.(runs, files);
     this._status = BettererContextStatus.end;
-    this._finish();
+    this._finish(void 0);
   }
 
   public runStart(run: BettererRun): void {
