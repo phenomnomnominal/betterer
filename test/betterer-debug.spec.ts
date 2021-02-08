@@ -27,9 +27,9 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    process.env.DEBUG = '1';
-    process.env.DEBUG_TIME = '1';
-    process.env.DEBUG_VALUES = '1';
+    process.env.BETTERER_DEBUG = '1';
+    process.env.BETTERER_DEBUG_TIME = '1';
+    process.env.BETTERER_DEBUG_VALUES = '1';
     await betterer({ configPaths, resultsPath });
 
     expect(logs).toMatchSnapshot();
