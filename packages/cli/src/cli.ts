@@ -8,6 +8,7 @@ enum Command {
   init = 'init',
   watch = 'watch'
 }
+
 type CommandName = `${Command}`;
 
 // HACK:
