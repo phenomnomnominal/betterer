@@ -21,6 +21,7 @@ export declare type FixtureFileSystemFiles = Record<string, string>;
 
 export declare type FixtureOptions = {
     logFilters?: Array<RegExp>;
+    logStack?: boolean;
 };
 
 export declare type Paths = {

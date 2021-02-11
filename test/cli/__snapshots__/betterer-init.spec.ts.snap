@@ -4,9 +4,10 @@ exports[`betterer cli should initialise betterer in a repo 1`] = `
 Array [
   "🎉 Initialising Betterer (0ms): 2 tasks done!
 ✅ Create test file: done!
-  ▸ created \\"<project>/fixtures/test-betterer-init/.betterer.ts\\"!
+・ created \\"<project>/fixtures/test-betterer-init/.betterer.ts\\"!
 ✅ Update package.json: done!
-  ▸ added \\"@betterer/cli\\" dependency to package.json file
+・ added \\"betterer\\" script to package.json file.
+・ added \\"@betterer/cli\\" dependency to package.json file
 ",
 ]
 `;
@@ -15,15 +16,17 @@ exports[`betterer cli should work multiple times 1`] = `
 Array [
   "🎉 Initialising Betterer (0ms): 2 tasks done!
 ✅ Create test file: done!
-  ▸ created \\"<project>/fixtures/test-betterer-init-multiple/.betterer.ts\\"!
+・ created \\"<project>/fixtures/test-betterer-init-multiple/.betterer.ts\\"!
 ✅ Update package.json: done!
-  ▸ added \\"@betterer/cli\\" dependency to package.json file
+・ added \\"betterer\\" script to package.json file.
+・ added \\"@betterer/cli\\" dependency to package.json file
 ",
   "🎉 Initialising Betterer (0ms): 2 tasks done!
 ✅ Create test file: done!
-  ▸ \\"<project>/fixtures/test-betterer-init-multiple/.betterer.ts\\" already exists, moving on...
+・ \\"<project>/fixtures/test-betterer-init-multiple/.betterer.ts\\" already exists, moving on...
 ✅ Update package.json: done!
-  ▸ \\"@betterer/cli\\" dependency already exists, moving on...
+・ \\"betterer\\" script already exists, moving on...
+・ \\"@betterer/cli\\" dependency already exists, moving on...
 ",
 ]
 `;

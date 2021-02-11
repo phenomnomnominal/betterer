@@ -1,4 +1,4 @@
-export { BettererTasksState } from './state';
+export { BettererTasksState } from './useTasksState';
 export { BettererTask, BettererTaskProps } from './task';
 export { BettererTasks, BettererTasksProps } from './tasks';
 export {
