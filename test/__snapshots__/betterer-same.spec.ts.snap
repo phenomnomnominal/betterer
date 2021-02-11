@@ -70,7 +70,7 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🎉 Betterer (0ms): 1 test done!
+🌟 Betterer (0ms): 1 test running...
 ✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
 ",
   "
@@ -141,7 +141,7 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🎉 Betterer (0ms): 1 test done!
+🌟 Betterer (0ms): 1 test running...
 ✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. 😐
 ",
   "
@@ -241,7 +241,7 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🎉 Betterer (0ms): 1 test done!
+🌟 Betterer (0ms): 1 test running...
 ✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
 ",
   "
@@ -312,7 +312,7 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🎉 Betterer (0ms): 1 test done!
+🌟 Betterer (0ms): 1 test running...
 ✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. 😐
 ",
   "
@@ -414,7 +414,7 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🎉 Betterer (0ms): 1 test done!
+🌟 Betterer (0ms): 1 test running...
 ✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
 ",
   "
@@ -485,7 +485,7 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🎉 Betterer (0ms): 1 test done!
+🌟 Betterer (0ms): 1 test running...
 ✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. 😐
 ",
   "
@@ -563,9 +563,9 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 1 test running... 1 test done!
+🌟 Betterer (0ms): 2 tests running...
 ✅ doesn't get bigger: \\"doesn't get bigger\\" got checked for the first time! 🎉
-🤔 doesn't get smaller: running \\"doesn't get smaller\\"!
+✅ doesn't get smaller: \\"doesn't get smaller\\" got checked for the first time! 🎉
 ",
   "
    / | /     _         _   _
@@ -574,9 +574,9 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 1 test running... 1 test done!
+🌟 Betterer (0ms): 2 tests running...
 ✅ doesn't get bigger: \\"doesn't get bigger\\" got checked for the first time! 🎉
-🤔 doesn't get smaller: running \\"doesn't get smaller\\"!
+✅ doesn't get smaller: \\"doesn't get smaller\\" got checked for the first time! 🎉
 ",
   "
    / | /     _         _   _
@@ -596,7 +596,7 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🎉 Betterer (0ms): 2 tests done!
+🌟 Betterer (0ms): 1 test running... 1 test done!
 ✅ doesn't get bigger: \\"doesn't get bigger\\" got checked for the first time! 🎉
 ✅ doesn't get smaller: \\"doesn't get smaller\\" got checked for the first time! 🎉
 ",
@@ -672,9 +672,9 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 1 test running... 1 test done!
+🌟 Betterer (0ms): 2 tests running...
 ✅ doesn't get bigger: \\"doesn't get bigger\\" stayed the same. 😐
-🤔 doesn't get smaller: running \\"doesn't get smaller\\"!
+✅ doesn't get smaller: \\"doesn't get smaller\\" stayed the same. 😐
 ",
   "
    / | /     _         _   _
@@ -683,9 +683,9 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 1 test running... 1 test done!
+🌟 Betterer (0ms): 2 tests running...
 ✅ doesn't get bigger: \\"doesn't get bigger\\" stayed the same. 😐
-🤔 doesn't get smaller: running \\"doesn't get smaller\\"!
+✅ doesn't get smaller: \\"doesn't get smaller\\" stayed the same. 😐
 ",
   "
    / | /     _         _   _
@@ -705,7 +705,7 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🎉 Betterer (0ms): 2 tests done!
+🌟 Betterer (0ms): 1 test running... 1 test done!
 ✅ doesn't get bigger: \\"doesn't get bigger\\" stayed the same. 😐
 ✅ doesn't get smaller: \\"doesn't get smaller\\" stayed the same. 😐
 ",

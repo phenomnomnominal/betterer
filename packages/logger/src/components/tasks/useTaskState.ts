@@ -43,8 +43,8 @@ export function useTasksState(context: BettererTaskContext): [BettererTaskState,
 
   const api: BettererTaskStateAPI = {
     start() {
-      tasks.start();
       dispatch({ type: 'start' });
+      tasks.start();
     },
     status(status: BettererTaskLog) {
       return Promise.resolve(dispatch({ type: 'status', data: status }));
@@ -53,33 +53,21 @@ export function useTasksState(context: BettererTaskContext): [BettererTaskState,
       return Promise.resolve(dispatch({ type: 'log', data: log }));
     },
     stop() {
-      tasks.stop();
       dispatch({ type: 'stop' });
+      tasks.stop();
     },
     error(error: Error) {
-      tasks.error(error);
       dispatch({ type: 'error', data: error });
+      tasks.error(error);
     }
   };
 
   return [state, api];
 }
 
-export function useCachedTask(context: BettererTaskContext): () => void {
-  const tasks = useContext(BettererTasksContext);
-  return () => {
-    const cached = getState(context);
-    tasks.start();
-    if (cached.error) {
-      tasks.error(cached.error);
-    }
-    tasks.stop();
-  };
-}
-
 type BettererTaskReducer = (state: BettererTaskState, action: BettererTaskAction) => BettererTaskState;
 
-const TASK_STATE_CACHE = new Map<BettererTaskContext, BettererTaskState>();
+const TASK_STATE_CACHE = new WeakMap<BettererTaskContext, BettererTaskState>();
 
 function getState(context: BettererTaskContext): BettererTaskState {
   if (TASK_STATE_CACHE.has(context)) {

@@ -6,7 +6,7 @@ import { BettererLoggerCodeInfo } from '../../types';
 import { code } from '../../code';
 import { BettererErrorLog } from '../error-log';
 import { BettererTaskStatus } from './status';
-import { useTasksState, useCachedTask } from './useTaskState';
+import { useTasksState } from './useTaskState';
 import { BettererTaskContext, BettererTaskLog } from './types';
 
 export type BettererTaskProps = {
@@ -15,7 +15,6 @@ export type BettererTaskProps = {
 
 export const BettererTask: FC<BettererTaskProps> = memo(function BettererTask({ context }) {
   const [state, task] = useTasksState(context);
-  const setComplete = useCachedTask(context);
 
   const { name, run } = context;
   const { done, error, messageLogs, running, status } = state;
@@ -23,7 +22,6 @@ export const BettererTask: FC<BettererTaskProps> = memo(function BettererTask({ 
   useEffect(() => {
     void (async () => {
       if (running || done) {
-        setComplete();
         return;
       }
 
@@ -76,12 +74,12 @@ export const BettererTask: FC<BettererTaskProps> = memo(function BettererTask({ 
         } else {
           await task.status(result);
         }
+        task.stop();
       } catch (error) {
         await statusError((error as Error).message);
         task.error(error);
         process.exitCode = 1;
       }
-      task.stop();
     })();
   }, []);
 

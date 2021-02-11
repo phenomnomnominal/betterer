@@ -46,7 +46,7 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🎉 Betterer (0ms): 1 test done!
+🌟 Betterer (0ms): 1 test running...
 ✅ no raw console calls: \\"no raw console calls\\" got checked for the first time! 🎉
 ",
   "
@@ -117,7 +117,7 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🎉 Betterer (0ms): 1 test done!
+🌟 Betterer (0ms): 1 test running...
 ✅ no raw console calls: \\"no raw console calls\\" got better! 😍
 ",
   "
@@ -208,9 +208,9 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 1 test running... 1 test done!
+🌟 Betterer (0ms): 2 tests running...
 ✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
-🤔 should grow: running \\"should grow\\"!
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
 ",
   "
    / | /     _         _   _
@@ -219,9 +219,9 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 1 test running... 1 test done!
+🌟 Betterer (0ms): 2 tests running...
 ✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
-🤔 should grow: running \\"should grow\\"!
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
 ",
   "
    / | /     _         _   _
@@ -241,7 +241,7 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🎉 Betterer (0ms): 2 tests done!
+🌟 Betterer (0ms): 1 test running... 1 test done!
 ✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
 ✅ should grow: \\"should grow\\" got checked for the first time! 🎉
 ",
@@ -317,9 +317,9 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 1 test running... 1 test done!
+🌟 Betterer (0ms): 2 tests running...
 ✅ should shrink: \\"should shrink\\" got better! 😍
-🤔 should grow: running \\"should grow\\"!
+✅ should grow: \\"should grow\\" got better! 😍
 ",
   "
    / | /     _         _   _
@@ -328,9 +328,9 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 1 test running... 1 test done!
+🌟 Betterer (0ms): 2 tests running...
 ✅ should shrink: \\"should shrink\\" got better! 😍
-🤔 should grow: running \\"should grow\\"!
+✅ should grow: \\"should grow\\" got better! 😍
 ",
   "
    / | /     _         _   _
@@ -350,7 +350,7 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🎉 Betterer (0ms): 2 tests done!
+🌟 Betterer (0ms): 1 test running... 1 test done!
 ✅ should shrink: \\"should shrink\\" got better! 😍
 ✅ should grow: \\"should grow\\" got better! 😍
 ",
