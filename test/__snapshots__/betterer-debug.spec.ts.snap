@@ -170,29 +170,21 @@ Array [
 ",
   "▸▸▸▸▸▸ BettererLogo time: 0ms return:
 ",
-  "▸▸▸▸▸▸ BettererTasks args:
+  "▸▸▸▸▸▸ useTasksState args:
 ",
-  "▸▸▸▸▸▸ BettererTasks time: 0ms return:
+  "▸▸▸▸▸▸ useTasksState time: 0ms return:
 ",
   "▸▸▸▸▸▸ BettererTaskStatus args:
 ",
   "▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
 ",
-  "▸▸▸▸▸▸ BettererTask args:
+  "▸▸▸▸▸▸ useTasksState args:
 ",
-  "▸▸▸▸▸▸▸ useTaskLogs args:
+  "▸▸▸▸▸▸ useTasksState time: 0ms return:
 ",
-  "▸▸▸▸▸▸▸ useTaskLogs time: 0ms return:
+  "▸▸▸▸▸▸ useTasksState args:
 ",
-  "▸▸▸▸▸▸ BettererTask time: 0ms return:
-",
-  "▸▸▸▸▸▸ BettererTask args:
-",
-  "▸▸▸▸▸▸▸ useTaskLogs args:
-",
-  "▸▸▸▸▸▸▸ useTaskLogs time: 0ms return:
-",
-  "▸▸▸▸▸▸ BettererTask time: 0ms return:
+  "▸▸▸▸▸▸ useTasksState time: 0ms return:
 ",
   "
    / | /     _         _   _
@@ -285,41 +277,25 @@ Array [
 ",
   "▸▸▸▸▸▸ read args:
 ",
-  "▸▸▸▸▸▸▸ reducer args:
+  "▸▸▸▸▸▸▸ useTasksState args:
 ",
-  "▸▸▸▸▸▸▸ reducer time: 0ms return:
-",
-  "▸▸▸▸▸▸▸ BettererTasks args:
-",
-  "▸▸▸▸▸▸▸▸ reducer args:
-",
-  "▸▸▸▸▸▸▸▸ reducer time: 0ms return:
-",
-  "▸▸▸▸▸▸▸ BettererTasks time: 0ms return:
+  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus args:
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
 ",
-  "▸▸▸▸▸▸▸ BettererTask args:
+  "▸▸▸▸▸▸▸ useTasksState args:
 ",
-  "▸▸▸▸▸▸▸▸ useTaskLogs args:
-",
-  "▸▸▸▸▸▸▸▸ useTaskLogs time: 0ms return:
-",
-  "▸▸▸▸▸▸▸ BettererTask time: 0ms return:
+  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus args:
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
 ",
-  "▸▸▸▸▸▸▸ BettererTask args:
+  "▸▸▸▸▸▸▸ useTasksState args:
 ",
-  "▸▸▸▸▸▸▸▸ useTaskLogs args:
-",
-  "▸▸▸▸▸▸▸▸ useTaskLogs time: 0ms return:
-",
-  "▸▸▸▸▸▸▸ BettererTask time: 0ms return:
+  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus args:
 ",
@@ -336,13 +312,9 @@ Array [
 🤔 should shrink: running \\"should shrink\\"!
 🤔 should grow: running \\"should grow\\"!
 ",
-  "▸▸▸▸▸▸▸ BettererTask args:
+  "▸▸▸▸▸▸▸ useTasksState args:
 ",
-  "▸▸▸▸▸▸▸▸ useTaskLogs args:
-",
-  "▸▸▸▸▸▸▸▸ useTaskLogs time: 0ms return:
-",
-  "▸▸▸▸▸▸▸ BettererTask time: 0ms return:
+  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus args:
 ",
@@ -359,13 +331,9 @@ Array [
 ✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
 🤔 should grow: running \\"should grow\\"!
 ",
-  "▸▸▸▸▸▸▸ reducer args:
+  "▸▸▸▸▸▸▸ useTasksState args:
 ",
-  "▸▸▸▸▸▸▸ reducer time: 0ms return:
-",
-  "▸▸▸▸▸▸▸ BettererTasks args:
-",
-  "▸▸▸▸▸▸▸ BettererTasks time: 0ms return:
+  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus args:
 ",
@@ -378,17 +346,13 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 1 test running... 1 test done!
+🌟 Betterer (0ms): 2 tests running...
 ✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
-🤔 should grow: running \\"should grow\\"!
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
 ",
-  "▸▸▸▸▸▸▸ BettererTask args:
+  "▸▸▸▸▸▸▸ useTasksState args:
 ",
-  "▸▸▸▸▸▸▸▸ useTaskLogs args:
-",
-  "▸▸▸▸▸▸▸▸ useTaskLogs time: 0ms return:
-",
-  "▸▸▸▸▸▸▸ BettererTask time: 0ms return:
+  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus args:
 ",
@@ -401,17 +365,29 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 1 test running... 1 test done!
+🌟 Betterer (0ms): 2 tests running...
 ✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
-🤔 should grow: running \\"should grow\\"!
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
 ",
-  "▸▸▸▸▸▸▸ BettererTask args:
+  "▸▸▸▸▸▸▸ useTasksState args:
 ",
-  "▸▸▸▸▸▸▸▸ useTaskLogs args:
+  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
 ",
-  "▸▸▸▸▸▸▸▸ useTaskLogs time: 0ms return:
+  "▸▸▸▸▸▸▸ BettererTaskStatus args:
 ",
-  "▸▸▸▸▸▸▸ BettererTask time: 0ms return:
+  "▸▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
+",
+  "▸▸▸▸▸▸▸ useTasksState args:
+",
+  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
+",
+  "▸▸▸▸▸▸▸ BettererTaskStatus args:
+",
+  "▸▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
+",
+  "▸▸▸▸▸▸▸ useTasksState args:
+",
+  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus args:
 ",
@@ -428,13 +404,44 @@ Array [
 ✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
 ✅ should grow: \\"should grow\\" got checked for the first time! 🎉
 ",
-  "▸▸▸▸▸▸▸ reducer args:
+  "▸▸▸▸▸▸▸ useTasksState args:
 ",
-  "▸▸▸▸▸▸▸ reducer time: 0ms return:
+  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
 ",
-  "▸▸▸▸▸▸▸ BettererTasks args:
+  "▸▸▸▸▸▸▸ BettererTaskStatus args:
 ",
-  "▸▸▸▸▸▸▸ BettererTasks time: 0ms return:
+  "▸▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running... 1 test done!
+✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+",
+  "▸▸▸▸▸▸▸ useTasksState args:
+",
+  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
+",
+  "▸▸▸▸▸▸▸ BettererTaskStatus args:
+",
+  "▸▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
+",
+  "▸▸▸▸▸▸▸ useTasksState args:
+",
+  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
+",
+  "▸▸▸▸▸▸▸ BettererTaskStatus args:
+",
+  "▸▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
+",
+  "▸▸▸▸▸▸▸ useTasksState args:
+",
+  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus args:
 ",
@@ -451,28 +458,9 @@ Array [
 ✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
 ✅ should grow: \\"should grow\\" got checked for the first time! 🎉
 ",
-  "▸▸▸▸▸▸▸ BettererTask args:
+  "▸▸▸▸▸▸▸ useTasksState args:
 ",
-  "▸▸▸▸▸▸▸▸ useTaskLogs args:
-",
-  "▸▸▸▸▸▸▸▸ useTaskLogs time: 0ms return:
-",
-  "▸▸▸▸▸▸▸ BettererTask time: 0ms return:
-",
-  "▸▸▸▸▸▸▸ BettererTaskStatus args:
-",
-  "▸▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Betterer (0ms): 2 tests done!
-✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
-✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
 ",
   "▸▸▸▸▸▸ read time: 0ms return:
 ",
@@ -508,9 +496,25 @@ Array [
 ",
   "▸▸▸▸▸▸ BettererLogo time: 0ms return:
 ",
-  "▸▸▸▸▸▸ BettererTasks args:
+  "▸▸▸▸▸▸ useTasksState args:
 ",
-  "▸▸▸▸▸▸ BettererTasks time: 0ms return:
+  "▸▸▸▸▸▸ useTasksState time: 0ms return:
+",
+  "▸▸▸▸▸▸ BettererTaskStatus args:
+",
+  "▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
+",
+  "▸▸▸▸▸▸ useTasksState args:
+",
+  "▸▸▸▸▸▸ useTasksState time: 0ms return:
+",
+  "▸▸▸▸▸▸ BettererTaskStatus args:
+",
+  "▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
+",
+  "▸▸▸▸▸▸ useTasksState args:
+",
+  "▸▸▸▸▸▸ useTasksState time: 0ms return:
 ",
   "▸▸▸▸▸▸ BettererTaskStatus args:
 ",
