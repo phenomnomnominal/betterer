@@ -1,12 +1,12 @@
 import { BettererError } from '@betterer/errors';
-import { BettererTaskLoggerAsync } from '@betterer/logger';
+import { BettererTaskLogger } from '@betterer/logger';
 import { promises as fs } from 'fs';
 
 const TEMPLATE = `export default {
   // Add tests here ☀️
 };`;
 
-export async function run(logger: BettererTaskLoggerAsync, configPath: string): Promise<void> {
+export async function run(logger: BettererTaskLogger, configPath: string): Promise<void> {
   await logger.progress(`creating "${configPath}" file...`);
 
   let exists = false;

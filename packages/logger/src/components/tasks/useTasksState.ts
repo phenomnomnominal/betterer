@@ -1,4 +1,4 @@
-import { createContext, Dispatch } from 'react';
+import { createContext, useReducer } from 'react';
 import { performance } from 'perf_hooks';
 
 export type BettererTasksState = {
@@ -18,11 +18,16 @@ export type BettererTasksAction =
     }
   | {
       type: 'error';
+      data: Error;
     };
 
-export type BettererTasksContextType = Dispatch<BettererTasksAction>;
+export type BettererTasksStateAPI = {
+  start(): void;
+  stop(): void;
+  error(error: Error): void;
+};
 
-export const INITIAL_STATE: BettererTasksState = {
+const INITIAL_STATE: BettererTasksState = {
   running: 0,
   done: 0,
   errors: 0,
@@ -30,9 +35,36 @@ export const INITIAL_STATE: BettererTasksState = {
   shouldExit: false
 };
 
-export const BettererTasksContext = createContext<BettererTasksContextType>(() => void 0);
+export function useTasksState(): [BettererTasksState, BettererTasksStateAPI] {
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+  const api: BettererTasksStateAPI = {
+    start() {
+      dispatch({ type: 'start' });
+    },
+    stop() {
+      dispatch({ type: 'stop' });
+    },
+    error(error: Error) {
+      dispatch({ type: 'error', data: error });
+    }
+  };
 
-export function reducer(state: BettererTasksState, action: BettererTasksAction): BettererTasksState {
+  return [state, api];
+}
+
+export const BettererTasksContext = createContext<BettererTasksStateAPI>({
+  start() {
+    throw new Error();
+  },
+  stop() {
+    throw new Error();
+  },
+  error() {
+    throw new Error();
+  }
+});
+
+function reducer(state: BettererTasksState, action: BettererTasksAction): BettererTasksState {
   switch (action.type) {
     case 'start':
       return {

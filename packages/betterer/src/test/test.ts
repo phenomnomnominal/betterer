@@ -1,6 +1,5 @@
 import { BettererResultValue } from '../results';
 import { createTestConfig } from './config';
-
 import { BettererTestBase, BettererTestConfig, BettererTestConfigPartial } from './types';
 
 const IS_BETTERER_TEST = 'isBettererTest';

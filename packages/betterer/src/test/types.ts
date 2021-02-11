@@ -22,7 +22,7 @@ export type BettererDiff<DeserialisedType extends BettererResultValue = Betterer
   expected: DeserialisedType;
   result: DeserialisedType;
   diff: DiffType;
-  log: (logger: BettererLogger) => void;
+  log: (logger: BettererLogger) => Promise<void>;
 };
 
 export type BettererDiffer<DeserialisedType extends BettererResultValue, DiffType> = (

@@ -1,62 +1,63 @@
 import chalk from 'chalk';
 import { Box, Text } from 'ink';
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, memo, useEffect } from 'react';
 
 import { BettererLoggerCodeInfo } from '../../types';
 import { code } from '../../code';
 import { BettererErrorLog } from '../error-log';
-import { BettererTasksContext } from './state';
 import { BettererTaskStatus } from './status';
+import { useTasksState, useCachedTask } from './useTaskState';
 import { BettererTaskContext, BettererTaskLog } from './types';
-import { useTaskLogs } from './use-task-logs';
 
 export type BettererTaskProps = {
   context: BettererTaskContext;
 };
 
-export const BettererTask: FC<BettererTaskProps> = function BettererTask({ context }) {
-  const dispatch = useContext(BettererTasksContext);
+export const BettererTask: FC<BettererTaskProps> = memo(function BettererTask({ context }) {
+  const [state, task] = useTasksState(context);
+  const setComplete = useCachedTask(context);
+
   const { name, run } = context;
-  const [running, setRunning] = useState(true);
-  const [status, setStatus] = useState<BettererTaskLog | null>(null);
-  const [messageLogs, setMessageLogs] = useTaskLogs();
-  const [error, setError] = useState<Error | null>(null);
+  const { done, error, messageLogs, running, status } = state;
 
   useEffect(() => {
     void (async () => {
-      function statusError(status: string): void {
-        setStatus(['🔥', 'redBright', status]);
-      }
-      function statusProgress(status: string): void {
-        setStatus(['🤔', 'whiteBright', status]);
-      }
-      function statusSuccess(status: string): void {
-        setStatus(['✅', 'greenBright', status]);
+      if (running || done) {
+        setComplete();
+        return;
       }
 
-      function logCode(codeInfo: BettererLoggerCodeInfo): void {
-        const { message } = codeInfo;
+      async function statusError(status: string): Promise<void> {
+        await task.status(['🔥', 'redBright', status]);
+      }
+      async function statusProgress(status: string): Promise<void> {
+        await task.status(['🤔', 'whiteBright', status]);
+      }
+      async function statusSuccess(status: string): Promise<void> {
+        await task.status(['✅', 'greenBright', status]);
+      }
+
+      async function logCode(codeInfo: BettererLoggerCodeInfo): Promise<void> {
         const codeFrame = code(codeInfo);
-        logInfo(message.trim());
-        setMessageLogs(['💻', 'magentaBright', codeFrame]);
+        await task.log(['💻', 'whiteBright', codeFrame]);
       }
-      function logDebug(log: string): void {
-        setMessageLogs(['🤯', 'blueBright', log]);
+      async function logDebug(log: string): Promise<void> {
+        await task.log(['🤯', 'blueBright', log]);
       }
-      function logError(log: string): void {
-        setMessageLogs(['🔥', 'redBright', log]);
+      async function logError(log: string): Promise<void> {
+        await task.log(['🔥', 'redBright', log]);
       }
-      function logInfo(log: string): void {
-        setMessageLogs(['💭', 'gray', log]);
+      async function logInfo(log: string): Promise<void> {
+        await task.log(['💭', 'gray', log]);
       }
-      function logSuccess(log: string): void {
-        setMessageLogs(['✅', 'greenBright', log]);
+      async function logSuccess(log: string): Promise<void> {
+        await task.log(['✅', 'greenBright', log]);
       }
-      function logWarning(log: string): void {
-        setMessageLogs(['🚨', 'yellowBright', log]);
+      async function logWarning(log: string): Promise<void> {
+        await task.log(['🚨', 'yellowBright', log]);
       }
 
-      dispatch({ type: 'start' });
+      task.start();
       try {
         const result = await run({
           progress: statusProgress,
@@ -69,27 +70,24 @@ export const BettererTask: FC<BettererTaskProps> = function BettererTask({ conte
         });
 
         if (typeof result === 'string') {
-          statusSuccess(result);
+          await statusSuccess(result);
         } else if (!result) {
-          statusSuccess('done!');
+          await statusSuccess('done!');
         } else {
-          setStatus(result);
+          await task.status(result);
         }
-
-        dispatch({ type: 'stop' });
       } catch (error) {
-        statusError((error as Error).message);
-        setError(error);
-        dispatch({ type: 'error' });
+        await statusError((error as Error).message);
+        task.error(error);
         process.exitCode = 1;
       }
-      setRunning(false);
+      task.stop();
     })();
   }, []);
 
   return (
     <Box flexDirection="column">
-      {!running && status && <BettererTaskStatus name={name} status={status} />}
+      {done && status && <BettererTaskStatus name={name} status={status} />}
       {messageLogs.length ? (
         <Box flexDirection="column">
           {messageLogs.map((log, index) => (
@@ -98,14 +96,14 @@ export const BettererTask: FC<BettererTaskProps> = function BettererTask({ conte
         </Box>
       ) : null}
       {error && <BettererErrorLog error={error} />}
-      {running && status && <BettererTaskStatus name={name} status={status} />}
+      {!done && status && <BettererTaskStatus name={name} status={status} />}
     </Box>
   );
-};
+});
 
 function prependLogBlock(log: BettererTaskLog): string {
   const [, colour, message] = log;
-  return prependBlock(message, chalk[colour]('  ▸'));
+  return prependBlock(message, chalk[colour]('・'));
 }
 
 function prependBlock(message: string, block: string): string {

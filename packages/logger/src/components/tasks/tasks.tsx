@@ -1,9 +1,9 @@
 import { Box, useApp } from 'ink';
-import React, { FC, useCallback, useEffect, useReducer, useState } from 'react';
+import React, { FC, memo, useCallback, useEffect, useState } from 'react';
 import { performance } from 'perf_hooks';
 
-import { INITIAL_STATE, reducer, BettererTasksContext, BettererTasksState } from './state';
 import { BettererTaskStatus } from './status';
+import { useTasksState, BettererTasksContext, BettererTasksState } from './useTasksState';
 import { BettererTaskLog } from './types';
 
 export type BettererTasksProps = {
@@ -12,7 +12,7 @@ export type BettererTasksProps = {
   exit?: boolean;
 };
 
-export const BettererTasks: FC<BettererTasksProps> = function BettererTask({
+export const BettererTasks: FC<BettererTasksProps> = memo(function BettererTasks({
   children,
   exit = true,
   name,
@@ -21,7 +21,7 @@ export const BettererTasks: FC<BettererTasksProps> = function BettererTask({
   const app = useApp();
   const formatter = Intl.NumberFormat();
 
-  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+  const [state, api] = useTasksState();
   const [time, setTime] = useState(0);
 
   const { errors, shouldExit } = state;
@@ -51,14 +51,14 @@ export const BettererTasks: FC<BettererTasksProps> = function BettererTask({
   }
 
   return (
-    <BettererTasksContext.Provider value={dispatch}>
+    <BettererTasksContext.Provider value={api}>
       <Box flexDirection="column">
         <BettererTaskStatus name={`${name} (${formatter.format(time)}ms)`} status={status} />
         {children}
       </Box>
     </BettererTasksContext.Provider>
   );
-};
+});
 
 const DEFAULT_TASK_TIME_INTERVAL = 10;
 function getTimerInterval(): number {

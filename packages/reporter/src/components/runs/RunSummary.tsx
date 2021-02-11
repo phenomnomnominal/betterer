@@ -18,10 +18,10 @@ import {
   testWorseΔ,
   unexpectedDiffΔ,
   updateInstructionsΔ
-} from '../messages';
-import { quoteΔ } from '../utils';
+} from '../../messages';
+import { quoteΔ } from '../../utils';
 
-export type SummaryProps = {
+export type RunSummaryProps = {
   summary: BettererSummary;
 };
 
@@ -29,6 +29,7 @@ const TEXT_COLOURS: Record<string, TextProps['color']> = {
   better: 'greenBright',
   checked: 'gray',
   completed: 'greenBright',
+  diff: 'red',
   expired: 'brightRed',
   failed: 'brightRed',
   new: 'gray',
@@ -39,7 +40,7 @@ const TEXT_COLOURS: Record<string, TextProps['color']> = {
   worse: 'red'
 };
 
-export const Summary: FC<SummaryProps> = memo(function Summary({ summary }) {
+export const RunSummary: FC<RunSummaryProps> = memo(function RunSummary({ summary }) {
   const better = summary.better.length;
   const failed = summary.failed.length;
   const neww = summary.new.length;
@@ -83,10 +84,10 @@ export const Summary: FC<SummaryProps> = memo(function Summary({ summary }) {
         </>
       ) : null}
       {summary.hasDiff ? (
-        <>
-          <Text color="red">{unexpectedDiffΔ()}</Text>
+        <Box flexDirection="column" paddingTop={1}>
+          <Text color={TEXT_COLOURS.diff}>{unexpectedDiffΔ()}</Text>
           <Text>{diffΔ(summary.expected, summary.result)}</Text>
-        </>
+        </Box>
       ) : null}
     </Box>
   );

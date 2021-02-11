@@ -78,10 +78,10 @@ export function defaultDiffer(expected: number, result: number): BettererDiff<nu
     expected,
     result,
     diff: null,
-    log(logger: BettererLogger): void {
+    async log(logger: BettererLogger): Promise<void> {
       const diff = diffΔ(expected, result);
       if (diff) {
-        logger.error(diff);
+        await logger.error(diff);
       }
     }
   };

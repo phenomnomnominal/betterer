@@ -1,6 +1,5 @@
 export type BettererLoggerMessages = Array<string>;
-export type BettererLogMessage = (...messages: BettererLoggerMessages) => void;
-export type BettererLogMessageAsync = (...messages: BettererLoggerMessages) => Promise<void>;
+export type BettererLogMessage = (...messages: BettererLoggerMessages) => Promise<void>;
 
 export type BettererLoggerCodeInfo = {
   message: string;
@@ -11,8 +10,7 @@ export type BettererLoggerCodeInfo = {
   length: number;
 };
 
-export type BettererLogCode = (codeInfo: BettererLoggerCodeInfo) => void;
-export type BettererLogCodeAsync = (codeInfo: BettererLoggerCodeInfo) => Promise<void>;
+export type BettererLogCode = (codeInfo: BettererLoggerCodeInfo) => Promise<void>;
 
 export type BettererLogger = {
   code: BettererLogCode;
@@ -21,13 +19,4 @@ export type BettererLogger = {
   info: BettererLogMessage;
   success: BettererLogMessage;
   warn: BettererLogMessage;
-};
-
-export type BettererLoggerAsync = {
-  code: BettererLogCodeAsync;
-  debug: BettererLogMessageAsync;
-  error: BettererLogMessageAsync;
-  info: BettererLogMessageAsync;
-  success: BettererLogMessageAsync;
-  warn: BettererLogMessageAsync;
 };

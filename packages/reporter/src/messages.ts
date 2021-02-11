@@ -42,3 +42,23 @@ export function updateInstructionsΔ(): string {
 export function unexpectedDiffΔ(): string {
   return 'Unexpected diff found:';
 }
+
+export function filesChecking(files: number): string {
+  return `Checking ${files} ${getFiles(files)}... 🤔`;
+}
+
+export function filesChecked(files: number): string {
+  return `Checked ${files} ${getFiles(files)}! 🔍`;
+}
+
+export function watchStart(): string {
+  return 'Starting Betterer in watch mode! 🎉';
+}
+
+export function watchEnd(): string {
+  return 'Stopping watch mode... 👋';
+}
+
+function getFiles(count: number): string {
+  return count === 1 ? 'file' : 'files';
+}

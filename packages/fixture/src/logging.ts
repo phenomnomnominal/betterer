@@ -36,11 +36,6 @@ export function createFixtureLogs(options?: FixtureOptions): FixtureLogs {
     });
   };
 
-  jest.spyOn(console, 'log').mockImplementation(log);
-  jest.spyOn(console, 'error').mockImplementation((message: string) => {
-    const [firstLine] = message.split('\n');
-    log(firstLine);
-  });
   jest.spyOn(process.stdout, 'write').mockImplementation((message: string | Uint8Array): boolean => {
     if (message) {
       log(message.toString());
@@ -48,6 +43,7 @@ export function createFixtureLogs(options?: FixtureOptions): FixtureLogs {
     return true;
   });
   process.stdout.columns = 1000;
+  process.stdout.rows = 20;
 
   return logs as FixtureLogs;
 }
