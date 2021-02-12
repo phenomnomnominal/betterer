@@ -52,7 +52,7 @@ export const RunSummary: FC<RunSummaryProps> = memo(function RunSummary({ summar
   const { completed, expired, obsolete } = summary;
 
   return (
-    <Box flexDirection="column" paddingY={1}>
+    <Box flexDirection="column" paddingBottom={1}>
       <Text color={TEXT_COLOURS.checked}>{testCheckedΔ(tests(ran))}</Text>
       {expired.map((run) => (
         <Text key={`${run.name}-expired`} color={TEXT_COLOURS.expired}>
@@ -77,10 +77,10 @@ export const RunSummary: FC<RunSummaryProps> = memo(function RunSummary({ summar
       {updated ? <Text color={TEXT_COLOURS.updated}>{testUpdatedΔ(tests(updated))}</Text> : null}
       {worse ? (
         <>
-          <Text color={TEXT_COLOURS.worse}>{testWorseΔ(tests(worse))}</Text>
-          <Box paddingTop={1}>
-            <Text>{updateInstructionsΔ()}</Text>
+          <Box paddingBottom={1}>
+            <Text color={TEXT_COLOURS.worse}>{testWorseΔ(tests(worse))}</Text>
           </Box>
+          <Text>{updateInstructionsΔ()}</Text>
         </>
       ) : null}
       {summary.hasDiff ? (

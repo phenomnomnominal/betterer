@@ -1,7 +1,7 @@
 import { useCallback, useContext, useReducer } from 'react';
 
-import { BettererTasksAction, BettererTasksContext, BettererTasksStateAPI } from './useTasksState';
-import { BettererTaskContext, BettererTaskLog, BettererTaskLogs } from './types';
+import { BettererTasksAction, BettererTasksStateContext, BettererTasksStateAPI } from './useTasksState';
+import { BettererTaskRunner, BettererTaskLog, BettererTaskLogs } from './types';
 
 type BettererTaskState = {
   done: boolean;
@@ -35,11 +35,11 @@ type BettererTaskStateAPI = BettererTasksStateAPI & {
   log(status: BettererTaskLog): Promise<void>;
 };
 
-export function useTasksState(context: BettererTaskContext): [BettererTaskState, BettererTaskStateAPI] {
-  const previous = getState(context);
-  const reducer = useCallback(setState(context), []);
+export function useTaskState(runner: BettererTaskRunner): [BettererTaskState, BettererTaskStateAPI] {
+  const previous = getState(runner);
+  const reducer = useCallback(setState(runner), []);
   const [state, dispatch] = useReducer(reducer, previous);
-  const tasks = useContext(BettererTasksContext);
+  const tasks = useContext(BettererTasksStateContext);
 
   const api: BettererTaskStateAPI = {
     start() {
@@ -67,21 +67,19 @@ export function useTasksState(context: BettererTaskContext): [BettererTaskState,
 
 type BettererTaskReducer = (state: BettererTaskState, action: BettererTaskAction) => BettererTaskState;
 
-const TASK_STATE_CACHE = new WeakMap<BettererTaskContext, BettererTaskState>();
+const TASK_RUNNER_CACHE = new Map<BettererTaskRunner, BettererTaskState>();
 
-function getState(context: BettererTaskContext): BettererTaskState {
-  if (TASK_STATE_CACHE.has(context)) {
-    return TASK_STATE_CACHE.get(context) as BettererTaskState;
+function getState(runner: BettererTaskRunner): BettererTaskState {
+  if (!TASK_RUNNER_CACHE.has(runner)) {
+    TASK_RUNNER_CACHE.set(runner, INITIAL_STATE);
   }
-  const state = INITIAL_STATE;
-  TASK_STATE_CACHE.set(context, state);
-  return state;
+  return TASK_RUNNER_CACHE.get(runner) as BettererTaskState;
 }
 
-function setState(context: BettererTaskContext): BettererTaskReducer {
+function setState(runner: BettererTaskRunner): BettererTaskReducer {
   return (state: BettererTaskState, action: BettererTaskAction): BettererTaskState => {
     const newState = reducer(state, action);
-    TASK_STATE_CACHE.set(context, newState);
+    TASK_RUNNER_CACHE.set(runner, newState);
     return newState;
   };
 }
@@ -115,7 +113,8 @@ function reducer(state: BettererTaskState, action: BettererTaskAction): Betterer
         done: true
       };
     }
-    default:
+    default: {
       return state;
+    }
   }
 }

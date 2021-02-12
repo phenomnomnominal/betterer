@@ -1,5 +1,5 @@
 import { BettererFilePaths, BettererRuns, BettererSummaries, BettererSummary } from '@betterer/betterer';
-import { Instance, useApp } from 'ink';
+import { useApp } from 'ink';
 
 export type BettererReporterApp = ReturnType<typeof useApp>;
 export type BettererReporterData = {
@@ -9,4 +9,7 @@ export type BettererReporterData = {
   summaries?: BettererSummaries;
 };
 
-export type BettererReporterRenderer = (data?: BettererReporterData) => Instance;
+export type BettererReporterRenderer = {
+  render: (data?: BettererReporterData) => void;
+  stop: () => void;
+};

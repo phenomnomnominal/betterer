@@ -57,7 +57,7 @@ export const Config: FC<ConfigProps> = function Config({ context, editField }) {
       )}
       {editField == 'ignores' && (
         <EditConfig name="Ignores" value={ignores} onChange={updateIgnores}>
-          Use glob patterns e.g. **/*.ts. Use "," to separate multiple ignores.
+          Use glob patterns starting from CWD e.g. **/*.ts. Use "," to separate multiple ignores.
         </EditConfig>
       )}
     </Box>

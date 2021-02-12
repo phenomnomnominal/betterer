@@ -5,7 +5,7 @@ export {
   BettererLogo,
   BettererTask,
   BettererTaskColour,
-  BettererTaskContext,
+  BettererTaskRunner,
   BettererTaskProps,
   BettererTaskLog,
   BettererTaskLogs,

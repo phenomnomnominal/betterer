@@ -4,20 +4,19 @@ import { BettererRuns } from '@betterer/betterer';
 import { BettererTask, BettererTasks, BettererTasksState } from '@betterer/logger';
 import { Box } from 'ink';
 
-import { getContexts } from './contexts';
+import { getRunner } from './runner';
 
 export type RunsProps = {
   runs: BettererRuns;
+  reset?: boolean;
 };
 
 export const Runs: FC<RunsProps> = memo(function Runs({ runs }) {
-  const contexts = getContexts(runs);
-
   return (
-    <Box flexDirection="column">
-      <BettererTasks name="Betterer" statusMessage={statusMessage} exit={false}>
-        {contexts.map((context) => (
-          <BettererTask key={context.name} context={context} />
+    <Box flexDirection="column" paddingBottom={1}>
+      <BettererTasks name="Betterer" statusMessage={statusMessage} ref={runs} exit={false}>
+        {runs.map((run) => (
+          <BettererTask key={run.name} name={run.name} runner={getRunner(run)} />
         ))}
       </BettererTasks>
     </Box>

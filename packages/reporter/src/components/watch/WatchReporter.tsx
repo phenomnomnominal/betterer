@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, memo, useState } from 'react';
 
 import {
   BettererContext,
@@ -25,7 +25,7 @@ export type WatchReporterProps = {
   summaries?: BettererSummaries;
 };
 
-export const WatchReporter: FC<WatchReporterProps> = function WatchReporter(props) {
+export const WatchReporter: FC<WatchReporterProps> = memo(function WatchReporter(props) {
   const app = useApp();
 
   const { isRawModeSupported } = useStdin();
@@ -75,9 +75,9 @@ export const WatchReporter: FC<WatchReporterProps> = function WatchReporter(prop
   } else if (runs) {
     return <WatchRunning context={context} editField={editField} filePaths={filePaths} runs={runs} />;
   } else {
-    return <WatchStarting />;
+    return <WatchStarting context={context} editField={editField} />;
   }
-};
+});
 
 function quit(app: BettererReporterApp): void {
   app.exit();

@@ -16,21 +16,17 @@ export const Init: FC<InitProps> = function Init({ cwd, config }) {
   return (
     <BettererTasks name="Initialising Betterer" statusMessage={statusMessage}>
       <BettererTask
-        context={{
-          name: 'Create test file',
-          run: async (logger) => {
-            await createTestFile.run(logger, path.resolve(cwd, config));
-            createTestFile.destroy();
-          }
+        name="Create test file"
+        runner={async (logger) => {
+          await createTestFile.run(logger, path.resolve(cwd, config));
+          createTestFile.destroy();
         }}
       />
       <BettererTask
-        context={{
-          name: 'Update package.json',
-          run: async (logger) => {
-            await updatePackageJSON.run(logger, cwd);
-            updatePackageJSON.destroy();
-          }
+        name="Update package.json"
+        runner={async (logger) => {
+          await updatePackageJSON.run(logger, cwd);
+          updatePackageJSON.destroy();
         }}
       />
     </BettererTasks>

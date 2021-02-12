@@ -20,12 +20,10 @@ export const APITest: FC = function APITest() {
       {packageNames.map((packageName) => (
         <BettererTask
           key={packageName}
-          context={{
-            name: packageName,
-            run: async (logger) => {
-              await testPackageApi.run(logger, packageName);
-              testPackageApi.destroy();
-            }
+          name={packageName}
+          runner={async (logger) => {
+            await testPackageApi.run(logger, packageName);
+            testPackageApi.destroy();
           }}
         />
       ))}

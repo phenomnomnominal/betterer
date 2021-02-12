@@ -26,23 +26,22 @@ function createReporter(): BettererReporter {
     },
     contextStart(context: BettererContext): void {
       renderer = createRenderer(context);
-      renderer();
+      renderer.render();
     },
-    async contextEnd(context: BettererContext, summaries: BettererSummaries): Promise<void> {
+    contextEnd(_: BettererContext, summaries: BettererSummaries): void {
       if (summaries.length > 1) {
-        const app = createRenderer(context)({ summaries });
-        app.unmount();
-        await app.waitUntilExit();
+        renderer.render({ summaries });
       }
+      renderer.stop();
     },
     contextError(_: BettererContext, error: BettererError): Promise<void> {
       return renderError(error);
     },
     runsStart(runs: BettererRuns, filePaths: BettererFilePaths): void {
-      renderer({ filePaths, runs });
+      renderer.render({ filePaths, runs });
     },
     runsEnd(summary: BettererSummary, filePaths: BettererFilePaths): void {
-      renderer({ filePaths, runs: summary.runs, summary });
+      renderer.render({ filePaths, runs: summary.runs, summary });
     }
   };
 
@@ -54,11 +53,17 @@ function createReporter(): BettererReporter {
   function createRenderer(context: BettererContext): BettererReporterRenderer {
     let app: Instance;
 
-    return (data: BettererReporterData = {}): Instance => {
-      app?.clear();
-      const finalProps = { ...data, context };
-      app = render(<Reporter {...finalProps} />, { debug: process.env.NODE_ENV === 'test' });
-      return app;
+    return {
+      render(data: BettererReporterData = {}): void {
+        app?.clear();
+        const finalProps = { ...data, context };
+        app = render(<Reporter {...finalProps} />, {
+          debug: process.env.NODE_ENV === 'test'
+        });
+      },
+      stop() {
+        app.unmount();
+      }
     };
   }
 }

@@ -58,7 +58,12 @@ export class BettererRunnerΩ implements BettererRunner {
     });
   }
 
-  public async stop(): Promise<BettererSummary> {
+  public async stop(force: true): Promise<null>;
+  public async stop(): Promise<BettererSummary>;
+  public async stop(force?: true): Promise<BettererSummary | null> {
+    if (!this._running && this._context && force) {
+      return null;
+    }
     assert(this._running && this._context);
     const summary = await this._running;
     await this._context.end();
