@@ -3,38 +3,39 @@ import React, { FC, memo, useCallback, useEffect, useState } from 'react';
 import { performance } from 'perf_hooks';
 
 import { BettererTaskStatus } from './status';
-import { useTasksState, BettererTasksContext, BettererTasksState } from './useTasksState';
-import { BettererTaskLog } from './types';
+import { useTasksState, BettererTasksStateContext } from './useTasksState';
+import { BettererTaskLog, BettererTasksStatusMessage } from './types';
+
+const DEFAULT_TASK_TIME_INTERVAL = 10;
 
 export type BettererTasksProps = {
-  name: string;
-  statusMessage: (state: BettererTasksState) => string;
   exit?: boolean;
+  name: string;
+  statusMessage: BettererTasksStatusMessage;
+  ref?: unknown;
 };
 
-export const BettererTasks: FC<BettererTasksProps> = memo(function BettererTasks({
-  children,
-  exit = true,
-  name,
-  statusMessage
-}) {
+export const BettererTasks: FC<BettererTasksProps> = memo(function BettererTasks(props) {
+  const { children, exit = true, name, statusMessage, ref } = props;
   const app = useApp();
   const formatter = Intl.NumberFormat();
 
-  const [state, api] = useTasksState();
+  const [state, api] = useTasksState(ref);
   const [time, setTime] = useState(0);
 
-  const { errors, shouldExit } = state;
+  const { errors, running, shouldExit, startTime } = state;
 
   const updateTime = useCallback(() => {
-    setTime(Math.floor(performance.now() - state.startTime));
-  }, [state.startTime]);
+    if (running) {
+      setTime(performance.now());
+    }
+  }, []);
 
   useEffect(() => {
     if (shouldExit) {
       return;
     }
-    const timer = setInterval(updateTime, getTimerInterval());
+    const timer = setInterval(updateTime, DEFAULT_TASK_TIME_INTERVAL);
     updateTime();
     return () => clearInterval(timer);
   }, [shouldExit]);
@@ -50,18 +51,18 @@ export const BettererTasks: FC<BettererTasksProps> = memo(function BettererTasks
     }
   }
 
+  const tasksTime = getTime(startTime, time);
+
   return (
-    <BettererTasksContext.Provider value={api}>
+    <BettererTasksStateContext.Provider value={api}>
       <Box flexDirection="column">
-        <BettererTaskStatus name={`${name} (${formatter.format(time)}ms)`} status={status} />
+        <BettererTaskStatus name={`${name} (${formatter.format(tasksTime)}ms)`} status={status} />
         {children}
       </Box>
-    </BettererTasksContext.Provider>
+    </BettererTasksStateContext.Provider>
   );
 });
 
-const DEFAULT_TASK_TIME_INTERVAL = 10;
-function getTimerInterval(): number {
-  const { BETTERER_TASK_TIMER_INTERVAL } = process.env;
-  return BETTERER_TASK_TIMER_INTERVAL ? parseInt(BETTERER_TASK_TIMER_INTERVAL, 10) : DEFAULT_TASK_TIME_INTERVAL;
+function getTime(startTime: number, time: number) {
+  return Math.floor(time ? time - startTime : performance.now() - startTime);
 }

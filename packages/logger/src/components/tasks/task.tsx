@@ -6,17 +6,18 @@ import { BettererLoggerCodeInfo } from '../../types';
 import { code } from '../../code';
 import { BettererErrorLog } from '../error-log';
 import { BettererTaskStatus } from './status';
-import { useTasksState } from './useTaskState';
-import { BettererTaskContext, BettererTaskLog } from './types';
+import { useTaskState } from './useTaskState';
+import { BettererTaskRunner, BettererTaskLog } from './types';
 
 export type BettererTaskProps = {
-  context: BettererTaskContext;
+  name: string;
+  runner: BettererTaskRunner;
 };
 
-export const BettererTask: FC<BettererTaskProps> = memo(function BettererTask({ context }) {
-  const [state, task] = useTasksState(context);
+export const BettererTask: FC<BettererTaskProps> = memo(function BettererTask(props) {
+  const { name, runner } = props;
+  const [state, task] = useTaskState(runner);
 
-  const { name, run } = context;
   const { done, error, messageLogs, running, status } = state;
 
   useEffect(() => {
@@ -57,7 +58,7 @@ export const BettererTask: FC<BettererTaskProps> = memo(function BettererTask({ 
 
       task.start();
       try {
-        const result = await run({
+        const result = await runner({
           progress: statusProgress,
           code: logCode,
           debug: logDebug,
