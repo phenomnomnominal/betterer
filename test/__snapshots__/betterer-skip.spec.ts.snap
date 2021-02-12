@@ -18,6 +18,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
+
 ",
   "
    / | /     _         _   _
@@ -29,6 +30,7 @@ Array [
 🌟 Betterer (0ms): 2 tests running...
 🤔 test 1: running \\"test 1\\"!
 🤔 test 2: running \\"test 2\\"!
+
 ",
   "
    / | /     _         _   _
@@ -40,6 +42,7 @@ Array [
 🌟 Betterer (0ms): 2 tests running...
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
 🤔 test 2: running \\"test 2\\"!
+
 ",
   "
    / | /     _         _   _
@@ -51,6 +54,7 @@ Array [
 🌟 Betterer (0ms): 2 tests running...
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
 🤔 test 2: running \\"test 2\\"!
+
 ",
   "
    / | /     _         _   _
@@ -62,6 +66,7 @@ Array [
 🌟 Betterer (0ms): 1 test running... 1 test done!
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
 🤔 test 2: running \\"test 2\\"!
+
 ",
   "
    / | /     _         _   _
@@ -73,6 +78,7 @@ Array [
 🌟 Betterer (0ms): 1 test running... 1 test done!
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
 ✅ test 2: \\"test 2\\" got checked for the first time! 🎉
+
 ",
   "
    / | /     _         _   _
@@ -84,6 +90,7 @@ Array [
 🌟 Betterer (0ms): 1 test running... 1 test done!
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
 ✅ test 2: \\"test 2\\" got checked for the first time! 🎉
+
 ",
   "
    / | /     _         _   _
@@ -95,6 +102,7 @@ Array [
 🎉 Betterer (0ms): 2 tests done!
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
 ✅ test 2: \\"test 2\\" got checked for the first time! 🎉
+
 ",
   "
    / | /     _         _   _
@@ -106,6 +114,7 @@ Array [
 🎉 Betterer (0ms): 2 tests done!
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
 ✅ test 2: \\"test 2\\" got checked for the first time! 🎉
+
 2 tests got checked. 🤔
 2 tests got checked for the first time! 🎉
 
@@ -120,6 +129,7 @@ Array [
 🎉 Betterer (0ms): 2 tests done!
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
 ✅ test 2: \\"test 2\\" got checked for the first time! 🎉
+
 2 tests got checked. 🤔
 2 tests got checked for the first time! 🎉
 
@@ -140,6 +150,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
+
 ",
   "
    / | /     _         _   _
@@ -151,6 +162,7 @@ Array [
 🌟 Betterer (0ms): 2 tests running...
 🤔 test 1: running \\"test 1\\"!
 🤔 test 2: running \\"test 2\\"!
+
 ",
   "
    / | /     _         _   _
@@ -162,6 +174,7 @@ Array [
 🌟 Betterer (0ms): 2 tests running...
 ✅ test 1: \\"test 1\\" got skipped. 🚫
 🤔 test 2: running \\"test 2\\"!
+
 ",
   "
    / | /     _         _   _
@@ -173,6 +186,7 @@ Array [
 🌟 Betterer (0ms): 2 tests running...
 ✅ test 1: \\"test 1\\" got skipped. 🚫
 ✅ test 2: \\"test 2\\" got skipped. 🚫
+
 ",
   "
    / | /     _         _   _
@@ -184,6 +198,7 @@ Array [
 🌟 Betterer (0ms): 2 tests running...
 ✅ test 1: \\"test 1\\" got skipped. 🚫
 ✅ test 2: \\"test 2\\" got skipped. 🚫
+
 ",
   "
    / | /     _         _   _
@@ -195,6 +210,7 @@ Array [
 🌟 Betterer (0ms): 1 test running... 1 test done!
 ✅ test 1: \\"test 1\\" got skipped. 🚫
 ✅ test 2: \\"test 2\\" got skipped. 🚫
+
 ",
   "
    / | /     _         _   _
@@ -206,6 +222,7 @@ Array [
 🌟 Betterer (0ms): 1 test running... 1 test done!
 ✅ test 1: \\"test 1\\" got skipped. 🚫
 ✅ test 2: \\"test 2\\" got skipped. 🚫
+
 ",
   "
    / | /     _         _   _
@@ -217,6 +234,7 @@ Array [
 🎉 Betterer (0ms): 2 tests done!
 ✅ test 1: \\"test 1\\" got skipped. 🚫
 ✅ test 2: \\"test 2\\" got skipped. 🚫
+
 ",
   "
    / | /     _         _   _
@@ -228,6 +246,7 @@ Array [
 🎉 Betterer (0ms): 2 tests done!
 ✅ test 1: \\"test 1\\" got skipped. 🚫
 ✅ test 2: \\"test 2\\" got skipped. 🚫
+
 0 tests got checked. 🤔
 2 tests got skipped. 🚫
 
@@ -242,6 +261,7 @@ Array [
 🎉 Betterer (0ms): 2 tests done!
 ✅ test 1: \\"test 1\\" got skipped. 🚫
 ✅ test 2: \\"test 2\\" got skipped. 🚫
+
 0 tests got checked. 🤔
 2 tests got skipped. 🚫
 

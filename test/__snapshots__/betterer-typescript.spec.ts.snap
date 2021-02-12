@@ -30,6 +30,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
+
 ",
   "
    / | /     _         _   _
@@ -40,6 +41,7 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+
 ",
   "
    / | /     _         _   _
@@ -50,6 +52,7 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 ✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
+
 ",
   "
    / | /     _         _   _
@@ -60,6 +63,7 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 ✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
+
 ",
   "
    / | /     _         _   _
@@ -70,6 +74,7 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
+
 ",
   "
    / | /     _         _   _
@@ -80,6 +85,7 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
+
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 
@@ -93,6 +99,7 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
+
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 
@@ -113,6 +120,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
+
 ",
   "
    / | /     _         _   _
@@ -123,6 +131,7 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+
 ",
   "
    / | /     _         _   _
@@ -133,6 +142,7 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 ✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. 😐
+
 ",
   "
    / | /     _         _   _
@@ -143,6 +153,7 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 ✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. 😐
+
 ",
   "
    / | /     _         _   _
@@ -153,6 +164,7 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. 😐
+
 ",
   "
    / | /     _         _   _
@@ -163,6 +175,7 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. 😐
+
 1 test got checked. 🤔
 1 test stayed the same. 😐
 
@@ -176,6 +189,7 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. 😐
+
 1 test got checked. 🤔
 1 test stayed the same. 😐
 
@@ -196,6 +210,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
+
 ",
   "
    / | /     _         _   _
@@ -206,6 +221,7 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+
 ",
   "
    / | /     _         _   _
@@ -217,6 +233,7 @@ Array [
 🌟 Betterer (0ms): 1 test running...
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\".
 🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+
 ",
   "
    / | /     _         _   _
@@ -229,6 +246,7 @@ Array [
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\":
 🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+
 ",
   "
    / | /     _         _   _
@@ -248,6 +266,7 @@ Array [
 ・     |                            ^ The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
 ・
 🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+
 ",
   "
    / | /     _         _   _
@@ -267,6 +286,7 @@ Array [
 ・     |                            ^ The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
 ・
 🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. 😔
+
 ",
   "
    / | /     _         _   _
@@ -288,6 +308,7 @@ Array [
 ・
 
 Error: \\"typescript use strict mode\\" got worse. 😔
+
 ",
   "
    / | /     _         _   _
@@ -309,6 +330,7 @@ Error: \\"typescript use strict mode\\" got worse. 😔
 ・
 
 Error: \\"typescript use strict mode\\" got worse. 😔
+
 ",
   "
    / | /     _         _   _
@@ -330,6 +352,7 @@ Error: \\"typescript use strict mode\\" got worse. 😔
 ・
 
 Error: \\"typescript use strict mode\\" got worse. 😔
+
 1 test got checked. 🤔
 1 test got worse. 😔
 
@@ -356,6 +379,7 @@ Run \`betterer --update\` to force an update of the results file. 🆙
 ・
 
 Error: \\"typescript use strict mode\\" got worse. 😔
+
 1 test got checked. 🤔
 1 test got worse. 😔
 
@@ -378,6 +402,7 @@ Run \`betterer --update\` to force an update of the results file. 🆙
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
+
 ",
   "
    / | /     _         _   _
@@ -388,6 +413,7 @@ Run \`betterer --update\` to force an update of the results file. 🆙
 
 🌟 Betterer (0ms): 1 test running...
 🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+
 ",
   "
    / | /     _         _   _
@@ -398,6 +424,7 @@ Run \`betterer --update\` to force an update of the results file. 🆙
 
 🌟 Betterer (0ms): 1 test running...
 ✅ typescript use strict mode: \\"typescript use strict mode\\" met its goal! 🎉
+
 ",
   "
    / | /     _         _   _
@@ -408,6 +435,7 @@ Run \`betterer --update\` to force an update of the results file. 🆙
 
 🌟 Betterer (0ms): 1 test running...
 ✅ typescript use strict mode: \\"typescript use strict mode\\" met its goal! 🎉
+
 ",
   "
    / | /     _         _   _
@@ -418,6 +446,7 @@ Run \`betterer --update\` to force an update of the results file. 🆙
 
 🎉 Betterer (0ms): 1 test done!
 ✅ typescript use strict mode: \\"typescript use strict mode\\" met its goal! 🎉
+
 ",
   "
    / | /     _         _   _
@@ -428,6 +457,7 @@ Run \`betterer --update\` to force an update of the results file. 🆙
 
 🎉 Betterer (0ms): 1 test done!
 ✅ typescript use strict mode: \\"typescript use strict mode\\" met its goal! 🎉
+
 1 test got checked. 🤔
 1 test got better! 😍
 \\"typescript use strict mode\\" met its goal! 🎉)
@@ -442,6 +472,7 @@ Run \`betterer --update\` to force an update of the results file. 🆙
 
 🎉 Betterer (0ms): 1 test done!
 ✅ typescript use strict mode: \\"typescript use strict mode\\" met its goal! 🎉
+
 1 test got checked. 🤔
 1 test got better! 😍
 \\"typescript use strict mode\\" met its goal! 🎉)
@@ -463,6 +494,7 @@ Run \`betterer --update\` to force an update of the results file. 🆙
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
+
 ",
   "
    / | /     _         _   _
@@ -473,6 +505,7 @@ Run \`betterer --update\` to force an update of the results file. 🆙
 
 🌟 Betterer (0ms): 1 test running...
 🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+
 ",
   "
    / | /     _         _   _
@@ -483,6 +516,7 @@ Run \`betterer --update\` to force an update of the results file. 🆙
 
 🌟 Betterer (0ms): 1 test running...
 ✅ typescript use strict mode: \\"typescript use strict mode\\" has already met its goal! ✨
+
 ",
   "
    / | /     _         _   _
@@ -493,6 +527,7 @@ Run \`betterer --update\` to force an update of the results file. 🆙
 
 🌟 Betterer (0ms): 1 test running...
 ✅ typescript use strict mode: \\"typescript use strict mode\\" has already met its goal! ✨
+
 ",
   "
    / | /     _         _   _
@@ -503,6 +538,7 @@ Run \`betterer --update\` to force an update of the results file. 🆙
 
 🎉 Betterer (0ms): 1 test done!
 ✅ typescript use strict mode: \\"typescript use strict mode\\" has already met its goal! ✨
+
 ",
   "
    / | /     _         _   _
@@ -513,6 +549,7 @@ Run \`betterer --update\` to force an update of the results file. 🆙
 
 🎉 Betterer (0ms): 1 test done!
 ✅ typescript use strict mode: \\"typescript use strict mode\\" has already met its goal! ✨
+
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 \\"typescript use strict mode\\" met its goal! 🎉)
@@ -527,6 +564,7 @@ Run \`betterer --update\` to force an update of the results file. 🆙
 
 🎉 Betterer (0ms): 1 test done!
 ✅ typescript use strict mode: \\"typescript use strict mode\\" has already met its goal! ✨
+
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 \\"typescript use strict mode\\" met its goal! 🎉)

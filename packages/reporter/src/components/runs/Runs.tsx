@@ -11,9 +11,8 @@ export type RunsProps = {
 };
 
 export const Runs: FC<RunsProps> = memo(function Runs({ runs }) {
-  debugger;
   return (
-    <Box flexDirection="column">
+    <Box flexDirection="column" paddingBottom={1}>
       <BettererTasksLogger name="Betterer" update={update} tasks={getTasks(runs)} exit={false} />
     </Box>
   );

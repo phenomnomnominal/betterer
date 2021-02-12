@@ -34,6 +34,7 @@ Checking 2 files... 🤔
 ・ <project>/fixtures/test-betterer-watch-debounce/src/index.ts
 
 🌟 Betterer (0ms):
+
 (press \\"q\\" to quit)
 
 ",
@@ -54,6 +55,7 @@ Checking 2 files... 🤔
 
 🌟 Betterer (0ms): 1 test running...
 🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
 (press \\"q\\" to quit)
 
 ",
@@ -74,6 +76,7 @@ Checking 2 files... 🤔
 
 🌟 Betterer (0ms): 1 test running...
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+
 (press \\"q\\" to quit)
 
 ",
@@ -94,6 +97,7 @@ Checking 2 files... 🤔
 
 🌟 Betterer (0ms): 1 test running...
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+
 (press \\"q\\" to quit)
 
 ",
@@ -114,6 +118,7 @@ Checking 2 files... 🤔
 
 🎉 Betterer (0ms): 1 test done!
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+
 (press \\"q\\" to quit)
 
 ",
@@ -134,6 +139,7 @@ Checked 2 files! 🔍
 
 🎉 Betterer (0ms): 1 test done!
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 
@@ -157,6 +163,7 @@ Checked 2 files! 🔍
 
 🎉 Betterer (0ms): 1 test done!
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 
@@ -199,6 +206,7 @@ Checking 1 file... 🤔
 ・ <project>/fixtures/test-betterer-watch-gitignored/src/index.ts
 
 🌟 Betterer (0ms):
+
 (press \\"q\\" to quit)
 
 ",
@@ -218,6 +226,7 @@ Checking 1 file... 🤔
 
 🌟 Betterer (0ms): 1 test running...
 🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
 (press \\"q\\" to quit)
 
 ",
@@ -237,6 +246,7 @@ Checking 1 file... 🤔
 
 🌟 Betterer (0ms): 1 test running...
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+
 (press \\"q\\" to quit)
 
 ",
@@ -256,6 +266,7 @@ Checking 1 file... 🤔
 
 🌟 Betterer (0ms): 1 test running...
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+
 (press \\"q\\" to quit)
 
 ",
@@ -275,6 +286,7 @@ Checking 1 file... 🤔
 
 🎉 Betterer (0ms): 1 test done!
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+
 (press \\"q\\" to quit)
 
 ",
@@ -294,6 +306,7 @@ Checked 1 file! 🔍
 
 🎉 Betterer (0ms): 1 test done!
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 
@@ -316,6 +329,7 @@ Checked 1 file! 🔍
 
 🎉 Betterer (0ms): 1 test done!
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 
@@ -343,6 +357,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
+
 ",
   "
    / | /     _         _   _
@@ -353,6 +368,7 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
 ",
   "
    / | /     _         _   _
@@ -363,6 +379,7 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+
 ",
   "
    / | /     _         _   _
@@ -373,6 +390,7 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+
 ",
   "
    / | /     _         _   _
@@ -383,6 +401,7 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+
 ",
   "
    / | /     _         _   _
@@ -393,6 +412,7 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 
@@ -406,6 +426,7 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 
@@ -441,6 +462,7 @@ Checking 1 file... 🤔
 ・ <project>/fixtures/test-betterer-watch/src/index.ts
 
 🌟 Betterer (0ms):
+
 (press \\"q\\" to quit)
 
 ",
@@ -460,6 +482,7 @@ Checking 1 file... 🤔
 
 🌟 Betterer (0ms): 1 test running...
 🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
 (press \\"q\\" to quit)
 
 ",
@@ -480,6 +503,7 @@ Checking 1 file... 🤔
 🌟 Betterer (0ms): 1 test running...
 ・ 2 existing issues in \\"<project>/fixtures/test-betterer-watch/src/index.ts\\".
 🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
 (press \\"q\\" to quit)
 
 ",
@@ -501,6 +525,7 @@ Checking 1 file... 🤔
 ・ 2 existing issues in \\"<project>/fixtures/test-betterer-watch/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-watch/src/index.ts\\":
 🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
 (press \\"q\\" to quit)
 
 ",
@@ -528,6 +553,7 @@ Checking 1 file... 🤔
 ・     |                    ^^^^^^^^^^^ TSQuery match
 ・
 🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
 (press \\"q\\" to quit)
 
 ",
@@ -555,6 +581,7 @@ Checking 1 file... 🤔
 ・     |                    ^^^^^^^^^^^ TSQuery match
 ・
 🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. 😔
+
 (press \\"q\\" to quit)
 
 ",
@@ -584,6 +611,7 @@ Checking 1 file... 🤔
 ・
 
 Error: \\"tsquery no raw console.log\\" got worse. 😔
+
 (press \\"q\\" to quit)
 
 ",
@@ -613,6 +641,7 @@ Checking 1 file... 🤔
 ・
 
 Error: \\"tsquery no raw console.log\\" got worse. 😔
+
 (press \\"q\\" to quit)
 
 ",
@@ -642,6 +671,7 @@ Checked 1 file! 🔍
 ・
 
 Error: \\"tsquery no raw console.log\\" got worse. 😔
+
 1 test got checked. 🤔
 1 test got worse. 😔
 
@@ -665,6 +695,7 @@ Checking 1 file... 🤔
 ・ <project>/fixtures/test-betterer-watch/src/index.ts
 
 🌟 Betterer (0ms):
+
 (press \\"q\\" to quit)
 
 ",
@@ -684,6 +715,7 @@ Checking 1 file... 🤔
 
 🌟 Betterer (0ms): 1 test running...
 🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
 (press \\"q\\" to quit)
 
 ",
@@ -703,6 +735,7 @@ Checking 1 file... 🤔
 
 🌟 Betterer (0ms): 1 test running...
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" stayed the same. 😐
+
 (press \\"q\\" to quit)
 
 ",
@@ -722,6 +755,7 @@ Checking 1 file... 🤔
 
 🌟 Betterer (0ms): 1 test running...
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" stayed the same. 😐
+
 (press \\"q\\" to quit)
 
 ",
@@ -741,6 +775,7 @@ Checking 1 file... 🤔
 
 🎉 Betterer (0ms): 1 test done!
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" stayed the same. 😐
+
 (press \\"q\\" to quit)
 
 ",
@@ -760,6 +795,7 @@ Checked 1 file! 🔍
 
 🎉 Betterer (0ms): 1 test done!
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" stayed the same. 😐
+
 1 test got checked. 🤔
 1 test stayed the same. 😐
 
@@ -781,6 +817,7 @@ Checking 1 file... 🤔
 ・ <project>/fixtures/test-betterer-watch/src/index.ts
 
 🌟 Betterer (0ms):
+
 (press \\"q\\" to quit)
 
 ",
@@ -800,6 +837,7 @@ Checking 1 file... 🤔
 
 🌟 Betterer (0ms): 1 test running...
 🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
 (press \\"q\\" to quit)
 
 ",
@@ -819,6 +857,7 @@ Checking 1 file... 🤔
 
 🌟 Betterer (0ms): 1 test running...
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got better! 😍
+
 (press \\"q\\" to quit)
 
 ",
@@ -838,6 +877,7 @@ Checking 1 file... 🤔
 
 🌟 Betterer (0ms): 1 test running...
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got better! 😍
+
 (press \\"q\\" to quit)
 
 ",
@@ -857,6 +897,7 @@ Checking 1 file... 🤔
 
 🎉 Betterer (0ms): 1 test done!
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got better! 😍
+
 (press \\"q\\" to quit)
 
 ",
@@ -876,6 +917,7 @@ Checked 1 file! 🔍
 
 🎉 Betterer (0ms): 1 test done!
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got better! 😍
+
 1 test got checked. 🤔
 1 test got better! 😍
 

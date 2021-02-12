@@ -52,44 +52,46 @@ export const RunSummary: FC<RunSummaryProps> = memo(function RunSummary({ summar
   const { completed, expired, obsolete } = summary;
 
   return (
-    <Box flexDirection="column" paddingBottom={1}>
-      <Text color={TEXT_COLOURS.checked}>{testCheckedΔ(tests(ran))}</Text>
-      {expired.map((run, index) => (
-        <Text key={index} color={TEXT_COLOURS.expired}>
-          {testExpiredΔ(quoteΔ(run.name))})
-        </Text>
-      ))}
-      {failed ? <Text color={TEXT_COLOURS.failed}>{testFailedΔ(tests(failed))}</Text> : null}
-      {neww ? <Text color={TEXT_COLOURS.new}>{testNewΔ(tests(neww))}</Text> : null}
-      {obsolete.map((run, index) => (
-        <Text key={index} color={TEXT_COLOURS.obsolete}>
-          {testObsoleteΔ(quoteΔ(run.name))})
-        </Text>
-      ))}
-      {better ? <Text color={TEXT_COLOURS.better}>{testBetterΔ(tests(better))}</Text> : null}
-      {completed.map((run, index) => (
-        <Text key={index} color={TEXT_COLOURS.completed}>
-          {testCompleteΔ(quoteΔ(run.name))})
-        </Text>
-      ))}
-      {same ? <Text color={TEXT_COLOURS.same}>{testSameΔ(tests(same))}</Text> : null}
-      {skipped ? <Text color={TEXT_COLOURS.skipped}>{testSkippedΔ(tests(skipped))}</Text> : null}
-      {updated ? <Text color={TEXT_COLOURS.updated}>{testUpdatedΔ(tests(updated))}</Text> : null}
-      {worse ? (
-        <>
-          <Box paddingBottom={1}>
-            <Text color={TEXT_COLOURS.worse}>{testWorseΔ(tests(worse))}</Text>
-          </Box>
-          <Text>{updateInstructionsΔ()}</Text>
-        </>
-      ) : null}
+    <>
+      <Box flexDirection="column" paddingBottom={1}>
+        <Text color={TEXT_COLOURS.checked}>{testCheckedΔ(tests(ran))}</Text>
+        {expired.map((run, index) => (
+          <Text key={index} color={TEXT_COLOURS.expired}>
+            {testExpiredΔ(quoteΔ(run.name))})
+          </Text>
+        ))}
+        {failed ? <Text color={TEXT_COLOURS.failed}>{testFailedΔ(tests(failed))}</Text> : null}
+        {neww ? <Text color={TEXT_COLOURS.new}>{testNewΔ(tests(neww))}</Text> : null}
+        {obsolete.map((run, index) => (
+          <Text key={index} color={TEXT_COLOURS.obsolete}>
+            {testObsoleteΔ(quoteΔ(run.name))})
+          </Text>
+        ))}
+        {better ? <Text color={TEXT_COLOURS.better}>{testBetterΔ(tests(better))}</Text> : null}
+        {completed.map((run, index) => (
+          <Text key={index} color={TEXT_COLOURS.completed}>
+            {testCompleteΔ(quoteΔ(run.name))})
+          </Text>
+        ))}
+        {same ? <Text color={TEXT_COLOURS.same}>{testSameΔ(tests(same))}</Text> : null}
+        {skipped ? <Text color={TEXT_COLOURS.skipped}>{testSkippedΔ(tests(skipped))}</Text> : null}
+        {updated ? <Text color={TEXT_COLOURS.updated}>{testUpdatedΔ(tests(updated))}</Text> : null}
+        {worse ? (
+          <>
+            <Box paddingBottom={1}>
+              <Text color={TEXT_COLOURS.worse}>{testWorseΔ(tests(worse))}</Text>
+            </Box>
+            <Text>{updateInstructionsΔ()}</Text>
+          </>
+        ) : null}
+      </Box>
       {summary.hasDiff ? (
-        <Box flexDirection="column" paddingTop={1}>
+        <Box flexDirection="column" paddingBottom={1}>
           <Text color={TEXT_COLOURS.diff}>{unexpectedDiffΔ()}</Text>
           <Text>{diffΔ(summary.expected, summary.result)}</Text>
         </Box>
       ) : null}
-    </Box>
+    </>
   );
 });
 
