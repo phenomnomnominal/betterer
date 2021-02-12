@@ -7,7 +7,6 @@ import { BettererReporterΩ } from './reporter';
 import { BettererReporter, BettererReporterModule } from './types';
 
 export const DEFAULT_REPORTER = '@betterer/reporter';
-export const WATCH_REPORTER = '@betterer/watch-reporter';
 
 const HOOK_NAMES = Object.getOwnPropertyNames(BettererReporterΩ.prototype) as ReadonlyArray<keyof BettererReporter>;
 

@@ -5,6 +5,7 @@ export type BettererRunHandler = (summary: BettererSummary) => void;
 
 export type BettererRunner = {
   queue(filePaths?: string | BettererFilePaths, handler?: BettererRunHandler): Promise<void>;
+  stop(force: true): Promise<BettererSummary | null>;
   stop(): Promise<BettererSummary>;
 };
 

@@ -7,9 +7,17 @@ const ANSI_REGEX = ansiRegex();
 const PROJECT_REGEXP = new RegExp(normalisePaths(process.cwd()), 'g');
 const STACK_TRACK_LINE_REGEXP = /\s+at\s+/;
 
-export function createFixtureLogs(options?: FixtureOptions): FixtureLogs {
+export function createFixtureLogs(options: FixtureOptions = {}): FixtureLogs {
   const logs: Array<string> = [];
   const log = (...messages: Array<string>): void => {
+    if (options.logStack) {
+      try {
+        throw new Error();
+      } catch (e) {
+        logs.push((e as Error).stack || '');
+      }
+    }
+
     // Do some magic to sort out the logs for snapshots. This mucks up the snapshot of the printed logo,
     // but that hardly matters...
     messages.forEach((message) => {
@@ -36,11 +44,6 @@ export function createFixtureLogs(options?: FixtureOptions): FixtureLogs {
     });
   };
 
-  jest.spyOn(console, 'log').mockImplementation(log);
-  jest.spyOn(console, 'error').mockImplementation((message: string) => {
-    const [firstLine] = message.split('\n');
-    log(firstLine);
-  });
   jest.spyOn(process.stdout, 'write').mockImplementation((message: string | Uint8Array): boolean => {
     if (message) {
       log(message.toString());
@@ -48,6 +51,7 @@ export function createFixtureLogs(options?: FixtureOptions): FixtureLogs {
     return true;
   });
   process.stdout.columns = 1000;
+  process.stdout.rows = 20;
 
   return logs as FixtureLogs;
 }
@@ -64,7 +68,7 @@ function isStackTraceLine(str: string): boolean {
   return !!STACK_TRACK_LINE_REGEXP.exec(str);
 }
 
-function isFiltered(str: string, options: FixtureOptions = {}): boolean {
+function isFiltered(str: string, options: FixtureOptions): boolean {
   const filters = options.logFilters || [];
   return filters.some((filter) => !!filter.exec(str));
 }

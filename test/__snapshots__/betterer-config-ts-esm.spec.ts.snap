@@ -15,6 +15,19 @@ Error: ⨯ Unable to compile TypeScript:
 
   error TS6046: Argument for '--target' option must be: 'es3', 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'esnext'.
 
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+
+Error: ⨯ Unable to compile TypeScript:
+       error TS6046: Argument for '--target' option must be: 'es3', 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'esnext'.
+
+  error TS6046: Argument for '--target' option must be: 'es3', 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'esnext'.
 
 ",
 ]
@@ -66,7 +79,7 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🎉 Betterer (0ms): 1 test done!
+🌟 Betterer (0ms): 1 test running...
 ✅ gets better: \\"gets better\\" got checked for the first time! 🎉
 ",
   "
@@ -88,7 +101,19 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ gets better: \\"gets better\\" got checked for the first time! 🎉
+1 test got checked. 🤔
+1 test got checked for the first time! 🎉
 
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ gets better: \\"gets better\\" got checked for the first time! 🎉
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 
@@ -137,7 +162,7 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🎉 Betterer (0ms): 1 test done!
+🌟 Betterer (0ms): 1 test running...
 ✅ gets better: \\"gets better\\" got better! 😍
 ",
   "
@@ -159,7 +184,19 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ gets better: \\"gets better\\" got better! 😍
+1 test got checked. 🤔
+1 test got better! 😍
 
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ gets better: \\"gets better\\" got better! 😍
 1 test got checked. 🤔
 1 test got better! 😍
 

@@ -17,6 +17,7 @@ export type BettererConfig = {
   silent: boolean;
   tsconfigPath: string | null;
   update: boolean;
+  watch: boolean;
 };
 
 export type BettererBaseConfigPartial = Partial<{

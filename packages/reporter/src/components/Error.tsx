@@ -1,8 +1,8 @@
 import React, { FC, useEffect } from 'react';
 
 import { BettererError } from '@betterer/errors';
-import { BettererErrorLog } from '@betterer/logger';
-import { useApp } from 'ink';
+import { BettererErrorLog, BettererLogo } from '@betterer/logger';
+import { Box, useApp } from 'ink';
 
 export type ErrorProps = {
   error: BettererError;
@@ -14,5 +14,10 @@ export const Error: FC<ErrorProps> = function Error({ error }) {
     setImmediate(() => app.exit());
   }, [app]);
 
-  return <BettererErrorLog error={error} />;
+  return (
+    <Box flexDirection="column" paddingBottom={1}>
+      <BettererLogo></BettererLogo>
+      <BettererErrorLog error={error} />
+    </Box>
+  );
 };

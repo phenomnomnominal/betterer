@@ -140,6 +140,7 @@ export class BettererContextΩ implements BettererContext {
   }
 
   private _initFilters(): void {
+    // read `filters` here so that it can be updated by watch mode:
     const { filters } = this.config;
     if (filters.length) {
       Object.keys(this._tests).forEach((name) => {

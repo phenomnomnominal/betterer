@@ -1,4 +1,4 @@
-import { BettererTask, BettererTasks, BettererTasksState } from '@betterer/logger';
+import { BettererTasksLogger, BettererTasksState } from '@betterer/logger';
 import { workerRequire, WorkerModule } from '@phenomnomnominal/worker-require';
 import * as path from 'path';
 import React, { FC } from 'react';
@@ -14,30 +14,30 @@ export type InitProps = BettererCLIInitConfig & {
 
 export const Init: FC<InitProps> = function Init({ cwd, config }) {
   return (
-    <BettererTasks name="Initialising Betterer" statusMessage={statusMessage}>
-      <BettererTask
-        context={{
+    <BettererTasksLogger
+      name="Initialising Betterer"
+      update={update}
+      tasks={[
+        {
           name: 'Create test file',
           run: async (logger) => {
             await createTestFile.run(logger, path.resolve(cwd, config));
             createTestFile.destroy();
           }
-        }}
-      />
-      <BettererTask
-        context={{
+        },
+        {
           name: 'Update package.json',
           run: async (logger) => {
             await updatePackageJSON.run(logger, cwd);
             updatePackageJSON.destroy();
           }
-        }}
-      />
-    </BettererTasks>
+        }
+      ]}
+    />
   );
 };
 
-function statusMessage(state: BettererTasksState): string {
+function update(state: BettererTasksState): string {
   const { done, errors, running } = state;
   const runningStatus = running ? `${tasks(running)} running... ` : '';
   const doneStatus = done ? `${tasks(done)} done! ` : '';

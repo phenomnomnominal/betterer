@@ -52,9 +52,9 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 3 tests running... 1 test done!
+🌟 Betterer (0ms): 4 tests running...
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
-🤔 test 2: running \\"test 2\\"!
+✅ test 2: \\"test 2\\" got checked for the first time! 🎉
 🤔 test 3: running \\"test 3\\"!
 🤔 test 4: running \\"test 4\\"!
 ",
@@ -65,10 +65,23 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 3 tests running... 1 test done!
+🌟 Betterer (0ms): 4 tests running...
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
-🤔 test 2: running \\"test 2\\"!
-🤔 test 3: running \\"test 3\\"!
+✅ test 2: \\"test 2\\" got checked for the first time! 🎉
+✅ test 3: \\"test 3\\" got checked for the first time! 🎉
+🤔 test 4: running \\"test 4\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 4 tests running...
+✅ test 1: \\"test 1\\" got checked for the first time! 🎉
+✅ test 2: \\"test 2\\" got checked for the first time! 🎉
+✅ test 3: \\"test 3\\" got checked for the first time! 🎉
 🤔 test 4: running \\"test 4\\"!
 ",
   "
@@ -81,7 +94,20 @@ Array [
 🌟 Betterer (0ms): 3 tests running... 1 test done!
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
 ✅ test 2: \\"test 2\\" got checked for the first time! 🎉
-🤔 test 3: running \\"test 3\\"!
+✅ test 3: \\"test 3\\" got checked for the first time! 🎉
+🤔 test 4: running \\"test 4\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 3 tests running... 1 test done!
+✅ test 1: \\"test 1\\" got checked for the first time! 🎉
+✅ test 2: \\"test 2\\" got checked for the first time! 🎉
+✅ test 3: \\"test 3\\" got checked for the first time! 🎉
 🤔 test 4: running \\"test 4\\"!
 ",
   "
@@ -94,20 +120,7 @@ Array [
 🌟 Betterer (0ms): 2 tests running... 2 tests done!
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
 ✅ test 2: \\"test 2\\" got checked for the first time! 🎉
-🤔 test 3: running \\"test 3\\"!
-🤔 test 4: running \\"test 4\\"!
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms): 2 tests running... 2 tests done!
-✅ test 1: \\"test 1\\" got checked for the first time! 🎉
-✅ test 2: \\"test 2\\" got checked for the first time! 🎉
-🤔 test 3: running \\"test 3\\"!
+✅ test 3: \\"test 3\\" got checked for the first time! 🎉
 🤔 test 4: running \\"test 4\\"!
 ",
   "
@@ -147,7 +160,7 @@ Array [
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
 ✅ test 2: \\"test 2\\" got checked for the first time! 🎉
 ✅ test 3: \\"test 3\\" got checked for the first time! 🎉
-🤔 test 4: running \\"test 4\\"!
+✅ test 4: \\"test 4\\" got checked for the first time! 🎉
 ",
   "
    / | /     _         _   _
@@ -187,6 +200,9 @@ Array [
 ✅ test 2: \\"test 2\\" got checked for the first time! 🎉
 ✅ test 3: \\"test 3\\" got checked for the first time! 🎉
 ✅ test 4: \\"test 4\\" got checked for the first time! 🎉
+4 tests got checked. 🤔
+4 tests got checked for the first time! 🎉
+
 ",
   "
    / | /     _         _   _
@@ -200,7 +216,6 @@ Array [
 ✅ test 2: \\"test 2\\" got checked for the first time! 🎉
 ✅ test 3: \\"test 3\\" got checked for the first time! 🎉
 ✅ test 4: \\"test 4\\" got checked for the first time! 🎉
-
 4 tests got checked. 🤔
 4 tests got checked for the first time! 🎉
 
@@ -255,9 +270,9 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 3 tests running... 1 test done!
+🌟 Betterer (0ms): 4 tests running...
 ✅ test 1: \\"test 1\\" stayed the same. 😐
-🤔 test 2: running \\"test 2\\"!
+✅ test 2: \\"test 2\\" got skipped. 🚫
 🤔 test 3: running \\"test 3\\"!
 🤔 test 4: running \\"test 4\\"!
 ",
@@ -268,10 +283,23 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 3 tests running... 1 test done!
+🌟 Betterer (0ms): 4 tests running...
 ✅ test 1: \\"test 1\\" stayed the same. 😐
-🤔 test 2: running \\"test 2\\"!
-🤔 test 3: running \\"test 3\\"!
+✅ test 2: \\"test 2\\" got skipped. 🚫
+✅ test 3: \\"test 3\\" got skipped. 🚫
+🤔 test 4: running \\"test 4\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 4 tests running...
+✅ test 1: \\"test 1\\" stayed the same. 😐
+✅ test 2: \\"test 2\\" got skipped. 🚫
+✅ test 3: \\"test 3\\" got skipped. 🚫
 🤔 test 4: running \\"test 4\\"!
 ",
   "
@@ -284,7 +312,20 @@ Array [
 🌟 Betterer (0ms): 3 tests running... 1 test done!
 ✅ test 1: \\"test 1\\" stayed the same. 😐
 ✅ test 2: \\"test 2\\" got skipped. 🚫
-🤔 test 3: running \\"test 3\\"!
+✅ test 3: \\"test 3\\" got skipped. 🚫
+🤔 test 4: running \\"test 4\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 3 tests running... 1 test done!
+✅ test 1: \\"test 1\\" stayed the same. 😐
+✅ test 2: \\"test 2\\" got skipped. 🚫
+✅ test 3: \\"test 3\\" got skipped. 🚫
 🤔 test 4: running \\"test 4\\"!
 ",
   "
@@ -297,20 +338,7 @@ Array [
 🌟 Betterer (0ms): 2 tests running... 2 tests done!
 ✅ test 1: \\"test 1\\" stayed the same. 😐
 ✅ test 2: \\"test 2\\" got skipped. 🚫
-🤔 test 3: running \\"test 3\\"!
-🤔 test 4: running \\"test 4\\"!
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms): 2 tests running... 2 tests done!
-✅ test 1: \\"test 1\\" stayed the same. 😐
-✅ test 2: \\"test 2\\" got skipped. 🚫
-🤔 test 3: running \\"test 3\\"!
+✅ test 3: \\"test 3\\" got skipped. 🚫
 🤔 test 4: running \\"test 4\\"!
 ",
   "
@@ -350,7 +378,7 @@ Array [
 ✅ test 1: \\"test 1\\" stayed the same. 😐
 ✅ test 2: \\"test 2\\" got skipped. 🚫
 ✅ test 3: \\"test 3\\" got skipped. 🚫
-🤔 test 4: running \\"test 4\\"!
+✅ test 4: \\"test 4\\" stayed the same. 😐
 ",
   "
    / | /     _         _   _
@@ -390,6 +418,10 @@ Array [
 ✅ test 2: \\"test 2\\" got skipped. 🚫
 ✅ test 3: \\"test 3\\" got skipped. 🚫
 ✅ test 4: \\"test 4\\" stayed the same. 😐
+2 tests got checked. 🤔
+2 tests stayed the same. 😐
+2 tests got skipped. 🚫
+
 ",
   "
    / | /     _         _   _
@@ -403,7 +435,6 @@ Array [
 ✅ test 2: \\"test 2\\" got skipped. 🚫
 ✅ test 3: \\"test 3\\" got skipped. 🚫
 ✅ test 4: \\"test 4\\" stayed the same. 😐
-
 2 tests got checked. 🤔
 2 tests stayed the same. 😐
 2 tests got skipped. 🚫

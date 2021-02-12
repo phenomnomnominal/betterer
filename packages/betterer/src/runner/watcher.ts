@@ -22,6 +22,7 @@ export class BettererWatcherΩ implements BettererRunner {
       ignoreInitial: true,
       ignored: (itemPath: string) => {
         const isGitIgnored = globby.gitignore.sync();
+        // read `ignores` here so that it can be updated by watch mode:
         const { ignores } = contextΩ.config;
         const watchIgnores = [...ignores, GIT_DIRECTORY].map((ignore) => path.join(cwd, ignore));
         return (
@@ -51,8 +52,10 @@ export class BettererWatcherΩ implements BettererRunner {
     return this._runner.queue(filePaths, handler);
   }
 
-  public async stop(): Promise<BettererSummary> {
+  public async stop(force: true): Promise<null>;
+  public async stop(): Promise<BettererSummary>;
+  public async stop(force?: true): Promise<BettererSummary | null> {
     await this._watcher.close();
-    return await this._runner.stop();
+    return await (force ? this._runner.stop(force) : this._runner.stop());
   }
 }

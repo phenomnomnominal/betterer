@@ -26,7 +26,7 @@ export async function createConfig(partialConfig: BettererConfigPartial = {}): P
     silent: partialConfig.silent || false,
     tsconfigPath: partialConfig.tsconfigPath || null,
     update: (partialConfig as BettererStartConfigPartial).update || false,
-    watch: partialConfig.watch
+    watch: partialConfig.watch || false
   };
 
   validateConfig(relativeConfig);

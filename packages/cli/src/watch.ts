@@ -20,7 +20,7 @@ export async function watchΔ(cwd: string, argv: BettererCLIArguments): Promise<
 
   return new Promise((): void => {
     process.on('SIGINT', () => {
-      void runner.stop();
+      void runner.stop(true);
     });
   });
 }

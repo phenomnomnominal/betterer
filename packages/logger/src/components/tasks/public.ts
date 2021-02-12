@@ -1,13 +1,11 @@
-export { BettererTasksState } from './state';
-export { BettererTask, BettererTaskProps } from './task';
-export { BettererTasks, BettererTasksProps } from './tasks';
+export { BettererTasksState } from './useTasksState';
+export { BettererTaskLogger, BettererTaskLoggerProps } from './TaskLogger';
+export { BettererTasksLogger, BettererTasksLoggerProps } from './TasksLogger';
 export {
   BettererTaskColour,
-  BettererTaskContext,
   BettererTaskLog,
-  BettererTaskLogs,
-  BettererTaskStatusUpdate,
-  BettererTaskStatusUpdateAsync,
-  BettererTaskLogger,
-  BettererTaskLoggerAsync
+  BettererTask,
+  BettererTasks,
+  BettererTasksStatusUpdate,
+  BettererTaskRun
 } from './types';
