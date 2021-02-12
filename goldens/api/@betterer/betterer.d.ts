@@ -175,7 +175,7 @@ export declare type BettererRunNames = Array<string>;
 
 export declare type BettererRunner = {
     queue(filePaths?: string | BettererFilePaths, handler?: BettererRunHandler): Promise<void>;
-    stop(): Promise<BettererSummary>;
+    stop(force?: true): Promise<BettererSummary | null>;
 };
 
 export declare type BettererRuns = ReadonlyArray<BettererRun>;

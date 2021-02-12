@@ -51,8 +51,10 @@ export class BettererWatcherΩ implements BettererRunner {
     return this._runner.queue(filePaths, handler);
   }
 
-  public async stop(): Promise<BettererSummary> {
+  public async stop(force: true): Promise<null>;
+  public async stop(): Promise<BettererSummary>;
+  public async stop(force?: true): Promise<BettererSummary | null> {
     await this._watcher.close();
-    return await this._runner.stop();
+    return await this._runner.stop(force);
   }
 }
