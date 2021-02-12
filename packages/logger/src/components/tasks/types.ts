@@ -1,12 +1,12 @@
 import { ForegroundColor } from 'chalk';
 
-import { BettererLoggerAsync } from '../../types';
+import { BettererLogger } from '../../types';
 
 import { BettererTasksState } from './useTasksState';
 
 export type BettererTasksStatusUpdate = (state: BettererTasksState) => string;
 
-export type BettererTaskRun = (logger: BettererLoggerAsync) => Promise<BettererTaskLog | string | void>;
+export type BettererTaskRun = (logger: BettererLogger) => Promise<BettererTaskLog | string | void>;
 export type BettererTask = {
   name: string;
   run: BettererTaskRun;

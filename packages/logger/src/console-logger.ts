@@ -25,22 +25,24 @@ export class BettererConsoleLogger implements BettererLogger {
     this.warn = this._createLogger(chalk.bgYellowBright.black(' warn '), chalk.bgBlack(' 🚨 '));
   }
 
-  public code(codeInfo: BettererLoggerCodeInfo): void {
+  public code(codeInfo: BettererLoggerCodeInfo): Promise<void> {
     const { message } = codeInfo;
     const codeFrame = code(codeInfo);
     const codeMessage = chalk.bgBlack.white(message.trim());
-    this._log(`${NEW_LINE}${ERROR_BLOCK} ${codeMessage.split(NEW_LINE).join(`\n${ERROR_BLOCK} `)}\n\n${codeFrame}`);
+    return this._log(
+      `${NEW_LINE}${ERROR_BLOCK} ${codeMessage.split(NEW_LINE).join(`\n${ERROR_BLOCK} `)}\n\n${codeFrame}`
+    );
   }
 
-  private _log(...args: Array<string>): void {
+  private async _log(...args: Array<string>): Promise<void> {
     // eslint-disable-next-line no-console
-    console.log(...args);
+    return Promise.resolve(console.log(...args));
   }
 
   private _createLogger(name: string, icon: string): BettererLogMessage {
     const SPACER = chalk.bgBlack.yellowBright(' - ');
-    return (...messages: BettererLoggerMessages): void => {
-      this._log(`${HEADING}${name}${icon}${SPACER}`, ...messages.map((m) => chalk.whiteBright(m)));
+    return (...messages: BettererLoggerMessages): Promise<void> => {
+      return this._log(`${HEADING}${name}${icon}${SPACER}`, ...messages.map((m) => chalk.whiteBright(m)));
     };
   }
 }

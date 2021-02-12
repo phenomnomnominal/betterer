@@ -1,6 +1,6 @@
 import { BettererRuns } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
-import { BettererLoggerAsync, BettererTasks } from '@betterer/logger';
+import { BettererLogger, BettererTasks } from '@betterer/logger';
 
 import {
   testBetterΔ,
@@ -24,7 +24,7 @@ export function getTasks(runs: BettererRuns): BettererTasks {
       runs,
       runs.map((run) => ({
         name: run.name,
-        run: async (logger: BettererLoggerAsync) => {
+        run: async (logger: BettererLogger) => {
           const name = quoteΔ(run.name);
           if (run.isExpired) {
             await logger.warn(testExpiredΔ(name));

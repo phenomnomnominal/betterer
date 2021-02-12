@@ -20,10 +20,10 @@ const logger = new BettererConsoleLogger();
 
 export const watchReporter: BettererReporter = {
   contextStart(): void {
-    logger.info(watchStart());
+    void logger.info(watchStart());
   },
   contextEnd(): void {
-    logger.info(watchEnd());
+    void logger.info(watchEnd());
   },
   runsStart(_: BettererRuns, files: BettererFilePaths): void {
     overwrite(filesChecking(files.length));

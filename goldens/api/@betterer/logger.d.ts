@@ -6,7 +6,7 @@ export declare class BettererConsoleLogger implements BettererLogger {
     success: BettererLogMessage;
     warn: BettererLogMessage;
     constructor();
-    code(codeInfo: BettererLoggerCodeInfo): void;
+    code(codeInfo: BettererLoggerCodeInfo): Promise<void>;
 }
 
 export declare const BettererErrorLog: FC<BettererErrorLogProps>;
@@ -15,9 +15,7 @@ export declare type BettererErrorLogProps = {
     error: Error | BettererError;
 };
 
-export declare type BettererLogCode = (codeInfo: BettererLoggerCodeInfo) => void;
-
-export declare type BettererLogCodeAsync = (codeInfo: BettererLoggerCodeInfo) => Promise<void>;
+export declare type BettererLogCode = (codeInfo: BettererLoggerCodeInfo) => Promise<void>;
 
 export declare type BettererLogger = {
     code: BettererLogCode;
@@ -27,16 +25,6 @@ export declare type BettererLogger = {
     progress: BettererLogMessage;
     success: BettererLogMessage;
     warn: BettererLogMessage;
-};
-
-export declare type BettererLoggerAsync = {
-    code: BettererLogCodeAsync;
-    debug: BettererLogMessageAsync;
-    error: BettererLogMessageAsync;
-    info: BettererLogMessageAsync;
-    progress: BettererLogMessageAsync;
-    success: BettererLogMessageAsync;
-    warn: BettererLogMessageAsync;
 };
 
 export declare type BettererLoggerCodeInfo = {
@@ -50,9 +38,7 @@ export declare type BettererLoggerCodeInfo = {
 
 export declare type BettererLoggerMessages = Array<string>;
 
-export declare type BettererLogMessage = (...messages: BettererLoggerMessages) => void;
-
-export declare type BettererLogMessageAsync = (...messages: BettererLoggerMessages) => Promise<void>;
+export declare type BettererLogMessage = (...messages: BettererLoggerMessages) => Promise<void>;
 
 export declare const BettererLogo: FC;
 
@@ -71,7 +57,7 @@ export declare type BettererTaskLoggerProps = {
     task: BettererTask;
 };
 
-export declare type BettererTaskRun = (logger: BettererLoggerAsync) => Promise<BettererTaskLog | string | void>;
+export declare type BettererTaskRun = (logger: BettererLogger) => Promise<BettererTaskLog | string | void>;
 
 export declare type BettererTasks = Array<BettererTask>;
 
