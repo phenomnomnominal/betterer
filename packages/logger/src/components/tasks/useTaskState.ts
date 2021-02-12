@@ -1,7 +1,7 @@
 import { useCallback, useContext, useReducer } from 'react';
 
 import { BettererTasksAction, BettererTasksStateContext, BettererTasksStateAPI } from './useTasksState';
-import { BettererTaskRunner, BettererTaskLog, BettererTaskLogs } from './types';
+import { BettererTaskLog, BettererTaskLogs, BettererTask } from './types';
 
 type BettererTaskState = {
   done: boolean;
@@ -35,9 +35,9 @@ type BettererTaskStateAPI = BettererTasksStateAPI & {
   log(status: BettererTaskLog): Promise<void>;
 };
 
-export function useTaskState(runner: BettererTaskRunner): [BettererTaskState, BettererTaskStateAPI] {
-  const previous = getState(runner);
-  const reducer = useCallback(setState(runner), []);
+export function useTaskState(task: BettererTask): [BettererTaskState, BettererTaskStateAPI] {
+  const previous = getState(task);
+  const reducer = useCallback(setState(task), []);
   const [state, dispatch] = useReducer(reducer, previous);
   const tasks = useContext(BettererTasksStateContext);
 
@@ -67,19 +67,19 @@ export function useTaskState(runner: BettererTaskRunner): [BettererTaskState, Be
 
 type BettererTaskReducer = (state: BettererTaskState, action: BettererTaskAction) => BettererTaskState;
 
-const TASK_STATE_CACHE = new Map<BettererTaskRunner, BettererTaskState>();
+const TASK_STATE_CACHE = new Map<BettererTask, BettererTaskState>();
 
-function getState(runner: BettererTaskRunner): BettererTaskState {
-  if (!TASK_STATE_CACHE.has(runner)) {
-    TASK_STATE_CACHE.set(runner, INITIAL_STATE);
+function getState(task: BettererTask): BettererTaskState {
+  if (!TASK_STATE_CACHE.has(task)) {
+    TASK_STATE_CACHE.set(task, INITIAL_STATE);
   }
-  return TASK_STATE_CACHE.get(runner) as BettererTaskState;
+  return TASK_STATE_CACHE.get(task) as BettererTaskState;
 }
 
-function setState(runner: BettererTaskRunner): BettererTaskReducer {
+function setState(task: BettererTask): BettererTaskReducer {
   return (state: BettererTaskState, action: BettererTaskAction): BettererTaskState => {
     const newState = reducer(state, action);
-    TASK_STATE_CACHE.set(runner, newState);
+    TASK_STATE_CACHE.set(task, newState);
     return newState;
   };
 }

@@ -4,7 +4,7 @@ exports[`no hack comments`] = {
     "packages/cli/src/cli.ts:3733618467": [
       [13, 0, 7, "RegExp match", "645651780"]
     ],
-    "packages/cli/src/init/update-package-json.ts:753682642": [
+    "packages/cli/src/init/update-package-json.ts:3422726738": [
       [34, 4, 7, "RegExp match", "645651780"]
     ]
   }`

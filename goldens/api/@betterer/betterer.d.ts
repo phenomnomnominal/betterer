@@ -48,7 +48,7 @@ export declare type BettererDiff<DeserialisedType extends BettererResultValue = 
     expected: DeserialisedType;
     result: DeserialisedType;
     diff: DiffType;
-    log: (logger: BettererLogger) => void;
+    log: (logger: BettererLoggerAsync) => Promise<void>;
 };
 
 export declare type BettererDiffer<DeserialisedType extends BettererResultValue, DiffType> = (expected: DeserialisedType, result: DeserialisedType) => BettererDiff<DeserialisedType, DiffType>;

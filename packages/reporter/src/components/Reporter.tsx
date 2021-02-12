@@ -8,6 +8,7 @@ import { Box } from 'ink';
 import { Error } from './Error';
 import { Runs } from './Runs';
 import { Summary } from './Summary';
+import { getTasks } from './tasks';
 
 export type ReporterProps = {
   error?: BettererError;
@@ -19,7 +20,7 @@ export const Reporter: FC<ReporterProps> = function Reporter({ error, runs, summ
   return (
     <Box flexDirection="column" paddingBottom={1}>
       <BettererLogo></BettererLogo>
-      {runs && <Runs runs={runs} />}
+      {runs && <Runs tasks={getTasks(runs)} />}
       {summary && <Summary summary={summary} />}
       {error && <Error error={error} />}
     </Box>
