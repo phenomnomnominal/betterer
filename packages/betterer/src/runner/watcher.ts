@@ -55,6 +55,6 @@ export class BettererWatcherΩ implements BettererRunner {
   public async stop(): Promise<BettererSummary>;
   public async stop(force?: true): Promise<BettererSummary | null> {
     await this._watcher.close();
-    return await this._runner.stop(force);
+    return await (force ? this._runner.stop(force) : this._runner.stop());
   }
 }
