@@ -1,4 +1,4 @@
-import { BettererLoggerAsync } from '@betterer/logger';
+import { BettererLogger } from '@betterer/logger';
 import assert from 'assert';
 
 import { BettererFileΩ } from './file';
@@ -155,7 +155,7 @@ export function differ(expected: BettererFileTestResult, result: BettererFileTes
     expected,
     result,
     diff,
-    async log(logger: BettererLoggerAsync): Promise<void> {
+    async log(logger: BettererLogger): Promise<void> {
       await Promise.all(
         filePaths.map(async (filePath) => {
           const existing = diff[filePath].existing || [];

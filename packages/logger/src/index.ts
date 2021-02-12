@@ -19,11 +19,8 @@ export {
 } from './components/public';
 export {
   BettererLogger,
-  BettererLoggerAsync,
   BettererLogMessage,
-  BettererLogMessageAsync,
   BettererLogCode,
-  BettererLogCodeAsync,
   BettererLoggerCodeInfo,
   BettererLoggerMessages
 } from './types';
