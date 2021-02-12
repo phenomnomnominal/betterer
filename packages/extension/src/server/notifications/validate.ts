@@ -1,5 +1,5 @@
-import * as assert from 'assert';
-import { NotificationHandler, NotificationType, TextDocumentChangeEvent } from 'vscode-languageserver/node';
+import assert from 'assert';
+import { NotificationHandler, NotificationType, TextDocumentChangeEvent } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { BettererValidationNotification, BettererVersionProvider } from './types';

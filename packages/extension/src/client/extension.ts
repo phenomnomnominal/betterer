@@ -1,4 +1,4 @@
-import * as assert from 'assert';
+import assert from 'assert';
 import { ExtensionContext, commands } from 'vscode';
 import { CloseAction, ErrorAction, ErrorHandler, LanguageClient } from 'vscode-languageclient/node';
 import { EXTENSION_NAME } from '../constants';

@@ -1,10 +1,10 @@
-import { betterer, config } from '@betterer/betterer';
+import { betterer } from '@betterer/betterer';
 
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should work when a test gets better', async () => {
-    const { logs, paths, readFile, cleanup } = await createFixture('test-betterer-better', {
+    const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-better', {
       '.betterer.js': `
 const { smaller, bigger } = require('@betterer/constraints');
 
@@ -27,15 +27,13 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    config({ configPaths, resultsPath });
+    const firstRun = await betterer({ configPaths, resultsPath });
 
-    const firstRun = await betterer();
+    expect(runNames(firstRun.new)).toEqual(['should shrink', 'should grow']);
 
-    expect(firstRun.new).toEqual(['should shrink', 'should grow']);
+    const secondRun = await betterer({ configPaths, resultsPath });
 
-    const secondRun = await betterer();
-
-    expect(secondRun.better).toEqual(['should shrink', 'should grow']);
+    expect(runNames(secondRun.better)).toEqual(['should shrink', 'should grow']);
 
     expect(logs).toMatchSnapshot();
 
@@ -43,14 +41,14 @@ module.exports = {
 
     expect(result).toMatchSnapshot();
 
-    config({});
-
     await cleanup();
   });
 
   it('should work when a test changes and makes the results better', async () => {
-    const { logs, paths, readFile, cleanup, resolve } = await createFixture('test-betterer-better-change-test', {
-      '.betterer.ts': `
+    const { logs, paths, readFile, cleanup, resolve, runNames } = await createFixture(
+      'test-betterer-better-change-test',
+      {
+        '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 
 export default {
@@ -60,7 +58,7 @@ export default {
   )
 };  
       `,
-      '.betterer.changed.ts': `
+        '.betterer.changed.ts': `
 import { tsquery } from '@betterer/tsquery';
 
 export default {
@@ -70,7 +68,7 @@ export default {
   )
 };
               `,
-      'tsconfig.json': `
+        'tsconfig.json': `
 {
   "compilerOptions": {
     "noEmit": true,
@@ -83,21 +81,22 @@ export default {
   "include": ["./src/**/*", ".betterer.ts"]
 }      
       `,
-      'src/index.ts': `
+        'src/index.ts': `
 console.log('foo');
 console.info('foo');
 console.log('foo');
       `
-    });
+      }
+    );
     const resultsPath = paths.results;
 
     const firstRun = await betterer({ configPaths: [resolve('.betterer.ts')], resultsPath });
 
-    expect(firstRun.new).toEqual(['no raw console calls']);
+    expect(runNames(firstRun.new)).toEqual(['no raw console calls']);
 
     const secondRun = await betterer({ configPaths: [resolve('.betterer.changed.ts')], resultsPath });
 
-    expect(secondRun.better).toEqual(['no raw console calls']);
+    expect(runNames(secondRun.better)).toEqual(['no raw console calls']);
 
     expect(logs).toMatchSnapshot();
 

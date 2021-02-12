@@ -45,7 +45,7 @@ export function test (): number {
   });
 
   it('should work with a .betterer.ts file that uses ES modules', async () => {
-    const { logs, paths, readFile, cleanup } = await createFixture('test-betterer-config-ts-esm', {
+    const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-config-ts-esm', {
       '.betterer.ts': `
 import { bigger } from '@betterer/constraints';
 
@@ -72,11 +72,11 @@ export default {
 
     const firstRun = await betterer({ configPaths, resultsPath });
 
-    expect(firstRun.new).toEqual(['gets better']);
+    expect(runNames(firstRun.new)).toEqual(['gets better']);
 
     const secondRun = await betterer({ configPaths, resultsPath });
 
-    expect(secondRun.better).toEqual(['gets better']);
+    expect(runNames(secondRun.better)).toEqual(['gets better']);
 
     expect(logs).toMatchSnapshot();
 

@@ -1,5 +1,15 @@
-export { BettererFileTest } from './file-test';
-export { BettererFile } from './file';
-export { BettererFiles } from './files';
+export { BettererFileTest, isBettererFileTest } from './file-test';
 export { BettererFileResolver } from './file-resolver';
-export * from './types';
+export {
+  BettererFileTestResult,
+  BettererFileGlobs,
+  BettererFilePatterns,
+  BettererFileTestFunction,
+  BettererFileBase,
+  BettererFile,
+  BettererFileDiff,
+  BettererFilesDiff,
+  BettererFileTestDiff,
+  BettererFileIssue,
+  BettererFileIssues
+} from './types';

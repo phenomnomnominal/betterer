@@ -1,29 +1,46 @@
-import { BettererReporterNames } from '../reporters';
+import { BettererReporter } from '../reporters';
 
 export type BettererConfigPaths = ReadonlyArray<string>;
 export type BettererConfigFilters = ReadonlyArray<RegExp>;
-export type BettererConfigIgnore = ReadonlyArray<string>;
-
-export type BettererConfigPartial = Partial<{
-  configPaths: BettererConfigPaths | string;
-  cwd: string;
-  filters: BettererConfigFilters | ReadonlyArray<string> | string;
-  ignores: BettererConfigIgnore | string;
-  reporters: BettererReporterNames;
-  resultsPath: string;
-  silent: boolean;
-  tsconfigPath: string;
-  update: boolean;
-}>;
+export type BettererConfigIgnores = ReadonlyArray<string>;
+export type BettererConfigReporter = string | BettererReporter;
+export type BettererConfigReporters = ReadonlyArray<BettererConfigReporter>;
 
 export type BettererConfig = {
+  allowDiff: boolean;
   configPaths: BettererConfigPaths;
   cwd: string;
   filters: BettererConfigFilters;
-  ignores: BettererConfigIgnore;
-  reporters: BettererReporterNames;
+  ignores: BettererConfigIgnores;
+  reporters: BettererConfigReporters;
   resultsPath: string;
   silent: boolean;
   tsconfigPath: string | null;
   update: boolean;
+  watch: boolean;
 };
+
+export type BettererBaseConfigPartial = Partial<{
+  configPaths: BettererConfigPaths | string;
+  cwd: string;
+  filters: ReadonlyArray<string | RegExp> | string;
+  reporters: BettererConfigReporters;
+  resultsPath: string;
+  silent: boolean;
+  tsconfigPath: string;
+}>;
+
+export type BettererStartConfigPartial = BettererBaseConfigPartial &
+  Partial<{
+    allowDiff: boolean;
+    update: boolean;
+    watch: false;
+  }>;
+
+export type BettererWatchConfigPartial = BettererBaseConfigPartial &
+  Partial<{
+    ignores: BettererConfigIgnores;
+    watch: true;
+  }>;
+
+export type BettererConfigPartial = BettererStartConfigPartial | BettererWatchConfigPartial;

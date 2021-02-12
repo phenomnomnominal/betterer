@@ -1,17 +1,35 @@
-export type CLIArguments = ReadonlyArray<string>;
+export type BettererCLIArguments = Array<string>;
 
-export type CLIStartConfig = {
-  config: CLIArguments;
-  filter: CLIArguments;
-  reporter: CLIArguments;
+export type BettererCLIEnvConfig = {
+  debug: boolean;
+  debugLog: string;
+};
+
+export type BettererCLICIConfig = BettererCLIEnvConfig & {
+  config: BettererCLIArguments;
+  filter: BettererCLIArguments;
+  reporter: BettererCLIArguments;
+  results: string;
+  silent: boolean;
+  tsconfig: string;
+};
+
+export type BettererCLIStartConfig = BettererCLIEnvConfig & {
+  config: BettererCLIArguments;
+  filter: BettererCLIArguments;
+  reporter: BettererCLIArguments;
   results: string;
   silent: boolean;
   tsconfig: string;
   update: boolean;
 };
 
-export type CLIWatchConfig = CLIStartConfig & {
-  ignore: CLIArguments;
+export type BettererCLIWatchConfig = BettererCLIStartConfig & {
+  ignore: BettererCLIArguments;
+};
+
+export type BettererCLIInitConfig = {
+  config: string;
 };
 
 export type BettererPackageJSON = {

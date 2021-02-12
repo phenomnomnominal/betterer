@@ -17,6 +17,9 @@
       "path": "errors"
     },
     {
+      "path": "fixture"
+    },
+    {
       "path": "logger"
     },
     {
@@ -30,9 +33,6 @@
     },
     {
       "path": "typescript"
-    },
-    {
-      "path": "watch-reporter"
     }
   ]
 }

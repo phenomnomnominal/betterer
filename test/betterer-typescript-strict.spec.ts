@@ -36,7 +36,7 @@ sum.apply(null, [1, 2, 3]);
 
 describe('betterer', () => {
   it('should report the status of the TypeScript compiler in strict mode', async () => {
-    const { paths, logs, resolve, readFile, cleanup, writeFile } = await createFixture(
+    const { paths, logs, resolve, readFile, cleanup, writeFile, runNames } = await createFixture(
       'test-betterer-typescript-strict',
       {
         '.betterer.ts': `
@@ -73,17 +73,17 @@ export default {
 
     const newTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(newTestRun.new).toEqual(['typescript use strict mode']);
+    expect(runNames(newTestRun.new)).toEqual(['typescript use strict mode']);
 
     const sameTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(sameTestRun.same).toEqual(['typescript use strict mode']);
+    expect(runNames(sameTestRun.same)).toEqual(['typescript use strict mode']);
 
     await writeFile(indexPath, `${INDEX_SOURCE}\nconst a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
 
     const worseTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(worseTestRun.worse).toEqual(['typescript use strict mode']);
+    expect(runNames(worseTestRun.worse)).toEqual(['typescript use strict mode']);
 
     const result = await readFile(resultsPath);
 
@@ -93,7 +93,7 @@ export default {
 
     const betterTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(betterTestRun.better).toEqual(['typescript use strict mode']);
+    expect(runNames(betterTestRun.better)).toEqual(['typescript use strict mode']);
 
     expect(logs).toMatchSnapshot();
 

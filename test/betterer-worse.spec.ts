@@ -1,9 +1,10 @@
 import { betterer } from '@betterer/betterer';
+
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should work when a test gets worse', async () => {
-    const { paths, logs, resolve, readFile, cleanup } = await createFixture('test-betterer-worse', {
+    const { paths, logs, resolve, readFile, cleanup, runNames } = await createFixture('test-betterer-worse', {
       '.betterer.js': `
   const { smaller, bigger } = require('@betterer/constraints');
 
@@ -28,11 +29,11 @@ module.exports = {
 
     const firstRun = await betterer({ configPaths, resultsPath });
 
-    expect(firstRun.new).toEqual(['should shrink', 'should grow']);
+    expect(runNames(firstRun.new)).toEqual(['should shrink', 'should grow']);
 
     const secondRun = await betterer({ configPaths, resultsPath });
 
-    expect(secondRun.worse).toEqual(['should shrink', 'should grow']);
+    expect(runNames(secondRun.worse)).toEqual(['should shrink', 'should grow']);
 
     expect(logs).toMatchSnapshot();
 
@@ -44,8 +45,10 @@ module.exports = {
   });
 
   it('should not stay worse if an update is forced', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('test-betterer-update', {
-      '.betterer.ts': `
+    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture(
+      'test-betterer-update',
+      {
+        '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 
 export default {
@@ -55,7 +58,7 @@ export default {
   )
 };      
       `,
-      'tsconfig.json': `
+        'tsconfig.json': `
 {
   "compilerOptions": {
     "noEmit": true,
@@ -68,7 +71,8 @@ export default {
   "include": ["./src/**/*", ".betterer.ts"]
 }      
       `
-    });
+      }
+    );
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
@@ -78,13 +82,13 @@ export default {
 
     const newTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(newTestRun.new).toEqual(['tsquery no raw console.log']);
+    expect(runNames(newTestRun.new)).toEqual(['tsquery no raw console.log']);
 
     await writeFile(indexPath, `console.log('foo');\nconsole.log('foo');`);
 
     const worseTestRun = await betterer({ configPaths, resultsPath, update: true });
 
-    expect(worseTestRun.updated).toEqual(['tsquery no raw console.log']);
+    expect(runNames(worseTestRun.updated)).toEqual(['tsquery no raw console.log']);
 
     const result = await readFile(resultsPath);
 
@@ -92,7 +96,7 @@ export default {
 
     const sameTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(sameTestRun.same).toEqual(['tsquery no raw console.log']);
+    expect(runNames(sameTestRun.same)).toEqual(['tsquery no raw console.log']);
 
     expect(logs).toMatchSnapshot();
 

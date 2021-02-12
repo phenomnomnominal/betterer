@@ -1,4 +1,8 @@
-export { BettererContext } from './context';
-export { BettererRun } from './run';
-export { BettererStats } from './statistics';
-export * from './types';
+export {
+  BettererRuns,
+  BettererRunNames,
+  BettererContext,
+  BettererRun,
+  BettererSummary,
+  BettererSummaries
+} from './types';

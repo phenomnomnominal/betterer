@@ -3,74 +3,383 @@
 exports[`betterer should work when a test meets its goal 1`] = `
 Array [
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"gets completed\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"gets completed\\" got checked for the first time! 🎉",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"already completed\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"already completed\\" has already met its goal! ✨",
-  " ☀️  betterer  info  💬  - ",
-  "2 tests got checked. 🤔",
-  " ☀️  betterer  info  💬  - ",
-  "2 tests got checked for the first time! 🎉",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"already completed\\" met its goal! 🎉",
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"gets completed\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"gets completed\\" got better! 😍",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"already completed\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"already completed\\" has already met its goal! ✨",
-  " ☀️  betterer  info  💬  - ",
-  "2 tests got checked. 🤔",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked for the first time! 🎉",
-  " ☀️  betterer  succ  ✅  - ",
-  "1 test got better! 😍",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"already completed\\" met its goal! 🎉",
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms):
+",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"gets completed\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"gets completed\\" met its goal! 🎉",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"already completed\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"already completed\\" has already met its goal! ✨",
-  " ☀️  betterer  info  💬  - ",
-  "2 tests got checked. 🤔",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked for the first time! 🎉",
-  " ☀️  betterer  succ  ✅  - ",
-  "1 test got better! 😍",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"gets completed\\" met its goal! 🎉",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"already completed\\" met its goal! 🎉",
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 2 tests running...
+🤔 gets completed: running \\"gets completed\\"!
+🤔 already completed: running \\"already completed\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 2 tests running...
+✅ gets completed: \\"gets completed\\" got checked for the first time! 🎉
+🤔 already completed: running \\"already completed\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 2 tests running...
+✅ gets completed: \\"gets completed\\" got checked for the first time! 🎉
+✅ already completed: \\"already completed\\" has already met its goal! ✨
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 2 tests running...
+✅ gets completed: \\"gets completed\\" got checked for the first time! 🎉
+✅ already completed: \\"already completed\\" has already met its goal! ✨
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running... 1 test done!
+✅ gets completed: \\"gets completed\\" got checked for the first time! 🎉
+✅ already completed: \\"already completed\\" has already met its goal! ✨
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running... 1 test done!
+✅ gets completed: \\"gets completed\\" got checked for the first time! 🎉
+✅ already completed: \\"already completed\\" has already met its goal! ✨
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 2 tests done!
+✅ gets completed: \\"gets completed\\" got checked for the first time! 🎉
+✅ already completed: \\"already completed\\" has already met its goal! ✨
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 2 tests done!
+✅ gets completed: \\"gets completed\\" got checked for the first time! 🎉
+✅ already completed: \\"already completed\\" has already met its goal! ✨
+2 tests got checked. 🤔
+2 tests got checked for the first time! 🎉
+\\"already completed\\" met its goal! 🎉)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 2 tests done!
+✅ gets completed: \\"gets completed\\" got checked for the first time! 🎉
+✅ already completed: \\"already completed\\" has already met its goal! ✨
+2 tests got checked. 🤔
+2 tests got checked for the first time! 🎉
+\\"already completed\\" met its goal! 🎉)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms):
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 2 tests running...
+🤔 gets completed: running \\"gets completed\\"!
+🤔 already completed: running \\"already completed\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 2 tests running...
+✅ gets completed: \\"gets completed\\" got better! 😍
+🤔 already completed: running \\"already completed\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 2 tests running...
+✅ gets completed: \\"gets completed\\" got better! 😍
+✅ already completed: \\"already completed\\" has already met its goal! ✨
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 2 tests running...
+✅ gets completed: \\"gets completed\\" got better! 😍
+✅ already completed: \\"already completed\\" has already met its goal! ✨
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running... 1 test done!
+✅ gets completed: \\"gets completed\\" got better! 😍
+✅ already completed: \\"already completed\\" has already met its goal! ✨
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running... 1 test done!
+✅ gets completed: \\"gets completed\\" got better! 😍
+✅ already completed: \\"already completed\\" has already met its goal! ✨
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 2 tests done!
+✅ gets completed: \\"gets completed\\" got better! 😍
+✅ already completed: \\"already completed\\" has already met its goal! ✨
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 2 tests done!
+✅ gets completed: \\"gets completed\\" got better! 😍
+✅ already completed: \\"already completed\\" has already met its goal! ✨
+2 tests got checked. 🤔
+1 test got checked for the first time! 🎉
+1 test got better! 😍
+\\"already completed\\" met its goal! 🎉)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 2 tests done!
+✅ gets completed: \\"gets completed\\" got better! 😍
+✅ already completed: \\"already completed\\" has already met its goal! ✨
+2 tests got checked. 🤔
+1 test got checked for the first time! 🎉
+1 test got better! 😍
+\\"already completed\\" met its goal! 🎉)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms):
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 2 tests running...
+🤔 gets completed: running \\"gets completed\\"!
+🤔 already completed: running \\"already completed\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 2 tests running...
+✅ gets completed: \\"gets completed\\" met its goal! 🎉
+🤔 already completed: running \\"already completed\\"!
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 2 tests running...
+✅ gets completed: \\"gets completed\\" met its goal! 🎉
+✅ already completed: \\"already completed\\" has already met its goal! ✨
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 2 tests running...
+✅ gets completed: \\"gets completed\\" met its goal! 🎉
+✅ already completed: \\"already completed\\" has already met its goal! ✨
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running... 1 test done!
+✅ gets completed: \\"gets completed\\" met its goal! 🎉
+✅ already completed: \\"already completed\\" has already met its goal! ✨
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running... 1 test done!
+✅ gets completed: \\"gets completed\\" met its goal! 🎉
+✅ already completed: \\"already completed\\" has already met its goal! ✨
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 2 tests done!
+✅ gets completed: \\"gets completed\\" met its goal! 🎉
+✅ already completed: \\"already completed\\" has already met its goal! ✨
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 2 tests done!
+✅ gets completed: \\"gets completed\\" met its goal! 🎉
+✅ already completed: \\"already completed\\" has already met its goal! ✨
+2 tests got checked. 🤔
+1 test got checked for the first time! 🎉
+1 test got better! 😍
+\\"gets completed\\" met its goal! 🎉)
+\\"already completed\\" met its goal! 🎉)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 2 tests done!
+✅ gets completed: \\"gets completed\\" met its goal! 🎉
+✅ already completed: \\"already completed\\" has already met its goal! ✨
+2 tests got checked. 🤔
+1 test got checked for the first time! 🎉
+1 test got better! 😍
+\\"gets completed\\" met its goal! 🎉)
+\\"already completed\\" met its goal! 🎉)
+
+",
 ]
 `;
 

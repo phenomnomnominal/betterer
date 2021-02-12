@@ -1,0 +1,39 @@
+{
+  "name": "@betterer/fixture",
+  "description": "Test fixtures for @betterer/betterer",
+  "version": "3.0.0",
+  "license": "MIT",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "Craig Spence <craigspence0@gmail.com>",
+  "homepage": "https://phenomnomnominal.github.io/betterer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phenomnomnominal/betterer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/phenomnomnominal/betterer/issues"
+  },
+  "scripts": {
+    "compile": "tsc -b .",
+    "api": "ts-api-guardian --out ../../goldens/api/@betterer/fixture.d.ts dist/index.d.ts"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "dependencies": {
+    "@betterer/betterer": "^3.0.3",
+    "@betterer/errors": "^3.1.0",
+    "ansi-regex": "^5.0.0",
+    "fs-extra": "^9.0.1",
+    "graceful-fs": "^4.2.3"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.1",
+    "@types/graceful-fs": "^4.1.3"
+  }
+}

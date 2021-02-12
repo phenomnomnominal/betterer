@@ -1,4 +1,4 @@
-import { init, BettererPackageJSON } from '@betterer/cli';
+import { BettererPackageJSON, initΔ } from '@betterer/cli';
 
 import { createFixture } from '../fixture';
 
@@ -6,20 +6,26 @@ const ARGV = ['node', './bin/betterer'];
 
 describe('betterer cli', () => {
   it('should initialise betterer in a repo', async () => {
-    const { paths, readFile, cleanup, resolve } = await createFixture('test-betterer-init', {
-      'package.json': `
+    const { logs, paths, readFile, cleanup, resolve } = await createFixture(
+      'test-betterer-init',
+      {
+        'package.json': `
       {
         "name": "betterer-test-betterer-init",
         "version": "0.0.1"
       }
       `
-    });
+      },
+      {
+        logFilters: [/🌟 Initialising Betterer/]
+      }
+    );
 
     const configPath = `${paths.config}.ts`;
-    const fixturePath = paths.fixture;
+    const fixturePath = paths.cwd;
     const packageJSONPath = resolve('./package.json');
 
-    await init(fixturePath, ARGV);
+    await initΔ(fixturePath, ARGV);
 
     const packageJSON = JSON.parse(await readFile(packageJSONPath)) as BettererPackageJSON;
 
@@ -30,30 +36,40 @@ describe('betterer cli', () => {
 
     expect(config).toEqual('export default {\n  // Add tests here ☀️\n};');
 
+    expect(logs).toMatchSnapshot();
+
     await cleanup();
   });
 
   it('should work multiple times', async () => {
-    const { paths, cleanup } = await createFixture('test-betterer-init', {
-      'package.json': `
+    const { logs, paths, cleanup } = await createFixture(
+      'test-betterer-init-multiple',
       {
-        "name": "betterer-test-betterer-init",
+        'package.json': `
+      {
+        "name": "betterer-test-betterer-init-multiple",
         "version": "0.0.1"
       }
       `
-    });
+      },
+      {
+        logFilters: [/🌟 Initialising Betterer/]
+      }
+    );
 
-    const fixturePath = paths.fixture;
+    const fixturePath = paths.cwd;
 
     let throws = false;
     try {
-      await init(fixturePath, ARGV);
-      await init(fixturePath, ARGV);
+      await initΔ(fixturePath, ARGV);
+      await initΔ(fixturePath, ARGV);
       await cleanup();
     } catch {
       throws = true;
     }
 
     expect(throws).toBe(false);
+
+    expect(logs).toMatchSnapshot();
   });
 });

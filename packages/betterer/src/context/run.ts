@@ -1,65 +1,69 @@
-import * as assert from 'assert';
+import { BettererError } from '@betterer/errors';
+import assert from 'assert';
 
-import { BettererExpectedResult, NO_PREVIOUS_RESULT, deserialise, diff } from '../results';
-import { BettererTest } from '../test';
-import { BettererFilePaths } from '../watcher';
-import { BettererContext } from './context';
+import { BettererReporterΩ } from '../reporters';
+import { BettererResult } from '../results';
+import { BettererFilePaths } from '../runner';
+import { BettererDiff, BettererTestConfig } from '../test';
+import { Defer, defer } from '../utils';
+import { BettererRun } from './types';
 
 enum BettererRunStatus {
   better,
   failed,
   pending,
-  neww,
+  new,
+  obsolete,
   same,
   skipped,
   update,
   worse
 }
 
-export class BettererRun {
-  private _result: unknown;
-  private _toPrint: unknown;
-  private _status: BettererRunStatus = BettererRunStatus.pending;
-
-  private _expected: unknown;
+export class BettererRunΩ implements BettererRun {
+  private _diff: BettererDiff | null = null;
+  private _lifecycle: Defer<void>;
+  private _result: BettererResult | null = null;
+  private _status: BettererRunStatus;
   private _timestamp: number | null = null;
 
   private _isComplete = false;
   private _isExpired = false;
-  private _isNew = true;
-  private _hasResult = false;
+  private _isRan = false;
 
   constructor(
-    private readonly _context: BettererContext,
-    private readonly _test: BettererTest,
-    expected: BettererExpectedResult | typeof NO_PREVIOUS_RESULT,
-    private readonly _files: BettererFilePaths
+    private readonly _reporter: BettererReporterΩ,
+    private readonly _name: string,
+    private readonly _test: BettererTestConfig,
+    private readonly _expected: BettererResult,
+    private readonly _filePaths: BettererFilePaths,
+    isSkipped: boolean,
+    isObsolete: boolean
   ) {
-    if (expected === NO_PREVIOUS_RESULT) {
-      this._expected = NO_PREVIOUS_RESULT;
-      return;
-    } else {
-      this._isNew = false;
-      this._expected = deserialise(this, expected.value);
-      this._toPrint = this._expected;
-      this._hasResult = true;
-    }
+    this._status = isSkipped ? BettererRunStatus.skipped : BettererRunStatus.pending;
+    this._status = isObsolete ? BettererRunStatus.obsolete : this._status;
+    this._lifecycle = defer();
   }
 
-  public get expected(): unknown | typeof NO_PREVIOUS_RESULT {
+  public get diff(): BettererDiff {
+    assert(this._diff);
+    return this._diff;
+  }
+
+  public get lifecycle(): Promise<void> {
+    return this._lifecycle.promise;
+  }
+
+  public get name(): string {
+    return this._name;
+  }
+
+  public get expected(): BettererResult {
     return this._expected;
   }
 
-  public get files(): BettererFilePaths {
-    return this._files;
-  }
-
-  public get shouldPrint(): boolean {
-    return !this.isComplete && this._hasResult;
-  }
-
-  public get toPrint(): unknown {
-    return this._toPrint;
+  public get filePaths(): BettererFilePaths {
+    return this._filePaths;
   }
 
   public get timestamp(): number {
@@ -85,7 +89,15 @@ export class BettererRun {
   }
 
   public get isNew(): boolean {
-    return this._isNew;
+    return this._expected.isNew;
+  }
+
+  public get isObsolete(): boolean {
+    return this._status === BettererRunStatus.obsolete;
+  }
+
+  public get isRan(): boolean {
+    return this._isRan;
   }
 
   public get isSame(): boolean {
@@ -104,102 +116,66 @@ export class BettererRun {
     return this._status === BettererRunStatus.worse;
   }
 
-  public get name(): string {
-    return this._test.name;
-  }
-
-  public get result(): unknown {
+  public get result(): BettererResult {
+    assert(this._result);
     return this._result;
   }
 
-  public get context(): BettererContext {
-    return this._context;
-  }
-
-  public get test(): BettererTest {
+  public get test(): BettererTestConfig {
     return this._test;
   }
 
-  public better(result: unknown, isComplete: boolean): void {
-    assert.equal(this._status, BettererRunStatus.pending);
-    this._status = BettererRunStatus.better;
-    this._isComplete = isComplete;
-    this._result = result;
-    this._toPrint = result;
-    this._hasResult = true;
-    this._context.runBetter(this);
+  public better(result: BettererResult, isComplete: boolean): void {
+    this._updateResult(BettererRunStatus.better, result, isComplete);
   }
 
-  public end(): void {
-    this._context.runEnd(this);
+  public async end(): Promise<void> {
+    this._lifecycle.resolve();
+    await this._reporter.runEnd(this);
   }
 
-  public failed(): void {
-    assert.equal(this._status, BettererRunStatus.pending);
+  public async failed(error: BettererError): Promise<void> {
+    this._lifecycle.reject(error);
+    await this._reporter.runError(this, error);
+    assert.strictEqual(this._status, BettererRunStatus.pending);
     this._status = BettererRunStatus.failed;
-    this._context.runFailed(this);
   }
 
-  public neww(result: unknown, isComplete: boolean): void {
-    assert.equal(this._status, BettererRunStatus.pending);
-    this._status = BettererRunStatus.neww;
-    this._isComplete = isComplete;
-    this._result = result;
-    this._toPrint = result;
-    this._hasResult = true;
-    this._context.runNew(this);
+  public new(result: BettererResult, isComplete: boolean): void {
+    this._updateResult(BettererRunStatus.new, result, isComplete);
   }
 
   public ran(): void {
-    this._context.runRan(this);
+    this._isRan = true;
   }
 
-  public start(): void {
+  public async start(): Promise<void> {
     const startTime = Date.now();
-    this._isExpired = startTime > this._test.deadline;
-    this._context.runStart(this);
+    this._isExpired = startTime >= this._test.deadline;
+    await this._reporter.runStart(this, this._lifecycle.promise);
     this._timestamp = startTime;
   }
 
-  public same(result: unknown): void {
-    assert.equal(this._status, BettererRunStatus.pending);
-    this._status = BettererRunStatus.same;
+  public same(result: BettererResult): void {
+    this._updateResult(BettererRunStatus.same, result);
+  }
+
+  public update(result: BettererResult): void {
+    this._updateResult(BettererRunStatus.update, result);
+    this._diff = this.test.differ(this.expected.result, this.result.result);
+  }
+
+  public worse(result: BettererResult): void {
+    this._updateResult(BettererRunStatus.worse, result);
+    this._diff = this.test.differ(this.expected.result, this.result.result);
+  }
+
+  private _updateResult(status: BettererRunStatus, result: BettererResult, isComplete = false) {
+    assert.strictEqual(this._status, BettererRunStatus.pending);
+    this._status = status;
+    this._isComplete = isComplete;
     this._result = result;
-    this._toPrint = result;
-    this._hasResult = true;
-    this._context.runSame(this);
-  }
-
-  public skipped(): void {
-    assert.equal(this._status, BettererRunStatus.pending);
-    this._status = BettererRunStatus.skipped;
-    if (this._expected !== NO_PREVIOUS_RESULT) {
-      this._result = this._expected;
-      this._toPrint = this._expected;
-      this._hasResult = true;
-    }
-    this._context.runSkipped(this);
-  }
-
-  public update(result: unknown): void {
-    assert.equal(this._status, BettererRunStatus.pending);
-    this._status = BettererRunStatus.update;
-    this._result = result;
-    this._toPrint = result;
-    this._hasResult = true;
-    this._context.runUpdate(this);
-  }
-
-  public worse(result: unknown): void {
-    assert.equal(this._status, BettererRunStatus.pending);
-    this._status = BettererRunStatus.worse;
-    this._result = result;
-    this._toPrint = this._expected;
-    this._hasResult = true;
-    this._context.runWorse(this);
-  }
-
-  public diff(): void {
-    diff(this);
   }
 }
+
+export type BettererRunsΩ = ReadonlyArray<BettererRunΩ>;

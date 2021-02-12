@@ -1,17 +1,18 @@
-import { BettererRun } from '../../context';
 import { BettererFileIssuesMapSerialised } from './types';
 
-export function printer(_: BettererRun, serialised: BettererFileIssuesMapSerialised): string {
+export function printer(serialised: BettererFileIssuesMapSerialised): string {
   let printed = '{\n';
   Object.keys(serialised)
     .sort()
     .forEach((filePath, index) => {
       const file = `    "${filePath}": [\n`;
       printed += prependNewline(index, file);
-      serialised[filePath].forEach((mark, index) => {
-        const [line, column, length, message, hash] = mark;
-        const issue = `      [${line}, ${column}, ${length}, ${JSON.stringify(message)}, ${JSON.stringify(hash)}]`;
-        printed += prependNewline(index, issue);
+      serialised[filePath].forEach((issue, index) => {
+        const [line, column, length, message, hash] = issue;
+        const printedIssue = `      [${line}, ${column}, ${length}, ${JSON.stringify(message)}, ${JSON.stringify(
+          hash
+        )}]`;
+        printed += prependNewline(index, printedIssue);
       });
       printed += `\n    ]`;
     });

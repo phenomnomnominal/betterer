@@ -1,48 +1,51 @@
-import { BettererLoggerCodeInfo } from '@betterer/logger';
-
+import { BettererResultValueComplex } from '../../results';
+import { BettererFilePaths } from '../../runner';
+import { BettererDiff } from '../../test';
 import { MaybeAsync } from '../../types';
-import { BettererFilePaths } from '../../watcher';
-import { BettererTestOptions } from '../types';
-import { BettererFiles } from './files';
 
-export { BettererFilePaths } from '../../watcher';
+export type BettererFileIssueSerialised = [line: number, column: number, length: number, message: string, hash: string];
+export type BettererFileIssuesMapSerialised = Record<string, ReadonlyArray<BettererFileIssueSerialised>>;
 
-export type BettererFileIssueRaw = BettererLoggerCodeInfo & {
-  hash?: string;
+export type BettererFileDiff = {
+  fixed?: BettererFileIssues;
+  existing?: BettererFileIssues;
+  new?: BettererFileIssues;
 };
-export type BettererFileIssuesRaw = ReadonlyArray<BettererFileIssueRaw>;
-export type BettererFileIssuesMapRaw = Record<string, BettererFileIssuesRaw>;
+export type BettererFilesDiff = Record<string, BettererFileDiff>;
+export type BettererFileTestDiff = BettererDiff<BettererFileTestResult, BettererFilesDiff>;
 
-export type BettererFileIssueDeserialised = {
+export type BettererFileTestFunction = (
+  filePaths: BettererFilePaths,
+  fileTestResult: BettererFileTestResult
+) => MaybeAsync<void>;
+
+export type BettererFileGlobs = ReadonlyArray<string | ReadonlyArray<string>>;
+export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
+
+export type BettererFileIssue = {
   readonly line: number;
   readonly column: number;
   readonly length: number;
   readonly message: string;
   readonly hash: string;
 };
-export type BettererFileIssuesDeserialised = ReadonlyArray<BettererFileIssueDeserialised>;
-export type BettererFileIssuesMapDeserialised = Record<string, BettererFileIssuesDeserialised>;
 
-export type BettererFileIssueSerialised = [number, number, number, string, string];
-export type BettererFileIssuesSerialised = ReadonlyArray<BettererFileIssueSerialised>;
-export type BettererFileIssuesMapSerialised = Record<string, BettererFileIssuesSerialised>;
+export type BettererFileIssues = ReadonlyArray<BettererFileIssue>;
 
-export type BettererFileIssues = ReadonlyArray<BettererFileIssueRaw> | ReadonlyArray<BettererFileIssueDeserialised>;
+export type BettererFileBase = {
+  readonly absolutePath: string;
+  readonly hash: string;
+  readonly issues: BettererFileIssues;
+  readonly key: string;
+};
 
-export type BettererFileTestDiff = Record<
-  string,
-  {
-    fixed?: ReadonlyArray<BettererFileIssueDeserialised>;
-    existing?: ReadonlyArray<BettererFileIssueDeserialised>;
-    neww?: ReadonlyArray<BettererFileIssueRaw>;
-  }
->;
+export type BettererFile = BettererFileBase & {
+  addIssue(start: number, end: number, message: string, hash?: string): void;
+  addIssue(line: number, col: number, length: number, message: string, hash?: string): void;
+  addIssue(startLine: number, startCol: number, endLine: number, endCol: number, message: string, hash?: string): void;
+};
 
-export type BettererFileTestFunction = (files: BettererFilePaths) => MaybeAsync<BettererFileIssuesMapRaw>;
-
-export type BettererFileGlobs = ReadonlyArray<string | ReadonlyArray<string>>;
-export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
-export type BettererFileTestOptions = BettererTestOptions<BettererFiles, BettererFileIssuesMapSerialised> & {
-  included: ReadonlyArray<string>;
-  excluded: ReadonlyArray<RegExp>;
+export type BettererFileTestResult = BettererResultValueComplex & {
+  addFile(absolutePath: string, fileText: string): BettererFile;
+  getIssues(absolutePath: string): BettererFileIssues;
 };

@@ -2,11 +2,9 @@ import { betterer } from '@betterer/betterer';
 
 import { createFixture } from './fixture';
 
-('../fixtures/test-betterer-complete');
-
 describe('betterer', () => {
   it(`should work when a test meets its goal`, async () => {
-    const { logs, paths, readFile, cleanup } = await createFixture('test-betterer-complete', {
+    const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-complete', {
       '.betterer.js': `
 const { bigger } = require('@betterer/constraints');
 
@@ -32,16 +30,16 @@ module.exports = {
 
     const firstRun = await betterer({ configPaths, resultsPath });
 
-    expect(firstRun.new).toEqual(['gets completed', 'already completed']);
-    expect(firstRun.completed).toEqual(['already completed']);
+    expect(runNames(firstRun.new)).toEqual(['gets completed', 'already completed']);
+    expect(runNames(firstRun.completed)).toEqual(['already completed']);
 
     const secondRun = await betterer({ configPaths, resultsPath });
 
-    expect(secondRun.better).toEqual(['gets completed']);
+    expect(runNames(secondRun.better)).toEqual(['gets completed']);
 
     const thirdRun = await betterer({ configPaths, resultsPath });
 
-    expect(thirdRun.completed).toEqual(['gets completed', 'already completed']);
+    expect(runNames(thirdRun.completed)).toEqual(['gets completed', 'already completed']);
 
     expect(logs).toMatchSnapshot();
 

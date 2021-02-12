@@ -1,11 +1,13 @@
 .DS_Store
 dist
 fixtures
+goldens
 node_modules
 reports
 lerna-debug.log
 yarn-error.log
 tsconfig.tsbuildinfo
+.vscode-test
 *.vsix
 **/*.snap
 test/__snapshots__/**
@@ -21,3 +23,4 @@ test/__snapshots__/**
 .yarnrc
 *.patch
 CHANGELOG.md
+betterer.log

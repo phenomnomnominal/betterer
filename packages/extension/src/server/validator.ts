@@ -1,12 +1,11 @@
 import {
-  BettererFileTest,
-  BettererFiles,
-  BettererFileIssuesRaw,
-  BettererFileIssueRaw,
-  BettererFileIssueDeserialised,
-  BettererFileIssues
+  BettererFileIssue,
+  BettererFileIssues,
+  BettererFileTestDiff,
+  BettererFileTestResult,
+  BettererSummary
 } from '@betterer/betterer';
-import * as assert from 'assert';
+
 import { Diagnostic, DiagnosticSeverity, Connection, Position, TextDocuments } from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { URI } from 'vscode-uri';
@@ -14,123 +13,164 @@ import { URI } from 'vscode-uri';
 import { EXTENSION_NAME } from '../constants';
 import { BettererStatus } from '../status';
 import { isString } from '../utils';
-import { getLibrary, BettererLibrary } from './betterer';
-import { getEnabled, getBettererConfig } from './config';
-import { BettererInvalidConfigRequest, isNoConfigError, BettererNoLibraryRequest } from './requests';
+import { getRunner, hasBetterer } from './betterer';
+import { getBettererConfig, getDebug, getEnabled } from './config';
+import { info } from './console';
+import { BettererInvalidConfigRequest, BettererNoLibraryRequest, isNoConfigError } from './requests';
 import { BettererStatusNotification } from './status';
 
 export class BettererValidator {
   constructor(private _connection: Connection, private _documents: TextDocuments<TextDocument>) {}
 
-  public async single(document: TextDocument): Promise<void> {
+  public async validate(document: TextDocument): Promise<void> {
+    const { uri } = document;
     const { workspace } = this._connection;
-    if (!this._documents.get(document.uri)) {
-      return Promise.resolve();
+
+    if (!this._documents.get(uri)) {
+      return;
     }
 
-    const folders = await workspace.getWorkspaceFolders();
-    folders?.map(async (folder) => {
-      const uri = document.uri;
+    await getDebug(workspace);
 
+    const folders = await workspace.getWorkspaceFolders();
+    if (!folders) {
+      return;
+    }
+
+    folders.map(async (folder) => {
       const enabled = await getEnabled(workspace);
       if (!enabled) {
+        info(`Validator: Betterer disabled, clearing diagnostics for "${uri}".`);
         this._connection.sendDiagnostics({ uri, diagnostics: [] });
-        return Promise.resolve();
+        return;
       }
 
       const cwd = getFilePath(folder.uri);
-      const filePath = getFilePath(document);
-
-      let betterer: BettererLibrary | null = null;
-      if (cwd) {
-        try {
-          betterer = await getLibrary(cwd);
-        } catch {
-          void this._connection.sendRequest(BettererNoLibraryRequest, { source: { uri: document.uri } });
-          return;
-        }
+      if (!cwd) {
+        return;
       }
 
-      if (cwd && filePath && betterer) {
-        const diagnostics: Array<Diagnostic> = [];
-        this._connection.sendDiagnostics({ uri, diagnostics });
+      const filePath = getFilePath(document);
+      if (!filePath) {
+        return;
+      }
 
-        const loading = load(this._connection);
-        let status = BettererStatus.ok;
-        const extensionCwd = process.cwd();
-        try {
+      info(`Validator: Getting Betterer for "${filePath}".`);
+      try {
+        await hasBetterer(cwd);
+      } catch {
+        void this._connection.sendRequest(BettererNoLibraryRequest, { source: { uri } });
+        return;
+      }
+
+      info(`Validator: About to run Betterer, clearing diagnostics for "${uri}".`);
+      this._connection.sendDiagnostics({ uri, diagnostics: [] });
+
+      const loading = load(this._connection);
+      let status = BettererStatus.ok;
+      const extensionCwd = process.cwd();
+      try {
+        if (extensionCwd !== cwd) {
+          info(`Validator: Setting CWD to "${cwd}".`);
           process.chdir(cwd);
-          const config = await getBettererConfig(workspace);
-          const runs = await betterer.single({ ...config, cwd }, filePath);
+        }
 
-          runs
-            .filter((run) => !run.isFailed)
-            .filter((run) => (run.result as BettererFiles).getFile(filePath))
-            .map((run) => {
-              const test = run.test as BettererFileTest;
-              const files = run.result as BettererFiles;
-              const file = files.getFile(filePath);
-              assert(file);
+        info(`Validator: Getting Betterer config.`);
+        const config = await getBettererConfig(cwd, workspace);
 
-              const fileDiff = test?.diff?.[file.relativePath];
-              let existingIssues: BettererFileIssues = [];
-              let newIssues: BettererFileIssuesRaw = [];
-
-              if (fileDiff) {
-                existingIssues = fileDiff.existing || [];
-                newIssues = fileDiff.neww || [];
-              } else if (run.isNew) {
-                newIssues = file.issuesRaw;
-              } else if (run.isSkipped || run.isSame) {
-                existingIssues = file.issuesRaw;
-              }
-              existingIssues.forEach((issue: BettererFileIssueRaw | BettererFileIssueDeserialised) => {
-                diagnostics.push(createWarning(test.name, 'existing issue', issue, document));
-              });
-              newIssues.forEach((issue) => {
-                diagnostics.push(createError(test.name, 'new issue', issue, document));
-              });
-            });
-          this._connection.sendDiagnostics({ uri, diagnostics });
-        } catch (e) {
-          if (isNoConfigError(e)) {
-            void this._connection.sendRequest(BettererInvalidConfigRequest, { source: { uri: document.uri } });
-            status = BettererStatus.warn;
-          } else {
-            status = BettererStatus.error;
-          }
-        } finally {
+        info(`Validator: Running Betterer for "${filePath}".`);
+        const runner = await getRunner(cwd, config);
+        await runner.queue(filePath, (summary) => {
+          this.report(document, summary);
+        });
+      } catch (e) {
+        if (isNoConfigError(e)) {
+          void this._connection.sendRequest(BettererInvalidConfigRequest, { source: { uri: document.uri } });
+          status = BettererStatus.warn;
+        } else {
+          status = BettererStatus.error;
+        }
+      } finally {
+        if (cwd !== extensionCwd) {
+          info(`Validator: Restoring CWD to "${extensionCwd}".`);
           process.chdir(extensionCwd);
         }
-        await loading();
-        this._connection.sendNotification(BettererStatusNotification, status);
       }
+
+      await loading();
+      this._connection.sendNotification(BettererStatusNotification, status);
     });
   }
-}
 
-function isRaw(issue: BettererFileIssueRaw | BettererFileIssueDeserialised): issue is BettererFileIssueRaw {
-  return (issue as BettererFileIssueRaw).fileText != null;
+  public report(document: TextDocument, summary: BettererSummary): void {
+    const filePath = getFilePath(document);
+    if (!filePath) {
+      return;
+    }
+
+    const diagnostics: Array<Diagnostic> = [];
+
+    const { runs } = summary;
+    const run = runs[runs.length - 1];
+    if (run.isFailed) {
+      return;
+    }
+
+    const result = run.result.result as BettererFileTestResult;
+    if (!result) {
+      return;
+    }
+
+    let issues: BettererFileIssues;
+    try {
+      issues = result.getIssues(filePath);
+    } catch {
+      return;
+    }
+
+    info(`Validator: Got issues from Betterer for "${run.name}"`);
+
+    let existingIssues: BettererFileIssues = [];
+    let newIssues: BettererFileIssues = [];
+
+    if (run.isNew) {
+      newIssues = issues;
+    } else if (run.isSkipped || run.isSame) {
+      existingIssues = issues;
+    } else {
+      const fileDiff = ((run.diff as unknown) as BettererFileTestDiff).diff[filePath];
+      info(`Validator: Got diff from Betterer for "${filePath}"`);
+      existingIssues = fileDiff.existing || [];
+      newIssues = fileDiff.new || [];
+    }
+
+    info(`Validator: Got "${existingIssues.length}" existing issues for "${filePath}"`);
+    info(`Validator: Got "${newIssues.length}" new issues for "${filePath}"`);
+
+    existingIssues.forEach((issue: BettererFileIssue) => {
+      diagnostics.push(createWarning(run.name, 'existing issue', issue, document));
+    });
+    newIssues.forEach((issue) => {
+      diagnostics.push(createError(run.name, 'new issue', issue, document));
+    });
+
+    const { uri } = document;
+    this._connection.sendDiagnostics({ uri, diagnostics });
+  }
 }
 
 function createDiagnostic(
   name: string,
-  issue: BettererFileIssueRaw | BettererFileIssueDeserialised,
+  issue: BettererFileIssue,
   extra: string,
   document: TextDocument,
   severity: DiagnosticSeverity
 ): Diagnostic {
-  const { message } = issue;
+  const { line, column, length, message } = issue;
   let start: Position | null = null;
   let end: Position | null = null;
-  if (isRaw(issue)) {
-    start = document.positionAt(issue.start);
-    end = document.positionAt(issue.end);
-  } else {
-    const { line, column, length } = issue;
-    start = { line, character: column };
-    end = document.positionAt(document.offsetAt(start) + length);
-  }
+  start = { line, character: column };
+  end = document.positionAt(document.offsetAt(start) + length);
   const range = { start, end };
   const code = `[${name}]${extra ? ` - ${extra}` : ''}`;
   return {
@@ -142,21 +182,11 @@ function createDiagnostic(
   };
 }
 
-function createError(
-  name: string,
-  extra: string,
-  issue: BettererFileIssueRaw | BettererFileIssueDeserialised,
-  document: TextDocument
-): Diagnostic {
+function createError(name: string, extra: string, issue: BettererFileIssue, document: TextDocument): Diagnostic {
   return createDiagnostic(name, issue, extra, document, DiagnosticSeverity.Error);
 }
 
-function createWarning(
-  name: string,
-  extra: string,
-  issue: BettererFileIssueRaw | BettererFileIssueDeserialised,
-  document: TextDocument
-): Diagnostic {
+function createWarning(name: string, extra: string, issue: BettererFileIssue, document: TextDocument): Diagnostic {
   return createDiagnostic(name, issue, extra, document, DiagnosticSeverity.Warning);
 }
 

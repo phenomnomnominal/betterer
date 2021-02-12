@@ -4,17 +4,17 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should run specific tests', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('test-betterer-only', {
+    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture('test-betterer-only', {
       '.betterer.only.ts': `
+import { BettererTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
 import { regexp } from '@betterer/regexp';
 
 export default {
-  'test 1': {
+  'test 1': new BettererTest({
     test: () => Date.now(),
-    constraint: bigger,
-    isOnly: true
-  },
+    constraint: bigger
+  }).only(),
   'test 2': {
     test: () => Date.now(),
     constraint: bigger
@@ -56,16 +56,16 @@ export default {
 
     const run = await betterer({ configPaths, resultsPath });
 
-    expect(run.ran).toEqual(['test 1', 'test 2', 'test 3', 'test 4']);
-    expect(run.skipped).toEqual([]);
+    expect(runNames(run.ran)).toEqual(['test 1', 'test 2', 'test 3', 'test 4']);
+    expect(runNames(run.skipped)).toEqual([]);
 
     const onlyRun = await betterer({
       configPaths: [resolve('./.betterer.only.ts')],
       resultsPath
     });
 
-    expect(onlyRun.ran).toEqual(['test 1', 'test 4']);
-    expect(onlyRun.skipped).toEqual(['test 2', 'test 3']);
+    expect(runNames(onlyRun.ran)).toEqual(['test 1', 'test 4']);
+    expect(runNames(onlyRun.skipped)).toEqual(['test 2', 'test 3']);
 
     expect(logs).toMatchSnapshot();
 
