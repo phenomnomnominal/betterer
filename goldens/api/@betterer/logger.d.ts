@@ -11,6 +11,7 @@ export declare type BettererLogger = {
     debug: BettererLogMessage;
     error: BettererLogMessage;
     info: BettererLogMessage;
+    progress: BettererLogMessage;
     success: BettererLogMessage;
     warn: BettererLogMessage;
 };
@@ -30,32 +31,32 @@ export declare type BettererLogMessage = (...messages: BettererLoggerMessages) =
 
 export declare const BettererLogo: FC;
 
-export declare const BettererTask: FC<BettererTaskProps>;
+export declare type BettererTask = {
+    name: string;
+    run: BettererTaskRun;
+};
 
 export declare type BettererTaskColour = typeof ForegroundColor;
 
 export declare type BettererTaskLog = [indicator: string, colour: BettererTaskColour, message: string];
 
-export declare type BettererTaskLogger = BettererLogger & {
-    progress: BettererTaskStatusUpdate;
+export declare const BettererTaskLogger: FC<BettererTaskLoggerProps>;
+
+export declare type BettererTaskLoggerProps = {
+    task: BettererTask;
 };
 
-export declare type BettererTaskLogs = ReadonlyArray<BettererTaskLog>;
+export declare type BettererTaskRun = (logger: BettererLogger) => Promise<BettererTaskLog | string | void>;
 
-export declare type BettererTaskProps = {
-    name: string;
-    runner: BettererTaskRunner;
-};
+export declare type BettererTasks = Array<BettererTask>;
 
-export declare type BettererTaskRunner = (logger: BettererTaskLogger) => Promise<BettererTaskLog | string | void>;
+export declare const BettererTasksLogger: FC<BettererTasksLoggerProps>;
 
-export declare const BettererTasks: FC<BettererTasksProps>;
-
-export declare type BettererTasksProps = {
+export declare type BettererTasksLoggerProps = {
     exit?: boolean;
     name: string;
-    statusMessage: BettererTasksStatusMessage;
-    ref?: unknown;
+    update: BettererTasksStatusUpdate;
+    tasks: BettererTasks;
 };
 
 export declare type BettererTasksState = {
@@ -66,6 +67,6 @@ export declare type BettererTasksState = {
     shouldExit: boolean;
 };
 
-export declare type BettererTaskStatusUpdate = (status: string) => Promise<void>;
+export declare type BettererTasksStatusUpdate = (state: BettererTasksState) => string;
 
 export declare function diffΔ<T>(expected: T, result: T): string | null;

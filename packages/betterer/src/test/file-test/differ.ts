@@ -176,10 +176,7 @@ export function differ(expected: BettererFileTestResult, result: BettererFileTes
                 const fileΩ = resultΩ.getFile(filePath) as BettererFileΩ;
                 const { fileText } = fileΩ;
                 const { line, column, length, message } = issue;
-                await Promise.all([
-                  logger.error(message),
-                  logger.code({ message, filePath, fileText, line, column, length })
-                ]);
+                await logger.code({ message, filePath, fileText, line, column, length });
               })
             );
           }

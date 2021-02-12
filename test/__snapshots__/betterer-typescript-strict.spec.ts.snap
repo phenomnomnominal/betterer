@@ -85,7 +85,19 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
+1 test got checked. 🤔
+1 test got checked for the first time! 🎉
 
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 
@@ -156,7 +168,19 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. 😐
+1 test got checked. 🤔
+1 test stayed the same. 😐
 
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. 😐
 1 test got checked. 🤔
 1 test stayed the same. 😐
 
@@ -222,7 +246,7 @@ Array [
 ・ 6 existing issues in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\":
 ・
-・   // <project>/fixtures/test-betterer-typescript-strict/src/index.ts
+・   <project>/fixtures/test-betterer-typescript-strict/src/index.ts
 ・   32 | const a = 'a';
 ・   33 | const one = 1;
 ・ > 34 | console.log(a * one);
@@ -241,7 +265,7 @@ Array [
 ・ 6 existing issues in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\":
 ・
-・   // <project>/fixtures/test-betterer-typescript-strict/src/index.ts
+・   <project>/fixtures/test-betterer-typescript-strict/src/index.ts
 ・   32 | const a = 'a';
 ・   33 | const one = 1;
 ・ > 34 | console.log(a * one);
@@ -261,7 +285,7 @@ Array [
 ・ 6 existing issues in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\":
 ・
-・   // <project>/fixtures/test-betterer-typescript-strict/src/index.ts
+・   <project>/fixtures/test-betterer-typescript-strict/src/index.ts
 ・   32 | const a = 'a';
 ・   33 | const one = 1;
 ・ > 34 | console.log(a * one);
@@ -282,7 +306,7 @@ Error: \\"typescript use strict mode\\" got worse. 😔
 ・ 6 existing issues in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\":
 ・
-・   // <project>/fixtures/test-betterer-typescript-strict/src/index.ts
+・   <project>/fixtures/test-betterer-typescript-strict/src/index.ts
 ・   32 | const a = 'a';
 ・   33 | const one = 1;
 ・ > 34 | console.log(a * one);
@@ -303,7 +327,7 @@ Error: \\"typescript use strict mode\\" got worse. 😔
 ・ 6 existing issues in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\":
 ・
-・   // <project>/fixtures/test-betterer-typescript-strict/src/index.ts
+・   <project>/fixtures/test-betterer-typescript-strict/src/index.ts
 ・   32 | const a = 'a';
 ・   33 | const one = 1;
 ・ > 34 | console.log(a * one);
@@ -311,7 +335,32 @@ Error: \\"typescript use strict mode\\" got worse. 😔
 ・
 
 Error: \\"typescript use strict mode\\" got worse. 😔
+1 test got checked. 🤔
+1 test got worse. 😔
 
+Run \`betterer --update\` to force an update of the results file. 🆙
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+💥 Betterer (0ms): 1 test done! 1 test errored!
+🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. 😔
+・ 6 existing issues in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\":
+・
+・   <project>/fixtures/test-betterer-typescript-strict/src/index.ts
+・   32 | const a = 'a';
+・   33 | const one = 1;
+・ > 34 | console.log(a * one);
+・      |             ^ The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+・
+
+Error: \\"typescript use strict mode\\" got worse. 😔
 1 test got checked. 🤔
 1 test got worse. 😔
 
@@ -384,7 +433,19 @@ Run \`betterer --update\` to force an update of the results file. 🆙
 
 🎉 Betterer (0ms): 1 test done!
 ✅ typescript use strict mode: \\"typescript use strict mode\\" got better! 😍
+1 test got checked. 🤔
+1 test got better! 😍
 
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" got better! 😍
 1 test got checked. 🤔
 1 test got better! 😍
 

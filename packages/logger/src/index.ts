@@ -5,15 +5,15 @@ export {
   BettererLogo,
   BettererTask,
   BettererTaskColour,
-  BettererTaskRunner,
-  BettererTaskProps,
   BettererTaskLog,
-  BettererTaskLogs,
-  BettererTaskStatusUpdate,
   BettererTaskLogger,
+  BettererTaskLoggerProps,
+  BettererTaskRun,
   BettererTasks,
-  BettererTasksProps,
-  BettererTasksState
+  BettererTasksLogger,
+  BettererTasksLoggerProps,
+  BettererTasksState,
+  BettererTasksStatusUpdate
 } from './components/public';
 export {
   BettererLogger,

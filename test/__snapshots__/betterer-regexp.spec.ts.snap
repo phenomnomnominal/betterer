@@ -80,7 +80,19 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ regexp no hack comments: \\"regexp no hack comments\\" got checked for the first time! 🎉
+1 test got checked. 🤔
+1 test got checked for the first time! 🎉
 
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ regexp no hack comments: \\"regexp no hack comments\\" got checked for the first time! 🎉
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 
@@ -151,7 +163,19 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ regexp no hack comments: \\"regexp no hack comments\\" stayed the same. 😐
+1 test got checked. 🤔
+1 test stayed the same. 😐
 
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ regexp no hack comments: \\"regexp no hack comments\\" stayed the same. 😐
 1 test got checked. 🤔
 1 test stayed the same. 😐
 
@@ -217,7 +241,7 @@ Array [
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-regexp/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-regexp/src/index.ts\\":
 ・
-・   // <project>/fixtures/test-betterer-regexp/src/index.ts
+・   <project>/fixtures/test-betterer-regexp/src/index.ts
 ・   1 | // HACK:
 ・ > 2 | // HACK:
 ・     | ^^^^^^^ RegExp match
@@ -235,7 +259,7 @@ Array [
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-regexp/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-regexp/src/index.ts\\":
 ・
-・   // <project>/fixtures/test-betterer-regexp/src/index.ts
+・   <project>/fixtures/test-betterer-regexp/src/index.ts
 ・   1 | // HACK:
 ・ > 2 | // HACK:
 ・     | ^^^^^^^ RegExp match
@@ -254,7 +278,7 @@ Array [
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-regexp/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-regexp/src/index.ts\\":
 ・
-・   // <project>/fixtures/test-betterer-regexp/src/index.ts
+・   <project>/fixtures/test-betterer-regexp/src/index.ts
 ・   1 | // HACK:
 ・ > 2 | // HACK:
 ・     | ^^^^^^^ RegExp match
@@ -274,7 +298,7 @@ Error: \\"regexp no hack comments\\" got worse. 😔
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-regexp/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-regexp/src/index.ts\\":
 ・
-・   // <project>/fixtures/test-betterer-regexp/src/index.ts
+・   <project>/fixtures/test-betterer-regexp/src/index.ts
 ・   1 | // HACK:
 ・ > 2 | // HACK:
 ・     | ^^^^^^^ RegExp match
@@ -294,14 +318,38 @@ Error: \\"regexp no hack comments\\" got worse. 😔
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-regexp/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-regexp/src/index.ts\\":
 ・
-・   // <project>/fixtures/test-betterer-regexp/src/index.ts
+・   <project>/fixtures/test-betterer-regexp/src/index.ts
 ・   1 | // HACK:
 ・ > 2 | // HACK:
 ・     | ^^^^^^^ RegExp match
 ・
 
 Error: \\"regexp no hack comments\\" got worse. 😔
+1 test got checked. 🤔
+1 test got worse. 😔
 
+Run \`betterer --update\` to force an update of the results file. 🆙
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+💥 Betterer (0ms): 1 test done! 1 test errored!
+🔥 regexp no hack comments: \\"regexp no hack comments\\" got worse. 😔
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-regexp/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-regexp/src/index.ts\\":
+・
+・   <project>/fixtures/test-betterer-regexp/src/index.ts
+・   1 | // HACK:
+・ > 2 | // HACK:
+・     | ^^^^^^^ RegExp match
+・
+
+Error: \\"regexp no hack comments\\" got worse. 😔
 1 test got checked. 🤔
 1 test got worse. 😔
 
@@ -374,7 +422,20 @@ Run \`betterer --update\` to force an update of the results file. 🆙
 
 🎉 Betterer (0ms): 1 test done!
 ✅ regexp no hack comments: \\"regexp no hack comments\\" met its goal! 🎉
+1 test got checked. 🤔
+1 test got better! 😍
+\\"regexp no hack comments\\" met its goal! 🎉)
 
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ regexp no hack comments: \\"regexp no hack comments\\" met its goal! 🎉
 1 test got checked. 🤔
 1 test got better! 😍
 \\"regexp no hack comments\\" met its goal! 🎉)
@@ -446,7 +507,20 @@ Run \`betterer --update\` to force an update of the results file. 🆙
 
 🎉 Betterer (0ms): 1 test done!
 ✅ regexp no hack comments: \\"regexp no hack comments\\" has already met its goal! ✨
+1 test got checked. 🤔
+1 test got checked for the first time! 🎉
+\\"regexp no hack comments\\" met its goal! 🎉)
 
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ regexp no hack comments: \\"regexp no hack comments\\" has already met its goal! ✨
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 \\"regexp no hack comments\\" met its goal! 🎉)

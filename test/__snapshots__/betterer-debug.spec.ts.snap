@@ -458,6 +458,10 @@ Array [
 ✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
 ✅ should grow: \\"should grow\\" got checked for the first time! 🎉
 ",
+  "▸▸▸▸▸▸▸ useTasksState args:
+",
+  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
+",
   "▸▸▸▸▸▸ read time: 0ms return:
 ",
   "▸▸▸▸▸ BettererResults.read time: 0ms return:
@@ -526,7 +530,6 @@ Array [
 🎉 Betterer (0ms): 2 tests done!
 ✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
 ✅ should grow: \\"should grow\\" got checked for the first time! 🎉
-
 2 tests got checked. 🤔
 2 tests got checked for the first time! 🎉
 
@@ -546,6 +549,20 @@ Array [
   "▸▸ BettererContextΩ.end args:
 ",
   "▸▸▸ BettererReporterΩ.contextEnd args:
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 2 tests done!
+✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+2 tests got checked. 🤔
+2 tests got checked for the first time! 🎉
+
 ",
   "▸▸▸ BettererReporterΩ.contextEnd time: 0ms return:
 ",

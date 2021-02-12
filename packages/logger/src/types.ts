@@ -17,6 +17,7 @@ export type BettererLogger = {
   debug: BettererLogMessage;
   error: BettererLogMessage;
   info: BettererLogMessage;
+  progress: BettererLogMessage;
   success: BettererLogMessage;
   warn: BettererLogMessage;
 };

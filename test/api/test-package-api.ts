@@ -1,5 +1,5 @@
 import { BettererError } from '@betterer/errors';
-import { BettererTaskLog, BettererTaskLogger } from '@betterer/logger';
+import { BettererTaskLog, BettererLogger } from '@betterer/logger';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 import { publicApi, verifyAgainstGoldenFile } from 'ts-api-guardian';
@@ -33,7 +33,7 @@ export async function getPackages(): Promise<Array<string>> {
   });
 }
 
-export async function run(logger: BettererTaskLogger, packageName: string): Promise<string | BettererTaskLog> {
+export async function run(logger: BettererLogger, packageName: string): Promise<string | BettererTaskLog> {
   await logger.progress(`Validating API for "@betterer/${packageName}" ...`);
 
   const packageDeclarationPath = path.join(PACKAGES_DIR, packageName, BUILT_DECLARATION);

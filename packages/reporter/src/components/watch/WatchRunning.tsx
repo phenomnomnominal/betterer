@@ -6,6 +6,7 @@ import { Box, Text } from 'ink';
 import { filesChecking } from '../../messages';
 import { Config, ConfigEditField } from '../config';
 import { Runs } from '../runs';
+
 import { WatchInstructions } from './WatchInstructions';
 
 export type WatchRunningProps = {

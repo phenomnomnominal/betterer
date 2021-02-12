@@ -6,9 +6,6 @@ export type BettererErrorLogProps = {
   error: Error | BettererError;
 };
 
-let errorCount = 0;
-let detailCount = 0;
-
 export const BettererErrorLog: FC<BettererErrorLogProps> = function BettererErrorLog({ error }) {
   let errors: Array<Error | BettererError> = [];
   let details: Array<string> = [];
@@ -28,14 +25,14 @@ export const BettererErrorLog: FC<BettererErrorLogProps> = function BettererErro
             <Text>{processStack(error.stack)}</Text>
           </Box>
         )}
-        {details.map((detail) => (
-          <Box key={detailCount++} paddingTop={1}>
+        {details.map((detail, index) => (
+          <Box key={index} paddingTop={1}>
             <Text>{detail.trim()}</Text>
           </Box>
         ))}
       </Box>
-      {errors.map((error) => (
-        <BettererErrorLog key={errorCount++} error={error} />
+      {errors.map((error, index) => (
+        <BettererErrorLog key={index} error={error} />
       ))}
     </>
   );
