@@ -17,10 +17,12 @@ npx @betterer/cli init
 To do it yourself, run the following from the root of your project:
 
 ```bash
-npm install @betterer/cli --save-dev
+npm install @betterer/cli typescript --save-dev
 ```
 
 You'll then need to make your own test file and test commands.
+
+_Note: Typescript is required to execute the `betterer` command. Your code does not have to be written in TS to use Betterer! Referencing it as a peer dependency helps to prevent unexpected behavior._
 
 ---
 
