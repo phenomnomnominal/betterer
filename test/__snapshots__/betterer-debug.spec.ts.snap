@@ -178,13 +178,13 @@ Array [
 ",
   "▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
 ",
-  "▸▸▸▸▸▸ useTasksState args:
+  "▸▸▸▸▸▸ useTaskState args:
 ",
-  "▸▸▸▸▸▸ useTasksState time: 0ms return:
+  "▸▸▸▸▸▸ useTaskState time: 0ms return:
 ",
-  "▸▸▸▸▸▸ useTasksState args:
+  "▸▸▸▸▸▸ useTaskState args:
 ",
-  "▸▸▸▸▸▸ useTasksState time: 0ms return:
+  "▸▸▸▸▸▸ useTaskState time: 0ms return:
 ",
   "
    / | /     _         _   _
@@ -285,17 +285,17 @@ Array [
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
 ",
-  "▸▸▸▸▸▸▸ useTasksState args:
+  "▸▸▸▸▸▸▸ useTaskState args:
 ",
-  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
+  "▸▸▸▸▸▸▸ useTaskState time: 0ms return:
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus args:
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
 ",
-  "▸▸▸▸▸▸▸ useTasksState args:
+  "▸▸▸▸▸▸▸ useTaskState args:
 ",
-  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
+  "▸▸▸▸▸▸▸ useTaskState time: 0ms return:
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus args:
 ",
@@ -312,9 +312,9 @@ Array [
 🤔 should shrink: running \\"should shrink\\"!
 🤔 should grow: running \\"should grow\\"!
 ",
-  "▸▸▸▸▸▸▸ useTasksState args:
+  "▸▸▸▸▸▸▸ useTaskState args:
 ",
-  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
+  "▸▸▸▸▸▸▸ useTaskState time: 0ms return:
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus args:
 ",
@@ -331,9 +331,28 @@ Array [
 ✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
 🤔 should grow: running \\"should grow\\"!
 ",
-  "▸▸▸▸▸▸▸ useTasksState args:
+  "▸▸▸▸▸▸▸ useTaskState args:
 ",
-  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
+  "▸▸▸▸▸▸▸ useTaskState time: 0ms return:
+",
+  "▸▸▸▸▸▸▸ BettererTaskStatus args:
+",
+  "▸▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 2 tests running...
+✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+",
+  "▸▸▸▸▸▸▸ useTaskState args:
+",
+  "▸▸▸▸▸▸▸ useTaskState time: 0ms return:
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus args:
 ",
@@ -358,6 +377,22 @@ Array [
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
 ",
+  "▸▸▸▸▸▸▸ useTaskState args:
+",
+  "▸▸▸▸▸▸▸ useTaskState time: 0ms return:
+",
+  "▸▸▸▸▸▸▸ BettererTaskStatus args:
+",
+  "▸▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
+",
+  "▸▸▸▸▸▸▸ useTaskState args:
+",
+  "▸▸▸▸▸▸▸ useTaskState time: 0ms return:
+",
+  "▸▸▸▸▸▸▸ BettererTaskStatus args:
+",
+  "▸▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
+",
   "
    / | /     _         _   _
  '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
@@ -365,29 +400,13 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 2 tests running...
+🌟 Betterer (0ms): 1 test running... 1 test done!
 ✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
 ✅ should grow: \\"should grow\\" got checked for the first time! 🎉
 ",
-  "▸▸▸▸▸▸▸ useTasksState args:
+  "▸▸▸▸▸▸▸ useTaskState args:
 ",
-  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
-",
-  "▸▸▸▸▸▸▸ BettererTaskStatus args:
-",
-  "▸▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
-",
-  "▸▸▸▸▸▸▸ useTasksState args:
-",
-  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
-",
-  "▸▸▸▸▸▸▸ BettererTaskStatus args:
-",
-  "▸▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
-",
-  "▸▸▸▸▸▸▸ useTasksState args:
-",
-  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
+  "▸▸▸▸▸▸▸ useTaskState time: 0ms return:
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus args:
 ",
@@ -412,36 +431,17 @@ Array [
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
 ",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms): 1 test running... 1 test done!
-✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
-✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+  "▸▸▸▸▸▸▸ useTaskState args:
 ",
-  "▸▸▸▸▸▸▸ useTasksState args:
-",
-  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
+  "▸▸▸▸▸▸▸ useTaskState time: 0ms return:
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus args:
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
 ",
-  "▸▸▸▸▸▸▸ useTasksState args:
+  "▸▸▸▸▸▸▸ useTaskState args:
 ",
-  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
-",
-  "▸▸▸▸▸▸▸ BettererTaskStatus args:
-",
-  "▸▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
-",
-  "▸▸▸▸▸▸▸ useTasksState args:
-",
-  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
+  "▸▸▸▸▸▸▸ useTaskState time: 0ms return:
 ",
   "▸▸▸▸▸▸▸ BettererTaskStatus args:
 ",
@@ -457,10 +457,6 @@ Array [
 🎉 Betterer (0ms): 2 tests done!
 ✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
 ✅ should grow: \\"should grow\\" got checked for the first time! 🎉
-",
-  "▸▸▸▸▸▸▸ useTasksState args:
-",
-  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
 ",
   "▸▸▸▸▸▸ read time: 0ms return:
 ",
@@ -504,17 +500,17 @@ Array [
 ",
   "▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
 ",
-  "▸▸▸▸▸▸ useTasksState args:
+  "▸▸▸▸▸▸ useTaskState args:
 ",
-  "▸▸▸▸▸▸ useTasksState time: 0ms return:
+  "▸▸▸▸▸▸ useTaskState time: 0ms return:
 ",
   "▸▸▸▸▸▸ BettererTaskStatus args:
 ",
   "▸▸▸▸▸▸ BettererTaskStatus time: 0ms return:
 ",
-  "▸▸▸▸▸▸ useTasksState args:
+  "▸▸▸▸▸▸ useTaskState args:
 ",
-  "▸▸▸▸▸▸ useTasksState time: 0ms return:
+  "▸▸▸▸▸▸ useTaskState time: 0ms return:
 ",
   "▸▸▸▸▸▸ BettererTaskStatus args:
 ",

@@ -71,7 +71,7 @@ export const Runs: FC<RunsProps> = memo(function Runs({ runs }) {
     <Box flexDirection="column">
       <BettererTasks name="Betterer" statusMessage={statusMessage} exit={false}>
         {contexts.map((context) => (
-          <BettererTask key={context.name} context={context} />
+          <BettererTask key={context.name} name={context.name} runner={context.run} />
         ))}
       </BettererTasks>
     </Box>

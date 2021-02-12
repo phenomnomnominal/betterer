@@ -1,7 +1,7 @@
 export {
   BettererTask,
   BettererTaskColour,
-  BettererTaskContext,
+  BettererTaskRunner,
   BettererTaskLogger,
   BettererTaskLoggerAsync,
   BettererTaskProps,

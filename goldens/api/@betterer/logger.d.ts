@@ -57,11 +57,6 @@ export declare const BettererTask: FC<BettererTaskProps>;
 
 export declare type BettererTaskColour = typeof ForegroundColor;
 
-export declare type BettererTaskContext = {
-    name: string;
-    run: (logger: BettererTaskLogger) => Promise<BettererTaskLog | string | void>;
-};
-
 export declare type BettererTaskLog = [indicator: string, colour: BettererTaskColour, message: string];
 
 export declare type BettererTaskLogger = BettererLogger & {
@@ -75,15 +70,19 @@ export declare type BettererTaskLoggerAsync = BettererLoggerAsync & {
 export declare type BettererTaskLogs = ReadonlyArray<BettererTaskLog>;
 
 export declare type BettererTaskProps = {
-    context: BettererTaskContext;
+    name: string;
+    runner: BettererTaskRunner;
 };
+
+export declare type BettererTaskRunner = (logger: BettererTaskLogger) => Promise<BettererTaskLog | string | void>;
 
 export declare const BettererTasks: FC<BettererTasksProps>;
 
 export declare type BettererTasksProps = {
-    name: string;
-    statusMessage: (state: BettererTasksState) => string;
     exit?: boolean;
+    name: string;
+    statusMessage: BettererTasksStatusMessage;
+    ref?: unknown;
 };
 
 export declare type BettererTasksState = {
