@@ -46,7 +46,6 @@ export function useTasksState(ref: unknown): [BettererTasksState, BettererTasksS
 
   return [state, api];
 }
-
 type BettererTasksReducer = (state: BettererTasksState, action: BettererTasksAction) => BettererTasksState;
 
 const TASKS_STATE_CACHE = new Map<unknown, BettererTasksState>();

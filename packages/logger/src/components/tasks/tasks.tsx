@@ -21,7 +21,6 @@ export const BettererTasks: FC<BettererTasksProps> = memo(function BettererTasks
   const formatter = Intl.NumberFormat();
 
   const [state, api] = useTasksState(ref);
-
   const [time, setTime] = useState(0);
 
   const { errors, running, shouldExit, startTime } = state;

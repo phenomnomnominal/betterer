@@ -67,19 +67,19 @@ export function useTaskState(runner: BettererTaskRunner): [BettererTaskState, Be
 
 type BettererTaskReducer = (state: BettererTaskState, action: BettererTaskAction) => BettererTaskState;
 
-const TASK_RUNNER_CACHE = new Map<BettererTaskRunner, BettererTaskState>();
+const TASK_STATE_CACHE = new Map<BettererTaskRunner, BettererTaskState>();
 
 function getState(runner: BettererTaskRunner): BettererTaskState {
-  if (!TASK_RUNNER_CACHE.has(runner)) {
-    TASK_RUNNER_CACHE.set(runner, INITIAL_STATE);
+  if (!TASK_STATE_CACHE.has(runner)) {
+    TASK_STATE_CACHE.set(runner, INITIAL_STATE);
   }
-  return TASK_RUNNER_CACHE.get(runner) as BettererTaskState;
+  return TASK_STATE_CACHE.get(runner) as BettererTaskState;
 }
 
 function setState(runner: BettererTaskRunner): BettererTaskReducer {
   return (state: BettererTaskState, action: BettererTaskAction): BettererTaskState => {
     const newState = reducer(state, action);
-    TASK_RUNNER_CACHE.set(runner, newState);
+    TASK_STATE_CACHE.set(runner, newState);
     return newState;
   };
 }

@@ -9,11 +9,11 @@ export type BettererTaskLogger = BettererLogger & {
   progress: BettererTaskStatusUpdate;
 };
 
-export type BettererTaskColour = typeof ForegroundColor;
-
 export type BettererTaskLog = [indicator: string, colour: BettererTaskColour, message: string];
 export type BettererTaskLogs = ReadonlyArray<BettererTaskLog>;
 
 export type BettererTaskStatusUpdate = (status: string) => Promise<void>;
+
+export type BettererTaskColour = typeof ForegroundColor;
 
 export type BettererTaskRunner = (logger: BettererTaskLogger) => Promise<BettererTaskLog | string | void>;
