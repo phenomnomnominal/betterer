@@ -1,4 +1,4 @@
-import { BettererLogger } from '@betterer/logger';
+import { BettererLoggerAsync } from '@betterer/logger';
 import assert from 'assert';
 
 import { BettererFileΩ } from './file';
@@ -155,29 +155,33 @@ export function differ(expected: BettererFileTestResult, result: BettererFileTes
     expected,
     result,
     diff,
-    log(logger: BettererLogger) {
-      filePaths.forEach((filePath) => {
-        const existing = diff[filePath].existing || [];
-        const fixed = diff[filePath].fixed || [];
-        if (fixed?.length) {
-          logger.success(`${fixed.length} fixed ${getIssues(fixed.length)} in "${filePath}".`);
-        }
-        if (existing?.length) {
-          logger.warn(`${existing.length} existing ${getIssues(existing.length)} in "${filePath}".`);
-        }
-        const newIssues = diff[filePath].new || [];
-        if (newIssues.length) {
-          const { length } = newIssues;
-          logger.error(`${length} new ${getIssues(length)} in "${filePath}":`);
+    async log(logger: BettererLoggerAsync): Promise<void> {
+      await Promise.all(
+        filePaths.map(async (filePath) => {
+          const existing = diff[filePath].existing || [];
+          const fixed = diff[filePath].fixed || [];
+          if (fixed?.length) {
+            await logger.success(`${fixed.length} fixed ${getIssues(fixed.length)} in "${filePath}".`);
+          }
+          if (existing?.length) {
+            await logger.warn(`${existing.length} existing ${getIssues(existing.length)} in "${filePath}".`);
+          }
+          const newIssues = diff[filePath].new || [];
+          if (newIssues.length) {
+            const { length } = newIssues;
+            await logger.error(`${length} new ${getIssues(length)} in "${filePath}":`);
 
-          newIssues.forEach((issue) => {
-            const fileΩ = resultΩ.getFile(filePath) as BettererFileΩ;
-            const { fileText } = fileΩ;
-            const { line, column, length, message } = issue;
-            logger.code({ message, filePath, fileText, line, column, length });
-          });
-        }
-      });
+            await Promise.all(
+              newIssues.map(async (issue) => {
+                const fileΩ = resultΩ.getFile(filePath) as BettererFileΩ;
+                const { fileText } = fileΩ;
+                const { line, column, length, message } = issue;
+                await logger.code({ message, filePath, fileText, line, column, length });
+              })
+            );
+          }
+        })
+      );
     }
   };
 }

@@ -1,4 +1,4 @@
-import { BettererTask, BettererTasks, BettererTasksState } from '@betterer/logger';
+import { BettererTasksLogger, BettererTasksState } from '@betterer/logger';
 import { workerRequire, WorkerModule } from '@phenomnomnominal/worker-require';
 import { render } from 'ink';
 import React, { FC, useEffect, useState } from 'react';
@@ -16,24 +16,23 @@ export const APITest: FC = function APITest() {
   }, []);
 
   return (
-    <BettererTasks name="Test Package APIs" statusMessage={statusMessage}>
-      {packageNames.map((packageName) => (
-        <BettererTask
-          key={packageName}
-          name={packageName}
-          runner={async (logger) => {
-            await testPackageApi.run(logger, packageName);
-            testPackageApi.destroy();
-          }}
-        />
-      ))}
-    </BettererTasks>
+    <BettererTasksLogger
+      name="Test Package APIs"
+      update={update}
+      tasks={packageNames.map((packageName) => ({
+        name: packageName,
+        run: async (logger) => {
+          await testPackageApi.run(logger, packageName);
+          testPackageApi.destroy();
+        }
+      }))}
+    />
   );
 };
 
 render(<APITest />);
 
-function statusMessage(state: BettererTasksState): string {
+function update(state: BettererTasksState): string {
   const { done, errors, running } = state;
   const runningStatus = running ? `${tests(running)} running... ` : '';
   const doneStatus = done ? `${tests(done)} done! ` : '';

@@ -458,6 +458,10 @@ Array [
 ✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
 ✅ should grow: \\"should grow\\" got checked for the first time! 🎉
 ",
+  "▸▸▸▸▸▸▸ useTasksState args:
+",
+  "▸▸▸▸▸▸▸ useTasksState time: 0ms return:
+",
   "▸▸▸▸▸▸ read time: 0ms return:
 ",
   "▸▸▸▸▸ BettererResults.read time: 0ms return:

@@ -12,13 +12,15 @@ export class BettererConsoleLogger implements BettererLogger {
   public debug: BettererLogMessage;
   public error: BettererLogMessage;
   public info: BettererLogMessage;
+  public progress: BettererLogMessage;
   public success: BettererLogMessage;
   public warn: BettererLogMessage;
 
   constructor() {
-    this.debug = this._createLogger(chalk.bgBlueBright.black(' debg '), chalk.bgBlack(' 🤔 '));
+    this.debug = this._createLogger(chalk.bgBlueBright.black(' debg '), chalk.bgBlack(' 🤯 '));
     this.error = this._createLogger(chalk.bgRedBright.white(' erro '), chalk.bgBlack(' 🔥 '));
     this.info = this._createLogger(chalk.bgWhiteBright.black(' info '), chalk.bgBlack(' 💬 '));
+    this.progress = this._createLogger(chalk.bgWhiteBright.black(' prog '), chalk.bgBlack(' 🤔 '));
     this.success = this._createLogger(chalk.bgGreenBright.black(' succ '), chalk.bgBlack(' ✅ '));
     this.warn = this._createLogger(chalk.bgYellowBright.black(' warn '), chalk.bgBlack(' 🚨 '));
   }

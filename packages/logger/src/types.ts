@@ -19,6 +19,7 @@ export type BettererLogger = {
   debug: BettererLogMessage;
   error: BettererLogMessage;
   info: BettererLogMessage;
+  progress: BettererLogMessage;
   success: BettererLogMessage;
   warn: BettererLogMessage;
 };
@@ -28,6 +29,7 @@ export type BettererLoggerAsync = {
   debug: BettererLogMessageAsync;
   error: BettererLogMessageAsync;
   info: BettererLogMessageAsync;
+  progress: BettererLogMessageAsync;
   success: BettererLogMessageAsync;
   warn: BettererLogMessageAsync;
 };

@@ -1,5 +1,6 @@
 import { createContext, useCallback, useReducer } from 'react';
 import { performance } from 'perf_hooks';
+import { BettererTasks } from './types';
 
 export type BettererTasksState = {
   running: number;
@@ -27,9 +28,9 @@ export type BettererTasksStateAPI = {
   stop(): void;
 };
 
-export function useTasksState(ref: unknown): [BettererTasksState, BettererTasksStateAPI] {
-  const previous = getState(ref);
-  const reducer = useCallback(setState(ref), []);
+export function useTasksState(tasks: BettererTasks): [BettererTasksState, BettererTasksStateAPI] {
+  const previous = getState(tasks);
+  const reducer = useCallback(setState(tasks), []);
   const [state, dispatch] = useReducer(reducer, previous);
 
   const api: BettererTasksStateAPI = {
@@ -48,8 +49,6 @@ export function useTasksState(ref: unknown): [BettererTasksState, BettererTasksS
 }
 type BettererTasksReducer = (state: BettererTasksState, action: BettererTasksAction) => BettererTasksState;
 
-const TASKS_STATE_CACHE = new Map<unknown, BettererTasksState>();
-
 function getInitialState(): BettererTasksState {
   return {
     running: 0,
@@ -60,21 +59,21 @@ function getInitialState(): BettererTasksState {
   };
 }
 
-function getState(ref?: unknown): BettererTasksState {
-  if (ref && TASKS_STATE_CACHE.has(ref)) {
-    return TASKS_STATE_CACHE.get(ref) as BettererTasksState;
+const TASKS_STATE_CACHE = new Map<BettererTasks, BettererTasksState>();
+
+function getState(tasks: BettererTasks): BettererTasksState {
+  if (TASKS_STATE_CACHE.has(tasks)) {
+    return TASKS_STATE_CACHE.get(tasks) as BettererTasksState;
   }
   const state = getInitialState();
-  if (ref) {
-    TASKS_STATE_CACHE.set(ref, state);
-  }
+  TASKS_STATE_CACHE.set(tasks, state);
   return state;
 }
 
-function setState(ref: unknown): BettererTasksReducer {
+function setState(tasks: BettererTasks): BettererTasksReducer {
   return (state: BettererTasksState, action: BettererTasksAction): BettererTasksState => {
     const newState = reducer(state, action);
-    TASKS_STATE_CACHE.set(ref, newState);
+    TASKS_STATE_CACHE.set(tasks, newState);
     return newState;
   };
 }

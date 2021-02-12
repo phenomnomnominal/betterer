@@ -1,5 +1,5 @@
 import { BettererError } from '@betterer/errors';
-import { BettererLogger, diffΔ } from '@betterer/logger';
+import { BettererLoggerAsync, diffΔ } from '@betterer/logger';
 import { BettererResultValue } from '../results';
 import { isFunction } from '../utils';
 import {
@@ -78,10 +78,10 @@ export function defaultDiffer(expected: number, result: number): BettererDiff<nu
     expected,
     result,
     diff: null,
-    log(logger: BettererLogger): void {
+    async log(logger: BettererLoggerAsync): Promise<void> {
       const diff = diffΔ(expected, result);
       if (diff) {
-        logger.error(diff);
+        await logger.error(diff);
       }
     }
   };
