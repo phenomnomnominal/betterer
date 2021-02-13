@@ -10,6 +10,6 @@ export type BettererReporterData = {
 };
 
 export type BettererReporterRenderer = {
-  render: (data?: BettererReporterData) => void;
+  render: (data?: BettererReporterData) => Promise<void>;
   stop: () => void;
 };
