@@ -27,26 +27,6 @@ Error: could not read results from \\"<project>/fixtures/test-betterer-failed-re
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-
-Error: could not read results from \\"<project>/fixtures/test-betterer-failed-reading/.betterer.results\\". 😔
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: could not read results from \\"<project>/fixtures/test-betterer-failed-reading/.betterer.results\\". 😔
 ",
   "
    / | /     _         _   _
@@ -127,22 +107,6 @@ Error: OH NO!
 🔥 throws error: OH NO!
 
 Error: OH NO!
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 throws error: OH NO!
-
-Error: OH NO!
-
-0 tests got checked. 🤔
-1 test failed to run. 🔥
 
 ",
   "

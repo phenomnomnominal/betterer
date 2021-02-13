@@ -18,6 +18,10 @@ import { BettererReporterData, BettererReporterRenderer } from './types';
 export const reporter: BettererReporter = createReporter();
 
 function createReporter(): BettererReporter {
+  const RENDER_OPTIONS = {
+    debug: process.env.NODE_ENV === 'test'
+  };
+
   let renderer: BettererReporterRenderer;
 
   return {
@@ -46,7 +50,7 @@ function createReporter(): BettererReporter {
   };
 
   async function renderError(error: BettererError): Promise<void> {
-    const errorApp = render(<Error error={error} />);
+    const errorApp = render(<Error error={error} />, RENDER_OPTIONS);
     await errorApp.waitUntilExit();
   }
 
@@ -57,9 +61,7 @@ function createReporter(): BettererReporter {
       render(data: BettererReporterData = {}): void {
         app?.clear();
         const finalProps = { ...data, context };
-        app = render(<Reporter {...finalProps} />, {
-          debug: process.env.NODE_ENV === 'test'
-        });
+        app = render(<Reporter {...finalProps} />, RENDER_OPTIONS);
       },
       stop() {
         app.unmount();

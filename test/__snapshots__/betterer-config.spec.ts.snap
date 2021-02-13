@@ -20,26 +20,6 @@ Error: \\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`1234\`.
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 
-Error: \\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`1234\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
 Error: \\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
 ",
   "
@@ -51,26 +31,6 @@ Error: \\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\
 
 
 Error: \\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`{}\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`{}\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"configPaths\\" must be an array of strings. Recieved \`[1234]\`.
 ",
   "
    / | /     _         _   _
@@ -100,37 +60,7 @@ Error: \\"configPaths\\" must be an array of strings. Recieved \`[true]\`.
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 
-Error: \\"configPaths\\" must be an array of strings. Recieved \`[true]\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
 Error: \\"configPaths\\" must be an array of strings. Recieved \`[{}]\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"configPaths\\" must be an array of strings. Recieved \`[{}]\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"configPaths\\" must be an array of strings. Recieved \`[1234]\`.
 ",
   "
    / | /     _         _   _
@@ -160,37 +90,7 @@ Error: \\"cwd\\" must be a string. Recieved \`1234\`.
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 
-Error: \\"cwd\\" must be a string. Recieved \`1234\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
 Error: \\"cwd\\" must be a string. Recieved \`{}\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"cwd\\" must be a string. Recieved \`{}\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[1234]\`.
 ",
   "
    / | /     _         _   _
@@ -220,26 +120,6 @@ Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[true]\`
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 
-Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[true]\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[{}]\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
 Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[{}]\`.
 ",
   "
@@ -251,26 +131,6 @@ Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[{}]\`.
 
 
 Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[1234]\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[1234]\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"ignores\\" must be an array of strings. Recieved \`[1234]\`.
 ",
   "
    / | /     _         _   _
@@ -300,37 +160,7 @@ Error: \\"ignores\\" must be an array of strings. Recieved \`[true]\`.
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 
-Error: \\"ignores\\" must be an array of strings. Recieved \`[true]\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
 Error: \\"ignores\\" must be an array of strings. Recieved \`[{}]\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"ignores\\" must be an array of strings. Recieved \`[{}]\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"ignores\\" must be an array of strings. Recieved \`[1234]\`.
 ",
   "
    / | /     _         _   _
@@ -360,37 +190,7 @@ Error: \\"resultsPath\\" must be a string. Recieved \`1234\`.
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 
-Error: \\"resultsPath\\" must be a string. Recieved \`1234\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
 Error: \\"resultsPath\\" must be a string. Recieved \`true\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"resultsPath\\" must be a string. Recieved \`true\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"resultsPath\\" must be a string. Recieved \`{}\`.
 ",
   "
    / | /     _         _   _
@@ -420,37 +220,7 @@ Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`1234\`.
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 
-Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`1234\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
 Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`{}\`.
 ",
   "
    / | /     _         _   _
@@ -480,37 +250,7 @@ Error: \\"update\\" must be \`true\` or \`false\`. Recieved \`1234\`.
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 
-Error: \\"update\\" must be \`true\` or \`false\`. Recieved \`1234\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
 Error: \\"update\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"update\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"update\\" must be \`true\` or \`false\`. Recieved \`{}\`.
 ",
   "
    / | /     _         _   _
@@ -534,18 +274,6 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: could not read config from \\"<project>/fixtures/test-betterer-config/.betterer\\". 😔
-
-Error: Cannot find module '<project>/fixtures/test-betterer-config/.betterer' from 'packages/betterer/dist/require.js'
 ",
   "
    / | /     _         _   _

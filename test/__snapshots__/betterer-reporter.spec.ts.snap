@@ -14,18 +14,6 @@ Error: could not require \\"<project>/fixtures/test-betterer-reporter-hook-not-a
 
 Error: \\"contextStart\\" is not a function. 😔
 ",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: could not require \\"<project>/fixtures/test-betterer-reporter-hook-not-a-function/reporter.js\\". 😔
-
-Error: \\"contextStart\\" is not a function. 😔
-",
 ]
 `;
 
@@ -43,35 +31,11 @@ Error: could not require \\"<project>/fixtures/test-betterer-reporter-invalid-ho
 
 Error: \\"notAHook\\" is not a valid reporter hook name. 😔
 ",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: could not require \\"<project>/fixtures/test-betterer-reporter-invalid-hook/reporter.js\\". 😔
-
-Error: \\"notAHook\\" is not a valid reporter hook name. 😔
-",
 ]
 `;
 
 exports[`betterer --reporter should throw when there is nothing exported 1`] = `
 Array [
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: could not require \\"<project>/fixtures/test-betterer-reporter-nothing/reporter.js\\". 😔
-
-Error: \\"<project>/fixtures/test-betterer-reporter-nothing/reporter.js\\" didn't create a reporter. 😔
-",
   "
    / | /     _         _   _
  '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __

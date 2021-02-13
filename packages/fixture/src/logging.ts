@@ -8,21 +8,15 @@ const PROJECT_REGEXP = new RegExp(normalisePaths(process.cwd()), 'g');
 const STACK_TRACK_LINE_REGEXP = /\s+at\s+/;
 
 export function createFixtureLogs(options: FixtureOptions = {}): FixtureLogs {
-  const logs: Array<string> = [];
+  const snapshotLogs: Array<string> = [];
   const log = (...messages: Array<string>): void => {
-    if (options.logStack) {
-      try {
-        throw new Error();
-      } catch (e) {
-        logs.push((e as Error).stack || '');
-      }
-    }
+    const previousLength = snapshotLogs.length;
 
     // Do some magic to sort out the logs for snapshots. This mucks up the snapshot of the printed logo,
     // but that hardly matters...
     messages.forEach((message) => {
       if (!isString(message)) {
-        logs.push(message);
+        snapshotLogs.push(message);
         return;
       }
       message = replaceAnsi(message);
@@ -40,8 +34,19 @@ export function createFixtureLogs(options: FixtureOptions = {}): FixtureLogs {
       if (trimmed.length === 0) {
         return;
       }
-      logs.push(message);
+      const [previous] = snapshotLogs.slice(-1);
+      if (message !== previous) {
+        snapshotLogs.push(message);
+      }
     });
+
+    if (options.logStack && snapshotLogs.length !== previousLength) {
+      try {
+        throw new Error();
+      } catch (e) {
+        snapshotLogs.push((e as Error).stack || '');
+      }
+    }
   };
 
   jest.spyOn(process.stdout, 'write').mockImplementation((message: string | Uint8Array): boolean => {
@@ -53,7 +58,7 @@ export function createFixtureLogs(options: FixtureOptions = {}): FixtureLogs {
   process.stdout.columns = 1000;
   process.stdout.rows = 20;
 
-  return logs as FixtureLogs;
+  return snapshotLogs as FixtureLogs;
 }
 
 function isString(message: unknown): message is string {
