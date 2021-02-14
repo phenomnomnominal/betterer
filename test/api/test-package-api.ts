@@ -4,7 +4,7 @@ import { promises as fs } from 'fs';
 import * as path from 'path';
 import { publicApi, verifyAgainstGoldenFile } from 'ts-api-guardian';
 
-const EXCLUDED_PACKAGES = ['extension'];
+const EXCLUDED_PACKAGES = ['extension', 'fixture'];
 const DECLARATION_EXTENSION = '.d.ts';
 const BUILT_DECLARATION = `dist/index${DECLARATION_EXTENSION}`;
 const PACKAGES_DIR = path.resolve(__dirname, '../../packages');
