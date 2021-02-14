@@ -48,7 +48,7 @@ export default {
       resultsPath,
       cwd,
       reporters: [
-        '@betterer/watch-reporter',
+        '@betterer/reporter',
         {
           runsEnd(summary) {
             const summaryDefer = summaryDefers.shift();
@@ -126,7 +126,7 @@ export default {
       resultsPath,
       cwd,
       reporters: [
-        '@betterer/watch-reporter',
+        '@betterer/reporter',
         {
           runsEnd(summary) {
             runDefer.resolve(summary);
@@ -195,7 +195,7 @@ ignored.ts
       resultsPath,
       cwd,
       reporters: [
-        '@betterer/watch-reporter',
+        '@betterer/reporter',
         {
           runsEnd(summary) {
             runDefer.resolve(summary);

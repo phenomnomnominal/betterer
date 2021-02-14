@@ -1,6 +1,4 @@
-export { BettererConsoleLogger } from './console-logger';
 export { diffΔ } from './diff';
-export { LOGO } from './logo';
 export {
   BettererErrorLog,
   BettererErrorLogProps,

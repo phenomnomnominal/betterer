@@ -4,7 +4,7 @@ import assert from 'assert';
 import { BettererConfigPartial, createConfig } from '../config';
 import { BettererContextΩ, BettererRun, BettererRunΩ, BettererSummary } from '../context';
 import { registerExtensions } from '../register';
-import { DEFAULT_REPORTER, WATCH_REPORTER, loadReporters } from '../reporters';
+import { DEFAULT_REPORTER, loadReporters } from '../reporters';
 import { BettererResultΩ } from '../results';
 import { normalisedPath } from '../utils';
 import { BettererFilePaths, BettererRunHandler, BettererRunner, BettererRunnerJobs } from './types';
@@ -18,8 +18,7 @@ export class BettererRunnerΩ implements BettererRunner {
 
   public async start(partialConfig: BettererConfigPartial = {}): Promise<BettererContextΩ> {
     let config = null;
-    const reporterName = partialConfig.watch ? WATCH_REPORTER : DEFAULT_REPORTER;
-    let reporter = loadReporters([reporterName]);
+    let reporter = loadReporters([DEFAULT_REPORTER]);
     try {
       config = await createConfig(partialConfig);
       registerExtensions(config);

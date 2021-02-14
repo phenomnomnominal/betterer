@@ -8,6 +8,7 @@ import { parse } from './parser';
 import { print } from './printer';
 import { BettererResultΩ } from './result';
 import { BettererResult, BettererResultValue } from './types';
+
 const RESULTS_HEADER = `// BETTERER RESULTS V2.`;
 
 export class BettererResults {

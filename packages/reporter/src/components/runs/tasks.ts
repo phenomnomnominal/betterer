@@ -13,8 +13,8 @@ import {
   testSkippedΔ,
   testUpdatedΔ,
   testWorseΔ
-} from '../messages';
-import { quoteΔ } from '../utils';
+} from '../../messages';
+import { quoteΔ } from '../../utils';
 
 const TASK_RUNNER_CACHE = new Map<BettererRuns, BettererTasks>();
 

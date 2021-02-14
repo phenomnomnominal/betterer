@@ -22,18 +22,6 @@ Error: could not read config from \\"<project>/fixtures/test-betterer-custom-no-
 
 Error: for a test to work, it must have a \`constraint\` function. ❌
 ",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: could not read config from \\"<project>/fixtures/test-betterer-custom-no-constraint/.betterer\\". 😔
-
-Error: for a test to work, it must have a \`constraint\` function. ❌
-",
 ]
 `;
 
@@ -46,18 +34,6 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: could not read config from \\"<project>/fixtures/test-betterer-custom-no-test/.betterer\\". 😔
-
-Error: for a test to work, it must have a \`test\` function. ❌
 ",
   "
    / | /     _         _   _

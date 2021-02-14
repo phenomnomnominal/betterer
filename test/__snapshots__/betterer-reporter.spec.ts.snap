@@ -13,7 +13,6 @@ Array [
 Error: could not require \\"<project>/fixtures/test-betterer-reporter-hook-not-a-function/reporter.js\\". 😔
 
 Error: \\"contextStart\\" is not a function. 😔
-
 ",
 ]
 `;
@@ -31,7 +30,6 @@ Array [
 Error: could not require \\"<project>/fixtures/test-betterer-reporter-invalid-hook/reporter.js\\". 😔
 
 Error: \\"notAHook\\" is not a valid reporter hook name. 😔
-
 ",
 ]
 `;
@@ -49,7 +47,6 @@ Array [
 Error: could not require \\"<project>/fixtures/test-betterer-reporter-nothing/reporter.js\\". 😔
 
 Error: \\"<project>/fixtures/test-betterer-reporter-nothing/reporter.js\\" didn't create a reporter. 😔
-
 ",
 ]
 `;

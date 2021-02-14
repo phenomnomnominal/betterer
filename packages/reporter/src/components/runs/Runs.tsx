@@ -1,16 +1,19 @@
 import React, { FC, memo } from 'react';
 
-import { BettererTasks, BettererTasksLogger, BettererTasksState } from '@betterer/logger';
+import { BettererRuns } from '@betterer/betterer';
+import { BettererTasksLogger, BettererTasksState } from '@betterer/logger';
 import { Box } from 'ink';
 
+import { getTasks } from './tasks';
+
 export type RunsProps = {
-  tasks: BettererTasks;
+  runs: BettererRuns;
 };
 
-export const Runs: FC<RunsProps> = memo(function Runs({ tasks }) {
+export const Runs: FC<RunsProps> = memo(function Runs({ runs }) {
   return (
-    <Box flexDirection="column">
-      <BettererTasksLogger name="Betterer" update={update} tasks={tasks} exit={false} />
+    <Box flexDirection="column" paddingBottom={1}>
+      <BettererTasksLogger name="Betterer" update={update} tasks={getTasks(runs)} exit={false} />
     </Box>
   );
 });

@@ -18,6 +18,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
+
 ",
   "
    / | /     _         _   _
@@ -28,6 +29,7 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🤔 should grow: running \\"should grow\\"!
+
 ",
   "
    / | /     _         _   _
@@ -38,16 +40,7 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 ✅ should grow: \\"should grow\\" got checked for the first time! 🎉
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 1 test running...
-✅ should grow: \\"should grow\\" got checked for the first time! 🎉
 ",
   "
    / | /     _         _   _
@@ -58,6 +51,7 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+
 ",
   "
    / | /     _         _   _
@@ -102,6 +96,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
+
 ",
   "
    / | /     _         _   _
@@ -112,6 +107,7 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 ・ \\"should grow\\" has passed its deadline. 👻
+
 ",
   "
    / | /     _         _   _
@@ -123,6 +119,7 @@ Array [
 🌟 Betterer (0ms): 1 test running...
 ・ \\"should grow\\" has passed its deadline. 👻
 🤔 should grow: running \\"should grow\\"!
+
 ",
   "
    / | /     _         _   _
@@ -134,6 +131,7 @@ Array [
 🌟 Betterer (0ms): 1 test running...
 ・ \\"should grow\\" has passed its deadline. 👻
 ✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+
 ",
   "
    / | /     _         _   _
@@ -145,6 +143,7 @@ Array [
 🌟 Betterer (0ms): 1 test running...
 ✅ should grow: \\"should grow\\" got checked for the first time! 🎉
 ・ \\"should grow\\" has passed its deadline. 👻
+
 ",
   "
    / | /     _         _   _
@@ -156,6 +155,7 @@ Array [
 🎉 Betterer (0ms): 1 test done!
 ✅ should grow: \\"should grow\\" got checked for the first time! 🎉
 ・ \\"should grow\\" has passed its deadline. 👻
+
 ",
   "
    / | /     _         _   _

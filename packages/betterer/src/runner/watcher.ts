@@ -22,6 +22,7 @@ export class BettererWatcherΩ implements BettererRunner {
       ignoreInitial: true,
       ignored: (itemPath: string) => {
         const isGitIgnored = globby.gitignore.sync();
+        // read `ignores` here so that it can be updated by watch mode:
         const { ignores } = contextΩ.config;
         const watchIgnores = [...ignores, GIT_DIRECTORY].map((ignore) => path.join(cwd, ignore));
         return (

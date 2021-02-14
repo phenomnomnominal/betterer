@@ -31,6 +31,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
+
 ",
   "
    / | /     _         _   _
@@ -41,6 +42,7 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
 ",
   "
    / | /     _         _   _
@@ -51,16 +53,7 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 1 test running...
-✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
 ",
   "
    / | /     _         _   _
@@ -71,6 +64,7 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+
 ",
   "
    / | /     _         _   _
@@ -102,6 +96,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
+
 ",
   "
    / | /     _         _   _
@@ -112,6 +107,7 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
 ",
   "
    / | /     _         _   _
@@ -123,6 +119,7 @@ Array [
 🌟 Betterer (0ms): 1 test running...
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\".
 🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
 ",
   "
    / | /     _         _   _
@@ -135,6 +132,7 @@ Array [
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\":
 🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
 ",
   "
    / | /     _         _   _
@@ -147,12 +145,13 @@ Array [
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\":
 ・
-・   // <project>/fixtures/test-betterer-update/src/index.ts
+・   <project>/fixtures/test-betterer-update/src/index.ts
 ・   1 | console.log('foo');
 ・ > 2 | console.log('foo');
 ・     | ^^^^^^^^^^^ TSQuery match
 ・
 🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
 ",
   "
    / | /     _         _   _
@@ -165,12 +164,13 @@ Array [
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\":
 ・
-・   // <project>/fixtures/test-betterer-update/src/index.ts
+・   <project>/fixtures/test-betterer-update/src/index.ts
 ・   1 | console.log('foo');
 ・ > 2 | console.log('foo');
 ・     | ^^^^^^^^^^^ TSQuery match
 ・
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got force updated. 🆙
+
 ",
   "
    / | /     _         _   _
@@ -184,11 +184,12 @@ Array [
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\":
 ・
-・   // <project>/fixtures/test-betterer-update/src/index.ts
+・   <project>/fixtures/test-betterer-update/src/index.ts
 ・   1 | console.log('foo');
 ・ > 2 | console.log('foo');
 ・     | ^^^^^^^^^^^ TSQuery match
 ・
+
 ",
   "
    / | /     _         _   _
@@ -202,11 +203,12 @@ Array [
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\":
 ・
-・   // <project>/fixtures/test-betterer-update/src/index.ts
+・   <project>/fixtures/test-betterer-update/src/index.ts
 ・   1 | console.log('foo');
 ・ > 2 | console.log('foo');
 ・     | ^^^^^^^^^^^ TSQuery match
 ・
+
 ",
   "
    / | /     _         _   _
@@ -220,7 +222,7 @@ Array [
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\":
 ・
-・   // <project>/fixtures/test-betterer-update/src/index.ts
+・   <project>/fixtures/test-betterer-update/src/index.ts
 ・   1 | console.log('foo');
 ・ > 2 | console.log('foo');
 ・     | ^^^^^^^^^^^ TSQuery match
@@ -246,6 +248,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
+
 ",
   "
    / | /     _         _   _
@@ -256,6 +259,7 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
 ",
   "
    / | /     _         _   _
@@ -266,16 +270,7 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" stayed the same. 😐
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 1 test running...
-✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" stayed the same. 😐
 ",
   "
    / | /     _         _   _
@@ -286,6 +281,7 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" stayed the same. 😐
+
 ",
   "
    / | /     _         _   _
@@ -322,6 +318,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
+
 ",
   "
    / | /     _         _   _
@@ -333,6 +330,7 @@ Array [
 🌟 Betterer (0ms): 2 tests running...
 🤔 should shrink: running \\"should shrink\\"!
 🤔 should grow: running \\"should grow\\"!
+
 ",
   "
    / | /     _         _   _
@@ -344,6 +342,7 @@ Array [
 🌟 Betterer (0ms): 2 tests running...
 ✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
 🤔 should grow: running \\"should grow\\"!
+
 ",
   "
    / | /     _         _   _
@@ -355,17 +354,7 @@ Array [
 🌟 Betterer (0ms): 2 tests running...
 ✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
 ✅ should grow: \\"should grow\\" got checked for the first time! 🎉
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 2 tests running...
-✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
-✅ should grow: \\"should grow\\" got checked for the first time! 🎉
 ",
   "
    / | /     _         _   _
@@ -377,17 +366,7 @@ Array [
 🌟 Betterer (0ms): 1 test running... 1 test done!
 ✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
 ✅ should grow: \\"should grow\\" got checked for the first time! 🎉
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 1 test running... 1 test done!
-✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
-✅ should grow: \\"should grow\\" got checked for the first time! 🎉
 ",
   "
    / | /     _         _   _
@@ -399,6 +378,7 @@ Array [
 🎉 Betterer (0ms): 2 tests done!
 ✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
 ✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+
 ",
   "
    / | /     _         _   _
@@ -431,6 +411,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
+
 ",
   "
    / | /     _         _   _
@@ -442,6 +423,7 @@ Array [
 🌟 Betterer (0ms): 2 tests running...
 🤔 should shrink: running \\"should shrink\\"!
 🤔 should grow: running \\"should grow\\"!
+
 ",
   "
    / | /     _         _   _
@@ -458,6 +440,7 @@ Array [
 ・ + 1
 🤔 should shrink: running \\"should shrink\\"!
 🤔 should grow: running \\"should grow\\"!
+
 ",
   "
    / | /     _         _   _
@@ -479,6 +462,7 @@ Array [
 ・ - 2
 ・ + 1
 🤔 should grow: running \\"should grow\\"!
+
 ",
   "
    / | /     _         _   _
@@ -500,6 +484,7 @@ Array [
 ・ - 2
 ・ + 1
 🤔 should grow: running \\"should grow\\"!
+
 ",
   "
    / | /     _         _   _
@@ -521,6 +506,7 @@ Array [
 ・ - 2
 ・ + 1
 🔥 should grow: \\"should grow\\" got worse. 😔
+
 ",
   "
    / | /     _         _   _
@@ -544,6 +530,7 @@ Error: \\"should shrink\\" got worse. 😔
 ・ - 2
 ・ + 1
 🔥 should grow: \\"should grow\\" got worse. 😔
+
 ",
   "
    / | /     _         _   _
@@ -567,6 +554,7 @@ Error: \\"should shrink\\" got worse. 😔
 ・ - 2
 ・ + 1
 🔥 should grow: \\"should grow\\" got worse. 😔
+
 ",
   "
    / | /     _         _   _
@@ -592,6 +580,7 @@ Error: \\"should shrink\\" got worse. 😔
 ・ + 1
 
 Error: \\"should grow\\" got worse. 😔
+
 ",
   "
    / | /     _         _   _
@@ -617,6 +606,7 @@ Error: \\"should shrink\\" got worse. 😔
 ・ + 1
 
 Error: \\"should grow\\" got worse. 😔
+
 ",
   "
    / | /     _         _   _
