@@ -38,11 +38,13 @@ export class BettererFileResolver {
     return normalisedPath(path.resolve(this._cwd, ...pathSegments));
   }
 
+  /** @internal Definitely not stable! Please don't use! */
   public includeΔ(...includePatterns: BettererFileGlobs): this {
     this._included = [...this._included, ...flatten(includePatterns).map((pattern) => this.resolve(pattern))];
     return this;
   }
 
+  /** @internal Definitely not stable! Please don't use! */
   public excludeΔ(...excludePatterns: BettererFilePatterns): this {
     this._excluded = [...this._excluded, ...flatten(excludePatterns)];
     return this;
