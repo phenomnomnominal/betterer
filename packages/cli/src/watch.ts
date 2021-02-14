@@ -3,6 +3,7 @@ import { betterer } from '@betterer/betterer';
 import { watchOptions } from './options';
 import { BettererCLIArguments } from './types';
 
+/** @internal Definitely not stable! Please don't use! */
 export async function watchΔ(cwd: string, argv: BettererCLIArguments): Promise<void> {
   const { config, results, filter, ignore, reporter, silent, tsconfig } = watchOptions(argv);
 

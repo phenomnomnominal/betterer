@@ -3,18 +3,18 @@ import { BettererError } from '@betterer/errors';
 import { BettererLogger, BettererTasks } from '@betterer/logger';
 
 import {
-  testBetterΔ,
-  testCompleteΔ,
-  testExpiredΔ,
-  testFailedΔ,
-  testNewΔ,
-  testRunningΔ,
-  testSameΔ,
-  testSkippedΔ,
-  testUpdatedΔ,
-  testWorseΔ
+  testBetter,
+  testComplete,
+  testExpired,
+  testFailed,
+  testNew,
+  testRunning,
+  testSame,
+  testSkipped,
+  testUpdated,
+  testWorse
 } from '../../messages';
-import { quoteΔ } from '../../utils';
+import { quote } from '../../utils';
 
 const TASK_RUNNER_CACHE = new Map<BettererRuns, BettererTasks>();
 
@@ -25,39 +25,39 @@ export function getTasks(runs: BettererRuns): BettererTasks {
       runs.map((run) => ({
         name: run.name,
         run: async (logger: BettererLogger) => {
-          const name = quoteΔ(run.name);
+          const name = quote(run.name);
           if (run.isExpired) {
-            await logger.warn(testExpiredΔ(name));
+            await logger.warn(testExpired(name));
           }
-          await logger.progress(testRunningΔ(name));
+          await logger.progress(testRunning(name));
 
           await run.lifecycle;
 
           if (run.isComplete) {
-            return testCompleteΔ(name, run.isNew);
+            return testComplete(name, run.isNew);
           }
           if (run.isBetter) {
-            return testBetterΔ(name);
+            return testBetter(name);
           }
           if (run.isFailed) {
-            throw new BettererError(testFailedΔ(name));
+            throw new BettererError(testFailed(name));
           }
           if (run.isNew) {
-            return testNewΔ(name);
+            return testNew(name);
           }
           if (run.isSkipped) {
-            return testSkippedΔ(name);
+            return testSkipped(name);
           }
           if (run.isSame) {
-            return testSameΔ(name);
+            return testSame(name);
           }
           if (run.isUpdated) {
             await run.diff.log(logger);
-            return testUpdatedΔ(name);
+            return testUpdated(name);
           }
           if (run.isWorse) {
             await run.diff.log(logger);
-            throw new BettererError(testWorseΔ(name));
+            throw new BettererError(testWorse(name));
           }
           return;
         }

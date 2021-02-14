@@ -1,4 +1,4 @@
-export function quoteΔ(str: string): string {
+export function quote(str: string): string {
   if (!str.startsWith('"')) {
     str = `"${str}`;
   }

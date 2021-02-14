@@ -17,6 +17,7 @@ type CommandName = `${Command}`;
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { version } = require('../package.json') as BettererPackageJSON;
 
+/** @internal Definitely not stable! Please don't use! */
 export function cliΔ(argv: BettererCLIArguments): void {
   commander.version(version);
 

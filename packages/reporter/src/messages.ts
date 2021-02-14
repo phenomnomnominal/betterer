@@ -1,45 +1,45 @@
-export function testBetterΔ(context: string): string {
+export function testBetter(context: string): string {
   return `${context} got better! 😍`;
 }
-export function testCheckedΔ(context: string): string {
+export function testChecked(context: string): string {
   return `${context} got checked. 🤔`;
 }
-export function testCompleteΔ(context: string, isNew = false): string {
+export function testComplete(context: string, isNew = false): string {
   return `${context}${isNew ? ' has already' : ''} met its goal! ${isNew ? '✨' : '🎉'}`;
 }
-export function testExpiredΔ(context: string): string {
+export function testExpired(context: string): string {
   return `${context} has passed its deadline. 👻`;
 }
-export function testFailedΔ(context: string): string {
+export function testFailed(context: string): string {
   return `${context} failed to run. 🔥`;
 }
-export function testNewΔ(context: string): string {
+export function testNew(context: string): string {
   return `${context} got checked for the first time! 🎉`;
 }
-export function testObsoleteΔ(context: string): string {
+export function testObsolete(context: string): string {
   return `${context} no longer needed! 🤪`;
 }
-export function testRunningΔ(context: string): string {
+export function testRunning(context: string): string {
   return `running ${context}!`;
 }
-export function testSameΔ(context: string): string {
+export function testSame(context: string): string {
   return `${context} stayed the same. 😐`;
 }
-export function testSkippedΔ(context: string): string {
+export function testSkipped(context: string): string {
   return `${context} got skipped. 🚫`;
 }
-export function testUpdatedΔ(context: string): string {
+export function testUpdated(context: string): string {
   return `${context} got force updated. 🆙`;
 }
-export function testWorseΔ(context: string): string {
+export function testWorse(context: string): string {
   return `${context} got worse. 😔`;
 }
 
-export function updateInstructionsΔ(): string {
+export function updateInstructions(): string {
   return `Run \`betterer --update\` to force an update of the results file. 🆙`;
 }
 
-export function unexpectedDiffΔ(): string {
+export function unexpectedDiff(): string {
   return 'Unexpected diff found:';
 }
 

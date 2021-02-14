@@ -5,21 +5,21 @@ import { diffΔ } from '@betterer/logger';
 import { Box, Text, TextProps } from 'ink';
 
 import {
-  testBetterΔ,
-  testCheckedΔ,
-  testCompleteΔ,
-  testExpiredΔ,
-  testFailedΔ,
-  testNewΔ,
-  testObsoleteΔ,
-  testSameΔ,
-  testSkippedΔ,
-  testUpdatedΔ,
-  testWorseΔ,
-  unexpectedDiffΔ,
-  updateInstructionsΔ
+  testBetter,
+  testChecked,
+  testComplete,
+  testExpired,
+  testFailed,
+  testNew,
+  testObsolete,
+  testSame,
+  testSkipped,
+  testUpdated,
+  testWorse,
+  unexpectedDiff,
+  updateInstructions
 } from '../../messages';
-import { quoteΔ } from '../../utils';
+import { quote } from '../../utils';
 
 export type RunSummaryProps = {
   summary: BettererSummary;
@@ -54,40 +54,40 @@ export const RunSummary: FC<RunSummaryProps> = memo(function RunSummary({ summar
   return (
     <>
       <Box flexDirection="column" paddingBottom={1}>
-        <Text color={TEXT_COLOURS.checked}>{testCheckedΔ(tests(ran))}</Text>
+        <Text color={TEXT_COLOURS.checked}>{testChecked(tests(ran))}</Text>
         {expired.map((run, index) => (
           <Text key={index} color={TEXT_COLOURS.expired}>
-            {testExpiredΔ(quoteΔ(run.name))})
+            {testExpired(quote(run.name))})
           </Text>
         ))}
-        {failed ? <Text color={TEXT_COLOURS.failed}>{testFailedΔ(tests(failed))}</Text> : null}
-        {neww ? <Text color={TEXT_COLOURS.new}>{testNewΔ(tests(neww))}</Text> : null}
+        {failed ? <Text color={TEXT_COLOURS.failed}>{testFailed(tests(failed))}</Text> : null}
+        {neww ? <Text color={TEXT_COLOURS.new}>{testNew(tests(neww))}</Text> : null}
         {obsolete.map((run, index) => (
           <Text key={index} color={TEXT_COLOURS.obsolete}>
-            {testObsoleteΔ(quoteΔ(run.name))})
+            {testObsolete(quote(run.name))})
           </Text>
         ))}
-        {better ? <Text color={TEXT_COLOURS.better}>{testBetterΔ(tests(better))}</Text> : null}
+        {better ? <Text color={TEXT_COLOURS.better}>{testBetter(tests(better))}</Text> : null}
         {completed.map((run, index) => (
           <Text key={index} color={TEXT_COLOURS.completed}>
-            {testCompleteΔ(quoteΔ(run.name))})
+            {testComplete(quote(run.name))})
           </Text>
         ))}
-        {same ? <Text color={TEXT_COLOURS.same}>{testSameΔ(tests(same))}</Text> : null}
-        {skipped ? <Text color={TEXT_COLOURS.skipped}>{testSkippedΔ(tests(skipped))}</Text> : null}
-        {updated ? <Text color={TEXT_COLOURS.updated}>{testUpdatedΔ(tests(updated))}</Text> : null}
+        {same ? <Text color={TEXT_COLOURS.same}>{testSame(tests(same))}</Text> : null}
+        {skipped ? <Text color={TEXT_COLOURS.skipped}>{testSkipped(tests(skipped))}</Text> : null}
+        {updated ? <Text color={TEXT_COLOURS.updated}>{testUpdated(tests(updated))}</Text> : null}
         {worse ? (
           <>
             <Box paddingBottom={1}>
-              <Text color={TEXT_COLOURS.worse}>{testWorseΔ(tests(worse))}</Text>
+              <Text color={TEXT_COLOURS.worse}>{testWorse(tests(worse))}</Text>
             </Box>
-            <Text>{updateInstructionsΔ()}</Text>
+            <Text>{updateInstructions()}</Text>
           </>
         ) : null}
       </Box>
       {summary.hasDiff ? (
         <Box flexDirection="column" paddingBottom={1}>
-          <Text color={TEXT_COLOURS.diff}>{unexpectedDiffΔ()}</Text>
+          <Text color={TEXT_COLOURS.diff}>{unexpectedDiff()}</Text>
           <Text>{diffΔ(summary.expected, summary.result)}</Text>
         </Box>
       ) : null}

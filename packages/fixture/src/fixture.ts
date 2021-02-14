@@ -7,6 +7,7 @@ import { createFixtureFS } from './fs';
 import { createFixtureLogs } from './logging';
 import { Fixture, FixtureFactory, FixtureFileSystemFiles, FixtureOptions } from './types';
 
+/** @internal Definitely not stable! Please don't use! */
 export async function createFixtureDirectoryΔ(fixturesPath: string): Promise<FixtureFactory> {
   try {
     await fs.mkdir(fixturesPath);
