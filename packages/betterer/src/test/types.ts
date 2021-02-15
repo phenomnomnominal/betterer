@@ -56,7 +56,7 @@ export type BettererTestConfigComplexPartial<DeserialisedType extends BettererRe
   constraint: BettererTestConstraint<DeserialisedType>;
   test: BettererTestFunction<DeserialisedType>;
   differ: BettererDiffer<DeserialisedType, DiffType>;
-  printer: BettererPrinter<SerialisedType>;
+  printer?: BettererPrinter<SerialisedType>;
   serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
   goal: DeserialisedType | BettererTestGoal<DeserialisedType>;
   deadline?: Date | string;

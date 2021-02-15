@@ -331,15 +331,18 @@ Array [
 exports[`betterer should run specific tests 2`] = `
 "// BETTERER RESULTS V2.
 exports[\`test 1\`] = {
-  value: \`0\`
+  value: \`0
+\`
 };
 
 exports[\`test 2\`] = {
-  value: \`0\`
+  value: \`0
+\`
 };
 
 exports[\`test 3\`] = {
-  value: \`0\`
+  value: \`0
+\`
 };
 
 exports[\`test 4\`] = {

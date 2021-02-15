@@ -645,11 +645,13 @@ Run \`betterer --update\` to force an update of the results file. 🆙
 exports[`betterer should work when a test gets worse 2`] = `
 "// BETTERER RESULTS V2.
 exports[\`should shrink\`] = {
-  value: \`0\`
+  value: \`0
+\`
 };
 
 exports[\`should grow\`] = {
-  value: \`2\`
+  value: \`2
+\`
 };
 "
 `;
