@@ -194,7 +194,8 @@ Array [
 exports[`betterer should skip a test 2`] = `
 "// BETTERER RESULTS V2.
 exports[\`test 1\`] = {
-  value: \`0\`
+  value: \`0
+\`
 };
 
 exports[\`test 2\`] = {

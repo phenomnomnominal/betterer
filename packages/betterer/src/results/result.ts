@@ -19,7 +19,7 @@ export class BettererResultΩ implements BettererResult {
     return this._isNew;
   }
 
-  public get value(): number {
+  public get value(): unknown {
     const result = this.result;
     return isComplexBettererResult(result) ? result.value : result;
   }

@@ -143,10 +143,10 @@ export declare type BettererResult = {
 
 export declare type BettererResultValue = BettererResultValueBasic | BettererResultValueComplex;
 
-export declare type BettererResultValueBasic = number;
+export declare type BettererResultValueBasic = unknown;
 
 export declare type BettererResultValueComplex = {
-    value: number;
+    value: unknown;
 };
 
 export declare type BettererRun = {

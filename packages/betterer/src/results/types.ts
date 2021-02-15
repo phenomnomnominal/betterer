@@ -3,9 +3,9 @@ export type BettererExpectedResult = {
 };
 export type BettererExpectedResults = Record<string, BettererExpectedResult>;
 
-export type BettererResultValueBasic = number;
+export type BettererResultValueBasic = unknown;
 export type BettererResultValueComplex = {
-  value: number;
+  value: unknown;
 };
 export type BettererResultValue = BettererResultValueBasic | BettererResultValueComplex;
 

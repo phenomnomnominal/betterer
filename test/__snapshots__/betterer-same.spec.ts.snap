@@ -673,11 +673,13 @@ Array [
 exports[`betterer should work when a test is the same 2`] = `
 "// BETTERER RESULTS V2.
 exports[\`doesn't get bigger\`] = {
-  value: \`0\`
+  value: \`0
+\`
 };
 
 exports[\`doesn't get smaller\`] = {
-  value: \`0\`
+  value: \`0
+\`
 };
 "
 `;
