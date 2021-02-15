@@ -1,4 +1,5 @@
 import assert from 'assert';
+
 import { createHash } from '../../hasher';
 import { BettererFileΩ } from './file';
 import { BettererFileResolver } from './file-resolver';
@@ -11,10 +12,6 @@ export class BettererFileTestResultΩ implements BettererFileTestResult {
 
   public get files(): ReadonlyArray<BettererFileBase> {
     return Object.values(this._fileMap).filter(Boolean) as ReadonlyArray<BettererFileBase>;
-  }
-
-  public get value(): number {
-    return this.files.reduce((sum, file) => sum + file.issues.length, 0);
   }
 
   public getFile(absolutePath: string): BettererFileBase {

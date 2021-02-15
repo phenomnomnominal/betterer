@@ -37,7 +37,7 @@ export type BettererSummary = {
   readonly runs: BettererRuns;
   readonly result: string;
   readonly expected: string | null;
-  readonly hasDiff: boolean;
+  readonly unexpectedDiff: boolean;
 
   readonly better: BettererRuns;
   readonly completed: BettererRuns;
@@ -51,4 +51,5 @@ export type BettererSummary = {
   readonly updated: BettererRuns;
   readonly worse: BettererRuns;
 };
+
 export type BettererSummaries = Array<BettererSummary>;

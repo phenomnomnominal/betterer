@@ -2,7 +2,6 @@ import { BettererError } from '@betterer/errors';
 import { BettererLogger, diffΔ } from '@betterer/logger';
 import { format } from 'prettier';
 
-import { BettererResultValue } from '../results';
 import { isFunction } from '../utils';
 import {
   BettererTestConfig,
@@ -12,7 +11,7 @@ import {
   BettererDiff
 } from './types';
 
-export function createTestConfig<DeserialisedType extends BettererResultValue, SerialisedType, DiffType>(
+export function createTestConfig<DeserialisedType, SerialisedType, DiffType>(
   config: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>
 ): BettererTestConfig<DeserialisedType, SerialisedType, DiffType> | BettererTestConfig<unknown> {
   if (config.constraint == null) {
@@ -50,7 +49,7 @@ export function createTestConfig<DeserialisedType extends BettererResultValue, S
   } as BettererTestConfig<unknown>;
 }
 
-function createDeadline<DeserialisedType extends BettererResultValue, SerialisedType, DiffType>(
+function createDeadline<DeserialisedType, SerialisedType, DiffType>(
   options: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>
 ): number {
   const { deadline } = options;
@@ -61,7 +60,7 @@ function createDeadline<DeserialisedType extends BettererResultValue, Serialised
   return !isNaN(maybeDate) ? maybeDate : Infinity;
 }
 
-function createGoal<DeserialisedType extends BettererResultValue, SerialisedType, DiffType>(
+function createGoal<DeserialisedType, SerialisedType, DiffType>(
   options: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>
 ): BettererTestGoal<DeserialisedType> {
   const hasGoal = Object.hasOwnProperty.call(options, 'goal');
@@ -75,7 +74,7 @@ function createGoal<DeserialisedType extends BettererResultValue, SerialisedType
   return (value: DeserialisedType): boolean => value === goal;
 }
 
-function isComplex<DeserialisedType extends BettererResultValue, SerialisedType, DiffType>(
+function isComplex<DeserialisedType, SerialisedType, DiffType>(
   config: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>
 ): config is BettererTestConfigComplexPartial<DeserialisedType, SerialisedType, DiffType> {
   const maybeComplex = config as BettererTestConfigComplexPartial<DeserialisedType, SerialisedType, DiffType>;

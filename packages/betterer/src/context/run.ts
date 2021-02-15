@@ -162,12 +162,12 @@ export class BettererRunΩ implements BettererRun {
 
   public update(result: BettererResult): void {
     this._updateResult(BettererRunStatus.update, result);
-    this._diff = this.test.differ(this.expected.result, this.result.result);
+    this._diff = this.test.differ(this.expected.value, this.result.value);
   }
 
   public worse(result: BettererResult): void {
     this._updateResult(BettererRunStatus.worse, result);
-    this._diff = this.test.differ(this.expected.result, this.result.result);
+    this._diff = this.test.differ(this.expected.value, this.result.value);
   }
 
   private _updateResult(status: BettererRunStatus, result: BettererResult, isComplete = false) {

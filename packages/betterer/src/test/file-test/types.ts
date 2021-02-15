@@ -1,4 +1,3 @@
-import { BettererResultValueComplex } from '../../results';
 import { BettererFilePaths } from '../../runner';
 import { BettererDiff } from '../../test';
 import { MaybeAsync } from '../../types';
@@ -45,7 +44,7 @@ export type BettererFile = BettererFileBase & {
   addIssue(startLine: number, startCol: number, endLine: number, endCol: number, message: string, hash?: string): void;
 };
 
-export type BettererFileTestResult = BettererResultValueComplex & {
+export type BettererFileTestResult = {
   addFile(absolutePath: string, fileText: string): BettererFile;
   getIssues(absolutePath: string): BettererFileIssues;
 };
