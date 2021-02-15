@@ -18,12 +18,7 @@ export {
   BettererSummary,
   BettererSummaries
 } from './context/public';
-export {
-  BettererResult,
-  BettererResultValue,
-  BettererResultValueBasic,
-  BettererResultValueComplex
-} from './results/public';
+export { BettererResult } from './results/public';
 export { BettererReporter } from './reporters/public';
 export { BettererFilePaths, BettererRunner, BettererRunHandler } from './runner/public';
 export {

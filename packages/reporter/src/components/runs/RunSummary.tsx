@@ -85,7 +85,7 @@ export const RunSummary: FC<RunSummaryProps> = memo(function RunSummary({ summar
           </>
         ) : null}
       </Box>
-      {summary.hasDiff ? (
+      {summary.unexpectedDiff ? (
         <Box flexDirection="column" paddingBottom={1}>
           <Text color={TEXT_COLOURS.diff}>{unexpectedDiff()}</Text>
           <Text>{diffΔ(summary.expected, summary.result)}</Text>

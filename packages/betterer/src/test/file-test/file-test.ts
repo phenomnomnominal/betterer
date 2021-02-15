@@ -86,7 +86,7 @@ function createTest(
     await fileTest(relevantFilePaths, files);
 
     if (filePaths.length && !run.isNew) {
-      const expectedΩ = run.expected.result as BettererFileTestResultΩ;
+      const expectedΩ = run.expected.value as BettererFileTestResultΩ;
 
       // Get any filePaths that have expected issues but weren't included in this run:
       const excludedFilesWithIssues = expectedΩ.files

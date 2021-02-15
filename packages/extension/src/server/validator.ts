@@ -116,7 +116,7 @@ export class BettererValidator {
       return;
     }
 
-    const result = run.result.result as BettererFileTestResult;
+    const result = run.result.value as BettererFileTestResult;
     if (!result) {
       return;
     }
