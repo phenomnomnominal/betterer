@@ -2,7 +2,7 @@ import { BettererError } from '@betterer/errors';
 import { BettererLogger, diffΔ } from '@betterer/logger';
 import { format } from 'prettier';
 
-import { isFunction, isNumber } from '../utils';
+import { isFunction } from '../utils';
 import {
   BettererTestConfig,
   BettererTestConfigPartial,

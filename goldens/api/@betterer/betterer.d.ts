@@ -45,7 +45,7 @@ export declare type BettererContext = {
 
 export declare type BettererProgress<DeserialisedType> = (deserialised: DeserialisedType) => MaybeAsync<number>;
 
-export declare type BettererDeserialise<DeserialisedType extends BettererResultValue, SerialisedType> = (serialised: SerialisedType) => DeserialisedType;
+export declare type BettererDeserialise<DeserialisedType, SerialisedType> = (serialised: SerialisedType) => DeserialisedType;
 
 export declare type BettererDiff<DeserialisedType = unknown, DiffType = null> = {
     expected: DeserialisedType;

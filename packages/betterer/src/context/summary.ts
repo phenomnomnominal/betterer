@@ -5,7 +5,7 @@ import { BettererRunsΩ } from './run';
 import { BettererRuns, BettererSummary } from './types';
 
 export class BettererSummaryΩ implements BettererSummary {
-  constructor(private _runs: BettererRunsΩ, private _result: string, private _expected: string | null = null) {}
+  constructor(private _runs: BettererRunsΩ, private _result: string, private _expected: string | null) {}
 
   public get runs(): BettererRuns {
     return this._runs;
@@ -22,7 +22,7 @@ export class BettererSummaryΩ implements BettererSummary {
   public get unexpectedDiff(): boolean {
     assert(this._result);
     const config = getConfig();
-    return !config.allowDiff && this._expected !== this._result;
+    return !config.allowDiff && !!this._expected && this._expected !== this._result;
   }
 
   public get completed(): BettererRuns {
