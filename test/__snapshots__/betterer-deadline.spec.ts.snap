@@ -39,7 +39,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+✅ should grow: \\"should grow\\" got checked for the first time!(was: 0, now: 0) 🎉
 
 ",
   "
@@ -50,7 +50,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+✅ should grow: \\"should grow\\" got checked for the first time!(was: 0, now: 0) 🎉
 
 ",
   "
@@ -61,7 +61,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+✅ should grow: \\"should grow\\" got checked for the first time!(was: 0, now: 0) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
@@ -131,7 +131,7 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 ・ \\"should grow\\" has passed its deadline. 👻
-✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+✅ should grow: \\"should grow\\" got checked for the first time!(was: 0, now: 0) 🎉
 
 ",
   "
@@ -142,7 +142,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+✅ should grow: \\"should grow\\" got checked for the first time!(was: 0, now: 0) 🎉
 ・ \\"should grow\\" has passed its deadline. 👻
 
 ",
@@ -154,7 +154,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+✅ should grow: \\"should grow\\" got checked for the first time!(was: 0, now: 0) 🎉
 ・ \\"should grow\\" has passed its deadline. 👻
 
 ",
@@ -166,7 +166,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ should grow: \\"should grow\\" got checked for the first time! 🎉
+✅ should grow: \\"should grow\\" got checked for the first time!(was: 0, now: 0) 🎉
 ・ \\"should grow\\" has passed its deadline. 👻
 
 1 test got checked. 🤔

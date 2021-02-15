@@ -66,7 +66,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ regexp no hack comments: \\"regexp no hack comments\\" got checked for the first time! 🎉
+✅ regexp no hack comments: \\"regexp no hack comments\\" got checked for the first time!(was: 2, now: 2) 🎉
 
 ",
   "
@@ -77,7 +77,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ regexp no hack comments: \\"regexp no hack comments\\" got checked for the first time! 🎉
+✅ regexp no hack comments: \\"regexp no hack comments\\" got checked for the first time!(was: 2, now: 2) 🎉
 
 ",
   "
@@ -88,7 +88,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ regexp no hack comments: \\"regexp no hack comments\\" got checked for the first time! 🎉
+✅ regexp no hack comments: \\"regexp no hack comments\\" got checked for the first time!(was: 2, now: 2) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
@@ -131,7 +131,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ regexp no hack comments: \\"regexp no hack comments\\" got better! 😍
+✅ regexp no hack comments: \\"regexp no hack comments\\" got better! (was: 2, now: 1, 50.00% better) 😍
 
 ",
   "
@@ -142,7 +142,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ regexp no hack comments: \\"regexp no hack comments\\" got better! 😍
+✅ regexp no hack comments: \\"regexp no hack comments\\" got better! (was: 2, now: 1, 50.00% better) 😍
 
 ",
   "
@@ -153,7 +153,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ regexp no hack comments: \\"regexp no hack comments\\" got better! 😍
+✅ regexp no hack comments: \\"regexp no hack comments\\" got better! (was: 2, now: 1, 50.00% better) 😍
 
 1 test got checked. 🤔
 1 test got better! 😍

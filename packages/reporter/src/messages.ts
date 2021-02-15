@@ -1,5 +1,7 @@
-export function testBetter(context: string): string {
-  return `${context} got better! 😍`;
+import { BettererProgress } from '@betterer/betterer';
+
+export function testBetter(context: string, progress?: BettererProgress | null): string {
+  return `${context} got better!${getBetterProgress(progress)} 😍`;
 }
 export function testChecked(context: string): string {
   return `${context} got checked. 🤔`;
@@ -13,8 +15,8 @@ export function testExpired(context: string): string {
 export function testFailed(context: string): string {
   return `${context} failed to run. 🔥`;
 }
-export function testNew(context: string): string {
-  return `${context} got checked for the first time! 🎉`;
+export function testNew(context: string, progress?: BettererProgress | null): string {
+  return `${context} got checked for the first time!${getRemaining(progress)} 🎉`;
 }
 export function testObsolete(context: string): string {
   return `${context} no longer needed! 🤪`;
@@ -22,17 +24,17 @@ export function testObsolete(context: string): string {
 export function testRunning(context: string): string {
   return `running ${context}!`;
 }
-export function testSame(context: string): string {
-  return `${context} stayed the same. 😐`;
+export function testSame(context: string, progress?: BettererProgress | null): string {
+  return `${context} stayed the same.${getRemaining(progress)} 😐`;
 }
-export function testSkipped(context: string): string {
-  return `${context} got skipped. 🚫`;
+export function testSkipped(context: string, progress?: BettererProgress | null): string {
+  return `${context} got skipped.${getRemaining(progress)} 🚫`;
 }
-export function testUpdated(context: string): string {
-  return `${context} got force updated. 🆙`;
+export function testUpdated(context: string, progress?: BettererProgress | null): string {
+  return `${context} got force updated.${getWorseProgress(progress)} 🆙`;
 }
-export function testWorse(context: string): string {
-  return `${context} got worse. 😔`;
+export function testWorse(context: string, progress?: BettererProgress | null): string {
+  return `${context} got worse.${getWorseProgress(progress)} 😔`;
 }
 
 export function updateInstructions(): string {
@@ -61,4 +63,37 @@ export function watchEnd(): string {
 
 function getFiles(count: number): string {
   return count === 1 ? 'file' : 'files';
+}
+
+const formatter = Intl.NumberFormat();
+
+function getRemaining(progress?: BettererProgress | null): string {
+  if (!progress) {
+    return '';
+  }
+  return ` (${getDiff(progress)})`;
+}
+
+function getBetterProgress(progress?: BettererProgress | null): string {
+  if (!progress) {
+    return '';
+  }
+  const { percentage } = progress;
+  return ` (${getDiff(progress)}, ${percentage.toFixed(2)}% better)`;
+}
+
+function getWorseProgress(progress?: BettererProgress | null): string {
+  if (!progress) {
+    return '';
+  }
+  const { percentage } = progress;
+  return ` (${getDiff(progress)}, ${(-percentage).toFixed(2)}% worse`;
+}
+
+function getDiff(progress?: BettererProgress | null): string {
+  if (!progress) {
+    return '';
+  }
+  const { baseline, result } = progress;
+  return ` was: ${formatter.format(baseline)}, now: ${formatter.format(result)}`;
 }

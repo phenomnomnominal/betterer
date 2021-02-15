@@ -1,10 +1,3 @@
 export { BettererResultΩ } from './result';
-export { BettererResults } from './results';
-export {
-  BettererExpectedResult,
-  BettererExpectedResults,
-  BettererResult,
-  BettererResultValue,
-  BettererResultValueBasic,
-  BettererResultValueComplex
-} from './types';
+export { BettererResultsΩ } from './results';
+export { BettererExpectedResult, BettererExpectedResults, BettererResult } from './types';

@@ -7,12 +7,21 @@ import { write } from '../writer';
 import { parse } from './parser';
 import { print } from './printer';
 import { BettererResultΩ } from './result';
-import { BettererResult, BettererResultValue } from './types';
+import { BettererExpectedResults, BettererResult } from './types';
 
 const RESULTS_HEADER = `// BETTERER RESULTS V2.`;
 
-export class BettererResults {
+export class BettererResultsΩ {
+  private _baseline: BettererExpectedResults | null = null;
+
   constructor(private _resultsPath: string) {}
+
+  public async getBaseline(name: string, test: BettererTestConfig): Promise<BettererResult> {
+    if (!this._baseline) {
+      this._baseline = await parse(this._resultsPath);
+    }
+    return this._getResult(name, test, this._baseline);
+  }
 
   public async getExpectedNames(): Promise<Array<string>> {
     const results = await parse(this._resultsPath);
@@ -21,13 +30,7 @@ export class BettererResults {
 
   public async getExpectedResult(name: string, test: BettererTestConfig): Promise<BettererResult> {
     const expectedResults = await parse(this._resultsPath);
-    if (Object.hasOwnProperty.call(expectedResults, name)) {
-      assert(expectedResults[name]);
-      const { value } = expectedResults[name];
-      const parsed = JSON.parse(value) as BettererResultValue;
-      return new BettererResultΩ(test.serialiser.deserialise(parsed));
-    }
-    return new BettererResultΩ();
+    return this._getResult(name, test, expectedResults);
   }
 
   public read(): Promise<string | null> {
@@ -43,7 +46,7 @@ export class BettererResults {
       toPrint.map(async (run) => {
         const { name, test, isFailed, isSkipped, isWorse } = run;
         const toPrint = isFailed || isSkipped || isWorse ? run.expected : run.result;
-        const serialised = test.serialiser.serialise(toPrint.result);
+        const serialised = test.serialiser.serialise(toPrint.value);
         const printedValue = await test.printer(serialised);
         return print(name, printedValue);
       })
@@ -53,5 +56,15 @@ export class BettererResults {
 
   public write(printed: string): Promise<void> {
     return write(printed, this._resultsPath);
+  }
+
+  private _getResult(name: string, test: BettererTestConfig, expectedResults: BettererExpectedResults): BettererResult {
+    if (Object.hasOwnProperty.call(expectedResults, name)) {
+      assert(expectedResults[name]);
+      const { value } = expectedResults[name];
+      const parsed = JSON.parse(value) as unknown;
+      return new BettererResultΩ(test.serialiser.deserialise(parsed));
+    }
+    return new BettererResultΩ();
   }
 }

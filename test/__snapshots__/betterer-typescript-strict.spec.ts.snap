@@ -56,7 +56,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time!(was: 6, now: 6) 🎉
 
 ",
   "
@@ -67,7 +67,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time!(was: 6, now: 6) 🎉
 
 ",
   "
@@ -78,7 +78,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time!(was: 6, now: 6) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
@@ -121,7 +121,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. 😐
+✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same.(was: 6, now: 6) 😐
 
 ",
   "
@@ -132,7 +132,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. 😐
+✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same.(was: 6, now: 6) 😐
 
 ",
   "
@@ -143,7 +143,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. 😐
+✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same.(was: 6, now: 6) 😐
 
 1 test got checked. 🤔
 1 test stayed the same. 😐
@@ -240,7 +240,7 @@ Array [
 ・ > 34 | console.log(a * one);
 ・      |             ^ The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
 ・
-🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. 😔
+🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. (was: 6, now: 7, 16.67% worse 😔
 
 ",
   "
@@ -251,7 +251,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. 😔
+🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. (was: 6, now: 7, 16.67% worse 😔
 ・ 6 existing issues in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\":
 ・
@@ -262,7 +262,7 @@ Array [
 ・      |             ^ The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
 ・
 
-Error: \\"typescript use strict mode\\" got worse. 😔
+Error: \\"typescript use strict mode\\" got worse. (was: 6, now: 7, 16.67% worse 😔
 
 ",
   "
@@ -273,7 +273,7 @@ Error: \\"typescript use strict mode\\" got worse. 😔
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. 😔
+🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. (was: 6, now: 7, 16.67% worse 😔
 ・ 6 existing issues in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\":
 ・
@@ -284,7 +284,7 @@ Error: \\"typescript use strict mode\\" got worse. 😔
 ・      |             ^ The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
 ・
 
-Error: \\"typescript use strict mode\\" got worse. 😔
+Error: \\"typescript use strict mode\\" got worse. (was: 6, now: 7, 16.67% worse 😔
 
 ",
   "
@@ -295,7 +295,7 @@ Error: \\"typescript use strict mode\\" got worse. 😔
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. 😔
+🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. (was: 6, now: 7, 16.67% worse 😔
 ・ 6 existing issues in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\":
 ・
@@ -306,7 +306,7 @@ Error: \\"typescript use strict mode\\" got worse. 😔
 ・      |             ^ The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
 ・
 
-Error: \\"typescript use strict mode\\" got worse. 😔
+Error: \\"typescript use strict mode\\" got worse. (was: 6, now: 7, 16.67% worse 😔
 
 1 test got checked. 🤔
 1 test got worse. 😔
@@ -351,7 +351,7 @@ Run \`betterer --update\` to force an update of the results file. 🆙
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ typescript use strict mode: \\"typescript use strict mode\\" got better! 😍
+✅ typescript use strict mode: \\"typescript use strict mode\\" got better! (was: 6, now: 5, 16.67% better) 😍
 
 ",
   "
@@ -362,7 +362,7 @@ Run \`betterer --update\` to force an update of the results file. 🆙
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" got better! 😍
+✅ typescript use strict mode: \\"typescript use strict mode\\" got better! (was: 6, now: 5, 16.67% better) 😍
 
 ",
   "
@@ -373,7 +373,7 @@ Run \`betterer --update\` to force an update of the results file. 🆙
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" got better! 😍
+✅ typescript use strict mode: \\"typescript use strict mode\\" got better! (was: 6, now: 5, 16.67% better) 😍
 
 1 test got checked. 🤔
 1 test got better! 😍

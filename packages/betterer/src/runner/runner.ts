@@ -64,8 +64,7 @@ export class BettererRunnerΩ implements BettererRunner {
     try {
       assert(this._running && this._context);
       const summary = await this._running;
-      await this._context.end();
-      await this._context.save();
+      await this._context.end(true);
       return summary;
     } catch (e) {
       if (force) {
@@ -131,14 +130,14 @@ export class BettererRunnerΩ implements BettererRunner {
     }
     runΩ.ran();
 
-    const goalComplete = await test.goal(result.result);
+    const goalComplete = test.goal ? await test.goal(result.value) : false;
 
     if (runΩ.isNew) {
       runΩ.new(result, goalComplete);
       return;
     }
 
-    const comparison = await test.constraint(result.result, runΩ.expected.result);
+    const comparison = await test.constraint(result.value, runΩ.expected.value);
 
     if (comparison === BettererConstraintResult.same) {
       runΩ.same(result);

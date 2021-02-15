@@ -16,6 +16,7 @@ export {
 } from './file-test';
 export { BettererTest, isBettererTest } from './test';
 export {
+  BettererCounter,
   BettererDeserialise,
   BettererDiff,
   BettererDiffer,

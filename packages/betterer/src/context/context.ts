@@ -4,7 +4,7 @@ import assert from 'assert';
 import { BettererConfig } from '../config';
 import { BettererReporterΩ } from '../reporters';
 import { requireUncached } from '../require';
-import { BettererResults, BettererResultΩ } from '../results';
+import { BettererResultsΩ } from '../results';
 import { BettererFilePaths } from '../runner';
 import { defer, Defer } from '../utils';
 import {
@@ -23,7 +23,7 @@ import { BettererContext, BettererRunNames, BettererRuns, BettererSummaries, Bet
 export type BettererRunner = (runs: BettererRuns) => Promise<void>;
 
 export class BettererContextΩ implements BettererContext {
-  private _results: BettererResults;
+  private _results: BettererResultsΩ;
   private _summaries: BettererSummaries = [];
   private _tests: BettererTestMap = {};
 
@@ -31,7 +31,7 @@ export class BettererContextΩ implements BettererContext {
   private _lifecycle: Defer<BettererSummaries>;
 
   constructor(public readonly config: BettererConfig, private _reporter: BettererReporterΩ) {
-    this._results = new BettererResults(this.config.resultsPath);
+    this._results = new BettererResultsΩ(this.config.resultsPath);
     this._lifecycle = defer();
   }
 
@@ -63,38 +63,35 @@ export class BettererContextΩ implements BettererContext {
           const test = this._tests[name];
           const { isSkipped, config } = test;
           const isObsolete = obsolete.includes(name);
+          const baseline = await this._results.getBaseline(name, config);
           const expected = await this._results.getExpectedResult(name, config);
-          const expectedΩ = expected as BettererResultΩ;
-          return new BettererRunΩ(this._reporter, name, config, expectedΩ, filePaths, isSkipped, isObsolete);
+          return new BettererRunΩ(this._reporter, name, config, expected, baseline, filePaths, isSkipped, isObsolete);
         })
     );
     await this._reporter.runsStart(runs, filePaths);
     this._running = runner(runs);
     await this._running;
-    const expected = await this._results.read();
     const result = await this._results.print(runs);
-    const hasDiff = !!expected && expected !== result;
-    const summary = new BettererSummaryΩ(runs, result, hasDiff && !this.config.allowDiff ? expected : null);
+    const expected = await this._results.read();
+    const summary = new BettererSummaryΩ(runs, result, expected);
     this._summaries.push(summary);
     await this._reporter.runsEnd(summary, filePaths);
     return summary;
   }
 
-  public async end(): Promise<void> {
+  public async end(write: boolean): Promise<void> {
     assert(this._summaries);
     this._lifecycle.resolve(this._summaries);
     await this._reporter.contextEnd(this, this._summaries);
+    if (write) {
+      const last = this._summaries[this._summaries.length - 1];
+      await this._results.write(last.result);
+    }
   }
 
   public async error(error: BettererError): Promise<void> {
     this._lifecycle.reject(error);
     await this._reporter.contextError(this, error);
-  }
-
-  public async save(): Promise<void> {
-    const summary = this._summaries[this._summaries.length - 1];
-    assert(summary);
-    await this._results.write(summary.result);
   }
 
   private _initTests(): BettererTestMap {

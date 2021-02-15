@@ -12,21 +12,18 @@ export {
 } from './config/public';
 export {
   BettererContext,
+  BettererProgress,
   BettererRun,
   BettererRunNames,
   BettererRuns,
   BettererSummary,
   BettererSummaries
 } from './context/public';
-export {
-  BettererResult,
-  BettererResultValue,
-  BettererResultValueBasic,
-  BettererResultValueComplex
-} from './results/public';
+export { BettererResult } from './results/public';
 export { BettererReporter } from './reporters/public';
 export { BettererFilePaths, BettererRunner, BettererRunHandler } from './runner/public';
 export {
+  BettererCounter,
   BettererDeserialise,
   BettererDiff,
   BettererDiffer,

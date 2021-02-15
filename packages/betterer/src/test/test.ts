@@ -1,10 +1,9 @@
-import { BettererResultValue } from '../results';
 import { createTestConfig } from './config';
 import { BettererTestBase, BettererTestConfig, BettererTestConfigPartial } from './types';
 
 const IS_BETTERER_TEST = 'isBettererTest';
 
-export class BettererTest<DeserialisedType extends BettererResultValue, SerialisedType, DiffType>
+export class BettererTest<DeserialisedType, SerialisedType, DiffType>
   implements BettererTestBase<DeserialisedType, SerialisedType, DiffType> {
   public readonly isBettererTest = IS_BETTERER_TEST;
 

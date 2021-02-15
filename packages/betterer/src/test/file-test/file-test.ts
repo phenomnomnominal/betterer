@@ -2,6 +2,7 @@ import { BettererRun } from '../../context';
 import { createTestConfig } from '../config';
 import { BettererTestBase, BettererTestConfig, BettererTestFunction } from '../types';
 import { constraint } from './constraint';
+import { counter } from './counter';
 import { differ } from './differ';
 import { BettererFileResolver } from './file-resolver';
 import { BettererFileTestResultΩ } from './file-test-result';
@@ -37,7 +38,8 @@ export class BettererFileTest
 
       serialiser: { deserialise, serialise },
       differ,
-      printer
+      printer,
+      counter
     }) as BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff>;
   }
 
@@ -86,7 +88,7 @@ function createTest(
     await fileTest(relevantFilePaths, files);
 
     if (filePaths.length && !run.isNew) {
-      const expectedΩ = run.expected.result as BettererFileTestResultΩ;
+      const expectedΩ = run.expected.value as BettererFileTestResultΩ;
 
       // Get any filePaths that have expected issues but weren't included in this run:
       const excludedFilesWithIssues = expectedΩ.files

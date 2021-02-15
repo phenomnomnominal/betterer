@@ -5,8 +5,8 @@ import { BettererReporterΩ } from '../reporters';
 import { BettererResult } from '../results';
 import { BettererFilePaths } from '../runner';
 import { BettererDiff, BettererTestConfig } from '../test';
-import { Defer, defer } from '../utils';
-import { BettererRun } from './types';
+import { Defer, defer, isNumber } from '../utils';
+import { BettererProgress, BettererRun } from './types';
 
 enum BettererRunStatus {
   better,
@@ -24,6 +24,7 @@ export class BettererRunΩ implements BettererRun {
   private _diff: BettererDiff | null = null;
   private _lifecycle: Defer<void>;
   private _result: BettererResult | null = null;
+  private _progress: BettererProgress | null = null;
   private _status: BettererRunStatus;
   private _timestamp: number | null = null;
 
@@ -36,6 +37,7 @@ export class BettererRunΩ implements BettererRun {
     private readonly _name: string,
     private readonly _test: BettererTestConfig,
     private readonly _expected: BettererResult,
+    private readonly _baseline: BettererResult,
     private readonly _filePaths: BettererFilePaths,
     isSkipped: boolean,
     isObsolete: boolean
@@ -64,6 +66,10 @@ export class BettererRunΩ implements BettererRun {
 
   public get filePaths(): BettererFilePaths {
     return this._filePaths;
+  }
+
+  public get progress(): BettererProgress | null {
+    return this._progress;
   }
 
   public get timestamp(): number {
@@ -130,6 +136,29 @@ export class BettererRunΩ implements BettererRun {
   }
 
   public async end(): Promise<void> {
+    // This is a bit complex, but hopefully it makes sense:
+    //
+    // Result                      | Baseline                 | Formula                | Progress % |
+    // ---------------------------------------------------------------------------------------------
+    // 50                          | new test (set to Result) | (1 - (50 / 50)) * 100  | 0%
+    // 99                          | 100                      | (1 - (99 / 100)) * 100 | 1%
+    // 42                          | 60                       | (1 - (42 / 60)) * 100  | 30%
+    // 20                          | 15                       | (1 - (20 / 15)) * 100  | -33.33%
+    const hasBaseline = !this._baseline.isNew;
+    const hasResult = !!this._result;
+    const hasGoal = this._test.goal;
+    if (hasResult && hasGoal) {
+      const resultIssues = await this._test.counter((this._result as BettererResult).value);
+      const baselineIssues = hasBaseline ? await this._test.counter(this._baseline.value) : resultIssues;
+      if (isNumber(resultIssues) && isNumber(baselineIssues)) {
+        this._progress = {
+          baseline: baselineIssues,
+          result: resultIssues,
+          percentage: (1 - resultIssues / baselineIssues) * 100
+        };
+      }
+    }
+
     this._lifecycle.resolve();
     await this._reporter.runEnd(this);
   }
@@ -162,12 +191,12 @@ export class BettererRunΩ implements BettererRun {
 
   public update(result: BettererResult): void {
     this._updateResult(BettererRunStatus.update, result);
-    this._diff = this.test.differ(this.expected.result, this.result.result);
+    this._diff = this.test.differ(this.expected.value, this.result.value);
   }
 
   public worse(result: BettererResult): void {
     this._updateResult(BettererRunStatus.worse, result);
-    this._diff = this.test.differ(this.expected.result, this.result.result);
+    this._diff = this.test.differ(this.expected.value, this.result.value);
   }
 
   private _updateResult(status: BettererRunStatus, result: BettererResult, isComplete = false) {

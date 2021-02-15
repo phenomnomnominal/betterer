@@ -40,7 +40,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 2 tests running...
-✅ gets completed: \\"gets completed\\" got checked for the first time! 🎉
+✅ gets completed: \\"gets completed\\" got checked for the first time!(was: 0, now: 0) 🎉
 🤔 already completed: running \\"already completed\\"!
 
 ",
@@ -52,7 +52,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 2 tests running...
-✅ gets completed: \\"gets completed\\" got checked for the first time! 🎉
+✅ gets completed: \\"gets completed\\" got checked for the first time!(was: 0, now: 0) 🎉
 ✅ already completed: \\"already completed\\" has already met its goal! ✨
 
 ",
@@ -64,7 +64,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running... 1 test done!
-✅ gets completed: \\"gets completed\\" got checked for the first time! 🎉
+✅ gets completed: \\"gets completed\\" got checked for the first time!(was: 0, now: 0) 🎉
 ✅ already completed: \\"already completed\\" has already met its goal! ✨
 
 ",
@@ -76,7 +76,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 2 tests done!
-✅ gets completed: \\"gets completed\\" got checked for the first time! 🎉
+✅ gets completed: \\"gets completed\\" got checked for the first time!(was: 0, now: 0) 🎉
 ✅ already completed: \\"already completed\\" has already met its goal! ✨
 
 ",
@@ -88,7 +88,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 2 tests done!
-✅ gets completed: \\"gets completed\\" got checked for the first time! 🎉
+✅ gets completed: \\"gets completed\\" got checked for the first time!(was: 0, now: 0) 🎉
 ✅ already completed: \\"already completed\\" has already met its goal! ✨
 
 2 tests got checked. 🤔
@@ -134,7 +134,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 2 tests running...
-✅ gets completed: \\"gets completed\\" got better! 😍
+✅ gets completed: \\"gets completed\\" got better! (was: 0, now: 1, -Infinity% better) 😍
 🤔 already completed: running \\"already completed\\"!
 
 ",
@@ -146,7 +146,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 2 tests running...
-✅ gets completed: \\"gets completed\\" got better! 😍
+✅ gets completed: \\"gets completed\\" got better! (was: 0, now: 1, -Infinity% better) 😍
 ✅ already completed: \\"already completed\\" has already met its goal! ✨
 
 ",
@@ -158,7 +158,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running... 1 test done!
-✅ gets completed: \\"gets completed\\" got better! 😍
+✅ gets completed: \\"gets completed\\" got better! (was: 0, now: 1, -Infinity% better) 😍
 ✅ already completed: \\"already completed\\" has already met its goal! ✨
 
 ",
@@ -170,7 +170,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 2 tests done!
-✅ gets completed: \\"gets completed\\" got better! 😍
+✅ gets completed: \\"gets completed\\" got better! (was: 0, now: 1, -Infinity% better) 😍
 ✅ already completed: \\"already completed\\" has already met its goal! ✨
 
 ",
@@ -182,7 +182,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 2 tests done!
-✅ gets completed: \\"gets completed\\" got better! 😍
+✅ gets completed: \\"gets completed\\" got better! (was: 0, now: 1, -Infinity% better) 😍
 ✅ already completed: \\"already completed\\" has already met its goal! ✨
 
 2 tests got checked. 🤔

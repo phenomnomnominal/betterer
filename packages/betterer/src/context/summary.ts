@@ -1,8 +1,11 @@
+import assert from 'assert';
+import { getConfig } from '../config';
+
+import { BettererRunsΩ } from './run';
 import { BettererRuns, BettererSummary } from './types';
-import { BettererRunΩ } from './run';
 
 export class BettererSummaryΩ implements BettererSummary {
-  constructor(private _runs: BettererRuns, private _result: string, private _expected: string | null) {}
+  constructor(private _runs: BettererRunsΩ, private _result: string, private _expected: string | null = null) {}
 
   public get runs(): BettererRuns {
     return this._runs;
@@ -16,8 +19,10 @@ export class BettererSummaryΩ implements BettererSummary {
     return this._expected;
   }
 
-  public get hasDiff(): boolean {
-    return !!this._expected;
+  public get unexpectedDiff(): boolean {
+    assert(this._result);
+    const config = getConfig();
+    return !config.allowDiff && this._expected !== this._result;
   }
 
   public get completed(): BettererRuns {
@@ -37,10 +42,7 @@ export class BettererSummaryΩ implements BettererSummary {
   }
 
   public get new(): BettererRuns {
-    return this._runs.filter((run) => {
-      const runΩ = run as BettererRunΩ;
-      return runΩ.isNew && runΩ.isRan;
-    });
+    return this._runs.filter((run) => run.isNew && run.isRan);
   }
 
   public get obsolete(): BettererRuns {
@@ -48,10 +50,7 @@ export class BettererSummaryΩ implements BettererSummary {
   }
 
   public get ran(): BettererRuns {
-    return this._runs.filter((run) => {
-      const runΩ = run as BettererRunΩ;
-      return runΩ.isRan;
-    });
+    return this._runs.filter((run) => run.isRan);
   }
 
   public get same(): BettererRuns {

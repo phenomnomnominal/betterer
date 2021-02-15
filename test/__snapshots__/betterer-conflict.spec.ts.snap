@@ -39,7 +39,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ no raw console calls: \\"no raw console calls\\" stayed the same. 😐
+✅ no raw console calls: \\"no raw console calls\\" stayed the same.(was: 1, now: 1) 😐
 
 ",
   "
@@ -50,7 +50,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ no raw console calls: \\"no raw console calls\\" stayed the same. 😐
+✅ no raw console calls: \\"no raw console calls\\" stayed the same.(was: 1, now: 1) 😐
 
 ",
   "
@@ -61,7 +61,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ no raw console calls: \\"no raw console calls\\" stayed the same. 😐
+✅ no raw console calls: \\"no raw console calls\\" stayed the same.(was: 1, now: 1) 😐
 
 1 test got checked. 🤔
 1 test stayed the same. 😐

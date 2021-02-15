@@ -11,12 +11,19 @@ export type BettererContext = {
   readonly lifecycle: Promise<BettererSummaries>;
 };
 
+export type BettererProgress = {
+  baseline: number;
+  result: number;
+  percentage: number;
+};
+
 export type BettererRun = {
   readonly diff: BettererDiff;
   readonly expected: BettererResult;
   readonly filePaths: BettererFilePaths;
   readonly lifecycle: Promise<void>;
   readonly name: string;
+  readonly progress: BettererProgress | null;
   readonly result: BettererResult;
   readonly test: BettererTestConfig;
   readonly timestamp: number;
@@ -37,7 +44,7 @@ export type BettererSummary = {
   readonly runs: BettererRuns;
   readonly result: string;
   readonly expected: string | null;
-  readonly hasDiff: boolean;
+  readonly unexpectedDiff: boolean;
 
   readonly better: BettererRuns;
   readonly completed: BettererRuns;
@@ -51,4 +58,5 @@ export type BettererSummary = {
   readonly updated: BettererRuns;
   readonly worse: BettererRuns;
 };
+
 export type BettererSummaries = Array<BettererSummary>;

@@ -64,8 +64,7 @@ export class BettererWatcherΩ implements BettererWatcher {
     if (this._running) {
       await this._handleRun(this._running);
       const contextΩ = this._context as BettererContextΩ;
-      await contextΩ.end();
-      await contextΩ.save();
+      await contextΩ.end(true);
     }
   }
 
