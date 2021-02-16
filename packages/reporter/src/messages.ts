@@ -1,7 +1,7 @@
-import { BettererProgress } from '@betterer/betterer';
+import { BettererDelta } from '@betterer/betterer';
 
-export function testBetter(context: string, progress?: BettererProgress | null): string {
-  return `${context} got better!${getBetterProgress(progress)} 😍`;
+export function testBetter(context: string, delta?: BettererDelta | null): string {
+  return `${context} got better!${getBetterProgress(delta)} 😍`;
 }
 export function testChecked(context: string): string {
   return `${context} got checked. 🤔`;
@@ -15,8 +15,8 @@ export function testExpired(context: string): string {
 export function testFailed(context: string): string {
   return `${context} failed to run. 🔥`;
 }
-export function testNew(context: string, progress?: BettererProgress | null): string {
-  return `${context} got checked for the first time!${getRemaining(progress)} 🎉`;
+export function testNew(context: string, delta?: BettererDelta | null): string {
+  return `${context} got checked for the first time!${getRemaining(delta)} 🎉`;
 }
 export function testObsolete(context: string): string {
   return `${context} no longer needed! 🤪`;
@@ -24,17 +24,17 @@ export function testObsolete(context: string): string {
 export function testRunning(context: string): string {
   return `running ${context}!`;
 }
-export function testSame(context: string, progress?: BettererProgress | null): string {
-  return `${context} stayed the same.${getRemaining(progress)} 😐`;
+export function testSame(context: string, delta?: BettererDelta | null): string {
+  return `${context} stayed the same.${getRemaining(delta)} 😐`;
 }
-export function testSkipped(context: string, progress?: BettererProgress | null): string {
-  return `${context} got skipped.${getRemaining(progress)} 🚫`;
+export function testSkipped(context: string, delta?: BettererDelta | null): string {
+  return `${context} got skipped.${getRemaining(delta)} 🚫`;
 }
-export function testUpdated(context: string, progress?: BettererProgress | null): string {
-  return `${context} got force updated.${getWorseProgress(progress)} 🆙`;
+export function testUpdated(context: string, delta?: BettererDelta | null): string {
+  return `${context} got force updated.${getWorseProgress(delta)} 🆙`;
 }
-export function testWorse(context: string, progress?: BettererProgress | null): string {
-  return `${context} got worse.${getWorseProgress(progress)} 😔`;
+export function testWorse(context: string, delta?: BettererDelta | null): string {
+  return `${context} got worse.${getWorseProgress(delta)} 😔`;
 }
 
 export function updateInstructions(): string {
@@ -67,33 +67,34 @@ function getFiles(count: number): string {
 
 const formatter = Intl.NumberFormat();
 
-function getRemaining(progress?: BettererProgress | null): string {
-  if (!progress) {
+function getRemaining(delta?: BettererDelta | null): string {
+  if (!delta) {
     return '';
   }
-  return ` (${getDiff(progress)})`;
+  const { baseline, diff, result } = delta;
+  return ` (${getDiff(result, baseline, diff)})`;
 }
 
-function getBetterProgress(progress?: BettererProgress | null): string {
-  if (!progress) {
+function getBetterProgress(delta?: BettererDelta | null): string {
+  if (!delta || !delta.diff) {
     return '';
   }
-  const { percentage } = progress;
-  return ` (${getDiff(progress)}, ${percentage.toFixed(2)}% better)`;
+  const { baseline, diff, percentage, result } = delta;
+  return ` (${getDiff(result, baseline, diff)}, ${percentage.toFixed(2)}% better)`;
 }
 
-function getWorseProgress(progress?: BettererProgress | null): string {
-  if (!progress) {
+function getWorseProgress(delta?: BettererDelta | null): string {
+  if (!delta || !delta.diff) {
     return '';
   }
-  const { percentage } = progress;
-  return ` (${getDiff(progress)}, ${(-percentage).toFixed(2)}% worse`;
+  const { baseline, diff, percentage, result } = delta;
+  return ` (${getDiff(result, baseline, diff)}, ${(-percentage).toFixed(2)}% worse`;
 }
 
-function getDiff(progress?: BettererProgress | null): string {
-  if (!progress) {
-    return '';
+function getDiff(result: number, baseline: number | null, diff: number | null): string {
+  if (!baseline || !diff || diff === 0) {
+    return `now: ${formatter.format(result)}`;
   }
-  const { baseline, result } = progress;
-  return ` was: ${formatter.format(baseline)}, now: ${formatter.format(result)}`;
+  const sign = diff > 0 ? '+' : '';
+  return `was: ${formatter.format(baseline)}, now: ${formatter.format(result)}, diff: ${sign}${formatter.format(diff)}`;
 }

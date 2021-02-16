@@ -33,32 +33,32 @@ export function getTasks(runs: BettererRuns): BettererTasks {
 
           await run.lifecycle;
 
-          const { progress } = run;
+          const { delta } = run;
           if (run.isComplete) {
             return testComplete(name, run.isNew);
           }
           if (run.isBetter) {
-            return testBetter(name, progress);
+            return testBetter(name, delta);
           }
           if (run.isFailed) {
             throw new BettererError(testFailed(name));
           }
           if (run.isNew) {
-            return testNew(name, progress);
+            return testNew(name, delta);
           }
           if (run.isSkipped) {
-            return testSkipped(name, progress);
+            return testSkipped(name, delta);
           }
           if (run.isSame) {
-            return testSame(name, progress);
+            return testSame(name, delta);
           }
           if (run.isUpdated) {
             await run.diff.log(logger);
-            return testUpdated(name, progress);
+            return testUpdated(name, delta);
           }
           if (run.isWorse) {
             await run.diff.log(logger);
-            throw new BettererError(testWorse(name, progress));
+            throw new BettererError(testWorse(name, delta));
           }
           return;
         }

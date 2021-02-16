@@ -2,12 +2,12 @@ import { BettererRun } from '../../context';
 import { createTestConfig } from '../config';
 import { BettererTestBase, BettererTestConfig, BettererTestFunction } from '../types';
 import { constraint } from './constraint';
-import { counter } from './counter';
 import { differ } from './differ';
 import { BettererFileResolver } from './file-resolver';
 import { BettererFileTestResultΩ } from './file-test-result';
 import { goal } from './goal';
 import { printer } from './printer';
+import { progress } from './progress';
 import { deserialise, serialise } from './serialiser';
 import {
   BettererFileGlobs,
@@ -39,7 +39,7 @@ export class BettererFileTest
       serialiser: { deserialise, serialise },
       differ,
       printer,
-      counter
+      progress
     }) as BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff>;
   }
 

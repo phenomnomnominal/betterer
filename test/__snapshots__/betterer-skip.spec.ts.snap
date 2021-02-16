@@ -65,7 +65,7 @@ Array [
 
 🌟 Betterer (0ms): 1 test running... 1 test done!
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
-✅ test 2: \\"test 2\\" got checked for the first time!(was: 1, now: 1) 🎉
+✅ test 2: \\"test 2\\" got checked for the first time! 🎉
 
 ",
   "
@@ -77,7 +77,7 @@ Array [
 
 🎉 Betterer (0ms): 2 tests done!
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
-✅ test 2: \\"test 2\\" got checked for the first time!(was: 1, now: 1) 🎉
+✅ test 2: \\"test 2\\" got checked for the first time! 🎉
 
 ",
   "
@@ -89,7 +89,7 @@ Array [
 
 🎉 Betterer (0ms): 2 tests done!
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
-✅ test 2: \\"test 2\\" got checked for the first time!(was: 1, now: 1) 🎉
+✅ test 2: \\"test 2\\" got checked for the first time! 🎉
 
 2 tests got checked. 🤔
 2 tests got checked for the first time! 🎉

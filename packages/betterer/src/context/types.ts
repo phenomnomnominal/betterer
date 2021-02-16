@@ -11,8 +11,9 @@ export type BettererContext = {
   readonly lifecycle: Promise<BettererSummaries>;
 };
 
-export type BettererProgress = {
+export type BettererDelta = {
   baseline: number;
+  diff: number;
   result: number;
   percentage: number;
 };
@@ -23,7 +24,7 @@ export type BettererRun = {
   readonly filePaths: BettererFilePaths;
   readonly lifecycle: Promise<void>;
   readonly name: string;
-  readonly progress: BettererProgress | null;
+  readonly delta: BettererDelta | null;
   readonly result: BettererResult;
   readonly test: BettererTestConfig;
   readonly timestamp: number;

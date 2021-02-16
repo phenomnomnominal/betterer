@@ -14,11 +14,11 @@ export {
 } from './file-test/public';
 export { BettererTest } from './test';
 export {
-  BettererCounter,
   BettererDeserialise,
   BettererDiff,
   BettererDiffer,
   BettererPrinter,
+  BettererProgress,
   BettererSerialise,
   BettererSerialiser,
   BettererTestConstraint,

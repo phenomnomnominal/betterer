@@ -12,7 +12,7 @@ export {
 } from './config/public';
 export {
   BettererContext,
-  BettererProgress,
+  BettererDelta,
   BettererRun,
   BettererRunNames,
   BettererRuns,
@@ -23,7 +23,6 @@ export { BettererResult } from './results/public';
 export { BettererReporter } from './reporters/public';
 export { BettererFilePaths, BettererRunner, BettererRunHandler } from './runner/public';
 export {
-  BettererCounter,
   BettererDeserialise,
   BettererDiff,
   BettererDiffer,
@@ -40,6 +39,7 @@ export {
   BettererFileTestDiff,
   BettererFileIssues,
   BettererPrinter,
+  BettererProgress,
   BettererSerialise,
   BettererSerialiser,
   BettererTest,

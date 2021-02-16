@@ -51,7 +51,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ regexp no hack comments: \\"regexp no hack comments\\" got checked for the first time!(was: 1, now: 1) 🎉
+✅ regexp no hack comments: \\"regexp no hack comments\\" got checked for the first time! 🎉
 
 ",
   "
@@ -62,7 +62,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ regexp no hack comments: \\"regexp no hack comments\\" got checked for the first time!(was: 1, now: 1) 🎉
+✅ regexp no hack comments: \\"regexp no hack comments\\" got checked for the first time! 🎉
 
 ",
   "
@@ -73,7 +73,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ regexp no hack comments: \\"regexp no hack comments\\" got checked for the first time!(was: 1, now: 1) 🎉
+✅ regexp no hack comments: \\"regexp no hack comments\\" got checked for the first time! 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
@@ -116,7 +116,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ regexp no hack comments: \\"regexp no hack comments\\" stayed the same.(was: 1, now: 1) 😐
+✅ regexp no hack comments: \\"regexp no hack comments\\" stayed the same. (now: 1) 😐
 
 ",
   "
@@ -127,7 +127,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ regexp no hack comments: \\"regexp no hack comments\\" stayed the same.(was: 1, now: 1) 😐
+✅ regexp no hack comments: \\"regexp no hack comments\\" stayed the same. (now: 1) 😐
 
 ",
   "
@@ -138,7 +138,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ regexp no hack comments: \\"regexp no hack comments\\" stayed the same.(was: 1, now: 1) 😐
+✅ regexp no hack comments: \\"regexp no hack comments\\" stayed the same. (now: 1) 😐
 
 1 test got checked. 🤔
 1 test stayed the same. 😐
@@ -233,7 +233,7 @@ Array [
 ・ > 2 | // HACK:
 ・     | ^^^^^^^ RegExp match
 ・
-🔥 regexp no hack comments: \\"regexp no hack comments\\" got worse. (was: 1, now: 2, 100.00% worse 😔
+🔥 regexp no hack comments: \\"regexp no hack comments\\" got worse. (was: 1, now: 2, diff: -1, 100.00% worse 😔
 
 ",
   "
@@ -244,7 +244,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-🔥 regexp no hack comments: \\"regexp no hack comments\\" got worse. (was: 1, now: 2, 100.00% worse 😔
+🔥 regexp no hack comments: \\"regexp no hack comments\\" got worse. (was: 1, now: 2, diff: -1, 100.00% worse 😔
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-regexp/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-regexp/src/index.ts\\":
 ・
@@ -254,7 +254,7 @@ Array [
 ・     | ^^^^^^^ RegExp match
 ・
 
-Error: \\"regexp no hack comments\\" got worse. (was: 1, now: 2, 100.00% worse 😔
+Error: \\"regexp no hack comments\\" got worse. (was: 1, now: 2, diff: -1, 100.00% worse 😔
 
 ",
   "
@@ -265,7 +265,7 @@ Error: \\"regexp no hack comments\\" got worse. (was: 1, now: 2, 100.00% worse �
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 regexp no hack comments: \\"regexp no hack comments\\" got worse. (was: 1, now: 2, 100.00% worse 😔
+🔥 regexp no hack comments: \\"regexp no hack comments\\" got worse. (was: 1, now: 2, diff: -1, 100.00% worse 😔
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-regexp/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-regexp/src/index.ts\\":
 ・
@@ -275,7 +275,7 @@ Error: \\"regexp no hack comments\\" got worse. (was: 1, now: 2, 100.00% worse �
 ・     | ^^^^^^^ RegExp match
 ・
 
-Error: \\"regexp no hack comments\\" got worse. (was: 1, now: 2, 100.00% worse 😔
+Error: \\"regexp no hack comments\\" got worse. (was: 1, now: 2, diff: -1, 100.00% worse 😔
 
 ",
   "
@@ -286,7 +286,7 @@ Error: \\"regexp no hack comments\\" got worse. (was: 1, now: 2, 100.00% worse �
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 regexp no hack comments: \\"regexp no hack comments\\" got worse. (was: 1, now: 2, 100.00% worse 😔
+🔥 regexp no hack comments: \\"regexp no hack comments\\" got worse. (was: 1, now: 2, diff: -1, 100.00% worse 😔
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-regexp/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-regexp/src/index.ts\\":
 ・
@@ -296,7 +296,7 @@ Error: \\"regexp no hack comments\\" got worse. (was: 1, now: 2, 100.00% worse �
 ・     | ^^^^^^^ RegExp match
 ・
 
-Error: \\"regexp no hack comments\\" got worse. (was: 1, now: 2, 100.00% worse 😔
+Error: \\"regexp no hack comments\\" got worse. (was: 1, now: 2, diff: -1, 100.00% worse 😔
 
 1 test got checked. 🤔
 1 test got worse. 😔

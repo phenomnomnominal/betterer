@@ -29,14 +29,12 @@ export function createTestConfig<DeserialisedType, SerialisedType, DiffType>(
     return {
       ...config,
       deadline,
-      printer: config.printer || defaultPrinter,
-      counter: config.counter || defaultCounter
+      printer: config.printer || defaultPrinter
     } as BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
   }
 
   return {
     ...config,
-    counter: defaultCounter,
     differ: defaultDiffer,
     printer: defaultPrinter,
     serialiser: {
@@ -78,18 +76,6 @@ function isComplex<DeserialisedType, SerialisedType, DiffType>(
 ): config is BettererTestConfigComplexPartial<DeserialisedType, SerialisedType, DiffType> {
   const maybeComplex = config as BettererTestConfigComplexPartial<DeserialisedType, SerialisedType, DiffType>;
   return !!(maybeComplex.differ && maybeComplex.serialiser);
-}
-
-function defaultCounter(deserialised: unknown): number | null {
-  if (Array.isArray(deserialised)) {
-    return deserialised.length;
-  }
-  if (deserialised instanceof Map || deserialised instanceof Set) {
-    return deserialised.size;
-  }
-  // If there isn't a sensible size of the deserialised result
-  // assume it isn't countable:
-  return null;
 }
 
 export function defaultDiffer(expected: unknown, result: unknown): BettererDiff<unknown, null> {

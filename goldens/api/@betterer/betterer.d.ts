@@ -43,7 +43,7 @@ export declare type BettererContext = {
     readonly lifecycle: Promise<BettererSummaries>;
 };
 
-export declare type BettererProgress<DeserialisedType> = (deserialised: DeserialisedType) => MaybeAsync<number>;
+export declare type BettererProgress<DeserialisedType> = (deserialised: DeserialisedType) => MaybeAsync<BettererDelta | null>;
 
 export declare type BettererDeserialise<DeserialisedType, SerialisedType> = (serialised: SerialisedType) => DeserialisedType;
 

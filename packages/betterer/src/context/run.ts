@@ -5,8 +5,8 @@ import { BettererReporterΩ } from '../reporters';
 import { BettererResult } from '../results';
 import { BettererFilePaths } from '../runner';
 import { BettererDiff, BettererTestConfig } from '../test';
-import { Defer, defer, isNumber } from '../utils';
-import { BettererProgress, BettererRun } from './types';
+import { Defer, defer } from '../utils';
+import { BettererDelta, BettererRun } from './types';
 
 enum BettererRunStatus {
   better,
@@ -24,7 +24,7 @@ export class BettererRunΩ implements BettererRun {
   private _diff: BettererDiff | null = null;
   private _lifecycle: Defer<void>;
   private _result: BettererResult | null = null;
-  private _progress: BettererProgress | null = null;
+  private _delta: BettererDelta | null = null;
   private _status: BettererRunStatus;
   private _timestamp: number | null = null;
 
@@ -68,8 +68,8 @@ export class BettererRunΩ implements BettererRun {
     return this._filePaths;
   }
 
-  public get progress(): BettererProgress | null {
-    return this._progress;
+  public get delta(): BettererDelta | null {
+    return this._delta;
   }
 
   public get timestamp(): number {
@@ -136,27 +136,10 @@ export class BettererRunΩ implements BettererRun {
   }
 
   public async end(): Promise<void> {
-    // This is a bit complex, but hopefully it makes sense:
-    //
-    // Result                      | Baseline                 | Formula                | Progress % |
-    // ---------------------------------------------------------------------------------------------
-    // 50                          | new test (set to Result) | (1 - (50 / 50)) * 100  | 0%
-    // 99                          | 100                      | (1 - (99 / 100)) * 100 | 1%
-    // 42                          | 60                       | (1 - (42 / 60)) * 100  | 30%
-    // 20                          | 15                       | (1 - (20 / 15)) * 100  | -33.33%
-    const hasBaseline = !this._baseline.isNew;
-    const hasResult = !!this._result;
-    const hasGoal = this._test.goal;
-    if (hasResult && hasGoal) {
-      const resultIssues = await this._test.counter((this._result as BettererResult).value);
-      const baselineIssues = hasBaseline ? await this._test.counter(this._baseline.value) : resultIssues;
-      if (isNumber(resultIssues) && isNumber(baselineIssues)) {
-        this._progress = {
-          baseline: baselineIssues,
-          result: resultIssues,
-          percentage: (1 - resultIssues / baselineIssues) * 100
-        };
-      }
+    if (this._test.progress) {
+      const baselineValue = this._baseline.isNew ? null : this._baseline.value;
+      const resultValue = !this._result ? null : this._result.value;
+      this._delta = await this._test.progress(baselineValue, resultValue);
     }
 
     this._lifecycle.resolve();

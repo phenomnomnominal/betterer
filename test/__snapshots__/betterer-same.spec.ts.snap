@@ -63,7 +63,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time!(was: 1, now: 1) 🎉
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
 
 ",
   "
@@ -74,7 +74,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time!(was: 1, now: 1) 🎉
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
 
 ",
   "
@@ -85,7 +85,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time!(was: 1, now: 1) 🎉
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
@@ -128,7 +128,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same.(was: 1, now: 1) 😐
+✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. (now: 1) 😐
 
 ",
   "
@@ -139,7 +139,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same.(was: 1, now: 1) 😐
+✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. (now: 1) 😐
 
 ",
   "
@@ -150,7 +150,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same.(was: 1, now: 1) 😐
+✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. (now: 1) 😐
 
 1 test got checked. 🤔
 1 test stayed the same. 😐
@@ -222,7 +222,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time!(was: 1, now: 1) 🎉
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
 
 ",
   "
@@ -233,7 +233,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time!(was: 1, now: 1) 🎉
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
 
 ",
   "
@@ -244,7 +244,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time!(was: 1, now: 1) 🎉
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
@@ -287,7 +287,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same.(was: 1, now: 1) 😐
+✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. (now: 1) 😐
 
 ",
   "
@@ -298,7 +298,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same.(was: 1, now: 1) 😐
+✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. (now: 1) 😐
 
 ",
   "
@@ -309,7 +309,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same.(was: 1, now: 1) 😐
+✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. (now: 1) 😐
 
 1 test got checked. 🤔
 1 test stayed the same. 😐
@@ -383,7 +383,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time!(was: 2, now: 2) 🎉
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
 
 ",
   "
@@ -394,7 +394,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time!(was: 2, now: 2) 🎉
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
 
 ",
   "
@@ -405,7 +405,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time!(was: 2, now: 2) 🎉
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
@@ -448,7 +448,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same.(was: 2, now: 2) 😐
+✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. (now: 2) 😐
 
 ",
   "
@@ -459,7 +459,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same.(was: 2, now: 2) 😐
+✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. (now: 2) 😐
 
 ",
   "
@@ -470,7 +470,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same.(was: 2, now: 2) 😐
+✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. (now: 2) 😐
 
 1 test got checked. 🤔
 1 test stayed the same. 😐
