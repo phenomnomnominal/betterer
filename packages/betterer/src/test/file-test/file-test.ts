@@ -1,5 +1,6 @@
 import { BettererRun } from '../../context';
 import { createTestConfig } from '../config';
+import { BettererTestType } from '../type';
 import { BettererTestBase, BettererTestConfig, BettererTestFunction } from '../types';
 import { constraint } from './constraint';
 import { differ } from './differ';
@@ -18,29 +19,24 @@ import {
   BettererFileTestResult
 } from './types';
 
-const IS_BETTERER_FILE_TEST = 'isBettererFileTest';
-const IS_BETTERER_TEST = 'isBettererTest';
-
 export class BettererFileTest
   implements BettererTestBase<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff> {
-  public readonly isBettererFileTest = IS_BETTERER_FILE_TEST;
-  public readonly isBettererTest = IS_BETTERER_TEST;
-
   private _config: BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff>;
   private _isOnly = false;
   private _isSkipped = false;
 
   constructor(private _resolver: BettererFileResolver, fileTest: BettererFileTestFunction) {
-    this._config = createTestConfig({
-      test: createTest(_resolver, fileTest),
-      constraint,
-      goal,
-
-      serialiser: { deserialise, serialise },
-      differ,
-      printer,
-      progress
-    }) as BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff>;
+    this._config = createTestConfig(
+      {
+        test: createTest(_resolver, fileTest),
+        constraint,
+        goal,
+        serialiser: { deserialise, serialise },
+        differ,
+        printer
+      },
+      BettererTestType.File
+    ) as BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff>;
   }
 
   public get config(): BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff> {
@@ -105,8 +101,4 @@ function createTest(
     }
     return files;
   };
-}
-
-export function isBettererFileTest(test: unknown): test is BettererFileTest {
-  return (test as BettererFileTest)?.isBettererFileTest === IS_BETTERER_FILE_TEST;
 }

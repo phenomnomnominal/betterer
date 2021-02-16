@@ -13,8 +13,8 @@ import {
   BettererTestMap,
   BettererTestConfigMap,
   BettererTestConfigPartial,
-  isBettererFileTest,
-  isBettererTest
+  isBettererFileTestΔ,
+  isBettererTestΔ
 } from '../test';
 import { BettererRunΩ } from './run';
 import { BettererSummaryΩ } from './summary';
@@ -57,7 +57,7 @@ export class BettererContextΩ implements BettererContext {
         .filter((name) => {
           const test = this._tests[name];
           // Only run BettererFileTests when a list of filePaths is given:
-          return !filePaths.length || isBettererFileTest(test);
+          return !filePaths.length || isBettererFileTestΔ(test);
         })
         .map(async (name) => {
           const test = this._tests[name];
@@ -118,7 +118,7 @@ export class BettererContextΩ implements BettererContext {
       Object.keys(testOptions).forEach((name) => {
         const maybeTest = testOptions[name];
         let test: BettererTestBase | null = null;
-        if (!isBettererTest(maybeTest)) {
+        if (!isBettererTestΔ(maybeTest)) {
           test = new BettererTest(testOptions[name] as BettererTestConfigPartial);
         } else {
           test = maybeTest;
