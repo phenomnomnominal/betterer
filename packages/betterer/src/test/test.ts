@@ -1,18 +1,17 @@
+import { isNumber } from '../utils';
 import { createTestConfig } from './config';
+import { BettererTestType } from './type';
 import { BettererTestBase, BettererTestConfig, BettererTestConfigPartial } from './types';
-
-const IS_BETTERER_TEST = 'isBettererTest';
 
 export class BettererTest<DeserialisedType, SerialisedType, DiffType>
   implements BettererTestBase<DeserialisedType, SerialisedType, DiffType> {
-  public readonly isBettererTest = IS_BETTERER_TEST;
-
   private _config: BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
   private _isOnly = false;
   private _isSkipped = false;
 
   constructor(config: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>) {
-    this._config = createTestConfig(config) as BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
+    const type = isNumber(config.goal) ? BettererTestType.Number : BettererTestType.Unknown;
+    this._config = createTestConfig(config, type) as BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
   }
 
   public get config(): BettererTestConfig<DeserialisedType, SerialisedType, DiffType> {
@@ -36,8 +35,4 @@ export class BettererTest<DeserialisedType, SerialisedType, DiffType>
     this._isSkipped = true;
     return this;
   }
-}
-
-export function isBettererTest(test: unknown): test is BettererTestBase {
-  return (test as BettererTestBase)?.isBettererTest === IS_BETTERER_TEST;
 }

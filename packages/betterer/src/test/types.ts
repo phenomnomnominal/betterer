@@ -3,6 +3,7 @@ import { BettererLogger } from '@betterer/logger';
 
 import { BettererRun } from '../context';
 import { MaybeAsync } from '../types';
+import { BettererTestType } from './type';
 
 export type BettererTestFunction<DeserialisedType> = (run: BettererRun) => MaybeAsync<DeserialisedType>;
 
@@ -65,10 +66,10 @@ export type BettererTestConfig<DeserialisedType = unknown, SerialisedType = Dese
   differ: BettererDiffer<DeserialisedType, DiffType>;
   printer: BettererPrinter<SerialisedType>;
   serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
+  type: BettererTestType;
 };
 
 export interface BettererTestBase<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> {
-  isBettererTest: 'isBettererTest';
   config: BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
   isOnly: boolean;
   isSkipped: boolean;
