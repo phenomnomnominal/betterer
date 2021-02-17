@@ -44,6 +44,9 @@
     "ts-node": "^9.0.0",
     "tslib": "^2.0.3"
   },
+  "optionalDependencies": {
+    "typescript": ">=2.7"
+  },
   "devDependencies": {
     "@types/callsite": "^1.0.30",
     "@types/prettier": "^1.12.0"

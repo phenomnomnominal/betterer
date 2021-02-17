@@ -1,4 +1,3 @@
-import { eslint } from '@betterer/eslint';
 import { regexp } from '@betterer/regexp';
 
 export default {
