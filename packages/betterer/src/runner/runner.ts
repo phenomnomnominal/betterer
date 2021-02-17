@@ -21,7 +21,7 @@ export class BettererRunnerΩ implements BettererRunner {
     let reporter = loadReporters([DEFAULT_REPORTER]);
     try {
       config = await createConfig(partialConfig);
-      registerExtensions(config);
+      await registerExtensions(config);
       if (config.silent) {
         reporter = loadReporters([]);
       }
