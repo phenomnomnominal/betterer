@@ -3,12 +3,11 @@ import { workerRequire, WorkerModule } from '@phenomnomnominal/worker-require';
 import * as path from 'path';
 import React, { FC } from 'react';
 
-import { BettererCLIInitConfig } from '../types';
-
 const createTestFile = workerRequire<WorkerModule<typeof import('./create-test-file')>>('./create-test-file');
 const updatePackageJSON = workerRequire<WorkerModule<typeof import('./update-package-json')>>('./update-package-json');
 
-export type InitProps = BettererCLIInitConfig & {
+export type InitProps = {
+  config: string;
   cwd: string;
 };
 

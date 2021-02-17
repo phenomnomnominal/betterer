@@ -1,6 +1,6 @@
 export declare type BettererCLIArguments = Array<string>;
 
-export declare type BettererCLICIConfig = BettererCLIEnvConfig & {
+export declare type BettererCLIBaseConfig = {
     config: BettererCLIArguments;
     filter: BettererCLIArguments;
     reporter: BettererCLIArguments;
@@ -9,21 +9,26 @@ export declare type BettererCLICIConfig = BettererCLIEnvConfig & {
     tsconfig: string;
 };
 
-export declare type BettererCLIInitConfig = {
+export declare type BettererCLICIConfig = BettererCLIEnvConfig & BettererCLIBaseConfig & {
+    allowUpdate: false;
+    update: false;
+};
+
+export declare type BettererCLIEnvConfig = {
+    debug: boolean;
+    debugLog: string;
+};
+
+export declare type BettererCLIInitConfig = BettererCLIEnvConfig & {
     config: string;
 };
 
-export declare type BettererCLIStartConfig = BettererCLIEnvConfig & {
-    config: BettererCLIArguments;
-    filter: BettererCLIArguments;
-    reporter: BettererCLIArguments;
-    results: string;
-    silent: boolean;
-    tsconfig: string;
+export declare type BettererCLIStartConfig = BettererCLIEnvConfig & BettererCLIBaseConfig & {
+    allowUpdate: boolean;
     update: boolean;
 };
 
-export declare type BettererCLIWatchConfig = BettererCLIStartConfig & {
+export declare type BettererCLIWatchConfig = BettererCLIEnvConfig & BettererCLIBaseConfig & {
     ignore: BettererCLIArguments;
 };
 

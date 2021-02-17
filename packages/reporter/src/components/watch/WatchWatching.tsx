@@ -35,7 +35,7 @@ export const WatchWatching: FC<WatchWatchingProps> = memo(function WatchWatching
         </>
       ) : null}
       <Runs runs={runs} />
-      <RunSummary summary={summary} />
+      <RunSummary context={context} summary={summary} />
       <WatchInstructions />
     </>
   );

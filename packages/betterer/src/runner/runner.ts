@@ -100,7 +100,7 @@ export class BettererRunnerΩ implements BettererRunner {
         await Promise.all(
           runs.map(async (run) => {
             const runΩ = run as BettererRunΩ;
-            await this._runTest(runΩ, config.update);
+            await this._runTest(runΩ, config.update && config.allowUpdate);
             await runΩ.end();
           })
         );

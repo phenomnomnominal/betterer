@@ -8,6 +8,7 @@ export type BettererConfigReporters = ReadonlyArray<BettererConfigReporter>;
 
 export type BettererConfig = {
   allowDiff: boolean;
+  allowUpdate: boolean;
   configPaths: BettererConfigPaths;
   cwd: string;
   filters: BettererConfigFilters;
@@ -33,6 +34,7 @@ export type BettererBaseConfigPartial = Partial<{
 export type BettererStartConfigPartial = BettererBaseConfigPartial &
   Partial<{
     allowDiff: boolean;
+    allowUpdate: boolean;
     update: boolean;
     watch: false;
   }>;

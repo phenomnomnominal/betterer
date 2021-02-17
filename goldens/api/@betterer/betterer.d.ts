@@ -16,6 +16,7 @@ export declare type BettererBaseConfigPartial = Partial<{
 
 export declare type BettererConfig = {
     allowDiff: boolean;
+    allowUpdate: boolean;
     configPaths: BettererConfigPaths;
     cwd: string;
     filters: BettererConfigFilters;
@@ -193,6 +194,7 @@ export declare type BettererSerialiser<DeserialisedType, SerialisedType = Deseri
 
 export declare type BettererStartConfigPartial = BettererBaseConfigPartial & Partial<{
     allowDiff: boolean;
+    allowUpdate: boolean;
     update: boolean;
     watch: false;
 }>;
