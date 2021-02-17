@@ -12,7 +12,16 @@ import { BettererExpectedResults, BettererResult } from './types';
 const RESULTS_HEADER = `// BETTERER RESULTS V2.`;
 
 export class BettererResultsΩ {
+  private _baseline: BettererExpectedResults | null = null;
+
   constructor(private _resultsPath: string) {}
+
+  public async getBaseline(name: string, test: BettererTestConfig): Promise<BettererResult> {
+    if (!this._baseline) {
+      this._baseline = await parse(this._resultsPath);
+    }
+    return this._getResult(name, test, this._baseline);
+  }
 
   public async getExpectedNames(): Promise<Array<string>> {
     const results = await parse(this._resultsPath);

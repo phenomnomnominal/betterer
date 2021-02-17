@@ -1,4 +1,3 @@
-import { isNumber } from '../utils';
 import { createTestConfig } from './config';
 import { BettererTestType } from './type';
 import { BettererTestBase, BettererTestConfig, BettererTestConfigPartial } from './types';
@@ -10,8 +9,11 @@ export class BettererTest<DeserialisedType, SerialisedType, DiffType>
   private _isSkipped = false;
 
   constructor(config: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>) {
-    const type = isNumber(config.goal) ? BettererTestType.Number : BettererTestType.Unknown;
-    this._config = createTestConfig(config, type) as BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
+    this._config = createTestConfig(config, BettererTestType.Unknown) as BettererTestConfig<
+      DeserialisedType,
+      SerialisedType,
+      DiffType
+    >;
   }
 
   public get config(): BettererTestConfig<DeserialisedType, SerialisedType, DiffType> {

@@ -43,6 +43,16 @@ export declare type BettererContext = {
     readonly lifecycle: Promise<BettererSummaries>;
 };
 
+export declare type BettererDelta = {
+    baseline: number;
+    diff: number;
+    result: number;
+} | {
+    baseline: null;
+    diff: 0;
+    result: number;
+};
+
 export declare type BettererDeserialise<DeserialisedType, SerialisedType> = (serialised: SerialisedType) => DeserialisedType;
 
 export declare type BettererDiff<DeserialisedType = unknown, DiffType = null> = {
@@ -121,6 +131,8 @@ export declare type BettererFileTestResult = {
 
 export declare type BettererPrinter<SerialisedType> = (serialised: SerialisedType) => MaybeAsync<string>;
 
+export declare type BettererProgress<DeserialisedType> = (baseline: DeserialisedType | null, result: DeserialisedType | null) => MaybeAsync<BettererDelta | null>;
+
 export declare type BettererReporter = {
     configError?(config: BettererConfigPartial, error: BettererError): Promise<void> | void;
     contextStart?(context: BettererContext, lifecycle: Promise<BettererSummaries>): Promise<void> | void;
@@ -144,6 +156,7 @@ export declare type BettererRun = {
     readonly filePaths: BettererFilePaths;
     readonly lifecycle: Promise<void>;
     readonly name: string;
+    readonly delta: BettererDelta | null;
     readonly result: BettererResult;
     readonly test: BettererTestConfig;
     readonly timestamp: number;
@@ -220,6 +233,7 @@ export declare type BettererTestConfig<DeserialisedType = unknown, SerialisedTyp
     test: BettererTestFunction<DeserialisedType>;
     differ: BettererDiffer<DeserialisedType, DiffType>;
     printer: BettererPrinter<SerialisedType>;
+    progress: BettererProgress<DeserialisedType> | null;
     serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
     type: BettererTestType;
 };
@@ -235,11 +249,7 @@ export declare type BettererWatchConfigPartial = BettererBaseConfigPartial & Par
     watch: true;
 }>;
 
-export declare function isBettererFileTestΔ(testOrConfig: BettererFileTest | BettererTestBase | BettererTestConfig): testOrConfig is BettererFileTest;
-
-export declare function isBettererNumberTestΔ(testOrConfig: BettererTestBase | BettererTestConfig): testOrConfig is BettererTestBase;
-
-export declare function isBettererTestΔ(testOrConfig: BettererTestBase | BettererTestConfigPartial): testOrConfig is BettererTestBase;
+export declare function isBettererFileTestΔ(testOrConfig: unknown): testOrConfig is BettererFileTest;
 
 export declare function runner(partialConfig?: BettererBaseConfigPartial): Promise<BettererRunner>;
 

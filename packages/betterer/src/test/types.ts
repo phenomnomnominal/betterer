@@ -2,6 +2,7 @@ import { BettererConstraintResult } from '@betterer/constraints';
 import { BettererLogger } from '@betterer/logger';
 
 import { BettererRun } from '../context';
+import { BettererDelta } from '../context/types';
 import { MaybeAsync } from '../types';
 import { BettererTestType } from './type';
 
@@ -28,6 +29,11 @@ export type BettererDiffer<DeserialisedType, DiffType> = (
 
 export type BettererPrinter<SerialisedType> = (serialised: SerialisedType) => MaybeAsync<string>;
 
+export type BettererProgress<DeserialisedType> = (
+  baseline: DeserialisedType | null,
+  result: DeserialisedType | null
+) => MaybeAsync<BettererDelta | null>;
+
 export type BettererSerialise<DeserialisedType, SerialisedType> = (result: DeserialisedType) => SerialisedType;
 
 export type BettererDeserialise<DeserialisedType, SerialisedType> = (serialised: SerialisedType) => DeserialisedType;
@@ -49,6 +55,7 @@ export type BettererTestConfigComplexPartial<DeserialisedType, SerialisedType, D
   test: BettererTestFunction<DeserialisedType>;
   differ: BettererDiffer<DeserialisedType, DiffType>;
   printer?: BettererPrinter<SerialisedType>;
+  progress?: BettererProgress<DeserialisedType>;
   serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
   goal: DeserialisedType | BettererTestGoal<DeserialisedType>;
   deadline?: Date | string;
@@ -65,6 +72,7 @@ export type BettererTestConfig<DeserialisedType = unknown, SerialisedType = Dese
   test: BettererTestFunction<DeserialisedType>;
   differ: BettererDiffer<DeserialisedType, DiffType>;
   printer: BettererPrinter<SerialisedType>;
+  progress: BettererProgress<DeserialisedType> | null;
   serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
   type: BettererTestType;
 };

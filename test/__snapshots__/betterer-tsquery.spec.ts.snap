@@ -51,7 +51,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! (1 issue) 🎉
 
 ",
   "
@@ -62,7 +62,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! (1 issue) 🎉
 
 ",
   "
@@ -73,7 +73,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! (1 issue) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
@@ -116,7 +116,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" stayed the same. 😐
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" stayed the same. (1 issue) 😐
 
 ",
   "
@@ -127,7 +127,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" stayed the same. 😐
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" stayed the same. (1 issue) 😐
 
 ",
   "
@@ -138,7 +138,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" stayed the same. 😐
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" stayed the same. (1 issue) 😐
 
 1 test got checked. 🤔
 1 test stayed the same. 😐
@@ -233,7 +233,7 @@ Array [
 ・ > 2 | console.log('foo');
 ・     | ^^^^^^^^^^^ TSQuery match
 ・
-🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. 😔
+🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. (1 new issue, 2 total) 😔
 
 ",
   "
@@ -244,7 +244,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. 😔
+🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-tsquery/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-tsquery/src/index.ts\\":
 ・
@@ -254,7 +254,7 @@ Array [
 ・     | ^^^^^^^^^^^ TSQuery match
 ・
 
-Error: \\"tsquery no raw console.log\\" got worse. 😔
+Error: \\"tsquery no raw console.log\\" got worse. (1 new issue, 2 total) 😔
 
 ",
   "
@@ -265,7 +265,7 @@ Error: \\"tsquery no raw console.log\\" got worse. 😔
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. 😔
+🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-tsquery/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-tsquery/src/index.ts\\":
 ・
@@ -275,7 +275,7 @@ Error: \\"tsquery no raw console.log\\" got worse. 😔
 ・     | ^^^^^^^^^^^ TSQuery match
 ・
 
-Error: \\"tsquery no raw console.log\\" got worse. 😔
+Error: \\"tsquery no raw console.log\\" got worse. (1 new issue, 2 total) 😔
 
 ",
   "
@@ -286,7 +286,7 @@ Error: \\"tsquery no raw console.log\\" got worse. 😔
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. 😔
+🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-tsquery/src/index.ts\\".
 ・ 1 new issue in \\"<project>/fixtures/test-betterer-tsquery/src/index.ts\\":
 ・
@@ -296,7 +296,7 @@ Error: \\"tsquery no raw console.log\\" got worse. 😔
 ・     | ^^^^^^^^^^^ TSQuery match
 ・
 
-Error: \\"tsquery no raw console.log\\" got worse. 😔
+Error: \\"tsquery no raw console.log\\" got worse. (1 new issue, 2 total) 😔
 
 1 test got checked. 🤔
 1 test got worse. 😔

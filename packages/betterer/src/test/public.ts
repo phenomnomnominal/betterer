@@ -13,12 +13,13 @@ export {
   BettererFileIssues
 } from './file-test/public';
 export { BettererTest } from './test';
-export { isBettererFileTestΔ, isBettererNumberTestΔ, isBettererTestΔ } from './type';
+export { isBettererFileTestΔ } from './type';
 export {
   BettererDeserialise,
   BettererDiff,
   BettererDiffer,
   BettererPrinter,
+  BettererProgress,
   BettererSerialise,
   BettererSerialiser,
   BettererTestConstraint,

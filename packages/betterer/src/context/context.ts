@@ -14,7 +14,7 @@ import {
   BettererTestConfigMap,
   BettererTestConfigPartial,
   isBettererFileTestΔ,
-  isBettererTestΔ
+  isBettererTest
 } from '../test';
 import { BettererRunΩ } from './run';
 import { BettererSummaryΩ } from './summary';
@@ -63,9 +63,9 @@ export class BettererContextΩ implements BettererContext {
           const test = this._tests[name];
           const { isSkipped, config } = test;
           const isObsolete = obsolete.includes(name);
+          const baseline = await this._results.getBaseline(name, config);
           const expected = await this._results.getExpectedResult(name, config);
-          const expectedΩ = expected;
-          return new BettererRunΩ(this._reporter, name, config, expectedΩ, filePaths, isSkipped, isObsolete);
+          return new BettererRunΩ(this._reporter, name, config, expected, baseline, filePaths, isSkipped, isObsolete);
         })
     );
     await this._reporter.runsStart(runs, filePaths);
@@ -116,12 +116,12 @@ export class BettererContextΩ implements BettererContext {
       const testOptions = requireUncached<BettererTestConfigMap>(configPath);
       const tests: BettererTestMap = {};
       Object.keys(testOptions).forEach((name) => {
-        const maybeTest = testOptions[name];
+        const testOrConfig = testOptions[name];
         let test: BettererTestBase | null = null;
-        if (!isBettererTestΔ(maybeTest)) {
+        if (!isBettererTest(testOrConfig)) {
           test = new BettererTest(testOptions[name] as BettererTestConfigPartial);
         } else {
-          test = maybeTest;
+          test = testOrConfig;
         }
         tests[name] = test;
       });

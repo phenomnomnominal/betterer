@@ -6,7 +6,7 @@ import { BettererResult } from '../results';
 import { BettererFilePaths } from '../runner';
 import { BettererDiff, BettererTestConfig } from '../test';
 import { Defer, defer } from '../utils';
-import { BettererRun } from './types';
+import { BettererDelta, BettererRun } from './types';
 
 enum BettererRunStatus {
   better,
@@ -24,6 +24,7 @@ export class BettererRunΩ implements BettererRun {
   private _diff: BettererDiff | null = null;
   private _lifecycle: Defer<void>;
   private _result: BettererResult | null = null;
+  private _delta: BettererDelta | null = null;
   private _status: BettererRunStatus;
   private _timestamp: number | null = null;
 
@@ -36,6 +37,7 @@ export class BettererRunΩ implements BettererRun {
     private readonly _name: string,
     private readonly _test: BettererTestConfig,
     private readonly _expected: BettererResult,
+    private readonly _baseline: BettererResult,
     private readonly _filePaths: BettererFilePaths,
     isSkipped: boolean,
     isObsolete: boolean
@@ -64,6 +66,10 @@ export class BettererRunΩ implements BettererRun {
 
   public get filePaths(): BettererFilePaths {
     return this._filePaths;
+  }
+
+  public get delta(): BettererDelta | null {
+    return this._delta;
   }
 
   public get timestamp(): number {
@@ -130,6 +136,12 @@ export class BettererRunΩ implements BettererRun {
   }
 
   public async end(): Promise<void> {
+    if (this._test.progress) {
+      const baselineValue = this._baseline.isNew ? null : this._baseline.value;
+      const resultValue = !this._result ? null : this._result.value;
+      this._delta = await this._test.progress(baselineValue, resultValue);
+    }
+
     this._lifecycle.resolve();
     await this._reporter.runEnd(this);
   }

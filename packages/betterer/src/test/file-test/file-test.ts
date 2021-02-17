@@ -8,6 +8,7 @@ import { BettererFileResolver } from './file-resolver';
 import { BettererFileTestResultΩ } from './file-test-result';
 import { goal } from './goal';
 import { printer } from './printer';
+import { progress } from './progress';
 import { deserialise, serialise } from './serialiser';
 import {
   BettererFileGlobs,
@@ -32,7 +33,8 @@ export class BettererFileTest
         goal,
         serialiser: { deserialise, serialise },
         differ,
-        printer
+        printer,
+        progress
       },
       BettererTestType.File
     ) as BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff>;

@@ -15,6 +15,7 @@ import {
   testWorse
 } from '../../messages';
 import { quote } from '../../utils';
+import { getDelta } from './deltas';
 
 const TASK_RUNNER_CACHE = new Map<BettererRuns, BettererTasks>();
 
@@ -33,31 +34,33 @@ export function getTasks(runs: BettererRuns): BettererTasks {
 
           await run.lifecycle;
 
+          const delta = getDelta(run);
+
           if (run.isComplete) {
             return testComplete(name, run.isNew);
           }
           if (run.isBetter) {
-            return testBetter(name);
+            return testBetter(name, delta);
           }
           if (run.isFailed) {
             throw new BettererError(testFailed(name));
           }
           if (run.isNew) {
-            return testNew(name);
+            return testNew(name, delta);
           }
           if (run.isSkipped) {
-            return testSkipped(name);
+            return testSkipped(name, delta);
           }
           if (run.isSame) {
-            return testSame(name);
+            return testSame(name, delta);
           }
           if (run.isUpdated) {
             await run.diff.log(logger);
-            return testUpdated(name);
+            return testUpdated(name, delta);
           }
           if (run.isWorse) {
             await run.diff.log(logger);
-            throw new BettererError(testWorse(name));
+            throw new BettererError(testWorse(name, delta));
           }
           return;
         }

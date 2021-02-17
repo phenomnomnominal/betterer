@@ -12,6 +12,7 @@ export {
 } from './config/public';
 export {
   BettererContext,
+  BettererDelta,
   BettererRun,
   BettererRunNames,
   BettererRuns,
@@ -38,6 +39,7 @@ export {
   BettererFileTestDiff,
   BettererFileIssues,
   BettererPrinter,
+  BettererProgress,
   BettererSerialise,
   BettererSerialiser,
   BettererTest,
@@ -45,7 +47,5 @@ export {
   BettererTestFunction,
   BettererTestGoal,
   BettererTestConfig,
-  isBettererFileTestΔ,
-  isBettererNumberTestΔ,
-  isBettererTestΔ
+  isBettererFileTestΔ
 } from './test/public';

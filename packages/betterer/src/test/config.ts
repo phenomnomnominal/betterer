@@ -25,20 +25,17 @@ export function createTestConfig<DeserialisedType, SerialisedType, DiffType>(
   }
 
   const deadline = createDeadline(config);
+  const goal = createGoal(config);
 
   if (isComplex(config)) {
-    if (config.goal == null) {
-      throw new BettererError('for a test to work, it must have a `goal` function. ❌');
-    }
     return {
-      ...config,
-      deadline,
       printer: config.printer || defaultPrinter,
+      ...config,
+      goal,
+      deadline,
       type
     } as BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
   }
-
-  const goal = createGoal(config);
 
   return {
     ...config,
@@ -55,9 +52,9 @@ export function createTestConfig<DeserialisedType, SerialisedType, DiffType>(
 }
 
 function createDeadline<DeserialisedType, SerialisedType, DiffType>(
-  options: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>
+  config: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>
 ): number {
-  const { deadline } = options;
+  const { deadline } = config;
   if (deadline == null) {
     return Infinity;
   }
@@ -66,13 +63,13 @@ function createDeadline<DeserialisedType, SerialisedType, DiffType>(
 }
 
 function createGoal<DeserialisedType, SerialisedType, DiffType>(
-  options: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>
+  config: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>
 ): BettererTestGoal<DeserialisedType> {
-  const hasGoal = Object.hasOwnProperty.call(options, 'goal');
+  const hasGoal = Object.hasOwnProperty.call(config, 'goal');
   if (!hasGoal) {
-    return (): boolean => false;
+    return () => false;
   }
-  const { goal } = options;
+  const { goal } = config;
   if (isFunction<BettererTestGoal<DeserialisedType>>(goal)) {
     return goal;
   }
