@@ -68,11 +68,11 @@ export type BettererTestConfigPartial<DeserialisedType = unknown, SerialisedType
 export type BettererTestConfig<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> = {
   constraint: BettererTestConstraint<DeserialisedType>;
   deadline: number;
-  goal?: BettererTestGoal<DeserialisedType>;
+  goal: BettererTestGoal<DeserialisedType>;
   test: BettererTestFunction<DeserialisedType>;
   differ: BettererDiffer<DeserialisedType, DiffType>;
   printer: BettererPrinter<SerialisedType>;
-  progress?: BettererProgress<DeserialisedType>;
+  progress: BettererProgress<DeserialisedType> | null;
   serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
   type: BettererTestType;
 };

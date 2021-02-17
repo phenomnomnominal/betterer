@@ -1,0 +1,1 @@
+export { getDelta } from './delta';

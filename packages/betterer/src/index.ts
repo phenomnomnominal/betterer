@@ -47,7 +47,5 @@ export {
   BettererTestFunction,
   BettererTestGoal,
   BettererTestConfig,
-  isBettererFileTestΔ,
-  isBettererNumberTestΔ,
-  isBettererTestΔ
+  isBettererFileTestΔ
 } from './test/public';

@@ -14,7 +14,7 @@ export {
   BettererFileResolver
 } from './file-test';
 export { BettererTest } from './test';
-export { BettererTestType, isBettererFileTestΔ, isBettererNumberTestΔ, isBettererTestΔ } from './type';
+export { BettererTestType, isBettererFileTestΔ, isBettererTest } from './type';
 export {
   BettererDeserialise,
   BettererDiff,
@@ -30,5 +30,7 @@ export {
   BettererTestMap,
   BettererTestConfigMap,
   BettererTestConfigPartial,
+  BettererTestConfigBasicPartial,
+  BettererTestConfigComplexPartial,
   BettererTestConfig
 } from './types';

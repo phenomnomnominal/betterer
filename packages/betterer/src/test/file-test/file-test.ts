@@ -33,7 +33,8 @@ export class BettererFileTest
         goal,
         serialiser: { deserialise, serialise },
         differ,
-        printer
+        printer,
+        progress
       },
       BettererTestType.File
     ) as BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff>;

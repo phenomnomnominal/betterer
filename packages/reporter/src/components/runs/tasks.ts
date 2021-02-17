@@ -15,6 +15,7 @@ import {
   testWorse
 } from '../../messages';
 import { quote } from '../../utils';
+import { getDelta } from './deltas';
 
 const TASK_RUNNER_CACHE = new Map<BettererRuns, BettererTasks>();
 
@@ -33,7 +34,8 @@ export function getTasks(runs: BettererRuns): BettererTasks {
 
           await run.lifecycle;
 
-          const { delta } = run;
+          const delta = getDelta(run);
+
           if (run.isComplete) {
             return testComplete(name, run.isNew);
           }

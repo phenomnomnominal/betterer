@@ -130,7 +130,7 @@ export class BettererRunnerΩ implements BettererRunner {
     }
     runΩ.ran();
 
-    const goalComplete = test.goal ? await test.goal(result.value) : false;
+    const goalComplete = await test.goal(result.value);
 
     if (runΩ.isNew) {
       runΩ.new(result, goalComplete);

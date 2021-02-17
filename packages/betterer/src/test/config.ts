@@ -29,9 +29,10 @@ export function createTestConfig<DeserialisedType, SerialisedType, DiffType>(
 
   if (isComplex(config)) {
     return {
-      ...config,
-      deadline,
       printer: config.printer || defaultPrinter,
+      ...config,
+      goal,
+      deadline,
       type
     } as BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
   }
@@ -51,9 +52,9 @@ export function createTestConfig<DeserialisedType, SerialisedType, DiffType>(
 }
 
 function createDeadline<DeserialisedType, SerialisedType, DiffType>(
-  options: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>
+  config: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>
 ): number {
-  const { deadline } = options;
+  const { deadline } = config;
   if (deadline == null) {
     return Infinity;
   }
@@ -62,13 +63,13 @@ function createDeadline<DeserialisedType, SerialisedType, DiffType>(
 }
 
 function createGoal<DeserialisedType, SerialisedType, DiffType>(
-  options: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>
-): BettererTestGoal<DeserialisedType> | null {
-  const hasGoal = Object.hasOwnProperty.call(options, 'goal');
+  config: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>
+): BettererTestGoal<DeserialisedType> {
+  const hasGoal = Object.hasOwnProperty.call(config, 'goal');
   if (!hasGoal) {
-    return null;
+    return () => false;
   }
-  const { goal } = options;
+  const { goal } = config;
   if (isFunction<BettererTestGoal<DeserialisedType>>(goal)) {
     return goal;
   }

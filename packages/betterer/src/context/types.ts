@@ -11,12 +11,17 @@ export type BettererContext = {
   readonly lifecycle: Promise<BettererSummaries>;
 };
 
-export type BettererDelta = {
-  baseline: number;
-  diff: number;
-  result: number;
-  percentage: number;
-};
+export type BettererDelta =
+  | {
+      baseline: number;
+      diff: number;
+      result: number;
+    }
+  | {
+      baseline: null;
+      diff: 0;
+      result: number;
+    };
 
 export type BettererRun = {
   readonly diff: BettererDiff;
