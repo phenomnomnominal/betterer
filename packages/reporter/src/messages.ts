@@ -36,7 +36,7 @@ export function testWorse(context: string, delta = ''): string {
 }
 
 export function updateInstructions(): string {
-  return `Run \`betterer --update\` to force an update of the results file. 🆙`;
+  return `You should try to fix the new issues! As a last resort, you can run \`betterer --update\` to force an update of the results file. 🆙`;
 }
 
 export function unexpectedDiff(): string {

@@ -102,4 +102,59 @@ export default {
 
     await cleanup();
   });
+
+  it('should stay worse if an update is not allowed', async () => {
+    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture(
+      'test-betterer-update',
+      {
+        '.betterer.ts': `
+import { tsquery } from '@betterer/tsquery';
+
+export default {
+  'tsquery no raw console.log': tsquery(
+    './tsconfig.json',
+    'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
+  )
+};      
+      `,
+        'tsconfig.json': `
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["esnext"],
+    "moduleResolution": "node",
+    "target": "ES5",
+    "typeRoots": ["../../node_modules/@types/"],
+    "resolveJsonModule": true
+  },
+  "include": ["./src/**/*", ".betterer.ts"]
+}      
+      `
+      }
+    );
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+    const indexPath = resolve('./src/index.ts');
+
+    await writeFile(indexPath, `console.log('foo');`);
+
+    const newTestRun = await betterer({ configPaths, resultsPath });
+
+    expect(runNames(newTestRun.new)).toEqual(['tsquery no raw console.log']);
+
+    await writeFile(indexPath, `console.log('foo');\nconsole.log('foo');`);
+
+    const blockedTestRun = await betterer({ configPaths, resultsPath, update: true, allowUpdate: false });
+
+    expect(runNames(blockedTestRun.worse)).toEqual(['tsquery no raw console.log']);
+
+    const result = await readFile(resultsPath);
+
+    expect(result).toMatchSnapshot();
+
+    expect(logs).toMatchSnapshot();
+
+    await cleanup();
+  });
 });

@@ -17,6 +17,7 @@ let globalConfig: BettererConfig | null = null;
 export async function createConfig(partialConfig: BettererConfigPartial = {}): Promise<BettererConfig> {
   const relativeConfig = {
     allowDiff: (partialConfig as BettererStartConfigPartial).allowDiff ?? true,
+    allowUpdate: (partialConfig as BettererStartConfigPartial).allowUpdate ?? true,
     configPaths: partialConfig.configPaths ? toArray<string>(partialConfig.configPaths) : ['./.betterer'],
     cwd: partialConfig.cwd || process.cwd(),
     filters: toRegExps(toArray<string | RegExp>(partialConfig.filters)),
@@ -53,6 +54,7 @@ export function getConfig(): BettererConfig {
 
 function validateConfig(config: BettererConfig): void {
   validateBool('allowDiff', config.allowDiff);
+  validateBool('allowUpdate', config.allowUpdate);
   validateBool('silent', config.silent);
   validateBool('update', config.update);
   validateString('cwd', config.cwd);

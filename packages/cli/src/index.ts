@@ -4,10 +4,12 @@ export { initΔ } from './init';
 export { startΔ } from './start';
 export { watchΔ } from './watch';
 export {
-  BettererCLICIConfig,
-  BettererCLIArguments,
+  BettererCLIEnvConfig,
   BettererCLIInitConfig,
+  BettererCLIBaseConfig,
   BettererCLIStartConfig,
+  BettererCLICIConfig,
   BettererCLIWatchConfig,
+  BettererCLIArguments,
   BettererPackageJSON
 } from './types';

@@ -1,6 +1,6 @@
 import React, { FC, memo } from 'react';
 
-import { BettererSummary } from '@betterer/betterer';
+import { BettererContext, BettererSummary } from '@betterer/betterer';
 import { diffΔ } from '@betterer/logger';
 import { Box, Text, TextProps } from 'ink';
 
@@ -22,6 +22,7 @@ import {
 import { quote } from '../../utils';
 
 export type RunSummaryProps = {
+  context: BettererContext;
   summary: BettererSummary;
 };
 
@@ -40,7 +41,7 @@ const TEXT_COLOURS: Record<string, TextProps['color']> = {
   worse: 'red'
 };
 
-export const RunSummary: FC<RunSummaryProps> = memo(function RunSummary({ summary }) {
+export const RunSummary: FC<RunSummaryProps> = memo(function RunSummary({ context, summary }) {
   const better = summary.better.length;
   const failed = summary.failed.length;
   const neww = summary.new.length;
@@ -81,7 +82,7 @@ export const RunSummary: FC<RunSummaryProps> = memo(function RunSummary({ summar
             <Box paddingBottom={1}>
               <Text color={TEXT_COLOURS.worse}>{testWorse(tests(worse))}</Text>
             </Box>
-            <Text>{updateInstructions()}</Text>
+            {context.config.allowUpdate && <Text>{updateInstructions()}</Text>}
           </>
         ) : null}
       </Box>

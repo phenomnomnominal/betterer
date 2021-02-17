@@ -301,7 +301,7 @@ Error: \\"tsquery no raw console.log\\" got worse. (1 new issue, 2 total) 😔
 1 test got checked. 🤔
 1 test got worse. 😔
 
-Run \`betterer --update\` to force an update of the results file. 🆙
+You should try to fix the new issues! As a last resort, you can run \`betterer --update\` to force an update of the results file. 🆙
 
 ",
   "

@@ -20,7 +20,7 @@ export function ciOptions(argv: BettererCLIArguments): BettererCLICIConfig {
 
 export function initOptions(argv: BettererCLIArguments): BettererCLIInitConfig {
   configPathOption();
-  return (commander.parse(argv) as unknown) as BettererCLIInitConfig;
+  return setEnv<BettererCLIInitConfig>(argv);
 }
 
 export function startOptions(argv: BettererCLIArguments): BettererCLIStartConfig {
@@ -29,6 +29,7 @@ export function startOptions(argv: BettererCLIArguments): BettererCLIStartConfig
   tsconfigPathOption();
   filtersOption();
   silentOption();
+  allowUpdateOption();
   updateOption();
   reportersOption();
   return setEnv<BettererCLIStartConfig>(argv);
@@ -40,7 +41,6 @@ export function watchOptions(argv: BettererCLIArguments): BettererCLIWatchConfig
   tsconfigPathOption();
   filtersOption();
   silentOption();
-  updateOption();
   reportersOption();
   ignoresOption();
   return setEnv<BettererCLIWatchConfig>(argv);
@@ -98,12 +98,20 @@ function reportersOption(): void {
   );
 }
 
+function handleBool(val: string) {
+  return val !== 'false';
+}
+
 function silentOption(): void {
-  commander.option('-s, --silent', 'Disable all default reporters. Custom reporters still work normally.');
+  commander.option('-s, --silent [true|false]', 'Disable all default reporters. Custom reporters still work normally.');
+}
+
+function allowUpdateOption(): void {
+  commander.option('--allow-update [true|false]', 'Whether to allow the `--update` option or not.', handleBool);
 }
 
 function updateOption(): void {
-  commander.option('-u, --update', 'Force update the results file, even if things get worse');
+  commander.option('-u, --update [true|false]', 'Force update the results file, even if things get worse', handleBool);
 }
 
 function argsToArray(value: string, previous: BettererCLIArguments = []): BettererCLIArguments {

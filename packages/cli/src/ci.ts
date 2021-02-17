@@ -9,6 +9,7 @@ export function ciΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererS
 
   return betterer({
     allowDiff: false,
+    allowUpdate: false,
     configPaths: config,
     cwd,
     filters: filter,
