@@ -1,9 +1,3 @@
-console['log'] = (): void => {
-  //
-};
-
-Date['now'] = function (): number {
-  return 0;
-}.bind(Date);
+import '@betterer/fixture';
 
 jest.setTimeout(200000);

@@ -1,7 +1,7 @@
 {
   "name": "@betterer/errors",
   "description": "error handler for @betterer/betterer",
-  "version": "2.0.1",
+  "version": "3.1.1",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -21,9 +21,10 @@
     "url": "https://github.com/phenomnomnominal/betterer/issues"
   },
   "scripts": {
-    "compile": "tsc -b ."
+    "compile": "tsc -b .",
+    "api": "ts-api-guardian --out ../../goldens/api/@betterer/errors.d.ts dist/index.d.ts"
   },
-  "dependencies": {
-    "@betterer/logger": "^2.0.1"
+  "engines": {
+    "node": ">=12"
   }
 }

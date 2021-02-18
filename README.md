@@ -63,8 +63,8 @@ betterer
 **`Betterer`** will run your test the first time, and store a snapshot of the result in a new file called `.betterer.results`.
 
 ```js
-// BETTERER RESULTS V1.
-exports[`thing to improve`] = { timestamp: 1569148039311, value: `5` };
+// BETTERER RESULTS V2.
+exports[`thing to improve`] = { value: `5` };
 ```
 
 The next step is to add **`Betterer`** to your build pipeline. Whenever your code builds, **`Betterer`** will run the test again and make sure the result hasn't got worse. If it gets better, then the `.betterer.results` file will be updated with the new value, which you can then commit to your codebase!
@@ -136,12 +136,12 @@ export default {
 
 ## Custom tests
 
-It's also pretty straightforward to write your own custom tests. All you need to do is match the **`BettererTestOptions`** interface, which looks something like:
+It's also pretty straightforward to write your own custom tests. All you need to do is match the **`BettererTestConfigPartial`** interface, which looks something like:
 
 ```typescript
-export type BettererTestOptions<T = number> = {
+export type BettererTestConfigPartial<T = number> = {
   test: () => T | Promise<T>;
-  constraint: (result: T, expected: T) => ConstraintResult | Promise<ConstraintResult>;
+  constraint: (result: T, expected: T) => BettererConstraintResult | Promise<BettererConstraintResult>;
   goal?: T | (result: T) => boolean;
   deadline?: Date;
 };
@@ -183,12 +183,24 @@ betterer -c ./path/to/config -r ./path/to/results -w
 
 #### Start options
 
-| Name                      | Description                                             | Default               |
-| ------------------------- | ------------------------------------------------------- | --------------------- |
-| `-c`, `--config` [value]  | Path to test definition file relative to CWD            | `./.betterer.ts`      |
-| `-r`, `--results` [value] | Path to test results file relative to CWD               | `./.betterer.results` |
-| `-f`, `--filter` [value]  | Select tests to run by RegExp. Takes multiple values    | `[.*]`                |
-| `-u`, `--update`          | Force update the results file, even if things get worse | `false`               |
+| Name                           | Description                                                                 | Default               |
+| ------------------------------ | --------------------------------------------------------------------------- | --------------------- |
+| `-c`, `--config` [value]       | Path to test definition file relative to CWD. Takes multiple values         | `./.betterer.ts`      |
+| `-r`, `--results` [value]      | Path to test results file relative to CWD                                   | `./.betterer.results` |
+| `-t`, `--tsconfig` [value]     | Path to TypeScript config file relative to CWD                              | `null`                |
+| `-f`, `--filter` [value]       | Select tests to run by RegExp. Takes multiple values                        | `[]`                  |
+| `-s`, `--silent [true\|false]` | Disable all default reporters. Custom reporters still work normally         | `false`               |
+| `-u`, `--update [true\|false]` | Force update the results file, even if things get worse                     | `false`               |
+| `--allow-update [true\|false]` | Allow updating via the `--update` flag                                      | `true`                |
+| `-R`, `--reporter` [value]     | npm package name or file path to a Betterer reporter. Takes multiple values | Default reporter      |
+
+### CI
+
+Run **`Betterer`** in CI mode. Exactly the same as above, but will throw an error if any results change. You probably want to use this if you run **`Betterer`** in your CI build!
+
+```sh
+betterer ci -c ./path/to/config -r ./path/to/results
+```
 
 ### Watch
 
@@ -200,9 +212,12 @@ betterer watch -c ./path/to/config -r ./path/to/results
 
 #### Watch options
 
-| Name                      | Description                                                            | Default               |
-| ------------------------- | ---------------------------------------------------------------------- | --------------------- |
-| `-c`, `--config` [value]  | Path to test definition file relative to CWD                           | `./.betterer.ts`      |
-| `-r`, `--results` [value] | Path to test results file relative to CWD                              | `./.betterer.results` |
-| `-f`, `--filter` [value]  | Select tests to run by RegExp. Takes multiple values                   | `[.*]`                |
-| `-i`, `--ignore` [value]  | Ignore files by Glob when running in watch mode. Takes multiple values | `[]`                  |
+| Name                           | Description                                                                 | Default               |
+| ------------------------------ | --------------------------------------------------------------------------- | --------------------- |
+| `-c`, `--config` [value]       | Path to test definition file relative to CWD. Takes multiple values         | `./.betterer.ts`      |
+| `-r`, `--results` [value]      | Path to test results file relative to CWD                                   | `./.betterer.results` |
+| `-t`, `--tsconfig` [value]     | Path to TypeScript config file relative to CWD                              | `null`                |
+| `-f`, `--filter` [value]       | Select tests to run by RegExp. Takes multiple values                        | `[]`                  |
+| `-s`, `--silent [true\|false]` | Disable all default reporters. Custom reporters still work normally.        | `false`               |
+| `-i`, `--ignore` [value]       | Ignore files by Glob when running in watch mode. Takes multiple values      | `[]`                  |
+| `-R`, `--reporter` [value]     | npm package name or file path to a Betterer reporter. Takes multiple values | Default reporter      |

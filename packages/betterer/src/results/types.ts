@@ -1,14 +1,9 @@
-export const NO_PREVIOUS_RESULT = Symbol('No Previous Result');
+export type BettererExpectedResult = {
+  value: string;
+};
+export type BettererExpectedResults = Record<string, BettererExpectedResult>;
 
 export type BettererResult = {
-  timestamp: number;
+  isNew: boolean;
   value: unknown;
 };
-export type BettererResults = Record<string, BettererResult>;
-export type BettererExpectedResult =
-  | {
-      timestamp: number;
-      value: string;
-    }
-  | typeof NO_PREVIOUS_RESULT;
-export type BettererExpectedResults = Record<string, BettererExpectedResult>;

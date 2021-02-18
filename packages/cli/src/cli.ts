@@ -1,32 +1,35 @@
-import * as commander from 'commander';
+import commander from 'commander';
 
-import { CLIArguments } from './types';
+import { BettererCLIArguments, BettererPackageJSON } from './types';
 
-const enum Commands {
+enum Command {
+  ci = 'ci',
   start = 'start',
   init = 'init',
   watch = 'watch'
 }
 
-const COMMANDS: Array<string> = [Commands.start, Commands.init, Commands.watch];
+type CommandName = `${Command}`;
 
 // HACK:
 // It's easier to use require than to try to get `await import`
 // to work right for the package.json...
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { version } = require('../package.json');
+const { version } = require('../package.json') as BettererPackageJSON;
 
-export function cli(argv: CLIArguments): void {
+/** @internal Definitely not stable! Please don't use! */
+export function cliΔ(argv: BettererCLIArguments): void {
   commander.version(version);
 
-  commander.command(Commands.init, 'init Betterer in a project');
-  commander.command(Commands.start, 'run Betterer');
-  commander.command(Commands.watch, 'run Betterer in watch mode');
+  commander.command(Command.ci, 'run Betterer in CI mode');
+  commander.command(Command.init, 'init Betterer in a project');
+  commander.command(Command.start, 'run Betterer');
+  commander.command(Command.watch, 'run Betterer in watch mode');
 
   const args = argv.slice(0);
   const [, , command] = args;
-  if (!COMMANDS.includes(command)) {
-    args.splice(2, 0, Commands.start);
+  if (!Command[command as CommandName]) {
+    args.splice(2, 0, Command.start);
   }
 
   commander.parse(args);

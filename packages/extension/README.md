@@ -26,11 +26,4 @@ And when you've got some tests setup, it will show you all the existing issues i
 
 I reckon that's pretty sweet!
 
-## Release Notes
-
-### 1.0.0
-
-- Betterer initialisation
-- Inline Betterer issues
-
 ---

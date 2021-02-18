@@ -16,6 +16,6 @@ async function run(): Promise<void> {
   const configPath = path.resolve(cwd, './.betterer.ts');
   const resultsPath = path.resolve(cwd, './.betterer.results');
   const { worse } = await betterer({ configPath, resultsPath, cwd });
-  process.exitcode = worse.length !== 0 ? 1 : 0;
+  process.exitCode = worse.length !== 0 ? 1 : 0;
 }
 ```

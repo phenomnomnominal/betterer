@@ -1,2 +1,24 @@
-export { br, code, error, info, logo, overwrite, success, warn } from './logger';
-export * from './types';
+export { diffΔ } from './diff';
+export {
+  BettererErrorLog,
+  BettererErrorLogProps,
+  BettererLogo,
+  BettererTask,
+  BettererTaskColour,
+  BettererTaskLog,
+  BettererTaskLogger,
+  BettererTaskLoggerProps,
+  BettererTaskRun,
+  BettererTasks,
+  BettererTasksLogger,
+  BettererTasksLoggerProps,
+  BettererTasksState,
+  BettererTasksStatusUpdate
+} from './components/public';
+export {
+  BettererLogger,
+  BettererLogMessage,
+  BettererLogCode,
+  BettererLoggerCodeInfo,
+  BettererLoggerMessages
+} from './types';

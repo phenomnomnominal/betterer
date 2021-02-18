@@ -1,9 +1,8 @@
-import * as assert from 'assert';
-import { commands, ExtensionContext } from 'vscode';
-import { LanguageClient, CloseAction, ErrorAction, ErrorHandler } from 'vscode-languageclient';
-
+import assert from 'assert';
+import { ExtensionContext, commands } from 'vscode';
+import { CloseAction, ErrorAction, ErrorHandler, LanguageClient } from 'vscode-languageclient/node';
 import { EXTENSION_NAME } from '../constants';
-import { disableBetterer, enableBetterer, initBetterer, COMMAND_NAMES } from './commands';
+import { COMMAND_NAMES, disableBetterer, enableBetterer, initBetterer } from './commands';
 import { CLIENT_START_FAILED, SERVER_START_FAILED } from './error-messages';
 import { error } from './logger';
 import { getClientOptions, getServerOptions } from './options';
@@ -53,11 +52,11 @@ export async function activate(context: ExtensionContext): Promise<void> {
     client.onRequest(BettererNoLibraryRequest, (params) => noLibrary(client, context, params));
 
     context.subscriptions.push(
-      commands.registerCommand(COMMAND_NAMES.showOutput, () => client.outputChannel.show()),
+      commands.registerCommand(COMMAND_NAMES.showOutputChannel, () => client.outputChannel.show()),
       started,
       status
     );
   } catch {
-    error(CLIENT_START_FAILED);
+    void error(CLIENT_START_FAILED);
   }
 }

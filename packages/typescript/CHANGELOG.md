@@ -3,6 +3,121 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.2](https://github.com/phenomnomnominal/betterer/compare/v3.1.1...v3.1.2) (2020-11-03)
+
+**Note:** Version bump only for package @betterer/typescript
+
+
+
+
+
+## [3.1.1](https://github.com/phenomnomnominal/betterer/compare/v3.1.0...v3.1.1) (2020-10-29)
+
+**Note:** Version bump only for package @betterer/typescript
+
+
+
+
+
+# [3.1.0](https://github.com/phenomnomnominal/betterer/compare/v3.0.3...v3.1.0) (2020-09-18)
+
+**Note:** Version bump only for package @betterer/typescript
+
+
+
+
+
+## [3.0.3](https://github.com/phenomnomnominal/betterer/compare/v3.0.2...v3.0.3) (2020-08-20)
+
+
+### Bug Fixes
+
+* **typescript 🐛:** fix replacing paths in error messages ([#229](https://github.com/phenomnomnominal/betterer/issues/229)) ([b4af4c8](https://github.com/phenomnomnominal/betterer/commit/b4af4c871963d181117fc93c0d8a203c4b73506e))
+
+
+
+
+
+## [3.0.2](https://github.com/phenomnomnominal/betterer/compare/v3.0.1...v3.0.2) (2020-08-18)
+
+**Note:** Version bump only for package @betterer/typescript
+
+
+
+
+
+## [3.0.1](https://github.com/phenomnomnominal/betterer/compare/v3.0.0...v3.0.1) (2020-07-11)
+
+**Note:** Version bump only for package @betterer/typescript
+
+
+
+
+
+# [3.0.0](https://github.com/phenomnomnominal/betterer/compare/v2.4.1...v3.0.0) (2020-07-02)
+
+**Note:** Version bump only for package @betterer/typescript
+
+
+
+
+
+## [2.4.1](https://github.com/phenomnomnominal/betterer/compare/v2.4.0...v2.4.1) (2020-07-01)
+
+**Note:** Version bump only for package @betterer/typescript
+
+
+
+
+
+# [2.4.0](https://github.com/phenomnomnominal/betterer/compare/v2.3.0...v2.4.0) (2020-07-01)
+
+**Note:** Version bump only for package @betterer/typescript
+
+
+
+
+
+# [2.3.0](https://github.com/phenomnomnominal/betterer/compare/v2.2.3...v2.3.0) (2020-06-30)
+
+**Note:** Version bump only for package @betterer/typescript
+
+
+
+
+
+## [2.2.3](https://github.com/phenomnomnominal/betterer/compare/v2.2.2...v2.2.3) (2020-06-30)
+
+**Note:** Version bump only for package @betterer/typescript
+
+
+
+
+
+## [2.2.2](https://github.com/phenomnomnominal/betterer/compare/v2.2.1...v2.2.2) (2020-06-29)
+
+**Note:** Version bump only for package @betterer/typescript
+
+
+
+
+
+## [2.2.1](https://github.com/phenomnomnominal/betterer/compare/v2.2.0...v2.2.1) (2020-06-29)
+
+**Note:** Version bump only for package @betterer/typescript
+
+
+
+
+
+# [2.2.0](https://github.com/phenomnomnominal/betterer/compare/v2.1.0...v2.2.0) (2020-06-28)
+
+**Note:** Version bump only for package @betterer/typescript
+
+
+
+
+
 # [2.1.0](https://github.com/phenomnomnominal/betterer/compare/v2.0.2...v2.1.0) (2020-06-25)
 
 

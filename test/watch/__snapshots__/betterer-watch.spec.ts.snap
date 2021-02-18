@@ -2,153 +2,784 @@
 
 exports[`betterer.watch should debounce runs when multiple files change 1`] = `
 Array [
-  " ☀️  betterer  info  💬  - ",
-  "Running betterer in watch mode 🎉",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- 
-checking 2 files... 🤔
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Starting Betterer in watch mode! 🎉
+
+(press \\"q\\" to quit)
+
+
 ",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- 
-  checked 2 files:
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-    <project>/fixtures/test-betterer-watch-debounce/src/file.ts
-    <project>/fixtures/test-betterer-watch-debounce/src/index.ts
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
 
-  \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+Checking 2 files... 🤔
+
+・ <project>/fixtures/test-betterer-watch-debounce/src/file.ts
+・ <project>/fixtures/test-betterer-watch-debounce/src/index.ts
+
+🌟 Betterer (0ms):
+
+(press \\"q\\" to quit)
+
 ",
-  " ☀️  betterer  info  💬  - ",
-  "Stopping watch mode 👋",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 2 files... 🤔
+
+・ <project>/fixtures/test-betterer-watch-debounce/src/file.ts
+・ <project>/fixtures/test-betterer-watch-debounce/src/index.ts
+
+🌟 Betterer (0ms): 1 test running...
+🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 2 files... 🤔
+
+・ <project>/fixtures/test-betterer-watch-debounce/src/file.ts
+・ <project>/fixtures/test-betterer-watch-debounce/src/index.ts
+
+🌟 Betterer (0ms): 1 test running...
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! (3 issues) 🎉
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 2 files... 🤔
+
+・ <project>/fixtures/test-betterer-watch-debounce/src/file.ts
+・ <project>/fixtures/test-betterer-watch-debounce/src/index.ts
+
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! (3 issues) 🎉
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checked 2 files! 🔍
+
+・ <project>/fixtures/test-betterer-watch-debounce/src/file.ts
+・ <project>/fixtures/test-betterer-watch-debounce/src/index.ts
+
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! (3 issues) 🎉
+
+1 test got checked. 🤔
+1 test got checked for the first time! 🎉
+
+(press \\"q\\" to quit)
+
+",
 ]
 `;
 
 exports[`betterer.watch should ignore .gitignored files 1`] = `
 Array [
-  " ☀️  betterer  info  💬  - ",
-  "Running betterer in watch mode 🎉",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- 
-checking 1 files... 🤔
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Starting Betterer in watch mode! 🎉
+
+(press \\"q\\" to quit)
+
+
 ",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- 
-  checked 1 files:
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-    <project>/fixtures/test-betterer-watch-debounce/src/index.ts
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
 
-  \\"tsquery no raw console.log\\" got checked for the first time! 🎉
+Checking 1 file... 🤔
+
+・ <project>/fixtures/test-betterer-watch-gitignored/src/index.ts
+
+🌟 Betterer (0ms):
+
+(press \\"q\\" to quit)
+
 ",
-  " ☀️  betterer  info  💬  - ",
-  "Stopping watch mode 👋",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 1 file... 🤔
+
+・ <project>/fixtures/test-betterer-watch-gitignored/src/index.ts
+
+🌟 Betterer (0ms): 1 test running...
+🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 1 file... 🤔
+
+・ <project>/fixtures/test-betterer-watch-gitignored/src/index.ts
+
+🌟 Betterer (0ms): 1 test running...
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! (3 issues) 🎉
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 1 file... 🤔
+
+・ <project>/fixtures/test-betterer-watch-gitignored/src/index.ts
+
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! (3 issues) 🎉
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checked 1 file! 🔍
+
+・ <project>/fixtures/test-betterer-watch-gitignored/src/index.ts
+
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! (3 issues) 🎉
+
+1 test got checked. 🤔
+1 test got checked for the first time! 🎉
+
+(press \\"q\\" to quit)
+
+",
 ]
 `;
 
 exports[`betterer.watch should run in watch mode 1`] = `
 Array [
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"tsquery no raw console.log\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"tsquery no raw console.log\\" got checked for the first time! 🎉",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked for the first time! 🎉",
-  " ☀️  betterer  info  💬  - ",
-  "Running betterer in watch mode 🎉",
-  "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- 
-checking 1 files... 🤔
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
 ",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- 
-  checked 1 files:
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-    <project>/fixtures/test-betterer-watch/src/index.ts
+🌟 Betterer (0ms):
 
-  \\"tsquery no raw console.log\\" got worse. 😔
 ",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- 
-checking 1 files... 🤔
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
 ",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- 
-  checked 1 files:
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-    <project>/fixtures/test-betterer-watch/src/index.ts
+🌟 Betterer (0ms): 1 test running...
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! (2 issues) 🎉
 
-  \\"tsquery no raw console.log\\" stayed the same. 😐
 ",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- 
-checking 1 files... 🤔
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! (2 issues) 🎉
+
 ",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- 
-  checked 1 files:
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-    <project>/fixtures/test-betterer-watch/src/index.ts
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got checked for the first time! (2 issues) 🎉
 
-  \\"tsquery no raw console.log\\" got better! 😍
+1 test got checked. 🤔
+1 test got checked for the first time! 🎉
+
 ",
-  " ☀️  betterer  info  💬  - ",
-  "Stopping watch mode 👋",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Starting Betterer in watch mode! 🎉
+
+(press \\"q\\" to quit)
+
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 1 file... 🤔
+
+・ <project>/fixtures/test-betterer-watch/src/index.ts
+
+🌟 Betterer (0ms):
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 1 file... 🤔
+
+・ <project>/fixtures/test-betterer-watch/src/index.ts
+
+🌟 Betterer (0ms): 1 test running...
+🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 1 file... 🤔
+
+・ <project>/fixtures/test-betterer-watch/src/index.ts
+
+🌟 Betterer (0ms): 1 test running...
+・ 2 existing issues in \\"<project>/fixtures/test-betterer-watch/src/index.ts\\".
+🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 1 file... 🤔
+
+・ <project>/fixtures/test-betterer-watch/src/index.ts
+
+🌟 Betterer (0ms): 1 test running...
+・ 2 existing issues in \\"<project>/fixtures/test-betterer-watch/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-watch/src/index.ts\\":
+🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 1 file... 🤔
+
+・ <project>/fixtures/test-betterer-watch/src/index.ts
+
+🌟 Betterer (0ms): 1 test running...
+・ 2 existing issues in \\"<project>/fixtures/test-betterer-watch/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-watch/src/index.ts\\":
+・
+・   <project>/fixtures/test-betterer-watch/src/index.ts
+・   1 | console.log('foo');
+・ > 2 | console.log('foo');console.log('foo');
+・     |                    ^^^^^^^^^^^ TSQuery match
+・
+🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 1 file... 🤔
+
+・ <project>/fixtures/test-betterer-watch/src/index.ts
+
+🌟 Betterer (0ms): 1 test running...
+・ 2 existing issues in \\"<project>/fixtures/test-betterer-watch/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-watch/src/index.ts\\":
+・
+・   <project>/fixtures/test-betterer-watch/src/index.ts
+・   1 | console.log('foo');
+・ > 2 | console.log('foo');console.log('foo');
+・     |                    ^^^^^^^^^^^ TSQuery match
+・
+🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. (1 new issue, 3 total) 😔
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 1 file... 🤔
+
+・ <project>/fixtures/test-betterer-watch/src/index.ts
+
+🌟 Betterer (0ms): 1 test running...
+🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. (1 new issue, 3 total) 😔
+・ 2 existing issues in \\"<project>/fixtures/test-betterer-watch/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-watch/src/index.ts\\":
+・
+・   <project>/fixtures/test-betterer-watch/src/index.ts
+・   1 | console.log('foo');
+・ > 2 | console.log('foo');console.log('foo');
+・     |                    ^^^^^^^^^^^ TSQuery match
+・
+
+Error: \\"tsquery no raw console.log\\" got worse. (1 new issue, 3 total) 😔
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 1 file... 🤔
+
+・ <project>/fixtures/test-betterer-watch/src/index.ts
+
+💥 Betterer (0ms): 1 test done! 1 test errored!
+🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. (1 new issue, 3 total) 😔
+・ 2 existing issues in \\"<project>/fixtures/test-betterer-watch/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-watch/src/index.ts\\":
+・
+・   <project>/fixtures/test-betterer-watch/src/index.ts
+・   1 | console.log('foo');
+・ > 2 | console.log('foo');console.log('foo');
+・     |                    ^^^^^^^^^^^ TSQuery match
+・
+
+Error: \\"tsquery no raw console.log\\" got worse. (1 new issue, 3 total) 😔
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checked 1 file! 🔍
+
+・ <project>/fixtures/test-betterer-watch/src/index.ts
+
+💥 Betterer (0ms): 1 test done! 1 test errored!
+🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. (1 new issue, 3 total) 😔
+・ 2 existing issues in \\"<project>/fixtures/test-betterer-watch/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-watch/src/index.ts\\":
+・
+・   <project>/fixtures/test-betterer-watch/src/index.ts
+・   1 | console.log('foo');
+・ > 2 | console.log('foo');console.log('foo');
+・     |                    ^^^^^^^^^^^ TSQuery match
+・
+
+Error: \\"tsquery no raw console.log\\" got worse. (1 new issue, 3 total) 😔
+
+1 test got checked. 🤔
+1 test got worse. 😔
+
+You should try to fix the new issues! As a last resort, you can run \`betterer --update\` to force an update of the results file. 🆙
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 1 file... 🤔
+
+・ <project>/fixtures/test-betterer-watch/src/index.ts
+
+🌟 Betterer (0ms):
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 1 file... 🤔
+
+・ <project>/fixtures/test-betterer-watch/src/index.ts
+
+🌟 Betterer (0ms): 1 test running...
+🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 1 file... 🤔
+
+・ <project>/fixtures/test-betterer-watch/src/index.ts
+
+🌟 Betterer (0ms): 1 test running...
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" stayed the same. (2 issues) 😐
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 1 file... 🤔
+
+・ <project>/fixtures/test-betterer-watch/src/index.ts
+
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" stayed the same. (2 issues) 😐
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checked 1 file! 🔍
+
+・ <project>/fixtures/test-betterer-watch/src/index.ts
+
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" stayed the same. (2 issues) 😐
+
+1 test got checked. 🤔
+1 test stayed the same. 😐
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 1 file... 🤔
+
+・ <project>/fixtures/test-betterer-watch/src/index.ts
+
+🌟 Betterer (0ms):
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 1 file... 🤔
+
+・ <project>/fixtures/test-betterer-watch/src/index.ts
+
+🌟 Betterer (0ms): 1 test running...
+🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 1 file... 🤔
+
+・ <project>/fixtures/test-betterer-watch/src/index.ts
+
+🌟 Betterer (0ms): 1 test running...
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got better! (1 fixed issue, 1 remaining) 😍
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checking 1 file... 🤔
+
+・ <project>/fixtures/test-betterer-watch/src/index.ts
+
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got better! (1 fixed issue, 1 remaining) 😍
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Filters (press \\"f\\" to edit): No current filter patterns
+Ignores (press \\"i\\" to edit): No current ignore patterns
+
+Checked 1 file! 🔍
+
+・ <project>/fixtures/test-betterer-watch/src/index.ts
+
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got better! (1 fixed issue, 1 remaining) 😍
+
+1 test got checked. 🤔
+1 test got better! 😍
+
+(press \\"q\\" to quit)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+Stopping watch mode... 👋
+
+",
 ]
 `;

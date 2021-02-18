@@ -1,7 +1,7 @@
 {
   "name": "@betterer/regexp",
   "description": "RegExp test for @betterer/betterer",
-  "version": "2.1.0",
+  "version": "3.1.2",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -21,11 +21,15 @@
     "url": "https://github.com/phenomnomnominal/betterer/issues"
   },
   "scripts": {
-    "compile": "tsc -b ."
+    "compile": "tsc -b .",
+    "api": "ts-api-guardian --out ../../goldens/api/@betterer/regexp.d.ts dist/index.d.ts"
+  },
+  "engines": {
+    "node": ">=12"
   },
   "dependencies": {
-    "@betterer/betterer": "^2.0.2",
-    "@betterer/errors": "^2.0.1",
-    "tslib": "^2.0.0"
+    "@betterer/betterer": "^3.1.2",
+    "@betterer/errors": "^3.1.1",
+    "tslib": "^2.0.3"
   }
 }

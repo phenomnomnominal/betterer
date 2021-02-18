@@ -17,10 +17,16 @@
       "path": "errors"
     },
     {
+      "path": "fixture"
+    },
+    {
       "path": "logger"
     },
     {
       "path": "regexp"
+    },
+    {
+      "path": "reporter"
     },
     {
       "path": "tsquery"

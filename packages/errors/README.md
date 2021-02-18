@@ -4,32 +4,16 @@
 
 [![npm version](https://img.shields.io/npm/v/@betterer/errors.svg)](https://www.npmjs.com/package/@betterer/errors)
 
-Error handler used within [**`Betterer`**](https://github.com/phenomnomnominal/betterer).
+Error type used within [**`Betterer`**](https://github.com/phenomnomnominal/betterer).
 
 ## Usage
 
-### Register Error
+### BettererError
 
-Register an error type with the handler:
-
-```typescript
-import { registerError } from '@betterer/errors';
-
-const MY_ERROR = registerError((details) => `Something went wrong: ${details}`);
-```
-
-### Log Error
-
-Log a registered error type:
+Create an error:
 
 ```typescript
-import { logError, registerError } from '@betterer/errors';
+import { BettererError } from '@betterer/errors';
 
-const MY_ERROR = registerError(details => `Something went wrong: "${details}"`);
-
-try {
-    throw MY_ERROR('OOPS!):
-} catch (e) {
-    logError(e); // 'Something went wrong: "OOPS"'
-}
+const error = new BettererError(`Something went wrong: "OOPS!"`, { some: 'details' });
 ```

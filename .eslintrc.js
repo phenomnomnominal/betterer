@@ -12,23 +12,12 @@ const BASE_RULES = {
   'eol-last': [2, 'always']
 };
 
-// These rules are currently being fixed with Betterer
-const WIP_RULES = {
-  '@typescript-eslint/ban-types': 0,
-  '@typescript-eslint/restrict-template-expressions': 0,
-  '@typescript-eslint/no-floating-promises': 0,
-  '@typescript-eslint/no-unsafe-assignment': 0,
-  '@typescript-eslint/no-unsafe-call': 0,
-  '@typescript-eslint/no-unsafe-member-access': 0,
-  '@typescript-eslint/no-unsafe-return': 0
-};
-
 const OVERRIDE_RULES = {
   ...BASE_RULES,
+  'no-console': 2,
   '@typescript-eslint/unbound-method': 0,
   '@typescript-eslint/no-use-before-define': [2, { functions: false }],
-  '@typescript-eslint/member-ordering': 2,
-  ...WIP_RULES
+  '@typescript-eslint/member-ordering': 2
 };
 
 module.exports = {
@@ -48,7 +37,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['**/*.ts'],
+      files: ['**/*.ts', '**/*.tsx'],
       extends: BASE_EXTENDS,
       rules: OVERRIDE_RULES
     },

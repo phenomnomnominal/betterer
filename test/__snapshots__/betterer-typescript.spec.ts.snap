@@ -1,283 +1,495 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`betterer should report the status of the TypeScript compiler 1`] = `
-"// BETTERER RESULTS V1.
+"// BETTERER RESULTS V2.
 exports[\`typescript use strict mode\`] = {
-  timestamp: 0,
   value: \`{
     \\"src/index.ts:1499252024\\": [
       [2, 12, 1, \\"The left-hand side of an arithmetic operation must be of type \\\\'any\\\\', \\\\'number\\\\', \\\\'bigint\\\\' or an enum type.\\", \\"177604\\"]
     ]
   }\`
-};"
+};
+"
 `;
 
 exports[`betterer should report the status of the TypeScript compiler 2`] = `
 Array [
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"typescript use strict mode\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"typescript use strict mode\\" got checked for the first time! 🎉",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked for the first time! 🎉",
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"typescript use strict mode\\"!",
-  " ☀️  betterer  warn  ⚠️  - ",
-  "\\"typescript use strict mode\\" stayed the same. 😐",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  warn  ⚠️  - ",
-  "1 test stayed the same. 😐",
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms):
+
+",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"typescript use strict mode\\"!",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"typescript use strict mode\\" got worse. 😔",
-  "",
-  " ☀️  betterer  warn  ⚠️  - ",
-  "1 existing issue in \\"src/index.ts\\".",
-  " ☀️  betterer  erro  🔥  - ",
-  "1 new issue in \\"src/index.ts\\":",
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+
+",
   "
-   The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type. 
-  1 | const a = 'a';
-  2 | const one = 1;
-> 3 | console.log(a * one, one * a);
-    |                            ^",
-  "",
-  "",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  erro  🔥  - ",
-  "1 test got worse. 😔",
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! (1 issue) 🎉
+
+",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"typescript use strict mode\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"typescript use strict mode\\" met its goal! 🎉",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  succ  ✅  - ",
-  "1 test got better! 😍",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"typescript use strict mode\\" met its goal! 🎉",
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! (1 issue) 🎉
+
+",
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"typescript use strict mode\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"typescript use strict mode\\" has already met its goal! ✨",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked for the first time! 🎉",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"typescript use strict mode\\" met its goal! 🎉",
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! (1 issue) 🎉
+
+1 test got checked. 🤔
+1 test got checked for the first time! 🎉
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms):
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. (1 issue) 😐
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. (1 issue) 😐
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. (1 issue) 😐
+
+1 test got checked. 🤔
+1 test stayed the same. 😐
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms):
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\".
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\":
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\":
+・
+・   <project>/fixtures/test-betterer-typescript/src/index.ts
+・   1 | const a = 'a';
+・   2 | const one = 1;
+・ > 3 | console.log(a * one, one * a);
+・     |                            ^ The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+・
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\":
+・
+・   <project>/fixtures/test-betterer-typescript/src/index.ts
+・   1 | const a = 'a';
+・   2 | const one = 1;
+・ > 3 | console.log(a * one, one * a);
+・     |                            ^ The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+・
+🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. (1 new issue, 2 total) 😔
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. (1 new issue, 2 total) 😔
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\":
+・
+・   <project>/fixtures/test-betterer-typescript/src/index.ts
+・   1 | const a = 'a';
+・   2 | const one = 1;
+・ > 3 | console.log(a * one, one * a);
+・     |                            ^ The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+・
+
+Error: \\"typescript use strict mode\\" got worse. (1 new issue, 2 total) 😔
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+💥 Betterer (0ms): 1 test done! 1 test errored!
+🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. (1 new issue, 2 total) 😔
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\":
+・
+・   <project>/fixtures/test-betterer-typescript/src/index.ts
+・   1 | const a = 'a';
+・   2 | const one = 1;
+・ > 3 | console.log(a * one, one * a);
+・     |                            ^ The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+・
+
+Error: \\"typescript use strict mode\\" got worse. (1 new issue, 2 total) 😔
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+💥 Betterer (0ms): 1 test done! 1 test errored!
+🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. (1 new issue, 2 total) 😔
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\":
+・
+・   <project>/fixtures/test-betterer-typescript/src/index.ts
+・   1 | const a = 'a';
+・   2 | const one = 1;
+・ > 3 | console.log(a * one, one * a);
+・     |                            ^ The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+・
+
+Error: \\"typescript use strict mode\\" got worse. (1 new issue, 2 total) 😔
+
+1 test got checked. 🤔
+1 test got worse. 😔
+
+You should try to fix the new issues! As a last resort, you can run \`betterer --update\` to force an update of the results file. 🆙
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms):
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+✅ typescript use strict mode: \\"typescript use strict mode\\" met its goal! 🎉
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" met its goal! 🎉
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" met its goal! 🎉
+
+1 test got checked. 🤔
+1 test got better! 😍
+\\"typescript use strict mode\\" met its goal! 🎉)
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms):
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+✅ typescript use strict mode: \\"typescript use strict mode\\" has already met its goal! ✨
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" has already met its goal! ✨
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" has already met its goal! ✨
+
+1 test got checked. 🤔
+1 test got checked for the first time! 🎉
+\\"typescript use strict mode\\" met its goal! 🎉)
+
+",
 ]
 `;
 
 exports[`betterer should throw if there is no configFilePath 1`] = `
 Array [
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  erro  🔥  - ",
-  "could not read config from \\"<project>/fixtures/test-betterer-typescript-no-config-file-path/.betterer\\". 😔",
-  " ☀️  betterer  erro  🔥  - ",
-  "For \`@betterer/typescript\` to work, you need to provide the path to a tsconfig.json file, e.g. \`'./tsconfig.json'\`. ❌",
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+
+Error: could not read config from \\"<project>/fixtures/test-betterer-typescript-no-config-file-path/.betterer\\". 😔
+
+Error: for \`@betterer/typescript\` to work, you need to provide the path to a tsconfig.json file, e.g. \`'./tsconfig.json'\`. ❌
+",
 ]
 `;
 
 exports[`betterer should throw if there is no extraCompilerOptions 1`] = `
 Array [
   "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  erro  🔥  - ",
-  "could not read config from \\"<project>/fixtures/test-betterer-typescript-no-compiler-options/.betterer\\". 😔",
-  " ☀️  betterer  erro  🔥  - ",
-  "For \`@betterer/typescript\` to work, you need to provide compiler options, e.g. \`{ strict: true }\`. ❌",
-]
-`;
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-exports[`betterer typescriptBetterer (deprecated) should report the status of the TypeScript compiler 1`] = `
-"// BETTERER RESULTS V1.
-exports[\`typescript use strict mode\`] = {
-  timestamp: 0,
-  value: \`{
-    \\"src/index.ts:1499252024\\": [
-      [2, 12, 1, \\"The left-hand side of an arithmetic operation must be of type \\\\'any\\\\', \\\\'number\\\\', \\\\'bigint\\\\' or an enum type.\\", \\"177604\\"]
-    ]
-  }\`
-};"
-`;
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-exports[`betterer typescriptBetterer (deprecated) should report the status of the TypeScript compiler 2`] = `
-Array [
-  "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"typescript use strict mode\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"typescript use strict mode\\" got checked for the first time! 🎉",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked for the first time! 🎉",
-  "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"typescript use strict mode\\"!",
-  " ☀️  betterer  warn  ⚠️  - ",
-  "\\"typescript use strict mode\\" stayed the same. 😐",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  warn  ⚠️  - ",
-  "1 test stayed the same. 😐",
-  "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"typescript use strict mode\\"!",
-  " ☀️  betterer  erro  🔥  - ",
-  "\\"typescript use strict mode\\" got worse. 😔",
-  "",
-  " ☀️  betterer  warn  ⚠️  - ",
-  "1 existing issue in \\"src/index.ts\\".",
-  " ☀️  betterer  erro  🔥  - ",
-  "1 new issue in \\"src/index.ts\\":",
-  "
-   The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type. 
-  1 | const a = 'a';
-  2 | const one = 1;
-> 3 | console.log(a * one, one * a);
-    |                            ^",
-  "",
-  "",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  erro  🔥  - ",
-  "1 test got worse. 😔",
-  "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"typescript use strict mode\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"typescript use strict mode\\" met its goal! 🎉",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  succ  ✅  - ",
-  "1 test got better! 😍",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"typescript use strict mode\\" met its goal! 🎉",
-  "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  info  💬  - ",
-  "running \\"typescript use strict mode\\"!",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"typescript use strict mode\\" has already met its goal! ✨",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked. 🤔",
-  " ☀️  betterer  info  💬  - ",
-  "1 test got checked for the first time! 🎉",
-  " ☀️  betterer  succ  ✅  - ",
-  "\\"typescript use strict mode\\" met its goal! 🎉",
-]
-`;
 
-exports[`betterer typescriptBetterer (deprecated) should throw if there is no configFilePath 1`] = `
-Array [
-  "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  erro  🔥  - ",
-  "could not read config from \\"<project>/fixtures/test-betterer-typescript-no-config-file-path-deprecated/.betterer\\". 😔",
-  " ☀️  betterer  erro  🔥  - ",
-  "For \`@betterer/typescript\` to work, you need to provide the path to a tsconfig.json file, e.g. \`'./tsconfig.json'\`. ❌",
-]
-`;
+Error: could not read config from \\"<project>/fixtures/test-betterer-typescript-no-compiler-options/.betterer\\". 😔
 
-exports[`betterer typescriptBetterer (deprecated) should throw if there is no extraCompilerOptions 1`] = `
-Array [
-  "
-   / | /     _          _   _                     
- '-.ooo.-'  | |__   ___| |_| |_ ___ _ __ ___ _ __ 
----ooooo--- | '_ / / _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_) |  __/ |_| ||  __/ | |  __/ |   
-   / | /    |_.__/ /___|/__|/__/___|_|  /___|_|   
- ",
-  " ☀️  betterer  erro  🔥  - ",
-  "could not read config from \\"<project>/fixtures/test-betterer-typescript-no-compiler-options-deprecated/.betterer\\". 😔",
-  " ☀️  betterer  erro  🔥  - ",
-  "For \`@betterer/typescript\` to work, you need to provide compiler options, e.g. \`{ strict: true }\`. ❌",
+Error: for \`@betterer/typescript\` to work, you need to provide compiler options, e.g. \`{ strict: true }\`. ❌
+",
 ]
 `;

@@ -1,7 +1,7 @@
 {
   "name": "@betterer/betterer",
   "description": "Main engine for runing betterer tests",
-  "version": "2.0.2",
+  "version": "3.1.2",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -21,25 +21,34 @@
     "url": "https://github.com/phenomnomnominal/betterer/issues"
   },
   "scripts": {
-    "compile": "tsc -b ."
+    "compile": "tsc -b .",
+    "api": "ts-api-guardian --out ../../goldens/api/@betterer/betterer.d.ts dist/index.d.ts"
+  },
+  "engines": {
+    "node": ">=12"
   },
   "dependencies": {
-    "@betterer/constraints": "^2.0.0",
-    "@betterer/errors": "^2.0.1",
-    "@betterer/logger": "^2.0.1",
+    "@betterer/constraints": "^3.1.1",
+    "@betterer/errors": "^3.1.1",
+    "@betterer/logger": "^3.1.1",
+    "@betterer/reporter": "^3.1.2",
+    "@phenomnomnominal/debug": "^0.2.5",
     "callsite": "^1.0.0",
     "chokidar": "^3.3.1",
     "djb2a": "^1.2.0",
-    "find-up": "^4.1.0",
     "gitignore-globs": "^0.1.1",
     "globby": "^11.0.1",
-    "jest-diff": "^26.1.0",
     "lines-and-columns": "^1.1.6",
-    "safe-string-literal": "^1.0.1",
-    "ts-node": "^8.10.2",
-    "tslib": "^2.0.0"
+    "minimatch": "^3.0.4",
+    "prettier": "^2.2.1",
+    "ts-node": "^9.0.0",
+    "tslib": "^2.0.3"
+  },
+  "optionalDependencies": {
+    "typescript": ">=2.7"
   },
   "devDependencies": {
-    "@types/callsite": "^1.0.30"
+    "@types/callsite": "^1.0.30",
+    "@types/prettier": "^1.12.0"
   }
 }

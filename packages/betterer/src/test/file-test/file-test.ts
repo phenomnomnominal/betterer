@@ -1,105 +1,105 @@
-import { ConstraintResult } from '@betterer/constraints';
-
 import { BettererRun } from '../../context';
-import { createHash } from '../../hasher';
-import { NO_PREVIOUS_RESULT } from '../../results';
-import { BettererFilePaths } from '../../watcher';
-import { BettererTest } from '../test';
-import { BettererTestFunction, BettererTestConstraint } from '../types';
+import { createTestConfig } from '../config';
+import { BettererTestType } from '../type';
+import { BettererTestBase, BettererTestConfig, BettererTestFunction } from '../types';
 import { constraint } from './constraint';
 import { differ } from './differ';
-import { BettererFile } from './file';
-import { BettererFiles } from './files';
+import { BettererFileResolver } from './file-resolver';
+import { BettererFileTestResultΩ } from './file-test-result';
 import { goal } from './goal';
 import { printer } from './printer';
+import { progress } from './progress';
 import { deserialise, serialise } from './serialiser';
 import {
-  BettererFilePatterns,
   BettererFileGlobs,
   BettererFileIssuesMapSerialised,
+  BettererFilePatterns,
+  BettererFilesDiff,
   BettererFileTestFunction,
-  BettererFileTestDiff
+  BettererFileTestResult
 } from './types';
-import { BettererFileResolver } from './file-resolver';
 
-export class BettererFileTest extends BettererTest<BettererFiles, BettererFileIssuesMapSerialised> {
-  private _diff: BettererFileTestDiff | null = null;
-  private _constraint: BettererTestConstraint<BettererFiles> | null = null;
-  private _test: BettererTestFunction<BettererFiles> | null = null;
+export class BettererFileTest
+  implements BettererTestBase<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff> {
+  private _config: BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff>;
+  private _isOnly = false;
+  private _isSkipped = false;
 
   constructor(private _resolver: BettererFileResolver, fileTest: BettererFileTestFunction) {
-    super({
-      test: async (run: BettererRun): Promise<BettererFiles> => {
-        this._test = this._test || this._createTest(fileTest);
-        return await this._test(run);
+    this._config = createTestConfig(
+      {
+        test: createTest(_resolver, fileTest),
+        constraint,
+        goal,
+        serialiser: { deserialise, serialise },
+        differ,
+        printer,
+        progress
       },
-      constraint: async (result: BettererFiles, expected: BettererFiles): Promise<ConstraintResult> => {
-        this._constraint = this._constraint || this._createConstraint();
-        return await this._constraint(result, expected);
-      },
-      goal,
-
-      serialiser: {
-        deserialise,
-        serialise
-      },
-      differ,
-      printer
-    });
+      BettererTestType.File
+    ) as BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff>;
   }
 
-  public get diff(): BettererFileTestDiff | null {
-    return this._diff;
+  public get config(): BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff> {
+    return this._config;
+  }
+
+  public get isOnly(): boolean {
+    return this._isOnly;
+  }
+
+  public get isSkipped(): boolean {
+    return this._isSkipped;
   }
 
   public exclude(...excludePatterns: BettererFilePatterns): this {
-    this._resolver.exclude(...excludePatterns);
+    this._resolver.excludeΔ(...excludePatterns);
     return this;
   }
 
   public include(...includePatterns: BettererFileGlobs): this {
-    this._resolver.include(...includePatterns);
+    this._resolver.includeΔ(...includePatterns);
     return this;
   }
 
-  private _createTest(fileTest: BettererFileTestFunction): BettererTestFunction<BettererFiles> {
-    return async (run: BettererRun): Promise<BettererFiles> => {
-      const { context, files } = run;
-
-      const expected = run.expected as BettererFiles | typeof NO_PREVIOUS_RESULT;
-      const result = await fileTest(await this._resolver.files(files));
-
-      let absolutePaths: BettererFilePaths = Object.keys(result);
-      if (files.length && expected !== NO_PREVIOUS_RESULT) {
-        const expectedAbsolutePaths = expected.files.map((file) => file.absolutePath);
-        absolutePaths = Array.from(new Set([...absolutePaths, ...expectedAbsolutePaths]));
-      }
-      absolutePaths = await this._resolver.validate(absolutePaths);
-
-      return new BettererFiles(
-        absolutePaths
-          .map((absolutePath) => {
-            const relativePath = context.getRelativePath(absolutePath);
-            const issues = result[absolutePath];
-            if (!issues && expected !== NO_PREVIOUS_RESULT) {
-              return expected.getFile(absolutePath);
-            }
-            if (issues.length === 0) {
-              return null;
-            }
-            const [issue] = issues;
-            return new BettererFile(relativePath, absolutePath, createHash(issue.fileText), issues);
-          })
-          .filter(Boolean) as ReadonlyArray<BettererFile>
-      );
-    };
+  public only(): this {
+    this._isOnly = true;
+    return this;
   }
 
-  private _createConstraint() {
-    return (result: BettererFiles, expected: BettererFiles): ConstraintResult => {
-      const { diff, constraintResult } = constraint(result, expected);
-      this._diff = diff;
-      return constraintResult;
-    };
+  public skip(): this {
+    this._isSkipped = true;
+    return this;
   }
+}
+
+function createTest(
+  resolver: BettererFileResolver,
+  fileTest: BettererFileTestFunction
+): BettererTestFunction<BettererFileTestResult> {
+  return async (run: BettererRun): Promise<BettererFileTestResult> => {
+    const { filePaths } = run;
+
+    const relevantFilePaths = await resolver.files(filePaths);
+    const files = new BettererFileTestResultΩ(resolver);
+    await fileTest(relevantFilePaths, files);
+
+    if (filePaths.length && !run.isNew) {
+      const expectedΩ = run.expected.value as BettererFileTestResultΩ;
+
+      // Get any filePaths that have expected issues but weren't included in this run:
+      const excludedFilesWithIssues = expectedΩ.files
+        .map((file) => file.absolutePath)
+        .filter((filePath) => !filePaths.includes(filePath));
+
+      // Filter them based on the current resolver:
+      const relevantExcludedFilePaths = await resolver.validate(excludedFilesWithIssues);
+
+      // Add the existing issues to the new result:
+      relevantExcludedFilePaths.forEach((filePath) => {
+        files.addExpected(expectedΩ.getFile(filePath));
+      });
+    }
+    return files;
+  };
 }

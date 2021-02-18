@@ -1,21 +1,20 @@
-import { BettererStats, betterer } from '@betterer/betterer';
-import * as commander from 'commander';
+import { BettererSummary, betterer } from '@betterer/betterer';
 
 import { startOptions } from './options';
-import { CLIArguments, CLIStartConfig } from './types';
+import { BettererCLIArguments } from './types';
 
-export function start(cwd: string, argv: CLIArguments): Promise<BettererStats> {
-  startOptions(commander);
-
-  commander.parse(argv as Array<string>);
-
-  const { config, results, filter, tsconfig, update } = (commander as unknown) as CLIStartConfig;
+/** @internal Definitely not stable! Please don't use! */
+export function startΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSummary> {
+  const { allowUpdate, config, results, filter, silent, reporter, tsconfig, update } = startOptions(argv);
 
   return betterer({
+    allowUpdate,
     configPaths: config,
     cwd,
     filters: filter,
+    reporters: reporter,
     resultsPath: results,
+    silent,
     tsconfigPath: tsconfig,
     update
   });

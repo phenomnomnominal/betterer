@@ -1,9 +1,10 @@
 import { betterer } from '@betterer/betterer';
+
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it(`should work when a test is the same`, async () => {
-    const { paths, logs, readFile, cleanup } = await createFixture('test-betterer-same', {
+    const { paths, logs, readFile, cleanup, runNames } = await createFixture('test-betterer-same', {
       '.betterer.js': `
 const { bigger, smaller } = require('@betterer/constraints');
 
@@ -27,11 +28,11 @@ module.exports = {
 
     const firstRun = await betterer({ configPaths, resultsPath });
 
-    expect(firstRun.new).toEqual([`doesn't get bigger`, `doesn't get smaller`]);
+    expect(runNames(firstRun.new)).toEqual([`doesn't get bigger`, `doesn't get smaller`]);
 
     const secondRun = await betterer({ configPaths, resultsPath });
 
-    expect(secondRun.same).toEqual([`doesn't get bigger`, `doesn't get smaller`]);
+    expect(runNames(secondRun.same)).toEqual([`doesn't get bigger`, `doesn't get smaller`]);
 
     expect(logs).toMatchSnapshot();
 
@@ -43,7 +44,7 @@ module.exports = {
   });
 
   it('should stay the same when a file is moved', async () => {
-    const { deleteFile, paths, logs, cleanup, resolve, readFile, writeFile } = await createFixture(
+    const { deleteFile, paths, logs, cleanup, resolve, readFile, writeFile, runNames } = await createFixture(
       'test-betterer-same-move',
       {
         'src/index.ts': `
@@ -81,11 +82,9 @@ export default {
     const indexPath = resolve('./src/index.ts');
     const movedPath = resolve('./src/moved.ts');
 
-    await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
-
     const newTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(newTestRun.new).toEqual(['typescript use strict mode']);
+    expect(runNames(newTestRun.new)).toEqual(['typescript use strict mode']);
 
     const newTestRunResult = await readFile(resultsPath);
 
@@ -96,7 +95,7 @@ export default {
 
     const sameTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(sameTestRun.same).toEqual(['typescript use strict mode']);
+    expect(runNames(sameTestRun.same)).toEqual(['typescript use strict mode']);
 
     const sameTestRunResult = await readFile(resultsPath);
 
@@ -108,13 +107,15 @@ export default {
   });
 
   it('should stay the same when an issue moves line', async () => {
-    const { paths, logs, cleanup, resolve, readFile, writeFile } = await createFixture('test-betterer-same-move', {
-      'src/index.ts': `
+    const { paths, logs, cleanup, resolve, readFile, writeFile, runNames } = await createFixture(
+      'test-betterer-same-move-line',
+      {
+        'src/index.ts': `
 const a = 'a';
 const one = 1;
 console.log(a * one);
       `,
-      '.betterer.ts': `
+        '.betterer.ts': `
 import { typescript } from '@betterer/typescript';
 
 export default {
@@ -123,7 +124,7 @@ export default {
   })
 };    
       `,
-      'tsconfig.json': `
+        'tsconfig.json': `
 {
   "compilerOptions": {
     "noEmit": true,
@@ -136,17 +137,16 @@ export default {
   "include": ["./src/**/*", ".betterer.ts"]
 }
       `
-    });
+      }
+    );
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
     const indexPath = resolve('./src/index.ts');
 
-    await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
-
     const newTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(newTestRun.new).toEqual(['typescript use strict mode']);
+    expect(runNames(newTestRun.new)).toEqual(['typescript use strict mode']);
 
     const newTestRunResult = await readFile(resultsPath);
 
@@ -156,7 +156,72 @@ export default {
 
     const sameTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(sameTestRun.same).toEqual(['typescript use strict mode']);
+    expect(runNames(sameTestRun.same)).toEqual(['typescript use strict mode']);
+
+    const sameTestRunResult = await readFile(resultsPath);
+
+    expect(sameTestRunResult).toMatchSnapshot();
+
+    expect(logs).toMatchSnapshot();
+
+    await cleanup();
+  });
+
+  it('should stay the same when multiple issue move line', async () => {
+    const { paths, logs, cleanup, resolve, readFile, writeFile, runNames } = await createFixture(
+      'test-betterer-same-move-multiple',
+      {
+        'src/index.ts': `
+const a = 'a';
+const one = 1;
+console.log(a * one);
+console.log(one * a);
+      `,
+        '.betterer.ts': `
+import { typescript } from '@betterer/typescript';
+
+export default {
+  'typescript use strict mode': typescript('./tsconfig.json', {
+    strict: true
+  })
+};    
+      `,
+        'tsconfig.json': `
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["esnext"],
+    "moduleResolution": "node",
+    "target": "ES5",
+    "typeRoots": ["../../node_modules/@types/"],
+    "resolveJsonModule": true
+  },
+  "include": ["./src/**/*", ".betterer.ts"]
+}
+      `
+      }
+    );
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+    const indexPath = resolve('./src/index.ts');
+
+    const newTestRun = await betterer({ configPaths, resultsPath });
+
+    expect(runNames(newTestRun.new)).toEqual(['typescript use strict mode']);
+
+    const newTestRunResult = await readFile(resultsPath);
+
+    expect(newTestRunResult).toMatchSnapshot();
+
+    await writeFile(
+      indexPath,
+      `//\nconst a = 'a';\nconst one = 1;\nconsole.log(one * one);\nconsole.log(a * one);\nconsole.log(one * a);`
+    );
+
+    const sameTestRun = await betterer({ configPaths, resultsPath });
+
+    expect(runNames(sameTestRun.same)).toEqual(['typescript use strict mode']);
 
     const sameTestRunResult = await readFile(resultsPath);
 

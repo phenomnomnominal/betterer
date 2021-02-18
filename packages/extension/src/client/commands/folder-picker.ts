@@ -6,7 +6,11 @@ export async function pickFolder(
 ): Promise<WorkspaceFolder | null> {
   const selected = await window.showQuickPick(
     folders.map((folder) => {
-      return { label: folder.name, description: folder.uri.fsPath, folder };
+      return {
+        label: folder.name,
+        description: folder.uri.fsPath,
+        folder
+      };
     }),
     { placeHolder }
   );

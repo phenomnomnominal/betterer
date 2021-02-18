@@ -3,6 +3,124 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.2](https://github.com/phenomnomnominal/betterer/compare/v3.1.1...v3.1.2) (2020-11-03)
+
+**Note:** Version bump only for package @betterer/eslint
+
+
+
+
+
+## [3.1.1](https://github.com/phenomnomnominal/betterer/compare/v3.1.0...v3.1.1) (2020-10-29)
+
+
+### Bug Fixes
+
+* **eslint 🐛:** fix eslint peer dependency ([#366](https://github.com/phenomnomnominal/betterer/issues/366)) ([bfa999e](https://github.com/phenomnomnominal/betterer/commit/bfa999ee8087cd2cb1bec9eca42ea4e8a503c431))
+
+
+
+
+
+# [3.1.0](https://github.com/phenomnomnominal/betterer/compare/v3.0.3...v3.1.0) (2020-09-18)
+
+**Note:** Version bump only for package @betterer/eslint
+
+
+
+
+
+## [3.0.3](https://github.com/phenomnomnominal/betterer/compare/v3.0.2...v3.0.3) (2020-08-20)
+
+**Note:** Version bump only for package @betterer/eslint
+
+
+
+
+
+## [3.0.2](https://github.com/phenomnomnominal/betterer/compare/v3.0.1...v3.0.2) (2020-08-18)
+
+**Note:** Version bump only for package @betterer/eslint
+
+
+
+
+
+## [3.0.1](https://github.com/phenomnomnominal/betterer/compare/v3.0.0...v3.0.1) (2020-07-11)
+
+
+### Bug Fixes
+
+* **extension 🐛:** cd to projct cwd before making checks to avoid braking eslintrc files ([#159](https://github.com/phenomnomnominal/betterer/issues/159)) ([7b05ea9](https://github.com/phenomnomnominal/betterer/commit/7b05ea9f720bfecf3f93226ee0e766dc21e9d028))
+
+
+
+
+
+# [3.0.0](https://github.com/phenomnomnominal/betterer/compare/v2.4.1...v3.0.0) (2020-07-02)
+
+**Note:** Version bump only for package @betterer/eslint
+
+
+
+
+
+## [2.4.1](https://github.com/phenomnomnominal/betterer/compare/v2.4.0...v2.4.1) (2020-07-01)
+
+**Note:** Version bump only for package @betterer/eslint
+
+
+
+
+
+# [2.4.0](https://github.com/phenomnomnominal/betterer/compare/v2.3.0...v2.4.0) (2020-07-01)
+
+**Note:** Version bump only for package @betterer/eslint
+
+
+
+
+
+# [2.3.0](https://github.com/phenomnomnominal/betterer/compare/v2.2.3...v2.3.0) (2020-06-30)
+
+**Note:** Version bump only for package @betterer/eslint
+
+
+
+
+
+## [2.2.3](https://github.com/phenomnomnominal/betterer/compare/v2.2.2...v2.2.3) (2020-06-30)
+
+**Note:** Version bump only for package @betterer/eslint
+
+
+
+
+
+## [2.2.2](https://github.com/phenomnomnominal/betterer/compare/v2.2.1...v2.2.2) (2020-06-29)
+
+**Note:** Version bump only for package @betterer/eslint
+
+
+
+
+
+## [2.2.1](https://github.com/phenomnomnominal/betterer/compare/v2.2.0...v2.2.1) (2020-06-29)
+
+**Note:** Version bump only for package @betterer/eslint
+
+
+
+
+
+# [2.2.0](https://github.com/phenomnomnominal/betterer/compare/v2.1.0...v2.2.0) (2020-06-28)
+
+**Note:** Version bump only for package @betterer/eslint
+
+
+
+
+
 # [2.1.0](https://github.com/phenomnomnominal/betterer/compare/v2.0.2...v2.1.0) (2020-06-25)
 
 

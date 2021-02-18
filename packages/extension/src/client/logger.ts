@@ -1,4 +1,4 @@
-import { window, MessageItem } from 'vscode';
+import { MessageItem, window } from 'vscode';
 
 export function error(message: string): Thenable<string | void> {
   return window.showErrorMessage(message);

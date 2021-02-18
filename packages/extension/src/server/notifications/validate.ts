@@ -1,23 +1,18 @@
-import * as assert from 'assert';
+import assert from 'assert';
 import { NotificationHandler, NotificationType, TextDocumentChangeEvent } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { BettererValidationNotification, BettererVersionProvider } from './types';
 
-export const BettererValidateNotification = new NotificationType<TextDocument, void>('betterer/validate');
+export const BettererValidateNotification = new NotificationType<TextDocument>('betterer/validate');
 
 export class BettererValidationQueue {
-  private _queue: Array<BettererValidationNotification>;
-  private _notificationHandlers: Map<
+  private _queue: Array<BettererValidationNotification> = [];
+  private _notificationHandlers = new Map<
     string,
     { handler: NotificationHandler<TextDocument>; versionProvider: BettererVersionProvider }
-  >;
+  >();
   private _timer: NodeJS.Immediate | null = null;
-
-  constructor() {
-    this._queue = [];
-    this._notificationHandlers = new Map();
-  }
 
   public addNotificationMessage(event: TextDocumentChangeEvent<TextDocument>): void {
     if (!this._queue.find((item) => item.document === event.document)) {
@@ -31,7 +26,7 @@ export class BettererValidationQueue {
   }
 
   public onNotification(
-    type: NotificationType<TextDocument, void>,
+    type: NotificationType<TextDocument>,
     handler: NotificationHandler<TextDocument>,
     versionProvider: (params: TextDocument) => number
   ): void {

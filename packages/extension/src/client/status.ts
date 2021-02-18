@@ -1,6 +1,5 @@
-import { window, StatusBarAlignment, StatusBarItem } from 'vscode';
-import { NotificationType, LanguageClient, State } from 'vscode-languageclient';
-
+import { StatusBarAlignment, StatusBarItem, window } from 'vscode';
+import { LanguageClient, NotificationType, State } from 'vscode-languageclient/node';
 import { EXTENSION_NAME } from '../constants';
 import { BettererStatus } from '../status';
 import { COMMAND_NAMES } from './commands';
@@ -11,8 +10,8 @@ import { getAlwaysShowStatus } from './settings';
 const SERVER_RUNNING = `${EXTENSION_NAME} is running.`;
 const SERVER_STOPPED = `${EXTENSION_NAME} stopped.`;
 
-const BettererStatusNotification = new NotificationType<BettererStatus, void>(`${EXTENSION_NAME}/status`);
-const BettererExitCalled = new NotificationType<[number, string], void>(`${EXTENSION_NAME}/exitCalled`);
+const BettererStatusNotification = new NotificationType<BettererStatus>(`${EXTENSION_NAME}/status`);
+const BettererExitCalled = new NotificationType<[number, string]>(`${EXTENSION_NAME}/exitCalled`);
 
 export class BettererStatusBar {
   private _status = BettererStatus.ok;
@@ -23,10 +22,10 @@ export class BettererStatusBar {
   constructor(client: LanguageClient) {
     this._statusBarItem = window.createStatusBarItem(StatusBarAlignment.Right, 0);
     this._statusBarItem.text = EXTENSION_NAME;
-    this._statusBarItem.command = COMMAND_NAMES.showOutput;
+    this._statusBarItem.command = COMMAND_NAMES.showOutputChannel;
     this._updateStatusBarVisibility();
 
-    this._initEvents(client);
+    void this._initEvents(client);
   }
 
   public get hasExited(): boolean {
@@ -72,7 +71,7 @@ export class BettererStatusBar {
       this._exit();
       const [code, message] = params;
       client.error(SERVER_PROCESS_ENDED(code), message, true);
-      error(SERVER_PROCESS_SHUT_DOWN);
+      void error(SERVER_PROCESS_SHUT_DOWN);
     });
   }
 

@@ -1,4 +1,4 @@
-import { RequestType } from 'vscode-languageserver';
+import { RequestType } from 'vscode-languageserver/node';
 import { BettererRequestParams } from './types';
 
-export const BettererNoLibraryRequest = new RequestType<BettererRequestParams, void, void, void>('betterer/noLibrary');
+export const BettererNoLibraryRequest = new RequestType<BettererRequestParams, void, void>('betterer/noLibrary');

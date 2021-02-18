@@ -1,17 +1,22 @@
-import * as stack from 'callsite';
-import * as globby from 'globby';
+import stack from 'callsite';
+import globby from 'globby';
 import * as path from 'path';
 
-import { flatten, getNormalisedPath } from '../../utils';
-import { BettererFilePaths } from '../../watcher';
-import { BettererFilePatterns, BettererFileGlobs } from './types';
+import { BettererFilePaths } from '../../runner';
+import { flatten, normalisedPath } from '../../utils';
+import { BettererFileGlobs, BettererFilePatterns } from './types';
 
 export class BettererFileResolver {
   private _cwd: string;
   private _excluded: Array<RegExp> = [];
   private _included: Array<string> = [];
 
-  constructor(depth = 2) {
+  constructor() {
+    // In DEBUG mode there is a Proxy that wraps each function call.
+    // That means that each function call results in two entries in
+    // the call stack, so we adjust here:
+    const depth = process.env.BETTERER_DEBUG ? 4 : 2;
+
     const callStack = stack();
     const callee = callStack[depth];
     this._cwd = path.dirname(callee.getFileName());
@@ -19,18 +24,6 @@ export class BettererFileResolver {
 
   public get cwd(): string {
     return this._cwd;
-  }
-
-  public exclude(...excludePatterns: BettererFilePatterns): this {
-    this._excluded = [...this._excluded, ...flatten(excludePatterns)];
-    return this;
-  }
-
-  public async files(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
-    if (!filePaths.length) {
-      return this._getValidPaths();
-    }
-    return this.validate(filePaths);
   }
 
   public async validate(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
@@ -41,13 +34,27 @@ export class BettererFileResolver {
     return filePaths.filter((filePath) => validPaths.includes(filePath));
   }
 
-  public include(...includePatterns: BettererFileGlobs): this {
+  public resolve(...pathSegments: Array<string>): string {
+    return normalisedPath(path.resolve(this._cwd, ...pathSegments));
+  }
+
+  /** @internal Definitely not stable! Please don't use! */
+  public includeΔ(...includePatterns: BettererFileGlobs): this {
     this._included = [...this._included, ...flatten(includePatterns).map((pattern) => this.resolve(pattern))];
     return this;
   }
 
-  public resolve(...pathSegments: Array<string>): string {
-    return getNormalisedPath(path.resolve(this._cwd, ...pathSegments));
+  /** @internal Definitely not stable! Please don't use! */
+  public excludeΔ(...excludePatterns: BettererFilePatterns): this {
+    this._excluded = [...this._excluded, ...flatten(excludePatterns)];
+    return this;
+  }
+
+  public async files(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
+    if (!filePaths.length) {
+      return this._getValidPaths();
+    }
+    return this.validate(filePaths);
   }
 
   private async _getValidPaths(): Promise<BettererFilePaths> {
@@ -66,6 +73,7 @@ export class BettererFileResolver {
     await Promise.all(
       this._included.map(async (currentGlob) => {
         const globFiles = await globby(currentGlob, {
+          cwd: this.cwd,
           gitignore: true
         });
         resolvedPaths.push(...globFiles);
