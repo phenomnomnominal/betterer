@@ -15,6 +15,7 @@ test/__snapshots__/**
 **/*.gif
 **/*.ico
 **/*.png
+.husky
 .betterer.results
 .bettererignore
 .gitignore
