@@ -1,6 +1,7 @@
 const React = require('react');
 
-const { Container } = require('../../core/CompLibrary.js');
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 module.exports = function Users(props) {
   const { repoUrl, users } = props.config;

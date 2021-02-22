@@ -1,9 +1,0 @@
-{
-  "docs": {
-    "Introduction": ["getting-started"],
-    "Build-in tests": ["doc2"]
-  },
-  "docs-other": {
-    "First Category": ["doc3", "doc4"]
-  }
-}
