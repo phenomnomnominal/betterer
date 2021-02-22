@@ -9,9 +9,10 @@ const updatePackageJSON = workerRequire<WorkerModule<typeof import('./update-pac
 export type InitProps = {
   config: string;
   cwd: string;
+  ts: boolean;
 };
 
-export const Init: FC<InitProps> = function Init({ cwd, config }) {
+export const Init: FC<InitProps> = function Init({ cwd, config, ts }) {
   return (
     <BettererTasksLogger
       name="Initialising Betterer"
@@ -20,14 +21,14 @@ export const Init: FC<InitProps> = function Init({ cwd, config }) {
         {
           name: 'Create test file',
           run: async (logger) => {
-            await createTestFile.run(logger, path.resolve(cwd, config));
+            await createTestFile.run(logger, path.resolve(cwd, config), ts);
             createTestFile.destroy();
           }
         },
         {
           name: 'Update package.json',
           run: async (logger) => {
-            await updatePackageJSON.run(logger, cwd);
+            await updatePackageJSON.run(logger, cwd, ts);
             updatePackageJSON.destroy();
           }
         }

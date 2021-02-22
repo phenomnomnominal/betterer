@@ -63,7 +63,7 @@ function setEnv<T extends BettererCLIEnvConfig>(argv: BettererCLIArguments): T {
 }
 
 function configPathOption(): void {
-  commander.option('-c, --config [value]', 'Path to test definition file relative to CWD', './.betterer.ts');
+  commander.option('-c, --config [value]', 'Path to test definition file relative to CWD');
 }
 
 function configPathsOption(): void {
@@ -98,20 +98,27 @@ function reportersOption(): void {
   );
 }
 
-function handleBool(val: string) {
+function silentOption(): void {
+  commander.option(
+    '-s, --silent',
+    'When present, all default reporters will be disabled. Custom reporters will still work normally.'
+  );
+}
+
+function defaultToTrue(val: string) {
   return val !== 'false';
 }
 
-function silentOption(): void {
-  commander.option('-s, --silent [true|false]', 'Disable all default reporters. Custom reporters still work normally.');
-}
-
 function allowUpdateOption(): void {
-  commander.option('--allow-update [true|false]', 'Whether to allow the `--update` option or not.', handleBool);
+  commander.option(
+    '--allow-update [true|false]',
+    'When set to false, the update message will not be shown and the `--update` option will be ignored.',
+    defaultToTrue
+  );
 }
 
 function updateOption(): void {
-  commander.option('-u, --update [true|false]', 'Force update the results file, even if things get worse', handleBool);
+  commander.option('-u, --update', 'When present, the results file will be updated, even if things get worse');
 }
 
 function argsToArray(value: string, previous: BettererCLIArguments = []): BettererCLIArguments {
