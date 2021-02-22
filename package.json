@@ -41,7 +41,7 @@
     "ansi-regex": "^5.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.9.0",
-    "eslint-config-prettier": "^7.0.0",
+    "eslint-config-prettier": "^8.0.0",
     "eslint-plugin-jest": "^24.0.1",
     "eslint-plugin-prettier": "^3.1.4",
     "fs-extra": "^9.0.1",
