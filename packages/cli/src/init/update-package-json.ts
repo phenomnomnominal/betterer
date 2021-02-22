@@ -5,7 +5,7 @@ import { promises as fs } from 'fs';
 
 import { BettererPackageJSON } from '../types';
 
-export async function run(logger: BettererLogger, cwd: string): Promise<void> {
+export async function run(logger: BettererLogger, cwd: string, ts: boolean): Promise<void> {
   await logger.progress('adding "betterer" to package.json file...');
 
   let packageJSON;
@@ -39,6 +39,15 @@ export async function run(logger: BettererLogger, cwd: string): Promise<void> {
     const { version } = require(packageJSONPath) as BettererPackageJSON;
     packageJSON.devDependencies['@betterer/cli'] = `^${version}`;
     await logger.info('added "@betterer/cli" dependency to package.json file');
+  }
+
+  if (ts) {
+    if (packageJSON.devDependencies['typescript']) {
+      await logger.warn('"typescript" dependency already exists, moving on...');
+    } else {
+      packageJSON.devDependencies['typescript'] = `^4`;
+      await logger.info('added "typescript" dependency to package.json file');
+    }
   }
 
   try {
