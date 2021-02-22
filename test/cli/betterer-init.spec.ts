@@ -2,11 +2,11 @@ import { BettererPackageJSON, initΔ } from '@betterer/cli';
 
 import { createFixture } from '../fixture';
 
-const ARGV = ['node', './bin/betterer'];
+const ARGV = ['node', './bin/betterer', 'init'];
 
 describe('betterer cli', () => {
   it('should initialise betterer in a repo', async () => {
-    const { logs, paths, readFile, cleanup, resolve } = await createFixture(
+    const { cleanup, logs, paths, readFile, resolve } = await createFixture(
       'test-betterer-init',
       {
         'package.json': `
@@ -31,10 +31,11 @@ describe('betterer cli', () => {
 
     expect(packageJSON.scripts.betterer).toEqual('betterer');
     expect(packageJSON.devDependencies['@betterer/cli']).toBeDefined();
+    expect(packageJSON.devDependencies['typescript']).toBeDefined();
 
     const config = await readFile(configPath);
 
-    expect(config).toEqual('export default {\n  // Add tests here ☀️\n};');
+    expect(config).toEqual('export default {\n  // Add tests here ☀️\n};\n');
 
     expect(logs).toMatchSnapshot();
 
@@ -42,7 +43,7 @@ describe('betterer cli', () => {
   });
 
   it('should work multiple times', async () => {
-    const { logs, paths, cleanup } = await createFixture(
+    const { cleanup, logs, paths } = await createFixture(
       'test-betterer-init-multiple',
       {
         'package.json': `
@@ -71,5 +72,42 @@ describe('betterer cli', () => {
     expect(throws).toBe(false);
 
     expect(logs).toMatchSnapshot();
+  });
+
+  it('should initialise betterer in a repo with JS', async () => {
+    const { cleanup, logs, paths, readFile, resolve } = await createFixture(
+      'test-betterer-init-js',
+      {
+        'package.json': `
+      {
+        "name": "betterer-test-betterer-init-js",
+        "version": "0.0.1"
+      }
+      `
+      },
+      {
+        logFilters: [/🌟 Initialising Betterer/]
+      }
+    );
+
+    const configPath = `${paths.config}.js`;
+    const fixturePath = paths.cwd;
+    const packageJSONPath = resolve('./package.json');
+
+    await initΔ(fixturePath, [...ARGV, '--config', configPath]);
+
+    const packageJSON = JSON.parse(await readFile(packageJSONPath)) as BettererPackageJSON;
+
+    expect(packageJSON.scripts.betterer).toEqual('betterer');
+    expect(packageJSON.devDependencies['@betterer/cli']).toBeDefined();
+    expect(packageJSON.devDependencies['typescript']).not.toBeDefined();
+
+    const config = await readFile(configPath);
+
+    expect(config).toEqual('module.exports = {\n  // Add tests here ☀️\n};\n');
+
+    expect(logs).toMatchSnapshot();
+
+    await cleanup();
   });
 });
