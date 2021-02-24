@@ -321,10 +321,10 @@
     resolve-global "1.0.0"
     yargs "^15.1.0"
 
-"@commitlint/config-conventional@^11.0.0":
-  version "11.0.0"
-  resolved "https://registry.npmjs.org/@commitlint/config-conventional/-/config-conventional-11.0.0.tgz#3fa300a1b639273946de3c3f15e1cda518333422"
-  integrity sha512-SNDRsb5gLuDd2PL83yCOQX6pE7gevC79UPFx+GLbLfw6jGnnbO9/tlL76MLD8MOViqGbo7ZicjChO9Gn+7tHhA==
+"@commitlint/config-conventional@^12.0.0":
+  version "12.0.0"
+  resolved "https://registry.npmjs.org/@commitlint/config-conventional/-/config-conventional-12.0.0.tgz#3244957b87b92dc2f4feb46059cdeb950783198f"
+  integrity sha512-zjTeCBlHEP0syW6QedRSxOiafYeuOol9vIXZ89uhKMhyejaKxdAnS3SBMN4fYiSFChsZEl+VshJeZDtUFkCd7Q==
   dependencies:
     conventional-changelog-conventionalcommits "^4.3.1"
 
@@ -4673,9 +4673,9 @@ humanize-ms@^1.2.1:
     ms "^2.0.0"
 
 husky@^5.0.9:
-  version "5.0.9"
-  resolved "https://registry.npmjs.org/husky/-/husky-5.0.9.tgz#6d38706643d66ed395bcd4ee952d02e3f15eb3a3"
-  integrity sha512-0SjcaY21a+IRdx7p7r/X33Vc09UR2m8SbP8yfkhUX2/jAmwcz+GR7i9jXkp2pP3GfX23JhMkVP6SWwXB18uXtg==
+  version "5.1.1"
+  resolved "https://registry.npmjs.org/husky/-/husky-5.1.1.tgz#8678953fd8deb86f387cbf1ad50bb2f7f96e83f2"
+  integrity sha512-80LZ736V0Nr4/st0c2COYaMbEQhHNmAbLMN8J/kLk7/mo0QdUkUGNDjv/7jVkhug377Wh8wfbWyaVXEJ/h2B/Q==
 
 iconv-lite@0.4.24, iconv-lite@^0.4.24, iconv-lite@~0.4.13:
   version "0.4.24"
