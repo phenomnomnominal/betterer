@@ -14,8 +14,8 @@ export class BettererReporterΩ implements BettererReporter {
   async contextStart(context: BettererContext, lifecycle: Promise<BettererSummaries>): Promise<void> {
     await Promise.all(this._reporters.map((r) => r.contextStart?.(context, lifecycle)));
   }
-  async contextEnd(context: BettererContext, summary: BettererSummaries): Promise<void> {
-    await Promise.all(this._reporters.map((r) => r.contextEnd?.(context, summary)));
+  async contextEnd(context: BettererContext, summaries: BettererSummaries): Promise<void> {
+    await Promise.all(this._reporters.map((r) => r.contextEnd?.(context, summaries)));
   }
   async contextError(context: BettererContext, error: BettererError): Promise<void> {
     await Promise.all(this._reporters.map((r) => r.contextError?.(context, error)));

@@ -26,7 +26,7 @@ export class BettererRunnerΩ implements BettererRunner {
         reporter = loadReporters([]);
       }
       if (config.reporters.length > 0) {
-        reporter = loadReporters(config.reporters);
+        reporter = loadReporters(config.reporters, config.cwd);
       }
     } catch (error) {
       await reporter.configError(partialConfig, error);
