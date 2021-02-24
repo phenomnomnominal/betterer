@@ -1,4 +1,5 @@
 import { BettererError } from '@betterer/errors';
+import * as path from 'path';
 
 import { BettererConfigReporters } from '../config';
 import { requireUncached } from '../require';
@@ -10,9 +11,12 @@ export const DEFAULT_REPORTER = '@betterer/reporter';
 
 const HOOK_NAMES = Object.getOwnPropertyNames(BettererReporterΩ.prototype) as ReadonlyArray<keyof BettererReporter>;
 
-export function loadReporters(reporterConfig: BettererConfigReporters): BettererReporterΩ {
+export function loadReporters(reporterConfig: BettererConfigReporters, cwd?: string): BettererReporterΩ {
   const reporters: Array<BettererReporter> = reporterConfig.map((reporter) => {
     if (isString(reporter)) {
+      if (cwd) {
+        reporter = resolveReporter(cwd, reporter);
+      }
       try {
         const module: BettererReporterModule = requireUncached(reporter);
         if (!module || !module.reporter) {
@@ -41,4 +45,14 @@ function validate(result: unknown): asserts result is BettererReporter {
       throw new BettererError(`"${hookName}" is not a function. 😔`);
     }
   });
+}
+
+function resolveReporter(cwd: string, reporter: string): string {
+  try {
+    // Local file:
+    return require.resolve(path.resolve(cwd, reporter));
+  } catch {
+    // npm module:
+    return reporter;
+  }
 }
