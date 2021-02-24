@@ -36,6 +36,10 @@ You can pass the following options to the `init` script:
 | ----------------------- | -------------------------------------------- | ---------------- |
 | `-c`, `--config` [path] | Path to test definition file relative to CWD | `./.betterer.ts` |
 
+:::info
+**Betterer** uses TypeScript by default! If you pass a `--config` path that ends with `.js`, JavaScript will be used instead and TypeScript will not be installed.
+:::
+
 ### Read more about Init
 
 - [The test definition file](./test-definition-file)

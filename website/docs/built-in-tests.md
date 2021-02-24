@@ -1,15 +1,49 @@
 ---
 id: built-in-tests
-title: This is Document Number 3
+title: Built-in Tests
 slug: /built-in-tests
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ac euismod odio, eu consequat dui. Nullam molestie consectetur risus id imperdiet. Proin sodales ornare turpis, non mollis massa ultricies id. Nam at nibh scelerisque, feugiat ante non, dapibus tortor. Vivamus volutpat diam quis tellus elementum bibendum. Praesent semper gravida velit quis aliquam. Etiam in cursus neque. Nam lectus ligula, malesuada et mauris a, bibendum faucibus mi. Phasellus ut interdum felis. Phasellus in odio pulvinar, porttitor urna eget, fringilla lectus. Aliquam sollicitudin est eros. Mauris consectetur quam vitae mauris interdum hendrerit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+**Betterer** ships several built-in tests to get you started. Check out the [implementations](https://github.com/phenomnomnominal/betterer/blob/master/packages/eslint/src/eslint.ts) for some more [inspiration](https://github.com/phenomnomnominal/betterer/blob/master/packages/typescript/src/typescript.ts) for your own tests!
 
-Duis et egestas libero, imperdiet faucibus ipsum. Sed posuere eget urna vel feugiat. Vivamus a arcu sagittis, fermentum urna dapibus, congue lectus. Fusce vulputate porttitor nisl, ac cursus elit volutpat vitae. Nullam vitae ipsum egestas, convallis quam non, porta nibh. Morbi gravida erat nec neque bibendum, eu pellentesque velit posuere. Fusce aliquam erat eu massa eleifend tristique.
+### [`@betterer/eslint`](https://www.npmjs.com/package/@betterer/eslint)
 
-Sed consequat sollicitudin ipsum eget tempus. Integer a aliquet velit. In justo nibh, pellentesque non suscipit eget, gravida vel lacus. Donec odio ante, malesuada in massa quis, pharetra tristique ligula. Donec eros est, tristique eget finibus quis, semper non nisl. Vivamus et elit nec enim ornare placerat. Sed posuere odio a elit cursus sagittis.
+Use this test to incrementally introduce new [**ESLint**](https://eslint.org/) rules to your codebase. You can pass as many **ESLint** [rule configurations](https://eslint.org/docs/rules/) as you like:
 
-Phasellus feugiat purus eu tortor ultrices finibus. Ut libero nibh, lobortis et libero nec, dapibus posuere eros. Sed sagittis euismod justo at consectetur. Nulla finibus libero placerat, cursus sapien at, eleifend ligula. Vivamus elit nisl, hendrerit ac nibh eu, ultrices tempus dui. Nam tellus neque, commodo non rhoncus eu, gravida in risus. Nullam id iaculis tortor.
+```typescript
+import { eslint } from '@betterer/eslint';
 
-Nullam at odio in sem varius tempor sit amet vel lorem. Etiam eu hendrerit nisl. Fusce nibh mauris, vulputate sit amet ex vitae, congue rhoncus nisl. Sed eget tellus purus. Nullam tempus commodo erat ut tristique. Cras accumsan massa sit amet justo consequat eleifend. Integer scelerisque vitae tellus id consectetur.
+export default {
+  'no more debuggers': eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
+};
+```
+
+### [`@betterer/regexp`](https://www.npmjs.com/package/@betterer/regexp)
+
+Use this test to incrementally remove [**RegExp**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) matches from your codebase.
+
+```typescript
+import { regexp } from '@betterer/regexp';
+
+export default {
+  'no hack comments': regexp(/(\/\/\s*HACK)/i).include('**/*.ts')
+};
+```
+
+### [`@betterer/tsquery`](https://www.npmjs.com/package/@betterer/tsquery)
+
+se this test to incrementally remove **TSQuery** matches from your codebase. See the [**TSQuery** doecumentation](https://github.com/phenomnomnominal/tsquery) for more details about the query syntax.
+
+### [`@betterer/typescript`](https://www.npmjs.com/package/@betterer/typescript)
+
+Use this test to incrementally introduce [**TypeScript** configuration](https://www.typescriptlang.org/docs/handbook/compiler-options.html) to your codebase.
+
+```typescript
+import { typescript } from '@betterer/typescript';
+
+export default {
+  'stricter compilation': typescript('./tsconfig.json', {
+    strict: true
+  })
+};
+```
