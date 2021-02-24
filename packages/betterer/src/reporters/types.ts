@@ -7,7 +7,7 @@ import { BettererFilePaths } from '../runner';
 export type BettererReporter = {
   configError?(config: BettererConfigPartial, error: BettererError): Promise<void> | void;
   contextStart?(context: BettererContext, lifecycle: Promise<BettererSummaries>): Promise<void> | void;
-  contextEnd?(context: BettererContext, summary: BettererSummaries): Promise<void> | void;
+  contextEnd?(context: BettererContext, summaries: BettererSummaries): Promise<void> | void;
   contextError?(context: BettererContext, error: BettererError): Promise<void> | void;
   runsStart?(runs: BettererRuns, filePaths: BettererFilePaths): Promise<void> | void;
   runsEnd?(summary: BettererSummary, filePaths: BettererFilePaths): Promise<void> | void;
