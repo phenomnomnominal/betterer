@@ -1,21 +1,26 @@
-import { BettererSummary, betterer } from '@betterer/betterer';
+import { BettererSummary, betterer, BettererOptionsStart } from '@betterer/betterer';
 
 import { startOptions } from './options';
 import { BettererCLIArguments } from './types';
 
 /** @internal Definitely not stable! Please don't use! */
 export function startΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSummary> {
-  const { allowUpdate, config, results, filter, silent, reporter, tsconfig, update } = startOptions(argv);
+  const { config, filter, results, reporter, silent, strict, tsconfig, update } = startOptions(argv);
 
-  return betterer({
-    allowUpdate,
+  // Mark options as unknown...
+  const options: unknown = {
     configPaths: config,
     cwd,
     filters: filter,
     reporters: reporter,
     resultsPath: results,
     silent,
+    strict,
     tsconfigPath: tsconfig,
     update
-  });
+  };
+
+  // And then cast to BettererOptionsStart. This is possibly invalid,
+  // but it's nicer to do the options validation in @betterer/betterer
+  return betterer(options as BettererOptionsStart);
 }

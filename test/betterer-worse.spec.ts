@@ -145,7 +145,8 @@ export default {
 
     await writeFile(indexPath, `console.log('foo');\nconsole.log('foo');`);
 
-    const blockedTestRun = await betterer({ configPaths, resultsPath, update: true, allowUpdate: false });
+    // @ts-expect-error `strict` and `true` are mutually exclusive, but could be set via JS:
+    const blockedTestRun = await betterer({ configPaths, resultsPath, strict: true, update: true });
 
     expect(runNames(blockedTestRun.worse)).toEqual(['tsquery no raw console.log']);
 

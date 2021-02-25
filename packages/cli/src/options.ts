@@ -29,9 +29,9 @@ export function startOptions(argv: BettererCLIArguments): BettererCLIStartConfig
   tsconfigPathOption();
   filtersOption();
   silentOption();
-  allowUpdateOption();
-  updateOption();
   reportersOption();
+  strictOption();
+  updateOption();
   return setEnv<BettererCLIStartConfig>(argv);
 }
 
@@ -105,20 +105,15 @@ function silentOption(): void {
   );
 }
 
-function defaultToTrue(val: string) {
-  return val !== 'false';
-}
-
-function allowUpdateOption(): void {
+function strictOption(): void {
   commander.option(
-    '--allow-update [true|false]',
-    'When set to false, the update message will not be shown and the `--update` option will be ignored.',
-    defaultToTrue
+    '--strict',
+    'When present, the "how to update" message will not be shown and the `--update` option will be set to false.'
   );
 }
 
 function updateOption(): void {
-  commander.option('-u, --update', 'When present, the results file will be updated, even if things get worse');
+  commander.option('-u, --update', 'When present, the results file will be updated, even if things get worse.');
 }
 
 function argsToArray(value: string, previous: BettererCLIArguments = []): BettererCLIArguments {

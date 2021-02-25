@@ -7,30 +7,44 @@ import { isBoolean, isRegExp, isString, isUndefined } from '../utils';
 import {
   BettererConfig,
   BettererConfigReporter,
-  BettererConfigPartial,
-  BettererStartConfigPartial,
-  BettererWatchConfigPartial
+  BettererOptionsBase,
+  BettererOptionsRunner,
+  BettererOptionsStart,
+  BettererOptionsWatch
 } from './types';
 
 let globalConfig: BettererConfig | null = null;
 
-export async function createConfig(partialConfig: BettererConfigPartial = {}): Promise<BettererConfig> {
-  const relativeConfig = {
-    allowDiff: (partialConfig as BettererStartConfigPartial).allowDiff ?? true,
-    allowUpdate: (partialConfig as BettererStartConfigPartial).allowUpdate ?? true,
-    configPaths: partialConfig.configPaths ? toArray<string>(partialConfig.configPaths) : ['./.betterer'],
-    cwd: partialConfig.cwd || process.cwd(),
-    filters: toRegExps(toArray<string | RegExp>(partialConfig.filters)),
-    ignores: toArray<string>((partialConfig as BettererWatchConfigPartial).ignores),
-    reporters: toArray<BettererConfigReporter>(partialConfig.reporters),
-    resultsPath: partialConfig.resultsPath || './.betterer.results',
-    silent: partialConfig.silent || false,
-    tsconfigPath: partialConfig.tsconfigPath || null,
-    update: (partialConfig as BettererStartConfigPartial).update || false,
-    watch: partialConfig.watch || false
+export async function createConfig(options: unknown = {}): Promise<BettererConfig> {
+  const baseOptions = options as BettererOptionsBase;
+  const runnerOptions = options as BettererOptionsRunner;
+  const startOptions = options as BettererOptionsStart;
+  const watchOptions = options as BettererOptionsWatch;
+
+  const relativeConfig: BettererConfig = {
+    // Base:
+    configPaths: baseOptions.configPaths ? toArray<string>(baseOptions.configPaths) : ['./.betterer'],
+    cwd: baseOptions.cwd || process.cwd(),
+    filters: toRegExps(toArray<string | RegExp>(baseOptions.filters)),
+    reporters: toArray<BettererConfigReporter>(baseOptions.reporters),
+    resultsPath: baseOptions.resultsPath || './.betterer.results',
+    silent: baseOptions.silent || false,
+    tsconfigPath: baseOptions.tsconfigPath || null,
+
+    // Runner:
+    ignores: toArray<string>(runnerOptions.ignores),
+
+    // Start:
+    ci: startOptions.ci || false,
+    strict: startOptions.strict || false,
+    update: startOptions.update || false,
+
+    // Watch
+    watch: watchOptions.watch || false
   };
 
   validateConfig(relativeConfig);
+  overrideConfig(relativeConfig);
 
   globalConfig = {
     ...relativeConfig,
@@ -39,12 +53,11 @@ export async function createConfig(partialConfig: BettererConfigPartial = {}): P
     tsconfigPath: relativeConfig.tsconfigPath ? path.resolve(relativeConfig.cwd, relativeConfig.tsconfigPath) : null
   };
 
-  const config = getConfig();
-  if (config.tsconfigPath) {
-    await validateFilePath('tsconfigPath', config.tsconfigPath);
+  if (globalConfig.tsconfigPath) {
+    await validateFilePath('tsconfigPath', globalConfig);
   }
 
-  return config;
+  return globalConfig;
 }
 
 export function getConfig(): BettererConfig {
@@ -53,70 +66,109 @@ export function getConfig(): BettererConfig {
 }
 
 function validateConfig(config: BettererConfig): void {
-  validateBool('allowDiff', config.allowDiff);
-  validateBool('allowUpdate', config.allowUpdate);
-  validateBool('silent', config.silent);
-  validateBool('update', config.update);
-  validateString('cwd', config.cwd);
-  validateString('resultsPath', config.resultsPath);
-  validateStringArray('configPaths', config.configPaths);
-  validateStringArray('ignores', config.ignores);
-  validateStringRegExpArray('filters', config.filters);
+  // Base:
+  validateStringArray('configPaths', config);
+  validateString('cwd', config);
+  validateStringRegExpArray('filters', config);
+  validateString('resultsPath', config);
+  validateBool('silent', config);
+
+  // Start:
+  validateBool('ci', config);
+  validateBool('strict', config);
+  validateBool('update', config);
+
+  // Runner:
+  validateStringArray('ignores', config);
+
+  // Watch:
+  validateBool('watch', config);
 }
 
-function validateBool<PropertyName extends keyof BettererConfig>(
-  propertyName: PropertyName,
-  value: BettererConfig[PropertyName]
-): void {
-  validate(isBoolean(value), `"${propertyName}" must be \`true\` or \`false\`. ${recieved(value)}`);
+function overrideConfig(config: BettererConfig) {
+  // CI mode:
+  if (config.ci) {
+    config.strict = true;
+    config.update = false;
+    config.watch = false;
+    return;
+  }
+  // Strict mode:
+  if (config.strict) {
+    config.ci = false;
+    config.update = false;
+    config.watch = false;
+    return;
+  }
+  // Update mode:
+  if (config.update) {
+    config.ci = false;
+    config.strict = false;
+    config.watch = false;
+    return;
+  }
+  // Watch mode:
+  if (config.watch) {
+    config.ci = false;
+    config.strict = true;
+    config.update = false;
+    return;
+  }
 }
 
-function validateString<PropertyName extends keyof BettererConfig>(
-  propertyName: PropertyName,
-  value: BettererConfig[PropertyName]
-): void {
-  validate(isString(value), `"${propertyName}" must be a string. ${recieved(value)}`);
+function validateBool<Config, PropertyName extends keyof Config>(propertyName: PropertyName, config: Config): void {
+  const value = config[propertyName];
+  validate(isBoolean(value), `"${propertyName.toString()}" must be \`true\` or \`false\`. ${recieved(value)}`);
 }
 
-function validateStringOrArray<PropertyName extends keyof BettererConfig>(
+function validateString<Config, PropertyName extends keyof Config>(propertyName: PropertyName, config: Config): void {
+  const value = config[propertyName];
+  validate(isString(value), `"${propertyName.toString()}" must be a string. ${recieved(value)}`);
+}
+
+function validateStringOrArray<Config, PropertyName extends keyof Config>(
   propertyName: PropertyName,
-  value: BettererConfig[PropertyName]
+  config: Config
 ): void {
+  const value = config[propertyName];
   validate(
     isString(value) || Array.isArray(value),
-    `"${propertyName}" must be a string or an array. ${recieved(value)}`
+    `"${propertyName.toString()}" must be a string or an array. ${recieved(value)}`
   );
 }
 
-function validateStringArray<PropertyName extends keyof BettererConfig>(
+function validateStringArray<Config, PropertyName extends keyof Config>(
   propertyName: PropertyName,
-  value: BettererConfig[PropertyName]
+  config: Config
 ): void {
-  validateStringOrArray(propertyName, value);
+  const value = config[propertyName];
+  validateStringOrArray(propertyName, config);
   validate(
     !Array.isArray(value) || value.every((item) => isString(item)),
-    `"${propertyName}" must be an array of strings. ${recieved(value)}`
+    `"${propertyName.toString()}" must be an array of strings. ${recieved(value)}`
   );
 }
 
-function validateStringRegExpArray<PropertyName extends keyof BettererConfig>(
+function validateStringRegExpArray<Config, PropertyName extends keyof Config>(
   propertyName: PropertyName,
-  value: BettererConfig[PropertyName]
+  config: Config
 ): void {
-  validateStringOrArray(propertyName, value);
+  const value = config[propertyName];
+  validateStringOrArray(propertyName, config);
   validate(
     !Array.isArray(value) || value.every((item) => isString(item) || isRegExp(item)),
-    `"${propertyName}" must be an array of strings or RegExps. ${recieved(value)}`
+    `"${propertyName.toString()}" must be an array of strings or RegExps. ${recieved(value)}`
   );
 }
 
-async function validateFilePath<PropertyName extends keyof BettererConfig>(
+async function validateFilePath<Config, PropertyName extends keyof Config>(
   propertyName: PropertyName,
-  value: BettererConfig[PropertyName]
+  config: Config
 ): Promise<void> {
+  const value = config[propertyName];
   validate(
     value == null || (isString(value) && (await fs.readFile(value))),
-    `"${propertyName}" must be a path to a file. ${recieved(value)}`
+    `"${propertyName.toString()}" must be a path to a file. ${recieved(value)}`
   );
 }
 

@@ -82,7 +82,7 @@ export const RunSummary: FC<RunSummaryProps> = memo(function RunSummary({ contex
             <Box paddingBottom={1}>
               <Text color={TEXT_COLOURS.worse}>{testWorse(tests(worse))}</Text>
             </Box>
-            {context.config.allowUpdate && <Text>{updateInstructions()}</Text>}
+            {!context.config.strict && <Text>{updateInstructions()}</Text>}
           </>
         ) : null}
       </Box>

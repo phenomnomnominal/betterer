@@ -1,6 +1,5 @@
 import { BettererError } from '@betterer/errors';
 
-import { BettererConfigPartial } from '../config';
 import { BettererContext, BettererRun, BettererRuns, BettererSummary, BettererSummaries } from '../context';
 import { BettererFilePaths } from '../runner';
 import { BettererReporter } from './types';
@@ -8,8 +7,8 @@ import { BettererReporter } from './types';
 export class BettererReporterΩ implements BettererReporter {
   constructor(private _reporters: Array<BettererReporter>) {}
 
-  async configError(partialConfig: BettererConfigPartial, error: BettererError): Promise<void> {
-    await Promise.all(this._reporters.map((r) => r.configError?.(partialConfig, error)));
+  async configError(invalidConfig: unknown, error: BettererError): Promise<void> {
+    await Promise.all(this._reporters.map((r) => r.configError?.(invalidConfig, error)));
   }
   async contextStart(context: BettererContext, lifecycle: Promise<BettererSummaries>): Promise<void> {
     await Promise.all(this._reporters.map((r) => r.contextStart?.(context, lifecycle)));

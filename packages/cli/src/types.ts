@@ -5,13 +5,7 @@ export type BettererCLIEnvConfig = {
   debugLog: string;
 };
 
-export type BettererCLICIConfig = BettererCLIEnvConfig &
-  BettererCLIBaseConfig & {
-    allowUpdate: false;
-    update: false;
-  };
-
-export type BettererCLIBaseConfig = {
+export type BettererCLIBaseConfig = BettererCLIEnvConfig & {
   config: BettererCLIArguments;
   filter: BettererCLIArguments;
   reporter: BettererCLIArguments;
@@ -20,19 +14,16 @@ export type BettererCLIBaseConfig = {
   tsconfig: string;
 };
 
-export type BettererCLIStartConfig = BettererCLIEnvConfig &
-  BettererCLIBaseConfig & {
-    allowUpdate: boolean;
-    update: boolean;
-  };
-
-export type BettererCLIWatchConfig = BettererCLIEnvConfig &
-  BettererCLIBaseConfig & {
-    ignore: BettererCLIArguments;
-  };
+export type BettererCLICIConfig = BettererCLIBaseConfig;
 
 export type BettererCLIInitConfig = BettererCLIEnvConfig & {
   config: string;
+};
+
+export type BettererCLIStartConfig = BettererCLIBaseConfig & { strict: boolean; update: boolean };
+
+export type BettererCLIWatchConfig = BettererCLIBaseConfig & {
+  ignore: BettererCLIArguments;
 };
 
 export type BettererPackageJSON = {

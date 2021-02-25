@@ -7,21 +7,25 @@ export type BettererConfigReporter = string | BettererReporter;
 export type BettererConfigReporters = ReadonlyArray<BettererConfigReporter>;
 
 export type BettererConfig = {
-  allowDiff: boolean;
-  allowUpdate: boolean;
+  // Base:
   configPaths: BettererConfigPaths;
   cwd: string;
   filters: BettererConfigFilters;
-  ignores: BettererConfigIgnores;
   reporters: BettererConfigReporters;
   resultsPath: string;
   silent: boolean;
   tsconfigPath: string | null;
+  // Start:
+  ci: boolean;
+  strict: boolean;
   update: boolean;
+  // Runner;
+  ignores: BettererConfigIgnores;
+  // Watch:
   watch: boolean;
 };
 
-export type BettererBaseConfigPartial = Partial<{
+export type BettererOptionsBase = Partial<{
   configPaths: BettererConfigPaths | string;
   cwd: string;
   filters: ReadonlyArray<string | RegExp> | string;
@@ -31,18 +35,50 @@ export type BettererBaseConfigPartial = Partial<{
   tsconfigPath: string;
 }>;
 
-export type BettererStartConfigPartial = BettererBaseConfigPartial &
+export type BettererOptionsStartCI = BettererOptionsBase &
   Partial<{
-    allowDiff: boolean;
-    allowUpdate: boolean;
-    update: boolean;
+    ci: true;
+    strict: true;
+    update: false;
     watch: false;
   }>;
 
-export type BettererWatchConfigPartial = BettererBaseConfigPartial &
+export type BettererOptionsStartDefault = BettererOptionsBase &
   Partial<{
-    ignores: BettererConfigIgnores;
-    watch: true;
+    ci: false;
+    strict: false;
+    update: false;
+    watch: false;
   }>;
 
-export type BettererConfigPartial = BettererStartConfigPartial | BettererWatchConfigPartial;
+export type BettererOptionsStartStrict = BettererOptionsBase &
+  Partial<{
+    ci: false;
+    strict: true;
+    update: false;
+    watch: false;
+  }>;
+
+export type BettererOptionsStartUpdate = BettererOptionsBase &
+  Partial<{
+    ci: false;
+    strict: false;
+    update: true;
+    watch: false;
+  }>;
+
+export type BettererOptionsStart =
+  | BettererOptionsStartCI
+  | BettererOptionsStartDefault
+  | BettererOptionsStartStrict
+  | BettererOptionsStartUpdate;
+
+export type BettererOptionsRunner = BettererOptionsBase &
+  Partial<{
+    ignores: BettererConfigIgnores;
+  }>;
+
+export type BettererOptionsWatch = BettererOptionsRunner &
+  Partial<{
+    watch: true;
+  }>;
