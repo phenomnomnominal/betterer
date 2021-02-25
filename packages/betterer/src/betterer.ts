@@ -1,30 +1,30 @@
 import { debug } from '@phenomnomnominal/debug';
 
-import { BettererBaseConfigPartial, BettererStartConfigPartial, BettererWatchConfigPartial } from './config';
+import { BettererOptionsRunner, BettererOptionsStart, BettererOptionsWatch } from './config';
 import { BettererSummary } from './context';
 import { BettererRunner, BettererRunnerΩ, BettererWatcherΩ } from './runner';
 
-export async function betterer(partialConfig: BettererStartConfigPartial = {}): Promise<BettererSummary> {
+export async function betterer(options: BettererOptionsStart = {}): Promise<BettererSummary> {
   initDebug();
   const runner = new BettererRunnerΩ();
-  await runner.start(partialConfig);
+  await runner.start(options);
   await runner.queue();
   return runner.stop();
 }
 
-export async function runner(partialConfig?: BettererBaseConfigPartial): Promise<BettererRunner> {
+export async function runner(options: BettererOptionsRunner = {}): Promise<BettererRunner> {
   initDebug();
   const runner = new BettererRunnerΩ();
-  await runner.start(partialConfig);
+  await runner.start(options);
   return runner;
 }
 betterer.runner = runner;
 
-export async function watch(partialConfig: BettererWatchConfigPartial = {}): Promise<BettererRunner> {
+export async function watch(options: BettererOptionsWatch = {}): Promise<BettererRunner> {
   initDebug();
-  partialConfig.watch = true;
+  options.watch = true;
   const runner = new BettererRunnerΩ();
-  const context = await runner.start(partialConfig);
+  const context = await runner.start(options);
   const watcher = new BettererWatcherΩ(context, runner);
   await watcher.setup();
   return watcher;
