@@ -1,4 +1,4 @@
-import { BettererSummary, betterer } from '@betterer/betterer';
+import { BettererSummary, betterer, BettererOptionsStart } from '@betterer/betterer';
 
 import { ciOptions } from './options';
 import { BettererCLIArguments } from './types';
@@ -7,9 +7,9 @@ import { BettererCLIArguments } from './types';
 export function ciΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSummary> {
   const { config, results, filter, silent, reporter, tsconfig } = ciOptions(argv);
 
-  return betterer({
-    allowDiff: false,
-    allowUpdate: false,
+  // Mark options as unknown...
+  const options: unknown = {
+    ci: true,
     configPaths: config,
     cwd,
     filters: filter,
@@ -17,5 +17,9 @@ export function ciΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererS
     resultsPath: results,
     silent,
     tsconfigPath: tsconfig
-  });
+  };
+
+  // And then cast to BettererOptionsStart. This is possibly invalid,
+  // but it's nicer to do the options validation in @betterer/betterer
+  return betterer(options as BettererOptionsStart);
 }

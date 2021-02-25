@@ -12,7 +12,6 @@ import {
   BettererTestBase,
   BettererTestMap,
   BettererTestConfigMap,
-  BettererTestConfigPartial,
   isBettererFileTestΔ,
   isBettererTest
 } from '../test';
@@ -113,13 +112,13 @@ export class BettererContextΩ implements BettererContext {
 
   private _getTests(configPath: string): BettererTestMap {
     try {
-      const testOptions = requireUncached<BettererTestConfigMap>(configPath);
+      const testConfig = requireUncached<BettererTestConfigMap>(configPath);
       const tests: BettererTestMap = {};
-      Object.keys(testOptions).forEach((name) => {
-        const testOrConfig = testOptions[name];
+      Object.keys(testConfig).forEach((name) => {
+        const testOrConfig = testConfig[name];
         let test: BettererTestBase | null = null;
         if (!isBettererTest(testOrConfig)) {
-          test = new BettererTest(testOptions[name] as BettererTestConfigPartial);
+          test = new BettererTest(testOrConfig);
         } else {
           test = testOrConfig;
         }

@@ -1,6 +1,6 @@
 import { createTestConfig } from './config';
 import { BettererTestType } from './type';
-import { BettererTestBase, BettererTestConfig, BettererTestConfigPartial } from './types';
+import { BettererTestBase, BettererTestConfig, BettererTestOptions } from './types';
 
 export class BettererTest<DeserialisedType, SerialisedType, DiffType>
   implements BettererTestBase<DeserialisedType, SerialisedType, DiffType> {
@@ -8,8 +8,8 @@ export class BettererTest<DeserialisedType, SerialisedType, DiffType>
   private _isOnly = false;
   private _isSkipped = false;
 
-  constructor(config: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>) {
-    this._config = createTestConfig(config, BettererTestType.Unknown) as BettererTestConfig<
+  constructor(options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>) {
+    this._config = createTestConfig(options, BettererTestType.Unknown) as BettererTestConfig<
       DeserialisedType,
       SerialisedType,
       DiffType

@@ -22,12 +22,9 @@ describe('betterer', () => {
     const resultsPath = paths.results;
 
     const tests = [
-      { allowDiff: 1234 },
-      { allowDiff: 'betterer' },
-      { allowDiff: {} },
-      { allowUpdate: 1234 },
-      { allowUpdate: 'betterer' },
-      { allowUpdate: {} },
+      { ci: 1234 },
+      { ci: 'betterer' },
+      { ci: {} },
       { configPaths: 1234 },
       { configPaths: true },
       { configPaths: {} },
@@ -48,6 +45,9 @@ describe('betterer', () => {
       { silent: 1234 },
       { silent: 'betterer' },
       { silent: {} },
+      { strict: 1234 },
+      { strict: 'betterer' },
+      { strict: {} },
       { update: 1234 },
       { update: 'betterer' },
       { update: {} }

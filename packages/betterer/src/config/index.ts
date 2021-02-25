@@ -1,12 +1,11 @@
 export { createConfig, getConfig } from './config';
 export {
+  BettererConfig,
   BettererConfigFilters,
   BettererConfigIgnores,
   BettererConfigPaths,
   BettererConfigReporters,
-  BettererConfigPartial,
-  BettererBaseConfigPartial,
-  BettererStartConfigPartial,
-  BettererWatchConfigPartial,
-  BettererConfig
+  BettererOptionsRunner,
+  BettererOptionsStart,
+  BettererOptionsWatch
 } from './types';

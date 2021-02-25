@@ -1,4 +1,4 @@
-import { BettererBaseConfigPartial } from '@betterer/betterer';
+import { BettererOptionsRunner } from '@betterer/betterer';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { RemoteWorkspace } from 'vscode-languageserver/node';
@@ -29,9 +29,9 @@ export async function getDebug(workspace: RemoteWorkspace): Promise<void> {
   }
 }
 
-export async function getBettererConfig(cwd: string, workspace: RemoteWorkspace): Promise<BettererBaseConfigPartial> {
+export async function getBettererConfig(cwd: string, workspace: RemoteWorkspace): Promise<BettererOptionsRunner> {
   const { configPath, filters, resultsPath, tsconfigPath } = await getConfig(workspace);
-  const config: BettererBaseConfigPartial = {
+  const config: BettererOptionsRunner = {
     configPaths: configPath,
     filters,
     resultsPath

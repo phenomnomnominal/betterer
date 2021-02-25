@@ -5,10 +5,9 @@ export {
   BettererConfigIgnores,
   BettererConfigPaths,
   BettererConfigReporters,
-  BettererConfigPartial,
-  BettererBaseConfigPartial,
-  BettererStartConfigPartial,
-  BettererWatchConfigPartial
+  BettererOptionsRunner,
+  BettererOptionsStart,
+  BettererOptionsWatch
 } from './config/public';
 export {
   BettererContext,

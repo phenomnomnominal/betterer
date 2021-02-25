@@ -10,7 +10,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 
-Error: \\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`1234\`.
+Error: \\"ci\\" must be \`true\` or \`false\`. Recieved \`1234\`.
 ",
   "
    / | /     _         _   _
@@ -20,7 +20,7 @@ Error: \\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`1234\`.
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 
-Error: \\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
+Error: \\"ci\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
 ",
   "
    / | /     _         _   _
@@ -30,37 +30,7 @@ Error: \\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 
-Error: \\"allowDiff\\" must be \`true\` or \`false\`. Recieved \`{}\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"allowUpdate\\" must be \`true\` or \`false\`. Recieved \`1234\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"allowUpdate\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"allowUpdate\\" must be \`true\` or \`false\`. Recieved \`{}\`.
+Error: \\"ci\\" must be \`true\` or \`false\`. Recieved \`{}\`.
 ",
   "
    / | /     _         _   _
@@ -261,6 +231,36 @@ Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
 
 
 Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`{}\`.
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+
+Error: \\"strict\\" must be \`true\` or \`false\`. Recieved \`1234\`.
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+
+Error: \\"strict\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+
+Error: \\"strict\\" must be \`true\` or \`false\`. Recieved \`{}\`.
 ",
   "
    / | /     _         _   _

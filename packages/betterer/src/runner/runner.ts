@@ -1,7 +1,7 @@
 import { BettererConstraintResult } from '@betterer/constraints';
 import assert from 'assert';
 
-import { BettererConfigPartial, createConfig } from '../config';
+import { createConfig } from '../config';
 import { BettererContextΩ, BettererRun, BettererRunΩ, BettererSummary } from '../context';
 import { registerExtensions } from '../register';
 import { DEFAULT_REPORTER, loadReporters } from '../reporters';
@@ -16,11 +16,11 @@ export class BettererRunnerΩ implements BettererRunner {
   private _jobs: BettererRunnerJobs = [];
   private _running: Promise<BettererSummary> | null = null;
 
-  public async start(partialConfig: BettererConfigPartial = {}): Promise<BettererContextΩ> {
+  public async start(options: unknown = {}): Promise<BettererContextΩ> {
     let config = null;
     let reporter = loadReporters([DEFAULT_REPORTER]);
     try {
-      config = await createConfig(partialConfig);
+      config = await createConfig(options);
       await registerExtensions(config);
       if (config.silent) {
         reporter = loadReporters([]);
@@ -29,7 +29,7 @@ export class BettererRunnerΩ implements BettererRunner {
         reporter = loadReporters(config.reporters, config.cwd);
       }
     } catch (error) {
-      await reporter.configError(partialConfig, error);
+      await reporter.configError(options, error);
       throw error;
     }
 
@@ -100,7 +100,7 @@ export class BettererRunnerΩ implements BettererRunner {
         await Promise.all(
           runs.map(async (run) => {
             const runΩ = run as BettererRunΩ;
-            await this._runTest(runΩ, config.update && config.allowUpdate);
+            await this._runTest(runΩ, config.update);
             await runΩ.end();
           })
         );

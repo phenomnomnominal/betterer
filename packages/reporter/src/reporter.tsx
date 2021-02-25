@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-  BettererConfigPartial,
   BettererContext,
   BettererFilePaths,
   BettererReporter,
@@ -25,7 +24,7 @@ function createReporter(): BettererReporter {
   let renderer: BettererReporterRenderer;
 
   return {
-    configError(_: BettererConfigPartial, error: BettererError): Promise<void> {
+    configError(_: unknown, error: BettererError): Promise<void> {
       return renderError(error);
     },
     async contextStart(context: BettererContext): Promise<void> {

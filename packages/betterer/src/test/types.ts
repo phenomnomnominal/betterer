@@ -43,14 +43,14 @@ export type BettererSerialiser<DeserialisedType, SerialisedType = DeserialisedTy
   deserialise: BettererDeserialise<DeserialisedType, SerialisedType>;
 };
 
-export type BettererTestConfigBasicPartial = {
+export type BettererTestOptionsBasic = {
   constraint: BettererTestConstraint<number>;
   test: BettererTestFunction<number>;
   goal?: number | BettererTestGoal<number>;
   deadline?: Date | string;
 };
 
-export type BettererTestConfigComplexPartial<DeserialisedType, SerialisedType, DiffType> = {
+export type BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType> = {
   constraint: BettererTestConstraint<DeserialisedType>;
   test: BettererTestFunction<DeserialisedType>;
   differ: BettererDiffer<DeserialisedType, DiffType>;
@@ -61,9 +61,9 @@ export type BettererTestConfigComplexPartial<DeserialisedType, SerialisedType, D
   deadline?: Date | string;
 };
 
-export type BettererTestConfigPartial<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> =
-  | BettererTestConfigBasicPartial
-  | BettererTestConfigComplexPartial<DeserialisedType, SerialisedType, DiffType>;
+export type BettererTestOptions<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> =
+  | BettererTestOptionsBasic
+  | BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType>;
 
 export type BettererTestConfig<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> = {
   constraint: BettererTestConstraint<DeserialisedType>;
@@ -86,4 +86,4 @@ export interface BettererTestBase<DeserialisedType = unknown, SerialisedType = D
 }
 
 export type BettererTestMap = Record<string, BettererTestBase>;
-export type BettererTestConfigMap = Record<string, BettererTestBase | BettererTestConfigPartial>;
+export type BettererTestConfigMap = Record<string, BettererTestBase | BettererTestOptions>;

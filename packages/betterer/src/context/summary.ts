@@ -22,7 +22,8 @@ export class BettererSummaryΩ implements BettererSummary {
   public get unexpectedDiff(): boolean {
     assert(this._result);
     const config = getConfig();
-    return !config.allowDiff && !!this._expected && this._expected !== this._result;
+    const hasDiff = !!this._expected && this._expected !== this._result;
+    return hasDiff && config.ci;
   }
 
   public get completed(): BettererRuns {
