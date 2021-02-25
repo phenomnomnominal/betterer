@@ -29,8 +29,8 @@ export {
   BettererTestGoal,
   BettererTestMap,
   BettererTestConfigMap,
-  BettererTestConfigPartial,
-  BettererTestConfigBasicPartial,
-  BettererTestConfigComplexPartial,
+  BettererTestOptions,
+  BettererTestOptionsBasic,
+  BettererTestOptionsComplex,
   BettererTestConfig
 } from './types';

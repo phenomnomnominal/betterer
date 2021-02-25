@@ -214,7 +214,7 @@ export declare class BettererTest<DeserialisedType, SerialisedType, DiffType> im
     get config(): BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
     get isOnly(): boolean;
     get isSkipped(): boolean;
-    constructor(config: BettererTestConfigPartial<DeserialisedType, SerialisedType, DiffType>);
+    constructor(options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>);
     only(): this;
     skip(): this;
 }
