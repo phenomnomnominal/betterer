@@ -6,26 +6,6 @@
 
 Simple constraint functions for use with [**`Betterer`**](https://github.com/phenomnomnominal/betterer).
 
-## Usage
+## Docs
 
-### Bigger
-
-```typescript
-import { bigger } from '@betterer/constraints';
-
-bigger(1, 2); // worse;
-bigger(1, 1); // worse;
-bigger(2, 1); // better;
-bigger(2, 2); // same;
-```
-
-### Smaller
-
-```typescript
-import { smaller } from '@betterer/constraints';
-
-smaller(2, 1); // worse;
-smaller(1, 1); // worse;
-smaller(1, 2); // better;
-smaller(2, 2); // same;
-```
+[Check out the docs at `phenomnomnominal.github.io/betterer`! 🎉](https://phenomnomnominal.github.io/betterer/docs/constraints)

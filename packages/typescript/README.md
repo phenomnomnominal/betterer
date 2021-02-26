@@ -6,54 +6,6 @@
 
 TypeScript test for [**`Betterer`**](https://github.com/phenomnomnominal/betterer).
 
-## Description
+## Docs
 
-Use this test to incrementally introduce TypeScript configuration to your codebase!
-
-## Usage
-
-```typescript
-import { typescript } from '@betterer/typescript';
-
-export default {
-  'stricter compilation': typescript('./tsconfig.json', {
-    strict: true
-  })
-};
-```
-
-### Skip
-
-Skip a test by calling `.skip()`:
-
-```typescript
-import { typescript } from '@betterer/typescript';
-
-export default {
-  'stricter compilation': typescript(...).skip()
-};
-```
-
-### Only
-
-Run a test by itself by calling `.only()`:
-
-```typescript
-import { typescript } from '@betterer/typescript';
-
-export default {
-  'stricter compilation': typescript(...).only()
-};
-```
-
-### Exclude
-
-Exclude files from a test by calling `.exclude()`:
-
-```typescript
-import { typescript } from '@betterer/typescript';
-
-export default {
-  'stricter compilation': typescript(...).exclude(/excluded-file-regexp/)
-};
-```
+[Check out the docs at `phenomnomnominal.github.io/betterer`! 🎉](https://phenomnomnominal.github.io/betterer/docs/built-in-tests#betterertypescript)

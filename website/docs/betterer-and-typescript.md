@@ -9,6 +9,12 @@ slug: /betterer-and-typescript
 
 By default, running the [**Betterer** initialisation script](./installation#adding-betterer-to-your-project) will create a `.betterer.ts` test definition file, and add **TypeScript** as a dependency. You won't ever need to compile the test definition file as **Betterer** uses [`ts-node`](https://github.com/TypeStrong/ts-node).
 
+## TypeScript configuration
+
+If your project contains a [`tsconfig.json`](https://www.typescriptlang.org/docs/handbook/compiler-options.html) file, you can pass it to **Betterer** the [`--tsconfig` option](./running-betterer#start-options).
+
+## Disabling TypeScript
+
 If you _don't_ want to use **TypeScript**, you can opt out by passing a `.js` file to the initialisation script:
 
 ```bash

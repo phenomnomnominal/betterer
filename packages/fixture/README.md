@@ -7,22 +7,3 @@ Fixture tools used within [**`Betterer`**](https://github.com/phenomnomnominal/b
 ## Usage
 
 > ## 🚨🚨🚨 THIS PACKAGE SHOULD ONLY BE USED WITHIN THE BETTERER MONOREPO 🚨🚨🚨
-
-### Code
-
-```typescript
-import { createFixtureDirectoryΔ } from '@betterer/fixture';
-
-const createFixture = await createFixtureDirectoryΔ(__dirname);
-
-await createFixture('fixture-name', {
-  'index.ts': `
-// File contents.
-  `,
-  'package.json': `
-{
-  "name": "@betterer/fixture",
-}
-  `
-});
-```

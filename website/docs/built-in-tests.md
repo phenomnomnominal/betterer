@@ -18,6 +18,8 @@ export default {
 };
 ```
 
+`@betterer/eslint` is a [BettererFileTest](./file-test), so you can use `include`, `exclude`, `only`, and `skip`.
+
 ### [`@betterer/regexp`](https://www.npmjs.com/package/@betterer/regexp)
 
 Use this test to incrementally remove [**RegExp**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) matches from your codebase.
@@ -30,9 +32,24 @@ export default {
 };
 ```
 
+`@betterer/regexp` is a [BettererFileTest](./file-test), so you can use `include`, `exclude`, `only`, and `skip`.
+
 ### [`@betterer/tsquery`](https://www.npmjs.com/package/@betterer/tsquery)
 
 se this test to incrementally remove **TSQuery** matches from your codebase. See the [**TSQuery** doecumentation](https://github.com/phenomnomnominal/tsquery) for more details about the query syntax.
+
+```typescript
+import { tsquery } from '@betterer/tsquery';
+
+export default {
+  'no raw console.log': tsquery(
+    './tsconfig.json',
+    'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
+  )
+};
+```
+
+`@betterer/tsquery` is a [BettererFileTest](./file-test), so you can use `include`, `exclude`, `only`, and `skip`.
 
 ### [`@betterer/typescript`](https://www.npmjs.com/package/@betterer/typescript)
 
@@ -47,3 +64,5 @@ export default {
   })
 };
 ```
+
+`@betterer/typescript` is a [BettererFileTest](./file-test), so you can use `include`, `exclude`, `only`, and `skip`.
