@@ -90,7 +90,7 @@ export declare type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<
 
 export declare class BettererFileResolver {
     get cwd(): string;
-    constructor();
+    constructor(resolverDepth?: number);
     excludeΔ(...excludePatterns: BettererFilePatterns): this;
     files(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
     includeΔ(...includePatterns: BettererFileGlobs): this;
