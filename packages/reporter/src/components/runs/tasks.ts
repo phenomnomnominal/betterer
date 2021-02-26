@@ -1,6 +1,7 @@
 import { BettererRuns } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
-import { BettererLogger, BettererTasks } from '@betterer/logger';
+import { BettererLogger } from '@betterer/logger';
+import { BettererTasks } from '@betterer/tasks';
 
 import {
   testBetter,

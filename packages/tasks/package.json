@@ -1,7 +1,7 @@
 {
-  "name": "@betterer/reporter",
-  "description": "Default reporter @betterer/betterer",
-  "version": "3.1.2",
+  "name": "@betterer/tasks",
+  "description": "task runner and loggerr for @betterer/betterer",
+  "version": "3.0.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -21,19 +21,16 @@
     "url": "https://github.com/phenomnomnominal/betterer/issues"
   },
   "scripts": {
-    "compile": "tsc -b .",
-    "api": "ts-api-guardian --out ../../goldens/api/@betterer/reporter.d.ts dist/index.d.ts"
+    "compile": "tsc -b ."
   },
   "engines": {
     "node": ">=12"
   },
   "dependencies": {
-    "@betterer/betterer": "^3.1.2",
     "@betterer/errors": "^3.1.1",
-    "@betterer/logger": "^3.1.1",
-    "@betterer/tasks": "^3.0.0",
+    "chalk": "^4.1.0",
     "ink": "^3.0.7",
-    "ink-text-input": "^4.0.1",
+    "react": "^16.13.1",
     "tslib": "^2.0.3"
   }
 }
