@@ -81,7 +81,7 @@ function getBundleSize() {
 </TabItem>
 </Tabs>
 
-Most of the time you should wrap your test in a `BettererTest`. This adds a few nice helpers like `only()` and `skip()`.
+Most of the time you should wrap your test in a [`BettererTest`](./basic-test#betterertest). This adds a few nice helpers like `only()` and `skip()`.
 
 <!-- prettier-ignore -->
 <Tabs
@@ -302,7 +302,7 @@ function getBundleSize() {
 
 ## File test
 
-If you want to write a test that checks individual files, you can write a `BettererFileTest`:
+If you want to write a test that checks individual files, you can write a [`BettererFileTest`](./file-test#bettererfiletest):
 
 <!-- prettier-ignore -->
 <Tabs

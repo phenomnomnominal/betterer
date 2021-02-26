@@ -36,7 +36,7 @@ export default {
 
 ### [`@betterer/tsquery`](https://www.npmjs.com/package/@betterer/tsquery)
 
-se this test to incrementally remove **TSQuery** matches from your codebase. See the [**TSQuery** doecumentation](https://github.com/phenomnomnominal/tsquery) for more details about the query syntax.
+se this test to incrementally remove **TSQuery** matches from your codebase. See the [**TSQuery** documentation](https://github.com/phenomnomnominal/tsquery) for more details about the query syntax.
 
 ```typescript
 import { tsquery } from '@betterer/tsquery';

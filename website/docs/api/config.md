@@ -62,7 +62,7 @@ type BettererOptionsRunner = BettererOptionsBase &
   }>;
 ```
 
-All the [`Common options`](#commonoptions) above as well as:
+All the [`base options`](#base-options) above as well as:
 
 #### `ignores`: [`BettererConfigIgnores`](#bettererconfigignores) (default: `[]`)
 
@@ -82,7 +82,7 @@ type BettererOptionsStart = BettererOptionsBase &
   }>;
 ```
 
-All the [`Common options`](#commonoptions) above as well as:
+All the [`base options`](#base-options) above as well as:
 
 #### `ci`: `boolean` (default: `false`)
 
@@ -107,7 +107,7 @@ export type BettererOptionsWatch = BettererOptionsRunner &
   }>;
 ```
 
-All the [`Common options`](#commonoptions) above as well as:
+All the [`base options`](#base-options) above as well as:
 
 #### `ignores`: [`BettererConfigIgnores`](./config#bettererconfigignores) (default: `[]`)
 

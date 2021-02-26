@@ -42,4 +42,4 @@ npm run betterer && git add .betterer.results
   </TabItem>
 </Tabs>
 
-- You should run **Betterer** in CI mode ([`betterer ci`](http://localhost:3000/betterer/docs/running-betterer#ci-mode-run-your-tests-and-throw-on-changes)) when running on a build server. When **Betterer** runs in CI mode, it will throw an error when the tests results do not exactly match whatever is in the results file. This ensures that the results file accurately reflects the state of the codebase.
+- You should run **Betterer** in CI mode ([`betterer ci`](./running-betterer#ci-mode-run-your-tests-and-throw-on-changes)) when running on a build server. When **Betterer** runs in CI mode, it will throw an error when the tests results do not exactly match whatever is in the results file. This ensures that the results file accurately reflects the state of the codebase.

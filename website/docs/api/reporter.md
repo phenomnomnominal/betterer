@@ -40,7 +40,7 @@ Return: `Promise<void> | void`
 
 ### `contextStart()`
 
-The `contextStart()` hook is called when a [`BettererContext`](./context#betterercontext) starts. The `lifecycle` promise will resolve when the context ends, so it can be used instead of the [`contextEnd()`](#contextend) and [`contextError`](#contexterror) hooks.
+The `contextStart()` hook is called when a [`BettererContext`](./context#betterercontext) starts. The `lifecycle` promise will resolve when the context ends, so it can be used instead of the [`contextEnd()`](#contextend) and [`contextError()`](#contexterror) hooks.
 
 Args:
 
@@ -97,7 +97,7 @@ Return: `Promise<void> | void`
 
 ### `runStart()`
 
-The `runStart()` hook is called when a [`BettererRun`](./context#bettererrun) starts. The `lifecycle` promise will resolve when the test run ends, so it can be used instead of the [`runEnd()`](#runEnd) and [`runError`](#runError) hooks.
+The `runStart()` hook is called when a [`BettererRun`](./context#bettererrun) starts. The `lifecycle` promise will resolve when the test run ends, so it can be used instead of the [`runEnd()`](#runend) and [`runError()`](#runerror) hooks.
 
 Args:
 

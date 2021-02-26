@@ -18,7 +18,7 @@ slug: /reporters
 
 ### Custom reporters
 
-If you want to write your own reporter, you need to implement the `BettererReporter` API and export an instance from a JavaScript module:
+If you want to write your own reporter, you need to implement the [`BettererReporter`](./reporter#bettererreporter) API and export an instance from a JavaScript module:
 
 ```typescript
 // src/html-reporter.ts
