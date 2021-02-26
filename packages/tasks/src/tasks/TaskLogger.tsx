@@ -1,9 +1,9 @@
-import chalk from 'chalk';
-import { Box, Text } from 'ink';
 import React, { FC, memo, useEffect } from 'react';
 
-import { BettererLoggerCodeInfo } from '../../types';
-import { code } from '../../code';
+import { BettererLoggerCodeInfo, codeΔ } from '@betterer/logger';
+import chalk from 'chalk';
+import { Box, Text } from 'ink';
+
 import { BettererErrorLog } from '../error-log';
 import { BettererTaskStatus } from './status';
 import { useTaskState } from './useTaskState';
@@ -37,7 +37,7 @@ export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function Bet
       }
 
       async function logCode(codeInfo: BettererLoggerCodeInfo): Promise<void> {
-        const codeFrame = code(codeInfo);
+        const codeFrame = codeΔ(codeInfo);
         await taskApi.log(['💻', 'whiteBright', codeFrame]);
       }
       async function logDebug(log: string): Promise<void> {

@@ -1,6 +1,6 @@
+import { BettererLogger } from '@betterer/logger';
 import { ForegroundColor } from 'chalk';
 
-import { BettererLogger } from '../../types';
 import { BettererTasksState } from './useTasksState';
 
 export type BettererTasksStatusUpdate = (state: BettererTasksState) => string;

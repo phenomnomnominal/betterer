@@ -7,7 +7,7 @@ import {
   BettererSummaries,
   BettererSummary
 } from '@betterer/betterer';
-import { BettererLogo } from '@betterer/logger';
+import { BettererLogo } from '@betterer/tasks';
 import { Box } from 'ink';
 
 import { DefaultReporter } from './default';

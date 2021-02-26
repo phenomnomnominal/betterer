@@ -1,3 +1,5 @@
+export { BettererErrorLog, BettererErrorLogProps } from './error-log';
+export { BettererLogo } from './logo';
 export {
   BettererTask,
   BettererTaskColour,
@@ -11,5 +13,3 @@ export {
   BettererTasksState,
   BettererTasksStatusUpdate
 } from './tasks/public';
-export { BettererErrorLog, BettererErrorLogProps } from './error-log';
-export { BettererLogo } from './logo';

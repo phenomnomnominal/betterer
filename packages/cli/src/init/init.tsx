@@ -1,4 +1,4 @@
-import { BettererTasksLogger, BettererTasksState } from '@betterer/logger';
+import { BettererTasksLogger, BettererTasksState } from '@betterer/tasks';
 import { workerRequire, WorkerModule } from '@phenomnomnominal/worker-require';
 import * as path from 'path';
 import React, { FC } from 'react';

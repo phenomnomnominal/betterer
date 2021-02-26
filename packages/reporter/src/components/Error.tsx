@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 
 import { BettererError } from '@betterer/errors';
-import { BettererErrorLog, BettererLogo } from '@betterer/logger';
+import { BettererErrorLog, BettererLogo } from '@betterer/tasks';
 import { Box, useApp } from 'ink';
 
 export type ErrorProps = {

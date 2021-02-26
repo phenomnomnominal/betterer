@@ -79,8 +79,10 @@ function createGoal<DeserialisedType, SerialisedType, DiffType>(
 function isComplex<DeserialisedType, SerialisedType, DiffType>(
   options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>
 ): options is BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType> {
-  const maybeComplex = options as BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType>;
-  return !!(maybeComplex.differ && maybeComplex.serialiser);
+  return !!(
+    (options as BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType>).differ &&
+    (options as BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType>).serialiser
+  );
 }
 
 export function defaultDiffer(expected: unknown, result: unknown): BettererDiff<unknown, null> {
