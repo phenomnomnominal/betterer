@@ -34,7 +34,7 @@ Args:
 - `config`: [`unknown`] - The invalid config object.
 - `error`: [`BettererError`](./error#betterererror) - The error thrown while validating and instantiating the [`BettererConfig`](./config#bettererconfig).
 
-Return: `Promise<void> | void`
+Returns: `Promise<void> | void`
 
 ## Context hooks
 
@@ -47,7 +47,7 @@ Args:
 - `context`: [`BettererContext`](./context#betterercontext) - the current test context.
 - `lifecycle`: [`Promise<BettererSummaries>`](./context#betterersummaries) - a promise that will resolve when the context ends.
 
-Return: `Promise<void> | void`
+Returns: `Promise<void> | void`
 
 ### `contextEnd()`
 
@@ -58,7 +58,7 @@ Args:
 - `context`: [`BettererContext`](./context#betterercontext) - the current test context.
 - `summaries`: [`BettererSummaries`](./context#betterersummaries) - a list of [`BettererSummaries`], one for each run completed by the context.
 
-Return: `Promise<void> | void`
+Returns: `Promise<void> | void`
 
 ### `contextError()`
 
@@ -80,7 +80,7 @@ Args:
 - `runs`: [`BettererRuns`](./context#bettererruns) - a list of [`BettererRuns`] that will be run.
 - `filePaths`: [`BettererFilePaths`](./runner#bettererfilepaths) - a list of [`BettererFilePaths`] that will be checked.
 
-Return: `Promise<void> | void`
+Returns: `Promise<void> | void`
 
 ### `runsEnd()`
 
@@ -91,7 +91,7 @@ Args:
 - `summary`: [`BettererSummary`](./context#betterersummary) - a [`BettererSummary`] for the completed test run.
 - `filePaths`: [`BettererFilePaths`](./runner#bettererfilepaths) - a list of [`BettererFilePaths`] that were checked.
 
-Return: `Promise<void> | void`
+Returns: `Promise<void> | void`
 
 ## Run hooks
 
@@ -104,7 +104,7 @@ Args:
 - `run`: [`BettererRun`](./context#bettererrun) - the current test run.
 - `lifecycle`: `Promise<void>` - a promise that will resolve when the test run ends.
 
-Return: `Promise<void> | void`
+Returns: `Promise<void> | void`
 
 ### `runEnd()`
 
@@ -114,7 +114,7 @@ Args:
 
 - `run`: [`BettererRun`](./context#bettererrun) - the current test run.
 
-Return: `Promise<void> | void`
+Returns: `Promise<void> | void`
 
 ### `runError()`
 

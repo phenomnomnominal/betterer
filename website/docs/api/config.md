@@ -5,9 +5,9 @@ sidebar_label: Betterer Configuration
 slug: /config
 ---
 
-Whenever you run **Betterer** (from the [CLI](./running-betterer) or via the [JS API](./api)) you can pass an options object. It will be validated by **Betterer** and turned into a [`BettererConfig`](#bettererconfig).
-
 ## Betterer options
+
+Whenever you run **Betterer** (from the [CLI](./running-betterer) or via the [JS API](./api)) you can pass an options object. It will be validated by **Betterer** and turned into a [`BettererConfig`](#bettererconfig).
 
 ### Base options
 

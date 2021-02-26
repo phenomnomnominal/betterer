@@ -18,7 +18,7 @@ export default {
 };
 ```
 
-`@betterer/eslint` is a [BettererFileTest](./file-test), so you can use `include`, `exclude`, `only`, and `skip`.
+`@betterer/eslint` is a [BettererFileTest](./betterer-file-test), so you can use `include`, `exclude`, `only`, and `skip`.
 
 ### [`@betterer/regexp`](https://www.npmjs.com/package/@betterer/regexp)
 
@@ -32,7 +32,7 @@ export default {
 };
 ```
 
-`@betterer/regexp` is a [BettererFileTest](./file-test), so you can use `include`, `exclude`, `only`, and `skip`.
+`@betterer/regexp` is a [BettererFileTest](./betterer-file-test), so you can use `include`, `exclude`, `only`, and `skip`.
 
 ### [`@betterer/tsquery`](https://www.npmjs.com/package/@betterer/tsquery)
 
@@ -49,7 +49,7 @@ export default {
 };
 ```
 
-`@betterer/tsquery` is a [BettererFileTest](./file-test), so you can use `include`, `exclude`, `only`, and `skip`.
+`@betterer/tsquery` is a [BettererFileTest](./betterer-file-test), so you can use `include`, `exclude`, `only`, and `skip`.
 
 ### [`@betterer/typescript`](https://www.npmjs.com/package/@betterer/typescript)
 
@@ -65,4 +65,4 @@ export default {
 };
 ```
 
-`@betterer/typescript` is a [BettererFileTest](./file-test), so you can use `include`, `exclude`, `only`, and `skip`.
+`@betterer/typescript` is a [BettererFileTest](./betterer-file-test), so you can use `include`, `exclude`, `only`, and `skip`.

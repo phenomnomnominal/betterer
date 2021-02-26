@@ -1,6 +1,19 @@
 ---
-id: file-test
-title: File Test
-description: JS API reference for Betterer
-slug: /file-test
+id: betterer-file-test
+title: Betterer File Test
+description: Betterer File Test API reference
+slug: /betterer-file-test
 ---
+
+## `BettererFileTest`
+
+BettererFileBase,
+BettererFile,
+BettererFileTestResult,
+BettererFileGlobs,
+BettererFilePatterns,
+BettererFileDiff,
+BettererFileTestDiff,
+BettererFileTestFunction,
+BettererFileIssue,
+BettererFileIssues

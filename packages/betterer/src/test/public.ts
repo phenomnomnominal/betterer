@@ -25,5 +25,8 @@ export {
   BettererTestConstraint,
   BettererTestFunction,
   BettererTestGoal,
-  BettererTestConfig
+  BettererTestConfig,
+  BettererTestOptions,
+  BettererTestOptionsBasic,
+  BettererTestOptionsComplex
 } from './types';

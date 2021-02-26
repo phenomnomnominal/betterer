@@ -23,7 +23,7 @@ type BettererRunner = {
 };
 ```
 
-Methods
+### Methods
 
 ### `queue()`
 
@@ -34,7 +34,7 @@ Args:
 - `filePaths?`: [`BettererFilePaths`](#bettererfilepaths) - List of files to test with **Betterer**. If `filePaths` is `undefined` then all files will be tested.
 - `handler?`: [`BettererRunHandler`](#bettererrunhandler) - Callback to run when the queued run is complete.
 
-Return: `Promise<void>`
+Returns: `Promise<void>`
 
 ### `stop()`
 

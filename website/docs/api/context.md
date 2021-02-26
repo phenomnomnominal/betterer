@@ -28,7 +28,7 @@ type BettererContext = {
 
 ## `BettererDelta`
 
-A `BettererDelta` represents the change between a test runs and its baseline. A `BettererRun` has a `delta` property if the test has a [`progress`](./basic-test#progress) handler.
+A `BettererDelta` represents the change between a test runs and its baseline. A `BettererRun` has a `delta` property if the test has a [`progress`](./betterer-test#progress) handler.
 
 ```typescript
 type BettererDelta =
@@ -86,7 +86,7 @@ type BettererRun = {
 
 ### Properties
 
-#### `diff`: [`BettererDiff`](./basic-test#bettererdiff)
+#### `diff`: [`BettererDiff`](./betterer-test#bettererdiff)
 
 > The verbose diff between the current test result and the expected reuslt.
 
@@ -108,13 +108,13 @@ type BettererRun = {
 
 #### `delta`: [`BettererDelta`](#bettererdelta) | `null`
 
-> The change between a test runs and its baseline. A `BettererRun` has a `delta` property if the test has a [`progress`](./basic-test#progress) handler.
+> The change between a test runs and its baseline. A `BettererRun` has a `delta` property if the test has a [`progress`](./betterer-test#progress) handler.
 
 #### `result`: [`BettererResult`](./results#bettererresult)
 
 > The current result for this test run. Will be serialised to the [results file](./results-file).
 
-#### `test`: [`BettererTestConfig`](./basic-test#betterertestconfig)
+#### `test`: [`BettererTestConfig`](./betterer-test#betterertestconfig)
 
 > The configuration for this test.
 

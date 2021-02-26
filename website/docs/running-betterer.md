@@ -158,7 +158,7 @@ Run `npm run betterer watch` to run **Betterer** in watch mode.
 **Betterer** will start watch mode, and wait for any files to change. When a file is saved, it will run any tests that apply to that file, compare the new results against the saved results, and report the updated status. When you quit watch mode (by pressing `q`), the `.betterer.results` file will be updated with the new results ✅!
 
 :::info
-When running in watch mode, **Betterer** will currently only run [File Tests](./file-test). This might change in the future, so please raise an issue with your use case!
+When running in watch mode, **Betterer** will currently only run [File Tests](./betterer-file-test). This might change in the future, so please raise an issue with your use case!
 :::
 
 ### Watch options

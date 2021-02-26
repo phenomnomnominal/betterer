@@ -26,6 +26,16 @@ module.exports = {
     'https://fonts.googleapis.com/css?family=Lato:wght@300|Pacifico|Roboto+Mono&display=swap'
   ], 
   themeConfig: {
+    algolia: {
+      apiKey: '294187e59bb9be56291c9088e9d49afe',
+      indexName: 'betterer',
+
+      // Optional: see doc section bellow
+      contextualSearch: true,
+
+      // Optional: Algolia search parameters
+      searchParameters: {},
+    },
     colorMode: {
       defaultMode: 'dark',
       disableSwitch: true,
