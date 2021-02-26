@@ -1,10 +1,11 @@
 import { BettererError } from '@betterer/errors';
-import { BettererTaskLog, BettererLogger } from '@betterer/logger';
+import { BettererLogger } from '@betterer/logger';
+import { BettererTaskLog } from '@betterer/tasks';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 import { publicApi, verifyAgainstGoldenFile } from 'ts-api-guardian';
 
-const EXCLUDED_PACKAGES = ['extension', 'fixture'];
+const EXCLUDED_PACKAGES = ['extension', 'fixture', 'tasks'];
 const DECLARATION_EXTENSION = '.d.ts';
 const BUILT_DECLARATION = `dist/index${DECLARATION_EXTENSION}`;
 const PACKAGES_DIR = path.resolve(__dirname, '../../packages');

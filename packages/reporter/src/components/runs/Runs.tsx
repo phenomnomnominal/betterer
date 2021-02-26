@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 
 import { BettererRuns } from '@betterer/betterer';
-import { BettererTasksLogger, BettererTasksState } from '@betterer/logger';
+import { BettererTasksLogger, BettererTasksState } from '@betterer/tasks';
 import { Box } from 'ink';
 
 import { getTasks } from './tasks';
