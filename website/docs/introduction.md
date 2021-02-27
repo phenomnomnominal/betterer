@@ -18,7 +18,7 @@ Making widespread changes to a codebase can be really hard! When trying to make 
 
 **Betterer** is built upon an idea popularised by snapshot testing, where the result of a test is saved in a file in your codebase. However, instead of a static value, **Betterer** keeps track of a value as it changes over time, and makes sure that the value changes how you want it to change!
 
-When you want to make an improvement to your codebase, start by making a new test, defined in a `.betterer.ts` file:
+When you want to make an improvement to your codebase, start by making a new test, defined in a [`.betterer.ts`](./test-definition-file) file:
 
 ```typescript
 // .betterer.ts
@@ -33,7 +33,7 @@ export default {
 };
 ```
 
-When you run **Betterer** for the first time it will store the result of your tests in a `.betterer.results` file:
+When you run **Betterer** for the first time it will store the result of your tests in a [`.betterer.results`](./results-file) file:
 
 ```javascript
 // BETTERER RESULTS V2.
@@ -45,4 +45,4 @@ exports[`thing you want to improve`] = {
 
 Whenever your tests run again, **Betterer** will compare the new result against the expected result.
 
-If it gets better, the `.betterer.results` file will be updated with the new result ✅! If it gets worse, your test will fail and **Betterer** will throw an error ❌!
+If it gets better, the [`.betterer.results`](./results-file) file will be updated with the new result ✅! If it gets worse, your test will fail and **Betterer** will throw an error ❌!

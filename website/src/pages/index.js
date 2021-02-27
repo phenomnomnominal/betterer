@@ -9,28 +9,16 @@ import styles from './styles.module.css';
 const FEATURES = [
   {
     title: 'Define goals',
-    description: (
-      <>
-        Create tests that encapsulate improvements you'd like to make in your codebase.
-      </>
-    ),
+    description: <>Create tests that encapsulate improvements you'd like to make in your codebase.</>
   },
   {
     title: 'Prevent regressions',
-    description: (
-      <>
-        Track the current status and prevent creating new issues.
-      </>
-    ),
+    description: <>Track the current status and prevent creating new issues.</>
   },
   {
     title: 'Encourage improvement',
-    description: (
-      <>
-        Set deadlines and track progress towards your goals!
-      </>
-    ),
-  },
+    description: <>Set deadlines and track progress towards your goals!</>
+  }
 ];
 
 function Home() {
@@ -41,12 +29,12 @@ function Home() {
     return useBaseUrl(`docs/${doc}`);
   }
 
-  const {siteConfig = {}} = context;
+  const { siteConfig = {} } = context;
   return (
     <Layout
       title={`${siteConfig.title} - ${siteConfig.tagline}`}
-      description="Description will go into a meta tag in <head />">
-
+      description="Description will go into a meta tag in <head />"
+    >
       <HomeSplashContainer>
         <HomeLogo imgUrl={homeImageURL} />
         <HomeIntro>
@@ -60,9 +48,7 @@ function Home() {
         </HomeIntro>
       </HomeSplashContainer>
 
-      <main>
-        {FEATURES.length > 0 && <HomeFeatures features={FEATURES}/>}
-      </main>
+      <main>{FEATURES.length > 0 && <HomeFeatures features={FEATURES} />}</main>
     </Layout>
   );
 }
@@ -79,16 +65,14 @@ function HomeSplashContainer(props) {
 
 function HomeLogo(props) {
   return (
-    <div className={clsx(styles.projectLogo)} >
+    <div className={clsx(styles.projectLogo)}>
       <img src={props.imgUrl} alt="Betterer Logo" />
     </div>
   );
 }
 
-function HomeIntro (props) {
-  return (
-    <div className={clsx(styles.homeIntro)}>{props.children}</div>
-  )
+function HomeIntro(props) {
+  return <div className={clsx(styles.homeIntro)}>{props.children}</div>;
 }
 
 function HomeTitle(props) {
@@ -108,40 +92,36 @@ function HomeCode() {
       className={clsx(styles.projectInitScript)}
       title="Betterer Get Started code snippet"
       src="https://carbon.now.sh/embed?bg=rgba%28255%2C255%2C255%2C0%29&t=seti&wt=none&l=application%2Fx-sh&ds=false&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=16px&ph=15px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=%2523%2520run%2520this%2520in%2520your%2520project%2520to%2520get%2520betterer%250Anpx%2520%2540betterer%252Fcli%2520init"
-      sandbox="allow-scripts allow-same-origin">
-    </iframe>
+      sandbox="allow-scripts allow-same-origin"
+    ></iframe>
   );
 }
 
 function HomePromoSection(props) {
-  return (
-    <div className={styles.buttons}>{props.children}</div>
-  );
+  return <div className={styles.buttons}>{props.children}</div>;
 }
 
 function HomeButton(props) {
   return (
-    <Link
-      className={clsx(
-        'button button--primary button--lg',
-        styles.homeButton
-      )}
-      to={props.href}>
+    <Link className={clsx('button button--primary button--lg', styles.homeButton)} to={props.href}>
       {props.children}
     </Link>
   );
 }
 
 function HomeFeatures(props) {
-  return <section className={styles.features}>
-    <div className="container">
-      <div className="row">
-        {props.features.map((props, idx) => <HomeFeature key={idx} {...props} />)}
+  return (
+    <section className={styles.features}>
+      <div className="container">
+        <div className="row">
+          {props.features.map((props, idx) => (
+            <HomeFeature key={idx} {...props} />
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  );
 }
-
 
 function HomeFeature(props) {
   return (

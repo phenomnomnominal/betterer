@@ -367,7 +367,7 @@ function countFiles(issue) {
 
 ## Complex test
 
-If you want to do more fancy custom things, you can have complete control over constraints, diffing, serialising/deserialising and printing.
+If you want to do more fancy custom things, you can have complete control over [constraints](./betterer-test#betterertestconstraint), [diffing](./betterer-test#bettererdiffer), [serialising/deserialising](./betterer-test#bettererserialiser) and [printing](./betterer-test#bettererprinter).
 
 <!-- prettier-ignore -->
 <Tabs

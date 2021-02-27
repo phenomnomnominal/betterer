@@ -22,7 +22,7 @@ Running this command will:
 
 1. Add `@betterer/cli` as a `devDependency` to your `package.json`
 2. Add a `betterer` script to your `package.json`
-3. Create a blank `.betterer.ts` file in the root of your project
+3. Create a blank [`.betterer.ts`](./test-definition-file) file in the root of your project
 
 :::caution
 Running `npx @betterer/cli init` will modify your project's `package.json` file, so you probably want to make sure all your changes are saved first!

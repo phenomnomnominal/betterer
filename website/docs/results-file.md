@@ -25,13 +25,13 @@ exports[`no hack comments`] = {
 };
 ```
 
-This is a valid JavaScript file, so you can require it and manipulate it if you need to. Each test will have an object that stores its result value, which can be controlled by a tests `serialise` and `printer` options.
+This is a valid JavaScript file, so you can import it and manipulate it if you need to. Each test will have an object that stores its result value, which can be controlled by a tests [`serialiser`](./betterer-test#bettererserialiser) and [`printer`](./betterer-test#bettererprinter) options.
 
 When your tests run, **Betterer** will check to see the result against the expected result in the results file. If the new result is better, the results file will be updated, and that result will be the expected baseline going forward.
 
-### `BettererFileTest` results
+### [`BettererFileTest`](./betterer-file-test#bettererfiletest) results
 
-The above example comes from a `BettererFileTest`, which has some note-worthy details. A `BettererFileTest` result has the following format:
+The above example comes from a [`BettererFileTest`](./betterer-file-test#bettererfiletest), which has some note-worthy details. A [`BettererFileTest`](./betterer-file-test#bettererfiletest) result has the following format:
 
 ```javascript
 exports[testName]: {

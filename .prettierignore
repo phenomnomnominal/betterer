@@ -26,3 +26,6 @@ website/build
 *.patch
 CHANGELOG.md
 betterer.log
+website/static/.nojekyll
+website/static/videos/start.mp4
+website/static/videos/watch.mp4

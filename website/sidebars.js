@@ -1,8 +1,18 @@
 module.exports = {
   docs: {
-    'Betterer': ['introduction'],
+    Betterer: ['introduction'],
     'Get Started': ['installation', 'running-betterer'],
-    'More info': ['test-definition-file', 'tests', 'results-file', 'betterer-and-typescript', 'filters-and-ignores', 'updating-results', 'reporters', 'development-workflow', 'built-in-tests'],
+    'More info': [
+      'test-definition-file',
+      'tests',
+      'results-file',
+      'betterer-and-typescript',
+      'filters-and-ignores',
+      'updating-results',
+      'reporters',
+      'development-workflow',
+      'built-in-tests'
+    ]
   },
   api: {
     'Betterer API': ['api/api', 'api/config', 'api/context', 'api/reporter', 'api/results', 'api/runner'],

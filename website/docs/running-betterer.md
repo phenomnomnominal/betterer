@@ -43,7 +43,7 @@ Run `npm run betterer start` or just `npm run betterer` to run **Betterer** once
   </video>
 </div>
 
-**Betterer** will run your tests, compare the new results against the expected results, and report the updated status. If any test result is better, the `.betterer.results` file will be updated with the new result ✅! If it gets worse, your test will fail and **Betterer** will throw an error ❌!
+**Betterer** will run your tests, compare the new results against the expected results, and report the updated status. If any test result is better, the [`.betterer.results`](./results-file) file will be updated with the new result ✅! If it gets worse, your test will fail and **Betterer** will throw an error ❌!
 
 :::info
 If it is your first time running **Betterer**, it will create a `.betterer.results` file! If you haven't added a test yet, the `.betterer.results` file will only contain the header comment.
@@ -155,7 +155,7 @@ Run `npm run betterer watch` to run **Betterer** in watch mode.
 - Press `f` to modify filters
 - Press `i` to modify ignores
 
-**Betterer** will start watch mode, and wait for any files to change. When a file is saved, it will run any tests that apply to that file, compare the new results against the saved results, and report the updated status. When you quit watch mode (by pressing `q`), the `.betterer.results` file will be updated with the new results ✅!
+**Betterer** will start watch mode, and wait for any files to change. When a file is saved, it will run any tests that apply to that file, compare the new results against the saved results, and report the updated status. When you quit watch mode (by pressing `q`), the [`.betterer.results`](./results-file) file will be updated with the new results ✅!
 
 :::info
 When running in watch mode, **Betterer** will currently only run [File Tests](./betterer-file-test). This might change in the future, so please raise an issue with your use case!

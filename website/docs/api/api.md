@@ -34,7 +34,7 @@ Usage:
 ```typescript
 import { betterer } from '@betterer/betterer';
 
-const watcher = await betterer.watch(options);
+const runner = await betterer.watch(options);
 ```
 
 Args:

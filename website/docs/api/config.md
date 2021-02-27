@@ -78,7 +78,6 @@ type BettererOptionsStart = BettererOptionsBase &
     ci: boolean;
     strict: boolean;
     update: boolean;
-    watch: boolean;
   }>;
 ```
 

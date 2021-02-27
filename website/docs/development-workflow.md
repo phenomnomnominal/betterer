@@ -7,11 +7,11 @@ slug: /development-workflow
 
 You should think carefully about how you want to use **Betterer** in your workflow. There is not a perfect "one-size-fits-all" workflow for all teams, but here's a few pointers:
 
-- Commit the results file (e.g. `.betterer.results`) to source control. You should think of this file like a [Jest Snapshot file](https://jestjs.io/docs/en/snapshot-testing), and review any changes carefully.
+- You should commit the results file (e.g. [`.betterer.results`](./results-file)) to source control. You should think of this file like a [Jest Snapshot file](https://jestjs.io/docs/en/snapshot-testing), and review any changes carefully.
 
 - You should **Betterer** as part of a build pipeline along with other static analysis tools and tests.
 
-- If **Betterer** runs in a pre-commit hook, remember to commit any changes to the results file. That might look something like:
+- If **Betterer** runs in a pre-commit hook, you must remember to commit any changes to the results file. That might look something like:
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';

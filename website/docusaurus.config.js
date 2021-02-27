@@ -1,30 +1,28 @@
-const BASE_THEME = require('prism-react-renderer/themes/dracula')
+const BASE_THEME = require('prism-react-renderer/themes/dracula');
 
-const THEME = { 
+const THEME = {
   ...BASE_THEME,
   plain: {
     ...BASE_THEME.plain,
-    backgroundColor: "#000000",
+    backgroundColor: '#000000'
   }
-}
+};
 
 module.exports = {
   title: 'Betterer',
   tagline: 'Improve, incrementally',
-  
+
   url: 'https://phenomnomnominal.github.io',
   baseUrl: '/betterer/',
-  
+
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  
+
   favicon: 'img/favicon.png',
-  
+
   organizationName: 'phenomnomnominal',
   projectName: 'betterer',
-  stylesheets: [
-    'https://fonts.googleapis.com/css?family=Lato:wght@300|Pacifico|Roboto+Mono&display=swap'
-  ], 
+  stylesheets: ['https://fonts.googleapis.com/css?family=Lato:wght@300|Pacifico|Roboto+Mono&display=swap'],
   themeConfig: {
     algolia: {
       apiKey: '294187e59bb9be56291c9088e9d49afe',
@@ -34,14 +32,14 @@ module.exports = {
       contextualSearch: true,
 
       // Optional: Algolia search parameters
-      searchParameters: {},
+      searchParameters: {}
     },
     colorMode: {
       defaultMode: 'dark',
-      disableSwitch: true,
+      disableSwitch: true
     },
     prism: {
-      theme: THEME,
+      theme: THEME
     },
     image: 'img/betterer.png',
     sidebarCollapsible: true,
@@ -50,33 +48,33 @@ module.exports = {
       title: 'Betterer',
       logo: {
         alt: 'Betterer Logo',
-        src: 'img/logo.png',
+        src: 'img/logo.png'
       },
       items: [
         {
           label: 'Docs',
           type: 'doc',
           docId: 'introduction',
-          position: 'left',
+          position: 'left'
         },
         {
           label: 'API',
           type: 'doc',
           docId: 'api/api',
-          position: 'left',
+          position: 'left'
         },
         {
           label: 'Blog',
           to: 'blog',
           activeBasePath: 'blog',
-          position: 'left',
+          position: 'left'
         },
         {
           href: 'https://github.com/phenomnomnominal/betterer',
           label: 'GitHub',
-          position: 'right',
-        },
-      ],
+          position: 'right'
+        }
+      ]
     },
     footer: {
       style: 'dark',
@@ -86,62 +84,62 @@ module.exports = {
           items: [
             {
               label: 'Betterer',
-              to: 'docs/introduction',
+              to: 'docs/introduction'
             },
             {
               label: 'Get started',
-              to: 'docs/installation',
+              to: 'docs/installation'
             }
-          ],
+          ]
         },
         {
           title: 'Community',
           items: [
             {
               label: 'Report an issue',
-              href: 'https://github.com/phenomnomnominal/betterer/issues',
+              href: 'https://github.com/phenomnomnominal/betterer/issues'
             },
             {
               label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/betterer',
+              href: 'https://stackoverflow.com/questions/tagged/betterer'
             },
             {
               label: 'Discord',
-              href: 'https://discord.gg/YNgtXt6QVX',
+              href: 'https://discord.gg/YNgtXt6QVX'
             },
             {
               label: 'Twitter',
-              href: 'https://twitter.com/phenomnominal',
-            },
-          ],
+              href: 'https://twitter.com/phenomnominal'
+            }
+          ]
         },
         {
           title: 'More',
           items: [
             {
               label: 'API',
-              to: 'docs/api',
+              to: 'docs/api'
             },
             {
               label: 'Blog',
-              to: 'blog',
+              to: 'blog'
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/phenomnomnominal/betterer',
+              href: 'https://github.com/phenomnomnominal/betterer'
             },
             {
               label: 'VS Code extension',
-              href: 'https://marketplace.visualstudio.com/items?itemName=Betterer.betterer-vscode',
-            },
-          ],
-        },
+              href: 'https://marketplace.visualstudio.com/items?itemName=Betterer.betterer-vscode'
+            }
+          ]
+        }
       ],
       logo: {
         alt: 'Betterer Logo',
-        src: 'img/logo.png',
+        src: 'img/logo.png'
       },
-      copyright: `Copyright © ${new Date().getFullYear()} Craig Spence`,
+      copyright: `Copyright © ${new Date().getFullYear()} Craig Spence`
     }
   },
   presets: [
@@ -150,20 +148,18 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl:
-            'https://github.com/phenomnomnominal/betterer/edit/master/website/',
+          editUrl: 'https://github.com/phenomnomnominal/betterer/edit/master/website/',
           showLastUpdateAuthor: true,
-          showLastUpdateTime: true,
+          showLastUpdateTime: true
         },
         blog: {
           showReadingTime: true,
-          editUrl:
-            'https://github.com/phenomnomnominal/betterer/edit/master/website/blog/',
+          editUrl: 'https://github.com/phenomnomnominal/betterer/edit/master/website/blog/'
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
-        },
-      },
-    ],
-  ],
+          customCss: require.resolve('./src/css/custom.css')
+        }
+      }
+    ]
+  ]
 };
