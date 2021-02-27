@@ -1,25 +1,12 @@
 on:
-  pull_request:
-    branches: [master]
   push:
-    branches: [master]
+    branches:
+      - master
 
 jobs:
-  checks:
-    if: github.event_name != 'push'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-      - name: Test Build
-        run: |
-          yarn install --frozen-lockfile
-          yarn build:ci
   gh-release:
-    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
