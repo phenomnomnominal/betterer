@@ -12,7 +12,7 @@ slug: /reporters
 <!-- prettier-ignore -->
 <div className="video__container">
   <video loop autoPlay muted width="100%">
-    <source src="/static/videos/watch.mp4" type="video/mp4"/>
+    <source src="/betterer/videos/watch.mp4" type="video/mp4"/>
   </video>
 </div>
 
