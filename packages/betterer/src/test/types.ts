@@ -14,7 +14,7 @@ export type BettererTestConstraint<DeserialisedType> = (
 
 export type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
 
-export type BettererDiff<DeserialisedType, DiffType> = {
+export type BettererDiff<DeserialisedType = unknown, DiffType = null> = {
   expected: DeserialisedType;
   result: DeserialisedType;
   diff: DiffType;

@@ -21,7 +21,7 @@ const summary = await betterer(options);
 
 Args:
 
-- `options`: [`BettererOptionsStart?`](./config#bettereroptionsstart)
+- `options`: [`BettererOptionsStart?`](./config#bettereroptionsstart) - An options object for a **Betterer** run in default mode
 
 Returns: [`BettererSummary`](./context#betterersummary)
 
@@ -39,7 +39,7 @@ const watcher = await betterer.watch(options);
 
 Args:
 
-- `options`: [`BettererOptionsRunner?`](./config#bettereroptionsrunner)
+- `options`: [`BettererOptionsRunner?`](./config#bettereroptionsrunner) - An options object for creating a **Betterer** runner.
 
 Returns: [`BettererRunner`](./runner#bettererrunner)
 
@@ -57,6 +57,6 @@ const runner = await betterer.runner(options);
 
 Args:
 
-- `options`: [`BettererOptionsWatch?`](./config#bettereroptionswatch)
+- `options`: [`BettererOptionsWatch?`](./config#bettereroptionswatch) - An options object for a **Betterer** run in Watch mode
 
 Returns: [`BettererRunner`](./runner#bettererrunner)

@@ -44,8 +44,8 @@ The `contextStart()` hook is called when a [`BettererContext`](./context#bettere
 
 Args:
 
-- `context`: [`BettererContext`](./context#betterercontext) - the current test context.
-- `lifecycle`: [`Promise<BettererSummaries>`](./context#betterersummaries) - a promise that will resolve when the context ends.
+- `context`: [`BettererContext`](./context#betterercontext) - The current test context.
+- `lifecycle`: [`Promise<BettererSummaries>`](./context#betterersummaries) - A promise that will resolve when the context ends.
 
 Returns: `Promise<void> | void`
 
@@ -55,8 +55,8 @@ The `contextEnd()` hook is called when a [`BettererContext`](./context#bettererc
 
 Args:
 
-- `context`: [`BettererContext`](./context#betterercontext) - the current test context.
-- `summaries`: [`BettererSummaries`](./context#betterersummaries) - a list of [`BettererSummaries`], one for each run completed by the context.
+- `context`: [`BettererContext`](./context#betterercontext) - The current test context.
+- `summaries`: [`BettererSummaries`](./context#betterersummaries) - A list of [`BettererSummaries`], one for each run completed by the context.
 
 Returns: `Promise<void> | void`
 
@@ -66,8 +66,8 @@ The `contextError()` hook is called when there is an error running a context.
 
 Args:
 
-- `context`: [`BettererContext`](./context#betterercontext) - the current test context.
-- `error`: [`BettererError`](./error#betterererror) - the error thrown while running the context.
+- `context`: [`BettererContext`](./context#betterercontext) - The current test context.
+- `error`: [`BettererError`](./error#betterererror) - The error thrown while running the context.
 
 ## Runs hooks
 
@@ -77,8 +77,8 @@ The `runsStart()` hook is called when a [`BettererContext`](./context#bettererco
 
 Args:
 
-- `runs`: [`BettererRuns`](./context#bettererruns) - a list of [`BettererRuns`] that will be run.
-- `filePaths`: [`BettererFilePaths`](./runner#bettererfilepaths) - a list of [`BettererFilePaths`] that will be checked.
+- `runs`: [`BettererRuns`](./context#bettererruns) - A list of [`BettererRuns`] that will be run.
+- `filePaths`: [`BettererFilePaths`](./runner#bettererfilepaths) - A list of [`BettererFilePaths`] that will be checked.
 
 Returns: `Promise<void> | void`
 
@@ -88,8 +88,8 @@ The `runsEnd()` hook is called when a [`BettererContext`](./context#betterercont
 
 Args:
 
-- `summary`: [`BettererSummary`](./context#betterersummary) - a [`BettererSummary`] for the completed test run.
-- `filePaths`: [`BettererFilePaths`](./runner#bettererfilepaths) - a list of [`BettererFilePaths`] that were checked.
+- `summary`: [`BettererSummary`](./context#betterersummary) - A [`BettererSummary`] for the completed test run.
+- `filePaths`: [`BettererFilePaths`](./runner#bettererfilepaths) - A list of [`BettererFilePaths`] that were checked.
 
 Returns: `Promise<void> | void`
 
@@ -101,8 +101,8 @@ The `runStart()` hook is called when a [`BettererRun`](./context#bettererrun) st
 
 Args:
 
-- `run`: [`BettererRun`](./context#bettererrun) - the current test run.
-- `lifecycle`: `Promise<void>` - a promise that will resolve when the test run ends.
+- `run`: [`BettererRun`](./context#bettererrun) - The current test run.
+- `lifecycle`: `Promise<void>` - A promise that will resolve when the test run ends.
 
 Returns: `Promise<void> | void`
 
@@ -112,7 +112,7 @@ The `runEnd()` hook is called when a [`BettererRun`](./context#bettererrun) ends
 
 Args:
 
-- `run`: [`BettererRun`](./context#bettererrun) - the current test run.
+- `run`: [`BettererRun`](./context#bettererrun) - The current test run.
 
 Returns: `Promise<void> | void`
 
@@ -122,5 +122,5 @@ The `runError()` hook is called when there is an error running a test.
 
 Args:
 
-- `run`: [`BettererRun`](./context#bettererrun) - the current test run.
-- `error`: [`BettererError`](./error#betterererror) - the error thrown while running the test.
+- `run`: [`BettererRun`](./context#bettererrun) - The current test run.
+- `error`: [`BettererError`](./error#betterererror) - The error thrown while running the test.

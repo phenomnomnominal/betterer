@@ -32,8 +32,8 @@ bigger(2, 2); // same
 
 Args:
 
-- `result`: `number` - the current value
-- `expected`: `number` - the expected value
+- `result`: `number` - The current value
+- `expected`: `number` - The expected value
 
 Returns: [`BettererConstraintResult`](#bettererconstraintresult)
 
@@ -54,7 +54,7 @@ smaller(2, 2); // same
 
 Args:
 
-- `result`: `number` - the current value
-- `expected`: `number` - the expected value
+- `result`: `number` - The current value
+- `expected`: `number` - The expected value
 
 Returns: [`BettererConstraintResult`](#bettererconstraintresult)

@@ -8,6 +8,7 @@ export {
   BettererFile,
   BettererFileTestResult,
   BettererFileDiff,
+  BettererFilesDiff,
   BettererFileTestDiff,
   BettererFileIssue,
   BettererFileIssues

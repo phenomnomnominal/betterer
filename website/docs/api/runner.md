@@ -54,6 +54,6 @@ type BettererRunHandler = (summary: BettererSummary) => void;
 
 Args:
 
-- [`BettererSummary`](./context#betterersummary)
+- `summary`: [`BettererSummary`](./context#betterersummary) - The summary of the completed run.
 
 Returns: `void`

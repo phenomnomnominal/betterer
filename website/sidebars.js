@@ -8,6 +8,7 @@ module.exports = {
     'Betterer API': ['api/api', 'api/config', 'api/context', 'api/reporter', 'api/results', 'api/runner'],
     'Test API': ['api/betterer-test', 'api/betterer-file-test'],
     'Contraints API': ['api/constraints'],
-    'Errors API': ['api/errors']
+    'Errors API': ['api/errors'],
+    'Logger API': ['api/logger']
   }
 };

@@ -98,7 +98,7 @@ All the [`base options`](#base-options) above as well as:
 
 ### `BettererOptionsWatch`
 
-A input configuration for a **Betterer** run in Watch mode. Will be parsed into a [`BettererConfig`](#bettererconfig).
+Options object for a **Betterer** run in Watch mode. Will be parsed into a [`BettererConfig`](#bettererconfig).
 
 ```typescript
 export type BettererOptionsWatch = BettererOptionsRunner &

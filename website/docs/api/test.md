@@ -95,11 +95,11 @@ type BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType> = {
 
 #### `printer`: [`BettererPrinter`](#bettererprinter)
 
-> The function converts a serialised test result to the string that will be saved in the [test results file](./results-file)
+> The function that converts a serialised test result to the string that will be saved in the [test results file](./results-file)
 
 #### `progress`: [`BettererProgress`](#bettererprogress)
 
-> The function converts a test result to a number value that represents the progress towards the goal.
+> The function that converts a test result to a number value that represents the progress towards the goal.
 
 #### `serialiser`: [`BettererSerialiser`](#bettererserialiser)
 
@@ -129,6 +129,10 @@ class BettererTest {
 ```
 
 ### Constructor
+
+Args:
+
+- `options`: [`BettererTestOptions`](#betterertestoptions)
 
 #### Usage
 
@@ -197,8 +201,8 @@ type BettererTestConstraint<DeserialisedType> = (
 
 Args:
 
-- `result`: [`DeserialisedType`](#deserialisedtype-default-unknown) - Result from the current test run
-- `expected`: [`DeserialisedType`](#deserialisedtype-default-unknown) - Expected result from the results file
+- `result`: [`DeserialisedType`](#deserialisedtype-default-unknown) - Result from the current test run.
+- `expected`: [`DeserialisedType`](#deserialisedtype-default-unknown) - Expected result from the results file.
 
 Returns: [`Promise<BettererConstraintResult>`](./constraint#bettererconstraintresult) | [`BettererConstraintResult`](./constraint#bettererconstraintresult)
 
@@ -250,7 +254,7 @@ Returns: `BettererDiff<DeserialisedType, DiffType>`
 
 ## `BettererDiff`
 
-A object that encapsulates the diff between two results.
+A object that describes the diff between two results.
 
 ```typescript
 type BettererDiff<DeserialisedType = unknown, DiffType = null> = {
@@ -283,16 +287,77 @@ type BettererDiff<DeserialisedType = unknown, DiffType = null> = {
 
 Args:
 
-- `logger`: [`BettererLogger`](./logger#bettererlogger) - The reporter logger
+- `logger`: [`BettererLogger`](./logger#bettererlogger) - The reporter logger.
 
 Returns: `Promise<void>`
 
 ## `BettererSerialiser`
 
+The functions that serialises and deserialises a test result between the [`DeserialisedType`](#deserialisedtype-default-unknown) and [`SerialisedType`](#serialisedtype-default-deserialisedtype).
+
+```typescript
+type BettererSerialiser<DeserialisedType, SerialisedType = DeserialisedType> = {
+  serialise: BettererSerialise<DeserialisedType, SerialisedType>;
+  deserialise: BettererDeserialise<DeserialisedType, SerialisedType>;
+};
+```
+
 ## `BettererSerialise`
+
+The functions that coverts from a [`DeserialisedType`](#deserialisedtype-default-unknown) to a [`SerialisedType`](#serialisedtype-default-deserialisedtype).
+
+```typescript
+type BettererSerialise<DeserialisedType, SerialisedType> = (result: DeserialisedType) => SerialisedType;
+```
+
+Args:
+
+- `result`: [`DeserialisedType`](#deserialisedtype-default-unknown) - The deserialised result.
+
+Returns: [`SerialisedType`](#serialisedtype-default-deserialisedtype)
 
 ## `BettererDeserialise`
 
+The functions that coverts from a [`SerialisedType`](#serialisedtype-default-deserialisedtype) to a [`DeserialisedType`](#deserialisedtype-default-unknown).
+
+```typescript
+type BettererDeserialise<DeserialisedType, SerialisedType> = (serialised: SerialisedType) => DeserialisedType;
+```
+
+Args:
+
+- `serialised`: [`SerialisedType`](#serialisedtype-default-deserialisedtype) - The serialised result.
+
+Returns: [`DeserialisedType`](#deserialisedtype-default-unknown)
+
 ## `BettererPrinter`
 
+A function that converts a serialised test result to the string that will be saved in the [test results file](./results-file).
+
+```typescript
+type BettererPrinter<SerialisedType> = (serialised: SerialisedType) => MaybeAsync<string>;
+```
+
+Args:
+
+- `serialised`: [`SerialisedType`](#serialisedtype-default-deserialisedtype) - The serialised result.
+
+Returns: `Promise<string>` | `string`
+
 ## `BettererProgress`
+
+A function that converts a test result to a number value that represents the progress towards the goal.
+
+```typescript
+type BettererProgress<DeserialisedType> = (
+  baseline: DeserialisedType | null,
+  result: DeserialisedType | null
+) => MaybeAsync<BettererDelta | null>;
+```
+
+Args:
+
+- `baseline`: [`DeserialisedType`](#deserialisedtype-default-unknown) | `null` - The baseline result.
+- `result`: [`DeserialisedType`](#deserialisedtype-default-unknown) | `null` - The current result.
+
+Returns: [`Promise<BettererDelta>`](#bettererdelta) | `Promise<null>` | [`BettererDelta`](#bettererdelta) | `null`

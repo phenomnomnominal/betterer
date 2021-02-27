@@ -2,7 +2,7 @@
 id: errors
 title: Betterer errors
 sidebar_label: Betterer errors
-slug: /error
+slug: /errors
 ---
 
 ## `BettererError`

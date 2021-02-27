@@ -34,6 +34,7 @@ export {
   BettererFile,
   BettererFileBase,
   BettererFileDiff,
+  BettererFilesDiff,
   BettererFileIssue,
   BettererFileTestResult,
   BettererFileTestDiff,
