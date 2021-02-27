@@ -33,7 +33,7 @@ function Home() {
   return (
     <Layout
       title={`${siteConfig.title} - ${siteConfig.tagline}`}
-      description="Description will go into a meta tag in <head />"
+      description="Betterer will help you make incremental improvements to your codebase, and stop you from moving further away from your goals. ☀️"
     >
       <HomeSplashContainer>
         <HomeLogo imgUrl={homeImageURL} />
