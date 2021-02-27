@@ -36,7 +36,7 @@ function Home() {
       description="Betterer will help you make incremental improvements to your codebase, and stop you from moving further away from your goals. ☀️"
     >
       <HomeSplashContainer>
-        <HomeLogo imgUrl={homeImageURL} />
+        <HomeLogo height={294} width={294} imgUrl={homeImageURL} />
         <HomeIntro>
           <HomeTitle title={siteConfig.title} tagline={siteConfig.tagline} />
           <HomeCode />
@@ -66,7 +66,7 @@ function HomeSplashContainer(props) {
 function HomeLogo(props) {
   return (
     <div className={clsx(styles.projectLogo)}>
-      <img src={props.imgUrl} alt="Betterer Logo" />
+      <img width={props.width} height={props.height} src={props.imgUrl} alt="Betterer Logo" />
     </div>
   );
 }
@@ -89,6 +89,7 @@ function HomeCode() {
     <iframe
       seamless
       tabIndex="-1"
+      loading="lazy"
       className={clsx(styles.projectInitScript)}
       title="Betterer Get Started code snippet"
       src="https://carbon.now.sh/embed?bg=rgba%28255%2C255%2C255%2C0%29&t=seti&wt=none&l=application%2Fx-sh&ds=false&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=16px&ph=15px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=%2523%2520run%2520this%2520in%2520your%2520project%2520to%2520get%2520betterer%250Anpx%2520%2540betterer%252Fcli%2520init"
