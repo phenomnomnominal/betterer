@@ -25,11 +25,11 @@ This type describes the basic result type of a test. For simple tests this can j
 
 #### `SerialisedType` (default `DeserialisedType`)
 
-This type describes the serialised type of a test result. Some complex result types (like [`BettererFileTestResult`](./file-test#bettererfiletestresult)) cannot be directly serialised to JSON, so it must be converted to a serailisable form.
+This type describes the serialised type of a test result. Some complex result types (like [`BettererFileTestResult`](./betterer-file-test#bettererfiletestresult)) cannot be directly serialised to JSON, so it must be converted to a serailisable form.
 
 #### `DiffType` (default `null`)
 
-This type describes the diff between two results. Some complex result types (like [`BettererFileTestResult`](./file-test#bettererfiletestresult)) cannot be compared directly, so a diff can be constructed to better express the comparison.
+This type describes the diff between two results. Some complex result types (like [`BettererFileTestResult`](./betterer-file-test#bettererfiletestresult)) cannot be compared directly, so a diff can be constructed to better express the comparison.
 
 ## `BettererTestOptionsBasic`
 
@@ -190,7 +190,7 @@ type BettererTestConfig<DeserialisedType, SerialisedType, DiffType> = {
 
 ## `BettererTestConstraint`
 
-A function that checks if a test result is [`better`, `worse`, or the `same`](./constraint#bettererconstraintresult).
+A function that checks if a test result is [`better`, `worse`, or the `same`](./constraints#bettererconstraintresult).
 
 ```typescript
 type BettererTestConstraint<DeserialisedType> = (
@@ -204,7 +204,7 @@ Args:
 - `result`: [`DeserialisedType`](#deserialisedtype-default-unknown) - Result from the current test run.
 - `expected`: [`DeserialisedType`](#deserialisedtype-default-unknown) - Expected result from the results file.
 
-Returns: [`Promise<BettererConstraintResult>`](./constraint#bettererconstraintresult) | [`BettererConstraintResult`](./constraint#bettererconstraintresult)
+Returns: [`Promise<BettererConstraintResult>`](./constraints#bettererconstraintresult) | [`BettererConstraintResult`](./constraints#bettererconstraintresult)
 
 ## `BettererTestFunction`
 

@@ -23,6 +23,7 @@ test/__snapshots__/**
 .prettierignore
 .yarnrc
 website/build
+website/.docusaurus
 *.patch
 CHANGELOG.md
 betterer.log

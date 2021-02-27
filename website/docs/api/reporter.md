@@ -32,7 +32,7 @@ The `configError()` hook is called when there is an error while validating and i
 Args:
 
 - `config`: [`unknown`] - The invalid config object.
-- `error`: [`BettererError`](./error#betterererror) - The error thrown while validating and instantiating the [`BettererConfig`](./config#bettererconfig).
+- `error`: [`BettererError`](./errors#betterererror) - The error thrown while validating and instantiating the [`BettererConfig`](./config#bettererconfig).
 
 Returns: `Promise<void> | void`
 
@@ -67,7 +67,7 @@ The `contextError()` hook is called when there is an error running a context.
 Args:
 
 - `context`: [`BettererContext`](./context#betterercontext) - The current test context.
-- `error`: [`BettererError`](./error#betterererror) - The error thrown while running the context.
+- `error`: [`BettererError`](./errors#betterererror) - The error thrown while running the context.
 
 ## Runs hooks
 
@@ -123,4 +123,4 @@ The `runError()` hook is called when there is an error running a test.
 Args:
 
 - `run`: [`BettererRun`](./context#bettererrun) - The current test run.
-- `error`: [`BettererError`](./error#betterererror) - The error thrown while running the test.
+- `error`: [`BettererError`](./errors#betterererror) - The error thrown while running the test.
