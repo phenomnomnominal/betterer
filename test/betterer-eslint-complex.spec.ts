@@ -4,15 +4,17 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the status of a new eslint rule with a complex set up', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('test-betterer-eslint-complex', {
-      '.betterer.ts': `
+    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture(
+      'test-betterer-eslint-complex',
+      {
+        '.betterer.ts': `
 import { eslint } from '@betterer/eslint';
 
 export default {
   'eslint enable no-debugger rule': eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
 };
       `,
-      '.eslintrc.js': `
+        '.eslintrc.js': `
 const path = require('path');
 
 module.exports = {
@@ -34,23 +36,23 @@ module.exports = {
   }
 };      
       `,
-      'tsconfig.json': `
+        'tsconfig.json': `
 {
   "extends": "../../tsconfig.json",
   "include": ["./src/**/*", ".betterer.ts", "./.eslintrc.js"]
 }
       `,
-      'src/index.ts': `
+        'src/index.ts': `
 debugger;
       `,
-      'src/directory/.eslintrc.js': `
+        'src/directory/.eslintrc.js': `
 module.exports = {
   rules: {
     '@typescript-eslint/prefer-string-starts-ends-with': 'error'
   }
 };
       `,
-      'src/directory/index.ts': `
+        'src/directory/index.ts': `
 'hello'[0] === 'h';
 
 export enum Numbers {
@@ -60,7 +62,8 @@ export enum Numbers {
   four
 }
       `
-    });
+      }
+    );
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
@@ -70,17 +73,17 @@ export enum Numbers {
 
     const newTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(newTestRun.new).toEqual(['eslint enable no-debugger rule']);
+    expect(runNames(newTestRun.new)).toEqual(['eslint enable no-debugger rule']);
 
     const sameTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(sameTestRun.same).toEqual(['eslint enable no-debugger rule']);
+    expect(runNames(sameTestRun.same)).toEqual(['eslint enable no-debugger rule']);
 
     await writeFile(indexPath, `debugger;\ndebugger;`);
 
     const worseTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(worseTestRun.worse).toEqual(['eslint enable no-debugger rule']);
+    expect(runNames(worseTestRun.worse)).toEqual(['eslint enable no-debugger rule']);
 
     const result = await readFile(resultsPath);
 
@@ -90,11 +93,11 @@ export enum Numbers {
 
     const betterTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(betterTestRun.better).toEqual(['eslint enable no-debugger rule']);
+    expect(runNames(betterTestRun.better)).toEqual(['eslint enable no-debugger rule']);
 
     const completedTestRun = await betterer({ configPaths, resultsPath });
 
-    expect(completedTestRun.completed).toEqual(['eslint enable no-debugger rule']);
+    expect(runNames(completedTestRun.completed)).toEqual(['eslint enable no-debugger rule']);
 
     expect(logs).toMatchSnapshot();
 

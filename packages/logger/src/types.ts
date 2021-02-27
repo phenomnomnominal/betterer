@@ -1,14 +1,23 @@
-import * as logUpdate from 'log-update';
-
-export type BettererLoggerMessages = ReadonlyArray<string>;
-export type BettererLogger = (...messages: BettererLoggerMessages) => void;
+export type BettererLoggerMessages = Array<string>;
+export type BettererLogMessage = (...messages: BettererLoggerMessages) => Promise<void>;
 
 export type BettererLoggerCodeInfo = {
   message: string;
   filePath: string;
   fileText: string;
-  start: number;
-  end: number;
+  line: number;
+  column: number;
+  length: number;
 };
 
-export type BettererLoggerOverwriteDone = typeof logUpdate['done'];
+export type BettererLogCode = (codeInfo: BettererLoggerCodeInfo) => Promise<void>;
+
+export type BettererLogger = {
+  code: BettererLogCode;
+  debug: BettererLogMessage;
+  error: BettererLogMessage;
+  info: BettererLogMessage;
+  progress: BettererLogMessage;
+  success: BettererLogMessage;
+  warn: BettererLogMessage;
+};

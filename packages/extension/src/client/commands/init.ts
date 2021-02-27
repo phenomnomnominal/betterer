@@ -1,9 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { workspace, window } from 'vscode';
+import { WorkspaceFolder, window, workspace } from 'vscode';
 
 import { EXTENSION_NAME } from '../../constants';
-import { INIT_COMMAND_REQUIRES_WORKSPACE, ALREADY_CONFIGURED } from '../error-messages';
+import { ALREADY_CONFIGURED, INIT_COMMAND_REQUIRES_WORKSPACE } from '../error-messages';
 import { error, info } from '../logger';
 import { pickFolder } from './folder-picker';
 
@@ -21,15 +21,19 @@ export async function initBetterer(): Promise<void> {
       return !fs.existsSync(path.join(folder.uri.fsPath, configFile));
     })
   );
+
   if (foldersWithoutConfig.length === 0) {
     void info(ALREADY_CONFIGURED(workspaceFolders));
     return;
   }
 
-  const folder = await pickFolder(
-    foldersWithoutConfig,
-    `Select a workspace folder to initialise ${EXTENSION_NAME} in:`
-  );
+  let folder: WorkspaceFolder | null = null;
+  if (foldersWithoutConfig.length === 1) {
+    [folder] = workspaceFolders;
+  } else {
+    folder = await pickFolder(foldersWithoutConfig, `Select a workspace folder to initialise ${EXTENSION_NAME} in:`);
+  }
+
   if (!folder) {
     return;
   }

@@ -1,3 +1,2 @@
-export { BettererError } from './error';
-export { logError, registerError } from './error-handler';
-export * from './types';
+export { BettererError, isBettererError } from './error';
+export { BettererErrorDetail, BettererErrorDetails } from './types';

@@ -1,0 +1,88 @@
+/* stylelint-disable docusaurus/copyright-header */
+
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.homeIntro {
+  position: relative;
+}
+
+.heroTitle {
+  font-family: 'Pacifico', cursive;
+  text-shadow: var(--ifm-color-primary) 0 0 10px;
+  font-size: 500%;
+  margin: 0;
+  padding-top: 2rem;
+}
+
+.heroSubtitle {
+  text-shadow: var(--ifm-color-primary) 0 0 10px;
+  font-weight: bold;
+}
+
+.homeHeroBanner {
+  background: var(--betterer-background-color);
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 966px) {
+  .homeHeroBanner {
+    padding: 2rem;
+  }
+}
+
+.features {
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.featureImage {
+  height: 200px;
+  width: 200px;
+}
+
+.homeContainer {
+  padding: 0;
+  position: relative;
+}
+
+.projectLogo {
+  position: absolute;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+
+  animation: enter 600s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes enter {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+.projectInitScript {
+  border: none;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.homeButton {
+  margin: 4px 2px;
+}

@@ -1,2 +1,9 @@
-export { br, code, error, info, logo, overwrite, success, warn, unmute, mute, debug } from './logger';
-export * from './types';
+export { codeΔ } from './code';
+export { diffΔ } from './diff';
+export {
+  BettererLogger,
+  BettererLogMessage,
+  BettererLogCode,
+  BettererLoggerCodeInfo,
+  BettererLoggerMessages
+} from './types';

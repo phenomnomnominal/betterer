@@ -6,52 +6,6 @@
 
 ESLint test for [**`Betterer`**](https://github.com/phenomnomnominal/betterer).
 
-## Description
+## Docs
 
-Use this test to incrementally introduce ESLint rules to your codebase
-
-## Usage
-
-```typescript
-import { eslint } from '@betterer/eslint';
-
-export default {
-  'no more debuggers': eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
-};
-```
-
-### Skip
-
-Skip a test by calling `.skip()`:
-
-```typescript
-import { eslint } from '@betterer/eslint';
-
-export default {
-  'no more debuggers': eslint(...).skip()
-};
-```
-
-### Only
-
-Run a test by itself by calling `.only()`:
-
-```typescript
-import { eslint } from '@betterer/eslint';
-
-export default {
-  'no more debuggers': eslint(...).only()
-};
-```
-
-### Exclude
-
-Exclude files from a test by calling `.exclude()`:
-
-```typescript
-import { eslint } from '@betterer/eslint';
-
-export default {
-  'no more debuggers': eslint(...).exclude(/excluded-file-regexp/)
-};
-```
+[Check out the docs at `phenomnomnominal.github.io/betterer`! 🎉](https://phenomnomnominal.github.io/betterer/docs/built-in-tests#betterereslint)

@@ -21,9 +21,10 @@
     "url": "https://github.com/phenomnomnominal/betterer/issues"
   },
   "scripts": {
-    "compile": "tsc -b ."
+    "compile": "tsc -b .",
+    "api": "ts-api-guardian --out ../../goldens/api/@betterer/errors.d.ts dist/index.d.ts"
   },
-  "dependencies": {
-    "@betterer/logger": "^3.1.1"
+  "engines": {
+    "node": ">=12"
   }
 }

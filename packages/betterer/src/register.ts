@@ -1,4 +1,4 @@
-import { register, RegisterOptions } from 'ts-node';
+import type { RegisterOptions } from 'ts-node';
 
 import { BettererConfig } from './config';
 
@@ -9,7 +9,7 @@ export const TS_EXTENSION = '.ts';
 type Extensions = typeof require.extensions;
 
 let isRegistered = false;
-export function registerExtensions(config: BettererConfig): void {
+export async function registerExtensions(config: BettererConfig): Promise<void> {
   if (isRegistered) {
     return;
   }
@@ -23,21 +23,34 @@ export function registerExtensions(config: BettererConfig): void {
   const JS = EXTENSIONS[JS_EXTENSION];
 
   if (!EXTENSIONS[TS_EXTENSION]) {
-    // Use TS-Node register to allow `.betterer.ts` config files:
-    const tsRegisterOptions: RegisterOptions = {
-      transpileOnly: true,
-      compilerOptions: {
-        module: 'commonjs'
-      }
-    };
-    if (config.tsconfigPath) {
-      tsRegisterOptions.project = config.tsconfigPath;
-    }
-    register(tsRegisterOptions);
+    await registerTypeScript(config);
   }
 
   // Force `.betterer.results` files to be loaded as JS:
   EXTENSIONS[RESULTS_EXTENTION] = (m: NodeModule, filePath: string): void => {
     JS(m, filePath);
   };
+}
+
+async function registerTypeScript(config: BettererConfig): Promise<void> {
+  let tsNode: typeof import('ts-node');
+  try {
+    await import('typescript');
+    tsNode = await import('ts-node');
+  } catch {
+    // Environment doesn't have TypeScript available, move on!
+    return;
+  }
+
+  // Use TS-Node register to allow `.betterer.ts` config files:
+  const tsRegisterOptions: RegisterOptions = {
+    transpileOnly: true,
+    compilerOptions: {
+      module: 'commonjs'
+    }
+  };
+  if (config.tsconfigPath) {
+    tsRegisterOptions.project = config.tsconfigPath;
+  }
+  tsNode.register(tsRegisterOptions);
 }

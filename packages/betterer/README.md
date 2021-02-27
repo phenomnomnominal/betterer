@@ -6,16 +6,6 @@
 
 JavaScript API for running [**`betterer`**](https://github.com/phenomnomnominal/betterer).
 
-## Usage
+## Docs
 
-```typescript
-import { betterer } from '@betterer/betterer';
-
-async function run(): Promise<void> {
-  const cwd = process.cwd();
-  const configPath = path.resolve(cwd, './.betterer.ts');
-  const resultsPath = path.resolve(cwd, './.betterer.results');
-  const { worse } = await betterer({ configPath, resultsPath, cwd });
-  process.exitcode = worse.length !== 0 ? 1 : 0;
-}
-```
+[Check out the docs at `phenomnomnominal.github.io/betterer`! 🎉](https://phenomnomnominal.github.io/betterer/docs/api)

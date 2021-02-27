@@ -31,7 +31,7 @@ module.exports = {
   });
 
   it('should be possible to unsilence a subsequent run', async () => {
-    const { logs, paths, cleanup } = await createFixture('test-betterer-silent-then-not-silen', {
+    const { logs, paths, cleanup } = await createFixture('test-betterer-silent-then-not-silent', {
       '.betterer.js': `
 const { smaller } = require('@betterer/constraints');
 

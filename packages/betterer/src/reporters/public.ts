@@ -1,1 +1,1 @@
-export * from './types';
+export { BettererReporter } from './types';

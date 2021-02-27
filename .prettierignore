@@ -1,11 +1,13 @@
 .DS_Store
 dist
 fixtures
+goldens
 node_modules
 reports
 lerna-debug.log
 yarn-error.log
 tsconfig.tsbuildinfo
+.vscode-test
 *.vsix
 **/*.snap
 test/__snapshots__/**
@@ -20,5 +22,11 @@ test/__snapshots__/**
 .npmrc
 .prettierignore
 .yarnrc
+website/build
+website/.docusaurus
 *.patch
 CHANGELOG.md
+betterer.log
+website/static/.nojekyll
+website/static/videos/start.mp4
+website/static/videos/watch.mp4

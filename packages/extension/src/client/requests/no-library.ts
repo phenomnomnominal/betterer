@@ -2,8 +2,8 @@ import { ExtensionContext, Uri, workspace } from 'vscode';
 import { LanguageClient, RequestType } from 'vscode-languageclient/node';
 
 import {
-  BETTERER_LIBRARY_NOT_INSTALLED_DETAILS,
   BETTERER_LIBRARY_NOT_INSTALLED,
+  BETTERER_LIBRARY_NOT_INSTALLED_DETAILS,
   BETTERER_OUTPUT_CHANNEL
 } from '../error-messages';
 import { info } from '../logger';

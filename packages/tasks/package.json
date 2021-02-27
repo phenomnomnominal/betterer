@@ -1,0 +1,36 @@
+{
+  "name": "@betterer/tasks",
+  "description": "task runner and loggerr for @betterer/betterer",
+  "version": "3.0.0",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "Craig Spence <craigspence0@gmail.com>",
+  "homepage": "https://phenomnomnominal.github.io/betterer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phenomnomnominal/betterer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/phenomnomnominal/betterer/issues"
+  },
+  "scripts": {
+    "compile": "tsc -b ."
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "dependencies": {
+    "@betterer/errors": "^3.1.1",
+    "chalk": "^4.1.0",
+    "ink": "^3.0.7",
+    "react": "^16.13.1",
+    "tslib": "^2.0.3"
+  }
+}

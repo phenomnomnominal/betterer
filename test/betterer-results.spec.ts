@@ -11,18 +11,11 @@ describe('betterer', () => {
 import { BettererFileTest, BettererFileResolver } from '@betterer/betterer';
 
 function test(): BettererFileTest {
-  const resolver = new BettererFileResolver(2);
-  return new BettererFileTest(resolver, async (files) => {        
+  const resolver = new BettererFileResolver();
+  return new BettererFileTest(resolver, async (files, fileTestResult) => {        
     const [filePath] = files;
-    return {
-      [filePath]: [{
-        message: "\`$" + "{key}\`",
-        filePath,
-        fileText: '',
-        start: 0,
-        end: 0
-      }]
-    };
+    const file = fileTestResult.addFile(filePath, '');
+    file.addIssue(0, 0, "\`$" + "{key}\`");
   });
 }
 

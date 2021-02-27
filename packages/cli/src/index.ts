@@ -1,5 +1,15 @@
-export { cli } from './cli';
-export { init } from './init';
-export { start } from './start';
-export { watch } from './watch';
-export * from './types';
+export { ciΔ } from './ci';
+export { cliΔ } from './cli';
+export { initΔ } from './init';
+export { startΔ } from './start';
+export { watchΔ } from './watch';
+export {
+  BettererCLIEnvConfig,
+  BettererCLIInitConfig,
+  BettererCLIBaseConfig,
+  BettererCLIStartConfig,
+  BettererCLICIConfig,
+  BettererCLIWatchConfig,
+  BettererCLIArguments,
+  BettererPackageJSON
+} from './types';

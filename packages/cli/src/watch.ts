@@ -1,17 +1,14 @@
-import { betterer } from '@betterer/betterer';
-import * as commander from 'commander';
+import { betterer, BettererOptionsWatch } from '@betterer/betterer';
 
 import { watchOptions } from './options';
-import { CLIArguments, CLIWatchConfig } from './types';
+import { BettererCLIArguments } from './types';
 
-export async function watch(cwd: string, argv: CLIArguments): Promise<void> {
-  watchOptions(commander);
+/** @internal Definitely not stable! Please don't use! */
+export async function watchΔ(cwd: string, argv: BettererCLIArguments): Promise<void> {
+  const { config, results, filter, ignore, reporter, silent, tsconfig } = watchOptions(argv);
 
-  commander.parse(argv as Array<string>);
-
-  const { config, results, filter, ignore, reporter, silent, tsconfig } = (commander as unknown) as CLIWatchConfig;
-
-  const watcher = await betterer.watch({
+  // Mark options as unknown...
+  const options: unknown = {
     configPaths: config,
     cwd,
     filters: filter,
@@ -19,12 +16,17 @@ export async function watch(cwd: string, argv: CLIArguments): Promise<void> {
     reporters: reporter,
     resultsPath: results,
     silent,
-    tsconfigPath: tsconfig
-  });
+    tsconfigPath: tsconfig,
+    watch: true
+  };
+
+  // And then cast to BettererOptionsStart. This is possibly invalid,
+  // but it's nicer to do the options validation in @betterer/betterer
+  const runner = await betterer.watch(options as BettererOptionsWatch);
 
   return new Promise((): void => {
     process.on('SIGINT', () => {
-      void watcher.stop();
+      void runner.stop(true);
     });
   });
 }

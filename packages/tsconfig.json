@@ -17,6 +17,9 @@
       "path": "errors"
     },
     {
+      "path": "fixture"
+    },
+    {
       "path": "logger"
     },
     {
@@ -26,13 +29,13 @@
       "path": "reporter"
     },
     {
+      "path": "tasks"
+    },
+    {
       "path": "tsquery"
     },
     {
       "path": "typescript"
-    },
-    {
-      "path": "watch-reporter"
     }
   ]
 }

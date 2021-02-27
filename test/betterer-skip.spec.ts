@@ -4,19 +4,19 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should skip a test', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('test-betterer-skip', {
+    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture('test-betterer-skip', {
       '.betterer.skip.ts': `
+import { BettererTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
 import { regexp } from '@betterer/regexp';
 
 let start = 0;
 
 export default {
-  'test 1': {
+  'test 1': new BettererTest({
     test: () => start++,
-    constraint: bigger,
-    isSkipped: true
-  },
+    constraint: bigger
+  }).skip(),
   'test 2': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts').skip()
 };
       `,
@@ -44,16 +44,16 @@ export default {
 
     const run = await betterer({ configPaths, resultsPath });
 
-    expect(run.ran).toEqual(['test 1', 'test 2']);
-    expect(run.skipped).toEqual([]);
+    expect(runNames(run.ran)).toEqual(['test 1', 'test 2']);
+    expect(runNames(run.skipped)).toEqual([]);
 
     const skipRun = await betterer({
       configPaths: [resolve('./.betterer.skip.ts')],
       resultsPath
     });
 
-    expect(skipRun.ran).toEqual([]);
-    expect(skipRun.skipped).toEqual(['test 1', 'test 2']);
+    expect(runNames(skipRun.ran)).toEqual([]);
+    expect(runNames(skipRun.skipped)).toEqual(['test 1', 'test 2']);
 
     expect(logs).toMatchSnapshot();
 

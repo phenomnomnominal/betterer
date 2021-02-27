@@ -1,30 +1,72 @@
-import { CommanderStatic } from 'commander';
-import { CLIArguments } from './types';
+import commander from 'commander';
+import {
+  BettererCLIArguments,
+  BettererCLICIConfig,
+  BettererCLIEnvConfig,
+  BettererCLIInitConfig,
+  BettererCLIStartConfig,
+  BettererCLIWatchConfig
+} from './types';
 
-export function initOptions(commander: CommanderStatic): void {
-  configPathOption(commander);
+export function ciOptions(argv: BettererCLIArguments): BettererCLICIConfig {
+  configPathsOption();
+  resultsPathOption();
+  tsconfigPathOption();
+  filtersOption();
+  silentOption();
+  reportersOption();
+  return setEnv<BettererCLICIConfig>(argv);
 }
 
-export function startOptions(commander: CommanderStatic): void {
-  configPathsOption(commander);
-  resultsPathOption(commander);
-  tsconfigPathOption(commander);
-  filtersOption(commander);
-  silentOption(commander);
-  updateOption(commander);
-  reportersOption(commander);
+export function initOptions(argv: BettererCLIArguments): BettererCLIInitConfig {
+  configPathOption();
+  return setEnv<BettererCLIInitConfig>(argv);
 }
 
-export function watchOptions(commander: CommanderStatic): void {
-  startOptions(commander);
-  ignoresOption(commander);
+export function startOptions(argv: BettererCLIArguments): BettererCLIStartConfig {
+  configPathsOption();
+  resultsPathOption();
+  tsconfigPathOption();
+  filtersOption();
+  silentOption();
+  reportersOption();
+  strictOption();
+  updateOption();
+  return setEnv<BettererCLIStartConfig>(argv);
 }
 
-function configPathOption(commander: CommanderStatic): void {
-  commander.option('-c, --config [value]', 'Path to test definition file relative to CWD', './.betterer.ts');
+export function watchOptions(argv: BettererCLIArguments): BettererCLIWatchConfig {
+  configPathsOption();
+  resultsPathOption();
+  tsconfigPathOption();
+  filtersOption();
+  silentOption();
+  reportersOption();
+  ignoresOption();
+  return setEnv<BettererCLIWatchConfig>(argv);
 }
 
-function configPathsOption(commander: CommanderStatic): void {
+function setEnv<T extends BettererCLIEnvConfig>(argv: BettererCLIArguments): T {
+  commander.option('-d, --debug', 'Enable verbose debug logging', false);
+  commander.option('-l, --debug-log [value]', 'File path to save verbose debug logging to disk', './betterer.log');
+
+  const parsed = (commander.parse(argv) as unknown) as T;
+  if (parsed.debug) {
+    process.env.BETTERER_DEBUG = '1';
+    process.env.BETTERER_DEBUG_TIME = '1';
+    process.env.BETTERER_DEBUG_VALUES = '1';
+    if (parsed.debugLog) {
+      process.env.BETTERER_DEBUG_LOG = parsed.debugLog;
+    }
+  }
+  return parsed;
+}
+
+function configPathOption(): void {
+  commander.option('-c, --config [value]', 'Path to test definition file relative to CWD');
+}
+
+function configPathsOption(): void {
   commander.option(
     '-c, --config [value]',
     'Path to test definition file relative to CWD. Takes multiple values',
@@ -32,23 +74,23 @@ function configPathsOption(commander: CommanderStatic): void {
   );
 }
 
-function resultsPathOption(commander: CommanderStatic): void {
+function resultsPathOption(): void {
   commander.option('-r, --results [value]', 'Path to test results file relative to CWD');
 }
 
-function tsconfigPathOption(commander: CommanderStatic): void {
+function tsconfigPathOption(): void {
   commander.option('-t, --tsconfig [value]', 'Path to TypeScript config file relative to CWD');
 }
 
-function filtersOption(commander: CommanderStatic): void {
+function filtersOption(): void {
   commander.option('-f, --filter [value]', 'RegExp filter for tests to run. Takes multiple values', argsToArray);
 }
 
-function ignoresOption(commander: CommanderStatic): void {
+function ignoresOption(): void {
   commander.option('-i, --ignore [value]', 'Glob pattern for files to ignore. Takes multiple values', argsToArray);
 }
 
-function reportersOption(commander: CommanderStatic): void {
+function reportersOption(): void {
   commander.option(
     '-R, --reporter [value]',
     'npm package name for a Betterer reporter. Takes multiple values',
@@ -56,14 +98,24 @@ function reportersOption(commander: CommanderStatic): void {
   );
 }
 
-function silentOption(commander: CommanderStatic): void {
-  commander.option('-s, --silent', 'Disable all logging');
+function silentOption(): void {
+  commander.option(
+    '-s, --silent',
+    'When present, all default reporters will be disabled. Custom reporters will still work normally.'
+  );
 }
 
-function updateOption(commander: CommanderStatic): void {
-  commander.option('-u, --update', 'Force update the results file, even if things get worse');
+function strictOption(): void {
+  commander.option(
+    '--strict',
+    'When present, the "how to update" message will not be shown and the `--update` option will be set to false.'
+  );
 }
 
-function argsToArray(value: string, previous: CLIArguments = []): CLIArguments {
+function updateOption(): void {
+  commander.option('-u, --update', 'When present, the results file will be updated, even if things get worse.');
+}
+
+function argsToArray(value: string, previous: BettererCLIArguments = []): BettererCLIArguments {
   return previous.concat([value]);
 }

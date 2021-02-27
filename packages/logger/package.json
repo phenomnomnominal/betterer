@@ -21,18 +21,21 @@
     "url": "https://github.com/phenomnomnominal/betterer/issues"
   },
   "scripts": {
-    "compile": "tsc -b ."
+    "compile": "tsc -b .",
+    "api": "ts-api-guardian --out ../../goldens/api/@betterer/logger.d.ts dist/index.d.ts"
+  },
+  "engines": {
+    "node": ">=12"
   },
   "dependencies": {
     "@babel/code-frame": "^7.10.3",
-    "chalk": "^4.1.0",
+    "@betterer/errors": "^3.1.1",
+    "jest-diff": "^26.6.2",
     "lines-and-columns": "^1.1.6",
-    "log-update": "^4.0.0",
-    "npmlog": "^4.1.2",
+    "react": "^16.13.1",
     "tslib": "^2.0.3"
   },
   "devDependencies": {
-    "@types/babel__code-frame": "^7.0.1",
-    "@types/npmlog": "^4.1.2"
+    "@types/babel__code-frame": "^7.0.1"
   }
 }
