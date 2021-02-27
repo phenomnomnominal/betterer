@@ -16,7 +16,7 @@
     "url": "https://github.com/phenomnomnominal/betterer/issues"
   },
   "engines": {
-    "vscode": "^1.42.0"
+    "vscode": "^1.52.0"
   },
   "categories": [
     "Linters"
@@ -131,7 +131,7 @@
     "webpack:server:watch": "webpack --config webpack.server.config.js --watch",
     "package": "vsce package --yarn",
     "test:extension": "node ./dist/test/runner/index.js",
-    "vscode:prepublish": "build:extension"
+    "vscode:prepublish": "yarn build:extension"
   },
   "dependencies": {
     "vscode-languageclient": "^7.0.0",
