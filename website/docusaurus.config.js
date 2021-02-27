@@ -22,7 +22,10 @@ module.exports = {
 
   organizationName: 'phenomnomnominal',
   projectName: 'betterer',
-  stylesheets: ['https://fonts.googleapis.com/css?family=Lato:wght@300|Pacifico|Roboto+Mono'],
+  stylesheets: [
+    'https://fonts.googleapis.com/css?family=Lato:wght@300|Roboto+Mono',
+    'https://fonts.googleapis.com/css?family=Pacifico&text=Betterer'
+  ],
   themeConfig: {
     algolia: {
       apiKey: '294187e59bb9be56291c9088e9d49afe',

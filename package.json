@@ -20,7 +20,7 @@
     "clean": "yarn clean:tests && yarn clean:compile && yarn clean:modules",
     "clean:tests": "rimraf fixtures && rimraf reports",
     "clean:compile": "lerna exec \"rimraf dist\" && rimraf ./**/tsconfig.tsbuildinfo",
-    "clean:modules": "lerna exec \"rimraf node_modules\" && rimraf node_modules && yarn",
+    "clean:modules": "lerna exec \"rimraf node_modules\" && rimraf website/node_modules && rimraf node_modules  && yarn",
     "commit": "git cz",
     "compile": "tsc -b packages",
     "compile:watch": "tsc -b packages -w",

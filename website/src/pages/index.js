@@ -66,7 +66,7 @@ function HomeSplashContainer(props) {
 function HomeLogo(props) {
   return (
     <div className={clsx(styles.projectLogo)}>
-      <img width={props.width} height={props.height} src={props.imgUrl} alt="Betterer Logo" />
+      <img width={`${props.width}px`} height={`${props.height}px`} src={props.imgUrl} alt="Betterer Logo" />
     </div>
   );
 }
@@ -127,7 +127,7 @@ function HomeFeatures(props) {
 function HomeFeature(props) {
   return (
     <div className={clsx('col col--4', styles.feature)}>
-      <h3>{props.title}</h3>
+      <h2>{props.title}</h2>
       <p>{props.description}</p>
     </div>
   );
