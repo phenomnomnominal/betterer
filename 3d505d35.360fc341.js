@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[15],{84:function(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Improving accessibility with Betterer","permalink":"/betterer/blog/2020/05/14/improving-accessibility-with-betterer"},{"title":"Betterer v1.0.0","permalink":"/betterer/blog/2020/05/14/betterer-v1.0.0"}]}')}}]);
