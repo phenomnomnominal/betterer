@@ -27,7 +27,7 @@ type BettererReporter = {
 
 ### `configError()`
 
-The `configError()` hook is called when there is an error while validating and instantiating a [`BettererConfig`](./config#bettererconfig)
+The `configError()` hook is called when there is an error while validating and instantiating a [`BettererConfig`](./config#bettererconfig).
 
 Args:
 
@@ -40,12 +40,12 @@ Returns: `Promise<void> | void`
 
 ### `contextStart()`
 
-The `contextStart()` hook is called when a [`BettererContext`](./context#betterercontext) starts. The `lifecycle` promise will resolve when the context ends, so it can be used instead of the [`contextEnd()`](#contextend) and [`contextError()`](#contexterror) hooks.
+The `contextStart()` hook is called when a [`BettererContext`](./context#betterercontext) starts. The `lifecycle` promise will resolve when the context ends or reject when the context errors, so it can be used instead of the [`contextEnd()`](#contextend) and [`contextError()`](#contexterror) hooks.
 
 Args:
 
 - `context`: [`BettererContext`](./context#betterercontext) - The current test context.
-- `lifecycle`: [`Promise<BettererSummaries>`](./context#betterersummaries) - A promise that will resolve when the context ends.
+- `lifecycle`: [`Promise<BettererSummaries>`](./context#betterersummaries) - A promise that will resolve when the context ends or reject when the context errors.
 
 Returns: `Promise<void> | void`
 
@@ -56,7 +56,7 @@ The `contextEnd()` hook is called when a [`BettererContext`](./context#bettererc
 Args:
 
 - `context`: [`BettererContext`](./context#betterercontext) - The current test context.
-- `summaries`: [`BettererSummaries`](./context#betterersummaries) - A list of [`BettererSummaries`], one for each run completed by the context.
+- `summaries`: [`BettererSummaries`](./context#betterersummaries) - A list of [`BettererSummaries`](./context#betterersummaries), one for each run completed by the context.
 
 Returns: `Promise<void> | void`
 
@@ -77,8 +77,8 @@ The `runsStart()` hook is called when a [`BettererContext`](./context#bettererco
 
 Args:
 
-- `runs`: [`BettererRuns`](./context#bettererruns) - A list of [`BettererRuns`] that will be run.
-- `filePaths`: [`BettererFilePaths`](./runner#bettererfilepaths) - A list of [`BettererFilePaths`] that will be checked.
+- `runs`: [`BettererRuns`](./context#bettererruns) - A list of [`BettererRuns`](./context#bettererruns) that will be run.
+- `filePaths`: [`BettererFilePaths`](./runner#bettererfilepaths) - A list of [`BettererFilePaths`](./runner#bettererfilepaths) that will be checked.
 
 Returns: `Promise<void> | void`
 
@@ -88,8 +88,8 @@ The `runsEnd()` hook is called when a [`BettererContext`](./context#betterercont
 
 Args:
 
-- `summary`: [`BettererSummary`](./context#betterersummary) - A [`BettererSummary`] for the completed test run.
-- `filePaths`: [`BettererFilePaths`](./runner#bettererfilepaths) - A list of [`BettererFilePaths`] that were checked.
+- `summary`: [`BettererSummary`](./context#betterersummary) - A [`BettererSummary`](./context#betterersummary) for the completed test run.
+- `filePaths`: [`BettererFilePaths`](./runner#bettererfilepaths) - A list of [`BettererFilePaths`](./runner#bettererfilepaths) that were checked.
 
 Returns: `Promise<void> | void`
 
@@ -97,12 +97,12 @@ Returns: `Promise<void> | void`
 
 ### `runStart()`
 
-The `runStart()` hook is called when a [`BettererRun`](./context#bettererrun) starts. The `lifecycle` promise will resolve when the test run ends, so it can be used instead of the [`runEnd()`](#runend) and [`runError()`](#runerror) hooks.
+The `runStart()` hook is called when a [`BettererRun`](./context#bettererrun) starts. The `lifecycle` promise will resolve when the test run ends or reject when the test run throws, so it can be used instead of the [`runEnd()`](#runend) and [`runError()`](#runerror) hooks.
 
 Args:
 
 - `run`: [`BettererRun`](./context#bettererrun) - The current test run.
-- `lifecycle`: `Promise<void>` - A promise that will resolve when the test run ends.
+- `lifecycle`: `Promise<void>` - A promise that will resolve when the test run ends, or reject when the test run throws.
 
 Returns: `Promise<void> | void`
 

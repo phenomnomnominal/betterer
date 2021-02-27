@@ -28,7 +28,7 @@ type BettererContext = {
 
 ## `BettererDelta`
 
-A `BettererDelta` represents the change between a test runs and its baseline. A `BettererRun` has a `delta` property if the test has a [`progress`](./betterer-test#progress) handler.
+A `BettererDelta` represents the change between a test runs and its baseline. A `BettererRun` has a `delta` property if the test has a [`progress`](./betterer-test#bettererprogress) handler.
 
 ```typescript
 type BettererDelta =
@@ -108,7 +108,7 @@ type BettererRun = {
 
 #### `delta`: [`BettererDelta`](#bettererdelta) | `null`
 
-> The change between a test runs and its baseline. A `BettererRun` has a `delta` property if the test has a [`progress`](./betterer-test#progress) handler.
+> The change between a test runs and its baseline. A `BettererRun` has a `delta` property if the test has a [`progress`](./betterer-test#bettererprogress) handler.
 
 #### `result`: [`BettererResult`](./results#bettererresult)
 
@@ -185,7 +185,7 @@ type BettererSummary = {
 
 #### `expected`: `string | null`
 
-> The serialised expected results. Will be null if it is the first time running **Betterer**.
+> The serialised expected results. Will be `null` if it is the first time running **Betterer**.
 
 #### `unexpectedDiff`: `boolean`
 
