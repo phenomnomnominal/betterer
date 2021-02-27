@@ -47,4 +47,5 @@ jobs:
           git config --global user.name "gh-actions"
           yarn install --frozen-lockfile
           cd website
+          yarn
           yarn docusaurus deploy
