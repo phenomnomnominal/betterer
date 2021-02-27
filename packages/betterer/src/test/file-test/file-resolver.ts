@@ -63,8 +63,9 @@ export class BettererFileResolver {
   }
 
   private _filterExcludedFiles(filePaths: BettererFilePaths): BettererFilePaths {
+    const isGitIgnored = globby.gitignore.sync();
     return filePaths.filter((filePath) => {
-      return !this._excluded.some((exclude: RegExp) => exclude.test(filePath));
+      return !this._excluded.some((exclude: RegExp) => exclude.test(filePath)) && !isGitIgnored(filePath);
     });
   }
 
