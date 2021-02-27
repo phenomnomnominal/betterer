@@ -3,6 +3,7 @@ export {
   BettererConfigFilters,
   BettererConfigIgnores,
   BettererConfigPaths,
+  BettererConfigReporter,
   BettererConfigReporters,
   BettererOptionsRunner,
   BettererOptionsStart,

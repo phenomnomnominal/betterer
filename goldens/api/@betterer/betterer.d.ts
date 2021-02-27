@@ -25,6 +25,8 @@ export declare type BettererConfigIgnores = ReadonlyArray<string>;
 
 export declare type BettererConfigPaths = ReadonlyArray<string>;
 
+export declare type BettererConfigReporter = string | BettererReporter;
+
 export declare type BettererConfigReporters = ReadonlyArray<BettererConfigReporter>;
 
 export declare type BettererContext = {
@@ -33,13 +35,13 @@ export declare type BettererContext = {
 };
 
 export declare type BettererDelta = {
-    baseline: number;
-    diff: number;
-    result: number;
+    readonly baseline: number;
+    readonly diff: number;
+    readonly result: number;
 } | {
-    baseline: null;
-    diff: 0;
-    result: number;
+    readonly baseline: null;
+    readonly diff: 0;
+    readonly result: number;
 };
 
 export declare type BettererDeserialise<DeserialisedType, SerialisedType> = (serialised: SerialisedType) => DeserialisedType;
@@ -97,6 +99,8 @@ export declare class BettererFileResolver {
     resolve(...pathSegments: Array<string>): string;
     validate(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
 }
+
+export declare type BettererFilesDiff = Record<string, BettererFileDiff>;
 
 export declare class BettererFileTest implements BettererTestBase<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff> {
     get config(): BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff>;
@@ -236,6 +240,26 @@ export declare type BettererTestConstraint<DeserialisedType> = (result: Deserial
 export declare type BettererTestFunction<DeserialisedType> = (run: BettererRun) => MaybeAsync<DeserialisedType>;
 
 export declare type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
+
+export declare type BettererTestOptions<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> = BettererTestOptionsBasic | BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType>;
+
+export declare type BettererTestOptionsBasic = {
+    constraint: BettererTestConstraint<number>;
+    test: BettererTestFunction<number>;
+    goal?: number | BettererTestGoal<number>;
+    deadline?: Date | string;
+};
+
+export declare type BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType> = {
+    constraint: BettererTestConstraint<DeserialisedType>;
+    test: BettererTestFunction<DeserialisedType>;
+    differ: BettererDiffer<DeserialisedType, DiffType>;
+    printer?: BettererPrinter<SerialisedType>;
+    progress?: BettererProgress<DeserialisedType>;
+    serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
+    goal: DeserialisedType | BettererTestGoal<DeserialisedType>;
+    deadline?: Date | string;
+};
 
 export declare function isBettererFileTestΔ(testOrConfig: unknown): testOrConfig is BettererFileTest;
 

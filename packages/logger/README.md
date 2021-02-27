@@ -6,6 +6,6 @@
 
 Logger used within [**`Betterer`**](https://github.com/phenomnomnominal/betterer).
 
-## Usage
+## Docs
 
-> ## 🚨🚨🚨 THIS PACKAGE SHOULD ONLY BE USED WITHIN THE BETTERER MONOREPO 🚨🚨🚨
+[Check out the docs at `phenomnomnominal.github.io/betterer`! 🎉](https://phenomnomnominal.github.io/betterer/docs/logger)

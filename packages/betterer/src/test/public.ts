@@ -8,6 +8,7 @@ export {
   BettererFile,
   BettererFileTestResult,
   BettererFileDiff,
+  BettererFilesDiff,
   BettererFileTestDiff,
   BettererFileIssue,
   BettererFileIssues
@@ -25,5 +26,8 @@ export {
   BettererTestConstraint,
   BettererTestFunction,
   BettererTestGoal,
-  BettererTestConfig
+  BettererTestConfig,
+  BettererTestOptions,
+  BettererTestOptionsBasic,
+  BettererTestOptionsComplex
 } from './types';

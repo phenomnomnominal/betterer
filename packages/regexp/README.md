@@ -6,52 +6,6 @@
 
 RegExp test for [**`Betterer`**](https://github.com/phenomnomnominal/betterer).
 
-## Description
+## Docs
 
-Use this test to incrementally remove RegExp matches from your codebase!
-
-## Usage
-
-```typescript
-import { regexp } from '@betterer/regexp';
-
-export default {
-  'no hack comments': regexp(/(\/\/\s*HACK)/i).include('**/*.ts')
-};
-```
-
-### Skip
-
-Skip a test by calling `.skip()`:
-
-```typescript
-import { regexp } from '@betterer/regexp';
-
-export default {
-  'no hack comments': regexp(...).skip()
-};
-```
-
-### Only
-
-Run a test by itself by calling `.only()`:
-
-```typescript
-import { regexp } from '@betterer/regexp';
-
-export default {
-  'no hack comments': regexp(...).only()
-};
-```
-
-### Exclude
-
-Exclude files from a test by calling `.exclude()`:
-
-```typescript
-import { regexp } from '@betterer/regexp';
-
-export default {
-  'no hack comments': regexp(...).exclude(/excluded-file-regexp/)
-};
-```
+[Check out the docs at `phenomnomnominal.github.io/betterer`! 🎉](https://phenomnomnominal.github.io/betterer/docs/built-in-tests#bettererregexp)

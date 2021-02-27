@@ -1,8 +1,7 @@
 import { BettererConstraintResult } from '@betterer/constraints';
 import { BettererLogger } from '@betterer/logger';
 
-import { BettererRun } from '../context';
-import { BettererDelta } from '../context/types';
+import { BettererDelta, BettererRun } from '../context';
 import { MaybeAsync } from '../types';
 import { BettererTestType } from './type';
 

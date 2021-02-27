@@ -6,14 +6,6 @@
 
 Error type used within [**`Betterer`**](https://github.com/phenomnomnominal/betterer).
 
-## Usage
+## Docs
 
-### BettererError
-
-Create an error:
-
-```typescript
-import { BettererError } from '@betterer/errors';
-
-const error = new BettererError(`Something went wrong: "OOPS!"`, { some: 'details' });
-```
+[Check out the docs at `phenomnomnominal.github.io/betterer`! 🎉](https://phenomnomnominal.github.io/betterer/docs/error)

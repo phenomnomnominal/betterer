@@ -4,6 +4,7 @@ export {
   BettererConfigFilters,
   BettererConfigIgnores,
   BettererConfigPaths,
+  BettererConfigReporter,
   BettererConfigReporters,
   BettererOptionsRunner,
   BettererOptionsStart,
@@ -33,6 +34,7 @@ export {
   BettererFile,
   BettererFileBase,
   BettererFileDiff,
+  BettererFilesDiff,
   BettererFileIssue,
   BettererFileTestResult,
   BettererFileTestDiff,
@@ -46,5 +48,8 @@ export {
   BettererTestFunction,
   BettererTestGoal,
   BettererTestConfig,
+  BettererTestOptions,
+  BettererTestOptionsBasic,
+  BettererTestOptionsComplex,
   isBettererFileTestΔ
 } from './test/public';

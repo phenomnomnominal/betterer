@@ -4,4 +4,8 @@
 
 [![npm version](https://img.shields.io/npm/v/@betterer/reporter.svg)](https://www.npmjs.com/package/@betterer/reporter)
 
-Default reporter [**`Betterer`**](https://github.com/phenomnomnominal/betterer)
+The default reporter [**`Betterer`**](https://github.com/phenomnomnominal/betterer)
+
+## Docs
+
+[Check out the docs at `phenomnomnominal.github.io/betterer`! 🎉](https://phenomnomnominal.github.io/betterer/docs/reporters)

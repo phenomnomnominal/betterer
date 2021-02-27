@@ -13,14 +13,14 @@ export type BettererContext = {
 
 export type BettererDelta =
   | {
-      baseline: number;
-      diff: number;
-      result: number;
+      readonly baseline: number;
+      readonly diff: number;
+      readonly result: number;
     }
   | {
-      baseline: null;
-      diff: 0;
-      result: number;
+      readonly baseline: null;
+      readonly diff: 0;
+      readonly result: number;
     };
 
 export type BettererRun = {
