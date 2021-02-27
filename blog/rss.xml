@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Betterer Blog</title>
+        <link>https://phenomnomnominal.github.io/blog</link>
+        <description>Betterer Blog</description>
+        <lastBuildDate>Thu, 14 May 2020 22:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <item>
+            <title><![CDATA[Improving accessibility with Betterer]]></title>
+            <link>https://phenomnomnominal.github.io/betterer/blog/2020/05/14/improving-accessibility-with-betterer</link>
+            <guid>Improving accessibility with Betterer</guid>
+            <pubDate>Thu, 14 May 2020 22:00:00 GMT</pubDate>
+            <description><![CDATA[So, yesterday I announced the new release of ☀️ Betterer, thanks if you've checked it out already!]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Betterer v1.0.0]]></title>
+            <link>https://phenomnomnominal.github.io/betterer/blog/2020/05/14/betterer-v1.0.0</link>
+            <guid>Betterer v1.0.0</guid>
+            <pubDate>Thu, 14 May 2020 00:00:00 GMT</pubDate>
+            <description><![CDATA[I'm stoked to announce v1.0.0 of Betterer!]]></description>
+        </item>
+    </channel>
+</rss>
