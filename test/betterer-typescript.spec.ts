@@ -112,4 +112,49 @@ module.exports = {
 
     await cleanup();
   });
+
+  it('should report the status of the TypeScript compiler when there is a npm dependency', async () => {
+    const { paths, logs, resolve, cleanup, writeFile, runNames } = await createFixture(
+      'test-betterer-typescript-dependency',
+      {
+        '.betterer.ts': `
+import { typescript } from '@betterer/typescript';
+
+export default {
+  'typescript dependency': typescript('./tsconfig.json', {
+    strict: true
+  })
+};
+        `,
+        'tsconfig.json': `
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["esnext"],
+    "moduleResolution": "node",
+    "target": "ES5",
+    "typeRoots": ["../../node_modules/@types/"],
+    "resolveJsonModule": true,
+    "strict": false
+  },
+  "include": ["./src/**/*", ".betterer.ts"]
+}
+        `
+      }
+    );
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+    const indexPath = resolve('./src/index.ts');
+
+    await writeFile(indexPath, `import { ESLint } from 'eslint';\nconsole.log(ESLINT);`);
+
+    const newTestRun = await betterer({ configPaths, resultsPath });
+
+    expect(runNames(newTestRun.new)).toEqual(['typescript dependency']);
+
+    expect(logs).toMatchSnapshot();
+
+    await cleanup();
+  });
 });
