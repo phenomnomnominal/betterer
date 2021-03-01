@@ -1,5 +1,5 @@
 ---
-title: Improving accessibility with Betterer
+title: Improving accessibility with Betterer ☀️
 author: Craig Spence
 authorURL: http://twitter.com/phenomnominal
 authorTwitter: phenomnominal
@@ -134,4 +134,4 @@ We could improve this test by keeping track of the specific violations that occu
 
 ## That's it!
 
-That's all I got for now. Please let me know what you think in the comments or hit me up on the [Twitters](https://twitter.com/phenomnominal)! 🦄
+That's all I got for now. Please let me know what you think on [Twitter](https://twitter.com/phenomnominal)! 🦄
