@@ -4,20 +4,27 @@
         <title>Betterer Blog</title>
         <link>https://phenomnomnominal.github.io/blog</link>
         <description>Betterer Blog</description>
-        <lastBuildDate>Fri, 15 May 2020 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 01 Mar 2021 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <item>
-            <title><![CDATA[Improving accessibility with Betterer]]></title>
+            <title><![CDATA[Incrementally adding Stylelint rules with Betterer ☀️]]></title>
+            <link>https://phenomnomnominal.github.io/betterer/blog/2021/03/01/betterer-and-stylelint</link>
+            <guid>Incrementally adding Stylelint rules with Betterer ☀️</guid>
+            <pubDate>Mon, 01 Mar 2021 00:00:00 GMT</pubDate>
+            <description><![CDATA[I just released v4.0.0 of Betterer 🎉 (now with sweet new docs!) and it has a bunch of simplified APIs for writing tests. And just before I shipped it, I got an issue asking how to write a Stylelint test, so let's do it here and explain it line by line:]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Improving accessibility with Betterer ☀️]]></title>
             <link>https://phenomnomnominal.github.io/betterer/blog/2020/05/15/improving-accessibility-with-betterer</link>
-            <guid>Improving accessibility with Betterer</guid>
+            <guid>Improving accessibility with Betterer ☀️</guid>
             <pubDate>Fri, 15 May 2020 00:00:00 GMT</pubDate>
             <description><![CDATA[So, yesterday I announced the new release of ☀️ Betterer, thanks if you've checked it out already!]]></description>
         </item>
         <item>
-            <title><![CDATA[Betterer v1.0.0]]></title>
+            <title><![CDATA[Betterer v1.0.0 ☀️]]></title>
             <link>https://phenomnomnominal.github.io/betterer/blog/2020/05/14/betterer-v1.0.0</link>
-            <guid>Betterer v1.0.0</guid>
+            <guid>Betterer v1.0.0 ☀️</guid>
             <pubDate>Thu, 14 May 2020 00:00:00 GMT</pubDate>
             <description><![CDATA[I'm stoked to announce v1.0.0 of Betterer!]]></description>
         </item>
