@@ -29,13 +29,7 @@ module.exports = {
   themeConfig: {
     algolia: {
       apiKey: '294187e59bb9be56291c9088e9d49afe',
-      indexName: 'betterer',
-
-      // Optional: see doc section bellow
-      contextualSearch: true,
-
-      // Optional: Algolia search parameters
-      searchParameters: {}
+      indexName: 'betterer'
     },
     colorMode: {
       defaultMode: 'dark',
