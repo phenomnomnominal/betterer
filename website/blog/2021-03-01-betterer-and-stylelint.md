@@ -5,7 +5,7 @@ authorURL: http://twitter.com/phenomnominal
 authorTwitter: phenomnominal
 ---
 
-I just released [v4.0.0 of **Betterer**](hhttps://github.com/phenomnomnominal/betterer) 🎉 (now with [sweet new docs!](https://phenomnomnominal.github.io/betterer/)) and it has a bunch of simplified APIs for writing [tests](https://phenomnomnominal.github.io/betterer/docs/betterer-file-test). And just before I shipped it, I got [an issue](https://github.com/phenomnomnominal/betterer/issues/519) asking how to write a [**Stylelint**](https://stylelint.io/) test, so let's do it here and explain it line by line:
+I just released [v4.0.0 of **Betterer**](https://github.com/phenomnomnominal/betterer) 🎉 (now with [sweet new docs!](https://phenomnomnominal.github.io/betterer/)) and it has a bunch of simplified APIs for writing [tests](https://phenomnomnominal.github.io/betterer/docs/betterer-file-test). And just before I shipped it, I got [an issue](https://github.com/phenomnomnominal/betterer/issues/519) asking how to write a [**Stylelint**](https://stylelint.io/) test, so let's do it here and explain it line by line:
 
 ## TL;DR;
 
