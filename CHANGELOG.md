@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.1](https://github.com/phenomnomnominal/betterer/compare/v4.0.0...v4.0.1) (2021-03-02)
+
+
+### Bug Fixes
+
+* **betterer 🐛:** be less specific about react version ([#567](https://github.com/phenomnomnominal/betterer/issues/567)) ([ec64821](https://github.com/phenomnomnominal/betterer/commit/ec64821181c072910ac53a8600c794301b535940))
+* **betterer 🐛:** update devDependencies ([3de42d4](https://github.com/phenomnomnominal/betterer/commit/3de42d44d3b72fa3e8899578557e43020f80613e))
+
+
+
+
+
 # [4.0.0](https://github.com/phenomnomnominal/betterer/compare/v3.1.2...v4.0.0) (2021-02-27)
 
 

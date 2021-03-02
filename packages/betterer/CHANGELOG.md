@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.1](https://github.com/phenomnomnominal/betterer/compare/v4.0.0...v4.0.1) (2021-03-02)
+
+**Note:** Version bump only for package @betterer/betterer
+
+
+
+
+
 # [4.0.0](https://github.com/phenomnomnominal/betterer/compare/v3.1.2...v4.0.0) (2021-02-27)
 
 
