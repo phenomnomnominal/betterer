@@ -3,7 +3,6 @@ import assert from 'assert';
 
 import { requireText } from '../require';
 import { read } from '../reader';
-import { unescape } from './escaper';
 import { BettererExpectedResults } from './types';
 
 const MERGE_CONFLICT_ANCESTOR = '|||||||';
@@ -20,14 +19,14 @@ export async function parse(resultsPath: string): Promise<BettererExpectedResult
   if (hasMergeConflicts(file)) {
     try {
       const [ours, theirs] = extractConflicts(file);
-      return unescape({ ...requireText(ours), ...requireText(theirs) });
+      return { ...requireText(ours), ...requireText(theirs) };
     } catch (e) {
       throw new BettererError(`could not resolve merge conflict in "${resultsPath}". 😔`, e);
     }
   }
 
   try {
-    return unescape(requireText(file));
+    return requireText(file);
   } catch {
     throw new BettererError(`could not read results from "${resultsPath}". 😔`);
   }

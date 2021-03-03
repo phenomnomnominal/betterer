@@ -34,6 +34,22 @@ export default {
 
 `@betterer/regexp` is a [BettererFileTest](./betterer-file-test), so you can use [`include`](./betterer-file-test#include), [`exclude`](./betterer-file-test#exclude), [`only`](betterer-test#only), and [`skip`](betterer-test#skip).
 
+### [`@betterer/stylelint`](https://www.npmjs.com/package/@betterer/stylelint)
+
+Use this test to incrementally introduce new [**Stylelint**](https://stylelint.io/) rules to your codebase.
+
+```typescript
+import { stylelint } from '@betterer/stylelint';
+
+export default {
+  'no unknown units': stylelint({
+    rules: {
+      'unit-no-unknown': true
+    }
+  }).include('**/*.css)
+};
+```
+
 ### [`@betterer/tsquery`](https://www.npmjs.com/package/@betterer/tsquery)
 
 se this test to incrementally remove **TSQuery** matches from your codebase. See the [**TSQuery** documentation](https://github.com/phenomnomnominal/tsquery) for more details about the query syntax.

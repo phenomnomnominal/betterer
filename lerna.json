@@ -8,6 +8,8 @@
     "packages/fixture",
     "packages/logger",
     "packages/regexp",
+    "packages/stylelint",
+    "packages/tasks",
     "packages/tsquery",
     "packages/typescript"
   ],
