@@ -4,8 +4,9 @@ exports[`betterer should report the status of a new stylelint rule 1`] = `
 "// BETTERER RESULTS V2.
 exports[\`stylelint enable new rule\`] = {
   value: \`{
-    \\"src/styles.scss:3729085886\\": [
-      [3, 2, 0, \\"Expected rule with selector matching \\\\\\\\\\"/^&:\\\\\\\\\\\\\\\\w/\\\\\\\\\\" to come before rule with selector matching \\\\\\\\\\"/^&/\\\\\\\\\\" (order/order)\\", \\"Expected rule with selector matching \\\\\\\\\\"/^&:\\\\\\\\\\\\\\\\w/\\\\\\\\\\" to come before rule with selector matching \\\\\\\\\\"/^&/\\\\\\\\\\" (order/order)\\"]
+    \\"src/styles.scss:3896471814\\": [
+      [3, 2, 0, \\"Expected rule with selector matching \\\\\\\\\\"/^&:\\\\\\\\\\\\\\\\w/\\\\\\\\\\" to come before rule with selector matching \\\\\\\\\\"/^&/\\\\\\\\\\" (order/order)\\", \\"Expected rule with selector matching \\\\\\\\\\"/^&:\\\\\\\\\\\\\\\\w/\\\\\\\\\\" to come before rule with selector matching \\\\\\\\\\"/^&/\\\\\\\\\\" (order/order)\\"],
+      [7, 9, 0, \\"Unexpected unknown unit \\\\\\\\\\"borks\\\\\\\\\\" (unit-no-unknown)\\", \\"Unexpected unknown unit \\\\\\\\\\"borks\\\\\\\\\\" (unit-no-unknown)\\"]
     ]
   }\`
 };
@@ -51,7 +52,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ stylelint enable new rule: \\"stylelint enable new rule\\" got checked for the first time! (1 issue) 🎉
+✅ stylelint enable new rule: \\"stylelint enable new rule\\" got checked for the first time! (2 issues) 🎉
 
 ",
   "
@@ -62,7 +63,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ stylelint enable new rule: \\"stylelint enable new rule\\" got checked for the first time! (1 issue) 🎉
+✅ stylelint enable new rule: \\"stylelint enable new rule\\" got checked for the first time! (2 issues) 🎉
 
 ",
   "
@@ -73,7 +74,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ stylelint enable new rule: \\"stylelint enable new rule\\" got checked for the first time! (1 issue) 🎉
+✅ stylelint enable new rule: \\"stylelint enable new rule\\" got checked for the first time! (2 issues) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
@@ -116,7 +117,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\".
+・ 2 existing issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\".
 🤔 stylelint enable new rule: running \\"stylelint enable new rule\\"!
 
 ",
@@ -128,8 +129,8 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\":
+・ 2 existing issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\".
+・ 2 new issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\":
 🤔 stylelint enable new rule: running \\"stylelint enable new rule\\"!
 
 ",
@@ -141,15 +142,17 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\":
+・ 2 existing issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\".
+・ 2 new issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\":
 ・
 ・   <project>/fixtures/test-betterer-stylelint/src/styles.scss
-・    8 |   b & {}
-・    9 |   & b {}
-・ > 10 |   &:hover {}
+・   12 |   b & {}
+・   13 |   & b {}
+・ > 14 |   &:hover {}
 ・      |   ^ Expected rule with selector matching \\"/^&:/w/\\" to come before rule with selector matching \\"/^&/\\" (order/order)
-・   11 | }
+・   15 | }
+・   16 |
+・   17 | .foo {
 ・
 🤔 stylelint enable new rule: running \\"stylelint enable new rule\\"!
 
@@ -162,17 +165,27 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\":
+・ 2 existing issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\".
+・ 2 new issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\":
 ・
 ・   <project>/fixtures/test-betterer-stylelint/src/styles.scss
-・    8 |   b & {}
-・    9 |   & b {}
-・ > 10 |   &:hover {}
+・   12 |   b & {}
+・   13 |   & b {}
+・ > 14 |   &:hover {}
 ・      |   ^ Expected rule with selector matching \\"/^&:/w/\\" to come before rule with selector matching \\"/^&/\\" (order/order)
-・   11 | }
+・   15 | }
+・   16 |
+・   17 | .foo {
 ・
-🔥 stylelint enable new rule: \\"stylelint enable new rule\\" got worse. (1 new issue, 2 total) 😔
+・
+・   <project>/fixtures/test-betterer-stylelint/src/styles.scss
+・   16 |
+・   17 | .foo {
+・ > 18 |   width: 666borks;
+・      |          ^ Unexpected unknown unit \\"borks\\" (unit-no-unknown)
+・   19 | }
+・
+🤔 stylelint enable new rule: running \\"stylelint enable new rule\\"!
 
 ",
   "
@@ -183,19 +196,60 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-🔥 stylelint enable new rule: \\"stylelint enable new rule\\" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\":
+・ 2 existing issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\".
+・ 2 new issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\":
 ・
 ・   <project>/fixtures/test-betterer-stylelint/src/styles.scss
-・    8 |   b & {}
-・    9 |   & b {}
-・ > 10 |   &:hover {}
+・   12 |   b & {}
+・   13 |   & b {}
+・ > 14 |   &:hover {}
 ・      |   ^ Expected rule with selector matching \\"/^&:/w/\\" to come before rule with selector matching \\"/^&/\\" (order/order)
-・   11 | }
+・   15 | }
+・   16 |
+・   17 | .foo {
+・
+・
+・   <project>/fixtures/test-betterer-stylelint/src/styles.scss
+・   16 |
+・   17 | .foo {
+・ > 18 |   width: 666borks;
+・      |          ^ Unexpected unknown unit \\"borks\\" (unit-no-unknown)
+・   19 | }
+・
+🔥 stylelint enable new rule: \\"stylelint enable new rule\\" got worse. (2 new issues, 4 total) 😔
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+🔥 stylelint enable new rule: \\"stylelint enable new rule\\" got worse. (2 new issues, 4 total) 😔
+・ 2 existing issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\".
+・ 2 new issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\":
+・
+・   <project>/fixtures/test-betterer-stylelint/src/styles.scss
+・   12 |   b & {}
+・   13 |   & b {}
+・ > 14 |   &:hover {}
+・      |   ^ Expected rule with selector matching \\"/^&:/w/\\" to come before rule with selector matching \\"/^&/\\" (order/order)
+・   15 | }
+・   16 |
+・   17 | .foo {
+・
+・
+・   <project>/fixtures/test-betterer-stylelint/src/styles.scss
+・   16 |
+・   17 | .foo {
+・ > 18 |   width: 666borks;
+・      |          ^ Unexpected unknown unit \\"borks\\" (unit-no-unknown)
+・   19 | }
 ・
 
-Error: \\"stylelint enable new rule\\" got worse. (1 new issue, 2 total) 😔
+Error: \\"stylelint enable new rule\\" got worse. (2 new issues, 4 total) 😔
 
 ",
   "
@@ -206,19 +260,29 @@ Error: \\"stylelint enable new rule\\" got worse. (1 new issue, 2 total) 😔
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 stylelint enable new rule: \\"stylelint enable new rule\\" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\":
+🔥 stylelint enable new rule: \\"stylelint enable new rule\\" got worse. (2 new issues, 4 total) 😔
+・ 2 existing issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\".
+・ 2 new issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\":
 ・
 ・   <project>/fixtures/test-betterer-stylelint/src/styles.scss
-・    8 |   b & {}
-・    9 |   & b {}
-・ > 10 |   &:hover {}
+・   12 |   b & {}
+・   13 |   & b {}
+・ > 14 |   &:hover {}
 ・      |   ^ Expected rule with selector matching \\"/^&:/w/\\" to come before rule with selector matching \\"/^&/\\" (order/order)
-・   11 | }
+・   15 | }
+・   16 |
+・   17 | .foo {
+・
+・
+・   <project>/fixtures/test-betterer-stylelint/src/styles.scss
+・   16 |
+・   17 | .foo {
+・ > 18 |   width: 666borks;
+・      |          ^ Unexpected unknown unit \\"borks\\" (unit-no-unknown)
+・   19 | }
 ・
 
-Error: \\"stylelint enable new rule\\" got worse. (1 new issue, 2 total) 😔
+Error: \\"stylelint enable new rule\\" got worse. (2 new issues, 4 total) 😔
 
 ",
   "
@@ -229,19 +293,29 @@ Error: \\"stylelint enable new rule\\" got worse. (1 new issue, 2 total) 😔
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 stylelint enable new rule: \\"stylelint enable new rule\\" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\":
+🔥 stylelint enable new rule: \\"stylelint enable new rule\\" got worse. (2 new issues, 4 total) 😔
+・ 2 existing issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\".
+・ 2 new issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\":
 ・
 ・   <project>/fixtures/test-betterer-stylelint/src/styles.scss
-・    8 |   b & {}
-・    9 |   & b {}
-・ > 10 |   &:hover {}
+・   12 |   b & {}
+・   13 |   & b {}
+・ > 14 |   &:hover {}
 ・      |   ^ Expected rule with selector matching \\"/^&:/w/\\" to come before rule with selector matching \\"/^&/\\" (order/order)
-・   11 | }
+・   15 | }
+・   16 |
+・   17 | .foo {
+・
+・
+・   <project>/fixtures/test-betterer-stylelint/src/styles.scss
+・   16 |
+・   17 | .foo {
+・ > 18 |   width: 666borks;
+・      |          ^ Unexpected unknown unit \\"borks\\" (unit-no-unknown)
+・   19 | }
 ・
 
-Error: \\"stylelint enable new rule\\" got worse. (1 new issue, 2 total) 😔
+Error: \\"stylelint enable new rule\\" got worse. (2 new issues, 4 total) 😔
 
 1 test got checked. 🤔
 1 test got worse. 😔

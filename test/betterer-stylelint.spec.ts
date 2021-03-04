@@ -8,6 +8,10 @@ a {
   & b {}
   &:hover {}
 }
+
+.foo {
+  width: 666borks;
+}
 `;
 
 describe('betterer', () => {
@@ -32,7 +36,10 @@ export default {
       `,
         '.stylelintrc.json': `
 {
-  "plugins": ["stylelint-order"]
+  "plugins": ["stylelint-order"],
+  "rules": {
+    "unit-no-unknown": true
+  }
 }
       `,
         'src/styles.scss': STYLES_SOURCE
