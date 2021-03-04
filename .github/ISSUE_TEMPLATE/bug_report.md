@@ -4,7 +4,6 @@ about: Create a report to help us improve
 title: ''
 labels: ''
 assignees: ''
-
 ---
 
 **Describe the bug**
@@ -22,9 +21,10 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Versions (please complete the following information):**
- - OS: [e.g. Windows, MacOS]
- - Betterer Version [e.g. 4.*]
- - Node Version [e.g. 14.*]
+
+- OS: [e.g. Windows, MacOS]
+- Betterer Version [e.g. 4.*]
+- Node Version [e.g. 14.*]
 
 **Debug log:**
 Please run **Betterer** with the [`--debug` flag](https://phenomnomnominal.github.io/betterer/docs/running-betterer#debug-mode) and include the generated log file.
