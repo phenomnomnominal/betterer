@@ -178,3 +178,12 @@ You can pass the following options to the `watch` script:
 ### Read more about Watch mode
 
 - [Filters and Ignores](./filters-and-ignores)
+
+## Debug mode
+
+If something isn't working correctly, it can be useful for debugging purposes to get a debug log. You can pass the following options to any of the run commands:
+
+| Option                     | Description                                                                 | Default           |
+| -------------------------- | --------------------------------------------------------------------------- | ----------------- |
+| `-d`, `--debug`            | Enable debug mode. Also enables the `silent` flag to hide reporters output. | `false`           |
+| `-l`, `--debug-log` [path] | Path to the debug log file.                                                 | `./.betterer.log` |
