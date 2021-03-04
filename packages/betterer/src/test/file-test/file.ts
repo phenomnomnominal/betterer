@@ -18,16 +18,18 @@ type BettererIssuePositions = [number, number, number, number, string, string?];
 type BettererIssueOverride = BettererIssueStartEnd | BettererIssueLineColLength | BettererIssuePositions;
 
 export class BettererFileΩ implements BettererFile {
+  public readonly absolutePath: string;
   public readonly key: string;
 
   private _issues: BettererFileIssues = [];
 
   constructor(
-    public readonly absolutePath: string,
+    absolutePath: string,
     public readonly hash: string,
     private _resolver: BettererFileResolver,
     private _fileText: string
   ) {
+    this.absolutePath = this._resolver.resolve(absolutePath);
     const { resultsPath } = getConfig();
     const relativePath = getRelativePath(resultsPath, absolutePath);
     this.key = `${relativePath}:${this.hash}`;
