@@ -21,6 +21,8 @@ export async function createConfig(options: unknown = {}): Promise<BettererConfi
   const startOptions = options as BettererOptionsStart;
   const watchOptions = options as BettererOptionsWatch;
 
+  const isDebug = !!process.env.BETTERER_DEBUG;
+
   const relativeConfig: BettererConfig = {
     // Base:
     configPaths: baseOptions.configPaths ? toArray<string>(baseOptions.configPaths) : ['./.betterer'],
@@ -28,7 +30,7 @@ export async function createConfig(options: unknown = {}): Promise<BettererConfi
     filters: toRegExps(toArray<string | RegExp>(baseOptions.filters)),
     reporters: toArray<BettererConfigReporter>(baseOptions.reporters),
     resultsPath: baseOptions.resultsPath || './.betterer.results',
-    silent: baseOptions.silent || false,
+    silent: isDebug || baseOptions.silent || false,
     tsconfigPath: baseOptions.tsconfigPath || null,
 
     // Runner:

@@ -37,7 +37,7 @@ function initDebug(): void {
     debug({
       header: 'betterer',
       include: [/@betterer\//],
-      ignore: [require.resolve('./utils')],
+      ignore: [require.resolve('./utils'), require.resolve('./register')],
       enabled,
       time: !!process.env.BETTERER_DEBUG_TIME,
       values: !!process.env.BETTERER_DEBUG_VALUES,
