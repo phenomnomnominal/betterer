@@ -6,4 +6,4 @@ Fixture tools used within [**`Betterer`**](https://github.com/phenomnomnominal/b
 
 ## Usage
 
-> ## 🚨🚨🚨 THIS PACKAGE SHOULD ONLY BE USED WITHIN THE BETTERER MONOREPO 🚨🚨🚨
+> ## 🚨 THIS PACKAGE SHOULD ONLY BE USED WITHIN THE BETTERER MONOREPO 🚨

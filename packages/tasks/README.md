@@ -8,4 +8,4 @@ Task runner and logger used within [**`Betterer`**](https://github.com/phenomnom
 
 ## Usage
 
-> ## 🚨🚨🚨 THIS PACKAGE SHOULD ONLY BE USED WITHIN THE BETTERER MONOREPO 🚨🚨🚨
+> ## 🚨 THIS PACKAGE SHOULD ONLY BE USED WITHIN THE BETTERER MONOREPO 🚨
