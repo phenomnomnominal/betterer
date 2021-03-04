@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.1](https://github.com/phenomnomnominal/betterer/compare/v4.1.0...v4.1.1) (2021-03-04)
+
+
+### Bug Fixes
+
+* **betterer 🐛:** force silent when debug flag is set ([#576](https://github.com/phenomnomnominal/betterer/issues/576)) ([aafbafb](https://github.com/phenomnomnominal/betterer/commit/aafbafb4c1cb379991b6c9e6f299c6a1aa8d4d40))
+
+
+
+
+
 # [4.1.0](https://github.com/phenomnomnominal/betterer/compare/v4.0.1...v4.1.0) (2021-03-04)
 
 
