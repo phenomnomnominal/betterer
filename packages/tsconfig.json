@@ -29,6 +29,9 @@
       "path": "reporter"
     },
     {
+      "path": "stylelint"
+    },
+    {
       "path": "tasks"
     },
     {

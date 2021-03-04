@@ -1,0 +1,1 @@
+export { stylelint } from './stylelint';

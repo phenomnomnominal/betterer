@@ -23,11 +23,11 @@ export class BettererFileTestResultΩ implements BettererFileTestResult {
   public addFile(absolutePath: string, fileText: string): BettererFile {
     assert(this._resolver);
     const file = new BettererFileΩ(absolutePath, createHash(fileText), this._resolver, fileText);
-    const existingFile = this._fileMap[absolutePath];
+    const existingFile = this._fileMap[file.absolutePath];
     if (existingFile) {
       file.addIssues(existingFile.issues);
     }
-    this._fileMap[absolutePath] = file;
+    this._fileMap[file.absolutePath] = file;
     return file;
   }
 
