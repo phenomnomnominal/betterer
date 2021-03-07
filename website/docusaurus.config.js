@@ -35,6 +35,10 @@ module.exports = {
       defaultMode: 'dark',
       disableSwitch: true
     },
+    googleAnalytics: {
+      trackingID: 'UA-35865678-1',
+      anonymizeIP: true,
+    },
     prism: {
       theme: THEME
     },
