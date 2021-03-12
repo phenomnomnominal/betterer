@@ -37,7 +37,7 @@ module.exports = {
     },
     googleAnalytics: {
       trackingID: 'UA-35865678-1',
-      anonymizeIP: true,
+      anonymizeIP: true
     },
     prism: {
       theme: THEME
