@@ -4,7 +4,7 @@
   "publisher": "Betterer",
   "private": true,
   "description": "VSCode extension for @betterer/betterer",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "main": "./dist/client/client.js",
   "author": "Craig Spence <craigspence0@gmail.com>",
   "homepage": "https://phenomnomnominal.github.io/betterer",
@@ -141,7 +141,7 @@
   },
   "devDependencies": {
     "@betterer/betterer": "^4.1.1",
-    "@betterer/cli": "^4.1.1",
+    "@betterer/cli": "^4.1.2",
     "@betterer/errors": "^4.0.0",
     "@betterer/logger": "^4.0.1",
     "@types/jest-cli": "^24.3.0",

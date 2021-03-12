@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.2](https://github.com/phenomnomnominal/betterer/compare/v4.1.1...v4.1.2) (2021-03-12)
+
+
+### Bug Fixes
+
+* **betterer 🐛:** force ci to fail when results got worse ([#596](https://github.com/phenomnomnominal/betterer/issues/596)) ([f1eb769](https://github.com/phenomnomnominal/betterer/commit/f1eb7692df2297577bdb7998f09cbe8602e39d59))
+
+
+
+
+
 ## [4.1.1](https://github.com/phenomnomnominal/betterer/compare/v4.1.0...v4.1.1) (2021-03-04)
 
 
