@@ -31,7 +31,8 @@
     "test:debug": "yarn clean:tests && jest --runInBand --collectCoverage=false",
     "test:extension": "lerna run test:extension",
     "prepublishOnly": "yarn run build",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "publish": "lerna publish --conventional-commits"
   },
   "engines": {
     "node": ">=12"
