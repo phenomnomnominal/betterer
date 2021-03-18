@@ -1,3 +1,5 @@
+import { BettererError } from '@betterer/errors';
+
 import { BettererConfig } from '../config';
 import { BettererResult } from '../results';
 import { BettererFilePaths } from '../runner';
@@ -9,6 +11,11 @@ export type BettererRunNames = Array<string>;
 export type BettererContext = {
   readonly config: BettererConfig;
   readonly lifecycle: Promise<BettererSummaries>;
+};
+
+export type BettererContextStarted = {
+  end(write: boolean): Promise<void>;
+  error(error: BettererError): Promise<void>;
 };
 
 export type BettererDelta =
@@ -44,6 +51,16 @@ export type BettererRun = {
   readonly isSkipped: boolean;
   readonly isUpdated: boolean;
   readonly isWorse: boolean;
+};
+
+export type BettererRunStarted = {
+  better(result: BettererResult, isComplete: boolean): Promise<void>;
+  failed(error: BettererError): Promise<void>;
+  neww(result: BettererResult, isComplete: boolean): Promise<void>;
+  same(result: BettererResult): Promise<void>;
+  skipped(): Promise<void>;
+  update(result: BettererResult): Promise<void>;
+  worse(result: BettererResult): Promise<void>;
 };
 
 export type BettererSummary = {

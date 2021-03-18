@@ -6,7 +6,7 @@ import { BettererResult } from '../results';
 import { BettererFilePaths } from '../runner';
 import { BettererDiff, BettererTestConfig } from '../test';
 import { Defer, defer } from '../utils';
-import { BettererDelta, BettererRun } from './types';
+import { BettererDelta, BettererRun, BettererRunStarted } from './types';
 
 enum BettererRunStatus {
   better,
@@ -131,55 +131,62 @@ export class BettererRunΩ implements BettererRun {
     return this._test;
   }
 
-  public better(result: BettererResult, isComplete: boolean): void {
-    this._updateResult(BettererRunStatus.better, result, isComplete);
-  }
-
-  public async end(): Promise<void> {
-    if (this._test.progress) {
-      const baselineValue = this._baseline.isNew ? null : this._baseline.value;
-      const resultValue = !this._result ? null : this._result.value;
-      this._delta = await this._test.progress(baselineValue, resultValue);
-    }
-
-    this._lifecycle.resolve();
-    await this._reporter.runEnd(this);
-  }
-
-  public async failed(error: BettererError): Promise<void> {
-    this._lifecycle.reject(error);
-    await this._reporter.runError(this, error);
-    assert.strictEqual(this._status, BettererRunStatus.pending);
-    this._status = BettererRunStatus.failed;
-  }
-
-  public new(result: BettererResult, isComplete: boolean): void {
-    this._updateResult(BettererRunStatus.new, result, isComplete);
-  }
-
   public ran(): void {
     this._isRan = true;
   }
 
-  public async start(): Promise<void> {
+  public start(): BettererRunStarted {
     const startTime = Date.now();
     this._isExpired = startTime >= this._test.deadline;
-    await this._reporter.runStart(this, this._lifecycle.promise);
+    const reportRunStart = this._reporter.runStart(this, this._lifecycle.promise);
     this._timestamp = startTime;
-  }
 
-  public same(result: BettererResult): void {
-    this._updateResult(BettererRunStatus.same, result);
-  }
+    const end = async () => {
+      if (this._test.progress) {
+        const baselineValue = this._baseline.isNew ? null : this._baseline.value;
+        const resultValue = !this._result ? null : this._result.value;
+        this._delta = await this._test.progress(baselineValue, resultValue);
+      }
+      this._lifecycle.resolve();
+      await reportRunStart;
+      await this._reporter.runEnd(this);
+    };
 
-  public update(result: BettererResult): void {
-    this._updateResult(BettererRunStatus.update, result);
-    this._diff = this.test.differ(this.expected.value, this.result.value);
-  }
-
-  public worse(result: BettererResult): void {
-    this._updateResult(BettererRunStatus.worse, result);
-    this._diff = this.test.differ(this.expected.value, this.result.value);
+    return {
+      better: async (result: BettererResult, isComplete: boolean): Promise<void> => {
+        this._updateResult(BettererRunStatus.better, result, isComplete);
+        await end();
+      },
+      failed: async (error: BettererError): Promise<void> => {
+        assert.strictEqual(this._status, BettererRunStatus.pending);
+        this._status = BettererRunStatus.failed;
+        this._lifecycle.reject(error);
+        await reportRunStart;
+        await this._reporter.runError(this, error);
+        await end();
+      },
+      neww: async (result: BettererResult, isComplete: boolean): Promise<void> => {
+        this._updateResult(BettererRunStatus.new, result, isComplete);
+        await end();
+      },
+      same: async (result: BettererResult): Promise<void> => {
+        this._updateResult(BettererRunStatus.same, result);
+        await end();
+      },
+      skipped: async (): Promise<void> => {
+        await end();
+      },
+      update: async (result: BettererResult): Promise<void> => {
+        this._updateResult(BettererRunStatus.update, result);
+        this._diff = this.test.differ(this.expected.value, this.result.value);
+        await end();
+      },
+      worse: async (result: BettererResult): Promise<void> => {
+        this._updateResult(BettererRunStatus.worse, result);
+        this._diff = this.test.differ(this.expected.value, this.result.value);
+        await end();
+      }
+    };
   }
 
   private _updateResult(status: BettererRunStatus, result: BettererResult, isComplete = false) {

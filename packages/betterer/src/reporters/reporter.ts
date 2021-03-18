@@ -19,11 +19,14 @@ export class BettererReporterΩ implements BettererReporter {
   async contextError(context: BettererContext, error: BettererError): Promise<void> {
     await Promise.all(this._reporters.map((r) => r.contextError?.(context, error)));
   }
-  async runsStart(runs: BettererRuns, files: BettererFilePaths): Promise<void> {
-    await Promise.all(this._reporters.map((r) => r.runsStart?.(runs, files)));
+  async runsStart(runs: BettererRuns, files: BettererFilePaths, lifecycle: Promise<BettererSummary>): Promise<void> {
+    await Promise.all(this._reporters.map((r) => r.runsStart?.(runs, files, lifecycle)));
   }
   async runsEnd(summary: BettererSummary, files: BettererFilePaths): Promise<void> {
     await Promise.all(this._reporters.map((r) => r.runsEnd?.(summary, files)));
+  }
+  async runsError(runs: BettererRuns, files: BettererFilePaths, error: BettererError): Promise<void> {
+    await Promise.all(this._reporters.map((r) => r.runsError?.(runs, files, error)));
   }
   async runStart(run: BettererRun, lifecycle: Promise<void>): Promise<void> {
     await Promise.all(this._reporters.map((r) => r.runStart?.(run, lifecycle)));

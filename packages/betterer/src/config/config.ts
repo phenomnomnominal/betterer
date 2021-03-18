@@ -3,6 +3,8 @@ import assert from 'assert';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 
+import { registerExtensions } from '../register';
+import { BettererReporterΩ, DEFAULT_REPORTER, loadReporters } from '../reporters';
 import { isBoolean, isRegExp, isString, isUndefined } from '../utils';
 import {
   BettererConfig,
@@ -15,7 +17,26 @@ import {
 
 let globalConfig: BettererConfig | null = null;
 
-export async function createConfig(options: unknown = {}): Promise<BettererConfig> {
+export async function createConfig(options: unknown = {}): Promise<[BettererConfig, BettererReporterΩ]> {
+  let reporter = loadReporters([DEFAULT_REPORTER]);
+  try {
+    const config = await processOptions(options);
+    const { cwd, reporters, silent } = config;
+    if (silent) {
+      reporter = loadReporters([]);
+    }
+    if (reporters.length > 0) {
+      reporter = loadReporters(reporters, cwd);
+    }
+    await registerExtensions(config);
+    return [config, reporter];
+  } catch (error) {
+    await reporter.configError(options, error);
+    throw error;
+  }
+}
+
+async function processOptions(options: unknown = {}): Promise<BettererConfig> {
   const baseOptions = options as BettererOptionsBase;
   const runnerOptions = options as BettererOptionsRunner;
   const startOptions = options as BettererOptionsStart;
