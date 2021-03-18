@@ -57,7 +57,7 @@ describe('betterer --reporter', () => {
   });
 
   it('should work with an inline reporter', async () => {
-    const { paths, cleanup } = await createFixture('test-betterer-reporter-local', {
+    const { paths, cleanup } = await createFixture('test-betterer-reporter-inline', {
       '.betterer.ts': `
 import { bigger } from '@betterer/constraints';
 
@@ -120,7 +120,7 @@ export const getsBetter = {
   });
 
   it('should work with a lifecycle based reporter', async () => {
-    const { paths, cleanup } = await createFixture('test-betterer-reporter-local', {
+    const { paths, cleanup } = await createFixture('test-betterer-reporter-lifecycle', {
       '.betterer.ts': `
 import { bigger } from '@betterer/constraints';
 
