@@ -1,41 +1,22 @@
-import { BettererConstraintResult } from '@betterer/constraints';
 import assert from 'assert';
 
-import { createConfig } from '../config';
-import { BettererContextΩ, BettererRun, BettererRunΩ, BettererSummary } from '../context';
-import { registerExtensions } from '../register';
-import { DEFAULT_REPORTER, loadReporters } from '../reporters';
-import { BettererResultΩ } from '../results';
+import { BettererConfig } from '../config';
+import { BettererContextΩ, BettererContextStarted, BettererSummary } from '../context';
+import { BettererReporterΩ } from '../reporters';
 import { normalisedPath } from '../utils';
 import { BettererFilePaths, BettererRunHandler, BettererRunner, BettererRunnerJobs } from './types';
 
 const DEBOUNCE_TIME = 200;
 
 export class BettererRunnerΩ implements BettererRunner {
-  private _context: BettererContextΩ | null = null;
+  private _context: BettererContextΩ;
+  private _started: BettererContextStarted;
   private _jobs: BettererRunnerJobs = [];
   private _running: Promise<BettererSummary> | null = null;
 
-  public async start(options: unknown = {}): Promise<BettererContextΩ> {
-    let config = null;
-    let reporter = loadReporters([DEFAULT_REPORTER]);
-    try {
-      config = await createConfig(options);
-      await registerExtensions(config);
-      if (config.silent) {
-        reporter = loadReporters([]);
-      }
-      if (config.reporters.length > 0) {
-        reporter = loadReporters(config.reporters, config.cwd);
-      }
-    } catch (error) {
-      await reporter.configError(options, error);
-      throw error;
-    }
-
+  constructor(config: BettererConfig, reporter: BettererReporterΩ) {
     this._context = new BettererContextΩ(config, reporter);
-    await this._context.start();
-    return this._context;
+    this._started = this._context.start();
   }
 
   public queue(filePathOrPaths: string | BettererFilePaths = [], handler?: BettererRunHandler): Promise<void> {
@@ -48,8 +29,7 @@ export class BettererRunnerΩ implements BettererRunner {
           try {
             await this._processQueue();
           } catch (error) {
-            assert(this._context);
-            await this._context.error(error);
+            await this._started.error(error);
             reject(error);
           }
           resolve();
@@ -58,13 +38,13 @@ export class BettererRunnerΩ implements BettererRunner {
     });
   }
 
-  public async stop(force: true): Promise<null>;
   public async stop(): Promise<BettererSummary>;
+  public async stop(force: true): Promise<null>;
   public async stop(force?: true): Promise<BettererSummary | null> {
     try {
-      assert(this._running && this._context);
+      assert(this._running);
       const summary = await this._running;
-      await this._context.end(true);
+      await this._started.end(true);
       return summary;
     } catch (e) {
       if (force) {
@@ -93,68 +73,11 @@ export class BettererRunnerΩ implements BettererRunner {
   }
 
   private async _runTests(filePaths: BettererFilePaths): Promise<BettererSummary> {
-    assert(this._context);
-    const { config } = this._context;
     try {
-      return this._context.run(async (runs) => {
-        await Promise.all(
-          runs.map(async (run) => {
-            const runΩ = run as BettererRunΩ;
-            await this._runTest(runΩ, config.update);
-            await runΩ.end();
-          })
-        );
-      }, filePaths);
+      return this._context.run(filePaths);
     } catch (error) {
-      await this._context.error(error);
+      await this._started.error(error);
       throw error;
     }
-  }
-
-  private async _runTest(run: BettererRun, update: boolean): Promise<void> {
-    const runΩ = run as BettererRunΩ;
-    const { test } = runΩ;
-
-    await runΩ.start();
-
-    if (run.isSkipped) {
-      return;
-    }
-
-    let result: BettererResultΩ;
-    try {
-      result = new BettererResultΩ(await test.test(runΩ));
-    } catch (e) {
-      await runΩ.failed(e);
-      return;
-    }
-    runΩ.ran();
-
-    const goalComplete = await test.goal(result.value);
-
-    if (runΩ.isNew) {
-      runΩ.new(result, goalComplete);
-      return;
-    }
-
-    const comparison = await test.constraint(result.value, runΩ.expected.value);
-
-    if (comparison === BettererConstraintResult.same) {
-      runΩ.same(result);
-      return;
-    }
-
-    if (comparison === BettererConstraintResult.better) {
-      runΩ.better(result, goalComplete);
-      return;
-    }
-
-    if (update) {
-      runΩ.update(result);
-      return;
-    }
-
-    runΩ.worse(result);
-    return;
   }
 }
