@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.4](https://github.com/phenomnomnominal/betterer/compare/v4.1.3...v4.1.4) (2021-03-20)
+
+
+### Bug Fixes
+
+* **cli 🐛:** fix cli init version detection ([#616](https://github.com/phenomnomnominal/betterer/issues/616)) ([08ea258](https://github.com/phenomnomnominal/betterer/commit/08ea25886ac36c0abcd9ec61646cdb89372d76d3))
+
+
+
+
+
 ## [4.1.3](https://github.com/phenomnomnominal/betterer/compare/v4.1.2...v4.1.3) (2021-03-18)
 
 
