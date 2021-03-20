@@ -1,0 +1,8 @@
+// BETTERER RESULTS V2.
+exports[`eslint enable new rule`] = {
+  value: `{
+    "src/index.ts:3201740415": [
+      [0, 0, 9, "Unexpected \'debugger\' statement.", "3201740415"]
+    ]
+  }`
+};
