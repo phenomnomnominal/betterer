@@ -4,6 +4,8 @@ import { createFixture } from '../fixture';
 
 const ARGV = ['node', './bin/betterer', 'init'];
 
+import { version } from '../../packages/cli/package.json';
+
 describe('betterer cli', () => {
   it('should initialise betterer in a repo', async () => {
     const { cleanup, logs, paths, readFile, resolve } = await createFixture(
@@ -30,7 +32,7 @@ describe('betterer cli', () => {
     const packageJSON = JSON.parse(await readFile(packageJSONPath)) as BettererPackageJSON;
 
     expect(packageJSON.scripts.betterer).toEqual('betterer');
-    expect(packageJSON.devDependencies['@betterer/cli']).toBeDefined();
+    expect(packageJSON.devDependencies['@betterer/cli']).toEqual(`^${version}`);
     expect(packageJSON.devDependencies['typescript']).toBeDefined();
 
     const config = await readFile(configPath);
@@ -99,7 +101,7 @@ describe('betterer cli', () => {
     const packageJSON = JSON.parse(await readFile(packageJSONPath)) as BettererPackageJSON;
 
     expect(packageJSON.scripts.betterer).toEqual('betterer');
-    expect(packageJSON.devDependencies['@betterer/cli']).toBeDefined();
+    expect(packageJSON.devDependencies['@betterer/cli']).toEqual(`^${version}`);
     expect(packageJSON.devDependencies['typescript']).not.toBeDefined();
 
     const config = await readFile(configPath);
