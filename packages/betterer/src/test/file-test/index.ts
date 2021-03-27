@@ -1,5 +1,5 @@
 export { BettererFileTest } from './file-test';
-export { BettererFileResolver } from './file-resolver';
+export { BettererFileResolver, BettererFileResolverΩ } from './file-resolver';
 export {
   BettererFileTestResult,
   BettererFileGlobs,

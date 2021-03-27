@@ -15,6 +15,8 @@ export function ciOptions(argv: BettererCLIArguments): BettererCLICIConfig {
   filtersOption();
   silentOption();
   reportersOption();
+  excludesOption();
+  includesOption();
   return setEnv<BettererCLICIConfig>(argv);
 }
 
@@ -32,6 +34,8 @@ export function startOptions(argv: BettererCLIArguments): BettererCLIStartConfig
   reportersOption();
   strictOption();
   updateOption();
+  excludesOption();
+  includesOption();
   return setEnv<BettererCLIStartConfig>(argv);
 }
 
@@ -43,6 +47,8 @@ export function watchOptions(argv: BettererCLIArguments): BettererCLIWatchConfig
   silentOption();
   reportersOption();
   ignoresOption();
+  excludesOption();
+  includesOption();
   return setEnv<BettererCLIWatchConfig>(argv);
 }
 
@@ -84,6 +90,14 @@ function tsconfigPathOption(): void {
 
 function filtersOption(): void {
   commander.option('-f, --filter [value]', 'RegExp filter for tests to run. Takes multiple values', argsToArray);
+}
+
+function excludesOption(): void {
+  commander.option('--exclude [value]', 'RegExp filter for files to exclude. Takes multiple values', argsToArray);
+}
+
+function includesOption(): void {
+  commander.option('--include [value]', 'Glob pattern for files to include. Takes multiple values', argsToArray);
 }
 
 function ignoresOption(): void {

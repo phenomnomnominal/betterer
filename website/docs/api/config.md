@@ -13,17 +13,19 @@ Whenever you run **Betterer** (from the [CLI](./running-betterer) or via the [JS
 
 ```typescript
 type BettererOptionsBase = Partial<{
-  configPaths: BettererConfigPaths | string;
+  configPaths: Array<string> | string;
   cwd: string;
-  filters: ReadonlyArray<string | RegExp> | string;
-  reporters: BettererConfigReporters;
+  excludes: Array<string | RegExp> | string;
+  filters: Array<string | RegExp> | string;
+  includes: Array<string> | string;
+  reporters: Array<string | BettererReporter>;
   resultsPath: string;
   silent: boolean;
   tsconfigPath: string;
 }>;
 ```
 
-#### `configPaths`: [`BettererConfigPaths`](#bettererconfigpaths) | `string` (default: `['./.betterer.ts]`)
+#### `configPaths`: `Array<string> | string` | `string` (default: `['./.betterer.ts]`)
 
 > The list of [test definition file paths](./test-definition-file) containing **Betterer** tests for the current run.
 
@@ -31,9 +33,17 @@ type BettererOptionsBase = Partial<{
 
 > The current working directory for the current run.
 
-#### `filters`: `ReadonlyArray<string | RegExp> | string` (default: `[]`)
+#### `excludes`: `Array<string | RegExp> | string` (default: `[]`)
 
-> The list of filters which tests to run for the current run. Will be parsed into [`BettererConfigFilters`](#bettererconfigfilters).
+> The list of filters to exclude files for the current run. Each file path declared by the [`includes`](#includes-arraystring--string-default-) patterns will be matched against these patterns.
+
+#### `filters`: `Array<string | RegExp> | string` (default: `[]`)
+
+> The list of filters to select tests for the current run. Will be parsed into [`BettererConfigFilters`](#bettererconfigfilters).
+
+#### `includes`: `Array<string> | string` (default: `[]`)
+
+> The list of globs to select files for the current run. The expanded list of file paths will be fiiltered by [`excludes`](#excludes-arraystring--regexp--string-default-).
 
 #### `reporters`: [`BettererConfigReporters`](#bettererconfigreporters) (default: `['@betterer/reporter']`)
 
@@ -125,6 +135,7 @@ type BettererConfig = {
   ci: boolean;
   configPaths: BettererConfigPaths;
   cwd: string;
+  filePaths: BettererConfigPaths;
   filters: BettererConfigFilters;
   ignores: BettererConfigIgnores;
   reporters: BettererConfigReporters;

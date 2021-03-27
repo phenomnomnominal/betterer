@@ -5,6 +5,7 @@ import * as path from 'path';
 
 import { registerExtensions } from '../register';
 import { BettererReporterΩ, DEFAULT_REPORTER, loadReporters } from '../reporters';
+import { BettererFileResolverΩ } from '../test';
 import { isBoolean, isRegExp, isString, isUndefined } from '../utils';
 import {
   BettererConfig,
@@ -48,6 +49,7 @@ async function processOptions(options: unknown = {}): Promise<BettererConfig> {
     // Base:
     configPaths: baseOptions.configPaths ? toArray<string>(baseOptions.configPaths) : ['./.betterer'],
     cwd: baseOptions.cwd || process.cwd(),
+    filePaths: [],
     filters: toRegExps(toArray<string | RegExp>(baseOptions.filters)),
     reporters: toArray<BettererConfigReporter>(baseOptions.reporters),
     resultsPath: baseOptions.resultsPath || './.betterer.results',
@@ -69,8 +71,15 @@ async function processOptions(options: unknown = {}): Promise<BettererConfig> {
   validateConfig(relativeConfig);
   overrideConfig(relativeConfig);
 
+  const { includes, excludes } = baseOptions;
+
+  const resolver = new BettererFileResolverΩ(relativeConfig.cwd);
+  resolver.includeΔ(...toArray<string>(includes));
+  resolver.excludeΔ(...toRegExps(toArray<string | RegExp>(excludes)));
+
   globalConfig = {
     ...relativeConfig,
+    filePaths: await resolver.files([]),
     configPaths: relativeConfig.configPaths.map((configPath) => path.resolve(relativeConfig.cwd, configPath)),
     resultsPath: path.resolve(relativeConfig.cwd, relativeConfig.resultsPath),
     tsconfigPath: relativeConfig.tsconfigPath ? path.resolve(relativeConfig.cwd, relativeConfig.tsconfigPath) : null

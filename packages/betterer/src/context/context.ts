@@ -67,21 +67,23 @@ export class BettererContextΩ implements BettererContext {
     this._initFilters();
 
     const obsolete = await this._initObsolete();
+
+    let testNames = Object.keys(this._tests);
+
+    // Only run BettererFileTests when a list of filePaths is given:
+    if (filePaths.length) {
+      testNames = testNames.filter((name) => isBettererFileTestΔ(this._tests[name]));
+    }
+
     const runs = await Promise.all(
-      Object.keys(this._tests)
-        .filter((name) => {
-          const test = this._tests[name];
-          // Only run BettererFileTests when a list of filePaths is given:
-          return !filePaths.length || isBettererFileTestΔ(test);
-        })
-        .map(async (name) => {
-          const test = this._tests[name];
-          const { isSkipped, config } = test;
-          const isObsolete = obsolete.includes(name);
-          const baseline = await this._results.getBaseline(name, config);
-          const expected = await this._results.getExpectedResult(name, config);
-          return new BettererRunΩ(this._reporter, name, config, expected, baseline, filePaths, isSkipped, isObsolete);
-        })
+      testNames.map(async (name) => {
+        const test = this._tests[name];
+        const { isSkipped, config } = test;
+        const isObsolete = obsolete.includes(name);
+        const baseline = await this._results.getBaseline(name, config);
+        const expected = await this._results.getExpectedResult(name, config);
+        return new BettererRunΩ(this._reporter, name, config, expected, baseline, filePaths, isSkipped, isObsolete);
+      })
     );
     const runsLifecycle = defer<BettererSummary>();
     const reportRunsStart = this._reporter.runsStart(runs, filePaths, runsLifecycle.promise);

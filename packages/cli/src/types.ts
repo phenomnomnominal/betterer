@@ -7,7 +7,9 @@ export type BettererCLIEnvConfig = {
 
 export type BettererCLIBaseConfig = BettererCLIEnvConfig & {
   config: BettererCLIArguments;
+  exclude: BettererCLIArguments;
   filter: BettererCLIArguments;
+  include: BettererCLIArguments;
   reporter: BettererCLIArguments;
   results: string;
   silent: boolean;

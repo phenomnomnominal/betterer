@@ -10,6 +10,7 @@ export type BettererConfig = {
   // Base:
   configPaths: BettererConfigPaths;
   cwd: string;
+  filePaths: BettererConfigPaths;
   filters: BettererConfigFilters;
   reporters: BettererConfigReporters;
   resultsPath: string;
@@ -25,10 +26,18 @@ export type BettererConfig = {
   watch: boolean;
 };
 
+export type BettererOptionsPaths = Array<string> | string;
+export type BettererOptionsExcludes = Array<string | RegExp> | string;
+export type BettererOptionsFilters = Array<string | RegExp> | string;
+export type BettererOptionsIncludes = Array<string> | string;
+export type BettererOptionsReporters = Array<string | BettererReporter>;
+
 export type BettererOptionsBase = Partial<{
-  configPaths: BettererConfigPaths | string;
+  configPaths: BettererOptionsPaths;
   cwd: string;
-  filters: ReadonlyArray<string | RegExp> | string;
+  excludes: BettererOptionsExcludes;
+  filters: BettererOptionsFilters;
+  includes: BettererOptionsIncludes;
   reporters: BettererConfigReporters;
   resultsPath: string;
   silent: boolean;

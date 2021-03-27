@@ -1,8 +1,8 @@
 ---
-id: filters-and-ignores
-title: Filters & Ignores
-sidebar_label: Filters & Ignores
-slug: /filters-and-ignores
+id: filters
+title: Filters
+sidebar_label: Filters
+slug: /filters
 ---
 
 ## Filters

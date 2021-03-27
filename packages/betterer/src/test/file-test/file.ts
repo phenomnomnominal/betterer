@@ -4,7 +4,7 @@ import LinesAndColumns from 'lines-and-columns';
 import { getConfig } from '../../config';
 import { createHash } from '../../hasher';
 import { getRelativePath, isString } from '../../utils';
-import { BettererFileResolver } from './file-resolver';
+import { BettererFileResolverΩ } from './file-resolver';
 import { BettererFileIssue, BettererFileIssues, BettererFile } from './types';
 
 const UNKNOWN_LOCATION = {
@@ -26,7 +26,7 @@ export class BettererFileΩ implements BettererFile {
   constructor(
     absolutePath: string,
     public readonly hash: string,
-    private _resolver: BettererFileResolver,
+    private _resolver: BettererFileResolverΩ,
     private _fileText: string
   ) {
     this.absolutePath = this._resolver.resolve(absolutePath);

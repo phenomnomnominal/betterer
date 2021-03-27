@@ -5,14 +5,16 @@ import { BettererCLIArguments } from './types';
 
 /** @internal Definitely not stable! Please don't use! */
 export async function watchΔ(cwd: string, argv: BettererCLIArguments): Promise<void> {
-  const { config, results, filter, ignore, reporter, silent, tsconfig } = watchOptions(argv);
+  const { config, exclude, filter, ignore, include, reporter, results, silent, tsconfig } = watchOptions(argv);
 
   // Mark options as unknown...
   const options: unknown = {
     configPaths: config,
     cwd,
+    excludes: exclude,
     filters: filter,
     ignores: ignore,
+    includes: include,
     reporters: reporter,
     resultsPath: results,
     silent,

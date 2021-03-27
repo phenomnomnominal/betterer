@@ -6,7 +6,17 @@ export {
   BettererConfigPaths,
   BettererConfigReporter,
   BettererConfigReporters,
+  BettererOptionsBase,
+  BettererOptionsExcludes,
+  BettererOptionsFilters,
+  BettererOptionsIncludes,
+  BettererOptionsPaths,
+  BettererOptionsReporters,
   BettererOptionsRunner,
+  BettererOptionsStartCI,
+  BettererOptionsStartDefault,
+  BettererOptionsStartStrict,
+  BettererOptionsStartUpdate,
   BettererOptionsStart,
   BettererOptionsWatch
 } from './config/public';

@@ -2,7 +2,9 @@ export declare type BettererCLIArguments = Array<string>;
 
 export declare type BettererCLIBaseConfig = BettererCLIEnvConfig & {
     config: BettererCLIArguments;
+    exclude: BettererCLIArguments;
     filter: BettererCLIArguments;
+    include: BettererCLIArguments;
     reporter: BettererCLIArguments;
     results: string;
     silent: boolean;

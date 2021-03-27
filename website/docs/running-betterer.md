@@ -58,6 +58,8 @@ You can pass the following options to the `start` script:
 | `-c`, `--config` [value]   | Path to test definition file relative to CWD. Takes multiple values         | `./.betterer.ts`         |
 | `-r`, `--results` [value]  | Path to test results file relative to CWD                                   | `./.betterer.results`    |
 | `-t`, `--tsconfig` [value] | Path to TypeScript config file relative to CWD                              | `null`                   |
+| `--include` [value]        | Glob pattern for files to include. Takes multiple values                    | `[]`                     |
+| `--exclude` [value]        | RegExp filter for files to exclude. Takes multiple values                   | `[]`                     |
 | `-f`, `--filter` [value]   | Select tests to run by RegExp. Takes multiple values                        | `[]`                     |
 | `-s`, `--silent`           | Disable all default reporters. Custom reporters still work normally.        | `false`                  |
 | `-u`, `--update`           | Update the results file, even if things get worse                           | `false`                  |
@@ -69,7 +71,7 @@ You can pass the following options to the `start` script:
 - [The test definition file](./test-definition-file)
 - [The results file](./results-file)
 - [Betterer and TypeScript](./betterer-and-typescript)
-- [Filters](./filters-and-ignores#filters)
+- [Filters](./filters)
 - [Updating results](./updating-results)
 - [Reporters](./reporters)
 
@@ -108,6 +110,8 @@ Run `npm run betterer ci` to run **Betterer** in CI mode.
 | `-c`, `--config` [path]    | Path to test definition file relative to CWD. Takes multiple values         | `./.betterer.ts`         |
 | `-r`, `--results` [path]   | Path to test results file relative to CWD                                   | `./.betterer.results`    |
 | `-t`, `--tsconfig` [path]  | Path to TypeScript config file relative to CWD                              | `null`                   |
+| `--include` [value]        | Glob pattern for files to include. Takes multiple values                    | `[]`                     |
+| `--exclude` [value]        | RegExp filter for files to exclude. Takes multiple values                   | `[]`                     |
 | `-f`, `--filter` [regexp]  | Select tests to run by RegExp. Takes multiple values                        | `[]`                     |
 | `-s`, `--silent`           | Disable all default reporters. Custom reporters still work normally.        | `false`                  |
 | `-R`, `--reporter` [value] | npm package name or file path to a Betterer reporter. Takes multiple values | `['@betterer/reporter']` |
@@ -157,7 +161,7 @@ Run `npm run betterer watch` to run **Betterer** in watch mode.
 
 **Betterer** will start watch mode, and wait for any files to change. When a file is saved, it will run any tests that apply to that file, compare the new results against the saved results, and report the updated status. When you quit watch mode (by pressing `q`), the [`.betterer.results`](./results-file) file will be updated with the new results ✅!
 
-:::info
+:::warning
 When running in watch mode, **Betterer** will currently only run [File Tests](./betterer-file-test). This might change in the future, so please raise an issue with your use case!
 :::
 
@@ -170,6 +174,8 @@ You can pass the following options to the `watch` script:
 | `-c`, `--config` [path]    | Path to test definition file relative to CWD. Takes multiple values         | `./.betterer.ts`         |
 | `-r`, `--results` [path]   | Path to test results file relative to CWD                                   | `./.betterer.results`    |
 | `-t`, `--tsconfig` [path]  | Path to TypeScript config file relative to CWD                              | `null`                   |
+| `--include` [value]        | Glob pattern for files to include. Takes multiple values                    | `[]`                     |
+| `--exclude` [value]        | RegExp filter for files to exclude. Takes multiple values                   | `[]`                     |
 | `-f`, `--filter` [regexp]  | Select tests to run by RegExp. Takes multiple values                        | `[]`                     |
 | `-s`, `--silent`           | Disable all default reporters. Custom reporters still work normally.        | `false`                  |
 | `-i`, `--ignore` [glob]    | Ignore files by Glob when running in watch mode. Takes multiple values      | `[]`                     |
@@ -177,7 +183,7 @@ You can pass the following options to the `watch` script:
 
 ### Read more about Watch mode
 
-- [Filters and Ignores](./filters-and-ignores)
+- [Ignores](./includes-excludes-ignores#Ignores)
 
 ## Debug mode
 

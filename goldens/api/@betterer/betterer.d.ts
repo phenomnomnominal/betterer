@@ -7,6 +7,7 @@ export declare namespace betterer {
 export declare type BettererConfig = {
     configPaths: BettererConfigPaths;
     cwd: string;
+    filePaths: BettererConfigPaths;
     filters: BettererConfigFilters;
     reporters: BettererConfigReporters;
     resultsPath: string;
@@ -106,7 +107,7 @@ export declare class BettererFileTest implements BettererTestBase<BettererFileTe
     get config(): BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff>;
     get isOnly(): boolean;
     get isSkipped(): boolean;
-    constructor(_resolver: BettererFileResolver, fileTest: BettererFileTestFunction);
+    constructor(resolver: BettererFileResolver, fileTest: BettererFileTestFunction);
     exclude(...excludePatterns: BettererFilePatterns): this;
     include(...includePatterns: BettererFileGlobs): this;
     only(): this;
@@ -122,11 +123,61 @@ export declare type BettererFileTestResult = {
     getIssues(absolutePath: string): BettererFileIssues;
 };
 
+export declare type BettererOptionsBase = Partial<{
+    configPaths: BettererOptionsPaths;
+    cwd: string;
+    excludes: BettererOptionsExcludes;
+    filters: BettererOptionsFilters;
+    includes: BettererOptionsIncludes;
+    reporters: BettererConfigReporters;
+    resultsPath: string;
+    silent: boolean;
+    tsconfigPath: string;
+}>;
+
+export declare type BettererOptionsExcludes = Array<string | RegExp> | string;
+
+export declare type BettererOptionsFilters = Array<string | RegExp> | string;
+
+export declare type BettererOptionsIncludes = Array<string> | string;
+
+export declare type BettererOptionsPaths = Array<string> | string;
+
+export declare type BettererOptionsReporters = Array<string | BettererReporter>;
+
 export declare type BettererOptionsRunner = BettererOptionsBase & Partial<{
     ignores: BettererConfigIgnores;
 }>;
 
 export declare type BettererOptionsStart = BettererOptionsStartCI | BettererOptionsStartDefault | BettererOptionsStartStrict | BettererOptionsStartUpdate;
+
+export declare type BettererOptionsStartCI = BettererOptionsBase & Partial<{
+    ci: true;
+    strict: true;
+    update: false;
+    watch: false;
+}>;
+
+export declare type BettererOptionsStartDefault = BettererOptionsBase & Partial<{
+    ci: false;
+    strict: false;
+    update: false;
+    watch: false;
+}>;
+
+export declare type BettererOptionsStartStrict = BettererOptionsBase & Partial<{
+    ci: false;
+    strict: true;
+    update: false;
+    watch: false;
+}>;
+
+export declare type BettererOptionsStartUpdate = BettererOptionsBase & Partial<{
+    ci: false;
+    strict: false;
+    update: true;
+    watch: false;
+}>;
 
 export declare type BettererOptionsWatch = BettererOptionsRunner & Partial<{
     watch: true;
