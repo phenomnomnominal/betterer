@@ -1,4 +1,4 @@
-import { BettererSummary, betterer, BettererOptionsStart } from '@betterer/betterer';
+import { BettererSummary, betterer, BettererOptionsStartCI } from '@betterer/betterer';
 
 import { ciOptions } from './options';
 import { BettererCLIArguments } from './types';
@@ -23,5 +23,5 @@ export function ciΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererS
 
   // And then cast to BettererOptionsStart. This is possibly invalid,
   // but it's nicer to do the options validation in @betterer/betterer
-  return betterer(options as BettererOptionsStart);
+  return betterer(options as BettererOptionsStartCI);
 }

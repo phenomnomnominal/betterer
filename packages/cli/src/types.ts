@@ -7,22 +7,28 @@ export type BettererCLIEnvConfig = {
 
 export type BettererCLIBaseConfig = BettererCLIEnvConfig & {
   config: BettererCLIArguments;
-  exclude: BettererCLIArguments;
   filter: BettererCLIArguments;
-  include: BettererCLIArguments;
   reporter: BettererCLIArguments;
   results: string;
   silent: boolean;
   tsconfig: string;
 };
 
-export type BettererCLICIConfig = BettererCLIBaseConfig;
+export type BettererCLICIConfig = BettererCLIBaseConfig & {
+  exclude: BettererCLIArguments;
+  include: BettererCLIArguments;
+};
 
 export type BettererCLIInitConfig = BettererCLIEnvConfig & {
   config: string;
 };
 
-export type BettererCLIStartConfig = BettererCLIBaseConfig & { strict: boolean; update: boolean };
+export type BettererCLIStartConfig = BettererCLIBaseConfig & {
+  exclude: BettererCLIArguments;
+  include: BettererCLIArguments;
+  strict: boolean;
+  update: boolean;
+};
 
 export type BettererCLIWatchConfig = BettererCLIBaseConfig & {
   ignore: BettererCLIArguments;

@@ -35,16 +35,20 @@ export type BettererOptionsReporters = Array<string | BettererReporter>;
 export type BettererOptionsBase = Partial<{
   configPaths: BettererOptionsPaths;
   cwd: string;
-  excludes: BettererOptionsExcludes;
   filters: BettererOptionsFilters;
-  includes: BettererOptionsIncludes;
   reporters: BettererConfigReporters;
   resultsPath: string;
   silent: boolean;
   tsconfigPath: string;
 }>;
 
-export type BettererOptionsStartCI = BettererOptionsBase &
+export type BettererOptionsStartBase = BettererOptionsBase &
+  Partial<{
+    excludes: BettererOptionsExcludes;
+    includes: BettererOptionsIncludes;
+  }>;
+
+export type BettererOptionsStartCI = BettererOptionsStartBase &
   Partial<{
     ci: true;
     strict: true;
@@ -52,7 +56,7 @@ export type BettererOptionsStartCI = BettererOptionsBase &
     watch: false;
   }>;
 
-export type BettererOptionsStartDefault = BettererOptionsBase &
+export type BettererOptionsStartDefault = BettererOptionsStartBase &
   Partial<{
     ci: false;
     strict: false;
@@ -60,7 +64,7 @@ export type BettererOptionsStartDefault = BettererOptionsBase &
     watch: false;
   }>;
 
-export type BettererOptionsStartStrict = BettererOptionsBase &
+export type BettererOptionsStartStrict = BettererOptionsStartBase &
   Partial<{
     ci: false;
     strict: true;
@@ -68,7 +72,7 @@ export type BettererOptionsStartStrict = BettererOptionsBase &
     watch: false;
   }>;
 
-export type BettererOptionsStartUpdate = BettererOptionsBase &
+export type BettererOptionsStartUpdate = BettererOptionsStartBase &
   Partial<{
     ci: false;
     strict: false;

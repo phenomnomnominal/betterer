@@ -174,8 +174,6 @@ You can pass the following options to the `watch` script:
 | `-c`, `--config` [path]    | Path to test definition file relative to CWD. Takes multiple values         | `./.betterer.ts`         |
 | `-r`, `--results` [path]   | Path to test results file relative to CWD                                   | `./.betterer.results`    |
 | `-t`, `--tsconfig` [path]  | Path to TypeScript config file relative to CWD                              | `null`                   |
-| `--include` [value]        | Glob pattern for files to include. Takes multiple values                    | `[]`                     |
-| `--exclude` [value]        | RegExp filter for files to exclude. Takes multiple values                   | `[]`                     |
 | `-f`, `--filter` [regexp]  | Select tests to run by RegExp. Takes multiple values                        | `[]`                     |
 | `-s`, `--silent`           | Disable all default reporters. Custom reporters still work normally.        | `false`                  |
 | `-i`, `--ignore` [glob]    | Ignore files by Glob when running in watch mode. Takes multiple values      | `[]`                     |

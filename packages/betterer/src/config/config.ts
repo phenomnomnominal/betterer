@@ -49,7 +49,6 @@ async function processOptions(options: unknown = {}): Promise<BettererConfig> {
     // Base:
     configPaths: baseOptions.configPaths ? toArray<string>(baseOptions.configPaths) : ['./.betterer'],
     cwd: baseOptions.cwd || process.cwd(),
-    filePaths: [],
     filters: toRegExps(toArray<string | RegExp>(baseOptions.filters)),
     reporters: toArray<BettererConfigReporter>(baseOptions.reporters),
     resultsPath: baseOptions.resultsPath || './.betterer.results',
@@ -61,6 +60,7 @@ async function processOptions(options: unknown = {}): Promise<BettererConfig> {
 
     // Start:
     ci: startOptions.ci || false,
+    filePaths: [],
     strict: startOptions.strict || false,
     update: startOptions.update || false,
 
@@ -71,7 +71,7 @@ async function processOptions(options: unknown = {}): Promise<BettererConfig> {
   validateConfig(relativeConfig);
   overrideConfig(relativeConfig);
 
-  const { includes, excludes } = baseOptions;
+  const { includes, excludes } = startOptions;
 
   const resolver = new BettererFileResolverΩ(relativeConfig.cwd);
   resolver.includeΔ(...toArray<string>(includes));

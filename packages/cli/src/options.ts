@@ -47,8 +47,6 @@ export function watchOptions(argv: BettererCLIArguments): BettererCLIWatchConfig
   silentOption();
   reportersOption();
   ignoresOption();
-  excludesOption();
-  includesOption();
   return setEnv<BettererCLIWatchConfig>(argv);
 }
 

@@ -126,9 +126,7 @@ export declare type BettererFileTestResult = {
 export declare type BettererOptionsBase = Partial<{
     configPaths: BettererOptionsPaths;
     cwd: string;
-    excludes: BettererOptionsExcludes;
     filters: BettererOptionsFilters;
-    includes: BettererOptionsIncludes;
     reporters: BettererConfigReporters;
     resultsPath: string;
     silent: boolean;
@@ -151,28 +149,33 @@ export declare type BettererOptionsRunner = BettererOptionsBase & Partial<{
 
 export declare type BettererOptionsStart = BettererOptionsStartCI | BettererOptionsStartDefault | BettererOptionsStartStrict | BettererOptionsStartUpdate;
 
-export declare type BettererOptionsStartCI = BettererOptionsBase & Partial<{
+export declare type BettererOptionsStartBase = BettererOptionsBase & Partial<{
+    excludes: BettererOptionsExcludes;
+    includes: BettererOptionsIncludes;
+}>;
+
+export declare type BettererOptionsStartCI = BettererOptionsStartBase & Partial<{
     ci: true;
     strict: true;
     update: false;
     watch: false;
 }>;
 
-export declare type BettererOptionsStartDefault = BettererOptionsBase & Partial<{
+export declare type BettererOptionsStartDefault = BettererOptionsStartBase & Partial<{
     ci: false;
     strict: false;
     update: false;
     watch: false;
 }>;
 
-export declare type BettererOptionsStartStrict = BettererOptionsBase & Partial<{
+export declare type BettererOptionsStartStrict = BettererOptionsStartBase & Partial<{
     ci: false;
     strict: true;
     update: false;
     watch: false;
 }>;
 
-export declare type BettererOptionsStartUpdate = BettererOptionsBase & Partial<{
+export declare type BettererOptionsStartUpdate = BettererOptionsStartBase & Partial<{
     ci: false;
     strict: false;
     update: true;

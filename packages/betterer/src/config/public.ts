@@ -12,6 +12,7 @@ export {
   BettererOptionsPaths,
   BettererOptionsReporters,
   BettererOptionsRunner,
+  BettererOptionsStartBase,
   BettererOptionsStartCI,
   BettererOptionsStartDefault,
   BettererOptionsStartStrict,

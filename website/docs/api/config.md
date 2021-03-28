@@ -15,9 +15,7 @@ Whenever you run **Betterer** (from the [CLI](./running-betterer) or via the [JS
 type BettererOptionsBase = Partial<{
   configPaths: Array<string> | string;
   cwd: string;
-  excludes: Array<string | RegExp> | string;
   filters: Array<string | RegExp> | string;
-  includes: Array<string> | string;
   reporters: Array<string | BettererReporter>;
   resultsPath: string;
   silent: boolean;
@@ -33,17 +31,9 @@ type BettererOptionsBase = Partial<{
 
 > The current working directory for the current run.
 
-#### `excludes`: `Array<string | RegExp> | string` (default: `[]`)
-
-> The list of filters to exclude files for the current run. Each file path declared by the [`includes`](#includes-arraystring--string-default-) patterns will be matched against these patterns.
-
 #### `filters`: `Array<string | RegExp> | string` (default: `[]`)
 
 > The list of filters to select tests for the current run. Will be parsed into [`BettererConfigFilters`](#bettererconfigfilters).
-
-#### `includes`: `Array<string> | string` (default: `[]`)
-
-> The list of globs to select files for the current run. The expanded list of file paths will be fiiltered by [`excludes`](#excludes-arraystring--regexp--string-default-).
 
 #### `reporters`: [`BettererConfigReporters`](#bettererconfigreporters) (default: `['@betterer/reporter']`)
 
@@ -86,6 +76,8 @@ Options object for a **Betterer** run in default mode. It will be validated by *
 type BettererOptionsStart = BettererOptionsBase &
   Partial<{
     ci: boolean;
+    excludes: Array<string | RegExp> | string;
+    includes: Array<string> | string;
     strict: boolean;
     update: boolean;
   }>;
@@ -96,6 +88,14 @@ All the [`base options`](#base-options) above as well as:
 #### `ci`: `boolean` (default: `false`)
 
 > When set to `true`, [CI mode](./running-betterer#ci-mode-run-your-tests-and-throw-on-changes) is enabled. In [CI mode] **Betterer** will throw an error if there is any difference between the test results and the expected results.
+
+#### `excludes`: `Array<string | RegExp> | string` (default: `[]`)
+
+> The list of filters to exclude files for the current run. Each file path declared by the [`includes`](#includes-arraystring--string-default-) patterns will be matched against these patterns.
+
+#### `includes`: `Array<string> | string` (default: `[]`)
+
+> The list of globs to select files for the current run. The expanded list of file paths will be fiiltered by [`excludes`](#excludes-arraystring--regexp--string-default-).
 
 #### `strict`: `boolean` (default: `false`)
 
