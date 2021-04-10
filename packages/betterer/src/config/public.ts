@@ -5,7 +5,18 @@ export {
   BettererConfigPaths,
   BettererConfigReporter,
   BettererConfigReporters,
+  BettererOptionsBase,
+  BettererOptionsExcludes,
+  BettererOptionsFilters,
+  BettererOptionsIncludes,
+  BettererOptionsPaths,
+  BettererOptionsReporters,
   BettererOptionsRunner,
+  BettererOptionsStartBase,
+  BettererOptionsStartCI,
+  BettererOptionsStartDefault,
+  BettererOptionsStartStrict,
+  BettererOptionsStartUpdate,
   BettererOptionsStart,
   BettererOptionsWatch
 } from './types';

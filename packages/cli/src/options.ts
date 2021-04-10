@@ -1,4 +1,4 @@
-import commander from 'commander';
+import commander, { CommanderStatic } from 'commander';
 import {
   BettererCLIArguments,
   BettererCLICIConfig,
@@ -15,7 +15,10 @@ export function ciOptions(argv: BettererCLIArguments): BettererCLICIConfig {
   filtersOption();
   silentOption();
   reportersOption();
-  return setEnv<BettererCLICIConfig>(argv);
+  excludesOption();
+  const options = setEnv<BettererCLICIConfig>(argv);
+  options.include = options.args;
+  return options;
 }
 
 export function initOptions(argv: BettererCLIArguments): BettererCLIInitConfig {
@@ -32,7 +35,10 @@ export function startOptions(argv: BettererCLIArguments): BettererCLIStartConfig
   reportersOption();
   strictOption();
   updateOption();
-  return setEnv<BettererCLIStartConfig>(argv);
+  excludesOption();
+  const options = setEnv<BettererCLIStartConfig>(argv);
+  options.include = options.args;
+  return options;
 }
 
 export function watchOptions(argv: BettererCLIArguments): BettererCLIWatchConfig {
@@ -46,11 +52,11 @@ export function watchOptions(argv: BettererCLIArguments): BettererCLIWatchConfig
   return setEnv<BettererCLIWatchConfig>(argv);
 }
 
-function setEnv<T extends BettererCLIEnvConfig>(argv: BettererCLIArguments): T {
+function setEnv<T extends BettererCLIEnvConfig>(argv: BettererCLIArguments): T & CommanderStatic {
   commander.option('-d, --debug', 'Enable verbose debug logging', false);
   commander.option('-l, --debug-log [value]', 'File path to save verbose debug logging to disk', './betterer.log');
 
-  const parsed = (commander.parse(argv) as unknown) as T;
+  const parsed = (commander.parse(argv) as unknown) as T & CommanderStatic;
   if (parsed.debug) {
     process.env.BETTERER_DEBUG = '1';
     process.env.BETTERER_DEBUG_TIME = '1';
@@ -84,6 +90,10 @@ function tsconfigPathOption(): void {
 
 function filtersOption(): void {
   commander.option('-f, --filter [value]', 'RegExp filter for tests to run. Takes multiple values', argsToArray);
+}
+
+function excludesOption(): void {
+  commander.option('--exclude [value]', 'RegExp filter for files to exclude. Takes multiple values', argsToArray);
 }
 
 function ignoresOption(): void {

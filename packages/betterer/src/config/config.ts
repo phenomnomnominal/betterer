@@ -5,6 +5,7 @@ import * as path from 'path';
 
 import { registerExtensions } from '../register';
 import { BettererReporterΩ, DEFAULT_REPORTER, loadReporters } from '../reporters';
+import { BettererFileResolverΩ } from '../test';
 import { isBoolean, isRegExp, isString, isUndefined } from '../utils';
 import {
   BettererConfig,
@@ -59,6 +60,7 @@ async function processOptions(options: unknown = {}): Promise<BettererConfig> {
 
     // Start:
     ci: startOptions.ci || false,
+    filePaths: [],
     strict: startOptions.strict || false,
     update: startOptions.update || false,
 
@@ -69,8 +71,15 @@ async function processOptions(options: unknown = {}): Promise<BettererConfig> {
   validateConfig(relativeConfig);
   overrideConfig(relativeConfig);
 
+  const { includes, excludes } = startOptions;
+
+  const resolver = new BettererFileResolverΩ(relativeConfig.cwd);
+  resolver.includeΔ(...toArray<string>(includes));
+  resolver.excludeΔ(...toRegExps(toArray<string | RegExp>(excludes)));
+
   globalConfig = {
     ...relativeConfig,
+    filePaths: await resolver.files([]),
     configPaths: relativeConfig.configPaths.map((configPath) => path.resolve(relativeConfig.cwd, configPath)),
     resultsPath: path.resolve(relativeConfig.cwd, relativeConfig.resultsPath),
     tsconfigPath: relativeConfig.tsconfigPath ? path.resolve(relativeConfig.cwd, relativeConfig.tsconfigPath) : null

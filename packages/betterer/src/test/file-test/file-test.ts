@@ -4,7 +4,7 @@ import { BettererTestType } from '../type';
 import { BettererTestBase, BettererTestConfig, BettererTestFunction } from '../types';
 import { constraint } from './constraint';
 import { differ } from './differ';
-import { BettererFileResolver } from './file-resolver';
+import { BettererFileResolver, BettererFileResolverΩ } from './file-resolver';
 import { BettererFileTestResultΩ } from './file-test-result';
 import { goal } from './goal';
 import { printer } from './printer';
@@ -24,11 +24,14 @@ export class BettererFileTest
   private _config: BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff>;
   private _isOnly = false;
   private _isSkipped = false;
+  private _resolver: BettererFileResolverΩ;
 
-  constructor(private _resolver: BettererFileResolver, fileTest: BettererFileTestFunction) {
+  constructor(resolver: BettererFileResolver, fileTest: BettererFileTestFunction) {
+    const { cwd } = resolver;
+    this._resolver = new BettererFileResolverΩ(cwd);
     this._config = createTestConfig(
       {
-        test: createTest(_resolver, fileTest),
+        test: createTest(this._resolver, fileTest),
         constraint,
         goal,
         serialiser: { deserialise, serialise },
@@ -74,7 +77,7 @@ export class BettererFileTest
 }
 
 function createTest(
-  resolver: BettererFileResolver,
+  resolver: BettererFileResolverΩ,
   fileTest: BettererFileTestFunction
 ): BettererTestFunction<BettererFileTestResult> {
   return async (run: BettererRun): Promise<BettererFileTestResult> => {

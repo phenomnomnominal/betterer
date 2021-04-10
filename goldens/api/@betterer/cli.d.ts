@@ -9,7 +9,10 @@ export declare type BettererCLIBaseConfig = BettererCLIEnvConfig & {
     tsconfig: string;
 };
 
-export declare type BettererCLICIConfig = BettererCLIBaseConfig;
+export declare type BettererCLICIConfig = BettererCLIBaseConfig & {
+    exclude: BettererCLIArguments;
+    include: BettererCLIArguments;
+};
 
 export declare type BettererCLIEnvConfig = {
     debug: boolean;
@@ -21,6 +24,8 @@ export declare type BettererCLIInitConfig = BettererCLIEnvConfig & {
 };
 
 export declare type BettererCLIStartConfig = BettererCLIBaseConfig & {
+    exclude: BettererCLIArguments;
+    include: BettererCLIArguments;
     strict: boolean;
     update: boolean;
 };

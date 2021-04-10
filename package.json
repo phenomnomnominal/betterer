@@ -32,7 +32,8 @@
     "test:extension": "lerna run test:extension",
     "prepublishOnly": "yarn run build",
     "postinstall": "husky install",
-    "publish": "lerna publish --conventional-commits"
+    "publish": "lerna publish --conventional-commits",
+    "prepare": "husky install"
   },
   "engines": {
     "node": ">=12"
@@ -64,6 +65,7 @@
     "husky": "^6.0.0",
     "jest": "^26.5.3",
     "lerna": "^4.0.0",
+    "lint-staged": ">=10",
     "prettier": "^2.2.1",
     "react": ">=16",
     "ts-api-guardian": "^0.6.0",
@@ -75,5 +77,8 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
+  },
+  "lint-staged": {
+    "*.ts,tsx": "betterer"
   }
 }

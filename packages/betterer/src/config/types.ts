@@ -10,6 +10,7 @@ export type BettererConfig = {
   // Base:
   configPaths: BettererConfigPaths;
   cwd: string;
+  filePaths: BettererConfigPaths;
   filters: BettererConfigFilters;
   reporters: BettererConfigReporters;
   resultsPath: string;
@@ -25,17 +26,29 @@ export type BettererConfig = {
   watch: boolean;
 };
 
+export type BettererOptionsPaths = Array<string> | string;
+export type BettererOptionsExcludes = Array<string | RegExp> | string;
+export type BettererOptionsFilters = Array<string | RegExp> | string;
+export type BettererOptionsIncludes = Array<string> | string;
+export type BettererOptionsReporters = Array<string | BettererReporter>;
+
 export type BettererOptionsBase = Partial<{
-  configPaths: BettererConfigPaths | string;
+  configPaths: BettererOptionsPaths;
   cwd: string;
-  filters: ReadonlyArray<string | RegExp> | string;
+  filters: BettererOptionsFilters;
   reporters: BettererConfigReporters;
   resultsPath: string;
   silent: boolean;
   tsconfigPath: string;
 }>;
 
-export type BettererOptionsStartCI = BettererOptionsBase &
+export type BettererOptionsStartBase = BettererOptionsBase &
+  Partial<{
+    excludes: BettererOptionsExcludes;
+    includes: BettererOptionsIncludes;
+  }>;
+
+export type BettererOptionsStartCI = BettererOptionsStartBase &
   Partial<{
     ci: true;
     strict: true;
@@ -43,7 +56,7 @@ export type BettererOptionsStartCI = BettererOptionsBase &
     watch: false;
   }>;
 
-export type BettererOptionsStartDefault = BettererOptionsBase &
+export type BettererOptionsStartDefault = BettererOptionsStartBase &
   Partial<{
     ci: false;
     strict: false;
@@ -51,7 +64,7 @@ export type BettererOptionsStartDefault = BettererOptionsBase &
     watch: false;
   }>;
 
-export type BettererOptionsStartStrict = BettererOptionsBase &
+export type BettererOptionsStartStrict = BettererOptionsStartBase &
   Partial<{
     ci: false;
     strict: true;
@@ -59,7 +72,7 @@ export type BettererOptionsStartStrict = BettererOptionsBase &
     watch: false;
   }>;
 
-export type BettererOptionsStartUpdate = BettererOptionsBase &
+export type BettererOptionsStartUpdate = BettererOptionsStartBase &
   Partial<{
     ci: false;
     strict: false;
