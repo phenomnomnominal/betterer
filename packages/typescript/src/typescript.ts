@@ -31,14 +31,15 @@ export function typescript(configFilePath: string, extraCompilerOptions: ts.Comp
     const { compilerOptions } = config;
     const basePath = path.dirname(absPath);
 
-    const fullCompilerOptions = {
+    const fullCompilerOptions: ts.CompilerOptions = {
       ...compilerOptions,
+      tsBuildInfoFile: path.join(basePath, '.betterer.tsbuildinfo'),
       ...extraCompilerOptions
     };
     config.compilerOptions = fullCompilerOptions;
 
-    const host = ts.createCompilerHost(fullCompilerOptions);
-    const configHost = {
+    const host = ts.createIncrementalCompilerHost(fullCompilerOptions, ts.sys);
+    const configHost: ts.ParseConfigHost = {
       ...host,
       readDirectory: ts.sys.readDirectory.bind(ts.sys),
       useCaseSensitiveFileNames: host.useCaseSensitiveFileNames()
@@ -46,7 +47,7 @@ export function typescript(configFilePath: string, extraCompilerOptions: ts.Comp
     const parsed = ts.parseJsonConfigFileContent(config, configHost, basePath);
 
     const rootNames = await resolver.validate(parsed.fileNames);
-    const program = ts.createProgram({
+    const program = ts.createIncrementalProgram({
       ...parsed,
       rootNames,
       host
@@ -54,12 +55,13 @@ export function typescript(configFilePath: string, extraCompilerOptions: ts.Comp
 
     const { diagnostics } = program.emit();
 
-    const preEmitDiagnostic = ts.getPreEmitDiagnostics(program);
-    const semanticDiagnostics = program.getSemanticDiagnostics();
     const allDiagnostics = ts.sortAndDeduplicateDiagnostics([
       ...diagnostics,
-      ...preEmitDiagnostic,
-      ...semanticDiagnostics
+      ...program.getConfigFileParsingDiagnostics(),
+      ...program.getOptionsDiagnostics(),
+      ...program.getSyntacticDiagnostics(),
+      ...program.getGlobalDiagnostics(),
+      ...program.getSemanticDiagnostics()
     ]);
 
     allDiagnostics
