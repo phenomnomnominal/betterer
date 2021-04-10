@@ -21,7 +21,7 @@ export function ciΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererS
     tsconfigPath: tsconfig
   };
 
-  // And then cast to BettererOptionsStart. This is possibly invalid,
+  // And then cast to BettererOptionsStartCI. This is possibly invalid,
   // but it's nicer to do the options validation in @betterer/betterer
   return betterer(options as BettererOptionsStartCI);
 }

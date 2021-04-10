@@ -8,7 +8,6 @@ module.exports = {
       'results-file',
       'betterer-and-typescript',
       'filters',
-      'includes-excludes-ignores',
       'updating-results',
       'reporters',
       'development-workflow',

@@ -3,3 +3,4 @@
 
 yarn build
 git add .betterer.results
+npx lint-staged
