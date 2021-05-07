@@ -1,6 +1,7 @@
 import assert from 'assert';
 
 import { createHash } from '../../hasher';
+import { BettererFilePaths } from '../../runner';
 import { BettererFileΩ } from './file';
 import { BettererFileResolverΩ } from './file-resolver';
 import { BettererFileTestResult, BettererFileIssues, BettererFile, BettererFileBase } from './types';
@@ -35,7 +36,14 @@ export class BettererFileTestResultΩ implements BettererFileTestResult {
     this._fileMap[file.absolutePath] = file;
   }
 
-  public getIssues(absolutePath: string): BettererFileIssues {
+  public getFilePaths(): BettererFilePaths {
+    return Object.keys(this._fileMap);
+  }
+
+  public getIssues(absolutePath?: string): BettererFileIssues {
+    if (!absolutePath) {
+      return this.files.flatMap((files) => files.issues);
+    }
     return this.getFile(absolutePath).issues;
   }
 }

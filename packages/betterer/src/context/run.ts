@@ -74,8 +74,8 @@ export class BettererRunΩ implements BettererRun {
 
   public get timestamp(): number {
     assert.notStrictEqual(this._status, BettererRunStatus.pending);
-    assert.notStrictEqual(this._timestamp, null);
-    return this._timestamp as number;
+    assert(this._timestamp !== null);
+    return this._timestamp;
   }
 
   public get isBetter(): boolean {
@@ -142,11 +142,9 @@ export class BettererRunΩ implements BettererRun {
     this._timestamp = startTime;
 
     const end = async () => {
-      if (this._test.progress) {
-        const baselineValue = this._baseline.isNew ? null : this._baseline.value;
-        const resultValue = !this._result ? null : this._result.value;
-        this._delta = await this._test.progress(baselineValue, resultValue);
-      }
+      const baselineValue = this._baseline.isNew ? null : this._baseline.value;
+      const resultValue = !this._result ? null : this._result.value;
+      this._delta = await this._test.progress(baselineValue, resultValue);
       this._lifecycle.resolve();
       await reportRunStart;
       await this._reporter.runEnd(this);

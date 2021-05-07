@@ -71,7 +71,7 @@ export type BettererTestConfig<DeserialisedType = unknown, SerialisedType = Dese
   test: BettererTestFunction<DeserialisedType>;
   differ: BettererDiffer<DeserialisedType, DiffType>;
   printer: BettererPrinter<SerialisedType>;
-  progress: BettererProgress<DeserialisedType> | null;
+  progress: BettererProgress<DeserialisedType>;
   serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
   type: BettererTestType;
 };
@@ -80,6 +80,8 @@ export interface BettererTestBase<DeserialisedType = unknown, SerialisedType = D
   config: BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
   isOnly: boolean;
   isSkipped: boolean;
+  constraint(constraintOverride: BettererTestConstraint<DeserialisedType>): this;
+  goal(goalOverride: BettererTestGoal<DeserialisedType>): this;
   only(): this;
   skip(): this;
 }
