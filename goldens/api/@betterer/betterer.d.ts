@@ -103,12 +103,14 @@ export declare class BettererFileResolver {
 
 export declare type BettererFilesDiff = Record<string, BettererFileDiff>;
 
-export declare class BettererFileTest implements BettererTestBase<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff> {
-    get config(): BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff>;
+export declare class BettererFileTest implements BettererFileTestBase {
+    get config(): BettererFileTestConfig;
     get isOnly(): boolean;
     get isSkipped(): boolean;
     constructor(resolver: BettererFileResolver, fileTest: BettererFileTestFunction);
+    constraint(constraintOverride: BettererTestConstraint<BettererFileTestResult>): this;
     exclude(...excludePatterns: BettererFilePatterns): this;
+    goal(goalOverride: BettererTestGoal<BettererFileTestResult>): this;
     include(...includePatterns: BettererFileGlobs): this;
     only(): this;
     skip(): this;
@@ -120,7 +122,8 @@ export declare type BettererFileTestFunction = (filePaths: BettererFilePaths, fi
 
 export declare type BettererFileTestResult = {
     addFile(absolutePath: string, fileText: string): BettererFile;
-    getIssues(absolutePath: string): BettererFileIssues;
+    getFilePaths(): BettererFilePaths;
+    getIssues(absolutePath?: string): BettererFileIssues;
 };
 
 export declare type BettererOptionsBase = Partial<{
@@ -274,6 +277,8 @@ export declare class BettererTest<DeserialisedType, SerialisedType, DiffType> im
     get isOnly(): boolean;
     get isSkipped(): boolean;
     constructor(options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>);
+    constraint(constraintOverride: BettererTestConstraint<DeserialisedType>): this;
+    goal(goalOverride: BettererTestGoal<DeserialisedType>): this;
     only(): this;
     skip(): this;
 }
@@ -285,7 +290,7 @@ export declare type BettererTestConfig<DeserialisedType = unknown, SerialisedTyp
     test: BettererTestFunction<DeserialisedType>;
     differ: BettererDiffer<DeserialisedType, DiffType>;
     printer: BettererPrinter<SerialisedType>;
-    progress: BettererProgress<DeserialisedType> | null;
+    progress: BettererProgress<DeserialisedType>;
     serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
     type: BettererTestType;
 };

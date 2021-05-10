@@ -64,7 +64,7 @@ type BettererTestOptionsBasic = {
 
 ## `BettererTestOptionsComplex`
 
-For a more complex version [`BettererTest`](#betterertest) that operates on more complex objects, you may need to define more copmlex behaviour.
+For a more complex version [`BettererTest`](#betterertest) that operates on more complex objects, you may need to define more complex behaviour.
 
 ```typescript
 type BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType> = {

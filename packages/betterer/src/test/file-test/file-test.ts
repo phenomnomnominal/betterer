@@ -1,7 +1,7 @@
 import { BettererRun } from '../../context';
 import { createTestConfig } from '../config';
 import { BettererTestType } from '../type';
-import { BettererTestBase, BettererTestConfig, BettererTestFunction } from '../types';
+import { BettererTestConstraint, BettererTestFunction, BettererTestGoal } from '../types';
 import { constraint } from './constraint';
 import { differ } from './differ';
 import { BettererFileResolver, BettererFileResolverΩ } from './file-resolver';
@@ -12,16 +12,15 @@ import { progress } from './progress';
 import { deserialise, serialise } from './serialiser';
 import {
   BettererFileGlobs,
-  BettererFileIssuesMapSerialised,
   BettererFilePatterns,
-  BettererFilesDiff,
+  BettererFileTestBase,
+  BettererFileTestConfig,
   BettererFileTestFunction,
   BettererFileTestResult
 } from './types';
 
-export class BettererFileTest
-  implements BettererTestBase<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff> {
-  private _config: BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff>;
+export class BettererFileTest implements BettererFileTestBase {
+  private _config: BettererFileTestConfig;
   private _isOnly = false;
   private _isSkipped = false;
   private _resolver: BettererFileResolverΩ;
@@ -40,10 +39,10 @@ export class BettererFileTest
         progress
       },
       BettererTestType.File
-    ) as BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff>;
+    ) as BettererFileTestConfig;
   }
 
-  public get config(): BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff> {
+  public get config(): BettererFileTestConfig {
     return this._config;
   }
 
@@ -55,8 +54,18 @@ export class BettererFileTest
     return this._isSkipped;
   }
 
+  public constraint(constraintOverride: BettererTestConstraint<BettererFileTestResult>): this {
+    this.config.constraint = constraintOverride;
+    return this;
+  }
+
   public exclude(...excludePatterns: BettererFilePatterns): this {
     this._resolver.excludeΔ(...excludePatterns);
+    return this;
+  }
+
+  public goal(goalOverride: BettererTestGoal<BettererFileTestResult>): this {
+    this.config.goal = goalOverride;
     return this;
   }
 
