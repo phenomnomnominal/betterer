@@ -36,7 +36,7 @@
     "@betterer/errors": "^4.0.0",
     "@betterer/tasks": "^4.1.1",
     "@phenomnomnominal/worker-require": "^0.0.13",
-    "commander": "^5.1.0",
+    "commander": "^7.2.0",
     "find-up": "^5.0.0",
     "ink": "^3.0.7",
     "react": ">=16",
