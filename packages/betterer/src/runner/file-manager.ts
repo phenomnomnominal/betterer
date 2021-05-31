@@ -61,7 +61,7 @@ export class BettererFileManager {
           return;
         }
         const hash = createHash(content);
-        const relativePath = normalisedPath(filePath.replace(resolver.cwd, ''));
+        const relativePath = normalisedPath(filePath).replace(resolver.cwd, '');
         if (!this._cacheMap[relativePath] || this._cacheMap[relativePath] !== hash) {
           actualFilePaths.push(filePath);
         }
