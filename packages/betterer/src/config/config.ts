@@ -5,7 +5,7 @@ import * as path from 'path';
 
 import { registerExtensions } from '../register';
 import { BettererReporterΩ, DEFAULT_REPORTER, loadReporters } from '../reporters';
-import { BettererFileResolverΩ } from '../test';
+import { BettererFileResolverΩ } from '../runner';
 import { isBoolean, isRegExp, isString, isUndefined } from '../utils';
 import {
   BettererConfig,
@@ -47,6 +47,8 @@ async function processOptions(options: unknown = {}): Promise<BettererConfig> {
 
   const relativeConfig: BettererConfig = {
     // Base:
+    cache: baseOptions.cache || false,
+    cachePath: baseOptions.cachePath || './.betterer.cache',
     configPaths: baseOptions.configPaths ? toArray<string>(baseOptions.configPaths) : ['./.betterer'],
     cwd: baseOptions.cwd || process.cwd(),
     filters: toRegExps(toArray<string | RegExp>(baseOptions.filters)),
@@ -74,11 +76,12 @@ async function processOptions(options: unknown = {}): Promise<BettererConfig> {
   const { includes, excludes } = startOptions;
 
   const resolver = new BettererFileResolverΩ(relativeConfig.cwd);
-  resolver.includeΔ(...toArray<string>(includes));
-  resolver.excludeΔ(...toRegExps(toArray<string | RegExp>(excludes)));
+  resolver.include(...toArray<string>(includes));
+  resolver.exclude(...toRegExps(toArray<string | RegExp>(excludes)));
 
   globalConfig = {
     ...relativeConfig,
+    cachePath: path.resolve(relativeConfig.cwd, relativeConfig.cachePath),
     filePaths: await resolver.files([]),
     configPaths: relativeConfig.configPaths.map((configPath) => path.resolve(relativeConfig.cwd, configPath)),
     resultsPath: path.resolve(relativeConfig.cwd, relativeConfig.resultsPath),
@@ -99,6 +102,8 @@ export function getConfig(): BettererConfig {
 
 function validateConfig(config: BettererConfig): void {
   // Base:
+  validateBool('cache', config);
+  validateString('cachePath', config);
   validateStringArray('configPaths', config);
   validateString('cwd', config);
   validateStringRegExpArray('filters', config);

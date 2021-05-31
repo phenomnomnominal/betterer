@@ -22,6 +22,12 @@ describe('betterer', () => {
     const resultsPath = paths.results;
 
     const tests = [
+      { cache: 1234 },
+      { cache: 'betterer' },
+      { cache: {} },
+      { cachePath: 1234 },
+      { cachePath: {} },
+      { cachePath: true },
       { ci: 1234 },
       { ci: 'betterer' },
       { ci: {} },

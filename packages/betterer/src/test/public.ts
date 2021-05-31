@@ -1,7 +1,4 @@
 export {
-  BettererFileGlobs,
-  BettererFilePatterns,
-  BettererFileResolver,
   BettererFileTest,
   BettererFileTestFunction,
   BettererFileBase,

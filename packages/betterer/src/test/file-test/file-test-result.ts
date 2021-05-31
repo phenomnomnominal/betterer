@@ -1,9 +1,8 @@
 import assert from 'assert';
 
 import { createHash } from '../../hasher';
-import { BettererFilePaths } from '../../runner';
+import { BettererFilePaths, BettererFileResolverΩ } from '../../runner';
 import { BettererFileΩ } from './file';
-import { BettererFileResolverΩ } from './file-resolver';
 import { BettererFileTestResult, BettererFileIssues, BettererFile, BettererFileBase } from './types';
 
 export class BettererFileTestResultΩ implements BettererFileTestResult {

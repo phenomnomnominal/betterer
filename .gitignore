@@ -12,3 +12,4 @@ website/.docusaurus
 packages/extension/.vscode-test
 *.patch
 betterer.*.log
+.betterer.cache

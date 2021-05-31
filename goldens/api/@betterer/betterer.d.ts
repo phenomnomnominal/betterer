@@ -5,6 +5,8 @@ export declare namespace betterer {
 }
 
 export declare type BettererConfig = {
+    cache: boolean;
+    cachePath: string;
     configPaths: BettererConfigPaths;
     cwd: string;
     filePaths: BettererConfigPaths;
@@ -127,6 +129,8 @@ export declare type BettererFileTestResult = {
 };
 
 export declare type BettererOptionsBase = Partial<{
+    cache: boolean;
+    cachePath: string;
     configPaths: BettererOptionsPaths;
     cwd: string;
     filters: BettererOptionsFilters;
