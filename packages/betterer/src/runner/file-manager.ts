@@ -1,7 +1,6 @@
 import { BettererConfig } from '../config';
 import { createHash } from '../hasher';
 import { read } from '../reader';
-import { normalisedPath } from '../utils';
 import { write } from '../writer';
 import { BettererFileResolverΩ } from './file-resolver';
 import { BettererFilePaths } from './types';
@@ -61,7 +60,7 @@ export class BettererFileManager {
           return;
         }
         const hash = createHash(content);
-        const relativePath = normalisedPath(filePath).replace(resolver.cwd, '');
+        const relativePath = filePath.replace(resolver.cwd, '');
         if (!this._cacheMap[relativePath] || this._cacheMap[relativePath] !== hash) {
           actualFilePaths.push(filePath);
         }

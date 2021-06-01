@@ -9,7 +9,9 @@ export class BettererFileResolverΩ {
   private _excluded: Array<RegExp> = [];
   private _included: Array<string> = [];
 
-  constructor(private _cwd: string) {}
+  constructor(private _cwd: string) {
+    this._cwd = normalisedPath(this._cwd);
+  }
 
   public get cwd(): string {
     return this._cwd;
