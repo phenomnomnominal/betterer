@@ -1,14 +1,14 @@
 import assert from 'assert';
 
 import { createHash } from '../../hasher';
+import { BettererFilePaths, BettererFileResolverΩ } from '../../runner';
 import { BettererFileΩ } from './file';
-import { BettererFileResolver } from './file-resolver';
 import { BettererFileTestResult, BettererFileIssues, BettererFile, BettererFileBase } from './types';
 
 export class BettererFileTestResultΩ implements BettererFileTestResult {
   private _fileMap: Record<string, BettererFileBase | void> = {};
 
-  constructor(private _resolver?: BettererFileResolver) {}
+  constructor(private _resolver?: BettererFileResolverΩ) {}
 
   public get files(): ReadonlyArray<BettererFileBase> {
     return Object.values(this._fileMap).filter(Boolean) as ReadonlyArray<BettererFileBase>;
@@ -35,7 +35,14 @@ export class BettererFileTestResultΩ implements BettererFileTestResult {
     this._fileMap[file.absolutePath] = file;
   }
 
-  public getIssues(absolutePath: string): BettererFileIssues {
+  public getFilePaths(): BettererFilePaths {
+    return Object.keys(this._fileMap);
+  }
+
+  public getIssues(absolutePath?: string): BettererFileIssues {
+    if (!absolutePath) {
+      return this.files.flatMap((files) => files.issues);
+    }
     return this.getFile(absolutePath).issues;
   }
 }

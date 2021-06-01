@@ -7,6 +7,7 @@ export {
   BettererCLIEnvConfig,
   BettererCLIInitConfig,
   BettererCLIBaseConfig,
+  BettererCLICacheConfig,
   BettererCLIStartConfig,
   BettererCLICIConfig,
   BettererCLIWatchConfig,

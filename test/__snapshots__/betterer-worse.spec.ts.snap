@@ -416,7 +416,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\".
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\".
 🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
 
 ",
@@ -428,8 +428,8 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\":
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\":
 🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
 
 ",
@@ -441,10 +441,10 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\":
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\":
 ・
-・   <project>/fixtures/test-betterer-update/src/index.ts
+・   <project>/fixtures/test-betterer-no-update/src/index.ts
 ・   1 | console.log('foo');
 ・ > 2 | console.log('foo');
 ・     | ^^^^^^^^^^^ TSQuery match
@@ -460,10 +460,10 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\":
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\":
 ・
-・   <project>/fixtures/test-betterer-update/src/index.ts
+・   <project>/fixtures/test-betterer-no-update/src/index.ts
 ・   1 | console.log('foo');
 ・ > 2 | console.log('foo');
 ・     | ^^^^^^^^^^^ TSQuery match
@@ -480,10 +480,10 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\":
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\":
 ・
-・   <project>/fixtures/test-betterer-update/src/index.ts
+・   <project>/fixtures/test-betterer-no-update/src/index.ts
 ・   1 | console.log('foo');
 ・ > 2 | console.log('foo');
 ・     | ^^^^^^^^^^^ TSQuery match
@@ -501,10 +501,10 @@ Error: \\"tsquery no raw console.log\\" got worse. (1 new issue, 2 total) 😔
 
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\":
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\":
 ・
-・   <project>/fixtures/test-betterer-update/src/index.ts
+・   <project>/fixtures/test-betterer-no-update/src/index.ts
 ・   1 | console.log('foo');
 ・ > 2 | console.log('foo');
 ・     | ^^^^^^^^^^^ TSQuery match
@@ -522,10 +522,10 @@ Error: \\"tsquery no raw console.log\\" got worse. (1 new issue, 2 total) 😔
 
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\":
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\":
 ・
-・   <project>/fixtures/test-betterer-update/src/index.ts
+・   <project>/fixtures/test-betterer-no-update/src/index.ts
 ・   1 | console.log('foo');
 ・ > 2 | console.log('foo');
 ・     | ^^^^^^^^^^^ TSQuery match

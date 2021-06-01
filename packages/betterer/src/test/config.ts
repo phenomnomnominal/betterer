@@ -15,7 +15,7 @@ import {
 export function createTestConfig<DeserialisedType, SerialisedType, DiffType>(
   options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>,
   type = BettererTestType.Unknown
-): BettererTestConfig<DeserialisedType, SerialisedType, DiffType> | BettererTestConfig<unknown> {
+): BettererTestConfig<DeserialisedType, SerialisedType, DiffType> | BettererTestConfig {
   if (options.constraint == null) {
     throw new BettererError('for a test to work, it must have a `constraint` function. ❌');
   }
@@ -29,7 +29,8 @@ export function createTestConfig<DeserialisedType, SerialisedType, DiffType>(
 
   if (isComplex(options)) {
     return {
-      printer: options.printer || defaultPrinter,
+      printer: defaultPrinter,
+      progress: defaultProgress,
       ...options,
       goal,
       deadline,
@@ -41,6 +42,7 @@ export function createTestConfig<DeserialisedType, SerialisedType, DiffType>(
     ...options,
     differ: defaultDiffer,
     printer: defaultPrinter,
+    progress: defaultProgress,
     serialiser: {
       deserialise: defaultDeserialiser,
       serialise: defaultSerialiser
@@ -48,7 +50,7 @@ export function createTestConfig<DeserialisedType, SerialisedType, DiffType>(
     goal,
     deadline,
     type
-  } as BettererTestConfig<unknown>;
+  } as BettererTestConfig;
 }
 
 function createDeadline<DeserialisedType, SerialisedType, DiffType>(
@@ -79,13 +81,11 @@ function createGoal<DeserialisedType, SerialisedType, DiffType>(
 function isComplex<DeserialisedType, SerialisedType, DiffType>(
   options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>
 ): options is BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType> {
-  return !!(
-    (options as BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType>).differ &&
-    (options as BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType>).serialiser
-  );
+  const maybeComplex = options as BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType>;
+  return !!maybeComplex.differ && !!maybeComplex.serialiser;
 }
 
-export function defaultDiffer(expected: unknown, result: unknown): BettererDiff<unknown, null> {
+export function defaultDiffer(expected: unknown, result: unknown): BettererDiff<unknown, unknown> {
   return {
     expected,
     result,
@@ -101,6 +101,10 @@ export function defaultDiffer(expected: unknown, result: unknown): BettererDiff<
 
 function defaultPrinter(serialised: unknown): string {
   return format(JSON.stringify(serialised), { parser: 'json' });
+}
+
+function defaultProgress(): null {
+  return null;
 }
 
 function defaultDeserialiser(serialised: unknown): unknown {

@@ -5,10 +5,12 @@ import { BettererCLIArguments } from './types';
 
 /** @internal Definitely not stable! Please don't use! */
 export async function watchΔ(cwd: string, argv: BettererCLIArguments): Promise<void> {
-  const { config, results, filter, ignore, reporter, silent, tsconfig } = watchOptions(argv);
+  const { cache, cachePath, config, filter, ignore, reporter, results, silent, tsconfig } = watchOptions(argv);
 
   // Mark options as unknown...
   const options: unknown = {
+    cache,
+    cachePath,
     configPaths: config,
     cwd,
     filters: filter,
@@ -20,7 +22,7 @@ export async function watchΔ(cwd: string, argv: BettererCLIArguments): Promise<
     watch: true
   };
 
-  // And then cast to BettererOptionsStart. This is possibly invalid,
+  // And then cast to BettererOptionsWatch. This is possibly invalid,
   // but it's nicer to do the options validation in @betterer/betterer
   const runner = await betterer.watch(options as BettererOptionsWatch);
 

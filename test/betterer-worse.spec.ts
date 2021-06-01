@@ -105,7 +105,7 @@ export default {
 
   it('should stay worse if an update is not allowed', async () => {
     const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture(
-      'test-betterer-update',
+      'test-betterer-no-update',
       {
         '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';

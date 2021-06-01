@@ -6,7 +6,18 @@ export {
   BettererConfigPaths,
   BettererConfigReporter,
   BettererConfigReporters,
+  BettererOptionsBase,
+  BettererOptionsExcludes,
+  BettererOptionsFilters,
+  BettererOptionsIncludes,
+  BettererOptionsPaths,
+  BettererOptionsReporters,
   BettererOptionsRunner,
+  BettererOptionsStartBase,
+  BettererOptionsStartCI,
+  BettererOptionsStartDefault,
+  BettererOptionsStartStrict,
+  BettererOptionsStartUpdate,
   BettererOptionsStart,
   BettererOptionsWatch
 } from './config/public';
@@ -21,14 +32,18 @@ export {
 } from './context/public';
 export { BettererResult } from './results/public';
 export { BettererReporter } from './reporters/public';
-export { BettererFilePaths, BettererRunner, BettererRunHandler } from './runner/public';
+export {
+  BettererFileGlobs,
+  BettererFilePaths,
+  BettererFilePatterns,
+  BettererFileResolver,
+  BettererRunner,
+  BettererRunHandler
+} from './runner/public';
 export {
   BettererDeserialise,
   BettererDiff,
   BettererDiffer,
-  BettererFileGlobs,
-  BettererFilePatterns,
-  BettererFileResolver,
   BettererFileTest,
   BettererFileTestFunction,
   BettererFile,

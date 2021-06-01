@@ -1,6 +1,7 @@
 import { BettererFilePaths } from '../../runner';
 import { BettererDiff } from '../../test';
 import { MaybeAsync } from '../../types';
+import { BettererTestBase, BettererTestConfig } from '../types';
 
 export type BettererFileIssueSerialised = [line: number, column: number, length: number, message: string, hash: string];
 export type BettererFileIssuesMapSerialised = Record<string, ReadonlyArray<BettererFileIssueSerialised>>;
@@ -17,9 +18,6 @@ export type BettererFileTestFunction = (
   filePaths: BettererFilePaths,
   fileTestResult: BettererFileTestResult
 ) => MaybeAsync<void>;
-
-export type BettererFileGlobs = ReadonlyArray<string | ReadonlyArray<string>>;
-export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
 
 export type BettererFileIssue = {
   readonly line: number;
@@ -46,5 +44,18 @@ export type BettererFile = BettererFileBase & {
 
 export type BettererFileTestResult = {
   addFile(absolutePath: string, fileText: string): BettererFile;
-  getIssues(absolutePath: string): BettererFileIssues;
+  getFilePaths(): BettererFilePaths;
+  getIssues(absolutePath?: string): BettererFileIssues;
 };
+
+export type BettererFileTestBase = BettererTestBase<
+  BettererFileTestResult,
+  BettererFileIssuesMapSerialised,
+  BettererFilesDiff
+>;
+
+export type BettererFileTestConfig = BettererTestConfig<
+  BettererFileTestResult,
+  BettererFileIssuesMapSerialised,
+  BettererFilesDiff
+>;

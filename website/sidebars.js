@@ -7,7 +7,7 @@ module.exports = {
       'tests',
       'results-file',
       'betterer-and-typescript',
-      'filters-and-ignores',
+      'filters',
       'updating-results',
       'reporters',
       'development-workflow',

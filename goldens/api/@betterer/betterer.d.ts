@@ -5,8 +5,11 @@ export declare namespace betterer {
 }
 
 export declare type BettererConfig = {
+    cache: boolean;
+    cachePath: string;
     configPaths: BettererConfigPaths;
     cwd: string;
+    filePaths: BettererConfigPaths;
     filters: BettererConfigFilters;
     reporters: BettererConfigReporters;
     resultsPath: string;
@@ -102,12 +105,14 @@ export declare class BettererFileResolver {
 
 export declare type BettererFilesDiff = Record<string, BettererFileDiff>;
 
-export declare class BettererFileTest implements BettererTestBase<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff> {
-    get config(): BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff>;
+export declare class BettererFileTest implements BettererFileTestBase {
+    get config(): BettererFileTestConfig;
     get isOnly(): boolean;
     get isSkipped(): boolean;
-    constructor(_resolver: BettererFileResolver, fileTest: BettererFileTestFunction);
+    constructor(resolver: BettererFileResolver, fileTest: BettererFileTestFunction);
+    constraint(constraintOverride: BettererTestConstraint<BettererFileTestResult>): this;
     exclude(...excludePatterns: BettererFilePatterns): this;
+    goal(goalOverride: BettererTestGoal<BettererFileTestResult>): this;
     include(...includePatterns: BettererFileGlobs): this;
     only(): this;
     skip(): this;
@@ -119,14 +124,70 @@ export declare type BettererFileTestFunction = (filePaths: BettererFilePaths, fi
 
 export declare type BettererFileTestResult = {
     addFile(absolutePath: string, fileText: string): BettererFile;
-    getIssues(absolutePath: string): BettererFileIssues;
+    getFilePaths(): BettererFilePaths;
+    getIssues(absolutePath?: string): BettererFileIssues;
 };
+
+export declare type BettererOptionsBase = Partial<{
+    cache: boolean;
+    cachePath: string;
+    configPaths: BettererOptionsPaths;
+    cwd: string;
+    filters: BettererOptionsFilters;
+    reporters: BettererConfigReporters;
+    resultsPath: string;
+    silent: boolean;
+    tsconfigPath: string;
+}>;
+
+export declare type BettererOptionsExcludes = Array<string | RegExp> | string;
+
+export declare type BettererOptionsFilters = Array<string | RegExp> | string;
+
+export declare type BettererOptionsIncludes = Array<string> | string;
+
+export declare type BettererOptionsPaths = Array<string> | string;
+
+export declare type BettererOptionsReporters = Array<string | BettererReporter>;
 
 export declare type BettererOptionsRunner = BettererOptionsBase & Partial<{
     ignores: BettererConfigIgnores;
 }>;
 
 export declare type BettererOptionsStart = BettererOptionsStartCI | BettererOptionsStartDefault | BettererOptionsStartStrict | BettererOptionsStartUpdate;
+
+export declare type BettererOptionsStartBase = BettererOptionsBase & Partial<{
+    excludes: BettererOptionsExcludes;
+    includes: BettererOptionsIncludes;
+}>;
+
+export declare type BettererOptionsStartCI = BettererOptionsStartBase & Partial<{
+    ci: true;
+    strict: true;
+    update: false;
+    watch: false;
+}>;
+
+export declare type BettererOptionsStartDefault = BettererOptionsStartBase & Partial<{
+    ci: false;
+    strict: false;
+    update: false;
+    watch: false;
+}>;
+
+export declare type BettererOptionsStartStrict = BettererOptionsStartBase & Partial<{
+    ci: false;
+    strict: true;
+    update: false;
+    watch: false;
+}>;
+
+export declare type BettererOptionsStartUpdate = BettererOptionsStartBase & Partial<{
+    ci: false;
+    strict: false;
+    update: true;
+    watch: false;
+}>;
 
 export declare type BettererOptionsWatch = BettererOptionsRunner & Partial<{
     watch: true;
@@ -220,6 +281,8 @@ export declare class BettererTest<DeserialisedType, SerialisedType, DiffType> im
     get isOnly(): boolean;
     get isSkipped(): boolean;
     constructor(options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>);
+    constraint(constraintOverride: BettererTestConstraint<DeserialisedType>): this;
+    goal(goalOverride: BettererTestGoal<DeserialisedType>): this;
     only(): this;
     skip(): this;
 }
@@ -231,7 +294,7 @@ export declare type BettererTestConfig<DeserialisedType = unknown, SerialisedTyp
     test: BettererTestFunction<DeserialisedType>;
     differ: BettererDiffer<DeserialisedType, DiffType>;
     printer: BettererPrinter<SerialisedType>;
-    progress: BettererProgress<DeserialisedType> | null;
+    progress: BettererProgress<DeserialisedType>;
     serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
     type: BettererTestType;
 };

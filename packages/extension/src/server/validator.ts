@@ -110,48 +110,48 @@ export class BettererValidator {
 
     const diagnostics: Array<Diagnostic> = [];
 
-    const { runs } = summary;
-    const run = runs[runs.length - 1];
-    if (run.isFailed) {
-      return;
-    }
+    summary.runs.forEach((run) => {
+      if (run.isFailed) {
+        return;
+      }
 
-    const result = run.result.value as BettererFileTestResult;
-    if (!result) {
-      return;
-    }
+      const result = run.result.value as BettererFileTestResult;
+      if (!result) {
+        return;
+      }
 
-    let issues: BettererFileIssues;
-    try {
-      issues = result.getIssues(filePath);
-    } catch {
-      return;
-    }
+      let issues: BettererFileIssues;
+      try {
+        issues = result.getIssues(filePath);
+      } catch {
+        return;
+      }
 
-    info(`Validator: Got issues from Betterer for "${run.name}"`);
+      info(`Validator: Got issues from Betterer for "${run.name}"`);
 
-    let existingIssues: BettererFileIssues = [];
-    let newIssues: BettererFileIssues = [];
+      let existingIssues: BettererFileIssues = [];
+      let newIssues: BettererFileIssues = [];
 
-    if (run.isNew) {
-      newIssues = issues;
-    } else if (run.isSkipped || run.isSame) {
-      existingIssues = issues;
-    } else {
-      const fileDiff = ((run.diff as unknown) as BettererFileTestDiff).diff[filePath];
-      info(`Validator: Got diff from Betterer for "${filePath}"`);
-      existingIssues = fileDiff.existing || [];
-      newIssues = fileDiff.new || [];
-    }
+      if (run.isNew) {
+        newIssues = issues;
+      } else if (run.isSkipped || run.isSame) {
+        existingIssues = issues;
+      } else {
+        const fileDiff = ((run.diff as unknown) as BettererFileTestDiff).diff[filePath];
+        info(`Validator: ${run.name} got diff from Betterer for "${filePath}"`);
+        existingIssues = fileDiff.existing || [];
+        newIssues = fileDiff.new || [];
+      }
 
-    info(`Validator: Got "${existingIssues.length}" existing issues for "${filePath}"`);
-    info(`Validator: Got "${newIssues.length}" new issues for "${filePath}"`);
+      info(`Validator: ${run.name} got "${existingIssues.length}" existing issues for "${filePath}"`);
+      info(`Validator: ${run.name} got "${newIssues.length}" new issues for "${filePath}"`);
 
-    existingIssues.forEach((issue: BettererFileIssue) => {
-      diagnostics.push(createWarning(run.name, 'existing issue', issue, document));
-    });
-    newIssues.forEach((issue) => {
-      diagnostics.push(createError(run.name, 'new issue', issue, document));
+      existingIssues.forEach((issue: BettererFileIssue) => {
+        diagnostics.push(createWarning(run.name, 'existing issue', issue, document));
+      });
+      newIssues.forEach((issue) => {
+        diagnostics.push(createError(run.name, 'new issue', issue, document));
+      });
     });
 
     const { uri } = document;

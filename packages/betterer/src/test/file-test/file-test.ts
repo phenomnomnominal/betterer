@@ -1,34 +1,34 @@
-import { BettererRun } from '../../context';
+import { BettererRun, BettererRunΩ } from '../../context';
 import { createTestConfig } from '../config';
+import { BettererFileResolver, BettererFileResolverΩ, BettererFileGlobs, BettererFilePatterns } from '../../runner';
 import { BettererTestType } from '../type';
-import { BettererTestBase, BettererTestConfig, BettererTestFunction } from '../types';
+import { BettererTestConstraint, BettererTestFunction, BettererTestGoal } from '../types';
 import { constraint } from './constraint';
 import { differ } from './differ';
-import { BettererFileResolver } from './file-resolver';
 import { BettererFileTestResultΩ } from './file-test-result';
 import { goal } from './goal';
 import { printer } from './printer';
 import { progress } from './progress';
 import { deserialise, serialise } from './serialiser';
 import {
-  BettererFileGlobs,
-  BettererFileIssuesMapSerialised,
-  BettererFilePatterns,
-  BettererFilesDiff,
+  BettererFileTestBase,
+  BettererFileTestConfig,
   BettererFileTestFunction,
   BettererFileTestResult
 } from './types';
 
-export class BettererFileTest
-  implements BettererTestBase<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff> {
-  private _config: BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff>;
+export class BettererFileTest implements BettererFileTestBase {
+  private _config: BettererFileTestConfig;
   private _isOnly = false;
   private _isSkipped = false;
+  private _resolver: BettererFileResolverΩ;
 
-  constructor(private _resolver: BettererFileResolver, fileTest: BettererFileTestFunction) {
+  constructor(resolver: BettererFileResolver, fileTest: BettererFileTestFunction) {
+    const { cwd } = resolver;
+    this._resolver = new BettererFileResolverΩ(cwd);
     this._config = createTestConfig(
       {
-        test: createTest(_resolver, fileTest),
+        test: createTest(this._resolver, fileTest),
         constraint,
         goal,
         serialiser: { deserialise, serialise },
@@ -37,10 +37,10 @@ export class BettererFileTest
         progress
       },
       BettererTestType.File
-    ) as BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff>;
+    ) as BettererFileTestConfig;
   }
 
-  public get config(): BettererTestConfig<BettererFileTestResult, BettererFileIssuesMapSerialised, BettererFilesDiff> {
+  public get config(): BettererFileTestConfig {
     return this._config;
   }
 
@@ -52,13 +52,23 @@ export class BettererFileTest
     return this._isSkipped;
   }
 
+  public constraint(constraintOverride: BettererTestConstraint<BettererFileTestResult>): this {
+    this.config.constraint = constraintOverride;
+    return this;
+  }
+
   public exclude(...excludePatterns: BettererFilePatterns): this {
-    this._resolver.excludeΔ(...excludePatterns);
+    this._resolver.exclude(...excludePatterns);
+    return this;
+  }
+
+  public goal(goalOverride: BettererTestGoal<BettererFileTestResult>): this {
+    this.config.goal = goalOverride;
     return this;
   }
 
   public include(...includePatterns: BettererFileGlobs): this {
-    this._resolver.includeΔ(...includePatterns);
+    this._resolver.include(...includePatterns);
     return this;
   }
 
@@ -74,32 +84,39 @@ export class BettererFileTest
 }
 
 function createTest(
-  resolver: BettererFileResolver,
+  resolver: BettererFileResolverΩ,
   fileTest: BettererFileTestFunction
 ): BettererTestFunction<BettererFileTestResult> {
   return async (run: BettererRun): Promise<BettererFileTestResult> => {
-    const { filePaths } = run;
+    const { fileManager } = run as BettererRunΩ;
 
-    const relevantFilePaths = await resolver.files(filePaths);
-    const files = new BettererFileTestResultΩ(resolver);
-    await fileTest(relevantFilePaths, files);
+    // Get the set of files that are relevant for the test run
+    const requestedFilePaths = await fileManager.getRequested(resolver);
+    // Get the set of files that actually need to be tested (because of caching etc.)
+    const actualFilePaths = await fileManager.getActual(resolver);
 
-    if (filePaths.length && !run.isNew) {
+    const isPartialRun = requestedFilePaths.length !== 0;
+
+    const result = new BettererFileTestResultΩ(resolver);
+    await fileTest(actualFilePaths, result);
+
+    if (isPartialRun && !run.isNew) {
       const expectedΩ = run.expected.value as BettererFileTestResultΩ;
 
       // Get any filePaths that have expected issues but weren't included in this run:
       const excludedFilesWithIssues = expectedΩ.files
         .map((file) => file.absolutePath)
-        .filter((filePath) => !filePaths.includes(filePath));
+        .filter((filePath) => !actualFilePaths.includes(filePath));
 
       // Filter them based on the current resolver:
       const relevantExcludedFilePaths = await resolver.validate(excludedFilesWithIssues);
 
       // Add the existing issues to the new result:
       relevantExcludedFilePaths.forEach((filePath) => {
-        files.addExpected(expectedΩ.getFile(filePath));
+        result.addExpected(expectedΩ.getFile(filePath));
       });
     }
-    return files;
+
+    return result;
   };
 }

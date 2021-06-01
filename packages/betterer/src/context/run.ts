@@ -6,6 +6,7 @@ import { BettererResult } from '../results';
 import { BettererFilePaths } from '../runner';
 import { BettererDiff, BettererTestConfig } from '../test';
 import { Defer, defer } from '../utils';
+import { BettererFileManager } from '../runner/file-manager';
 import { BettererDelta, BettererRun, BettererRunStarted } from './types';
 
 enum BettererRunStatus {
@@ -38,7 +39,7 @@ export class BettererRunΩ implements BettererRun {
     private readonly _test: BettererTestConfig,
     private readonly _expected: BettererResult,
     private readonly _baseline: BettererResult,
-    private readonly _filePaths: BettererFilePaths,
+    private readonly _fileManager: BettererFileManager,
     isSkipped: boolean,
     isObsolete: boolean
   ) {
@@ -65,7 +66,11 @@ export class BettererRunΩ implements BettererRun {
   }
 
   public get filePaths(): BettererFilePaths {
-    return this._filePaths;
+    return this._fileManager.filePaths;
+  }
+
+  public get fileManager(): BettererFileManager {
+    return this._fileManager;
   }
 
   public get delta(): BettererDelta | null {
@@ -74,8 +79,8 @@ export class BettererRunΩ implements BettererRun {
 
   public get timestamp(): number {
     assert.notStrictEqual(this._status, BettererRunStatus.pending);
-    assert.notStrictEqual(this._timestamp, null);
-    return this._timestamp as number;
+    assert(this._timestamp !== null);
+    return this._timestamp;
   }
 
   public get isBetter(): boolean {
@@ -142,11 +147,9 @@ export class BettererRunΩ implements BettererRun {
     this._timestamp = startTime;
 
     const end = async () => {
-      if (this._test.progress) {
-        const baselineValue = this._baseline.isNew ? null : this._baseline.value;
-        const resultValue = !this._result ? null : this._result.value;
-        this._delta = await this._test.progress(baselineValue, resultValue);
-      }
+      const baselineValue = this._baseline.isNew ? null : this._baseline.value;
+      const resultValue = !this._result ? null : this._result.value;
+      this._delta = await this._test.progress(baselineValue, resultValue);
       this._lifecycle.resolve();
       await reportRunStart;
       await this._reporter.runEnd(this);

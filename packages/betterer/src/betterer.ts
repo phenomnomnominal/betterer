@@ -8,7 +8,7 @@ export async function betterer(options: BettererOptionsStart = {}): Promise<Bett
   initDebug();
   const [config, reporter] = await createConfig(options);
   const runner = new BettererRunnerΩ(config, reporter);
-  await runner.queue();
+  await runner.queue(config.filePaths);
   return runner.stop();
 }
 

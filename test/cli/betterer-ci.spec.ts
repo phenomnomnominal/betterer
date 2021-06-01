@@ -55,7 +55,7 @@ export default {
   });
 
   it('should work when a test gets worse', async () => {
-    const { paths, logs, cleanup, resolve, writeFile } = await createFixture('test-betterer-ci-diff', {
+    const { paths, logs, cleanup, resolve, writeFile } = await createFixture('test-betterer-ci-worse', {
       'src/index.ts': `
 const a = 'a';
 const one = 1;
