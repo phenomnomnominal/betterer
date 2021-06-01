@@ -27,6 +27,7 @@ export function initOptions(argv: BettererCLIArguments): BettererCLIInitConfig {
 }
 
 export function startOptions(argv: BettererCLIArguments): BettererCLIStartConfig {
+  cacheOption();
   configPathsOption();
   resultsPathOption();
   tsconfigPathOption();
@@ -42,6 +43,7 @@ export function startOptions(argv: BettererCLIArguments): BettererCLIStartConfig
 }
 
 export function watchOptions(argv: BettererCLIArguments): BettererCLIWatchConfig {
+  cacheOption();
   configPathsOption();
   resultsPathOption();
   tsconfigPathOption();
@@ -66,6 +68,11 @@ function setEnv<T extends BettererCLIEnvConfig>(argv: BettererCLIArguments): T &
     }
   }
   return parsed;
+}
+
+function cacheOption(): void {
+  commander.option('--cache', 'When present, Betterer will only run on changed files.');
+  commander.option('--cachePath [value]', 'Path to Betterer cache file relative to CWD');
 }
 
 function configPathOption(): void {

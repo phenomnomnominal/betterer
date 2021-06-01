@@ -1,6 +1,9 @@
 import { BettererSummary } from '../context';
 
+export type BettererFileGlobs = ReadonlyArray<string | ReadonlyArray<string>>;
 export type BettererFilePaths = ReadonlyArray<string>;
+export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
+
 export type BettererRunHandler = (summary: BettererSummary) => void;
 
 export type BettererRunner = {

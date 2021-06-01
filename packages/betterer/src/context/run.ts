@@ -6,6 +6,7 @@ import { BettererResult } from '../results';
 import { BettererFilePaths } from '../runner';
 import { BettererDiff, BettererTestConfig } from '../test';
 import { Defer, defer } from '../utils';
+import { BettererFileManager } from '../runner/file-manager';
 import { BettererDelta, BettererRun, BettererRunStarted } from './types';
 
 enum BettererRunStatus {
@@ -38,7 +39,7 @@ export class BettererRunΩ implements BettererRun {
     private readonly _test: BettererTestConfig,
     private readonly _expected: BettererResult,
     private readonly _baseline: BettererResult,
-    private readonly _filePaths: BettererFilePaths,
+    private readonly _fileManager: BettererFileManager,
     isSkipped: boolean,
     isObsolete: boolean
   ) {
@@ -65,7 +66,11 @@ export class BettererRunΩ implements BettererRun {
   }
 
   public get filePaths(): BettererFilePaths {
-    return this._filePaths;
+    return this._fileManager.filePaths;
+  }
+
+  public get fileManager(): BettererFileManager {
+    return this._fileManager;
   }
 
   public get delta(): BettererDelta | null {

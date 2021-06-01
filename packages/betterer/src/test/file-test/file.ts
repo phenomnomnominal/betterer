@@ -3,8 +3,8 @@ import LinesAndColumns from 'lines-and-columns';
 
 import { getConfig } from '../../config';
 import { createHash } from '../../hasher';
+import { BettererFileResolverΩ } from '../../runner';
 import { getRelativePath, isString } from '../../utils';
-import { BettererFileResolverΩ } from './file-resolver';
 import { BettererFileIssue, BettererFileIssues, BettererFile } from './types';
 
 const UNKNOWN_LOCATION = {

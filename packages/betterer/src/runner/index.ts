@@ -1,3 +1,5 @@
+export { BettererFileManager } from './file-manager';
+export { BettererFileResolver, BettererFileResolverΩ } from './file-resolver';
 export { BettererRunnerΩ } from './runner';
-export { BettererFilePaths, BettererRunner } from './types';
+export { BettererFileGlobs, BettererFilePaths, BettererFilePatterns, BettererRunner } from './types';
 export { BettererWatcherΩ } from './watcher';

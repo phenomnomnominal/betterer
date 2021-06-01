@@ -5,10 +5,25 @@ import { BettererCLIArguments } from './types';
 
 /** @internal Definitely not stable! Please don't use! */
 export function startΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSummary> {
-  const { config, exclude, filter, include, results, reporter, silent, strict, tsconfig, update } = startOptions(argv);
+  const {
+    cache,
+    cachePath,
+    config,
+    exclude,
+    filter,
+    include,
+    results,
+    reporter,
+    silent,
+    strict,
+    tsconfig,
+    update
+  } = startOptions(argv);
 
   // Mark options as unknown...
   const options: unknown = {
+    cache,
+    cachePath,
     configPaths: config,
     cwd,
     excludes: exclude,

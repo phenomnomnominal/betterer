@@ -4,6 +4,7 @@ import { BettererConfig } from '../config';
 import { BettererContextΩ, BettererContextStarted, BettererSummary } from '../context';
 import { BettererReporterΩ } from '../reporters';
 import { normalisedPath } from '../utils';
+import { BettererFileManager } from './file-manager';
 import { BettererFilePaths, BettererRunHandler, BettererRunner, BettererRunnerJobs } from './types';
 
 const DEBOUNCE_TIME = 200;
@@ -74,7 +75,11 @@ export class BettererRunnerΩ implements BettererRunner {
 
   private async _runTests(filePaths: BettererFilePaths): Promise<BettererSummary> {
     try {
-      return this._context.run(filePaths);
+      const fileManager = new BettererFileManager(this._context.config, filePaths);
+      await fileManager.readCache();
+      const summary = await this._context.run(fileManager);
+      await fileManager.writeCache();
+      return summary;
     } catch (error) {
       await this._started.error(error);
       throw error;

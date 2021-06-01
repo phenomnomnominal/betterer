@@ -19,9 +19,6 @@ export type BettererFileTestFunction = (
   fileTestResult: BettererFileTestResult
 ) => MaybeAsync<void>;
 
-export type BettererFileGlobs = ReadonlyArray<string | ReadonlyArray<string>>;
-export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
-
 export type BettererFileIssue = {
   readonly line: number;
   readonly column: number;

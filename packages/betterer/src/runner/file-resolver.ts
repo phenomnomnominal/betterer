@@ -2,15 +2,16 @@ import stack from 'callsite';
 import globby from 'globby';
 import * as path from 'path';
 
-import { BettererFilePaths } from '../../runner';
-import { flatten, normalisedPath } from '../../utils';
-import { BettererFileGlobs, BettererFilePatterns } from './types';
+import { flatten, normalisedPath } from '../utils';
+import { BettererFileGlobs, BettererFilePaths, BettererFilePatterns } from './types';
 
 export class BettererFileResolverΩ {
   private _excluded: Array<RegExp> = [];
   private _included: Array<string> = [];
 
-  constructor(private _cwd: string) {}
+  constructor(private _cwd: string) {
+    this._cwd = normalisedPath(this._cwd);
+  }
 
   public get cwd(): string {
     return this._cwd;
@@ -28,14 +29,12 @@ export class BettererFileResolverΩ {
     return normalisedPath(path.resolve(this._cwd, ...pathSegments));
   }
 
-  /** @internal Definitely not stable! Please don't use! */
-  public includeΔ(...includePatterns: BettererFileGlobs): this {
+  public include(...includePatterns: BettererFileGlobs): this {
     this._included = [...this._included, ...flatten(includePatterns).map((pattern) => this.resolve(pattern))];
     return this;
   }
 
-  /** @internal Definitely not stable! Please don't use! */
-  public excludeΔ(...excludePatterns: BettererFilePatterns): this {
+  public exclude(...excludePatterns: BettererFilePatterns): this {
     this._excluded = [...this._excluded, ...flatten(excludePatterns)];
     return this;
   }
@@ -104,13 +103,13 @@ export class BettererFileResolver {
 
   /** @internal Definitely not stable! Please don't use! */
   public includeΔ(...includePatterns: BettererFileGlobs): this {
-    this._resolver.includeΔ(...includePatterns);
+    this._resolver.include(...includePatterns);
     return this;
   }
 
   /** @internal Definitely not stable! Please don't use! */
   public excludeΔ(...excludePatterns: BettererFilePatterns): this {
-    this._resolver.excludeΔ(...excludePatterns);
+    this._resolver.exclude(...excludePatterns);
     return this;
   }
 

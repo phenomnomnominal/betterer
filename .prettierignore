@@ -27,6 +27,7 @@ website/.docusaurus
 *.patch
 CHANGELOG.md
 betterer.log
+.betterer.cache
 website/static/.nojekyll
 website/static/videos/start.mp4
 website/static/videos/watch.mp4

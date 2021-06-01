@@ -8,6 +8,8 @@ export type BettererConfigReporters = ReadonlyArray<BettererConfigReporter>;
 
 export type BettererConfig = {
   // Base:
+  cache: boolean;
+  cachePath: string;
   configPaths: BettererConfigPaths;
   cwd: string;
   filePaths: BettererConfigPaths;
@@ -33,6 +35,8 @@ export type BettererOptionsIncludes = Array<string> | string;
 export type BettererOptionsReporters = Array<string | BettererReporter>;
 
 export type BettererOptionsBase = Partial<{
+  cache: boolean;
+  cachePath: string;
   configPaths: BettererOptionsPaths;
   cwd: string;
   filters: BettererOptionsFilters;

@@ -14,6 +14,11 @@ export type BettererCLIBaseConfig = BettererCLIEnvConfig & {
   tsconfig: string;
 };
 
+export type BettererCLICacheConfig = {
+  cache: boolean;
+  cachePath: string;
+};
+
 export type BettererCLICIConfig = BettererCLIBaseConfig & {
   exclude: BettererCLIArguments;
   include: BettererCLIArguments;
@@ -23,16 +28,18 @@ export type BettererCLIInitConfig = BettererCLIEnvConfig & {
   config: string;
 };
 
-export type BettererCLIStartConfig = BettererCLIBaseConfig & {
-  exclude: BettererCLIArguments;
-  include: BettererCLIArguments;
-  strict: boolean;
-  update: boolean;
-};
+export type BettererCLIStartConfig = BettererCLIBaseConfig &
+  BettererCLICacheConfig & {
+    exclude: BettererCLIArguments;
+    include: BettererCLIArguments;
+    strict: boolean;
+    update: boolean;
+  };
 
-export type BettererCLIWatchConfig = BettererCLIBaseConfig & {
-  ignore: BettererCLIArguments;
-};
+export type BettererCLIWatchConfig = BettererCLIBaseConfig &
+  BettererCLICacheConfig & {
+    ignore: BettererCLIArguments;
+  };
 
 export type BettererPackageJSON = {
   version: string;
