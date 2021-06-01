@@ -55,8 +55,8 @@ export class BettererFileΩ implements BettererFile {
     const lc = new LinesAndColumns(fileText);
 
     const issue =
-      getIssueFromLineColLength(issueOverride) ||
       getIssueFromStartEnd(lc, issueOverride) ||
+      getIssueFromLineColLength(issueOverride) ||
       getIssueFromPositions(lc, issueOverride);
     assert(issue);
 
