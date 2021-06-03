@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.1](https://github.com/phenomnomnominal/betterer/compare/v4.3.0...v4.3.1) (2021-06-03)
+
+
+### Bug Fixes
+
+* **betterer 🐛:** handle issue types in the right order ([#716](https://github.com/phenomnomnominal/betterer/issues/716)) ([333c602](https://github.com/phenomnomnominal/betterer/commit/333c60219863678a2ec52538cfc6d46a96d3319d))
+
+
+### Performance Improvements
+
+* **betterer 🏎:** caching and perf improvements ([#715](https://github.com/phenomnomnominal/betterer/issues/715)) ([04e37de](https://github.com/phenomnomnominal/betterer/commit/04e37de3eb06eb53b830fc8f063f6f7a4e162a4b))
+
+
+
+
+
 # [4.3.0](https://github.com/phenomnomnominal/betterer/compare/v4.2.0...v4.3.0) (2021-06-01)
 
 
