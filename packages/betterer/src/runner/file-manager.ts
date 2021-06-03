@@ -3,6 +3,7 @@ import * as path from 'path';
 import { BettererConfig } from '../config';
 import { createHash } from '../hasher';
 import { read } from '../reader';
+import { normalisedPath } from '../utils';
 import { write } from '../writer';
 import { BettererFilePaths } from './types';
 
@@ -58,7 +59,7 @@ export class BettererFileManager {
         const hash = createHash(content);
 
         // Use `relativePath` for `_cacheMap` as it will be written to disk:
-        const relativePath = path.relative(path.dirname(this._cachePath), filePath);
+        const relativePath = normalisedPath(path.relative(path.dirname(this._cachePath), filePath));
 
         // If the file isn't cached, or it is cached but its contents have changed, add it to the list:
         if (!this._cacheMap[relativePath] || this._cacheMap[relativePath] !== hash) {
