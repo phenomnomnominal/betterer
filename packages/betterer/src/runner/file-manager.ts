@@ -1,8 +1,10 @@
+import * as path from 'path';
+
 import { BettererConfig } from '../config';
 import { createHash } from '../hasher';
 import { read } from '../reader';
+import { normalisedPath } from '../utils';
 import { write } from '../writer';
-import { BettererFileResolverΩ } from './file-resolver';
 import { BettererFilePaths } from './types';
 
 type BettererCache = Record<string, string>;
@@ -41,33 +43,33 @@ export class BettererFileManager {
     await write(JSON.stringify(this._cacheMap, null, '  '), this._cachePath);
   }
 
-  public async getRequested(resolver: BettererFileResolverΩ): Promise<BettererFilePaths> {
-    return await resolver.files(this.filePaths);
-  }
-
-  public async getActual(resolver: BettererFileResolverΩ): Promise<BettererFilePaths> {
-    const requestedFilePaths = await this.getRequested(resolver);
-
+  public async checkCache(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
     if (!this._cache) {
-      return requestedFilePaths;
+      return filePaths;
     }
 
-    const actualFilePaths: Array<string> = [];
+    const notCached: Array<string> = [];
     await Promise.all(
-      requestedFilePaths.map(async (filePath) => {
+      filePaths.map(async (filePath) => {
         const content = await read(filePath);
         if (content == null) {
           return;
         }
+
         const hash = createHash(content);
-        const relativePath = filePath.replace(resolver.cwd, '');
+
+        // Use `relativePath` for `_cacheMap` as it will be written to disk:
+        const relativePath = normalisedPath(path.relative(path.dirname(this._cachePath), filePath));
+
+        // If the file isn't cached, or it is cached but its contents have changed, add it to the list:
         if (!this._cacheMap[relativePath] || this._cacheMap[relativePath] !== hash) {
-          actualFilePaths.push(filePath);
+          notCached.push(filePath);
         }
+
         this._cacheMap[relativePath] = hash;
       })
     );
 
-    return actualFilePaths;
+    return notCached;
   }
 }

@@ -2,10 +2,22 @@ import { promises as fs } from 'fs';
 
 import { normaliseNewlines } from './utils';
 
-export async function read(resultsPath: string): Promise<string | null> {
+const READ_CACHE: Record<string, string> = {};
+const READ_CACHE_TIME: Record<string, number> = {};
+
+export async function read(filePath: string): Promise<string | null> {
   try {
-    const file = await fs.readFile(resultsPath, 'utf-8');
-    return normaliseNewlines(file);
+    const stat = await fs.stat(filePath);
+    const modifiedTime = stat.mtime.getTime();
+    if (READ_CACHE_TIME[filePath] === modifiedTime) {
+      return READ_CACHE[filePath];
+    }
+
+    const contents = await fs.readFile(filePath, 'utf-8');
+    const normalisedContents = normaliseNewlines(contents);
+    READ_CACHE[filePath] = normalisedContents;
+    READ_CACHE_TIME[filePath] = modifiedTime;
+    return normalisedContents;
   } catch {
     return null;
   }

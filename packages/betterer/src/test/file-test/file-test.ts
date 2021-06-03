@@ -88,34 +88,34 @@ function createTest(
   fileTest: BettererFileTestFunction
 ): BettererTestFunction<BettererFileTestResult> {
   return async (run: BettererRun): Promise<BettererFileTestResult> => {
-    const { fileManager } = run as BettererRunΩ;
+    const runΩ = run as BettererRunΩ;
+    const { fileManager } = runΩ;
 
-    // Get the set of files that are relevant for the test run
-    const requestedFilePaths = await fileManager.getRequested(resolver);
-    // Get the set of files that actually need to be tested (because of caching etc.)
-    const actualFilePaths = await fileManager.getActual(resolver);
-
-    const isPartialRun = requestedFilePaths.length !== 0;
+    const specifiedFiles = run.filePaths;
+    const validatedFiles = await resolver.files(specifiedFiles);
+    const changedFiles = await fileManager.checkCache(validatedFiles);
+    const cacheHit = validatedFiles.length !== changedFiles.length;
+    const isPartial = specifiedFiles.length > 0 || cacheHit;
 
     const result = new BettererFileTestResultΩ(resolver);
-    await fileTest(actualFilePaths, result);
+    await fileTest(changedFiles, result);
 
-    if (isPartialRun && !run.isNew) {
-      const expectedΩ = run.expected.value as BettererFileTestResultΩ;
-
-      // Get any filePaths that have expected issues but weren't included in this run:
-      const excludedFilesWithIssues = expectedΩ.files
-        .map((file) => file.absolutePath)
-        .filter((filePath) => !actualFilePaths.includes(filePath));
-
-      // Filter them based on the current resolver:
-      const relevantExcludedFilePaths = await resolver.validate(excludedFilesWithIssues);
-
-      // Add the existing issues to the new result:
-      relevantExcludedFilePaths.forEach((filePath) => {
-        result.addExpected(expectedΩ.getFile(filePath));
-      });
+    if (!isPartial || runΩ.isNew) {
+      return result;
     }
+
+    const expectedΩ = runΩ.expected.value as BettererFileTestResultΩ;
+
+    // Get any filePaths that have expected issues but weren't included in this run:
+    const excludedFilesWithIssues = expectedΩ.files
+      .map((file) => file.absolutePath)
+      .filter((filePath) => !changedFiles.includes(filePath));
+
+    // Filter them based on the current resolver:
+    const relevantExcludedFilePaths = await resolver.validate(excludedFilesWithIssues);
+
+    // Add the existing issues to the new result:
+    relevantExcludedFilePaths.forEach((filePath) => result.addExpected(expectedΩ.getFile(filePath)));
 
     return result;
   };

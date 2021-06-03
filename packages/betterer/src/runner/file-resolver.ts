@@ -1,5 +1,7 @@
 import stack from 'callsite';
+import memoize from 'fast-memoize';
 import globby from 'globby';
+import minimatch from 'minimatch';
 import * as path from 'path';
 
 import { flatten, normalisedPath } from '../utils';
@@ -9,8 +11,12 @@ export class BettererFileResolverΩ {
   private _excluded: Array<RegExp> = [];
   private _included: Array<string> = [];
 
+  private _isGitIgnored: ReturnType<typeof globby.gitignore.sync>;
+  private _resolvedFilePaths: BettererFilePaths | null = null;
+
   constructor(private _cwd: string) {
     this._cwd = normalisedPath(this._cwd);
+    this._isGitIgnored = memoize(globby.gitignore.sync({ cwd: this._cwd }));
   }
 
   public get cwd(): string {
@@ -18,11 +24,11 @@ export class BettererFileResolverΩ {
   }
 
   public async validate(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
-    if (this._included.length === 0) {
-      return this._filterExcludedFiles(filePaths);
-    }
-    const validPaths = await this._getValidPaths();
-    return filePaths.filter((filePath) => validPaths.includes(filePath));
+    return Promise.resolve(
+      filePaths.filter((filePath) => {
+        return this._isIncluded(filePath) && !this._isExcluded(filePath);
+      })
+    );
   }
 
   public resolve(...pathSegments: Array<string>): string {
@@ -40,36 +46,41 @@ export class BettererFileResolverΩ {
   }
 
   public async files(filePaths: BettererFilePaths = []): Promise<BettererFilePaths> {
-    if (!filePaths.length) {
-      return this._getValidPaths();
+    if (filePaths.length) {
+      return this.validate(filePaths);
     }
-    return this.validate(filePaths);
+    return this._getValidFilePaths();
   }
 
-  private async _getValidPaths(): Promise<BettererFilePaths> {
-    const resolved = await this._resolveIncludeGlobs();
-    return this._filterExcludedFiles(resolved);
+  private async _getValidFilePaths(): Promise<BettererFilePaths> {
+    const filePaths = await this._resolveIncludeGlobs();
+    return filePaths.filter((filePath) => !this._isExcluded(filePath));
   }
 
-  private _filterExcludedFiles(filePaths: BettererFilePaths): BettererFilePaths {
-    const isGitIgnored = globby.gitignore.sync({ cwd: this.cwd });
-    return filePaths.filter((filePath) => {
-      return !this._excluded.some((exclude: RegExp) => exclude.test(filePath)) && !isGitIgnored(filePath);
-    });
+  private _isIncluded(filePath: string): boolean {
+    return !this._included.length || this._included.some((pattern) => minimatch(filePath, pattern));
+  }
+
+  private _isExcluded(filePath: string): boolean {
+    return this._excluded.some((exclude: RegExp) => exclude.test(filePath)) || this._isGitIgnored(filePath);
   }
 
   private async _resolveIncludeGlobs(): Promise<BettererFilePaths> {
-    const resolvedPaths: Array<string> = [];
+    if (this._resolvedFilePaths) {
+      return this._resolvedFilePaths;
+    }
+    const resolvedFilePaths: Array<string> = [];
     await Promise.all(
       this._included.map(async (currentGlob) => {
         const globFiles = await globby(currentGlob, {
           cwd: this.cwd,
           gitignore: true
         });
-        resolvedPaths.push(...globFiles);
+        resolvedFilePaths.push(...globFiles);
       })
     );
-    return resolvedPaths;
+    this._resolvedFilePaths = resolvedFilePaths;
+    return this._resolvedFilePaths;
   }
 }
 
