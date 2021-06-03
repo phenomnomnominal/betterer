@@ -2,7 +2,7 @@
 
 exports[`betterer should write a cache file 1`] = `
 "{
-  \\"/src/index.ts\\": \\"4126639614\\"
+  \\"src/index.ts\\": \\"4126639614\\"
 }"
 `;
 

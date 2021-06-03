@@ -36,7 +36,7 @@
     "callsite": "^1.0.0",
     "chokidar": "^3.3.1",
     "djb2a": "^1.2.0",
-    "gitignore-globs": "^0.1.1",
+    "fast-memoize": "^2.5.2",
     "globby": "^11.0.1",
     "lines-and-columns": "^1.1.6",
     "minimatch": "^3.0.4",
