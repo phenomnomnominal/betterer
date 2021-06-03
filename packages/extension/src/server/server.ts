@@ -28,11 +28,6 @@ function init(): void {
   const documents = new TextDocuments(TextDocument);
   const validator = new BettererValidator(connection, documents);
 
-  function clearDiagnostics(event: TextDocumentChangeEvent<TextDocument>): void {
-    info(`Server: Clearing diagnostics for "${event.document.uri}".`);
-    connection.sendDiagnostics({ uri: event.document.uri, diagnostics: [] });
-  }
-
   function queueValidate(event: TextDocumentChangeEvent<TextDocument>): void {
     info(`Server: Queueing validation for "${event.document.uri}".`);
     validationQueue.addNotificationMessage(event);
@@ -41,7 +36,6 @@ function init(): void {
   connection.onInitialize(() => {
     documents.listen(connection);
     documents.onDidOpen(queueValidate);
-    documents.onDidChangeContent(clearDiagnostics);
     documents.onDidSave(queueValidate);
     documents.onDidClose(clearDiagnostics);
 

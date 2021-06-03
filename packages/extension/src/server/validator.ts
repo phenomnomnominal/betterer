@@ -63,8 +63,7 @@ export class BettererValidator {
         return;
       }
 
-      info(`Validator: About to run Betterer, clearing diagnostics for "${uri}".`);
-      this._connection.sendDiagnostics({ uri, diagnostics: [] });
+      info(`Validator: About to run Betterer.`);
 
       const loading = load(this._connection);
       let status = BettererStatus.ok;
@@ -108,7 +107,9 @@ export class BettererValidator {
       return;
     }
 
+    const { uri } = document;
     const diagnostics: Array<Diagnostic> = [];
+    this._connection.sendDiagnostics({ uri, diagnostics });
 
     summary.runs.forEach((run) => {
       if (run.isFailed) {
@@ -154,7 +155,6 @@ export class BettererValidator {
       });
     });
 
-    const { uri } = document;
     this._connection.sendDiagnostics({ uri, diagnostics });
   }
 }
