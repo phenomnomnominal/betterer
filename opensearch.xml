@@ -4,8 +4,8 @@
   <ShortName>Betterer</ShortName>
   <Description>Search Betterer</Description>
   <InputEncoding>UTF-8</InputEncoding>
-  <Image width="16" height="16" type="image/x-icon">https://phenomnomnominal.github.io/img/favicon.png</Image>
-  <Url type="text/html" method="get" template="https://phenomnomnominal.github.io/search?q={searchTerms}"/>
-  <Url type="application/opensearchdescription+xml" rel="self" template="https://phenomnomnominal.github.io/opensearch.xml" />
-  <moz:SearchForm>https://phenomnomnominal.github.io</moz:SearchForm>
+  <Image width="16" height="16" type="image/x-icon">https://phenomnomnominal.github.io/betterer/img/favicon.png</Image>
+  <Url type="text/html" method="get" template="https://phenomnomnominal.github.io/betterer/search?q={searchTerms}"/>
+  <Url type="application/opensearchdescription+xml" rel="self" template="https://phenomnomnominal.github.io/betterer/opensearch.xml" />
+  <moz:SearchForm>https://phenomnomnominal.github.io/betterer/</moz:SearchForm>
 </OpenSearchDescription>
