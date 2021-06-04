@@ -12,7 +12,7 @@
   },
   "scripts": {
     "api": "yarn compile && lerna run api",
-    "betterer": "node ./packages/cli/./bin/betterer",
+    "betterer": "node ./packages/cli/./bin/betterer --cache",
     "betterer:ci": "node ./packages/cli/./bin/betterer-ci",
     "build": "yarn compile && yarn format && yarn lint && yarn test && yarn test:api && yarn betterer",
     "build:ci": "yarn compile && yarn format && yarn lint && yarn test && yarn test:api && yarn betterer:ci",

@@ -1,4 +1,3 @@
-export { BettererFileManager } from './file-manager';
 export { BettererFileResolver, BettererFileResolverΩ } from './file-resolver';
 export { BettererRunnerΩ } from './runner';
 export { BettererFileGlobs, BettererFilePaths, BettererFilePatterns, BettererRunner } from './types';
