@@ -3,7 +3,7 @@ import LinesAndColumns from 'lines-and-columns';
 
 import { getConfig } from '../../config';
 import { createHash } from '../../hasher';
-import { getRelativePath, isString } from '../../utils';
+import { getRelativePath, isString, normalisedPath } from '../../utils';
 import { BettererFileIssue, BettererFileIssues, BettererFile } from './types';
 
 const UNKNOWN_LOCATION = {
@@ -24,6 +24,7 @@ export class BettererFileΩ implements BettererFile {
   private _resultsPath: string;
 
   constructor(public readonly absolutePath: string, public readonly fileText: string) {
+    this.absolutePath = normalisedPath(absolutePath);
     this.hash = createHash(this.fileText);
     this._resultsPath = getConfig().resultsPath;
     const relativePath = getRelativePath(this._resultsPath, absolutePath);
