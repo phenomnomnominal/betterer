@@ -13,8 +13,11 @@ export function regexp(pattern: RegExp): BettererFileTest {
     await Promise.all(
       filePaths.map(async (filePath) => {
         const fileText = await fs.readFile(filePath, 'utf8');
-        const file = fileTestResult.addFile(filePath, fileText);
         const matches = getFileMatches(pattern, fileText);
+        if (matches.length === 0) {
+          return;
+        }
+        const file = fileTestResult.addFile(filePath, fileText);
         matches.forEach((match) => {
           const [matchText] = match;
           const start = match.index;

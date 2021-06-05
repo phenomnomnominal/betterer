@@ -301,7 +301,7 @@ export declare type BettererTestConfig<DeserialisedType = unknown, SerialisedTyp
 
 export declare type BettererTestConstraint<DeserialisedType> = (result: DeserialisedType, expected: DeserialisedType) => MaybeAsync<BettererConstraintResult>;
 
-export declare type BettererTestFunction<DeserialisedType> = (run: BettererRun) => MaybeAsync<DeserialisedType>;
+export declare type BettererTestFunction<DeserialisedType> = (run: BettererRun, context: BettererContext) => MaybeAsync<DeserialisedType>;
 
 export declare type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
 

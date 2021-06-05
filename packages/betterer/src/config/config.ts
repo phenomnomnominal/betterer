@@ -82,7 +82,7 @@ async function processOptions(options: unknown = {}): Promise<BettererConfig> {
   globalConfig = {
     ...relativeConfig,
     cachePath: path.resolve(relativeConfig.cwd, relativeConfig.cachePath),
-    filePaths: await resolver.files([]),
+    filePaths: await resolver.files(),
     configPaths: relativeConfig.configPaths.map((configPath) => path.resolve(relativeConfig.cwd, configPath)),
     resultsPath: path.resolve(relativeConfig.cwd, relativeConfig.resultsPath),
     tsconfigPath: relativeConfig.tsconfigPath ? path.resolve(relativeConfig.cwd, relativeConfig.tsconfigPath) : null

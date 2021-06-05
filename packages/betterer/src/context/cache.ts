@@ -3,37 +3,21 @@ import * as path from 'path';
 import { BettererConfig } from '../config';
 import { createHash } from '../hasher';
 import { read } from '../reader';
+import { BettererFilePaths } from '../runner';
 import { normalisedPath } from '../utils';
 import { write } from '../writer';
-import { BettererFilePaths } from './types';
 
-type BettererCache = Record<string, string>;
+type BettererCacheMap = Record<string, string>;
 
-export class BettererFileManager {
+export class BettererCache {
   private _cache: boolean;
   private _cachePath: string;
-  private _cacheMap: BettererCache = {};
+  private _cacheMap: BettererCacheMap = {};
+  private _reading: Promise<string | null> | null = null;
 
-  constructor(config: BettererConfig, private readonly _filePaths: BettererFilePaths) {
+  constructor(config: BettererConfig) {
     this._cache = config.cache;
     this._cachePath = config.cachePath;
-  }
-
-  public get filePaths(): BettererFilePaths {
-    return this._filePaths;
-  }
-
-  public async readCache(): Promise<void> {
-    if (!this._cache) {
-      return;
-    }
-
-    const cache = await read(this._cachePath);
-    if (!cache) {
-      return;
-    }
-
-    this._cacheMap = JSON.parse(cache) as BettererCache;
   }
 
   public async writeCache(): Promise<void> {
@@ -47,6 +31,8 @@ export class BettererFileManager {
     if (!this._cache) {
       return filePaths;
     }
+
+    await this._readCache();
 
     const notCached: Array<string> = [];
     await Promise.all(
@@ -71,5 +57,20 @@ export class BettererFileManager {
     );
 
     return notCached;
+  }
+
+  private async _readCache(): Promise<void> {
+    if (!this._cache) {
+      return;
+    }
+    if (!this._reading) {
+      this._reading = read(this._cachePath);
+    }
+    const cache = await this._reading;
+    if (!cache) {
+      return;
+    }
+
+    this._cacheMap = JSON.parse(cache) as BettererCacheMap;
   }
 }

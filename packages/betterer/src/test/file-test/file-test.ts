@@ -1,4 +1,4 @@
-import { BettererRun, BettererRunΩ } from '../../context';
+import { BettererContext, BettererContextΩ, BettererRun, BettererRunΩ } from '../../context';
 import { createTestConfig } from '../config';
 import { BettererFileResolver, BettererFileResolverΩ, BettererFileGlobs, BettererFilePatterns } from '../../runner';
 import { BettererTestType } from '../type';
@@ -87,15 +87,15 @@ function createTest(
   resolver: BettererFileResolverΩ,
   fileTest: BettererFileTestFunction
 ): BettererTestFunction<BettererFileTestResult> {
-  return async (run: BettererRun): Promise<BettererFileTestResult> => {
+  return async (run: BettererRun, context: BettererContext): Promise<BettererFileTestResult> => {
     const runΩ = run as BettererRunΩ;
-    const { fileManager } = runΩ;
+    const contextΩ = context as BettererContextΩ;
 
-    const specifiedFiles = run.filePaths;
-    const validatedFiles = await resolver.files(specifiedFiles);
-    const changedFiles = await fileManager.checkCache(validatedFiles);
+    const hasSpecifiedFiles = runΩ.filePaths?.length > 0;
+    const validatedFiles = hasSpecifiedFiles ? await resolver.validate(runΩ.filePaths) : await resolver.files();
+    const changedFiles = await contextΩ.checkCache(validatedFiles);
     const cacheHit = validatedFiles.length !== changedFiles.length;
-    const isPartial = specifiedFiles.length > 0 || cacheHit;
+    const isPartial = hasSpecifiedFiles || cacheHit;
 
     const result = new BettererFileTestResultΩ(resolver);
     await fileTest(changedFiles, result);

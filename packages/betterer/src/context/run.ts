@@ -6,7 +6,6 @@ import { BettererResult } from '../results';
 import { BettererFilePaths } from '../runner';
 import { BettererDiff, BettererTestConfig } from '../test';
 import { Defer, defer } from '../utils';
-import { BettererFileManager } from '../runner/file-manager';
 import { BettererDelta, BettererRun, BettererRunStarted } from './types';
 
 enum BettererRunStatus {
@@ -35,11 +34,11 @@ export class BettererRunΩ implements BettererRun {
 
   constructor(
     private readonly _reporter: BettererReporterΩ,
-    private readonly _name: string,
+    public readonly name: string,
     private readonly _test: BettererTestConfig,
-    private readonly _expected: BettererResult,
+    public expected: BettererResult,
     private readonly _baseline: BettererResult,
-    private readonly _fileManager: BettererFileManager,
+    public readonly filePaths: BettererFilePaths,
     isSkipped: boolean,
     isObsolete: boolean
   ) {
@@ -55,22 +54,6 @@ export class BettererRunΩ implements BettererRun {
 
   public get lifecycle(): Promise<void> {
     return this._lifecycle.promise;
-  }
-
-  public get name(): string {
-    return this._name;
-  }
-
-  public get expected(): BettererResult {
-    return this._expected;
-  }
-
-  public get filePaths(): BettererFilePaths {
-    return this._fileManager.filePaths;
-  }
-
-  public get fileManager(): BettererFileManager {
-    return this._fileManager;
   }
 
   public get delta(): BettererDelta | null {
@@ -100,7 +83,7 @@ export class BettererRunΩ implements BettererRun {
   }
 
   public get isNew(): boolean {
-    return this._expected.isNew;
+    return this.expected.isNew;
   }
 
   public get isObsolete(): boolean {
@@ -143,6 +126,8 @@ export class BettererRunΩ implements BettererRun {
   public start(): BettererRunStarted {
     const startTime = Date.now();
     this._isExpired = startTime >= this._test.deadline;
+    // Don't await here! A custom reporter could be awaiting
+    // the lifecycle promise which is unresolved right now!
     const reportRunStart = this._reporter.runStart(this, this._lifecycle.promise);
     this._timestamp = startTime;
 

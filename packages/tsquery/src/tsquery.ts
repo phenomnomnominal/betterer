@@ -24,8 +24,12 @@ export function tsquery(configFilePath: string, query: string): BettererFileTest
       projectFiles.map(async (filePath) => {
         const fileText = await fs.readFile(filePath, 'utf8');
         const sourceFile = tsq.ast(fileText);
+        const matches = tsq.query(sourceFile, query, { visitAllChildren: true });
+        if (matches.length === 0) {
+          return;
+        }
         const file = fileTestResult.addFile(filePath, fileText);
-        tsq.query(sourceFile, query, { visitAllChildren: true }).forEach((match) => {
+        matches.forEach((match) => {
           file.addIssue(match.getStart(), match.getEnd(), 'TSQuery match');
         });
       })
