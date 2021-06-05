@@ -57,7 +57,6 @@ export class BettererFileResolverΩ {
         this._included.map(async (pattern) => {
           const filePaths = await globby(pattern, { cwd: this.cwd });
           filePaths.forEach((filePath) => {
-            this._validatedFilePaths.push(filePath);
             this._validatedFilePathsMap[filePath] = true;
           });
         })
@@ -81,7 +80,7 @@ export class BettererFileResolverΩ {
   }
 
   private _update(): void {
-    this._validatedFilePaths = this._validatedFilePaths.filter((filePath) => {
+    this._validatedFilePaths = Object.keys(this._validatedFilePathsMap).filter((filePath) => {
       const included = !this._isExcluded(filePath);
       this._validatedFilePathsMap[filePath] = included;
       return included;
