@@ -91,11 +91,11 @@ function createTest(
     const runΩ = run as BettererRunΩ;
     const contextΩ = context as BettererContextΩ;
 
-    const specifiedFiles = runΩ.filePaths;
-    const validatedFiles = await resolver.files(specifiedFiles);
+    const hasSpecifiedFiles = runΩ.filePaths?.length > 0;
+    const validatedFiles = hasSpecifiedFiles ? await resolver.validate(runΩ.filePaths) : await resolver.files();
     const changedFiles = await contextΩ.checkCache(validatedFiles);
     const cacheHit = validatedFiles.length !== changedFiles.length;
-    const isPartial = specifiedFiles.length > 0 || cacheHit;
+    const isPartial = hasSpecifiedFiles || cacheHit;
 
     const result = new BettererFileTestResultΩ(resolver);
     await fileTest(changedFiles, result);

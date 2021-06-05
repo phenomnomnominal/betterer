@@ -3,7 +3,6 @@ import LinesAndColumns from 'lines-and-columns';
 
 import { getConfig } from '../../config';
 import { createHash } from '../../hasher';
-import { BettererFileResolverΩ } from '../../runner';
 import { getRelativePath, isString } from '../../utils';
 import { BettererFileIssue, BettererFileIssues, BettererFile } from './types';
 
@@ -18,25 +17,17 @@ type BettererIssuePositions = [number, number, number, number, string, string?];
 type BettererIssueOverride = BettererIssueStartEnd | BettererIssueLineColLength | BettererIssuePositions;
 
 export class BettererFileΩ implements BettererFile {
-  public readonly absolutePath: string;
+  public readonly hash: string;
   public readonly key: string;
 
   private _issues: BettererFileIssues = [];
+  private _resultsPath: string;
 
-  constructor(
-    absolutePath: string,
-    public readonly hash: string,
-    private _resolver: BettererFileResolverΩ,
-    private _fileText: string
-  ) {
-    this.absolutePath = this._resolver.resolve(absolutePath);
-    const { resultsPath } = getConfig();
-    const relativePath = getRelativePath(resultsPath, absolutePath);
+  constructor(public readonly absolutePath: string, public readonly fileText: string) {
+    this.hash = createHash(this.fileText);
+    this._resultsPath = getConfig().resultsPath;
+    const relativePath = getRelativePath(this._resultsPath, absolutePath);
     this.key = `${relativePath}:${this.hash}`;
-  }
-
-  public get fileText(): string {
-    return this._fileText;
   }
 
   public get issues(): BettererFileIssues {
@@ -48,7 +39,7 @@ export class BettererFileΩ implements BettererFile {
   }
 
   public addIssue(...issueOverride: BettererIssueOverride): void {
-    this.addIssues([this._handleIssue(issueOverride, this._fileText)]);
+    this.addIssues([this._handleIssue(issueOverride, this.fileText)]);
   }
 
   private _handleIssue(issueOverride: BettererIssueOverride, fileText: string): BettererFileIssue {
@@ -67,7 +58,7 @@ export class BettererFileΩ implements BettererFile {
   }
 
   private _forceRelativePaths(message: string): string {
-    return message.replace(new RegExp(this._resolver.cwd, 'g'), '.');
+    return message.replace(new RegExp(this._resultsPath, 'g'), '.');
   }
 }
 
