@@ -1,7 +1,7 @@
 {
   "name": "@betterer/stylelint",
   "description": "Stylelint test for @betterer/betterer",
-  "version": "4.3.1",
+  "version": "4.3.2",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -28,7 +28,7 @@
     "node": ">=12"
   },
   "dependencies": {
-    "@betterer/betterer": "^4.3.1",
+    "@betterer/betterer": "^4.3.2",
     "@betterer/errors": "^4.0.0",
     "tslib": "^2.0.3"
   },
