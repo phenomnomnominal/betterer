@@ -9,7 +9,6 @@ export async function betterer(options: BettererOptionsStart = {}): Promise<Bett
   const [config, reporter] = await createConfig(options);
   const runner = new BettererRunnerΩ(config, reporter);
   return runner.run(config.filePaths);
-  return runner.stop();
 }
 
 export async function runner(options: BettererOptionsRunner = {}): Promise<BettererRunner> {
