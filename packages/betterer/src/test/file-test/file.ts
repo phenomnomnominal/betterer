@@ -24,7 +24,7 @@ export class BettererFileΩ implements BettererFile {
   constructor(public readonly absolutePath: string, public readonly fileText: string) {
     this.absolutePath = normalisedPath(absolutePath);
     this.hash = createHash(this.fileText);
-    this.key = `${absolutePath}:${this.hash}`;
+    this.key = `${this.absolutePath}:${this.hash}`;
   }
 
   public get issues(): BettererFileIssues {
