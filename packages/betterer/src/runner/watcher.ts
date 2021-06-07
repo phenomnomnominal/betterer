@@ -1,39 +1,35 @@
 import { FSWatcher, watch } from 'chokidar';
-import globby from 'globby';
 import minimatch from 'minimatch';
 import * as path from 'path';
 
+import { BettererConfig } from '../config';
 import { BettererSummary } from '../context';
+import { BettererFilePaths, BettererVersionControl } from '../fs';
 import { BettererReporterΩ } from '../reporters';
 import { normalisedPath } from '../utils';
-import { BettererRunHandler } from './types';
-import { BettererConfig } from '../config';
 import { BettererRunnerΩ } from './runner';
-import { BettererFilePaths, BettererRunner } from './types';
+import { BettererRunner, BettererRunHandler } from './types';
 
 const EMIT_EVENTS = ['add', 'change'];
-const GIT_DIRECTORY = '.git/**';
 
 export class BettererWatcherΩ implements BettererRunner {
   private readonly _runner: BettererRunner;
   private _watcher: FSWatcher;
 
-  constructor(config: BettererConfig, reporter: BettererReporterΩ) {
-    this._runner = new BettererRunnerΩ(config, reporter);
+  constructor(config: BettererConfig, reporter: BettererReporterΩ, versionControl: BettererVersionControl) {
+    this._runner = new BettererRunnerΩ(config, reporter, versionControl);
     const { cwd, resultsPath } = config;
 
     this._watcher = watch(cwd, {
       ignoreInitial: true,
       ignored: (itemPath: string) => {
-        const isGitIgnored = globby.gitignore.sync();
         // read `ignores` here so that it can be updated by watch mode:
         const { ignores } = config;
-        const watchIgnores = [...ignores, GIT_DIRECTORY].map((ignore) => path.join(cwd, ignore));
+        const watchIgnores = [...ignores].map((ignore) => path.join(cwd, ignore));
         return (
           itemPath !== normalisedPath(cwd) &&
           (itemPath === normalisedPath(resultsPath) ||
-            watchIgnores.some((ignore) => minimatch(itemPath, ignore, { matchBase: true })) ||
-            isGitIgnored(itemPath))
+            watchIgnores.some((ignore) => minimatch(itemPath, ignore, { matchBase: true })))
         );
       }
     });

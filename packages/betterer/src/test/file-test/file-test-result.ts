@@ -1,6 +1,6 @@
 import assert from 'assert';
 
-import { BettererFilePaths, BettererFileResolverΩ } from '../../runner';
+import { BettererFilePaths, BettererFileResolverΩ } from '../../fs';
 import { BettererFileΩ } from './file';
 import { BettererFileTestResult, BettererFileIssues, BettererFile, BettererFileBase } from './types';
 

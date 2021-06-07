@@ -113,7 +113,7 @@ module.exports = {
     const [run] = summary.runs;
 
     expect(run.isComplete).toEqual(true);
-    expect(run.filePaths).toEqual([normalisedPath(testPath)]);
+    expect(run.filePaths).toHaveLength(0);
 
     await cleanup();
   });
@@ -171,7 +171,7 @@ module.exports = {
     const [run] = summary.runs;
 
     expect(run.isComplete).toEqual(true);
-    expect(run.filePaths).toEqual([normalisedPath(testPath)]);
+    expect(run.filePaths).toHaveLength(0);
 
     await cleanup();
   });

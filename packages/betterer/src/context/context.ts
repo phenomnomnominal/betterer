@@ -3,10 +3,10 @@ import { BettererConstraintResult } from '@betterer/constraints';
 import assert from 'assert';
 
 import { BettererConfig } from '../config';
+import { BettererFilePaths, BettererVersionControl } from '../fs';
 import { BettererReporterΩ } from '../reporters';
 import { requireUncached } from '../require';
 import { BettererResultsΩ, BettererResultΩ } from '../results';
-import { BettererFilePaths } from '../runner';
 import { defer, Defer } from '../utils';
 import {
   BettererTest,
@@ -16,20 +16,23 @@ import {
   isBettererFileTestΔ,
   isBettererTest
 } from '../test';
-import { BettererCache } from './cache';
 import { BettererRunsΩ, BettererRunΩ } from './run';
 import { BettererSummaryΩ } from './summary';
 import { BettererContext, BettererContextStarted, BettererRunNames, BettererSummaries, BettererSummary } from './types';
+
 export class BettererContextΩ implements BettererContext {
   public readonly results = new BettererResultsΩ(this.config.resultsPath);
 
-  private _cache = new BettererCache(this.config);
   private _lifecycle: Defer<BettererSummaries>;
   private _running: Promise<void> | null = null;
   private _summaries: BettererSummaries = [];
   private _tests: BettererTestMap = {};
 
-  constructor(public readonly config: BettererConfig, private _reporter: BettererReporterΩ) {
+  constructor(
+    public readonly config: BettererConfig,
+    private _reporter: BettererReporterΩ,
+    private _versionControl: BettererVersionControl
+  ) {
     this._lifecycle = defer();
   }
 
@@ -46,11 +49,11 @@ export class BettererContextΩ implements BettererContext {
         assert(this._summaries);
         this._lifecycle.resolve(this._summaries);
         await reportContextStart;
-        await this._cache.writeCache();
         await this._reporter.contextEnd(this, this._summaries);
         if (write) {
           const last = this._summaries[this._summaries.length - 1];
           await this.results.write(last.result);
+          await this._versionControl.writeCache();
         }
       },
       error: async (error: BettererError): Promise<void> => {
@@ -65,6 +68,8 @@ export class BettererContextΩ implements BettererContext {
     if (this._running) {
       await this._running;
     }
+    await this._versionControl.sync();
+    filePaths = filePaths.filter((filePath) => !this._versionControl.isIgnored(filePath));
 
     this._tests = this._initTests();
     this._initFilters();
@@ -113,7 +118,7 @@ export class BettererContextΩ implements BettererContext {
   }
 
   public checkCache(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
-    return this._cache.checkCache(filePaths);
+    return this._versionControl.checkCache(filePaths);
   }
 
   private _initTests(): BettererTestMap {

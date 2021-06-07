@@ -1,9 +1,8 @@
 import assert from 'assert';
 
 import { BettererRuns } from '../context';
-import { read } from '../reader';
+import { forceRelativePaths, read, write } from '../fs';
 import { BettererTestConfig } from '../test';
-import { forceRelativePaths, write } from '../writer';
 import { parse } from './parser';
 import { print } from './printer';
 import { BettererResultΩ } from './result';

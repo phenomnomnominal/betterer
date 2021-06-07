@@ -1,8 +1,8 @@
 import { BettererError } from '@betterer/errors';
 
 import { BettererConfig } from '../config';
+import { BettererFilePaths } from '../fs';
 import { BettererResult } from '../results';
-import { BettererFilePaths } from '../runner';
 import { BettererDiff, BettererTestConfig } from '../test';
 
 export type BettererRuns = ReadonlyArray<BettererRun>;

@@ -1,8 +1,2 @@
-export { BettererFileResolver } from './file-resolver';
-export {
-  BettererFileGlobs,
-  BettererFilePaths,
-  BettererFilePatterns,
-  BettererRunner,
-  BettererRunHandler
-} from './types';
+export { BettererFileResolver } from '../fs/file-resolver';
+export { BettererRunner, BettererRunHandler } from './types';
