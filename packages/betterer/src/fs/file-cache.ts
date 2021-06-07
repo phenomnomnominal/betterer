@@ -1,3 +1,5 @@
+import assert from 'assert';
+import path from 'path';
 import { read } from './reader';
 import { BettererFilePaths, BettererFileCacheMap, BettererFileCache, BettererVersionControl } from './types';
 import { forceRelativePaths, write } from './writer';
@@ -68,6 +70,15 @@ export class BettererFileCacheΩ implements BettererFileCache {
       return;
     }
 
-    this._cacheMap = JSON.parse(cache) as BettererFileCacheMap;
+    const relativeCacheMap = JSON.parse(cache) as BettererFileCacheMap;
+
+    // Transform relative paths back into absolute paths:
+    const absoluteCacheMap: BettererFileCacheMap = {};
+    assert(this._cachePath);
+    Object.keys(relativeCacheMap).forEach((relativePath) => {
+      const absolutePath = path.join(path.dirname(this._cachePath as string), relativePath);
+      absoluteCacheMap[absolutePath] = relativeCacheMap[relativePath];
+    });
+    this._cacheMap = absoluteCacheMap;
   }
 }
