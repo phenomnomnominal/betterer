@@ -14,6 +14,10 @@ export function eslint(rules: ESLintRulesConfig): BettererFileTest {
 
   const resolver = new BettererFileResolver();
   return new BettererFileTest(resolver, async (filePaths, fileTestResult) => {
+    if (!filePaths.length) {
+      return;
+    }
+
     const { cwd } = resolver;
     const cli = new ESLint({ cwd });
 

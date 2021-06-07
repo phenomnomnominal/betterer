@@ -9,6 +9,10 @@ export function regexp(pattern: RegExp): BettererFileTest {
 
   const resolver = new BettererFileResolver();
   return new BettererFileTest(resolver, async (filePaths, fileTestResult) => {
+    if (!filePaths.length) {
+      return;
+    }
+
     pattern = new RegExp(pattern.source, pattern.flags.includes('g') ? pattern.flags : `${pattern.flags}g`);
     await Promise.all(
       filePaths.map(async (filePath) => {
