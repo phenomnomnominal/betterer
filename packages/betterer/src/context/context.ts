@@ -103,7 +103,7 @@ export class BettererContextΩ implements BettererContext {
     }
     const result = await this.results.print(runs);
     const expected = await this.results.read();
-    const summary = new BettererSummaryΩ(runs, result, expected);
+    const summary = new BettererSummaryΩ(runs, result, expected, this.config.ci);
     this._summaries.push(summary);
     runsLifecycle.resolve(summary);
     await reportRunsStart;

@@ -47,7 +47,7 @@ export declare type BettererDelta = {
     readonly result: number;
 };
 
-export declare type BettererDeserialise<DeserialisedType, SerialisedType> = (serialised: SerialisedType) => DeserialisedType;
+export declare type BettererDeserialise<DeserialisedType, SerialisedType> = (serialised: SerialisedType, resultsPath: string) => DeserialisedType;
 
 export declare type BettererDiff<DeserialisedType = unknown, DiffType = null> = {
     expected: DeserialisedType;
@@ -249,7 +249,7 @@ export declare type BettererRunner = {
 
 export declare type BettererRuns = ReadonlyArray<BettererRun>;
 
-export declare type BettererSerialise<DeserialisedType, SerialisedType> = (result: DeserialisedType) => SerialisedType;
+export declare type BettererSerialise<DeserialisedType, SerialisedType> = (result: DeserialisedType, resultsPath: string) => SerialisedType;
 
 export declare type BettererSerialiser<DeserialisedType, SerialisedType = DeserialisedType> = {
     serialise: BettererSerialise<DeserialisedType, SerialisedType>;

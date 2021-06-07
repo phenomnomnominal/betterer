@@ -1,9 +1,8 @@
-import { getConfig } from '../../config';
 import { getAbsolutePath } from '../../utils';
 import { BettererFileTestResultΩ } from './file-test-result';
 import { BettererFileTestResult, BettererFileIssues, BettererFileIssuesMapSerialised, BettererFileBase } from './types';
 
-export function deserialise(serialised: BettererFileIssuesMapSerialised): BettererFileTestResult {
+export function deserialise(serialised: BettererFileIssuesMapSerialised, resultsPath: string): BettererFileTestResult {
   const deserialised = new BettererFileTestResultΩ();
   Object.keys(serialised).map((key) => {
     const [relativePath, fileHash] = key.split(':');
@@ -11,7 +10,6 @@ export function deserialise(serialised: BettererFileIssuesMapSerialised): Better
       const [line, column, length, message, hash] = issue;
       return { line, column, length, message, hash };
     });
-    const { resultsPath } = getConfig();
     const absolutePath = getAbsolutePath(resultsPath, relativePath);
     deserialised.addExpected({ absolutePath, key, hash: fileHash, issues });
   });

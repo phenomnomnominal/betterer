@@ -1,11 +1,9 @@
-import * as path from 'path';
-
 import { BettererConfig } from '../config';
 import { createHash } from '../hasher';
 import { read } from '../reader';
 import { BettererFilePaths } from '../runner';
 import { normalisedPath } from '../utils';
-import { write } from '../writer';
+import { forceRelativePaths, write } from '../writer';
 
 type BettererCacheMap = Record<string, string>;
 
@@ -24,7 +22,8 @@ export class BettererCache {
     if (!this._cache) {
       return;
     }
-    await write(JSON.stringify(this._cacheMap, null, '  '), this._cachePath);
+    const cacheString = forceRelativePaths(JSON.stringify(this._cacheMap, null, '  '), this._cachePath);
+    await write(cacheString, this._cachePath);
   }
 
   public async checkCache(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
@@ -44,15 +43,13 @@ export class BettererCache {
 
         const hash = createHash(content);
 
-        // Use `relativePath` for `_cacheMap` as it will be written to disk:
-        const relativePath = normalisedPath(path.relative(path.dirname(this._cachePath), filePath));
-
+        const cachePath = normalisedPath(filePath);
         // If the file isn't cached, or it is cached but its contents have changed, add it to the list:
-        if (!this._cacheMap[relativePath] || this._cacheMap[relativePath] !== hash) {
+        if (!this._cacheMap[cachePath] || this._cacheMap[cachePath] !== hash) {
           notCached.push(filePath);
         }
 
-        this._cacheMap[relativePath] = hash;
+        this._cacheMap[cachePath] = hash;
       })
     );
 
