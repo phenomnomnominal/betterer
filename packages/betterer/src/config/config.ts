@@ -16,8 +16,6 @@ import {
   BettererOptionsWatch
 } from './types';
 
-let globalConfig: BettererConfig | null = null;
-
 export async function createConfig(options: unknown = {}): Promise<[BettererConfig, BettererReporterΩ]> {
   let reporter = loadReporters([DEFAULT_REPORTER]);
   try {
@@ -79,7 +77,7 @@ async function processOptions(options: unknown = {}): Promise<BettererConfig> {
   resolver.include(...toArray<string>(includes));
   resolver.exclude(...toRegExps(toArray<string | RegExp>(excludes)));
 
-  globalConfig = {
+  const config = {
     ...relativeConfig,
     cachePath: path.resolve(relativeConfig.cwd, relativeConfig.cachePath),
     filePaths: await resolver.files(),
@@ -88,16 +86,11 @@ async function processOptions(options: unknown = {}): Promise<BettererConfig> {
     tsconfigPath: relativeConfig.tsconfigPath ? path.resolve(relativeConfig.cwd, relativeConfig.tsconfigPath) : null
   };
 
-  if (globalConfig.tsconfigPath) {
-    await validateFilePath('tsconfigPath', globalConfig);
+  if (config.tsconfigPath) {
+    await validateFilePath('tsconfigPath', config);
   }
 
-  return globalConfig;
-}
-
-export function getConfig(): BettererConfig {
-  assert(globalConfig);
-  return globalConfig;
+  return config;
 }
 
 function validateConfig(config: BettererConfig): void {

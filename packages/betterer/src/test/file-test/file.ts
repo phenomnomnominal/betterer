@@ -1,9 +1,8 @@
 import assert from 'assert';
 import LinesAndColumns from 'lines-and-columns';
 
-import { getConfig } from '../../config';
 import { createHash } from '../../hasher';
-import { getRelativePath, isString, normalisedPath } from '../../utils';
+import { isString, normalisedPath } from '../../utils';
 import { BettererFileIssue, BettererFileIssues, BettererFile } from './types';
 
 const UNKNOWN_LOCATION = {
@@ -21,14 +20,11 @@ export class BettererFileΩ implements BettererFile {
   public readonly key: string;
 
   private _issues: BettererFileIssues = [];
-  private _resultsPath: string;
 
   constructor(public readonly absolutePath: string, public readonly fileText: string) {
     this.absolutePath = normalisedPath(absolutePath);
     this.hash = createHash(this.fileText);
-    this._resultsPath = getConfig().resultsPath;
-    const relativePath = getRelativePath(this._resultsPath, absolutePath);
-    this.key = `${relativePath}:${this.hash}`;
+    this.key = `${this.absolutePath}:${this.hash}`;
   }
 
   public get issues(): BettererFileIssues {
@@ -55,11 +51,7 @@ export class BettererFileΩ implements BettererFile {
     const [line, column, length, message, overrideHash] = issue;
     const start = lc.indexForLocation({ line, column }) || 0;
     const hash = overrideHash || createHash(fileText.substr(start, length));
-    return { line, column, length, message: this._forceRelativePaths(message), hash };
-  }
-
-  private _forceRelativePaths(message: string): string {
-    return message.replace(new RegExp(this._resultsPath, 'g'), '.');
+    return { line, column, length, message, hash };
   }
 }
 

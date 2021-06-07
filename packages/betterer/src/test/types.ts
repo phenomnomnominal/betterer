@@ -36,9 +36,15 @@ export type BettererProgress<DeserialisedType> = (
   result: DeserialisedType | null
 ) => MaybeAsync<BettererDelta | null>;
 
-export type BettererSerialise<DeserialisedType, SerialisedType> = (result: DeserialisedType) => SerialisedType;
+export type BettererSerialise<DeserialisedType, SerialisedType> = (
+  result: DeserialisedType,
+  resultsPath: string
+) => SerialisedType;
 
-export type BettererDeserialise<DeserialisedType, SerialisedType> = (serialised: SerialisedType) => DeserialisedType;
+export type BettererDeserialise<DeserialisedType, SerialisedType> = (
+  serialised: SerialisedType,
+  resultsPath: string
+) => DeserialisedType;
 
 export type BettererSerialiser<DeserialisedType, SerialisedType = DeserialisedType> = {
   serialise: BettererSerialise<DeserialisedType, SerialisedType>;
