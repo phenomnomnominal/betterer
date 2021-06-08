@@ -49,7 +49,7 @@ export class BettererRunnerΩ implements BettererRunner {
     try {
       assert(this._running);
       const summary = await this._running;
-      await this._started.end(true);
+      await this._started.end();
       return summary;
     } catch (e) {
       if (force) {

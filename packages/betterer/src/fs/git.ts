@@ -68,6 +68,9 @@ export class BettererGit implements BettererVersionControl {
   }
 
   private _toLines(output: string): Array<string> {
+    if (output.length === 0) {
+      return [];
+    }
     return output.trimEnd().split('\n');
   }
 
@@ -88,7 +91,7 @@ export class BettererGit implements BettererVersionControl {
       untrackedFilePaths.map(async (relativePath) => {
         const absolutePath = path.join(this._rootDir, relativePath);
         const hash = await this._getUntrackedHash(absolutePath);
-        if (!hash) {
+        if (hash == null) {
           return;
         }
         this._fileMap[absolutePath] = hash;

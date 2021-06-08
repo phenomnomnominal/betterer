@@ -45,14 +45,14 @@ export class BettererContextΩ implements BettererContext {
     // the lifecycle promise which is unresolved right now!
     const reportContextStart = this._reporter.contextStart(this, this.lifecycle);
     return {
-      end: async (write: boolean): Promise<void> => {
+      end: async (): Promise<void> => {
         assert(this._summaries);
         this._lifecycle.resolve(this._summaries);
         await reportContextStart;
         await this._reporter.contextEnd(this, this._summaries);
-        if (write) {
-          const last = this._summaries[this._summaries.length - 1];
-          await this.results.write(last.result);
+        const summaryΩ = this._summaries[this._summaries.length - 1] as BettererSummaryΩ;
+        if (summaryΩ.shouldWrite) {
+          await this.results.write(summaryΩ.result);
           await this._versionControl.writeCache();
         }
       },

@@ -14,7 +14,7 @@ export type BettererContext = {
 };
 
 export type BettererContextStarted = {
-  end(write: boolean): Promise<void>;
+  end(): Promise<void>;
   error(error: BettererError): Promise<void>;
 };
 

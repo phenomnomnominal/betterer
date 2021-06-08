@@ -35,6 +35,7 @@ export class BettererFileResolverΩ {
         return !this._versionControl.isIgnored(filePath) && !this._isExcluded(filePath);
       });
     }
+    this._update();
     return filePaths.filter((filePath) => this._validatedFilePathsMap[filePath]);
   }
 
@@ -45,25 +46,25 @@ export class BettererFileResolverΩ {
   public include(...includePatterns: BettererFileGlobs): this {
     const patterns = flatten(includePatterns).map((pattern) => this.resolve(pattern));
     this._included = [...this._included, ...patterns];
-    this._versionControl.filePaths.forEach((filePath) => {
-      this._validatedFilePathsMap[filePath] = this._isIncluded(filePath);
-    });
-    this._update();
     return this;
   }
 
   public exclude(...excludePatterns: BettererFilePatterns): this {
     const patterns = flatten(excludePatterns);
     this._excluded = [...this._excluded, ...patterns];
-    this._update();
     return this;
   }
 
   public files(): BettererFilePaths {
+    this._update();
     return this._validatedFilePaths;
   }
 
   private _update(): void {
+    this._validatedFilePathsMap = {};
+    this._versionControl.filePaths.forEach((filePath) => {
+      this._validatedFilePathsMap[filePath] = this._isIncluded(filePath);
+    });
     this._validatedFilePaths = Object.keys(this._validatedFilePathsMap).filter((filePath) => {
       const included = this._validatedFilePathsMap[filePath] && !this._isExcluded(filePath);
       this._validatedFilePathsMap[filePath] = included;

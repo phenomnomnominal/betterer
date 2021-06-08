@@ -3,6 +3,7 @@ import { BettererRuns, BettererSummary } from './types';
 
 export class BettererSummaryΩ implements BettererSummary {
   public readonly unexpectedDiff: boolean;
+  public readonly shouldWrite: boolean;
 
   constructor(
     public readonly runs: BettererRunsΩ,
@@ -12,6 +13,8 @@ export class BettererSummaryΩ implements BettererSummary {
   ) {
     const hasDiff = !!this.expected && this.expected !== this.result;
     this.unexpectedDiff = hasDiff && ci;
+    const expectedDiff = hasDiff && !ci;
+    this.shouldWrite = !this.expected || expectedDiff;
   }
 
   public get completed(): BettererRuns {
