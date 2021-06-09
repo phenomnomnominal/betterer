@@ -11,9 +11,8 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { info, initConsole } from './console';
 import { createErrorHandler } from './error-handler';
-import { BettererValidateNotification, BettererValidationQueue } from './notifications';
+import { BettererValidationQueue } from './notifications';
 import { initTrace } from './trace';
-import { BettererValidator } from './validator';
 
 function init(): void {
   const connection = createConnection();
@@ -24,9 +23,8 @@ function init(): void {
 
   info(`Server: Betterer server running in node ${process.version}`);
 
-  const validationQueue = new BettererValidationQueue();
   const documents = new TextDocuments(TextDocument);
-  const validator = new BettererValidator(connection, documents);
+  const validationQueue = new BettererValidationQueue(connection, documents);
 
   function clearDiagnostics(event: TextDocumentChangeEvent<TextDocument>): void {
     info(`Server: Clearing diagnostics for "${event.document.uri}".`);
@@ -34,7 +32,6 @@ function init(): void {
   }
 
   function queueValidate(event: TextDocumentChangeEvent<TextDocument>): void {
-    info(`Server: Queueing validation for "${event.document.uri}".`);
     validationQueue.addNotificationMessage(event);
   }
 
@@ -66,15 +63,6 @@ function init(): void {
     void connection.client.register(DidChangeConfigurationNotification.type);
     void connection.client.register(DidChangeWorkspaceFoldersNotification.type);
   });
-
-  validationQueue.onNotification(
-    BettererValidateNotification,
-    (document) => {
-      info(`Server: Validating document "${document.uri}".`);
-      void validator.validate(document);
-    },
-    (document) => document.version
-  );
 
   connection.listen();
 

@@ -15,20 +15,15 @@ import { BettererStatus } from '../status';
 import { isString } from '../utils';
 import { getRunner, hasBetterer } from './betterer';
 import { getBettererConfig, getDebug, getEnabled } from './config';
-import { info } from './console';
+import { error, info } from './console';
 import { BettererInvalidConfigRequest, BettererNoLibraryRequest, isNoConfigError } from './requests';
 import { BettererStatusNotification } from './status';
 
 export class BettererValidator {
   constructor(private _connection: Connection, private _documents: TextDocuments<TextDocument>) {}
 
-  public async validate(document: TextDocument): Promise<void> {
-    const { uri } = document;
+  public async validate(documents: Array<TextDocument>): Promise<void> {
     const { workspace } = this._connection;
-
-    if (!this._documents.get(uri)) {
-      return;
-    }
 
     await getDebug(workspace);
 
@@ -37,31 +32,45 @@ export class BettererValidator {
       return;
     }
 
-    folders.map(async (folder) => {
-      const enabled = await getEnabled(workspace);
-      if (!enabled) {
-        info(`Validator: Betterer disabled, clearing diagnostics for "${uri}".`);
-        this._connection.sendDiagnostics({ uri, diagnostics: [] });
-        return;
-      }
+    const enabled = await getEnabled(workspace);
 
-      const cwd = getFilePath(folder.uri);
+    folders.map(async (folder) => {
+      const { uri } = folder;
+      const cwd = getFilePath(uri);
       if (!cwd) {
         return;
       }
 
-      const filePath = getFilePath(document);
-      if (!filePath) {
-        return;
-      }
-
-      info(`Validator: Getting Betterer for "${filePath}".`);
+      info(`Validator: Getting Betterer for "${cwd}".`);
       try {
         await hasBetterer(cwd);
       } catch {
+        error(`Validator: Betterer isn't installed`);
         void this._connection.sendRequest(BettererNoLibraryRequest, { source: { uri } });
         return;
       }
+
+      const filePaths = documents
+        .map((document) => {
+          if (!this._documents.get(document.uri)) {
+            return;
+          }
+
+          const filePath = getFilePath(document);
+          if (!filePath) {
+            return;
+          }
+
+          const { uri } = document;
+          if (!enabled) {
+            info(`Validator: Betterer disabled, clearing diagnostics for "${uri}".`);
+            this._connection.sendDiagnostics({ uri, diagnostics: [] });
+            return;
+          }
+
+          return filePath;
+        })
+        .filter(Boolean) as Array<string>;
 
       info(`Validator: About to run Betterer.`);
 
@@ -77,14 +86,19 @@ export class BettererValidator {
         info(`Validator: Getting Betterer config.`);
         const config = await getBettererConfig(cwd, workspace);
 
-        info(`Validator: Running Betterer for "${filePath}".`);
+        info(`Validator: Running Betterer in "${cwd}".`);
+        filePaths.forEach((filePath) => {
+          info(`Validator: Running Betterer on "${filePath}."`);
+        });
         const runner = await getRunner(cwd, config);
-        await runner.queue(filePath, (summary) => {
-          this.report(document, summary);
+        await runner.queue(filePaths, (summary) => {
+          debugger;
+          this.report(documents, summary);
         });
       } catch (e) {
+        error(`Validator: ${e as string}`);
         if (isNoConfigError(e)) {
-          void this._connection.sendRequest(BettererInvalidConfigRequest, { source: { uri: document.uri } });
+          void this._connection.sendRequest(BettererInvalidConfigRequest, { source: { uri } });
           status = BettererStatus.warn;
         } else {
           status = BettererStatus.error;
@@ -101,61 +115,63 @@ export class BettererValidator {
     });
   }
 
-  public report(document: TextDocument, summary: BettererSummary): void {
-    const filePath = getFilePath(document);
-    if (!filePath) {
-      return;
-    }
-
-    const { uri } = document;
-    const diagnostics: Array<Diagnostic> = [];
-    this._connection.sendDiagnostics({ uri, diagnostics });
-
-    summary.runs.forEach((run) => {
-      if (run.isFailed) {
+  public report(documents: Array<TextDocument>, summary: BettererSummary): void {
+    documents.forEach((document) => {
+      const filePath = getFilePath(document);
+      if (!filePath) {
         return;
       }
 
-      const result = run.result.value as BettererFileTestResult;
-      if (!result) {
-        return;
-      }
+      const { uri } = document;
+      const diagnostics: Array<Diagnostic> = [];
+      this._connection.sendDiagnostics({ uri, diagnostics });
 
-      let issues: BettererFileIssues;
-      try {
-        issues = result.getIssues(filePath);
-      } catch {
-        return;
-      }
+      summary.runs.forEach((run) => {
+        if (run.isFailed) {
+          return;
+        }
 
-      info(`Validator: Got issues from Betterer for "${run.name}"`);
+        const result = run.result.value as BettererFileTestResult;
+        if (!result) {
+          return;
+        }
 
-      let existingIssues: BettererFileIssues = [];
-      let newIssues: BettererFileIssues = [];
+        let issues: BettererFileIssues;
+        try {
+          issues = result.getIssues(filePath);
+        } catch {
+          return;
+        }
 
-      if (run.isNew) {
-        newIssues = issues;
-      } else if (run.isSkipped || run.isSame) {
-        existingIssues = issues;
-      } else {
-        const fileDiff = ((run.diff as unknown) as BettererFileTestDiff).diff[filePath];
-        info(`Validator: ${run.name} got diff from Betterer for "${filePath}"`);
-        existingIssues = fileDiff.existing || [];
-        newIssues = fileDiff.new || [];
-      }
+        info(`Validator: Got issues from Betterer for "${run.name}"`);
 
-      info(`Validator: ${run.name} got "${existingIssues.length}" existing issues for "${filePath}"`);
-      info(`Validator: ${run.name} got "${newIssues.length}" new issues for "${filePath}"`);
+        let existingIssues: BettererFileIssues = [];
+        let newIssues: BettererFileIssues = [];
 
-      existingIssues.forEach((issue: BettererFileIssue) => {
-        diagnostics.push(createWarning(run.name, 'existing issue', issue, document));
+        if (run.isNew) {
+          newIssues = issues;
+        } else if (run.isSkipped || run.isSame) {
+          existingIssues = issues;
+        } else {
+          const fileDiff = ((run.diff as unknown) as BettererFileTestDiff).diff[filePath];
+          info(`Validator: ${run.name} got diff from Betterer for "${filePath}"`);
+          existingIssues = fileDiff.existing || [];
+          newIssues = fileDiff.new || [];
+        }
+
+        info(`Validator: ${run.name} got "${existingIssues.length}" existing issues for "${filePath}"`);
+        info(`Validator: ${run.name} got "${newIssues.length}" new issues for "${filePath}"`);
+
+        existingIssues.forEach((issue: BettererFileIssue) => {
+          diagnostics.push(createWarning(run.name, 'existing issue', issue, document));
+        });
+        newIssues.forEach((issue) => {
+          diagnostics.push(createError(run.name, 'new issue', issue, document));
+        });
       });
-      newIssues.forEach((issue) => {
-        diagnostics.push(createError(run.name, 'new issue', issue, document));
-      });
+
+      this._connection.sendDiagnostics({ uri, diagnostics });
     });
-
-    this._connection.sendDiagnostics({ uri, diagnostics });
   }
 }
 

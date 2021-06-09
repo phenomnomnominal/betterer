@@ -1,1 +1,1 @@
-export { BettererValidateNotification, BettererValidationQueue } from './validate';
+export { BettererValidationQueue } from './validate';

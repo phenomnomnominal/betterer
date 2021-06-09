@@ -9,3 +9,7 @@ export function initConsole(console: RemoteConsole): void {
 export function info(messages: string): void {
   consoleInstance.info(messages);
 }
+
+export function error(messages: string): void {
+  consoleInstance.error(messages);
+}

@@ -23,9 +23,9 @@ describe('Betterer VSCode Extension', () => {
       const bettererConfig = await readFile('.betterer.ts');
       expect(bettererConfig).not.toBe(null);
 
+      await deleteDirectory(resolve('./.vscode'));
       await deleteFile(resolve('./package.json'));
       await deleteFile(resolve('./.betterer.ts'));
-      await deleteDirectory(resolve('./.vscode'));
     }
 
     {

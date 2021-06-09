@@ -4,6 +4,7 @@ import path from 'path';
 import { RemoteWorkspace } from 'vscode-languageserver/node';
 
 type BettererExtensionConfig = {
+  cachePath: string;
   configPath: string;
   enable: boolean;
   filters: Array<string>;

@@ -4,9 +4,10 @@ import assert from 'assert';
 import { vscode } from './vscode';
 
 export async function createFixture(fixtureName: string, files: FixtureFileSystemFiles): Promise<Fixture> {
-  const { rootPath } = vscode.workspace;
-  assert.ok(rootPath);
-  const create = await createFixtureDirectoryΔ(rootPath);
+  const { workspaceFolders } = vscode.workspace;
+  const [root] = workspaceFolders || [];
+  assert.ok(root);
+  const create = await createFixtureDirectoryΔ(root.uri.fsPath);
 
   const fixture = await create(fixtureName, files);
 
