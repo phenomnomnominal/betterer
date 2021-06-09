@@ -50,11 +50,6 @@ export class BettererContextΩ implements BettererContext {
         this._lifecycle.resolve(this._summaries);
         await reportContextStart;
         await this._reporter.contextEnd(this, this._summaries);
-        const summaryΩ = this._summaries[this._summaries.length - 1] as BettererSummaryΩ;
-        if (summaryΩ.shouldWrite) {
-          await this.results.write(summaryΩ.result);
-          await this._versionControl.writeCache();
-        }
       },
       error: async (error: BettererError): Promise<void> => {
         this._lifecycle.reject(error);
@@ -113,6 +108,11 @@ export class BettererContextΩ implements BettererContext {
     runsLifecycle.resolve(summary);
     await reportRunsStart;
     await this._reporter.runsEnd(summary, filePaths);
+
+    if (summary.shouldWrite) {
+      await this.results.write(summary.result);
+      await this._versionControl.writeCache();
+    }
 
     return summary;
   }

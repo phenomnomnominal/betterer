@@ -92,7 +92,6 @@ export class BettererValidator {
         });
         const runner = await getRunner(cwd, config);
         await runner.queue(filePaths, (summary) => {
-          debugger;
           this.report(documents, summary);
         });
       } catch (e) {
