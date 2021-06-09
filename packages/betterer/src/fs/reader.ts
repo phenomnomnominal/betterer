@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 
-import { normaliseNewlines } from './utils';
+import { normaliseNewlines } from '../utils';
 
 const READ_CACHE: Record<string, string> = {};
 const READ_CACHE_TIME: Record<string, number> = {};

@@ -2,7 +2,7 @@ import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
 import { requireText } from '../require';
-import { read } from '../reader';
+import { read } from '../fs';
 import { BettererExpectedResults } from './types';
 
 const MERGE_CONFLICT_ANCESTOR = '|||||||';

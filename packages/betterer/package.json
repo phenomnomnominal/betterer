@@ -37,9 +37,11 @@
     "chokidar": "^3.3.1",
     "djb2a": "^1.2.0",
     "fast-memoize": "^2.5.2",
-    "globby": "^11.0.1",
+    "find-git-root": "^1.0.4",
     "lines-and-columns": "^1.1.6",
+    "minimatch": "^3.0.4",
     "prettier": "^2.2.1",
+    "simple-git": "^2.39.0",
     "ts-node": "^9.0.0",
     "tslib": "^2.0.3"
   },

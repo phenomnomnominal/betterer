@@ -1,9 +1,9 @@
 import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
+import { BettererFilePaths } from '../fs';
 import { BettererReporterΩ } from '../reporters';
 import { BettererResult } from '../results';
-import { BettererFilePaths } from '../runner';
 import { BettererDiff, BettererTestConfig } from '../test';
 import { Defer, defer } from '../utils';
 import { BettererDelta, BettererRun, BettererRunStarted } from './types';
@@ -38,7 +38,7 @@ export class BettererRunΩ implements BettererRun {
     private readonly _test: BettererTestConfig,
     public expected: BettererResult,
     private readonly _baseline: BettererResult,
-    public readonly filePaths: BettererFilePaths,
+    public filePaths: BettererFilePaths,
     isSkipped: boolean,
     isObsolete: boolean
   ) {

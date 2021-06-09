@@ -30,16 +30,10 @@ export {
   BettererSummary,
   BettererSummaries
 } from './context/public';
+export { BettererFileGlobs, BettererFilePaths, BettererFilePatterns, BettererFileResolver } from './fs/public';
 export { BettererResult } from './results/public';
 export { BettererReporter } from './reporters/public';
-export {
-  BettererFileGlobs,
-  BettererFilePaths,
-  BettererFilePatterns,
-  BettererFileResolver,
-  BettererRunner,
-  BettererRunHandler
-} from './runner/public';
+export { BettererRunner, BettererRunHandler } from './runner/public';
 export {
   BettererDeserialise,
   BettererDiff,

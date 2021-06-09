@@ -1,4 +1,4 @@
-import { BettererFilePaths } from '../../runner';
+import { BettererFilePaths } from '../../fs';
 import { BettererDiff } from '../../test';
 import { MaybeAsync } from '../../types';
 import { BettererTestBase, BettererTestConfig } from '../types';

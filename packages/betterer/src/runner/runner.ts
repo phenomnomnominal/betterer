@@ -2,9 +2,10 @@ import assert from 'assert';
 
 import { BettererConfig } from '../config';
 import { BettererContextΩ, BettererContextStarted, BettererSummary } from '../context';
+import { BettererFilePaths, BettererVersionControl } from '../fs';
 import { BettererReporterΩ } from '../reporters';
 import { normalisedPath } from '../utils';
-import { BettererFilePaths, BettererRunHandler, BettererRunner, BettererRunnerJobs } from './types';
+import { BettererRunHandler, BettererRunner, BettererRunnerJobs } from './types';
 
 const DEBOUNCE_TIME = 200;
 
@@ -14,8 +15,8 @@ export class BettererRunnerΩ implements BettererRunner {
   private _jobs: BettererRunnerJobs = [];
   private _running: Promise<BettererSummary> | null = null;
 
-  constructor(config: BettererConfig, reporter: BettererReporterΩ) {
-    this._context = new BettererContextΩ(config, reporter);
+  constructor(config: BettererConfig, reporter: BettererReporterΩ, versionControl: BettererVersionControl) {
+    this._context = new BettererContextΩ(config, reporter, versionControl);
     this._started = this._context.start();
   }
 
@@ -48,7 +49,7 @@ export class BettererRunnerΩ implements BettererRunner {
     try {
       assert(this._running);
       const summary = await this._running;
-      await this._started.end(true);
+      await this._started.end();
       return summary;
     } catch (e) {
       if (force) {

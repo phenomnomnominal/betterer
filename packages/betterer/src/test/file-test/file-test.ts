@@ -1,6 +1,6 @@
 import { BettererContext, BettererContextΩ, BettererRun, BettererRunΩ } from '../../context';
+import { BettererFileResolver, BettererFileResolverΩ, BettererFileGlobs, BettererFilePatterns } from '../../fs';
 import { createTestConfig } from '../config';
-import { BettererFileResolver, BettererFileResolverΩ, BettererFileGlobs, BettererFilePatterns } from '../../runner';
 import { BettererTestType } from '../type';
 import { BettererTestConstraint, BettererTestFunction, BettererTestGoal } from '../types';
 import { constraint } from './constraint';
@@ -92,9 +92,9 @@ function createTest(
     const contextΩ = context as BettererContextΩ;
 
     const hasSpecifiedFiles = runΩ.filePaths?.length > 0;
-    const validatedFiles = hasSpecifiedFiles ? await resolver.validate(runΩ.filePaths) : await resolver.files();
-    const changedFiles = await contextΩ.checkCache(validatedFiles);
-    const cacheHit = validatedFiles.length !== changedFiles.length;
+    runΩ.filePaths = hasSpecifiedFiles ? resolver.validate(runΩ.filePaths) : resolver.files();
+    const changedFiles = await contextΩ.checkCache(runΩ.filePaths);
+    const cacheHit = runΩ.filePaths.length !== changedFiles.length;
     const isPartial = hasSpecifiedFiles || cacheHit;
 
     const result = new BettererFileTestResultΩ(resolver);
@@ -112,7 +112,7 @@ function createTest(
       .filter((filePath) => !changedFiles.includes(filePath));
 
     // Filter them based on the current resolver:
-    const relevantExcludedFilePaths = await resolver.validate(excludedFilesWithIssues);
+    const relevantExcludedFilePaths = resolver.validate(excludedFilesWithIssues);
 
     // Add the existing issues to the new result:
     relevantExcludedFilePaths.forEach((filePath) => result.addExpected(expectedΩ.getFile(filePath)));

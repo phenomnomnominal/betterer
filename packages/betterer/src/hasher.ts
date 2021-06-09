@@ -1,7 +1,8 @@
 import djb2a from 'djb2a';
+import memoize from 'fast-memoize';
 
 import { normaliseNewlines } from './utils';
 
-export function createHash(value: string): string {
+export const createHash = memoize(function createHash(value: string): string {
   return djb2a(normaliseNewlines(value)).toString();
-}
+});

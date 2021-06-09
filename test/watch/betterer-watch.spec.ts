@@ -50,7 +50,7 @@ export default {
       reporters: [
         '@betterer/reporter',
         {
-          runsEnd(summary) {
+          runsEnd(summary: BettererSummary) {
             const summaryDefer = summaryDefers.shift();
             summaryDefer?.resolve(summary);
           }
@@ -128,7 +128,7 @@ export default {
       reporters: [
         '@betterer/reporter',
         {
-          runsEnd(summary) {
+          runsEnd(summary: BettererSummary) {
             runDefer.resolve(summary);
           }
         }
@@ -197,7 +197,7 @@ ignored.ts
       reporters: [
         '@betterer/reporter',
         {
-          runsEnd(summary) {
+          runsEnd(summary: BettererSummary) {
             runDefer.resolve(summary);
           }
         }
