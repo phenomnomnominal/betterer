@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.4](https://github.com/phenomnomnominal/betterer/compare/v4.3.3...v4.3.4) (2021-06-09)
+
+**Note:** Version bump only for package @betterer/monorepo
+
+
+
+
+
+## [4.3.3](https://github.com/phenomnomnominal/betterer/compare/v4.3.2...v4.3.3) (2021-06-06)
+
+
+### Performance Improvements
+
+* **betterer 🏎:** remove debounce when only running tests once ([#729](https://github.com/phenomnomnominal/betterer/issues/729)) ([a99888e](https://github.com/phenomnomnominal/betterer/commit/a99888eb585142712314ab90cfcabcf3f0a93edc))
+
+
+
+
+
+## [4.3.2](https://github.com/phenomnomnominal/betterer/compare/v4.3.1...v4.3.2) (2021-06-06)
+
+**Note:** Version bump only for package @betterer/monorepo
+
+
+
+
+
 ## [4.3.1](https://github.com/phenomnomnominal/betterer/compare/v4.3.0...v4.3.1) (2021-06-03)
 
 

@@ -12,6 +12,10 @@ export function stylelint(configOverrides: Partial<Configuration>): BettererFile
 
   const resolver = new BettererFileResolver();
   return new BettererFileTest(resolver, async (filePaths, fileTestResult) => {
+    if (!filePaths.length) {
+      return;
+    }
+
     const result = await lint({
       files: [...filePaths],
       configOverrides

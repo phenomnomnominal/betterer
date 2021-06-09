@@ -1,9 +1,8 @@
 import assert from 'assert';
 
 import { BettererRuns } from '../context';
-import { read } from '../reader';
+import { forceRelativePaths, read, write } from '../fs';
 import { BettererTestConfig } from '../test';
-import { write } from '../writer';
 import { parse } from './parser';
 import { print } from './printer';
 import { BettererResultΩ } from './result';
@@ -46,12 +45,13 @@ export class BettererResultsΩ {
       toPrint.map(async (run) => {
         const { name, test, isFailed, isSkipped, isWorse } = run;
         const toPrint = isFailed || isSkipped || isWorse ? run.expected : run.result;
-        const serialised = test.serialiser.serialise(toPrint.value);
+        const serialised = test.serialiser.serialise(toPrint.value, this._resultsPath);
         const printedValue = await test.printer(serialised);
         return print(name, printedValue);
       })
     );
-    return [RESULTS_HEADER, ...printedResults].join('');
+    const printed = [RESULTS_HEADER, ...printedResults].join('');
+    return forceRelativePaths(printed, this._resultsPath);
   }
 
   public write(printed: string): Promise<void> {
@@ -63,7 +63,7 @@ export class BettererResultsΩ {
       assert(expectedResults[name]);
       const { value } = expectedResults[name];
       const parsed = JSON.parse(value) as unknown;
-      return new BettererResultΩ(test.serialiser.deserialise(parsed));
+      return new BettererResultΩ(test.serialiser.deserialise(parsed, this._resultsPath));
     }
     return new BettererResultΩ();
   }

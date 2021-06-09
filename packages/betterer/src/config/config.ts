@@ -3,9 +3,7 @@ import assert from 'assert';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 
-import { registerExtensions } from '../register';
-import { BettererReporterΩ, DEFAULT_REPORTER, loadReporters } from '../reporters';
-import { BettererFileResolverΩ } from '../runner';
+import { BettererFileResolverΩ } from '../fs';
 import { isBoolean, isRegExp, isString, isUndefined } from '../utils';
 import {
   BettererConfig,
@@ -16,28 +14,7 @@ import {
   BettererOptionsWatch
 } from './types';
 
-let globalConfig: BettererConfig | null = null;
-
-export async function createConfig(options: unknown = {}): Promise<[BettererConfig, BettererReporterΩ]> {
-  let reporter = loadReporters([DEFAULT_REPORTER]);
-  try {
-    const config = await processOptions(options);
-    const { cwd, reporters, silent } = config;
-    if (silent) {
-      reporter = loadReporters([]);
-    }
-    if (reporters.length > 0) {
-      reporter = loadReporters(reporters, cwd);
-    }
-    await registerExtensions(config);
-    return [config, reporter];
-  } catch (error) {
-    await reporter.configError(options, error);
-    throw error;
-  }
-}
-
-async function processOptions(options: unknown = {}): Promise<BettererConfig> {
+export async function createConfig(options: unknown = {}): Promise<BettererConfig> {
   const baseOptions = options as BettererOptionsBase;
   const runnerOptions = options as BettererOptionsRunner;
   const startOptions = options as BettererOptionsStart;
@@ -79,25 +56,20 @@ async function processOptions(options: unknown = {}): Promise<BettererConfig> {
   resolver.include(...toArray<string>(includes));
   resolver.exclude(...toRegExps(toArray<string | RegExp>(excludes)));
 
-  globalConfig = {
+  const config = {
     ...relativeConfig,
     cachePath: path.resolve(relativeConfig.cwd, relativeConfig.cachePath),
-    filePaths: await resolver.files([]),
+    filePaths: resolver.files(),
     configPaths: relativeConfig.configPaths.map((configPath) => path.resolve(relativeConfig.cwd, configPath)),
     resultsPath: path.resolve(relativeConfig.cwd, relativeConfig.resultsPath),
     tsconfigPath: relativeConfig.tsconfigPath ? path.resolve(relativeConfig.cwd, relativeConfig.tsconfigPath) : null
   };
 
-  if (globalConfig.tsconfigPath) {
-    await validateFilePath('tsconfigPath', globalConfig);
+  if (config.tsconfigPath) {
+    await validateFilePath('tsconfigPath', config);
   }
 
-  return globalConfig;
-}
-
-export function getConfig(): BettererConfig {
-  assert(globalConfig);
-  return globalConfig;
+  return config;
 }
 
 function validateConfig(config: BettererConfig): void {

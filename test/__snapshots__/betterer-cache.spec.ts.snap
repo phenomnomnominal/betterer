@@ -7,6 +7,12 @@ exports[`betterer should write a cache file 1`] = `
 `;
 
 exports[`betterer should write a cache file 2`] = `
+"{
+  \\"src/index.ts\\": \\"4126639614\\"
+}"
+`;
+
+exports[`betterer should write a cache file 3`] = `
 "// BETTERER RESULTS V2.
 exports[\`regexp no hack comments\`] = {
   value: \`{
@@ -18,7 +24,11 @@ exports[\`regexp no hack comments\`] = {
 "
 `;
 
-exports[`betterer should write a cache file 3`] = `
+exports[`betterer should write a cache file 4`] = `"{}"`;
+
+exports[`betterer should write a cache file 5`] = `"// BETTERER RESULTS V2."`;
+
+exports[`betterer should write a cache file 6`] = `
 Array [
   "
    / | /     _         _   _

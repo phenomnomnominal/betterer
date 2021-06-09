@@ -1,6 +1,6 @@
-import { BettererRun, BettererRunΩ } from '../../context';
+import { BettererContext, BettererContextΩ, BettererRun, BettererRunΩ } from '../../context';
+import { BettererFileResolver, BettererFileResolverΩ, BettererFileGlobs, BettererFilePatterns } from '../../fs';
 import { createTestConfig } from '../config';
-import { BettererFileResolver, BettererFileResolverΩ, BettererFileGlobs, BettererFilePatterns } from '../../runner';
 import { BettererTestType } from '../type';
 import { BettererTestConstraint, BettererTestFunction, BettererTestGoal } from '../types';
 import { constraint } from './constraint';
@@ -87,15 +87,15 @@ function createTest(
   resolver: BettererFileResolverΩ,
   fileTest: BettererFileTestFunction
 ): BettererTestFunction<BettererFileTestResult> {
-  return async (run: BettererRun): Promise<BettererFileTestResult> => {
+  return async (run: BettererRun, context: BettererContext): Promise<BettererFileTestResult> => {
     const runΩ = run as BettererRunΩ;
-    const { fileManager } = runΩ;
+    const contextΩ = context as BettererContextΩ;
 
-    const specifiedFiles = run.filePaths;
-    const validatedFiles = await resolver.files(specifiedFiles);
-    const changedFiles = await fileManager.checkCache(validatedFiles);
-    const cacheHit = validatedFiles.length !== changedFiles.length;
-    const isPartial = specifiedFiles.length > 0 || cacheHit;
+    const hasSpecifiedFiles = runΩ.filePaths?.length > 0;
+    runΩ.filePaths = hasSpecifiedFiles ? resolver.validate(runΩ.filePaths) : resolver.files();
+    const changedFiles = await contextΩ.checkCache(runΩ.filePaths);
+    const cacheHit = runΩ.filePaths.length !== changedFiles.length;
+    const isPartial = hasSpecifiedFiles || cacheHit;
 
     const result = new BettererFileTestResultΩ(resolver);
     await fileTest(changedFiles, result);
@@ -112,7 +112,7 @@ function createTest(
       .filter((filePath) => !changedFiles.includes(filePath));
 
     // Filter them based on the current resolver:
-    const relevantExcludedFilePaths = await resolver.validate(excludedFilesWithIssues);
+    const relevantExcludedFilePaths = resolver.validate(excludedFilesWithIssues);
 
     // Add the existing issues to the new result:
     relevantExcludedFilePaths.forEach((filePath) => result.addExpected(expectedΩ.getFile(filePath)));

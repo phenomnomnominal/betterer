@@ -1,10 +1,8 @@
 import assert from 'assert';
 import LinesAndColumns from 'lines-and-columns';
 
-import { getConfig } from '../../config';
 import { createHash } from '../../hasher';
-import { BettererFileResolverΩ } from '../../runner';
-import { getRelativePath, isString } from '../../utils';
+import { isString, normalisedPath } from '../../utils';
 import { BettererFileIssue, BettererFileIssues, BettererFile } from './types';
 
 const UNKNOWN_LOCATION = {
@@ -18,25 +16,15 @@ type BettererIssuePositions = [number, number, number, number, string, string?];
 type BettererIssueOverride = BettererIssueStartEnd | BettererIssueLineColLength | BettererIssuePositions;
 
 export class BettererFileΩ implements BettererFile {
-  public readonly absolutePath: string;
+  public readonly hash: string;
   public readonly key: string;
 
   private _issues: BettererFileIssues = [];
 
-  constructor(
-    absolutePath: string,
-    public readonly hash: string,
-    private _resolver: BettererFileResolverΩ,
-    private _fileText: string
-  ) {
-    this.absolutePath = this._resolver.resolve(absolutePath);
-    const { resultsPath } = getConfig();
-    const relativePath = getRelativePath(resultsPath, absolutePath);
-    this.key = `${relativePath}:${this.hash}`;
-  }
-
-  public get fileText(): string {
-    return this._fileText;
+  constructor(public readonly absolutePath: string, public readonly fileText: string) {
+    this.absolutePath = normalisedPath(absolutePath);
+    this.hash = createHash(this.fileText);
+    this.key = `${this.absolutePath}:${this.hash}`;
   }
 
   public get issues(): BettererFileIssues {
@@ -48,7 +36,7 @@ export class BettererFileΩ implements BettererFile {
   }
 
   public addIssue(...issueOverride: BettererIssueOverride): void {
-    this.addIssues([this._handleIssue(issueOverride, this._fileText)]);
+    this.addIssues([this._handleIssue(issueOverride, this.fileText)]);
   }
 
   private _handleIssue(issueOverride: BettererIssueOverride, fileText: string): BettererFileIssue {
@@ -63,11 +51,7 @@ export class BettererFileΩ implements BettererFile {
     const [line, column, length, message, overrideHash] = issue;
     const start = lc.indexForLocation({ line, column }) || 0;
     const hash = overrideHash || createHash(fileText.substr(start, length));
-    return { line, column, length, message: this._forceRelativePaths(message), hash };
-  }
-
-  private _forceRelativePaths(message: string): string {
-    return message.replace(new RegExp(this._resolver.cwd, 'g'), '.');
+    return { line, column, length, message, hash };
   }
 }
 

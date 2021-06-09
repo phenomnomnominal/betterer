@@ -47,7 +47,7 @@ export declare type BettererDelta = {
     readonly result: number;
 };
 
-export declare type BettererDeserialise<DeserialisedType, SerialisedType> = (serialised: SerialisedType) => DeserialisedType;
+export declare type BettererDeserialise<DeserialisedType, SerialisedType> = (serialised: SerialisedType, resultsPath: string) => DeserialisedType;
 
 export declare type BettererDiff<DeserialisedType = unknown, DiffType = null> = {
     expected: DeserialisedType;
@@ -249,7 +249,7 @@ export declare type BettererRunner = {
 
 export declare type BettererRuns = ReadonlyArray<BettererRun>;
 
-export declare type BettererSerialise<DeserialisedType, SerialisedType> = (result: DeserialisedType) => SerialisedType;
+export declare type BettererSerialise<DeserialisedType, SerialisedType> = (result: DeserialisedType, resultsPath: string) => SerialisedType;
 
 export declare type BettererSerialiser<DeserialisedType, SerialisedType = DeserialisedType> = {
     serialise: BettererSerialise<DeserialisedType, SerialisedType>;
@@ -301,7 +301,7 @@ export declare type BettererTestConfig<DeserialisedType = unknown, SerialisedTyp
 
 export declare type BettererTestConstraint<DeserialisedType> = (result: DeserialisedType, expected: DeserialisedType) => MaybeAsync<BettererConstraintResult>;
 
-export declare type BettererTestFunction<DeserialisedType> = (run: BettererRun) => MaybeAsync<DeserialisedType>;
+export declare type BettererTestFunction<DeserialisedType> = (run: BettererRun, context: BettererContext) => MaybeAsync<DeserialisedType>;
 
 export declare type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
 

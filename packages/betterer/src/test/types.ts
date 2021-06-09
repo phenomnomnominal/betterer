@@ -1,11 +1,14 @@
 import { BettererConstraintResult } from '@betterer/constraints';
 import { BettererLogger } from '@betterer/logger';
 
-import { BettererDelta, BettererRun } from '../context';
+import { BettererContext, BettererDelta, BettererRun } from '../context';
 import { MaybeAsync } from '../types';
 import { BettererTestType } from './type';
 
-export type BettererTestFunction<DeserialisedType> = (run: BettererRun) => MaybeAsync<DeserialisedType>;
+export type BettererTestFunction<DeserialisedType> = (
+  run: BettererRun,
+  context: BettererContext
+) => MaybeAsync<DeserialisedType>;
 
 export type BettererTestConstraint<DeserialisedType> = (
   result: DeserialisedType,
@@ -33,9 +36,15 @@ export type BettererProgress<DeserialisedType> = (
   result: DeserialisedType | null
 ) => MaybeAsync<BettererDelta | null>;
 
-export type BettererSerialise<DeserialisedType, SerialisedType> = (result: DeserialisedType) => SerialisedType;
+export type BettererSerialise<DeserialisedType, SerialisedType> = (
+  result: DeserialisedType,
+  resultsPath: string
+) => SerialisedType;
 
-export type BettererDeserialise<DeserialisedType, SerialisedType> = (serialised: SerialisedType) => DeserialisedType;
+export type BettererDeserialise<DeserialisedType, SerialisedType> = (
+  serialised: SerialisedType,
+  resultsPath: string
+) => DeserialisedType;
 
 export type BettererSerialiser<DeserialisedType, SerialisedType = DeserialisedType> = {
   serialise: BettererSerialise<DeserialisedType, SerialisedType>;

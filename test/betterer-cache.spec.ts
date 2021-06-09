@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should write a cache file', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture(
+    const { logs, paths, readFile, cleanup, resolve, writeFile, deleteFile, runNames } = await createFixture(
       'test-betterer-cache',
       {
         '.betterer.js': `
@@ -28,9 +28,9 @@ module.exports = {
 
     expect(runNames(newTestRun.new)).toEqual(['regexp no hack comments']);
 
-    const cache = await readFile(cachePath);
+    const newCache = await readFile(cachePath);
 
-    expect(cache).toMatchSnapshot();
+    expect(newCache).toMatchSnapshot();
 
     const sameTestRun = await betterer({ configPaths, resultsPath, cache: true, cachePath });
 
@@ -42,15 +42,27 @@ module.exports = {
 
     expect(runNames(worseTestRun.worse)).toEqual(['regexp no hack comments']);
 
-    const result = await readFile(resultsPath);
+    const worseCache = await readFile(cachePath);
 
-    expect(result).toMatchSnapshot();
+    expect(worseCache).toMatchSnapshot();
 
-    await writeFile(indexPath, ``);
+    const worseResult = await readFile(resultsPath);
+
+    expect(worseResult).toMatchSnapshot();
+
+    await deleteFile(indexPath);
 
     const betterTestRun = await betterer({ configPaths, resultsPath, cache: true, cachePath });
 
     expect(runNames(betterTestRun.better)).toEqual(['regexp no hack comments']);
+
+    const betterCache = await readFile(cachePath);
+
+    expect(betterCache).toMatchSnapshot();
+
+    const betterResult = await readFile(resultsPath);
+
+    expect(betterResult).toMatchSnapshot();
 
     const completedTestRun = await betterer({ configPaths, resultsPath, cache: true, cachePath });
 

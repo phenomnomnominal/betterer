@@ -1,8 +1,8 @@
 import { BettererError } from '@betterer/errors';
 
 import { BettererConfig } from '../config';
+import { BettererFilePaths } from '../fs';
 import { BettererResult } from '../results';
-import { BettererFilePaths } from '../runner';
 import { BettererDiff, BettererTestConfig } from '../test';
 
 export type BettererRuns = ReadonlyArray<BettererRun>;
@@ -14,7 +14,7 @@ export type BettererContext = {
 };
 
 export type BettererContextStarted = {
-  end(write: boolean): Promise<void>;
+  end(): Promise<void>;
   error(error: BettererError): Promise<void>;
 };
 

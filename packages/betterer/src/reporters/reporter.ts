@@ -1,7 +1,7 @@
 import { BettererError } from '@betterer/errors';
 
 import { BettererContext, BettererRun, BettererRuns, BettererSummary, BettererSummaries } from '../context';
-import { BettererFilePaths } from '../runner';
+import { BettererFilePaths } from '../fs';
 import { BettererReporter } from './types';
 
 export class BettererReporterΩ implements BettererReporter {
