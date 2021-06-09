@@ -2,6 +2,7 @@ import path from 'path';
 import simpleGit, { SimpleGit } from 'simple-git';
 
 import { createHash } from '../hasher';
+import { normalisedPath } from '../utils';
 import { BettererFileCacheΩ } from './file-cache';
 import { read } from './reader';
 import { BettererFilePaths, BettererVersionControl } from './types';
@@ -80,7 +81,7 @@ export class BettererGit implements BettererVersionControl {
     this._fileMap = {};
     this._filePaths = fileInfo.map((fileInfo) => {
       const [, , hash, relativePath] = fileInfo;
-      const absolutePath = path.join(this._rootDir, relativePath.trimStart());
+      const absolutePath = normalisedPath(path.join(this._rootDir, relativePath.trimStart()));
       this._fileMap[absolutePath] = hash;
       return absolutePath;
     });
@@ -89,7 +90,7 @@ export class BettererGit implements BettererVersionControl {
     const untrackedFilePaths = this._toLines(untracked);
     await Promise.all(
       untrackedFilePaths.map(async (relativePath) => {
-        const absolutePath = path.join(this._rootDir, relativePath);
+        const absolutePath = normalisedPath(path.join(this._rootDir, relativePath));
         const hash = await this._getUntrackedHash(absolutePath);
         if (hash == null) {
           return;
@@ -101,7 +102,7 @@ export class BettererGit implements BettererVersionControl {
     const deleted = await this._git.raw(['ls-files', '--deleted']);
     const deletedFilePaths = this._toLines(deleted);
     deletedFilePaths.forEach((relativePath) => {
-      const absolutePath = path.join(this._rootDir, relativePath);
+      const absolutePath = normalisedPath(path.join(this._rootDir, relativePath));
       delete this._fileMap[absolutePath];
       this._filePaths.splice(this._filePaths.indexOf(absolutePath), 1);
     });
