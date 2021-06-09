@@ -9,7 +9,7 @@ import { BettererVersionControl } from './types';
 let globalVersionControl: BettererVersionControl;
 
 export const createVersionControl = memoize(async function createVersionControl(): Promise<BettererVersionControl> {
-  const gitDir = findGitRoot();
+  const gitDir = findGitRoot(process.cwd());
   if (!gitDir) {
     throw new BettererError('.git directory not found. Betterer must be used within a git repository.');
   }
