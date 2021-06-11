@@ -26,7 +26,7 @@ export function typescript(configFilePath: string, extraCompilerOptions: ts.Comp
   const resolver = new BettererFileResolver();
   const absPath = resolver.resolve(configFilePath);
 
-  return new BettererFileTest(resolver, async (_, fileTestResult) => {
+  return new BettererFileTest(resolver, (filePaths, fileTestResult) => {
     const { config } = ts.readConfigFile(absPath, ts.sys.readFile.bind(ts.sys)) as TypeScriptReadConfigResult;
     const { compilerOptions } = config;
     const basePath = path.dirname(absPath);
@@ -45,10 +45,9 @@ export function typescript(configFilePath: string, extraCompilerOptions: ts.Comp
     };
     const parsed = ts.parseJsonConfigFileContent(config, configHost, basePath);
 
-    const rootNames = await resolver.validate(parsed.fileNames);
     const program = ts.createProgram({
       ...parsed,
-      rootNames,
+      rootNames: filePaths,
       host
     });
 
@@ -72,5 +71,5 @@ export function typescript(configFilePath: string, extraCompilerOptions: ts.Comp
         const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, NEW_LINE);
         file.addIssue(start, start + length, message);
       });
-  });
+  }).include('**/*.ts');
 }
