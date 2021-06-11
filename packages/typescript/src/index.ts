@@ -1,1 +1,1 @@
-export { typescript } from './typescript';
+export { typescript, typescriptΔ } from './typescript';
