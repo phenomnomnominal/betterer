@@ -1,1 +1,0 @@
-export { BettererValidationQueue } from './validate';

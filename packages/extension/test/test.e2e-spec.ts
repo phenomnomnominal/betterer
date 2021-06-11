@@ -29,7 +29,7 @@ describe('Betterer VSCode Extension', () => {
     }
 
     {
-      const { cleanup, writeFile, resolve } = await createFixture('test-betterer-file-problems', {
+      const { cleanup, resolve } = await createFixture('test-betterer-file-problems', {
         '.betterer.js': `
     const { eslint } = require('../../node_modules/@betterer/eslint');
 
@@ -71,28 +71,30 @@ describe('Betterer VSCode Extension', () => {
       "name": "betterer-test-betterer-problems",
       "version": "0.0.1"
     }
-          `
+          `,
+        'src/index.ts': ''
       });
 
       const indexPath = resolve('./src/index.ts');
+      const cachePath = resolve('./.betterer.cache');
       const configPath = resolve('./.betterer.js');
       const resultsPath = resolve('./.betterer.results');
       const tsconfigPath = resolve('./tsconfig.json');
 
-      await writeFile(indexPath, '');
-
       const indexUri = vscode.Uri.file(indexPath);
 
-      await vscode.workspace.openTextDocument(indexUri);
-
       const config = vscode.workspace.getConfiguration('betterer', indexUri);
-      await config.update('configPath', configPath);
       await config.update('resultsPath', resultsPath);
+      await config.update('cachePath', cachePath);
+      await config.update('configPath', configPath);
       await config.update('tsconfigPath', tsconfigPath);
 
-      await writeFile(indexPath, `debugger;`);
-
-      await vscode.workspace.openTextDocument(indexUri);
+      const document = await vscode.workspace.openTextDocument(indexUri);
+      const editor = await vscode.window.showTextDocument(document, 1, false);
+      await editor.edit((edit) => {
+        edit.insert(new vscode.Position(0, 0), 'debugger;');
+      });
+      await document.save();
 
       const diagnostic = await waitFor(() => {
         const found = vscode.languages.getDiagnostics().find((diagnostic) => {
@@ -110,8 +112,9 @@ describe('Betterer VSCode Extension', () => {
 
       await cleanup();
     }
+
     {
-      const { cleanup, writeFile, resolve } = await createFixture('test-betterer-file-only', {
+      const { cleanup, resolve } = await createFixture('test-betterer-file-only', {
         '.betterer.ts': `
 import { typescript } from '@betterer/typescript';
 import { smaller } from '@betterer/constraints';
@@ -140,35 +143,37 @@ export default {
   },
   "include": ["./src/**/*", ".betterer.ts"]
 }
-      `
+          `,
+        'src/index.ts': ''
       });
 
       const indexPath = resolve('./src/index.ts');
+      const cachePath = resolve('./.betterer.cache');
       const configPath = resolve('./.betterer.ts');
       const resultsPath = resolve('./.betterer.results');
       const tsconfigPath = resolve('./tsconfig.json');
 
-      await writeFile(indexPath, '');
-
       const indexUri = vscode.Uri.file(indexPath);
 
-      await vscode.workspace.openTextDocument(indexUri);
-
       const config = vscode.workspace.getConfiguration('betterer', indexUri);
-      await config.update('configPath', configPath);
       await config.update('resultsPath', resultsPath);
+      await config.update('cachePath', cachePath);
+      await config.update('configPath', configPath);
       await config.update('tsconfigPath', tsconfigPath);
 
-      await writeFile(
-        indexPath,
-        `
+      const document = await vscode.workspace.openTextDocument(indexUri);
+      const editor = await vscode.window.showTextDocument(document, 1, false);
+      await editor.edit((edit) => {
+        edit.insert(
+          new vscode.Position(0, 0),
+          `
 export function extractIds(list) {
   return list.map((member) => member.id);
 }
-      `
-      );
-
-      await vscode.workspace.openTextDocument(indexUri);
+                  `
+        );
+      });
+      await document.save();
 
       const diagnostic = await waitFor(() => {
         const found = vscode.languages.getDiagnostics().find((diagnostic) => {
@@ -193,12 +198,11 @@ export function extractIds(list) {
 function waitFor<T>(test: () => T, timeout = 600000): Promise<T> {
   const start = Date.now();
 
-  type Timeout = ReturnType<typeof setInterval>;
   type PromiseArgs = Parameters<ConstructorParameters<typeof Promise>[0]>;
   type Resolve = PromiseArgs[0];
   type Reject = PromiseArgs[1];
 
-  async function wait(id: Timeout, resolve: Resolve, reject: Reject) {
+  async function wait(id: NodeJS.Timeout, resolve: Resolve, reject: Reject) {
     try {
       const result = await Promise.resolve(test());
       if (result != null) {
@@ -215,6 +219,6 @@ function waitFor<T>(test: () => T, timeout = 600000): Promise<T> {
   return new Promise((resolve, reject) => {
     const id = setInterval(() => {
       void wait(id, resolve as Resolve, reject);
-    }, 10000);
+    }, 1000);
   });
 }

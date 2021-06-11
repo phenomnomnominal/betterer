@@ -31,8 +31,9 @@ export async function getDebug(workspace: RemoteWorkspace): Promise<void> {
 }
 
 export async function getBettererConfig(cwd: string, workspace: RemoteWorkspace): Promise<BettererOptionsRunner> {
-  const { configPath, filters, resultsPath, tsconfigPath } = await getConfig(workspace);
+  const { cachePath, configPath, filters, resultsPath, tsconfigPath } = await getConfig(workspace);
   const config: BettererOptionsRunner = {
+    cachePath,
     configPaths: configPath,
     filters,
     resultsPath

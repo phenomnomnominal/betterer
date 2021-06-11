@@ -7,14 +7,22 @@ import { BettererFileTestResult, BettererFileIssues, BettererFile, BettererFileB
 export class BettererFileTestResultΩ implements BettererFileTestResult {
   private _fileMap: Record<string, BettererFileBase> = {};
   private _files: Array<BettererFileBase> = [];
+  private _filePaths: Array<string> = [];
 
   constructor(private _resolver?: BettererFileResolverΩ) {}
 
   // Previously the `files` getter was just doing `Object.values(this._fileMap)`,
   // but that's pretty slow and this gets hit a lot, so instead the `this._files`
-  // array is populated manually in `this._addFile()`:
+  // array is updated manually in `this._addFile()` and `this._replaceFile()`:
   public get files(): ReadonlyArray<BettererFileBase> {
     return this._files;
+  }
+
+  // Previously the `filePaths` getter was just doing `Object.keys(this._fileMap)`,
+  // but that's pretty slow and this gets hit a lot, so instead the `this._filePaths`
+  // array is updated manually in `this._addFile()` and `this._replaceFile()`:
+  public get filePaths(): BettererFilePaths {
+    return this._filePaths;
   }
 
   public getFile(absolutePath: string): BettererFileBase {
@@ -41,7 +49,7 @@ export class BettererFileTestResultΩ implements BettererFileTestResult {
   }
 
   public getFilePaths(): BettererFilePaths {
-    return Object.keys(this._fileMap);
+    return this._filePaths;
   }
 
   public getIssues(absolutePath?: string): BettererFileIssues {
@@ -54,12 +62,14 @@ export class BettererFileTestResultΩ implements BettererFileTestResult {
   private _addFile(file: BettererFileBase): void {
     if (!this._fileMap[file.absolutePath]) {
       this._files.push(file);
+      this._filePaths.push(file.absolutePath);
     }
     this._fileMap[file.absolutePath] = file;
   }
 
   private _replaceFile(file: BettererFileBase, existingFile: BettererFileBase): void {
     this._files.splice(this._files.indexOf(existingFile), 1, file);
+    this._filePaths.splice(this._filePaths.indexOf(existingFile.absolutePath), 1, file.absolutePath);
     this._fileMap[file.absolutePath] = file;
   }
 }

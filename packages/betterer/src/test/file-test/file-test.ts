@@ -93,23 +93,34 @@ function createTest(
 
     const hasSpecifiedFiles = runΩ.filePaths?.length > 0;
     runΩ.filePaths = hasSpecifiedFiles ? resolver.validate(runΩ.filePaths) : resolver.files();
-    const changedFiles = await contextΩ.checkCache(runΩ.filePaths);
-    const cacheHit = runΩ.filePaths.length !== changedFiles.length;
+
+    const expectedΩ = runΩ.isNew ? null : (runΩ.expected.value as BettererFileTestResultΩ);
+
+    let runFiles = runΩ.filePaths;
+    if (expectedΩ) {
+      runFiles = runFiles.filter((filePath) => {
+        const hasExpected = expectedΩ.filePaths.includes(filePath);
+        const isCached = contextΩ.checkCache(filePath);
+        return !hasExpected || !isCached;
+      });
+    }
+
+    const cacheHit = runΩ.filePaths.length !== runFiles.length;
     const isPartial = hasSpecifiedFiles || cacheHit;
 
     const result = new BettererFileTestResultΩ(resolver);
-    await fileTest(changedFiles, result);
+    await fileTest(runFiles, result);
 
-    if (!isPartial || runΩ.isNew) {
+    contextΩ.updateCache(result.filePaths);
+
+    if (!isPartial || !expectedΩ) {
       return result;
     }
-
-    const expectedΩ = runΩ.expected.value as BettererFileTestResultΩ;
 
     // Get any filePaths that have expected issues but weren't included in this run:
     const excludedFilesWithIssues = expectedΩ.files
       .map((file) => file.absolutePath)
-      .filter((filePath) => !changedFiles.includes(filePath));
+      .filter((filePath) => !runFiles.includes(filePath));
 
     // Filter them based on the current resolver:
     const relevantExcludedFilePaths = resolver.validate(excludedFilesWithIssues);

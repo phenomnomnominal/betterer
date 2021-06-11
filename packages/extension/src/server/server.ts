@@ -11,7 +11,7 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { info, initConsole } from './console';
 import { createErrorHandler } from './error-handler';
-import { BettererValidationQueue } from './notifications';
+import { BettererValidationQueue } from './validation-queue';
 import { initTrace } from './trace';
 
 function init(): void {
@@ -29,16 +29,32 @@ function init(): void {
   function clearDiagnostics(event: TextDocumentChangeEvent<TextDocument>): void {
     info(`Server: Clearing diagnostics for "${event.document.uri}".`);
     connection.sendDiagnostics({ uri: event.document.uri, diagnostics: [] });
+    validationQueue.removeFromQueue(event);
   }
 
   function queueValidate(event: TextDocumentChangeEvent<TextDocument>): void {
-    validationQueue.addNotificationMessage(event);
+    validationQueue.addToQueue(event);
+  }
+
+  function opened(event: TextDocumentChangeEvent<TextDocument>): void {
+    info(`Server: ${event.document.uri} opened, validating:`);
+    queueValidate(event);
+  }
+
+  function saved(event: TextDocumentChangeEvent<TextDocument>): void {
+    info(`Server: ${event.document.uri} saved, validating:`);
+    queueValidate(event);
+  }
+
+  function environmentChanged(): void {
+    info('Server: Environment changed, revalidating all documents:');
+    documents.all().forEach((document) => queueValidate({ document }));
   }
 
   connection.onInitialize(() => {
     documents.listen(connection);
-    documents.onDidOpen(queueValidate);
-    documents.onDidSave(queueValidate);
+    documents.onDidOpen(opened);
+    documents.onDidSave(saved);
     documents.onDidClose(clearDiagnostics);
 
     return {
@@ -65,11 +81,6 @@ function init(): void {
   });
 
   connection.listen();
-
-  function environmentChanged(): void {
-    info('Server: Environment changed, revalidating all documents:');
-    documents.all().forEach((document) => queueValidate({ document }));
-  }
 }
 
 init();

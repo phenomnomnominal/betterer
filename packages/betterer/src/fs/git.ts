@@ -21,12 +21,16 @@ export class BettererGit implements BettererVersionControl {
     this._cache = new BettererFileCacheΩ(this);
   }
 
-  public checkCache(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
-    return this._cache.checkCache(filePaths);
+  public checkCache(filePath: string): boolean {
+    return this._cache.checkCache(filePath);
   }
 
-  public enableCache(cachePath: string): void {
-    this._cache.enableCache(cachePath);
+  public async enableCache(cachePath: string): Promise<void> {
+    return this._cache.enableCache(cachePath);
+  }
+
+  public updateCache(filePaths: BettererFilePaths): void {
+    return this._cache.updateCache(filePaths);
   }
 
   public writeCache(): Promise<void> {
@@ -68,30 +72,31 @@ export class BettererGit implements BettererVersionControl {
     return createHash(content);
   }
 
-  private _toLines(output: string): Array<string> {
+  private _toFilePaths(output: string): Array<string> {
     if (output.length === 0) {
       return [];
     }
-    return output.trimEnd().split('\n');
+    return Array.from(new Set(output.trimEnd().split('\n')));
   }
 
   private async _sync(): Promise<void> {
     const tree = await this._git.raw(['ls-tree', '--full-tree', '-r', 'HEAD']);
-    const fileInfo = this._toLines(tree).map((info) => info.split(/\s/));
-    this._fileMap = {};
-    this._filePaths = fileInfo.map((fileInfo) => {
+    const fileInfo = this._toFilePaths(tree).map((info) => info.split(/\s/));
+    const gitHashes: Record<string, string> = {};
+    fileInfo.forEach((fileInfo) => {
       const [, , hash, relativePath] = fileInfo;
       const absolutePath = normalisedPath(path.join(this._rootDir, relativePath.trimStart()));
-      this._fileMap[absolutePath] = hash;
-      return absolutePath;
+      gitHashes[absolutePath] = hash;
     });
-    const untracked = await this._git.raw(['ls-files', '--others', '--exclude-standard']);
-    // If the file isn't tracked by git, compute hashes manually
-    const untrackedFilePaths = this._toLines(untracked);
+
+    this._fileMap = {};
+    this._filePaths = [];
+    const modified = await this._git.raw(['ls-files', '--cached', '--modified', '--others', '--exclude-standard']);
+    const modifiedFilePaths = this._toFilePaths(modified);
     await Promise.all(
-      untrackedFilePaths.map(async (relativePath) => {
+      modifiedFilePaths.map(async (relativePath) => {
         const absolutePath = normalisedPath(path.join(this._rootDir, relativePath));
-        const hash = await this._getUntrackedHash(absolutePath);
+        const hash = gitHashes[absolutePath] || (await this._getUntrackedHash(absolutePath));
         if (hash == null) {
           return;
         }
@@ -100,7 +105,7 @@ export class BettererGit implements BettererVersionControl {
       })
     );
     const deleted = await this._git.raw(['ls-files', '--deleted']);
-    const deletedFilePaths = this._toLines(deleted);
+    const deletedFilePaths = this._toFilePaths(deleted);
     deletedFilePaths.forEach((relativePath) => {
       const absolutePath = normalisedPath(path.join(this._rootDir, relativePath));
       delete this._fileMap[absolutePath];
