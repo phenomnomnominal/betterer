@@ -74,7 +74,7 @@ export function typescript(configFilePath: string, extraCompilerOptions: ts.Comp
         const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, NEW_LINE);
         file.addIssue(start, start + length, message);
       });
-  }).include('**/*.ts');
+  });
 }
 
 /** @internal Definitely not stable! Please don't use! */
