@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should write a cache file', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile, deleteFile, runNames } = await createFixture(
+    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture(
       'test-betterer-cache',
       {
         '.betterer.js': `
@@ -50,7 +50,7 @@ module.exports = {
 
     expect(worseResult).toMatchSnapshot();
 
-    await deleteFile(indexPath);
+    await writeFile(indexPath, ``);
 
     const betterTestRun = await betterer({ configPaths, resultsPath, cache: true, cachePath });
 

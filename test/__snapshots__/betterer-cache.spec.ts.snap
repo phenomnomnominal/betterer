@@ -24,7 +24,11 @@ exports[\`regexp no hack comments\`] = {
 "
 `;
 
-exports[`betterer should write a cache file 4`] = `"{}"`;
+exports[`betterer should write a cache file 4`] = `
+"{
+  \\"src/index.ts\\": \\"5381\\"
+}"
+`;
 
 exports[`betterer should write a cache file 5`] = `"// BETTERER RESULTS V2."`;
 

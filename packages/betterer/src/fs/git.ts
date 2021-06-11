@@ -80,6 +80,9 @@ export class BettererGit implements BettererVersionControl {
   }
 
   private async _sync(): Promise<void> {
+    this._fileMap = {};
+    this._filePaths = [];
+
     const tree = await this._git.raw(['ls-tree', '--full-tree', '-r', 'HEAD']);
     const fileInfo = this._toFilePaths(tree).map((info) => info.split(/\s/));
     const gitHashes: Record<string, string> = {};
@@ -89,12 +92,10 @@ export class BettererGit implements BettererVersionControl {
       gitHashes[absolutePath] = hash;
     });
 
-    this._fileMap = {};
-    this._filePaths = [];
-    const modified = await this._git.raw(['ls-files', '--cached', '--modified', '--others', '--exclude-standard']);
-    const modifiedFilePaths = this._toFilePaths(modified);
+    const untracked = await this._git.raw(['ls-files', '--cached', '--others', '--exclude-standard']);
+    const untrackedFilePaths = this._toFilePaths(untracked);
     await Promise.all(
-      modifiedFilePaths.map(async (relativePath) => {
+      untrackedFilePaths.map(async (relativePath) => {
         const absolutePath = normalisedPath(path.join(this._rootDir, relativePath));
         const hash = gitHashes[absolutePath] || (await this._getUntrackedHash(absolutePath));
         if (hash == null) {
@@ -104,12 +105,24 @@ export class BettererGit implements BettererVersionControl {
         this._filePaths.push(absolutePath);
       })
     );
-    const deleted = await this._git.raw(['ls-files', '--deleted']);
-    const deletedFilePaths = this._toFilePaths(deleted);
-    deletedFilePaths.forEach((relativePath) => {
-      const absolutePath = normalisedPath(path.join(this._rootDir, relativePath));
-      delete this._fileMap[absolutePath];
-      this._filePaths.splice(this._filePaths.indexOf(absolutePath), 1);
-    });
+
+    const modified = await this._git.raw(['ls-files', '--modified']);
+    const modifiedFilePaths = this._toFilePaths(modified);
+    await Promise.all(
+      modifiedFilePaths.map(async (relativePath) => {
+        const absolutePath = normalisedPath(path.join(this._rootDir, relativePath));
+        const hash = await this._getUntrackedHash(absolutePath);
+
+        // If hash is null then the modification was a deletion:
+        if (hash == null) {
+          delete this._fileMap[absolutePath];
+          this._filePaths.splice(this._filePaths.indexOf(absolutePath), 1);
+          return;
+        }
+
+        this._fileMap[absolutePath] = hash;
+        this._filePaths.push(absolutePath);
+      })
+    );
   }
 }
