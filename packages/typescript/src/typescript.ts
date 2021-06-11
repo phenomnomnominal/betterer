@@ -89,6 +89,10 @@ export function typescriptΔ(configFilePath: string, extraCompilerOptions: ts.Co
   const absPath = resolver.resolve(configFilePath);
 
   return new BettererFileTest(resolver, (filePaths, fileTestResult) => {
+    if (filePaths.length === 0) {
+      return;
+    }
+
     const { config } = ts.readConfigFile(absPath, ts.sys.readFile.bind(ts.sys)) as TypeScriptReadConfigResult;
     const { compilerOptions } = config;
     const basePath = path.dirname(absPath);
@@ -101,19 +105,23 @@ export function typescriptΔ(configFilePath: string, extraCompilerOptions: ts.Co
     config.files = filePaths;
     delete config.include;
 
-    const host = ts.createIncrementalCompilerHost(fullCompilerOptions, ts.sys);
+    const compilerHost = ts.createCompilerHost(fullCompilerOptions);
     const configHost: ts.ParseConfigHost = {
-      ...host,
+      ...compilerHost,
       readDirectory: ts.sys.readDirectory.bind(ts.sys),
-      useCaseSensitiveFileNames: host.useCaseSensitiveFileNames()
+      useCaseSensitiveFileNames: compilerHost.useCaseSensitiveFileNames()
     };
-    const parsed = ts.parseJsonConfigFileContent(config, configHost, basePath);
+    const { options, fileNames } = ts.parseJsonConfigFileContent(config, configHost, basePath);
+    const incrementalHost = ts.createIncrementalCompilerHost(options);
 
-    const program = ts.createIncrementalProgram({
-      ...parsed,
-      rootNames: parsed.fileNames,
-      host
-    });
+    const oldProgram = ts.readBuilderProgram(options, incrementalHost);
+    const program = oldProgram
+      ? ts.createEmitAndSemanticDiagnosticsBuilderProgram(fileNames, options, incrementalHost, oldProgram)
+      : ts.createIncrementalProgram({
+          options,
+          rootNames: fileNames,
+          host: incrementalHost
+        });
 
     const { diagnostics } = program.emit();
 

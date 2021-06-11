@@ -47,6 +47,10 @@ export function tsqueryΔ(query: string): BettererFileTest {
 
   const resolver = new BettererFileResolver();
   return new BettererFileTest(resolver, async (filePaths, fileTestResult) => {
+    if (filePaths.length) {
+      return;
+    }
+
     await Promise.all(
       filePaths.map(async (filePath) => {
         const fileText = await fs.readFile(filePath, 'utf8');
