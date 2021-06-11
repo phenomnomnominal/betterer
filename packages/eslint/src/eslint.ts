@@ -1,4 +1,4 @@
-import { BettererFileResolver, BettererFileTest } from '@betterer/betterer';
+import { BettererFileTest } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 import { ESLint, Linter } from 'eslint';
@@ -12,14 +12,13 @@ export function eslint(rules: ESLintRulesConfig): BettererFileTest {
     );
   }
 
-  const resolver = new BettererFileResolver();
-  return new BettererFileTest(resolver, async (filePaths, fileTestResult) => {
+  return new BettererFileTest(async (filePaths, fileTestResult, resolver) => {
     if (!filePaths.length) {
       return;
     }
 
-    const { cwd } = resolver;
-    const cli = new ESLint({ cwd });
+    const { baseDirectory } = resolver;
+    const cli = new ESLint({ cwd: baseDirectory });
 
     await Promise.all(
       filePaths.map(async (filePath) => {
@@ -28,7 +27,7 @@ export function eslint(rules: ESLintRulesConfig): BettererFileTest {
         const runner = new ESLint({
           baseConfig: { ...linterOptions, rules },
           useEslintrc: false,
-          cwd
+          cwd: baseDirectory
         });
 
         const lintResults = await runner.lintFiles([filePath]);

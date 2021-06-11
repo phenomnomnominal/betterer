@@ -317,15 +317,14 @@ If you want to write a test that checks individual files, you can write a [`Bett
 
 ```typescript
 // .betterer.ts
-import { BettererFileResolver, BettererFileTest } from '@betterer/betterer';
+import { BettererFileTest } from '@betterer/betterer';
 
 export default {
   'no more JavaScript files': countFiles('no more JavaScript files!').include('**/*.js')
 };
 
 function countFiles(issue: string) {
-  const resolver = new BettererFileResolver();
-  return new BettererFileTest(resolver, async (filePaths, fileTestResult) => {
+  return new BettererFileTest(async (filePaths, fileTestResult) => {
     filePaths.forEach((filePath) => {
       // In this case the file contents don't matter:
       const file = fileTestResult.addFile(filePath, '');
@@ -341,15 +340,14 @@ function countFiles(issue: string) {
 
 ```javascript
 // .betterer.js
-const { BettererFileResolver, BettererFileTest } = require('@betterer/betterer');
+const { BettererFileTest } = require('@betterer/betterer');
 
 module.exports = {
   'no more JavaScript': countFiles('no more JavaScript files!').include('**/*.js')
 };
 
 function countFiles(issue) {
-  const resolver = new BettererFileResolver();
-  return new BettererFileTest(resolver, async (filePaths, fileTestResult) => {
+  return new BettererFileTest(async (filePaths, fileTestResult) => {
     filePaths.forEach((filePath) => {
       // In this case the file contents don't matter:
       const file = fileTestResult.addFile(filePath, '');

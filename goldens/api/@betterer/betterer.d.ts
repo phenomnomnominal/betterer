@@ -93,15 +93,12 @@ export declare type BettererFilePaths = ReadonlyArray<string>;
 
 export declare type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
 
-export declare class BettererFileResolver {
-    get cwd(): string;
-    constructor(resolverDepth?: number);
-    excludeΔ(...excludePatterns: BettererFilePatterns): this;
-    files(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
-    includeΔ(...includePatterns: BettererFileGlobs): this;
+export declare type BettererFileResolver = {
+    baseDirectory: string;
+    files(filePaths: BettererFilePaths): BettererFilePaths;
     resolve(...pathSegments: Array<string>): string;
-    validate(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
-}
+    validate(filePaths: BettererFilePaths): BettererFilePaths;
+};
 
 export declare type BettererFilesDiff = Record<string, BettererFileDiff>;
 
@@ -109,7 +106,7 @@ export declare class BettererFileTest implements BettererFileTestBase {
     get config(): BettererFileTestConfig;
     get isOnly(): boolean;
     get isSkipped(): boolean;
-    constructor(resolver: BettererFileResolver, fileTest: BettererFileTestFunction);
+    constructor(fileTest: BettererFileTestFunction);
     constraint(constraintOverride: BettererTestConstraint<BettererFileTestResult>): this;
     exclude(...excludePatterns: BettererFilePatterns): this;
     goal(goalOverride: BettererTestGoal<BettererFileTestResult>): this;
@@ -120,7 +117,7 @@ export declare class BettererFileTest implements BettererFileTestBase {
 
 export declare type BettererFileTestDiff = BettererDiff<BettererFileTestResult, BettererFilesDiff>;
 
-export declare type BettererFileTestFunction = (filePaths: BettererFilePaths, fileTestResult: BettererFileTestResult) => MaybeAsync<void>;
+export declare type BettererFileTestFunction = (filePaths: BettererFilePaths, fileTestResult: BettererFileTestResult, resolver: BettererFileResolver) => MaybeAsync<void>;
 
 export declare type BettererFileTestResult = {
     addFile(absolutePath: string, fileText: string): BettererFile;
@@ -288,6 +285,7 @@ export declare class BettererTest<DeserialisedType, SerialisedType, DiffType> im
 }
 
 export declare type BettererTestConfig<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> = {
+    configPath: string;
     constraint: BettererTestConstraint<DeserialisedType>;
     deadline: number;
     goal: BettererTestGoal<DeserialisedType>;

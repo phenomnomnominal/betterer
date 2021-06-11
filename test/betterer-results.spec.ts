@@ -8,11 +8,10 @@ describe('betterer', () => {
       'test-betterer-result-escape-interpolation',
       {
         '.betterer.ts': `
-import { BettererFileTest, BettererFileResolver } from '@betterer/betterer';
+import { BettererFileTest } from '@betterer/betterer';
 
 function test(): BettererFileTest {
-  const resolver = new BettererFileResolver();
-  return new BettererFileTest(resolver, async (files, fileTestResult) => {        
+  return new BettererFileTest(async (files, fileTestResult) => {        
     const [filePath] = files;
     const file = fileTestResult.addFile(filePath, '');
     file.addIssue(0, 0, "\`$" + "{key}\`");

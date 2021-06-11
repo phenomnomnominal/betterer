@@ -18,3 +18,10 @@ export type BettererVersionControl = BettererFileCache & {
   isIgnored(filePath: string): boolean;
   sync(): Promise<void>;
 };
+
+export type BettererFileResolver = {
+  baseDirectory: string;
+  files(filePaths: BettererFilePaths): BettererFilePaths;
+  resolve(...pathSegments: Array<string>): string;
+  validate(filePaths: BettererFilePaths): BettererFilePaths;
+};
