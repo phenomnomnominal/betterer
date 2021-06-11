@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.5](https://github.com/phenomnomnominal/betterer/compare/v4.3.4...v4.3.5) (2021-06-11)
+
+
+### Bug Fixes
+
+* **extension 🐛:** cache and extension improvements ([5f51b36](https://github.com/phenomnomnominal/betterer/commit/5f51b36b4e0a28f00962d135499039a0c659e900))
+
+
+
+
+
 ## [4.3.4](https://github.com/phenomnomnominal/betterer/compare/v4.3.3...v4.3.4) (2021-06-09)
 
 **Note:** Version bump only for package @betterer/monorepo
