@@ -152,7 +152,7 @@
     "@betterer/logger": "^4.3.4",
     "@types/jest-cli": "^24.3.0",
     "@types/vscode": "^1.52.0",
-    "jest-cli": "^26.4.2",
+    "jest-cli": "^27.0.4",
     "ts-loader": "^9.1.2",
     "vscode-test": "^1.5.0",
     "webpack": "^5.1.3",
