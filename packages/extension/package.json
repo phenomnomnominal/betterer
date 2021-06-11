@@ -46,6 +46,12 @@
           "default": true,
           "description": "Controls whether Betterer is enabled or not."
         },
+        "betterer.cachePath": {
+          "scope": "resource",
+          "type": "string",
+          "default": "./.betterer.cache",
+          "description": "Path to Betterer cache file relative to working directory"
+        },
         "betterer.configPath": {
           "scope": "resource",
           "type": "string",

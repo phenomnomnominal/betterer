@@ -16,7 +16,7 @@ export async function hasBetterer(cwd: string): Promise<boolean> {
 }
 
 export async function getRunner(cwd: string, config: BettererOptionsRunner): Promise<BettererRunner> {
-  config = { ...config, cwd, silent: true };
+  config = { ...config, cwd, silent: true, cache: true };
   const key = JSON.stringify({ ...config, cwd });
   if (RUNNERS.has(key)) {
     return RUNNERS.get(key) as BettererRunner;

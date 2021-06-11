@@ -11,9 +11,8 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { info, initConsole } from './console';
 import { createErrorHandler } from './error-handler';
-import { BettererValidateNotification, BettererValidationQueue } from './notifications';
+import { BettererValidationQueue } from './validation-queue';
 import { initTrace } from './trace';
-import { BettererValidator } from './validator';
 
 function init(): void {
   const connection = createConnection();
@@ -24,25 +23,38 @@ function init(): void {
 
   info(`Server: Betterer server running in node ${process.version}`);
 
-  const validationQueue = new BettererValidationQueue();
   const documents = new TextDocuments(TextDocument);
-  const validator = new BettererValidator(connection, documents);
+  const validationQueue = new BettererValidationQueue(connection, documents);
 
   function clearDiagnostics(event: TextDocumentChangeEvent<TextDocument>): void {
     info(`Server: Clearing diagnostics for "${event.document.uri}".`);
     connection.sendDiagnostics({ uri: event.document.uri, diagnostics: [] });
+    validationQueue.removeFromQueue(event);
   }
 
   function queueValidate(event: TextDocumentChangeEvent<TextDocument>): void {
-    info(`Server: Queueing validation for "${event.document.uri}".`);
-    validationQueue.addNotificationMessage(event);
+    validationQueue.addToQueue(event);
+  }
+
+  function opened(event: TextDocumentChangeEvent<TextDocument>): void {
+    info(`Server: ${event.document.uri} opened, validating:`);
+    queueValidate(event);
+  }
+
+  function saved(event: TextDocumentChangeEvent<TextDocument>): void {
+    info(`Server: ${event.document.uri} saved, validating:`);
+    queueValidate(event);
+  }
+
+  function environmentChanged(): void {
+    info('Server: Environment changed, revalidating all documents:');
+    documents.all().forEach((document) => queueValidate({ document }));
   }
 
   connection.onInitialize(() => {
     documents.listen(connection);
-    documents.onDidOpen(queueValidate);
-    documents.onDidChangeContent(clearDiagnostics);
-    documents.onDidSave(queueValidate);
+    documents.onDidOpen(opened);
+    documents.onDidSave(saved);
     documents.onDidClose(clearDiagnostics);
 
     return {
@@ -68,21 +80,7 @@ function init(): void {
     void connection.client.register(DidChangeWorkspaceFoldersNotification.type);
   });
 
-  validationQueue.onNotification(
-    BettererValidateNotification,
-    (document) => {
-      info(`Server: Validating document "${document.uri}".`);
-      void validator.validate(document);
-    },
-    (document) => document.version
-  );
-
   connection.listen();
-
-  function environmentChanged(): void {
-    info('Server: Environment changed, revalidating all documents:');
-    documents.all().forEach((document) => queueValidate({ document }));
-  }
 }
 
 init();

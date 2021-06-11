@@ -5,8 +5,9 @@ export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>
 export type BettererFileCacheMap = Record<string, string>;
 
 export type BettererFileCache = {
-  checkCache(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
-  enableCache(cachePath: string): void;
+  checkCache(filePath: string): boolean;
+  enableCache(cachePath: string): Promise<void>;
+  updateCache(fiePaths: BettererFilePaths): void;
   writeCache(): Promise<void>;
 };
 

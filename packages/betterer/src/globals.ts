@@ -12,7 +12,7 @@ export async function createGlobals(
     const config = await createConfig(options);
     const { cache, cwd, reporters, silent } = config;
     if (cache) {
-      versionControl.enableCache(config.cachePath);
+      await versionControl.enableCache(config.cachePath);
     }
     if (silent) {
       reporter = loadReporters([]);

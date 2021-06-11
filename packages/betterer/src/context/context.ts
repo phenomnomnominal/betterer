@@ -117,8 +117,12 @@ export class BettererContextΩ implements BettererContext {
     return summary;
   }
 
-  public checkCache(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
-    return this._versionControl.checkCache(filePaths);
+  public checkCache(filePath: string): boolean {
+    return this._versionControl.checkCache(filePath);
+  }
+
+  public updateCache(filePaths: BettererFilePaths): void {
+    return this._versionControl.updateCache(filePaths);
   }
 
   private _initTests(): BettererTestMap {
