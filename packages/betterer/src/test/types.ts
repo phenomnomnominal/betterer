@@ -74,6 +74,7 @@ export type BettererTestOptions<DeserialisedType = unknown, SerialisedType = Des
   | BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType>;
 
 export type BettererTestConfig<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> = {
+  configPath: string;
   constraint: BettererTestConstraint<DeserialisedType>;
   deadline: number;
   goal: BettererTestGoal<DeserialisedType>;

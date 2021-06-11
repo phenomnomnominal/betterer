@@ -1,4 +1,4 @@
-import { BettererFilePaths } from '../../fs';
+import { BettererFilePaths, BettererFileResolver } from '../../fs';
 import { BettererDiff } from '../../test';
 import { MaybeAsync } from '../../types';
 import { BettererTestBase, BettererTestConfig } from '../types';
@@ -16,7 +16,8 @@ export type BettererFileTestDiff = BettererDiff<BettererFileTestResult, Betterer
 
 export type BettererFileTestFunction = (
   filePaths: BettererFilePaths,
-  fileTestResult: BettererFileTestResult
+  fileTestResult: BettererFileTestResult,
+  resolver: BettererFileResolver
 ) => MaybeAsync<void>;
 
 export type BettererFileIssue = {

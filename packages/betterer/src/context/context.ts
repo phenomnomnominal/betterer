@@ -155,6 +155,7 @@ export class BettererContextΩ implements BettererContext {
         } else {
           test = testOrConfig;
         }
+        test.config.configPath = configPath;
         tests[name] = test;
       });
       return tests;

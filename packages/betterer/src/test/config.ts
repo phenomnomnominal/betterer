@@ -29,6 +29,7 @@ export function createTestConfig<DeserialisedType, SerialisedType, DiffType>(
 
   if (isComplex(options)) {
     return {
+      configPath: '',
       printer: defaultPrinter,
       progress: defaultProgress,
       ...options,
@@ -40,6 +41,7 @@ export function createTestConfig<DeserialisedType, SerialisedType, DiffType>(
 
   return {
     ...options,
+    configPath: '',
     differ: defaultDiffer,
     printer: defaultPrinter,
     progress: defaultProgress,

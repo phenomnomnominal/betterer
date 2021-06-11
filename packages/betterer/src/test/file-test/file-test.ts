@@ -1,5 +1,7 @@
+import path from 'path';
+
 import { BettererContext, BettererContextΩ, BettererRun, BettererRunΩ } from '../../context';
-import { BettererFileResolver, BettererFileResolverΩ, BettererFileGlobs, BettererFilePatterns } from '../../fs';
+import { BettererFileResolverΩ, BettererFileGlobs, BettererFilePatterns } from '../../fs';
 import { createTestConfig } from '../config';
 import { BettererTestType } from '../type';
 import { BettererTestConstraint, BettererTestFunction, BettererTestGoal } from '../types';
@@ -23,9 +25,8 @@ export class BettererFileTest implements BettererFileTestBase {
   private _isSkipped = false;
   private _resolver: BettererFileResolverΩ;
 
-  constructor(resolver: BettererFileResolver, fileTest: BettererFileTestFunction) {
-    const { cwd } = resolver;
-    this._resolver = new BettererFileResolverΩ(cwd);
+  constructor(fileTest: BettererFileTestFunction) {
+    this._resolver = new BettererFileResolverΩ();
     this._config = createTestConfig(
       {
         test: createTest(this._resolver, fileTest),
@@ -89,6 +90,7 @@ function createTest(
 ): BettererTestFunction<BettererFileTestResult> {
   return async (run: BettererRun, context: BettererContext): Promise<BettererFileTestResult> => {
     const runΩ = run as BettererRunΩ;
+    resolver.setBaseDirectory(path.dirname(runΩ.test.configPath));
     const contextΩ = context as BettererContextΩ;
 
     const hasSpecifiedFiles = runΩ.filePaths?.length > 0;
@@ -108,8 +110,8 @@ function createTest(
     const cacheHit = runΩ.filePaths.length !== runFiles.length;
     const isPartial = hasSpecifiedFiles || cacheHit;
 
-    const result = new BettererFileTestResultΩ(resolver);
-    await fileTest(runFiles, result);
+    const result = new BettererFileTestResultΩ();
+    await fileTest(runFiles, result, resolver);
 
     contextΩ.updateCache(result.filePaths);
 
