@@ -1,7 +1,7 @@
 {
   "name": "@betterer/typescript",
   "description": "TypeScript test for @betterer/betterer",
-  "version": "4.3.6",
+  "version": "4.3.7",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
