@@ -47,7 +47,7 @@ export function tsqueryΔ(query: string): BettererFileTest {
 
   const resolver = new BettererFileResolver();
   return new BettererFileTest(resolver, async (filePaths, fileTestResult) => {
-    if (filePaths.length) {
+    if (filePaths.length === 0) {
       return;
     }
 
