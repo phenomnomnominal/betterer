@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.8](https://github.com/phenomnomnominal/betterer/compare/v4.3.7...v4.3.8) (2021-06-16)
+
+
+### Bug Fixes
+
+* **typescript 🐛:** dont try to be smarter than tsc ([#754](https://github.com/phenomnomnominal/betterer/issues/754)) ([a928586](https://github.com/phenomnomnominal/betterer/commit/a92858647d9d8b08e546e9c3f07ad814a93aa608))
+
+
+
+
+
 ## [4.3.7](https://github.com/phenomnomnominal/betterer/compare/v4.3.6...v4.3.7) (2021-06-12)
 
 
