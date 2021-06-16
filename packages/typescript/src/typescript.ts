@@ -5,6 +5,10 @@ import * as ts from 'typescript';
 
 const NEW_LINE = '\n';
 
+// When making a project with only a subset of the files in the original tsconfig,
+// 6307 errors will appear when importing other files, but they're only a problem because the tsconfig has been edited
+const CODE_FILE_NOT_INCLUDED = 6307;
+
 type TypeScriptReadConfigResult = {
   config: {
     compilerOptions: ts.CompilerOptions;
@@ -135,13 +139,11 @@ export function typescriptΔ(configFilePath: string, extraCompilerOptions: ts.Co
     ]);
 
     allDiagnostics
-      .filter(({ file, start, length }) => file && start != null && length != null)
-      .forEach((diagnostic) => {
-        const { start, length } = diagnostic as ts.DiagnosticWithLocation;
-        const source = (diagnostic as ts.DiagnosticWithLocation).file;
-        const { fileName } = source;
-        const file = fileTestResult.addFile(fileName, source.getFullText());
-        const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, NEW_LINE);
+      .filter((d): d is ts.DiagnosticWithLocation => d.file !== undefined && d.start != null && d.length != null)
+      .filter(({ file, code }) => filePaths.includes(file.fileName) && code !== CODE_FILE_NOT_INCLUDED)
+      .forEach(({ start, length, file: source, messageText }) => {
+        const file = fileTestResult.addFile(source.fileName, source.getFullText());
+        const message = ts.flattenDiagnosticMessageText(messageText, NEW_LINE);
         file.addIssue(start, start + length, message);
       });
   });
