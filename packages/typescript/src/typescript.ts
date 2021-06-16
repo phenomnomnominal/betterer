@@ -5,10 +5,6 @@ import * as ts from 'typescript';
 
 const NEW_LINE = '\n';
 
-// When making a project with only a subset of the files in the original tsconfig,
-// 6307 errors will appear when importing other files, but they're only a problem because the tsconfig has been edited
-const CODE_FILE_NOT_INCLUDED = 6307;
-
 type TypeScriptReadConfigResult = {
   config: {
     compilerOptions: ts.CompilerOptions;
@@ -81,6 +77,11 @@ export function typescript(configFilePath: string, extraCompilerOptions: ts.Comp
   });
 }
 
+// TypeScript throws a 6307 error when it need to access type information from a file
+// that wasn't included by the tsconfig. This happens whenever we run the compiler on
+// a subset of files, so we need to filter out those errors!
+const CODE_FILE_NOT_INCLUDED = 6307;
+
 /** @internal Definitely not stable! Please don't use! */
 export function typescriptΔ(configFilePath: string, extraCompilerOptions: ts.CompilerOptions = {}): BettererFileTest {
   if (!configFilePath) {
@@ -106,8 +107,11 @@ export function typescriptΔ(configFilePath: string, extraCompilerOptions: ts.Co
       ...extraCompilerOptions
     };
     config.compilerOptions = fullCompilerOptions;
-    config.files = filePaths;
-    delete config.include;
+
+    if (!config.compilerOptions.incremental) {
+      config.files = filePaths;
+      delete config.include;
+    }
 
     const compilerHost = ts.createCompilerHost(fullCompilerOptions);
     const configHost: ts.ParseConfigHost = {
@@ -139,8 +143,13 @@ export function typescriptΔ(configFilePath: string, extraCompilerOptions: ts.Co
     ]);
 
     allDiagnostics
-      .filter((d): d is ts.DiagnosticWithLocation => d.file !== undefined && d.start != null && d.length != null)
-      .filter(({ file, code }) => filePaths.includes(file.fileName) && code !== CODE_FILE_NOT_INCLUDED)
+      .filter((diagnostic): diagnostic is ts.DiagnosticWithLocation => {
+        const { file, start, length } = diagnostic;
+        return file != null && start != null && length != null;
+      })
+      .filter(({ file, code }) => {
+        return filePaths.includes(file.fileName) && code !== CODE_FILE_NOT_INCLUDED;
+      })
       .forEach(({ start, length, file: source, messageText }) => {
         const file = fileTestResult.addFile(source.fileName, source.getFullText());
         const message = ts.flattenDiagnosticMessageText(messageText, NEW_LINE);

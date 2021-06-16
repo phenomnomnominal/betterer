@@ -183,7 +183,7 @@ export default {
     "resolveJsonModule": true,
     "strict": false
   },
-  "include": [".betterer.ts"]
+  "include": ["./src/**/*.ts", ".betterer.ts"]
 }
         `,
         './src/foo.ts': `
