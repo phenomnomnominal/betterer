@@ -1,10 +1,15 @@
 import { BettererSummary, betterer, BettererOptionsStart } from '@betterer/betterer';
+import { ciΔ } from './ci';
 
 import { startOptions } from './options';
 import { BettererCLIArguments } from './types';
 
 /** @internal Definitely not stable! Please don't use! */
 export function startΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSummary> {
+  if (process.env.CI) {
+    return ciΔ(cwd, argv);
+  }
+
   const {
     cache,
     cachePath,
