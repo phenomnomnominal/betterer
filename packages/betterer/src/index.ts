@@ -26,6 +26,8 @@ export {
   BettererDelta,
   BettererRun,
   BettererRunNames,
+  BettererRunSummary,
+  BettererRunSummaries,
   BettererRuns,
   BettererSummary,
   BettererSummaries

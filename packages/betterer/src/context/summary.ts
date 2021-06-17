@@ -1,12 +1,11 @@
-import { BettererRunsΩ } from './run';
-import { BettererRuns, BettererSummary } from './types';
+import { BettererRunSummaries, BettererSummary } from './types';
 
 export class BettererSummaryΩ implements BettererSummary {
   public readonly unexpectedDiff: boolean;
   public readonly shouldWrite: boolean;
 
   constructor(
-    public readonly runs: BettererRunsΩ,
+    public readonly runs: BettererRunSummaries,
     public readonly result: string,
     public readonly expected: string | null,
     ci: boolean
@@ -17,47 +16,43 @@ export class BettererSummaryΩ implements BettererSummary {
     this.shouldWrite = !this.expected || expectedDiff;
   }
 
-  public get completed(): BettererRuns {
+  public get completed(): BettererRunSummaries {
     return this.runs.filter((run) => run.isComplete);
   }
 
-  public get expired(): BettererRuns {
+  public get expired(): BettererRunSummaries {
     return this.runs.filter((run) => run.isExpired);
   }
 
-  public get better(): BettererRuns {
+  public get better(): BettererRunSummaries {
     return this.runs.filter((run) => run.isBetter);
   }
 
-  public get failed(): BettererRuns {
+  public get failed(): BettererRunSummaries {
     return this.runs.filter((run) => run.isFailed);
   }
 
-  public get new(): BettererRuns {
-    return this.runs.filter((run) => run.isNew && run.isRan);
+  public get new(): BettererRunSummaries {
+    return this.runs.filter((run) => run.isNew && !(run.isSkipped || run.isFailed));
   }
 
-  public get obsolete(): BettererRuns {
-    return this.runs.filter((run) => run.isObsolete);
+  public get ran(): BettererRunSummaries {
+    return this.runs.filter((run) => !(run.isSkipped || run.isFailed));
   }
 
-  public get ran(): BettererRuns {
-    return this.runs.filter((run) => run.isRan);
-  }
-
-  public get same(): BettererRuns {
+  public get same(): BettererRunSummaries {
     return this.runs.filter((run) => run.isSame);
   }
 
-  public get skipped(): BettererRuns {
+  public get skipped(): BettererRunSummaries {
     return this.runs.filter((run) => run.isSkipped);
   }
 
-  public get updated(): BettererRuns {
+  public get updated(): BettererRunSummaries {
     return this.runs.filter((run) => run.isUpdated);
   }
 
-  public get worse(): BettererRuns {
+  public get worse(): BettererRunSummaries {
     return this.runs.filter((run) => run.isWorse);
   }
 }

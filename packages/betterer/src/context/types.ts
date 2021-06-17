@@ -31,26 +31,13 @@ export type BettererDelta =
     };
 
 export type BettererRun = {
-  readonly diff: BettererDiff;
   readonly expected: BettererResult;
   readonly filePaths: BettererFilePaths;
-  readonly lifecycle: Promise<void>;
+  readonly lifecycle: Promise<BettererRunSummary>;
   readonly name: string;
-  readonly delta: BettererDelta | null;
-  readonly result: BettererResult;
   readonly test: BettererTestConfig;
-  readonly timestamp: number;
-
-  readonly isBetter: boolean;
-  readonly isComplete: boolean;
-  readonly isExpired: boolean;
-  readonly isFailed: boolean;
   readonly isNew: boolean;
-  readonly isObsolete: boolean;
-  readonly isSame: boolean;
   readonly isSkipped: boolean;
-  readonly isUpdated: boolean;
-  readonly isWorse: boolean;
 };
 
 export type BettererRunStarted = {
@@ -63,23 +50,39 @@ export type BettererRunStarted = {
   worse(result: BettererResult): Promise<void>;
 };
 
+export type BettererRunSummary = BettererRun & {
+  readonly diff: BettererDiff;
+  readonly delta: BettererDelta | null;
+  readonly result: BettererResult;
+  readonly timestamp: number;
+
+  readonly isBetter: boolean;
+  readonly isComplete: boolean;
+  readonly isExpired: boolean;
+  readonly isFailed: boolean;
+  readonly isSame: boolean;
+  readonly isUpdated: boolean;
+  readonly isWorse: boolean;
+};
+
+export type BettererRunSummaries = Array<BettererRunSummary>;
+
 export type BettererSummary = {
-  readonly runs: BettererRuns;
+  readonly runs: BettererRunSummaries;
   readonly result: string;
   readonly expected: string | null;
   readonly unexpectedDiff: boolean;
 
-  readonly better: BettererRuns;
-  readonly completed: BettererRuns;
-  readonly expired: BettererRuns;
-  readonly failed: BettererRuns;
-  readonly new: BettererRuns;
-  readonly obsolete: BettererRuns;
-  readonly ran: BettererRuns;
-  readonly same: BettererRuns;
-  readonly skipped: BettererRuns;
-  readonly updated: BettererRuns;
-  readonly worse: BettererRuns;
+  readonly better: BettererRunSummaries;
+  readonly completed: BettererRunSummaries;
+  readonly expired: BettererRunSummaries;
+  readonly failed: BettererRunSummaries;
+  readonly new: BettererRunSummaries;
+  readonly ran: BettererRunSummaries;
+  readonly same: BettererRunSummaries;
+  readonly skipped: BettererRunSummaries;
+  readonly updated: BettererRunSummaries;
+  readonly worse: BettererRunSummaries;
 };
 
 export type BettererSummaries = Array<BettererSummary>;

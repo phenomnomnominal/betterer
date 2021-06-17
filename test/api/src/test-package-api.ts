@@ -8,8 +8,8 @@ import { publicApi, verifyAgainstGoldenFile } from 'ts-api-guardian';
 const EXCLUDED_PACKAGES = ['extension', 'fixture', 'tasks'];
 const DECLARATION_EXTENSION = '.d.ts';
 const BUILT_DECLARATION = `dist/index${DECLARATION_EXTENSION}`;
-const PACKAGES_DIR = path.resolve(__dirname, '../../packages');
-const GOLDENS_DIR = path.resolve(__dirname, '../../goldens/api/@betterer');
+const PACKAGES_DIR = path.resolve(__dirname, '../../../packages');
+const GOLDENS_DIR = path.resolve(__dirname, '../../../goldens/api/@betterer');
 
 const API_OPTIONS = { allowModuleIdentifiers: ['ts', 'react'] };
 

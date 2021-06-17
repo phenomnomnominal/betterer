@@ -3,6 +3,7 @@ import {
   BettererContext,
   BettererFilePaths,
   BettererRun,
+  BettererRunSummaries,
   BettererRuns,
   BettererSummaries,
   BettererSummary
@@ -154,7 +155,7 @@ export const getsBetter = {
             return;
           }
         },
-        async runStart(_: BettererRun, lifecycle: Promise<void>) {
+        async runStart(_: BettererRun, lifecycle: Promise<BettererRunSummaries>) {
           try {
             await lifecycle;
           } catch (e) {

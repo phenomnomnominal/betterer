@@ -1,6 +1,7 @@
 import { BettererError } from '@betterer/errors';
 
 import { BettererContext, BettererRun, BettererRuns, BettererSummary, BettererSummaries } from '../context';
+import { BettererRunSummary } from '../context';
 import { BettererFilePaths } from '../fs';
 
 export type BettererReporter = {
@@ -15,8 +16,8 @@ export type BettererReporter = {
   ): Promise<void> | void;
   runsEnd?(summary: BettererSummary, filePaths: BettererFilePaths): Promise<void> | void;
   runsError?(runs: BettererRuns, filePaths: BettererFilePaths, error: BettererError): Promise<void> | void;
-  runStart?(run: BettererRun, lifecycle: Promise<void>): Promise<void> | void;
-  runEnd?(run: BettererRun): Promise<void> | void;
+  runStart?(run: BettererRun, lifecycle: Promise<BettererRunSummary>): Promise<void> | void;
+  runEnd?(run: BettererRunSummary): Promise<void> | void;
   runError?(run: BettererRun, error: BettererError): Promise<void> | void;
 };
 

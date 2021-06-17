@@ -18,13 +18,19 @@ import {
 } from '../test';
 import { BettererRunsΩ, BettererRunΩ } from './run';
 import { BettererSummaryΩ } from './summary';
-import { BettererContext, BettererContextStarted, BettererRunNames, BettererSummaries, BettererSummary } from './types';
+import {
+  BettererContext,
+  BettererContextStarted,
+  BettererRunSummaries,
+  BettererSummaries,
+  BettererSummary
+} from './types';
 
 export class BettererContextΩ implements BettererContext {
   public readonly results = new BettererResultsΩ(this.config.resultsPath);
 
   private _lifecycle: Defer<BettererSummaries>;
-  private _running: Promise<void> | null = null;
+  private _running: Promise<BettererRunSummaries> | null = null;
   private _summaries: BettererSummaries = [];
   private _tests: BettererTestMap = {};
 
@@ -74,8 +80,6 @@ export class BettererContextΩ implements BettererContext {
     this._tests = this._initTests();
     this._initFilters();
 
-    const obsolete = await this._initObsolete();
-
     let testNames = Object.keys(this._tests);
 
     // Only run BettererFileTests when a list of filePaths is given:
@@ -88,10 +92,9 @@ export class BettererContextΩ implements BettererContext {
       testNames.map(async (name) => {
         const test = this._tests[name];
         const { isSkipped, config } = test;
-        const isObsolete = obsolete.includes(name);
         const baseline = await this.results.getBaseline(name, config);
         const expected = await this.results.getExpectedResult(name, config);
-        return new BettererRunΩ(this._reporter, name, config, expected, baseline, filePaths, isSkipped, isObsolete);
+        return new BettererRunΩ(this._reporter, name, config, expected, baseline, filePaths, isSkipped);
       })
     );
 
@@ -99,22 +102,21 @@ export class BettererContextΩ implements BettererContext {
     const reportRunsStart = this._reporter.runsStart(runs, filePaths, runsLifecycle.promise);
     try {
       this._running = this._runTests(runs);
-      await this._running;
+      const runSummaries = await this._running;
+      const result = await this.results.print(runSummaries);
+      const expected = await this.results.read();
+      const summary = new BettererSummaryΩ(runSummaries, result, expected, this.config.ci);
+      this._summaries.push(summary);
+      runsLifecycle.resolve(summary);
+      await reportRunsStart;
+      await this._reporter.runsEnd(summary, filePaths);
+      return summary;
     } catch (error) {
       runsLifecycle.reject(error);
       await reportRunsStart;
       await this._reporter.runsError(runs, filePaths, error);
       throw error;
     }
-    const result = await this.results.print(runs);
-    const expected = await this.results.read();
-    const summary = new BettererSummaryΩ(runs, result, expected, this.config.ci);
-    this._summaries.push(summary);
-    runsLifecycle.resolve(summary);
-    await reportRunsStart;
-    await this._reporter.runsEnd(summary, filePaths);
-
-    return summary;
   }
 
   public checkCache(filePath: string): boolean {
@@ -163,11 +165,6 @@ export class BettererContextΩ implements BettererContext {
     }
   }
 
-  private async _initObsolete(): Promise<BettererRunNames> {
-    const expectedNames = await this.results.getExpectedNames();
-    return expectedNames.filter((expectedName) => !Object.keys(this._tests).find((name) => name === expectedName));
-  }
-
   private _initFilters(): void {
     // read `filters` here so that it can be updated by watch mode:
     const { filters } = this.config;
@@ -180,8 +177,13 @@ export class BettererContextΩ implements BettererContext {
     }
   }
 
-  private async _runTests(runsΩ: BettererRunsΩ): Promise<void> {
-    await Promise.all(runsΩ.map((runΩ) => this._runTest(runΩ, this.config.update)));
+  private async _runTests(runsΩ: BettererRunsΩ): Promise<BettererRunSummaries> {
+    return Promise.all(
+      runsΩ.map(async (runΩ) => {
+        await this._runTest(runΩ, this.config.update);
+        return runΩ.lifecycle;
+      })
+    );
   }
 
   private async _runTest(runΩ: BettererRunΩ, update: boolean): Promise<void> {
@@ -201,7 +203,6 @@ export class BettererContextΩ implements BettererContext {
       await started.failed(e);
       return;
     }
-    runΩ.ran();
 
     const goalComplete = await test.goal(result.value);
 

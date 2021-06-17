@@ -1,6 +1,6 @@
 import assert from 'assert';
 
-import { BettererRuns } from '../context';
+import { BettererRunSummaries } from '../context';
 import { forceRelativePaths, read, write } from '../fs';
 import { BettererTestConfig } from '../test';
 import { parse } from './parser';
@@ -36,7 +36,7 @@ export class BettererResultsΩ {
     return read(this._resultsPath);
   }
 
-  public async print(runs: BettererRuns): Promise<string> {
+  public async print(runs: BettererRunSummaries): Promise<string> {
     const toPrint = runs.filter((run) => {
       const { isComplete, isNew, isSkipped, isFailed } = run;
       return !(isComplete || (isNew && (isSkipped || isFailed)));
