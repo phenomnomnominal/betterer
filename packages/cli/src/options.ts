@@ -9,11 +9,13 @@ import {
 } from './types';
 
 export function ciOptions(argv: BettererCLIArguments): BettererCLICIConfig {
+  cacheOption(); // Ignored
   configPathsOption();
   resultsPathOption();
   tsconfigPathOption();
   filtersOption();
   silentOption();
+  strictOption(); // Ignored
   reportersOption();
   excludesOption();
   const options = setEnv<BettererCLICIConfig>(argv);
