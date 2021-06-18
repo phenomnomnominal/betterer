@@ -16,6 +16,7 @@ export {
   BettererOptionsStartBase,
   BettererOptionsStartCI,
   BettererOptionsStartDefault,
+  BettererOptionsStartPrecommit,
   BettererOptionsStartStrict,
   BettererOptionsStartUpdate,
   BettererOptionsStart,

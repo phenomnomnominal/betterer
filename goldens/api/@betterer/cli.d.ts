@@ -19,6 +19,22 @@ export declare type BettererCLICIConfig = BettererCLIBaseConfig & {
     include: BettererCLIArguments;
 };
 
+export declare type BettererCLIConfig = BettererCLIEnvConfig & {
+    cache: boolean;
+    cachePath: string;
+    config: BettererCLIArguments;
+    exclude: BettererCLIArguments;
+    filter: BettererCLIArguments;
+    ignore: BettererCLIArguments;
+    include: BettererCLIArguments;
+    reporter: BettererCLIArguments;
+    results: string;
+    silent: boolean;
+    strict: boolean;
+    tsconfig: string;
+    update: boolean;
+};
+
 export declare type BettererCLIEnvConfig = {
     debug: boolean;
     debugLog: string;
@@ -52,6 +68,8 @@ export declare function ciΔ(cwd: string, argv: BettererCLIArguments): Promise<B
 export declare function cliΔ(argv: BettererCLIArguments): void;
 
 export declare function initΔ(cwd: string, argv: BettererCLIArguments): Promise<void>;
+
+export declare function precommitΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSummary>;
 
 export declare function startΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSummary>;
 

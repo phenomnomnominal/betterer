@@ -1,11 +1,11 @@
 import { betterer, BettererOptionsWatch } from '@betterer/betterer';
 
-import { watchOptions } from './options';
+import { cliOptions } from './options';
 import { BettererCLIArguments } from './types';
 
 /** @internal Definitely not stable! Please don't use! */
 export async function watchΔ(cwd: string, argv: BettererCLIArguments): Promise<void> {
-  const { cache, cachePath, config, filter, ignore, reporter, results, silent, tsconfig } = watchOptions(argv);
+  const { cache, cachePath, config, filter, ignore, reporter, results, silent, tsconfig } = cliOptions(argv);
 
   // Mark options as unknown...
   const options: unknown = {

@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+require('../dist/precommit')
+  .precommitΔ(process.cwd(), process.argv)
+  .then(function (summary) {
+    process.exitCode = summary.worse.length !== 0 ? 1 : 0;
+  })
+  .catch(function () {
+    process.exitCode = 1;
+  });

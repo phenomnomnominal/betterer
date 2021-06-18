@@ -54,6 +54,9 @@ export class BettererContextΩ implements BettererContext {
         if (summaryΩ.shouldWrite) {
           await this.results.write(summaryΩ.result);
           await this._versionControl.writeCache();
+          if (this.config.precommit) {
+            await this._versionControl.add(this.config.resultsPath);
+          }
         }
       },
       error: async (error: BettererError): Promise<void> => {

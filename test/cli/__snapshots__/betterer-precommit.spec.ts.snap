@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`betterer should throw when there is invalid config 1`] = `
+exports[`betterer precommit should add a diff to the summary if there is any change to the results file 1`] = `
 Array [
   "
    / | /     _         _   _
@@ -9,8 +9,6 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-
-Error: \\"cache\\" must be \`true\` or \`false\`. Recieved \`1234\`.
 ",
   "
    / | /     _         _   _
@@ -19,8 +17,8 @@ Error: \\"cache\\" must be \`true\` or \`false\`. Recieved \`1234\`.
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
+🌟 Betterer (0ms):
 
-Error: \\"cache\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
 ",
   "
    / | /     _         _   _
@@ -29,8 +27,9 @@ Error: \\"cache\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
+🌟 Betterer (0ms): 1 test running...
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
 
-Error: \\"cache\\" must be \`true\` or \`false\`. Recieved \`{}\`.
 ",
   "
    / | /     _         _   _
@@ -39,8 +38,9 @@ Error: \\"cache\\" must be \`true\` or \`false\`. Recieved \`{}\`.
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
+🌟 Betterer (0ms): 1 test running...
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! (1 issue) 🎉
 
-Error: \\"cachePath\\" must be a string. Recieved \`1234\`.
 ",
   "
    / | /     _         _   _
@@ -49,8 +49,9 @@ Error: \\"cachePath\\" must be a string. Recieved \`1234\`.
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! (1 issue) 🎉
 
-Error: \\"cachePath\\" must be a string. Recieved \`{}\`.
 ",
   "
    / | /     _         _   _
@@ -59,8 +60,12 @@ Error: \\"cachePath\\" must be a string. Recieved \`{}\`.
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! (1 issue) 🎉
 
-Error: \\"cachePath\\" must be a string. Recieved \`true\`.
+1 test got checked. 🤔
+1 test got checked for the first time! 🎉
+
 ",
   "
    / | /     _         _   _
@@ -69,8 +74,6 @@ Error: \\"cachePath\\" must be a string. Recieved \`true\`.
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-
-Error: \\"ci\\" must be \`true\` or \`false\`. Recieved \`1234\`.
 ",
   "
    / | /     _         _   _
@@ -79,8 +82,8 @@ Error: \\"ci\\" must be \`true\` or \`false\`. Recieved \`1234\`.
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
+🌟 Betterer (0ms):
 
-Error: \\"ci\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
 ",
   "
    / | /     _         _   _
@@ -89,8 +92,9 @@ Error: \\"ci\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
+🌟 Betterer (0ms): 1 test running...
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
 
-Error: \\"ci\\" must be \`true\` or \`false\`. Recieved \`{}\`.
 ",
   "
    / | /     _         _   _
@@ -99,8 +103,9 @@ Error: \\"ci\\" must be \`true\` or \`false\`. Recieved \`{}\`.
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
+🌟 Betterer (0ms): 1 test running...
+✅ typescript use strict mode: \\"typescript use strict mode\\" met its goal! 🎉
 
-Error: \\"configPaths\\" must be an array of strings. Recieved \`[1234]\`.
 ",
   "
    / | /     _         _   _
@@ -109,8 +114,9 @@ Error: \\"configPaths\\" must be an array of strings. Recieved \`[1234]\`.
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" met its goal! 🎉
 
-Error: \\"configPaths\\" must be an array of strings. Recieved \`[true]\`.
 ",
   "
    / | /     _         _   _
@@ -119,273 +125,18 @@ Error: \\"configPaths\\" must be an array of strings. Recieved \`[true]\`.
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" met its goal! 🎉
 
-Error: \\"configPaths\\" must be an array of strings. Recieved \`[{}]\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+1 test got checked. 🤔
+1 test got better! 😍
+\\"typescript use strict mode\\" met its goal! 🎉)
 
-
-Error: \\"configPaths\\" must be an array of strings. Recieved \`[1234]\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"cwd\\" must be a string. Recieved \`1234\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"cwd\\" must be a string. Recieved \`{}\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[1234]\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[true]\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[{}]\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[1234]\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"ignores\\" must be an array of strings. Recieved \`[1234]\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"ignores\\" must be an array of strings. Recieved \`[true]\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"ignores\\" must be an array of strings. Recieved \`[{}]\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"ignores\\" must be an array of strings. Recieved \`[1234]\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"precommit\\" must be \`true\` or \`false\`. Recieved \`1234\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"precommit\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"precommit\\" must be \`true\` or \`false\`. Recieved \`{}\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"resultsPath\\" must be a string. Recieved \`1234\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"resultsPath\\" must be a string. Recieved \`true\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"resultsPath\\" must be a string. Recieved \`{}\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`1234\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`{}\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"strict\\" must be \`true\` or \`false\`. Recieved \`1234\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"strict\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"strict\\" must be \`true\` or \`false\`. Recieved \`{}\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"update\\" must be \`true\` or \`false\`. Recieved \`1234\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"update\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"update\\" must be \`true\` or \`false\`. Recieved \`{}\`.
 ",
 ]
 `;
 
-exports[`betterer should throw when there is not a config file 1`] = `
+exports[`betterer precommit should throw when a test gets worse 1`] = `
 Array [
   "
    / | /     _         _   _
@@ -402,10 +153,219 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
+🌟 Betterer (0ms):
 
-Error: could not read config from \\"<project>/fixtures/test-betterer-config/.betterer\\". 😔
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-Error: Cannot find module '<project>/fixtures/test-betterer-config/.betterer' from 'packages/betterer/dist/require.js'
+🌟 Betterer (0ms): 1 test running...
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! (1 issue) 🎉
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! (1 issue) 🎉
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Betterer (0ms): 1 test done!
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! (1 issue) 🎉
+
+1 test got checked. 🤔
+1 test got checked for the first time! 🎉
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms):
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\".
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\":
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\":
+・
+・   <project>/fixtures/test-betterer-precommit-worse/src/index.ts
+・   2 | const one = 1;
+・   3 | console.log(one * a);
+・ > 4 | console.log(a * one);
+・     |             ^ The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+・
+🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\":
+・
+・   <project>/fixtures/test-betterer-precommit-worse/src/index.ts
+・   2 | const one = 1;
+・   3 | console.log(one * a);
+・ > 4 | console.log(a * one);
+・     |             ^ The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+・
+🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. (1 new issue, 2 total) 😔
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🌟 Betterer (0ms): 1 test running...
+🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. (1 new issue, 2 total) 😔
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\":
+・
+・   <project>/fixtures/test-betterer-precommit-worse/src/index.ts
+・   2 | const one = 1;
+・   3 | console.log(one * a);
+・ > 4 | console.log(a * one);
+・     |             ^ The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+・
+
+Error: \\"typescript use strict mode\\" got worse. (1 new issue, 2 total) 😔
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+💥 Betterer (0ms): 1 test done! 1 test errored!
+🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. (1 new issue, 2 total) 😔
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\":
+・
+・   <project>/fixtures/test-betterer-precommit-worse/src/index.ts
+・   2 | const one = 1;
+・   3 | console.log(one * a);
+・ > 4 | console.log(a * one);
+・     |             ^ The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+・
+
+Error: \\"typescript use strict mode\\" got worse. (1 new issue, 2 total) 😔
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+💥 Betterer (0ms): 1 test done! 1 test errored!
+🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. (1 new issue, 2 total) 😔
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\":
+・
+・   <project>/fixtures/test-betterer-precommit-worse/src/index.ts
+・   2 | const one = 1;
+・   3 | console.log(one * a);
+・ > 4 | console.log(a * one);
+・     |             ^ The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+・
+
+Error: \\"typescript use strict mode\\" got worse. (1 new issue, 2 total) 😔
+
+1 test got checked. 🤔
+1 test got worse. 😔
+
+
 ",
 ]
 `;

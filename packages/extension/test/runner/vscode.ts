@@ -5,4 +5,4 @@ export type VSCodeJestGlobal = typeof Global & {
   vscode: typeof vscodeNamespace;
 };
 
-export const vscode = ((global as unknown) as VSCodeJestGlobal).vscode;
+export const vscode = (global as unknown as VSCodeJestGlobal).vscode;
