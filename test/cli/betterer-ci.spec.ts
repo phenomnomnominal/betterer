@@ -53,6 +53,7 @@ export default {
 
     await cleanup();
   });
+
   it('should work with `start` and the CI env variable', async () => {
     const { paths, logs, cleanup, resolve, writeFile } = await createFixture('test-betterer-ci-start', {
       'src/index.ts': `

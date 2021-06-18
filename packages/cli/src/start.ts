@@ -1,7 +1,7 @@
 import { BettererSummary, betterer, BettererOptionsStart } from '@betterer/betterer';
 import { ciΔ } from './ci';
 
-import { startOptions } from './options';
+import { cliOptions } from './options';
 import { BettererCLIArguments } from './types';
 
 /** @internal Definitely not stable! Please don't use! */
@@ -10,20 +10,8 @@ export function startΔ(cwd: string, argv: BettererCLIArguments): Promise<Better
     return ciΔ(cwd, argv);
   }
 
-  const {
-    cache,
-    cachePath,
-    config,
-    exclude,
-    filter,
-    include,
-    results,
-    reporter,
-    silent,
-    strict,
-    tsconfig,
-    update
-  } = startOptions(argv);
+  const { cache, cachePath, config, exclude, filter, include, results, reporter, silent, strict, tsconfig, update } =
+    cliOptions(argv);
 
   // Mark options as unknown...
   const options: unknown = {

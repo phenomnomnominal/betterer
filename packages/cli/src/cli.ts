@@ -4,8 +4,9 @@ import { BettererCLIArguments, BettererPackageJSON } from './types';
 
 enum Command {
   ci = 'ci',
-  start = 'start',
   init = 'init',
+  precommit = 'precommit',
+  start = 'start',
   watch = 'watch'
 }
 
@@ -21,10 +22,18 @@ const { version } = require('../package.json') as BettererPackageJSON;
 export function cliΔ(argv: BettererCLIArguments): void {
   commander.version(version);
 
+  // CI:
+  // Throw if test run creates a diff
   commander.command(Command.ci, 'run Betterer in CI mode');
-  commander.command(Command.init, 'init Betterer in a project');
+
+  // Precommit:
+  // Throw if test run is worse, `git add` if better
+  commander.command(Command.precommit, 'run Betterer in precommit mode');
+
   commander.command(Command.start, 'run Betterer');
   commander.command(Command.watch, 'run Betterer in watch mode');
+
+  commander.command(Command.init, 'init Betterer in a project');
 
   const args = argv.slice(0);
   const [, , command] = args;
