@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0](https://github.com/phenomnomnominal/betterer/compare/v4.3.8...v4.4.0) (2021-06-18)
+
+**Note:** Version bump only for package @betterer/stylelint
+
+
+
+
+
+## [4.3.8](https://github.com/phenomnomnominal/betterer/compare/v4.3.7...v4.3.8) (2021-06-16)
+
+**Note:** Version bump only for package @betterer/stylelint
+
+
+
+
+
 ## [4.3.6](https://github.com/phenomnomnominal/betterer/compare/v4.3.5...v4.3.6) (2021-06-11)
 
 **Note:** Version bump only for package @betterer/stylelint

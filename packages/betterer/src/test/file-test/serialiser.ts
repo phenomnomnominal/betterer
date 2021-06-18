@@ -20,6 +20,15 @@ export function serialise(result: BettererFileTestResult): BettererFileIssuesMap
   const resultΩ = result as BettererFileTestResultΩ;
   return resultΩ.files
     .filter((file) => file.issues.length)
+    .sort((fileA, fileB) => {
+      if (fileA.absolutePath < fileB.absolutePath) {
+        return -1;
+      }
+      if (fileA.absolutePath > fileB.absolutePath) {
+        return 1;
+      }
+      return 0;
+    })
     .reduce((serialised: BettererFileIssuesMapSerialised, file: BettererFileBase) => {
       serialised[file.key] = sortLinesAndColumns(file.issues).map((issue) => [
         issue.line,

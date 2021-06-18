@@ -21,6 +21,10 @@ export class BettererGit implements BettererVersionControl {
     this._cache = new BettererFileCacheΩ(this);
   }
 
+  public async add(resultsPath: string): Promise<void> {
+    await this._git.add(resultsPath);
+  }
+
   public checkCache(filePath: string): boolean {
     return this._cache.checkCache(filePath);
   }

@@ -1,4 +1,4 @@
-import { ciΔ } from '@betterer/cli';
+import { ciΔ, startΔ } from '@betterer/cli';
 
 import { createFixture } from '../fixture';
 
@@ -44,6 +44,57 @@ export default {
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one + one);\nconsole.log(a * one);`);
 
     const diffSummary = await ciΔ(fixturePath, ARGV);
+
+    expect(diffSummary.expected).not.toBeNull();
+    expect(diffSummary.unexpectedDiff).toEqual(true);
+    expect(diffSummary.worse).toHaveLength(0);
+
+    expect(logs).toMatchSnapshot();
+
+    await cleanup();
+  });
+
+  it('should work with `start` and the CI env variable', async () => {
+    const { paths, logs, cleanup, resolve, writeFile } = await createFixture('test-betterer-ci-start', {
+      'src/index.ts': `
+const a = 'a';
+const one = 1;
+console.log(a * one);
+      `,
+      '.betterer.ts': `
+import { typescript } from '@betterer/typescript';
+
+export default {
+  'typescript use strict mode': typescript('./tsconfig.json', {
+    strict: true
+  })
+};    
+      `,
+      'tsconfig.json': `
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["esnext"],
+    "moduleResolution": "node",
+    "target": "ES5",
+    "typeRoots": ["../../node_modules/@types/"],
+    "resolveJsonModule": true
+  },
+  "include": ["./src/**/*", ".betterer.ts"]
+}
+      `
+    });
+
+    const fixturePath = paths.cwd;
+    const indexPath = resolve('./src/index.ts');
+
+    process.env.CI = '1';
+
+    await startΔ(fixturePath, ARGV);
+
+    await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one + one);\nconsole.log(a * one);`);
+
+    const diffSummary = await startΔ(fixturePath, ARGV);
 
     expect(diffSummary.expected).not.toBeNull();
     expect(diffSummary.unexpectedDiff).toEqual(true);
