@@ -43,8 +43,7 @@ export function tsqueryΔ(query: string): BettererFileTest {
     );
   }
 
-  const resolver = new BettererFileResolver();
-  return new BettererFileTest(resolver, async (filePaths, fileTestResult) => {
+  return new BettererFileTest(async (filePaths, fileTestResult) => {
     if (filePaths.length === 0) {
       return;
     }
