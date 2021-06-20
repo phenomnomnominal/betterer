@@ -14,10 +14,9 @@ export const Runs: FC<RunsProps> = memo(function Runs({ runs }) {
   return (
     <Box flexDirection="column" paddingBottom={1}>
       <BettererTasksLogger name="Betterer" update={update} exit={false}>
-        {runs.map((run) => {
-          const task = useTask(run);
-          return <BettererTaskLogger name={run.name} run={task}></BettererTaskLogger>;
-        })}
+        {runs.map((run) => (
+          <BettererTaskLogger key={run.name} name={run.name} run={useTask(run)}></BettererTaskLogger>
+        ))}
       </BettererTasksLogger>
     </Box>
   );

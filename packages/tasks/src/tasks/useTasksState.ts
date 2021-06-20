@@ -1,4 +1,4 @@
-import { createContext, useReducer } from 'react';
+import { createContext, useReducer, useRef } from 'react';
 import { performance } from 'perf_hooks';
 
 export type BettererTasksState = {
@@ -6,7 +6,7 @@ export type BettererTasksState = {
   done: number;
   errors: number;
   startTime: number;
-  shouldExit: boolean;
+  endTime: number | null;
 };
 
 export type BettererTasksAction =
@@ -30,7 +30,7 @@ export type BettererTasksStateAPI = {
 export function useTasksState(): [BettererTasksState, BettererTasksStateAPI] {
   const [state, dispatch] = useReducer(reducer, getInitialState());
 
-  const api: BettererTasksStateAPI = {
+  const api = useRef<BettererTasksStateAPI>({
     error(error: Error) {
       dispatch({ type: 'error', data: error });
     },
@@ -40,17 +40,18 @@ export function useTasksState(): [BettererTasksState, BettererTasksStateAPI] {
     stop() {
       dispatch({ type: 'stop' });
     }
-  };
+  });
 
-  return [state, api];
+  return [state, api.current];
 }
+
 function getInitialState(): BettererTasksState {
   return {
     running: 0,
     done: 0,
     errors: 0,
     startTime: performance.now(),
-    shouldExit: false
+    endTime: null
   };
 }
 
@@ -68,20 +69,24 @@ export const BettererTasksStateContext = createContext<BettererTasksStateAPI>({
 
 function reducer(state: BettererTasksState, action: BettererTasksAction): BettererTasksState {
   switch (action.type) {
-    case 'start':
+    case 'start': {
+      if (state.endTime != null) {
+        return { ...getInitialState(), running: state.running + 1 };
+      }
       return {
         ...state,
         running: state.running + 1
       };
+    }
     case 'stop': {
-      return getShouldExit({
+      return setEndTime({
         ...state,
         running: state.running - 1,
         done: state.done + 1
       });
     }
     case 'error': {
-      return getShouldExit({
+      return setEndTime({
         ...state,
         running: state.running - 1,
         done: state.done + 1,
@@ -94,7 +99,10 @@ function reducer(state: BettererTasksState, action: BettererTasksAction): Better
   }
 }
 
-function getShouldExit(state: BettererTasksState): BettererTasksState {
+function setEndTime(state: BettererTasksState): BettererTasksState {
   const shouldExit = state.running === 0;
-  return { ...state, shouldExit };
+  if (!shouldExit) {
+    return state;
+  }
+  return { ...state, endTime: performance.now() };
 }

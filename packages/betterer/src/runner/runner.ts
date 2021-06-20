@@ -77,21 +77,12 @@ export class BettererRunnerΩ implements BettererRunner {
         const handlers = this._jobs.map((job) => job.handler);
 
         this._jobs = [];
-        this._running = this._runTests(changed);
+        this._running = this._context.run(changed);
         const summary = await this._running;
         handlers.forEach((handler) => handler?.(summary));
       } catch (error) {
         await this._started.error(error);
       }
-    }
-  }
-
-  private async _runTests(filePaths: BettererFilePaths): Promise<BettererSummary> {
-    try {
-      return await this._context.run(filePaths);
-    } catch (error) {
-      await this._started.error(error);
-      throw error;
     }
   }
 }

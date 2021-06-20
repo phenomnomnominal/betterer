@@ -20,8 +20,7 @@ export class BettererRunSummaryΩ implements BettererRunSummary {
     private _status: BettererRunStatus
   ) {}
 
-  public get delta(): BettererDelta {
-    assert(this._delta);
+  public get delta(): BettererDelta | null {
     return this._delta;
   }
 

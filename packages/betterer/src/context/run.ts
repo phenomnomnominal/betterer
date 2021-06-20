@@ -2,7 +2,6 @@ import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
 import { BettererFilePaths } from '../fs';
-import { BettererReporterΩ } from '../reporters';
 import { BettererResult } from '../results';
 import { BettererDiff, BettererTestConfig } from '../test';
 import { Defer, defer } from '../utils';
@@ -26,7 +25,6 @@ export class BettererRunΩ implements BettererRun {
   private _status: BettererRunStatus;
 
   constructor(
-    private readonly _reporter: BettererReporterΩ,
     public readonly name: string,
     private readonly _test: BettererTestConfig,
     public expected: BettererResult,
@@ -56,14 +54,12 @@ export class BettererRunΩ implements BettererRun {
 
   public start(): BettererRunStarted {
     const startTime = Date.now();
-    // Don't await here! A custom reporter could be awaiting
-    // the lifecycle promise which is unresolved right now!
-    const reportRunStart = this._reporter.runStart(this, this._lifecycle.promise);
 
-    const end = async (diff: BettererDiff | null = null, isComplete = false) => {
+    const end = async (diff: BettererDiff | null = null, isComplete = false): Promise<BettererRunSummary> => {
       const baselineValue = this._baseline.isNew ? null : this._baseline.value;
       const result = this._result || null;
       const resultValue = !this._result ? null : this._result.value;
+
       const delta = await this._test.progress(baselineValue, resultValue);
       const runSummary = new BettererRunSummaryΩ(
         this.lifecycle,
@@ -79,41 +75,38 @@ export class BettererRunΩ implements BettererRun {
         this._status
       );
       this._lifecycle.resolve(runSummary);
-      await reportRunStart;
-      await this._reporter.runEnd(runSummary);
+      return runSummary;
     };
 
     return {
-      better: async (result: BettererResult, isComplete: boolean): Promise<void> => {
+      better: async (result: BettererResult, isComplete: boolean): Promise<BettererRunSummary> => {
         this._updateResult(BettererRunStatus.better, result);
-        await end(null, isComplete);
+        return end(null, isComplete);
       },
-      failed: async (error: BettererError): Promise<void> => {
+      failed: async (error: BettererError): Promise<BettererRunSummary> => {
         assert.strictEqual(this._status, BettererRunStatus.pending);
         this._status = BettererRunStatus.failed;
         this._lifecycle.reject(error);
-        await reportRunStart;
-        await this._reporter.runError(this, error);
-        await end();
+        return end();
       },
-      neww: async (result: BettererResult, isComplete: boolean): Promise<void> => {
+      neww: async (result: BettererResult, isComplete: boolean): Promise<BettererRunSummary> => {
         this._updateResult(BettererRunStatus.new, result);
-        await end(null, isComplete);
+        return end(null, isComplete);
       },
-      same: async (result: BettererResult): Promise<void> => {
+      same: async (result: BettererResult): Promise<BettererRunSummary> => {
         this._updateResult(BettererRunStatus.same, result);
-        await end();
+        return end();
       },
-      skipped: async (): Promise<void> => {
-        await end();
+      skipped: async (): Promise<BettererRunSummary> => {
+        return end();
       },
-      update: async (result: BettererResult): Promise<void> => {
+      update: async (result: BettererResult): Promise<BettererRunSummary> => {
         this._updateResult(BettererRunStatus.update, result);
-        await end(this.test.differ(this.expected.value, result));
+        return end(this.test.differ(this.expected.value, result.value));
       },
-      worse: async (result: BettererResult): Promise<void> => {
+      worse: async (result: BettererResult): Promise<BettererRunSummary> => {
         this._updateResult(BettererRunStatus.worse, result);
-        await end(this.test.differ(this.expected.value, result));
+        return end(this.test.differ(this.expected.value, result.value));
       }
     };
   }

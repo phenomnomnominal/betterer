@@ -41,13 +41,13 @@ export type BettererRun = {
 };
 
 export type BettererRunStarted = {
-  better(result: BettererResult, isComplete: boolean): Promise<void>;
-  failed(error: BettererError): Promise<void>;
-  neww(result: BettererResult, isComplete: boolean): Promise<void>;
-  same(result: BettererResult): Promise<void>;
-  skipped(): Promise<void>;
-  update(result: BettererResult): Promise<void>;
-  worse(result: BettererResult): Promise<void>;
+  better(result: BettererResult, isComplete: boolean): Promise<BettererRunSummary>;
+  failed(error: BettererError): Promise<BettererRunSummary>;
+  neww(result: BettererResult, isComplete: boolean): Promise<BettererRunSummary>;
+  same(result: BettererResult): Promise<BettererRunSummary>;
+  skipped(): Promise<BettererRunSummary>;
+  update(result: BettererResult): Promise<BettererRunSummary>;
+  worse(result: BettererResult): Promise<BettererRunSummary>;
 };
 
 export type BettererRunSummary = BettererRun & {

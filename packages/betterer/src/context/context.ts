@@ -22,6 +22,7 @@ import {
   BettererContext,
   BettererContextStarted,
   BettererRunSummaries,
+  BettererRunSummary,
   BettererSummaries,
   BettererSummary
 } from './types';
@@ -97,7 +98,7 @@ export class BettererContextΩ implements BettererContext {
         const { isSkipped, config } = test;
         const baseline = await this.results.getBaseline(name, config);
         const expected = await this.results.getExpectedResult(name, config);
-        return new BettererRunΩ(this._reporter, name, config, expected, baseline, filePaths, isSkipped);
+        return new BettererRunΩ(name, config, expected, baseline, filePaths, isSkipped);
       })
     );
 
@@ -183,55 +184,60 @@ export class BettererContextΩ implements BettererContext {
   private async _runTests(runsΩ: BettererRunsΩ): Promise<BettererRunSummaries> {
     return Promise.all(
       runsΩ.map(async (runΩ) => {
-        await this._runTest(runΩ, this.config.update);
-        return runΩ.lifecycle;
+        // Don't await here! A custom reporter could be awaiting
+        // the lifecycle promise which is unresolved right now!
+        const reportRunStart = this._reporter.runStart(runΩ, runΩ.lifecycle);
+        const runSummary = await this._runTest(runΩ, this.config.update, reportRunStart);
+        await reportRunStart;
+        await this._reporter.runEnd(runSummary);
+        return runSummary;
       })
     );
   }
 
-  private async _runTest(runΩ: BettererRunΩ, update: boolean): Promise<void> {
+  private async _runTest(
+    runΩ: BettererRunΩ,
+    update: boolean,
+    reportRunStart: Promise<void>
+  ): Promise<BettererRunSummary> {
     const { test } = runΩ;
 
     const started = runΩ.start();
 
     if (runΩ.isSkipped) {
-      await started.skipped();
-      return;
+      return started.skipped();
     }
 
     let result: BettererResultΩ;
     try {
       result = new BettererResultΩ(await test.test(runΩ, this));
-    } catch (e) {
-      await started.failed(e);
-      return;
+    } catch (error) {
+      const runSummary = started.failed(error);
+      await reportRunStart;
+      await this._reporter.runError(runΩ, error);
+      return runSummary;
     }
 
     const goalComplete = await test.goal(result.value);
 
     if (runΩ.isNew) {
-      await started.neww(result, goalComplete);
-      return;
+      return started.neww(result, goalComplete);
     }
 
     const comparison = await test.constraint(result.value, runΩ.expected.value);
 
     if (comparison === BettererConstraintResult.same) {
-      await started.same(result);
-      return;
+      return started.same(result);
     }
 
     if (comparison === BettererConstraintResult.better) {
-      await started.better(result, goalComplete);
-      return;
+      return started.better(result, goalComplete);
     }
 
     if (update) {
-      await started.update(result);
-      return;
+      return started.update(result);
     }
 
-    await started.worse(result);
-    return;
+    return started.worse(result);
   }
 }

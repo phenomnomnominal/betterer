@@ -3,11 +3,11 @@ import {
   BettererContext,
   BettererFilePaths,
   BettererRun,
-  BettererRunSummaries,
   BettererRuns,
   BettererSummaries,
   BettererSummary
 } from '@betterer/betterer';
+import { BettererRunSummary } from '../goldens/api/@betterer/betterer';
 
 import { createFixture } from './fixture';
 
@@ -155,7 +155,7 @@ export const getsBetter = {
             return;
           }
         },
-        async runStart(_: BettererRun, lifecycle: Promise<BettererRunSummaries>) {
+        async runStart(_: BettererRun, lifecycle: Promise<BettererRunSummary>) {
           try {
             await lifecycle;
           } catch (e) {

@@ -1,4 +1,4 @@
-import { useContext, useReducer } from 'react';
+import { useContext, useReducer, useRef } from 'react';
 
 import { BettererTasksAction, BettererTasksStateContext, BettererTasksStateAPI } from './useTasksState';
 import { BettererTaskLog, BettererTaskLogs } from './types';
@@ -22,6 +22,9 @@ const INITIAL_STATE: BettererTaskState = {
 type BettererTaskAction =
   | BettererTasksAction
   | {
+      type: 'reset';
+    }
+  | {
       type: 'status';
       data: BettererTaskLog;
     }
@@ -31,6 +34,7 @@ type BettererTaskAction =
     };
 
 type BettererTaskStateAPI = BettererTasksStateAPI & {
+  reset(): void;
   status(status: BettererTaskLog): Promise<void>;
   log(status: BettererTaskLog): Promise<void>;
 };
@@ -38,10 +42,11 @@ type BettererTaskStateAPI = BettererTasksStateAPI & {
 export function useTaskState(): [BettererTaskState, BettererTaskStateAPI] {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const tasks = useContext(BettererTasksStateContext);
-
-  const api: BettererTaskStateAPI = {
+  const api = useRef<BettererTaskStateAPI>({
+    reset() {
+      dispatch({ type: 'reset' });
+    },
     start() {
-      dispatch({ type: 'start' });
       tasks.start();
     },
     status(status: BettererTaskLog) {
@@ -58,13 +63,18 @@ export function useTaskState(): [BettererTaskState, BettererTaskStateAPI] {
       dispatch({ type: 'error', data: error });
       tasks.error(error);
     }
-  };
+  });
 
-  return [state, api];
+  return [state, api.current];
 }
 
 function reducer(state: BettererTaskState, action: BettererTaskAction): BettererTaskState {
   switch (action.type) {
+    case 'reset': {
+      return {
+        ...INITIAL_STATE
+      };
+    }
     case 'status':
       return {
         ...state,
