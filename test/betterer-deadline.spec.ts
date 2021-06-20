@@ -39,7 +39,7 @@ module.exports = {
     await cleanup();
   });
 
-  it('should mark a test as expired when is is past its deadline', async () => {
+  it('should mark a test as expired when it is past its deadline', async () => {
     const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-deadline-in-past', {
       '.betterer.js': `
 const { bigger } = require('@betterer/constraints');

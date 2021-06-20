@@ -7,24 +7,24 @@ import { Box, Text } from 'ink';
 import { BettererErrorLog } from '../error-log';
 import { BettererTaskStatus } from './status';
 import { useTaskState } from './useTaskState';
-import { BettererTask, BettererTaskLog } from './types';
+import { BettererTaskLog, BettererTaskRun } from './types';
+import { addTask } from './tasks';
 
 export type BettererTaskLoggerProps = {
-  task: BettererTask;
+  name: string;
+  run: BettererTaskRun;
 };
 
 export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function BettererTaskLogger(props) {
-  const { task } = props;
-  const { name, run } = task;
-  const [state, taskApi] = useTaskState(task);
+  const { name, run } = props;
+  const [state, taskApi] = useTaskState();
 
-  const { done, error, messageLogs, running, status } = state;
+  const { done, error, messageLogs, status } = state;
 
   useEffect(() => {
     void (async () => {
-      if (running || done) {
-        return;
-      }
+      taskApi.reset();
+      addTask(name, run);
 
       async function statusError(status: string): Promise<void> {
         await taskApi.status(['🔥', 'redBright', status]);
@@ -82,7 +82,7 @@ export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function Bet
         process.exitCode = 1;
       }
     })();
-  }, []);
+  }, [name, run, taskApi]);
 
   return (
     <Box flexDirection="column">

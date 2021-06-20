@@ -15,7 +15,7 @@ export type WatchStartingProps = {
 export const WatchStarting: FC<WatchStartingProps> = memo(function WatchStarting(props) {
   const { context, editField } = props;
   return (
-    <Box flexDirection="column" paddingBottom={1}>
+    <Box flexDirection="column">
       <Config context={context} editField={editField} />
       <Box paddingBottom={1}>
         <Text>{watchStart()}</Text>

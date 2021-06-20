@@ -1,36 +1,30 @@
-import { BettererTasksLogger, BettererTasksState } from '@betterer/tasks';
+import React, { FC, useCallback } from 'react';
+import { BettererTaskLogger, BettererTasksLogger, BettererTasksState } from '@betterer/tasks';
 import { workerRequire, WorkerModule } from '@phenomnomnominal/worker-require';
 import { render } from 'ink';
-import React, { FC, useEffect, useState } from 'react';
 
 const testPackageApi = workerRequire<WorkerModule<typeof import('./test-package-api')>>('./test-package-api');
 
-export const APITest: FC = function APITest() {
-  const [packageNames, setPackageNames] = useState<Array<string>>([]);
-
-  useEffect(() => {
-    void (async () => {
-      const packageNames = await testPackageApi.getPackages();
-      setPackageNames(packageNames);
-    })();
-  }, []);
-
-  return (
-    <BettererTasksLogger
-      name="Test Package APIs"
-      update={update}
-      tasks={packageNames.map((packageName) => ({
-        name: packageName,
-        run: async (logger) => {
-          await testPackageApi.run(logger, packageName);
-          testPackageApi.destroy();
-        }
-      }))}
-    />
-  );
+type APITestProps = {
+  packageNames: Array<string>;
 };
 
-render(<APITest />);
+export const APITest: FC<APITestProps> = function APITest({ packageNames }) {
+  return (
+    <BettererTasksLogger name="Test Package APIs" update={update}>
+      {packageNames.map((packageName) => {
+        const task = useCallback(
+          async (logger) => {
+            await testPackageApi.run(logger, packageName);
+            testPackageApi.destroy();
+          },
+          [testPackageApi, packageName]
+        );
+        return <BettererTaskLogger key={packageName} name={packageName} run={task} />;
+      })}
+    </BettererTasksLogger>
+  );
+};
 
 function update(state: BettererTasksState): string {
   const { done, errors, running } = state;
@@ -43,3 +37,5 @@ function update(state: BettererTasksState): string {
 function tests(n: number): string {
   return `${n} ${n === 1 ? 'test' : 'tests'}`;
 }
+
+void (async () => render(<APITest packageNames={await testPackageApi.getPackages()} />))();

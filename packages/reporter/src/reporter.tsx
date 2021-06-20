@@ -9,6 +9,7 @@ import {
   BettererSummary
 } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
+import { reset } from '@betterer/tasks';
 import { Instance, render } from 'ink';
 
 import { Error, Reporter } from './components';
@@ -41,6 +42,7 @@ function createReporter(): BettererReporter {
       return renderError(error);
     },
     runsStart(runs: BettererRuns, filePaths: BettererFilePaths): Promise<void> {
+      reset();
       return renderer.render({ filePaths, runs });
     },
     runsEnd(summary: BettererSummary, filePaths: BettererFilePaths): Promise<void> {

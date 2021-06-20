@@ -11,11 +11,12 @@ import { useApp, useInput, useStdin } from 'ink';
 
 import { BettererReporterApp } from '../../types';
 import { ConfigEditField } from '../config';
+import { Runs, RunSummary } from '../runs';
 
 import { WatchEnding } from './WatchEnding';
-import { WatchRunning } from './WatchRunning';
+import { WatchFiles } from './WatchFiles';
+import { WatchInstructions } from './WatchInstructions';
 import { WatchStarting } from './WatchStarting';
-import { WatchWatching } from './WatchWatching';
 
 export type WatchReporterProps = {
   context: BettererContext;
@@ -68,15 +69,19 @@ export const WatchReporter: FC<WatchReporterProps> = memo(function WatchReporter
 
   if (summaries) {
     return <WatchEnding />;
-  } else if (runs && summary) {
-    return (
-      <WatchWatching context={context} editField={editField} filePaths={filePaths} runs={runs} summary={summary} />
-    );
-  } else if (runs) {
-    return <WatchRunning context={context} editField={editField} filePaths={filePaths} runs={runs} />;
-  } else {
-    return <WatchStarting context={context} editField={editField} />;
   }
+  if (runs) {
+    const running = !summary;
+    return (
+      <>
+        <WatchFiles context={context} editField={editField} filePaths={filePaths} running={running} />
+        <Runs runs={runs} />
+        {summary && <RunSummary context={context} summary={summary} />}
+        <WatchInstructions />
+      </>
+    );
+  }
+  return <WatchStarting context={context} editField={editField} />;
 });
 
 function quit(app: BettererReporterApp): void {
