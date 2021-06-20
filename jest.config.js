@@ -1,6 +1,5 @@
 module.exports = {
   setupFilesAfterEnv: ['./test/setup.ts'],
-  moduleFileExtensions: ['ts', 'js'],
   collectCoverage: true,
   collectCoverageFrom: [
     '<rootDir>/packages/**/dist/**/*.js',
@@ -11,8 +10,7 @@ module.exports = {
     '!<rootDir>/packages/fixture/dist/**/*.js'
   ],
   coverageDirectory: '<rootDir>/reports/coverage',
-  testRegex: '.*\\.spec\\.ts$',
-  transform: {
-    '\\.(ts)$': 'ts-jest'
-  }
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  testRegex: '.*\\.spec\\.ts$'
 };

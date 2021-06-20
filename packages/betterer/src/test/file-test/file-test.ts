@@ -100,11 +100,7 @@ function createTest(
 
     let runFiles = runΩ.filePaths;
     if (expectedΩ) {
-      runFiles = runFiles.filter((filePath) => {
-        const hasExpected = expectedΩ.filePaths.includes(filePath);
-        const isCached = contextΩ.checkCache(filePath);
-        return !hasExpected || !isCached;
-      });
+      runFiles = runFiles.filter((filePath) => !contextΩ.checkCache(filePath));
     }
 
     const cacheHit = runΩ.filePaths.length !== runFiles.length;

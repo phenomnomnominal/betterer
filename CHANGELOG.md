@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0](https://github.com/phenomnomnominal/betterer/compare/v4.3.8...v4.4.0) (2021-06-18)
+
+
+### Bug Fixes
+
+* **betterer 🐛:** fix formatting ([#767](https://github.com/phenomnomnominal/betterer/issues/767)) ([3f4c84e](https://github.com/phenomnomnominal/betterer/commit/3f4c84e08820c3267234270d76b50f419180628f))
+* **betterer 🐛:** make sure results file stays in the same order ([#766](https://github.com/phenomnomnominal/betterer/issues/766)) ([ad752d0](https://github.com/phenomnomnominal/betterer/commit/ad752d09701ca7d9855f22e0ce72d201d5f09915))
+
+
+### Features
+
+* **betterer ✨:** add precommit mode ([#772](https://github.com/phenomnomnominal/betterer/issues/772)) ([da59df3](https://github.com/phenomnomnominal/betterer/commit/da59df310136699ee213895936028e43e4a54abc))
+* **betterer ✨:** enable CI mode when CI env variable is set ([#770](https://github.com/phenomnomnominal/betterer/issues/770)) ([aed70e3](https://github.com/phenomnomnominal/betterer/commit/aed70e3917c6df91556988a190c37c1c9b987f10))
+
+
+
+
+
+## [4.3.8](https://github.com/phenomnomnominal/betterer/compare/v4.3.7...v4.3.8) (2021-06-16)
+
+
+### Bug Fixes
+
+* **betterer 🐛:** even more cache fixes ([#746](https://github.com/phenomnomnominal/betterer/issues/746)) ([ee4f944](https://github.com/phenomnomnominal/betterer/commit/ee4f9446046939ae20892daed8f51530f76c2f9a))
+* **typescript 🐛:** dont try to be smarter than tsc ([#754](https://github.com/phenomnomnominal/betterer/issues/754)) ([a928586](https://github.com/phenomnomnominal/betterer/commit/a92858647d9d8b08e546e9c3f07ad814a93aa608))
+
+
+
+
+
+## [4.3.7](https://github.com/phenomnomnominal/betterer/compare/v4.3.6...v4.3.7) (2021-06-12)
+
+
+### Performance Improvements
+
+* **betterer 🏎:** only check changed ts files ([#739](https://github.com/phenomnomnominal/betterer/issues/739)) ([0f8f44f](https://github.com/phenomnomnominal/betterer/commit/0f8f44f33449ad325089e9d73ba55bf66674ed46))
+
+
+
+
+
 ## [4.3.6](https://github.com/phenomnomnominal/betterer/compare/v4.3.5...v4.3.6) (2021-06-11)
 
 

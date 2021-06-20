@@ -40,6 +40,7 @@ export async function createConfig(options: unknown = {}): Promise<BettererConfi
     // Start:
     ci: startOptions.ci || false,
     filePaths: [],
+    precommit: startOptions.precommit || false,
     strict: startOptions.strict || false,
     update: startOptions.update || false,
 
@@ -84,6 +85,7 @@ function validateConfig(config: BettererConfig): void {
 
   // Start:
   validateBool('ci', config);
+  validateBool('precommit', config);
   validateBool('strict', config);
   validateBool('update', config);
 
@@ -97,6 +99,15 @@ function validateConfig(config: BettererConfig): void {
 function overrideConfig(config: BettererConfig) {
   // CI mode:
   if (config.ci) {
+    config.precommit = false;
+    config.strict = true;
+    config.update = false;
+    config.watch = false;
+    return;
+  }
+  // Precommit mode:
+  if (config.precommit) {
+    config.ci = false;
     config.strict = true;
     config.update = false;
     config.watch = false;
@@ -105,6 +116,7 @@ function overrideConfig(config: BettererConfig) {
   // Strict mode:
   if (config.strict) {
     config.ci = false;
+    config.precommit = false;
     config.update = false;
     config.watch = false;
     return;
@@ -112,6 +124,7 @@ function overrideConfig(config: BettererConfig) {
   // Update mode:
   if (config.update) {
     config.ci = false;
+    config.precommit = false;
     config.strict = false;
     config.watch = false;
     return;
@@ -119,6 +132,7 @@ function overrideConfig(config: BettererConfig) {
   // Watch mode:
   if (config.watch) {
     config.ci = false;
+    config.precommit = false;
     config.strict = true;
     config.update = false;
     return;

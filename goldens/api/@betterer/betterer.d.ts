@@ -16,6 +16,7 @@ export declare type BettererConfig = {
     silent: boolean;
     tsconfigPath: string | null;
     ci: boolean;
+    precommit: boolean;
     strict: boolean;
     update: boolean;
     ignores: BettererConfigIgnores;
@@ -151,7 +152,7 @@ export declare type BettererOptionsRunner = BettererOptionsBase & Partial<{
     ignores: BettererConfigIgnores;
 }>;
 
-export declare type BettererOptionsStart = BettererOptionsStartCI | BettererOptionsStartDefault | BettererOptionsStartStrict | BettererOptionsStartUpdate;
+export declare type BettererOptionsStart = BettererOptionsStartCI | BettererOptionsStartDefault | BettererOptionsStartPrecommit | BettererOptionsStartStrict | BettererOptionsStartUpdate;
 
 export declare type BettererOptionsStartBase = BettererOptionsBase & Partial<{
     excludes: BettererOptionsExcludes;
@@ -160,6 +161,7 @@ export declare type BettererOptionsStartBase = BettererOptionsBase & Partial<{
 
 export declare type BettererOptionsStartCI = BettererOptionsStartBase & Partial<{
     ci: true;
+    precommit: false;
     strict: true;
     update: false;
     watch: false;
@@ -167,13 +169,23 @@ export declare type BettererOptionsStartCI = BettererOptionsStartBase & Partial<
 
 export declare type BettererOptionsStartDefault = BettererOptionsStartBase & Partial<{
     ci: false;
+    precommit: false;
     strict: false;
+    update: false;
+    watch: false;
+}>;
+
+export declare type BettererOptionsStartPrecommit = BettererOptionsStartBase & Partial<{
+    ci: false;
+    precommit: true;
+    strict: boolean;
     update: false;
     watch: false;
 }>;
 
 export declare type BettererOptionsStartStrict = BettererOptionsStartBase & Partial<{
     ci: false;
+    precommit: false;
     strict: true;
     update: false;
     watch: false;
@@ -181,6 +193,7 @@ export declare type BettererOptionsStartStrict = BettererOptionsStartBase & Part
 
 export declare type BettererOptionsStartUpdate = BettererOptionsStartBase & Partial<{
     ci: false;
+    precommit: false;
     strict: false;
     update: true;
     watch: false;

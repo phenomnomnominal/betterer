@@ -167,7 +167,7 @@ export class BettererValidator {
         } else if (run.isSkipped || run.isSame) {
           existingIssues = issues;
         } else {
-          const fileDiff = ((run.diff as unknown) as BettererFileTestDiff).diff[filePath];
+          const fileDiff = (run.diff as unknown as BettererFileTestDiff).diff[filePath];
           info(`Validator: ${run.name} got diff from Betterer for "${filePath}"`);
           existingIssues = fileDiff.existing || [];
           newIssues = fileDiff.new || [];

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`betterer ci should add a diff to the summary if there is any change to the results file 1`] = `
+exports[`betterer precommit should add a diff to the summary if there is any change to the results file 1`] = `
 Array [
   "
    / | /     _         _   _
@@ -104,7 +104,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. (1 issue) 😐
+✅ typescript use strict mode: \\"typescript use strict mode\\" met its goal! 🎉
 
 ",
   "
@@ -115,7 +115,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. (1 issue) 😐
+✅ typescript use strict mode: \\"typescript use strict mode\\" met its goal! 🎉
 
 ",
   "
@@ -126,32 +126,17 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. (1 issue) 😐
+✅ typescript use strict mode: \\"typescript use strict mode\\" met its goal! 🎉
 
 1 test got checked. 🤔
-1 test stayed the same. 😐
-
-Unexpected diff found:
-- Expected
-+ Result
-
-  // BETTERER RESULTS V2.
-  exports[\`typescript use strict mode\`] = {
-    value: \`{
--     \\"src/index.ts:1499252024\\": [
--       [2, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"]
-+     \\"src/index.ts:2615232350\\": [
-+       [3, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"]
-      ]
-    }\`
-  };
-
+1 test got better! 😍
+\\"typescript use strict mode\\" met its goal! 🎉)
 
 ",
 ]
 `;
 
-exports[`betterer ci should work when a test gets worse 1`] = `
+exports[`betterer precommit should throw when a test gets worse 1`] = `
 Array [
   "
    / | /     _         _   _
@@ -255,7 +240,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-ci-worse/src/index.ts\\".
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\".
 🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
 
 ",
@@ -267,8 +252,8 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-ci-worse/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-ci-worse/src/index.ts\\":
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\":
 🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
 
 ",
@@ -280,10 +265,10 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-ci-worse/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-ci-worse/src/index.ts\\":
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\":
 ・
-・   <project>/fixtures/test-betterer-ci-worse/src/index.ts
+・   <project>/fixtures/test-betterer-precommit-worse/src/index.ts
 ・   2 | const one = 1;
 ・   3 | console.log(one * a);
 ・ > 4 | console.log(a * one);
@@ -300,10 +285,10 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-ci-worse/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-ci-worse/src/index.ts\\":
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\":
 ・
-・   <project>/fixtures/test-betterer-ci-worse/src/index.ts
+・   <project>/fixtures/test-betterer-precommit-worse/src/index.ts
 ・   2 | const one = 1;
 ・   3 | console.log(one * a);
 ・ > 4 | console.log(a * one);
@@ -321,10 +306,10 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-ci-worse/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-ci-worse/src/index.ts\\":
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\":
 ・
-・   <project>/fixtures/test-betterer-ci-worse/src/index.ts
+・   <project>/fixtures/test-betterer-precommit-worse/src/index.ts
 ・   2 | const one = 1;
 ・   3 | console.log(one * a);
 ・ > 4 | console.log(a * one);
@@ -343,10 +328,10 @@ Error: \\"typescript use strict mode\\" got worse. (1 new issue, 2 total) 😔
 
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-ci-worse/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-ci-worse/src/index.ts\\":
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\":
 ・
-・   <project>/fixtures/test-betterer-ci-worse/src/index.ts
+・   <project>/fixtures/test-betterer-precommit-worse/src/index.ts
 ・   2 | const one = 1;
 ・   3 | console.log(one * a);
 ・ > 4 | console.log(a * one);
@@ -365,10 +350,10 @@ Error: \\"typescript use strict mode\\" got worse. (1 new issue, 2 total) 😔
 
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-ci-worse/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-ci-worse/src/index.ts\\":
+・ 1 existing issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-precommit-worse/src/index.ts\\":
 ・
-・   <project>/fixtures/test-betterer-ci-worse/src/index.ts
+・   <project>/fixtures/test-betterer-precommit-worse/src/index.ts
 ・   2 | const one = 1;
 ・   3 | console.log(one * a);
 ・ > 4 | console.log(a * one);
@@ -379,157 +364,6 @@ Error: \\"typescript use strict mode\\" got worse. (1 new issue, 2 total) 😔
 
 1 test got checked. 🤔
 1 test got worse. 😔
-
-
-",
-]
-`;
-
-exports[`betterer ci should work with \`start\` and the CI env variable 1`] = `
-Array [
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms):
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms): 1 test running...
-🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms): 1 test running...
-✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! (1 issue) 🎉
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! (1 issue) 🎉
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! (1 issue) 🎉
-
-1 test got checked. 🤔
-1 test got checked for the first time! 🎉
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms):
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms): 1 test running...
-🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms): 1 test running...
-✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. (1 issue) 😐
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. (1 issue) 😐
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. (1 issue) 😐
-
-1 test got checked. 🤔
-1 test stayed the same. 😐
-
-Unexpected diff found:
-- Expected
-+ Result
-
-  // BETTERER RESULTS V2.
-  exports[\`typescript use strict mode\`] = {
-    value: \`{
--     \\"src/index.ts:1499252024\\": [
--       [2, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"]
-+     \\"src/index.ts:2615232350\\": [
-+       [3, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"]
-      ]
-    }\`
-  };
 
 
 ",

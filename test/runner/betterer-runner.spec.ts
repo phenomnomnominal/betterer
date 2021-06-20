@@ -266,6 +266,105 @@ export default {
     await cleanup();
   });
 
+  it('should run tsqueryΔ against a file', async () => {
+    const { paths, resolve, cleanup, readFile, writeFile } = await createFixture('test-betterer-tsqueryd-file', {
+      '.betterer.ts': `
+import { tsqueryΔ } from '@betterer/tsquery';
+
+export default {
+  'tsquery no raw console.log': tsqueryΔ(
+    'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
+  ).include('./src/**/*.ts')
+};
+      `,
+      'tsconfig.json': `
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["esnext"],
+    "moduleResolution": "node",
+    "target": "ES5",
+    "typeRoots": ["../../node_modules/@types/"],
+    "resolveJsonModule": true
+  },
+  "include": [".betterer.ts"]
+}      
+      `
+    });
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+    const { cwd } = paths;
+    const indexPath = resolve('./src/index.ts');
+
+    await writeFile(indexPath, `console.log('foo');`);
+
+    const runner = await betterer.runner({ configPaths, resultsPath, cwd });
+    await runner.queue(indexPath);
+    const summary = await runner.stop();
+    const [run] = summary.runs;
+
+    expect(run.isNew).toEqual(true);
+    expect(run.filePaths).toEqual([normalisedPath(indexPath)]);
+
+    const result = await readFile(resultsPath);
+
+    expect(result).toMatchSnapshot();
+
+    await cleanup();
+  });
+
+  it('should ignore any files outside of the scope of the tsqueryΔ tsconfig', async () => {
+    const { paths, resolve, cleanup, readFile, writeFile } = await createFixture(
+      'test-betterer-tsqueryd-file-irrevelent',
+      {
+        '.betterer.ts': `
+import { tsqueryΔ } from '@betterer/tsquery';
+
+export default {
+  'tsquery no raw console.log': tsqueryΔ(
+    'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
+  ).include('./src/**/*.ts')
+};
+      `,
+        'tsconfig.json': `
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["esnext"],
+    "moduleResolution": "node",
+    "target": "ES5",
+    "typeRoots": ["../../node_modules/@types/"],
+    "resolveJsonModule": true
+  },
+  "include": [".betterer.ts"]
+}      
+      `
+      }
+    );
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+    const { cwd } = paths;
+    const testPath = resolve('./test/index.ts');
+
+    await writeFile(testPath, `console.log('foo');`);
+
+    const runner = await betterer.runner({ configPaths, resultsPath, cwd });
+    await runner.queue(testPath);
+    const summary = await runner.stop();
+    const [run] = summary.runs;
+
+    expect(run.isNew).toEqual(true);
+    expect(run.filePaths).toEqual([]);
+
+    const result = await readFile(resultsPath);
+
+    expect(result).toMatchSnapshot();
+
+    await cleanup();
+  });
+
   it('should run typescript against a file', async () => {
     const { paths, resolve, cleanup, writeFile } = await createFixture('test-betterer-typescript-file', {
       '.betterer.ts': `
@@ -350,6 +449,110 @@ export default {
 
     expect(run.isNew).toEqual(true);
     expect(run.filePaths).toEqual([normalisedPath(testPath)]);
+
+    await cleanup();
+  });
+
+  it('should run typescriptΔ against a file', async () => {
+    const { paths, resolve, cleanup, readFile, writeFile } = await createFixture('test-betterer-typescriptd-file', {
+      '.betterer.ts': `
+import { typescriptΔ } from '@betterer/typescript';
+
+export default {
+  'use typescript': typescriptΔ('./tsconfig.json').include('./src/**/*.ts')
+};
+      `,
+      'tsconfig.json': `
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["esnext"],
+    "moduleResolution": "node",
+    "target": "ES5",
+    "typeRoots": ["../../node_modules/@types/"],
+    "resolveJsonModule": true
+  },
+  "include": [".betterer.ts"]
+}
+      `,
+      './src/foo.ts': `
+console.log(1 * 'foo');
+      `,
+      './src/bar.ts': `
+console.log(2 * 'bar');
+      `,
+      './src/baz.ts': `
+console.log(3 * 'baz');
+      `
+    });
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+    const { cwd } = paths;
+    const indexPath = resolve('./src/index.ts');
+
+    await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
+
+    const runner = await betterer.runner({ configPaths, resultsPath, cwd });
+    await runner.queue(indexPath);
+    const summary = await runner.stop();
+    const [run] = summary.runs;
+
+    expect(run.isNew).toEqual(true);
+    expect(run.filePaths).toEqual([normalisedPath(indexPath)]);
+
+    const result = await readFile(resultsPath);
+
+    expect(result).toMatchSnapshot();
+
+    await cleanup();
+  });
+
+  it('should ignore any files outside of the scope of the typescriptΔ test glob', async () => {
+    const { paths, resolve, cleanup, readFile, writeFile } = await createFixture(
+      'test-betterer-typescriptd-file-irrelevent',
+      {
+        '.betterer.ts': `
+import { typescriptΔ } from '@betterer/typescript';
+
+export default {
+  'use typescript': typescriptΔ('./tsconfig.json').include('./src/**/*.ts')
+};
+      `,
+        'tsconfig.json': `
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["esnext"],
+    "moduleResolution": "node",
+    "target": "ES5",
+    "typeRoots": ["../../node_modules/@types/"],
+    "resolveJsonModule": true
+  },
+  "include": [".betterer.ts"]
+}
+      `
+      }
+    );
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+    const { cwd } = paths;
+    const testPath = resolve('./test/index.ts');
+
+    await writeFile(testPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
+
+    const runner = await betterer.runner({ configPaths, resultsPath, cwd });
+    await runner.queue(testPath);
+    const summary = await runner.stop();
+    const [run] = summary.runs;
+
+    expect(run.isNew).toEqual(true);
+    expect(run.filePaths).toEqual([]);
+
+    const result = await readFile(resultsPath);
+
+    expect(result).toMatchSnapshot();
 
     await cleanup();
   });

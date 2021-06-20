@@ -4,17 +4,17 @@ import { cliOptions } from './options';
 import { BettererCLIArguments } from './types';
 
 /** @internal Definitely not stable! Please don't use! */
-export function ciΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSummary> {
+export function precommitΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSummary> {
   const { config, exclude, filter, include, results, silent, reporter, tsconfig } = cliOptions(argv);
 
   // Mark options as unknown...
   const options: unknown = {
-    ci: true,
     configPaths: config,
     cwd,
     excludes: exclude,
     filters: filter,
     includes: include,
+    precommit: true,
     reporters: reporter,
     resultsPath: results,
     silent,

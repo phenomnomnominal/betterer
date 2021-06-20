@@ -19,7 +19,7 @@ let count = 0;
 export function requireText<T>(text: string): T {
   const id = `${count++}`;
   const m = new Module(id);
-  ((m as unknown) as ModulePrivate)._compile(text, id);
+  (m as unknown as ModulePrivate)._compile(text, id);
   return getDefaultExport<T>(m.exports);
 }
 

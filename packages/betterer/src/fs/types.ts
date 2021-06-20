@@ -14,6 +14,7 @@ export type BettererFileCache = {
 export type BettererVersionControl = BettererFileCache & {
   filePaths: BettererFilePaths;
 
+  add(resultsPath: string): Promise<void>;
   getHash(absolutePath: string): string | null;
   isIgnored(filePath: string): boolean;
   sync(): Promise<void>;

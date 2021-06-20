@@ -9,7 +9,8 @@ import {
 } from './types';
 
 export class BettererTest<DeserialisedType, SerialisedType, DiffType>
-  implements BettererTestBase<DeserialisedType, SerialisedType, DiffType> {
+  implements BettererTestBase<DeserialisedType, SerialisedType, DiffType>
+{
   private _config: BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
   private _isOnly = false;
   private _isSkipped = false;

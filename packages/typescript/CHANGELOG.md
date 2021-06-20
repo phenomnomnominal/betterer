@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0](https://github.com/phenomnomnominal/betterer/compare/v4.3.8...v4.4.0) (2021-06-18)
+
+**Note:** Version bump only for package @betterer/typescript
+
+
+
+
+
+## [4.3.8](https://github.com/phenomnomnominal/betterer/compare/v4.3.7...v4.3.8) (2021-06-16)
+
+
+### Bug Fixes
+
+* **typescript 🐛:** dont try to be smarter than tsc ([#754](https://github.com/phenomnomnominal/betterer/issues/754)) ([a928586](https://github.com/phenomnomnominal/betterer/commit/a92858647d9d8b08e546e9c3f07ad814a93aa608))
+
+
+
+
+
+## [4.3.7](https://github.com/phenomnomnominal/betterer/compare/v4.3.6...v4.3.7) (2021-06-12)
+
+
+### Performance Improvements
+
+* **betterer 🏎:** only check changed ts files ([#739](https://github.com/phenomnomnominal/betterer/issues/739)) ([0f8f44f](https://github.com/phenomnomnominal/betterer/commit/0f8f44f33449ad325089e9d73ba55bf66674ed46))
+
+
+
+
+
 ## [4.3.6](https://github.com/phenomnomnominal/betterer/compare/v4.3.5...v4.3.6) (2021-06-11)
 
 **Note:** Version bump only for package @betterer/typescript
