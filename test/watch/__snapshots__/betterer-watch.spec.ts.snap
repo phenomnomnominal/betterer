@@ -16,7 +16,6 @@ Starting Betterer in watch mode! 🎉
 
 (press \\"q\\" to quit)
 
-
 ",
   "
    / | /     _         _   _
@@ -143,7 +142,6 @@ Ignores (press \\"i\\" to edit): No current ignore patterns
 Starting Betterer in watch mode! 🎉
 
 (press \\"q\\" to quit)
-
 
 ",
   "
@@ -331,7 +329,6 @@ Ignores (press \\"i\\" to edit): No current ignore patterns
 Starting Betterer in watch mode! 🎉
 
 (press \\"q\\" to quit)
-
 
 ",
   "
@@ -580,7 +577,18 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/test-betterer-watch/src/index.ts
 
-🌟 Betterer (0ms):
+💥 Betterer (0ms): 1 test done! 1 test errored!
+🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. (1 new issue, 3 total) 😔
+・ 2 existing issues in \\"<project>/fixtures/test-betterer-watch/src/index.ts\\".
+・ 1 new issue in \\"<project>/fixtures/test-betterer-watch/src/index.ts\\":
+・
+・   <project>/fixtures/test-betterer-watch/src/index.ts
+・   1 | console.log('foo');
+・ > 2 | console.log('foo');console.log('foo');
+・     |                    ^^^^^^^^^^^ TSQuery match
+・
+
+Error: \\"tsquery no raw console.log\\" got worse. (1 new issue, 3 total) 😔
 
 (press \\"q\\" to quit)
 
@@ -682,7 +690,8 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/test-betterer-watch/src/index.ts
 
-🌟 Betterer (0ms):
+🎉 Betterer (0ms): 1 test done!
+✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" stayed the same. (2 issues) 😐
 
 (press \\"q\\" to quit)
 
