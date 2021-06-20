@@ -76,7 +76,6 @@ type BettererRun = {
   readonly isExpired: boolean;
   readonly isFailed: boolean;
   readonly isNew: boolean;
-  readonly isObsolete: boolean;
   readonly isSame: boolean;
   readonly isSkipped: boolean;
   readonly isUpdated: boolean;
@@ -129,7 +128,6 @@ type BettererRun = {
 - `isExpired` - the test has passed its deadline.
 - `isFailed` - the test threw an error.
 - `isNew` - the test was run for the first time.
-- `isObsolete` - the test is not run, but there is a saved expected result.
 - `isSame` - `result` is the same as `expected`
 - `isSkipped` - the test was skipped
 - `isUpdated` - the test result was updated
@@ -164,7 +162,6 @@ type BettererSummary = {
   readonly expired: BettererRuns;
   readonly failed: BettererRuns;
   readonly new: BettererRuns;
-  readonly obsolete: BettererRuns;
   readonly ran: BettererRuns;
   readonly same: BettererRuns;
   readonly skipped: BettererRuns;
@@ -213,13 +210,9 @@ type BettererSummary = {
 
 > The list of runs that ran for the first time.
 
-#### `obsolete`: [`BettererRuns`](#bettererruns)
-
-> The list of runs that weren't run but still have a saved result.
-
 #### `ran`: [`BettererRuns`](#bettererruns)
 
-> The list of runs that were run (not failed, obsolete, or skipped).
+> The list of runs that were run (not failed, or skipped).
 
 #### `same`: [`BettererRuns`](#bettererruns)
 

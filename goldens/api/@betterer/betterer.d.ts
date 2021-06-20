@@ -215,8 +215,8 @@ export declare type BettererReporter = {
     runsStart?(runs: BettererRuns, filePaths: BettererFilePaths, lifecycle: Promise<BettererSummary>): Promise<void> | void;
     runsEnd?(summary: BettererSummary, filePaths: BettererFilePaths): Promise<void> | void;
     runsError?(runs: BettererRuns, filePaths: BettererFilePaths, error: BettererError): Promise<void> | void;
-    runStart?(run: BettererRun, lifecycle: Promise<void>): Promise<void> | void;
-    runEnd?(run: BettererRun): Promise<void> | void;
+    runStart?(run: BettererRun, lifecycle: Promise<BettererRunSummary>): Promise<void> | void;
+    runEnd?(run: BettererRunSummary): Promise<void> | void;
     runError?(run: BettererRun, error: BettererError): Promise<void> | void;
 };
 
@@ -226,25 +226,13 @@ export declare type BettererResult = {
 };
 
 export declare type BettererRun = {
-    readonly diff: BettererDiff;
     readonly expected: BettererResult;
     readonly filePaths: BettererFilePaths;
-    readonly lifecycle: Promise<void>;
+    readonly lifecycle: Promise<BettererRunSummary>;
     readonly name: string;
-    readonly delta: BettererDelta | null;
-    readonly result: BettererResult;
     readonly test: BettererTestConfig;
-    readonly timestamp: number;
-    readonly isBetter: boolean;
-    readonly isComplete: boolean;
-    readonly isExpired: boolean;
-    readonly isFailed: boolean;
     readonly isNew: boolean;
-    readonly isObsolete: boolean;
-    readonly isSame: boolean;
     readonly isSkipped: boolean;
-    readonly isUpdated: boolean;
-    readonly isWorse: boolean;
 };
 
 export declare type BettererRunHandler = (summary: BettererSummary) => void;
@@ -259,6 +247,22 @@ export declare type BettererRunner = {
 
 export declare type BettererRuns = ReadonlyArray<BettererRun>;
 
+export declare type BettererRunSummaries = Array<BettererRunSummary>;
+
+export declare type BettererRunSummary = BettererRun & {
+    readonly diff: BettererDiff;
+    readonly delta: BettererDelta | null;
+    readonly result: BettererResult;
+    readonly timestamp: number;
+    readonly isBetter: boolean;
+    readonly isComplete: boolean;
+    readonly isExpired: boolean;
+    readonly isFailed: boolean;
+    readonly isSame: boolean;
+    readonly isUpdated: boolean;
+    readonly isWorse: boolean;
+};
+
 export declare type BettererSerialise<DeserialisedType, SerialisedType> = (result: DeserialisedType, resultsPath: string) => SerialisedType;
 
 export declare type BettererSerialiser<DeserialisedType, SerialisedType = DeserialisedType> = {
@@ -269,21 +273,20 @@ export declare type BettererSerialiser<DeserialisedType, SerialisedType = Deseri
 export declare type BettererSummaries = Array<BettererSummary>;
 
 export declare type BettererSummary = {
-    readonly runs: BettererRuns;
+    readonly runs: BettererRunSummaries;
     readonly result: string;
     readonly expected: string | null;
     readonly unexpectedDiff: boolean;
-    readonly better: BettererRuns;
-    readonly completed: BettererRuns;
-    readonly expired: BettererRuns;
-    readonly failed: BettererRuns;
-    readonly new: BettererRuns;
-    readonly obsolete: BettererRuns;
-    readonly ran: BettererRuns;
-    readonly same: BettererRuns;
-    readonly skipped: BettererRuns;
-    readonly updated: BettererRuns;
-    readonly worse: BettererRuns;
+    readonly better: BettererRunSummaries;
+    readonly completed: BettererRunSummaries;
+    readonly expired: BettererRunSummaries;
+    readonly failed: BettererRunSummaries;
+    readonly new: BettererRunSummaries;
+    readonly ran: BettererRunSummaries;
+    readonly same: BettererRunSummaries;
+    readonly skipped: BettererRunSummaries;
+    readonly updated: BettererRunSummaries;
+    readonly worse: BettererRunSummaries;
 };
 
 export declare class BettererTest<DeserialisedType, SerialisedType, DiffType> implements BettererTestBase<DeserialisedType, SerialisedType, DiffType> {

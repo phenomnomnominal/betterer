@@ -96,10 +96,8 @@ function createTest(
     const hasSpecifiedFiles = runΩ.filePaths?.length > 0;
     runΩ.filePaths = hasSpecifiedFiles ? resolver.validate(runΩ.filePaths) : resolver.files();
 
-    const expectedΩ = runΩ.isNew ? null : (runΩ.expected.value as BettererFileTestResultΩ);
-
     let runFiles = runΩ.filePaths;
-    if (expectedΩ) {
+    if (!runΩ.isNew) {
       runFiles = runFiles.filter((filePath) => !contextΩ.checkCache(filePath));
     }
 
@@ -111,11 +109,12 @@ function createTest(
 
     contextΩ.updateCache(result.filePaths);
 
-    if (!isPartial || !expectedΩ) {
+    if (!isPartial || runΩ.isNew) {
       return result;
     }
 
     // Get any filePaths that have expected issues but weren't included in this run:
+    const expectedΩ = runΩ.expected.value as BettererFileTestResultΩ;
     const excludedFilesWithIssues = expectedΩ.files
       .map((file) => file.absolutePath)
       .filter((filePath) => !runFiles.includes(filePath));

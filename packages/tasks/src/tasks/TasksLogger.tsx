@@ -17,7 +17,6 @@ export type BettererTasksLoggerProps = {
 export const BettererTasksLogger: FC<BettererTasksLoggerProps> = memo(function BettererTasksLogger(props) {
   const { children, exit = true, name, update } = props;
   const app = useApp();
-
   const [state, api] = useTasksState();
   const timer = useRef<NodeJS.Timeout | null>(null);
   const [runningTime, setRunningTime] = useState(performance.now());
