@@ -1,4 +1,4 @@
-import { BettererFileResolver, BettererFileTest } from '@betterer/betterer';
+import { BettererFileTest } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import { tsquery as tsq } from '@phenomnomnominal/tsquery';
 import { promises as fs } from 'fs';
@@ -15,11 +15,9 @@ export function tsquery(configFilePath: string, query: string): BettererFileTest
     );
   }
 
-  const resolver = new BettererFileResolver();
-  const absoluteConfigFilePath = resolver.resolve(configFilePath);
-
-  return new BettererFileTest(resolver, async (_, fileTestResult) => {
-    const projectFiles = await resolver.validate(tsq.projectFiles(absoluteConfigFilePath));
+  return new BettererFileTest(async (_, fileTestResult, resolver) => {
+    const absoluteConfigFilePath = resolver.resolve(configFilePath);
+    const projectFiles = resolver.validate(tsq.projectFiles(absoluteConfigFilePath));
     await Promise.all(
       projectFiles.map(async (filePath) => {
         const fileText = await fs.readFile(filePath, 'utf8');
@@ -45,8 +43,7 @@ export function tsqueryΔ(query: string): BettererFileTest {
     );
   }
 
-  const resolver = new BettererFileResolver();
-  return new BettererFileTest(resolver, async (filePaths, fileTestResult) => {
+  return new BettererFileTest(async (filePaths, fileTestResult) => {
     if (filePaths.length === 0) {
       return;
     }

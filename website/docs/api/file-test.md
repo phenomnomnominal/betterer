@@ -11,7 +11,7 @@ One very common usecase for **Betterer** is to track issues across all the files
 
 ```typescript
 class BettererFileTest
-  constructor(_resolver: BettererFileResolver, fileTest: BettererFileTestFunction);
+  constructor(fileTest: BettererFileTestFunction);
   exclude(...excludePatterns: BettererFilePatterns): this;
   include(...includePatterns: BettererFileGlobs): this;
 }
@@ -21,16 +21,14 @@ class BettererFileTest
 
 Args:
 
-- `resolver`: [`BettererFileResolver`](#bettererfileresolver)
 - `fileTest`: [`BettererFileTestFunction`](#bettererfiletestfunction)
 
 #### Usage
 
 ```typescript
-import { BettererFileResolver, BettererFileTest } from '@betterer/betterer';
+import { BettererFileTest } from '@betterer/betterer';
 
-const resolver = new BettererFileResolver();
-const test = new BettererFileTest(resolver, (filePaths, fileTestResult) => {
+const test = new BettererFileTest((filePaths, fileTestResult) => {
   // test code here:
   // get issues for each file and add them to the fileTestResult
 });
@@ -63,115 +61,6 @@ Args:
 - `...excludePatterns`: [`BettererFilePatterns`](#bettererfilepatterns)
 
 Returns: [`BettererFileTest`](#bettererfiletest)
-
-## `BettererFileResolver`
-
-A [`BettererFileTest`](#bettererfiletest) takes a `BettererFileResolver` as its first argument. This is a little bit of magic to make it easier to define file paths for the test.
-
-```typescript
-class BettererFileResolver {
-  get cwd(): string;
-  constructor(resolverDepth?: number);
-  files(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
-  resolve(...pathSegments: Array<string>): string;
-  validate(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
-}
-```
-
-### Constructor
-
-Args:
-
-- `relativeDepth`: `number` (default, `2`)
-
-`BettererFileResolver` takes a single argument (`relativeDepth`), which defines the callstack depth between where a relative path is defined and where it is used.
-
-:::caution
-This is definitely magic, and may be subject to change in the future if there proves to be too many edge cases. For now, it works well enough and removes the need for some fiddly file resolving code.
-:::
-
-By default is it set to `2`. This is because most `BettererFileTests` are not created directly, but rather by a factory function:
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
-<!-- prettier-ignore -->
-<Tabs
-  defaultValue=".betterer.ts"
-  values={[
-    { label: '.betterer.ts', value: '.betterer.ts', },
-    { label: './src/myFileTest.ts', value: './src/myFileTest.ts', }
-  ]
-}>
-<TabItem value=".betterer.ts">
-
-```typescript title=".betterer.ts"
-import { myFileTest } from './src/myFileTest';
-
-myFileTest('../some/path');
-```
-
-</TabItem>
-<TabItem value="./src/myFileTest.ts">
-
-```typescript title="./src/myFileTest.ts"
-import { BettererFileResolver } from '@betterer/betterer';
-
-export function myFileTest(filePath) {
-  const resolver = new BettererFileResolver();
-  const absolutePath = resolver.resolve(filePath);
-  // absolutePath is resolved relative to the file where `myFileTest` was called.
-}
-```
-
-</TabItem>
-</Tabs>
-
-For each function call between the `filePath` and the `BettererFileResolve` constructor, `relativeDepth` should be incremented:
-
-<!-- prettier-ignore -->
-<Tabs
-  defaultValue=".betterer.ts"
-  values={[
-    { label: '.betterer.ts', value: '.betterer.ts', },
-    { label: './src/myOtherFileTest.ts', value: './src/myOtherFileTest.ts', }
-  ]
-}>
-<TabItem value=".betterer.ts">
-
-```typescript title=".betterer.ts"
-import { myOtherFileTest } from './src/myOtherFileTest';
-
-myOtherFileTest('../some/path');
-```
-
-</TabItem>
-<TabItem value="./src/myOtherFileTest.ts">
-
-```typescript title="./src/myOtherFileTest.ts"
-import { BettererFileResolver } from '@betterer/betterer';
-
-export function myOtherFileTest(filePath) {
-  return createTest(filePath);
-}
-
-function createTest(filePath) {
-  const resolver = new BettererFileResolver(3);
-  const absolutePath = resolver.resolve(filePath);
-  // absolutePath is resolved relative to the file where `myOtherFileTest` was called.
-}
-```
-
-</TabItem>
-</Tabs>
-
-#### Usage
-
-```typescript
-import { BettererFileResolver } from '@betterer/betterer';
-
-const resolver = new BettererFileResolver();
-```
 
 ## `BettererFileTestFunction`
 

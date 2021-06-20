@@ -27,7 +27,7 @@
     "compile:api-test": "tsc -b test/api",
     "compile:packages": "tsc -b packages",
     "compile:watch": "tsc -b packages -w",
-    "lint": "eslint \"./packages/**/src/**/*.{js,ts}\" \"./test/**/*.{js,ts}\" \"./*.{js,ts}\" --fix",
+    "lint": "eslint \"./packages/**/src/**/*.{js,ts}\" \"./test/**/*.ts\" \"./*.{js,ts}\" --fix",
     "format": "prettier \"**/!(*.snap)\" --write --loglevel=silent",
     "test": "yarn clean:tests && jest --runInBand --forceExit",
     "test:api": "yarn compile:api-test && node ./test/api/dist",
