@@ -1,10 +1,10 @@
 import React, { FC, memo } from 'react';
 
 import { BettererRuns } from '@betterer/betterer';
-import { BettererTasksLogger, BettererTasksState } from '@betterer/tasks';
+import { BettererTaskLogger, BettererTasksLogger, BettererTasksState } from '@betterer/tasks';
 import { Box } from 'ink';
 
-import { getTasks } from './tasks';
+import { useTask } from './tasks';
 
 export type RunsProps = {
   runs: BettererRuns;
@@ -13,7 +13,11 @@ export type RunsProps = {
 export const Runs: FC<RunsProps> = memo(function Runs({ runs }) {
   return (
     <Box flexDirection="column" paddingBottom={1}>
-      <BettererTasksLogger name="Betterer" update={update} tasks={getTasks(runs)} exit={false} />
+      <BettererTasksLogger name="Betterer" update={update} exit={false}>
+        {runs.map((run) => (
+          <BettererTaskLogger key={run.name} name={run.name} run={useTask(run)}></BettererTaskLogger>
+        ))}
+      </BettererTasksLogger>
     </Box>
   );
 });

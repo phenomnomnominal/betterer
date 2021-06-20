@@ -1,14 +1,12 @@
-import { createContext, useCallback, useReducer } from 'react';
+import { createContext, useReducer, useRef } from 'react';
 import { performance } from 'perf_hooks';
-
-import { BettererTasks } from './types';
 
 export type BettererTasksState = {
   running: number;
   done: number;
   errors: number;
   startTime: number;
-  shouldExit: boolean;
+  endTime: number | null;
 };
 
 export type BettererTasksAction =
@@ -29,12 +27,10 @@ export type BettererTasksStateAPI = {
   stop(): void;
 };
 
-export function useTasksState(tasks: BettererTasks): [BettererTasksState, BettererTasksStateAPI] {
-  const previous = getState(tasks);
-  const reducer = useCallback(setState(tasks), []);
-  const [state, dispatch] = useReducer(reducer, previous);
+export function useTasksState(): [BettererTasksState, BettererTasksStateAPI] {
+  const [state, dispatch] = useReducer(reducer, getInitialState());
 
-  const api: BettererTasksStateAPI = {
+  const api = useRef<BettererTasksStateAPI>({
     error(error: Error) {
       dispatch({ type: 'error', data: error });
     },
@@ -44,11 +40,10 @@ export function useTasksState(tasks: BettererTasks): [BettererTasksState, Better
     stop() {
       dispatch({ type: 'stop' });
     }
-  };
+  });
 
-  return [state, api];
+  return [state, api.current];
 }
-type BettererTasksReducer = (state: BettererTasksState, action: BettererTasksAction) => BettererTasksState;
 
 function getInitialState(): BettererTasksState {
   return {
@@ -56,26 +51,7 @@ function getInitialState(): BettererTasksState {
     done: 0,
     errors: 0,
     startTime: performance.now(),
-    shouldExit: false
-  };
-}
-
-const TASKS_STATE_CACHE = new Map<BettererTasks, BettererTasksState>();
-
-function getState(tasks: BettererTasks): BettererTasksState {
-  if (TASKS_STATE_CACHE.has(tasks)) {
-    return TASKS_STATE_CACHE.get(tasks) as BettererTasksState;
-  }
-  const state = getInitialState();
-  TASKS_STATE_CACHE.set(tasks, state);
-  return state;
-}
-
-function setState(tasks: BettererTasks): BettererTasksReducer {
-  return (state: BettererTasksState, action: BettererTasksAction): BettererTasksState => {
-    const newState = reducer(state, action);
-    TASKS_STATE_CACHE.set(tasks, newState);
-    return newState;
+    endTime: null
   };
 }
 
@@ -93,20 +69,24 @@ export const BettererTasksStateContext = createContext<BettererTasksStateAPI>({
 
 function reducer(state: BettererTasksState, action: BettererTasksAction): BettererTasksState {
   switch (action.type) {
-    case 'start':
+    case 'start': {
+      if (state.endTime != null) {
+        return { ...getInitialState(), running: state.running + 1 };
+      }
       return {
         ...state,
         running: state.running + 1
       };
+    }
     case 'stop': {
-      return getShouldExit({
+      return setEndTime({
         ...state,
         running: state.running - 1,
         done: state.done + 1
       });
     }
     case 'error': {
-      return getShouldExit({
+      return setEndTime({
         ...state,
         running: state.running - 1,
         done: state.done + 1,
@@ -119,7 +99,10 @@ function reducer(state: BettererTasksState, action: BettererTasksAction): Better
   }
 }
 
-function getShouldExit(state: BettererTasksState): BettererTasksState {
+function setEndTime(state: BettererTasksState): BettererTasksState {
   const shouldExit = state.running === 0;
-  return { ...state, shouldExit };
+  if (!shouldExit) {
+    return state;
+  }
+  return { ...state, endTime: performance.now() };
 }
