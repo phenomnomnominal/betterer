@@ -12,6 +12,7 @@ export type DefaultReporterProps = {
 
 export const DefaultReporter: FC<DefaultReporterProps> = memo(function DefaultReporter(props: DefaultReporterProps) {
   const { context, runs, summary } = props;
+
   return (
     <>
       {runs && <Runs runs={runs} />}
