@@ -1,3 +1,4 @@
+import assert from 'assert';
 import path from 'path';
 
 import { BettererContext, BettererContextΩ, BettererRun, BettererRunΩ } from '../../context';
@@ -90,6 +91,8 @@ function createTest(
 ): BettererTestFunction<BettererFileTestResult> {
   return async (run: BettererRun, context: BettererContext): Promise<BettererFileTestResult> => {
     const runΩ = run as BettererRunΩ;
+    assert(runΩ.filePaths);
+
     resolver.setBaseDirectory(path.dirname(runΩ.test.configPath));
     const contextΩ = context as BettererContextΩ;
 

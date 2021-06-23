@@ -2,7 +2,7 @@ import assert from 'assert';
 
 import { BettererRunSummaries } from '../context';
 import { forceRelativePaths, read, write } from '../fs';
-import { BettererTestConfig } from '../test';
+import { BettererTestBase } from '../test';
 import { parse } from './parser';
 import { print } from './printer';
 import { BettererResultΩ } from './result';
@@ -12,24 +12,30 @@ const RESULTS_HEADER = `// BETTERER RESULTS V2.`;
 
 export class BettererResultsΩ {
   private _baseline: BettererExpectedResults | null = null;
+  private _expected: BettererExpectedResults | null = null;
 
   constructor(private _resultsPath: string) {}
 
-  public async getBaseline(name: string, test: BettererTestConfig): Promise<BettererResult> {
+  public async sync(): Promise<void> {
     if (!this._baseline) {
       this._baseline = await parse(this._resultsPath);
     }
+    this._expected = await parse(this._resultsPath);
+  }
+
+  public getBaseline(name: string, test: BettererTestBase): BettererResult {
+    assert(this._baseline);
     return this._getResult(name, test, this._baseline);
   }
 
-  public async getExpectedNames(): Promise<Array<string>> {
-    const results = await parse(this._resultsPath);
-    return Object.keys(results);
+  public getExpectedNames(): Array<string> {
+    assert(this._expected);
+    return Object.keys(this._expected);
   }
 
-  public async getExpectedResult(name: string, test: BettererTestConfig): Promise<BettererResult> {
-    const expectedResults = await parse(this._resultsPath);
-    return this._getResult(name, test, expectedResults);
+  public getExpectedResult(name: string, test: BettererTestBase): BettererResult {
+    assert(this._expected);
+    return this._getResult(name, test, this._expected);
   }
 
   public read(): Promise<string | null> {
@@ -58,12 +64,12 @@ export class BettererResultsΩ {
     return write(printed, this._resultsPath);
   }
 
-  private _getResult(name: string, test: BettererTestConfig, expectedResults: BettererExpectedResults): BettererResult {
+  private _getResult(name: string, test: BettererTestBase, expectedResults: BettererExpectedResults): BettererResult {
     if (Object.hasOwnProperty.call(expectedResults, name)) {
       assert(expectedResults[name]);
       const { value } = expectedResults[name];
       const parsed = JSON.parse(value) as unknown;
-      return new BettererResultΩ(test.serialiser.deserialise(parsed, this._resultsPath));
+      return new BettererResultΩ(test.config.serialiser.deserialise(parsed, this._resultsPath));
     }
     return new BettererResultΩ();
   }

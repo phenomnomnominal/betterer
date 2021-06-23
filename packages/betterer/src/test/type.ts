@@ -6,8 +6,7 @@ export enum BettererTestType {
   Unknown = 'Unknown'
 }
 
-/** @internal Definitely not stable! Please don't use! */
-export function isBettererFileTestΔ(testOrConfig: unknown): testOrConfig is BettererFileTest {
+export function isBettererFileTest(testOrConfig: unknown): testOrConfig is BettererFileTest {
   const config = (testOrConfig as BettererFileTest).config || testOrConfig;
   return config.type === BettererTestType.File;
 }

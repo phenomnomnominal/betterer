@@ -32,7 +32,7 @@ export type BettererDelta =
 
 export type BettererRun = {
   readonly expected: BettererResult;
-  readonly filePaths: BettererFilePaths;
+  readonly filePaths: BettererFilePaths | null;
   readonly lifecycle: Promise<BettererRunSummary>;
   readonly name: string;
   readonly test: BettererTestConfig;
@@ -40,14 +40,10 @@ export type BettererRun = {
   readonly isSkipped: boolean;
 };
 
-export type BettererRunStarted = {
-  better(result: BettererResult, isComplete: boolean): Promise<BettererRunSummary>;
+export type BettererRunning = {
   failed(error: BettererError): Promise<BettererRunSummary>;
-  neww(result: BettererResult, isComplete: boolean): Promise<BettererRunSummary>;
-  same(result: BettererResult): Promise<BettererRunSummary>;
+  done(result: BettererResult): Promise<BettererRunSummary>;
   skipped(): Promise<BettererRunSummary>;
-  update(result: BettererResult): Promise<BettererRunSummary>;
-  worse(result: BettererResult): Promise<BettererRunSummary>;
 };
 
 export type BettererRunSummary = BettererRun & {
