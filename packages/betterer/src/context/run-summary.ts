@@ -1,23 +1,25 @@
 import assert from 'assert';
-import { BettererFilePaths } from '../fs';
+
+import { BettererDiff } from '../test';
 import { BettererResult } from '../results';
-import { BettererDiff, BettererTestConfig } from '../test';
-import { BettererRunStatus } from './run';
+import { BettererRunStatus, BettererRunΩ } from './run';
 import { BettererDelta, BettererRunSummary } from './types';
 
 export class BettererRunSummaryΩ implements BettererRunSummary {
+  public readonly lifecycle = this._runΩ.lifecycle;
+  public readonly name = this._runΩ.name;
+  public readonly filePaths = this._runΩ.filePaths;
+  public readonly expected = this._runΩ.expected;
+  public readonly timestamp = this._runΩ.timestamp;
+  public readonly test = this._runΩ.test;
+
   constructor(
-    public readonly lifecycle: Promise<BettererRunSummary>,
-    public readonly test: BettererTestConfig,
-    public readonly name: string,
-    public readonly filePaths: BettererFilePaths,
-    public readonly expected: BettererResult,
-    public readonly timestamp: number,
-    public readonly isComplete: boolean,
+    private _runΩ: BettererRunΩ,
     private _result: BettererResult | null,
     private _diff: BettererDiff | null,
     private _delta: BettererDelta | null,
-    private _status: BettererRunStatus
+    private _status: BettererRunStatus,
+    public readonly isComplete: boolean
   ) {}
 
   public get delta(): BettererDelta | null {

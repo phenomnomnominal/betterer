@@ -227,7 +227,7 @@ export declare type BettererResult = {
 
 export declare type BettererRun = {
     readonly expected: BettererResult;
-    readonly filePaths: BettererFilePaths;
+    readonly filePaths: BettererFilePaths | null;
     readonly lifecycle: Promise<BettererRunSummary>;
     readonly name: string;
     readonly test: BettererTestConfig;
@@ -338,8 +338,6 @@ export declare type BettererTestOptionsComplex<DeserialisedType, SerialisedType,
     goal: DeserialisedType | BettererTestGoal<DeserialisedType>;
     deadline?: Date | string;
 };
-
-export declare function isBettererFileTestΔ(testOrConfig: unknown): testOrConfig is BettererFileTest;
 
 export declare function runner(options?: BettererOptionsRunner): Promise<BettererRunner>;
 

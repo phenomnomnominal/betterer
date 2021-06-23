@@ -62,6 +62,5 @@ export {
   BettererTestConfig,
   BettererTestOptions,
   BettererTestOptionsBasic,
-  BettererTestOptionsComplex,
-  isBettererFileTestΔ
+  BettererTestOptionsComplex
 } from './test/public';
