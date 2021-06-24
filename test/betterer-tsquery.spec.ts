@@ -11,24 +11,10 @@ describe('betterer', () => {
 import { tsquery } from '@betterer/tsquery';
 
 export default {
-'tsquery no raw console.log': tsquery(
-  './tsconfig.json',
-  'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
-)
-};      
-    `,
-        'tsconfig.json': `
-{
-"compilerOptions": {
-  "noEmit": true,
-  "lib": ["esnext"],
-  "moduleResolution": "node",
-  "target": "ES5",
-  "typeRoots": ["../../node_modules/@types/"],
-  "resolveJsonModule": true
-},
-"include": ["./src/**/*", ".betterer.ts"]
-}      
+  'tsquery no raw console.log': tsquery(
+    'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
+  ).include('./src/**/*.ts')
+};
     `
       }
     );
@@ -72,34 +58,13 @@ export default {
     await cleanup();
   });
 
-  it('should throw if there is no configFilePath', async () => {
-    const { paths, logs, cleanup } = await createFixture('test-betterer-tsquery-no-config-file-path', {
-      '.betterer.js': `
-const { tsquery } = require('@betterer/tsquery');
-
-module.exports = {
-'tsquery no raw console.log': tsquery()
-};      
-    `
-    });
-
-    const configPaths = [paths.config];
-    const resultsPath = paths.results;
-
-    await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
-
-    expect(logs).toMatchSnapshot();
-
-    await cleanup();
-  });
-
   it('should throw if there is no query', async () => {
     const { paths, logs, cleanup } = await createFixture('test-betterer-tsquery-no-query', {
       '.betterer.js': `
 const { tsquery } = require('@betterer/tsquery');
 
 module.exports = {
-'tsquery no raw console.log': tsquery('./tsconfig.json')
+  'tsquery no raw console.log': tsquery()
 };
     `
     });

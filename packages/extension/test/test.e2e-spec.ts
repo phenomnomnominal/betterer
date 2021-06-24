@@ -124,7 +124,7 @@ let shrinks = 2;
 export default {
   'typescript use strict mode': typescript('./tsconfig.json', {
     strict: true
-  }),
+  }).include('./src/**/*.ts'),
   'should shrink': {
     test: () => shrinks--,
     constraint: smaller

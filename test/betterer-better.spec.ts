@@ -53,9 +53,8 @@ import { tsquery } from '@betterer/tsquery';
 
 export default {
   'no raw console calls': tsquery(
-    './tsconfig.json',
     'CallExpression > PropertyAccessExpression[expression.name="console"]'
-  )
+  ).include('./src/**/*.ts')
 };  
       `,
         '.betterer.changed.ts': `
@@ -63,23 +62,9 @@ import { tsquery } from '@betterer/tsquery';
 
 export default {
   'no raw console calls': tsquery(
-    './tsconfig.json',
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
-  )
+  ).include('./src/**/*.ts')
 };
-              `,
-        'tsconfig.json': `
-{
-  "compilerOptions": {
-    "noEmit": true,
-    "lib": ["esnext"],
-    "moduleResolution": "node",
-    "target": "ES5",
-    "typeRoots": ["../../node_modules/@types/"],
-    "resolveJsonModule": true
-  },
-  "include": ["./src/**/*", ".betterer.ts"]
-}      
       `,
         'src/index.ts': `
 console.log('foo');

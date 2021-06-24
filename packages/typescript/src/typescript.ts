@@ -13,78 +13,12 @@ type TypeScriptReadConfigResult = {
   };
 };
 
-export function typescript(configFilePath: string, extraCompilerOptions: ts.CompilerOptions): BettererFileTest {
-  if (!configFilePath) {
-    throw new BettererError(
-      "for `@betterer/typescript` to work, you need to provide the path to a tsconfig.json file, e.g. `'./tsconfig.json'`. ❌"
-    );
-  }
-  if (!extraCompilerOptions) {
-    throw new BettererError(
-      'for `@betterer/typescript` to work, you need to provide compiler options, e.g. `{ strict: true }`. ❌'
-    );
-  }
-
-  return new BettererFileTest((_, fileTestResult, resolver) => {
-    const absoluteConfigFilePath = resolver.resolve(configFilePath);
-    const { config } = ts.readConfigFile(
-      absoluteConfigFilePath,
-      ts.sys.readFile.bind(ts.sys)
-    ) as TypeScriptReadConfigResult;
-    const { compilerOptions } = config;
-    const basePath = path.dirname(absoluteConfigFilePath);
-
-    const fullCompilerOptions = {
-      ...compilerOptions,
-      ...extraCompilerOptions
-    };
-    config.compilerOptions = fullCompilerOptions;
-
-    const host = ts.createCompilerHost(fullCompilerOptions);
-    const configHost = {
-      ...host,
-      readDirectory: ts.sys.readDirectory.bind(ts.sys),
-      useCaseSensitiveFileNames: host.useCaseSensitiveFileNames()
-    };
-    const parsed = ts.parseJsonConfigFileContent(config, configHost, basePath);
-
-    const rootNames = resolver.validate(parsed.fileNames);
-    const program = ts.createProgram({
-      ...parsed,
-      rootNames,
-      host
-    });
-
-    const { diagnostics } = program.emit();
-
-    const preEmitDiagnostic = ts.getPreEmitDiagnostics(program);
-    const semanticDiagnostics = program.getSemanticDiagnostics();
-    const allDiagnostics = ts.sortAndDeduplicateDiagnostics([
-      ...diagnostics,
-      ...preEmitDiagnostic,
-      ...semanticDiagnostics
-    ]);
-
-    allDiagnostics
-      .filter(({ file, start, length }) => file && start != null && length != null)
-      .forEach((diagnostic) => {
-        const { start, length } = diagnostic as ts.DiagnosticWithLocation;
-        const source = (diagnostic as ts.DiagnosticWithLocation).file;
-        const { fileName } = source;
-        const file = fileTestResult.addFile(fileName, source.getFullText());
-        const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, NEW_LINE);
-        file.addIssue(start, start + length, message);
-      });
-  });
-}
-
 // TypeScript throws a 6307 error when it need to access type information from a file
 // that wasn't included by the tsconfig. This happens whenever we run the compiler on
 // a subset of files, so we need to filter out those errors!
 const CODE_FILE_NOT_INCLUDED = 6307;
 
-/** @internal Definitely not stable! Please don't use! */
-export function typescriptΔ(configFilePath: string, extraCompilerOptions: ts.CompilerOptions = {}): BettererFileTest {
+export function typescript(configFilePath: string, extraCompilerOptions: ts.CompilerOptions = {}): BettererFileTest {
   if (!configFilePath) {
     throw new BettererError(
       "for `@betterer/typescript` to work, you need to provide the path to a tsconfig.json file, e.g. `'./tsconfig.json'`. ❌"
