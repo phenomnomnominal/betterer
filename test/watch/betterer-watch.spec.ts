@@ -11,23 +11,9 @@ import { tsquery } from '@betterer/tsquery';
 
 export default {
   'tsquery no raw console.log': tsquery(
-    './tsconfig.json',
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
-  )
+  ).include('./src/**/*.ts')
 };
-      `,
-      'tsconfig.json': `
-{
-  "compilerOptions": {
-    "noEmit": true,
-    "lib": ["esnext"],
-    "moduleResolution": "node",
-    "target": "ES5",
-    "typeRoots": ["../../node_modules/@types/"],
-    "resolveJsonModule": true
-  },
-  "include": ["./src/**/*", ".betterer.ts"]
-}
       `
     });
 
@@ -93,23 +79,9 @@ import { tsquery } from '@betterer/tsquery';
 
 export default {
   'tsquery no raw console.log': tsquery(
-    './tsconfig.json',
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
-  )
+  ).include('./src/**/*.ts')
 };
-      `,
-      'tsconfig.json': `
-{
-  "compilerOptions": {
-    "noEmit": true,
-    "lib": ["esnext"],
-    "moduleResolution": "node",
-    "target": "ES5",
-    "typeRoots": ["../../node_modules/@types/"],
-    "resolveJsonModule": true
-  },
-  "include": ["./src/**/*", ".betterer.ts"]
-}
       `
     });
 
@@ -155,23 +127,9 @@ import { tsquery } from '@betterer/tsquery';
 
 export default {
   'tsquery no raw console.log': tsquery(
-    './tsconfig.json',
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
-  )
+  ).include('./src/**/*.ts')
 };
-      `,
-      'tsconfig.json': `
-{
-  "compilerOptions": {
-    "noEmit": true,
-    "lib": ["esnext"],
-    "moduleResolution": "node",
-    "target": "ES5",
-    "typeRoots": ["../../node_modules/@types/"],
-    "resolveJsonModule": true
-  },
-  "include": ["./src/**/*", ".betterer.ts"]
-}
       `,
       './src/.gitignore': `
 ignored.ts

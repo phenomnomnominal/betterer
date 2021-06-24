@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`betterer.runner should ignore any files outside of the scope of the tsqueryΔ tsconfig 1`] = `"// BETTERER RESULTS V2."`;
+exports[`betterer.runner should ignore any files outside of the scope of the tsquery tsconfig 1`] = `"// BETTERER RESULTS V2."`;
 
-exports[`betterer.runner should ignore any files outside of the scope of the typescriptΔ test glob 1`] = `"// BETTERER RESULTS V2."`;
+exports[`betterer.runner should ignore any files outside of the scope of the typescript test glob 1`] = `"// BETTERER RESULTS V2."`;
 
-exports[`betterer.runner should run tsqueryΔ against a file 1`] = `
+exports[`betterer.runner should run tsquery against a file 1`] = `
 "// BETTERER RESULTS V2.
 exports[\`tsquery no raw console.log\`] = {
   value: \`{
@@ -16,7 +16,7 @@ exports[\`tsquery no raw console.log\`] = {
 "
 `;
 
-exports[`betterer.runner should run typescriptΔ against a file 1`] = `
+exports[`betterer.runner should run typescript against a file 1`] = `
 "// BETTERER RESULTS V2.
 exports[\`use typescript\`] = {
   value: \`{
