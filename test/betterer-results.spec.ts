@@ -19,7 +19,7 @@ function test(): BettererFileTest {
 }
 
 export default {
-  'test': test().include('./src/**/*.ts')
+  'test': () => test().include('./src/**/*.ts')
 };
       `
       }

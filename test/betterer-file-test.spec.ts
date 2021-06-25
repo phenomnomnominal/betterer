@@ -11,7 +11,7 @@ describe('betterer', () => {
 const { eslint } = require('@betterer/eslint');
 
 module.exports = {
-  'file test custom goal': eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts').goal((result) => result.getIssues().length === 1)
+  'file test custom goal': () => eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts').goal((result) => result.getIssues().length === 1)
 };
       `,
         '.eslintrc.js': `
@@ -93,7 +93,7 @@ const { eslint } = require('@betterer/eslint');
 const { BettererConstraintResult } = require('@betterer/constraints');
 
 module.exports = {
-  'file test custom goal': eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts').constraint(() => BettererConstraintResult.same)
+  'file test custom goal': () => eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts').constraint(() => BettererConstraintResult.same)
 };
       `,
         '.eslintrc.js': `

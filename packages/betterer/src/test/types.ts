@@ -3,7 +3,6 @@ import { BettererLogger } from '@betterer/logger';
 
 import { BettererContext, BettererDelta, BettererRun } from '../context';
 import { MaybeAsync } from '../types';
-import { BettererTestType } from './type';
 
 export type BettererTestFunction<DeserialisedType> = (
   run: BettererRun,
@@ -83,7 +82,6 @@ export type BettererTestConfig<DeserialisedType = unknown, SerialisedType = Dese
   printer: BettererPrinter<SerialisedType>;
   progress: BettererProgress<DeserialisedType>;
   serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
-  type: BettererTestType;
 };
 
 export interface BettererTestBase<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> {
@@ -96,5 +94,13 @@ export interface BettererTestBase<DeserialisedType = unknown, SerialisedType = D
   skip(): this;
 }
 
-export type BettererTestMap = Record<string, BettererTestBase>;
-export type BettererTestConfigMap = Record<string, BettererTestBase | BettererTestOptions>;
+export type BettererTestFactory = () => BettererTestBase;
+export type BettererTestMeta = {
+  configPath: string;
+  factory: BettererTestFactory;
+  name: string;
+  isOnly: boolean;
+  isSkipped: boolean;
+};
+export type BettererTestMetaMap = Record<string, BettererTestMeta>;
+export type BettererTestMap = Record<string, BettererTestFactory>;

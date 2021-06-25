@@ -11,7 +11,7 @@ describe('betterer', () => {
 import { eslint } from '@betterer/eslint';
 
 export default {
-  'eslint enable no-debugger rule': eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
+  'eslint enable no-debugger rule': () => eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
 };
       `,
         '.eslintrc.js': `

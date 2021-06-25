@@ -5,7 +5,7 @@ import assert from 'assert';
 import { BettererConfig } from '../config';
 import { BettererFilePaths } from '../fs';
 import { BettererResult } from '../results';
-import { BettererDiff, BettererTestBase, BettererTestConfig } from '../test';
+import { BettererDiff, BettererTestBase, BettererTestConfig, BettererTestMeta } from '../test';
 import { Defer, defer } from '../utils';
 import { BettererRunSummaryΩ } from './run-summary';
 import { BettererRun, BettererRunning, BettererRunSummary } from './types';
@@ -28,16 +28,19 @@ export class BettererRunΩ implements BettererRun {
   private _result: BettererResult | null = null;
   private _status: BettererRunStatus;
   private _timestamp: number | null = null;
+  private _test: BettererTestBase;
 
   constructor(
     public readonly config: BettererConfig,
     public readonly name: string,
-    private _test: BettererTestBase,
+    private _testMeta: BettererTestMeta,
     public expected: BettererResult,
     private _baseline: BettererResult,
     public filePaths: BettererFilePaths | null
   ) {
-    this._status = this._test.isSkipped ? BettererRunStatus.skipped : BettererRunStatus.pending;
+    this._status = this._testMeta.isSkipped ? BettererRunStatus.skipped : BettererRunStatus.pending;
+    this._test = this._testMeta.factory();
+    this._test.config.configPath = this._testMeta.configPath;
     this._lifecycle = defer();
   }
 

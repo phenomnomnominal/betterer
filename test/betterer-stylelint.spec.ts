@@ -23,7 +23,7 @@ describe('betterer', () => {
 import { stylelint } from '@betterer/stylelint';
 
 export default {
-  'stylelint enable new rule': stylelint({
+  'stylelint enable new rule': () => stylelint({
     rules: {
       'order/order': [
         { type: 'rule' },
@@ -85,7 +85,7 @@ export default {
 const { stylelint } = require('@betterer/stylelint');
 
 module.exports = {
-  'stylelint no config': stylelint().include('./src/**/*.csss')
+  'stylelint no config': () => stylelint().include('./src/**/*.css')
 };      
       `
     });

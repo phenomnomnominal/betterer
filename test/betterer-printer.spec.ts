@@ -6,6 +6,7 @@ describe('betterer', () => {
   it('should handle printing for pathological cases', async () => {
     const { paths, readFile, cleanup } = await createFixture('test-betterer-printer-pathological', {
       '.betterer.js': `
+const { BettererTest } = require('@betterer/betterer');
 const { smaller } = require('@betterer/constraints');
 
 const paths = [
@@ -53,16 +54,16 @@ const map = {
 };
 
 module.exports = {
-  'big array': {
+  'big array': () => new BettererTest({
     test: () => paths,
     constraint: () => 'same',
     goal: 0
-  },
-  'big object': {
+  }),
+  'big object': () => new BettererTest({
     test: () => map,
     constraint: () => 'same',
     goal: 0
-  }
+  })
 };
       `
     });

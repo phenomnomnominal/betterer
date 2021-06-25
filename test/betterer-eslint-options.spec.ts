@@ -9,7 +9,7 @@ describe('betterer', () => {
 import { eslint } from '@betterer/eslint';
 
 export default {
-  'eslint enable complex rule': eslint({ 
+  'eslint enable complex rule': () => eslint({ 
     'no-restricted-syntax': [
       'error',
       {

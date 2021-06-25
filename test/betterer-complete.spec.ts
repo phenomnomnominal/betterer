@@ -6,21 +6,22 @@ describe('betterer', () => {
   it(`should work when a test meets its goal`, async () => {
     const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-complete', {
       '.betterer.js': `
+const { BettererTest } = require('@betterer/betterer');
 const { bigger } = require('@betterer/constraints');
 
 let start = 0;
 
 module.exports = {
-  'gets completed': {
+  'gets completed': () => new BettererTest({
     test: () => start++,
     constraint: bigger,
     goal: (result) => result >= 2
-  },
-  'already completed': {
+  }),
+  'already completed': () => new BettererTest({
     test: () => 0,
     constraint: bigger,
     goal: 0
-  }
+  })
 };
       `
     });

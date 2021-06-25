@@ -9,7 +9,7 @@ describe('betterer', () => {
 import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'no raw console calls': tsquery(
+  'no raw console calls': () => tsquery(
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
   ).include('./src/**/*.ts')
 };

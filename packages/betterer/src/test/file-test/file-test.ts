@@ -4,7 +4,6 @@ import path from 'path';
 import { BettererContext, BettererContextΩ, BettererRun, BettererRunΩ } from '../../context';
 import { BettererFileResolverΩ, BettererFileGlobs, BettererFilePatterns } from '../../fs';
 import { createTestConfig } from '../config';
-import { BettererTestType } from '../type';
 import { BettererTestConstraint, BettererTestFunction, BettererTestGoal } from '../types';
 import { constraint } from './constraint';
 import { differ } from './differ';
@@ -28,18 +27,15 @@ export class BettererFileTest implements BettererFileTestBase {
 
   constructor(fileTest: BettererFileTestFunction) {
     this._resolver = new BettererFileResolverΩ();
-    this._config = createTestConfig(
-      {
-        test: createTest(this._resolver, fileTest),
-        constraint,
-        goal,
-        serialiser: { deserialise, serialise },
-        differ,
-        printer,
-        progress
-      },
-      BettererTestType.File
-    ) as BettererFileTestConfig;
+    this._config = createTestConfig({
+      test: createTest(this._resolver, fileTest),
+      constraint,
+      goal,
+      serialiser: { deserialise, serialise },
+      differ,
+      printer,
+      progress
+    }) as BettererFileTestConfig;
   }
 
   public get config(): BettererFileTestConfig {
@@ -130,4 +126,8 @@ function createTest(
 
     return result;
   };
+}
+
+export function isBettererFileTest(test: unknown): test is BettererFileTest {
+  return !!test && (test as BettererFileTest).constructor.name === BettererFileTest.name;
 }

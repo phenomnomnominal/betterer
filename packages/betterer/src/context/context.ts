@@ -4,17 +4,9 @@ import assert from 'assert';
 import { BettererConfig } from '../config';
 import { BettererFilePaths, BettererVersionControl } from '../fs';
 import { BettererReporterΩ } from '../reporters';
-import { requireUncached } from '../require';
 import { BettererResultsΩ, BettererResultΩ } from '../results';
 import { defer, Defer } from '../utils';
-import {
-  BettererTest,
-  BettererTestBase,
-  BettererTestMap,
-  BettererTestConfigMap,
-  isBettererTest,
-  isBettererFileTest
-} from '../test';
+import { BettererTestMetaMap, isBettererFileTest } from '../test';
 import { BettererRunsΩ, BettererRunΩ } from './run';
 import { BettererSummaryΩ } from './summary';
 import {
@@ -25,6 +17,7 @@ import {
   BettererSummaries,
   BettererSummary
 } from './types';
+import { loadTests } from '../test/loader';
 
 export class BettererContextΩ implements BettererContext {
   private _results = new BettererResultsΩ(this.config.resultsPath);
@@ -32,7 +25,7 @@ export class BettererContextΩ implements BettererContext {
   private _lifecycle: Defer<BettererSummaries>;
   private _running: Promise<BettererRunSummaries> | null = null;
   private _summaries: BettererSummaries = [];
-  private _tests: BettererTestMap = {};
+  private _tests: BettererTestMetaMap = {};
 
   constructor(
     public readonly config: BettererConfig,
@@ -80,26 +73,27 @@ export class BettererContextΩ implements BettererContext {
     await this._results.sync();
     await this._versionControl.sync();
 
-    this._tests = this._initTests();
-    this._initFilters();
-
-    let testNames = Object.keys(this._tests);
+    this._tests = loadTests(this.config);
+    const testNames = Object.keys(this._tests);
 
     // Only run BettererFileTests when a list of filePaths is given:
     const runFileTests = filePaths.length > 0;
-    if (runFileTests) {
-      testNames = testNames.filter((name) => isBettererFileTest(this._tests[name]));
-    }
 
     const validFilePaths = filePaths.filter((filePath) => !this._versionControl.isIgnored(filePath));
 
-    const runs = testNames.map((name) => {
-      const test = this._tests[name];
-      const baseline = this._results.getBaseline(name, test);
-      const expected = this._results.getExpectedResult(name, test);
-      const runFilePaths = isBettererFileTest(test) ? validFilePaths : null;
-      return new BettererRunΩ(this.config, name, test, expected, baseline, runFilePaths);
-    });
+    const runs = testNames
+      .map((name) => {
+        const testMeta = this._tests[name];
+        const test = testMeta.factory();
+        if (runFileTests && !isBettererFileTest(test)) {
+          return null;
+        }
+        const baseline = this._results.getBaseline(name, test);
+        const expected = this._results.getExpectedResult(name, test);
+        const runFilePaths = isBettererFileTest(test) ? validFilePaths : null;
+        return new BettererRunΩ(this.config, name, testMeta, expected, baseline, runFilePaths);
+      })
+      .filter(Boolean) as BettererRunsΩ;
 
     const runsLifecycle = defer<BettererSummary>();
     const reportRunsStart = this._reporter.runsStart(runs, validFilePaths, runsLifecycle.promise);
@@ -128,57 +122,6 @@ export class BettererContextΩ implements BettererContext {
 
   public updateCache(filePaths: BettererFilePaths): void {
     return this._versionControl.updateCache(filePaths);
-  }
-
-  private _initTests(): BettererTestMap {
-    let testMap: BettererTestMap = {};
-    this.config.configPaths.map((configPath) => {
-      const more = this._getTests(configPath);
-      testMap = { ...testMap, ...more };
-    });
-    const tests = Object.values(testMap);
-    const only = tests.find((test) => test.isOnly);
-    if (only) {
-      tests.forEach((test) => {
-        if (!test.isOnly) {
-          test.skip();
-        }
-      });
-    }
-    return testMap;
-  }
-
-  private _getTests(configPath: string): BettererTestMap {
-    try {
-      const testConfig = requireUncached<BettererTestConfigMap>(configPath);
-      const tests: BettererTestMap = {};
-      Object.keys(testConfig).forEach((name) => {
-        const testOrConfig = testConfig[name];
-        let test: BettererTestBase | null = null;
-        if (!isBettererTest(testOrConfig)) {
-          test = new BettererTest(testOrConfig);
-        } else {
-          test = testOrConfig;
-        }
-        test.config.configPath = configPath;
-        tests[name] = test;
-      });
-      return tests;
-    } catch (e) {
-      throw new BettererError(`could not read config from "${configPath}". 😔`, e);
-    }
-  }
-
-  private _initFilters(): void {
-    // read `filters` here so that it can be updated by watch mode:
-    const { filters } = this.config;
-    if (filters.length) {
-      Object.keys(this._tests).forEach((name) => {
-        if (!filters.some((filter) => filter.test(name))) {
-          this._tests[name].skip();
-        }
-      });
-    }
   }
 
   private async _runTests(runsΩ: BettererRunsΩ): Promise<BettererRunSummaries> {

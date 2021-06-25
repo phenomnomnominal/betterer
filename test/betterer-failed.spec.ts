@@ -6,15 +6,16 @@ describe('betterer', () => {
   it(`should work when a test fails`, async () => {
     const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-failed', {
       '.betterer.js': `
+const { BettererTest } = require('@betterer/betterer');
 const { bigger } = require('@betterer/constraints');
 
 module.exports = {
-  'throws error': {
+  'throws error': () => new BettererTest({
     test: () => {
       throw new Error('OH NO!');
     },
     constraint: bigger
-  }
+  })
 };
 `
     });
@@ -38,15 +39,16 @@ module.exports = {
   it('should throws when reading the results file fails', async () => {
     const { logs, paths, cleanup, resolve, writeFile } = await createFixture('test-betterer-failed-reading', {
       '.betterer.js': `
+const { BettererTest } = require('@betterer/betterer');
 const { smaller } = require('@betterer/constraints');
 
 let grows = 0;
 
 module.exports = {
-  'should shrink': {
+  'should shrink': () => new BettererTest({
     test: () => grows++,
     constraint: smaller
-  }
+  })
 };
       `
     });

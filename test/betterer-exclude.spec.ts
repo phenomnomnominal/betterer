@@ -9,15 +9,15 @@ describe('betterer', () => {
 import { regexp } from '@betterer/regexp';
 
 export default {
-  'regexp no hack comments': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
+  'regexp no hack comments': () => regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
 };      
       `,
       '.betterer.exclude.ts': `
 import { regexp } from '@betterer/regexp';
 
 export default {
-  'regexp no hack comments': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts').exclude(/exclude.ts/)
-};      
+  'regexp no hack comments': () => regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts').exclude(/exclude.ts/)
+};
       `
     });
 
@@ -55,14 +55,14 @@ export default {
 import { regexp } from '@betterer/regexp';
 
 export default {
-  'regexp no hack comments': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
+  'regexp no hack comments': () => regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
 };      
       `,
         '.betterer.exclude.ts': `
 import { regexp } from '@betterer/regexp';
 
 export default {
-  'regexp no hack comments': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts').exclude(/exclude.ts/)
+  'regexp no hack comments': () => regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts').exclude(/exclude.ts/)
 };      
       `
       }

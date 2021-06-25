@@ -3,7 +3,6 @@ import { BettererLogger, diffΔ } from '@betterer/logger';
 import { format } from 'prettier';
 
 import { isFunction } from '../utils';
-import { BettererTestType } from './type';
 import {
   BettererTestConfig,
   BettererTestOptions,
@@ -13,8 +12,7 @@ import {
 } from './types';
 
 export function createTestConfig<DeserialisedType, SerialisedType, DiffType>(
-  options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>,
-  type = BettererTestType.Unknown
+  options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>
 ): BettererTestConfig<DeserialisedType, SerialisedType, DiffType> | BettererTestConfig {
   if (options.constraint == null) {
     throw new BettererError('for a test to work, it must have a `constraint` function. ❌');
@@ -34,8 +32,7 @@ export function createTestConfig<DeserialisedType, SerialisedType, DiffType>(
       progress: defaultProgress,
       ...options,
       goal,
-      deadline,
-      type
+      deadline
     } as BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
   }
 
@@ -50,8 +47,7 @@ export function createTestConfig<DeserialisedType, SerialisedType, DiffType>(
       serialise: defaultSerialiser
     },
     goal,
-    deadline,
-    type
+    deadline
   } as BettererTestConfig;
 }
 

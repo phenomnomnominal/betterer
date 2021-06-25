@@ -6,17 +6,18 @@ describe('betterer', () => {
   it('should do nothing when a test is not past its deadline', async () => {
     const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-deadline-in-future', {
       '.betterer.js': `
+const { BettererTest } = require('@betterer/betterer');
 const { bigger } = require('@betterer/constraints');
 
 let grows = 0;
 
 module.exports = {
-  'should grow': {
+  'should grow': () => new BettererTest({
     test: () => grows++,
     constraint: bigger,
     goal: 5,
     deadline: new Date()
-  }
+  })
 };
       `
     });
@@ -42,17 +43,18 @@ module.exports = {
   it('should mark a test as expired when it is past its deadline', async () => {
     const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-deadline-in-past', {
       '.betterer.js': `
+const { BettererTest } = require('@betterer/betterer');
 const { bigger } = require('@betterer/constraints');
 
 let grows = 0;
 
 module.exports = {
-  'should grow': {
+  'should grow': () => new BettererTest({
     test: () => grows++,
     constraint: bigger,
     goal: 5,
     deadline: 0
-  }
+  })
 };
       `
     });

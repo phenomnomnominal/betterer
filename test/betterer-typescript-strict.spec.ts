@@ -43,7 +43,7 @@ describe('betterer', () => {
 import { typescript } from '@betterer/typescript';
 
 export default {
-  'typescript use strict mode': typescript('./tsconfig.json', {
+  'typescript use strict mode': () => typescript('./tsconfig.json', {
     strict: true
   }).include('./src/**/*.ts')
 };

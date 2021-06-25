@@ -6,20 +6,21 @@ describe('betterer', () => {
   it('should work when a test gets better', async () => {
     const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-better', {
       '.betterer.js': `
+const { BettererTest } = require('@betterer/betterer');
 const { smaller, bigger } = require('@betterer/constraints');
 
 let grows = 0;
 let shrinks = 2;
 
 module.exports = {
-  'should shrink': {
+  'should shrink': () => new BettererTest({
     test: () => shrinks--,
     constraint: smaller
-  },
-  'should grow': {
+  }),
+  'should grow': () => new BettererTest({
     test: () => grows++,
     constraint: bigger
-  }
+  })
 };
       `
     });
@@ -52,7 +53,7 @@ module.exports = {
 import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'no raw console calls': tsquery(
+  'no raw console calls': () => tsquery(
     'CallExpression > PropertyAccessExpression[expression.name="console"]'
   ).include('./src/**/*.ts')
 };  
@@ -61,7 +62,7 @@ export default {
 import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'no raw console calls': tsquery(
+  'no raw console calls': () => tsquery(
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
   ).include('./src/**/*.ts')
 };
