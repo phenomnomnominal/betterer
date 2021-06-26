@@ -11,7 +11,6 @@ import {
   testExpired,
   testFailed,
   testNew,
-  testObsolete,
   testSame,
   testSkipped,
   testUpdated,
@@ -50,7 +49,7 @@ export const RunSummary: FC<RunSummaryProps> = memo(function RunSummary({ contex
   const skipped = summary.skipped.length;
   const updated = summary.updated.length;
   const worse = summary.worse.length;
-  const { completed, expired, obsolete } = summary;
+  const { completed, expired } = summary;
 
   return (
     <>
@@ -63,11 +62,6 @@ export const RunSummary: FC<RunSummaryProps> = memo(function RunSummary({ contex
         ))}
         {failed ? <Text color={TEXT_COLOURS.failed}>{testFailed(tests(failed))}</Text> : null}
         {neww ? <Text color={TEXT_COLOURS.new}>{testNew(tests(neww))}</Text> : null}
-        {obsolete.map((run, index) => (
-          <Text key={index} color={TEXT_COLOURS.obsolete}>
-            {testObsolete(quote(run.name))})
-          </Text>
-        ))}
         {better ? <Text color={TEXT_COLOURS.better}>{testBetter(tests(better))}</Text> : null}
         {completed.map((run, index) => (
           <Text key={index} color={TEXT_COLOURS.completed}>

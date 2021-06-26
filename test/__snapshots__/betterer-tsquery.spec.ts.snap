@@ -439,31 +439,6 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 ]
 `;
 
-exports[`betterer should throw if there is no configFilePath 1`] = `
-Array [
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: could not read config from \\"<project>/fixtures/test-betterer-tsquery-no-config-file-path/.betterer\\". 😔
-
-Error: for \`@betterer/tsquery\` to work, you need to provide the path to a tsconfig.json file, e.g. \`'./tsconfig.json'\`. ❌
-",
-]
-`;
-
 exports[`betterer should throw if there is no query 1`] = `
 Array [
   "

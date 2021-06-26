@@ -58,10 +58,9 @@ Use this test to incrementally remove **TSQuery** matches from your codebase. Se
 import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'no raw console.log': tsquery(
-    './tsconfig.json',
+  'no raw console.log':
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
-  )
+  ).include('./src/**/*.ts')
 };
 ```
 
@@ -77,7 +76,7 @@ import { typescript } from '@betterer/typescript';
 export default {
   'stricter compilation': typescript('./tsconfig.json', {
     strict: true
-  })
+  }).include('./src/**/*.ts')
 };
 ```
 

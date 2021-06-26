@@ -1,19 +1,20 @@
+import { BettererConstraintResult } from '@betterer/constraints';
 import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
+import { BettererConfig } from '../config';
 import { BettererFilePaths } from '../fs';
-import { BettererReporterΩ } from '../reporters';
 import { BettererResult } from '../results';
-import { BettererDiff, BettererTestConfig } from '../test';
+import { BettererDiff, BettererTestBase, BettererTestConfig } from '../test';
 import { Defer, defer } from '../utils';
-import { BettererDelta, BettererRun, BettererRunStarted } from './types';
+import { BettererRunSummaryΩ } from './run-summary';
+import { BettererRun, BettererRunning, BettererRunSummary } from './types';
 
-enum BettererRunStatus {
+export enum BettererRunStatus {
   better,
   failed,
   pending,
   new,
-  obsolete,
   same,
   skipped,
   update,
@@ -21,166 +22,98 @@ enum BettererRunStatus {
 }
 
 export class BettererRunΩ implements BettererRun {
-  private _diff: BettererDiff | null = null;
-  private _lifecycle: Defer<void>;
+  public readonly isNew = this.expected.isNew;
+
+  private _lifecycle: Defer<BettererRunSummary>;
   private _result: BettererResult | null = null;
-  private _delta: BettererDelta | null = null;
   private _status: BettererRunStatus;
   private _timestamp: number | null = null;
 
-  private _isComplete = false;
-  private _isExpired = false;
-  private _isRan = false;
-
   constructor(
-    private readonly _reporter: BettererReporterΩ,
+    public readonly config: BettererConfig,
     public readonly name: string,
-    private readonly _test: BettererTestConfig,
+    private _test: BettererTestBase,
     public expected: BettererResult,
-    private readonly _baseline: BettererResult,
-    public filePaths: BettererFilePaths,
-    isSkipped: boolean,
-    isObsolete: boolean
+    private _baseline: BettererResult,
+    public filePaths: BettererFilePaths | null
   ) {
-    this._status = isSkipped ? BettererRunStatus.skipped : BettererRunStatus.pending;
-    this._status = isObsolete ? BettererRunStatus.obsolete : this._status;
+    this._status = this._test.isSkipped ? BettererRunStatus.skipped : BettererRunStatus.pending;
     this._lifecycle = defer();
   }
 
-  public get diff(): BettererDiff {
-    assert(this._diff);
-    return this._diff;
-  }
-
-  public get lifecycle(): Promise<void> {
-    return this._lifecycle.promise;
-  }
-
-  public get delta(): BettererDelta | null {
-    return this._delta;
-  }
-
   public get timestamp(): number {
-    assert.notStrictEqual(this._status, BettererRunStatus.pending);
-    assert(this._timestamp !== null);
+    assert(this._timestamp != null);
     return this._timestamp;
-  }
-
-  public get isBetter(): boolean {
-    return this._status === BettererRunStatus.better;
-  }
-
-  public get isComplete(): boolean {
-    return this._isComplete;
-  }
-
-  public get isExpired(): boolean {
-    return this._isExpired;
-  }
-
-  public get isFailed(): boolean {
-    return this._status === BettererRunStatus.failed;
-  }
-
-  public get isNew(): boolean {
-    return this.expected.isNew;
-  }
-
-  public get isObsolete(): boolean {
-    return this._status === BettererRunStatus.obsolete;
-  }
-
-  public get isRan(): boolean {
-    return this._isRan;
-  }
-
-  public get isSame(): boolean {
-    return this._status === BettererRunStatus.same;
   }
 
   public get isSkipped(): boolean {
     return this._status === BettererRunStatus.skipped;
   }
 
-  public get isUpdated(): boolean {
-    return this._status === BettererRunStatus.update;
-  }
-
-  public get isWorse(): boolean {
-    return this._status === BettererRunStatus.worse;
-  }
-
-  public get result(): BettererResult {
-    assert(this._result);
-    return this._result;
+  public get lifecycle(): Promise<BettererRunSummary> {
+    return this._lifecycle.promise;
   }
 
   public get test(): BettererTestConfig {
-    return this._test;
+    return this._test.config;
   }
 
-  public ran(): void {
-    this._isRan = true;
-  }
+  public start(): BettererRunning {
+    this._timestamp = Date.now();
 
-  public start(): BettererRunStarted {
-    const startTime = Date.now();
-    this._isExpired = startTime >= this._test.deadline;
-    // Don't await here! A custom reporter could be awaiting
-    // the lifecycle promise which is unresolved right now!
-    const reportRunStart = this._reporter.runStart(this, this._lifecycle.promise);
-    this._timestamp = startTime;
-
-    const end = async () => {
+    const end = async (diff: BettererDiff | null = null): Promise<BettererRunSummary> => {
       const baselineValue = this._baseline.isNew ? null : this._baseline.value;
       const resultValue = !this._result ? null : this._result.value;
-      this._delta = await this._test.progress(baselineValue, resultValue);
-      this._lifecycle.resolve();
-      await reportRunStart;
-      await this._reporter.runEnd(this);
+
+      const delta = await this.test.progress(baselineValue, resultValue);
+      const isComplete = resultValue != null && (await this.test.goal(resultValue));
+      const runSummary = new BettererRunSummaryΩ(this, this._result, diff, delta, this._status, isComplete);
+      this._lifecycle.resolve(runSummary);
+      return runSummary;
     };
 
     return {
-      better: async (result: BettererResult, isComplete: boolean): Promise<void> => {
-        this._updateResult(BettererRunStatus.better, result, isComplete);
-        await end();
+      done: async (result: BettererResult): Promise<BettererRunSummary> => {
+        if (this.isNew) {
+          this._updateResult(BettererRunStatus.new, result);
+          return end(null);
+        }
+
+        const comparison = await this.test.constraint(result.value, this.expected.value);
+
+        if (comparison === BettererConstraintResult.same) {
+          this._updateResult(BettererRunStatus.same, result);
+          return end();
+        }
+
+        if (comparison === BettererConstraintResult.better) {
+          this._updateResult(BettererRunStatus.better, result);
+          return end();
+        }
+
+        if (this.config.update) {
+          this._updateResult(BettererRunStatus.update, result);
+          return end(this.test.differ(this.expected.value, result.value));
+        }
+
+        this._updateResult(BettererRunStatus.worse, result);
+        return end(this.test.differ(this.expected.value, result.value));
       },
-      failed: async (error: BettererError): Promise<void> => {
+      failed: async (error: BettererError): Promise<BettererRunSummary> => {
         assert.strictEqual(this._status, BettererRunStatus.pending);
         this._status = BettererRunStatus.failed;
         this._lifecycle.reject(error);
-        await reportRunStart;
-        await this._reporter.runError(this, error);
-        await end();
+        return end();
       },
-      neww: async (result: BettererResult, isComplete: boolean): Promise<void> => {
-        this._updateResult(BettererRunStatus.new, result, isComplete);
-        await end();
-      },
-      same: async (result: BettererResult): Promise<void> => {
-        this._updateResult(BettererRunStatus.same, result);
-        await end();
-      },
-      skipped: async (): Promise<void> => {
-        await end();
-      },
-      update: async (result: BettererResult): Promise<void> => {
-        this._updateResult(BettererRunStatus.update, result);
-        this._diff = this.test.differ(this.expected.value, this.result.value);
-        await end();
-      },
-      worse: async (result: BettererResult): Promise<void> => {
-        this._updateResult(BettererRunStatus.worse, result);
-        this._diff = this.test.differ(this.expected.value, this.result.value);
-        await end();
+      skipped: async (): Promise<BettererRunSummary> => {
+        return end();
       }
     };
   }
 
-  private _updateResult(status: BettererRunStatus, result: BettererResult, isComplete = false) {
+  private _updateResult(status: BettererRunStatus, result: BettererResult) {
     assert.strictEqual(this._status, BettererRunStatus.pending);
     this._status = status;
-    this._isComplete = isComplete;
     this._result = result;
   }
 }

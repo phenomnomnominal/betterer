@@ -58,7 +58,7 @@ import { typescript } from '@betterer/typescript';
 export default {
   'typescript use strict mode': typescript('./tsconfig.json', {
     strict: true
-  })
+  }).include('./src/**/*.ts')
 };    
       `,
         'tsconfig.json': `
@@ -121,7 +121,7 @@ import { typescript } from '@betterer/typescript';
 export default {
   'typescript use strict mode': typescript('./tsconfig.json', {
     strict: true
-  })
+  }).include('./src/**/*.ts')
 };    
       `,
         'tsconfig.json': `
@@ -183,7 +183,7 @@ import { typescript } from '@betterer/typescript';
 export default {
   'typescript use strict mode': typescript('./tsconfig.json', {
     strict: true
-  })
+  }).include('./src/**/*.ts')
 };    
       `,
         'tsconfig.json': `

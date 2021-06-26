@@ -1,6 +1,7 @@
 import { BettererError } from '@betterer/errors';
 
 import { BettererContext, BettererRun, BettererRuns, BettererSummary, BettererSummaries } from '../context';
+import { BettererRunSummary } from '../context';
 import { BettererFilePaths } from '../fs';
 import { BettererReporter } from './types';
 
@@ -28,10 +29,10 @@ export class BettererReporterΩ implements BettererReporter {
   async runsError(runs: BettererRuns, files: BettererFilePaths, error: BettererError): Promise<void> {
     await Promise.all(this._reporters.map((r) => r.runsError?.(runs, files, error)));
   }
-  async runStart(run: BettererRun, lifecycle: Promise<void>): Promise<void> {
+  async runStart(run: BettererRun, lifecycle: Promise<BettererRunSummary>): Promise<void> {
     await Promise.all(this._reporters.map((r) => r.runStart?.(run, lifecycle)));
   }
-  async runEnd(run: BettererRun): Promise<void> {
+  async runEnd(run: BettererRunSummary): Promise<void> {
     await Promise.all(this._reporters.map((r) => r.runEnd?.(run)));
   }
   async runError(run: BettererRun, error: BettererError): Promise<void> {

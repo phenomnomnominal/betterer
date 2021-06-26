@@ -1,4 +1,4 @@
-import { BettererFileResolver, BettererFileTest } from '@betterer/betterer';
+import { BettererFileTest } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import { promises as fs } from 'fs';
 import { Configuration, lint } from 'stylelint';
@@ -10,8 +10,7 @@ export function stylelint(configOverrides: Partial<Configuration>): BettererFile
     );
   }
 
-  const resolver = new BettererFileResolver();
-  return new BettererFileTest(resolver, async (filePaths, fileTestResult) => {
+  return new BettererFileTest(async (filePaths, fileTestResult) => {
     if (!filePaths.length) {
       return;
     }

@@ -13,7 +13,7 @@ import { typescript } from '@betterer/typescript';
 export default {
   'typescript use strict mode': typescript('./tsconfig.json', {
     strict: true
-  })
+  }).include('./src/**/*.ts')
 };
       `,
         'tsconfig.json': `
@@ -92,27 +92,6 @@ module.exports = {
     await cleanup();
   });
 
-  it('should throw if there is no extraCompilerOptions', async () => {
-    const { paths, logs, cleanup } = await createFixture('test-betterer-typescript-no-compiler-options', {
-      '.betterer.js': `
-const { typescript } = require('@betterer/typescript');
-
-module.exports = {
-  'typescript use strict mode': typescript('./tsconfig.json')
-};
-      `
-    });
-
-    const configPaths = [paths.config];
-    const resultsPath = paths.results;
-
-    await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
-
-    expect(logs).toMatchSnapshot();
-
-    await cleanup();
-  });
-
   it('should report the status of the TypeScript compiler when there is a npm dependency', async () => {
     const { paths, logs, resolve, cleanup, writeFile, runNames } = await createFixture(
       'test-betterer-typescript-dependency',
@@ -123,7 +102,7 @@ import { typescript } from '@betterer/typescript';
 export default {
   'typescript dependency': typescript('./tsconfig.json', {
     strict: true
-  })
+  }).include('./src/**/*.ts')
 };
         `,
         'tsconfig.json': `
@@ -163,10 +142,10 @@ export default {
       'test-betterer-typescript-incremental',
       {
         '.betterer.ts': `
-import { typescriptΔ } from '@betterer/typescript';
+import { typescript } from '@betterer/typescript';
 
 export default {
-  'typescript incremental': typescriptΔ('./tsconfig.json', {
+  'typescript incremental': typescript('./tsconfig.json', {
     incremental: true,
     tsBuildInfoFile: './.betterer.tsbuildinfo'
   }).include('./src/**/*.ts')

@@ -27,6 +27,8 @@ export {
   BettererDelta,
   BettererRun,
   BettererRunNames,
+  BettererRunSummary,
+  BettererRunSummaries,
   BettererRuns,
   BettererSummary,
   BettererSummaries
@@ -60,6 +62,5 @@ export {
   BettererTestConfig,
   BettererTestOptions,
   BettererTestOptionsBasic,
-  BettererTestOptionsComplex,
-  isBettererFileTestΔ
+  BettererTestOptionsComplex
 } from './test/public';

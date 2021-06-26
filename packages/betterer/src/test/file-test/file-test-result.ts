@@ -1,6 +1,6 @@
 import assert from 'assert';
 
-import { BettererFilePaths, BettererFileResolverΩ } from '../../fs';
+import { BettererFilePaths } from '../../fs';
 import { BettererFileΩ } from './file';
 import { BettererFileTestResult, BettererFileIssues, BettererFile, BettererFileBase } from './types';
 
@@ -8,8 +8,6 @@ export class BettererFileTestResultΩ implements BettererFileTestResult {
   private _fileMap: Record<string, BettererFileBase> = {};
   private _files: Array<BettererFileBase> = [];
   private _filePaths: Array<string> = [];
-
-  constructor(private _resolver?: BettererFileResolverΩ) {}
 
   // Previously the `files` getter was just doing `Object.values(this._fileMap)`,
   // but that's pretty slow and this gets hit a lot, so instead the `this._files`
@@ -32,7 +30,6 @@ export class BettererFileTestResultΩ implements BettererFileTestResult {
   }
 
   public addFile(absolutePath: string, fileText: string): BettererFile {
-    assert(this._resolver);
     const file = new BettererFileΩ(absolutePath, fileText);
     const existingFile = this._fileMap[file.absolutePath];
     if (existingFile) {

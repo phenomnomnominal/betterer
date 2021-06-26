@@ -11,7 +11,6 @@ export {
   BettererFileIssues
 } from './file-test/public';
 export { BettererTest } from './test';
-export { isBettererFileTestΔ } from './type';
 export {
   BettererDeserialise,
   BettererDiff,

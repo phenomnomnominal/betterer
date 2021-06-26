@@ -42,13 +42,11 @@ type BettererTaskStateAPI = BettererTasksStateAPI & {
 export function useTaskState(): [BettererTaskState, BettererTaskStateAPI] {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const tasks = useContext(BettererTasksStateContext);
-
   const api = useRef<BettererTaskStateAPI>({
     reset() {
       dispatch({ type: 'reset' });
     },
     start() {
-      dispatch({ type: 'start' });
       tasks.start();
     },
     status(status: BettererTaskLog) {

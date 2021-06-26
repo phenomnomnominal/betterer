@@ -16,9 +16,6 @@ export function testFailed(context: string): string {
 export function testNew(context: string, delta = ''): string {
   return `${context} got checked for the first time!${delta} 🎉`;
 }
-export function testObsolete(context: string): string {
-  return `${context} no longer needed! 🤪`;
-}
 export function testRunning(context: string): string {
   return `running ${context}!`;
 }
