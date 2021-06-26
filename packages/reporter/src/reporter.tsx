@@ -46,7 +46,7 @@ function createReporter(): BettererReporter {
       return renderer.render({ filePaths, runs });
     },
     runsEnd(summary: BettererSummary, filePaths: BettererFilePaths): Promise<void> {
-      return renderer.render({ filePaths, runs: summary.runs, summary });
+      return renderer.render({ filePaths, runSummaries: summary.runs, summary });
     }
   };
 

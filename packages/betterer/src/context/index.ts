@@ -5,6 +5,7 @@ export {
   BettererContext,
   BettererContextStarted,
   BettererDelta,
+  BettererRunBase,
   BettererRun,
   BettererRuns,
   BettererRunSummary,

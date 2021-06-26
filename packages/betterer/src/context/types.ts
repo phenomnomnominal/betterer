@@ -10,7 +10,6 @@ export type BettererRunNames = Array<string>;
 
 export type BettererContext = {
   readonly config: BettererConfig;
-  readonly lifecycle: Promise<BettererSummaries>;
 };
 
 export type BettererContextStarted = {
@@ -30,14 +29,17 @@ export type BettererDelta =
       readonly result: number;
     };
 
-export type BettererRun = {
+export type BettererRunBase = {
   readonly expected: BettererResult;
   readonly filePaths: BettererFilePaths | null;
-  readonly lifecycle: Promise<BettererRunSummary>;
   readonly name: string;
   readonly test: BettererTestConfig;
   readonly isNew: boolean;
   readonly isSkipped: boolean;
+};
+
+export type BettererRun = BettererRunBase & {
+  readonly lifecycle: Promise<BettererRunSummary>;
 };
 
 export type BettererRunning = {
@@ -46,7 +48,7 @@ export type BettererRunning = {
   skipped(): Promise<BettererRunSummary>;
 };
 
-export type BettererRunSummary = BettererRun & {
+export type BettererRunSummary = BettererRunBase & {
   readonly diff: BettererDiff;
   readonly delta: BettererDelta | null;
   readonly result: BettererResult;

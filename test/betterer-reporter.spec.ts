@@ -3,11 +3,11 @@ import {
   BettererContext,
   BettererFilePaths,
   BettererRun,
+  BettererRunSummary,
   BettererRuns,
   BettererSummaries,
   BettererSummary
 } from '@betterer/betterer';
-import { BettererRunSummary } from '../goldens/api/@betterer/betterer';
 
 import { createFixture } from './fixture';
 

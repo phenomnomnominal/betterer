@@ -35,7 +35,6 @@ export declare type BettererConfigReporters = ReadonlyArray<BettererConfigReport
 
 export declare type BettererContext = {
     readonly config: BettererConfig;
-    readonly lifecycle: Promise<BettererSummaries>;
 };
 
 export declare type BettererDelta = {
@@ -225,10 +224,13 @@ export declare type BettererResult = {
     value: unknown;
 };
 
-export declare type BettererRun = {
+export declare type BettererRun = BettererRunBase & {
+    readonly lifecycle: Promise<BettererRunSummary>;
+};
+
+export declare type BettererRunBase = {
     readonly expected: BettererResult;
     readonly filePaths: BettererFilePaths | null;
-    readonly lifecycle: Promise<BettererRunSummary>;
     readonly name: string;
     readonly test: BettererTestConfig;
     readonly isNew: boolean;
@@ -249,7 +251,7 @@ export declare type BettererRuns = ReadonlyArray<BettererRun>;
 
 export declare type BettererRunSummaries = Array<BettererRunSummary>;
 
-export declare type BettererRunSummary = BettererRun & {
+export declare type BettererRunSummary = BettererRunBase & {
     readonly diff: BettererDiff;
     readonly delta: BettererDelta | null;
     readonly result: BettererResult;

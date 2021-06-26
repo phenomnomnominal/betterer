@@ -6,7 +6,6 @@ import { BettererRunStatus, BettererRunΩ } from './run';
 import { BettererDelta, BettererRunSummary } from './types';
 
 export class BettererRunSummaryΩ implements BettererRunSummary {
-  public readonly lifecycle = this._runΩ.lifecycle;
   public readonly name = this._runΩ.name;
   public readonly filePaths = this._runΩ.filePaths;
   public readonly expected = this._runΩ.expected;
