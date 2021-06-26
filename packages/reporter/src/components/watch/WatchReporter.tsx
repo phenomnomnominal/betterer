@@ -4,6 +4,7 @@ import {
   BettererContext,
   BettererFilePaths,
   BettererRuns,
+  BettererRunSummaries,
   BettererSummaries,
   BettererSummary
 } from '@betterer/betterer';
@@ -22,6 +23,7 @@ export type WatchReporterProps = {
   context: BettererContext;
   filePaths?: BettererFilePaths;
   runs?: BettererRuns;
+  runSummaries?: BettererRunSummaries;
   summary?: BettererSummary;
   summaries?: BettererSummaries;
 };
@@ -64,18 +66,17 @@ export const WatchReporter: FC<WatchReporterProps> = memo(function WatchReporter
     }
   });
 
-  const { context, runs, summaries, summary } = props;
+  const { context, runs, runSummaries, summaries, summary } = props;
   const filePaths = props.filePaths || [];
 
   if (summaries) {
     return <WatchEnding />;
   }
-  if (runs) {
-    const running = !summary;
+  if (runs || runSummaries) {
     return (
       <>
-        <WatchFiles context={context} editField={editField} filePaths={filePaths} running={running} />
-        <Runs runs={runs} />
+        <WatchFiles context={context} editField={editField} filePaths={filePaths} running={!summary} />
+        <Runs runs={runs} runSummaries={runSummaries} />
         {summary && <RunSummary context={context} summary={summary} />}
         <WatchInstructions />
       </>

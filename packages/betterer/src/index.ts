@@ -25,6 +25,7 @@ export {
 export {
   BettererContext,
   BettererDelta,
+  BettererRunBase,
   BettererRun,
   BettererRunNames,
   BettererRunSummary,

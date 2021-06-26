@@ -1,10 +1,17 @@
-import { BettererFilePaths, BettererRuns, BettererSummaries, BettererSummary } from '@betterer/betterer';
+import {
+  BettererFilePaths,
+  BettererRuns,
+  BettererRunSummaries,
+  BettererSummaries,
+  BettererSummary
+} from '@betterer/betterer';
 import { useApp } from 'ink';
 
 export type BettererReporterApp = ReturnType<typeof useApp>;
 export type BettererReporterData = {
   filePaths?: BettererFilePaths;
   runs?: BettererRuns;
+  runSummaries?: BettererRunSummaries;
   summary?: BettererSummary;
   summaries?: BettererSummaries;
 };

@@ -1,4 +1,4 @@
-import { BettererRun } from '@betterer/betterer';
+import { BettererRun, BettererRunSummary } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import { BettererLogger } from '@betterer/logger';
 import { BettererTaskRun, getTask } from '@betterer/tasks';
@@ -18,15 +18,14 @@ import {
 import { quote } from '../../utils';
 import { getDelta } from './deltas';
 
-export function useTask(run: BettererRun): BettererTaskRun {
-  const task = getTask(run.name);
+export function useTask(run: BettererRun | BettererRunSummary): BettererTaskRun {
   return (
-    task ||
+    getTask(run.name) ||
     (async (logger: BettererLogger) => {
       const name = quote(run.name);
       await logger.progress(testRunning(name));
 
-      const runSummary = await run.lifecycle;
+      const runSummary = await (run as BettererRun).lifecycle;
 
       if (runSummary.isExpired) {
         await logger.warn(testExpired(name));

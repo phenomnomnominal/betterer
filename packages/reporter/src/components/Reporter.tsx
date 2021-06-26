@@ -4,6 +4,7 @@ import {
   BettererContext,
   BettererFilePaths,
   BettererRuns,
+  BettererRunSummaries,
   BettererSummaries,
   BettererSummary
 } from '@betterer/betterer';
@@ -17,6 +18,7 @@ export type ReporterProps = {
   context: BettererContext;
   filePaths?: BettererFilePaths;
   runs?: BettererRuns;
+  runSummaries?: BettererRunSummaries;
   summary?: BettererSummary;
   summaries?: BettererSummaries;
 };
