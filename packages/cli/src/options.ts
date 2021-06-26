@@ -1,5 +1,11 @@
 import commander, { CommanderStatic } from 'commander';
-import { BettererCLIArguments, BettererCLIConfig, BettererCLIEnvConfig, BettererCLIInitConfig } from './types';
+import {
+  BettererCLIArguments,
+  BettererCLIConfig,
+  BettererCLIEnvConfig,
+  BettererCLIInitConfig,
+  BettererCLIUpgradeConfig
+} from './types';
 
 export function cliOptions(argv: BettererCLIArguments): BettererCLIConfig {
   cacheOption();
@@ -23,11 +29,16 @@ export function initOptions(argv: BettererCLIArguments): BettererCLIInitConfig {
   return setEnv<BettererCLIInitConfig>(argv);
 }
 
+export function upgradeOptions(argv: BettererCLIArguments): BettererCLIUpgradeConfig {
+  configPathsOption();
+  return setEnv<BettererCLIUpgradeConfig>(argv);
+}
+
 function setEnv<T extends BettererCLIEnvConfig>(argv: BettererCLIArguments): T & CommanderStatic {
   commander.option('-d, --debug', 'Enable verbose debug logging', false);
   commander.option('-l, --debug-log [value]', 'File path to save verbose debug logging to disk', './betterer.log');
 
-  const parsed = commander.parse(argv) as unknown as T & CommanderStatic;
+  const parsed = (commander.parse(argv) as unknown) as T & CommanderStatic;
   if (parsed.debug) {
     process.env.BETTERER_DEBUG = '1';
     process.env.BETTERER_DEBUG_TIME = '1';

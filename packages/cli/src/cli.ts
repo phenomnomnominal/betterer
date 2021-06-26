@@ -7,6 +7,7 @@ enum Command {
   init = 'init',
   precommit = 'precommit',
   start = 'start',
+  upgrade = 'upgrade',
   watch = 'watch'
 }
 
@@ -34,6 +35,8 @@ export function cliΔ(argv: BettererCLIArguments): void {
   commander.command(Command.watch, 'run Betterer in watch mode');
 
   commander.command(Command.init, 'init Betterer in a project');
+
+  commander.command(Command.upgrade, 'upgrade Betterer files in a project');
 
   const args = argv.slice(0);
   const [, , command] = args;

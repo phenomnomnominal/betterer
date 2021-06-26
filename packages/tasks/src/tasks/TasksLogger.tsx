@@ -3,7 +3,7 @@ import React, { FC, memo, useCallback, useEffect, useRef, useState } from 'react
 import { performance } from 'perf_hooks';
 
 import { BettererTaskStatus } from './status';
-import { useTasksState, BettererTasksStateContext } from './useTasksState';
+import { useTasksState, BettererTasksStateContext, BettererTasksState } from './useTasksState';
 import { BettererTaskLog, BettererTasksStatusUpdate } from './types';
 
 const DEFAULT_TASK_TIME_INTERVAL = 100;
@@ -11,11 +11,11 @@ const DEFAULT_TASK_TIME_INTERVAL = 100;
 export type BettererTasksLoggerProps = {
   exit?: boolean;
   name: string;
-  update: BettererTasksStatusUpdate;
+  update?: BettererTasksStatusUpdate;
 };
 
 export const BettererTasksLogger: FC<BettererTasksLoggerProps> = memo(function BettererTasksLogger(props) {
-  const { children, exit = true, name, update } = props;
+  const { children, exit = true, name, update = defaultUpdate } = props;
   const app = useApp();
   const [state, api] = useTasksState();
   const timer = useRef<NodeJS.Timeout | null>(null);
@@ -71,4 +71,16 @@ const FORMATTER = Intl.NumberFormat();
 
 function getTime(startTime: number, time: number) {
   return FORMATTER.format(Math.floor(time - startTime));
+}
+
+function defaultUpdate(state: BettererTasksState): string {
+  const { done, errors, running } = state;
+  const runningStatus = running ? `${tasks(running)} running... ` : '';
+  const doneStatus = done ? `${tasks(done)} done! ` : '';
+  const errorStatus = errors ? `${tasks(errors)} errored! ` : '';
+  return `${runningStatus}${doneStatus}${errorStatus}`;
+}
+
+function tasks(n: number): string {
+  return `${n} ${n === 1 ? 'task' : 'tasks'}`;
 }

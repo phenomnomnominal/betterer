@@ -25,6 +25,10 @@ export type BettererCLIInitConfig = BettererCLIEnvConfig & {
   config: string;
 };
 
+export type BettererCLIUpgradeConfig = BettererCLIEnvConfig & {
+  configs: BettererCLIArguments;
+};
+
 export type BettererPackageJSON = {
   version: string;
   scripts: Record<string, string> & { betterer: string };

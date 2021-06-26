@@ -1,4 +1,4 @@
-import { BettererTaskLogger, BettererTasksLogger, BettererTasksState } from '@betterer/tasks';
+import { BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
 import { workerRequire, WorkerModule } from '@phenomnomnominal/worker-require';
 import * as path from 'path';
 import React, { FC, useCallback } from 'react';
@@ -29,21 +29,9 @@ export const Init: FC<InitProps> = function Init({ cwd, config, ts }) {
   );
 
   return (
-    <BettererTasksLogger name="Initialising Betterer" update={update}>
+    <BettererTasksLogger name="Initialising Betterer">
       <BettererTaskLogger name="Create test file" run={runCreateTestFile}></BettererTaskLogger>
       <BettererTaskLogger name="Update package.json" run={runUpdagePackageJSON}></BettererTaskLogger>
     </BettererTasksLogger>
   );
 };
-
-function update(state: BettererTasksState): string {
-  const { done, errors, running } = state;
-  const runningStatus = running ? `${tasks(running)} running... ` : '';
-  const doneStatus = done ? `${tasks(done)} done! ` : '';
-  const errorStatus = errors ? `${tasks(errors)} errored! ` : '';
-  return `${runningStatus}${doneStatus}${errorStatus}`;
-}
-
-function tasks(n: number): string {
-  return `${n} ${n === 1 ? 'task' : 'tasks'}`;
-}

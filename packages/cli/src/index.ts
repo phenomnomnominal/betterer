@@ -3,6 +3,7 @@ export { cliΔ } from './cli';
 export { initΔ } from './init';
 export { precommitΔ } from './precommit';
 export { startΔ } from './start';
+export { upgradeΔ } from './upgrade';
 export { watchΔ } from './watch';
 export {
   BettererCLIEnvConfig,
@@ -11,6 +12,7 @@ export {
   BettererCLIBaseConfig,
   BettererCLICacheConfig,
   BettererCLIStartConfig,
+  BettererCLIUpgradeConfig,
   BettererCLICIConfig,
   BettererCLIWatchConfig,
   BettererCLIArguments,
