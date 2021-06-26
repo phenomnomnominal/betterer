@@ -6,19 +6,20 @@ describe('betterer', () => {
   it(`should work when a test is the same`, async () => {
     const { paths, logs, readFile, cleanup, runNames } = await createFixture('test-betterer-same', {
       '.betterer.js': `
+const { BettererTest } = require('@betterer/betterer');
 const { bigger, smaller } = require('@betterer/constraints');
 
 let start = 0;
 
 module.exports = {
-  [\`doesn't get bigger\`]: {
+  [\`doesn't get bigger\`]: () => new BettererTest({
     test: () => start,
     constraint: bigger
-  },
-  [\`doesn't get smaller\`]: {
+  }),
+  [\`doesn't get smaller\`]: () => new BettererTest({
     test: () => start,
     constraint: smaller
-  }
+  })
 };
       `
     });
@@ -56,7 +57,7 @@ console.log(a * one);
 import { typescript } from '@betterer/typescript';
 
 export default {
-  'typescript use strict mode': typescript('./tsconfig.json', {
+  'typescript use strict mode': () => typescript('./tsconfig.json', {
     strict: true
   }).include('./src/**/*.ts')
 };    
@@ -119,7 +120,7 @@ console.log(a * one);
 import { typescript } from '@betterer/typescript';
 
 export default {
-  'typescript use strict mode': typescript('./tsconfig.json', {
+  'typescript use strict mode': () => typescript('./tsconfig.json', {
     strict: true
   }).include('./src/**/*.ts')
 };    
@@ -181,7 +182,7 @@ console.log(one * a);
 import { typescript } from '@betterer/typescript';
 
 export default {
-  'typescript use strict mode': typescript('./tsconfig.json', {
+  'typescript use strict mode': () => typescript('./tsconfig.json', {
     strict: true
   }).include('./src/**/*.ts')
 };    

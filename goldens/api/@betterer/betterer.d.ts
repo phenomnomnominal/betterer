@@ -310,7 +310,6 @@ export declare type BettererTestConfig<DeserialisedType = unknown, SerialisedTyp
     printer: BettererPrinter<SerialisedType>;
     progress: BettererProgress<DeserialisedType>;
     serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
-    type: BettererTestType;
 };
 
 export declare type BettererTestConstraint<DeserialisedType> = (result: DeserialisedType, expected: DeserialisedType) => MaybeAsync<BettererConstraintResult>;

@@ -11,7 +11,7 @@ describe('betterer', () => {
 const { regexp } = require('@betterer/regexp');
 
 module.exports = {
-'regexp no hack comments': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
+'regexp no hack comments': () => regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
 };      
     `
       }
@@ -62,7 +62,7 @@ module.exports = {
 const { regexp } = require('@betterer/regexp');
 
 module.exports = {
-'regexp no hack comments': regexp()
+'regexp no hack comments': () => regexp()
 };      
     `
     });

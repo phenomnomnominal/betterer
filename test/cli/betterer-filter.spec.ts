@@ -8,21 +8,22 @@ describe('betterer cli', () => {
   it('should filter tests by name', async () => {
     const { logs, paths, cleanup, runNames } = await createFixture('test-betterer-filter', {
       '.betterer.js': `
+const { BettererTest } = require('@betterer/betterer');
 const { bigger } = require('@betterer/constraints');
 
 module.exports = {
-  'test 1': {
+  'test 1': () => new BettererTest({
     test: () => Date.now(),
     constraint: bigger
-  },
-  'test 2': {
+  }),
+  'test 2': () => new BettererTest({
     test: () => Date.now(),
     constraint: bigger
-  },
-  'test 3': {
+  }),
+  'test 3': () => new BettererTest({
     test: () => Date.now(),
     constraint: bigger
-  }
+  })
 };
       `
     });

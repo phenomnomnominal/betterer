@@ -10,7 +10,7 @@ describe('betterer.watch', () => {
 import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'tsquery no raw console.log': tsquery(
+  'tsquery no raw console.log': () => tsquery(
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
   ).include('./src/**/*.ts')
 };
@@ -78,7 +78,7 @@ export default {
 import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'tsquery no raw console.log': tsquery(
+  'tsquery no raw console.log': () => tsquery(
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
   ).include('./src/**/*.ts')
 };
@@ -126,7 +126,7 @@ export default {
 import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'tsquery no raw console.log': tsquery(
+  'tsquery no raw console.log': () => tsquery(
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
   ).include('./src/**/*.ts')
 };

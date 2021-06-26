@@ -6,14 +6,15 @@ describe('betterer', () => {
   it('should load a custom tsconfigPath', async () => {
     const { logs, paths, resolve, cleanup } = await createFixture('test-betterer-config-ts-tsconfig', {
       '.betterer.ts': `
+import { BettererTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
 import { test } from './test';
 
 export default {
-  'gets better': {
+  'gets better': () => new BettererTest({
     test,
     constraint: bigger
-  }
+  })
 };
       `,
       'test.ts': `
@@ -47,15 +48,16 @@ export function test (): number {
   it('should work with a .betterer.ts file that uses ES modules', async () => {
     const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-config-ts-esm', {
       '.betterer.ts': `
+import { BettererTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
 
 let start = 0;
 
 export default {
-  'gets better': {
+  'gets better': () => new BettererTest({
     test: () => start++,
     constraint: bigger
-  }
+  })
 };
       `,
       'tsconfig.json': `

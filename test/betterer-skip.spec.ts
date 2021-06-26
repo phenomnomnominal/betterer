@@ -13,25 +13,26 @@ import { regexp } from '@betterer/regexp';
 let start = 0;
 
 export default {
-  'test 1': new BettererTest({
+  'test 1': () => new BettererTest({
     test: () => start++,
     constraint: bigger
   }).skip(),
-  'test 2': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts').skip()
+  'test 2': () => regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts').skip()
 };
       `,
       '.betterer.ts': `
+import { BettererTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
 import { regexp } from '@betterer/regexp';
 
 let start = 0;
 
 export default {
-  'test 1': {
+  'test 1': () => new BettererTest({
     test: () => start++,
     constraint: bigger
-  },
-  'test 2': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
+  }),
+  'test 2': () => regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
 };
       `
     });

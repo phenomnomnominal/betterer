@@ -1,5 +1,4 @@
 import { createTestConfig } from './config';
-import { BettererTestType } from './type';
 import {
   BettererTestBase,
   BettererTestConfig,
@@ -16,11 +15,7 @@ export class BettererTest<DeserialisedType, SerialisedType, DiffType>
   private _isSkipped = false;
 
   constructor(options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>) {
-    this._config = createTestConfig(options, BettererTestType.Unknown) as BettererTestConfig<
-      DeserialisedType,
-      SerialisedType,
-      DiffType
-    >;
+    this._config = createTestConfig(options) as BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
   }
 
   public get config(): BettererTestConfig<DeserialisedType, SerialisedType, DiffType> {
@@ -54,4 +49,8 @@ export class BettererTest<DeserialisedType, SerialisedType, DiffType>
     this._isSkipped = true;
     return this;
   }
+}
+
+export function isBettererTest(test: unknown): test is BettererTestBase {
+  return !!test && (test as BettererTestBase).constructor.name === BettererTest.name;
 }

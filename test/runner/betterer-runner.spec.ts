@@ -10,7 +10,7 @@ describe('betterer.runner', () => {
 const { eslint } = require('@betterer/eslint');
 
 module.exports = {
-  'eslint enable new rule': eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
+  'eslint enable new rule': () => eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
 };    
       `,
       '.eslintrc.js': `
@@ -67,7 +67,7 @@ module.exports = {
 const { eslint } = require('@betterer/eslint');
 
 module.exports = {
-  'eslint enable new rule': eslint({ 'no-debugger': 'error'}).include('./src/**/*.ts')
+  'eslint enable new rule': () => eslint({ 'no-debugger': 'error'}).include('./src/**/*.ts')
 };    
       `,
       '.eslintrc.js': `
@@ -124,7 +124,7 @@ module.exports = {
 const { regexp } = require('@betterer/regexp');
 
 module.exports = {
-  'regexp no hack comments': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
+  'regexp no hack comments': () => regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
 };
       `
     });
@@ -153,7 +153,7 @@ module.exports = {
 const { regexp } = require('@betterer/regexp');
 
 module.exports = {
-  'regexp no hack comments': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
+  'regexp no hack comments': () => regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
 };
       `
     });
@@ -182,7 +182,7 @@ module.exports = {
 import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'tsquery no raw console.log': tsquery(
+  'tsquery no raw console.log': () => tsquery(
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
   ).include('./src/**/*.ts')
 };
@@ -232,7 +232,7 @@ export default {
 import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'tsquery no raw console.log': tsquery(
+  'tsquery no raw console.log': () => tsquery(
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
   ).include('./src/**/*.ts')
 };
@@ -281,7 +281,7 @@ export default {
 import { typescript } from '@betterer/typescript';
 
 export default {
-  'use typescript': typescript('./tsconfig.json').include('./src/**/*.ts')
+  'use typescript': () => typescript('./tsconfig.json').include('./src/**/*.ts')
 };
       `,
       'tsconfig.json': `
@@ -338,7 +338,7 @@ console.log(3 * 'baz');
 import { typescript } from '@betterer/typescript';
 
 export default {
-  'use typescript': typescript('./tsconfig.json').include('./src/**/*.ts')
+  'use typescript': () => typescript('./tsconfig.json').include('./src/**/*.ts')
 };
       `,
         'tsconfig.json': `

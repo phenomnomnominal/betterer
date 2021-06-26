@@ -184,7 +184,6 @@ type BettererTestConfig<DeserialisedType, SerialisedType, DiffType> = {
   printer: BettererPrinter<SerialisedType>;
   progress: BettererProgress<DeserialisedType> | null;
   serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
-  type: BettererTestType;
 };
 ```
 

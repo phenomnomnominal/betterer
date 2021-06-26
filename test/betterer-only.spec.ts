@@ -11,39 +11,40 @@ import { bigger } from '@betterer/constraints';
 import { regexp } from '@betterer/regexp';
 
 export default {
-  'test 1': new BettererTest({
+  'test 1': () => new BettererTest({
     test: () => Date.now(),
     constraint: bigger
   }).only(),
-  'test 2': {
+  'test 2': () => new BettererTest({
     test: () => Date.now(),
     constraint: bigger
-  },
-  'test 3': {
+  }),
+  'test 3': () => new BettererTest({
     test: () => Date.now(),
     constraint: bigger
-  },
-  'test 4': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts').only()
+  }),
+  'test 4': () => regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts').only()
 };
         `,
       '.betterer.ts': `
+import { BettererTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
 import { regexp } from '@betterer/regexp';
 
 export default {
-  'test 1': {
+  'test 1': () => new BettererTest({
     test: () => Date.now(),
     constraint: bigger
-  },
-  'test 2': {
+  }),
+  'test 2': () => new BettererTest({
     test: () => Date.now(),
     constraint: bigger
-  },
-  'test 3': {
+  }),
+  'test 3': () => new BettererTest({
     test: () => Date.now(),
     constraint: bigger
-  },
-  'test 4': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
+  }),
+  'test 4': () => regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
 };    
       `
     });

@@ -11,7 +11,7 @@ describe('betterer', () => {
 import { typescript } from '@betterer/typescript';
 
 export default {
-  'typescript use strict mode': typescript('./tsconfig.json', {
+  'typescript use strict mode': () => typescript('./tsconfig.json', {
     strict: true
   }).include('./src/**/*.ts')
 };
@@ -77,7 +77,7 @@ export default {
 const { typescript } = require('@betterer/typescript');
 
 module.exports = {
-  'typescript use strict mode': typescript()
+  'typescript use strict mode': () => typescript()
 };
       `
     });
@@ -100,7 +100,7 @@ module.exports = {
 import { typescript } from '@betterer/typescript';
 
 export default {
-  'typescript dependency': typescript('./tsconfig.json', {
+  'typescript dependency': () => typescript('./tsconfig.json', {
     strict: true
   }).include('./src/**/*.ts')
 };
@@ -145,7 +145,7 @@ export default {
 import { typescript } from '@betterer/typescript';
 
 export default {
-  'typescript incremental': typescript('./tsconfig.json', {
+  'typescript incremental': () => typescript('./tsconfig.json', {
     incremental: true,
     tsBuildInfoFile: './.betterer.tsbuildinfo'
   }).include('./src/**/*.ts')

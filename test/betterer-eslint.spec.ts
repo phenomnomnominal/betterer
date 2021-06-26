@@ -11,7 +11,7 @@ describe('betterer', () => {
 const { eslint } = require('@betterer/eslint');
 
 module.exports = {
-  'eslint enable new rule': eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
+  'eslint enable new rule': () => eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
 };      
       `,
         '.eslintrc.js': `
@@ -90,7 +90,7 @@ module.exports = {
 const { eslint } = require('@betterer/eslint');
 
 module.exports = {
-  'eslint enable complex rule': eslint().include('./src/**/*.ts')
+  'eslint enable complex rule': () => eslint().include('./src/**/*.ts')
 };      
       `
     });

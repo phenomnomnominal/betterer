@@ -6,15 +6,16 @@ describe('betterer --silent', () => {
   it('should silence all console output', async () => {
     const { logs, paths, cleanup } = await createFixture('test-betterer-silent', {
       '.betterer.js': `
+const { BettererTest } = require('@betterer/betterer');
 const { smaller } = require('@betterer/constraints');
 
 let shrinks = 2;
     
 module.exports = {
-  'should shrink': {
+  'should shrink': () => new BettererTest({
     test: () => shrinks--,
     constraint: smaller
-  }
+  })
 };
       `
     });
@@ -33,15 +34,16 @@ module.exports = {
   it('should be possible to unsilence a subsequent run', async () => {
     const { logs, paths, cleanup } = await createFixture('test-betterer-silent-then-not-silent', {
       '.betterer.js': `
+const { BettererTest } = require('@betterer/betterer');
 const { smaller } = require('@betterer/constraints');
 
 let shrinks = 2;
 
 module.exports = {
-  'should shrink': {
+  'should shrink': () => new BettererTest({
     test: () => shrinks--,
     constraint: smaller
-  }
+  })
 };
       `
     });
