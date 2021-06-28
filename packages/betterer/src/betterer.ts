@@ -7,22 +7,20 @@ import { BettererRunner, BettererRunnerΩ, BettererWatcherΩ } from './runner';
 
 export async function betterer(options: BettererOptionsStart = {}): Promise<BettererSummary> {
   initDebug();
-  const [config, reporter, versionControl] = await createGlobals(options);
-  const runner = new BettererRunnerΩ(config, reporter, versionControl);
-  return runner.run(config.filePaths);
+  const globals = await createGlobals(options);
+  const runner = new BettererRunnerΩ(globals);
+  return runner.run(globals.config.filePaths);
 }
 
 export async function runner(options: BettererOptionsRunner = {}): Promise<BettererRunner> {
   initDebug();
-  const [config, reporter, versionControl] = await createGlobals(options);
-  return new BettererRunnerΩ(config, reporter, versionControl);
+  return new BettererRunnerΩ(await createGlobals(options));
 }
 betterer.runner = runner;
 
 export async function watch(options: BettererOptionsWatch = {}): Promise<BettererRunner> {
   initDebug();
-  const [config, reporter, versionControl] = await createGlobals({ ...options, watch: true });
-  const watcher = new BettererWatcherΩ(config, reporter, versionControl);
+  const watcher = new BettererWatcherΩ(await createGlobals({ ...options, watch: true }));
   await watcher.setup();
   return watcher;
 }

@@ -5,6 +5,7 @@ import { BettererConfig } from '../config';
 import { BettererFilePaths, BettererVersionControl } from '../fs';
 import { BettererReporterΩ } from '../reporters';
 import { BettererResultsΩ, BettererResultΩ } from '../results';
+import { BettererGlobals } from '../types';
 import { defer, Defer } from '../utils';
 import { BettererTestMetaMap, isBettererFileTest } from '../test';
 import { BettererRunsΩ, BettererRunΩ } from './run';
@@ -20,18 +21,21 @@ import {
 import { loadTests } from '../test/loader';
 
 export class BettererContextΩ implements BettererContext {
-  private _results = new BettererResultsΩ(this.config.resultsPath);
+  public readonly config: BettererConfig;
 
   private _lifecycle: Defer<BettererSummaries>;
+  private _reporter: BettererReporterΩ;
+  private _results: BettererResultsΩ;
   private _running: Promise<BettererRunSummaries> | null = null;
   private _summaries: BettererSummaries = [];
   private _tests: BettererTestMetaMap = {};
+  private _versionControl: BettererVersionControl;
 
-  constructor(
-    public readonly config: BettererConfig,
-    private _reporter: BettererReporterΩ,
-    private _versionControl: BettererVersionControl
-  ) {
+  constructor(globals: BettererGlobals) {
+    this.config = globals.config;
+    this._reporter = globals.reporter;
+    this._results = globals.results;
+    this._versionControl = globals.versionControl;
     this._lifecycle = defer();
   }
 

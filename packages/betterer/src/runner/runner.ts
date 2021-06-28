@@ -1,9 +1,8 @@
 import assert from 'assert';
 
-import { BettererConfig } from '../config';
 import { BettererContextΩ, BettererContextStarted, BettererSummary } from '../context';
-import { BettererFilePaths, BettererVersionControl } from '../fs';
-import { BettererReporterΩ } from '../reporters';
+import { BettererFilePaths } from '../fs';
+import { BettererGlobals } from '../types';
 import { normalisedPath } from '../utils';
 import { BettererRunHandler, BettererRunner, BettererRunnerJobs } from './types';
 
@@ -15,8 +14,8 @@ export class BettererRunnerΩ implements BettererRunner {
   private _jobs: BettererRunnerJobs = [];
   private _running: Promise<BettererSummary> | null = null;
 
-  constructor(config: BettererConfig, reporter: BettererReporterΩ, versionControl: BettererVersionControl) {
-    this._context = new BettererContextΩ(config, reporter, versionControl);
+  constructor(globals: BettererGlobals) {
+    this._context = new BettererContextΩ(globals);
     this._started = this._context.start();
   }
 
