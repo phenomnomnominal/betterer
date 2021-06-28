@@ -2,10 +2,9 @@ import { FSWatcher, watch } from 'chokidar';
 import minimatch from 'minimatch';
 import * as path from 'path';
 
-import { BettererConfig } from '../config';
 import { BettererSummary } from '../context';
-import { BettererFilePaths, BettererVersionControl } from '../fs';
-import { BettererReporterΩ } from '../reporters';
+import { BettererFilePaths } from '../fs';
+import { BettererGlobals } from '../types';
 import { normalisedPath } from '../utils';
 import { BettererRunnerΩ } from './runner';
 import { BettererRunner, BettererRunHandler } from './types';
@@ -16,8 +15,9 @@ export class BettererWatcherΩ implements BettererRunner {
   private readonly _runner: BettererRunner;
   private _watcher: FSWatcher;
 
-  constructor(config: BettererConfig, reporter: BettererReporterΩ, versionControl: BettererVersionControl) {
-    this._runner = new BettererRunnerΩ(config, reporter, versionControl);
+  constructor(globals: BettererGlobals) {
+    this._runner = new BettererRunnerΩ(globals);
+    const { config } = globals;
     const { cwd, resultsPath } = config;
 
     this._watcher = watch(cwd, {

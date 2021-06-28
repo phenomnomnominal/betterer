@@ -1,11 +1,11 @@
-import { BettererConfig, createConfig } from './config';
-import { createVersionControl, BettererVersionControl } from './fs';
+import { createConfig } from './config';
+import { createVersionControl } from './fs';
 import { registerExtensions } from './register';
-import { BettererReporterΩ, DEFAULT_REPORTER, loadReporters } from './reporters';
+import { DEFAULT_REPORTER, loadReporters } from './reporters';
+import { BettererResultsΩ } from './results';
+import { BettererGlobals } from './types';
 
-export async function createGlobals(
-  options: unknown = {}
-): Promise<[BettererConfig, BettererReporterΩ, BettererVersionControl]> {
+export async function createGlobals(options: unknown = {}): Promise<BettererGlobals> {
   let reporter = loadReporters([DEFAULT_REPORTER]);
   try {
     const versionControl = await createVersionControl();
@@ -21,7 +21,8 @@ export async function createGlobals(
       reporter = loadReporters(reporters, cwd);
     }
     await registerExtensions(config);
-    return [config, reporter, versionControl];
+    const results = new BettererResultsΩ(config.resultsPath);
+    return { config, reporter, results, versionControl };
   } catch (error) {
     await reporter.configError(options, error);
     throw error;
