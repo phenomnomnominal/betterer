@@ -12,7 +12,7 @@ export type BettererFileDiff = {
   new?: BettererFileIssues;
 };
 export type BettererFilesDiff = Record<string, BettererFileDiff>;
-export type BettererFileTestDiff = BettererDiff<BettererFileTestResult, BettererFilesDiff>;
+export type BettererFileTestDiff = BettererDiff<BettererFilesDiff>;
 
 export type BettererFileTestFunction = (
   filePaths: BettererFilePaths,
