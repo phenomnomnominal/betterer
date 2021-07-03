@@ -1,6 +1,6 @@
 import { BettererRun, BettererRunSummary } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
-import { BettererLogger } from '@betterer/logger';
+import { BettererLogger, BettererLoggerCodeInfo, BettererLoggerMessage, BettererLogs } from '@betterer/logger';
 import { BettererTaskRun, getTask } from '@betterer/tasks';
 
 import {
@@ -53,14 +53,23 @@ export function useTask(run: BettererRun | BettererRunSummary): BettererTaskRun 
         return testSame(name, delta);
       }
       if (runSummary.isUpdated) {
-        await runSummary.diff.log(logger);
+        await handleLogs(runSummary.diff.logs, logger);
         return testUpdated(name, delta);
       }
       if (runSummary.isWorse) {
-        await runSummary.diff.log(logger);
+        await handleLogs(runSummary.diff.logs, logger);
         throw new BettererError(testWorse(name, delta));
       }
       return;
+    })
+  );
+}
+
+async function handleLogs(logs: BettererLogs, logger: BettererLogger): Promise<void> {
+  await Promise.all(
+    logs.map((log) => {
+      const types = Object.keys(log) as Array<keyof BettererLogger>;
+      return types.map((type) => logger[type](log[type] as BettererLoggerCodeInfo & BettererLoggerMessage));
     })
   );
 }

@@ -1,3 +1,13 @@
+export declare type BettererLog = {
+    code?: BettererLoggerCodeInfo;
+    debug?: BettererLoggerMessage;
+    error?: BettererLoggerMessage;
+    info?: BettererLoggerMessage;
+    progress?: BettererLoggerMessage;
+    success?: BettererLoggerMessage;
+    warn?: BettererLoggerMessage;
+};
+
 export declare type BettererLogCode = (codeInfo: BettererLoggerCodeInfo) => Promise<void>;
 
 export declare type BettererLogger = {
@@ -19,9 +29,13 @@ export declare type BettererLoggerCodeInfo = {
     length: number;
 };
 
-export declare type BettererLoggerMessages = Array<string>;
+export declare type BettererLoggerMessage = string;
+
+export declare type BettererLoggerMessages = Array<BettererLoggerMessage>;
 
 export declare type BettererLogMessage = (...messages: BettererLoggerMessages) => Promise<void>;
+
+export declare type BettererLogs = Array<BettererLog>;
 
 export declare function codeΔ(codeInfo: BettererLoggerCodeInfo): string;
 

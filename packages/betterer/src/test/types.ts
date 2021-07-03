@@ -1,5 +1,5 @@
 import { BettererConstraintResult } from '@betterer/constraints';
-import { BettererLogger } from '@betterer/logger';
+import { BettererLogs } from '@betterer/logger';
 
 import { BettererContext, BettererDelta, BettererRun } from '../context';
 import { MaybeAsync } from '../types';
@@ -16,17 +16,15 @@ export type BettererTestConstraint<DeserialisedType> = (
 
 export type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
 
-export type BettererDiff<DeserialisedType = unknown, DiffType = null> = {
-  expected: DeserialisedType;
-  result: DeserialisedType;
+export type BettererDiff<DiffType = null> = {
   diff: DiffType;
-  log: (logger: BettererLogger) => Promise<void>;
+  logs: BettererLogs;
 };
 
 export type BettererDiffer<DeserialisedType, DiffType> = (
   expected: DeserialisedType,
   result: DeserialisedType
-) => BettererDiff<DeserialisedType, DiffType>;
+) => BettererDiff<DiffType>;
 
 export type BettererPrinter<SerialisedType> = (serialised: SerialisedType) => MaybeAsync<string>;
 

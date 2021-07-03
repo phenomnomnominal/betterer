@@ -1,4 +1,4 @@
-import { BettererLogger } from '@betterer/logger';
+import { BettererLogs } from '@betterer/logger';
 import assert from 'assert';
 
 import { BettererFileΩ } from './file';
@@ -151,38 +151,33 @@ export function differ(expected: BettererFileTestResult, result: BettererFileTes
 
   const filePaths = Object.keys(diff);
 
-  return {
-    expected,
-    result,
-    diff,
-    async log(logger: BettererLogger): Promise<void> {
-      await Promise.all(
-        filePaths.map(async (filePath) => {
-          const existing = diff[filePath].existing || [];
-          const fixed = diff[filePath].fixed || [];
-          if (fixed?.length) {
-            await logger.success(`${fixed.length} fixed ${getIssues(fixed.length)} in "${filePath}".`);
-          }
-          if (existing?.length) {
-            await logger.warn(`${existing.length} existing ${getIssues(existing.length)} in "${filePath}".`);
-          }
-          const newIssues = diff[filePath].new || [];
-          if (newIssues.length) {
-            const { length } = newIssues;
-            await logger.error(`${length} new ${getIssues(length)} in "${filePath}":`);
-
-            await Promise.all(
-              newIssues.map(async (issue) => {
-                const fileΩ = resultΩ.getFile(filePath) as BettererFileΩ;
-                const { fileText } = fileΩ;
-                const { line, column, length, message } = issue;
-                await logger.code({ message, filePath, fileText, line, column, length });
-              })
-            );
-          }
-        })
-      );
+  const logs: BettererLogs = [];
+  filePaths.forEach((filePath) => {
+    const existing = diff[filePath].existing || [];
+    const fixed = diff[filePath].fixed || [];
+    if (fixed?.length) {
+      logs.push({ success: `${fixed.length} fixed ${getIssues(fixed.length)} in "${filePath}".` });
     }
+    if (existing?.length) {
+      logs.push({ warn: `${existing.length} existing ${getIssues(existing.length)} in "${filePath}".` });
+    }
+    const newIssues = diff[filePath].new || [];
+    if (newIssues.length) {
+      const { length } = newIssues;
+      logs.push({ error: `${length} new ${getIssues(length)} in "${filePath}":` });
+
+      newIssues.map((issue) => {
+        const fileΩ = resultΩ.getFile(filePath) as BettererFileΩ;
+        const { fileText } = fileΩ;
+        const { line, column, length, message } = issue;
+        logs.push({ code: { message, filePath, fileText, line, column, length } });
+      });
+    }
+  });
+
+  return {
+    diff,
+    logs
   };
 }
 

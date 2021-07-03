@@ -49,14 +49,12 @@ export declare type BettererDelta = {
 
 export declare type BettererDeserialise<DeserialisedType, SerialisedType> = (serialised: SerialisedType, resultsPath: string) => DeserialisedType;
 
-export declare type BettererDiff<DeserialisedType = unknown, DiffType = null> = {
-    expected: DeserialisedType;
-    result: DeserialisedType;
+export declare type BettererDiff<DiffType = null> = {
     diff: DiffType;
-    log: (logger: BettererLogger) => Promise<void>;
+    logs: BettererLogs;
 };
 
-export declare type BettererDiffer<DeserialisedType, DiffType> = (expected: DeserialisedType, result: DeserialisedType) => BettererDiff<DeserialisedType, DiffType>;
+export declare type BettererDiffer<DeserialisedType, DiffType> = (expected: DeserialisedType, result: DeserialisedType) => BettererDiff<DiffType>;
 
 export declare type BettererFile = BettererFileBase & {
     addIssue(start: number, end: number, message: string, hash?: string): void;
@@ -115,7 +113,7 @@ export declare class BettererFileTest implements BettererFileTestBase {
     skip(): this;
 }
 
-export declare type BettererFileTestDiff = BettererDiff<BettererFileTestResult, BettererFilesDiff>;
+export declare type BettererFileTestDiff = BettererDiff<BettererFilesDiff>;
 
 export declare type BettererFileTestFunction = (filePaths: BettererFilePaths, fileTestResult: BettererFileTestResult, resolver: BettererFileResolver) => MaybeAsync<void>;
 

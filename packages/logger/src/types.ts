@@ -1,4 +1,5 @@
-export type BettererLoggerMessages = Array<string>;
+export type BettererLoggerMessage = string;
+export type BettererLoggerMessages = Array<BettererLoggerMessage>;
 export type BettererLogMessage = (...messages: BettererLoggerMessages) => Promise<void>;
 
 export type BettererLoggerCodeInfo = {
@@ -21,3 +22,15 @@ export type BettererLogger = {
   success: BettererLogMessage;
   warn: BettererLogMessage;
 };
+
+export type BettererLog = {
+  code?: BettererLoggerCodeInfo;
+  debug?: BettererLoggerMessage;
+  error?: BettererLoggerMessage;
+  info?: BettererLoggerMessage;
+  progress?: BettererLoggerMessage;
+  success?: BettererLoggerMessage;
+  warn?: BettererLoggerMessage;
+};
+
+export type BettererLogs = Array<BettererLog>;
