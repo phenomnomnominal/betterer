@@ -15,6 +15,7 @@ import {
   testUpdated,
   testWorse
 } from '../../messages';
+import { BettererReporterRun } from '../../types';
 import { quote } from '../../utils';
 import { getDelta } from './deltas';
 
@@ -25,7 +26,7 @@ export function useTask(run: BettererRun | BettererRunSummary): BettererTaskRun 
       const name = quote(run.name);
       await logger.progress(testRunning(name));
 
-      const runSummary = await (run as BettererRun).lifecycle;
+      const runSummary = await (run as BettererReporterRun).lifecycle;
 
       if (runSummary.isExpired) {
         await logger.warn(testExpired(name));

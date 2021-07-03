@@ -6,7 +6,6 @@ import { BettererConfig } from '../config';
 import { BettererFilePaths } from '../fs';
 import { BettererResult } from '../results';
 import { BettererDiff, BettererTestBase, BettererTestConfig, BettererTestMeta } from '../test';
-import { Defer, defer } from '../utils';
 import { BettererRunSummaryΩ } from './run-summary';
 import { BettererRun, BettererRunning, BettererRunSummary } from './types';
 
@@ -24,7 +23,6 @@ export enum BettererRunStatus {
 export class BettererRunΩ implements BettererRun {
   public readonly isNew = this.expected.isNew;
 
-  private _lifecycle: Defer<BettererRunSummary>;
   private _result: BettererResult | null = null;
   private _status: BettererRunStatus;
   private _timestamp: number | null = null;
@@ -41,7 +39,6 @@ export class BettererRunΩ implements BettererRun {
     this._status = this._testMeta.isSkipped ? BettererRunStatus.skipped : BettererRunStatus.pending;
     this._test = this._testMeta.factory();
     this._test.config.configPath = this._testMeta.configPath;
-    this._lifecycle = defer();
   }
 
   public get timestamp(): number {
@@ -53,10 +50,6 @@ export class BettererRunΩ implements BettererRun {
     return this._status === BettererRunStatus.skipped;
   }
 
-  public get lifecycle(): Promise<BettererRunSummary> {
-    return this._lifecycle.promise;
-  }
-
   public get test(): BettererTestConfig {
     return this._test.config;
   }
@@ -64,14 +57,16 @@ export class BettererRunΩ implements BettererRun {
   public start(): BettererRunning {
     this._timestamp = Date.now();
 
-    const end = async (diff: BettererDiff | null = null): Promise<BettererRunSummary> => {
+    const end = async (
+      diff: BettererDiff | null = null,
+      error: BettererError | null = null
+    ): Promise<BettererRunSummary> => {
       const baselineValue = this._baseline.isNew ? null : this._baseline.value;
       const resultValue = !this._result ? null : this._result.value;
 
       const delta = await this.test.progress(baselineValue, resultValue);
       const isComplete = resultValue != null && (await this.test.goal(resultValue));
-      const runSummary = new BettererRunSummaryΩ(this, this._result, diff, delta, this._status, isComplete);
-      this._lifecycle.resolve(runSummary);
+      const runSummary = new BettererRunSummaryΩ(this, this._result, diff, delta, error, this._status, isComplete);
       return runSummary;
     };
 
@@ -105,8 +100,7 @@ export class BettererRunΩ implements BettererRun {
       failed: async (error: BettererError): Promise<BettererRunSummary> => {
         assert.strictEqual(this._status, BettererRunStatus.pending);
         this._status = BettererRunStatus.failed;
-        this._lifecycle.reject(error);
-        return end();
+        return end(null, error);
       },
       skipped: async (): Promise<BettererRunSummary> => {
         return end();

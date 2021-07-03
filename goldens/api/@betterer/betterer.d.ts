@@ -224,11 +224,7 @@ export declare type BettererResult = {
     value: unknown;
 };
 
-export declare type BettererRun = BettererRunBase & {
-    readonly lifecycle: Promise<BettererRunSummary>;
-};
-
-export declare type BettererRunBase = {
+export declare type BettererRun = {
     readonly expected: BettererResult;
     readonly filePaths: BettererFilePaths | null;
     readonly name: string;
@@ -251,11 +247,12 @@ export declare type BettererRuns = ReadonlyArray<BettererRun>;
 
 export declare type BettererRunSummaries = Array<BettererRunSummary>;
 
-export declare type BettererRunSummary = BettererRunBase & {
+export declare type BettererRunSummary = BettererRun & {
     readonly diff: BettererDiff;
     readonly delta: BettererDelta | null;
     readonly result: BettererResult;
     readonly timestamp: number;
+    readonly error: BettererError;
     readonly isBetter: boolean;
     readonly isComplete: boolean;
     readonly isExpired: boolean;

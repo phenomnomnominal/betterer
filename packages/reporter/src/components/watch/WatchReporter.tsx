@@ -1,34 +1,18 @@
 import React, { FC, memo, useState } from 'react';
 
-import {
-  BettererContext,
-  BettererFilePaths,
-  BettererRuns,
-  BettererRunSummaries,
-  BettererSummaries,
-  BettererSummary
-} from '@betterer/betterer';
 import { useApp, useInput, useStdin } from 'ink';
 
 import { BettererReporterApp } from '../../types';
 import { ConfigEditField } from '../config';
-import { Runs, RunSummary } from '../runs';
+import { Runs, SuiteSummary } from '../runs';
 
 import { WatchEnding } from './WatchEnding';
 import { WatchFiles } from './WatchFiles';
 import { WatchInstructions } from './WatchInstructions';
 import { WatchStarting } from './WatchStarting';
+import { BettererReporterState } from '../../state';
 
-export type WatchReporterProps = {
-  context: BettererContext;
-  filePaths?: BettererFilePaths;
-  runs?: BettererRuns;
-  runSummaries?: BettererRunSummaries;
-  summary?: BettererSummary;
-  summaries?: BettererSummaries;
-};
-
-export const WatchReporter: FC<WatchReporterProps> = memo(function WatchReporter(props) {
+export const WatchReporter: FC<BettererReporterState> = memo(function WatchReporter(props) {
   const app = useApp();
 
   const { isRawModeSupported } = useStdin();
@@ -66,18 +50,18 @@ export const WatchReporter: FC<WatchReporterProps> = memo(function WatchReporter
     }
   });
 
-  const { context, runs, runSummaries, summaries, summary } = props;
+  const { context, runs, runSummaries, suiteSummaries, suiteSummary } = props;
   const filePaths = props.filePaths || [];
 
-  if (summaries) {
+  if (suiteSummaries) {
     return <WatchEnding />;
   }
   if (runs || runSummaries) {
     return (
       <>
-        <WatchFiles context={context} editField={editField} filePaths={filePaths} running={!summary} />
+        <WatchFiles context={context} editField={editField} filePaths={filePaths} running={!runSummaries} />
         <Runs runs={runs} runSummaries={runSummaries} />
-        {summary && <RunSummary context={context} summary={summary} />}
+        {suiteSummary && <SuiteSummary context={context} summary={suiteSummary} />}
         <WatchInstructions />
       </>
     );
