@@ -11,6 +11,7 @@ export {
   BettererFileIssues,
   isBettererFileTest
 } from './file-test';
+export { loadTests } from './loader';
 export { BettererTest } from './test';
 export {
   BettererDeserialise,

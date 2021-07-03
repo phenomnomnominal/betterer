@@ -20,7 +20,7 @@ import {
 } from '../../messages';
 import { quote } from '../../utils';
 
-export type RunSummaryProps = {
+export type SuiteSummaryProps = {
   context: BettererContext;
   summary: BettererSummary;
 };
@@ -40,7 +40,7 @@ const TEXT_COLOURS: Record<string, TextProps['color']> = {
   worse: 'red'
 };
 
-export const RunSummary: FC<RunSummaryProps> = memo(function RunSummary({ context, summary }) {
+export const SuiteSummary: FC<SuiteSummaryProps> = memo(function SuiteSummary({ context, summary }) {
   const better = summary.better.length;
   const failed = summary.failed.length;
   const neww = summary.new.length;

@@ -7,12 +7,11 @@ slug: /context
 
 ## `BettererContext`
 
-A `BettererContext` represents the lifecycle of a set of tests runs.
+A `BettererContext` represents the context of a set of tests runs.
 
 ```typescript
 type BettererContext = {
   readonly config: BettererConfig;
-  readonly lifecycle: Promise<BettererSummaries>;
 };
 ```
 
@@ -21,10 +20,6 @@ type BettererContext = {
 #### `config`: [`BettererConfig`](./config#bettererconfig)
 
 > The configuration for the current context
-
-#### `lifecycle`: [`Promise<BettererSummaries>`](#betterersummaries)
-
-> A promise that will resolve when the context ends.
 
 ## `BettererDelta`
 
@@ -65,7 +60,6 @@ type BettererRun = {
   readonly diff: BettererDiff;
   readonly expected: BettererResult;
   readonly filePaths: BettererFilePaths;
-  readonly lifecycle: Promise<void>;
   readonly name: string;
   readonly delta: BettererDelta | null;
   readonly result: BettererResult;
@@ -96,10 +90,6 @@ type BettererRun = {
 #### `filePaths`: [`BettererFilePaths`](./runner#bettererfilepaths)
 
 > The list of [`BettererFilePaths`] that are being tested.
-
-#### `lifecycle`: `Promise<void>`
-
-> A promise that will resolve when the test run ends.
 
 #### `name`: `string`
 

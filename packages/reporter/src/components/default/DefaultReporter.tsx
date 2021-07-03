@@ -1,23 +1,15 @@
 import React, { FC, memo } from 'react';
 
-import { BettererContext, BettererRuns, BettererRunSummaries, BettererSummary } from '@betterer/betterer';
+import { Runs, SuiteSummary } from '../runs';
+import { BettererReporterState } from '../../state';
 
-import { Runs, RunSummary } from '../runs';
-
-export type DefaultReporterProps = {
-  context: BettererContext;
-  runs?: BettererRuns;
-  runSummaries?: BettererRunSummaries;
-  summary?: BettererSummary;
-};
-
-export const DefaultReporter: FC<DefaultReporterProps> = memo(function DefaultReporter(props: DefaultReporterProps) {
-  const { context, runs, runSummaries, summary } = props;
+export const DefaultReporter: FC<BettererReporterState> = memo(function DefaultReporter(props: BettererReporterState) {
+  const { context, runs, runSummaries, suiteSummary } = props;
 
   return (
     <>
       {(runs || runSummaries) && <Runs runs={runs} runSummaries={runSummaries} />}
-      {summary && <RunSummary context={context} summary={summary} />}
+      {suiteSummary && <SuiteSummary context={context} summary={suiteSummary} />}
     </>
   );
 });

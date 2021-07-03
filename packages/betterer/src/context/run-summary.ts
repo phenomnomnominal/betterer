@@ -1,3 +1,4 @@
+import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
 import { BettererDiff } from '../test';
@@ -17,6 +18,7 @@ export class BettererRunSummaryΩ implements BettererRunSummary {
     private _result: BettererResult | null,
     private _diff: BettererDiff | null,
     private _delta: BettererDelta | null,
+    private _error: BettererError | null,
     private _status: BettererRunStatus,
     public readonly isComplete: boolean
   ) {}
@@ -28,6 +30,11 @@ export class BettererRunSummaryΩ implements BettererRunSummary {
   public get diff(): BettererDiff {
     assert(this._diff);
     return this._diff;
+  }
+
+  public get error(): BettererError {
+    assert(this._error);
+    return this._error;
   }
 
   public get result(): BettererResult {

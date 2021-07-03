@@ -13,7 +13,8 @@ import { reset } from '@betterer/tasks';
 import { Instance, render } from 'ink';
 
 import { Error, Reporter } from './components';
-import { BettererReporterData, BettererReporterRenderer } from './types';
+import { BettererReporterAction, contextEnd, createStore, runsEnd, runsStart } from './state';
+import { BettererReporterRenderer } from './types';
 
 export const reporter: BettererReporter = createReporter();
 
@@ -32,9 +33,9 @@ function createReporter(): BettererReporter {
       renderer = createRenderer(context);
       await renderer.render();
     },
-    async contextEnd(_: BettererContext, summaries: BettererSummaries): Promise<void> {
-      if (summaries.length > 1) {
-        await renderer.render({ summaries });
+    async contextEnd(_: BettererContext, suiteSummaries: BettererSummaries): Promise<void> {
+      if (suiteSummaries.length > 1) {
+        await renderer.render(contextEnd(suiteSummaries));
       }
       renderer.stop();
     },
@@ -43,10 +44,10 @@ function createReporter(): BettererReporter {
     },
     runsStart(runs: BettererRuns, filePaths: BettererFilePaths): Promise<void> {
       reset();
-      return renderer.render({ filePaths, runs });
+      return renderer.render(runsStart(filePaths, runs));
     },
-    runsEnd(summary: BettererSummary, filePaths: BettererFilePaths): Promise<void> {
-      return renderer.render({ filePaths, runSummaries: summary.runs, summary });
+    runsEnd(summary: BettererSummary): Promise<void> {
+      return renderer.render(runsEnd(summary.runs, summary));
     }
   };
 
@@ -58,11 +59,13 @@ function createReporter(): BettererReporter {
   function createRenderer(context: BettererContext): BettererReporterRenderer {
     let app: Instance;
 
+    const dispatch = createStore(context);
+
     return {
-      async render(data: BettererReporterData = {}): Promise<void> {
+      async render(action?: BettererReporterAction): Promise<void> {
+        const state = dispatch(action);
         app?.clear();
-        const finalProps = { ...data, context };
-        app = render(<Reporter {...finalProps} />, RENDER_OPTIONS);
+        app = render(<Reporter {...state} />, RENDER_OPTIONS);
         await tick();
       },
       stop() {

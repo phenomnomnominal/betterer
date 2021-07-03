@@ -29,7 +29,7 @@ export type BettererDelta =
       readonly result: number;
     };
 
-export type BettererRunBase = {
+export type BettererRun = {
   readonly expected: BettererResult;
   readonly filePaths: BettererFilePaths | null;
   readonly name: string;
@@ -38,8 +38,8 @@ export type BettererRunBase = {
   readonly isSkipped: boolean;
 };
 
-export type BettererRun = BettererRunBase & {
-  readonly lifecycle: Promise<BettererRunSummary>;
+export type BettererReporterRun = BettererRun & {
+  lifecycle: Promise<BettererRunSummary>;
 };
 
 export type BettererRunning = {
@@ -48,11 +48,12 @@ export type BettererRunning = {
   skipped(): Promise<BettererRunSummary>;
 };
 
-export type BettererRunSummary = BettererRunBase & {
+export type BettererRunSummary = BettererRun & {
   readonly diff: BettererDiff;
   readonly delta: BettererDelta | null;
   readonly result: BettererResult;
   readonly timestamp: number;
+  readonly error: BettererError;
 
   readonly isBetter: boolean;
   readonly isComplete: boolean;

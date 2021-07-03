@@ -1,29 +1,13 @@
 import React, { FC } from 'react';
 
-import {
-  BettererContext,
-  BettererFilePaths,
-  BettererRuns,
-  BettererRunSummaries,
-  BettererSummaries,
-  BettererSummary
-} from '@betterer/betterer';
 import { BettererLogo } from '@betterer/tasks';
 import { Box } from 'ink';
 
 import { DefaultReporter } from './default';
 import { WatchReporter } from './watch';
+import { BettererReporterState } from '../state';
 
-export type ReporterProps = {
-  context: BettererContext;
-  filePaths?: BettererFilePaths;
-  runs?: BettererRuns;
-  runSummaries?: BettererRunSummaries;
-  summary?: BettererSummary;
-  summaries?: BettererSummaries;
-};
-
-export const Reporter: FC<ReporterProps> = function Reporter(props: ReporterProps) {
+export const Reporter: FC<BettererReporterState> = function Reporter(props: BettererReporterState) {
   const { context } = props;
 
   const ReporterComponent = context.config.watch ? WatchReporter : DefaultReporter;
