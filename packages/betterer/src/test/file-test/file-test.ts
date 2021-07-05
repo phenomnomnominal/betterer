@@ -1,8 +1,9 @@
 import assert from 'assert';
 import path from 'path';
 
-import { BettererContext, BettererContextΩ, BettererRun, BettererRunΩ } from '../../context';
+import { BettererContext, BettererRun, BettererRunΩ } from '../../context';
 import { BettererFileResolverΩ, BettererFileGlobs, BettererFilePatterns } from '../../fs';
+import { BettererGlobals } from '../../types';
 import { createTestConfig } from '../config';
 import { BettererTestConstraint, BettererTestFunction, BettererTestGoal } from '../types';
 import { constraint } from './constraint';
@@ -90,14 +91,14 @@ function createTest(
     assert(runΩ.filePaths);
 
     resolver.setBaseDirectory(path.dirname(runΩ.test.configPath));
-    const contextΩ = context as BettererContextΩ;
+    const { versionControl } = context as BettererGlobals;
 
     const hasSpecifiedFiles = runΩ.filePaths?.length > 0;
-    runΩ.filePaths = hasSpecifiedFiles ? resolver.validate(runΩ.filePaths) : resolver.files();
+    runΩ.filePaths = hasSpecifiedFiles ? await resolver.validate(runΩ.filePaths) : await resolver.files();
 
     let runFiles = runΩ.filePaths;
     if (!runΩ.isNew) {
-      runFiles = runFiles.filter((filePath) => !contextΩ.checkCache(filePath));
+      runFiles = await versionControl.filterCached(runFiles);
     }
 
     const cacheHit = runΩ.filePaths.length !== runFiles.length;
@@ -106,7 +107,7 @@ function createTest(
     const result = new BettererFileTestResultΩ();
     await fileTest(runFiles, result, resolver);
 
-    contextΩ.updateCache(result.filePaths);
+    await versionControl.updateCache(result.filePaths);
 
     if (!isPartial || runΩ.isNew) {
       return result;
@@ -119,7 +120,7 @@ function createTest(
       .filter((filePath) => !runFiles.includes(filePath));
 
     // Filter them based on the current resolver:
-    const relevantExcludedFilePaths = resolver.validate(excludedFilesWithIssues);
+    const relevantExcludedFilePaths = await resolver.validate(excludedFilesWithIssues);
 
     // Add the existing issues to the new result:
     relevantExcludedFilePaths.forEach((filePath) => result.addExpected(expectedΩ.getFile(filePath)));

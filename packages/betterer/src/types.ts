@@ -1,5 +1,5 @@
 import { BettererConfig } from './config';
-import { BettererVersionControl } from './fs';
+import { BettererVersionControlWorker } from './fs';
 import { BettererReporterΩ } from './reporters';
 import { BettererResultsΩ } from './results';
 
@@ -9,5 +9,5 @@ export type BettererGlobals = {
   config: BettererConfig;
   reporter: BettererReporterΩ;
   results: BettererResultsΩ;
-  versionControl: BettererVersionControl;
+  versionControl: BettererVersionControlWorker;
 };

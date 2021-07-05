@@ -4,7 +4,7 @@ export {
   BettererFilePaths,
   BettererFilePatterns,
   BettererFileResolver,
-  BettererVersionControl
+  BettererVersionControlWorker
 } from './types';
 export { read } from './reader';
 export { createVersionControl, getVersionControl } from './version-control';

@@ -60,7 +60,7 @@ export async function createConfig(options: unknown = {}): Promise<BettererConfi
   const config = {
     ...relativeConfig,
     cachePath: path.resolve(relativeConfig.cwd, relativeConfig.cachePath),
-    filePaths: resolver.files(),
+    filePaths: await resolver.files(),
     configPaths: relativeConfig.configPaths.map((configPath) => path.resolve(relativeConfig.cwd, configPath)),
     resultsPath: path.resolve(relativeConfig.cwd, relativeConfig.resultsPath),
     tsconfigPath: relativeConfig.tsconfigPath ? path.resolve(relativeConfig.cwd, relativeConfig.tsconfigPath) : null

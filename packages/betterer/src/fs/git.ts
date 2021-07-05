@@ -18,15 +18,19 @@ export class BettererGit implements BettererVersionControl {
   constructor(private _gitDir: string) {
     this._rootDir = path.dirname(this._gitDir);
     this._git = simpleGit(this._rootDir);
-    this._cache = new BettererFileCacheΩ(this);
+    this._cache = new BettererFileCacheΩ();
   }
 
   public async add(resultsPath: string): Promise<void> {
     await this._git.add(resultsPath);
   }
 
-  public checkCache(filePath: string): boolean {
-    return this._cache.checkCache(filePath);
+  public filterCached(filePaths: BettererFilePaths): BettererFilePaths {
+    return this._cache.filterCached(filePaths);
+  }
+
+  public filterIgnored(filePaths: BettererFilePaths): BettererFilePaths {
+    return filePaths.filter((absolutePath) => this._fileMap[absolutePath]);
   }
 
   public async enableCache(cachePath: string): Promise<void> {
@@ -41,16 +45,8 @@ export class BettererGit implements BettererVersionControl {
     return this._cache.writeCache();
   }
 
-  public get filePaths(): BettererFilePaths {
+  public getFilePaths(): BettererFilePaths {
     return this._filePaths;
-  }
-
-  public getHash(absolutePath: string): string | null {
-    return this._fileMap[absolutePath] || null;
-  }
-
-  public isIgnored(absolutePath: string): boolean {
-    return !this._fileMap[absolutePath];
   }
 
   public async init(): Promise<void> {
@@ -128,5 +124,6 @@ export class BettererGit implements BettererVersionControl {
         this._filePaths.push(absolutePath);
       })
     );
+    this._cache.setHashes(this._fileMap);
   }
 }

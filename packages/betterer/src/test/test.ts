@@ -10,16 +10,13 @@ import {
 export class BettererTest<DeserialisedType, SerialisedType, DiffType>
   implements BettererTestBase<DeserialisedType, SerialisedType, DiffType>
 {
-  private _config: BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
+  public readonly config: BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
+
   private _isOnly = false;
   private _isSkipped = false;
 
   constructor(options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>) {
-    this._config = createTestConfig(options) as BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
-  }
-
-  public get config(): BettererTestConfig<DeserialisedType, SerialisedType, DiffType> {
-    return this._config;
+    this.config = createTestConfig(options) as BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
   }
 
   public get isOnly(): boolean {

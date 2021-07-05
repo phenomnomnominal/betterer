@@ -7,7 +7,7 @@ import {
   BettererFileGlobs,
   BettererFilePaths,
   BettererFilePatterns,
-  BettererVersionControl
+  BettererVersionControlWorker
 } from '../fs';
 import { flatten, normalisedPath } from '../utils';
 import { BettererFileResolver } from './types';
@@ -16,7 +16,7 @@ export class BettererFileResolverΩ implements BettererFileResolver {
   private _excluded: Array<RegExp> = [];
   private _included: Array<string> = [];
   private _includedResolved: Array<string> | null = null;
-  private _versionControl: BettererVersionControl;
+  private _versionControl: BettererVersionControlWorker;
 
   private _validatedFilePaths: Array<string> = [];
   private _validatedFilePathsMap: Record<string, boolean> = {};
@@ -34,14 +34,13 @@ export class BettererFileResolverΩ implements BettererFileResolver {
     this._baseDirectory = directory;
   }
 
-  public validate(filePaths: BettererFilePaths): BettererFilePaths {
+  public async validate(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
     // If `include()` was never called, just filter the given list:
     if (!this._included.length) {
-      return filePaths.filter((filePath) => {
-        return !this._versionControl.isIgnored(filePath) && !this._isExcluded(filePath);
-      });
+      const validFilePaths = await this._versionControl.filterIgnored(filePaths);
+      return validFilePaths.filter((filePath) => !this._isExcluded(filePath));
     }
-    this._update();
+    await this._update();
     return filePaths.filter((filePath) => this._validatedFilePathsMap[filePath]);
   }
 
@@ -59,14 +58,15 @@ export class BettererFileResolverΩ implements BettererFileResolver {
     return this;
   }
 
-  public files(): BettererFilePaths {
-    this._update();
+  public async files(): Promise<BettererFilePaths> {
+    await this._update();
     return this._validatedFilePaths;
   }
 
-  private _update(): void {
+  private async _update(): Promise<void> {
     this._validatedFilePathsMap = {};
-    this._versionControl.filePaths.forEach((filePath) => {
+    const filePaths = await this._versionControl.getFilePaths();
+    filePaths.forEach((filePath) => {
       this._validatedFilePathsMap[filePath] = this._isIncluded(filePath);
     });
     this._validatedFilePaths = Object.keys(this._validatedFilePathsMap).filter((filePath) => {
