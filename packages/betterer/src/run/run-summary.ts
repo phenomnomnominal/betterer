@@ -1,10 +1,11 @@
 import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
-import { BettererDiff } from '../test';
+import { BettererDelta } from '../context';
 import { BettererResult } from '../results';
+import { BettererDiff } from '../test';
 import { BettererRunStatus, BettererRunΩ } from './run';
-import { BettererDelta, BettererRunSummary } from './types';
+import { BettererRunSummary } from './types';
 
 export class BettererRunSummaryΩ implements BettererRunSummary {
   public readonly name = this._runΩ.name;

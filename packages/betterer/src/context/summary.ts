@@ -1,4 +1,5 @@
-import { BettererRunSummaries, BettererSummary } from './types';
+import { BettererRunSummaries } from '../run';
+import { BettererSummary } from './types';
 
 export class BettererSummaryΩ implements BettererSummary {
   public readonly unexpectedDiff: boolean;
