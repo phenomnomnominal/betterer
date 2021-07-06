@@ -1,9 +1,11 @@
 import { BettererError } from '@betterer/errors';
+import { AsyncWorkerModule, WorkerModule } from '@phenomnomnominal/worker-require';
 
 import { BettererDelta } from '../context';
 import { BettererFilePaths } from '../fs';
 import { BettererResult } from '../results';
 import { BettererDiff, BettererTestConfig } from '../test';
+import { BettererWorkerRunSummaryΩ } from './worker-run-summary';
 
 export type BettererRuns = ReadonlyArray<BettererRun>;
 export type BettererRunNames = Array<string>;
@@ -13,6 +15,7 @@ export type BettererRun = {
   readonly filePaths: BettererFilePaths | null;
   readonly name: string;
   readonly test: BettererTestConfig;
+  readonly timestamp: number;
   readonly isNew: boolean;
   readonly isSkipped: boolean;
 };
@@ -22,17 +25,16 @@ export type BettererReporterRun = BettererRun & {
 };
 
 export type BettererRunning = {
-  failed(error: BettererError): Promise<BettererRunSummary>;
-  done(result: BettererResult): Promise<BettererRunSummary>;
-  skipped(): Promise<BettererRunSummary>;
+  failed(error: BettererError): Promise<BettererWorkerRunSummaryΩ>;
+  done(result: BettererResult): Promise<BettererWorkerRunSummaryΩ>;
+  skipped(): Promise<BettererWorkerRunSummaryΩ>;
 };
 
 export type BettererRunSummary = BettererRun & {
   readonly diff: BettererDiff;
   readonly delta: BettererDelta | null;
-  readonly result: BettererResult;
-  readonly timestamp: number;
   readonly error: BettererError;
+  readonly result: BettererResult;
 
   readonly isBetter: boolean;
   readonly isComplete: boolean;
@@ -44,3 +46,6 @@ export type BettererRunSummary = BettererRun & {
 };
 
 export type BettererRunSummaries = Array<BettererRunSummary>;
+
+export type BettererWorker = AsyncWorkerModule<WorkerModule<typeof import('./worker-run')>>;
+export type BettererWorkers = Array<BettererWorker>;

@@ -1,11 +1,22 @@
-import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
-import { BettererDelta } from '../context';
-import { BettererResult } from '../results';
 import { BettererDiff } from '../test';
-import { BettererRunStatus, BettererRunΩ } from './run';
-import { BettererRunSummary } from './types';
+import { BettererResult, BettererResultΩ } from '../results';
+import { BettererRun, BettererRunSummary } from './types';
+import { BettererDelta } from '../context';
+import { BettererError } from '@betterer/errors';
+import { BettererWorkerRunSummaryΩ } from './worker-run-summary';
+
+export enum BettererRunStatus {
+  better,
+  failed,
+  pending,
+  new,
+  same,
+  skipped,
+  update,
+  worse
+}
 
 export class BettererRunSummaryΩ implements BettererRunSummary {
   public readonly name = this._runΩ.name;
@@ -13,15 +24,17 @@ export class BettererRunSummaryΩ implements BettererRunSummary {
   public readonly expected = this._runΩ.expected;
   public readonly timestamp = this._runΩ.timestamp;
   public readonly test = this._runΩ.test;
+  public readonly status = this._summaryΩ.status;
+  public readonly isComplete = this._summaryΩ.isComplete;
+
+  private _delta = this._summaryΩ.delta;
+  private _diff = this._summaryΩ.diff;
+  private _error = this._summaryΩ.error;
 
   constructor(
-    private _runΩ: BettererRunΩ,
-    private _result: BettererResult | null,
-    private _diff: BettererDiff | null,
-    private _delta: BettererDelta | null,
-    private _error: BettererError | null,
-    private _status: BettererRunStatus,
-    public readonly isComplete: boolean
+    private _runΩ: BettererRun,
+    private _summaryΩ: BettererWorkerRunSummaryΩ,
+    private _result: BettererResultΩ
   ) {}
 
   public get delta(): BettererDelta | null {
@@ -44,7 +57,7 @@ export class BettererRunSummaryΩ implements BettererRunSummary {
   }
 
   public get isBetter(): boolean {
-    return this._status === BettererRunStatus.better;
+    return this.status === BettererRunStatus.better;
   }
 
   public get isExpired(): boolean {
@@ -52,7 +65,7 @@ export class BettererRunSummaryΩ implements BettererRunSummary {
   }
 
   public get isFailed(): boolean {
-    return this._status === BettererRunStatus.failed;
+    return this.status === BettererRunStatus.failed;
   }
 
   public get isNew(): boolean {
@@ -60,18 +73,18 @@ export class BettererRunSummaryΩ implements BettererRunSummary {
   }
 
   public get isSame(): boolean {
-    return this._status === BettererRunStatus.same;
+    return this.status === BettererRunStatus.same;
   }
 
   public get isSkipped(): boolean {
-    return this._status === BettererRunStatus.skipped;
+    return this.status === BettererRunStatus.skipped;
   }
 
   public get isUpdated(): boolean {
-    return this._status === BettererRunStatus.update;
+    return this.status === BettererRunStatus.update;
   }
 
   public get isWorse(): boolean {
-    return this._status === BettererRunStatus.worse;
+    return this.status === BettererRunStatus.worse;
   }
 }

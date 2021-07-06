@@ -3,10 +3,17 @@ import { BettererError } from '@betterer/errors';
 import { BettererConfig } from '../config';
 import { BettererFilePaths, BettererVersionControlWorker } from '../fs';
 import { BettererReporterΩ } from '../reporters';
-import { BettererResultsΩ, BettererResultΩ } from '../results';
+import { BettererResultsΩ } from '../results';
 import { Defer, defer } from '../utils';
-import { BettererTestMetaMap, isBettererFileTest, loadTests } from '../test';
-import { BettererRunΩ, BettererRunSummaries, BettererRuns, BettererRunSummary, BettererReporterRun } from '../run';
+import {
+  createRuns,
+  BettererRuns,
+  BettererRunSummaries,
+  BettererRunSummary,
+  BettererRunΩ,
+  BettererReporterRun,
+  BettererWorkerPoolΩ
+} from '../run';
 import { BettererSummaryΩ } from './summary';
 import { BettererContext, BettererContextStarted, BettererSummaries, BettererSummary } from './types';
 import { BettererGlobals } from '../types';
@@ -16,16 +23,17 @@ export class BettererContextΩ implements BettererContext, BettererGlobals {
   public readonly reporter: BettererReporterΩ;
   public readonly results: BettererResultsΩ;
   public readonly versionControl: BettererVersionControlWorker;
+  public readonly workerPool: BettererWorkerPoolΩ;
 
   private _running: Promise<BettererRunSummaries> | null = null;
   private _summaries: BettererSummaries = [];
-  private _tests: BettererTestMetaMap = {};
 
   constructor(globals: BettererGlobals) {
     this.config = globals.config;
     this.reporter = globals.reporter;
     this.results = globals.results;
     this.versionControl = globals.versionControl;
+    this.workerPool = globals.workerPool;
   }
 
   public start(): BettererContextStarted {
@@ -46,11 +54,13 @@ export class BettererContextΩ implements BettererContext, BettererGlobals {
             await this.versionControl.add(this.config.resultsPath);
           }
         }
+        await this.workerPool.close();
       },
       error: async (error: BettererError): Promise<void> => {
         contextLifecycle.reject(error);
         await reportContextStart;
         await this.reporter.contextError(this, error);
+        await this.workerPool.close();
       }
     };
   }
@@ -62,27 +72,8 @@ export class BettererContextΩ implements BettererContext, BettererGlobals {
     await this.results.sync();
     await this.versionControl.sync();
 
-    this._tests = loadTests(this.config);
-    const testNames = Object.keys(this._tests);
-
-    // Only run BettererFileTests when a list of filePaths is given:
-    const runFileTests = filePaths.length > 0;
-
     const validFilePaths = await this.versionControl.filterIgnored(filePaths);
-
-    const runs = testNames
-      .map((name) => {
-        const testMeta = this._tests[name];
-        const test = testMeta.factory();
-        if (runFileTests && !isBettererFileTest(test)) {
-          return null;
-        }
-        const baseline = this.results.getBaseline(name, test);
-        const expected = this.results.getExpectedResult(name, test);
-        const runFilePaths = isBettererFileTest(test) ? validFilePaths : null;
-        return new BettererRunΩ(this.config, name, testMeta, expected, baseline, runFilePaths);
-      })
-      .filter(Boolean) as BettererRuns;
+    const runs = createRuns(this.workerPool, this.results, this.config, validFilePaths);
 
     // Attach lifecycle promises for Reporters:
     const runLifecycles = runs.map((run) => {
@@ -96,7 +87,7 @@ export class BettererContextΩ implements BettererContext, BettererGlobals {
     // the lifecycle promise which is unresolved right now!
     const reportRunsStart = this.reporter.runsStart(runs, validFilePaths, runsLifecycle.promise);
     try {
-      this._running = this._runTests(runs, runLifecycles);
+      this._running = this._runRuns(runs, runLifecycles);
       const runSummaries = await this._running;
       const result = await this.results.print(runSummaries);
       const expected = await this.results.read();
@@ -114,7 +105,7 @@ export class BettererContextΩ implements BettererContext, BettererGlobals {
     }
   }
 
-  private async _runTests(
+  private async _runRuns(
     runs: BettererRuns,
     runLifecycles: Array<Defer<BettererRunSummary>>
   ): Promise<BettererRunSummaries> {
@@ -125,7 +116,7 @@ export class BettererContextΩ implements BettererContext, BettererGlobals {
         // Don't await here! A custom reporter could be awaiting
         // the lifecycle promise which is unresolved right now!
         const reportRunStart = this.reporter.runStart(runΩ, lifecycle.promise);
-        const runSummary = await this._runTest(runΩ);
+        const runSummary = await runΩ.run(this.config);
         if (runSummary.isFailed) {
           const { error } = runSummary;
           lifecycle.reject(error);
@@ -139,22 +130,5 @@ export class BettererContextΩ implements BettererContext, BettererGlobals {
         return runSummary;
       })
     );
-  }
-
-  private async _runTest(runΩ: BettererRunΩ): Promise<BettererRunSummary> {
-    const { test } = runΩ;
-
-    const running = runΩ.start();
-
-    if (runΩ.isSkipped) {
-      return running.skipped();
-    }
-
-    try {
-      const result = new BettererResultΩ(await test.test(runΩ, this));
-      return running.done(result);
-    } catch (error) {
-      return running.failed(error);
-    }
   }
 }

@@ -3,6 +3,7 @@ import { createVersionControl, getVersionControl } from './fs';
 import { registerExtensions } from './register';
 import { DEFAULT_REPORTER, loadReporters } from './reporters';
 import { BettererResultsΩ } from './results';
+import { BettererWorkerPoolΩ } from './run';
 import { BettererGlobals } from './types';
 
 export async function createGlobals(options: unknown = {}): Promise<BettererGlobals> {
@@ -22,8 +23,9 @@ export async function createGlobals(options: unknown = {}): Promise<BettererGlob
       reporter = loadReporters(reporters, cwd);
     }
     await registerExtensions(config);
+    const workerPool = new BettererWorkerPoolΩ();
     const results = new BettererResultsΩ(config.resultsPath);
-    return { config, reporter, results, versionControl };
+    return { config, reporter, results, versionControl, workerPool };
   } catch (error) {
     await reporter.configError(options, error);
     throw error;

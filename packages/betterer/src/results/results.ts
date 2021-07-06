@@ -28,11 +28,6 @@ export class BettererResultsΩ {
     return this._getResult(name, test, this._baseline);
   }
 
-  public getExpectedNames(): Array<string> {
-    assert(this._expected);
-    return Object.keys(this._expected);
-  }
-
   public getExpectedResult(name: string, test: BettererTestBase): BettererResult {
     assert(this._expected);
     return this._getResult(name, test, this._expected);
