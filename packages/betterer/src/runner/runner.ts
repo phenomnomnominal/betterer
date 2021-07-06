@@ -14,8 +14,8 @@ export class BettererRunnerΩ implements BettererRunner {
   private _jobs: BettererRunnerJobs = [];
   private _running: Promise<BettererSummary> | null = null;
 
-  constructor(globals: BettererGlobals) {
-    this._context = new BettererContextΩ(globals);
+  constructor(private _globals: BettererGlobals) {
+    this._context = new BettererContextΩ(this._globals);
     this._started = this._context.start();
   }
 
@@ -55,6 +55,8 @@ export class BettererRunnerΩ implements BettererRunner {
         return null;
       }
       throw e;
+    } finally {
+      this._globals.versionControl.destroy();
     }
   }
 

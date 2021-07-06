@@ -53,6 +53,7 @@ export default {
     expect(logs).toMatchSnapshot();
 
     const git = simpleGit();
+    await git.init();
     const status = await git.status([resultsPath]);
     const [stagedResultsPath] = status.staged;
     expect(stagedResultsPath).toMatchSnapshot();
