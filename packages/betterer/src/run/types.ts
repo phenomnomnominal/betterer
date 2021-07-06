@@ -13,7 +13,6 @@ export type BettererRun = {
   readonly filePaths: BettererFilePaths | null;
   readonly name: string;
   readonly test: BettererTestConfig;
-  readonly timestamp: number;
   readonly isNew: boolean;
   readonly isSkipped: boolean;
 };
@@ -31,9 +30,9 @@ export type BettererRunning = {
 export type BettererRunSummary = BettererRun & {
   readonly diff: BettererDiff;
   readonly delta: BettererDelta | null;
-  readonly error: BettererError;
   readonly result: BettererResult;
   readonly timestamp: number;
+  readonly error: BettererError;
 
   readonly isBetter: boolean;
   readonly isComplete: boolean;
