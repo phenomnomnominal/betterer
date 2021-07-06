@@ -136,6 +136,8 @@ Array [
 ]
 `;
 
+exports[`betterer precommit should add a diff to the summary if there is any change to the results file 2`] = `"fixtures/test-betterer-precommit/.betterer.results"`;
+
 exports[`betterer precommit should throw when a test gets worse 1`] = `
 Array [
   "

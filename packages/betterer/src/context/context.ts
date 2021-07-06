@@ -1,10 +1,9 @@
 import { BettererError } from '@betterer/errors';
 
 import { BettererConfig } from '../config';
-import { BettererFilePaths, BettererVersionControl } from '../fs';
+import { BettererFilePaths, BettererVersionControlWorker } from '../fs';
 import { BettererReporterΩ } from '../reporters';
 import { BettererResultsΩ, BettererResultΩ } from '../results';
-import { BettererGlobals } from '../types';
 import { Defer, defer } from '../utils';
 import { BettererTestMetaMap, isBettererFileTest, loadTests } from '../test';
 import { BettererRunΩ } from './run';
@@ -19,47 +18,48 @@ import {
   BettererSummaries,
   BettererSummary
 } from './types';
+import { BettererGlobals } from '../types';
 
-export class BettererContextΩ implements BettererContext {
+export class BettererContextΩ implements BettererContext, BettererGlobals {
   public readonly config: BettererConfig;
+  public readonly reporter: BettererReporterΩ;
+  public readonly results: BettererResultsΩ;
+  public readonly versionControl: BettererVersionControlWorker;
 
-  private _reporter: BettererReporterΩ;
-  private _results: BettererResultsΩ;
   private _running: Promise<BettererRunSummaries> | null = null;
   private _summaries: BettererSummaries = [];
   private _tests: BettererTestMetaMap = {};
-  private _versionControl: BettererVersionControl;
 
   constructor(globals: BettererGlobals) {
     this.config = globals.config;
-    this._reporter = globals.reporter;
-    this._results = globals.results;
-    this._versionControl = globals.versionControl;
+    this.reporter = globals.reporter;
+    this.results = globals.results;
+    this.versionControl = globals.versionControl;
   }
 
   public start(): BettererContextStarted {
     const contextLifecycle = defer<BettererSummaries>();
     // Don't await here! A custom reporter could be awaiting
     // the lifecycle promise which is unresolved right now!
-    const reportContextStart = this._reporter.contextStart(this, contextLifecycle.promise);
+    const reportContextStart = this.reporter.contextStart(this, contextLifecycle.promise);
     return {
       end: async (): Promise<void> => {
         contextLifecycle.resolve(this._summaries);
         await reportContextStart;
-        await this._reporter.contextEnd(this, this._summaries);
+        await this.reporter.contextEnd(this, this._summaries);
         const summaryΩ = this._summaries[this._summaries.length - 1] as BettererSummaryΩ;
         if (summaryΩ.shouldWrite) {
-          await this._results.write(summaryΩ.result);
-          await this._versionControl.writeCache();
+          await this.results.write(summaryΩ.result);
+          await this.versionControl.writeCache();
           if (this.config.precommit) {
-            await this._versionControl.add(this.config.resultsPath);
+            await this.versionControl.add(this.config.resultsPath);
           }
         }
       },
       error: async (error: BettererError): Promise<void> => {
         contextLifecycle.reject(error);
         await reportContextStart;
-        await this._reporter.contextError(this, error);
+        await this.reporter.contextError(this, error);
       }
     };
   }
@@ -68,8 +68,8 @@ export class BettererContextΩ implements BettererContext {
     if (this._running) {
       await this._running;
     }
-    await this._results.sync();
-    await this._versionControl.sync();
+    await this.results.sync();
+    await this.versionControl.sync();
 
     this._tests = loadTests(this.config);
     const testNames = Object.keys(this._tests);
@@ -77,7 +77,7 @@ export class BettererContextΩ implements BettererContext {
     // Only run BettererFileTests when a list of filePaths is given:
     const runFileTests = filePaths.length > 0;
 
-    const validFilePaths = filePaths.filter((filePath) => !this._versionControl.isIgnored(filePath));
+    const validFilePaths = await this.versionControl.filterIgnored(filePaths);
 
     const runs = testNames
       .map((name) => {
@@ -86,8 +86,8 @@ export class BettererContextΩ implements BettererContext {
         if (runFileTests && !isBettererFileTest(test)) {
           return null;
         }
-        const baseline = this._results.getBaseline(name, test);
-        const expected = this._results.getExpectedResult(name, test);
+        const baseline = this.results.getBaseline(name, test);
+        const expected = this.results.getExpectedResult(name, test);
         const runFilePaths = isBettererFileTest(test) ? validFilePaths : null;
         return new BettererRunΩ(this.config, name, testMeta, expected, baseline, runFilePaths);
       })
@@ -103,32 +103,24 @@ export class BettererContextΩ implements BettererContext {
     const runsLifecycle = defer<BettererSummary>();
     // Don't await here! A custom reporter could be awaiting
     // the lifecycle promise which is unresolved right now!
-    const reportRunsStart = this._reporter.runsStart(runs, validFilePaths, runsLifecycle.promise);
+    const reportRunsStart = this.reporter.runsStart(runs, validFilePaths, runsLifecycle.promise);
     try {
       this._running = this._runTests(runs, runLifecycles);
       const runSummaries = await this._running;
-      const result = await this._results.print(runSummaries);
-      const expected = await this._results.read();
+      const result = await this.results.print(runSummaries);
+      const expected = await this.results.read();
       const summary = new BettererSummaryΩ(runSummaries, result, expected, this.config.ci);
       this._summaries.push(summary);
       runsLifecycle.resolve(summary);
       await reportRunsStart;
-      await this._reporter.runsEnd(summary, validFilePaths);
+      await this.reporter.runsEnd(summary, validFilePaths);
       return summary;
     } catch (error) {
       runsLifecycle.reject(error);
       await reportRunsStart;
-      await this._reporter.runsError(runs, validFilePaths, error);
+      await this.reporter.runsError(runs, validFilePaths, error);
       throw error;
     }
-  }
-
-  public checkCache(filePath: string): boolean {
-    return this._versionControl.checkCache(filePath);
-  }
-
-  public updateCache(filePaths: BettererFilePaths): void {
-    return this._versionControl.updateCache(filePaths);
   }
 
   private async _runTests(
@@ -141,17 +133,17 @@ export class BettererContextΩ implements BettererContext {
         const runΩ = run as BettererRunΩ;
         // Don't await here! A custom reporter could be awaiting
         // the lifecycle promise which is unresolved right now!
-        const reportRunStart = this._reporter.runStart(runΩ, lifecycle.promise);
+        const reportRunStart = this.reporter.runStart(runΩ, lifecycle.promise);
         const runSummary = await this._runTest(runΩ);
         if (runSummary.isFailed) {
           const { error } = runSummary;
           lifecycle.reject(error);
           await reportRunStart;
-          await this._reporter.runError(runΩ, error);
+          await this.reporter.runError(runΩ, error);
         } else {
           lifecycle.resolve(runSummary);
           await reportRunStart;
-          await this._reporter.runEnd(runSummary);
+          await this.reporter.runEnd(runSummary);
         }
         return runSummary;
       })

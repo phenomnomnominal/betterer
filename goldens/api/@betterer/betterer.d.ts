@@ -93,9 +93,9 @@ export declare type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<
 
 export declare type BettererFileResolver = {
     baseDirectory: string;
-    files(filePaths: BettererFilePaths): BettererFilePaths;
+    files(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
     resolve(...pathSegments: Array<string>): string;
-    validate(filePaths: BettererFilePaths): BettererFilePaths;
+    validate(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
 };
 
 export declare type BettererFilesDiff = Record<string, BettererFileDiff>;
@@ -287,7 +287,7 @@ export declare type BettererSummary = {
 };
 
 export declare class BettererTest<DeserialisedType, SerialisedType, DiffType> implements BettererTestBase<DeserialisedType, SerialisedType, DiffType> {
-    get config(): BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
+    readonly config: BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
     get isOnly(): boolean;
     get isSkipped(): boolean;
     constructor(options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>);

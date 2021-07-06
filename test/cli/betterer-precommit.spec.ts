@@ -42,14 +42,6 @@ export default {
     const fixturePath = paths.cwd;
     const indexPath = resolve('./src/index.ts');
 
-    // Mock `git add` so it doesn't break everything:
-    const git = simpleGit();
-    const spy = jest
-      .spyOn(git.constructor.prototype as SimpleGit, 'add')
-      .mockImplementation(function (this: SimpleGit) {
-        return this as Response<string>;
-      });
-
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one + one);\nconsole.log(a * one);`);
 
     await startΔ(fixturePath, ARGV);
@@ -58,12 +50,17 @@ export default {
 
     await precommitΔ(fixturePath, ARGV);
 
-    expect(spy).toHaveBeenCalledWith(resultsPath);
-
     expect(logs).toMatchSnapshot();
 
+    const git = simpleGit();
+    await git.init();
+    const status = await git.status([resultsPath]);
+    const [stagedResultsPath] = status.staged;
+    expect(stagedResultsPath).toMatchSnapshot();
+
+    await git.reset([resultsPath]);
+
     await cleanup();
-    spy.mockRestore();
   });
 
   it('should throw when a test gets worse', async () => {
