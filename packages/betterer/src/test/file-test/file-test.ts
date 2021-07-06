@@ -1,8 +1,9 @@
 import assert from 'assert';
 import path from 'path';
 
-import { BettererContext, BettererRun, BettererRunΩ } from '../../context';
+import { BettererContext } from '../../context';
 import { BettererFileResolverΩ, BettererFileGlobs, BettererFilePatterns } from '../../fs';
+import { BettererRun, BettererRunΩ } from '../../run';
 import { BettererGlobals } from '../../types';
 import { createTestConfig } from '../config';
 import { BettererTestConstraint, BettererTestFunction, BettererTestGoal } from '../types';

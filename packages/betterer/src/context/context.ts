@@ -6,18 +6,9 @@ import { BettererReporterΩ } from '../reporters';
 import { BettererResultsΩ, BettererResultΩ } from '../results';
 import { Defer, defer } from '../utils';
 import { BettererTestMetaMap, isBettererFileTest, loadTests } from '../test';
-import { BettererRunΩ } from './run';
+import { BettererRunΩ, BettererRunSummaries, BettererRuns, BettererRunSummary, BettererReporterRun } from '../run';
 import { BettererSummaryΩ } from './summary';
-import {
-  BettererContext,
-  BettererContextStarted,
-  BettererReporterRun,
-  BettererRuns,
-  BettererRunSummaries,
-  BettererRunSummary,
-  BettererSummaries,
-  BettererSummary
-} from './types';
+import { BettererContext, BettererContextStarted, BettererSummaries, BettererSummary } from './types';
 import { BettererGlobals } from '../types';
 
 export class BettererContextΩ implements BettererContext, BettererGlobals {

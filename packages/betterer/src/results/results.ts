@@ -1,7 +1,7 @@
 import assert from 'assert';
 
-import { BettererRunSummaries } from '../context';
 import { forceRelativePaths, read, write } from '../fs';
+import { BettererRunSummaries } from '../run';
 import { BettererTestBase } from '../test';
 import { parse } from './parser';
 import { print } from './printer';
