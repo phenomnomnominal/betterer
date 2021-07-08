@@ -1,16 +1,20 @@
+import { BettererFilePaths } from '../fs';
 import { BettererRunSummaries } from '../run';
-import { BettererSummary } from './types';
+import { BettererSuite, BettererSuiteSummary } from './types';
 
-export class BettererSummaryΩ implements BettererSummary {
+export class BettererSuiteSummaryΩ implements BettererSuiteSummary {
+  public readonly filePaths: BettererFilePaths;
   public readonly unexpectedDiff: boolean;
   public readonly shouldWrite: boolean;
 
   constructor(
+    suite: BettererSuite,
     public readonly runs: BettererRunSummaries,
     public readonly result: string,
     public readonly expected: string | null,
     ci: boolean
   ) {
+    this.filePaths = suite.filePaths;
     const hasDiff = !!this.expected && this.expected !== this.result;
     this.unexpectedDiff = hasDiff && ci;
     const expectedDiff = hasDiff && !ci;

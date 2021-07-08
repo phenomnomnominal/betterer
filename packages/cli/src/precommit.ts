@@ -1,10 +1,10 @@
-import { BettererSummary, betterer, BettererOptionsStartCI } from '@betterer/betterer';
+import { BettererSuiteSummary, betterer, BettererOptionsStartCI } from '@betterer/betterer';
 
 import { cliOptions } from './options';
 import { BettererCLIArguments } from './types';
 
 /** @internal Definitely not stable! Please don't use! */
-export function precommitΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSummary> {
+export function precommitΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary> {
   const { config, exclude, filter, include, results, silent, reporter, tsconfig } = cliOptions(argv);
 
   // Mark options as unknown...

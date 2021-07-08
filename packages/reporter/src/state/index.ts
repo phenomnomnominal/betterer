@@ -1,14 +1,14 @@
 export {
   CONTEXT_END,
-  RUNS_END,
-  RUNS_START,
+  SUITE_END,
+  SUITE_START,
   BettererContextEndAction,
   BettererReporterAction,
-  BettererRunsStartAction,
-  BettererRunsEndAction,
+  BettererSuiteStartAction,
+  BettererSuiteEndAction,
   contextEnd,
-  runsStart,
-  runsEnd
+  suiteStart,
+  suiteEnd
 } from './actions';
 export { createStore } from './store';
 export { BettererReporterState } from './types';

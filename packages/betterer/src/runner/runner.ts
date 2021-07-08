@@ -1,7 +1,8 @@
 import assert from 'assert';
 
-import { BettererContextΩ, BettererContextStarted, BettererSummary } from '../context';
-import { BettererFilePaths } from '../fs';
+import { BettererContextΩ, BettererContextStarted } from '../context';
+import { BettererFilePaths, BettererVersionControlWorker } from '../fs';
+import { BettererSuiteSummary } from '../suite';
 import { BettererGlobals } from '../types';
 import { normalisedPath } from '../utils';
 import { BettererRunHandler, BettererRunner, BettererRunnerJobs } from './types';
@@ -10,16 +11,20 @@ const DEBOUNCE_TIME = 200;
 
 export class BettererRunnerΩ implements BettererRunner {
   private _context: BettererContextΩ;
-  private _started: BettererContextStarted;
   private _jobs: BettererRunnerJobs = [];
-  private _running: Promise<BettererSummary> | null = null;
+  private _running: Promise<BettererSuiteSummary> | null = null;
+  private _started: BettererContextStarted;
+  private _versionControl: BettererVersionControlWorker;
 
-  constructor(private _globals: BettererGlobals) {
-    this._context = new BettererContextΩ(this._globals);
+  constructor(globals: BettererGlobals) {
+    this._context = new BettererContextΩ(globals);
+
+    this._versionControl = this._context.versionControl;
+
     this._started = this._context.start();
   }
 
-  public async run(filePaths: BettererFilePaths): Promise<BettererSummary> {
+  public async run(filePaths: BettererFilePaths): Promise<BettererSuiteSummary> {
     this._addJob(filePaths);
     await this._processQueue();
     return this.stop();
@@ -42,21 +47,21 @@ export class BettererRunnerΩ implements BettererRunner {
     });
   }
 
-  public async stop(): Promise<BettererSummary>;
+  public async stop(): Promise<BettererSuiteSummary>;
   public async stop(force: true): Promise<null>;
-  public async stop(force?: true): Promise<BettererSummary | null> {
+  public async stop(force?: true): Promise<BettererSuiteSummary | null> {
     try {
       assert(this._running);
-      const summary = await this._running;
-      await this._started.end();
-      return summary;
+      await this._running;
+      const contextSummary = await this._started.end();
+      return contextSummary.lastSuite;
     } catch (e) {
       if (force) {
         return null;
       }
       throw e;
     } finally {
-      this._globals.versionControl.destroy();
+      this._versionControl.destroy();
     }
   }
 
@@ -76,11 +81,12 @@ export class BettererRunnerΩ implements BettererRunner {
         });
         const changed = Array.from(filePaths).sort();
         const handlers = this._jobs.map((job) => job.handler);
-
         this._jobs = [];
+
         this._running = this._context.run(changed);
-        const summary = await this._running;
-        handlers.forEach((handler) => handler?.(summary));
+        const suiteSummary = await this._running;
+
+        handlers.forEach((handler) => handler?.(suiteSummary));
       } catch (error) {
         await this._started.error(error);
       }

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`betterer ci should add a diff to the summary if there is any change to the results file 1`] = `
+exports[`betterer ci should add a diff to the suiteSummary if there is any change to the results file 1`] = `
 Array [
   "
    / | /     _         _   _

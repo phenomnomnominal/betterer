@@ -2,8 +2,8 @@ import { FSWatcher, watch } from 'chokidar';
 import minimatch from 'minimatch';
 import * as path from 'path';
 
-import { BettererSummary } from '../context';
 import { BettererFilePaths } from '../fs';
+import { BettererSuiteSummary } from '../suite';
 import { BettererGlobals } from '../types';
 import { normalisedPath } from '../utils';
 import { BettererRunnerΩ } from './runner';
@@ -53,8 +53,8 @@ export class BettererWatcherΩ implements BettererRunner {
   }
 
   public async stop(force: true): Promise<null>;
-  public async stop(): Promise<BettererSummary>;
-  public async stop(force?: true): Promise<BettererSummary | null> {
+  public async stop(): Promise<BettererSuiteSummary>;
+  public async stop(force?: true): Promise<BettererSuiteSummary | null> {
     await this._watcher.close();
     return await (force ? this._runner.stop(force) : this._runner.stop());
   }

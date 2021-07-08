@@ -18,8 +18,8 @@ type BettererFilePaths = ReadonlyArray<string>;
 ```typescript
 type BettererRunner = {
   queue(filePaths?: BettererFilePaths, handler?: BettererRunHandler): Promise<void>;
-  stop(force: true): Promise<BettererSummary | null>;
-  stop(): Promise<BettererSummary>;
+  stop(force: true): Promise<BettererSuiteSummary | null>;
+  stop(): Promise<BettererSuiteSummary>;
 };
 ```
 
@@ -38,22 +38,22 @@ Returns: `Promise<void>`
 
 ### `stop()`
 
-Stop the runner, and return the most recent [`BettererSummary`](./context#betterersummary) (or `null` if a run hasn't finished yet`).
+Stop the runner, and return the most recent [`BettererSuiteSummary`](./context#betterersuitesummary) (or `null` if a run hasn't finished yet`).
 
 Args:
 
 - `force?`: `true` - If `force` is passed, the **Betterer** run will be stopped and any errors will be ignored.
 
-Returns: [`Promise<BettererSummary>`](./context#betterersummary)
+Returns: [`Promise<BettererSuiteSummary>`](./context#betterersuitesummary)
 
 ## `BettererRunHandler`
 
 ```typescript
-type BettererRunHandler = (summary: BettererSummary) => void;
+type BettererRunHandler = (suiteSummary: BettBettererSuiteSummaryererSummary) => void;
 ```
 
 Args:
 
-- `summary`: [`BettererSummary`](./context#betterersummary) - The summary of the completed run.
+- `suiteSummary`: [`BettererSuiteSummary`](./context#betterersuitesummary) - The summary of the completed suite.
 
 Returns: `void`

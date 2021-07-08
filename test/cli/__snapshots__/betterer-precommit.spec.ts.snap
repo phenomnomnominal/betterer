@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`betterer precommit should add a diff to the summary if there is any change to the results file 1`] = `
+exports[`betterer precommit should add the results file to the changeset if there is any change to the results file 1`] = `
 Array [
   "
    / | /     _         _   _
@@ -136,9 +136,9 @@ Array [
 ]
 `;
 
-exports[`betterer precommit should add a diff to the summary if there is any change to the results file 2`] = `"fixtures/test-betterer-precommit/.betterer.results"`;
+exports[`betterer precommit should add the results file to the changeset if there is any change to the results file 2`] = `"fixtures/test-betterer-precommit/.betterer.results"`;
 
-exports[`betterer precommit should throw when a test gets worse 1`] = `
+exports[`betterer precommit should not update the changeset when a test gets worse 1`] = `
 Array [
   "
    / | /     _         _   _

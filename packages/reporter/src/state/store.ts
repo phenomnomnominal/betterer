@@ -1,6 +1,6 @@
 import { BettererContext } from '@betterer/betterer';
 
-import { BettererReporterAction, CONTEXT_END, RUNS_END, RUNS_START } from './actions';
+import { BettererReporterAction, CONTEXT_END, SUITE_END, SUITE_START } from './actions';
 import { BettererReporterDispatch, BettererReporterState } from './types';
 
 export function createStore(context: BettererContext): BettererReporterDispatch {
@@ -9,21 +9,18 @@ export function createStore(context: BettererContext): BettererReporterDispatch 
       case CONTEXT_END: {
         return {
           ...state,
-          suiteSummaries: action.suiteSummaries
+          contextSummary: action.contextSummary
         };
       }
-      case RUNS_START: {
+      case SUITE_START: {
         return {
           context: state.context,
-          filePaths: action.filePaths,
-          runs: action.runs
+          suite: action.suite
         };
       }
-      case RUNS_END: {
+      case SUITE_END: {
         return {
           context: state.context,
-          filePaths: state.filePaths,
-          runSummaries: action.runSummaries,
           suiteSummary: action.suiteSummary
         };
       }

@@ -1,11 +1,11 @@
 import { debug } from '@phenomnomnominal/debug';
 
 import { BettererOptionsRunner, BettererOptionsStart, BettererOptionsWatch } from './config';
-import { BettererSummary } from './context';
 import { createGlobals } from './globals';
 import { BettererRunner, BettererRunnerΩ, BettererWatcherΩ } from './runner';
+import { BettererSuiteSummary } from './suite';
 
-export async function betterer(options: BettererOptionsStart = {}): Promise<BettererSummary> {
+export async function betterer(options: BettererOptionsStart = {}): Promise<BettererSuiteSummary> {
   initDebug();
   const globals = await createGlobals(options);
   const runner = new BettererRunnerΩ(globals);

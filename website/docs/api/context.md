@@ -139,10 +139,10 @@ A list of run names.
 type BettererRunNames = Array<string>;
 ```
 
-## `BettererSummary`
+## `BettererSuiteSummary`
 
 ```typescript
-type BettererSummary = {
+type BettererSuiteSummary = {
   readonly runs: BettererRuns;
   readonly result: string;
   readonly expected: string | null;
@@ -219,11 +219,3 @@ type BettererSummary = {
 #### `worse`: [`BettererRuns`](#bettererruns)
 
 > The list of runs that got worse.
-
-## `BettererSummaries`
-
-A list of [`BettererSummary`](#betterersummary).
-
-```typescript
-type BettererSummaries = Array<BettererSummary>;
-```

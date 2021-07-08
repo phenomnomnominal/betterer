@@ -1,13 +1,12 @@
 import { precommitΔ, startΔ } from '@betterer/cli';
-import { jest } from '@jest/globals';
-import simpleGit, { Response, SimpleGit } from 'simple-git';
+import simpleGit from 'simple-git';
 
 import { createFixture } from '../fixture';
 
 const ARGV = ['node', './bin/betterer'];
 
 describe('betterer precommit', () => {
-  it('should add a diff to the summary if there is any change to the results file', async () => {
+  it('should add the results file to the changeset if there is any change to the results file', async () => {
     const { paths, logs, cleanup, resolve, writeFile } = await createFixture('test-betterer-precommit', {
       'src/index.ts': `
 const a = 'a';
@@ -54,7 +53,7 @@ export default {
 
     const git = simpleGit();
     await git.init();
-    const status = await git.status([resultsPath]);
+    const status = await git.status();
     const [stagedResultsPath] = status.staged;
     expect(stagedResultsPath).toMatchSnapshot();
 
@@ -63,7 +62,7 @@ export default {
     await cleanup();
   });
 
-  it('should throw when a test gets worse', async () => {
+  it('should not update the changeset when a test gets worse', async () => {
     const { paths, logs, cleanup, resolve, writeFile } = await createFixture('test-betterer-precommit-worse', {
       'src/index.ts': `
 const a = 'a';
@@ -97,27 +96,21 @@ export default {
     const fixturePath = paths.cwd;
     const indexPath = resolve('./src/index.ts');
 
-    // Mock `git add` so it doesn't break everything:
-    const git = simpleGit();
-    const spy = jest
-      .spyOn(git.constructor.prototype as SimpleGit, 'add')
-      .mockImplementation(function (this: SimpleGit) {
-        return this as Response<string>;
-      });
-
     await startΔ(fixturePath, ARGV);
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one * a);\nconsole.log(a * one);`);
 
-    const diffSummary = await precommitΔ(fixturePath, ARGV);
+    const suiteSummary = await precommitΔ(fixturePath, ARGV);
 
-    expect(diffSummary.worse).toHaveLength(1);
-
-    expect(spy).not.toHaveBeenCalled();
+    expect(suiteSummary.worse).toHaveLength(1);
 
     expect(logs).toMatchSnapshot();
 
+    const git = simpleGit();
+    await git.init();
+    const status = await git.status();
+    expect(status.staged).toEqual([]);
+
     await cleanup();
-    spy.mockRestore();
   });
 });
