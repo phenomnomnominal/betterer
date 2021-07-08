@@ -1,4 +1,5 @@
 import assert from 'assert';
+import { BettererConfig } from '../config';
 
 import { forceRelativePaths, read, write } from '../fs';
 import { BettererRunSummaries } from '../run';
@@ -13,8 +14,11 @@ const RESULTS_HEADER = `// BETTERER RESULTS V2.`;
 export class BettererResultsΩ {
   private _baseline: BettererExpectedResults | null = null;
   private _expected: BettererExpectedResults | null = null;
+  private _resultsPath: string;
 
-  constructor(private _resultsPath: string) {}
+  constructor(private _config: BettererConfig) {
+    this._resultsPath = this._config.resultsPath;
+  }
 
   public async sync(): Promise<void> {
     if (!this._baseline) {

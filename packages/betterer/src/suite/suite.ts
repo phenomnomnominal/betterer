@@ -45,7 +45,7 @@ export class BettererSuiteΩ implements BettererSuite {
         const baseline = this._results.getBaseline(name, test);
         const expected = this._results.getExpectedResult(name, test);
         const runFilePaths = isBettererFileTest(test) ? this.filePaths : null;
-        return new BettererRunΩ(this._config, name, testMeta, expected, baseline, runFilePaths);
+        return new BettererRunΩ(name, testMeta, expected, baseline, runFilePaths);
       })
       .filter(Boolean) as BettererRuns;
 
