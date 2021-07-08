@@ -22,7 +22,7 @@ export async function createGlobals(options: unknown = {}): Promise<BettererGlob
       reporter = loadReporters(reporters, cwd);
     }
     await registerExtensions(config);
-    const results = new BettererResultsΩ(config.resultsPath);
+    const results = new BettererResultsΩ(config);
     return { config, reporter, results, versionControl };
   } catch (error) {
     await reporter.configError(options, error);
