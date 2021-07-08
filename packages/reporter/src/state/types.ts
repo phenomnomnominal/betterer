@@ -1,21 +1,13 @@
-import {
-  BettererContext,
-  BettererFilePaths,
-  BettererRuns,
-  BettererRunSummaries,
-  BettererSummaries,
-  BettererSummary
-} from '@betterer/betterer';
+import { BettererContext, BettererSuiteSummary, BettererContextSummary } from '@betterer/betterer';
+import { BettererSuite } from '@betterer/betterer/src/suite';
 
 import { BettererReporterAction } from './actions';
 
 export type BettererReporterState = {
   context: BettererContext;
-  filePaths?: BettererFilePaths;
-  runs?: BettererRuns;
-  runSummaries?: BettererRunSummaries;
-  suiteSummary?: BettererSummary;
-  suiteSummaries?: BettererSummaries;
+  contextSummary?: BettererContextSummary;
+  suite?: BettererSuite;
+  suiteSummary?: BettererSuiteSummary;
 };
 
 export type BettererReporterDispatch = (action?: BettererReporterAction) => BettererReporterState;

@@ -63,14 +63,14 @@ export declare type BettererPackageJSON = {
     devDependencies: Record<string, string>;
 };
 
-export declare function ciΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSummary>;
+export declare function ciΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary>;
 
 export declare function cliΔ(argv: BettererCLIArguments): void;
 
 export declare function initΔ(cwd: string, argv: BettererCLIArguments): Promise<void>;
 
-export declare function precommitΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSummary>;
+export declare function precommitΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary>;
 
-export declare function startΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSummary>;
+export declare function startΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary>;
 
 export declare function watchΔ(cwd: string, argv: BettererCLIArguments): Promise<void>;

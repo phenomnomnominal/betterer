@@ -1,13 +1,12 @@
 import {
   betterer,
   BettererContext,
-  BettererFilePaths,
   BettererRun,
   BettererRunSummary,
-  BettererRuns,
-  BettererSummaries,
-  BettererSummary
+  BettererSuite,
+  BettererSuiteSummary
 } from '@betterer/betterer';
+import { BettererContextSummary } from '../packages/betterer/src';
 
 import { createFixture } from './fixture';
 
@@ -88,13 +87,13 @@ export const getsBetter = () => new BettererTest({
         contextError() {
           return;
         },
-        runsStart() {
+        suiteStart() {
           return;
         },
-        runsEnd() {
+        suiteEnd() {
           return;
         },
-        runsError() {
+        suiteError() {
           return;
         },
         runStart() {
@@ -143,14 +142,14 @@ export const getsBetter = () => new BettererTest({
         configError() {
           return;
         },
-        async contextStart(_: BettererContext, lifecycle: Promise<BettererSummaries>) {
+        async contextStart(_: BettererContext, lifecycle: Promise<BettererContextSummary>) {
           try {
             await lifecycle;
           } catch (e) {
             return;
           }
         },
-        async runsStart(_: BettererRuns, __: BettererFilePaths, lifecycle: Promise<BettererSummary>) {
+        async suiteStart(_: BettererSuite, lifecycle: Promise<BettererSuiteSummary>) {
           try {
             await lifecycle;
           } catch (e) {

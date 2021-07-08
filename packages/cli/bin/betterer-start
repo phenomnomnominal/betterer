@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 require('../dist/start')
   .startΔ(process.cwd(), process.argv)
-  .then(function (summary) {
-    process.exitCode = summary.worse.length !== 0 ? 1 : 0;
+  .then(function (suiteSummary) {
+    process.exitCode = suiteSummary.worse.length !== 0 ? 1 : 0;
   })
   .catch(function () {
     process.exitCode = 1;

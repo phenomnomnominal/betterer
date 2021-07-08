@@ -22,12 +22,13 @@ export {
   BettererOptionsStart,
   BettererOptionsWatch
 } from './config/public';
-export { BettererContext, BettererDelta, BettererSummary, BettererSummaries } from './context/public';
+export { BettererContext, BettererContextSummary, BettererDelta } from './context/public';
 export { BettererFileGlobs, BettererFilePaths, BettererFilePatterns, BettererFileResolver } from './fs/public';
 export { BettererResult } from './results/public';
 export { BettererReporter } from './reporters/public';
 export { BettererRun, BettererRunNames, BettererRunSummary, BettererRunSummaries, BettererRuns } from './run/public';
 export { BettererRunner, BettererRunHandler } from './runner/public';
+export { BettererSuite, BettererSuiteSummary, BettererSuiteSummaries } from './suite/public';
 export {
   BettererDeserialise,
   BettererDiff,

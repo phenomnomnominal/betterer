@@ -4,7 +4,7 @@ import { useApp, useInput, useStdin } from 'ink';
 
 import { BettererReporterApp } from '../../types';
 import { ConfigEditField } from '../config';
-import { Runs, SuiteSummary } from '../runs';
+import { Suite, SuiteSummary } from '../runs';
 
 import { WatchEnding } from './WatchEnding';
 import { WatchFiles } from './WatchFiles';
@@ -50,18 +50,18 @@ export const WatchReporter: FC<BettererReporterState> = memo(function WatchRepor
     }
   });
 
-  const { context, runs, runSummaries, suiteSummaries, suiteSummary } = props;
-  const filePaths = props.filePaths || [];
+  const { context, contextSummary, suiteSummary } = props;
+  const suite = props.suiteSummary || props.suite;
 
-  if (suiteSummaries) {
+  if (contextSummary) {
     return <WatchEnding />;
   }
-  if (runs || runSummaries) {
+  if (suite) {
     return (
       <>
-        <WatchFiles context={context} editField={editField} filePaths={filePaths} running={!runSummaries} />
-        <Runs runs={runs} runSummaries={runSummaries} />
-        {suiteSummary && <SuiteSummary context={context} summary={suiteSummary} />}
+        <WatchFiles context={context} editField={editField} suite={suite} running={!suiteSummary} />
+        <Suite suite={suite} />
+        {suiteSummary && <SuiteSummary context={context} suiteSummary={suiteSummary} />}
         <WatchInstructions />
       </>
     );

@@ -52,8 +52,8 @@ module.exports = {
 
     const runner = await betterer.runner({ configPaths, resultsPath, cwd });
     await runner.queue(indexPath);
-    const summary = await runner.stop();
-    const [run] = summary.runs;
+    const suiteSummary = await runner.stop();
+    const [run] = suiteSummary.runs;
 
     expect(run.isNew).toEqual(true);
     expect(run.filePaths).toEqual([normalisedPath(indexPath)]);
@@ -109,8 +109,8 @@ module.exports = {
 
     const runner = await betterer.runner({ configPaths, resultsPath, cwd });
     await runner.queue(testPath);
-    const summary = await runner.stop();
-    const [run] = summary.runs;
+    const suiteSummary = await runner.stop();
+    const [run] = suiteSummary.runs;
 
     expect(run.isComplete).toEqual(true);
     expect(run.filePaths).toHaveLength(0);
@@ -138,8 +138,8 @@ module.exports = {
 
     const runner = await betterer.runner({ configPaths, resultsPath, cwd });
     await runner.queue(indexPath);
-    const summary = await runner.stop();
-    const [run] = summary.runs;
+    const suiteSummary = await runner.stop();
+    const [run] = suiteSummary.runs;
 
     expect(run.isNew).toEqual(true);
     expect(run.filePaths).toEqual([normalisedPath(indexPath)]);
@@ -167,8 +167,8 @@ module.exports = {
 
     const runner = await betterer.runner({ configPaths, resultsPath, cwd });
     await runner.queue(testPath);
-    const summary = await runner.stop();
-    const [run] = summary.runs;
+    const suiteSummary = await runner.stop();
+    const [run] = suiteSummary.runs;
 
     expect(run.isComplete).toEqual(true);
     expect(run.filePaths).toHaveLength(0);
@@ -211,8 +211,8 @@ export default {
 
     const runner = await betterer.runner({ configPaths, resultsPath, cwd });
     await runner.queue(indexPath);
-    const summary = await runner.stop();
-    const [run] = summary.runs;
+    const suiteSummary = await runner.stop();
+    const [run] = suiteSummary.runs;
 
     expect(run.isNew).toEqual(true);
     expect(run.filePaths).toEqual([normalisedPath(indexPath)]);
@@ -262,8 +262,8 @@ export default {
 
     const runner = await betterer.runner({ configPaths, resultsPath, cwd });
     await runner.queue(testPath);
-    const summary = await runner.stop();
-    const [run] = summary.runs;
+    const suiteSummary = await runner.stop();
+    const [run] = suiteSummary.runs;
 
     expect(run.isNew).toEqual(true);
     expect(run.filePaths).toEqual([]);
@@ -317,8 +317,8 @@ console.log(3 * 'baz');
 
     const runner = await betterer.runner({ configPaths, resultsPath, cwd });
     await runner.queue(indexPath);
-    const summary = await runner.stop();
-    const [run] = summary.runs;
+    const suiteSummary = await runner.stop();
+    const [run] = suiteSummary.runs;
 
     expect(run.isNew).toEqual(true);
     expect(run.filePaths).toEqual([normalisedPath(indexPath)]);
@@ -366,8 +366,8 @@ export default {
 
     const runner = await betterer.runner({ configPaths, resultsPath, cwd });
     await runner.queue(testPath);
-    const summary = await runner.stop();
-    const [run] = summary.runs;
+    const suiteSummary = await runner.stop();
+    const [run] = suiteSummary.runs;
 
     expect(run.isNew).toEqual(true);
     expect(run.filePaths).toEqual([]);

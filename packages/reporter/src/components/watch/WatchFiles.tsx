@@ -1,6 +1,6 @@
 import React, { FC, memo } from 'react';
 
-import { BettererContext, BettererFilePaths } from '@betterer/betterer';
+import { BettererContext, BettererSuite } from '@betterer/betterer';
 import { Box, Text } from 'ink';
 
 import { filesChecked, filesChecking } from '../../messages';
@@ -9,17 +9,18 @@ import { Config, ConfigEditField } from '../config';
 export type WatchFilesProps = {
   context: BettererContext;
   editField: ConfigEditField;
-  filePaths: BettererFilePaths;
+  suite: BettererSuite;
   running: boolean;
 };
 
 export const WatchFiles: FC<WatchFilesProps> = memo(function WatchFiles(props) {
-  const { context, editField, filePaths, running } = props;
+  const { context, editField, suite, running } = props;
+  const { filePaths } = suite;
 
   return (
     <>
       <Config context={context} editField={editField} />
-      {filePaths.length ? (
+      {filePaths?.length ? (
         <>
           <Box paddingBottom={1}>
             <Text>{running ? filesChecking(filePaths.length) : filesChecked(filePaths.length)}</Text>

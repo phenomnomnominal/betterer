@@ -1,20 +1,14 @@
 import React from 'react';
 
-import {
-  BettererContext,
-  BettererFilePaths,
-  BettererReporter,
-  BettererRuns,
-  BettererSummaries,
-  BettererSummary
-} from '@betterer/betterer';
+import { BettererContext, BettererContextSummary, BettererReporter, BettererSuiteSummary } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import { reset } from '@betterer/tasks';
 import { Instance, render } from 'ink';
 
 import { Error, Reporter } from './components';
-import { BettererReporterAction, contextEnd, createStore, runsEnd, runsStart } from './state';
+import { BettererReporterAction, contextEnd, createStore, suiteEnd, suiteStart } from './state';
 import { BettererReporterRenderer } from './types';
+import { BettererSuite } from '@betterer/betterer/src/suite';
 
 export const reporter: BettererReporter = createReporter();
 
@@ -33,21 +27,21 @@ function createReporter(): BettererReporter {
       renderer = createRenderer(context);
       await renderer.render();
     },
-    async contextEnd(_: BettererContext, suiteSummaries: BettererSummaries): Promise<void> {
-      if (suiteSummaries.length > 1) {
-        await renderer.render(contextEnd(suiteSummaries));
+    async contextEnd(contextSummary: BettererContextSummary): Promise<void> {
+      if (contextSummary.suites.length > 1) {
+        await renderer.render(contextEnd(contextSummary));
       }
       renderer.stop();
     },
     contextError(_: BettererContext, error: BettererError): Promise<void> {
       return renderError(error);
     },
-    runsStart(runs: BettererRuns, filePaths: BettererFilePaths): Promise<void> {
+    suiteStart(suite: BettererSuite): Promise<void> {
       reset();
-      return renderer.render(runsStart(filePaths, runs));
+      return renderer.render(suiteStart(suite));
     },
-    runsEnd(summary: BettererSummary): Promise<void> {
-      return renderer.render(runsEnd(summary.runs, summary));
+    suiteEnd(suiteSummary: BettererSuiteSummary): Promise<void> {
+      return renderer.render(suiteEnd(suiteSummary));
     }
   };
 

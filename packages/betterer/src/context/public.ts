@@ -1,1 +1,1 @@
-export { BettererContext, BettererDelta, BettererSummary, BettererSummaries } from './types';
+export { BettererContext, BettererContextSummary, BettererDelta } from './types';

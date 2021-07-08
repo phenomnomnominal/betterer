@@ -1,11 +1,11 @@
-import { BettererSummary, betterer, BettererOptionsStart } from '@betterer/betterer';
+import { BettererSuiteSummary, betterer, BettererOptionsStart } from '@betterer/betterer';
 import { ciΔ } from './ci';
 
 import { cliOptions } from './options';
 import { BettererCLIArguments } from './types';
 
 /** @internal Definitely not stable! Please don't use! */
-export function startΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSummary> {
+export function startΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary> {
   if (process.env.CI) {
     return ciΔ(cwd, argv);
   }

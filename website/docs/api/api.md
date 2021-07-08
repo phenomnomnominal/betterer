@@ -16,14 +16,14 @@ Usage:
 ```typescript
 import { betterer } from '@betterer/betterer';
 
-const summary = await betterer(options);
+const suiteSummary = await betterer(options);
 ```
 
 Args:
 
 - `options`: [`BettererOptionsStart?`](./config#bettereroptionsstart) - An options object for a **Betterer** run in default mode
 
-Returns: [`BettererSummary`](./context#betterersummary)
+Returns: [`BettererSuiteSummary`](./context#betterersuitesummary)
 
 ## `betterer.watch()`
 

@@ -3,8 +3,9 @@ import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
 import { BettererConfig } from '../config';
+import { BettererContext } from '../context';
 import { BettererFilePaths } from '../fs';
-import { BettererResult } from '../results';
+import { BettererResult, BettererResultΩ } from '../results';
 import { BettererDiff, BettererTestBase, BettererTestConfig, BettererTestMeta } from '../test';
 import { BettererRunSummaryΩ } from './run-summary';
 import { BettererRun, BettererRunning, BettererRunSummary } from './types';
@@ -54,7 +55,22 @@ export class BettererRunΩ implements BettererRun {
     return this._test.config;
   }
 
-  public start(): BettererRunning {
+  public async run(context: BettererContext): Promise<BettererRunSummary> {
+    const running = this._start();
+
+    if (this.isSkipped) {
+      return running.skipped();
+    }
+
+    try {
+      const result = new BettererResultΩ(await this.test.test(this, context));
+      return running.done(result);
+    } catch (error) {
+      return running.failed(error);
+    }
+  }
+
+  private _start(): BettererRunning {
     this._timestamp = Date.now();
 
     const end = async (

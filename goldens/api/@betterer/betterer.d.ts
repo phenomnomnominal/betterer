@@ -1,4 +1,4 @@
-export declare function betterer(options?: BettererOptionsStart): Promise<BettererSummary>;
+export declare function betterer(options?: BettererOptionsStart): Promise<BettererSuiteSummary>;
 export declare namespace betterer {
     var runner: typeof import("./betterer").runner;
     var watch: typeof import("./betterer").watch;
@@ -35,6 +35,11 @@ export declare type BettererConfigReporters = ReadonlyArray<BettererConfigReport
 
 export declare type BettererContext = {
     readonly config: BettererConfig;
+};
+
+export declare type BettererContextSummary = BettererContext & {
+    suites: BettererSuiteSummaries;
+    lastSuite: BettererSuiteSummary;
 };
 
 export declare type BettererDelta = {
@@ -206,12 +211,12 @@ export declare type BettererProgress<DeserialisedType> = (baseline: Deserialised
 
 export declare type BettererReporter = {
     configError?(config: unknown, error: BettererError): Promise<void> | void;
-    contextStart?(context: BettererContext, lifecycle: Promise<BettererSummaries>): Promise<void> | void;
-    contextEnd?(context: BettererContext, summaries: BettererSummaries): Promise<void> | void;
+    contextStart?(context: BettererContext, lifecycle: Promise<BettererContextSummary>): Promise<void> | void;
+    contextEnd?(contextSummary: BettererContextSummary): Promise<void> | void;
     contextError?(context: BettererContext, error: BettererError): Promise<void> | void;
-    runsStart?(runs: BettererRuns, filePaths: BettererFilePaths, lifecycle: Promise<BettererSummary>): Promise<void> | void;
-    runsEnd?(summary: BettererSummary, filePaths: BettererFilePaths): Promise<void> | void;
-    runsError?(runs: BettererRuns, filePaths: BettererFilePaths, error: BettererError): Promise<void> | void;
+    suiteStart?(suite: BettererSuite, lifecycle: Promise<BettererSuiteSummary>): Promise<void> | void;
+    suiteEnd?(suiteSummary: BettererSuiteSummary): Promise<void> | void;
+    suiteError?(suite: BettererSuite, error: BettererError): Promise<void> | void;
     runStart?(run: BettererRun, lifecycle: Promise<BettererRunSummary>): Promise<void> | void;
     runEnd?(run: BettererRunSummary): Promise<void> | void;
     runError?(run: BettererRun, error: BettererError): Promise<void> | void;
@@ -231,14 +236,14 @@ export declare type BettererRun = {
     readonly isSkipped: boolean;
 };
 
-export declare type BettererRunHandler = (summary: BettererSummary) => void;
+export declare type BettererRunHandler = (suiteSummary: BettererSuiteSummary) => void;
 
 export declare type BettererRunNames = Array<string>;
 
 export declare type BettererRunner = {
     queue(filePaths?: string | BettererFilePaths, handler?: BettererRunHandler): Promise<void>;
-    stop(force: true): Promise<BettererSummary | null>;
-    stop(): Promise<BettererSummary>;
+    stop(force: true): Promise<BettererSuiteSummary | null>;
+    stop(): Promise<BettererSuiteSummary>;
 };
 
 export declare type BettererRuns = ReadonlyArray<BettererRun>;
@@ -267,9 +272,14 @@ export declare type BettererSerialiser<DeserialisedType, SerialisedType = Deseri
     deserialise: BettererDeserialise<DeserialisedType, SerialisedType>;
 };
 
-export declare type BettererSummaries = Array<BettererSummary>;
+export declare type BettererSuite = {
+    readonly filePaths: BettererFilePaths;
+    readonly runs: BettererRuns;
+};
 
-export declare type BettererSummary = {
+export declare type BettererSuiteSummaries = Array<BettererSuiteSummary>;
+
+export declare type BettererSuiteSummary = BettererSuite & {
     readonly runs: BettererRunSummaries;
     readonly result: string;
     readonly expected: string | null;

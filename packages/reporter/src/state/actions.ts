@@ -1,53 +1,44 @@
-import {
-  BettererFilePaths,
-  BettererRuns,
-  BettererRunSummaries,
-  BettererSummaries,
-  BettererSummary
-} from '@betterer/betterer';
+import { BettererSuiteSummary, BettererContextSummary } from '@betterer/betterer';
+import { BettererSuite } from '@betterer/betterer/src/suite';
 
 export const CONTEXT_END = 'contextEnd';
-export const RUNS_START = 'runsStart';
-export const RUNS_END = 'runsEnd';
+export const SUITE_START = 'suiteStart';
+export const SUITE_END = 'suiteEnd';
 
 export type BettererContextEndAction = {
   name: typeof CONTEXT_END;
-  suiteSummaries: BettererSummaries;
+  contextSummary: BettererContextSummary;
 };
 
-export type BettererRunsStartAction = {
-  name: typeof RUNS_START;
-  filePaths: BettererFilePaths;
-  runs: BettererRuns;
+export type BettererSuiteStartAction = {
+  name: typeof SUITE_START;
+  suite: BettererSuite;
 };
 
-export type BettererRunsEndAction = {
-  name: typeof RUNS_END;
-  runSummaries: BettererRunSummaries;
-  suiteSummary: BettererSummary;
+export type BettererSuiteEndAction = {
+  name: typeof SUITE_END;
+  suiteSummary: BettererSuiteSummary;
 };
 
-export type BettererReporterAction = BettererContextEndAction | BettererRunsStartAction | BettererRunsEndAction;
+export type BettererReporterAction = BettererContextEndAction | BettererSuiteStartAction | BettererSuiteEndAction;
 
-export function contextEnd(suiteSummaries: BettererSummaries): BettererContextEndAction {
+export function contextEnd(contextSummary: BettererContextSummary): BettererContextEndAction {
   return {
     name: CONTEXT_END,
-    suiteSummaries
+    contextSummary
   };
 }
 
-export function runsStart(filePaths: BettererFilePaths, runs: BettererRuns): BettererRunsStartAction {
+export function suiteStart(suite: BettererSuite): BettererSuiteStartAction {
   return {
-    name: RUNS_START,
-    filePaths,
-    runs
+    name: SUITE_START,
+    suite
   };
 }
 
-export function runsEnd(runSummaries: BettererRunSummaries, suiteSummary: BettererSummary): BettererRunsEndAction {
+export function suiteEnd(suiteSummary: BettererSuiteSummary): BettererSuiteEndAction {
   return {
-    name: RUNS_END,
-    runSummaries,
+    name: SUITE_END,
     suiteSummary
   };
 }

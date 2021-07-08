@@ -12,11 +12,11 @@ The interface to the **Betterer** [reporter system](./reporters) for hooking int
 ```typescript
 type BettererReporter = {
   configError?(config: unknown, error: BettererError): Promise<void> | void;
-  contextStart?(context: BettererContext, lifecycle: Promise<BettererSummaries>): Promise<void> | void;
-  contextEnd?(context: BettererContext, summaries: BettererSummaries): Promise<void> | void;
+  contextStart?(context: BettererContext, lifecycle: Promise<BettererContextSummary>): Promise<void> | void;
+  contextEnd?(contextSummary: BettererContextSummary): Promise<void> | void;
   contextError?(context: BettererContext, error: BettererError): Promise<void> | void;
-  runsStart?(runs: BettererRuns, filePaths: BettererFilePaths): Promise<void> | void;
-  runsEnd?(summary: BettererSummary, filePaths: BettererFilePaths): Promise<void> | void;
+  suiteStart?(suite: BettererSuite, lifecycle: Promise<BettererSuiteSummary>): Promise<void> | void;
+  suiteEnd?(suiteSummary: BettererSuiteSummaries, filePaths: BettererFilePaths): Promise<void> | void;
   runStart?(run: BettererRun, lifecycle: Promise<void>): Promise<void> | void;
   runEnd?(run: BettererRun): Promise<void> | void;
   runError?(run: BettererRun, error: BettererError): Promise<void> | void;
@@ -45,7 +45,7 @@ The `contextStart()` hook is called when a [`BettererContext`](./context#bettere
 Args:
 
 - `context`: [`BettererContext`](./context#betterercontext) - The current test context.
-- `lifecycle`: [`Promise<BettererSummaries>`](./context#betterersummaries) - A promise that will resolve when the context ends or reject when the context errors.
+- `lifecycle`: [`Promise<BettererContextSummary>`](./context#betterercontextsummarry) - A promise that will resolve when the context ends or reject when the context errors.
 
 Returns: `Promise<void> | void`
 
@@ -55,8 +55,7 @@ The `contextEnd()` hook is called when a [`BettererContext`](./context#bettererc
 
 Args:
 
-- `context`: [`BettererContext`](./context#betterercontext) - The current test context.
-- `summaries`: [`BettererSummaries`](./context#betterersummaries) - A list of [`BettererSummaries`](./context#betterersummaries), one for each run completed by the context.
+- `contextSummary`: [`BettererContextSummary`](./context#betterercontextsummary) - The current test context.
 
 Returns: `Promise<void> | void`
 
@@ -71,25 +70,24 @@ Args:
 
 ## Runs hooks
 
-### `runsStart()`
+### `suiteStart()`
 
-The `runsStart()` hook is called when a [`BettererContext`](./context#betterercontext) starts a new set of test runs.
+The `suiteStart()` hook is called when a [`BettererContext`](./context#betterercontext) starts a new suite of test runs.
 
 Args:
 
-- `runs`: [`BettererRuns`](./context#bettererruns) - A list of [`BettererRuns`](./context#bettererruns) that will be run.
-- `filePaths`: [`BettererFilePaths`](./runner#bettererfilepaths) - A list of [`BettererFilePaths`](./runner#bettererfilepaths) that will be checked.
+- `suite`: [`BettererSuite`](./context#betterersuite) - A [`BettererSuite`](./context#betterersuite).
+- `lifecycle`: `Promise<BettererSuiteSummary>` - A promise that will resolve when the suite run ends, or reject when the suite run throws.
 
 Returns: `Promise<void> | void`
 
-### `runsEnd()`
+### `suiteEnd()`
 
-The `runsEnd()` hook is called when a [`BettererContext`](./context#betterercontext) ends a set of test runs.
+The `suiteEnd()` hook is called when a [`BettererContext`](./context#betterercontext) ends a suite of test runs.
 
 Args:
 
-- `summary`: [`BettererSummary`](./context#betterersummary) - A [`BettererSummary`](./context#betterersummary) for the completed test run.
-- `filePaths`: [`BettererFilePaths`](./runner#bettererfilepaths) - A list of [`BettererFilePaths`](./runner#bettererfilepaths) that were checked.
+- `suiteSummary`: [`BettererSuiteSummaries`](./context#betterersuitesummary) - A [`BettererSuiteSummaries`](./context#betterersuitesummary) for the completed test run.
 
 Returns: `Promise<void> | void`
 
@@ -102,7 +100,7 @@ The `runStart()` hook is called when a [`BettererRun`](./context#bettererrun) st
 Args:
 
 - `run`: [`BettererRun`](./context#bettererrun) - The current test run.
-- `lifecycle`: `Promise<void>` - A promise that will resolve when the test run ends, or reject when the test run throws.
+- `lifecycle`: `Promise<BettererRunSummary>` - A promise that will resolve when the test run ends, or reject when the test run throws.
 
 Returns: `Promise<void> | void`
 
