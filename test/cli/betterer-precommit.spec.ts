@@ -53,7 +53,7 @@ export default {
 
     const git = simpleGit();
     await git.init();
-    const status = await git.status();
+    const status = await git.status([paths.results]);
     const [stagedResultsPath] = status.staged;
     expect(stagedResultsPath).toMatchSnapshot();
 
@@ -108,7 +108,7 @@ export default {
 
     const git = simpleGit();
     await git.init();
-    const status = await git.status();
+    const status = await git.status([paths.results]);
     expect(status.staged).toEqual([]);
 
     await cleanup();

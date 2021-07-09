@@ -14,7 +14,7 @@ Use this test to incrementally introduce new [**ESLint**](https://eslint.org/) r
 import { eslint } from '@betterer/eslint';
 
 export default {
-  'no more debuggers': eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
+  'no more debuggers': () => eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
 };
 ```
 
@@ -28,7 +28,7 @@ Use this test to incrementally remove [**RegExp**](https://developer.mozilla.org
 import { regexp } from '@betterer/regexp';
 
 export default {
-  'no hack comments': regexp(/(\/\/\s*HACK)/i).include('**/*.ts')
+  'no hack comments': () => regexp(/(\/\/\s*HACK)/i).include('**/*.ts')
 };
 ```
 
@@ -42,7 +42,7 @@ Use this test to incrementally introduce new [**Stylelint**](https://stylelint.i
 import { stylelint } from '@betterer/stylelint';
 
 export default {
-  'no unknown units': stylelint({
+  'no unknown units': () => stylelint({
     rules: {
       'unit-no-unknown': true
     }
@@ -74,9 +74,10 @@ Use this test to incrementally introduce [**TypeScript** configuration](https://
 import { typescript } from '@betterer/typescript';
 
 export default {
-  'stricter compilation': typescript('./tsconfig.json', {
-    strict: true
-  }).include('./src/**/*.ts')
+  'stricter compilation': () =>
+    typescript('./tsconfig.json', {
+      strict: true
+    }).include('./src/**/*.ts')
 };
 ```
 

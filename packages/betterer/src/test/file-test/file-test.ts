@@ -105,7 +105,7 @@ function createTest(
     const cacheHit = runΩ.filePaths.length !== runFiles.length;
     const isPartial = hasSpecifiedFiles || cacheHit;
 
-    const result = new BettererFileTestResultΩ();
+    const result = new BettererFileTestResultΩ(resolver);
     await fileTest(runFiles, result, resolver);
 
     await versionControl.updateCache(result.filePaths);

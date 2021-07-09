@@ -25,10 +25,6 @@ export function normalisedPath(filePath: string): string {
   return path.sep === path.posix.sep ? filePath : filePath.split(path.sep).join(path.posix.sep);
 }
 
-export function getAbsolutePath(resultsPath: string, filePath: string): string {
-  return normalisedPath(path.resolve(path.dirname(resultsPath), filePath));
-}
-
 type Resolve<T> = (value: T) => void;
 type Reject = (error: Error) => void;
 export type Defer<T> = {
