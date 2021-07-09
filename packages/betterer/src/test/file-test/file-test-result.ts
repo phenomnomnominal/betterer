@@ -31,8 +31,9 @@ export class BettererFileTestResultΩ implements BettererFileTestResult {
     return file;
   }
 
-  public addFile(absolutePath: string, fileText: string): BettererFile {
+  public addFile(filePath: string, fileText: string): BettererFile {
     assert(this._resolver);
+    const absolutePath = this._resolver.resolve(filePath);
     const file = new BettererFileΩ(absolutePath, fileText);
     const existingFile = this._fileMap[file.absolutePath];
     if (existingFile) {

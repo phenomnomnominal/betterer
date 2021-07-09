@@ -11,6 +11,7 @@ export function deserialise(serialised: BettererFileIssuesMapSerialised, results
       return { line, column, length, message, hash };
     });
     const absolutePath = getAbsolutePath(resultsPath, relativePath);
+    key = `${absolutePath}:${fileHash}`;
     deserialised.addExpected({ absolutePath, key, hash: fileHash, issues });
   });
   return deserialised;
