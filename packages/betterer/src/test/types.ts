@@ -98,8 +98,6 @@ export type BettererTestMeta = {
   configPath: string;
   factory: BettererTestFactory;
   name: string;
-  isOnly: boolean;
-  isSkipped: boolean;
 };
 export type BettererTestMetaMap = Record<string, BettererTestMeta>;
 export type BettererTestMap = Record<string, BettererTestFactory>;

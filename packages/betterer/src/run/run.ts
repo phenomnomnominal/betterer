@@ -6,7 +6,8 @@ import { BettererConfig } from '../config';
 import { BettererContext } from '../context';
 import { BettererFilePaths } from '../fs';
 import { BettererResult, BettererResultΩ } from '../results';
-import { BettererDiff, BettererTestBase, BettererTestConfig, BettererTestMeta } from '../test';
+import { BettererDiff, BettererTestConfig, BettererTestMeta, isBettererFileTest } from '../test';
+import { isBettererTest } from '../test/test';
 import { BettererRunSummaryΩ } from './run-summary';
 import { BettererRun, BettererRunning, BettererRunSummary } from './types';
 
@@ -21,23 +22,44 @@ export enum BettererRunStatus {
 }
 
 export class BettererRunΩ implements BettererRun {
-  public readonly isNew = this.expected.isNew;
-  public readonly isSkipped = this._testMeta.isSkipped;
+  public readonly isOnly: boolean;
+  public filePaths: BettererFilePaths | null;
   public readonly test: BettererTestConfig;
 
+  private _expected: BettererResult | null = null;
+  private _isSkipped: boolean;
   private _timestamp: number | null = null;
-  private _test: BettererTestBase;
 
   constructor(
     public readonly name: string,
     private _testMeta: BettererTestMeta,
-    public expected: BettererResult,
-    private _baseline: BettererResult,
-    public filePaths: BettererFilePaths | null
+    filePaths: BettererFilePaths,
+    public readonly isNew: boolean
   ) {
-    this._test = this._testMeta.factory();
-    this.test = this._test.config;
-    this.test.configPath = this._testMeta.configPath;
+    const test = this._testMeta.factory();
+
+    if (!isBettererTest(test) && !isBettererFileTest(test)) {
+      throw new BettererError(`"${name}" must return a \`BettererTest\`.`);
+    }
+
+    test.config.configPath = this._testMeta.configPath;
+    this.test = test.config;
+
+    // Only run BettererFileTests when a list of filePaths is given:
+    const onlyFileTests = filePaths.length > 0;
+    const isFileTest = isBettererFileTest(test);
+    this.filePaths = isFileTest ? filePaths : null;
+    this._isSkipped = test.isSkipped || (onlyFileTests && !isFileTest);
+    this.isOnly = test.isOnly;
+  }
+
+  public get expected(): BettererResult {
+    assert(this._expected);
+    return this._expected;
+  }
+
+  public get isSkipped(): boolean {
+    return this._isSkipped;
   }
 
   public get timestamp(): number {
@@ -45,8 +67,17 @@ export class BettererRunΩ implements BettererRun {
     return this._timestamp;
   }
 
-  public async run(context: BettererContext): Promise<BettererRunSummary> {
-    const running = this._start(context.config);
+  public async run(
+    context: BettererContext,
+    baseline: BettererResult,
+    expected: BettererResult
+  ): Promise<BettererRunSummary> {
+    const { resultsPath } = context.config;
+
+    baseline = this._deserialiseResult(baseline, resultsPath);
+    expected = this._deserialiseResult(expected, resultsPath);
+
+    const running = this._start(context.config, baseline, expected);
 
     if (this.isSkipped) {
       return running.skipped();
@@ -60,8 +91,13 @@ export class BettererRunΩ implements BettererRun {
     }
   }
 
-  private _start(config: BettererConfig): BettererRunning {
+  public skip(): void {
+    this._isSkipped = true;
+  }
+
+  private _start(config: BettererConfig, baseline: BettererResult, expected: BettererResult): BettererRunning {
     this._timestamp = Date.now();
+    this._expected = expected;
 
     const end = async (
       status: BettererRunStatus,
@@ -69,13 +105,16 @@ export class BettererRunΩ implements BettererRun {
       diff: BettererDiff | null = null,
       error: BettererError | null = null
     ): Promise<BettererRunSummary> => {
-      const baselineValue = this._baseline.isNew ? null : this._baseline.value;
       const resultValue = !result ? null : result.value;
 
+      const baselineValue = baseline.isNew ? null : baseline.value;
       const delta = await this.test.progress(baselineValue, resultValue);
+
       const isComplete = resultValue != null && (await this.test.goal(resultValue));
-      const runSummary = new BettererRunSummaryΩ(this, result, diff, delta, error, status, isComplete);
-      return runSummary;
+
+      const summary = new BettererRunSummaryΩ(this, this.test, result, diff, delta, error, status, isComplete);
+      await summary.serialise(config.resultsPath);
+      return summary;
     };
 
     return {
@@ -104,6 +143,13 @@ export class BettererRunΩ implements BettererRun {
         return end(BettererRunStatus.skipped);
       }
     };
+  }
+
+  private _deserialiseResult(result: BettererResult, resultsPath: string): BettererResult {
+    if (result.isNew) {
+      return result;
+    }
+    return new BettererResultΩ(this.test.serialiser.deserialise(result.value, resultsPath));
   }
 }
 

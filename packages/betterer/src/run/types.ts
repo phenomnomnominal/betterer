@@ -3,16 +3,14 @@ import { BettererError } from '@betterer/errors';
 import { BettererDelta } from '../context';
 import { BettererFilePaths } from '../fs';
 import { BettererResult } from '../results';
-import { BettererDiff, BettererTestConfig } from '../test';
+import { BettererDiff } from '../test';
 
 export type BettererRuns = ReadonlyArray<BettererRun>;
 export type BettererRunNames = Array<string>;
 
 export type BettererRun = {
-  readonly expected: BettererResult;
   readonly filePaths: BettererFilePaths | null;
   readonly name: string;
-  readonly test: BettererTestConfig;
   readonly isNew: boolean;
   readonly isSkipped: boolean;
 };
@@ -30,9 +28,11 @@ export type BettererRunning = {
 export type BettererRunSummary = BettererRun & {
   readonly diff: BettererDiff;
   readonly delta: BettererDelta | null;
+  readonly error: BettererError;
+  readonly expected: BettererResult;
+  readonly printed: string | null;
   readonly result: BettererResult;
   readonly timestamp: number;
-  readonly error: BettererError;
 
   readonly isBetter: boolean;
   readonly isComplete: boolean;

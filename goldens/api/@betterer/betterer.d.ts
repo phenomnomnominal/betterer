@@ -228,10 +228,8 @@ export declare type BettererResult = {
 };
 
 export declare type BettererRun = {
-    readonly expected: BettererResult;
     readonly filePaths: BettererFilePaths | null;
     readonly name: string;
-    readonly test: BettererTestConfig;
     readonly isNew: boolean;
     readonly isSkipped: boolean;
 };
@@ -253,9 +251,11 @@ export declare type BettererRunSummaries = Array<BettererRunSummary>;
 export declare type BettererRunSummary = BettererRun & {
     readonly diff: BettererDiff;
     readonly delta: BettererDelta | null;
+    readonly error: BettererError;
+    readonly expected: BettererResult;
+    readonly printed: string | null;
     readonly result: BettererResult;
     readonly timestamp: number;
-    readonly error: BettererError;
     readonly isBetter: boolean;
     readonly isComplete: boolean;
     readonly isExpired: boolean;
