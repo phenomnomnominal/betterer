@@ -1,7 +1,8 @@
 import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 import memoize from 'fast-memoize';
-import findGitRoot from 'find-git-root';
+import * as path from 'path';
+import { promises as fs } from 'fs';
 
 import { BettererGit } from './git';
 import { BettererVersionControl } from './types';
@@ -9,11 +10,7 @@ import { BettererVersionControl } from './types';
 let globalVersionControl: BettererVersionControl;
 
 export const createVersionControl = memoize(async function createVersionControl(): Promise<BettererVersionControl> {
-  const gitDir = findGitRoot(process.cwd());
-  if (!gitDir) {
-    throw new BettererError('.git directory not found. Betterer must be used within a git repository.');
-  }
-  const git = new BettererGit(gitDir);
+  const git = new BettererGit(await findGitRoot());
   await git.init();
   globalVersionControl = git;
   return globalVersionControl;
@@ -22,4 +19,18 @@ export const createVersionControl = memoize(async function createVersionControl(
 export function getVersionControl(): BettererVersionControl {
   assert(globalVersionControl);
   return globalVersionControl;
+}
+
+async function findGitRoot(): Promise<string> {
+  let dir = process.cwd();
+  while (dir !== path.parse(dir).root) {
+    try {
+      const gitPath = path.join(dir, '.git');
+      await fs.access(gitPath);
+      return gitPath;
+    } catch (err) {
+      dir = path.join(dir, '..');
+    }
+  }
+  throw new BettererError('.git directory not found. Betterer must be used within a git repository.');
 }
