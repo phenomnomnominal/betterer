@@ -476,8 +476,6 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 
-Error: could not read config from \\"<project>/fixtures/test-betterer-stylelint-no-config/.betterer\\". 😔
-
 Error: for \`@betterer/stylelint\` to work, you need to provide configuration options, e.g. \`{ rules: { \\"unit-no-unknown\\": true } }\`. ❌
 ",
 ]

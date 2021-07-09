@@ -5,8 +5,15 @@ import { BettererContextΩ } from '../context';
 import { BettererFilePaths } from '../fs';
 import { BettererReporterΩ } from '../reporters';
 import { BettererResultsΩ } from '../results';
-import { BettererReporterRun, BettererRuns, BettererRunSummaries, BettererRunSummary, BettererRunΩ } from '../run';
-import { isBettererFileTest, loadTests } from '../test';
+import {
+  BettererReporterRun,
+  BettererRuns,
+  BettererRunSummaries,
+  BettererRunSummary,
+  BettererRunsΩ,
+  BettererRunΩ
+} from '../run';
+import { loadTests } from '../test';
 import { Defer, defer } from '../utils';
 import { BettererSuiteSummaryΩ } from './suite-summary';
 import { BettererSuite, BettererSuiteSummary } from './types';
@@ -32,22 +39,11 @@ export class BettererSuiteΩ implements BettererSuite {
     const tests = loadTests(this._config);
     const testNames = Object.keys(tests);
 
-    // Only run BettererFileTests when a list of filePaths is given:
-    const onlyFileTests = this.filePaths.length > 0;
-
-    this._runs = testNames
-      .map((name) => {
-        const testMeta = tests[name];
-        const test = testMeta.factory();
-        if (onlyFileTests && !isBettererFileTest(test)) {
-          return null;
-        }
-        const baseline = this._results.getBaseline(name, test);
-        const expected = this._results.getExpectedResult(name, test);
-        const runFilePaths = isBettererFileTest(test) ? this.filePaths : null;
-        return new BettererRunΩ(name, testMeta, expected, baseline, runFilePaths);
-      })
-      .filter(Boolean) as BettererRuns;
+    this._runs = testNames.map((name) => {
+      const testMeta = tests[name];
+      const isNew = !this._results.hasResult(name);
+      return new BettererRunΩ(name, testMeta, this.filePaths, isNew);
+    }) as BettererRuns;
 
     // Attach lifecycle promises for Reporters:
     const runLifecycles = this._runs.map((run) => {
@@ -61,8 +57,8 @@ export class BettererSuiteΩ implements BettererSuite {
     // the lifecycle promise which is unresolved right now!
     const reportSuiteStart = this._reporter.suiteStart(this, runsLifecycle.promise);
     try {
-      const runSummaries = await this._runTests(this.runs, runLifecycles);
-      const result = await this._results.print(runSummaries);
+      const runSummaries = await this._runTests(this._runs, runLifecycles);
+      const result = this._results.print(runSummaries);
       const expected = await this._results.read();
       const suiteSummary = new BettererSuiteSummaryΩ(this, runSummaries, result, expected, this._config.ci);
       runsLifecycle.resolve(suiteSummary);
@@ -81,14 +77,21 @@ export class BettererSuiteΩ implements BettererSuite {
     runs: BettererRuns,
     runLifecycles: Array<Defer<BettererRunSummary>>
   ): Promise<BettererRunSummaries> {
+    const runsΩ = runs as BettererRunsΩ;
+    this._applyOnly(runsΩ);
+    this._applyFilters(runsΩ);
+
     return Promise.all(
-      runs.map(async (run, index) => {
+      runsΩ.map(async (runΩ, index) => {
         const lifecycle = runLifecycles[index];
-        const runΩ = run as BettererRunΩ;
+
+        const [baseline, expected] = this._results.getExpected(runΩ.name);
+
         // Don't await here! A custom reporter could be awaiting
         // the lifecycle promise which is unresolved right now!
         const reportRunStart = this._reporter.runStart(runΩ, lifecycle.promise);
-        const runSummary = await runΩ.run(this._context);
+        const runSummary = await runΩ.run(this._context, baseline, expected);
+
         if (runSummary.isFailed) {
           const { error } = runSummary;
           lifecycle.reject(error);
@@ -102,5 +105,28 @@ export class BettererSuiteΩ implements BettererSuite {
         return runSummary;
       })
     );
+  }
+
+  private _applyOnly(runsΩ: BettererRunsΩ): void {
+    const only = runsΩ.find((runΩ) => runΩ.isOnly);
+    if (only) {
+      runsΩ.forEach((runΩ) => {
+        if (!runΩ.isOnly) {
+          runΩ.skip();
+        }
+      });
+    }
+  }
+
+  private _applyFilters(runsΩ: BettererRunsΩ) {
+    // read `filters` here so that it can be updated by watch mode:
+    const { filters } = this._config;
+    if (filters.length) {
+      runsΩ.forEach((runΩ) => {
+        if (!filters.some((filter) => filter.test(runΩ.name))) {
+          runΩ.skip();
+        }
+      });
+    }
   }
 }
