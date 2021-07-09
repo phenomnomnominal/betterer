@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.4.1](https://github.com/phenomnomnominal/betterer/compare/v4.4.0...v4.4.1) (2021-07-09)
+
+
+### Bug Fixes
+
+* **betterer 🐛:** improve reporter implementation ([#775](https://github.com/phenomnomnominal/betterer/issues/775)) ([c723c6e](https://github.com/phenomnomnominal/betterer/commit/c723c6e4d127c3224310899ef252a617dfbedf98))
+
+
+
+
+
 # [4.4.0](https://github.com/phenomnomnominal/betterer/compare/v4.3.8...v4.4.0) (2021-06-18)
 
 **Note:** Version bump only for package @betterer/reporter
