@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.4.1](https://github.com/phenomnomnominal/betterer/compare/v4.4.0...v4.4.1) (2021-07-09)
+
+
+### Bug Fixes
+
+* **betterer 🐛:** fix error when using worktrees and submodules ([#794](https://github.com/phenomnomnominal/betterer/issues/794)) ([a568ea3](https://github.com/phenomnomnominal/betterer/commit/a568ea341afb681db94ce4b02445ea145d772934))
+* **betterer 🐛:** fix incorrect key when reusing existing test results ([#796](https://github.com/phenomnomnominal/betterer/issues/796)) ([c40ace7](https://github.com/phenomnomnominal/betterer/commit/c40ace72976bb94de66af0bf0a026e01b34a153b))
+
+
+
+
+
 # [4.4.0](https://github.com/phenomnomnominal/betterer/compare/v4.3.8...v4.4.0) (2021-06-18)
 
 
