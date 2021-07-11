@@ -1,32 +1,48 @@
-import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
-import { BettererDelta } from '../context';
-import { BettererResult } from '../results';
-import { BettererDiff, BettererTestConfig } from '../test';
-import { BettererRunStatus, BettererRunΩ } from './run';
+import { BettererDiff } from '../test';
+import { BettererResultΩ } from '../results';
 import { BettererRunSummary } from './types';
+import { BettererDelta } from '../context';
+import { BettererError } from '@betterer/errors';
+import { BettererWorkerRunSummaryΩ } from './worker-run-summary';
+
+export enum BettererRunStatus {
+  better,
+  failed,
+  new,
+  same,
+  skipped,
+  update,
+  worse
+}
 
 export class BettererRunSummaryΩ implements BettererRunSummary {
-  public readonly expected = this._runΩ.expected;
-  public readonly filePaths = this._runΩ.filePaths;
-  public readonly isNew = this.expected.isNew;
-  public readonly name = this._runΩ.name;
-  public readonly timestamp = this._runΩ.timestamp;
+  public readonly baseline: BettererResultΩ;
+  public readonly expected: BettererResultΩ;
+  public readonly result: BettererResultΩ;
+  public readonly filePaths = this._summaryΩ.filePaths;
+  public readonly isComplete = this._summaryΩ.isComplete;
+  public readonly isExpired = this._summaryΩ.isExpired;
+  public readonly isNew = this._summaryΩ.isNew;
+  public readonly name = this._summaryΩ.name;
+  public readonly printed = this._summaryΩ.printed;
+  public readonly timestamp = this._summaryΩ.timestamp;
 
-  private _isPrinted = false;
-  private _printed: string | null = null;
+  private _delta = this._summaryΩ.delta;
+  private _diff = this._summaryΩ.diff;
+  private _error = this._summaryΩ.error;
+  private _status = this._summaryΩ.status;
 
-  constructor(
-    private _runΩ: BettererRunΩ,
-    private _test: BettererTestConfig,
-    private _result: BettererResult | null,
-    private _diff: BettererDiff | null,
-    public readonly delta: BettererDelta | null,
-    private _error: BettererError | null,
-    private _status: BettererRunStatus,
-    public readonly isComplete: boolean
-  ) {}
+  constructor(private _summaryΩ: BettererWorkerRunSummaryΩ) {
+    this.baseline = new BettererResultΩ(this._summaryΩ.baseline);
+    this.expected = new BettererResultΩ(this._summaryΩ.expected);
+    this.result = new BettererResultΩ(this._summaryΩ.result);
+  }
+
+  public get delta(): BettererDelta | null {
+    return this._delta;
+  }
 
   public get diff(): BettererDiff {
     assert(this._diff);
@@ -38,22 +54,8 @@ export class BettererRunSummaryΩ implements BettererRunSummary {
     return this._error;
   }
 
-  public get printed(): string | null {
-    assert(this._isPrinted);
-    return this._printed;
-  }
-
-  public get result(): BettererResult {
-    assert(this._result);
-    return this._result;
-  }
-
   public get isBetter(): boolean {
     return this._status === BettererRunStatus.better;
-  }
-
-  public get isExpired(): boolean {
-    return this.timestamp >= this._test.deadline;
   }
 
   public get isFailed(): boolean {
@@ -74,17 +76,5 @@ export class BettererRunSummaryΩ implements BettererRunSummary {
 
   public get isWorse(): boolean {
     return this._status === BettererRunStatus.worse;
-  }
-
-  public async serialise(resultsPath: string): Promise<void> {
-    const { isComplete, isNew, isSkipped, isFailed } = this;
-    const shouldPrint = !(isComplete || (isNew && (isSkipped || isFailed)));
-    if (shouldPrint) {
-      const { isFailed, isSkipped, isWorse } = this;
-      const toPrint = isFailed || isSkipped || isWorse ? this.expected : this.result;
-      const serialised = this._test.serialiser.serialise(toPrint.value, resultsPath);
-      this._printed = await this._test.printer(serialised);
-    }
-    this._isPrinted = true;
   }
 }

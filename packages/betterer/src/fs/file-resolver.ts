@@ -2,15 +2,16 @@ import assert from 'assert';
 import minimatch from 'minimatch';
 import * as path from 'path';
 
+import { flatten, normalisedPath } from '../utils';
 import {
-  getVersionControl,
   BettererFileGlobs,
+  BettererFilePath,
   BettererFilePaths,
   BettererFilePatterns,
+  BettererFileResolver,
   BettererVersionControlWorker
-} from '../fs';
-import { flatten, normalisedPath } from '../utils';
-import { BettererFileResolver } from './types';
+} from './types';
+import { getVersionControl } from './version-control';
 
 export class BettererFileResolverΩ implements BettererFileResolver {
   private _excluded: Array<RegExp> = [];
@@ -38,7 +39,7 @@ export class BettererFileResolverΩ implements BettererFileResolver {
     // If `include()` was never called, just filter the given list:
     if (!this._included.length) {
       const validFilePaths = await this._versionControl.filterIgnored(filePaths);
-      return validFilePaths.filter((filePath) => !this._isExcluded(filePath));
+      return validFilePaths.filter((filePath: BettererFilePath) => !this._isExcluded(filePath));
     }
     await this._update();
     return filePaths.filter((filePath) => this._validatedFilePathsMap[filePath]);

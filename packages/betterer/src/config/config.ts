@@ -97,6 +97,11 @@ function validateConfig(config: BettererConfig): void {
 }
 
 function overrideConfig(config: BettererConfig) {
+  // Silent mode:
+  if (config.silent) {
+    config.reporters = [];
+  }
+
   // CI mode:
   if (config.ci) {
     config.precommit = false;

@@ -4,7 +4,9 @@ import { BettererTaskLogger, BettererTasksLogger, BettererTasksState } from '@be
 import { workerRequire, WorkerModule } from '@phenomnomnominal/worker-require';
 import { render } from 'ink';
 
-const testPackageApi = workerRequire<WorkerModule<typeof import('./test-package-api')>>('./test-package-api');
+type TestPackageAPIWorker = WorkerModule<typeof import('./test-package-api')>;
+
+const testPackageApi = workerRequire<TestPackageAPIWorker>('./test-package-api', { cache: false });
 
 type APITestProps = {
   packageNames: Array<string>;
@@ -19,7 +21,7 @@ export const APITest: FC<APITestProps> = function APITest({ packageNames }) {
             await testPackageApi.run(logger, packageName);
             testPackageApi.destroy();
           },
-          [testPackageApi, packageName]
+          [packageName]
         );
         return <BettererTaskLogger key={packageName} name={packageName} run={task} />;
       })}

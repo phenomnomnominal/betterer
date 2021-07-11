@@ -3,28 +3,29 @@ import { BettererConfig } from '../config';
 
 import { requireUncached } from '../require';
 import { isFunction } from '../utils';
-import { BettererTestMap, BettererTestMetaMap } from './types';
+import { BettererTestMap, BettererTestFactoryMetaMap } from './types';
 
-export function loadTests(config: BettererConfig): BettererTestMetaMap {
-  let tests: BettererTestMetaMap = {};
+export function loadTestMeta(config: BettererConfig): BettererTestFactoryMetaMap {
+  let testMetaMap: BettererTestFactoryMetaMap = {};
   config.configPaths.map((configPath) => {
-    tests = { ...tests, ...loadTestsFromConfig(configPath) };
+    const testMeta = loadTestMetaFromConfig(configPath);
+    testMetaMap = { ...testMetaMap, ...testMeta };
   });
-  return tests;
+  return testMetaMap;
 }
 
-function loadTestsFromConfig(configPath: string): BettererTestMetaMap {
+function loadTestMetaFromConfig(configPath: string): BettererTestFactoryMetaMap {
   try {
-    const tests: BettererTestMetaMap = {};
+    const testMeta: BettererTestFactoryMetaMap = {};
     const exports = requireUncached<BettererTestMap>(configPath);
     Object.keys(exports).forEach((name) => {
       const factory = exports[name];
       if (!isFunction(factory)) {
         throw new BettererError(`"${name}" must be a function.`);
       }
-      tests[name] = { name, configPath, factory };
+      testMeta[name] = { name, configPath, factory };
     });
-    return tests;
+    return testMeta;
   } catch (e) {
     throw new BettererError(`could not read config from "${configPath}". 😔`, e);
   }

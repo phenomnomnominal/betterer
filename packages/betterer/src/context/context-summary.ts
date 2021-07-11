@@ -1,16 +1,11 @@
 import { BettererConfig } from '../config';
-import { BettererSuiteSummaries, BettererSuiteSummary } from '../suite';
+import { BettererSuiteSummariesΩ, BettererSuiteSummaryΩ } from '../suite';
 import { BettererContextSummary } from './types';
-import { BettererGlobals } from '../types';
 
 export class BettererContextSummaryΩ implements BettererContextSummary {
-  public readonly config: BettererConfig;
+  constructor(public readonly config: BettererConfig, public readonly suites: BettererSuiteSummariesΩ) {}
 
-  constructor(private _globals: BettererGlobals, public readonly suites: BettererSuiteSummaries) {
-    this.config = this._globals.config;
-  }
-
-  public get lastSuite(): BettererSuiteSummary {
+  public get lastSuite(): BettererSuiteSummaryΩ {
     return this.suites[this.suites.length - 1];
   }
 }

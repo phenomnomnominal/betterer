@@ -1,10 +1,10 @@
 import assert from 'assert';
 import path from 'path';
 
-import { BettererContext } from '../../context';
+import { BettererContext, BettererContextΩ } from '../../context';
 import { BettererFileResolverΩ, BettererFileGlobs, BettererFilePatterns } from '../../fs';
-import { BettererRun, BettererRunΩ } from '../../run';
-import { BettererGlobals } from '../../types';
+import { BettererRun } from '../../run';
+import { BettererWorkerRunΩ } from '../../run/worker-run';
 import { createTestConfig } from '../config';
 import { BettererTestConstraint, BettererTestFunction, BettererTestGoal } from '../types';
 import { constraint } from './constraint';
@@ -88,11 +88,11 @@ function createTest(
   fileTest: BettererFileTestFunction
 ): BettererTestFunction<BettererFileTestResult> {
   return async (run: BettererRun, context: BettererContext): Promise<BettererFileTestResult> => {
-    const runΩ = run as BettererRunΩ;
+    const runΩ = run as BettererWorkerRunΩ;
     assert(runΩ.filePaths);
 
     resolver.setBaseDirectory(path.dirname(runΩ.test.configPath));
-    const { versionControl } = context as BettererGlobals;
+    const { versionControl } = context as BettererContextΩ;
 
     const hasSpecifiedFiles = runΩ.filePaths?.length > 0;
     runΩ.filePaths = hasSpecifiedFiles ? await resolver.validate(runΩ.filePaths) : await resolver.files();

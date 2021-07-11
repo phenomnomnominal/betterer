@@ -2,6 +2,7 @@ import assert from 'assert';
 
 import { BettererContextΩ, BettererContextStarted } from '../context';
 import { BettererFilePaths, BettererVersionControlWorker } from '../fs';
+import { BettererRunWorkerPoolΩ } from '../run/run-worker-pool';
 import { BettererSuiteSummary } from '../suite';
 import { BettererGlobals } from '../types';
 import { normalisedPath } from '../utils';
@@ -14,13 +15,13 @@ export class BettererRunnerΩ implements BettererRunner {
   private _jobs: BettererRunnerJobs = [];
   private _running: Promise<BettererSuiteSummary> | null = null;
   private _started: BettererContextStarted;
+  private _runWorkerPool: BettererRunWorkerPoolΩ;
   private _versionControl: BettererVersionControlWorker;
 
   constructor(globals: BettererGlobals) {
     this._context = new BettererContextΩ(globals);
-
-    this._versionControl = this._context.versionControl;
-
+    this._versionControl = globals.versionControl;
+    this._runWorkerPool = globals.runWorkerPool;
     this._started = this._context.start();
   }
 
@@ -50,6 +51,7 @@ export class BettererRunnerΩ implements BettererRunner {
   public async stop(): Promise<BettererSuiteSummary>;
   public async stop(force: true): Promise<null>;
   public async stop(force?: true): Promise<BettererSuiteSummary | null> {
+    debugger;
     try {
       assert(this._running);
       await this._running;
@@ -61,7 +63,9 @@ export class BettererRunnerΩ implements BettererRunner {
       }
       throw e;
     } finally {
+      debugger;
       this._versionControl.destroy();
+      this._runWorkerPool.destroy();
     }
   }
 
@@ -83,7 +87,7 @@ export class BettererRunnerΩ implements BettererRunner {
         const handlers = this._jobs.map((job) => job.handler);
         this._jobs = [];
 
-        this._running = this._context.run(changed);
+        this._running = this._context.run(await this._versionControl.filterIgnored(changed));
         const suiteSummary = await this._running;
 
         handlers.forEach((handler) => handler?.(suiteSummary));

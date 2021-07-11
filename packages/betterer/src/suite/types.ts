@@ -24,4 +24,4 @@ export type BettererSuiteSummary = BettererSuite & {
   readonly worse: BettererRunSummaries;
 };
 
-export type BettererSuiteSummaries = Array<BettererSuiteSummary>;
+export type BettererSuiteSummaries = ReadonlyArray<BettererSuiteSummary>;

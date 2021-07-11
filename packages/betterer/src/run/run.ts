@@ -1,155 +1,51 @@
-import { BettererConstraintResult } from '@betterer/constraints';
-import { BettererError } from '@betterer/errors';
 import assert from 'assert';
-
-import { BettererConfig } from '../config';
-import { BettererContext } from '../context';
 import { BettererFilePaths } from '../fs';
-import { BettererResult, BettererResultΩ } from '../results';
-import { BettererDiff, BettererTestConfig, BettererTestMeta, isBettererFileTest } from '../test';
-import { isBettererTest } from '../test/test';
+import { BettererResultΩ } from '../results';
+import { BettererTestMeta } from '../test';
 import { BettererRunSummaryΩ } from './run-summary';
-import { BettererRun, BettererRunning, BettererRunSummary } from './types';
-
-export enum BettererRunStatus {
-  better,
-  failed,
-  new,
-  same,
-  skipped,
-  update,
-  worse
-}
+import { BettererRun, BettererRunSummary, BettererWorker } from './types';
 
 export class BettererRunΩ implements BettererRun {
-  public readonly isOnly: boolean;
-  public filePaths: BettererFilePaths | null;
-  public readonly test: BettererTestConfig;
+  public isNew: boolean;
+  public name: string;
+  public timestamp: number;
 
-  private _expected: BettererResult | null = null;
-  private _isSkipped: boolean;
-  private _timestamp: number | null = null;
+  private _baseline: BettererResultΩ | null = null;
+  private _expected: BettererResultΩ | null = null;
+  private _filePaths: BettererFilePaths | null;
 
-  constructor(
-    public readonly name: string,
-    private _testMeta: BettererTestMeta,
-    filePaths: BettererFilePaths,
-    public readonly isNew: boolean
-  ) {
-    const test = this._testMeta.factory();
+  constructor(private _worker: BettererWorker, public testMeta: BettererTestMeta, filePaths: BettererFilePaths) {
+    this.isNew = testMeta.isNew;
+    this.name = testMeta.name;
 
-    if (!isBettererTest(test) && !isBettererFileTest(test)) {
-      throw new BettererError(`"${name}" must return a \`BettererTest\`.`);
+    if (!testMeta.isNew) {
+      this._baseline = new BettererResultΩ(JSON.parse(testMeta.baselineJSON));
+      this._expected = new BettererResultΩ(JSON.parse(testMeta.expectedJSON));
     }
 
-    test.config.configPath = this._testMeta.configPath;
-    this.test = test.config;
+    this._filePaths = this.testMeta.isFileTest ? filePaths : null;
 
-    // Only run BettererFileTests when a list of filePaths is given:
-    const onlyFileTests = filePaths.length > 0;
-    const isFileTest = isBettererFileTest(test);
-    this.filePaths = isFileTest ? filePaths : null;
-    this._isSkipped = test.isSkipped || (onlyFileTests && !isFileTest);
-    this.isOnly = test.isOnly;
+    this.timestamp = Date.now();
   }
 
-  public get expected(): BettererResult {
+  public get baseline(): BettererResultΩ {
+    assert(this._baseline);
+    return this._baseline;
+  }
+
+  public get expected(): BettererResultΩ {
     assert(this._expected);
     return this._expected;
   }
 
-  public get isSkipped(): boolean {
-    return this._isSkipped;
+  public get filePaths(): BettererFilePaths {
+    assert(this._filePaths);
+    return this._filePaths;
   }
 
-  public get timestamp(): number {
-    assert(this._timestamp != null);
-    return this._timestamp;
-  }
-
-  public async run(
-    context: BettererContext,
-    baseline: BettererResult,
-    expected: BettererResult
-  ): Promise<BettererRunSummary> {
-    const { resultsPath } = context.config;
-
-    baseline = this._deserialiseResult(baseline, resultsPath);
-    expected = this._deserialiseResult(expected, resultsPath);
-
-    const running = this._start(context.config, baseline, expected);
-
-    if (this.isSkipped) {
-      return running.skipped();
-    }
-
-    try {
-      const result = new BettererResultΩ(await this.test.test(this, context));
-      return running.done(result);
-    } catch (error) {
-      return running.failed(error);
-    }
-  }
-
-  public skip(): void {
-    this._isSkipped = true;
-  }
-
-  private _start(config: BettererConfig, baseline: BettererResult, expected: BettererResult): BettererRunning {
-    this._timestamp = Date.now();
-    this._expected = expected;
-
-    const end = async (
-      status: BettererRunStatus,
-      result: BettererResult | null = null,
-      diff: BettererDiff | null = null,
-      error: BettererError | null = null
-    ): Promise<BettererRunSummary> => {
-      const resultValue = !result ? null : result.value;
-
-      const baselineValue = baseline.isNew ? null : baseline.value;
-      const delta = await this.test.progress(baselineValue, resultValue);
-
-      const isComplete = resultValue != null && (await this.test.goal(resultValue));
-
-      const summary = new BettererRunSummaryΩ(this, this.test, result, diff, delta, error, status, isComplete);
-      await summary.serialise(config.resultsPath);
-      return summary;
-    };
-
-    return {
-      done: async (result: BettererResult): Promise<BettererRunSummary> => {
-        if (this.isNew) {
-          return end(BettererRunStatus.new, result);
-        }
-
-        const comparison = await this.test.constraint(result.value, this.expected.value);
-
-        if (comparison === BettererConstraintResult.same) {
-          return end(BettererRunStatus.same, result);
-        }
-
-        if (comparison === BettererConstraintResult.better) {
-          return end(BettererRunStatus.better, result);
-        }
-
-        const status = config.update ? BettererRunStatus.update : BettererRunStatus.worse;
-        return end(status, result, this.test.differ(this.expected.value, result.value));
-      },
-      failed: async (error: BettererError): Promise<BettererRunSummary> => {
-        return end(BettererRunStatus.failed, null, null, error);
-      },
-      skipped: async (): Promise<BettererRunSummary> => {
-        return end(BettererRunStatus.skipped);
-      }
-    };
-  }
-
-  private _deserialiseResult(result: BettererResult, resultsPath: string): BettererResult {
-    if (result.isNew) {
-      return result;
-    }
-    return new BettererResultΩ(this.test.serialiser.deserialise(result.value, resultsPath));
+  public async run(isSkipped: boolean): Promise<BettererRunSummary> {
+    // YOU GOTTA RELEASE THE WORKER!
+    return new BettererRunSummaryΩ(await this._worker.run(this.filePaths, isSkipped, this.timestamp));
   }
 }
 
