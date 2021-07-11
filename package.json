@@ -25,7 +25,7 @@
     "commit": "git cz",
     "compile": "yarn compile:api-test && yarn compile:packages",
     "compile:api-test": "tsc -b test/api",
-    "compile:packages": "node --max_old_space_size=16384 ./node_modules/typescript/bin/tsc -b packages",
+    "compile:packages": "tsc -b packages",
     "compile:watch": "tsc -b packages -w",
     "lint": "eslint \"./packages/**/src/**/*.{js,ts}\" \"./test/**/*.{ts,tsx}\" \"./*.{js,ts}\" --fix",
     "format": "prettier \"**/!(*.snap)\" --write --loglevel=silent",
