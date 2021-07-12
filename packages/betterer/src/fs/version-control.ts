@@ -6,10 +6,9 @@ import { BettererVersionControlWorker } from './types';
 let globalVersionControl: BettererVersionControlWorker;
 
 export const createVersionControl = async function createVersionControl(): Promise<void> {
-  const versionControlWorker =
-    workerRequire<WorkerModule<typeof import('./version-control-worker')>>('./version-control-worker');
-  globalVersionControl = versionControlWorker;
-  await versionControlWorker.init();
+  const worker = workerRequire<WorkerModule<typeof import('./version-control-worker')>>('./version-control-worker');
+  globalVersionControl = worker.git;
+  await worker.init();
 };
 
 export function getVersionControl(): BettererVersionControlWorker {

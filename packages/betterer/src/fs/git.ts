@@ -1,3 +1,4 @@
+import assert from 'assert';
 import path from 'path';
 import simpleGit, { SimpleGit } from 'simple-git';
 
@@ -11,17 +12,17 @@ export class BettererGit implements BettererVersionControl {
   private _cache: BettererFileCacheΩ;
   private _fileMap: Record<string, string> = {};
   private _filePaths: Array<string> = [];
-  private _git: SimpleGit;
-  private _rootDir: string;
+  private _git: SimpleGit | null = null;
+  private _gitDir: string | null = null;
+  private _rootDir: string | null = null;
   private _syncing: Promise<void> | null = null;
 
-  constructor(private _gitDir: string) {
-    this._rootDir = path.dirname(this._gitDir);
-    this._git = simpleGit(this._rootDir);
+  constructor() {
     this._cache = new BettererFileCacheΩ();
   }
 
   public async add(resultsPath: string): Promise<void> {
+    assert(this._git);
     await this._git.add(resultsPath);
   }
 
@@ -49,7 +50,11 @@ export class BettererGit implements BettererVersionControl {
     return this._filePaths;
   }
 
-  public async init(): Promise<void> {
+  public async init(gitDir: string): Promise<void> {
+    this._gitDir = gitDir;
+    this._rootDir = path.dirname(this._gitDir);
+    this._git = simpleGit(this._rootDir);
+    this._cache = new BettererFileCacheΩ();
     await this._git.init();
     await this.sync();
   }
@@ -83,11 +88,13 @@ export class BettererGit implements BettererVersionControl {
     this._fileMap = {};
     this._filePaths = [];
 
+    assert(this._git);
     const tree = await this._git.raw(['ls-tree', '--full-tree', '-r', 'HEAD']);
     const fileInfo = this._toFilePaths(tree).map((info) => info.split(/\s/));
     const gitHashes: Record<string, string> = {};
     fileInfo.forEach((fileInfo) => {
       const [, , hash, relativePath] = fileInfo;
+      assert(this._rootDir);
       const absolutePath = normalisedPath(path.join(this._rootDir, relativePath.trimStart()));
       gitHashes[absolutePath] = hash;
     });
@@ -96,6 +103,7 @@ export class BettererGit implements BettererVersionControl {
     const untrackedFilePaths = this._toFilePaths(untracked);
     await Promise.all(
       untrackedFilePaths.map(async (relativePath) => {
+        assert(this._rootDir);
         const absolutePath = normalisedPath(path.join(this._rootDir, relativePath));
         const hash = gitHashes[absolutePath] || (await this._getUntrackedHash(absolutePath));
         if (hash == null) {
@@ -110,6 +118,7 @@ export class BettererGit implements BettererVersionControl {
     const modifiedFilePaths = this._toFilePaths(modified);
     await Promise.all(
       modifiedFilePaths.map(async (relativePath) => {
+        assert(this._rootDir);
         const absolutePath = normalisedPath(path.join(this._rootDir, relativePath));
         const hash = await this._getUntrackedHash(absolutePath);
 

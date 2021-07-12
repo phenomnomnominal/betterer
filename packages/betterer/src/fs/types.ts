@@ -1,4 +1,4 @@
-import { AsyncWorkerModule } from '@phenomnomnominal/worker-require';
+import { AsyncWorkerModule, WorkerModule } from '@phenomnomnominal/worker-require';
 
 export type BettererFileGlobs = ReadonlyArray<string | ReadonlyArray<string>>;
 export type BettererFilePaths = ReadonlyArray<string>;
@@ -21,7 +21,11 @@ export type BettererVersionControl = BettererFileCache & {
   sync(): Promise<void>;
 };
 
-export type BettererVersionControlWorker = AsyncWorkerModule<BettererVersionControl>;
+export type BettererVersionControlWorkerModule = AsyncWorkerModule<
+  WorkerModule<typeof import('./version-control-worker')>
+>;
+
+export type BettererVersionControlWorker = BettererVersionControlWorkerModule['git'];
 
 export type BettererFileResolver = {
   baseDirectory: string;
