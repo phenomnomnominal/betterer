@@ -2,17 +2,18 @@ import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
 import { BettererDelta } from '../context';
+import { BettererFilePaths } from '../fs';
 import { BettererResult } from '../results';
 import { BettererDiff, BettererTestConfig } from '../test';
 import { BettererRunStatus, BettererRunΩ } from './run';
 import { BettererRunSummary } from './types';
 
 export class BettererRunSummaryΩ implements BettererRunSummary {
-  public readonly expected = this._runΩ.expected;
-  public readonly filePaths = this._runΩ.filePaths;
-  public readonly isNew = this.expected.isNew;
-  public readonly name = this._runΩ.name;
-  public readonly timestamp = this._runΩ.timestamp;
+  public readonly expected: BettererResult;
+  public readonly filePaths: BettererFilePaths | null;
+  public readonly isNew: boolean;
+  public readonly name: string;
+  public readonly timestamp: number;
 
   private _isPrinted = false;
   private _printed: string | null = null;
@@ -26,7 +27,13 @@ export class BettererRunSummaryΩ implements BettererRunSummary {
     private _error: BettererError | null,
     private _status: BettererRunStatus,
     public readonly isComplete: boolean
-  ) {}
+  ) {
+    this.expected = this._runΩ.expected;
+    this.filePaths = this._runΩ.filePaths;
+    this.isNew = this.expected.isNew;
+    this.name = this._runΩ.name;
+    this.timestamp = this._runΩ.timestamp;
+  }
 
   public get diff(): BettererDiff {
     assert(this._diff);

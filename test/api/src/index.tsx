@@ -4,7 +4,9 @@ import { BettererTaskLogger, BettererTasksLogger, BettererTasksState } from '@be
 import { workerRequire, WorkerModule } from '@phenomnomnominal/worker-require';
 import { render } from 'ink';
 
-const testPackageApi = workerRequire<WorkerModule<typeof import('./test-package-api')>>('./test-package-api');
+type TestPackageAPI = WorkerModule<typeof import('./test-package-api')>;
+
+const testPackageApi = workerRequire<TestPackageAPI>('./test-package-api', { cache: false });
 
 type APITestProps = {
   packageNames: Array<string>;

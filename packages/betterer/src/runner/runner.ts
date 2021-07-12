@@ -1,7 +1,8 @@
+import { destroyAll } from '@phenomnomnominal/worker-require';
 import assert from 'assert';
 
 import { BettererContextΩ, BettererContextStarted } from '../context';
-import { BettererFilePaths, BettererVersionControlWorker } from '../fs';
+import { BettererFilePaths } from '../fs';
 import { BettererSuiteSummary } from '../suite';
 import { BettererGlobals } from '../types';
 import { normalisedPath } from '../utils';
@@ -14,12 +15,9 @@ export class BettererRunnerΩ implements BettererRunner {
   private _jobs: BettererRunnerJobs = [];
   private _running: Promise<BettererSuiteSummary> | null = null;
   private _started: BettererContextStarted;
-  private _versionControl: BettererVersionControlWorker;
 
   constructor(globals: BettererGlobals) {
     this._context = new BettererContextΩ(globals);
-
-    this._versionControl = this._context.versionControl;
 
     this._started = this._context.start();
   }
@@ -61,7 +59,7 @@ export class BettererRunnerΩ implements BettererRunner {
       }
       throw e;
     } finally {
-      this._versionControl.destroy();
+      destroyAll();
     }
   }
 
