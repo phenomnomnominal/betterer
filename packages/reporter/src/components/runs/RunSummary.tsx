@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 
 import { BettererContext, BettererSummary } from '@betterer/betterer';
-import { diffΔ } from '@betterer/logger';
+import { diffStringsΔ } from '@betterer/logger';
 import { Box, Text, TextProps } from 'ink';
 
 import {
@@ -86,10 +86,10 @@ export const RunSummary: FC<RunSummaryProps> = memo(function RunSummary({ contex
           </>
         ) : null}
       </Box>
-      {summary.unexpectedDiff ? (
+      {summary.unexpectedDiff && worse === 0 ? (
         <Box flexDirection="column" paddingBottom={1}>
           <Text color={TEXT_COLOURS.diff}>{unexpectedDiff()}</Text>
-          <Text>{diffΔ(summary.expected, summary.result)}</Text>
+          <Text>{diffStringsΔ(summary.expected, summary.result)}</Text>
         </Box>
       ) : null}
     </>

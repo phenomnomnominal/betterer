@@ -39,7 +39,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! (1 issue) 🎉
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! (1,000 issues) 🎉
 
 ",
   "
@@ -50,7 +50,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! (1 issue) 🎉
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! (1,000 issues) 🎉
 
 ",
   "
@@ -61,7 +61,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! (1 issue) 🎉
+✅ typescript use strict mode: \\"typescript use strict mode\\" got checked for the first time! (1,000 issues) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
@@ -104,7 +104,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. (1 issue) 😐
+✅ typescript use strict mode: \\"typescript use strict mode\\" got better! (13 fixed issues, 987 remaining) 😍
 
 ",
   "
@@ -115,7 +115,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. (1 issue) 😐
+✅ typescript use strict mode: \\"typescript use strict mode\\" got better! (13 fixed issues, 987 remaining) 😍
 
 ",
   "
@@ -126,22 +126,47 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🎉 Betterer (0ms): 1 test done!
-✅ typescript use strict mode: \\"typescript use strict mode\\" stayed the same. (1 issue) 😐
+✅ typescript use strict mode: \\"typescript use strict mode\\" got better! (13 fixed issues, 987 remaining) 😍
 
 1 test got checked. 🤔
-1 test stayed the same. 😐
+1 test got better! 😍
 
 Unexpected diff found:
 - Expected
 + Result
 
+@@ -1,9 +1,9 @@
   // BETTERER RESULTS V2.
   exports[\`typescript use strict mode\`] = {
     value: \`{
--     \\"src/index.ts:1499252024\\": [
--       [2, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"]
-+     \\"src/index.ts:2615232350\\": [
-+       [3, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"]
+-     \\"src/index.ts:3050135194\\": [
++     \\"src/index.ts:34372536\\": [
+        [2, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+        [3, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+        [4, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+        [5, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+        [6, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+@@ -986,23 +986,10 @@
+        [983, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+        [984, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+        [985, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+        [986, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+        [987, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+-       [988, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+-       [989, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+-       [990, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+-       [991, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+-       [992, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+-       [993, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+-       [994, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+-       [995, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+-       [996, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+-       [997, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+-       [998, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+-       [999, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+-       [1000, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"],
+-       [1001, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"]
++       [988, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"]
       ]
     }\`
   };
@@ -524,8 +549,8 @@ Unexpected diff found:
   exports[\`typescript use strict mode\`] = {
     value: \`{
 -     \\"src/index.ts:1499252024\\": [
--       [2, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"]
 +     \\"src/index.ts:2615232350\\": [
+-       [2, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"]
 +       [3, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"]
       ]
     }\`
