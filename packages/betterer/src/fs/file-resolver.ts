@@ -2,42 +2,47 @@ import assert from 'assert';
 import minimatch from 'minimatch';
 import * as path from 'path';
 
+import { flatten, normalisedPath } from '../utils';
 import {
-  getVersionControl,
   BettererFileGlobs,
   BettererFilePaths,
   BettererFilePatterns,
+  BettererFileResolver,
   BettererVersionControlWorker
-} from '../fs';
-import { flatten, normalisedPath } from '../utils';
-import { BettererFileResolver } from './types';
+} from './types';
 
 export class BettererFileResolverΩ implements BettererFileResolver {
   private _excluded: Array<RegExp> = [];
   private _included: Array<string> = [];
   private _includedResolved: Array<string> | null = null;
-  private _versionControl: BettererVersionControlWorker;
 
   private _validatedFilePaths: Array<string> = [];
   private _validatedFilePathsMap: Record<string, boolean> = {};
 
-  constructor(private _baseDirectory: string | null = null) {
-    this._versionControl = getVersionControl();
-  }
+  constructor(
+    private _baseDirectory: string | null = null,
+    private _versionControl: BettererVersionControlWorker | null = null
+  ) {}
 
   public get baseDirectory(): string {
     assert(this._baseDirectory);
     return this._baseDirectory;
   }
 
-  public setBaseDirectory(directory: string): void {
+  public get versionControl(): BettererVersionControlWorker {
+    assert(this._versionControl);
+    return this._versionControl;
+  }
+
+  public init(directory: string, versionControl: BettererVersionControlWorker | null): void {
     this._baseDirectory = directory;
+    this._versionControl = versionControl;
   }
 
   public async validate(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
     // If `include()` was never called, just filter the given list:
     if (!this._included.length) {
-      const validFilePaths = await this._versionControl.filterIgnored(filePaths);
+      const validFilePaths = await this.versionControl.filterIgnored(filePaths);
       return validFilePaths.filter((filePath) => !this._isExcluded(filePath));
     }
     await this._update();
@@ -65,7 +70,7 @@ export class BettererFileResolverΩ implements BettererFileResolver {
 
   private async _update(): Promise<void> {
     this._validatedFilePathsMap = {};
-    const filePaths = await this._versionControl.getFilePaths();
+    const filePaths = await this.versionControl.getFilePaths();
     filePaths.forEach((filePath) => {
       this._validatedFilePathsMap[filePath] = this._isIncluded(filePath);
     });

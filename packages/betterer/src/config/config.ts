@@ -3,7 +3,7 @@ import assert from 'assert';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 
-import { BettererFileResolverΩ } from '../fs';
+import { BettererFileResolverΩ, BettererVersionControlWorker } from '../fs';
 import { isBoolean, isRegExp, isString, isUndefined } from '../utils';
 import {
   BettererConfig,
@@ -14,7 +14,10 @@ import {
   BettererOptionsWatch
 } from './types';
 
-export async function createConfig(options: unknown = {}): Promise<BettererConfig> {
+export async function createConfig(
+  options: unknown = {},
+  versionControl: BettererVersionControlWorker
+): Promise<BettererConfig> {
   const baseOptions = options as BettererOptionsBase;
   const runnerOptions = options as BettererOptionsRunner;
   const startOptions = options as BettererOptionsStart;
@@ -53,7 +56,7 @@ export async function createConfig(options: unknown = {}): Promise<BettererConfi
 
   const { includes, excludes } = startOptions;
 
-  const resolver = new BettererFileResolverΩ(relativeConfig.cwd);
+  const resolver = new BettererFileResolverΩ(relativeConfig.cwd, versionControl);
   resolver.include(...toArray<string>(includes));
   resolver.exclude(...toRegExps(toArray<string | RegExp>(excludes)));
 

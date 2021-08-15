@@ -91,8 +91,9 @@ function createTest(
     const runΩ = run as BettererRunΩ;
     assert(runΩ.filePaths);
 
-    resolver.setBaseDirectory(path.dirname(runΩ.test.configPath));
+    const baseDirectory = path.dirname(runΩ.test.configPath);
     const { versionControl } = context as BettererGlobals;
+    resolver.init(baseDirectory, versionControl);
 
     const hasSpecifiedFiles = runΩ.filePaths?.length > 0;
     runΩ.filePaths = hasSpecifiedFiles ? await resolver.validate(runΩ.filePaths) : await resolver.files();

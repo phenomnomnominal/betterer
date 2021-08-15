@@ -52,7 +52,7 @@
     "@commitlint/cli": "^12.0.0",
     "@commitlint/config-conventional": "^12.0.0",
     "@phenomnomnominal/commitlint-plugin": "^1.1.1",
-    "@phenomnomnominal/worker-require": "^0.0.21",
+    "@phenomnomnominal/worker-require": "^0.0.27",
     "@types/eslint": "^7.2.4",
     "@types/jest": "^26.0.23",
     "@types/node": "^15.0.2",

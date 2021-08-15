@@ -8,7 +8,7 @@ exports[`betterer should write a cache file 1`] = `
 
 exports[`betterer should write a cache file 2`] = `
 "{
-  \\"src/index.ts\\": \\"4126639614\\"
+  \\"src/index.ts\\": \\"153364047\\"
 }"
 `;
 

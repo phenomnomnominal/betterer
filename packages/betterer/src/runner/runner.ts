@@ -1,8 +1,7 @@
-import { destroyAll } from '@phenomnomnominal/worker-require';
 import assert from 'assert';
 
 import { BettererContextΩ, BettererContextStarted } from '../context';
-import { BettererFilePaths } from '../fs';
+import { BettererFilePaths, destroyVersionControl } from '../fs';
 import { BettererSuiteSummary } from '../suite';
 import { BettererGlobals } from '../types';
 import { normalisedPath } from '../utils';
@@ -53,13 +52,13 @@ export class BettererRunnerΩ implements BettererRunner {
       await this._running;
       const contextSummary = await this._started.end();
       return contextSummary.lastSuite;
-    } catch (e) {
+    } catch (error) {
       if (force) {
         return null;
       }
-      throw e;
+      throw error;
     } finally {
-      destroyAll();
+      await destroyVersionControl();
     }
   }
 

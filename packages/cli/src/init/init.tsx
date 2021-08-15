@@ -1,10 +1,9 @@
 import { BettererTaskLogger, BettererTasksLogger, BettererTasksState } from '@betterer/tasks';
-import { workerRequire, WorkerModule } from '@phenomnomnominal/worker-require';
+import { workerRequire } from '@phenomnomnominal/worker-require';
 import * as path from 'path';
 import React, { FC, useCallback } from 'react';
 
-const createTestFile = workerRequire<WorkerModule<typeof import('./create-test-file')>>('./create-test-file');
-const updatePackageJSON = workerRequire<WorkerModule<typeof import('./update-package-json')>>('./update-package-json');
+import { CreateTestFileWorker, UpdatePackageJSONWorker } from './types';
 
 export type InitProps = {
   config: string;
@@ -15,17 +14,25 @@ export type InitProps = {
 export const Init: FC<InitProps> = function Init({ cwd, config, ts }) {
   const runCreateTestFile = useCallback(
     async (logger) => {
-      await createTestFile.run(logger, path.resolve(cwd, config), ts);
-      createTestFile.destroy();
+      const createTestFile = workerRequire<CreateTestFileWorker>('./create-test-file');
+      try {
+        await createTestFile.run(logger, path.resolve(cwd, config), ts);
+      } finally {
+        await createTestFile.destroy();
+      }
     },
-    [createTestFile, cwd, config, ts]
+    [cwd, config, ts]
   );
   const runUpdagePackageJSON = useCallback(
     async (logger) => {
-      await updatePackageJSON.run(logger, cwd, ts);
-      updatePackageJSON.destroy();
+      const updatePackageJSON = workerRequire<UpdatePackageJSONWorker>('./update-package-json');
+      try {
+        await updatePackageJSON.run(logger, cwd, ts);
+      } finally {
+        await updatePackageJSON.destroy();
+      }
     },
-    [updatePackageJSON, cwd, config, ts]
+    [cwd, config, ts]
   );
 
   return (

@@ -1909,10 +1909,10 @@
   dependencies:
     esquery "^1.0.1"
 
-"@phenomnomnominal/worker-require@^0.0.21":
-  version "0.0.21"
-  resolved "https://registry.npmjs.org/@phenomnomnominal/worker-require/-/worker-require-0.0.21.tgz#0246c10922d6706ec75a32aaa8e7f34d448f0bfe"
-  integrity sha512-SwiDLbrZHmsAjVbFD6cs8oVaGakSmGvFH6T65mtRQy3j7ASZebhdZGOlgDaxuK2VQgqanH4DITp+mpDMfJXvwQ==
+"@phenomnomnominal/worker-require@^0.0.27":
+  version "0.0.27"
+  resolved "https://registry.npmjs.org/@phenomnomnominal/worker-require/-/worker-require-0.0.27.tgz#cee38a48e0e4fef2a02c98288ef515ae5a4a63c5"
+  integrity sha512-w/h7y5oXCST8sMH6p/OC3lqb0r4x52msQS5pZ2L9hmOcLdLY+7B4AMyokjTbNxTQarPu1d7yiCvBfEMsJKzMFA==
   dependencies:
     callsite "^1.0.0"
     comlink "^4.3.0"
