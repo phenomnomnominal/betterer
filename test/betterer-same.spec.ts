@@ -9,7 +9,7 @@ describe('betterer', () => {
 const { BettererTest } = require('@betterer/betterer');
 const { bigger, smaller } = require('@betterer/constraints');
 
-let start = 0;
+const start = 0;
 
 module.exports = {
   [\`doesn't get bigger\`]: () => new BettererTest({

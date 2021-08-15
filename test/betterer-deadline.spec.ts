@@ -8,12 +8,13 @@ describe('betterer', () => {
       '.betterer.js': `
 const { BettererTest } = require('@betterer/betterer');
 const { bigger } = require('@betterer/constraints');
+const { persist } = require('@betterer/fixture');
 
-let grows = 0;
+const grows = persist(__dirname, 'grows', 0);
 
 module.exports = {
   'should grow': () => new BettererTest({
-    test: () => grows++,
+    test: () => grows.increment(),
     constraint: bigger,
     goal: 5,
     deadline: new Date()
@@ -45,12 +46,13 @@ module.exports = {
       '.betterer.js': `
 const { BettererTest } = require('@betterer/betterer');
 const { bigger } = require('@betterer/constraints');
+const { persist } = require('@betterer/fixture');
 
-let grows = 0;
+const grows = persist(__dirname, 'grows', 0);
 
 module.exports = {
   'should grow': () => new BettererTest({
-    test: () => grows++,
+    test: () => grows.increment(),
     constraint: bigger,
     goal: 5,
     deadline: 0

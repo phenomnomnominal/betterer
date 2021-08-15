@@ -18,9 +18,12 @@ export default {
 };
       `,
       'test.ts': `
-let start = 0;
+import { persist } from '@betterer/fixture';
+
+const grows = persist(__dirname, 'grows', 0);
+
 export function test (): number {
-  return start++;
+  return grows.increment();
 }
       `,
       'typescript.json': `
@@ -50,12 +53,13 @@ export function test (): number {
       '.betterer.ts': `
 import { BettererTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
+import { persist } from '@betterer/fixture';
 
-let start = 0;
+const grows = persist(__dirname, 'grows', 0);
 
 export default {
   'gets better': () => new BettererTest({
-    test: () => start++,
+    test: () => grows.increment(),
     constraint: bigger
   })
 };

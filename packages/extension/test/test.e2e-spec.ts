@@ -118,16 +118,17 @@ describe('Betterer VSCode Extension', () => {
         '.betterer.ts': `
 import { BettererTest } from '@betterer/betterer';
 import { typescript } from '@betterer/typescript';
+import { persist } from '@betterer/fixture';
 import { smaller } from '@betterer/constraints';
 
-let shrinks = 2;
+const shrinks = persist(__dirname, 'shrinks', 2);
 
 export default {
   'typescript use strict mode': () => typescript('./tsconfig.json', {
     strict: true
   }).include('./src/**/*.ts'),
   'should shrink': () => new BettererTest({
-    test: () => shrinks--,
+    test: () => shrinks.decrement(),
     constraint: smaller
   })
 };

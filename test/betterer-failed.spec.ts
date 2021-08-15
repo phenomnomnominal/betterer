@@ -41,12 +41,13 @@ module.exports = {
       '.betterer.js': `
 const { BettererTest } = require('@betterer/betterer');
 const { smaller } = require('@betterer/constraints');
+const { persist } = require('@betterer/fixture');
 
-let grows = 0;
+const grows = persist(__dirname, 'grows', 0);
 
 module.exports = {
   'should shrink': () => new BettererTest({
-    test: () => grows++,
+    test: () => grows.increment(),
     constraint: smaller
   })
 };

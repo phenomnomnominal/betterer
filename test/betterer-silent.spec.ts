@@ -8,12 +8,13 @@ describe('betterer --silent', () => {
       '.betterer.js': `
 const { BettererTest } = require('@betterer/betterer');
 const { smaller } = require('@betterer/constraints');
+const { persist } = require('@betterer/fixture');
 
-let shrinks = 2;
+const shrinks = persist(__dirname, 'shrinks', 2);
     
 module.exports = {
   'should shrink': () => new BettererTest({
-    test: () => shrinks--,
+    test: () => shrinks.decrement(),
     constraint: smaller
   })
 };
@@ -36,12 +37,13 @@ module.exports = {
       '.betterer.js': `
 const { BettererTest } = require('@betterer/betterer');
 const { smaller } = require('@betterer/constraints');
+const { persist } = require('@betterer/fixture');
 
-let shrinks = 2;
+const shrinks = persist(__dirname, 'shrinks', 2);
 
 module.exports = {
   'should shrink': () => new BettererTest({
-    test: () => shrinks--,
+    test: () => shrinks.decrement(),
     constraint: smaller
   })
 };
