@@ -1,5 +1,5 @@
 import { createConfig } from './config';
-import { createVersionControl, getVersionControl } from './fs';
+import { createVersionControl } from './fs';
 import { registerExtensions } from './register';
 import { DEFAULT_REPORTER, loadReporters } from './reporters';
 import { BettererResultsΩ } from './results';
@@ -8,9 +8,8 @@ import { BettererGlobals } from './types';
 export async function createGlobals(options: unknown = {}): Promise<BettererGlobals> {
   let reporter = loadReporters([DEFAULT_REPORTER]);
   try {
-    await createVersionControl();
-    const versionControl = getVersionControl();
-    const config = await createConfig(options);
+    const versionControl = await createVersionControl();
+    const config = await createConfig(options, versionControl);
     const { cache, cwd, reporters, silent } = config;
     if (cache) {
       await versionControl.enableCache(config.cachePath);

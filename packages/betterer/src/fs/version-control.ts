@@ -1,17 +1,17 @@
-import { WorkerModule, workerRequire } from '@phenomnomnominal/worker-require';
-import assert from 'assert';
+import { workerRequire, WorkerRequireModuleAsync } from '@phenomnomnominal/worker-require';
 
-import { BettererVersionControlWorker } from './types';
+import { BettererVersionControlWorker, BettererVersionControlWorkerModule } from './types';
 
+let worker: WorkerRequireModuleAsync<BettererVersionControlWorkerModule>;
 let globalVersionControl: BettererVersionControlWorker;
 
-export const createVersionControl = async function createVersionControl(): Promise<void> {
-  const worker = workerRequire<WorkerModule<typeof import('./version-control-worker')>>('./version-control-worker');
-  globalVersionControl = worker.git;
-  await worker.init();
-};
-
-export function getVersionControl(): BettererVersionControlWorker {
-  assert(globalVersionControl);
+export async function createVersionControl(): Promise<BettererVersionControlWorker> {
+  worker = workerRequire<BettererVersionControlWorkerModule>('./version-control-worker');
+  globalVersionControl = worker.versionControl;
+  await globalVersionControl.init();
   return globalVersionControl;
+}
+
+export async function destroyVersionControl(): Promise<void> {
+  await worker.destroy();
 }

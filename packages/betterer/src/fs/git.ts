@@ -1,4 +1,6 @@
+import { BettererError } from '@betterer/errors';
 import assert from 'assert';
+import { promises as fs } from 'fs';
 import path from 'path';
 import simpleGit, { SimpleGit } from 'simple-git';
 
@@ -8,7 +10,7 @@ import { BettererFileCacheΩ } from './file-cache';
 import { read } from './reader';
 import { BettererFilePaths, BettererVersionControl } from './types';
 
-export class BettererGit implements BettererVersionControl {
+export class BettererGitΩ implements BettererVersionControl {
   private _cache: BettererFileCacheΩ;
   private _fileMap: Record<string, string> = {};
   private _filePaths: Array<string> = [];
@@ -50,8 +52,8 @@ export class BettererGit implements BettererVersionControl {
     return this._filePaths;
   }
 
-  public async init(gitDir: string): Promise<void> {
-    this._gitDir = gitDir;
+  public async init(): Promise<void> {
+    this._gitDir = await this._findGitRoot();
     this._rootDir = path.dirname(this._gitDir);
     this._git = simpleGit(this._rootDir);
     this._cache = new BettererFileCacheΩ();
@@ -66,6 +68,20 @@ export class BettererGit implements BettererVersionControl {
     this._syncing = this._sync();
     await this._syncing;
     this._syncing = null;
+  }
+
+  private async _findGitRoot(): Promise<string> {
+    let dir = process.cwd();
+    while (dir !== path.parse(dir).root) {
+      try {
+        const gitPath = path.join(dir, '.git');
+        await fs.access(gitPath);
+        return gitPath;
+      } catch (err) {
+        dir = path.join(dir, '..');
+      }
+    }
+    throw new BettererError('.git directory not found. Betterer must be used within a git repository.');
   }
 
   private async _getUntrackedHash(filePath: string): Promise<string | null> {

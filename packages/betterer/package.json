@@ -33,7 +33,7 @@
     "@betterer/logger": "^4.3.8",
     "@betterer/reporter": "^4.4.1",
     "@phenomnomnominal/debug": "^0.2.5",
-    "@phenomnomnominal/worker-require": "^0.0.21",
+    "@phenomnomnominal/worker-require": "^0.0.27",
     "chokidar": "^3.3.1",
     "djb2a": "^1.2.0",
     "fast-memoize": "^2.5.2",
