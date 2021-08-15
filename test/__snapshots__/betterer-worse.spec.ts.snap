@@ -581,8 +581,8 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 2 tests running...
-✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
-🤔 should grow: running \\"should grow\\"!
+🤔 should shrink: running \\"should shrink\\"!
+✅ should grow: \\"should grow\\" got checked for the first time! 🎉
 
 ",
   "
@@ -592,8 +592,8 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 2 tests running...
-✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
+🌟 Betterer (0ms): 1 test running... 1 test done!
+🤔 should shrink: running \\"should shrink\\"!
 ✅ should grow: \\"should grow\\" got checked for the first time! 🎉
 
 ",
@@ -677,8 +677,8 @@ Array [
 ・ - Expected
 ・ + Result
 ・
-・ - 0
-・ + 1
+・ - 3
+・ + 4
 🤔 should shrink: running \\"should shrink\\"!
 🤔 should grow: running \\"should grow\\"!
 
@@ -694,14 +694,9 @@ Array [
 ・ - Expected
 ・ + Result
 ・
-・ - 0
-・ + 1
-🤔 should shrink: running \\"should shrink\\"!
-・ - Expected
-・ + Result
-・
-・ - 2
-・ + 1
+・ - 3
+・ + 4
+🔥 should shrink: \\"should shrink\\" got worse. 😔
 🤔 should grow: running \\"should grow\\"!
 
 ",
@@ -713,17 +708,14 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 2 tests running...
-・ - Expected
-・ + Result
-・
-・ - 0
-・ + 1
 🔥 should shrink: \\"should shrink\\" got worse. 😔
 ・ - Expected
 ・ + Result
 ・
-・ - 2
-・ + 1
+・ - 3
+・ + 4
+
+Error: \\"should shrink\\" got worse. 😔
 🤔 should grow: running \\"should grow\\"!
 
 ",
@@ -734,19 +726,16 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 2 tests running...
-・ - Expected
-・ + Result
-・
-・ - 0
-・ + 1
+💥 Betterer (0ms): 1 test running... 1 test done! 1 test errored!
 🔥 should shrink: \\"should shrink\\" got worse. 😔
 ・ - Expected
 ・ + Result
 ・
-・ - 2
-・ + 1
-🔥 should grow: \\"should grow\\" got worse. 😔
+・ - 3
+・ + 4
+
+Error: \\"should shrink\\" got worse. 😔
+🤔 should grow: running \\"should grow\\"!
 
 ",
   "
@@ -756,20 +745,44 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 2 tests running...
+💥 Betterer (0ms): 1 test running... 1 test done! 1 test errored!
 🔥 should shrink: \\"should shrink\\" got worse. 😔
 ・ - Expected
 ・ + Result
 ・
-・ - 0
-・ + 1
+・ - 3
+・ + 4
 
 Error: \\"should shrink\\" got worse. 😔
 ・ - Expected
 ・ + Result
 ・
-・ - 2
-・ + 1
+・ - -1
+・ + -2
+🤔 should grow: running \\"should grow\\"!
+
+",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+💥 Betterer (0ms): 1 test running... 1 test done! 1 test errored!
+🔥 should shrink: \\"should shrink\\" got worse. 😔
+・ - Expected
+・ + Result
+・
+・ - 3
+・ + 4
+
+Error: \\"should shrink\\" got worse. 😔
+・ - Expected
+・ + Result
+・
+・ - -1
+・ + -2
 🔥 should grow: \\"should grow\\" got worse. 😔
 
 ",
@@ -785,40 +798,16 @@ Error: \\"should shrink\\" got worse. 😔
 ・ - Expected
 ・ + Result
 ・
-・ - 0
-・ + 1
-
-Error: \\"should shrink\\" got worse. 😔
-・ - Expected
-・ + Result
-・
-・ - 2
-・ + 1
-🔥 should grow: \\"should grow\\" got worse. 😔
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-💥 Betterer (0ms): 1 test running... 1 test done! 1 test errored!
-🔥 should shrink: \\"should shrink\\" got worse. 😔
-・ - Expected
-・ + Result
-・
-・ - 0
-・ + 1
+・ - 3
+・ + 4
 
 Error: \\"should shrink\\" got worse. 😔
 🔥 should grow: \\"should grow\\" got worse. 😔
 ・ - Expected
 ・ + Result
 ・
-・ - 2
-・ + 1
+・ - -1
+・ + -2
 
 Error: \\"should grow\\" got worse. 😔
 
@@ -835,16 +824,16 @@ Error: \\"should grow\\" got worse. 😔
 ・ - Expected
 ・ + Result
 ・
-・ - 0
-・ + 1
+・ - 3
+・ + 4
 
 Error: \\"should shrink\\" got worse. 😔
 🔥 should grow: \\"should grow\\" got worse. 😔
 ・ - Expected
 ・ + Result
 ・
-・ - 2
-・ + 1
+・ - -1
+・ + -2
 
 Error: \\"should grow\\" got worse. 😔
 
@@ -861,16 +850,16 @@ Error: \\"should grow\\" got worse. 😔
 ・ - Expected
 ・ + Result
 ・
-・ - 0
-・ + 1
+・ - 3
+・ + 4
 
 Error: \\"should shrink\\" got worse. 😔
 🔥 should grow: \\"should grow\\" got worse. 😔
 ・ - Expected
 ・ + Result
 ・
-・ - 2
-・ + 1
+・ - -1
+・ + -2
 
 Error: \\"should grow\\" got worse. 😔
 
@@ -886,12 +875,12 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 exports[`betterer should work when a test gets worse 2`] = `
 "// BETTERER RESULTS V2.
 exports[\`should shrink\`] = {
-  value: \`0
+  value: \`3
 \`
 };
 
 exports[\`should grow\`] = {
-  value: \`2
+  value: \`-1
 \`
 };
 "

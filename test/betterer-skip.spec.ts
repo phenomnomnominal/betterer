@@ -9,12 +9,13 @@ describe('betterer', () => {
 import { BettererTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
 import { regexp } from '@betterer/regexp';
+import { persist } from '@betterer/fixture';
 
-let start = 0;
+const grows = persist(__dirname, 'grows', 0);
 
 export default {
   'test 1': () => new BettererTest({
-    test: () => start++,
+    test: () => grows.increment(),
     constraint: bigger
   }).skip(),
   'test 2': () => regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts').skip()
@@ -24,12 +25,13 @@ export default {
 import { BettererTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
 import { regexp } from '@betterer/regexp';
+import { persist } from '@betterer/fixture';
 
-let start = 0;
+const grows = persist(__dirname, 'grows', 0);
 
 export default {
   'test 1': () => new BettererTest({
-    test: () => start++,
+    test: () => grows.increment(),
     constraint: bigger
   }),
   'test 2': () => regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')

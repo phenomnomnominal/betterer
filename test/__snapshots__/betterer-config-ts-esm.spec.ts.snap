@@ -157,7 +157,7 @@ Array [
 exports[`betterer should work with a .betterer.ts file that uses ES modules 2`] = `
 "// BETTERER RESULTS V2.
 exports[\`gets better\`] = {
-  value: \`1
+  value: \`2
 \`
 };
 "

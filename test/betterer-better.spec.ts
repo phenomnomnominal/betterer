@@ -8,17 +8,18 @@ describe('betterer', () => {
       '.betterer.js': `
 const { BettererTest } = require('@betterer/betterer');
 const { smaller, bigger } = require('@betterer/constraints');
+const { persist } = require('@betterer/fixture');
 
-let grows = 0;
-let shrinks = 2;
+const grows = persist(__dirname, 'grows', 0);
+const shrinks = persist(__dirname, 'shrinks', 2);
 
 module.exports = {
   'should shrink': () => new BettererTest({
-    test: () => shrinks--,
+    test: () => shrinks.decrement(),
     constraint: smaller
   }),
   'should grow': () => new BettererTest({
-    test: () => grows++,
+    test: () => grows.increment(),
     constraint: bigger
   })
 };

@@ -8,12 +8,13 @@ describe('betterer', () => {
       '.betterer.ts': `
 const { BettererTest } = require('@betterer/betterer');
 const { bigger } = require('@betterer/constraints');
+const { persist } = require('@betterer/fixture');
 
-let start = 0;
+const grows = persist(__dirname, 'grows', 0);
 
 module.exports = {
   'gets better': () => new BettererTest({
-    test: () => start++,
+    test: () => grows.increment(),
     constraint: bigger
   })
 };

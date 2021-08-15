@@ -8,11 +8,12 @@ describe('betterer', () => {
       '.betterer.ts': `
 import { BettererTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
+import { persist } from '@betterer/fixture';
 
-let start = 0;
+const grows = persist(__dirname, 'grows', 0);
 
 export const getsBetter = () => new BettererTest({
-  test: () => start++,
+  test: () => grows.increment(),
   constraint: bigger
 });
       `
