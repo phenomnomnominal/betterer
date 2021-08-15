@@ -181,58 +181,6 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-eslint-complex/src/index.ts\\".
-🤔 eslint enable no-debugger rule: running \\"eslint enable no-debugger rule\\"!
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-eslint-complex/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-eslint-complex/src/index.ts\\":
-🤔 eslint enable no-debugger rule: running \\"eslint enable no-debugger rule\\"!
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-eslint-complex/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-eslint-complex/src/index.ts\\":
-・
-・   <project>/fixtures/test-betterer-eslint-complex/src/index.ts
-・   1 | debugger;
-・ > 2 | debugger;
-・     | ^^^^^^^^^ Unexpected 'debugger' statement.
-・
-🤔 eslint enable no-debugger rule: running \\"eslint enable no-debugger rule\\"!
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-eslint-complex/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-eslint-complex/src/index.ts\\":
-・
-・   <project>/fixtures/test-betterer-eslint-complex/src/index.ts
-・   1 | debugger;
-・ > 2 | debugger;
-・     | ^^^^^^^^^ Unexpected 'debugger' statement.
-・
 🔥 eslint enable no-debugger rule: \\"eslint enable no-debugger rule\\" got worse. (1 new issue, 2 total) 😔
 
 ",
@@ -367,7 +315,7 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 
 1 test got checked. 🤔
 1 test got better! 😍
-\\"eslint enable no-debugger rule\\" met its goal! 🎉)
+\\"eslint enable no-debugger rule\\" met its goal! 🎉
 
 ",
   "
@@ -433,7 +381,7 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
-\\"eslint enable no-debugger rule\\" met its goal! 🎉)
+\\"eslint enable no-debugger rule\\" met its goal! 🎉
 
 ",
 ]

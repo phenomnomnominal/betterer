@@ -10,4 +10,4 @@ export type BettererTaskRun = (logger: BettererLogger) => Promise<BettererTaskLo
 export type BettererTaskColour = typeof ForegroundColor;
 
 export type BettererTaskLog = [indicator: string, colour: BettererTaskColour, message: string];
-export type BettererTaskLogs = ReadonlyArray<BettererTaskLog>;
+export type BettererTaskLogs = Array<BettererTaskLog>;

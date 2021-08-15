@@ -181,60 +181,6 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\".
-🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\":
-🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\":
-・
-・   <project>/fixtures/test-betterer-typescript/src/index.ts
-・   1 | const a = 'a';
-・   2 | const one = 1;
-・ > 3 | console.log(a * one, one * a);
-・     |                            ^ The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
-・
-🤔 typescript use strict mode: running \\"typescript use strict mode\\"!
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript/src/index.ts\\":
-・
-・   <project>/fixtures/test-betterer-typescript/src/index.ts
-・   1 | const a = 'a';
-・   2 | const one = 1;
-・ > 3 | console.log(a * one, one * a);
-・     |                            ^ The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
-・
 🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. (1 new issue, 2 total) 😔
 
 ",
@@ -372,7 +318,7 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 
 1 test got checked. 🤔
 1 test got better! 😍
-\\"typescript use strict mode\\" met its goal! 🎉)
+\\"typescript use strict mode\\" met its goal! 🎉
 
 ",
   "
@@ -438,7 +384,7 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
-\\"typescript use strict mode\\" met its goal! 🎉)
+\\"typescript use strict mode\\" met its goal! 🎉
 
 ",
 ]
