@@ -6,6 +6,7 @@ import { BettererFileTestResultΩ } from './file-test-result';
 import {
   BettererFileTestDiff,
   BettererFileIssue,
+  BettererFileIssueSerialised,
   BettererFilesDiff,
   BettererFileTestResult,
   BettererFileBase
@@ -55,13 +56,13 @@ export function differ(expected: BettererFileTestResult, result: BettererFileTes
 
   fixedFiles.forEach((file) => {
     diff[file.absolutePath] = {
-      fixed: file.issues
+      fixed: file.issues.map(serialiseIssue)
     };
   });
 
   newFiles.forEach((file) => {
     diff[file.absolutePath] = {
-      new: file.issues
+      new: file.issues.map(serialiseIssue)
     };
   });
 
@@ -140,9 +141,9 @@ export function differ(expected: BettererFileTestResult, result: BettererFileTes
 
     // Otherwise construct the diff:
     diff[resultFile.absolutePath] = {
-      existing: [...unchangedExpectedIssues, ...movedIssues],
-      fixed: fixedIssues,
-      new: newIssues
+      existing: [...unchangedExpectedIssues, ...movedIssues].map(serialiseIssue),
+      fixed: fixedIssues.map(serialiseIssue),
+      new: newIssues.map(serialiseIssue)
     };
   });
 
@@ -166,7 +167,7 @@ export function differ(expected: BettererFileTestResult, result: BettererFileTes
       newIssues.map((issue) => {
         const fileΩ = resultΩ.getFile(filePath) as BettererFileΩ;
         const { fileText } = fileΩ;
-        const { line, column, length, message } = issue;
+        const [line, column, length, message] = issue;
         logs.push({ code: { message, filePath, fileText, line, column, length } });
       });
     }
@@ -180,4 +181,8 @@ export function differ(expected: BettererFileTestResult, result: BettererFileTes
 
 function getIssues(count: number): string {
   return count === 1 ? 'issue' : 'issues';
+}
+
+function serialiseIssue(issue: BettererFileIssue): BettererFileIssueSerialised {
+  return [issue.line, issue.column, issue.length, issue.message, issue.hash];
 }

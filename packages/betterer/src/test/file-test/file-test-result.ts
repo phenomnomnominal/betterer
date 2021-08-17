@@ -48,10 +48,6 @@ export class BettererFileTestResultΩ implements BettererFileTestResult {
     this._addFile(file);
   }
 
-  public getFilePaths(): BettererFilePaths {
-    return this._filePaths;
-  }
-
   public getIssues(absolutePath?: string): BettererFileIssues {
     if (!absolutePath) {
       return this.files.flatMap((files) => files.issues);

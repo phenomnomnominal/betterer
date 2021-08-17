@@ -9,12 +9,12 @@ const VALIDATE_TIMEOUT = 100;
 
 export class BettererValidationQueue {
   private _queue = new Map<TextDocument, number>();
-  private _validating: Promise<void> | null = null;
+  private _validating: Promise<void> = Promise.resolve();
   private _validator: BettererValidator;
 
   constructor(connection: Connection, documents: TextDocuments<TextDocument>) {
     this._validator = new BettererValidator(connection, documents);
-    this._trigger = debounce(this._trigger.bind(this), VALIDATE_TIMEOUT);
+    this._trigger = debounce(this._trigger.bind(this), VALIDATE_TIMEOUT, { leading: true, trailing: true });
   }
 
   public addToQueue(event: TextDocumentChangeEvent<TextDocument>): void {
@@ -22,7 +22,7 @@ export class BettererValidationQueue {
     if (!this._queue.has(event.document)) {
       this._queue.set(event.document, event.document.version);
     }
-    void this._trigger();
+    this._trigger();
   }
 
   public removeFromQueue(event: TextDocumentChangeEvent<TextDocument>): void {
@@ -32,9 +32,8 @@ export class BettererValidationQueue {
 
   private _trigger(): void {
     void (async () => {
-      if (this._validating) {
-        await this._validating;
-      }
+      info(`Server: waiting for previous validation run to finish:`);
+      await this._validating;
       this._validating = this._processQueue();
       await this._validating;
     })();
@@ -58,8 +57,10 @@ export class BettererValidationQueue {
     documents.forEach((document) => {
       info(`Server: Validating document "${document.uri}".`);
     });
-    await this._validator.validate(documents);
-    this._validating = null;
-    void this._trigger();
+    try {
+      await this._validator.validate(documents);
+    } catch {
+      //
+    }
   }
 }
