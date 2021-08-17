@@ -58,6 +58,7 @@ export {
   BettererSerialiser,
   BettererTest,
   BettererTestConstraint,
+  BettererTestDeadline,
   BettererTestFunction,
   BettererTestGoal,
   BettererTestConfig,

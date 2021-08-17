@@ -118,6 +118,7 @@ export declare class BettererFileTest implements BettererFileTestBase {
     get isSkipped(): boolean;
     constructor(fileTest: BettererFileTestFunction);
     constraint(constraintOverride: BettererTestConstraint<BettererFileTestResult>): this;
+    deadline(deadlineOverride: BettererTestDeadline): this;
     exclude(...excludePatterns: BettererFilePatterns): this;
     goal(goalOverride: BettererTestGoal<BettererFileTestResult>): this;
     include(...includePatterns: BettererFileGlobs): this;
@@ -331,6 +332,8 @@ export declare type BettererTestConfig<DeserialisedType = unknown, SerialisedTyp
 
 export declare type BettererTestConstraint<DeserialisedType> = (result: DeserialisedType, expected: DeserialisedType) => MaybeAsync<BettererConstraintResult>;
 
+export declare type BettererTestDeadline = Date | string;
+
 export declare type BettererTestFunction<DeserialisedType> = (run: BettererRun, context: BettererContext) => MaybeAsync<DeserialisedType>;
 
 export declare type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
@@ -341,7 +344,7 @@ export declare type BettererTestOptionsBasic = {
     constraint: BettererTestConstraint<number>;
     test: BettererTestFunction<number>;
     goal?: number | BettererTestGoal<number>;
-    deadline?: Date | string;
+    deadline?: BettererTestDeadline;
 };
 
 export declare type BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType> = {
@@ -352,7 +355,7 @@ export declare type BettererTestOptionsComplex<DeserialisedType, SerialisedType,
     progress?: BettererProgress<DeserialisedType>;
     serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
     goal: DeserialisedType | BettererTestGoal<DeserialisedType>;
-    deadline?: Date | string;
+    deadline?: BettererTestDeadline;
 };
 
 export declare function runner(options?: BettererOptionsRunner): Promise<BettererRunner>;

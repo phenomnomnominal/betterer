@@ -27,6 +27,7 @@ export {
   BettererTestMap,
   BettererTestBase,
   BettererTestConstraint,
+  BettererTestDeadline,
   BettererTestFunction,
   BettererTestGoal,
   BettererTestOptions,
