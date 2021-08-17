@@ -76,9 +76,9 @@ export declare type BettererFileBase = {
 };
 
 export declare type BettererFileDiff = {
-    fixed?: BettererFileIssues;
-    existing?: BettererFileIssues;
-    new?: BettererFileIssues;
+    fixed?: BettererFileIssuesSerialised;
+    existing?: BettererFileIssuesSerialised;
+    new?: BettererFileIssuesSerialised;
 };
 
 export declare type BettererFileGlobs = ReadonlyArray<string | ReadonlyArray<string>>;
@@ -92,6 +92,10 @@ export declare type BettererFileIssue = {
 };
 
 export declare type BettererFileIssues = ReadonlyArray<BettererFileIssue>;
+
+export declare type BettererFileIssueSerialised = [line: number, column: number, length: number, message: string, hash: string];
+
+export declare type BettererFileIssuesSerialised = ReadonlyArray<BettererFileIssueSerialised>;
 
 export declare type BettererFilePath = string;
 
@@ -127,9 +131,10 @@ export declare type BettererFileTestFunction = (filePaths: BettererFilePaths, fi
 
 export declare type BettererFileTestResult = {
     addFile(absolutePath: string, fileText: string): BettererFile;
-    getFilePaths(): BettererFilePaths;
     getIssues(absolutePath?: string): BettererFileIssues;
 };
+
+export declare type BettererFileTestResultSerialised = Record<string, BettererFileIssuesSerialised>;
 
 export declare type BettererOptionsBase = Partial<{
     cache: boolean;
