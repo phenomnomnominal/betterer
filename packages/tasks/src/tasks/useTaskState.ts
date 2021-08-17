@@ -7,7 +7,8 @@ type BettererTaskState = {
   done: boolean;
   running: boolean;
   status: BettererTaskLog | null;
-  messageLogs: BettererTaskLogs;
+  logs: BettererTaskLogs;
+  finalLogs: BettererTaskLogs;
   error: Error | null;
 };
 
@@ -15,7 +16,8 @@ const INITIAL_STATE: BettererTaskState = {
   done: false,
   running: false,
   status: null,
-  messageLogs: [],
+  logs: [],
+  finalLogs: [],
   error: null
 };
 
@@ -84,14 +86,15 @@ function reducer(state: BettererTaskState, action: BettererTaskAction): Betterer
     case 'log': {
       return {
         ...state,
-        messageLogs: [...state.messageLogs, action.data]
+        logs: [...state.logs, action.data]
       };
     }
     case 'stop': {
       return {
         ...state,
         running: false,
-        done: true
+        done: true,
+        finalLogs: state.logs
       };
     }
     case 'error': {
@@ -99,7 +102,8 @@ function reducer(state: BettererTaskState, action: BettererTaskAction): Betterer
         ...state,
         error: action.data,
         running: false,
-        done: true
+        done: true,
+        finalLogs: state.logs
       };
     }
     default: {

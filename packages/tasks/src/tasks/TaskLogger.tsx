@@ -19,7 +19,7 @@ export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function Bet
   const { name, run } = props;
   const [state, taskApi] = useTaskState();
 
-  const { done, error, messageLogs, status } = state;
+  const { error, finalLogs, status } = state;
 
   useEffect(() => {
     void (async () => {
@@ -86,16 +86,15 @@ export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function Bet
 
   return (
     <Box flexDirection="column">
-      {done && status && <BettererTaskStatus name={name} status={status} />}
-      {messageLogs.length ? (
+      {status && <BettererTaskStatus name={name} status={status} />}
+      {finalLogs.length ? (
         <Box flexDirection="column">
-          {messageLogs.map((log, index) => (
+          {finalLogs.map((log, index) => (
             <Text key={index}>{prependLogBlock(log)}</Text>
           ))}
         </Box>
       ) : null}
       {error && <BettererErrorLog error={error} />}
-      {!done && status && <BettererTaskStatus name={name} status={status} />}
     </Box>
   );
 });

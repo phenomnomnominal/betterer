@@ -65,7 +65,7 @@ export const SuiteSummary: FC<SuiteSummaryProps> = memo(function SuiteSummary({ 
         {better ? <Text color={TEXT_COLOURS.better}>{testBetter(tests(better))}</Text> : null}
         {completed.map((run, index) => (
           <Text key={index} color={TEXT_COLOURS.completed}>
-            {testComplete(quote(run.name))})
+            {testComplete(quote(run.name))}
           </Text>
         ))}
         {same ? <Text color={TEXT_COLOURS.same}>{testSame(tests(same))}</Text> : null}

@@ -6,8 +6,10 @@ const ARGV = ['node', './bin/betterer'];
 
 describe('betterer cli', () => {
   it('should filter tests by name', async () => {
-    const { logs, paths, cleanup, runNames } = await createFixture('test-betterer-filter', {
-      '.betterer.js': `
+    const { logs, paths, cleanup, runNames } = await createFixture(
+      'test-betterer-filter',
+      {
+        '.betterer.js': `
 const { BettererTest } = require('@betterer/betterer');
 const { bigger } = require('@betterer/constraints');
 
@@ -26,7 +28,11 @@ module.exports = {
   })
 };
       `
-    });
+      },
+      {
+        logFilters: [/: running /, /running.../]
+      }
+    );
 
     const fixturePath = paths.cwd;
 
