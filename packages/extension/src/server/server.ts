@@ -8,11 +8,14 @@ import {
   createConnection
 } from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
+import { debounce } from 'lodash';
 
 import { info, initConsole } from './console';
 import { createErrorHandler } from './error-handler';
 import { BettererValidationQueue } from './validation-queue';
 import { initTrace } from './trace';
+
+const ENVIRONMENT_CHANGE_TIMEOUT = 100;
 
 function init(): void {
   const connection = createConnection();
@@ -46,10 +49,10 @@ function init(): void {
     queueValidate(event);
   }
 
-  function environmentChanged(): void {
+  const environmentChanged = debounce(function environmentChanged(): void {
     info('Server: Environment changed, revalidating all documents:');
     documents.all().forEach((document) => queueValidate({ document }));
-  }
+  }, ENVIRONMENT_CHANGE_TIMEOUT);
 
   connection.onInitialize(() => {
     documents.listen(connection);

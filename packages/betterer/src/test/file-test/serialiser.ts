@@ -2,9 +2,14 @@ import * as path from 'path';
 
 import { BettererFileResolverΩ } from '../../fs';
 import { BettererFileTestResultΩ } from './file-test-result';
-import { BettererFileTestResult, BettererFileIssues, BettererFileIssuesMapSerialised, BettererFileBase } from './types';
+import {
+  BettererFileTestResult,
+  BettererFileIssues,
+  BettererFileTestResultSerialised,
+  BettererFileBase
+} from './types';
 
-export function deserialise(serialised: BettererFileIssuesMapSerialised, resultsPath: string): BettererFileTestResult {
+export function deserialise(serialised: BettererFileTestResultSerialised, resultsPath: string): BettererFileTestResult {
   const resolver = new BettererFileResolverΩ(path.dirname(resultsPath));
   const deserialised = new BettererFileTestResultΩ(resolver);
   Object.keys(serialised).map((key) => {
@@ -20,7 +25,7 @@ export function deserialise(serialised: BettererFileIssuesMapSerialised, results
   return deserialised as BettererFileTestResult;
 }
 
-export function serialise(result: BettererFileTestResult): BettererFileIssuesMapSerialised {
+export function serialise(result: BettererFileTestResult): BettererFileTestResultSerialised {
   const resultΩ = result as BettererFileTestResultΩ;
   return resultΩ.files
     .filter((file) => file.issues.length)
@@ -33,7 +38,7 @@ export function serialise(result: BettererFileTestResult): BettererFileIssuesMap
       }
       return 0;
     })
-    .reduce((serialised: BettererFileIssuesMapSerialised, file: BettererFileBase) => {
+    .reduce((serialised: BettererFileTestResultSerialised, file: BettererFileBase) => {
       serialised[file.key] = sortLinesAndColumns(file.issues).map((issue) => [
         issue.line,
         issue.column,
@@ -42,7 +47,7 @@ export function serialise(result: BettererFileTestResult): BettererFileIssuesMap
         issue.hash
       ]);
       return serialised;
-    }, {} as BettererFileIssuesMapSerialised);
+    }, {} as BettererFileTestResultSerialised);
 }
 
 function sortLinesAndColumns(issues: BettererFileIssues): BettererFileIssues {

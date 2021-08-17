@@ -1,57 +1,51 @@
+import debounce from 'lodash.debounce';
 import { Connection, TextDocumentChangeEvent, TextDocuments } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { info } from './console';
 
+import { info } from './console';
 import { BettererValidator } from './validator';
 
-type BettererValidationNotification = {
-  document: TextDocument;
-  documentVersion: number | undefined;
-};
+const VALIDATE_TIMEOUT = 100;
 
 export class BettererValidationQueue {
-  private _queue: Array<BettererValidationNotification> = [];
-  private _validating: Promise<void> | null = null;
+  private _queue = new Map<TextDocument, number>();
+  private _validating: Promise<void> = Promise.resolve();
   private _validator: BettererValidator;
 
   constructor(connection: Connection, documents: TextDocuments<TextDocument>) {
     this._validator = new BettererValidator(connection, documents);
+    this._trigger = debounce(this._trigger.bind(this), VALIDATE_TIMEOUT, { leading: true, trailing: true });
   }
 
   public addToQueue(event: TextDocumentChangeEvent<TextDocument>): void {
     info(`Server: Adding "${event.document.uri}" to validation queue at ${Date.now().toString()}`);
-    if (!this._queue.find((item) => item.document === event.document)) {
-      this._queue.push({
-        document: event.document,
-        documentVersion: event.document.version
-      });
+    if (!this._queue.has(event.document)) {
+      this._queue.set(event.document, event.document.version);
     }
-    void this._trigger();
+    this._trigger();
   }
 
   public removeFromQueue(event: TextDocumentChangeEvent<TextDocument>): void {
     info(`Server: Removing "${event.document.uri}" from validation queue at ${Date.now().toString()}`);
-    const index = this._queue.findIndex((item) => item.document === event.document);
-    if (index > -1) {
-      this._queue.splice(index, 1);
-    }
+    this._queue.delete(event.document);
   }
 
-  private async _trigger(): Promise<void> {
-    if (this._validating) {
+  private _trigger(): void {
+    void (async () => {
+      info(`Server: waiting for previous validation run to finish:`);
       await this._validating;
-    }
-    this._validating = this._processQueue();
-    await this._validating;
+      this._validating = this._processQueue();
+      await this._validating;
+    })();
   }
 
   private async _processQueue(): Promise<void> {
     info(`Server: Processing queue at ${Date.now().toString()}`);
-    const documents = new Set(this._queue.map((item) => item.document));
+    const documents = Array.from(this._queue.keys());
 
-    this._queue.length = 0;
+    this._queue = new Map();
 
-    if (documents.size === 0) {
+    if (documents.length === 0) {
       info(`Server: Queue empty, nothing to do.`);
       return;
     }
@@ -63,8 +57,10 @@ export class BettererValidationQueue {
     documents.forEach((document) => {
       info(`Server: Validating document "${document.uri}".`);
     });
-    await this._validator.validate(documents);
-    this._validating = null;
-    void this._trigger();
+    try {
+      await this._validator.validate(documents);
+    } catch {
+      //
+    }
   }
 }
