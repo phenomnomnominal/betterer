@@ -69,9 +69,6 @@ export function differ(expected: BettererFileTestResult, result: BettererFileTes
   existingFiles.forEach((resultFile) => {
     const expectedFile = movedFiles.get(resultFile) || expectedΩ.getFile(resultFile.absolutePath);
 
-    assert(resultFile);
-    assert(expectedFile);
-
     // Convert all issues to their deserialised form for easier diffing:
     const resultIssues = [...resultFile.issues];
     const expectedIssues = expectedFile.issues;

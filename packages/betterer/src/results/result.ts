@@ -1,5 +1,4 @@
 import assert from 'assert';
-
 import { BettererResult } from './types';
 
 const NO_PREVIOUS_RESULT = Symbol('No Previous Result');

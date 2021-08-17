@@ -61,15 +61,12 @@ export default {
 
     await writeFile(indexPath, `// HACK:`);
 
-    const run = await betterer({ configPaths, resultsPath });
+    const run = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(run.ran)).toEqual(['test 1', 'test 2', 'test 3', 'test 4']);
     expect(runNames(run.skipped)).toEqual([]);
 
-    const onlyRun = await betterer({
-      configPaths: [resolve('./.betterer.only.ts')],
-      resultsPath
-    });
+    const onlyRun = await betterer({ configPaths: [resolve('./.betterer.only.ts')], resultsPath, workers: 1 });
 
     expect(runNames(onlyRun.ran)).toEqual(['test 1', 'test 4']);
     expect(runNames(onlyRun.skipped)).toEqual(['test 2', 'test 3']);

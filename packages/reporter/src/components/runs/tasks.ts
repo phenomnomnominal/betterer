@@ -52,11 +52,11 @@ export function useTask(run: BettererRun | BettererRunSummary): BettererTaskRun 
       if (runSummary.isSame) {
         return testSame(name, delta);
       }
-      if (runSummary.isUpdated) {
+      if (runSummary.isUpdated && runSummary.diff) {
         await handleLogs(runSummary.diff.logs, logger);
         return testUpdated(name, delta);
       }
-      if (runSummary.isWorse) {
+      if (runSummary.isWorse && runSummary.diff) {
         await handleLogs(runSummary.diff.logs, logger);
         throw new BettererError(testWorse(name, delta));
       }

@@ -24,7 +24,7 @@ export default {
 
     await writeFile(indexPath, `console.log('foo');console.log('foo');`);
 
-    await betterer({ configPaths, resultsPath, cwd });
+    await betterer({ configPaths, resultsPath, cwd, workers: 1 });
 
     const suiteSummaryDefers = [
       defer<BettererSuiteSummary>(),
@@ -45,7 +45,8 @@ export default {
             suiteSummaryDefer?.resolve(suiteSummary);
           }
         }
-      ]
+      ],
+      workers: 1
     });
 
     await writeFile(indexPath, `console.log('foo');\nconsole.log('foo');console.log('foo');`);
@@ -108,7 +109,8 @@ export default {
             suiteSummaryDefer.resolve(suiteSummary);
           }
         }
-      ]
+      ],
+      workers: 1
     });
 
     await writeFile(indexPath, `console.log('foo');`);
@@ -163,7 +165,8 @@ ignored.ts
             suiteSummaryDefer.resolve(suiteSummary);
           }
         }
-      ]
+      ],
+      workers: 1
     });
 
     await writeFile(indexPath, `console.log('foo');`);

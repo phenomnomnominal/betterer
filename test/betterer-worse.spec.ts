@@ -35,11 +35,11 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = resolve(paths.results);
 
-    const firstRun = await betterer({ configPaths, resultsPath });
+    const firstRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(firstRun.new)).toEqual(['should shrink', 'should grow']);
 
-    const secondRun = await betterer({ configPaths, resultsPath });
+    const secondRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(secondRun.worse)).toEqual(['should shrink', 'should grow']);
 
@@ -74,13 +74,13 @@ export default {
 
     await writeFile(indexPath, `console.log('foo');`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(newTestRun.new)).toEqual(['tsquery no raw console.log']);
 
     await writeFile(indexPath, `console.log('foo');\nconsole.log('foo');`);
 
-    const worseTestRun = await betterer({ configPaths, resultsPath, update: true });
+    const worseTestRun = await betterer({ configPaths, resultsPath, update: true, workers: 1 });
 
     expect(runNames(worseTestRun.updated)).toEqual(['tsquery no raw console.log']);
 
@@ -88,7 +88,7 @@ export default {
 
     expect(result).toMatchSnapshot();
 
-    const sameTestRun = await betterer({ configPaths, resultsPath });
+    const sameTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(sameTestRun.same)).toEqual(['tsquery no raw console.log']);
 
@@ -119,14 +119,14 @@ export default {
 
     await writeFile(indexPath, `console.log('foo');`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(newTestRun.new)).toEqual(['tsquery no raw console.log']);
 
     await writeFile(indexPath, `console.log('foo');\nconsole.log('foo');`);
 
     // @ts-expect-error `strict` and `true` are mutually exclusive, but could be set via JS:
-    const blockedTestRun = await betterer({ configPaths, resultsPath, strict: true, update: true });
+    const blockedTestRun = await betterer({ configPaths, resultsPath, strict: true, update: true, workers: 1 });
 
     expect(runNames(blockedTestRun.worse)).toEqual(['tsquery no raw console.log']);
 

@@ -35,11 +35,11 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    const firstRun = await betterer({ configPaths, resultsPath });
+    const firstRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(firstRun.new)).toEqual(['should shrink', 'should grow']);
 
-    const secondRun = await betterer({ configPaths, resultsPath });
+    const secondRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(secondRun.better)).toEqual(['should shrink', 'should grow']);
 
@@ -83,11 +83,11 @@ console.log('foo');
     );
     const resultsPath = paths.results;
 
-    const firstRun = await betterer({ configPaths: [resolve('.betterer.ts')], resultsPath });
+    const firstRun = await betterer({ configPaths: [resolve('.betterer.ts')], resultsPath, workers: 1 });
 
     expect(runNames(firstRun.new)).toEqual(['no raw console calls']);
 
-    const secondRun = await betterer({ configPaths: [resolve('.betterer.changed.ts')], resultsPath });
+    const secondRun = await betterer({ configPaths: [resolve('.betterer.changed.ts')], resultsPath, workers: 1 });
 
     expect(runNames(secondRun.better)).toEqual(['no raw console calls']);
 

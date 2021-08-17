@@ -23,7 +23,13 @@ export {
   BettererOptionsWatch
 } from './config/public';
 export { BettererContext, BettererContextSummary, BettererDelta } from './context/public';
-export { BettererFileGlobs, BettererFilePaths, BettererFilePatterns, BettererFileResolver } from './fs/public';
+export {
+  BettererFileGlobs,
+  BettererFilePath,
+  BettererFilePaths,
+  BettererFilePatterns,
+  BettererFileResolver
+} from './fs/public';
 export { BettererResult } from './results/public';
 export { BettererReporter } from './reporters/public';
 export { BettererRun, BettererRunNames, BettererRunSummary, BettererRunSummaries, BettererRuns } from './run/public';

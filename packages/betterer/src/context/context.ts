@@ -4,21 +4,23 @@ import { BettererConfig } from '../config';
 import { BettererFilePaths, BettererVersionControlWorker } from '../fs';
 import { BettererReporterΩ } from '../reporters';
 import { BettererResultsΩ } from '../results';
+import { BettererRunWorkerPoolΩ, BettererRunΩ, createWorkerConfig } from '../run';
+import { BettererSuiteΩ, BettererSuiteSummariesΩ, BettererSuiteSummaryΩ } from '../suite';
+import { loadTestMeta } from '../test';
 import { defer } from '../utils';
-import { BettererSuiteSummaryΩ, BettererSuiteSummary, BettererSuiteSummaries, BettererSuiteΩ } from '../suite';
-import { BettererContext, BettererContextStarted, BettererContextSummary } from './types';
 import { BettererGlobals } from '../types';
 import { BettererContextSummaryΩ } from './context-summary';
+import { BettererContext, BettererContextStarted, BettererContextSummary } from './types';
 
-export class BettererContextΩ implements BettererContext, BettererGlobals {
+export class BettererContextΩ implements BettererContext {
   public readonly config: BettererConfig;
   public readonly reporter: BettererReporterΩ;
   public readonly results: BettererResultsΩ;
   public readonly versionControl: BettererVersionControlWorker;
 
-  private _suiteSummaries: BettererSuiteSummaries = [];
+  private _suiteSummaries: BettererSuiteSummariesΩ = [];
 
-  constructor(private _globals: BettererGlobals) {
+  constructor(private _globals: BettererGlobals, private _runWorkerPool: BettererRunWorkerPoolΩ) {
     this.config = this._globals.config;
     this.reporter = this._globals.reporter;
     this.results = this._globals.results;
@@ -27,19 +29,20 @@ export class BettererContextΩ implements BettererContext, BettererGlobals {
 
   public start(): BettererContextStarted {
     const contextLifecycle = defer<BettererContextSummary>();
+
     // Don't await here! A custom reporter could be awaiting
     // the lifecycle promise which is unresolved right now!
     const reportContextStart = this.reporter.contextStart(this, contextLifecycle.promise);
     return {
       end: async (): Promise<BettererContextSummary> => {
-        const contextSummary = new BettererContextSummaryΩ(this._globals, this._suiteSummaries);
+        const contextSummary = new BettererContextSummaryΩ(this.config, this._suiteSummaries);
         contextLifecycle.resolve(contextSummary);
         await reportContextStart;
         await this.reporter.contextEnd(contextSummary);
 
         await this.versionControl.writeCache();
 
-        const suiteSummaryΩ = contextSummary.lastSuite as BettererSuiteSummaryΩ;
+        const suiteSummaryΩ = contextSummary.lastSuite;
         if (suiteSummaryΩ.shouldWrite) {
           await this.results.write(suiteSummaryΩ.result);
           if (this.config.precommit) {
@@ -56,15 +59,26 @@ export class BettererContextΩ implements BettererContext, BettererGlobals {
     };
   }
 
-  public async run(filePaths: BettererFilePaths): Promise<BettererSuiteSummary> {
+  public async run(filePaths: BettererFilePaths): Promise<BettererSuiteSummaryΩ> {
     await this.results.sync();
     await this.versionControl.sync();
 
-    const validFilePaths = await this.versionControl.filterIgnored(filePaths);
+    filePaths = await this.versionControl.filterIgnored(filePaths);
 
-    const suite = new BettererSuiteΩ(this, validFilePaths);
+    const testMeta = loadTestMeta(this.config);
+    const testNames = Object.keys(testMeta);
+
+    const workerConfig = createWorkerConfig(this.config);
+
+    const runs = await Promise.all(
+      testNames.map(async (testName) => {
+        return BettererRunΩ.create(this._runWorkerPool, testName, workerConfig, filePaths, this.versionControl);
+      })
+    );
+
+    const suite = new BettererSuiteΩ(this, filePaths, runs);
     const suiteSummary = await suite.run();
-    this._suiteSummaries.push(suiteSummary);
+    this._suiteSummaries = [...this._suiteSummaries, suiteSummary];
     return suiteSummary;
   }
 }

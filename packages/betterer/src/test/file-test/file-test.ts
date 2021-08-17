@@ -3,7 +3,7 @@ import path from 'path';
 
 import { BettererContext } from '../../context';
 import { BettererFileResolverΩ, BettererFileGlobs, BettererFilePatterns } from '../../fs';
-import { BettererRun, BettererRunΩ } from '../../run';
+import { BettererRun, BettererWorkerRunΩ } from '../../run';
 import { BettererGlobals } from '../../types';
 import { createTestConfig } from '../config';
 import { BettererTestConstraint, BettererTestFunction, BettererTestGoal } from '../types';
@@ -88,7 +88,7 @@ function createTest(
   fileTest: BettererFileTestFunction
 ): BettererTestFunction<BettererFileTestResult> {
   return async (run: BettererRun, context: BettererContext): Promise<BettererFileTestResult> => {
-    const runΩ = run as BettererRunΩ;
+    const runΩ = run as BettererWorkerRunΩ;
     assert(runΩ.filePaths);
 
     const baseDirectory = path.dirname(runΩ.test.configPath);

@@ -24,7 +24,7 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    await betterer({ configPaths, resultsPath, silent: true });
+    await betterer({ configPaths, resultsPath, silent: true, workers: 1 });
 
     expect(logs).toHaveLength(0);
     expect(logs).toMatchSnapshot();
@@ -53,11 +53,11 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    await betterer({ configPaths, resultsPath, silent: true });
+    await betterer({ configPaths, resultsPath, silent: true, workers: 1 });
 
     expect(logs).toHaveLength(0);
 
-    await betterer({ configPaths, resultsPath });
+    await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(logs).not.toHaveLength(0);
 

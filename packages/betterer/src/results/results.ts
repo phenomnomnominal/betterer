@@ -5,8 +5,7 @@ import { forceRelativePaths, read, write } from '../fs';
 import { BettererRunSummaries } from '../run';
 import { parse } from './parser';
 import { print } from './printer';
-import { BettererResultΩ } from './result';
-import { BettererExpectedResults, BettererResult } from './types';
+import { BettererExpectedResults } from './types';
 
 const RESULTS_HEADER = `// BETTERER RESULTS V2.`;
 
@@ -26,10 +25,12 @@ export class BettererResultsΩ {
     }
   }
 
-  public getExpected(name: string): [BettererResult, BettererResult] {
+  public getExpected(name: string): [string, string] {
     assert(this._baseline);
     assert(this._expected);
-    return [this._getResult(name, this._baseline), this._getResult(name, this._expected)];
+    const baseline = this._getResult(name, this._baseline);
+    const expected = this._getResult(name, this._expected) || baseline;
+    return [baseline, expected];
   }
 
   public hasResult(name: string): boolean {
@@ -51,13 +52,10 @@ export class BettererResultsΩ {
     return write(printed, this._resultsPath);
   }
 
-  private _getResult(name: string, expectedResults: BettererExpectedResults): BettererResult {
-    if (Object.hasOwnProperty.call(expectedResults, name)) {
-      assert(expectedResults[name]);
-      const { value } = expectedResults[name];
-      const parsed = JSON.parse(value) as unknown;
-      return new BettererResultΩ(parsed);
-    }
-    return new BettererResultΩ();
+  private _getResult(name: string, expectedResults: BettererExpectedResults): string {
+    const hasResult = Object.hasOwnProperty.call(expectedResults, name);
+    assert(hasResult);
+    const { value } = expectedResults[name];
+    return value;
   }
 }

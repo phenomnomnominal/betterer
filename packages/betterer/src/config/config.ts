@@ -1,10 +1,11 @@
 import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 import { promises as fs } from 'fs';
+import * as os from 'os';
 import * as path from 'path';
 
 import { BettererFileResolverΩ, BettererVersionControlWorker } from '../fs';
-import { isBoolean, isRegExp, isString, isUndefined } from '../utils';
+import { isBoolean, isNumber, isRegExp, isString, isUndefined } from '../utils';
 import {
   BettererConfig,
   BettererConfigReporter,
@@ -13,6 +14,8 @@ import {
   BettererOptionsStart,
   BettererOptionsWatch
 } from './types';
+
+const TOTAL_CPUS = os.cpus().length;
 
 export async function createConfig(
   options: unknown = {},
@@ -36,6 +39,7 @@ export async function createConfig(
     resultsPath: baseOptions.resultsPath || './.betterer.results',
     silent: isDebug || baseOptions.silent || false,
     tsconfigPath: baseOptions.tsconfigPath || null,
+    workers: baseOptions.workers || Math.max(TOTAL_CPUS - 2, 1),
 
     // Runner:
     ignores: toArray<string>(runnerOptions.ignores),
@@ -85,6 +89,7 @@ function validateConfig(config: BettererConfig): void {
   validateStringRegExpArray('filters', config);
   validateString('resultsPath', config);
   validateBool('silent', config);
+  validateWorkers('workers', config);
 
   // Start:
   validateBool('ci', config);
@@ -100,6 +105,11 @@ function validateConfig(config: BettererConfig): void {
 }
 
 function overrideConfig(config: BettererConfig) {
+  // Silent mode:
+  if (config.silent) {
+    config.reporters = [];
+  }
+
   // CI mode:
   if (config.ci) {
     config.precommit = false;
@@ -145,6 +155,11 @@ function overrideConfig(config: BettererConfig) {
 function validateBool<Config, PropertyName extends keyof Config>(propertyName: PropertyName, config: Config): void {
   const value = config[propertyName];
   validate(isBoolean(value), `"${propertyName.toString()}" must be \`true\` or \`false\`. ${recieved(value)}`);
+}
+
+function validateNumber<Config, PropertyName extends keyof Config>(propertyName: PropertyName, config: Config): void {
+  const value = config[propertyName];
+  validate(isNumber(value), `"${propertyName.toString()}" must be a number. ${recieved(value)}`);
 }
 
 function validateString<Config, PropertyName extends keyof Config>(propertyName: PropertyName, config: Config): void {
@@ -195,6 +210,17 @@ async function validateFilePath<Config, PropertyName extends keyof Config>(
   validate(
     value == null || (isString(value) && (await fs.readFile(value))),
     `"${propertyName.toString()}" must be a path to a file. ${recieved(value)}`
+  );
+}
+
+function validateWorkers<Config, PropertyName extends keyof Config>(propertyName: PropertyName, config: Config): void {
+  const value = config[propertyName];
+  validateNumber(propertyName, config);
+  validate(
+    isNumber(value) && value > 0 && value <= TOTAL_CPUS,
+    `"${propertyName.toString()}" must be more than zero and not more than the number of available CPUs (${TOTAL_CPUS}). ${recieved(
+      value
+    )}`
   );
 }
 

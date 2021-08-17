@@ -93,11 +93,30 @@ export interface BettererTestBase<DeserialisedType = unknown, SerialisedType = D
   skip(): this;
 }
 
-export type BettererTestFactory = () => BettererTestBase;
-export type BettererTestMeta = {
-  configPath: string;
-  factory: BettererTestFactory;
-  name: string;
+export type BettererTestFactory = () => MaybeAsync<BettererTestBase>;
+export type BettererTestFactoryMeta = {
+  readonly configPath: string;
+  readonly factory: BettererTestFactory;
+  readonly name: string;
 };
-export type BettererTestMetaMap = Record<string, BettererTestMeta>;
+export type BettererTestFactoryMetaMap = Record<string, BettererTestFactoryMeta>;
 export type BettererTestMap = Record<string, BettererTestFactory>;
+
+export type BettererTestMeta = {
+  readonly configPath: string;
+  readonly name: string;
+  readonly isFileTest: boolean;
+  readonly isOnly: boolean;
+  readonly isSkipped: boolean;
+} & (
+  | {
+      readonly isNew: true;
+      readonly baselineJSON: null;
+      readonly expectedJSON: null;
+    }
+  | {
+      readonly isNew: false;
+      readonly baselineJSON: string;
+      readonly expectedJSON: string;
+    }
+);

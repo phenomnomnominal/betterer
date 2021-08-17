@@ -31,10 +31,10 @@ export default {
     await writeFile(resolve('./src/index.ts'), '');
 
     // First run to create .betterer.results file:
-    await betterer({ configPaths, resultsPath });
+    await betterer({ configPaths, resultsPath, workers: 1 });
 
     // Second run to make sure it doesn't throw when reading results:
-    await betterer({ configPaths, resultsPath });
+    await betterer({ configPaths, resultsPath, workers: 1 });
 
     const result = await readFile(resultsPath);
 

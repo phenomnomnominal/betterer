@@ -50,13 +50,13 @@ export default {
     const resultsPath = paths.results;
     const stylesPath = resolve('./src/styles.scss');
 
-    const newTestRun = await betterer({ configPaths, resultsPath });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(newTestRun.new)).toEqual(['stylelint enable new rule']);
 
     await writeFile(stylesPath, `${STYLES_SOURCE}${STYLES_SOURCE}`);
 
-    const worseTestRun = await betterer({ configPaths, resultsPath });
+    const worseTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(worseTestRun.worse)).toEqual(['stylelint enable new rule']);
 
@@ -66,11 +66,11 @@ export default {
 
     await writeFile(stylesPath, '');
 
-    const betterTestRun = await betterer({ configPaths, resultsPath });
+    const betterTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(betterTestRun.better)).toEqual(['stylelint enable new rule']);
 
-    const completedTestRun = await betterer({ configPaths, resultsPath });
+    const completedTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(completedTestRun.completed)).toEqual(['stylelint enable new rule']);
 
@@ -93,7 +93,11 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
+    try {
+      await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
+    } catch (error) {
+      //
+    }
 
     expect(logs).toMatchSnapshot();
 

@@ -71,17 +71,17 @@ export default {
 
     await writeFile(indexPath, INDEX_SOURCE);
 
-    const newTestRun = await betterer({ configPaths, resultsPath });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(newTestRun.new)).toEqual(['typescript use strict mode']);
 
-    const sameTestRun = await betterer({ configPaths, resultsPath });
+    const sameTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(sameTestRun.same)).toEqual(['typescript use strict mode']);
 
     await writeFile(indexPath, `${INDEX_SOURCE}\nconst a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
 
-    const worseTestRun = await betterer({ configPaths, resultsPath });
+    const worseTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(worseTestRun.worse)).toEqual(['typescript use strict mode']);
 
@@ -91,7 +91,7 @@ export default {
 
     await writeFile(indexPath, INDEX_SOURCE.replace('sum.apply(null, [1, 2, 3]);', 'sum.apply(null, [1, 2]);'));
 
-    const betterTestRun = await betterer({ configPaths, resultsPath });
+    const betterTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(betterTestRun.better)).toEqual(['typescript use strict mode']);
 

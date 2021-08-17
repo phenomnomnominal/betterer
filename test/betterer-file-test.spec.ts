@@ -18,28 +18,28 @@ module.exports = {
 const path = require('path');
 
 module.exports = {
-parser: '@typescript-eslint/parser',
-parserOptions: {
-  ecmaVersion: 2018,
-  project: path.resolve(__dirname, './tsconfig.json'),
-  sourceType: 'module'
-},
-plugins: ['@typescript-eslint'],
-extends: [
-  'eslint:recommended',
-  'plugin:@typescript-eslint/eslint-recommended',
-  'plugin:@typescript-eslint/recommended',
-  'plugin:@typescript-eslint/recommended-requiring-type-checking'
-],
-rules: {
-  'no-debugger': 1
-}
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 2018,
+    project: path.resolve(__dirname, './tsconfig.json'),
+    sourceType: 'module'
+  },
+  plugins: ['@typescript-eslint'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking'
+  ],
+  rules: {
+    'no-debugger': 1
+  }
 };
     `,
         'tsconfig.json': `
 {
-"extends": "../../tsconfig.json",
-"include": ["./src/**/*", "./.betterer.js", "./.eslintrc.js"]
+  "extends": "../../tsconfig.json",
+  "include": ["./src/**/*", "./.betterer.js", "./.eslintrc.js"]
 }
     `
       }
@@ -51,17 +51,17 @@ rules: {
 
     await writeFile(indexPath, `debugger;\ndebugger;`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(newTestRun.new)).toEqual(['file test custom goal']);
 
-    const sameTestRun = await betterer({ configPaths, resultsPath });
+    const sameTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(sameTestRun.same)).toEqual(['file test custom goal']);
 
     await writeFile(indexPath, `debugger;\ndebugger;\ndebugger;`);
 
-    const worseTestRun = await betterer({ configPaths, resultsPath });
+    const worseTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(worseTestRun.worse)).toEqual(['file test custom goal']);
 
@@ -71,11 +71,11 @@ rules: {
 
     await writeFile(indexPath, 'debugger;');
 
-    const betterTestRun = await betterer({ configPaths, resultsPath });
+    const betterTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(betterTestRun.better)).toEqual(['file test custom goal']);
 
-    const completedTestRun = await betterer({ configPaths, resultsPath });
+    const completedTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(completedTestRun.completed)).toEqual(['file test custom goal']);
 
@@ -100,28 +100,28 @@ module.exports = {
 const path = require('path');
 
 module.exports = {
-parser: '@typescript-eslint/parser',
-parserOptions: {
-  ecmaVersion: 2018,
-  project: path.resolve(__dirname, './tsconfig.json'),
-  sourceType: 'module'
-},
-plugins: ['@typescript-eslint'],
-extends: [
-  'eslint:recommended',
-  'plugin:@typescript-eslint/eslint-recommended',
-  'plugin:@typescript-eslint/recommended',
-  'plugin:@typescript-eslint/recommended-requiring-type-checking'
-],
-rules: {
-  'no-debugger': 1
-}
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 2018,
+    project: path.resolve(__dirname, './tsconfig.json'),
+    sourceType: 'module'
+  },
+  plugins: ['@typescript-eslint'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking'
+  ],
+  rules: {
+    'no-debugger': 1
+  }
 };
     `,
         'tsconfig.json': `
 {
-"extends": "../../tsconfig.json",
-"include": ["./src/**/*", "./.betterer.js", "./.eslintrc.js"]
+  "extends": "../../tsconfig.json",
+  "include": ["./src/**/*", "./.betterer.js", "./.eslintrc.js"]
 }
     `
       }
@@ -133,13 +133,13 @@ rules: {
 
     await writeFile(indexPath, `debugger;\ndebugger;`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(newTestRun.new)).toEqual(['file test custom goal']);
 
     await writeFile(indexPath, `debugger;\ndebugger;\ndebugger;`);
 
-    const sameTestRun = await betterer({ configPaths, resultsPath });
+    const sameTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(sameTestRun.same)).toEqual(['file test custom goal']);
 
@@ -166,28 +166,28 @@ module.exports = {
 const path = require('path');
 
 module.exports = {
-parser: '@typescript-eslint/parser',
-parserOptions: {
-  ecmaVersion: 2018,
-  project: path.resolve(__dirname, './tsconfig.json'),
-  sourceType: 'module'
-},
-plugins: ['@typescript-eslint'],
-extends: [
-  'eslint:recommended',
-  'plugin:@typescript-eslint/eslint-recommended',
-  'plugin:@typescript-eslint/recommended',
-  'plugin:@typescript-eslint/recommended-requiring-type-checking'
-],
-rules: {
-  'no-debugger': 1
-}
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 2018,
+    project: path.resolve(__dirname, './tsconfig.json'),
+    sourceType: 'module'
+  },
+  plugins: ['@typescript-eslint'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking'
+  ],
+  rules: {
+    'no-debugger': 1
+  }
 };
     `,
         'tsconfig.json': `
 {
-"extends": "../../tsconfig.json",
-"include": ["./src/**/*", "./.betterer.js", "./.eslintrc.js"]
+  "extends": "../../tsconfig.json",
+  "include": ["./src/**/*", "./.betterer.js", "./.eslintrc.js"]
 }
     `
       }
@@ -201,7 +201,7 @@ rules: {
     await writeFile(resolve('./src/b.ts'), `debugger;\ndebugger;`);
     await writeFile(resolve('./src/c.ts'), `debugger;\ndebugger;`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(newTestRun.ran)).toEqual(['file test custom goal']);
 
@@ -228,28 +228,28 @@ module.exports = {
 const path = require('path');
 
 module.exports = {
-parser: '@typescript-eslint/parser',
-parserOptions: {
-  ecmaVersion: 2018,
-  project: path.resolve(__dirname, './tsconfig.json'),
-  sourceType: 'module'
-},
-plugins: ['@typescript-eslint'],
-extends: [
-  'eslint:recommended',
-  'plugin:@typescript-eslint/eslint-recommended',
-  'plugin:@typescript-eslint/recommended',
-  'plugin:@typescript-eslint/recommended-requiring-type-checking'
-],
-rules: {
-  'no-debugger': 1
-}
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 2018,
+    project: path.resolve(__dirname, './tsconfig.json'),
+    sourceType: 'module'
+  },
+  plugins: ['@typescript-eslint'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking'
+  ],
+  rules: {
+    'no-debugger': 1
+  }
 };
     `,
         'tsconfig.json': `
 {
-"extends": "../../tsconfig.json",
-"include": ["./src/**/*", "./.betterer.js", "./.eslintrc.js"]
+  "extends": "../../tsconfig.json",
+  "include": ["./src/**/*", "./.betterer.js", "./.eslintrc.js"]
 }
     `
       }
@@ -263,12 +263,12 @@ rules: {
     await writeFile(resolve('./src/b.ts'), `debugger;\ndebugger;`);
     await writeFile(resolve('./src/c.ts'), `debugger;\ndebugger;`);
 
-    const firstRun = await betterer({ configPaths, resultsPath });
+    const firstRun = await betterer({ configPaths, resultsPath, workers: 1 });
     expect(runNames(firstRun.ran)).toEqual(['file test custom goal']);
 
     await writeFile(resolve('./src/c.ts'), `debugger;\ndebugger;\ndebugger;`);
 
-    const secondRun = await betterer({ configPaths, resultsPath, includes: ['src/c.ts'], update: true });
+    const secondRun = await betterer({ configPaths, resultsPath, includes: ['src/c.ts'], update: true, workers: 1 });
     expect(runNames(secondRun.ran)).toEqual(['file test custom goal']);
 
     const result = await readFile(resultsPath);
@@ -294,28 +294,28 @@ module.exports = {
 const path = require('path');
 
 module.exports = {
-parser: '@typescript-eslint/parser',
-parserOptions: {
-  ecmaVersion: 2018,
-  project: path.resolve(__dirname, './tsconfig.json'),
-  sourceType: 'module'
-},
-plugins: ['@typescript-eslint'],
-extends: [
-  'eslint:recommended',
-  'plugin:@typescript-eslint/eslint-recommended',
-  'plugin:@typescript-eslint/recommended',
-  'plugin:@typescript-eslint/recommended-requiring-type-checking'
-],
-rules: {
-  'no-debugger': 1
-}
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 2018,
+    project: path.resolve(__dirname, './tsconfig.json'),
+    sourceType: 'module'
+  },
+  plugins: ['@typescript-eslint'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking'
+  ],
+  rules: {
+    'no-debugger': 1
+  }
 };
     `,
         'tsconfig.json': `
 {
-"extends": "../../tsconfig.json",
-"include": ["./src/**/*", "./.betterer.js", "./.eslintrc.js"]
+  "extends": "../../tsconfig.json",
+  "include": ["./src/**/*", "./.betterer.js", "./.eslintrc.js"]
 }
     `
       }
@@ -329,12 +329,18 @@ rules: {
     await writeFile(resolve('./src/b.ts'), `debugger;\ndebugger;`);
     await writeFile(resolve('./src/c.ts'), `debugger;\ndebugger;`);
 
-    const firstRun = await betterer({ configPaths, resultsPath });
+    const firstRun = await betterer({ configPaths, resultsPath, workers: 1 });
     expect(runNames(firstRun.ran)).toEqual(['file test custom goal']);
 
     await writeFile(resolve('./src/c.ts'), `debugger;\ndebugger;\ndebugger;`);
 
-    const secondRun = await betterer({ configPaths, resultsPath, includes: [resolve('src/c.ts')], update: true });
+    const secondRun = await betterer({
+      configPaths,
+      resultsPath,
+      includes: [resolve('src/c.ts')],
+      update: true,
+      workers: 1
+    });
     expect(runNames(secondRun.ran)).toEqual(['file test custom goal']);
 
     const result = await readFile(resultsPath);

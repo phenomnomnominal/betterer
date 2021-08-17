@@ -13,6 +13,7 @@ export function cliOptions(argv: BettererCLIArguments): BettererCLIConfig {
   strictOption();
   tsconfigPathOption();
   updateOption();
+  workersOption();
   const options = setEnv<BettererCLIConfig>(argv);
   options.include = options.args;
   return options;
@@ -100,6 +101,10 @@ function strictOption(): void {
 
 function updateOption(): void {
   commander.option('-u, --update', 'When present, the results file will be updated, even if things get worse.');
+}
+
+function workersOption(): void {
+  commander.option('--workers', 'number of workers to use. Defaults to number of CPUs - 2.');
 }
 
 function argsToArray(value: string, previous: BettererCLIArguments = []): BettererCLIArguments {

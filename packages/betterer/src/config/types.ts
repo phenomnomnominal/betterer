@@ -18,6 +18,7 @@ export type BettererConfig = {
   resultsPath: string;
   silent: boolean;
   tsconfigPath: string | null;
+  workers: number;
   // Start:
   ci: boolean;
   precommit: boolean;
@@ -45,6 +46,7 @@ export type BettererOptionsBase = Partial<{
   resultsPath: string;
   silent: boolean;
   tsconfigPath: string;
+  workers: number;
 }>;
 
 export type BettererOptionsStartBase = BettererOptionsBase &
