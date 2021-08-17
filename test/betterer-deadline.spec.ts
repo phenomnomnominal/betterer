@@ -28,7 +28,7 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    const firstRun = await betterer({ configPaths, resultsPath });
+    const firstRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(firstRun.expired)).toEqual([]);
 
@@ -68,7 +68,7 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    const firstRun = await betterer({ configPaths, resultsPath });
+    const firstRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(firstRun.expired)).toEqual(['should grow']);
 

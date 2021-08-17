@@ -15,7 +15,6 @@ export class BettererFileResolverΩ implements BettererFileResolver {
   private _excluded: Array<RegExp> = [];
   private _included: Array<string> = [];
   private _includedResolved: Array<string> | null = null;
-
   private _validatedFilePaths: Array<string> = [];
   private _validatedFilePathsMap: Record<string, boolean> = {};
 

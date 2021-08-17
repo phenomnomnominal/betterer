@@ -15,15 +15,15 @@ const { bigger } = require('@betterer/constraints');
 
 module.exports = {
   'test 1': () => new BettererTest({
-    test: () => Date.now(),
+    test: () => 0,
     constraint: bigger
   }),
   'test 2': () => new BettererTest({
-    test: () => Date.now(),
+    test: () => 0,
     constraint: bigger
   }),
   'test 3': () => new BettererTest({
-    test: () => Date.now(),
+    test: () => 0,
     constraint: bigger
   })
 };

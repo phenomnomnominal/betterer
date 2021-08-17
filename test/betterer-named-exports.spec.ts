@@ -22,11 +22,11 @@ export const getsBetter = () => new BettererTest({
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    const firstRun = await betterer({ configPaths, resultsPath });
+    const firstRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(firstRun.new)).toEqual(['getsBetter']);
 
-    const secondRun = await betterer({ configPaths, resultsPath });
+    const secondRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(secondRun.better)).toEqual(['getsBetter']);
 

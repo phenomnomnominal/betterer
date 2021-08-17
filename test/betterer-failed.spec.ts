@@ -23,7 +23,7 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    const firstRun = await betterer({ configPaths, resultsPath });
+    const firstRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(firstRun.failed)).toEqual(['throws error']);
 
@@ -36,7 +36,7 @@ module.exports = {
     await cleanup();
   });
 
-  it('should throws when reading the results file fails', async () => {
+  it('should throw when reading the results file fails', async () => {
     const { logs, paths, cleanup, resolve, writeFile } = await createFixture('test-betterer-failed-reading', {
       '.betterer.js': `
 const { BettererTest } = require('@betterer/betterer');
@@ -60,9 +60,9 @@ module.exports = {
 
     await writeFile(resultsPath, 'throw new Error()');
 
-    await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
+    await expect(async () => await betterer({ configPaths, resultsPath, workers: 1 })).rejects.toThrow();
     await expect(async () => {
-      const runner = await betterer.runner({ configPaths, resultsPath });
+      const runner = await betterer.runner({ configPaths, resultsPath, workers: 1 });
       await runner.queue([indexPath]);
       await runner.stop();
     }).rejects.toThrow();

@@ -61,3 +61,5 @@ export class BettererSuiteSummaryΩ implements BettererSuiteSummary {
     return this.runs.filter((run) => run.isWorse);
   }
 }
+
+export type BettererSuiteSummariesΩ = ReadonlyArray<BettererSuiteSummaryΩ>;

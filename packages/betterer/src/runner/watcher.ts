@@ -4,7 +4,6 @@ import * as path from 'path';
 
 import { BettererFilePaths } from '../fs';
 import { BettererSuiteSummary } from '../suite';
-import { BettererGlobals } from '../types';
 import { normalisedPath } from '../utils';
 import { BettererRunnerΩ } from './runner';
 import { BettererRunner, BettererRunHandler } from './types';
@@ -12,19 +11,18 @@ import { BettererRunner, BettererRunHandler } from './types';
 const EMIT_EVENTS = ['add', 'change'];
 
 export class BettererWatcherΩ implements BettererRunner {
-  private readonly _runner: BettererRunner;
-  private _watcher: FSWatcher;
+  private constructor(private _runner: BettererRunnerΩ, private _watcher: FSWatcher) {}
 
-  constructor(globals: BettererGlobals) {
-    this._runner = new BettererRunnerΩ(globals);
-    const { config } = globals;
-    const { cwd, resultsPath } = config;
+  public static async create(options: unknown): Promise<BettererWatcherΩ> {
+    const runner = await BettererRunnerΩ.create(options);
 
-    this._watcher = watch(cwd, {
+    const { cwd, resultsPath } = runner.config;
+
+    const watcher = watch(cwd, {
       ignoreInitial: true,
       ignored: (itemPath: string) => {
         // read `ignores` here so that it can be updated by watch mode:
-        const { ignores } = config;
+        const { ignores } = runner.config;
         const watchIgnores = [...ignores].map((ignore) => path.join(cwd, ignore));
         return (
           itemPath !== normalisedPath(cwd) &&
@@ -33,19 +31,18 @@ export class BettererWatcherΩ implements BettererRunner {
         );
       }
     });
-  }
 
-  public async setup(): Promise<void> {
-    this._watcher.on('all', (event: string, filePath: string) => {
+    watcher.on('all', (event: string, filePath: string) => {
       if (EMIT_EVENTS.includes(event)) {
-        void this._runner.queue([filePath]);
+        void runner.queue([filePath]);
       }
     });
 
     await new Promise((resolve, reject) => {
-      this._watcher.on('ready', resolve);
-      this._watcher.on('error', reject);
+      watcher.on('ready', resolve);
+      watcher.on('error', reject);
     });
+    return new BettererWatcherΩ(runner, watcher);
   }
 
   public queue(filePaths: string | BettererFilePaths, handler: BettererRunHandler): Promise<void> {

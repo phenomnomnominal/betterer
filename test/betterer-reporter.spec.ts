@@ -111,7 +111,7 @@ export const getsBetter = () => new BettererTest({
 
     let throws = false;
     try {
-      await betterer({ configPaths, resultsPath, reporters });
+      await betterer({ configPaths, resultsPath, reporters, workers: 1 });
     } catch {
       throws = true;
     }
@@ -170,7 +170,7 @@ export const getsBetter = () => new BettererTest({
 
     let throws = false;
     try {
-      await betterer({ configPaths, resultsPath, reporters });
+      await betterer({ configPaths, resultsPath, reporters, workers: 1 });
     } catch {
       throws = true;
     }

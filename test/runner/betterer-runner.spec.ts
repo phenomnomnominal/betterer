@@ -50,7 +50,7 @@ module.exports = {
 
     await writeFile(indexPath, `debugger;`);
 
-    const runner = await betterer.runner({ configPaths, resultsPath, cwd });
+    const runner = await betterer.runner({ configPaths, resultsPath, cwd, workers: 1 });
     await runner.queue(indexPath);
     const suiteSummary = await runner.stop();
     const [run] = suiteSummary.runs;
@@ -107,7 +107,7 @@ module.exports = {
 
     await writeFile(testPath, `debugger;`);
 
-    const runner = await betterer.runner({ configPaths, resultsPath, cwd });
+    const runner = await betterer.runner({ configPaths, resultsPath, cwd, workers: 1 });
     await runner.queue(testPath);
     const suiteSummary = await runner.stop();
     const [run] = suiteSummary.runs;
@@ -136,7 +136,7 @@ module.exports = {
 
     await writeFile(indexPath, `// HACK:`);
 
-    const runner = await betterer.runner({ configPaths, resultsPath, cwd });
+    const runner = await betterer.runner({ configPaths, resultsPath, cwd, workers: 1 });
     await runner.queue(indexPath);
     const suiteSummary = await runner.stop();
     const [run] = suiteSummary.runs;
@@ -165,7 +165,7 @@ module.exports = {
 
     await writeFile(testPath, `// HACK:`);
 
-    const runner = await betterer.runner({ configPaths, resultsPath, cwd });
+    const runner = await betterer.runner({ configPaths, resultsPath, cwd, workers: 1 });
     await runner.queue(testPath);
     const suiteSummary = await runner.stop();
     const [run] = suiteSummary.runs;
@@ -209,7 +209,7 @@ export default {
 
     await writeFile(indexPath, `console.log('foo');`);
 
-    const runner = await betterer.runner({ configPaths, resultsPath, cwd });
+    const runner = await betterer.runner({ configPaths, resultsPath, cwd, workers: 1 });
     await runner.queue(indexPath);
     const suiteSummary = await runner.stop();
     const [run] = suiteSummary.runs;
@@ -260,7 +260,7 @@ export default {
 
     await writeFile(testPath, `console.log('foo');`);
 
-    const runner = await betterer.runner({ configPaths, resultsPath, cwd });
+    const runner = await betterer.runner({ configPaths, resultsPath, cwd, workers: 1 });
     await runner.queue(testPath);
     const suiteSummary = await runner.stop();
     const [run] = suiteSummary.runs;
@@ -315,7 +315,7 @@ console.log(3 * 'baz');
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
 
-    const runner = await betterer.runner({ configPaths, resultsPath, cwd });
+    const runner = await betterer.runner({ configPaths, resultsPath, cwd, workers: 1 });
     await runner.queue(indexPath);
     const suiteSummary = await runner.stop();
     const [run] = suiteSummary.runs;
@@ -364,7 +364,7 @@ export default {
 
     await writeFile(testPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
 
-    const runner = await betterer.runner({ configPaths, resultsPath, cwd });
+    const runner = await betterer.runner({ configPaths, resultsPath, cwd, workers: 1 });
     await runner.queue(testPath);
     const suiteSummary = await runner.stop();
     const [run] = suiteSummary.runs;

@@ -7,7 +7,7 @@ import {
   BettererTestOptions
 } from './types';
 
-export class BettererTest<DeserialisedType, SerialisedType, DiffType>
+export class BettererTest<DeserialisedType, SerialisedType = DeserialisedType, DiffType = null>
   implements BettererTestBase<DeserialisedType, SerialisedType, DiffType>
 {
   public readonly config: BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;

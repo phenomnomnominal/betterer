@@ -25,17 +25,17 @@ export default {
 
     await writeFile(indexPath, `console.log('foo');`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(newTestRun.new)).toEqual(['tsquery no raw console.log']);
 
-    const sameTestRun = await betterer({ configPaths, resultsPath });
+    const sameTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(sameTestRun.same)).toEqual(['tsquery no raw console.log']);
 
     await writeFile(indexPath, `console.log('foo');\nconsole.log('foo');`);
 
-    const worseTestRun = await betterer({ configPaths, resultsPath });
+    const worseTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(worseTestRun.worse)).toEqual(['tsquery no raw console.log']);
 
@@ -45,11 +45,11 @@ export default {
 
     await writeFile(indexPath, ``);
 
-    const betterTestRun = await betterer({ configPaths, resultsPath });
+    const betterTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(betterTestRun.better)).toEqual(['tsquery no raw console.log']);
 
-    const completedTestRun = await betterer({ configPaths, resultsPath });
+    const completedTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(completedTestRun.completed)).toEqual(['tsquery no raw console.log']);
 

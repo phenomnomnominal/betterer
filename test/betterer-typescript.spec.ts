@@ -38,17 +38,17 @@ export default {
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(newTestRun.new)).toEqual(['typescript use strict mode']);
 
-    const sameTestRun = await betterer({ configPaths, resultsPath });
+    const sameTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(sameTestRun.same)).toEqual(['typescript use strict mode']);
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one, one * a);`);
 
-    const worseTestRun = await betterer({ configPaths, resultsPath });
+    const worseTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(worseTestRun.worse)).toEqual(['typescript use strict mode']);
 
@@ -58,11 +58,11 @@ export default {
 
     await writeFile(indexPath, ``);
 
-    const betterTestRun = await betterer({ configPaths, resultsPath });
+    const betterTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(betterTestRun.better)).toEqual(['typescript use strict mode']);
 
-    const completedTestRun = await betterer({ configPaths, resultsPath });
+    const completedTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(completedTestRun.completed)).toEqual(['typescript use strict mode']);
 
@@ -128,7 +128,7 @@ export default {
 
     await writeFile(indexPath, `import { ESLint } from 'eslint';\nconsole.log(ESLINT);`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(newTestRun.new)).toEqual(['typescript dependency']);
 
@@ -188,7 +188,7 @@ export function bar (a: number, b: number, c:number) {
     await writeFile(indexPath, `import { foo } from './foo';\n\nfoo('a', 'b', 'c');`);
 
     const newStart = new Date().getTime();
-    const newTestRun = await betterer({ configPaths, resultsPath });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
     const newTime = new Date().getTime() - newStart;
 
     expect(runNames(newTestRun.new)).toEqual(['typescript incremental']);
@@ -198,7 +198,7 @@ export function bar (a: number, b: number, c:number) {
     expect(buildInfo).not.toBeNull();
 
     const sameStart = new Date().getTime();
-    const sameTestRun = await betterer({ configPaths, resultsPath });
+    const sameTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
     const sameTime = new Date().getTime() - sameStart;
 
     expect(sameTime).toBeLessThan(newTime);

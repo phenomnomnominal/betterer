@@ -27,7 +27,7 @@ export default {
     await writeFile(resolve('./src/index.ts'), '// Hack');
     await writeFile(resolve('./src/exclude.ts'), '// Hack');
 
-    await betterer({ configPaths, resultsPath });
+    await betterer({ configPaths, resultsPath, workers: 1 });
 
     const result = await readFile(resultsPath);
 
@@ -75,11 +75,7 @@ export default {
     await writeFile(resolve('./src/exclude.ts'), '// Hack');
     await writeFile(resolve('./src/global.ts'), '// Hack');
 
-    await betterer({
-      configPaths,
-      cwd: paths.cwd,
-      resultsPath
-    });
+    await betterer({ configPaths, cwd: paths.cwd, resultsPath, workers: 1 });
 
     const result = await readFile(resultsPath);
 
@@ -92,7 +88,8 @@ export default {
       cwd: paths.cwd,
       excludes: [/global.ts/],
       includes: ['./src/**/*.ts'],
-      resultsPath
+      resultsPath,
+      workers: 1
     });
 
     const globalExcludeResult = await readFile(resultsPath);
@@ -104,7 +101,8 @@ export default {
       cwd: paths.cwd,
       excludes: [/global.ts/],
       includes: ['./src/**/*.ts'],
-      resultsPath
+      resultsPath,
+      workers: 1
     });
 
     const excludeResult = await readFile(resultsPath);

@@ -15,6 +15,7 @@ export declare type BettererConfig = {
     resultsPath: string;
     silent: boolean;
     tsconfigPath: string | null;
+    workers: number;
     ci: boolean;
     precommit: boolean;
     strict: boolean;
@@ -92,7 +93,9 @@ export declare type BettererFileIssue = {
 
 export declare type BettererFileIssues = ReadonlyArray<BettererFileIssue>;
 
-export declare type BettererFilePaths = ReadonlyArray<string>;
+export declare type BettererFilePath = string;
+
+export declare type BettererFilePaths = ReadonlyArray<BettererFilePath>;
 
 export declare type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
 
@@ -138,6 +141,7 @@ export declare type BettererOptionsBase = Partial<{
     resultsPath: string;
     silent: boolean;
     tsconfigPath: string;
+    workers: number;
 }>;
 
 export declare type BettererOptionsExcludes = Array<string | RegExp> | string;
@@ -228,6 +232,8 @@ export declare type BettererResult = {
 };
 
 export declare type BettererRun = {
+    readonly baseline: BettererResult | null;
+    readonly expected: BettererResult | null;
     readonly filePaths: BettererFilePaths | null;
     readonly name: string;
     readonly isNew: boolean;
@@ -249,12 +255,11 @@ export declare type BettererRuns = ReadonlyArray<BettererRun>;
 export declare type BettererRunSummaries = Array<BettererRunSummary>;
 
 export declare type BettererRunSummary = BettererRun & {
-    readonly diff: BettererDiff;
+    readonly diff: BettererDiff | null;
     readonly delta: BettererDelta | null;
-    readonly error: BettererError;
-    readonly expected: BettererResult;
+    readonly error: Error | null;
     readonly printed: string | null;
-    readonly result: BettererResult;
+    readonly result: BettererResult | null;
     readonly timestamp: number;
     readonly isBetter: boolean;
     readonly isComplete: boolean;
@@ -277,7 +282,7 @@ export declare type BettererSuite = {
     readonly runs: BettererRuns;
 };
 
-export declare type BettererSuiteSummaries = Array<BettererSuiteSummary>;
+export declare type BettererSuiteSummaries = ReadonlyArray<BettererSuiteSummary>;
 
 export declare type BettererSuiteSummary = BettererSuite & {
     readonly runs: BettererRunSummaries;
@@ -296,7 +301,7 @@ export declare type BettererSuiteSummary = BettererSuite & {
     readonly worse: BettererRunSummaries;
 };
 
-export declare class BettererTest<DeserialisedType, SerialisedType, DiffType> implements BettererTestBase<DeserialisedType, SerialisedType, DiffType> {
+export declare class BettererTest<DeserialisedType, SerialisedType = DeserialisedType, DiffType = null> implements BettererTestBase<DeserialisedType, SerialisedType, DiffType> {
     readonly config: BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
     get isOnly(): boolean;
     get isSkipped(): boolean;

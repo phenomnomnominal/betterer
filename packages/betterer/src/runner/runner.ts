@@ -1,24 +1,40 @@
-import assert from 'assert';
+import { BettererConfig } from '../config';
 
 import { BettererContextΩ, BettererContextStarted } from '../context';
 import { BettererFilePaths, destroyVersionControl } from '../fs';
+import { createGlobals } from '../globals';
+import { BettererRunWorkerPoolΩ } from '../run';
 import { BettererSuiteSummary } from '../suite';
-import { BettererGlobals } from '../types';
 import { normalisedPath } from '../utils';
 import { BettererRunHandler, BettererRunner, BettererRunnerJobs } from './types';
 
 const DEBOUNCE_TIME = 200;
 
 export class BettererRunnerΩ implements BettererRunner {
-  private _context: BettererContextΩ;
   private _jobs: BettererRunnerJobs = [];
   private _running: Promise<BettererSuiteSummary> | null = null;
   private _started: BettererContextStarted;
 
-  constructor(globals: BettererGlobals) {
-    this._context = new BettererContextΩ(globals);
-
+  private constructor(
+    public readonly config: BettererConfig,
+    private _context: BettererContextΩ,
+    private _runWorkerPool: BettererRunWorkerPoolΩ
+  ) {
     this._started = this._context.start();
+  }
+
+  public static async create(options: unknown): Promise<BettererRunnerΩ> {
+    try {
+      const globals = await createGlobals(options);
+      const { config } = globals;
+      const runWorkerPool = new BettererRunWorkerPoolΩ(config.workers);
+      const context = new BettererContextΩ(globals, runWorkerPool);
+
+      return new BettererRunnerΩ(config, context, runWorkerPool);
+    } catch (error) {
+      await destroyVersionControl();
+      throw error;
+    }
   }
 
   public async run(filePaths: BettererFilePaths): Promise<BettererSuiteSummary> {
@@ -48,7 +64,6 @@ export class BettererRunnerΩ implements BettererRunner {
   public async stop(force: true): Promise<null>;
   public async stop(force?: true): Promise<BettererSuiteSummary | null> {
     try {
-      assert(this._running);
       await this._running;
       const contextSummary = await this._started.end();
       return contextSummary.lastSuite;
@@ -59,6 +74,7 @@ export class BettererRunnerΩ implements BettererRunner {
       throw error;
     } finally {
       await destroyVersionControl();
+      await this._runWorkerPool.destroy();
     }
   }
 

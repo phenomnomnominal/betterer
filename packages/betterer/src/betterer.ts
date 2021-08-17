@@ -1,28 +1,24 @@
 import { debug } from '@phenomnomnominal/debug';
 
 import { BettererOptionsRunner, BettererOptionsStart, BettererOptionsWatch } from './config';
-import { createGlobals } from './globals';
 import { BettererRunner, BettererRunnerΩ, BettererWatcherΩ } from './runner';
 import { BettererSuiteSummary } from './suite';
 
 export async function betterer(options: BettererOptionsStart = {}): Promise<BettererSuiteSummary> {
   initDebug();
-  const globals = await createGlobals(options);
-  const runner = new BettererRunnerΩ(globals);
-  return runner.run(globals.config.filePaths);
+  const runner = await BettererRunnerΩ.create(options);
+  return runner.run(runner.config.filePaths);
 }
 
 export async function runner(options: BettererOptionsRunner = {}): Promise<BettererRunner> {
   initDebug();
-  return new BettererRunnerΩ(await createGlobals(options));
+  return BettererRunnerΩ.create(options);
 }
 betterer.runner = runner;
 
 export async function watch(options: BettererOptionsWatch = {}): Promise<BettererRunner> {
   initDebug();
-  const watcher = new BettererWatcherΩ(await createGlobals({ ...options, watch: true }));
-  await watcher.setup();
-  return watcher;
+  return BettererWatcherΩ.create({ ...options, watch: true });
 }
 betterer.watch = watch;
 

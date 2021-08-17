@@ -1,7 +1,8 @@
 import { WorkerRequireModule, WorkerRequireModuleAsync } from '@phenomnomnominal/worker-require';
 
 export type BettererFileGlobs = ReadonlyArray<string | ReadonlyArray<string>>;
-export type BettererFilePaths = ReadonlyArray<string>;
+export type BettererFilePath = string;
+export type BettererFilePaths = ReadonlyArray<BettererFilePath>;
 export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
 
 export type BettererFileCacheMap = Record<string, string>;
@@ -22,7 +23,6 @@ export type BettererVersionControl = BettererFileCache & {
 };
 
 export type BettererVersionControlWorkerModule = WorkerRequireModule<typeof import('./version-control-worker')>;
-
 export type BettererVersionControlWorker =
   WorkerRequireModuleAsync<BettererVersionControlWorkerModule>['versionControl'];
 

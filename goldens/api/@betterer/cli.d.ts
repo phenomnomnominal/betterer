@@ -33,6 +33,7 @@ export declare type BettererCLIConfig = BettererCLIEnvConfig & {
     strict: boolean;
     tsconfig: string;
     update: boolean;
+    workers: number;
 };
 
 export declare type BettererCLIEnvConfig = {
