@@ -1,7 +1,7 @@
 {
   "name": "@betterer/typescript",
   "description": "TypeScript test for @betterer/betterer",
-  "version": "4.3.7",
+  "version": "4.4.1",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -28,7 +28,7 @@
     "node": ">=12"
   },
   "dependencies": {
-    "@betterer/betterer": "^4.3.6",
+    "@betterer/betterer": "^4.4.1",
     "@betterer/errors": "^4.0.0",
     "tslib": "^2.0.3"
   },

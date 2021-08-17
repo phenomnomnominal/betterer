@@ -11,9 +11,9 @@ describe('betterer', () => {
 import { typescript } from '@betterer/typescript';
 
 export default {
-  'typescript use strict mode': typescript('./tsconfig.json', {
+  'typescript use strict mode': () => typescript('./tsconfig.json', {
     strict: true
-  })
+  }).include('./src/**/*.ts')
 };
       `,
         'tsconfig.json': `
@@ -38,17 +38,17 @@ export default {
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(newTestRun.new)).toEqual(['typescript use strict mode']);
 
-    const sameTestRun = await betterer({ configPaths, resultsPath });
+    const sameTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(sameTestRun.same)).toEqual(['typescript use strict mode']);
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one, one * a);`);
 
-    const worseTestRun = await betterer({ configPaths, resultsPath });
+    const worseTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(worseTestRun.worse)).toEqual(['typescript use strict mode']);
 
@@ -58,11 +58,11 @@ export default {
 
     await writeFile(indexPath, ``);
 
-    const betterTestRun = await betterer({ configPaths, resultsPath });
+    const betterTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(betterTestRun.better)).toEqual(['typescript use strict mode']);
 
-    const completedTestRun = await betterer({ configPaths, resultsPath });
+    const completedTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(completedTestRun.completed)).toEqual(['typescript use strict mode']);
 
@@ -77,28 +77,7 @@ export default {
 const { typescript } = require('@betterer/typescript');
 
 module.exports = {
-  'typescript use strict mode': typescript()
-};
-      `
-    });
-
-    const configPaths = [paths.config];
-    const resultsPath = paths.results;
-
-    await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
-
-    expect(logs).toMatchSnapshot();
-
-    await cleanup();
-  });
-
-  it('should throw if there is no extraCompilerOptions', async () => {
-    const { paths, logs, cleanup } = await createFixture('test-betterer-typescript-no-compiler-options', {
-      '.betterer.js': `
-const { typescript } = require('@betterer/typescript');
-
-module.exports = {
-  'typescript use strict mode': typescript('./tsconfig.json')
+  'typescript use strict mode': () => typescript()
 };
       `
     });
@@ -121,9 +100,9 @@ module.exports = {
 import { typescript } from '@betterer/typescript';
 
 export default {
-  'typescript dependency': typescript('./tsconfig.json', {
+  'typescript dependency': () => typescript('./tsconfig.json', {
     strict: true
-  })
+  }).include('./src/**/*.ts')
 };
         `,
         'tsconfig.json': `
@@ -149,7 +128,7 @@ export default {
 
     await writeFile(indexPath, `import { ESLint } from 'eslint';\nconsole.log(ESLINT);`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(newTestRun.new)).toEqual(['typescript dependency']);
 
@@ -163,10 +142,10 @@ export default {
       'test-betterer-typescript-incremental',
       {
         '.betterer.ts': `
-import { typescriptΔ } from '@betterer/typescript';
+import { typescript } from '@betterer/typescript';
 
 export default {
-  'typescript incremental': typescriptΔ('./tsconfig.json', {
+  'typescript incremental': () => typescript('./tsconfig.json', {
     incremental: true,
     tsBuildInfoFile: './.betterer.tsbuildinfo'
   }).include('./src/**/*.ts')
@@ -183,7 +162,7 @@ export default {
     "resolveJsonModule": true,
     "strict": false
   },
-  "include": [".betterer.ts"]
+  "include": ["./src/**/*.ts", ".betterer.ts"]
 }
         `,
         './src/foo.ts': `
@@ -209,7 +188,7 @@ export function bar (a: number, b: number, c:number) {
     await writeFile(indexPath, `import { foo } from './foo';\n\nfoo('a', 'b', 'c');`);
 
     const newStart = new Date().getTime();
-    const newTestRun = await betterer({ configPaths, resultsPath });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
     const newTime = new Date().getTime() - newStart;
 
     expect(runNames(newTestRun.new)).toEqual(['typescript incremental']);
@@ -219,7 +198,7 @@ export function bar (a: number, b: number, c:number) {
     expect(buildInfo).not.toBeNull();
 
     const sameStart = new Date().getTime();
-    const sameTestRun = await betterer({ configPaths, resultsPath });
+    const sameTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
     const sameTime = new Date().getTime() - sameStart;
 
     expect(sameTime).toBeLessThan(newTime);

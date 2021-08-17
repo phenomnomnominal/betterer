@@ -1,11 +1,11 @@
-import { BettererSummary, betterer, BettererOptionsStartCI } from '@betterer/betterer';
+import { BettererSuiteSummary, betterer, BettererOptionsStartCI } from '@betterer/betterer';
 
-import { ciOptions } from './options';
+import { cliOptions } from './options';
 import { BettererCLIArguments } from './types';
 
 /** @internal Definitely not stable! Please don't use! */
-export function ciΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSummary> {
-  const { config, exclude, filter, include, results, silent, reporter, tsconfig } = ciOptions(argv);
+export function ciΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary> {
+  const { config, exclude, filter, include, results, silent, reporter, tsconfig, workers } = cliOptions(argv);
 
   // Mark options as unknown...
   const options: unknown = {
@@ -18,7 +18,8 @@ export function ciΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererS
     reporters: reporter,
     resultsPath: results,
     silent,
-    tsconfigPath: tsconfig
+    tsconfigPath: tsconfig,
+    workers
   };
 
   // And then cast to BettererOptionsStartCI. This is possibly invalid,

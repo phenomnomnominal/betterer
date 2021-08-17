@@ -12,26 +12,28 @@
   },
   "scripts": {
     "api": "yarn compile && lerna run api",
-    "betterer": "node ./packages/cli/./bin/betterer --cache",
-    "betterer:ci": "node ./packages/cli/./bin/betterer-ci",
-    "build": "yarn compile && yarn format && yarn lint && yarn test && yarn test:api && yarn betterer",
-    "build:ci": "yarn compile && yarn format && yarn lint && yarn test && yarn test:api && yarn betterer:ci",
+    "betterer": "node ./packages/cli/bin/betterer --cache",
+    "betterer:ci": "node ./packages/cli/bin/betterer-ci",
+    "betterer:precommit": "node ./packages/cli/bin/betterer-precommit --cache",
+    "build": "yarn compile:packages && yarn format && yarn lint && yarn test && yarn test:api",
+    "build:ci": "yarn compile:packages && yarn format && yarn lint && yarn test && yarn test:api && yarn betterer:ci",
     "build:extension": "lerna run build:extension",
     "clean": "yarn clean:tests && yarn clean:compile && yarn clean:modules",
     "clean:tests": "rimraf fixtures && rimraf reports",
     "clean:compile": "lerna exec \"rimraf dist\" && rimraf ./**/tsconfig.tsbuildinfo",
     "clean:modules": "lerna exec \"rimraf node_modules\" && rimraf website/node_modules && rimraf node_modules  && yarn",
     "commit": "git cz",
-    "compile": "tsc -b packages",
+    "compile": "yarn compile:api-test && yarn compile:packages",
+    "compile:api-test": "tsc -b test/api",
+    "compile:packages": "tsc -b packages",
     "compile:watch": "tsc -b packages -w",
-    "lint": "eslint \"./packages/**/src/**/*.{js,ts}\" \"./test/**/*.{js,ts}\" \"./*.{js,ts}\" --fix",
+    "lint": "eslint \"./packages/**/src/**/*.{js,ts}\" \"./test/**/*.{ts,tsx}\" \"./*.{js,ts}\" --fix",
     "format": "prettier \"**/!(*.snap)\" --write --loglevel=silent",
     "test": "yarn clean:tests && jest --runInBand --forceExit",
-    "test:api": "node -r ts-node/register ./test/api",
+    "test:api": "yarn compile:api-test && node ./test/api/dist",
     "test:debug": "yarn clean:tests && jest --runInBand --collectCoverage=false",
     "test:extension": "lerna run test:extension",
     "prepublishOnly": "yarn run build",
-    "postinstall": "husky install",
     "publish": "lerna publish --conventional-commits",
     "prepare": "husky install"
   },
@@ -50,7 +52,7 @@
     "@commitlint/cli": "^12.0.0",
     "@commitlint/config-conventional": "^12.0.0",
     "@phenomnomnominal/commitlint-plugin": "^1.1.1",
-    "@phenomnomnominal/worker-require": "^0.0.13",
+    "@phenomnomnominal/worker-require": "^0.0.27",
     "@types/eslint": "^7.2.4",
     "@types/jest": "^26.0.23",
     "@types/node": "^15.0.2",
@@ -71,7 +73,7 @@
     "ts-api-guardian": "^0.6.0",
     "ts-jest": "^27.0.3",
     "ts-node": "^9.0.0",
-    "typescript": "^4.1.3"
+    "typescript": "^4.3.5"
   },
   "config": {
     "commitizen": {
@@ -79,6 +81,6 @@
     }
   },
   "lint-staged": {
-    "*.ts,tsx": "betterer"
+    "*.ts,tsx": "yarn betterer:precommit"
   }
 }

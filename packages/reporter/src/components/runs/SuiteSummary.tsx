@@ -1,6 +1,6 @@
 import React, { FC, memo } from 'react';
 
-import { BettererContext, BettererSummary } from '@betterer/betterer';
+import { BettererContext, BettererSuiteSummary } from '@betterer/betterer';
 import { diffΔ } from '@betterer/logger';
 import { Box, Text, TextProps } from 'ink';
 
@@ -11,7 +11,6 @@ import {
   testExpired,
   testFailed,
   testNew,
-  testObsolete,
   testSame,
   testSkipped,
   testUpdated,
@@ -21,9 +20,9 @@ import {
 } from '../../messages';
 import { quote } from '../../utils';
 
-export type RunSummaryProps = {
+export type SuiteSummaryProps = {
   context: BettererContext;
-  summary: BettererSummary;
+  suiteSummary: BettererSuiteSummary;
 };
 
 const TEXT_COLOURS: Record<string, TextProps['color']> = {
@@ -41,16 +40,16 @@ const TEXT_COLOURS: Record<string, TextProps['color']> = {
   worse: 'red'
 };
 
-export const RunSummary: FC<RunSummaryProps> = memo(function RunSummary({ context, summary }) {
-  const better = summary.better.length;
-  const failed = summary.failed.length;
-  const neww = summary.new.length;
-  const ran = summary.ran.length;
-  const same = summary.same.length;
-  const skipped = summary.skipped.length;
-  const updated = summary.updated.length;
-  const worse = summary.worse.length;
-  const { completed, expired, obsolete } = summary;
+export const SuiteSummary: FC<SuiteSummaryProps> = memo(function SuiteSummary({ context, suiteSummary }) {
+  const better = suiteSummary.better.length;
+  const failed = suiteSummary.failed.length;
+  const neww = suiteSummary.new.length;
+  const ran = suiteSummary.ran.length;
+  const same = suiteSummary.same.length;
+  const skipped = suiteSummary.skipped.length;
+  const updated = suiteSummary.updated.length;
+  const worse = suiteSummary.worse.length;
+  const { completed, expired } = suiteSummary;
 
   return (
     <>
@@ -63,15 +62,10 @@ export const RunSummary: FC<RunSummaryProps> = memo(function RunSummary({ contex
         ))}
         {failed ? <Text color={TEXT_COLOURS.failed}>{testFailed(tests(failed))}</Text> : null}
         {neww ? <Text color={TEXT_COLOURS.new}>{testNew(tests(neww))}</Text> : null}
-        {obsolete.map((run, index) => (
-          <Text key={index} color={TEXT_COLOURS.obsolete}>
-            {testObsolete(quote(run.name))})
-          </Text>
-        ))}
         {better ? <Text color={TEXT_COLOURS.better}>{testBetter(tests(better))}</Text> : null}
         {completed.map((run, index) => (
           <Text key={index} color={TEXT_COLOURS.completed}>
-            {testComplete(quote(run.name))})
+            {testComplete(quote(run.name))}
           </Text>
         ))}
         {same ? <Text color={TEXT_COLOURS.same}>{testSame(tests(same))}</Text> : null}
@@ -86,10 +80,10 @@ export const RunSummary: FC<RunSummaryProps> = memo(function RunSummary({ contex
           </>
         ) : null}
       </Box>
-      {summary.unexpectedDiff ? (
+      {suiteSummary.unexpectedDiff ? (
         <Box flexDirection="column" paddingBottom={1}>
           <Text color={TEXT_COLOURS.diff}>{unexpectedDiff()}</Text>
-          <Text>{diffΔ(summary.expected, summary.result)}</Text>
+          <Text>{diffΔ(suiteSummary.expected, suiteSummary.result)}</Text>
         </Box>
       ) : null}
     </>

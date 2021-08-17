@@ -6,17 +6,19 @@ describe('betterer', () => {
   it('should do nothing when a test is not past its deadline', async () => {
     const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-deadline-in-future', {
       '.betterer.js': `
+const { BettererTest } = require('@betterer/betterer');
 const { bigger } = require('@betterer/constraints');
+const { persist } = require('@betterer/fixture');
 
-let grows = 0;
+const grows = persist(__dirname, 'grows', 0);
 
 module.exports = {
-  'should grow': {
-    test: () => grows++,
+  'should grow': () => new BettererTest({
+    test: () => grows.increment(),
     constraint: bigger,
     goal: 5,
     deadline: new Date()
-  }
+  })
 };
       `
     });
@@ -26,7 +28,7 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    const firstRun = await betterer({ configPaths, resultsPath });
+    const firstRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(firstRun.expired)).toEqual([]);
 
@@ -39,20 +41,22 @@ module.exports = {
     await cleanup();
   });
 
-  it('should mark a test as expired when is is past its deadline', async () => {
+  it('should mark a test as expired when it is past its deadline', async () => {
     const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-deadline-in-past', {
       '.betterer.js': `
+const { BettererTest } = require('@betterer/betterer');
 const { bigger } = require('@betterer/constraints');
+const { persist } = require('@betterer/fixture');
 
-let grows = 0;
+const grows = persist(__dirname, 'grows', 0);
 
 module.exports = {
-  'should grow': {
-    test: () => grows++,
+  'should grow': () => new BettererTest({
+    test: () => grows.increment(),
     constraint: bigger,
     goal: 5,
     deadline: 0
-  }
+  })
 };
       `
     });
@@ -64,7 +68,7 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    const firstRun = await betterer({ configPaths, resultsPath });
+    const firstRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(firstRun.expired)).toEqual(['should grow']);
 

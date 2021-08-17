@@ -1,2 +1,2 @@
-export { RunSummary, RunSummaryProps } from './RunSummary';
-export { Runs, RunsProps } from './Runs';
+export { SuiteSummary, SuiteSummaryProps } from './SuiteSummary';
+export { Suite, SuiteProps } from './Suite';

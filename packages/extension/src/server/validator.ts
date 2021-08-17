@@ -3,7 +3,8 @@ import {
   BettererFileIssues,
   BettererFileTestDiff,
   BettererFileTestResult,
-  BettererSummary
+  BettererRunSummary,
+  BettererSuiteSummary
 } from '@betterer/betterer';
 
 import { Diagnostic, DiagnosticSeverity, Connection, Position, TextDocuments } from 'vscode-languageserver/node';
@@ -98,8 +99,8 @@ export class BettererValidator {
           info(`Validator: Running Betterer in "${cwd}".`);
           info(`Validator: Running Betterer on "${JSON.stringify(filePaths)}."`);
 
-          await runner.queue(filePaths, (summary) => {
-            this.report(validDocuments, summary);
+          await runner.queue(filePaths, (suiteSummary) => {
+            this.report(validDocuments, suiteSummary);
             resolve();
           });
         } else {
@@ -127,7 +128,7 @@ export class BettererValidator {
     return validating;
   }
 
-  public report(documents: Array<TextDocument>, summary: BettererSummary): void {
+  public report(documents: Array<TextDocument>, suiteSummary: BettererSuiteSummary): void {
     documents.forEach((document) => {
       const filePath = getFilePath(document);
       if (!filePath) {
@@ -139,7 +140,7 @@ export class BettererValidator {
       info(`Validator: Clearing diagnostics for "${uri}".`);
       this._connection.sendDiagnostics({ uri, diagnostics });
 
-      summary.runs.forEach((run) => {
+      suiteSummary.runs.forEach((run: BettererRunSummary) => {
         if (run.isFailed) {
           return;
         }
@@ -167,7 +168,7 @@ export class BettererValidator {
         } else if (run.isSkipped || run.isSame) {
           existingIssues = issues;
         } else {
-          const fileDiff = ((run.diff as unknown) as BettererFileTestDiff).diff[filePath];
+          const fileDiff = (run.diff as unknown as BettererFileTestDiff).diff[filePath];
           info(`Validator: ${run.name} got diff from Betterer for "${filePath}"`);
           existingIssues = fileDiff.existing || [];
           newIssues = fileDiff.new || [];

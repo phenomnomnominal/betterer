@@ -1,19 +1,23 @@
 import React, { FC, memo } from 'react';
 
-import { BettererRuns } from '@betterer/betterer';
-import { BettererTasksLogger, BettererTasksState } from '@betterer/tasks';
+import { BettererSuite } from '@betterer/betterer';
+import { BettererTaskLogger, BettererTasksLogger, BettererTasksState } from '@betterer/tasks';
 import { Box } from 'ink';
 
-import { getTasks } from './tasks';
+import { useTask } from './tasks';
 
-export type RunsProps = {
-  runs: BettererRuns;
+export type SuiteProps = {
+  suite: BettererSuite;
 };
 
-export const Runs: FC<RunsProps> = memo(function Runs({ runs }) {
+export const Suite: FC<SuiteProps> = memo(function Runs({ suite }) {
   return (
     <Box flexDirection="column" paddingBottom={1}>
-      <BettererTasksLogger name="Betterer" update={update} tasks={getTasks(runs)} exit={false} />
+      <BettererTasksLogger name="Betterer" update={update} exit={false}>
+        {suite.runs.map((run) => (
+          <BettererTaskLogger key={run.name} name={run.name} run={useTask(run)}></BettererTaskLogger>
+        ))}
+      </BettererTasksLogger>
     </Box>
   );
 });

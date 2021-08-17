@@ -7,24 +7,24 @@ import { Box, Text } from 'ink';
 import { BettererErrorLog } from '../error-log';
 import { BettererTaskStatus } from './status';
 import { useTaskState } from './useTaskState';
-import { BettererTask, BettererTaskLog } from './types';
+import { BettererTaskLog, BettererTaskRun } from './types';
+import { addTask } from './tasks';
 
 export type BettererTaskLoggerProps = {
-  task: BettererTask;
+  name: string;
+  run: BettererTaskRun;
 };
 
 export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function BettererTaskLogger(props) {
-  const { task } = props;
-  const { name, run } = task;
-  const [state, taskApi] = useTaskState(task);
+  const { name, run } = props;
+  const [state, taskApi] = useTaskState();
 
-  const { done, error, messageLogs, running, status } = state;
+  const { error, finalLogs, status } = state;
 
   useEffect(() => {
     void (async () => {
-      if (running || done) {
-        return;
-      }
+      taskApi.reset();
+      addTask(name, run);
 
       async function statusError(status: string): Promise<void> {
         await taskApi.status(['🔥', 'redBright', status]);
@@ -82,20 +82,19 @@ export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function Bet
         process.exitCode = 1;
       }
     })();
-  }, []);
+  }, [name, run, taskApi]);
 
   return (
     <Box flexDirection="column">
-      {done && status && <BettererTaskStatus name={name} status={status} />}
-      {messageLogs.length ? (
+      {status && <BettererTaskStatus name={name} status={status} />}
+      {finalLogs.length ? (
         <Box flexDirection="column">
-          {messageLogs.map((log, index) => (
+          {finalLogs.map((log, index) => (
             <Text key={index}>{prependLogBlock(log)}</Text>
           ))}
         </Box>
       ) : null}
       {error && <BettererErrorLog error={error} />}
-      {!done && status && <BettererTaskStatus name={name} status={status} />}
     </Box>
   );
 });

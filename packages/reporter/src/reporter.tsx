@@ -1,18 +1,14 @@
 import React from 'react';
 
-import {
-  BettererContext,
-  BettererFilePaths,
-  BettererReporter,
-  BettererRuns,
-  BettererSummaries,
-  BettererSummary
-} from '@betterer/betterer';
+import { BettererContext, BettererContextSummary, BettererReporter, BettererSuiteSummary } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
+import { reset } from '@betterer/tasks';
 import { Instance, render } from 'ink';
 
 import { Error, Reporter } from './components';
-import { BettererReporterData, BettererReporterRenderer } from './types';
+import { BettererReporterAction, contextEnd, createStore, suiteEnd, suiteStart } from './state';
+import { BettererReporterRenderer } from './types';
+import { BettererSuite } from '@betterer/betterer/src/suite';
 
 export const reporter: BettererReporter = createReporter();
 
@@ -31,20 +27,21 @@ function createReporter(): BettererReporter {
       renderer = createRenderer(context);
       await renderer.render();
     },
-    async contextEnd(_: BettererContext, summaries: BettererSummaries): Promise<void> {
-      if (summaries.length > 1) {
-        await renderer.render({ summaries });
+    async contextEnd(contextSummary: BettererContextSummary): Promise<void> {
+      if (contextSummary.suites.length > 1) {
+        await renderer.render(contextEnd(contextSummary));
       }
       renderer.stop();
     },
     contextError(_: BettererContext, error: BettererError): Promise<void> {
       return renderError(error);
     },
-    runsStart(runs: BettererRuns, filePaths: BettererFilePaths): Promise<void> {
-      return renderer.render({ filePaths, runs });
+    suiteStart(suite: BettererSuite): Promise<void> {
+      reset();
+      return renderer.render(suiteStart(suite));
     },
-    runsEnd(summary: BettererSummary, filePaths: BettererFilePaths): Promise<void> {
-      return renderer.render({ filePaths, runs: summary.runs, summary });
+    suiteEnd(suiteSummary: BettererSuiteSummary): Promise<void> {
+      return renderer.render(suiteEnd(suiteSummary));
     }
   };
 
@@ -56,11 +53,13 @@ function createReporter(): BettererReporter {
   function createRenderer(context: BettererContext): BettererReporterRenderer {
     let app: Instance;
 
+    const dispatch = createStore(context);
+
     return {
-      async render(data: BettererReporterData = {}): Promise<void> {
+      async render(action?: BettererReporterAction): Promise<void> {
+        const state = dispatch(action);
         app?.clear();
-        const finalProps = { ...data, context };
-        app = render(<Reporter {...finalProps} />, RENDER_OPTIONS);
+        app = render(<Reporter {...state} />, RENDER_OPTIONS);
         await tick();
       },
       stop() {

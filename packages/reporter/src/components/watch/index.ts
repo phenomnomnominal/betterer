@@ -1,1 +1,1 @@
-export { WatchReporter, WatchReporterProps } from './WatchReporter';
+export { WatchReporter } from './WatchReporter';

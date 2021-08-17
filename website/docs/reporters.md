@@ -22,7 +22,7 @@ If you want to write your own reporter, you need to implement the [`BettererRepo
 
 ```typescript
 // src/html-reporter.ts
-import { BettererContext, BettererReporter, BettererSummaries } from '@betterer/betterer';
+import { BettererContext, BettererContextSummary, BettererReporter } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import { promises as fs } from 'fs';
 
@@ -30,8 +30,8 @@ export const reporter: BettererReporter = createHTMLReporter();
 
 function createHTMLReporter(): BettererReporter {
   return {
-    contextEnd(_: BettererContext, summaries: BettererSummaries): Promise<void> {
-      return fs.writeFile('report.html', renderHTMLTemplate(summaries), 'utf8');
+    contextEnd(contextSummary: BettererContextSummary): Promise<void> {
+      return fs.writeFile('report.html', renderHTMLTemplate(contextSummary), 'utf8');
     },
     contextError(_: BettererContext, error: BettererError): void {
       console.log(error);
@@ -39,7 +39,7 @@ function createHTMLReporter(): BettererReporter {
   };
 }
 
-function renderHTMLTemplate(summaries: BettererSummaries): string {
+function renderHTMLTemplate(contextSummary: BettererContextSummary): string {
   // ...
 }
 ```

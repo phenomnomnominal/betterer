@@ -1,1 +1,1 @@
-export { tsquery, tsqueryΔ } from './tsquery';
+export { tsquery } from './tsquery';

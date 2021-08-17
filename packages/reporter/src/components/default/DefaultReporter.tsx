@@ -1,24 +1,16 @@
 import React, { FC, memo } from 'react';
 
-import { BettererContext, BettererRuns, BettererSummary } from '@betterer/betterer';
+import { Suite, SuiteSummary } from '../runs';
+import { BettererReporterState } from '../../state';
 
-import { DefaultEnding } from './DefaultEnding';
-import { DefaultRunning } from './DefaultRunning';
+export const DefaultReporter: FC<BettererReporterState> = memo(function DefaultReporter(props: BettererReporterState) {
+  const { context, suiteSummary } = props;
+  const suite = props.suite || props.suiteSummary;
 
-export type DefaultReporterProps = {
-  context: BettererContext;
-  runs?: BettererRuns;
-  summary?: BettererSummary;
-};
-
-export const DefaultReporter: FC<DefaultReporterProps> = memo(function DefaultReporter(props: DefaultReporterProps) {
-  const { context, runs, summary } = props;
-
-  if (runs && !summary) {
-    return <DefaultRunning runs={runs} />;
-  }
-  if (runs && summary) {
-    return <DefaultEnding context={context} runs={runs} summary={summary} />;
-  }
-  return null;
+  return (
+    <>
+      {suite && <Suite suite={suite} />}
+      {suiteSummary && <SuiteSummary context={context} suiteSummary={suiteSummary} />}
+    </>
+  );
 });

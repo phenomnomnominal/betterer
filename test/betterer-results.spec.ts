@@ -8,11 +8,10 @@ describe('betterer', () => {
       'test-betterer-result-escape-interpolation',
       {
         '.betterer.ts': `
-import { BettererFileTest, BettererFileResolver } from '@betterer/betterer';
+import { BettererFileTest } from '@betterer/betterer';
 
 function test(): BettererFileTest {
-  const resolver = new BettererFileResolver();
-  return new BettererFileTest(resolver, async (files, fileTestResult) => {        
+  return new BettererFileTest(async (files, fileTestResult) => {        
     const [filePath] = files;
     const file = fileTestResult.addFile(filePath, '');
     file.addIssue(0, 0, "\`$" + "{key}\`");
@@ -20,7 +19,7 @@ function test(): BettererFileTest {
 }
 
 export default {
-  'test': test().include('./src/**/*.ts')
+  'test': () => test().include('./src/**/*.ts')
 };
       `
       }
@@ -32,10 +31,10 @@ export default {
     await writeFile(resolve('./src/index.ts'), '');
 
     // First run to create .betterer.results file:
-    await betterer({ configPaths, resultsPath });
+    await betterer({ configPaths, resultsPath, workers: 1 });
 
     // Second run to make sure it doesn't throw when reading results:
-    await betterer({ configPaths, resultsPath });
+    await betterer({ configPaths, resultsPath, workers: 1 });
 
     const result = await readFile(resultsPath);
 

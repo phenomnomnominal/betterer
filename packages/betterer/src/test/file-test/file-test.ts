@@ -1,7 +1,11 @@
-import { BettererContext, BettererContextΩ, BettererRun, BettererRunΩ } from '../../context';
-import { BettererFileResolver, BettererFileResolverΩ, BettererFileGlobs, BettererFilePatterns } from '../../fs';
+import assert from 'assert';
+import path from 'path';
+
+import { BettererContext } from '../../context';
+import { BettererFileResolverΩ, BettererFileGlobs, BettererFilePatterns } from '../../fs';
+import { BettererRun, BettererWorkerRunΩ } from '../../run';
+import { BettererGlobals } from '../../types';
 import { createTestConfig } from '../config';
-import { BettererTestType } from '../type';
 import { BettererTestConstraint, BettererTestFunction, BettererTestGoal } from '../types';
 import { constraint } from './constraint';
 import { differ } from './differ';
@@ -23,21 +27,17 @@ export class BettererFileTest implements BettererFileTestBase {
   private _isSkipped = false;
   private _resolver: BettererFileResolverΩ;
 
-  constructor(resolver: BettererFileResolver, fileTest: BettererFileTestFunction) {
-    const { cwd } = resolver;
-    this._resolver = new BettererFileResolverΩ(cwd);
-    this._config = createTestConfig(
-      {
-        test: createTest(this._resolver, fileTest),
-        constraint,
-        goal,
-        serialiser: { deserialise, serialise },
-        differ,
-        printer,
-        progress
-      },
-      BettererTestType.File
-    ) as BettererFileTestConfig;
+  constructor(fileTest: BettererFileTestFunction) {
+    this._resolver = new BettererFileResolverΩ();
+    this._config = createTestConfig({
+      test: createTest(this._resolver, fileTest),
+      constraint,
+      goal,
+      serialiser: { deserialise, serialise },
+      differ,
+      printer,
+      progress
+    }) as BettererFileTestConfig;
   }
 
   public get config(): BettererFileTestConfig {
@@ -88,42 +88,49 @@ function createTest(
   fileTest: BettererFileTestFunction
 ): BettererTestFunction<BettererFileTestResult> {
   return async (run: BettererRun, context: BettererContext): Promise<BettererFileTestResult> => {
-    const runΩ = run as BettererRunΩ;
-    const contextΩ = context as BettererContextΩ;
+    const runΩ = run as BettererWorkerRunΩ;
+    assert(runΩ.filePaths);
+
+    const baseDirectory = path.dirname(runΩ.test.configPath);
+    const { versionControl } = context as BettererGlobals;
+    resolver.init(baseDirectory, versionControl);
 
     const hasSpecifiedFiles = runΩ.filePaths?.length > 0;
-    runΩ.filePaths = hasSpecifiedFiles ? resolver.validate(runΩ.filePaths) : resolver.files();
-
-    const expectedΩ = runΩ.isNew ? null : (runΩ.expected.value as BettererFileTestResultΩ);
+    runΩ.filePaths = hasSpecifiedFiles ? await resolver.validate(runΩ.filePaths) : await resolver.files();
 
     let runFiles = runΩ.filePaths;
-    if (expectedΩ) {
-      runFiles = runFiles.filter((filePath) => !contextΩ.checkCache(filePath));
+    if (!runΩ.isNew) {
+      runFiles = await versionControl.filterCached(runFiles);
     }
 
     const cacheHit = runΩ.filePaths.length !== runFiles.length;
     const isPartial = hasSpecifiedFiles || cacheHit;
 
     const result = new BettererFileTestResultΩ(resolver);
-    await fileTest(runFiles, result);
+    await fileTest(runFiles, result, resolver);
 
-    contextΩ.updateCache(result.filePaths);
+    await versionControl.updateCache(result.filePaths);
 
-    if (!isPartial || !expectedΩ) {
+    if (!isPartial || runΩ.isNew) {
       return result;
     }
 
     // Get any filePaths that have expected issues but weren't included in this run:
+    const expectedΩ = runΩ.expected.value as BettererFileTestResultΩ;
     const excludedFilesWithIssues = expectedΩ.files
       .map((file) => file.absolutePath)
       .filter((filePath) => !runFiles.includes(filePath));
 
     // Filter them based on the current resolver:
-    const relevantExcludedFilePaths = resolver.validate(excludedFilesWithIssues);
+    const relevantExcludedFilePaths = await resolver.validate(excludedFilesWithIssues);
 
     // Add the existing issues to the new result:
     relevantExcludedFilePaths.forEach((filePath) => result.addExpected(expectedΩ.getFile(filePath)));
 
     return result;
   };
+}
+
+export function isBettererFileTest(test: unknown): test is BettererFileTest {
+  return !!test && (test as BettererFileTest).constructor.name === BettererFileTest.name;
 }

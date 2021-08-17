@@ -11,9 +11,9 @@ Array [
 
 
 Error: ⨯ Unable to compile TypeScript:
-       error TS6046: Argument for '--target' option must be: 'es3', 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'esnext'.
+       error TS6046: Argument for '--target' option must be: 'es3', 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'es2021', 'esnext'.
 
-  error TS6046: Argument for '--target' option must be: 'es3', 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'esnext'.
+  error TS6046: Argument for '--target' option must be: 'es3', 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'es2021', 'esnext'.
 
 ",
 ]
@@ -157,7 +157,7 @@ Array [
 exports[`betterer should work with a .betterer.ts file that uses ES modules 2`] = `
 "// BETTERER RESULTS V2.
 exports[\`gets better\`] = {
-  value: \`1
+  value: \`2
 \`
 };
 "

@@ -6,15 +6,17 @@ describe('betterer --silent', () => {
   it('should silence all console output', async () => {
     const { logs, paths, cleanup } = await createFixture('test-betterer-silent', {
       '.betterer.js': `
+const { BettererTest } = require('@betterer/betterer');
 const { smaller } = require('@betterer/constraints');
+const { persist } = require('@betterer/fixture');
 
-let shrinks = 2;
+const shrinks = persist(__dirname, 'shrinks', 2);
     
 module.exports = {
-  'should shrink': {
-    test: () => shrinks--,
+  'should shrink': () => new BettererTest({
+    test: () => shrinks.decrement(),
     constraint: smaller
-  }
+  })
 };
       `
     });
@@ -22,7 +24,7 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    await betterer({ configPaths, resultsPath, silent: true });
+    await betterer({ configPaths, resultsPath, silent: true, workers: 1 });
 
     expect(logs).toHaveLength(0);
     expect(logs).toMatchSnapshot();
@@ -33,15 +35,17 @@ module.exports = {
   it('should be possible to unsilence a subsequent run', async () => {
     const { logs, paths, cleanup } = await createFixture('test-betterer-silent-then-not-silent', {
       '.betterer.js': `
+const { BettererTest } = require('@betterer/betterer');
 const { smaller } = require('@betterer/constraints');
+const { persist } = require('@betterer/fixture');
 
-let shrinks = 2;
+const shrinks = persist(__dirname, 'shrinks', 2);
 
 module.exports = {
-  'should shrink': {
-    test: () => shrinks--,
+  'should shrink': () => new BettererTest({
+    test: () => shrinks.decrement(),
     constraint: smaller
-  }
+  })
 };
       `
     });
@@ -49,11 +53,11 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    await betterer({ configPaths, resultsPath, silent: true });
+    await betterer({ configPaths, resultsPath, silent: true, workers: 1 });
 
     expect(logs).toHaveLength(0);
 
-    await betterer({ configPaths, resultsPath });
+    await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(logs).not.toHaveLength(0);
 

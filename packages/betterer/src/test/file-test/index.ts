@@ -1,4 +1,4 @@
-export { BettererFileTest } from './file-test';
+export { BettererFileTest, isBettererFileTest } from './file-test';
 export {
   BettererFileTestResult,
   BettererFileTestFunction,

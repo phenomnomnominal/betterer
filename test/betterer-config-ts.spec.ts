@@ -6,15 +6,17 @@ describe('betterer', () => {
   it('should work with a .betterer.ts file', async () => {
     const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-config-ts', {
       '.betterer.ts': `
+const { BettererTest } = require('@betterer/betterer');
 const { bigger } = require('@betterer/constraints');
+const { persist } = require('@betterer/fixture');
 
-let start = 0;
+const grows = persist(__dirname, 'grows', 0);
 
 module.exports = {
-  'gets better': {
-    test: () => start++,
+  'gets better': () => new BettererTest({
+    test: () => grows.increment(),
     constraint: bigger
-  }
+  })
 };
       `
     });

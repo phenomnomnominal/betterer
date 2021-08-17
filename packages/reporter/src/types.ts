@@ -1,15 +1,15 @@
-import { BettererFilePaths, BettererRuns, BettererSummaries, BettererSummary } from '@betterer/betterer';
+import { BettererRun, BettererRunSummary } from '@betterer/betterer';
 import { useApp } from 'ink';
 
+import { BettererReporterAction } from './state';
+
 export type BettererReporterApp = ReturnType<typeof useApp>;
-export type BettererReporterData = {
-  filePaths?: BettererFilePaths;
-  runs?: BettererRuns;
-  summary?: BettererSummary;
-  summaries?: BettererSummaries;
-};
 
 export type BettererReporterRenderer = {
-  render: (data?: BettererReporterData) => Promise<void>;
+  render: (action?: BettererReporterAction) => Promise<void>;
   stop: () => void;
+};
+
+export type BettererReporterRun = BettererRun & {
+  lifecycle: Promise<BettererRunSummary>;
 };

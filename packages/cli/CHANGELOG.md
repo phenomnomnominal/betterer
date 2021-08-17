@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.4.1](https://github.com/phenomnomnominal/betterer/compare/v4.4.0...v4.4.1) (2021-07-09)
+
+
+### Bug Fixes
+
+* **betterer 🐛:** improve reporter implementation ([#775](https://github.com/phenomnomnominal/betterer/issues/775)) ([c723c6e](https://github.com/phenomnomnominal/betterer/commit/c723c6e4d127c3224310899ef252a617dfbedf98))
+
+
+
+
+
+# [4.4.0](https://github.com/phenomnomnominal/betterer/compare/v4.3.8...v4.4.0) (2021-06-18)
+
+
+### Features
+
+* **betterer ✨:** add precommit mode ([#772](https://github.com/phenomnomnominal/betterer/issues/772)) ([da59df3](https://github.com/phenomnomnominal/betterer/commit/da59df310136699ee213895936028e43e4a54abc))
+* **betterer ✨:** enable CI mode when CI env variable is set ([#770](https://github.com/phenomnomnominal/betterer/issues/770)) ([aed70e3](https://github.com/phenomnomnominal/betterer/commit/aed70e3917c6df91556988a190c37c1c9b987f10))
+
+
+
+
+
+## [4.3.8](https://github.com/phenomnomnominal/betterer/compare/v4.3.7...v4.3.8) (2021-06-16)
+
+**Note:** Version bump only for package @betterer/cli
+
+
+
+
+
 ## [4.3.6](https://github.com/phenomnomnominal/betterer/compare/v4.3.5...v4.3.6) (2021-06-11)
 
 **Note:** Version bump only for package @betterer/cli

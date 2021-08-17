@@ -4,34 +4,42 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should work when a test gets better', async () => {
-    const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-better', {
-      '.betterer.js': `
+    const { logs, paths, readFile, cleanup, runNames } = await createFixture(
+      'test-betterer-better',
+      {
+        '.betterer.js': `
+const { BettererTest } = require('@betterer/betterer');
 const { smaller, bigger } = require('@betterer/constraints');
+const { persist } = require('@betterer/fixture');
 
-let grows = 0;
-let shrinks = 2;
+const grows = persist(__dirname, 'grows', 0);
+const shrinks = persist(__dirname, 'shrinks', 2);
 
 module.exports = {
-  'should shrink': {
-    test: () => shrinks--,
+  'should shrink': () => new BettererTest({
+    test: () => shrinks.decrement(),
     constraint: smaller
-  },
-  'should grow': {
-    test: () => grows++,
+  }),
+  'should grow': () => new BettererTest({
+    test: () => grows.increment(),
     constraint: bigger
-  }
+  })
 };
       `
-    });
+      },
+      {
+        logFilters: [/: running /, /running.../]
+      }
+    );
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    const firstRun = await betterer({ configPaths, resultsPath });
+    const firstRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(firstRun.new)).toEqual(['should shrink', 'should grow']);
 
-    const secondRun = await betterer({ configPaths, resultsPath });
+    const secondRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(secondRun.better)).toEqual(['should shrink', 'should grow']);
 
@@ -52,34 +60,19 @@ module.exports = {
 import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'no raw console calls': tsquery(
-    './tsconfig.json',
+  'no raw console calls': () => tsquery(
     'CallExpression > PropertyAccessExpression[expression.name="console"]'
-  )
+  ).include('./src/**/*.ts')
 };  
       `,
         '.betterer.changed.ts': `
 import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'no raw console calls': tsquery(
-    './tsconfig.json',
+  'no raw console calls': () => tsquery(
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
-  )
+  ).include('./src/**/*.ts')
 };
-              `,
-        'tsconfig.json': `
-{
-  "compilerOptions": {
-    "noEmit": true,
-    "lib": ["esnext"],
-    "moduleResolution": "node",
-    "target": "ES5",
-    "typeRoots": ["../../node_modules/@types/"],
-    "resolveJsonModule": true
-  },
-  "include": ["./src/**/*", ".betterer.ts"]
-}      
       `,
         'src/index.ts': `
 console.log('foo');
@@ -90,11 +83,11 @@ console.log('foo');
     );
     const resultsPath = paths.results;
 
-    const firstRun = await betterer({ configPaths: [resolve('.betterer.ts')], resultsPath });
+    const firstRun = await betterer({ configPaths: [resolve('.betterer.ts')], resultsPath, workers: 1 });
 
     expect(runNames(firstRun.new)).toEqual(['no raw console calls']);
 
-    const secondRun = await betterer({ configPaths: [resolve('.betterer.changed.ts')], resultsPath });
+    const secondRun = await betterer({ configPaths: [resolve('.betterer.changed.ts')], resultsPath, workers: 1 });
 
     expect(runNames(secondRun.better)).toEqual(['no raw console calls']);
 

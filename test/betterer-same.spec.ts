@@ -4,33 +4,40 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it(`should work when a test is the same`, async () => {
-    const { paths, logs, readFile, cleanup, runNames } = await createFixture('test-betterer-same', {
-      '.betterer.js': `
+    const { paths, logs, readFile, cleanup, runNames } = await createFixture(
+      'test-betterer-same',
+      {
+        '.betterer.js': `
+const { BettererTest } = require('@betterer/betterer');
 const { bigger, smaller } = require('@betterer/constraints');
 
-let start = 0;
+const start = 0;
 
 module.exports = {
-  [\`doesn't get bigger\`]: {
+  [\`doesn't get bigger\`]: () => new BettererTest({
     test: () => start,
     constraint: bigger
-  },
-  [\`doesn't get smaller\`]: {
+  }),
+  [\`doesn't get smaller\`]: () => new BettererTest({
     test: () => start,
     constraint: smaller
-  }
+  })
 };
       `
-    });
+      },
+      {
+        logFilters: [/: running /, /running.../]
+      }
+    );
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    const firstRun = await betterer({ configPaths, resultsPath });
+    const firstRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(firstRun.new)).toEqual([`doesn't get bigger`, `doesn't get smaller`]);
 
-    const secondRun = await betterer({ configPaths, resultsPath });
+    const secondRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(secondRun.same)).toEqual([`doesn't get bigger`, `doesn't get smaller`]);
 
@@ -56,9 +63,9 @@ console.log(a * one);
 import { typescript } from '@betterer/typescript';
 
 export default {
-  'typescript use strict mode': typescript('./tsconfig.json', {
+  'typescript use strict mode': () => typescript('./tsconfig.json', {
     strict: true
-  })
+  }).include('./src/**/*.ts')
 };    
       `,
         'tsconfig.json': `
@@ -82,7 +89,7 @@ export default {
     const indexPath = resolve('./src/index.ts');
     const movedPath = resolve('./src/moved.ts');
 
-    const newTestRun = await betterer({ configPaths, resultsPath });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(newTestRun.new)).toEqual(['typescript use strict mode']);
 
@@ -93,7 +100,7 @@ export default {
     await writeFile(movedPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
     await deleteFile(indexPath);
 
-    const sameTestRun = await betterer({ configPaths, resultsPath });
+    const sameTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(sameTestRun.same)).toEqual(['typescript use strict mode']);
 
@@ -119,9 +126,9 @@ console.log(a * one);
 import { typescript } from '@betterer/typescript';
 
 export default {
-  'typescript use strict mode': typescript('./tsconfig.json', {
+  'typescript use strict mode': () => typescript('./tsconfig.json', {
     strict: true
-  })
+  }).include('./src/**/*.ts')
 };    
       `,
         'tsconfig.json': `
@@ -144,7 +151,7 @@ export default {
     const resultsPath = paths.results;
     const indexPath = resolve('./src/index.ts');
 
-    const newTestRun = await betterer({ configPaths, resultsPath });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(newTestRun.new)).toEqual(['typescript use strict mode']);
 
@@ -154,7 +161,7 @@ export default {
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one + one);\nconsole.log(a * one);`);
 
-    const sameTestRun = await betterer({ configPaths, resultsPath });
+    const sameTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(sameTestRun.same)).toEqual(['typescript use strict mode']);
 
@@ -181,9 +188,9 @@ console.log(one * a);
 import { typescript } from '@betterer/typescript';
 
 export default {
-  'typescript use strict mode': typescript('./tsconfig.json', {
+  'typescript use strict mode': () => typescript('./tsconfig.json', {
     strict: true
-  })
+  }).include('./src/**/*.ts')
 };    
       `,
         'tsconfig.json': `
@@ -206,7 +213,7 @@ export default {
     const resultsPath = paths.results;
     const indexPath = resolve('./src/index.ts');
 
-    const newTestRun = await betterer({ configPaths, resultsPath });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(newTestRun.new)).toEqual(['typescript use strict mode']);
 
@@ -219,7 +226,7 @@ export default {
       `//\nconst a = 'a';\nconst one = 1;\nconsole.log(one * one);\nconsole.log(a * one);\nconsole.log(one * a);`
     );
 
-    const sameTestRun = await betterer({ configPaths, resultsPath });
+    const sameTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(sameTestRun.same)).toEqual(['typescript use strict mode']);
 

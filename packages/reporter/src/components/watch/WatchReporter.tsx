@@ -1,31 +1,18 @@
 import React, { FC, memo, useState } from 'react';
 
-import {
-  BettererContext,
-  BettererFilePaths,
-  BettererRuns,
-  BettererSummaries,
-  BettererSummary
-} from '@betterer/betterer';
 import { useApp, useInput, useStdin } from 'ink';
 
 import { BettererReporterApp } from '../../types';
 import { ConfigEditField } from '../config';
+import { Suite, SuiteSummary } from '../runs';
 
 import { WatchEnding } from './WatchEnding';
-import { WatchRunning } from './WatchRunning';
+import { WatchFiles } from './WatchFiles';
+import { WatchInstructions } from './WatchInstructions';
 import { WatchStarting } from './WatchStarting';
-import { WatchWatching } from './WatchWatching';
+import { BettererReporterState } from '../../state';
 
-export type WatchReporterProps = {
-  context: BettererContext;
-  filePaths?: BettererFilePaths;
-  runs?: BettererRuns;
-  summary?: BettererSummary;
-  summaries?: BettererSummaries;
-};
-
-export const WatchReporter: FC<WatchReporterProps> = memo(function WatchReporter(props) {
+export const WatchReporter: FC<BettererReporterState> = memo(function WatchReporter(props) {
   const app = useApp();
 
   const { isRawModeSupported } = useStdin();
@@ -63,20 +50,23 @@ export const WatchReporter: FC<WatchReporterProps> = memo(function WatchReporter
     }
   });
 
-  const { context, runs, summaries, summary } = props;
-  const filePaths = props.filePaths || [];
+  const { context, contextSummary, suiteSummary } = props;
+  const suite = props.suiteSummary || props.suite;
 
-  if (summaries) {
+  if (contextSummary) {
     return <WatchEnding />;
-  } else if (runs && summary) {
-    return (
-      <WatchWatching context={context} editField={editField} filePaths={filePaths} runs={runs} summary={summary} />
-    );
-  } else if (runs) {
-    return <WatchRunning context={context} editField={editField} filePaths={filePaths} runs={runs} />;
-  } else {
-    return <WatchStarting context={context} editField={editField} />;
   }
+  if (suite) {
+    return (
+      <>
+        <WatchFiles context={context} editField={editField} suite={suite} running={!suiteSummary} />
+        <Suite suite={suite} />
+        {suiteSummary && <SuiteSummary context={context} suiteSummary={suiteSummary} />}
+        <WatchInstructions />
+      </>
+    );
+  }
+  return <WatchStarting context={context} editField={editField} />;
 });
 
 function quit(app: BettererReporterApp): void {

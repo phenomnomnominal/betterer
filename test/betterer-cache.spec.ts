@@ -11,7 +11,7 @@ describe('betterer', () => {
 const { regexp } = require('@betterer/regexp');
 
 module.exports = {
-'regexp no hack comments': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
+'regexp no hack comments': () => regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
 };      
     `
       }
@@ -24,7 +24,7 @@ module.exports = {
 
     await writeFile(indexPath, `// HACK:`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath, cache: true, cachePath });
+    const newTestRun = await betterer({ configPaths, resultsPath, cache: true, cachePath, workers: 1 });
 
     expect(runNames(newTestRun.new)).toEqual(['regexp no hack comments']);
 
@@ -32,13 +32,13 @@ module.exports = {
 
     expect(newCache).toMatchSnapshot();
 
-    const sameTestRun = await betterer({ configPaths, resultsPath, cache: true, cachePath });
+    const sameTestRun = await betterer({ configPaths, resultsPath, cache: true, cachePath, workers: 1 });
 
     expect(runNames(sameTestRun.same)).toEqual(['regexp no hack comments']);
 
     await writeFile(indexPath, `// HACK:\n// HACK:`);
 
-    const worseTestRun = await betterer({ configPaths, resultsPath, cache: true, cachePath });
+    const worseTestRun = await betterer({ configPaths, resultsPath, cache: true, cachePath, workers: 1 });
 
     expect(runNames(worseTestRun.worse)).toEqual(['regexp no hack comments']);
 
@@ -52,7 +52,7 @@ module.exports = {
 
     await writeFile(indexPath, ``);
 
-    const betterTestRun = await betterer({ configPaths, resultsPath, cache: true, cachePath });
+    const betterTestRun = await betterer({ configPaths, resultsPath, cache: true, cachePath, workers: 1 });
 
     expect(runNames(betterTestRun.better)).toEqual(['regexp no hack comments']);
 
@@ -64,7 +64,7 @@ module.exports = {
 
     expect(betterResult).toMatchSnapshot();
 
-    const completedTestRun = await betterer({ configPaths, resultsPath, cache: true, cachePath });
+    const completedTestRun = await betterer({ configPaths, resultsPath, cache: true, cachePath, workers: 1 });
 
     expect(runNames(completedTestRun.completed)).toEqual(['regexp no hack comments']);
 

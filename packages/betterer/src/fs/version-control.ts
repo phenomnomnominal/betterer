@@ -1,25 +1,17 @@
-import { BettererError } from '@betterer/errors';
-import assert from 'assert';
-import memoize from 'fast-memoize';
-import findGitRoot from 'find-git-root';
+import { workerRequire, WorkerRequireModuleAsync } from '@phenomnomnominal/worker-require';
 
-import { BettererGit } from './git';
-import { BettererVersionControl } from './types';
+import { BettererVersionControlWorker, BettererVersionControlWorkerModule } from './types';
 
-let globalVersionControl: BettererVersionControl;
+let worker: WorkerRequireModuleAsync<BettererVersionControlWorkerModule>;
+let globalVersionControl: BettererVersionControlWorker;
 
-export const createVersionControl = memoize(async function createVersionControl(): Promise<BettererVersionControl> {
-  const gitDir = findGitRoot(process.cwd());
-  if (!gitDir) {
-    throw new BettererError('.git directory not found. Betterer must be used within a git repository.');
-  }
-  const git = new BettererGit(gitDir);
-  await git.init();
-  globalVersionControl = git;
+export async function createVersionControl(): Promise<BettererVersionControlWorker> {
+  worker = workerRequire<BettererVersionControlWorkerModule>('./version-control-worker');
+  globalVersionControl = worker.versionControl;
+  await globalVersionControl.init();
   return globalVersionControl;
-});
+}
 
-export function getVersionControl(): BettererVersionControl {
-  assert(globalVersionControl);
-  return globalVersionControl;
+export async function destroyVersionControl(): Promise<void> {
+  await worker.destroy();
 }

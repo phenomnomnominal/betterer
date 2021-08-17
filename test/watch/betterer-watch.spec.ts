@@ -1,4 +1,4 @@
-import { betterer, BettererSummary } from '@betterer/betterer';
+import { betterer, BettererSuiteSummary } from '@betterer/betterer';
 import assert from 'assert';
 
 import { createFixture } from '../fixture';
@@ -10,24 +10,10 @@ describe('betterer.watch', () => {
 import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'tsquery no raw console.log': tsquery(
-    './tsconfig.json',
+  'tsquery no raw console.log': () => tsquery(
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
-  )
+  ).include('./src/**/*.ts')
 };
-      `,
-      'tsconfig.json': `
-{
-  "compilerOptions": {
-    "noEmit": true,
-    "lib": ["esnext"],
-    "moduleResolution": "node",
-    "target": "ES5",
-    "typeRoots": ["../../node_modules/@types/"],
-    "resolveJsonModule": true
-  },
-  "include": ["./src/**/*", ".betterer.ts"]
-}
       `
     });
 
@@ -38,10 +24,14 @@ export default {
 
     await writeFile(indexPath, `console.log('foo');console.log('foo');`);
 
-    await betterer({ configPaths, resultsPath, cwd });
+    await betterer({ configPaths, resultsPath, cwd, workers: 1 });
 
-    const summaryDefers = [defer<BettererSummary>(), defer<BettererSummary>(), defer<BettererSummary>()];
-    const [worse, same, better] = summaryDefers;
+    const suiteSummaryDefers = [
+      defer<BettererSuiteSummary>(),
+      defer<BettererSuiteSummary>(),
+      defer<BettererSuiteSummary>()
+    ];
+    const [worse, same, better] = suiteSummaryDefers;
 
     const runner = await betterer.watch({
       configPaths,
@@ -50,32 +40,33 @@ export default {
       reporters: [
         '@betterer/reporter',
         {
-          runsEnd(summary: BettererSummary) {
-            const summaryDefer = summaryDefers.shift();
-            summaryDefer?.resolve(summary);
+          suiteEnd(suiteSummary: BettererSuiteSummary) {
+            const suiteSummaryDefer = suiteSummaryDefers.shift();
+            suiteSummaryDefer?.resolve(suiteSummary);
           }
         }
-      ]
+      ],
+      workers: 1
     });
 
     await writeFile(indexPath, `console.log('foo');\nconsole.log('foo');console.log('foo');`);
 
-    const worseSummary = await worse.promise;
-    const [worseRun] = worseSummary.runs;
+    const worseSuiteSummary = await worse.promise;
+    const [worseRun] = worseSuiteSummary.runs;
 
     expect(worseRun.isWorse).toBe(true);
 
     await writeFile(indexPath, `console.log('foo');console.log('foo');`);
 
-    const sameSummary = await same.promise;
-    const [sameRun] = sameSummary.runs;
+    const sameSuiteSummary = await same.promise;
+    const [sameRun] = sameSuiteSummary.runs;
 
     expect(sameRun.isSame).toBe(true);
 
     await writeFile(indexPath, `console.log('bar');`);
 
-    const betterSummary = await better.promise;
-    const [betterRun] = betterSummary.runs;
+    const betterSuiteSummary = await better.promise;
+    const [betterRun] = betterSuiteSummary.runs;
 
     expect(betterRun.isBetter).toBe(true);
 
@@ -92,24 +83,10 @@ export default {
 import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'tsquery no raw console.log': tsquery(
-    './tsconfig.json',
+  'tsquery no raw console.log': () => tsquery(
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
-  )
+  ).include('./src/**/*.ts')
 };
-      `,
-      'tsconfig.json': `
-{
-  "compilerOptions": {
-    "noEmit": true,
-    "lib": ["esnext"],
-    "moduleResolution": "node",
-    "target": "ES5",
-    "typeRoots": ["../../node_modules/@types/"],
-    "resolveJsonModule": true
-  },
-  "include": ["./src/**/*", ".betterer.ts"]
-}
       `
     });
 
@@ -119,7 +96,7 @@ export default {
     const filePath = resolve('./src/file.ts');
     const { cwd } = paths;
 
-    const runDefer = defer<BettererSummary>();
+    const suiteSummaryDefer = defer<BettererSuiteSummary>();
 
     const runner = await betterer.watch({
       configPaths,
@@ -128,20 +105,21 @@ export default {
       reporters: [
         '@betterer/reporter',
         {
-          runsEnd(summary: BettererSummary) {
-            runDefer.resolve(summary);
+          suiteEnd(suiteSummary: BettererSuiteSummary) {
+            suiteSummaryDefer.resolve(suiteSummary);
           }
         }
-      ]
+      ],
+      workers: 1
     });
 
     await writeFile(indexPath, `console.log('foo');`);
     await writeFile(filePath, `console.log('foo');\nconsole.log('foo');`);
-    const summary = await runDefer.promise;
+    const suiteSummary = await suiteSummaryDefer.promise;
 
     await runner.stop();
 
-    expect(summary.runs).toHaveLength(1);
+    expect(suiteSummary.runs).toHaveLength(1);
 
     expect(logs).toMatchSnapshot();
 
@@ -154,24 +132,10 @@ export default {
 import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'tsquery no raw console.log': tsquery(
-    './tsconfig.json',
+  'tsquery no raw console.log': () => tsquery(
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
-  )
+  ).include('./src/**/*.ts')
 };
-      `,
-      'tsconfig.json': `
-{
-  "compilerOptions": {
-    "noEmit": true,
-    "lib": ["esnext"],
-    "moduleResolution": "node",
-    "target": "ES5",
-    "typeRoots": ["../../node_modules/@types/"],
-    "resolveJsonModule": true
-  },
-  "include": ["./src/**/*", ".betterer.ts"]
-}
       `,
       './src/.gitignore': `
 ignored.ts
@@ -188,7 +152,7 @@ ignored.ts
     const nestedPath = resolve('./src/nested/ignored.ts');
     const { cwd } = paths;
 
-    const runDefer = defer<BettererSummary>();
+    const suiteSummaryDefer = defer<BettererSuiteSummary>();
 
     const runner = await betterer.watch({
       configPaths,
@@ -197,19 +161,20 @@ ignored.ts
       reporters: [
         '@betterer/reporter',
         {
-          runsEnd(summary: BettererSummary) {
-            runDefer.resolve(summary);
+          suiteEnd(suiteSummary: BettererSuiteSummary) {
+            suiteSummaryDefer.resolve(suiteSummary);
           }
         }
-      ]
+      ],
+      workers: 1
     });
 
     await writeFile(indexPath, `console.log('foo');`);
     await writeFile(ignoredPath, `console.log('foo');`);
     await writeFile(nestedPath, `console.log('foo');`);
 
-    const summary = await runDefer.promise;
-    const [run] = summary.runs;
+    const suiteSummary = await suiteSummaryDefer.promise;
+    const [run] = suiteSummary.runs;
 
     await runner.stop();
 

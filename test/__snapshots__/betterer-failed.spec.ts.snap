@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`betterer should throws when reading the results file fails 1`] = `
+exports[`betterer should throw when reading the results file fails 1`] = `
 Array [
   "
    / | /     _         _   _

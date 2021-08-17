@@ -9,7 +9,7 @@
     "incremental": true,
     "jsx": "react",
     "resolveJsonModule": true,
-    "lib": ["esnext"],
+    "lib": ["esnext", "DOM"],
     "module": "CommonJS",
     "moduleResolution": "node",
     "noEmitOnError": true,

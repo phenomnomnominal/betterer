@@ -34,7 +34,7 @@ describe('Betterer VSCode Extension', () => {
     const { eslint } = require('../../node_modules/@betterer/eslint');
 
     module.exports = {
-      'eslint enable new rule': eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
+      'eslint enable new rule': () => eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
     };
           `,
         '.eslintrc.js': `
@@ -116,19 +116,21 @@ describe('Betterer VSCode Extension', () => {
     {
       const { cleanup, resolve } = await createFixture('test-betterer-file-only', {
         '.betterer.ts': `
+import { BettererTest } from '@betterer/betterer';
 import { typescript } from '@betterer/typescript';
+import { persist } from '@betterer/fixture';
 import { smaller } from '@betterer/constraints';
 
-let shrinks = 2;
+const shrinks = persist(__dirname, 'shrinks', 2);
 
 export default {
-  'typescript use strict mode': typescript('./tsconfig.json', {
+  'typescript use strict mode': () => typescript('./tsconfig.json', {
     strict: true
-  }),
-  'should shrink': {
-    test: () => shrinks--,
+  }).include('./src/**/*.ts'),
+  'should shrink': () => new BettererTest({
+    test: () => shrinks.decrement(),
     constraint: smaller
-  }
+  })
 };
       `,
         'tsconfig.json': `

@@ -1,9 +1,1 @@
-export {
-  BettererContext,
-  BettererDelta,
-  BettererRun,
-  BettererRuns,
-  BettererRunNames,
-  BettererSummary,
-  BettererSummaries
-} from './types';
+export { BettererContext, BettererContextSummary, BettererDelta } from './types';

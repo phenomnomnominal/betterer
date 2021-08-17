@@ -184,7 +184,6 @@ type BettererTestConfig<DeserialisedType, SerialisedType, DiffType> = {
   printer: BettererPrinter<SerialisedType>;
   progress: BettererProgress<DeserialisedType> | null;
   serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
-  type: BettererTestType;
 };
 ```
 
@@ -261,7 +260,7 @@ type BettererDiff<DeserialisedType = unknown, DiffType = null> = {
   expected: DeserialisedType;
   result: DeserialisedType;
   diff: DiffType;
-  log: (logger: BettererLogger) => Promise<void>;
+  logs: BettererLogs;
 };
 ```
 
@@ -278,18 +277,6 @@ type BettererDiff<DeserialisedType = unknown, DiffType = null> = {
 #### `diff`: [`DiffType`](#difftype-default-null)
 
 > The difference between `expected` and `result`.
-
-### Methods
-
-### `log()`
-
-> A logging hook for the diff. This is called by the reporter whenever a test becomes worse.
-
-Args:
-
-- `logger`: [`BettererLogger`](./logger#bettererlogger) - The reporter logger.
-
-Returns: `Promise<void>`
 
 ## `BettererSerialiser`
 

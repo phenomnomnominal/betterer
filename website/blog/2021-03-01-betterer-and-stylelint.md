@@ -13,13 +13,12 @@ Here's the full test:
 
 ```typescript
 // stylelint.ts
-import { BettererFileResolver, BettererFileTest } from '@betterer/betterer';
+import { BettererFileTest } from '@betterer/betterer';
 import { promises as fs } from 'fs';
 import { Configuration, lint } from 'stylelint';
 
 export function stylelint(configOverrides: Partial<Configuration> = {}) {
-  const resolver = new BettererFileResolver();
-  return new BettererFileTest(resolver, async (filePaths, fileTestResult) => {
+  return new BettererFileTest(async (filePaths, fileTestResult) => {
     const result = await lint({
       files: [...filePaths],
       configOverrides
@@ -140,17 +139,14 @@ And that will run the **Stylelint** from the `stylelinerc.json` file, plus the `
 
 ### Hooking into **Betterer**:
 
-This test needs to take advantage of all the snapshotting and diffing magic of **Betterer**, so we need to wrap it in a [test](https://phenomnomnominal.github.io/betterer/docs/tests). We want to be able to target individual files, so it specifically needs to be a [`BettererFileTest`](https://phenomnomnominal.github.io/betterer/docs/betterer-file-test).
-
-We first create a [`BettererFileResolver()`](https://phenomnomnominal.github.io/betterer/docs/betterer-file-test#bettererfileresolver), which is a little bit of magic that helps work out which file paths are relevant for the test. That is passed as the first argument to [`BettererFileTest`](https://phenomnomnominal.github.io/betterer/docs/betterer-file-test#bettererfiletest). The second argument is the actual test, which will be an `async` function that runs the linter.
+This test needs to take advantage of all the snapshotting and diffing magic of **Betterer**, so we need to wrap it in a [test](https://phenomnomnominal.github.io/betterer/docs/tests). We want to be able to target individual files, so it specifically needs to be a [`BettererFileTest`](https://phenomnomnominal.github.io/betterer/docs/betterer-file-test). The function argument is the actual test, which is an `async` function that runs the linter.
 
 ```typescript
-import { BettererFileResolver, BettererFileTest } from '@betterer/betterer';
+import { BettererFileTest } from '@betterer/betterer';
 import { Configuration, lint } from 'stylelint';
 
 function stylelint(configOverrides: Partial<Configuration> = {}) {
-  const resolver = new BettererFileResolver();
-  return new BettererFileTest(resolver, async (filePaths) => {
+  return new BettererFileTest(async (filePaths) => {
     // ...
   });
 }
@@ -159,12 +155,11 @@ function stylelint(configOverrides: Partial<Configuration> = {}) {
 Each time it runs **Betterer** will call that function with the relevant set of files, which we will pass along to **Stylelint**:
 
 ```typescript
-import { BettererFileResolver, BettererFileTest } from '@betterer/betterer';
+import { BettererFileTest } from '@betterer/betterer';
 import { Configuration, lint } from 'stylelint';
 
 function stylelint(configOverrides: Partial<Configuration> = {}) {
-  const resolver = new BettererFileResolver();
-  return new BettererFileTest(resolver, async (filePaths) => {
+  return new BettererFileTest(async (filePaths) => {
     const result = await lint({
       files: [...filePaths],
       configOverrides
@@ -219,13 +214,12 @@ Putting that all together and you get this:
 
 ```typescript
 // stylelint.ts
-import { BettererFileResolver, BettererFileTest } from '@betterer/betterer';
+import { BettererFileTest } from '@betterer/betterer';
 import { promises as fs } from 'fs';
 import { Configuration, lint } from 'stylelint';
 
 export function stylelint(configOverrides: Partial<Configuration> = {}) {
-  const resolver = new BettererFileResolver();
-  return new BettererFileTest(resolver, async (filePaths, fileTestResult) => {
+  return new BettererFileTest(async (filePaths, fileTestResult) => {
     const result = await lint({
       files: [...filePaths],
       configOverrides

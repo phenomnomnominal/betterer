@@ -9,6 +9,10 @@ export function isFunction<T>(value: unknown): value is T {
   return typeof value === 'function';
 }
 
+export function isNumber(value: unknown): value is number {
+  return typeof value === 'number';
+}
+
 export function isString(value: unknown): value is string {
   return typeof value === 'string';
 }
@@ -23,10 +27,6 @@ export function isUndefined(value: unknown): value is undefined {
 
 export function normalisedPath(filePath: string): string {
   return path.sep === path.posix.sep ? filePath : filePath.split(path.sep).join(path.posix.sep);
-}
-
-export function getAbsolutePath(resultsPath: string, filePath: string): string {
-  return normalisedPath(path.resolve(path.dirname(resultsPath), filePath));
 }
 
 type Resolve<T> = (value: T) => void;
@@ -44,9 +44,8 @@ export function defer<T>(): Defer<T> {
     resolve = res;
     reject = rej;
   });
-  promise.catch(() => {
-    return;
-  });
+  // Catch here to avoid global unhandledRejection:
+  promise.catch(() => void 0);
   assert(resolve);
   assert(reject);
   return { promise, resolve, reject };

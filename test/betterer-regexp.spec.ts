@@ -11,7 +11,7 @@ describe('betterer', () => {
 const { regexp } = require('@betterer/regexp');
 
 module.exports = {
-'regexp no hack comments': regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
+'regexp no hack comments': () => regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
 };      
     `
       }
@@ -23,17 +23,17 @@ module.exports = {
 
     await writeFile(indexPath, `// HACK:`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(newTestRun.new)).toEqual(['regexp no hack comments']);
 
-    const sameTestRun = await betterer({ configPaths, resultsPath });
+    const sameTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(sameTestRun.same)).toEqual(['regexp no hack comments']);
 
     await writeFile(indexPath, `// HACK:\n// HACK:`);
 
-    const worseTestRun = await betterer({ configPaths, resultsPath });
+    const worseTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(worseTestRun.worse)).toEqual(['regexp no hack comments']);
 
@@ -43,11 +43,11 @@ module.exports = {
 
     await writeFile(indexPath, ``);
 
-    const betterTestRun = await betterer({ configPaths, resultsPath });
+    const betterTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(betterTestRun.better)).toEqual(['regexp no hack comments']);
 
-    const completedTestRun = await betterer({ configPaths, resultsPath });
+    const completedTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(completedTestRun.completed)).toEqual(['regexp no hack comments']);
 
@@ -62,7 +62,7 @@ module.exports = {
 const { regexp } = require('@betterer/regexp');
 
 module.exports = {
-'regexp no hack comments': regexp()
+'regexp no hack comments': () => regexp()
 };      
     `
     });

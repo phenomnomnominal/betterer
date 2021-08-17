@@ -1,10 +1,9 @@
-import { BettererTasksLogger, BettererTasksState } from '@betterer/tasks';
-import { workerRequire, WorkerModule } from '@phenomnomnominal/worker-require';
+import { BettererTaskLogger, BettererTasksLogger, BettererTasksState } from '@betterer/tasks';
+import { workerRequire } from '@phenomnomnominal/worker-require';
 import * as path from 'path';
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 
-const createTestFile = workerRequire<WorkerModule<typeof import('./create-test-file')>>('./create-test-file');
-const updatePackageJSON = workerRequire<WorkerModule<typeof import('./update-package-json')>>('./update-package-json');
+import { CreateTestFileWorker, UpdatePackageJSONWorker } from './types';
 
 export type InitProps = {
   config: string;
@@ -13,27 +12,34 @@ export type InitProps = {
 };
 
 export const Init: FC<InitProps> = function Init({ cwd, config, ts }) {
+  const runCreateTestFile = useCallback(
+    async (logger) => {
+      const createTestFile = workerRequire<CreateTestFileWorker>('./create-test-file');
+      try {
+        await createTestFile.run(logger, path.resolve(cwd, config), ts);
+      } finally {
+        await createTestFile.destroy();
+      }
+    },
+    [cwd, config, ts]
+  );
+  const runUpdagePackageJSON = useCallback(
+    async (logger) => {
+      const updatePackageJSON = workerRequire<UpdatePackageJSONWorker>('./update-package-json');
+      try {
+        await updatePackageJSON.run(logger, cwd, ts);
+      } finally {
+        await updatePackageJSON.destroy();
+      }
+    },
+    [cwd, config, ts]
+  );
+
   return (
-    <BettererTasksLogger
-      name="Initialising Betterer"
-      update={update}
-      tasks={[
-        {
-          name: 'Create test file',
-          run: async (logger) => {
-            await createTestFile.run(logger, path.resolve(cwd, config), ts);
-            createTestFile.destroy();
-          }
-        },
-        {
-          name: 'Update package.json',
-          run: async (logger) => {
-            await updatePackageJSON.run(logger, cwd, ts);
-            updatePackageJSON.destroy();
-          }
-        }
-      ]}
-    />
+    <BettererTasksLogger name="Initialising Betterer" update={update}>
+      <BettererTaskLogger name="Create test file" run={runCreateTestFile}></BettererTaskLogger>
+      <BettererTaskLogger name="Update package.json" run={runUpdagePackageJSON}></BettererTaskLogger>
+    </BettererTasksLogger>
   );
 };
 

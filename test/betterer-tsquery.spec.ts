@@ -11,24 +11,10 @@ describe('betterer', () => {
 import { tsquery } from '@betterer/tsquery';
 
 export default {
-'tsquery no raw console.log': tsquery(
-  './tsconfig.json',
-  'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
-)
-};      
-    `,
-        'tsconfig.json': `
-{
-"compilerOptions": {
-  "noEmit": true,
-  "lib": ["esnext"],
-  "moduleResolution": "node",
-  "target": "ES5",
-  "typeRoots": ["../../node_modules/@types/"],
-  "resolveJsonModule": true
-},
-"include": ["./src/**/*", ".betterer.ts"]
-}      
+  'tsquery no raw console.log': () => tsquery(
+    'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
+  ).include('./src/**/*.ts')
+};
     `
       }
     );
@@ -39,17 +25,17 @@ export default {
 
     await writeFile(indexPath, `console.log('foo');`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(newTestRun.new)).toEqual(['tsquery no raw console.log']);
 
-    const sameTestRun = await betterer({ configPaths, resultsPath });
+    const sameTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(sameTestRun.same)).toEqual(['tsquery no raw console.log']);
 
     await writeFile(indexPath, `console.log('foo');\nconsole.log('foo');`);
 
-    const worseTestRun = await betterer({ configPaths, resultsPath });
+    const worseTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(worseTestRun.worse)).toEqual(['tsquery no raw console.log']);
 
@@ -59,34 +45,13 @@ export default {
 
     await writeFile(indexPath, ``);
 
-    const betterTestRun = await betterer({ configPaths, resultsPath });
+    const betterTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(betterTestRun.better)).toEqual(['tsquery no raw console.log']);
 
-    const completedTestRun = await betterer({ configPaths, resultsPath });
+    const completedTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(completedTestRun.completed)).toEqual(['tsquery no raw console.log']);
-
-    expect(logs).toMatchSnapshot();
-
-    await cleanup();
-  });
-
-  it('should throw if there is no configFilePath', async () => {
-    const { paths, logs, cleanup } = await createFixture('test-betterer-tsquery-no-config-file-path', {
-      '.betterer.js': `
-const { tsquery } = require('@betterer/tsquery');
-
-module.exports = {
-'tsquery no raw console.log': tsquery()
-};      
-    `
-    });
-
-    const configPaths = [paths.config];
-    const resultsPath = paths.results;
-
-    await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
 
     expect(logs).toMatchSnapshot();
 
@@ -99,7 +64,7 @@ module.exports = {
 const { tsquery } = require('@betterer/tsquery');
 
 module.exports = {
-'tsquery no raw console.log': tsquery('./tsconfig.json')
+  'tsquery no raw console.log': () => tsquery()
 };
     `
     });

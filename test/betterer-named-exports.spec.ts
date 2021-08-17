@@ -6,25 +6,27 @@ describe('betterer', () => {
   it('should work with named exports in the config file', async () => {
     const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-named-exports', {
       '.betterer.ts': `
+import { BettererTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
+import { persist } from '@betterer/fixture';
 
-let start = 0;
+const grows = persist(__dirname, 'grows', 0);
 
-export const getsBetter = {
-  test: () => start++,
+export const getsBetter = () => new BettererTest({
+  test: () => grows.increment(),
   constraint: bigger
-};      
+});
       `
     });
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    const firstRun = await betterer({ configPaths, resultsPath });
+    const firstRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(firstRun.new)).toEqual(['getsBetter']);
 
-    const secondRun = await betterer({ configPaths, resultsPath });
+    const secondRun = await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(runNames(secondRun.better)).toEqual(['getsBetter']);
 

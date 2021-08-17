@@ -20,10 +20,11 @@ export function createFixtureLogs(options: FixtureOptions = {}): FixtureLogs {
         return;
       }
       message = replaceAnsi(message);
+      if (isFiltered(message, options)) {
+        return;
+      }
       const lines = message.replace(/\r/g, '').split('\n');
-      const filteredLines = lines
-        .filter((line) => !isStackTraceLine(line))
-        .filter((line) => !isFiltered(line, options));
+      const filteredLines = lines.filter((line) => !isStackTraceLine(line));
       const formattedLines = filteredLines.map((line) => {
         line = replaceProjectPath(normalisePaths(line));
         line = line.trimEnd();

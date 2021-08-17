@@ -18,8 +18,10 @@ export type BettererConfig = {
   resultsPath: string;
   silent: boolean;
   tsconfigPath: string | null;
+  workers: number;
   // Start:
   ci: boolean;
+  precommit: boolean;
   strict: boolean;
   update: boolean;
   // Runner;
@@ -44,6 +46,7 @@ export type BettererOptionsBase = Partial<{
   resultsPath: string;
   silent: boolean;
   tsconfigPath: string;
+  workers: number;
 }>;
 
 export type BettererOptionsStartBase = BettererOptionsBase &
@@ -55,6 +58,7 @@ export type BettererOptionsStartBase = BettererOptionsBase &
 export type BettererOptionsStartCI = BettererOptionsStartBase &
   Partial<{
     ci: true;
+    precommit: false;
     strict: true;
     update: false;
     watch: false;
@@ -63,7 +67,17 @@ export type BettererOptionsStartCI = BettererOptionsStartBase &
 export type BettererOptionsStartDefault = BettererOptionsStartBase &
   Partial<{
     ci: false;
+    precommit: false;
     strict: false;
+    update: false;
+    watch: false;
+  }>;
+
+export type BettererOptionsStartPrecommit = BettererOptionsStartBase &
+  Partial<{
+    ci: false;
+    precommit: true;
+    strict: boolean;
     update: false;
     watch: false;
   }>;
@@ -71,6 +85,7 @@ export type BettererOptionsStartDefault = BettererOptionsStartBase &
 export type BettererOptionsStartStrict = BettererOptionsStartBase &
   Partial<{
     ci: false;
+    precommit: false;
     strict: true;
     update: false;
     watch: false;
@@ -79,6 +94,7 @@ export type BettererOptionsStartStrict = BettererOptionsStartBase &
 export type BettererOptionsStartUpdate = BettererOptionsStartBase &
   Partial<{
     ci: false;
+    precommit: false;
     strict: false;
     update: true;
     watch: false;
@@ -87,6 +103,7 @@ export type BettererOptionsStartUpdate = BettererOptionsStartBase &
 export type BettererOptionsStart =
   | BettererOptionsStartCI
   | BettererOptionsStartDefault
+  | BettererOptionsStartPrecommit
   | BettererOptionsStartStrict
   | BettererOptionsStartUpdate;
 

@@ -1,13 +1,14 @@
-import { useCallback, useContext, useReducer } from 'react';
+import { useContext, useReducer, useRef } from 'react';
 
 import { BettererTasksAction, BettererTasksStateContext, BettererTasksStateAPI } from './useTasksState';
-import { BettererTaskLog, BettererTaskLogs, BettererTask } from './types';
+import { BettererTaskLog, BettererTaskLogs } from './types';
 
 type BettererTaskState = {
   done: boolean;
   running: boolean;
   status: BettererTaskLog | null;
-  messageLogs: BettererTaskLogs;
+  logs: BettererTaskLogs;
+  finalLogs: BettererTaskLogs;
   error: Error | null;
 };
 
@@ -15,12 +16,16 @@ const INITIAL_STATE: BettererTaskState = {
   done: false,
   running: false,
   status: null,
-  messageLogs: [],
+  logs: [],
+  finalLogs: [],
   error: null
 };
 
 type BettererTaskAction =
   | BettererTasksAction
+  | {
+      type: 'reset';
+    }
   | {
       type: 'status';
       data: BettererTaskLog;
@@ -31,19 +36,19 @@ type BettererTaskAction =
     };
 
 type BettererTaskStateAPI = BettererTasksStateAPI & {
+  reset(): void;
   status(status: BettererTaskLog): Promise<void>;
   log(status: BettererTaskLog): Promise<void>;
 };
 
-export function useTaskState(task: BettererTask): [BettererTaskState, BettererTaskStateAPI] {
-  const previous = getState(task);
-  const reducer = useCallback(setState(task), []);
-  const [state, dispatch] = useReducer(reducer, previous);
+export function useTaskState(): [BettererTaskState, BettererTaskStateAPI] {
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const tasks = useContext(BettererTasksStateContext);
-
-  const api: BettererTaskStateAPI = {
+  const api = useRef<BettererTaskStateAPI>({
+    reset() {
+      dispatch({ type: 'reset' });
+    },
     start() {
-      dispatch({ type: 'start' });
       tasks.start();
     },
     status(status: BettererTaskLog) {
@@ -60,32 +65,18 @@ export function useTaskState(task: BettererTask): [BettererTaskState, BettererTa
       dispatch({ type: 'error', data: error });
       tasks.error(error);
     }
-  };
+  });
 
-  return [state, api];
-}
-
-type BettererTaskReducer = (state: BettererTaskState, action: BettererTaskAction) => BettererTaskState;
-
-const TASK_STATE_CACHE = new Map<BettererTask, BettererTaskState>();
-
-function getState(task: BettererTask): BettererTaskState {
-  if (!TASK_STATE_CACHE.has(task)) {
-    TASK_STATE_CACHE.set(task, INITIAL_STATE);
-  }
-  return TASK_STATE_CACHE.get(task) as BettererTaskState;
-}
-
-function setState(task: BettererTask): BettererTaskReducer {
-  return (state: BettererTaskState, action: BettererTaskAction): BettererTaskState => {
-    const newState = reducer(state, action);
-    TASK_STATE_CACHE.set(task, newState);
-    return newState;
-  };
+  return [state, api.current];
 }
 
 function reducer(state: BettererTaskState, action: BettererTaskAction): BettererTaskState {
   switch (action.type) {
+    case 'reset': {
+      return {
+        ...INITIAL_STATE
+      };
+    }
     case 'status':
       return {
         ...state,
@@ -95,14 +86,15 @@ function reducer(state: BettererTaskState, action: BettererTaskAction): Betterer
     case 'log': {
       return {
         ...state,
-        messageLogs: [...state.messageLogs, action.data]
+        logs: [...state.logs, action.data]
       };
     }
     case 'stop': {
       return {
         ...state,
         running: false,
-        done: true
+        done: true,
+        finalLogs: state.logs
       };
     }
     case 'error': {
@@ -110,7 +102,8 @@ function reducer(state: BettererTaskState, action: BettererTaskAction): Betterer
         ...state,
         error: action.data,
         running: false,
-        done: true
+        done: true,
+        finalLogs: state.logs
       };
     }
     default: {

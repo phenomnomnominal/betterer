@@ -1,22 +1,20 @@
 import commander, { CommanderStatic } from 'commander';
-import {
-  BettererCLIArguments,
-  BettererCLICIConfig,
-  BettererCLIEnvConfig,
-  BettererCLIInitConfig,
-  BettererCLIStartConfig,
-  BettererCLIWatchConfig
-} from './types';
+import { BettererCLIArguments, BettererCLIConfig, BettererCLIEnvConfig, BettererCLIInitConfig } from './types';
 
-export function ciOptions(argv: BettererCLIArguments): BettererCLICIConfig {
+export function cliOptions(argv: BettererCLIArguments): BettererCLIConfig {
+  cacheOption();
   configPathsOption();
-  resultsPathOption();
-  tsconfigPathOption();
-  filtersOption();
-  silentOption();
-  reportersOption();
   excludesOption();
-  const options = setEnv<BettererCLICIConfig>(argv);
+  filtersOption();
+  ignoresOption();
+  reportersOption();
+  resultsPathOption();
+  silentOption();
+  strictOption();
+  tsconfigPathOption();
+  updateOption();
+  workersOption();
+  const options = setEnv<BettererCLIConfig>(argv);
   options.include = options.args;
   return options;
 }
@@ -26,39 +24,11 @@ export function initOptions(argv: BettererCLIArguments): BettererCLIInitConfig {
   return setEnv<BettererCLIInitConfig>(argv);
 }
 
-export function startOptions(argv: BettererCLIArguments): BettererCLIStartConfig {
-  cacheOption();
-  configPathsOption();
-  resultsPathOption();
-  tsconfigPathOption();
-  filtersOption();
-  silentOption();
-  reportersOption();
-  strictOption();
-  updateOption();
-  excludesOption();
-  const options = setEnv<BettererCLIStartConfig>(argv);
-  options.include = options.args;
-  return options;
-}
-
-export function watchOptions(argv: BettererCLIArguments): BettererCLIWatchConfig {
-  cacheOption();
-  configPathsOption();
-  resultsPathOption();
-  tsconfigPathOption();
-  filtersOption();
-  silentOption();
-  reportersOption();
-  ignoresOption();
-  return setEnv<BettererCLIWatchConfig>(argv);
-}
-
 function setEnv<T extends BettererCLIEnvConfig>(argv: BettererCLIArguments): T & CommanderStatic {
   commander.option('-d, --debug', 'Enable verbose debug logging', false);
   commander.option('-l, --debug-log [value]', 'File path to save verbose debug logging to disk', './betterer.log');
 
-  const parsed = (commander.parse(argv) as unknown) as T & CommanderStatic;
+  const parsed = commander.parse(argv) as unknown as T & CommanderStatic;
   if (parsed.debug) {
     process.env.BETTERER_DEBUG = '1';
     process.env.BETTERER_DEBUG_TIME = '1';
@@ -131,6 +101,10 @@ function strictOption(): void {
 
 function updateOption(): void {
   commander.option('-u, --update', 'When present, the results file will be updated, even if things get worse.');
+}
+
+function workersOption(): void {
+  commander.option('--workers', 'number of workers to use. Defaults to number of CPUs - 2.');
 }
 
 function argsToArray(value: string, previous: BettererCLIArguments = []): BettererCLIArguments {

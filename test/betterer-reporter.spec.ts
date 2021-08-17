@@ -1,12 +1,12 @@
 import {
   betterer,
   BettererContext,
-  BettererFilePaths,
   BettererRun,
-  BettererRuns,
-  BettererSummaries,
-  BettererSummary
+  BettererRunSummary,
+  BettererSuite,
+  BettererSuiteSummary
 } from '@betterer/betterer';
+import { BettererContextSummary } from '../packages/betterer/src';
 
 import { createFixture } from './fixture';
 
@@ -59,14 +59,16 @@ describe('betterer --reporter', () => {
   it('should work with an inline reporter', async () => {
     const { paths, cleanup } = await createFixture('test-betterer-reporter-inline', {
       '.betterer.ts': `
+import { BettererTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
+import { persist } from '@betterer/fixture';
 
-let start = 0;
+const grows = persist(__dirname, 'grows', 0);
 
-export const getsBetter = {
-  test: () => start++,
+export const getsBetter = () => new BettererTest({
+  test: () => grows.increment(),
   constraint: bigger
-};      
+});
       `
     });
 
@@ -86,13 +88,13 @@ export const getsBetter = {
         contextError() {
           return;
         },
-        runsStart() {
+        suiteStart() {
           return;
         },
-        runsEnd() {
+        suiteEnd() {
           return;
         },
-        runsError() {
+        suiteError() {
           return;
         },
         runStart() {
@@ -109,7 +111,7 @@ export const getsBetter = {
 
     let throws = false;
     try {
-      await betterer({ configPaths, resultsPath, reporters });
+      await betterer({ configPaths, resultsPath, reporters, workers: 1 });
     } catch {
       throws = true;
     }
@@ -122,14 +124,16 @@ export const getsBetter = {
   it('should work with a lifecycle based reporter', async () => {
     const { paths, cleanup } = await createFixture('test-betterer-reporter-lifecycle', {
       '.betterer.ts': `
+import { BettererTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
+import { persist } from '@betterer/fixture';
 
-let start = 0;
+const grows = persist(__dirname, 'grows', 0);
 
-export const getsBetter = {
-  test: () => start++,
+export const getsBetter = () => new BettererTest({
+  test: () => grows.increment(),
   constraint: bigger
-};      
+});
       `
     });
 
@@ -140,21 +144,21 @@ export const getsBetter = {
         configError() {
           return;
         },
-        async contextStart(_: BettererContext, lifecycle: Promise<BettererSummaries>) {
+        async contextStart(_: BettererContext, lifecycle: Promise<BettererContextSummary>) {
           try {
             await lifecycle;
           } catch (e) {
             return;
           }
         },
-        async runsStart(_: BettererRuns, __: BettererFilePaths, lifecycle: Promise<BettererSummary>) {
+        async suiteStart(_: BettererSuite, lifecycle: Promise<BettererSuiteSummary>) {
           try {
             await lifecycle;
           } catch (e) {
             return;
           }
         },
-        async runStart(_: BettererRun, lifecycle: Promise<void>) {
+        async runStart(_: BettererRun, lifecycle: Promise<BettererRunSummary>) {
           try {
             await lifecycle;
           } catch (e) {
@@ -166,7 +170,7 @@ export const getsBetter = {
 
     let throws = false;
     try {
-      await betterer({ configPaths, resultsPath, reporters });
+      await betterer({ configPaths, resultsPath, reporters, workers: 1 });
     } catch {
       throws = true;
     }

@@ -1,10 +1,11 @@
 import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 import { promises as fs } from 'fs';
+import * as os from 'os';
 import * as path from 'path';
 
-import { BettererFileResolverΩ } from '../fs';
-import { isBoolean, isRegExp, isString, isUndefined } from '../utils';
+import { BettererFileResolverΩ, BettererVersionControlWorker } from '../fs';
+import { isBoolean, isNumber, isRegExp, isString, isUndefined } from '../utils';
 import {
   BettererConfig,
   BettererConfigReporter,
@@ -14,7 +15,12 @@ import {
   BettererOptionsWatch
 } from './types';
 
-export async function createConfig(options: unknown = {}): Promise<BettererConfig> {
+const TOTAL_CPUS = os.cpus().length;
+
+export async function createConfig(
+  options: unknown = {},
+  versionControl: BettererVersionControlWorker
+): Promise<BettererConfig> {
   const baseOptions = options as BettererOptionsBase;
   const runnerOptions = options as BettererOptionsRunner;
   const startOptions = options as BettererOptionsStart;
@@ -33,6 +39,7 @@ export async function createConfig(options: unknown = {}): Promise<BettererConfi
     resultsPath: baseOptions.resultsPath || './.betterer.results',
     silent: isDebug || baseOptions.silent || false,
     tsconfigPath: baseOptions.tsconfigPath || null,
+    workers: baseOptions.workers || Math.max(TOTAL_CPUS - 2, 1),
 
     // Runner:
     ignores: toArray<string>(runnerOptions.ignores),
@@ -40,6 +47,7 @@ export async function createConfig(options: unknown = {}): Promise<BettererConfi
     // Start:
     ci: startOptions.ci || false,
     filePaths: [],
+    precommit: startOptions.precommit || false,
     strict: startOptions.strict || false,
     update: startOptions.update || false,
 
@@ -52,14 +60,14 @@ export async function createConfig(options: unknown = {}): Promise<BettererConfi
 
   const { includes, excludes } = startOptions;
 
-  const resolver = new BettererFileResolverΩ(relativeConfig.cwd);
+  const resolver = new BettererFileResolverΩ(relativeConfig.cwd, versionControl);
   resolver.include(...toArray<string>(includes));
   resolver.exclude(...toRegExps(toArray<string | RegExp>(excludes)));
 
   const config = {
     ...relativeConfig,
     cachePath: path.resolve(relativeConfig.cwd, relativeConfig.cachePath),
-    filePaths: resolver.files(),
+    filePaths: await resolver.files(),
     configPaths: relativeConfig.configPaths.map((configPath) => path.resolve(relativeConfig.cwd, configPath)),
     resultsPath: path.resolve(relativeConfig.cwd, relativeConfig.resultsPath),
     tsconfigPath: relativeConfig.tsconfigPath ? path.resolve(relativeConfig.cwd, relativeConfig.tsconfigPath) : null
@@ -81,9 +89,11 @@ function validateConfig(config: BettererConfig): void {
   validateStringRegExpArray('filters', config);
   validateString('resultsPath', config);
   validateBool('silent', config);
+  validateWorkers('workers', config);
 
   // Start:
   validateBool('ci', config);
+  validateBool('precommit', config);
   validateBool('strict', config);
   validateBool('update', config);
 
@@ -95,8 +105,22 @@ function validateConfig(config: BettererConfig): void {
 }
 
 function overrideConfig(config: BettererConfig) {
+  // Silent mode:
+  if (config.silent) {
+    config.reporters = [];
+  }
+
   // CI mode:
   if (config.ci) {
+    config.precommit = false;
+    config.strict = true;
+    config.update = false;
+    config.watch = false;
+    return;
+  }
+  // Precommit mode:
+  if (config.precommit) {
+    config.ci = false;
     config.strict = true;
     config.update = false;
     config.watch = false;
@@ -105,6 +129,7 @@ function overrideConfig(config: BettererConfig) {
   // Strict mode:
   if (config.strict) {
     config.ci = false;
+    config.precommit = false;
     config.update = false;
     config.watch = false;
     return;
@@ -112,6 +137,7 @@ function overrideConfig(config: BettererConfig) {
   // Update mode:
   if (config.update) {
     config.ci = false;
+    config.precommit = false;
     config.strict = false;
     config.watch = false;
     return;
@@ -119,6 +145,7 @@ function overrideConfig(config: BettererConfig) {
   // Watch mode:
   if (config.watch) {
     config.ci = false;
+    config.precommit = false;
     config.strict = true;
     config.update = false;
     return;
@@ -128,6 +155,11 @@ function overrideConfig(config: BettererConfig) {
 function validateBool<Config, PropertyName extends keyof Config>(propertyName: PropertyName, config: Config): void {
   const value = config[propertyName];
   validate(isBoolean(value), `"${propertyName.toString()}" must be \`true\` or \`false\`. ${recieved(value)}`);
+}
+
+function validateNumber<Config, PropertyName extends keyof Config>(propertyName: PropertyName, config: Config): void {
+  const value = config[propertyName];
+  validate(isNumber(value), `"${propertyName.toString()}" must be a number. ${recieved(value)}`);
 }
 
 function validateString<Config, PropertyName extends keyof Config>(propertyName: PropertyName, config: Config): void {
@@ -178,6 +210,17 @@ async function validateFilePath<Config, PropertyName extends keyof Config>(
   validate(
     value == null || (isString(value) && (await fs.readFile(value))),
     `"${propertyName.toString()}" must be a path to a file. ${recieved(value)}`
+  );
+}
+
+function validateWorkers<Config, PropertyName extends keyof Config>(propertyName: PropertyName, config: Config): void {
+  const value = config[propertyName];
+  validateNumber(propertyName, config);
+  validate(
+    isNumber(value) && value > 0 && value <= TOTAL_CPUS,
+    `"${propertyName.toString()}" must be more than zero and not more than the number of available CPUs (${TOTAL_CPUS}). ${recieved(
+      value
+    )}`
   );
 }
 

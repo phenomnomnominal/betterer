@@ -9,10 +9,9 @@ describe('betterer', () => {
 import { tsquery } from '@betterer/tsquery';
 
 export default {
-  'no raw console calls': tsquery(
-    './tsconfig.json',
+  'no raw console calls': () => tsquery(
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
-  )
+  ).include('./src/**/*.ts')
 };
               `,
       '.betterer.results': `
@@ -32,19 +31,6 @@ exports[\`no raw console calls\`] = {
   }\`
 };
       `.replace(/\|||/g, ''), // Mess with it a bit so that tooling doesn't think this is a real conflict:
-      'tsconfig.json': `
-{
-  "compilerOptions": {
-    "noEmit": true,
-    "lib": ["esnext"],
-    "moduleResolution": "node",
-    "target": "ES5",
-    "typeRoots": ["../../node_modules/@types/"],
-    "resolveJsonModule": true
-  },
-  "include": ["./src/**/*", ".betterer.ts"]
-}      
-      `,
       'src/index.ts': `
 console.log('foo');
 console.info('foo');
@@ -54,7 +40,7 @@ console.info('foo');
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    await betterer({ configPaths, resultsPath });
+    await betterer({ configPaths, resultsPath, workers: 1 });
 
     expect(logs).toMatchSnapshot();
 

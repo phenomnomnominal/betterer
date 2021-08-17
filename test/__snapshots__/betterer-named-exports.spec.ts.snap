@@ -138,7 +138,7 @@ Array [
 exports[`betterer should work with named exports in the config file 2`] = `
 "// BETTERER RESULTS V2.
 exports[\`getsBetter\`] = {
-  value: \`1
+  value: \`2
 \`
 };
 "

@@ -5,6 +5,36 @@ export type BettererCLIEnvConfig = {
   debugLog: string;
 };
 
+export type BettererCLIConfig = BettererCLIEnvConfig & {
+  cache: boolean;
+  cachePath: string;
+  config: BettererCLIArguments;
+  exclude: BettererCLIArguments;
+  filter: BettererCLIArguments;
+  ignore: BettererCLIArguments;
+  include: BettererCLIArguments;
+  reporter: BettererCLIArguments;
+  results: string;
+  silent: boolean;
+  strict: boolean;
+  tsconfig: string;
+  update: boolean;
+  workers: number;
+};
+
+export type BettererCLIInitConfig = BettererCLIEnvConfig & {
+  config: string;
+};
+
+export type BettererPackageJSON = {
+  version: string;
+  scripts: Record<string, string> & { betterer: string };
+  devDependencies: Record<string, string>;
+};
+
+/* 
+  @deprecated doesn't make sense anymore. Will be removed in v5.0.0
+*/
 export type BettererCLIBaseConfig = BettererCLIEnvConfig & {
   config: BettererCLIArguments;
   filter: BettererCLIArguments;
@@ -14,20 +44,25 @@ export type BettererCLIBaseConfig = BettererCLIEnvConfig & {
   tsconfig: string;
 };
 
+/* 
+  @deprecated doesn't make sense anymore. Will be removed in v5.0.0
+*/
 export type BettererCLICacheConfig = {
   cache: boolean;
   cachePath: string;
 };
 
+/* 
+  @deprecated doesn't make sense anymore. Will be removed in v5.0.0
+*/
 export type BettererCLICIConfig = BettererCLIBaseConfig & {
   exclude: BettererCLIArguments;
   include: BettererCLIArguments;
 };
 
-export type BettererCLIInitConfig = BettererCLIEnvConfig & {
-  config: string;
-};
-
+/* 
+  @deprecated doesn't make sense anymore. Will be removed in v5.0.0
+*/
 export type BettererCLIStartConfig = BettererCLIBaseConfig &
   BettererCLICacheConfig & {
     exclude: BettererCLIArguments;
@@ -36,13 +71,10 @@ export type BettererCLIStartConfig = BettererCLIBaseConfig &
     update: boolean;
   };
 
+/* 
+  @deprecated doesn't make sense anymore. Will be removed in v5.0.0
+*/
 export type BettererCLIWatchConfig = BettererCLIBaseConfig &
   BettererCLICacheConfig & {
     ignore: BettererCLIArguments;
   };
-
-export type BettererPackageJSON = {
-  version: string;
-  scripts: Record<string, string> & { betterer: string };
-  devDependencies: Record<string, string>;
-};

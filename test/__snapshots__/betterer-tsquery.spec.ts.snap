@@ -181,58 +181,6 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-tsquery/src/index.ts\\".
-🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-tsquery/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-tsquery/src/index.ts\\":
-🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-tsquery/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-tsquery/src/index.ts\\":
-・
-・   <project>/fixtures/test-betterer-tsquery/src/index.ts
-・   1 | console.log('foo');
-・ > 2 | console.log('foo');
-・     | ^^^^^^^^^^^ TSQuery match
-・
-🤔 tsquery no raw console.log: running \\"tsquery no raw console.log\\"!
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms): 1 test running...
-・ 1 existing issue in \\"<project>/fixtures/test-betterer-tsquery/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-tsquery/src/index.ts\\":
-・
-・   <project>/fixtures/test-betterer-tsquery/src/index.ts
-・   1 | console.log('foo');
-・ > 2 | console.log('foo');
-・     | ^^^^^^^^^^^ TSQuery match
-・
 🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. (1 new issue, 2 total) 😔
 
 ",
@@ -367,7 +315,7 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 
 1 test got checked. 🤔
 1 test got better! 😍
-\\"tsquery no raw console.log\\" met its goal! 🎉)
+\\"tsquery no raw console.log\\" met its goal! 🎉
 
 ",
   "
@@ -433,33 +381,8 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
-\\"tsquery no raw console.log\\" met its goal! 🎉)
+\\"tsquery no raw console.log\\" met its goal! 🎉
 
-",
-]
-`;
-
-exports[`betterer should throw if there is no configFilePath 1`] = `
-Array [
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: could not read config from \\"<project>/fixtures/test-betterer-tsquery-no-config-file-path/.betterer\\". 😔
-
-Error: for \`@betterer/tsquery\` to work, you need to provide the path to a tsconfig.json file, e.g. \`'./tsconfig.json'\`. ❌
 ",
 ]
 `;
@@ -481,8 +404,6 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-
-Error: could not read config from \\"<project>/fixtures/test-betterer-tsquery-no-query/.betterer\\". 😔
 
 Error: for \`@betterer/tsquery\` to work, you need to provide a query, e.g. \`'CallExpression > PropertyAccessExpression'\`. ❌
 ",
