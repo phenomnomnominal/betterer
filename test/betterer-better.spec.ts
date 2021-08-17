@@ -4,8 +4,10 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should work when a test gets better', async () => {
-    const { logs, paths, readFile, cleanup, runNames } = await createFixture('test-betterer-better', {
-      '.betterer.js': `
+    const { logs, paths, readFile, cleanup, runNames } = await createFixture(
+      'test-betterer-better',
+      {
+        '.betterer.js': `
 const { BettererTest } = require('@betterer/betterer');
 const { smaller, bigger } = require('@betterer/constraints');
 const { persist } = require('@betterer/fixture');
@@ -24,7 +26,11 @@ module.exports = {
   })
 };
       `
-    });
+      },
+      {
+        logFilters: [/: running /, /running.../]
+      }
+    );
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
