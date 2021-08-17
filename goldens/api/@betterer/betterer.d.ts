@@ -237,6 +237,7 @@ export declare type BettererRun = {
     readonly filePaths: BettererFilePaths | null;
     readonly name: string;
     readonly isNew: boolean;
+    readonly isSkipped: boolean;
 };
 
 export declare type BettererRunHandler = (suiteSummary: BettererSuiteSummary) => void;
@@ -265,7 +266,6 @@ export declare type BettererRunSummary = BettererRun & {
     readonly isExpired: boolean;
     readonly isFailed: boolean;
     readonly isSame: boolean;
-    readonly isSkipped: boolean;
     readonly isUpdated: boolean;
     readonly isWorse: boolean;
 };
