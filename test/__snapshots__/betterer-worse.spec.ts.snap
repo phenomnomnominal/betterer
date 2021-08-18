@@ -130,7 +130,7 @@ Array [
 🌟 Betterer (0ms): 1 test running...
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got force updated. (1 new issue, 2 total) 🆙
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-update/src/index.ts
 ・   1 | console.log('foo');
@@ -149,7 +149,7 @@ Array [
 🎉 Betterer (0ms): 1 test done!
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got force updated. (1 new issue, 2 total) 🆙
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-update/src/index.ts
 ・   1 | console.log('foo');
@@ -168,7 +168,7 @@ Array [
 🎉 Betterer (0ms): 1 test done!
 ✅ tsquery no raw console.log: \\"tsquery no raw console.log\\" got force updated. (1 new issue, 2 total) 🆙
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-update/src/index.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-update/src/index.ts
 ・   1 | console.log('foo');
@@ -377,7 +377,7 @@ Array [
 🌟 Betterer (0ms): 1 test running...
 🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-no-update/src/index.ts
 ・   1 | console.log('foo');
@@ -398,7 +398,7 @@ Error: \\"tsquery no raw console.log\\" got worse. (1 new issue, 2 total) 😔
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-no-update/src/index.ts
 ・   1 | console.log('foo');
@@ -419,7 +419,7 @@ Error: \\"tsquery no raw console.log\\" got worse. (1 new issue, 2 total) 😔
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 tsquery no raw console.log: \\"tsquery no raw console.log\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-no-update/src/index.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-no-update/src/index.ts
 ・   1 | console.log('foo');

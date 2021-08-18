@@ -12,6 +12,8 @@ import {
   BettererFileBase
 } from './types';
 
+const FORMATTER = Intl.NumberFormat();
+
 export function differ(expected: BettererFileTestResult, result: BettererFileTestResult): BettererFileTestDiff {
   const diff: BettererFilesDiff = {};
   const expectedΩ = expected as BettererFileTestResultΩ;
@@ -160,16 +162,18 @@ export function differ(expected: BettererFileTestResult, result: BettererFileTes
       logs.push({ warn: `${existing.length} existing ${getIssues(existing.length)} in "${filePath}".` });
     }
     const newIssues = diff[filePath].new || [];
-    if (newIssues.length) {
-      const { length } = newIssues;
-      logs.push({ error: `${length} new ${getIssues(length)} in "${filePath}":` });
+    const nIssues = newIssues.length;
+    if (nIssues) {
+      logs.push({ error: `New ${getIssues(nIssues)} in "${filePath}"!` });
+      if (nIssues > 1) {
+        logs.push({ error: `Showing first of ${FORMATTER.format(nIssues)} new issues:` });
+      }
 
-      newIssues.map((issue) => {
-        const fileΩ = resultΩ.getFile(filePath) as BettererFileΩ;
-        const { fileText } = fileΩ;
-        const [line, column, length, message] = issue;
-        logs.push({ code: { message, filePath, fileText, line, column, length } });
-      });
+      const [firstIssue] = newIssues;
+      const fileΩ = resultΩ.getFile(filePath) as BettererFileΩ;
+      const { fileText } = fileΩ;
+      const [line, column, length, message] = firstIssue;
+      logs.push({ code: { message, filePath, fileText, line, column, length } });
     }
   });
 

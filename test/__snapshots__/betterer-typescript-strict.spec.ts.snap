@@ -199,7 +199,7 @@ Array [
 🌟 Betterer (0ms): 1 test running...
 🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. (1 new issue, 7 total) 😔
 ・ 6 existing issues in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-typescript-strict/src/index.ts
 ・   32 | const a = 'a';
@@ -221,7 +221,7 @@ Error: \\"typescript use strict mode\\" got worse. (1 new issue, 7 total) 😔
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. (1 new issue, 7 total) 😔
 ・ 6 existing issues in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-typescript-strict/src/index.ts
 ・   32 | const a = 'a';
@@ -243,7 +243,7 @@ Error: \\"typescript use strict mode\\" got worse. (1 new issue, 7 total) 😔
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 typescript use strict mode: \\"typescript use strict mode\\" got worse. (1 new issue, 7 total) 😔
 ・ 6 existing issues in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-typescript-strict/src/index.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-typescript-strict/src/index.ts
 ・   32 | const a = 'a';
