@@ -15,6 +15,8 @@ export type BettererTestConstraint<DeserialisedType> = (
   expected: DeserialisedType
 ) => MaybeAsync<BettererConstraintResult>;
 
+export type BettererTestDeadline = Date | string;
+
 export type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
 
 export type BettererDiff<DiffType = null> = {
@@ -53,7 +55,7 @@ export type BettererTestOptionsBasic = {
   constraint: BettererTestConstraint<number>;
   test: BettererTestFunction<number>;
   goal?: number | BettererTestGoal<number>;
-  deadline?: Date | string;
+  deadline?: BettererTestDeadline;
 };
 
 export type BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType> = {
@@ -64,7 +66,7 @@ export type BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffTyp
   progress?: BettererProgress<DeserialisedType>;
   serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
   goal: DeserialisedType | BettererTestGoal<DeserialisedType>;
-  deadline?: Date | string;
+  deadline?: BettererTestDeadline;
 };
 
 export type BettererTestOptions<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> =

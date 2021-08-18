@@ -5,8 +5,8 @@ import { BettererContext } from '../../context';
 import { BettererFileResolverΩ, BettererFileGlobs, BettererFilePatterns } from '../../fs';
 import { BettererRun, BettererWorkerRunΩ } from '../../run';
 import { BettererGlobals } from '../../types';
-import { createTestConfig } from '../config';
-import { BettererTestConstraint, BettererTestFunction, BettererTestGoal } from '../types';
+import { createDeadline, createGoal, createTestConfig } from '../config';
+import { BettererTestConstraint, BettererTestDeadline, BettererTestFunction, BettererTestGoal } from '../types';
 import { constraint } from './constraint';
 import { differ } from './differ';
 import { BettererFileTestResultΩ } from './file-test-result';
@@ -57,13 +57,18 @@ export class BettererFileTest implements BettererFileTestBase {
     return this;
   }
 
+  public deadline(deadlineOverride: BettererTestDeadline): this {
+    this.config.deadline = createDeadline({ ...this.config, deadline: deadlineOverride });
+    return this;
+  }
+
   public exclude(...excludePatterns: BettererFilePatterns): this {
     this._resolver.exclude(...excludePatterns);
     return this;
   }
 
   public goal(goalOverride: BettererTestGoal<BettererFileTestResult>): this {
-    this.config.goal = goalOverride;
+    this.config.goal = createGoal({ ...this.config, goal: goalOverride });
     return this;
   }
 

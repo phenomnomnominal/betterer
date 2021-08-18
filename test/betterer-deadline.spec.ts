@@ -80,4 +80,40 @@ module.exports = {
 
     await cleanup();
   });
+
+  it('should mark a file test as expired when it is past its deadline', async () => {
+    const { logs, paths, readFile, cleanup, runNames } = await createFixture(
+      'test-betterer-file-test-deadline-in-past',
+      {
+        '.betterer.ts': `
+import { tsquery } from '@betterer/tsquery';
+
+export default {
+  'tsquery no raw console.log': () => tsquery(
+    'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
+  ).include('./src/**/*.ts').deadline('0')
+};
+    `
+      }
+    );
+
+    jest.spyOn(Date, 'now').mockImplementation(() => {
+      return new Date().getTime();
+    });
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+
+    const firstRun = await betterer({ configPaths, resultsPath, workers: 1 });
+
+    expect(runNames(firstRun.expired)).toEqual(['tsquery no raw console.log']);
+
+    expect(logs).toMatchSnapshot();
+
+    const result = await readFile(resultsPath);
+
+    expect(result).toMatchSnapshot();
+
+    await cleanup();
+  });
 });
