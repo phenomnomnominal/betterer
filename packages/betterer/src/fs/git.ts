@@ -84,7 +84,7 @@ export class BettererGitΩ implements BettererVersionControl {
     throw new BettererError('.git directory not found. Betterer must be used within a git repository.');
   }
 
-  private async _getUntrackedHash(filePath: string): Promise<string | null> {
+  private async _getFileHash(filePath: string): Promise<string | null> {
     const content = await read(filePath);
     if (content == null) {
       return null;
@@ -107,41 +107,48 @@ export class BettererGitΩ implements BettererVersionControl {
     assert(this._git);
     const tree = await this._git.raw(['ls-tree', '--full-tree', '-r', 'HEAD']);
     const fileInfo = this._toFilePaths(tree).map((info) => info.split(/\s/));
-    const gitHashes: Record<string, string> = {};
+
+    const fileHashes: Record<string, string | null> = {};
+
+    // Collect hashes from git:
     fileInfo.forEach((fileInfo) => {
       const [, , hash, relativePath] = fileInfo;
       assert(this._rootDir);
       const absolutePath = normalisedPath(path.join(this._rootDir, relativePath.trimStart()));
-      gitHashes[absolutePath] = hash;
+      fileHashes[absolutePath] = hash;
+      return absolutePath;
     });
 
+    // Collect hashes for modified files:
     const modified = await this._git.raw(['ls-files', '--modified']);
     const modifiedFilePaths = this._toFilePaths(modified);
     await Promise.all(
       modifiedFilePaths.map(async (relativePath) => {
         assert(this._rootDir);
         const absolutePath = normalisedPath(path.join(this._rootDir, relativePath));
-        const hash = await this._getUntrackedHash(absolutePath);
-
-        // If hash is null then the modification was a deletion:
-        if (hash == null) {
-          delete this._fileMap[absolutePath];
-          this._filePaths.splice(this._filePaths.indexOf(absolutePath), 1);
-          return;
-        }
-
-        this._fileMap[absolutePath] = hash;
-        this._filePaths.push(absolutePath);
+        fileHashes[absolutePath] = await this._getFileHash(absolutePath);
       })
     );
 
-    const untracked = await this._git.raw(['ls-files', '--cached', '--others', '--exclude-standard']);
-    const untrackedFilePaths = this._toFilePaths(untracked);
+    // Collect all tracked files, excluding files that have been deleted, *and* all untracked files:
+    const allFiles = await this._git.raw(['ls-files', '--cached', '--others', '--exclude-standard']);
+    const allFilePaths = this._toFilePaths(allFiles);
     await Promise.all(
-      untrackedFilePaths.map(async (relativePath) => {
+      allFilePaths.map(async (relativePath) => {
         assert(this._rootDir);
         const absolutePath = normalisedPath(path.join(this._rootDir, relativePath));
-        const hash = gitHashes[absolutePath] || (await this._getUntrackedHash(absolutePath));
+
+        // If file is tracked:
+        //    `fileHashes[absolutePath]` = the git hash.
+        // If file was tracked and is now deleted:
+        //    `fileHashes[absolutePath]` = null
+        //    `this._getFileHash(absolutePath)` = null
+        // If file is untracked and is new:
+        //    `fileHashes[absolutePath]` = null
+        //    `this._getFileHash(absolutePath) = basic hash
+        const hash = fileHashes[absolutePath] || (await this._getFileHash(absolutePath));
+
+        // If hash is null then the file was deleted so it shouldn't be included:
         if (hash == null) {
           return;
         }
