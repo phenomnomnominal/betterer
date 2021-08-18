@@ -214,7 +214,7 @@ Array [
 🌟 Betterer (0ms): 1 test running...
 🔥 regexp no hack comments: \\"regexp no hack comments\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-cache/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-cache/src/index.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-cache/src/index.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-cache/src/index.ts
 ・   1 | // HACK:
@@ -235,7 +235,7 @@ Error: \\"regexp no hack comments\\" got worse. (1 new issue, 2 total) 😔
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 regexp no hack comments: \\"regexp no hack comments\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-cache/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-cache/src/index.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-cache/src/index.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-cache/src/index.ts
 ・   1 | // HACK:
@@ -256,7 +256,7 @@ Error: \\"regexp no hack comments\\" got worse. (1 new issue, 2 total) 😔
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 regexp no hack comments: \\"regexp no hack comments\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-cache/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-cache/src/index.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-cache/src/index.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-cache/src/index.ts
 ・   1 | // HACK:

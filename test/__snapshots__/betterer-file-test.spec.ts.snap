@@ -344,7 +344,7 @@ Array [
 🌟 Betterer (0ms): 1 test running...
 🔥 file test custom goal: \\"file test custom goal\\" got worse. (1 new issue, 3 total) 😔
 ・ 2 existing issues in \\"<project>/fixtures/test-betterer-file-test-goal/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-file-test-goal/src/index.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-file-test-goal/src/index.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-file-test-goal/src/index.ts
 ・   1 | debugger;
@@ -366,7 +366,7 @@ Error: \\"file test custom goal\\" got worse. (1 new issue, 3 total) 😔
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 file test custom goal: \\"file test custom goal\\" got worse. (1 new issue, 3 total) 😔
 ・ 2 existing issues in \\"<project>/fixtures/test-betterer-file-test-goal/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-file-test-goal/src/index.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-file-test-goal/src/index.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-file-test-goal/src/index.ts
 ・   1 | debugger;
@@ -388,7 +388,7 @@ Error: \\"file test custom goal\\" got worse. (1 new issue, 3 total) 😔
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 file test custom goal: \\"file test custom goal\\" got worse. (1 new issue, 3 total) 😔
 ・ 2 existing issues in \\"<project>/fixtures/test-betterer-file-test-goal/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-file-test-goal/src/index.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-file-test-goal/src/index.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-file-test-goal/src/index.ts
 ・   1 | debugger;
@@ -778,7 +778,7 @@ Array [
 🌟 Betterer (0ms): 1 test running...
 ✅ file test custom goal: \\"file test custom goal\\" got force updated. (1 new issue, 9 total) 🆙
 ・ 2 existing issues in \\"<project>/fixtures/test-betterer-file-test-sort-single-file-absolute/src/c.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-file-test-sort-single-file-absolute/src/c.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-file-test-sort-single-file-absolute/src/c.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-file-test-sort-single-file-absolute/src/c.ts
 ・   1 | debugger;
@@ -798,7 +798,7 @@ Array [
 🎉 Betterer (0ms): 1 test done!
 ✅ file test custom goal: \\"file test custom goal\\" got force updated. (1 new issue, 9 total) 🆙
 ・ 2 existing issues in \\"<project>/fixtures/test-betterer-file-test-sort-single-file-absolute/src/c.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-file-test-sort-single-file-absolute/src/c.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-file-test-sort-single-file-absolute/src/c.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-file-test-sort-single-file-absolute/src/c.ts
 ・   1 | debugger;
@@ -818,7 +818,7 @@ Array [
 🎉 Betterer (0ms): 1 test done!
 ✅ file test custom goal: \\"file test custom goal\\" got force updated. (1 new issue, 9 total) 🆙
 ・ 2 existing issues in \\"<project>/fixtures/test-betterer-file-test-sort-single-file-absolute/src/c.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-file-test-sort-single-file-absolute/src/c.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-file-test-sort-single-file-absolute/src/c.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-file-test-sort-single-file-absolute/src/c.ts
 ・   1 | debugger;
@@ -977,7 +977,7 @@ Array [
 🌟 Betterer (0ms): 1 test running...
 ✅ file test custom goal: \\"file test custom goal\\" got force updated. (1 new issue, 9 total) 🆙
 ・ 2 existing issues in \\"<project>/fixtures/test-betterer-file-test-sort-single-file/src/c.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-file-test-sort-single-file/src/c.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-file-test-sort-single-file/src/c.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-file-test-sort-single-file/src/c.ts
 ・   1 | debugger;
@@ -997,7 +997,7 @@ Array [
 🎉 Betterer (0ms): 1 test done!
 ✅ file test custom goal: \\"file test custom goal\\" got force updated. (1 new issue, 9 total) 🆙
 ・ 2 existing issues in \\"<project>/fixtures/test-betterer-file-test-sort-single-file/src/c.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-file-test-sort-single-file/src/c.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-file-test-sort-single-file/src/c.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-file-test-sort-single-file/src/c.ts
 ・   1 | debugger;
@@ -1017,7 +1017,7 @@ Array [
 🎉 Betterer (0ms): 1 test done!
 ✅ file test custom goal: \\"file test custom goal\\" got force updated. (1 new issue, 9 total) 🆙
 ・ 2 existing issues in \\"<project>/fixtures/test-betterer-file-test-sort-single-file/src/c.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-file-test-sort-single-file/src/c.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-file-test-sort-single-file/src/c.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-file-test-sort-single-file/src/c.ts
 ・   1 | debugger;

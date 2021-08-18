@@ -276,7 +276,7 @@ Array [
 🌟 Betterer (0ms): 1 test running...
 🔥 eslint enable new rule: \\"eslint enable new rule\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-eslint/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-eslint/src/index.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-eslint/src/index.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-eslint/src/index.ts
 ・   1 | debugger;
@@ -297,7 +297,7 @@ Error: \\"eslint enable new rule\\" got worse. (1 new issue, 2 total) 😔
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 eslint enable new rule: \\"eslint enable new rule\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-eslint/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-eslint/src/index.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-eslint/src/index.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-eslint/src/index.ts
 ・   1 | debugger;
@@ -318,7 +318,7 @@ Error: \\"eslint enable new rule\\" got worse. (1 new issue, 2 total) 😔
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 eslint enable new rule: \\"eslint enable new rule\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-eslint/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-eslint/src/index.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-eslint/src/index.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-eslint/src/index.ts
 ・   1 | debugger;
@@ -663,7 +663,7 @@ Array [
 🌟 Betterer (0ms): 1 test running...
 🔥 eslint enable no-debugger rule: \\"eslint enable no-debugger rule\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-eslint-complex/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-eslint-complex/src/index.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-eslint-complex/src/index.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-eslint-complex/src/index.ts
 ・   1 | debugger;
@@ -684,7 +684,7 @@ Error: \\"eslint enable no-debugger rule\\" got worse. (1 new issue, 2 total) �
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 eslint enable no-debugger rule: \\"eslint enable no-debugger rule\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-eslint-complex/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-eslint-complex/src/index.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-eslint-complex/src/index.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-eslint-complex/src/index.ts
 ・   1 | debugger;
@@ -705,7 +705,7 @@ Error: \\"eslint enable no-debugger rule\\" got worse. (1 new issue, 2 total) �
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 eslint enable no-debugger rule: \\"eslint enable no-debugger rule\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/test-betterer-eslint-complex/src/index.ts\\".
-・ 1 new issue in \\"<project>/fixtures/test-betterer-eslint-complex/src/index.ts\\":
+・ New issue in \\"<project>/fixtures/test-betterer-eslint-complex/src/index.ts\\"!
 ・
 ・   <project>/fixtures/test-betterer-eslint-complex/src/index.ts
 ・   1 | debugger;

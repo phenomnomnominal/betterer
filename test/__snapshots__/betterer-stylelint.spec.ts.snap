@@ -130,7 +130,8 @@ Array [
 🌟 Betterer (0ms): 1 test running...
 🔥 stylelint enable new rule: \\"stylelint enable new rule\\" got worse. (2 new issues, 4 total) 😔
 ・ 2 existing issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\".
-・ 2 new issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\":
+・ New issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\"!
+・ Showing first of 2 new issues:
 ・
 ・   <project>/fixtures/test-betterer-stylelint/src/styles.scss
 ・   12 |   b & {}
@@ -140,14 +141,6 @@ Array [
 ・   15 | }
 ・   16 |
 ・   17 | .foo {
-・
-・
-・   <project>/fixtures/test-betterer-stylelint/src/styles.scss
-・   16 |
-・   17 | .foo {
-・ > 18 |   width: 666borks;
-・      |          ^ Unexpected unknown unit \\"borks\\" (unit-no-unknown)
-・   19 | }
 ・
 
 Error: \\"stylelint enable new rule\\" got worse. (2 new issues, 4 total) 😔
@@ -163,7 +156,8 @@ Error: \\"stylelint enable new rule\\" got worse. (2 new issues, 4 total) 😔
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 stylelint enable new rule: \\"stylelint enable new rule\\" got worse. (2 new issues, 4 total) 😔
 ・ 2 existing issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\".
-・ 2 new issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\":
+・ New issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\"!
+・ Showing first of 2 new issues:
 ・
 ・   <project>/fixtures/test-betterer-stylelint/src/styles.scss
 ・   12 |   b & {}
@@ -173,14 +167,6 @@ Error: \\"stylelint enable new rule\\" got worse. (2 new issues, 4 total) 😔
 ・   15 | }
 ・   16 |
 ・   17 | .foo {
-・
-・
-・   <project>/fixtures/test-betterer-stylelint/src/styles.scss
-・   16 |
-・   17 | .foo {
-・ > 18 |   width: 666borks;
-・      |          ^ Unexpected unknown unit \\"borks\\" (unit-no-unknown)
-・   19 | }
 ・
 
 Error: \\"stylelint enable new rule\\" got worse. (2 new issues, 4 total) 😔
@@ -196,7 +182,8 @@ Error: \\"stylelint enable new rule\\" got worse. (2 new issues, 4 total) 😔
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 stylelint enable new rule: \\"stylelint enable new rule\\" got worse. (2 new issues, 4 total) 😔
 ・ 2 existing issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\".
-・ 2 new issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\":
+・ New issues in \\"<project>/fixtures/test-betterer-stylelint/src/styles.scss\\"!
+・ Showing first of 2 new issues:
 ・
 ・   <project>/fixtures/test-betterer-stylelint/src/styles.scss
 ・   12 |   b & {}
@@ -206,14 +193,6 @@ Error: \\"stylelint enable new rule\\" got worse. (2 new issues, 4 total) 😔
 ・   15 | }
 ・   16 |
 ・   17 | .foo {
-・
-・
-・   <project>/fixtures/test-betterer-stylelint/src/styles.scss
-・   16 |
-・   17 | .foo {
-・ > 18 |   width: 666borks;
-・      |          ^ Unexpected unknown unit \\"borks\\" (unit-no-unknown)
-・   19 | }
 ・
 
 Error: \\"stylelint enable new rule\\" got worse. (2 new issues, 4 total) 😔
