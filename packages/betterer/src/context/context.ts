@@ -40,11 +40,11 @@ export class BettererContextΩ implements BettererContext {
         await reportContextStart;
         await this.reporter.contextEnd(contextSummary);
 
-        await this.versionControl.writeCache();
-
         const suiteSummaryΩ = contextSummary.lastSuite;
         if (suiteSummaryΩ.shouldWrite) {
           await this.results.write(suiteSummaryΩ.result);
+
+          await this.versionControl.writeCache();
           if (this.config.precommit) {
             await this.versionControl.add(this.config.resultsPath);
           }
