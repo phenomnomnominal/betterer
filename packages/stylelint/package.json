@@ -30,10 +30,10 @@
   "dependencies": {
     "@betterer/betterer": "^4.4.1",
     "@betterer/errors": "^4.0.0",
-    "tslib": "^2.0.3"
+    "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@types/stylelint": "^13.13.0",
+    "@types/stylelint": "^13.13.1",
     "stylelint": "^13.11.0",
     "stylelint-order": "^4.1.0"
   },

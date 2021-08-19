@@ -38,8 +38,8 @@
     "@phenomnomnominal/worker-require": "^0.0.16",
     "commander": "^5.1.0",
     "find-up": "^5.0.0",
-    "ink": "^3.0.7",
+    "ink": "^3.0.9",
     "react": ">=16",
-    "tslib": "^2.0.3"
+    "tslib": "^2.3.1"
   }
 }

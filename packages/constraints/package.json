@@ -28,6 +28,6 @@
     "node": ">=12"
   },
   "dependencies": {
-    "tslib": "^2.0.3"
+    "tslib": "^2.3.1"
   }
 }

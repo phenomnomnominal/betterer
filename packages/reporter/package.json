@@ -32,8 +32,8 @@
     "@betterer/errors": "^4.0.0",
     "@betterer/logger": "^4.3.8",
     "@betterer/tasks": "^4.4.1",
-    "ink": "^3.0.7",
+    "ink": "^3.0.9",
     "ink-text-input": "^4.0.1",
-    "tslib": "^2.0.3"
+    "tslib": "^2.3.1"
   }
 }
