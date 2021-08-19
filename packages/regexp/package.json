@@ -30,6 +30,6 @@
   "dependencies": {
     "@betterer/betterer": "^4.4.1",
     "@betterer/errors": "^4.0.0",
-    "tslib": "^2.0.3"
+    "tslib": "^2.3.1"
   }
 }
