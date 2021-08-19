@@ -8,8 +8,7 @@ Array [
 ✅ Update package.json: done!
 ・ added \\"betterer\\" script to package.json file.
 ・ added \\"@betterer/cli\\" dependency to package.json file
-・ added \\"typescript\\" dependency to package.json file
-",
+・ added \\"typescript\\" dependency to package.json file",
 ]
 `;
 
@@ -20,8 +19,7 @@ Array [
 ・ created \\"<project>/fixtures/test-betterer-init-js/.betterer.js\\"!
 ✅ Update package.json: done!
 ・ added \\"betterer\\" script to package.json file.
-・ added \\"@betterer/cli\\" dependency to package.json file
-",
+・ added \\"@betterer/cli\\" dependency to package.json file",
 ]
 `;
 
@@ -33,15 +31,13 @@ Array [
 ✅ Update package.json: done!
 ・ added \\"betterer\\" script to package.json file.
 ・ added \\"@betterer/cli\\" dependency to package.json file
-・ added \\"typescript\\" dependency to package.json file
-",
+・ added \\"typescript\\" dependency to package.json file",
   "🎉 Initialising Betterer (0ms): 2 tasks done!
 ✅ Create test file: done!
 ・ \\"<project>/fixtures/test-betterer-init-multiple/.betterer.ts\\" already exists, moving on...
 ✅ Update package.json: done!
 ・ \\"betterer\\" script already exists, moving on...
 ・ \\"@betterer/cli\\" dependency already exists, moving on...
-・ \\"typescript\\" dependency already exists, moving on...
-",
+・ \\"typescript\\" dependency already exists, moving on...",
 ]
 `;
