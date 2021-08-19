@@ -45,7 +45,7 @@
     "tslib": "^2.3.1"
   },
   "optionalDependencies": {
-    "typescript": ">=4.3.5"
+    "typescript": ">=2.7"
   },
   "devDependencies": {
     "@types/callsite": "^1.0.31",
