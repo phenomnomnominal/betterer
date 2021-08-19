@@ -43,7 +43,6 @@ module.exports = {
       theme: THEME
     },
     image: 'img/betterer.png',
-    sidebarCollapsible: true,
     navbar: {
       hideOnScroll: true,
       title: 'Betterer',
@@ -157,6 +156,7 @@ module.exports = {
           showReadingTime: true,
           editUrl: 'https://github.com/phenomnomnominal/betterer/edit/master/website/blog/'
         },
+        sidebarCollapsible: true,
         theme: {
           customCss: require.resolve('./src/css/custom.css')
         }
