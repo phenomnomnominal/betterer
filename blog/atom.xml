@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://phenomnomnominal.github.io/blog</id>
+    <id>https://phenomnomnominal.github.io/betterer/blog</id>
     <title>Betterer Blog</title>
     <updated>2021-03-01T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://phenomnomnominal.github.io/blog"/>
+    <link rel="alternate" href="https://phenomnomnominal.github.io/betterer/blog"/>
     <subtitle>Betterer Blog</subtitle>
-    <icon>https://phenomnomnominal.github.io/img/favicon.png</icon>
+    <icon>https://phenomnomnominal.github.io/betterer/img/favicon.png</icon>
     <entry>
         <title type="html"><![CDATA[Incrementally adding Stylelint rules with Betterer ☀️]]></title>
         <id>Incrementally adding Stylelint rules with Betterer ☀️</id>
