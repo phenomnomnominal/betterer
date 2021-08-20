@@ -1,0 +1,26 @@
+import { betterer } from '@betterer/betterer';
+
+import { createFixture } from './fixture';
+
+describe('betterer --reporter', () => {
+  it('should work with an npm module', async () => {
+    const { paths, cleanup } = await createFixture('reporter-npm', {
+      '.betterer.js': ``
+    });
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+    const reporters = ['@betterer/reporter'];
+
+    let throws = false;
+    try {
+      await betterer({ configPaths, resultsPath, reporters });
+    } catch {
+      throws = true;
+    }
+
+    expect(throws).toBe(false);
+
+    await cleanup();
+  });
+});

@@ -29,7 +29,7 @@
     "compile:watch": "tsc -b packages -w",
     "lint": "eslint \"./packages/**/src/**/*.{js,ts}\" \"./test/**/*.{ts,tsx}\" \"./*.{js,ts}\" --fix",
     "format": "prettier \"**/!(*.snap)\" --write --loglevel=silent",
-    "test": "yarn clean:tests && jest --runInBand",
+    "test": "yarn clean:tests && jest",
     "test:api": "yarn compile:api-test && node ./test/api/dist",
     "test:debug": "yarn clean:tests && jest --runInBand --collectCoverage=false",
     "test:extension": "lerna run test:extension",
