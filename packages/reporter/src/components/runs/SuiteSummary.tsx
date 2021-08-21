@@ -1,7 +1,6 @@
 import React, { FC, memo } from 'react';
 
 import { BettererContext, BettererSuiteSummary } from '@betterer/betterer';
-import { diffΔ } from '@betterer/logger';
 import { Box, Text, TextProps } from 'ink';
 
 import {
@@ -15,7 +14,8 @@ import {
   testSkipped,
   testUpdated,
   testWorse,
-  unexpectedDiff,
+  unexpectedChanges,
+  unexpectedChangesInstructions,
   updateInstructions
 } from '../../messages';
 import { quote } from '../../utils';
@@ -27,16 +27,16 @@ export type SuiteSummaryProps = {
 
 const TEXT_COLOURS: Record<string, TextProps['color']> = {
   better: 'greenBright',
+  changed: 'red',
   checked: 'gray',
   completed: 'greenBright',
-  diff: 'red',
   expired: 'brightRed',
   failed: 'brightRed',
   new: 'gray',
   obsolete: 'brightRed',
   same: 'brightYellow',
   skipped: 'brightYellow',
-  updated: 'gray',
+  updated: 'white',
   worse: 'red'
 };
 
@@ -80,10 +80,15 @@ export const SuiteSummary: FC<SuiteSummaryProps> = memo(function SuiteSummary({ 
           </>
         ) : null}
       </Box>
-      {suiteSummary.unexpectedDiff ? (
+      {context.config.ci && suiteSummary.changed.length ? (
         <Box flexDirection="column" paddingBottom={1}>
-          <Text color={TEXT_COLOURS.diff}>{unexpectedDiff()}</Text>
-          <Text>{diffΔ(suiteSummary.expected, suiteSummary.result)}</Text>
+          <Text color={TEXT_COLOURS.changed}>{unexpectedChanges()}</Text>
+          <Box flexDirection="column" padding={1}>
+            {suiteSummary.changed.map((name) => (
+              <Text key={name}>"{name}"</Text>
+            ))}
+          </Box>
+          <Text color={TEXT_COLOURS.changed}>{unexpectedChangesInstructions()}</Text>
         </Box>
       ) : null}
     </>

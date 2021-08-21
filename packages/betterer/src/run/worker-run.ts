@@ -3,7 +3,7 @@ import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
 import { BettererConfig } from '../config';
-import { BettererFilePaths, BettererVersionControlWorker } from '../fs';
+import { BettererFilePaths, BettererVersionControlWorker, forceRelativePaths } from '../fs';
 import { createWorkerGlobals } from '../globals';
 import { BettererResult, BettererResultΩ } from '../results';
 import { BettererDiff, BettererTestConfig, BettererTestMeta, isBettererFileTest, loadTestMeta } from '../test';
@@ -167,7 +167,7 @@ export class BettererWorkerRunΩ implements BettererRun {
       if (shouldPrint) {
         const toPrint = isFailed || isSkipped || isWorse ? this.expected : (result as BettererResult);
         const toPrintSerialised = this.test.serialiser.serialise(toPrint.value, config.resultsPath);
-        printed = await this.test.printer(toPrintSerialised);
+        printed = forceRelativePaths(await this.test.printer(toPrintSerialised), config.resultsPath);
       }
 
       return new BettererRunSummaryΩ(

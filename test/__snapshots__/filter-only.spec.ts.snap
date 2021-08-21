@@ -8,7 +8,6 @@ Array [
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
 ",
   "
    / | /     _         _   _
@@ -18,7 +17,6 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
-
 ",
   "
    / | /     _         _   _
@@ -32,7 +30,6 @@ Array [
 ✅ test 2: \\"test 2\\" got checked for the first time! 🎉
 ✅ test 3: \\"test 3\\" got checked for the first time! 🎉
 ✅ test 4: \\"test 4\\" got checked for the first time! (1 issue) 🎉
-
 ",
   "
    / | /     _         _   _
@@ -49,7 +46,6 @@ Array [
 
 4 tests got checked. 🤔
 4 tests got checked for the first time! 🎉
-
 ",
   "
    / | /     _         _   _
@@ -57,7 +53,6 @@ Array [
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
 ",
   "
    / | /     _         _   _
@@ -67,7 +62,6 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
-
 ",
   "
    / | /     _         _   _
@@ -81,7 +75,6 @@ Array [
 ✅ test 2: \\"test 2\\" got skipped. 🚫
 ✅ test 3: \\"test 3\\" got skipped. 🚫
 ✅ test 4: \\"test 4\\" stayed the same. (1 issue) 😐
-
 ",
   "
    / | /     _         _   _
@@ -99,7 +92,6 @@ Array [
 2 tests got checked. 🤔
 2 tests stayed the same. 😐
 2 tests got skipped. 🚫
-
 ",
 ]
 `;

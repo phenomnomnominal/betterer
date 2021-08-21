@@ -8,7 +8,6 @@ Array [
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
 ",
   "
    / | /     _         _   _
@@ -18,7 +17,6 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
-
 ",
   "
    / | /     _         _   _
@@ -29,7 +27,6 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
-
 ",
   "
    / | /     _         _   _
@@ -40,7 +37,6 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
-
 ",
   "
    / | /     _         _   _
@@ -51,7 +47,6 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
-
 ",
   "
    / | /     _         _   _
@@ -65,7 +60,6 @@ Array [
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
-
 ",
   "
    / | /     _         _   _
@@ -73,7 +67,6 @@ Array [
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
 ",
   "
    / | /     _         _   _
@@ -83,7 +76,6 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
-
 ",
   "
    / | /     _         _   _
@@ -94,7 +86,6 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
-
 ",
   "
    / | /     _         _   _
@@ -105,7 +96,6 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" stayed the same. (1 issue) 😐
-
 ",
   "
    / | /     _         _   _
@@ -116,7 +106,6 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. (1 issue) 😐
-
 ",
   "
    / | /     _         _   _
@@ -131,22 +120,11 @@ Array [
 1 test got checked. 🤔
 1 test stayed the same. 😐
 
-Unexpected diff found:
-- Expected
-+ Result
+Unexpected changes detected in these tests while running in CI mode:
 
-  // BETTERER RESULTS V2.
-  exports[\`test\`] = {
-    value: \`{
--     \\"src/index.ts:1499252024\\": [
--       [2, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"]
-+     \\"src/index.ts:2615232350\\": [
-+       [3, 12, 1, \\"The left-hand side of an arithmetic operation must be of type /'any/', /'number/', /'bigint/' or an enum type.\\", \\"177604\\"]
-      ]
-    }\`
-  };
+ \\"test\\"
 
-
+You should make sure the results file is up-to-date before committing! You might want to run \`betterer precommit\` in a commit hook. 💍
 ",
 ]
 `;

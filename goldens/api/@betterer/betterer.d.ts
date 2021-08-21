@@ -292,9 +292,7 @@ export declare type BettererSuiteSummaries = ReadonlyArray<BettererSuiteSummary>
 
 export declare type BettererSuiteSummary = BettererSuite & {
     readonly runs: BettererRunSummaries;
-    readonly result: string;
-    readonly expected: string | null;
-    readonly unexpectedDiff: boolean;
+    readonly changed: BettererRunNames;
     readonly better: BettererRunSummaries;
     readonly completed: BettererRunSummaries;
     readonly expired: BettererRunSummaries;

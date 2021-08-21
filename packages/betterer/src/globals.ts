@@ -21,7 +21,7 @@ export async function createGlobals(options: unknown = {}): Promise<BettererGlob
       reporter = loadReporters(reporters, cwd);
     }
     await registerExtensions(config);
-    const results = new BettererResultsΩ(config);
+    const results = await BettererResultsΩ.create(config.resultsPath, versionControl);
     return { config, reporter, results, versionControl };
   } catch (error) {
     await reporter.configError(options, error);
@@ -43,7 +43,7 @@ export async function createWorkerGlobals(
   await registerExtensions(config);
 
   const reporter = loadReporters([]);
-  const results = new BettererResultsΩ(config);
+  const results = await BettererResultsΩ.create(config.resultsPath, versionControl);
 
   return { config, reporter, results, versionControl };
 }

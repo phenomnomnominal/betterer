@@ -8,7 +8,6 @@ Array [
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
 ",
   "
    / | /     _         _   _
@@ -18,7 +17,6 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
-
 ",
   "
    / | /     _         _   _
@@ -30,7 +28,6 @@ Array [
 🎉 Betterer (0ms): 2 tests done!
 ✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
 ✅ should grow: \\"should grow\\" got checked for the first time! 🎉
-
 ",
   "
    / | /     _         _   _
@@ -45,7 +42,6 @@ Array [
 
 2 tests got checked. 🤔
 2 tests got checked for the first time! 🎉
-
 ",
   "
    / | /     _         _   _
@@ -53,7 +49,6 @@ Array [
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
 ",
   "
    / | /     _         _   _
@@ -63,7 +58,6 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
-
 ",
   "
    / | /     _         _   _
@@ -89,7 +83,6 @@ Error: \\"should shrink\\" got worse. 😔
 ・ + -2
 
 Error: \\"should grow\\" got worse. 😔
-
 ",
   "
    / | /     _         _   _
@@ -120,7 +113,6 @@ Error: \\"should grow\\" got worse. 😔
 2 tests got worse. 😔
 
 You should try to fix the new issues! As a last resort, you can run \`betterer --update\` to force an update of the results file. 🆙
-
 ",
 ]
 `;

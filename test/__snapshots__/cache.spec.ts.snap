@@ -40,7 +40,6 @@ Array [
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
 ",
   "
    / | /     _         _   _
@@ -50,7 +49,6 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
-
 ",
   "
    / | /     _         _   _
@@ -61,7 +59,6 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
-
 ",
   "
    / | /     _         _   _
@@ -72,7 +69,6 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
-
 ",
   "
    / | /     _         _   _
@@ -83,7 +79,6 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
-
 ",
   "
    / | /     _         _   _
@@ -97,7 +92,6 @@ Array [
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
-
 ",
   "
    / | /     _         _   _
@@ -105,7 +99,6 @@ Array [
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
 ",
   "
    / | /     _         _   _
@@ -115,7 +108,6 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
-
 ",
   "
    / | /     _         _   _
@@ -126,7 +118,6 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
-
 ",
   "
    / | /     _         _   _
@@ -137,7 +128,6 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" stayed the same. (1 issue) 😐
-
 ",
   "
    / | /     _         _   _
@@ -148,7 +138,6 @@ Array [
 
 🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. (1 issue) 😐
-
 ",
   "
    / | /     _         _   _
@@ -162,7 +151,6 @@ Array [
 
 1 test got checked. 🤔
 1 test stayed the same. 😐
-
 ",
   "
    / | /     _         _   _
@@ -170,7 +158,6 @@ Array [
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
 ",
   "
    / | /     _         _   _
@@ -180,7 +167,6 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
-
 ",
   "
    / | /     _         _   _
@@ -191,7 +177,6 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
-
 ",
   "
    / | /     _         _   _
@@ -202,7 +187,6 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
-
 ",
   "
    / | /     _         _   _
@@ -223,7 +207,6 @@ Array [
 ・
 
 Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
-
 ",
   "
    / | /     _         _   _
@@ -244,7 +227,6 @@ Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ・
 
 Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
-
 ",
   "
    / | /     _         _   _
@@ -270,7 +252,6 @@ Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
 1 test got worse. 😔
 
 You should try to fix the new issues! As a last resort, you can run \`betterer --update\` to force an update of the results file. 🆙
-
 ",
   "
    / | /     _         _   _
@@ -278,7 +259,6 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
 ",
   "
    / | /     _         _   _
@@ -288,7 +268,6 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
-
 ",
   "
    / | /     _         _   _
@@ -299,7 +278,6 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 
 🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
-
 ",
   "
    / | /     _         _   _
@@ -310,7 +288,6 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 
 🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" met its goal! 🎉
-
 ",
   "
    / | /     _         _   _
@@ -321,7 +298,6 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 
 🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" met its goal! 🎉
-
 ",
   "
    / | /     _         _   _
@@ -336,7 +312,6 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 1 test got checked. 🤔
 1 test got better! 😍
 \\"test\\" met its goal! 🎉
-
 ",
   "
    / | /     _         _   _
@@ -344,7 +319,6 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
 ",
   "
    / | /     _         _   _
@@ -354,7 +328,6 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
-
 ",
   "
    / | /     _         _   _
@@ -365,7 +338,6 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 
 🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
-
 ",
   "
    / | /     _         _   _
@@ -376,7 +348,6 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 
 🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" has already met its goal! ✨
-
 ",
   "
    / | /     _         _   _
@@ -387,7 +358,6 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 
 🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" has already met its goal! ✨
-
 ",
   "
    / | /     _         _   _
@@ -402,7 +372,6 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 \\"test\\" met its goal! 🎉
-
 ",
 ]
 `;

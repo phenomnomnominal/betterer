@@ -39,17 +39,15 @@ export default {
     const fixturePath = paths.cwd;
     const indexPath = resolve('./src/index.ts');
 
-    process.env.CI = '1';
-
     await startΔ(fixturePath, ARGV);
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one + one);\nconsole.log(a * one);`);
 
+    process.env.CI = '1';
+
     const suiteSummary = await startΔ(fixturePath, ARGV);
 
-    expect(suiteSummary.expected).not.toBeNull();
-    expect(suiteSummary.unexpectedDiff).toEqual(true);
-    expect(suiteSummary.worse).toHaveLength(0);
+    expect(suiteSummary.changed).toHaveLength(1);
 
     expect(logs).toMatchSnapshot();
 
