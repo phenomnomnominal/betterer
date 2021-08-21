@@ -39,11 +39,11 @@ export default {
     const fixturePath = paths.cwd;
     const indexPath = resolve('./src/index.ts');
 
-    await startΔ(fixturePath, ARGV);
+    await startΔ(fixturePath, ARGV, false);
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one + one);\nconsole.log(a * one);`);
 
-    process.env.CI = '1';
+    process.env.CI = 'true';
 
     const suiteSummary = await startΔ(fixturePath, ARGV);
 
