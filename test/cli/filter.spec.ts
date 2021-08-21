@@ -36,15 +36,15 @@ module.exports = {
 
     const fixturePath = paths.cwd;
 
-    const firstRun = await startΔ(fixturePath, ARGV);
+    const firstRun = await startΔ(fixturePath, ARGV, false);
 
     expect(runNames(firstRun.ran)).toEqual(['test 1', 'test 2', 'test 3']);
 
-    const secondRun = await startΔ(fixturePath, [...ARGV, '--filter', '1']);
+    const secondRun = await startΔ(fixturePath, [...ARGV, '--filter', '1'], false);
 
     expect(runNames(secondRun.ran)).toEqual(['test 1']);
 
-    const thirdRun = await startΔ(fixturePath, [...ARGV, '--filter', '1', '--filter', '3']);
+    const thirdRun = await startΔ(fixturePath, [...ARGV, '--filter', '1', '--filter', '3'], false);
 
     expect(runNames(thirdRun.ran)).toEqual(['test 1', 'test 3']);
 

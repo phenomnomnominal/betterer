@@ -8,7 +8,6 @@ Array [
 ---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
 ",
   "
    / | /     _         _   _
@@ -18,7 +17,6 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 🌟 Betterer (0ms):
-
 ",
   "
    / | /     _         _   _
@@ -29,7 +27,6 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
-
 ",
   "
    / | /     _         _   _
@@ -40,7 +37,6 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🔥 test: OH NO!
-
 ",
   "
    / | /     _         _   _
@@ -53,7 +49,6 @@ Array [
 🔥 test: OH NO!
 
 Error: OH NO!
-
 ",
   "
    / | /     _         _   _
@@ -66,7 +61,6 @@ Error: OH NO!
 🔥 test: OH NO!
 
 Error: OH NO!
-
 ",
   "
    / | /     _         _   _
@@ -82,7 +76,6 @@ Error: OH NO!
 
 0 tests got checked. 🤔
 1 test failed to run. 🔥
-
 ",
 ]
 `;

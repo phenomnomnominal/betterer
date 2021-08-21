@@ -72,6 +72,6 @@ export declare function initΔ(cwd: string, argv: BettererCLIArguments): Promise
 
 export declare function precommitΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary>;
 
-export declare function startΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary>;
+export declare function startΔ(cwd: string, argv: BettererCLIArguments, ci?: boolean): Promise<BettererSuiteSummary>;
 
 export declare function watchΔ(cwd: string, argv: BettererCLIArguments): Promise<void>;

@@ -5,8 +5,12 @@ import { cliOptions } from './options';
 import { BettererCLIArguments } from './types';
 
 /** @internal Definitely not stable! Please don't use! */
-export function startΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary> {
-  if (process.env.CI) {
+export function startΔ(
+  cwd: string,
+  argv: BettererCLIArguments,
+  ci = process.env.CI === 'true'
+): Promise<BettererSuiteSummary> {
+  if (ci) {
     return ciΔ(cwd, argv);
   }
 

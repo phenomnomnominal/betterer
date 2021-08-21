@@ -36,9 +36,8 @@ export class BettererSuiteΩ implements BettererSuite {
     const reportSuiteStart = this._reporter.suiteStart(this, runsLifecycle.promise);
     try {
       const runSummaries = await this._runTests(runLifecycles);
-      const result = this._results.print(runSummaries);
-      const expected = await this._results.read();
-      const suiteSummary = new BettererSuiteSummaryΩ(this, runSummaries, result, expected, this._config.ci);
+      const changed = this._results.getChanged(runSummaries);
+      const suiteSummary = new BettererSuiteSummaryΩ(this.filePaths, runSummaries, changed);
       runsLifecycle.resolve(suiteSummary);
       await reportSuiteStart;
       await this._reporter.suiteEnd(suiteSummary);

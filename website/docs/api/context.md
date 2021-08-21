@@ -144,9 +144,6 @@ type BettererRunNames = Array<string>;
 ```typescript
 type BettererSuiteSummary = {
   readonly runs: BettererRuns;
-  readonly result: string;
-  readonly expected: string | null;
-  readonly unexpectedDiff: boolean;
   readonly better: BettererRuns;
   readonly completed: BettererRuns;
   readonly expired: BettererRuns;
@@ -165,18 +162,6 @@ type BettererSuiteSummary = {
 #### `runs`: [`BettererRuns`](#bettererruns)
 
 > The list of all runs.
-
-#### `result`: `string`
-
-> The serialised run results.
-
-#### `expected`: `string | null`
-
-> The serialised expected results. Will be `null` if it is the first time running **Betterer**.
-
-#### `unexpectedDiff`: `boolean`
-
-> Will be `true` if running in [CI mode](./running-betterer#ci-mode-run-your-tests-and-throw-on-changes) and `result` is not equal to `expected`
 
 ### State
 

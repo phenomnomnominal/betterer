@@ -13,7 +13,7 @@ export const Reporter: FC<BettererReporterState> = function Reporter(props: Bett
   const ReporterComponent = context.config.watch ? WatchReporter : DefaultReporter;
 
   return (
-    <Box flexDirection="column" paddingBottom={1}>
+    <Box flexDirection="column">
       <BettererLogo></BettererLogo>
       <ReporterComponent {...props} />
     </Box>

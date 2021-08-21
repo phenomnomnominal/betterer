@@ -41,14 +41,10 @@ export class BettererContextΩ implements BettererContext {
         await this.reporter.contextEnd(contextSummary);
 
         const suiteSummaryΩ = contextSummary.lastSuite;
-        if (suiteSummaryΩ.shouldWrite) {
-          await this.results.write(suiteSummaryΩ.result);
-
-          await this.versionControl.writeCache();
-          if (this.config.precommit) {
-            await this.versionControl.add(this.config.resultsPath);
-          }
+        if (!this.config.ci) {
+          await this.results.write(suiteSummaryΩ, this.config.precommit);
         }
+
         return contextSummary;
       },
       error: async (error: BettererError): Promise<void> => {

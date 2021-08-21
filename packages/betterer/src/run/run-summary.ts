@@ -46,7 +46,7 @@ export class BettererRunSummaryΩ implements BettererRunSummary {
     this.filePaths = run.filePaths;
     this.isBetter = status === BettererRunStatus.better;
     this.isFailed = status === BettererRunStatus.failed;
-    this.isNew = run.isNew;
+    this.isNew = status === BettererRunStatus.new;
     this.isSame = status === BettererRunStatus.same;
     this.isSkipped = status === BettererRunStatus.skipped;
     this.isUpdated = status === BettererRunStatus.update;
