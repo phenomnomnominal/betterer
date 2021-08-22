@@ -4,9 +4,8 @@ import { BettererOptionsResults } from '@betterer/betterer';
 import { render } from 'ink';
 
 import { resultsOptions } from './options';
-import { BettererCLIArguments } from './types';
-
 import { Results } from './results/results';
+import { BettererCLIArguments } from './types';
 
 /** @internal Definitely not stable! Please don't use! */
 export async function resultsΔ(cwd: string, argv: BettererCLIArguments): Promise<void> {
@@ -26,7 +25,7 @@ export async function resultsΔ(cwd: string, argv: BettererCLIArguments): Promis
     resultsPath: results
   };
 
-  // And then cast to BettererOptionsStatus. This is possibly invalid,
+  // And then cast to BettererOptionsResults. This is possibly invalid,
   // but it's nicer to do the options validation in @betterer/betterer
   const app = render(<Results options={options as BettererOptionsResults} />, RENDER_OPTIONS);
   await app.waitUntilExit();
