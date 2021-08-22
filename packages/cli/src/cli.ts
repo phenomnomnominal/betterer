@@ -6,6 +6,7 @@ enum Command {
   ci = 'ci',
   init = 'init',
   precommit = 'precommit',
+  results = 'results',
   start = 'start',
   watch = 'watch'
 }
@@ -30,9 +31,14 @@ export function cliΔ(argv: BettererCLIArguments): void {
   // Throw if test run is worse, `git add` if better
   commander.command(Command.precommit, 'run Betterer in precommit mode');
 
+  // Results:
+  commander.command(Command.results, 'get current results of Betterer tests');
+
+  // Run:
   commander.command(Command.start, 'run Betterer');
   commander.command(Command.watch, 'run Betterer in watch mode');
 
+  // Init:
   commander.command(Command.init, 'init Betterer in a project');
 
   const args = argv.slice(0);

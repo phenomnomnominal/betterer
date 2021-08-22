@@ -14,7 +14,7 @@ export const Reporter: FC<BettererReporterState> = function Reporter(props: Bett
 
   return (
     <Box flexDirection="column">
-      <BettererLogo></BettererLogo>
+      <BettererLogo />
       <ReporterComponent {...props} />
     </Box>
   );

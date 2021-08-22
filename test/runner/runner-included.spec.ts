@@ -1,5 +1,4 @@
 import { betterer } from '@betterer/betterer';
-import path from 'path';
 
 import { createFixture } from '../fixture';
 
@@ -56,12 +55,8 @@ module.exports = {
     const [run] = suiteSummary.runs;
 
     expect(run.isNew).toEqual(true);
-    expect(run.filePaths).toEqual([normalisedPath(indexPath)]);
+    expect(run.filePaths).toEqual([indexPath]);
 
     await cleanup();
   });
 });
-
-function normalisedPath(filePath: string): string {
-  return path.sep === path.posix.sep ? filePath : filePath.split(path.sep).join(path.posix.sep);
-}

@@ -1,5 +1,11 @@
 import commander, { CommanderStatic } from 'commander';
-import { BettererCLIArguments, BettererCLIConfig, BettererCLIEnvConfig, BettererCLIInitConfig } from './types';
+import {
+  BettererCLIArguments,
+  BettererCLIConfig,
+  BettererCLIEnvConfig,
+  BettererCLIInitConfig,
+  BettererCLIResultsConfig
+} from './types';
 
 export function cliOptions(argv: BettererCLIArguments): BettererCLIConfig {
   cacheOption();
@@ -22,6 +28,16 @@ export function cliOptions(argv: BettererCLIArguments): BettererCLIConfig {
 export function initOptions(argv: BettererCLIArguments): BettererCLIInitConfig {
   configPathOption();
   return setEnv<BettererCLIInitConfig>(argv);
+}
+
+export function resultsOptions(argv: BettererCLIArguments): BettererCLIResultsConfig {
+  configPathsOption();
+  excludesOption();
+  filtersOption();
+  resultsPathOption();
+  const options = setEnv<BettererCLIConfig>(argv);
+  options.include = options.args;
+  return options;
 }
 
 function setEnv<T extends BettererCLIEnvConfig>(argv: BettererCLIArguments): T & CommanderStatic {

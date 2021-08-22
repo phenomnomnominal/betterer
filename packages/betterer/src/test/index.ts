@@ -1,6 +1,7 @@
 export {
   BettererFileTest,
   BettererFileTestResult,
+  BettererFileTestResultΩ,
   BettererFileTestFunction,
   BettererFileBase,
   BettererFile,

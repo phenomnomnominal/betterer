@@ -1,4 +1,5 @@
 export { BettererFileTest, isBettererFileTest } from './file-test';
+export { BettererFileTestResultΩ } from './file-test-result';
 export {
   BettererFileTestResult,
   BettererFileTestResultSerialised,

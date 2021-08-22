@@ -8,7 +8,11 @@ const DEFAULT_RESULTS_PATH = `./.betterer.results`;
 
 export async function createFixtureFS(fixturePath: string, files: FixtureFileSystemFiles): Promise<FixtureFileSystem> {
   function resolve(itemPath: string): string {
-    return path.resolve(fixturePath, itemPath);
+    return normalisedPath(path.resolve(fixturePath, itemPath));
+  }
+
+  function normalisedPath(filePath: string): string {
+    return path.sep === path.posix.sep ? filePath : filePath.split(path.sep).join(path.posix.sep);
   }
 
   async function cleanup(): Promise<void> {

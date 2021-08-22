@@ -2,14 +2,28 @@
 
 exports[`betterer cli should work multiple times 1`] = `
 Array [
-  "🎉 Initialising Betterer (0ms): 2 tasks done!
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Initialising Betterer (0ms): 2 tasks done!
 ✅ Create test file: done!
 ・ created \\"<project>/fixtures/init-multiple/.betterer.ts\\"!
 ✅ Update package.json: done!
 ・ added \\"betterer\\" script to package.json file.
 ・ added \\"@betterer/cli\\" dependency to package.json file
 ・ added \\"typescript\\" dependency to package.json file",
-  "🎉 Initialising Betterer (0ms): 2 tasks done!
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Initialising Betterer (0ms): 2 tasks done!
 ✅ Create test file: done!
 ・ \\"<project>/fixtures/init-multiple/.betterer.ts\\" already exists, moving on...
 ✅ Update package.json: done!

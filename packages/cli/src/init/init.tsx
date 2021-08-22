@@ -1,7 +1,9 @@
-import { BettererTaskLogger, BettererTasksLogger, BettererTasksState } from '@betterer/tasks';
-import { workerRequire } from '@phenomnomnominal/worker-require';
-import * as path from 'path';
 import React, { FC, useCallback } from 'react';
+
+import { BettererLogo, BettererTaskLogger, BettererTasksLogger, BettererTasksState } from '@betterer/tasks';
+import { workerRequire } from '@phenomnomnominal/worker-require';
+import { Box } from 'ink';
+import * as path from 'path';
 
 import { CreateTestFileWorker, UpdatePackageJSONWorker } from './types';
 
@@ -36,10 +38,13 @@ export const Init: FC<InitProps> = function Init({ cwd, config, ts }) {
   );
 
   return (
-    <BettererTasksLogger name="Initialising Betterer" update={update}>
-      <BettererTaskLogger name="Create test file" run={runCreateTestFile}></BettererTaskLogger>
-      <BettererTaskLogger name="Update package.json" run={runUpdagePackageJSON}></BettererTaskLogger>
-    </BettererTasksLogger>
+    <Box flexDirection="column">
+      <BettererLogo />
+      <BettererTasksLogger name="Initialising Betterer" update={update}>
+        <BettererTaskLogger name="Create test file" run={runCreateTestFile} />
+        <BettererTaskLogger name="Update package.json" run={runUpdagePackageJSON} />
+      </BettererTasksLogger>
+    </Box>
   );
 };
 

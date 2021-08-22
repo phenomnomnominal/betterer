@@ -15,7 +15,7 @@ export const Suite: FC<SuiteProps> = memo(function Runs({ suite }) {
     <Box flexDirection="column" paddingBottom={1}>
       <BettererTasksLogger name="Betterer" update={update} exit={false}>
         {suite.runs.map((run) => (
-          <BettererTaskLogger key={run.name} name={run.name} run={useTask(run)}></BettererTaskLogger>
+          <BettererTaskLogger key={run.name} name={run.name} run={useTask(run)} />
         ))}
       </BettererTasksLogger>
     </Box>

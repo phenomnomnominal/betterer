@@ -3,6 +3,7 @@ export { cliΔ } from './cli';
 export { initΔ } from './init';
 export { precommitΔ } from './precommit';
 export { startΔ } from './start';
+export { resultsΔ } from './results';
 export { watchΔ } from './watch';
 export {
   BettererCLIEnvConfig,

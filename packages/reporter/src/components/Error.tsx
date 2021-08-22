@@ -16,7 +16,7 @@ export const Error: FC<ErrorProps> = function Error({ error }) {
 
   return (
     <Box flexDirection="column" paddingBottom={1}>
-      <BettererLogo></BettererLogo>
+      <BettererLogo />
       <BettererErrorLog error={error} />
     </Box>
   );
