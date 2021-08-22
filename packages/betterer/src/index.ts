@@ -1,4 +1,4 @@
-export { betterer, runner, watch } from './betterer';
+export { betterer, results, runner, watch } from './betterer';
 export {
   BettererConfig,
   BettererConfigFilters,
@@ -12,6 +12,7 @@ export {
   BettererOptionsIncludes,
   BettererOptionsPaths,
   BettererOptionsReporters,
+  BettererOptionsResults,
   BettererOptionsRunner,
   BettererOptionsStartBase,
   BettererOptionsStartCI,
@@ -30,7 +31,13 @@ export {
   BettererFilePatterns,
   BettererFileResolver
 } from './fs/public';
-export { BettererResult } from './results/public';
+export {
+  BettererResult,
+  BettererResults,
+  BettererTestResult,
+  BettererTestResults,
+  BettererFileTestResults
+} from './results/public';
 export { BettererReporter } from './reporters/public';
 export { BettererRun, BettererRunNames, BettererRunSummary, BettererRunSummaries, BettererRuns } from './run/public';
 export { BettererRunner, BettererRunHandler } from './runner/public';

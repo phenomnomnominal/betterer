@@ -1,3 +1,12 @@
-export { BettererResultΩ } from './result';
 export { BettererResultsΩ } from './results';
-export { BettererExpectedResult, BettererExpectedResults, BettererResult } from './types';
+export { BettererResultΩ } from './result';
+export { BettererResultsFileΩ } from './results-file';
+export {
+  BettererExpectedResult,
+  BettererExpectedResults,
+  BettererResult,
+  BettererResults,
+  BettererFileTestResults,
+  BettererTestResult,
+  BettererTestResults
+} from './types';

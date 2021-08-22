@@ -3,7 +3,7 @@ import { BettererError } from '@betterer/errors';
 import { BettererConfig } from '../config';
 import { BettererFilePaths, BettererVersionControlWorker } from '../fs';
 import { BettererReporterΩ } from '../reporters';
-import { BettererResultsΩ } from '../results';
+import { BettererResultsFileΩ } from '../results';
 import { BettererRunWorkerPoolΩ, BettererRunΩ, createWorkerConfig } from '../run';
 import { BettererSuiteΩ, BettererSuiteSummariesΩ, BettererSuiteSummaryΩ } from '../suite';
 import { loadTestMeta } from '../test';
@@ -15,7 +15,7 @@ import { BettererContext, BettererContextStarted, BettererContextSummary } from 
 export class BettererContextΩ implements BettererContext {
   public readonly config: BettererConfig;
   public readonly reporter: BettererReporterΩ;
-  public readonly results: BettererResultsΩ;
+  public readonly resultsFile: BettererResultsFileΩ;
   public readonly versionControl: BettererVersionControlWorker;
 
   private _suiteSummaries: BettererSuiteSummariesΩ = [];
@@ -23,7 +23,7 @@ export class BettererContextΩ implements BettererContext {
   constructor(private _globals: BettererGlobals, private _runWorkerPool: BettererRunWorkerPoolΩ) {
     this.config = this._globals.config;
     this.reporter = this._globals.reporter;
-    this.results = this._globals.results;
+    this.resultsFile = this._globals.resultsFile;
     this.versionControl = this._globals.versionControl;
   }
 
@@ -42,7 +42,7 @@ export class BettererContextΩ implements BettererContext {
 
         const suiteSummaryΩ = contextSummary.lastSuite;
         if (!this.config.ci) {
-          await this.results.write(suiteSummaryΩ, this.config.precommit);
+          await this.resultsFile.write(suiteSummaryΩ, this.config.precommit);
         }
 
         return contextSummary;
@@ -56,7 +56,7 @@ export class BettererContextΩ implements BettererContext {
   }
 
   public async run(filePaths: BettererFilePaths): Promise<BettererSuiteSummaryΩ> {
-    await this.results.sync();
+    await this.resultsFile.sync();
     await this.versionControl.sync();
 
     filePaths = await this.versionControl.filterIgnored(filePaths);

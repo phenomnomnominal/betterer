@@ -5,7 +5,7 @@ import { BettererConfig } from '../config';
 import { BettererContextΩ } from '../context';
 import { BettererFilePaths } from '../fs';
 import { BettererReporterΩ } from '../reporters';
-import { BettererResultsΩ } from '../results';
+import { BettererResultsFileΩ } from '../results';
 import { BettererReporterRun, BettererRuns, BettererRunSummaries, BettererRunSummary, BettererRunsΩ } from '../run';
 import { Defer, defer } from '../utils';
 import { BettererSuiteSummaryΩ } from './suite-summary';
@@ -14,12 +14,12 @@ import { BettererSuite } from './types';
 export class BettererSuiteΩ implements BettererSuite {
   private _config: BettererConfig;
   private _reporter: BettererReporterΩ;
-  private _results: BettererResultsΩ;
+  private _resultsFile: BettererResultsFileΩ;
 
   constructor(private _context: BettererContextΩ, public filePaths: BettererFilePaths, public runs: BettererRuns) {
     this._config = this._context.config;
     this._reporter = this._context.reporter;
-    this._results = this._context.results;
+    this._resultsFile = this._context.resultsFile;
   }
 
   public async run(): Promise<BettererSuiteSummaryΩ> {
@@ -36,7 +36,7 @@ export class BettererSuiteΩ implements BettererSuite {
     const reportSuiteStart = this._reporter.suiteStart(this, runsLifecycle.promise);
     try {
       const runSummaries = await this._runTests(runLifecycles);
-      const changed = this._results.getChanged(runSummaries);
+      const changed = this._resultsFile.getChanged(runSummaries);
       const suiteSummary = new BettererSuiteSummaryΩ(this.filePaths, runSummaries, changed);
       runsLifecycle.resolve(suiteSummary);
       await reportSuiteStart;

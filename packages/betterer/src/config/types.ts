@@ -36,6 +36,15 @@ export type BettererOptionsFilters = Array<string | RegExp> | string;
 export type BettererOptionsIncludes = Array<string> | string;
 export type BettererOptionsReporters = Array<string | BettererReporter>;
 
+export type BettererOptionsResults = Partial<{
+  configPaths: BettererOptionsPaths;
+  cwd: string;
+  excludes: BettererOptionsExcludes;
+  filters: BettererOptionsFilters;
+  includes: BettererOptionsIncludes;
+  resultsPath: string;
+}>;
+
 export type BettererOptionsBase = Partial<{
   cache: boolean;
   cachePath: string;

@@ -1,81 +1,58 @@
-import assert from 'assert';
+import { BettererOptionsResults } from '../config';
+import { BettererFilePaths, destroyVersionControl } from '../fs';
+import { createGlobals } from '../globals';
+import { BettererFileTestResultΩ, isBettererFileTest, loadTestMeta } from '../test';
+import { BettererFileTestResults, BettererResults, BettererTestResults } from './types';
 
-import { read, write, BettererVersionControlWorker } from '../fs';
-import { BettererRunSummaries } from '../run';
-import { BettererRunNames } from '../run/types';
-import { BettererSuiteSummary } from '../suite';
-import { parse } from './parser';
-import { print } from './printer';
-import { BettererExpectedResults } from './types';
+export class BettererResultsΩ implements BettererResults {
+  public readonly results: BettererTestResults;
 
-const RESULTS_HEADER = `// BETTERER RESULTS V2.`;
-
-export class BettererResultsΩ {
-  private constructor(
-    private _resultsPath: string,
-    private _versionControl: BettererVersionControlWorker,
-    private _baseline: BettererExpectedResults,
-    private _expected: BettererExpectedResults
-  ) {}
-
-  public static async create(
-    resultsPath: string,
-    versionControl: BettererVersionControlWorker
-  ): Promise<BettererResultsΩ> {
-    const baseline = await parse(resultsPath);
-    return new BettererResultsΩ(resultsPath, versionControl, baseline, baseline);
+  private constructor(results: BettererTestResults, private _filePaths: BettererFilePaths) {
+    this.results = this._filePaths.length ? results.filter((result) => result.isFileTest) : results;
   }
 
-  public getChanged(runSummaries: BettererRunSummaries): BettererRunNames {
-    const missingRuns = Object.keys(this._expected).filter(
-      (name) => !runSummaries.find((runSummary) => runSummary.name === name)
-    );
-    const changedRuns = runSummaries
-      .filter((runSummary) => !runSummary.isNew && !runSummary.isFailed && !runSummary.isSkipped)
-      .filter((runSummary) => runSummary.printed !== this._expected[runSummary.name].value)
-      .map((runSummary) => runSummary.name);
-    const newRuns = runSummaries.filter((runSummary) => runSummary.isNew).map((runSummary) => runSummary.name);
-    const worseRuns = runSummaries.filter((runSummary) => runSummary.isWorse).map((runSummary) => runSummary.name);
-    return [...missingRuns, ...changedRuns, ...newRuns, ...worseRuns];
-  }
+  public static async create(options: BettererOptionsResults): Promise<BettererResultsΩ> {
+    const { config, resultsFile } = await createGlobals({
+      configPaths: options.configPaths,
+      cwd: options.cwd,
+      excludes: options.excludes,
+      filters: options.filters,
+      includes: options.includes,
+      resultsPath: options.resultsPath
+    });
 
-  public getExpected(name: string): [string, string] {
-    const baseline = this._getResult(name, this._baseline);
-    const expected = this._getResult(name, this._expected) || baseline;
-    return [baseline, expected];
-  }
+    const testFactories = loadTestMeta(config);
 
-  public hasResult(name: string): boolean {
-    return Object.hasOwnProperty.call(this._expected, name);
-  }
-
-  public async sync(): Promise<void> {
-    this._expected = await parse(this._resultsPath);
-  }
-
-  public async write(suiteSummary: BettererSuiteSummary, precommit: boolean): Promise<void> {
-    const expected = await read(this._resultsPath);
-    const result = this._print(suiteSummary.runs);
-    const shouldWrite = expected !== result;
-    if (shouldWrite) {
-      await write(result, this._resultsPath);
-      await this._versionControl.writeCache();
-      if (precommit) {
-        await this._versionControl.add(this._resultsPath);
-      }
+    let testNames = Object.keys(testFactories);
+    if (config.filters.length) {
+      testNames = testNames.filter((name) => config.filters.some((filter) => filter.test(name)));
     }
-  }
 
-  private _getResult(name: string, expectedResults: BettererExpectedResults): string {
-    const hasResult = Object.hasOwnProperty.call(expectedResults, name);
-    assert(hasResult);
-    const { value } = expectedResults[name];
-    return value;
-  }
+    const testStatuses = await Promise.all(
+      testNames.map(async (name) => {
+        const test = await testFactories[name].factory();
+        const isFileTest = isBettererFileTest(test);
+        const [expectedJSON] = resultsFile.getExpected(name);
+        const serialised = JSON.parse(expectedJSON) as unknown;
+        const deserialised = test.config.serialiser.deserialise(serialised, config.resultsPath);
+        if (isFileTest) {
+          const resultΩ = deserialised as BettererFileTestResultΩ;
+          const results: BettererFileTestResults = {};
+          resultΩ.files
+            .filter((file) => config.filePaths.length === 0 || config.filePaths.includes(file.absolutePath))
+            .forEach((file) => {
+              results[file.absolutePath] = file.issues;
+            });
+          return { name, isFileTest, results };
+        } else {
+          const result = await test.config.printer(deserialised);
+          return { name, isFileTest, result };
+        }
+      })
+    );
 
-  private _print(runSummaries: BettererRunSummaries): string {
-    const toPrint = runSummaries.filter((runSummary) => runSummary.printed != null);
-    const printedResults = toPrint.map((runSummary) => print(runSummary.name, runSummary.printed as string));
-    return [RESULTS_HEADER, ...printedResults].join('');
+    const status = new BettererResultsΩ(testStatuses, config.filePaths);
+    await destroyVersionControl();
+    return status;
   }
 }

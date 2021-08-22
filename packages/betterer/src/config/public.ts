@@ -11,6 +11,7 @@ export {
   BettererOptionsIncludes,
   BettererOptionsPaths,
   BettererOptionsReporters,
+  BettererOptionsResults,
   BettererOptionsRunner,
   BettererOptionsStartBase,
   BettererOptionsStartCI,

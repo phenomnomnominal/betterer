@@ -2,6 +2,7 @@ import { FSWatcher, watch } from 'chokidar';
 import minimatch from 'minimatch';
 import * as path from 'path';
 
+import { BettererOptionsWatch } from '../config';
 import { BettererFilePaths } from '../fs';
 import { BettererSuiteSummary } from '../suite';
 import { normalisedPath } from '../utils';
@@ -13,8 +14,8 @@ const EMIT_EVENTS = ['add', 'change'];
 export class BettererWatcherΩ implements BettererRunner {
   private constructor(private _runner: BettererRunnerΩ, private _watcher: FSWatcher) {}
 
-  public static async create(options: unknown): Promise<BettererWatcherΩ> {
-    const runner = await BettererRunnerΩ.create(options);
+  public static async create(options: BettererOptionsWatch): Promise<BettererWatcherΩ> {
+    const runner = await BettererRunnerΩ.create({ ...options, watch: true });
 
     const { cwd, resultsPath } = runner.config;
 

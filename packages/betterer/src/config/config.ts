@@ -15,6 +15,7 @@ import {
   BettererOptionsWatch
 } from './types';
 
+const DEFAULT_RESULTS_PATH = './.betterer.results';
 const TOTAL_CPUS = os.cpus().length;
 
 export async function createConfig(
@@ -36,7 +37,7 @@ export async function createConfig(
     cwd: baseOptions.cwd || process.cwd(),
     filters: toRegExps(toArray<string | RegExp>(baseOptions.filters)),
     reporters: toArray<BettererConfigReporter>(baseOptions.reporters),
-    resultsPath: baseOptions.resultsPath || './.betterer.results',
+    resultsPath: baseOptions.resultsPath || DEFAULT_RESULTS_PATH,
     silent: isDebug || baseOptions.silent || false,
     tsconfigPath: baseOptions.tsconfigPath || null,
     workers: baseOptions.workers || Math.max(TOTAL_CPUS - 2, 1),

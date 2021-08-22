@@ -1,5 +1,6 @@
 export declare function betterer(options?: BettererOptionsStart): Promise<BettererSuiteSummary>;
 export declare namespace betterer {
+    var results: typeof import("./betterer").results;
     var runner: typeof import("./betterer").runner;
     var watch: typeof import("./betterer").watch;
 }
@@ -135,6 +136,8 @@ export declare type BettererFileTestResult = {
     getIssues(absolutePath?: string): BettererFileIssues;
 };
 
+export declare type BettererFileTestResults = Record<string, BettererFileIssues>;
+
 export declare type BettererFileTestResultSerialised = Record<string, BettererFileIssuesSerialised>;
 
 export declare type BettererOptionsBase = Partial<{
@@ -159,6 +162,15 @@ export declare type BettererOptionsIncludes = Array<string> | string;
 export declare type BettererOptionsPaths = Array<string> | string;
 
 export declare type BettererOptionsReporters = Array<string | BettererReporter>;
+
+export declare type BettererOptionsResults = Partial<{
+    configPaths: BettererOptionsPaths;
+    cwd: string;
+    excludes: BettererOptionsExcludes;
+    filters: BettererOptionsFilters;
+    includes: BettererOptionsIncludes;
+    resultsPath: string;
+}>;
 
 export declare type BettererOptionsRunner = BettererOptionsBase & Partial<{
     ignores: BettererConfigIgnores;
@@ -235,6 +247,10 @@ export declare type BettererReporter = {
 export declare type BettererResult = {
     isNew: boolean;
     value: unknown;
+};
+
+export declare type BettererResults = {
+    results: BettererTestResults;
 };
 
 export declare type BettererRun = {
@@ -355,6 +371,20 @@ export declare type BettererTestOptionsComplex<DeserialisedType, SerialisedType,
     goal: DeserialisedType | BettererTestGoal<DeserialisedType>;
     deadline?: BettererTestDeadline;
 };
+
+export declare type BettererTestResult = {
+    name: string;
+    isFileTest: true;
+    results: BettererFileTestResults;
+} | {
+    name: string;
+    isFileTest: false;
+    result: string;
+};
+
+export declare type BettererTestResults = ReadonlyArray<BettererTestResult>;
+
+export declare function results(options?: BettererOptionsResults): Promise<BettererResults>;
 
 export declare function runner(options?: BettererOptionsRunner): Promise<BettererRunner>;
 

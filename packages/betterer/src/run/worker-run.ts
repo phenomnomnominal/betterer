@@ -38,12 +38,12 @@ export class BettererWorkerRunΩ implements BettererRun {
     versionControl: BettererVersionControlWorker
   ): Promise<BettererWorkerRunΩ> {
     const globals = await createWorkerGlobals(options, versionControl);
-    const { config, results } = globals;
+    const { config, resultsFile } = globals;
 
-    await results.sync();
+    await resultsFile.sync();
     await versionControl.sync();
 
-    const isNew = !results.hasResult(name);
+    const isNew = !resultsFile.hasResult(name);
 
     const testFactories = loadTestMeta(config);
     const testFactoryMeta = testFactories[name];
@@ -75,7 +75,7 @@ export class BettererWorkerRunΩ implements BettererRun {
         expectedJSON: null
       };
     } else {
-      const [baselineJSON, expectedJSON] = results.getExpected(name);
+      const [baselineJSON, expectedJSON] = resultsFile.getExpected(name);
       testMeta = {
         ...baseTestMeta,
         isNew: false,
