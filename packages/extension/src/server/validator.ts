@@ -1,26 +1,20 @@
-import {
-  BettererFileIssueSerialised,
-  BettererFileIssuesSerialised,
-  BettererFileTestDiff,
-  BettererFileTestResultSerialised,
-  BettererRunSummary,
-  BettererSuiteSummary
-} from '@betterer/betterer';
+import { BettererRunSummary, BettererSuite } from '@betterer/betterer';
 
-import { Diagnostic, DiagnosticSeverity, Connection, Position, TextDocuments } from 'vscode-languageserver/node';
+import { Connection, TextDocuments } from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { URI } from 'vscode-uri';
 
-import { EXTENSION_NAME } from '../constants';
 import { BettererStatus } from '../status';
-import { isString } from '../utils';
 import { getRunner, hasBetterer } from './betterer';
 import { getBettererConfig, getDebug, getEnabled } from './config';
 import { error, info } from './console';
 import { BettererInvalidConfigRequest, BettererNoLibraryRequest, isNoConfigError } from './requests';
 import { BettererStatusNotification } from './status';
+import { BettererDiagnostics } from './diagnostics';
+import { getFilePath } from './path';
 
 export class BettererValidator {
+  private _diagnostics = new BettererDiagnostics();
+
   constructor(private _connection: Connection, private _documents: TextDocuments<TextDocument>) {}
 
   public async validate(documents: Array<TextDocument>): Promise<void> {
@@ -39,7 +33,7 @@ export class BettererValidator {
     await Promise.all(
       folders.map(async (folder) => {
         const { uri } = folder;
-        const cwd = this._getFilePath(uri);
+        const cwd = getFilePath(uri);
         if (!cwd) {
           return;
         }
@@ -68,7 +62,6 @@ export class BettererValidator {
           info(`Validator: Getting Betterer config.`);
           const config = await getBettererConfig(cwd, workspace);
           info(JSON.stringify(config));
-          const runner = await getRunner(cwd, config);
 
           const validDocuments = documents
             .map((document) => {
@@ -76,7 +69,7 @@ export class BettererValidator {
                 return;
               }
 
-              const filePath = this._getFilePath(document);
+              const filePath = getFilePath(document);
               if (!filePath) {
                 return;
               }
@@ -92,15 +85,37 @@ export class BettererValidator {
             })
             .filter(Boolean) as Array<TextDocument>;
 
-          const filePaths = validDocuments.map((document) => this._getFilePath(document)) as Array<string>;
-          if (filePaths.length) {
+          const finalDocuments = validDocuments.filter((document) => {
+            const filePath = getFilePath(document) as string;
+            const isCachePath = filePath === config.cachePath;
+            const isResultPath = filePath === config.resultsPath;
+            const isConfigPath = !!config.configPaths?.includes(filePath);
+            const isTSConfigPath = filePath === config.tsconfigPath;
+            return !(isCachePath || isResultPath || isConfigPath || isTSConfigPath);
+          });
+
+          const filePaths = finalDocuments.map((document) => getFilePath(document)) as Array<string>;
+
+          if (finalDocuments.length) {
             info(`Validator: Running Betterer in "${cwd}".`);
             info(`Validator: Running Betterer on "${JSON.stringify(filePaths)}."`);
 
+            const runner = await getRunner(config);
+            runner.options({
+              reporters: [
+                {
+                  suiteStart: (suite: BettererSuite): void => {
+                    this._diagnostics.prepare(suite);
+                  },
+                  runEnd: (runSummary: BettererRunSummary): void => {
+                    this.report(finalDocuments, runSummary);
+                  }
+                }
+              ]
+            });
+
             try {
-              await runner.queue(filePaths, (suiteSummary) => {
-                this.report(validDocuments, suiteSummary);
-              });
+              await runner.queue(filePaths);
             } catch (e) {
               error(`Validator: Error running Betterer on "${JSON.stringify(filePaths)}." - ${e as string}`);
             }
@@ -126,139 +141,13 @@ export class BettererValidator {
     );
   }
 
-  public report(documents: Array<TextDocument>, suiteSummary: BettererSuiteSummary): void {
+  public report(documents: Array<TextDocument>, runSummary: BettererRunSummary): void {
     documents.forEach((document) => {
-      const filePath = this._getFilePath(document);
-      if (!filePath) {
-        return;
-      }
-
-      const { uri } = document;
-      const diagnostics: Array<Diagnostic> = [];
-      info(`Validator: Clearing diagnostics for "${uri}".`);
-      this._connection.sendDiagnostics({ uri, diagnostics });
-
-      suiteSummary.runs.forEach((run: BettererRunSummary) => {
-        if (run.isFailed) {
-          return;
-        }
-
-        const result = run.result?.value as BettererFileTestResultSerialised;
-        if (!result) {
-          return;
-        }
-
-        let issues: BettererFileIssuesSerialised;
-        try {
-          issues = this._getFileIssues(result, filePath);
-        } catch (e) {
-          info(JSON.stringify((e as Error).message));
-          return;
-        }
-
-        if (issues.length === 0) {
-          info(`Validator: No issues from Betterer for "${run.name}"`);
-          return;
-        }
-
-        info(`Validator: Got issues from Betterer for "${run.name}"`);
-
-        let existingIssues: BettererFileIssuesSerialised = [];
-        let newIssues: BettererFileIssuesSerialised = [];
-
-        if (run.isNew) {
-          newIssues = issues;
-        } else if (run.isSkipped || run.isSame) {
-          existingIssues = issues;
-        } else {
-          const fileDiff = (run.diff as unknown as BettererFileTestDiff).diff[filePath];
-          info(`Validator: ${run.name} got diff from Betterer for "${filePath}"`);
-          existingIssues = fileDiff.existing || [];
-          newIssues = fileDiff.new || [];
-        }
-
-        info(`Validator: ${run.name} got "${existingIssues.length}" existing issues for "${filePath}"`);
-        info(`Validator: ${run.name} got "${newIssues.length}" new issues for "${filePath}"`);
-
-        existingIssues.forEach((issue) => {
-          diagnostics.push(createWarning(run.name, 'existing issue', issue, document));
-        });
-        newIssues.forEach((issue) => {
-          diagnostics.push(createError(run.name, 'new issue', issue, document));
-        });
-      });
-
-      info(`Validator: Sending ${diagnostics.length} diagnostics to "${uri}".`);
-      this._connection.sendDiagnostics({ uri, diagnostics });
+      const diagnostics = this._diagnostics.getDiagnostics(document, runSummary);
+      info(`Validator: Sending ${diagnostics.length.toString()} diagnostics to "${document.uri}".`);
+      this._connection.sendDiagnostics({ uri: document.uri, diagnostics });
     });
   }
-
-  private _getFilePath(documentOrUri: URI | TextDocument | string): string | null {
-    if (!documentOrUri) {
-      return null;
-    }
-    let uri = null;
-    if (documentOrUri instanceof URI) {
-      uri = documentOrUri;
-    } else if (isString(documentOrUri)) {
-      uri = URI.parse(documentOrUri);
-    } else {
-      uri = URI.parse(documentOrUri.uri);
-    }
-    if (uri.scheme !== 'file') {
-      return null;
-    }
-    return uri.fsPath;
-  }
-
-  private _getFileIssues(result: BettererFileTestResultSerialised, filePath: string): BettererFileIssuesSerialised {
-    const key = Object.keys(result).find((fileKey) => fileKey.startsWith(filePath));
-    if (!key) {
-      return [];
-    }
-    return result[key];
-  }
-}
-
-function createDiagnostic(
-  name: string,
-  issue: BettererFileIssueSerialised,
-  extra: string,
-  document: TextDocument,
-  severity: DiagnosticSeverity
-): Diagnostic {
-  const [line, column, length, message] = issue;
-  let start: Position | null = null;
-  let end: Position | null = null;
-  start = { line, character: column };
-  end = document.positionAt(document.offsetAt(start) + length);
-  const range = { start, end };
-  const code = `[${name}]${extra ? ` - ${extra}` : ''}`;
-  return {
-    message,
-    severity,
-    source: EXTENSION_NAME,
-    range,
-    code
-  };
-}
-
-function createError(
-  name: string,
-  extra: string,
-  issue: BettererFileIssueSerialised,
-  document: TextDocument
-): Diagnostic {
-  return createDiagnostic(name, issue, extra, document, DiagnosticSeverity.Error);
-}
-
-function createWarning(
-  name: string,
-  extra: string,
-  issue: BettererFileIssueSerialised,
-  document: TextDocument
-): Diagnostic {
-  return createDiagnostic(name, issue, extra, document, DiagnosticSeverity.Warning);
 }
 
 const LOADING_DELAY_TIME = 200;

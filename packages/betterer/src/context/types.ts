@@ -1,10 +1,11 @@
 import { BettererError } from '@betterer/errors';
 
-import { BettererConfig } from '../config';
+import { BettererConfig, BettererOptionsOverride } from '../config';
 import { BettererSuiteSummaries, BettererSuiteSummary } from '../suite';
 
 export type BettererContext = {
   readonly config: BettererConfig;
+  options(optionsOverride: BettererOptionsOverride): void;
 };
 
 export type BettererContextStarted = {
@@ -12,7 +13,7 @@ export type BettererContextStarted = {
   error(error: BettererError): Promise<void>;
 };
 
-export type BettererContextSummary = BettererContext & {
+export type BettererContextSummary = Omit<BettererContext, 'options'> & {
   suites: BettererSuiteSummaries;
   lastSuite: BettererSuiteSummary;
 };

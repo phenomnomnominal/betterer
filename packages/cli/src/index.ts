@@ -9,11 +9,6 @@ export {
   BettererCLIEnvConfig,
   BettererCLIConfig,
   BettererCLIInitConfig,
-  BettererCLIBaseConfig,
-  BettererCLICacheConfig,
-  BettererCLIStartConfig,
-  BettererCLICIConfig,
-  BettererCLIWatchConfig,
   BettererCLIArguments,
   BettererPackageJSON
 } from './types';

@@ -1,3 +1,3 @@
 export { BettererReporterΩ } from './reporter';
-export { loadReporters, DEFAULT_REPORTER } from './loader';
+export { loadDefaultReporter, loadSilentReporter, loadReporters } from './loader';
 export { BettererReporter, BettererReporterModule } from './types';

@@ -1,17 +1,16 @@
-import { BettererConfig } from '../config';
-
+import { BettererConfig, BettererOptionsOverride } from '../config';
 import { BettererContextΩ, BettererContextStarted } from '../context';
 import { BettererFilePaths, destroyVersionControl } from '../fs';
 import { createGlobals } from '../globals';
 import { BettererRunWorkerPoolΩ } from '../run';
 import { BettererSuiteSummary } from '../suite';
 import { normalisedPath } from '../utils';
-import { BettererRunHandler, BettererRunner, BettererRunnerJobs } from './types';
+import { BettererRunner } from './types';
 
 const DEBOUNCE_TIME = 200;
 
 export class BettererRunnerΩ implements BettererRunner {
-  private _jobs: BettererRunnerJobs = [];
+  private _jobs: Array<BettererFilePaths> = [];
   private _running: Promise<BettererSuiteSummary> | null = null;
   private _started: BettererContextStarted;
 
@@ -37,15 +36,19 @@ export class BettererRunnerΩ implements BettererRunner {
     }
   }
 
+  public options(optionsOverride: BettererOptionsOverride): void {
+    this._context.options(optionsOverride);
+  }
+
   public async run(filePaths: BettererFilePaths): Promise<BettererSuiteSummary> {
     this._addJob(filePaths);
     await this._processQueue();
     return this.stop();
   }
 
-  public queue(filePathOrPaths: string | BettererFilePaths = [], handler?: BettererRunHandler): Promise<void> {
+  public queue(filePathOrPaths: string | BettererFilePaths = []): Promise<void> {
     const filePaths: BettererFilePaths = Array.isArray(filePathOrPaths) ? filePathOrPaths : [filePathOrPaths as string];
-    this._addJob(filePaths, handler);
+    this._addJob(filePaths);
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         void (async () => {
@@ -78,9 +81,9 @@ export class BettererRunnerΩ implements BettererRunner {
     }
   }
 
-  private _addJob(filePaths: BettererFilePaths = [], handler?: BettererRunHandler): void {
+  private _addJob(filePaths: BettererFilePaths = []): void {
     const normalisedPaths = filePaths.map(normalisedPath);
-    this._jobs.push({ filePaths: normalisedPaths, handler });
+    this._jobs.push(normalisedPaths);
   }
 
   private async _processQueue(): Promise<void> {
@@ -88,18 +91,15 @@ export class BettererRunnerΩ implements BettererRunner {
       try {
         const filePaths = new Set<string>();
         this._jobs.forEach((job) => {
-          job.filePaths.forEach((path) => {
+          job.forEach((path) => {
             filePaths.add(path);
           });
         });
         const changed = Array.from(filePaths).sort();
-        const handlers = this._jobs.map((job) => job.handler);
         this._jobs = [];
 
         this._running = this._context.run(changed);
-        const suiteSummary = await this._running;
-
-        handlers.forEach((handler) => handler?.(suiteSummary));
+        await this._running;
       } catch (error) {
         await this._started.error(error);
       }

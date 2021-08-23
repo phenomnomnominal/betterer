@@ -1,4 +1,4 @@
-import { BettererContext, BettererConfigFilters, BettererConfigIgnores } from '@betterer/betterer';
+import { BettererContext, BettererConfig, BettererOptionsFilters, BettererOptionsIgnores } from '@betterer/betterer';
 import React, { FC, useState } from 'react';
 import { Box, Text } from 'ink';
 
@@ -11,14 +11,14 @@ export type ConfigProps = {
 };
 
 export const Config: FC<ConfigProps> = function Config({ context, editField }) {
-  const [filters, setFilters] = useState<string>(serialiseFilters(context.config.filters));
-  const [ignores, setIgnores] = useState<string>(serialiseIgnores(context.config.ignores));
+  const [filters, setFilters] = useState<string>(serialiseFilters(context.config));
+  const [ignores, setIgnores] = useState<string>(serialiseIgnores(context.config));
 
   function updateFilters(newFilters: string): Error | null {
     setFilters(newFilters);
     try {
       const validated = deserialiseFilters(newFilters);
-      context.config.filters = validated;
+      context.options({ filters: validated });
       return null;
     } catch (error) {
       return error as Error;
@@ -28,7 +28,7 @@ export const Config: FC<ConfigProps> = function Config({ context, editField }) {
   function updateIgnores(newIgnores: string): null {
     setIgnores(newIgnores);
     const validated = deserialiseIgnores(newIgnores);
-    context.config.ignores = validated;
+    context.options({ ignores: validated });
     return null;
   }
 
@@ -64,18 +64,18 @@ export const Config: FC<ConfigProps> = function Config({ context, editField }) {
   );
 };
 
-function serialiseFilters(filters: BettererConfigFilters): string {
-  return filters.map((filter) => `/${filter.source}/`).join(', ');
+function serialiseFilters(config: BettererConfig): string {
+  return config.filters.map((filter) => `/${filter.source}/`).join(', ');
 }
 
-function serialiseIgnores(ignores: BettererConfigIgnores): string {
-  return ignores.join(', ');
+function serialiseIgnores(config: BettererConfig): string {
+  return config.ignores.join(', ');
 }
 
-function deserialiseFilters(filters: string): BettererConfigFilters {
+function deserialiseFilters(filters: string): BettererOptionsFilters {
   return filters.split(',').map((filter) => new RegExp(filter.replace(/^\//, '').replace(/\/$/, ''), 'i'));
 }
 
-function deserialiseIgnores(ignores: string): BettererConfigIgnores {
+function deserialiseIgnores(ignores: string): BettererOptionsIgnores {
   return ignores.split(',').map((ignore) => ignore.trim());
 }

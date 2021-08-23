@@ -35,10 +35,6 @@ type BettererOptionsBase = Partial<{
 
 > The list of filters to select tests for the current run. Will be parsed into [`BettererConfigFilters`](#bettererconfigfilters).
 
-#### `reporters`: [`BettererConfigReporters`](#bettererconfigreporters) (default: `['@betterer/reporter']`)
-
-> The list of [reporters](./reporters) for the current run.
-
 #### `resultsPath`: `string` (default: `'.betterer.results'`)
 
 > The path to the [results file](./results-file) for the current run.
@@ -138,7 +134,7 @@ type BettererConfig = {
   filePaths: BettererConfigPaths;
   filters: BettererConfigFilters;
   ignores: BettererConfigIgnores;
-  reporters: BettererConfigReporters;
+  reporter: BettererReporter;
   resultsPath: string;
   silent: boolean;
   strict: boolean;
@@ -178,12 +174,4 @@ A path to a module that exports a [`BettererReporter`](./reporter#bettererreport
 
 ```typescript
 type BettererConfigReporter = string | BettererReporter;
-```
-
-## `BettererConfigReporters`
-
-A list of [`BettererConfigReporter`](#bettererconfigreporter).
-
-```typescript
-type BettererConfigReporter = ReadonlyArray<BettererConfigReporter>;
 ```

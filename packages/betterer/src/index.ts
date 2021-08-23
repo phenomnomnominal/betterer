@@ -1,16 +1,21 @@
 export { betterer, results, runner, watch } from './betterer';
 export {
   BettererConfig,
+  BettererConfigBase,
+  BettererConfigRunner,
+  BettererConfigStart,
+  BettererConfigWatch,
   BettererConfigFilters,
   BettererConfigIgnores,
   BettererConfigPaths,
-  BettererConfigReporter,
-  BettererConfigReporters,
   BettererOptionsBase,
   BettererOptionsExcludes,
   BettererOptionsFilters,
+  BettererOptionsIgnores,
   BettererOptionsIncludes,
+  BettererOptionsOverride,
   BettererOptionsPaths,
+  BettererOptionsReporter,
   BettererOptionsReporters,
   BettererOptionsResults,
   BettererOptionsRunner,
@@ -40,7 +45,7 @@ export {
 } from './results/public';
 export { BettererReporter } from './reporters/public';
 export { BettererRun, BettererRunNames, BettererRunSummary, BettererRunSummaries, BettererRuns } from './run/public';
-export { BettererRunner, BettererRunHandler } from './runner/public';
+export { BettererRunner } from './runner/public';
 export { BettererSuite, BettererSuiteSummary, BettererSuiteSummaries } from './suite/public';
 export {
   BettererDeserialise,

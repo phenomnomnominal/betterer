@@ -5,24 +5,18 @@ export declare namespace betterer {
     var watch: typeof import("./betterer").watch;
 }
 
-export declare type BettererConfig = {
+export declare type BettererConfig = BettererConfigBase & BettererConfigStart & BettererConfigRunner & BettererConfigWatch;
+
+export declare type BettererConfigBase = {
     cache: boolean;
     cachePath: string;
     configPaths: BettererConfigPaths;
     cwd: string;
-    filePaths: BettererConfigPaths;
     filters: BettererConfigFilters;
-    reporters: BettererConfigReporters;
+    reporter: BettererReporter;
     resultsPath: string;
-    silent: boolean;
     tsconfigPath: string | null;
     workers: number;
-    ci: boolean;
-    precommit: boolean;
-    strict: boolean;
-    update: boolean;
-    ignores: BettererConfigIgnores;
-    watch: boolean;
 };
 
 export declare type BettererConfigFilters = ReadonlyArray<RegExp>;
@@ -31,15 +25,28 @@ export declare type BettererConfigIgnores = ReadonlyArray<string>;
 
 export declare type BettererConfigPaths = ReadonlyArray<string>;
 
-export declare type BettererConfigReporter = string | BettererReporter;
+export declare type BettererConfigRunner = {
+    ignores: BettererConfigIgnores;
+};
 
-export declare type BettererConfigReporters = ReadonlyArray<BettererConfigReporter>;
+export declare type BettererConfigStart = {
+    ci: boolean;
+    filePaths: BettererConfigPaths;
+    precommit: boolean;
+    strict: boolean;
+    update: boolean;
+};
+
+export declare type BettererConfigWatch = {
+    watch: boolean;
+};
 
 export declare type BettererContext = {
     readonly config: BettererConfig;
+    options(optionsOverride: BettererOptionsOverride): void;
 };
 
-export declare type BettererContextSummary = BettererContext & {
+export declare type BettererContextSummary = Omit<BettererContext, 'options'> & {
     suites: BettererSuiteSummaries;
     lastSuite: BettererSuiteSummary;
 };
@@ -146,7 +153,7 @@ export declare type BettererOptionsBase = Partial<{
     configPaths: BettererOptionsPaths;
     cwd: string;
     filters: BettererOptionsFilters;
-    reporters: BettererConfigReporters;
+    reporters: BettererOptionsReporters;
     resultsPath: string;
     silent: boolean;
     tsconfigPath: string;
@@ -157,11 +164,21 @@ export declare type BettererOptionsExcludes = Array<string | RegExp> | string;
 
 export declare type BettererOptionsFilters = Array<string | RegExp> | string;
 
+export declare type BettererOptionsIgnores = Array<string>;
+
 export declare type BettererOptionsIncludes = Array<string> | string;
+
+export declare type BettererOptionsOverride = Partial<{
+    filters: BettererOptionsFilters;
+    ignores: BettererOptionsIgnores;
+    reporters: BettererOptionsReporters;
+}>;
 
 export declare type BettererOptionsPaths = Array<string> | string;
 
-export declare type BettererOptionsReporters = Array<string | BettererReporter>;
+export declare type BettererOptionsReporter = string | BettererReporter;
+
+export declare type BettererOptionsReporters = Array<BettererOptionsReporter>;
 
 export declare type BettererOptionsResults = Partial<{
     configPaths: BettererOptionsPaths;
@@ -173,7 +190,7 @@ export declare type BettererOptionsResults = Partial<{
 }>;
 
 export declare type BettererOptionsRunner = BettererOptionsBase & Partial<{
-    ignores: BettererConfigIgnores;
+    ignores: BettererOptionsIgnores;
 }>;
 
 export declare type BettererOptionsStart = BettererOptionsStartCI | BettererOptionsStartDefault | BettererOptionsStartPrecommit | BettererOptionsStartStrict | BettererOptionsStartUpdate;
@@ -262,12 +279,11 @@ export declare type BettererRun = {
     readonly isSkipped: boolean;
 };
 
-export declare type BettererRunHandler = (suiteSummary: BettererSuiteSummary) => void;
-
 export declare type BettererRunNames = Array<string>;
 
 export declare type BettererRunner = {
-    queue(filePaths?: string | BettererFilePaths, handler?: BettererRunHandler): Promise<void>;
+    options(optionsOverride: BettererOptionsOverride): void;
+    queue(filePaths?: string | BettererFilePaths): Promise<void>;
     stop(force: true): Promise<BettererSuiteSummary | null>;
     stop(): Promise<BettererSuiteSummary>;
 };
@@ -348,7 +364,7 @@ export declare type BettererTestConstraint<DeserialisedType> = (result: Deserial
 
 export declare type BettererTestDeadline = Date | string;
 
-export declare type BettererTestFunction<DeserialisedType> = (run: BettererRun, context: BettererContext) => MaybeAsync<DeserialisedType>;
+export declare type BettererTestFunction<DeserialisedType> = (run: BettererRun) => MaybeAsync<DeserialisedType>;
 
 export declare type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
 

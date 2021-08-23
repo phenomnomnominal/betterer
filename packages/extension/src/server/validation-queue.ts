@@ -21,6 +21,8 @@ export class BettererValidationQueue {
     info(`Server: Adding "${event.document.uri}" to validation queue at ${Date.now().toString()}`);
     if (!this._queue.has(event.document)) {
       this._queue.set(event.document, event.document.version);
+    } else {
+      info(`Server: "${event.document.uri}" is already in the validation queue.`);
     }
     this._trigger();
   }
