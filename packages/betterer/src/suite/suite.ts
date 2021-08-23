@@ -10,6 +10,8 @@ import { Defer, defer } from '../utils';
 import { BettererSuiteSummaryΩ } from './suite-summary';
 import { BettererSuite } from './types';
 
+const NEGATIVE_FILTER_TOKEN = '!';
+
 export class BettererSuiteΩ implements BettererSuite {
   private _reporter: BettererReporterΩ;
 
@@ -60,9 +62,37 @@ export class BettererSuiteΩ implements BettererSuite {
       runsΩ.map(async (runΩ, index) => {
         const lifecycle = runLifecycles[index];
 
-        const isFiltered = filters.length && !filters.some((filter) => filter.test(runΩ.name));
+        // This is all a bit backwards because "filters" is named badly.
+        const hasFilters = !!filters.length;
+
+        // And this is some madness which applies filters and negative filters in
+        // the order they are read:
+        //
+        // ["foo"] => [/foo/] => ["foo"]
+        // ["foo"] => [/bar/] => []
+        // ["foo"] => [/!foo/] => []
+        // ["foo"] => [/!bar/] => ["foo"]
+        // ["foo"] => [/foo/, /!foo/] => []
+        // ["foo"] => [/!foo/, /foo/] => ["foo"]
+        const isSelected = filters.reduce((selected, filter) => {
+          const isNegated = filter.source.startsWith(NEGATIVE_FILTER_TOKEN);
+          if (selected) {
+            if (isNegated) {
+              const negativeFilter = new RegExp(filter.source.substr(1), filter.flags);
+              return !negativeFilter.test(runΩ.name);
+            }
+            return selected;
+          } else {
+            if (isNegated) {
+              const negativeFilter = new RegExp(filter.source.substr(1), filter.flags);
+              return !negativeFilter.test(runΩ.name);
+            }
+            return filter.test(runΩ.name);
+          }
+        }, false);
+
         const isOtherTestOnly = hasOnly && !runΩ.testMeta.isOnly;
-        const isSkipped = isFiltered || isOtherTestOnly || runΩ.testMeta.isSkipped;
+        const isSkipped = (hasFilters && !isSelected) || isOtherTestOnly || runΩ.testMeta.isSkipped;
 
         // Don't await here! A custom reporter could be awaiting
         // the lifecycle promise which is unresolved right now!
