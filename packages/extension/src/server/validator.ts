@@ -14,7 +14,6 @@ import { getFilePath } from './path';
 
 export class BettererValidator {
   private _diagnostics = new BettererDiagnostics();
-  private _reporter: BettererReporter = {};
 
   constructor(private _connection: Connection, private _documents: TextDocuments<TextDocument>) {}
 
