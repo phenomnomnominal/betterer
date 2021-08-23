@@ -82,7 +82,11 @@ function tsconfigPathOption(): void {
 }
 
 function filtersOption(): void {
-  commander.option('-f, --filter [value]', 'RegExp filter for tests to run. Takes multiple values', argsToArray);
+  commander.option(
+    '-f, --filter [value]',
+    'RegExp filter for tests to run. Add "!" at the start to negate. Takes multiple values',
+    argsToArray
+  );
 }
 
 function excludesOption(): void {
