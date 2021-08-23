@@ -1,4 +1,4 @@
-import { BettererReporter, BettererRunSummary, BettererSuite } from '@betterer/betterer';
+import { BettererRunSummary, BettererSuite } from '@betterer/betterer';
 
 import { Connection, TextDocuments } from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
