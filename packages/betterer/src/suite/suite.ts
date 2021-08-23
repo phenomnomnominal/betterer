@@ -2,7 +2,6 @@ import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
 import { BettererConfig } from '../config';
-import { BettererContextΩ } from '../context';
 import { BettererFilePaths } from '../fs';
 import { BettererReporterΩ } from '../reporters';
 import { BettererResultsFileΩ } from '../results';
@@ -12,14 +11,15 @@ import { BettererSuiteSummaryΩ } from './suite-summary';
 import { BettererSuite } from './types';
 
 export class BettererSuiteΩ implements BettererSuite {
-  private _config: BettererConfig;
   private _reporter: BettererReporterΩ;
-  private _resultsFile: BettererResultsFileΩ;
 
-  constructor(private _context: BettererContextΩ, public filePaths: BettererFilePaths, public runs: BettererRuns) {
-    this._config = this._context.config;
-    this._reporter = this._context.reporter;
-    this._resultsFile = this._context.resultsFile;
+  constructor(
+    private _config: BettererConfig,
+    private _resultsFile: BettererResultsFileΩ,
+    public filePaths: BettererFilePaths,
+    public runs: BettererRuns
+  ) {
+    this._reporter = this._config.reporter as BettererReporterΩ;
   }
 
   public async run(): Promise<BettererSuiteSummaryΩ> {
@@ -49,6 +49,7 @@ export class BettererSuiteΩ implements BettererSuite {
       throw error;
     }
   }
+
   private async _runTests(runLifecycles: Array<Defer<BettererRunSummary>>): Promise<BettererRunSummaries> {
     const runsΩ = this.runs as BettererRunsΩ;
 

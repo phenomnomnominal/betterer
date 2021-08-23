@@ -38,7 +38,8 @@ export async function getBettererConfig(cwd: string, workspace: RemoteWorkspace)
     configPaths: [path.resolve(cwd, configPath)],
     cwd,
     filters,
-    resultsPath: path.resolve(cwd, resultsPath)
+    resultsPath: path.resolve(cwd, resultsPath),
+    silent: true
   };
   if (tsconfigPath !== '') {
     try {

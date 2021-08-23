@@ -14,17 +14,18 @@ import { BettererContext, BettererContextStarted, BettererContextSummary } from 
 
 export class BettererContextΩ implements BettererContext {
   public readonly config: BettererConfig;
-  public reporter: BettererReporterΩ;
-  public readonly resultsFile: BettererResultsFileΩ;
-  public readonly versionControl: BettererVersionControlWorker;
 
+  private _reporter: BettererReporterΩ;
+  private readonly _resultsFile: BettererResultsFileΩ;
   private _suiteSummaries: BettererSuiteSummariesΩ = [];
+  private readonly _versionControl: BettererVersionControlWorker;
 
   constructor(private _globals: BettererGlobals, private _runWorkerPool: BettererRunWorkerPoolΩ) {
     this.config = this._globals.config;
-    this.reporter = this.config.reporter as BettererReporterΩ;
-    this.resultsFile = this._globals.resultsFile;
-    this.versionControl = this._globals.versionControl;
+
+    this._resultsFile = this._globals.resultsFile;
+    this._reporter = this.config.reporter as BettererReporterΩ;
+    this._versionControl = this._globals.versionControl;
   }
 
   public options(optionsOverride: BettererOptionsOverride): void {
@@ -32,21 +33,24 @@ export class BettererContextΩ implements BettererContext {
   }
 
   public start(): BettererContextStarted {
+    // Update `this._reporter` here because `this.options()` may have been called:
+    this._reporter = this.config.reporter as BettererReporterΩ;
+
     const contextLifecycle = defer<BettererContextSummary>();
 
     // Don't await here! A custom reporter could be awaiting
     // the lifecycle promise which is unresolved right now!
-    const reportContextStart = this.reporter.contextStart(this, contextLifecycle.promise);
+    const reportContextStart = this._reporter.contextStart(this, contextLifecycle.promise);
     return {
       end: async (): Promise<BettererContextSummary> => {
         const contextSummary = new BettererContextSummaryΩ(this.config, this._suiteSummaries);
         contextLifecycle.resolve(contextSummary);
         await reportContextStart;
-        await this.reporter.contextEnd(contextSummary);
+        await this._reporter.contextEnd(contextSummary);
 
         const suiteSummaryΩ = contextSummary.lastSuite;
         if (!this.config.ci) {
-          await this.resultsFile.write(suiteSummaryΩ, this.config.precommit);
+          await this._resultsFile.write(suiteSummaryΩ, this.config.precommit);
         }
 
         return contextSummary;
@@ -54,16 +58,16 @@ export class BettererContextΩ implements BettererContext {
       error: async (error: BettererError): Promise<void> => {
         contextLifecycle.reject(error);
         await reportContextStart;
-        await this.reporter.contextError(this, error);
+        await this._reporter.contextError(this, error);
       }
     };
   }
 
   public async run(filePaths: BettererFilePaths): Promise<BettererSuiteSummaryΩ> {
-    await this.resultsFile.sync();
-    await this.versionControl.sync();
+    await this._resultsFile.sync();
+    await this._versionControl.sync();
 
-    filePaths = await this.versionControl.filterIgnored(filePaths);
+    filePaths = await this._versionControl.filterIgnored(filePaths);
 
     const testMeta = loadTestMeta(this.config);
     const testNames = Object.keys(testMeta);
@@ -72,11 +76,11 @@ export class BettererContextΩ implements BettererContext {
 
     const runs = await Promise.all(
       testNames.map(async (testName) => {
-        return BettererRunΩ.create(this._runWorkerPool, testName, workerConfig, filePaths, this.versionControl);
+        return BettererRunΩ.create(this._runWorkerPool, testName, workerConfig, filePaths, this._versionControl);
       })
     );
 
-    const suite = new BettererSuiteΩ(this, filePaths, runs);
+    const suite = new BettererSuiteΩ(this.config, this._resultsFile, filePaths, runs);
     const suiteSummary = await suite.run();
     this._suiteSummaries = [...this._suiteSummaries, suiteSummary];
     return suiteSummary;
