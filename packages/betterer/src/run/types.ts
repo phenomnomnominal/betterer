@@ -52,4 +52,4 @@ export type BettererRunSummaries = Array<BettererRunSummary>;
 export type BettererWorkerModule = WorkerRequireModule<typeof import('./run-worker')>;
 export type BettererWorker = WorkerRequireModuleAsync<BettererWorkerModule>;
 
-export type BettererWorkerRunConfig = Omit<BettererConfig, 'silent' | 'reporters' | 'workers'>;
+export type BettererWorkerRunConfig = Omit<BettererConfig, 'reporter' | 'workers'>;

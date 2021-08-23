@@ -1,6 +1,6 @@
 import { BettererError } from '@betterer/errors';
 
-import { BettererConfig } from '../config';
+import { BettererConfig, BettererOptionsOverride, overrideConfig } from '../config';
 import { BettererFilePaths, BettererVersionControlWorker } from '../fs';
 import { BettererReporterΩ } from '../reporters';
 import { BettererResultsFileΩ } from '../results';
@@ -14,7 +14,7 @@ import { BettererContext, BettererContextStarted, BettererContextSummary } from 
 
 export class BettererContextΩ implements BettererContext {
   public readonly config: BettererConfig;
-  public readonly reporter: BettererReporterΩ;
+  public reporter: BettererReporterΩ;
   public readonly resultsFile: BettererResultsFileΩ;
   public readonly versionControl: BettererVersionControlWorker;
 
@@ -22,9 +22,13 @@ export class BettererContextΩ implements BettererContext {
 
   constructor(private _globals: BettererGlobals, private _runWorkerPool: BettererRunWorkerPoolΩ) {
     this.config = this._globals.config;
-    this.reporter = this._globals.reporter;
+    this.reporter = this.config.reporter as BettererReporterΩ;
     this.resultsFile = this._globals.resultsFile;
     this.versionControl = this._globals.versionControl;
+  }
+
+  public options(optionsOverride: BettererOptionsOverride): void {
+    overrideConfig(this.config, optionsOverride);
   }
 
   public start(): BettererContextStarted {

@@ -2,12 +2,12 @@ import { FSWatcher, watch } from 'chokidar';
 import minimatch from 'minimatch';
 import * as path from 'path';
 
-import { BettererOptionsWatch } from '../config';
+import { BettererOptionsOverride, BettererOptionsWatch } from '../config';
 import { BettererFilePaths } from '../fs';
 import { BettererSuiteSummary } from '../suite';
 import { normalisedPath } from '../utils';
 import { BettererRunnerΩ } from './runner';
-import { BettererRunner, BettererRunHandler } from './types';
+import { BettererRunner } from './types';
 
 const EMIT_EVENTS = ['add', 'change'];
 
@@ -46,8 +46,12 @@ export class BettererWatcherΩ implements BettererRunner {
     return new BettererWatcherΩ(runner, watcher);
   }
 
-  public queue(filePaths: string | BettererFilePaths, handler: BettererRunHandler): Promise<void> {
-    return this._runner.queue(filePaths, handler);
+  public options(configOverride: BettererOptionsOverride): void {
+    this._runner.options(configOverride);
+  }
+
+  public queue(filePaths: string | BettererFilePaths): Promise<void> {
+    return this._runner.queue(filePaths);
   }
 
   public async stop(force: true): Promise<null>;
