@@ -4,6 +4,7 @@ import {
   BettererCLIConfig,
   BettererCLIEnvConfig,
   BettererCLIInitConfig,
+  BettererCLIMergeConfig,
   BettererCLIResultsConfig
 } from './types';
 
@@ -26,8 +27,17 @@ export function cliOptions(argv: BettererCLIArguments): BettererCLIConfig {
 }
 
 export function initOptions(argv: BettererCLIArguments): BettererCLIInitConfig {
+  automergeOption();
   configPathOption();
+  resultsPathOption();
   return setEnv<BettererCLIInitConfig>(argv);
+}
+
+export function mergeOptions(argv: BettererCLIArguments): BettererCLIMergeConfig {
+  resultsPathOption();
+  const options = setEnv<BettererCLIMergeConfig>(argv);
+  options.contents = options.args;
+  return options;
 }
 
 export function resultsOptions(argv: BettererCLIArguments): BettererCLIResultsConfig {
@@ -71,6 +81,10 @@ function configPathsOption(): void {
     'Path to test definition file relative to CWD. Takes multiple values',
     argsToArray
   );
+}
+
+function automergeOption(): void {
+  commander.option('--automerge', 'Enable automatic merging for the Betterer results file');
 }
 
 function resultsPathOption(): void {

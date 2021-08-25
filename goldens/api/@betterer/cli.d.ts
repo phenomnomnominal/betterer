@@ -23,7 +23,14 @@ export declare type BettererCLIEnvConfig = {
 };
 
 export declare type BettererCLIInitConfig = BettererCLIEnvConfig & {
+    automerge: boolean;
     config: string;
+    results: string;
+};
+
+export declare type BettererCLIMergeConfig = BettererCLIEnvConfig & {
+    results: string;
+    contents: Array<string>;
 };
 
 export declare type BettererPackageJSON = {
@@ -39,6 +46,8 @@ export declare function ciΔ(cwd: string, argv: BettererCLIArguments): Promise<B
 export declare function cliΔ(argv: BettererCLIArguments): void;
 
 export declare function initΔ(cwd: string, argv: BettererCLIArguments): Promise<void>;
+
+export declare function mergeΔ(cwd: string, argv: BettererCLIArguments): Promise<void>;
 
 export declare function precommitΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary>;
 

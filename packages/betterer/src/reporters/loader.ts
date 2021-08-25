@@ -11,7 +11,7 @@ const DEFAULT_REPORTER = '@betterer/reporter';
 const HOOK_NAMES = Object.getOwnPropertyNames(BettererReporterΩ.prototype) as ReadonlyArray<keyof BettererReporter>;
 
 export function loadDefaultReporter(): BettererReporterΩ {
-  const module: BettererReporterModule = requireUncached(DEFAULT_REPORTER);
+  const module = requireUncached<BettererReporterModule>(DEFAULT_REPORTER);
   return new BettererReporterΩ([module.reporter]);
 }
 
@@ -25,7 +25,7 @@ export function loadReporters(reporters: BettererOptionsReporters, cwd: string):
       if (isString(reporter)) {
         reporter = resolveReporter(cwd, reporter);
         try {
-          const module: BettererReporterModule = requireUncached(reporter);
+          const module = requireUncached<BettererReporterModule>(reporter);
           if (!module || !module.reporter) {
             throw new BettererError(`"${reporter}" didn't create a reporter. 😔`);
           }

@@ -29,19 +29,25 @@ module.exports = {
 
     await betterer({ configPaths, resultsPath, workers: 1, silent: true });
 
-    const results = await betterer.results({ configPaths, resultsPath, filters: [/test 1/] });
+    const resultsSummary = await betterer.results({ configPaths, resultsPath, filters: [/test 1/] });
 
-    const test1Results = results.results.find((result) => result.name === 'test 1');
+    const test1ResultsSummary = resultsSummary.testResultSummaries.find(
+      (testResultsSummary) => testResultsSummary.name === 'test 1'
+    );
 
-    expect(test1Results).toBeDefined();
-    expect(test1Results?.isFileTest).toEqual(true);
-    expect(test1Results?.isFileTest && test1Results.results).toBeDefined();
+    expect(test1ResultsSummary).toBeDefined();
+    expect(test1ResultsSummary?.isFileTest).toEqual(true);
+    expect(test1ResultsSummary?.isFileTest && test1ResultsSummary.summary).toBeDefined();
 
-    const test2Results = results.results.find((result) => result.name === 'test 2');
-    expect(test2Results).not.toBeDefined();
+    const test2ResultsSummary = resultsSummary.testResultSummaries.find(
+      (testResultsSummary) => testResultsSummary.name === 'test 2'
+    );
+    expect(test2ResultsSummary).not.toBeDefined();
 
-    const test3Results = results.results.find((result) => result.name === 'test 3');
-    expect(test3Results).not.toBeDefined();
+    const test3ResultsSummary = resultsSummary.testResultSummaries.find(
+      (testResultsSummary) => testResultsSummary.name === 'test 3'
+    );
+    expect(test3ResultsSummary).not.toBeDefined();
 
     await cleanup();
   });

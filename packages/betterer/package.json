@@ -32,6 +32,7 @@
     "@betterer/errors": "^4.0.0",
     "@betterer/logger": "^4.3.8",
     "@betterer/reporter": "^4.4.1",
+    "@betterer/results": "^4.0.0",
     "@phenomnomnominal/debug": "^0.2.5",
     "@phenomnomnominal/worker-require": "^0.0.27",
     "chokidar": "^3.3.1",

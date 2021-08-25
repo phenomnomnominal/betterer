@@ -31,7 +31,7 @@ export async function run(logger: BettererLogger, cwd: string, ts: boolean): Pro
     await logger.warn('"betterer" script already exists, moving on...');
   } else {
     packageJSON.scripts.betterer = 'betterer';
-    await logger.info('added "betterer" script to package.json file.');
+    await logger.success('added "betterer" script to package.json file.');
   }
 
   packageJSON.devDependencies = packageJSON.devDependencies || {};
@@ -39,7 +39,7 @@ export async function run(logger: BettererLogger, cwd: string, ts: boolean): Pro
     await logger.warn('"@betterer/cli" dependency already exists, moving on...');
   } else {
     packageJSON.devDependencies['@betterer/cli'] = `^${version}`;
-    await logger.info('added "@betterer/cli" dependency to package.json file');
+    await logger.success('added "@betterer/cli" dependency to package.json file');
   }
 
   if (ts) {
@@ -47,7 +47,7 @@ export async function run(logger: BettererLogger, cwd: string, ts: boolean): Pro
       await logger.warn('"typescript" dependency already exists, moving on...');
     } else {
       packageJSON.devDependencies['typescript'] = `^4`;
-      await logger.info('added "typescript" dependency to package.json file');
+      await logger.success('added "typescript" dependency to package.json file');
     }
   }
 

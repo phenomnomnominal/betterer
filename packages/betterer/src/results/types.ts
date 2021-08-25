@@ -1,31 +1,26 @@
 import { BettererFileIssues } from '../test';
 
-export type BettererExpectedResult = {
-  value: string;
-};
-export type BettererExpectedResults = Record<string, BettererExpectedResult>;
-
 export type BettererResult = {
   isNew: boolean;
   value: unknown;
 };
 
-export type BettererResults = {
-  results: BettererTestResults;
+export type BettererResultsSummary = {
+  testResultSummaries: BettererTestResultSummaries;
 };
 
-export type BettererTestResults = ReadonlyArray<BettererTestResult>;
+export type BettererTestResultSummaries = ReadonlyArray<BettererTestResultSummary>;
 
-export type BettererTestResult =
+export type BettererTestResultSummary =
   | {
       name: string;
       isFileTest: true;
-      results: BettererFileTestResults;
+      summary: BettererFileTestResultSummary;
     }
   | {
       name: string;
       isFileTest: false;
-      result: string;
+      summary: string;
     };
 
-export type BettererFileTestResults = Record<string, BettererFileIssues>;
+export type BettererFileTestResultSummary = Record<string, BettererFileIssues>;

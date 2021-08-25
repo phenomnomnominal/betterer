@@ -2,7 +2,7 @@ import { initΔ } from '@betterer/cli';
 
 import { createFixture } from '../fixture';
 
-const ARGV = ['node', './bin/betterer', 'init'];
+const ARGV = ['node', './bin/betterer'];
 
 describe('betterer cli', () => {
   it('should work multiple times', async () => {

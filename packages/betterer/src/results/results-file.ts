@@ -1,21 +1,17 @@
+import { parse, print, write, BettererResults } from '@betterer/results';
 import assert from 'assert';
 
-import { read, write, BettererVersionControlWorker } from '../fs';
+import { BettererVersionControlWorker } from '../fs';
 import { BettererRunSummaries } from '../run';
-import { BettererRunNames } from '../run/types';
+import { BettererRunNames, BettererRunSummary } from '../run/types';
 import { BettererSuiteSummary } from '../suite';
-import { parse } from './parser';
-import { print } from './printer';
-import { BettererExpectedResults } from './types';
-
-const RESULTS_HEADER = `// BETTERER RESULTS V2.`;
 
 export class BettererResultsFileΩ {
   private constructor(
     private _resultsPath: string,
     private _versionControl: BettererVersionControlWorker,
-    private _baseline: BettererExpectedResults,
-    private _expected: BettererExpectedResults
+    private _baseline: BettererResults,
+    private _expected: BettererResults
   ) {}
 
   public static async create(
@@ -23,7 +19,8 @@ export class BettererResultsFileΩ {
     versionControl: BettererVersionControlWorker
   ): Promise<BettererResultsFileΩ> {
     const baseline = await parse(resultsPath);
-    return new BettererResultsFileΩ(resultsPath, versionControl, baseline, baseline);
+    const expected = baseline;
+    return new BettererResultsFileΩ(resultsPath, versionControl, baseline, expected);
   }
 
   public getChanged(runSummaries: BettererRunSummaries): BettererRunNames {
@@ -54,11 +51,19 @@ export class BettererResultsFileΩ {
   }
 
   public async write(suiteSummary: BettererSuiteSummary, precommit: boolean): Promise<void> {
-    const expected = await read(this._resultsPath);
-    const result = this._print(suiteSummary.runs);
-    const shouldWrite = expected !== result;
+    const printedExpected = print(this._expected);
+    const printedResult = print(
+      suiteSummary.runs
+        .filter((runSummary: BettererRunSummary) => runSummary.printed != null)
+        .reduce((results, runSummary) => {
+          results[runSummary.name] = { value: runSummary.printed as string };
+          return results;
+        }, {} as BettererResults)
+    );
+
+    const shouldWrite = printedResult !== printedExpected;
     if (shouldWrite) {
-      await write(result, this._resultsPath);
+      await write(printedResult, this._resultsPath);
       await this._versionControl.writeCache();
       if (precommit) {
         await this._versionControl.add(this._resultsPath);
@@ -66,16 +71,10 @@ export class BettererResultsFileΩ {
     }
   }
 
-  private _getResult(name: string, expectedResults: BettererExpectedResults): string {
-    const hasResult = Object.hasOwnProperty.call(expectedResults, name);
+  private _getResult(name: string, results: BettererResults): string {
+    const hasResult = Object.hasOwnProperty.call(results, name);
     assert(hasResult);
-    const { value } = expectedResults[name];
+    const { value } = results[name];
     return value;
-  }
-
-  private _print(runSummaries: BettererRunSummaries): string {
-    const toPrint = runSummaries.filter((runSummary) => runSummary.printed != null);
-    const printedResults = toPrint.map((runSummary) => print(runSummary.name, runSummary.printed as string));
-    return [RESULTS_HEADER, ...printedResults].join('');
   }
 }

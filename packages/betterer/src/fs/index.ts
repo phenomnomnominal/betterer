@@ -6,6 +6,5 @@ export {
   BettererFileResolver,
   BettererVersionControlWorker
 } from './types';
-export { read } from './reader';
 export { createVersionControl, destroyVersionControl } from './version-control';
-export { forceRelativePaths, write } from './writer';
+export { forceRelativePaths } from './writer';

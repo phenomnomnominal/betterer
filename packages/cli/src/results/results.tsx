@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useState } from 'react';
 
-import { BettererOptionsResults, BettererResults } from '@betterer/betterer';
+import { BettererOptionsResults, BettererResultsSummary } from '@betterer/betterer';
 import { workerRequire } from '@phenomnomnominal/worker-require';
 import { Box, Text, useApp } from 'ink';
 
-import { GetResultsWorker } from './types';
+import { GetResultsSummaryWorker } from './types';
 import { BettererLogo } from '@betterer/tasks';
 
 export type ResultsProps = {
@@ -12,38 +12,38 @@ export type ResultsProps = {
 };
 
 export const Results: FC<ResultsProps> = function Results({ options }) {
-  const [results, setResults] = useState<BettererResults | null>(null);
+  const [resultsSummary, setResultsSummary] = useState<BettererResultsSummary | null>(null);
   useEffect(() => {
     void (async () => {
-      const getResults = workerRequire<GetResultsWorker>('./get-results');
+      const getResultsSummary = workerRequire<GetResultsSummaryWorker>('./get-results-summary');
       try {
-        setResults(await getResults.run(options));
+        setResultsSummary(await getResultsSummary.run(options));
       } finally {
-        await getResults.destroy();
+        await getResultsSummary.destroy();
       }
     })();
   }, [options]);
 
   const app = useApp();
   useEffect(() => {
-    if (results) {
+    if (resultsSummary) {
       setImmediate(() => app.exit());
     }
-  }, [results]);
+  }, [resultsSummary]);
 
   return (
     <Box flexDirection="column">
       <BettererLogo />
-      {results && (
+      {resultsSummary && (
         <Box flexDirection="column">
-          {results.results.map((result) => {
-            if (result.isFileTest) {
+          {resultsSummary.testResultSummaries.map((testResultSummary) => {
+            if (testResultSummary.isFileTest) {
               return (
-                <Box key={result.name} flexDirection="column">
-                  <Text color="yellowBright">{`${result.name}: `}</Text>
+                <Box key={testResultSummary.name} flexDirection="column">
+                  <Text color="yellowBright">{`${testResultSummary.name}: `}</Text>
                   <Box flexDirection="column" paddingTop={1} paddingLeft={2}>
-                    {Object.keys(result.results).map((filePath) => {
-                      const issues = result.results[filePath];
+                    {Object.keys(testResultSummary.summary).map((filePath) => {
+                      const issues = testResultSummary.summary[filePath];
                       return issues.map((issue, index) => (
                         <Box key={index}>
                           <Text>{issue.message}</Text>
@@ -61,9 +61,9 @@ export const Results: FC<ResultsProps> = function Results({ options }) {
               );
             }
             return (
-              <Box key={result.name}>
-                <Text color="yellowBright">{`${result.name}: `}</Text>
-                <Text>{result.result}</Text>
+              <Box key={testResultSummary.name}>
+                <Text color="yellowBright">{`${testResultSummary.name}: `}</Text>
+                <Text>{testResultSummary.summary}</Text>
               </Box>
             );
           })}

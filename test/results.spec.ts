@@ -26,11 +26,13 @@ module.exports = {
 
     await betterer({ configPaths, resultsPath, workers: 1, silent: true });
 
-    const results = await betterer.results({ configPaths, resultsPath });
+    const resultsSummary = await betterer.results({ configPaths, resultsPath });
 
-    const testResults = results.results.find((result) => result.name === 'test');
+    const testResultSummary = resultsSummary.testResultSummaries.find(
+      (testResultSummary) => testResultSummary.name === 'test'
+    );
 
-    const testResult = !testResults?.isFileTest && testResults?.result;
+    const testResult = !testResultSummary?.isFileTest && testResultSummary?.summary;
 
     expect(testResult).toBe('1\n');
 

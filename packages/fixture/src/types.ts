@@ -33,6 +33,6 @@ export type FixtureOptions = {
 
 export type FixtureFactory = (
   fixtureName: string,
-  files: FixtureFileSystemFiles,
+  files?: FixtureFileSystemFiles,
   options?: FixtureOptions
 ) => Promise<Fixture>;

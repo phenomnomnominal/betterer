@@ -3,27 +3,28 @@ import React, { FC, useCallback } from 'react';
 import { BettererLogo, BettererTaskLogger, BettererTasksLogger, BettererTasksState } from '@betterer/tasks';
 import { workerRequire } from '@phenomnomnominal/worker-require';
 import { Box } from 'ink';
-import * as path from 'path';
 
-import { CreateTestFileWorker, UpdatePackageJSONWorker } from './types';
+import { CreateTestFileWorker, EnableAutomergeWorker, UpdatePackageJSONWorker } from './types';
 
 export type InitProps = {
-  config: string;
+  automerge: boolean;
+  configPath: string;
   cwd: string;
+  resultsPath: string;
   ts: boolean;
 };
 
-export const Init: FC<InitProps> = function Init({ cwd, config, ts }) {
+export const Init: FC<InitProps> = function Init({ automerge, cwd, configPath, resultsPath, ts }) {
   const runCreateTestFile = useCallback(
     async (logger) => {
       const createTestFile = workerRequire<CreateTestFileWorker>('./create-test-file');
       try {
-        await createTestFile.run(logger, path.resolve(cwd, config), ts);
+        await createTestFile.run(logger, cwd, configPath, ts);
       } finally {
         await createTestFile.destroy();
       }
     },
-    [cwd, config, ts]
+    [cwd, configPath, ts]
   );
   const runUpdagePackageJSON = useCallback(
     async (logger) => {
@@ -34,8 +35,16 @@ export const Init: FC<InitProps> = function Init({ cwd, config, ts }) {
         await updatePackageJSON.destroy();
       }
     },
-    [cwd, config, ts]
+    [cwd, ts]
   );
+  const runEnableAutomerge = useCallback(async (logger) => {
+    const enableAutomerge = workerRequire<EnableAutomergeWorker>('./enable-automerge');
+    try {
+      await enableAutomerge.run(logger, cwd, resultsPath);
+    } finally {
+      await enableAutomerge.destroy();
+    }
+  }, []);
 
   return (
     <Box flexDirection="column">
@@ -43,6 +52,7 @@ export const Init: FC<InitProps> = function Init({ cwd, config, ts }) {
       <BettererTasksLogger name="Initialising Betterer" update={update}>
         <BettererTaskLogger name="Create test file" run={runCreateTestFile} />
         <BettererTaskLogger name="Update package.json" run={runUpdagePackageJSON} />
+        {automerge && <BettererTaskLogger name="Enable automerge" run={runEnableAutomerge} />}
       </BettererTasksLogger>
     </Box>
   );

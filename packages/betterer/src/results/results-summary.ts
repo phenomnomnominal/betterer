@@ -2,16 +2,18 @@ import { BettererOptionsResults } from '../config';
 import { BettererFilePaths, destroyVersionControl } from '../fs';
 import { createGlobals } from '../globals';
 import { BettererFileTestResultΩ, isBettererFileTest, loadTestMeta } from '../test';
-import { BettererFileTestResults, BettererResults, BettererTestResults } from './types';
+import { BettererFileTestResultSummary, BettererResultsSummary, BettererTestResultSummaries } from './types';
 
-export class BettererResultsΩ implements BettererResults {
-  public readonly results: BettererTestResults;
+export class BettererResultsSummaryΩ implements BettererResultsSummary {
+  public readonly testResultSummaries: BettererTestResultSummaries;
 
-  private constructor(results: BettererTestResults, private _filePaths: BettererFilePaths) {
-    this.results = this._filePaths.length ? results.filter((result) => result.isFileTest) : results;
+  private constructor(testResultSummaries: BettererTestResultSummaries, private _filePaths: BettererFilePaths) {
+    this.testResultSummaries = this._filePaths.length
+      ? testResultSummaries.filter((testResultSummary) => testResultSummary.isFileTest)
+      : testResultSummaries;
   }
 
-  public static async create(options: BettererOptionsResults): Promise<BettererResultsΩ> {
+  public static async create(options: BettererOptionsResults): Promise<BettererResultsSummaryΩ> {
     const { config, resultsFile } = await createGlobals({
       configPaths: options.configPaths,
       cwd: options.cwd,
@@ -37,21 +39,21 @@ export class BettererResultsΩ implements BettererResults {
         const deserialised = test.config.serialiser.deserialise(serialised, config.resultsPath);
         if (isFileTest) {
           const resultΩ = deserialised as BettererFileTestResultΩ;
-          const results: BettererFileTestResults = {};
-          resultΩ.files
+          const summary = resultΩ.files
             .filter((file) => config.filePaths.length === 0 || config.filePaths.includes(file.absolutePath))
-            .forEach((file) => {
-              results[file.absolutePath] = file.issues;
-            });
-          return { name, isFileTest, results };
+            .reduce((summary, file) => {
+              summary[file.absolutePath] = file.issues;
+              return summary;
+            }, {} as BettererFileTestResultSummary);
+          return { name, isFileTest, summary };
         } else {
-          const result = await test.config.printer(deserialised);
-          return { name, isFileTest, result };
+          const summary = await test.config.printer(deserialised);
+          return { name, isFileTest, summary };
         }
       })
     );
 
-    const status = new BettererResultsΩ(testStatuses, config.filePaths);
+    const status = new BettererResultsSummaryΩ(testStatuses, config.filePaths);
     await destroyVersionControl();
     return status;
   }

@@ -1,12 +1,10 @@
-export { BettererResultsΩ } from './results';
+export { BettererResultsSummaryΩ } from './results-summary';
 export { BettererResultΩ } from './result';
 export { BettererResultsFileΩ } from './results-file';
 export {
-  BettererExpectedResult,
-  BettererExpectedResults,
   BettererResult,
-  BettererResults,
-  BettererFileTestResults,
-  BettererTestResult,
-  BettererTestResults
+  BettererFileTestResultSummary,
+  BettererResultsSummary,
+  BettererTestResultSummaries,
+  BettererTestResultSummary
 } from './types';
