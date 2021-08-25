@@ -38,10 +38,10 @@ export {
 } from './fs/public';
 export {
   BettererResult,
-  BettererResults,
-  BettererTestResult,
-  BettererTestResults,
-  BettererFileTestResults
+  BettererFileTestResultSummary,
+  BettererResultsSummary,
+  BettererTestResultSummaries,
+  BettererTestResultSummary
 } from './results/public';
 export { BettererReporter } from './reporters/public';
 export { BettererRun, BettererRunNames, BettererRunSummary, BettererRunSummaries, BettererRuns } from './run/public';

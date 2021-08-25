@@ -16,7 +16,7 @@ export async function createFixtureDirectoryΔ(fixturesPath: string): Promise<Fi
 
   return async function createFixtureΔ(
     fixtureName: string,
-    files: FixtureFileSystemFiles,
+    files?: FixtureFileSystemFiles,
     options?: FixtureOptions
   ): Promise<Fixture> {
     const fixturePath = path.resolve(fixturesPath, fixtureName);

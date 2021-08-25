@@ -27,19 +27,21 @@ module.exports = {
 
     await betterer({ configPaths, resultsPath, workers: 1, silent: true });
 
-    const results = await betterer.results({ configPaths, resultsPath, includes: ['**/file-with-issues.ts'] });
+    const resultsSummary = await betterer.results({ configPaths, resultsPath, includes: ['**/file-with-issues.ts'] });
 
-    const testResults = results.results.find((result) => result.name === 'test');
+    const testResultsSummary = resultsSummary.testResultSummaries.find(
+      (testResultsSummary) => testResultsSummary.name === 'test'
+    );
 
     const fileWithIssues = resolve('./src/file-with-issues.ts');
     const fileWithIssue = resolve('./src/file-with-issue.ts');
 
-    const fileTestResult = (!!testResults?.isFileTest && testResults.results) || {};
+    const fileTestResultSummary = (!!testResultsSummary?.isFileTest && testResultsSummary.summary) || {};
 
-    expect(fileTestResult[fileWithIssues]).toBeDefined();
-    expect(fileTestResult[fileWithIssue]).not.toBeDefined();
+    expect(fileTestResultSummary[fileWithIssues]).toBeDefined();
+    expect(fileTestResultSummary[fileWithIssue]).not.toBeDefined();
 
-    const fileWithIssuesResult = fileTestResult[fileWithIssues];
+    const fileWithIssuesResult = fileTestResultSummary[fileWithIssues];
 
     const [issue1, issue2] = fileWithIssuesResult;
 

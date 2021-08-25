@@ -79,5 +79,3 @@ Error: OH NO!
 ",
 ]
 `;
-
-exports[`betterer should work when a test fails 2`] = `"// BETTERER RESULTS V2."`;

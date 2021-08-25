@@ -1,32 +1,34 @@
 import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
-import { requireText } from '../require';
-import { read } from '../fs';
-import { BettererExpectedResults } from './types';
+import { access, read } from './fs';
+import { merge } from './merge';
+import { requireText } from './require';
+import { BettererResults } from './types';
 
 const MERGE_CONFLICT_ANCESTOR = '|||||||';
 const MERGE_CONFLICT_END = '>>>>>>>';
 const MERGE_CONFLICT_SEP = '=======';
 const MERGE_CONFLICT_START = '<<<<<<<';
 
-export async function parse(resultsPath: string): Promise<BettererExpectedResults> {
-  const file = await read(resultsPath);
-  if (!file) {
+export async function parse(resultsPath: string): Promise<BettererResults> {
+  const exists = await access(resultsPath);
+  if (!exists) {
     return {};
   }
+  const contents = await read(resultsPath);
 
-  if (hasMergeConflicts(file)) {
+  if (hasMergeConflicts(contents)) {
     try {
-      const [ours, theirs] = extractConflicts(file);
-      return { ...requireText(ours), ...requireText(theirs) };
+      const [ours, theirs] = extractConflicts(contents);
+      return merge(ours, theirs);
     } catch (e) {
       throw new BettererError(`could not resolve merge conflict in "${resultsPath}". 😔`, e);
     }
   }
 
   try {
-    return requireText(file);
+    return requireText(contents);
   } catch {
     throw new BettererError(`could not read results from "${resultsPath}". 😔`);
   }

@@ -143,9 +143,9 @@ export declare type BettererFileTestResult = {
     getIssues(absolutePath?: string): BettererFileIssues;
 };
 
-export declare type BettererFileTestResults = Record<string, BettererFileIssues>;
-
 export declare type BettererFileTestResultSerialised = Record<string, BettererFileIssuesSerialised>;
+
+export declare type BettererFileTestResultSummary = Record<string, BettererFileIssues>;
 
 export declare type BettererOptionsBase = Partial<{
     cache: boolean;
@@ -266,8 +266,8 @@ export declare type BettererResult = {
     value: unknown;
 };
 
-export declare type BettererResults = {
-    results: BettererTestResults;
+export declare type BettererResultsSummary = {
+    testResultSummaries: BettererTestResultSummaries;
 };
 
 export declare type BettererRun = {
@@ -388,19 +388,19 @@ export declare type BettererTestOptionsComplex<DeserialisedType, SerialisedType,
     deadline?: BettererTestDeadline;
 };
 
-export declare type BettererTestResult = {
+export declare type BettererTestResultSummaries = ReadonlyArray<BettererTestResultSummary>;
+
+export declare type BettererTestResultSummary = {
     name: string;
     isFileTest: true;
-    results: BettererFileTestResults;
+    summary: BettererFileTestResultSummary;
 } | {
     name: string;
     isFileTest: false;
-    result: string;
+    summary: string;
 };
 
-export declare type BettererTestResults = ReadonlyArray<BettererTestResult>;
-
-export declare function results(options?: BettererOptionsResults): Promise<BettererResults>;
+export declare function results(options?: BettererOptionsResults): Promise<BettererResultsSummary>;
 
 export declare function runner(options?: BettererOptionsRunner): Promise<BettererRunner>;
 

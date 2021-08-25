@@ -23,7 +23,14 @@ export type BettererCLIConfig = BettererCLIEnvConfig & {
 };
 
 export type BettererCLIInitConfig = BettererCLIEnvConfig & {
+  automerge: boolean;
   config: string;
+  results: string;
+};
+
+export type BettererCLIMergeConfig = BettererCLIEnvConfig & {
+  results: string;
+  contents: Array<string>;
 };
 
 export type BettererCLIResultsConfig = BettererCLIEnvConfig & {

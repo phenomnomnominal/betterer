@@ -2,7 +2,7 @@ import { debug } from '@phenomnomnominal/debug';
 
 import { BettererOptionsRunner, BettererOptionsStart, BettererOptionsResults, BettererOptionsWatch } from './config';
 import { BettererRunner, BettererRunnerΩ, BettererWatcherΩ } from './runner';
-import { BettererResults, BettererResultsΩ } from './results';
+import { BettererResultsSummary, BettererResultsSummaryΩ } from './results';
 import { BettererSuiteSummary } from './suite';
 
 export async function betterer(options: BettererOptionsStart = {}): Promise<BettererSuiteSummary> {
@@ -11,9 +11,9 @@ export async function betterer(options: BettererOptionsStart = {}): Promise<Bett
   return runner.run(runner.config.filePaths);
 }
 
-export function results(options: BettererOptionsResults = {}): Promise<BettererResults> {
+export function results(options: BettererOptionsResults = {}): Promise<BettererResultsSummary> {
   initDebug();
-  return BettererResultsΩ.create(options);
+  return BettererResultsSummaryΩ.create(options);
 }
 betterer.results = results;
 

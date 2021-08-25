@@ -13,6 +13,9 @@ export default {
     'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
   ).include('./src/**/*.ts').deadline('0')
 };
+    `,
+      'src/index.ts': `
+console.log('foo')
     `
     });
 

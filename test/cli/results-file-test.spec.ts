@@ -3,7 +3,7 @@ import { resultsΔ } from '@betterer/cli';
 
 import { createFixture } from '../fixture';
 
-const ARGV = ['node', './bin/betterer', 'init'];
+const ARGV = ['node', './bin/betterer'];
 
 describe('betterer cli', () => {
   it('should report the current results for a file test', async () => {
@@ -31,7 +31,7 @@ module.exports = {
 
     await betterer({ configPaths, resultsPath, workers: 1, silent: true });
 
-    await resultsΔ(fixturePath, [...ARGV]);
+    await resultsΔ(fixturePath, ARGV);
 
     expect(logs).toMatchSnapshot();
 

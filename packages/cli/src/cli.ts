@@ -5,6 +5,7 @@ import { BettererCLIArguments, BettererPackageJSON } from './types';
 enum Command {
   ci = 'ci',
   init = 'init',
+  merge = 'merge',
   precommit = 'precommit',
   results = 'results',
   start = 'start',
@@ -26,6 +27,9 @@ export function cliΔ(argv: BettererCLIArguments): void {
   // CI:
   // Throw if test run creates a diff
   commander.command(Command.ci, 'run Betterer in CI mode');
+
+  // Merge:
+  commander.command(Command.merge, 'merge the Betterer results file');
 
   // Precommit:
   // Throw if test run is worse, `git add` if better

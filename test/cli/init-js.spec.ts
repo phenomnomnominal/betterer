@@ -2,7 +2,7 @@ import { BettererPackageJSON, initΔ } from '@betterer/cli';
 
 import { createFixture } from '../fixture';
 
-const ARGV = ['node', './bin/betterer', 'init'];
+const ARGV = ['node', './bin/betterer'];
 
 import { version } from '../../packages/cli/package.json';
 
