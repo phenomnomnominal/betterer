@@ -22,6 +22,7 @@ test/__snapshots__/**
 .npmrc
 .prettierignore
 .yarnrc
+.lintstagedrc
 website/build
 website/.docusaurus
 *.patch

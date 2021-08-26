@@ -1,0 +1,5 @@
+{
+    "*.ts,tsx": "yarn betterer:precommit",
+    "*.js": "yarn lint",
+    "*": "yarn format"
+  }
