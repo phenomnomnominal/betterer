@@ -42,13 +42,13 @@ console.log('foo');
     const resultsPath = paths.results;
     const indexPath = resolve('./src/index.ts');
 
-    const newRun = await betterer({ configPaths, resultsPath, workers: 4 });
+    const newRun = await betterer({ configPaths, resultsPath, workers: true });
 
     expect(runNames(newRun.ran)).toEqual(['test 1', 'test 2', 'test 3', 'test 4']);
 
     await writeFile(indexPath, `// HACK\n// HACK`);
 
-    const betterRun = await betterer({ configPaths, resultsPath, workers: 4 });
+    const betterRun = await betterer({ configPaths, resultsPath, workers: true });
 
     expect(runNames(betterRun.same)).toEqual(['test 1', 'test 2']);
     expect(runNames(betterRun.better)).toEqual(['test 3']);
