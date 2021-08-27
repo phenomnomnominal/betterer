@@ -23,17 +23,12 @@ export class BettererRunnerΩ implements BettererRunner {
   }
 
   public static async create(options: unknown): Promise<BettererRunnerΩ> {
-    try {
-      const globals = await createGlobals(options);
-      const { config } = globals;
-      const runWorkerPool = new BettererRunWorkerPoolΩ(config.workers);
-      const context = new BettererContextΩ(globals, runWorkerPool);
+    const globals = await createGlobals(options);
+    const { config } = globals;
+    const runWorkerPool = new BettererRunWorkerPoolΩ(config.workers);
+    const context = new BettererContextΩ(globals, runWorkerPool);
 
-      return new BettererRunnerΩ(config, context, runWorkerPool);
-    } catch (error) {
-      await destroyVersionControl();
-      throw error;
-    }
+    return new BettererRunnerΩ(config, context, runWorkerPool);
   }
 
   public options(optionsOverride: BettererOptionsOverride): void {
