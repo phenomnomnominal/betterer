@@ -49,7 +49,7 @@ module.exports = {
 
     await writeFile(testPath, `debugger;`);
 
-    const runner = await betterer.runner({ configPaths, resultsPath, cwd, workers: 1 });
+    const runner = await betterer.runner({ configPaths, resultsPath, cwd, workers: false });
     await runner.queue(testPath);
     const suiteSummary = await runner.stop();
     const [run] = suiteSummary.runs;

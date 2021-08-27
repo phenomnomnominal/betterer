@@ -5,6 +5,7 @@ import * as os from 'os';
 import * as path from 'path';
 
 import { BettererFileResolverΩ, BettererVersionControlWorker } from '../fs';
+import { registerExtensions } from './register';
 import { loadReporters, loadSilentReporter } from '../reporters';
 import { isBoolean, isNumber, isRegExp, isString, isUndefined } from '../utils';
 import {
@@ -18,17 +19,15 @@ import {
   BettererOptionsReporter,
   BettererOptionsRunner,
   BettererOptionsStart,
-  BettererOptionsWatch
+  BettererOptionsWatch,
+  BettererWorkerRunConfig
 } from './types';
 
 const TOTAL_CPUS = os.cpus().length;
 
-export async function createConfig(
-  options: unknown = {},
-  versionControl: BettererVersionControlWorker
-): Promise<BettererConfig> {
-  const baseConfig = createBaseConfig(options as BettererOptionsBase);
-  const startConfig = await createStartConfig(options as BettererOptionsStart, baseConfig.cwd, versionControl);
+export async function createInitialConfig(options: unknown = {}): Promise<BettererConfig> {
+  const baseConfig = createInitialBaseConfig(options as BettererOptionsBase);
+  const startConfig = createStartConfig(options as BettererOptionsStart);
   const runnerConfig = createRunnerConfig(options as BettererOptionsRunner);
   const watchConfig = createWatchConfig(options as BettererOptionsWatch);
 
@@ -40,7 +39,18 @@ export async function createConfig(
     await validateFilePath({ tsconfigPath: config.tsconfigPath });
   }
 
+  await registerExtensions(config.tsconfigPath);
+
   return config;
+}
+
+export async function createFinalConfig(
+  options: unknown = {},
+  config: BettererConfig,
+  versionControl: BettererVersionControlWorker
+): Promise<void> {
+  await createFinalBaseConfig(options as BettererOptionsBase, config, versionControl);
+  await createFinalStartConfig(options as BettererOptionsStart, config, versionControl);
 }
 
 export function overrideConfig(config: BettererConfig, optionsOverride: BettererOptionsOverride): void {
@@ -60,11 +70,10 @@ export function overrideConfig(config: BettererConfig, optionsOverride: Betterer
   }
 }
 
-function createBaseConfig(options: BettererOptionsBase): BettererConfigBase {
+function createInitialBaseConfig(options: BettererOptionsBase): BettererConfigBase {
   const isDebug = !!process.env.BETTERER_DEBUG;
-  const cache = options.cache || false;
+  const cache = !!options.cachePath || options.cache || false;
   const cachePath = options.cachePath || './.betterer.cache';
-  const configPaths = options.configPaths ? toArray<string>(options.configPaths) : ['./.betterer'];
   const cwd = options.cwd || process.cwd();
   const filters = toRegExps(toArray<string | RegExp>(options.filters));
   const reporters = toArray<BettererOptionsReporter>(options.reporters);
@@ -72,27 +81,56 @@ function createBaseConfig(options: BettererOptionsBase): BettererConfigBase {
   const reporter = silent ? loadSilentReporter() : loadReporters(reporters, cwd);
   const resultsPath = options.resultsPath || './.betterer.results';
   const tsconfigPath = options.tsconfigPath || null;
-  const workers = options.workers || Math.max(TOTAL_CPUS - 2, 1);
 
   validateBool({ cache });
   validateString({ cachePath });
-  validateStringArray({ configPaths });
   validateString({ cwd });
   validateStringRegExpArray({ filters });
   validateString({ resultsPath });
   validateBool({ silent });
-  validateWorkers({ workers });
+  const workers = validateWorkers(options);
 
   return {
     cache,
     cachePath: path.resolve(cwd, cachePath),
     cwd,
-    configPaths: configPaths.map((configPath) => path.resolve(cwd, configPath)),
+    configPaths: [],
     filters,
     reporter,
     resultsPath: path.resolve(cwd, resultsPath),
     tsconfigPath: tsconfigPath ? path.resolve(cwd, tsconfigPath) : null,
     workers
+  };
+}
+
+async function createFinalBaseConfig(
+  options: BettererOptionsBase,
+  config: BettererConfig,
+  versionControl: BettererVersionControlWorker
+): Promise<void> {
+  const configPaths = options.configPaths ? toArray<string>(options.configPaths) : ['./.betterer'];
+
+  validateStringArray({ configPaths });
+
+  config.configPaths = configPaths.map((configPath) => {
+    configPath = path.resolve(config.cwd, configPath);
+    try {
+      return require.resolve(configPath);
+    } catch (error) {
+      throw new BettererError(`could not find config file at "${configPath}". 😔`, error);
+    }
+  });
+
+  await versionControl.init(config.configPaths);
+}
+
+export async function createWorkerConfig(config: BettererWorkerRunConfig): Promise<BettererConfig> {
+  await registerExtensions(config.tsconfigPath);
+
+  return {
+    ...config,
+    reporter: loadSilentReporter(),
+    workers: 1
   };
 }
 
@@ -106,37 +144,42 @@ function createRunnerConfig(options: BettererOptionsRunner): BettererConfigRunne
   };
 }
 
-async function createStartConfig(
-  options: BettererOptionsStart,
-  cwd: string,
-  versionControl: BettererVersionControlWorker
-): Promise<BettererConfigStart> {
+function createStartConfig(options: BettererOptionsStart): BettererConfigStart {
   const ci = options.ci || false;
   const precommit = options.precommit || false;
   const strict = options.strict || false;
   const update = options.update || false;
 
-  const includes = toArray<string>(options.includes) || [];
-  const excludes = toRegExps(toArray<string | RegExp>(options.excludes)) || [];
-
   validateBool({ ci });
   validateBool({ precommit });
   validateBool({ strict });
   validateBool({ update });
-  validateStringArray({ includes });
-  validateStringRegExpArray({ excludes });
-
-  const resolver = new BettererFileResolverΩ(cwd, versionControl);
-  resolver.include(...includes);
-  resolver.exclude(...excludes);
 
   return {
     ci,
-    filePaths: await resolver.files(),
+    filePaths: [],
     precommit,
     strict,
     update
   };
+}
+
+async function createFinalStartConfig(
+  options: BettererOptionsStart,
+  config: BettererConfig,
+  versionControl: BettererVersionControlWorker
+): Promise<void> {
+  const includes = toArray<string>(options.includes) || [];
+  const excludes = toRegExps(toArray<string | RegExp>(options.excludes)) || [];
+
+  validateStringArray({ includes });
+  validateStringRegExpArray({ excludes });
+
+  const resolver = new BettererFileResolverΩ(config.cwd, versionControl);
+  resolver.include(...includes);
+  resolver.exclude(...excludes);
+
+  config.filePaths = await resolver.files();
 }
 
 function createWatchConfig(options: BettererOptionsWatch): BettererConfigWatch {
@@ -248,16 +291,27 @@ async function validateFilePath<Config, PropertyName extends keyof Config>(confi
   );
 }
 
-function validateWorkers<Config, PropertyName extends keyof Config>(config: Config): void {
-  const [propertyName] = Object.keys(config);
-  const value = config[propertyName as PropertyName];
-  validateNumber(config);
+function validateWorkers(options: BettererOptionsBase = {}): number {
+  if (options.workers === true || isUndefined(options.workers)) {
+    options.workers = TOTAL_CPUS >= 4 ? TOTAL_CPUS - 2 : false;
+  }
+  if (options.workers === false || options.workers === 0) {
+    process.env.WORKER_REQUIRE = 'false';
+    // When disabled, set workers to 1 so that BettererRunWorkerPoolΩ
+    // can be instantiated correctly:
+    options.workers = 1;
+  }
+
+  const { workers } = options;
+
+  validateNumber({ workers });
   validate(
-    isNumber(value) && value > 0 && value <= TOTAL_CPUS,
-    `"${propertyName.toString()}" must be more than zero and not more than the number of available CPUs (${TOTAL_CPUS}). ${recieved(
-      value
+    isNumber(workers) && workers > 0 && workers <= TOTAL_CPUS,
+    `"workers" must be more than zero and not more than the number of available CPUs (${TOTAL_CPUS}). To disable workers, set to \`false\`. ${recieved(
+      workers
     )}`
   );
+  return workers;
 }
 
 function validate(value: unknown, message: string): asserts value is boolean {

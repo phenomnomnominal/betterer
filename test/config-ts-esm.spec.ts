@@ -31,11 +31,11 @@ export default {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    const firstRun = await betterer({ configPaths, resultsPath });
+    const firstRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(firstRun.new)).toEqual(['test']);
 
-    const secondRun = await betterer({ configPaths, resultsPath });
+    const secondRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(secondRun.better)).toEqual(['test']);
 

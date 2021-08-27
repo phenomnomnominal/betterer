@@ -53,12 +53,18 @@ module.exports = {
     await writeFile(resolve('./src/b.ts'), `debugger;\ndebugger;`);
     await writeFile(resolve('./src/c.ts'), `debugger;\ndebugger;`);
 
-    const firstRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const firstRun = await betterer({ configPaths, resultsPath, workers: false });
     expect(runNames(firstRun.ran)).toEqual(['test']);
 
     await writeFile(resolve('./src/c.ts'), `debugger;\ndebugger;\ndebugger;`);
 
-    const secondRun = await betterer({ configPaths, resultsPath, includes: ['src/c.ts'], update: true, workers: 1 });
+    const secondRun = await betterer({
+      configPaths,
+      resultsPath,
+      includes: ['src/c.ts'],
+      update: true,
+      workers: false
+    });
     expect(runNames(secondRun.ran)).toEqual(['test']);
 
     const result = await readFile(resultsPath);

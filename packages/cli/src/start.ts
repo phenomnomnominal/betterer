@@ -14,8 +14,21 @@ export function startΔ(
     return ciΔ(cwd, argv);
   }
 
-  const { cache, cachePath, config, exclude, filter, include, results, reporter, silent, strict, tsconfig, update } =
-    cliOptions(argv);
+  const {
+    cache,
+    cachePath,
+    config,
+    exclude,
+    filter,
+    include,
+    results,
+    reporter,
+    silent,
+    strict,
+    tsconfig,
+    update,
+    workers
+  } = cliOptions(argv);
 
   // Mark options as unknown...
   const options: unknown = {
@@ -31,7 +44,8 @@ export function startΔ(
     silent,
     strict,
     tsconfigPath: tsconfig,
-    update
+    update,
+    workers
   };
 
   // And then cast to BettererOptionsStart. This is possibly invalid,

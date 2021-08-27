@@ -44,7 +44,7 @@ ignored.ts
           }
         }
       ],
-      workers: 1
+      workers: false
     });
 
     await writeFile(indexPath, `console.log('foo');`);

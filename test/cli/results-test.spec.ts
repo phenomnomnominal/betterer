@@ -28,7 +28,7 @@ module.exports = {
     const resultsPath = paths.results;
     const fixturePath = paths.cwd;
 
-    await betterer({ configPaths, resultsPath, workers: 1, silent: true });
+    await betterer({ configPaths, resultsPath, workers: false, silent: true });
 
     await resultsΔ(fixturePath, ARGV);
 

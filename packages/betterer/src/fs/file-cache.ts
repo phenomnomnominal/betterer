@@ -11,6 +11,8 @@ export class BettererFileCacheΩ implements BettererFileCache {
   private _memoryCacheMap: BettererFileCacheMap = {};
   private _reading: Promise<string | null> | null = null;
 
+  constructor(private _configHash: string) {}
+
   public async enableCache(cachePath: string): Promise<void> {
     this._cachePath = cachePath;
     this._diskCacheMap = await this._readCache(this._cachePath);
@@ -73,7 +75,13 @@ export class BettererFileCacheΩ implements BettererFileCache {
   }
 
   public setHashes(fileHashMap: BettererFileHashMap): void {
-    this._fileHashMap = fileHashMap;
+    if (!this._cachePath) {
+      return;
+    }
+    this._fileHashMap = {};
+    Object.keys(fileHashMap).forEach((absolutePath) => {
+      this._fileHashMap[absolutePath] = `${this._configHash}${fileHashMap[absolutePath]}`;
+    });
   }
 
   private async _readCache(cachePath: string): Promise<BettererFileCacheMap> {

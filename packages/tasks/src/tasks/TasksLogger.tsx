@@ -4,7 +4,7 @@ import { performance } from 'perf_hooks';
 
 import { BettererTaskStatus } from './status';
 import { useTasksState, BettererTasksStateContext } from './useTasksState';
-import { BettererTaskLog, BettererTasksStatusUpdate } from './types';
+import { BettererTaskLog, BettererTasksDone, BettererTasksStatusUpdate } from './types';
 
 const DEFAULT_TASK_TIME_INTERVAL = 100;
 
@@ -12,10 +12,11 @@ export type BettererTasksLoggerProps = {
   exit?: boolean;
   name: string;
   update: BettererTasksStatusUpdate;
+  done?: BettererTasksDone;
 };
 
 export const BettererTasksLogger: FC<BettererTasksLoggerProps> = memo(function BettererTasksLogger(props) {
-  const { children, exit = true, name, update } = props;
+  const { children, done, exit = true, name, update } = props;
   const app = useApp();
   const [state, api] = useTasksState();
   const timer = useRef<NodeJS.Timeout | null>(null);
@@ -51,9 +52,14 @@ export const BettererTasksLogger: FC<BettererTasksLoggerProps> = memo(function B
     status = ['🎉', 'greenBright', result];
   }
 
-  if (endTime != null) {
+  const hasChildren = Array.isArray(children) ? children.length : !!children;
+
+  if (!hasChildren || endTime != null) {
     if (exit) {
       setImmediate(() => app.exit());
+    }
+    if (done) {
+      done();
     }
   }
 

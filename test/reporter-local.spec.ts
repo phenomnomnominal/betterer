@@ -17,7 +17,7 @@ describe('betterer --reporter', () => {
 
     let throws = false;
     try {
-      await betterer({ configPaths, resultsPath, reporters });
+      await betterer({ configPaths, resultsPath, reporters, workers: false });
     } catch {
       throws = true;
     }

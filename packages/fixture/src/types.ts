@@ -28,7 +28,6 @@ export type FixtureLogs = ReadonlyArray<string>;
 
 export type FixtureOptions = {
   logFilters?: Array<RegExp>;
-  logStack?: boolean;
 };
 
 export type FixtureFactory = (

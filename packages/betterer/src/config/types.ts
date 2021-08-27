@@ -6,6 +6,8 @@ export type BettererConfigIgnores = ReadonlyArray<string>;
 
 export type BettererConfig = BettererConfigBase & BettererConfigStart & BettererConfigRunner & BettererConfigWatch;
 
+export type BettererWorkerRunConfig = Omit<BettererConfig, 'reporter'>;
+
 export type BettererConfigBase = {
   cache: boolean;
   cachePath: string;
@@ -61,7 +63,7 @@ export type BettererOptionsBase = Partial<{
   resultsPath: string;
   silent: boolean;
   tsconfigPath: string;
-  workers: number;
+  workers: number | boolean;
 }>;
 
 export type BettererOptionsOverride = Partial<{

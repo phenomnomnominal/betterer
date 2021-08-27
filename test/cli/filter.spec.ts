@@ -11,7 +11,7 @@ describe('betterer cli', () => {
       {
         '.betterer.js': `
 const { BettererTest } = require('@betterer/betterer');
-const { bigger } = require('@betterer/constraints');
+const { bigger, smaller } = require('@betterer/constraints');
 
 module.exports = {
   'test 1': () => new BettererTest({
@@ -20,7 +20,7 @@ module.exports = {
   }),
   'test 2': () => new BettererTest({
     test: () => 0,
-    constraint: bigger
+    constraint: smaller
   }),
   'test 3': () => new BettererTest({
     test: () => 0,

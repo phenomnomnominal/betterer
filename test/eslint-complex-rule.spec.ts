@@ -56,7 +56,7 @@ module.exports = {
 
     await writeFile(indexPath, `export default function foo () { };`);
 
-    await betterer({ configPaths, resultsPath, workers: 1 });
+    await betterer({ configPaths, resultsPath, workers: false });
 
     const result = await readFile(resultsPath);
 

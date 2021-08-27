@@ -20,17 +20,17 @@ module.exports = {
 
     await writeFile(indexPath, `// HACK:`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(newTestRun.new)).toEqual(['regexp']);
 
-    const sameTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const sameTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(sameTestRun.same)).toEqual(['regexp']);
 
     await writeFile(indexPath, `// HACK:\n// HACK:`);
 
-    const worseTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const worseTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(worseTestRun.worse)).toEqual(['regexp']);
 
@@ -40,11 +40,11 @@ module.exports = {
 
     await writeFile(indexPath, ``);
 
-    const betterTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const betterTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(betterTestRun.better)).toEqual(['regexp']);
 
-    const completedTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const completedTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(completedTestRun.completed)).toEqual(['regexp']);
 

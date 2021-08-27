@@ -138,9 +138,27 @@ function updateOption(): void {
 }
 
 function workersOption(): void {
-  commander.option('--workers', 'number of workers to use. Defaults to number of CPUs - 2.');
+  commander.option(
+    '--workers [value]',
+    'number of workers to use. Set to `false` to run tests serially. Defaults to number of CPUs - 2.',
+    argsToPrimitive
+  );
 }
 
 function argsToArray(value: string, previous: BettererCLIArguments = []): BettererCLIArguments {
   return previous.concat([value]);
+}
+
+function argsToPrimitive(value: string): string | number | boolean {
+  if (value === 'true') {
+    return true;
+  }
+  if (value === 'false') {
+    return false;
+  }
+  const num = parseInt(value);
+  if (num.toString() === value) {
+    return num;
+  }
+  return value;
 }

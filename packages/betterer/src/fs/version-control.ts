@@ -5,10 +5,9 @@ import { BettererVersionControlWorker, BettererVersionControlWorkerModule } from
 let worker: WorkerRequireModuleAsync<BettererVersionControlWorkerModule>;
 let globalVersionControl: BettererVersionControlWorker;
 
-export async function createVersionControl(): Promise<BettererVersionControlWorker> {
+export function createVersionControl(): BettererVersionControlWorker {
   worker = workerRequire<BettererVersionControlWorkerModule>('./version-control-worker');
   globalVersionControl = worker.versionControl;
-  await globalVersionControl.init();
   return globalVersionControl;
 }
 

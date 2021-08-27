@@ -17,7 +17,7 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    await expect(async () => await betterer({ configPaths, resultsPath })).rejects.toThrow();
+    await expect(async () => await betterer({ configPaths, resultsPath, workers: false })).rejects.toThrow();
 
     expect(logs).toMatchSnapshot();
 

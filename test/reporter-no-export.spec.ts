@@ -12,7 +12,7 @@ describe('betterer --reporter', () => {
     const resultsPath = paths.results;
     const reporters = [resolve('reporter.js')];
 
-    await expect(async () => await betterer({ configPaths, resultsPath, reporters })).rejects.toThrow();
+    await expect(async () => await betterer({ configPaths, resultsPath, reporters, workers: false })).rejects.toThrow();
 
     expect(logs).toMatchSnapshot();
 

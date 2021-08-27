@@ -8,5 +8,5 @@ export {
   BettererRunSummary,
   BettererRunSummaries
 } from './types';
-export { createWorkerConfig } from './worker-run-config';
-export { BettererWorkerRunΩ } from './worker-run';
+export { createWorkerRunConfig } from './worker-run-config';
+export type { BettererWorkerRunΩ } from './worker-run';

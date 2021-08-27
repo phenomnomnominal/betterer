@@ -17,7 +17,7 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 
-Error: could not read config from \\"<project>/fixtures/test-not-a-function/.betterer\\". 😔
+Error: could not import config from \\"<project>/fixtures/test-not-a-function/.betterer.js\\". 😔
 
 Error: \\"test\\" must be a function.
 ",

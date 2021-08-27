@@ -1,11 +1,12 @@
-import { BettererContext, BettererSuiteSummary, BettererContextSummary } from '@betterer/betterer';
-import { BettererSuite } from '@betterer/betterer/src/suite';
+import { BettererContext, BettererSuite, BettererSuiteSummary, BettererContextSummary } from '@betterer/betterer';
+import { BettererTasksDone } from '@betterer/tasks';
 
 import { BettererReporterAction } from './actions';
 
 export type BettererReporterState = {
   context: BettererContext;
   contextSummary?: BettererContextSummary;
+  done?: BettererTasksDone;
   suite?: BettererSuite;
   suiteSummary?: BettererSuiteSummary;
 };

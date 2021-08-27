@@ -1,4 +1,4 @@
-import { betterer } from '@betterer/betterer';
+import { betterer, runner } from '@betterer/betterer';
 
 import { createFixture } from './fixture';
 
@@ -27,11 +27,11 @@ module.exports = {
 
     await writeFile(resultsPath, 'throw new Error()');
 
-    await expect(async () => await betterer({ configPaths, resultsPath, workers: 1 })).rejects.toThrow();
+    await expect(async () => await betterer({ configPaths, resultsPath, workers: false })).rejects.toThrow();
     await expect(async () => {
-      const runner = await betterer.runner({ configPaths, resultsPath, workers: 1 });
-      await runner.queue([indexPath]);
-      await runner.stop();
+      const throwRunner = await runner({ configPaths, resultsPath, workers: false });
+      await throwRunner.queue([indexPath]);
+      await throwRunner.stop();
     }).rejects.toThrow();
 
     expect(logs).toMatchSnapshot();

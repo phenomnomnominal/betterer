@@ -39,7 +39,7 @@ export default {
     const resultsPath = paths.results;
     const indexPath = resolve('./src/index.ts');
 
-    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(newTestRun.new)).toEqual(['test']);
 
@@ -49,10 +49,10 @@ export default {
 
     await writeFile(
       indexPath,
-      `//\nconst a = 'a';\nconst one = 1;\nconsole.log(one * one);\nconsole.log(a * one);\nconsole.log(one * a);`
+      `//\nconst a = 'a';\nconst one = 1;\nconsole.log(one * one);\nconsole.log(one * a);\nconsole.log(a * one);`
     );
 
-    const sameTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const sameTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(sameTestRun.same)).toEqual(['test']);
 

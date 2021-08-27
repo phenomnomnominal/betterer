@@ -11,7 +11,8 @@ import { read } from './reader';
 import { BettererFilePaths, BettererVersionControl } from './types';
 
 export class BettererGitΩ implements BettererVersionControl {
-  private _cache: BettererFileCacheΩ;
+  private _cache: BettererFileCacheΩ | null = null;
+  private _configPaths: BettererFilePaths = [];
   private _fileMap: Record<string, string> = {};
   private _filePaths: Array<string> = [];
   private _git: SimpleGit | null = null;
@@ -19,16 +20,13 @@ export class BettererGitΩ implements BettererVersionControl {
   private _rootDir: string | null = null;
   private _syncing: Promise<void> | null = null;
 
-  constructor() {
-    this._cache = new BettererFileCacheΩ();
-  }
-
   public async add(resultsPath: string): Promise<void> {
     assert(this._git);
     await this._git.add(resultsPath);
   }
 
   public filterCached(filePaths: BettererFilePaths): BettererFilePaths {
+    assert(this._cache);
     return this._cache.filterCached(filePaths);
   }
 
@@ -37,14 +35,17 @@ export class BettererGitΩ implements BettererVersionControl {
   }
 
   public async enableCache(cachePath: string): Promise<void> {
+    assert(this._cache);
     return this._cache.enableCache(cachePath);
   }
 
   public updateCache(filePaths: BettererFilePaths): void {
+    assert(this._cache);
     return this._cache.updateCache(filePaths);
   }
 
   public writeCache(): Promise<void> {
+    assert(this._cache);
     return this._cache.writeCache();
   }
 
@@ -52,11 +53,13 @@ export class BettererGitΩ implements BettererVersionControl {
     return this._filePaths;
   }
 
-  public async init(): Promise<void> {
+  public async init(configPaths: BettererFilePaths): Promise<void> {
+    this._configPaths = configPaths;
     this._gitDir = await this._findGitRoot();
     this._rootDir = path.dirname(this._gitDir);
     this._git = simpleGit(this._rootDir);
-    this._cache = new BettererFileCacheΩ();
+    const configHash = await this._getConfigHash(this._configPaths);
+    this._cache = new BettererFileCacheΩ(configHash);
     await this._init(this._git);
     await this.sync();
   }
@@ -84,6 +87,11 @@ export class BettererGitΩ implements BettererVersionControl {
     throw new BettererError('.git directory not found. Betterer must be used within a git repository.');
   }
 
+  private async _getConfigHash(configPaths: BettererFilePaths): Promise<string> {
+    const hashes = await Promise.all(configPaths.map(async (configPath) => this._getFileHash(configPath)));
+    return hashes.join('');
+  }
+
   private async _getFileHash(filePath: string): Promise<string | null> {
     const content = await read(filePath);
     if (content == null) {
@@ -106,7 +114,11 @@ export class BettererGitΩ implements BettererVersionControl {
     }
   }
 
-  private _toFilePaths(output: string): Array<string> {
+  private _toFilePaths(rootDir: string, lines: Array<string>): Array<string> {
+    return lines.map((line) => toAbsolutePath(rootDir, line));
+  }
+
+  private _toLines(output: string): Array<string> {
     if (output.length === 0) {
       return [];
     }
@@ -117,9 +129,11 @@ export class BettererGitΩ implements BettererVersionControl {
     this._fileMap = {};
     this._filePaths = [];
 
+    assert(this._cache);
     assert(this._git);
-    const tree = await this._git.raw(['ls-tree', '--full-tree', '-r', 'HEAD']);
-    const fileInfo = this._toFilePaths(tree).map((info) => info.split(/\s/));
+    assert(this._rootDir);
+    const treeOutput = await this._git.raw(['ls-tree', '--full-tree', '-r', 'HEAD']);
+    const fileInfo = this._toLines(treeOutput).map((info) => info.split(/\s/));
 
     const fileHashes: Record<string, string | null> = {};
 
@@ -127,30 +141,25 @@ export class BettererGitΩ implements BettererVersionControl {
     fileInfo.forEach((fileInfo) => {
       const [, , hash, relativePath] = fileInfo;
       assert(this._rootDir);
-      const absolutePath = normalisedPath(path.join(this._rootDir, relativePath.trimStart()));
+      const absolutePath = toAbsolutePath(this._rootDir, relativePath);
       fileHashes[absolutePath] = hash;
       return absolutePath;
     });
 
     // Collect hashes for modified files:
-    const modified = await this._git.raw(['ls-files', '--modified']);
-    const modifiedFilePaths = this._toFilePaths(modified);
+    const modifiedOutput = await this._git.raw(['ls-files', '--modified']);
+    const modifiedFilePaths = this._toFilePaths(this._rootDir, this._toLines(modifiedOutput));
     await Promise.all(
-      modifiedFilePaths.map(async (relativePath) => {
-        assert(this._rootDir);
-        const absolutePath = normalisedPath(path.join(this._rootDir, relativePath));
+      modifiedFilePaths.map(async (absolutePath) => {
         fileHashes[absolutePath] = await this._getFileHash(absolutePath);
       })
     );
 
     // Collect all tracked files, excluding files that have been deleted, *and* all untracked files:
-    const allFiles = await this._git.raw(['ls-files', '--cached', '--others', '--exclude-standard']);
-    const allFilePaths = this._toFilePaths(allFiles);
+    const allFilesOutput = await this._git.raw(['ls-files', '--cached', '--others', '--exclude-standard']);
+    const allFilePaths = this._toFilePaths(this._rootDir, this._toLines(allFilesOutput));
     await Promise.all(
-      allFilePaths.map(async (relativePath) => {
-        assert(this._rootDir);
-        const absolutePath = normalisedPath(path.join(this._rootDir, relativePath));
-
+      allFilePaths.map(async (absolutePath) => {
         // If file is tracked:
         //    `fileHashes[absolutePath]` = the git hash.
         // If file was tracked and is now deleted:
@@ -170,6 +179,15 @@ export class BettererGitΩ implements BettererVersionControl {
       })
     );
 
-    this._cache.setHashes(this._fileMap);
+    const configFileModified = this._configPaths.some((configPath) => modifiedFilePaths.includes(configPath));
+    if (configFileModified) {
+      this._cache.setHashes({});
+    } else {
+      this._cache.setHashes(this._fileMap);
+    }
   }
+}
+
+function toAbsolutePath(rootDir: string, relativePath: string): string {
+  return normalisedPath(path.join(rootDir, relativePath.trimStart()));
 }

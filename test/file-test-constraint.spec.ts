@@ -52,13 +52,13 @@ module.exports = {
 
     await writeFile(indexPath, `debugger;\ndebugger;`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(newTestRun.new)).toEqual(['test']);
 
     await writeFile(indexPath, `debugger;\ndebugger;\ndebugger;`);
 
-    const sameTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const sameTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(sameTestRun.same)).toEqual(['test']);
 

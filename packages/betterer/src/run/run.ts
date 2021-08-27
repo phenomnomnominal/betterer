@@ -1,8 +1,9 @@
+import { BettererWorkerRunConfig } from '../config';
 import { BettererFilePaths, BettererVersionControlWorker } from '../fs';
 import { BettererResult, BettererResultΩ } from '../results';
 import { BettererTestMeta } from '../test';
 import { BettererRunWorkerHandleΩ, BettererRunWorkerPoolΩ } from './run-worker-pool';
-import { BettererRun, BettererRunSummary, BettererWorkerRunConfig } from './types';
+import { BettererRun, BettererRunSummary } from './types';
 
 export class BettererRunΩ implements BettererRun {
   public readonly isNew: boolean;

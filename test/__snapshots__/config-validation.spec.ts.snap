@@ -400,7 +400,7 @@ Error: \\"workers\\" must be a number. Recieved \`\\"betterer\\"\`.
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 
-Error: \\"workers\\" must be a number. Recieved \`true\`.
+Error: \\"workers\\" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Recieved \`null\`.
 ",
   "
    / | /     _         _   _
@@ -420,7 +420,7 @@ Error: \\"workers\\" must be a number. Recieved \`{}\`.
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 
-Error: \\"workers\\" must be more than zero and not more than the number of available CPUs (1). Recieved \`-1\`.
+Error: \\"workers\\" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Recieved \`-1\`.
 ",
   "
    / | /     _         _   _
@@ -430,7 +430,7 @@ Error: \\"workers\\" must be more than zero and not more than the number of avai
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 
-Error: \\"workers\\" must be more than zero and not more than the number of available CPUs (1). Recieved \`1000\`.
+Error: \\"workers\\" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Recieved \`1000\`.
 ",
 ]
 `;

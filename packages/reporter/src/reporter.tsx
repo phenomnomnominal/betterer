@@ -38,7 +38,11 @@ function createReporter(): BettererReporter {
     },
     suiteStart(suite: BettererSuite): Promise<void> {
       reset();
-      return renderer.render(suiteStart(suite));
+      debugger;
+      return new Promise((resolve) => {
+        debugger;
+        void renderer.render(suiteStart(suite), resolve);
+      });
     },
     suiteEnd(suiteSummary: BettererSuiteSummary): Promise<void> {
       return renderer.render(suiteEnd(suiteSummary));
@@ -56,10 +60,10 @@ function createReporter(): BettererReporter {
     const dispatch = createStore(context);
 
     return {
-      async render(action?: BettererReporterAction): Promise<void> {
+      async render(action?: BettererReporterAction, done?: () => void): Promise<void> {
         const state = dispatch(action);
         app?.clear();
-        app = render(<Reporter {...state} />, RENDER_OPTIONS);
+        app = render(<Reporter {...state} done={done} />, RENDER_OPTIONS);
         await tick();
       },
       stop() {

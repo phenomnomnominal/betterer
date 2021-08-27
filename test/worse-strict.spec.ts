@@ -22,14 +22,14 @@ export default {
 
     await writeFile(indexPath, `console.log('foo');`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(newTestRun.new)).toEqual(['test']);
 
     await writeFile(indexPath, `console.log('foo');\nconsole.log('foo');`);
 
     // @ts-expect-error `strict` and `true` are mutually exclusive, but could be set via JS:
-    const blockedTestRun = await betterer({ configPaths, resultsPath, strict: true, update: true, workers: 1 });
+    const blockedTestRun = await betterer({ configPaths, resultsPath, strict: true, update: true, workers: false });
 
     expect(runNames(blockedTestRun.worse)).toEqual(['test']);
 

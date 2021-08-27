@@ -2,7 +2,7 @@ import { startΔ, ciΔ } from '@betterer/cli';
 
 import { createFixture } from '../fixture';
 
-const ARGV = ['node', './bin/betterer'];
+const ARGV = ['node', './bin/betterer', '--workers', 'false'];
 
 describe('betterer ci', () => {
   it('should work when a test gets worse', async () => {

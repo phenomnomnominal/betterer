@@ -50,7 +50,7 @@ export const WatchReporter: FC<BettererReporterState> = memo(function WatchRepor
     }
   });
 
-  const { context, contextSummary, suiteSummary } = props;
+  const { context, contextSummary, done, suiteSummary } = props;
   const suite = props.suiteSummary || props.suite;
 
   if (contextSummary) {
@@ -60,7 +60,7 @@ export const WatchReporter: FC<BettererReporterState> = memo(function WatchRepor
     return (
       <>
         <WatchFiles context={context} editField={editField} suite={suite} running={!suiteSummary} />
-        <Suite suite={suite} />
+        <Suite suite={suite} done={done} />
         {suiteSummary && <SuiteSummary context={context} suiteSummary={suiteSummary} />}
         <WatchInstructions />
       </>

@@ -27,7 +27,7 @@ export default {
     await writeFile(resolve('./src/index.ts'), '// Hack');
     await writeFile(resolve('./src/exclude.ts'), '// Hack');
 
-    await betterer({ configPaths, resultsPath, workers: 1 });
+    await betterer({ configPaths, resultsPath, workers: false });
 
     const result = await readFile(resultsPath);
 

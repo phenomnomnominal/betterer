@@ -36,16 +36,16 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    const firstRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const firstRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(firstRun.new)).toEqual(['should complete', 'complete']);
     expect(runNames(firstRun.completed)).toEqual(['complete']);
 
-    const secondRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const secondRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(secondRun.better)).toEqual(['should complete']);
 
-    const thirdRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const thirdRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(thirdRun.completed)).toEqual(['should complete', 'complete']);
 

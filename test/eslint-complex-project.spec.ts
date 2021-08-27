@@ -71,17 +71,17 @@ export enum Numbers {
 
     await writeFile(indexPath, `debugger;`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(newTestRun.new)).toEqual(['test']);
 
-    const sameTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const sameTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(sameTestRun.same)).toEqual(['test']);
 
     await writeFile(indexPath, `debugger;\ndebugger;`);
 
-    const worseTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const worseTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(worseTestRun.worse)).toEqual(['test']);
 
@@ -91,11 +91,11 @@ export enum Numbers {
 
     await writeFile(indexPath, ``);
 
-    const betterTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const betterTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(betterTestRun.better)).toEqual(['test']);
 
-    const completedTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const completedTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(completedTestRun.completed)).toEqual(['test']);
 
