@@ -21,7 +21,7 @@
     "clean": "yarn clean:tests && yarn clean:compile && yarn clean:modules",
     "clean:tests": "rimraf fixtures && rimraf reports",
     "clean:compile": "lerna exec \"rimraf dist\" && rimraf ./**/tsconfig.tsbuildinfo",
-    "clean:modules": "lerna exec \"rimraf node_modules\" && rimraf website/node_modules && rimraf node_modules  && yarn",
+    "clean:modules": "lerna exec \"rimraf node_modules\" && rimraf website/node_modules && rimraf node_modules && yarn",
     "commit": "git cz",
     "compile": "yarn compile:packages && yarn compile:api-test",
     "compile:api-test": "tsc -b test/api",
@@ -43,12 +43,7 @@
   "types": "test/betterer-public-api.d.ts",
   "devDependencies": {
     "@betterer/cli": "^4.0.0",
-    "@betterer/errors": "^4.0.0",
-    "@betterer/eslint": "^4.0.0",
-    "@betterer/logger": "^4.0.0",
     "@betterer/regexp": "^4.0.0",
-    "@betterer/tasks": "^4.0.0",
-    "@betterer/tsquery": "^4.0.0",
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
     "@phenomnomnominal/commitlint-plugin": "^1.1.1",
@@ -73,7 +68,7 @@
     "ts-api-guardian": "^0.6.0",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.2.1",
-    "typescript": "^4.3.5"
+    "typescript": "^4.4.2"
   },
   "config": {
     "commitizen": {

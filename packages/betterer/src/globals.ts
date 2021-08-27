@@ -1,3 +1,5 @@
+import { BettererError } from '@betterer/errors';
+
 import { createInitialConfig, createFinalConfig } from './config';
 import { createVersionControl, destroyVersionControl } from './fs';
 import { loadDefaultReporter } from './reporters';
@@ -21,7 +23,7 @@ export async function createGlobals(options: unknown = {}): Promise<BettererGlob
       throw error;
     }
   } catch (error) {
-    await reporter.configError(options, error);
+    await reporter.configError(options, error as BettererError);
     throw error;
   }
 }

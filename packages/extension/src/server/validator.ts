@@ -1,4 +1,5 @@
 import { BettererRunSummary, BettererSuite } from '@betterer/betterer';
+import { BettererError } from '@betterer/errors';
 
 import { Connection, TextDocuments } from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
@@ -122,7 +123,7 @@ export class BettererValidator {
           }
         } catch (e) {
           error(`Validator: ${e as string}`);
-          if (isNoConfigError(e)) {
+          if (isNoConfigError(e as BettererError)) {
             void this._connection.sendRequest(BettererInvalidConfigRequest, { source: { uri } });
             status = BettererStatus.warn;
           } else {

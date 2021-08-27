@@ -78,7 +78,7 @@ export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function Bet
         taskApi.stop();
       } catch (error) {
         await statusError((error as Error).message);
-        taskApi.error(error);
+        taskApi.error(error as Error);
         process.exitCode = 1;
       }
     })();

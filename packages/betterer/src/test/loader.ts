@@ -26,7 +26,7 @@ function loadTestMetaFromConfig(configPath: string): BettererTestFactoryMetaMap 
       testMeta[name] = { name, configPath, factory };
     });
     return testMeta;
-  } catch (e) {
-    throw new BettererError(`could not import config from "${configPath}". 😔`, e);
+  } catch (error) {
+    throw new BettererError(`could not import config from "${configPath}". 😔`, error as BettererError);
   }
 }

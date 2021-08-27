@@ -22,8 +22,8 @@ export async function parse(resultsPath: string): Promise<BettererResults> {
     try {
       const [ours, theirs] = extractConflicts(contents);
       return merge(ours, theirs);
-    } catch (e) {
-      throw new BettererError(`could not resolve merge conflict in "${resultsPath}". 😔`, e);
+    } catch (error) {
+      throw new BettererError(`could not resolve merge conflict in "${resultsPath}". 😔`, error as Error);
     }
   }
 

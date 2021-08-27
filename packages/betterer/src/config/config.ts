@@ -117,7 +117,7 @@ async function createFinalBaseConfig(
     try {
       return require.resolve(configPath);
     } catch (error) {
-      throw new BettererError(`could not find config file at "${configPath}". 😔`, error);
+      throw new BettererError(`could not find config file at "${configPath}". 😔`, error as Error);
     }
   });
 

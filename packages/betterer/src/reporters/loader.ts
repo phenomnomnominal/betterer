@@ -31,8 +31,8 @@ export function loadReporters(reporters: BettererOptionsReporters, cwd: string):
           }
           validate(module.reporter);
           return module.reporter;
-        } catch (e) {
-          throw new BettererError(`could not require "${reporter}". 😔`, e);
+        } catch (error) {
+          throw new BettererError(`could not require "${reporter}". 😔`, error as BettererError);
         }
       }
       validate(reporter);
