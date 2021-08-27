@@ -1,7 +1,7 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 
 import { BettererError, isBettererError } from '@betterer/errors';
-import { Box, Text, useApp } from 'ink';
+import { Box, Text } from 'ink';
 
 export type BettererErrorLogProps = {
   error: Error | BettererError;
@@ -14,13 +14,6 @@ export const BettererErrorLog: FC<BettererErrorLogProps> = function BettererErro
     errors = error.details.filter((detail) => isError(detail)) as Array<Error | BettererError>;
     details = error.details.filter((detail) => !isError(detail)) as Array<string>;
   }
-
-  const app = useApp();
-  useEffect(() => {
-    if (!errors.length) {
-      setImmediate(() => app.exit());
-    }
-  }, [app]);
 
   return (
     <>

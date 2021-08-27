@@ -236,7 +236,18 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/watch/src/index.ts
 
-🌟 Betterer (0ms):
+💥 Betterer (0ms): 1 test done! 1 test errored!
+🔥 test: \\"test\\" got worse. (1 new issue, 3 total) 😔
+・ 2 existing issues in \\"<project>/fixtures/watch/src/index.ts\\".
+・ New issue in \\"<project>/fixtures/watch/src/index.ts\\"!
+・
+・   <project>/fixtures/watch/src/index.ts
+・   1 | console.log('foo');
+・ > 2 | console.log('foo');console.log('foo');
+・     |                    ^^^^^^^^^^^ TSQuery match
+・
+
+Error: \\"test\\" got worse. (1 new issue, 3 total) 😔
 
 (press \\"q\\" to quit)
 ",

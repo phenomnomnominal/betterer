@@ -20,8 +20,8 @@ function createReporter(): BettererReporter {
   let renderer: BettererReporterRenderer;
 
   return {
-    configError(_: unknown, error: BettererError): Promise<void> {
-      return renderError(error);
+    configError(_: unknown, error: BettererError): void {
+      renderError(error);
     },
     async contextStart(context: BettererContext): Promise<void> {
       renderer = createRenderer(context);
@@ -33,8 +33,8 @@ function createReporter(): BettererReporter {
       }
       renderer.stop();
     },
-    contextError(_: BettererContext, error: BettererError): Promise<void> {
-      return renderError(error);
+    contextError(_: BettererContext, error: BettererError): void {
+      renderError(error);
     },
     suiteStart(suite: BettererSuite): Promise<void> {
       reset();
@@ -47,9 +47,8 @@ function createReporter(): BettererReporter {
     }
   };
 
-  async function renderError(error: BettererError): Promise<void> {
-    const errorApp = render(<Error error={error} />, RENDER_OPTIONS);
-    await errorApp.waitUntilExit();
+  function renderError(error: BettererError): void {
+    render(<Error error={error} />, RENDER_OPTIONS);
   }
 
   function createRenderer(context: BettererContext): BettererReporterRenderer {
