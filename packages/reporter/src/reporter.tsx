@@ -38,9 +38,7 @@ function createReporter(): BettererReporter {
     },
     suiteStart(suite: BettererSuite): Promise<void> {
       reset();
-      debugger;
       return new Promise((resolve) => {
-        debugger;
         void renderer.render(suiteStart(suite), resolve);
       });
     },
