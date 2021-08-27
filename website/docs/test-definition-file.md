@@ -7,9 +7,13 @@ slug: /test-definition-file
 
 All your tests should be exported from a test definition file. By default, **Betterer** expects this to be `.betterer.ts` or `.betterer.js`, but you can change that by using the [`--config`](./running-betterer#start-options) flag when running **Betterer**.
 
+:::info
+From **Betterer** v5.0.0 all tests must be functions which return a **BettererTest**. This is so that your tests can be run in parallel! Any top-level code in you test definition file _could_ run multiple times.
+:::
+
 ## Default export
 
-You can expose properties on the default export:
+You can expose tests as properties on the default export:
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -28,10 +32,10 @@ import TabItem from '@theme/TabItem';
 ```typescript
 // .betterer.ts
 export default {
-  'my test': {
+  'my test': () => {
     // ... test config
   },
-  'my other test': {
+  'my other test': () => {
     // ... test config
   }
 };
@@ -42,11 +46,11 @@ export default {
 
 ```javascript
 // .betterer.js
-module.exports = {
+module.exports = () => {
   'my test': {
     // ... test config
   },
-  'my other test': {
+  'my other test': () => {
     // ... test config
   }
 };
@@ -57,7 +61,7 @@ module.exports = {
 
 ## Constant export
 
-You can also expose specific named exports:
+You can also expose tests as specific named exports:
 
 <!-- prettier-ignore -->
 <Tabs
@@ -72,13 +76,13 @@ You can also expose specific named exports:
 
 ```typescript
 // .betterer.ts
-export const myTest = {
-  // ... test config
-};
+export function myTest() {
+  // ... return test config
+}
 
-export const myOtherTest = {
-  // ... test config
-};
+export function myOtherTest() {
+  // ... return test config
+}
 ```
 
 </TabItem>
@@ -86,12 +90,12 @@ export const myOtherTest = {
 
 ```javascript
 // .betterer.js
-module.exports.myTest = {
-  // ... test config
+module.exports.myTest = () => {
+  // ... return test config
 };
 
-module.exports.myOtherTest = {
-  // ... test config
+module.exports.myOtherTest = () => {
+  // ... return test config
 };
 ```
 
@@ -99,5 +103,5 @@ module.exports.myOtherTest = {
 </Tabs>
 
 :::info
-You can also define your tests in other files and then re-export them from the test definition file! If you write a test that would be useful for others, please publish it as a package!
+You can define your tests in other files and then import them into your test definition file and re-export! If you write a test that would be useful for others, please publish it as a package!
 :::

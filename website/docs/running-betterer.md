@@ -46,7 +46,7 @@ Run `npm run betterer start` or just `npm run betterer` to run **Betterer** once
 **Betterer** will run your tests, compare the new results against the expected results, and report the updated status. If any test result is better, the [`.betterer.results`](./results-file) file will be updated with the new result ✅! If it gets worse, your test will fail and **Betterer** will throw an error ❌!
 
 :::info
-If it is your first time running **Betterer**, it will create a `.betterer.results` file! If you haven't added a test yet, the `.betterer.results` file will only contain the header comment.
+If it is your first time running a **Betterer** test it will create a `.betterer.results` file!
 :::
 
 ### Including and excluding files
