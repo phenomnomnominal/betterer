@@ -657,18 +657,6 @@
   resolved "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@betterer/logger@^4.0.0", "@betterer/logger@^4.3.8":
-  version "4.3.8"
-  resolved "https://registry.npmjs.org/@betterer/logger/-/logger-4.3.8.tgz#a34fb37355a6ae5112a10950c3f057d0e1d0c4a5"
-  integrity sha512-BToF/5mQvXomCvgX/3mX40DSlGT6NDxMJVwc1CRm65TBNqtth4tsCVoOhbRg80wPFsuMGn8EeyABcwtxzk+W8w==
-  dependencies:
-    "@babel/code-frame" "^7.10.3"
-    "@betterer/errors" "^4.0.0"
-    jest-diff "^27.0.2"
-    lines-and-columns "^1.1.6"
-    react ">=16"
-    tslib "^2.0.3"
-
 "@commitlint/cli@^13.1.0":
   version "13.1.0"
   resolved "https://registry.npmjs.org/@commitlint/cli/-/cli-13.1.0.tgz#3608bb24dbef41aaa0729ffe65c7f9b57409626a"
@@ -1076,17 +1064,6 @@
   version "27.0.6"
   resolved "https://registry.npmjs.org/@jest/types/-/types-27.0.6.tgz#9a992bc517e0c49f035938b8549719c2de40706b"
   integrity sha512-aSquT1qa9Pik26JK5/3rvnYb4bGtm1VFNesHKmNTwmPIgOrixvhL2ghIvFRNEpzy3gU+rUgjIF/KodbkFAl++g==
-  dependencies:
-    "@types/istanbul-lib-coverage" "^2.0.0"
-    "@types/istanbul-reports" "^3.0.0"
-    "@types/node" "*"
-    "@types/yargs" "^16.0.0"
-    chalk "^4.0.0"
-
-"@jest/types@^27.1.0":
-  version "27.1.0"
-  resolved "https://registry.npmjs.org/@jest/types/-/types-27.1.0.tgz#674a40325eab23c857ebc0689e7e191a3c5b10cc"
-  integrity sha512-pRP5cLIzN7I7Vp6mHKRSaZD7YpBTK7hawx5si8trMKqk4+WOdK8NEKOTO2G8PKWD1HbKMVckVB6/XHh/olhf2g==
   dependencies:
     "@types/istanbul-lib-coverage" "^2.0.0"
     "@types/istanbul-reports" "^3.0.0"
@@ -5916,16 +5893,6 @@ jest-diff@^27.0.0, jest-diff@^27.0.6:
     jest-get-type "^27.0.6"
     pretty-format "^27.0.6"
 
-jest-diff@^27.0.2:
-  version "27.1.0"
-  resolved "https://registry.npmjs.org/jest-diff/-/jest-diff-27.1.0.tgz#c7033f25add95e2218f3c7f4c3d7b634ab6b3cd2"
-  integrity sha512-rjfopEYl58g/SZTsQFmspBODvMSytL16I+cirnScWTLkQVXYVZfxm78DFfdIIXc05RCYuGjxJqrdyG4PIFzcJg==
-  dependencies:
-    chalk "^4.0.0"
-    diff-sequences "^27.0.6"
-    jest-get-type "^27.0.6"
-    pretty-format "^27.1.0"
-
 jest-docblock@^27.0.6:
   version "27.0.6"
   resolved "https://registry.npmjs.org/jest-docblock/-/jest-docblock-27.0.6.tgz#cc78266acf7fe693ca462cbbda0ea4e639e4e5f3"
@@ -8001,16 +7968,6 @@ pretty-format@^27.0.0, pretty-format@^27.0.6:
   integrity sha512-8tGD7gBIENgzqA+UBzObyWqQ5B778VIFZA/S66cclyd5YkFLYs2Js7gxDKf0MXtTc9zcS7t1xhdfcElJ3YIvkQ==
   dependencies:
     "@jest/types" "^27.0.6"
-    ansi-regex "^5.0.0"
-    ansi-styles "^5.0.0"
-    react-is "^17.0.1"
-
-pretty-format@^27.1.0:
-  version "27.1.0"
-  resolved "https://registry.npmjs.org/pretty-format/-/pretty-format-27.1.0.tgz#022f3fdb19121e0a2612f3cff8d724431461b9ca"
-  integrity sha512-4aGaud3w3rxAO6OXmK3fwBFQ0bctIOG3/if+jYEFGNGIs0EvuidQm3bZ9mlP2/t9epLNC/12czabfy7TZNSwVA==
-  dependencies:
-    "@jest/types" "^27.1.0"
     ansi-regex "^5.0.0"
     ansi-styles "^5.0.0"
     react-is "^17.0.1"
