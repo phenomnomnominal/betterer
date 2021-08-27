@@ -657,60 +657,6 @@
   resolved "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@betterer/betterer@^4.4.1":
-  version "4.4.1"
-  resolved "https://registry.npmjs.org/@betterer/betterer/-/betterer-4.4.1.tgz#efe58eaffa00b8dff4ca94d73eba4fefb9fcc584"
-  integrity sha512-AaNrvEOjHRXByJ6ozWcR0O2YbxUE0Vqx79tvHWMxoUn1ML8CcB6WvwpV8fgBWLyPe15QRiZs2UgaB5PyDu1joQ==
-  dependencies:
-    "@betterer/constraints" "^4.0.0"
-    "@betterer/errors" "^4.0.0"
-    "@betterer/logger" "^4.3.8"
-    "@betterer/reporter" "^4.4.1"
-    "@phenomnomnominal/debug" "^0.2.5"
-    callsite "^1.0.0"
-    chokidar "^3.3.1"
-    djb2a "^1.2.0"
-    fast-memoize "^2.5.2"
-    lines-and-columns "^1.1.6"
-    minimatch "^3.0.4"
-    prettier "^2.2.1"
-    simple-git "^2.39.0"
-    ts-node "^9.0.0"
-    tslib "^2.0.3"
-  optionalDependencies:
-    typescript ">=2.7"
-
-"@betterer/cli@^4.0.0":
-  version "4.4.1"
-  resolved "https://registry.npmjs.org/@betterer/cli/-/cli-4.4.1.tgz#27e12c897233cd831e8c548b920f8768942901ab"
-  integrity sha512-Cz0KLjKT2N0BHUEaP5hBt3dnuNzvMGKl2c5xCxLeIRyio56PivMP+Yn9D5osmFi3JSJd6DfQHrx+Fz3unSgEfA==
-  dependencies:
-    "@betterer/betterer" "^4.4.1"
-    "@betterer/errors" "^4.0.0"
-    "@betterer/tasks" "^4.4.1"
-    "@phenomnomnominal/worker-require" "^0.0.13"
-    commander "^5.1.0"
-    find-up "^5.0.0"
-    ink "^3.0.7"
-    react ">=16"
-    tslib "^2.0.3"
-
-"@betterer/constraints@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.npmjs.org/@betterer/constraints/-/constraints-4.0.0.tgz#d0a8a9b68f13b44b9a1791647867fc92b2262225"
-  integrity sha512-dMWaKQf9pTdHXtTuX6MhTsjCYlgNes0zXBZBU87P9iHKBzIzTB3JOXUgzfzAw8eesXhrohFMJKpdAs+7F67hyg==
-  dependencies:
-    tslib "^2.0.3"
-
-"@betterer/eslint@^4.0.0":
-  version "4.4.1"
-  resolved "https://registry.npmjs.org/@betterer/eslint/-/eslint-4.4.1.tgz#b93bfbc267f92adb8144d7c251a0d1f2ce60587f"
-  integrity sha512-3PoM85M4/bkewk8gvdQd/ZnQs/MfEb2PU1KMzC+daCnymS/qqmJCGrR6aAeKRxPseR2vUmK/2fdagBdRgLJKgw==
-  dependencies:
-    "@betterer/betterer" "^4.4.1"
-    "@betterer/errors" "^4.0.0"
-    tslib "^2.0.3"
-
 "@betterer/logger@^4.0.0", "@betterer/logger@^4.3.8":
   version "4.3.8"
   resolved "https://registry.npmjs.org/@betterer/logger/-/logger-4.3.8.tgz#a34fb37355a6ae5112a10950c3f057d0e1d0c4a5"
@@ -721,49 +667,6 @@
     jest-diff "^27.0.2"
     lines-and-columns "^1.1.6"
     react ">=16"
-    tslib "^2.0.3"
-
-"@betterer/regexp@^4.0.0":
-  version "4.4.1"
-  resolved "https://registry.npmjs.org/@betterer/regexp/-/regexp-4.4.1.tgz#5a9c94f58a0190f63faee3a5fcd4562d3815a37f"
-  integrity sha512-VcBN/42WlZ1ekr0hhWQKkSrCzClSCtPXXbDU32XWvGrT6vF5K6ZnQhZc+bZgCEpzlTH/betyoOsYya+rByXCIA==
-  dependencies:
-    "@betterer/betterer" "^4.4.1"
-    "@betterer/errors" "^4.0.0"
-    tslib "^2.0.3"
-
-"@betterer/reporter@^4.4.1":
-  version "4.4.1"
-  resolved "https://registry.npmjs.org/@betterer/reporter/-/reporter-4.4.1.tgz#69c96e233d61c1c30304aba60a16f3e8c6e4d7db"
-  integrity sha512-ZNYf9OpWSXKd/qtWNG87v6bUczvU8TQAQo2kHlSp2PSuVEAOBu3me0LzBn1WWEpt41Y+x6T/nYlgnM+pRiUItQ==
-  dependencies:
-    "@betterer/betterer" "^4.4.1"
-    "@betterer/errors" "^4.0.0"
-    "@betterer/logger" "^4.3.8"
-    "@betterer/tasks" "^4.4.1"
-    ink "^3.0.7"
-    ink-text-input "^4.0.1"
-    tslib "^2.0.3"
-
-"@betterer/tasks@^4.0.0", "@betterer/tasks@^4.4.1":
-  version "4.4.1"
-  resolved "https://registry.npmjs.org/@betterer/tasks/-/tasks-4.4.1.tgz#f337b6ffd01264b089b349e926bda61b7463c8dd"
-  integrity sha512-Svk/OTPbigP8BD33u6Soyodpq0pubhdNcMj9dF5GOK2j7xAy5qiziBUxPce8yF4FCAH6/4BdBFkzOKTm1Gtkqg==
-  dependencies:
-    "@betterer/errors" "^4.0.0"
-    chalk "^4.1.0"
-    ink "^3.0.7"
-    react ">=16"
-    tslib "^2.0.3"
-
-"@betterer/tsquery@^4.0.0":
-  version "4.4.1"
-  resolved "https://registry.npmjs.org/@betterer/tsquery/-/tsquery-4.4.1.tgz#721eb2c6ce5f427c4f63e17198503fcd70524308"
-  integrity sha512-oNEmY63SGMZK4wYbSq9rWOLxZtcpTYPGmo7IgoXQ/svoRGdESqu56ygBI5RDoGmrPveCaWoOwyQ+oNgREb1pMA==
-  dependencies:
-    "@betterer/betterer" "^4.4.1"
-    "@betterer/errors" "^4.0.0"
-    "@phenomnomnominal/tsquery" "^4.1.0"
     tslib "^2.0.3"
 
 "@commitlint/cli@^13.1.0":
@@ -2090,15 +1993,6 @@
   integrity sha512-jjMmK1tnZbm1Jq5a7fBliM4gQwjxMU7TFoRNwIyzwlO+eHPRCFv/Nv+H/Gi1jc3WR7QURG8D5d0Tn12YGrUqBQ==
   dependencies:
     esquery "^1.0.1"
-
-"@phenomnomnominal/worker-require@^0.0.13":
-  version "0.0.13"
-  resolved "https://registry.npmjs.org/@phenomnomnominal/worker-require/-/worker-require-0.0.13.tgz#b40b94138d5c7f05f02b891aa3cc187325012217"
-  integrity sha512-P6bdPo+dW988OZ2PizqAPq8m7w4MOkCxlW8FrmVe6TmpWSBDZFmph6176IRJRip5bdkovfrKyGvKighaNRagtg==
-  dependencies:
-    callsite "^1.0.0"
-    comlink "^4.3.0"
-    tslib "^1.10.0"
 
 "@phenomnomnominal/worker-require@^0.0.33":
   version "0.0.33"
@@ -5469,7 +5363,7 @@ ink-text-input@^4.0.1:
     chalk "^4.1.0"
     type-fest "^0.15.1"
 
-ink@^3.0.7, ink@^3.0.9:
+ink@^3.0.9:
   version "3.0.9"
   resolved "https://registry.npmjs.org/ink/-/ink-3.0.9.tgz#57950c7ffe02cb1b2b1537465f6b8d26f7728957"
   integrity sha512-BN+SyJ1rLbKzGPxGYkk22dYB0b58OtyMI4uN0dYucQ8MlIu5TpXJzaP6Bt8Mgqi1dkNZT55bjGyZ2iVLTkJ70w==
@@ -8802,15 +8696,6 @@ signal-exit@^3.0.0, signal-exit@^3.0.2, signal-exit@^3.0.3:
   resolved "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.3.tgz#a1410c2edd8f077b08b4e253c8eacfcaf057461c"
   integrity sha512-VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==
 
-simple-git@^2.39.0:
-  version "2.45.0"
-  resolved "https://registry.npmjs.org/simple-git/-/simple-git-2.45.0.tgz#4d53b146fc23496099ebfc7af5b0d605d0e3e504"
-  integrity sha512-wu/Ujs9IXn0HuyYm4HyRvne+EKsjJSWKEMkB3wQa3gNHSMHt7y3oeNX9zRQ3UBPk7bRRMLLHAdIZCZfHT9ehPg==
-  dependencies:
-    "@kwsites/file-exists" "^1.1.1"
-    "@kwsites/promise-deferred" "^1.1.1"
-    debug "^4.3.1"
-
 simple-git@^2.44.0:
   version "2.44.0"
   resolved "https://registry.npmjs.org/simple-git/-/simple-git-2.44.0.tgz#94eca4162b7e21707b5a1a40b22e6f29b007d3a8"
@@ -8930,7 +8815,7 @@ source-map-resolve@^0.5.0:
     source-map-url "^0.4.0"
     urix "^0.1.0"
 
-source-map-support@^0.5.17, source-map-support@^0.5.6, source-map-support@~0.5.19:
+source-map-support@^0.5.6, source-map-support@~0.5.19:
   version "0.5.19"
   resolved "https://registry.npmjs.org/source-map-support/-/source-map-support-0.5.19.tgz#a98b62f86dcaf4f67399648c085291ab9e8fed61"
   integrity sha512-Wonm7zOCIJzBGQdB+thsPar0kYuCIzYvxZwlBa87yi/Mdjv7Tip2cyVbLj5o0cFPN4EVkuTwb3GDDyUx2DGnGw==
@@ -9670,18 +9555,6 @@ ts-node@^10.2.1:
     create-require "^1.1.0"
     diff "^4.0.1"
     make-error "^1.1.1"
-    yn "3.1.1"
-
-ts-node@^9.0.0:
-  version "9.1.1"
-  resolved "https://registry.npmjs.org/ts-node/-/ts-node-9.1.1.tgz#51a9a450a3e959401bda5f004a72d54b936d376d"
-  integrity sha512-hPlt7ZACERQGf03M253ytLY3dHbGNGrAq9qIHWUY9XHYl1z7wYngSr3OQ5xmui8o2AaxsONxIzjafLUiWBo1Fg==
-  dependencies:
-    arg "^4.1.0"
-    create-require "^1.1.0"
-    diff "^4.0.1"
-    make-error "^1.1.1"
-    source-map-support "^0.5.17"
     yn "3.1.1"
 
 tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0:
