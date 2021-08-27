@@ -42,8 +42,8 @@
   },
   "types": "test/betterer-public-api.d.ts",
   "devDependencies": {
-    "@betterer/cli": "^4.0.0",
-    "@betterer/regexp": "^4.0.0",
+    "@betterer/cli": "^5.0.0-alpha.0",
+    "@betterer/regexp": "^5.0.0-alpha.0",
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
     "@phenomnomnominal/commitlint-plugin": "^1.1.1",
