@@ -18,7 +18,6 @@ import {
   unexpectedChangesInstructions,
   updateInstructions
 } from '../../messages';
-import { quote } from '../../utils';
 
 export type SuiteSummaryProps = {
   context: BettererContext;
@@ -42,6 +41,8 @@ const TEXT_COLOURS: Record<string, TextProps['color']> = {
 
 export const SuiteSummary: FC<SuiteSummaryProps> = memo(function SuiteSummary({ context, suiteSummary }) {
   const better = suiteSummary.better.length;
+  const completed = suiteSummary.completed.length;
+  const expired = suiteSummary.expired.length;
   const failed = suiteSummary.failed.length;
   const neww = suiteSummary.new.length;
   const ran = suiteSummary.ran.length;
@@ -49,26 +50,16 @@ export const SuiteSummary: FC<SuiteSummaryProps> = memo(function SuiteSummary({ 
   const skipped = suiteSummary.skipped.length;
   const updated = suiteSummary.updated.length;
   const worse = suiteSummary.worse.length;
-  const { completed, expired } = suiteSummary;
 
   return (
     <>
       <Box flexDirection="column" paddingBottom={1}>
         <Text color={TEXT_COLOURS.checked}>{testChecked(tests(ran))}</Text>
-        {expired.map((run, index) => (
-          <Text key={index} color={TEXT_COLOURS.expired}>
-            {testExpired(quote(run.name))})
-          </Text>
-        ))}
-        {failed ? <Text color={TEXT_COLOURS.failed}>{testFailed(tests(failed))}</Text> : null}
         {neww ? <Text color={TEXT_COLOURS.new}>{testNew(tests(neww))}</Text> : null}
         {better ? <Text color={TEXT_COLOURS.better}>{testBetter(tests(better))}</Text> : null}
-        {completed.map((run, index) => (
-          <Text key={index} color={TEXT_COLOURS.completed}>
-            {testComplete(quote(run.name))}
-          </Text>
-        ))}
+        {completed ? <Text color={TEXT_COLOURS.completed}>{testComplete(tests(completed))})</Text> : null}
         {same ? <Text color={TEXT_COLOURS.same}>{testSame(tests(same))}</Text> : null}
+        {failed ? <Text color={TEXT_COLOURS.failed}>{testFailed(tests(failed))}</Text> : null}
         {skipped ? <Text color={TEXT_COLOURS.skipped}>{testSkipped(tests(skipped))}</Text> : null}
         {updated ? <Text color={TEXT_COLOURS.updated}>{testUpdated(tests(updated))}</Text> : null}
         {worse ? (
@@ -79,6 +70,7 @@ export const SuiteSummary: FC<SuiteSummaryProps> = memo(function SuiteSummary({ 
             {!context.config.strict && <Text>{updateInstructions()}</Text>}
           </>
         ) : null}
+        {expired ? <Text color={TEXT_COLOURS.expired}>{testExpired(tests(expired))})</Text> : null}
       </Box>
       {context.config.ci && suiteSummary.changed.length ? (
         <Box flexDirection="column" paddingBottom={1}>

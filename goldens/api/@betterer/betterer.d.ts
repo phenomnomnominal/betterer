@@ -157,7 +157,7 @@ export declare type BettererOptionsBase = Partial<{
     resultsPath: string;
     silent: boolean;
     tsconfigPath: string;
-    workers: number;
+    workers: number | boolean;
 }>;
 
 export declare type BettererOptionsExcludes = Array<string | RegExp> | string;
@@ -262,7 +262,6 @@ export declare type BettererReporter = {
 };
 
 export declare type BettererResult = {
-    isNew: boolean;
     value: unknown;
 };
 

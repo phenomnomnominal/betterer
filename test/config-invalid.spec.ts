@@ -3,18 +3,11 @@ import { betterer } from '@betterer/betterer';
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
-  it('should throw if there is no test', async () => {
-    const { paths, logs, cleanup } = await createFixture('test-no-test', {
-      '.betterer.js': `
-  const { BettererTest } = require('@betterer/betterer');
-  const { smaller } = require('@betterer/constraints');
-
-  module.exports = {
-    test: () => new BettererTest({
-      constraint: smaller
-    })
-  };      
-      `
+  it('should throw when there is an invalid config file', async () => {
+    const { logs, paths, cleanup } = await createFixture('config-invalid', {
+      '.betterer.ts': `
+export const test = // Syntax Error
+`
     });
 
     const configPaths = [paths.config];

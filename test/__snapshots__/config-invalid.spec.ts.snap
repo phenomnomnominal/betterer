@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`betterer should throw if a test is not a function 1`] = `
+exports[`betterer should throw when there is an invalid config file 1`] = `
 Array [
   "
    / | /     _         _   _
@@ -17,9 +17,12 @@ Array [
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
 
-Error: could not import config from \\"<project>/fixtures/test-not-a-function/.betterer.js\\". 😔
+Error: could not import config from \\"<project>/fixtures/config-invalid/.betterer.ts\\". 😔
 
-Error: \\"test\\" must be a function.
+Error: fixtures/config-invalid/.betterer.ts:1:20 - error TS1109: Expression expected.
+
+       1 export const test = // Syntax Error
+
 ",
 ]
 `;

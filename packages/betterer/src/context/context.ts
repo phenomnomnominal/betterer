@@ -4,7 +4,7 @@ import { BettererConfig, BettererOptionsOverride, overrideConfig } from '../conf
 import { BettererFilePaths, BettererVersionControlWorker } from '../fs';
 import { BettererReporterΩ } from '../reporters';
 import { BettererResultsFileΩ } from '../results';
-import { BettererRunWorkerPoolΩ, BettererRunΩ, createWorkerConfig } from '../run';
+import { BettererRunWorkerPoolΩ, BettererRunΩ, createWorkerRunConfig } from '../run';
 import { BettererSuiteΩ, BettererSuiteSummariesΩ, BettererSuiteSummaryΩ } from '../suite';
 import { loadTestMeta } from '../test';
 import { defer } from '../utils';
@@ -72,11 +72,11 @@ export class BettererContextΩ implements BettererContext {
     const testMeta = loadTestMeta(this.config);
     const testNames = Object.keys(testMeta);
 
-    const workerConfig = createWorkerConfig(this.config);
+    const workerRunConfig = createWorkerRunConfig(this.config);
 
     const runs = await Promise.all(
       testNames.map(async (testName) => {
-        return BettererRunΩ.create(this._runWorkerPool, testName, workerConfig, filePaths, this._versionControl);
+        return BettererRunΩ.create(this._runWorkerPool, testName, workerRunConfig, filePaths, this._versionControl);
       })
     );
 

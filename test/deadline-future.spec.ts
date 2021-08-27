@@ -28,7 +28,7 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    const firstRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const firstRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(firstRun.expired)).toEqual([]);
 

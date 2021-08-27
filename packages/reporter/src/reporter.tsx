@@ -20,8 +20,8 @@ function createReporter(): BettererReporter {
   let renderer: BettererReporterRenderer;
 
   return {
-    configError(_: unknown, error: BettererError): Promise<void> {
-      return renderError(error);
+    configError(_: unknown, error: BettererError): void {
+      renderError(error);
     },
     async contextStart(context: BettererContext): Promise<void> {
       renderer = createRenderer(context);
@@ -33,21 +33,22 @@ function createReporter(): BettererReporter {
       }
       renderer.stop();
     },
-    contextError(_: BettererContext, error: BettererError): Promise<void> {
-      return renderError(error);
+    contextError(_: BettererContext, error: BettererError): void {
+      renderError(error);
     },
     suiteStart(suite: BettererSuite): Promise<void> {
       reset();
-      return renderer.render(suiteStart(suite));
+      return new Promise((resolve) => {
+        void renderer.render(suiteStart(suite), resolve);
+      });
     },
     suiteEnd(suiteSummary: BettererSuiteSummary): Promise<void> {
       return renderer.render(suiteEnd(suiteSummary));
     }
   };
 
-  async function renderError(error: BettererError): Promise<void> {
-    const errorApp = render(<Error error={error} />, RENDER_OPTIONS);
-    await errorApp.waitUntilExit();
+  function renderError(error: BettererError): void {
+    render(<Error error={error} />, RENDER_OPTIONS);
   }
 
   function createRenderer(context: BettererContext): BettererReporterRenderer {
@@ -56,10 +57,10 @@ function createReporter(): BettererReporter {
     const dispatch = createStore(context);
 
     return {
-      async render(action?: BettererReporterAction): Promise<void> {
+      async render(action?: BettererReporterAction, done?: () => void): Promise<void> {
         const state = dispatch(action);
         app?.clear();
-        app = render(<Reporter {...state} />, RENDER_OPTIONS);
+        app = render(<Reporter {...state} done={done} />, RENDER_OPTIONS);
         await tick();
       },
       stop() {

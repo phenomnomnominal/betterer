@@ -1,7 +1,6 @@
 import { BettererFileIssues } from '../test';
 
 export type BettererResult = {
-  isNew: boolean;
   value: unknown;
 };
 

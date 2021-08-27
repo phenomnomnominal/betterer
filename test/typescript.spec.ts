@@ -11,7 +11,7 @@ import { typescript } from '@betterer/typescript';
 export default {
   typescript: () => typescript('./tsconfig.json', {
     strict: true
-  }).include('./src/**/*.ts')
+  }).include(['./src/**/*.ts', './src/**/*.tsx'])
 };
       `,
       'tsconfig.json': `
@@ -35,17 +35,17 @@ export default {
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(newTestRun.new)).toEqual(['typescript']);
 
-    const sameTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const sameTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(sameTestRun.same)).toEqual(['typescript']);
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one, one * a);`);
 
-    const worseTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const worseTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(worseTestRun.worse)).toEqual(['typescript']);
 
@@ -55,11 +55,11 @@ export default {
 
     await writeFile(indexPath, ``);
 
-    const betterTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const betterTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(betterTestRun.better)).toEqual(['typescript']);
 
-    const completedTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const completedTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(completedTestRun.completed)).toEqual(['typescript']);
 

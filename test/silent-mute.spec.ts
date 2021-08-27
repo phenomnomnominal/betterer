@@ -24,7 +24,7 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    await betterer({ configPaths, resultsPath, silent: true, workers: 1 });
+    await betterer({ configPaths, resultsPath, silent: true, workers: false });
 
     expect(logs).toHaveLength(0);
     expect(logs).toMatchSnapshot();

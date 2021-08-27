@@ -22,13 +22,13 @@ export default {
 
     await writeFile(indexPath, `console.log('foo');`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(newTestRun.new)).toEqual(['test']);
 
     await writeFile(indexPath, `console.log('foo');\nconsole.log('foo');`);
 
-    const worseTestRun = await betterer({ configPaths, resultsPath, update: true, workers: 1 });
+    const worseTestRun = await betterer({ configPaths, resultsPath, update: true, workers: false });
 
     expect(runNames(worseTestRun.updated)).toEqual(['test']);
 
@@ -36,7 +36,7 @@ export default {
 
     expect(result).toMatchSnapshot();
 
-    const sameTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const sameTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(sameTestRun.same)).toEqual(['test']);
 

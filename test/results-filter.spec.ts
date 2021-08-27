@@ -1,4 +1,4 @@
-import { betterer } from '@betterer/betterer';
+import { betterer, results } from '@betterer/betterer';
 
 import { createFixture } from './fixture';
 
@@ -27,9 +27,9 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    await betterer({ configPaths, resultsPath, workers: 1, silent: true });
+    await betterer({ configPaths, resultsPath, workers: false, silent: true });
 
-    const resultsSummary = await betterer.results({ configPaths, resultsPath, filters: [/test 1/] });
+    const resultsSummary = await results({ configPaths, resultsPath, filters: [/test 1/] });
 
     const test1ResultsSummary = resultsSummary.testResultSummaries.find(
       (testResultsSummary) => testResultsSummary.name === 'test 1'

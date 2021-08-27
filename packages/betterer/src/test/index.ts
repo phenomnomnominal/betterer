@@ -1,7 +1,6 @@
 export {
   BettererFileTest,
   BettererFileTestResult,
-  BettererFileTestResultΩ,
   BettererFileTestFunction,
   BettererFileBase,
   BettererFile,
@@ -12,6 +11,7 @@ export {
   BettererFileIssues,
   isBettererFileTest
 } from './file-test';
+export type { BettererFileTestResultΩ } from './file-test';
 export { loadTestMeta } from './loader';
 export { BettererTest, isBettererTest } from './test';
 export {

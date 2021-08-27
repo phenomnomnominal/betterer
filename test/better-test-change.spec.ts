@@ -31,11 +31,11 @@ console.log('foo');
     });
     const resultsPath = paths.results;
 
-    const firstRun = await betterer({ configPaths: [resolve('.betterer.ts')], resultsPath, workers: 1 });
+    const firstRun = await betterer({ configPaths: [resolve('.betterer.ts')], resultsPath, workers: false });
 
     expect(runNames(firstRun.new)).toEqual(['test']);
 
-    const secondRun = await betterer({ configPaths: [resolve('.betterer.changed.ts')], resultsPath, workers: 1 });
+    const secondRun = await betterer({ configPaths: [resolve('.betterer.changed.ts')], resultsPath, workers: false });
 
     expect(runNames(secondRun.better)).toEqual(['test']);
 

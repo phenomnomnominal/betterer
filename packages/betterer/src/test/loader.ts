@@ -27,6 +27,6 @@ function loadTestMetaFromConfig(configPath: string): BettererTestFactoryMetaMap 
     });
     return testMeta;
   } catch (e) {
-    throw new BettererError(`could not read config from "${configPath}". 😔`, e);
+    throw new BettererError(`could not import config from "${configPath}". 😔`, e);
   }
 }

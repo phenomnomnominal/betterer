@@ -9,10 +9,11 @@ describe('betterer', () => {
 import { BettererFileTest } from '@betterer/betterer';
 
 function test(): BettererFileTest {
-  return new BettererFileTest(async (files, fileTestResult) => {        
-    const [filePath] = files;
-    const file = fileTestResult.addFile(filePath, '');
-    file.addIssue(0, 0, "\`$" + "{key}\`");
+  return new BettererFileTest((files, fileTestResult) => {
+    files.forEach(filePath => {
+      const file = fileTestResult.addFile(filePath, '');
+      file.addIssue(0, 0, "\`$" + "{key}\`");  
+    });
   });
 }
 
@@ -28,10 +29,10 @@ export default {
     await writeFile(resolve('./src/index.ts'), '');
 
     // First run to create .betterer.results file:
-    await betterer({ configPaths, resultsPath, workers: 1 });
+    await betterer({ configPaths, resultsPath, workers: false });
 
     // Second run to make sure it doesn't throw when reading results:
-    await betterer({ configPaths, resultsPath, workers: 1 });
+    await betterer({ configPaths, resultsPath, workers: false });
 
     const result = await readFile(resultsPath);
 

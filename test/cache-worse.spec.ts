@@ -21,7 +21,7 @@ module.exports = {
 
     await writeFile(indexPath, `// HACK:`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath, cache: true, cachePath, workers: 1 });
+    const newTestRun = await betterer({ configPaths, resultsPath, cachePath, workers: false });
 
     expect(runNames(newTestRun.new)).toEqual(['test']);
 
@@ -29,13 +29,13 @@ module.exports = {
 
     expect(newCache).toMatchSnapshot();
 
-    const sameTestRun = await betterer({ configPaths, resultsPath, cache: true, cachePath, workers: 1 });
+    const sameTestRun = await betterer({ configPaths, resultsPath, cachePath, workers: false });
 
     expect(runNames(sameTestRun.same)).toEqual(['test']);
 
     await writeFile(indexPath, `// HACK:\n// HACK:`);
 
-    const worseTestRun = await betterer({ configPaths, resultsPath, cache: true, cachePath, workers: 1 });
+    const worseTestRun = await betterer({ configPaths, resultsPath, cachePath, workers: false });
 
     expect(runNames(worseTestRun.worse)).toEqual(['test']);
 
@@ -43,7 +43,7 @@ module.exports = {
 
     expect(worseCache).toEqual(newCache);
 
-    const stillWorseTestRun = await betterer({ configPaths, resultsPath, cache: true, cachePath, workers: 1 });
+    const stillWorseTestRun = await betterer({ configPaths, resultsPath, cachePath, workers: false });
 
     expect(runNames(stillWorseTestRun.worse)).toEqual(['test']);
 

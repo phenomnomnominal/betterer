@@ -36,7 +36,7 @@ export default {
 
     await writeFile(indexPath, `import { ESLint } from 'eslint';\nconsole.log(ESLINT);`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(newTestRun.new)).toEqual(['typescript']);
 
