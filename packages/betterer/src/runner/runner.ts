@@ -1,3 +1,5 @@
+import { BettererError } from '@betterer/errors';
+
 import { BettererConfig, BettererOptionsOverride } from '../config';
 import { BettererContextΩ, BettererContextStarted } from '../context';
 import { BettererFilePaths, destroyVersionControl } from '../fs';
@@ -96,7 +98,7 @@ export class BettererRunnerΩ implements BettererRunner {
         this._running = this._context.run(changed);
         await this._running;
       } catch (error) {
-        await this._started.error(error);
+        await this._started.error(error as BettererError);
       }
     }
   }

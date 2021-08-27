@@ -119,7 +119,7 @@ export class BettererWorkerRunΩ implements BettererRun {
       const result = new BettererResultΩ(await this.test.test(this));
       return running.done(result);
     } catch (error) {
-      return running.failed(error);
+      return running.failed(error as BettererError);
     }
   }
 

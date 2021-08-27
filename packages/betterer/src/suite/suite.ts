@@ -45,9 +45,9 @@ export class BettererSuiteΩ implements BettererSuite {
       await this._reporter.suiteEnd(suiteSummary);
       return suiteSummary;
     } catch (error) {
-      runsLifecycle.reject(error);
+      runsLifecycle.reject(error as BettererError);
       await reportSuiteStart;
-      await this._reporter.suiteError(this, error);
+      await this._reporter.suiteError(this, error as BettererError);
       throw error;
     }
   }
