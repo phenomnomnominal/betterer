@@ -1,5 +1,5 @@
 import { BettererOptionsResults } from '../config';
-import { BettererFilePaths, destroyVersionControl } from '../fs';
+import { BettererFilePaths } from '../fs';
 import { createGlobals } from '../globals';
 import { BettererFileTestResultΩ, isBettererFileTest, loadTestMeta } from '../test';
 import { BettererFileTestResultSummary, BettererResultsSummary, BettererTestResultSummaries } from './types';
@@ -14,7 +14,7 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
   }
 
   public static async create(options: BettererOptionsResults): Promise<BettererResultsSummaryΩ> {
-    const { config, resultsFile } = await createGlobals({
+    const { config, resultsFile, versionControl } = await createGlobals({
       configPaths: options.configPaths,
       cwd: options.cwd,
       excludes: options.excludes,
@@ -54,7 +54,7 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
     );
 
     const status = new BettererResultsSummaryΩ(testStatuses, config.filePaths);
-    await destroyVersionControl();
+    await versionControl.destroy();
     return status;
   }
 }

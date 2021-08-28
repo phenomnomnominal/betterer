@@ -2,7 +2,7 @@ import { BettererError } from '@betterer/errors';
 import { FSWatcher } from 'chokidar';
 
 import { BettererConfig, BettererOptionsOverride, overrideConfig } from '../config';
-import { BettererFilePaths, BettererVersionControlWorker, destroyVersionControl } from '../fs';
+import { BettererFilePaths, BettererVersionControlWorker } from '../fs';
 import { BettererReporterΩ } from '../reporters';
 import { BettererResultsFileΩ } from '../results';
 import { BettererRunWorkerPoolΩ, BettererRunΩ, createWorkerRunConfig } from '../run';
@@ -78,7 +78,7 @@ export class BettererContextΩ implements BettererContext {
       if (this._watcher) {
         await this._watcher.close();
       }
-      await destroyVersionControl();
+      await this._versionControl.destroy();
       await this._runWorkerPool.destroy();
     }
   }
