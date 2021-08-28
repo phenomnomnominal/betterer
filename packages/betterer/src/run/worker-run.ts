@@ -2,15 +2,14 @@ import { BettererConstraintResult } from '@betterer/constraints';
 import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
-import { BettererConfig } from '../config';
+import { BettererConfig, BettererWorkerRunConfig, createWorkerConfig } from '../config';
 import { BettererFilePaths, BettererVersionControlWorker, forceRelativePaths } from '../fs';
-import { createWorkerGlobals } from '../globals';
-import { BettererResult, BettererResultΩ } from '../results';
+import { BettererResult, BettererResultsFileΩ, BettererResultΩ } from '../results';
 import { BettererDiff, BettererTestConfig, BettererTestMeta, isBettererFileTest, loadTestMeta } from '../test';
 import { isBettererTest } from '../test';
 import { BettererGlobals } from '../types';
 import { BettererRunStatus, BettererRunSummaryΩ } from './run-summary';
-import { BettererRun, BettererRunning, BettererRunSummary, BettererWorkerRunConfig } from './types';
+import { BettererRun, BettererRunning, BettererRunSummary } from './types';
 
 export class BettererWorkerRunΩ implements BettererRun {
   public readonly config: BettererConfig;
@@ -33,12 +32,13 @@ export class BettererWorkerRunΩ implements BettererRun {
   }
 
   public static async create(
-    options: BettererWorkerRunConfig,
+    runConfig: BettererWorkerRunConfig,
     name: string,
     versionControl: BettererVersionControlWorker
   ): Promise<BettererWorkerRunΩ> {
-    const globals = await createWorkerGlobals(options, versionControl);
-    const { config, resultsFile } = globals;
+    const config = await createWorkerConfig(runConfig);
+    const resultsFile = await BettererResultsFileΩ.create(config.resultsPath, versionControl);
+    const globals = { config, resultsFile, versionControl };
 
     await resultsFile.sync();
     await versionControl.sync();
@@ -119,14 +119,11 @@ export class BettererWorkerRunΩ implements BettererRun {
       const result = new BettererResultΩ(await this.test.test(this));
       return running.done(result);
     } catch (error) {
-      return running.failed(error);
+      return running.failed(error as BettererError);
     }
   }
 
-  private _deserialise(resultJSON: string | null): BettererResultΩ | null {
-    if (resultJSON === null) {
-      return null;
-    }
+  private _deserialise(resultJSON: string): BettererResultΩ | null {
     try {
       const serialised = JSON.parse(resultJSON) as unknown;
       const { resultsPath } = this.config;

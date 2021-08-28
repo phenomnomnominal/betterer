@@ -1971,10 +1971,10 @@
   dependencies:
     esquery "^1.0.1"
 
-"@phenomnomnominal/worker-require@^0.0.27":
-  version "0.0.27"
-  resolved "https://registry.npmjs.org/@phenomnomnominal/worker-require/-/worker-require-0.0.27.tgz#cee38a48e0e4fef2a02c98288ef515ae5a4a63c5"
-  integrity sha512-w/h7y5oXCST8sMH6p/OC3lqb0r4x52msQS5pZ2L9hmOcLdLY+7B4AMyokjTbNxTQarPu1d7yiCvBfEMsJKzMFA==
+"@phenomnomnominal/worker-require@^0.0.33":
+  version "0.0.33"
+  resolved "https://registry.npmjs.org/@phenomnomnominal/worker-require/-/worker-require-0.0.33.tgz#89351e21fcf730bcf37dd38155e6c77e0e0eed11"
+  integrity sha512-X57WMepu5g918x9ZgF9a2N87NkZrx4JU2uigwfVw7awWASqxujN3Vxy4cZL692XZU6G/r77KCYfa7xVSNsr60A==
   dependencies:
     callsite "^1.0.0"
     comlink "^4.3.0"
@@ -9629,10 +9629,15 @@ typedarray@^0.0.6:
   resolved "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@>=2.7, typescript@^4.3.5:
+typescript@>=2.7:
   version "4.3.5"
   resolved "https://registry.npmjs.org/typescript/-/typescript-4.3.5.tgz#4d1c37cc16e893973c45a06886b7113234f119f4"
   integrity sha512-DqQgihaQ9cUrskJo9kIyW/+g0Vxsk8cDtZ52a3NGh0YNTfpUSArXSohyUGnvbPazEPLu398C0UxmKSOrPumUzA==
+
+typescript@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-4.4.2.tgz#6d618640d430e3569a1dfb44f7d7e600ced3ee86"
+  integrity sha512-gzP+t5W4hdy4c+68bfcv0t400HVJMMd2+H9B7gae1nQlBzCqvrXX+6GL/b3GAgyTH966pzrZ70/fRjwAtZksSQ==
 
 uglify-js@^3.1.4:
   version "3.13.5"

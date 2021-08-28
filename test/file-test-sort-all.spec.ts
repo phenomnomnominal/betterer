@@ -50,7 +50,7 @@ module.exports = {
     await writeFile(resolve('./src/b.ts'), `debugger;\ndebugger;`);
     await writeFile(resolve('./src/c.ts'), `debugger;\ndebugger;`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(newTestRun.ran)).toEqual(['test']);
 

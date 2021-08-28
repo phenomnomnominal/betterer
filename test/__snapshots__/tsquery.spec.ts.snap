@@ -291,7 +291,7 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 
 1 test got checked. 🤔
 1 test got better! 😍
-\\"tsquery\\" met its goal! 🎉
+1 test met its goal! 🎉)
 ",
   "
    / | /     _         _   _
@@ -351,7 +351,7 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
-\\"tsquery\\" met its goal! 🎉
+1 test met its goal! 🎉)
 ",
 ]
 `;

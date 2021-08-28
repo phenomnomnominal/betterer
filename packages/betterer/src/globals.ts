@@ -1,6 +1,7 @@
-import { createConfig } from './config';
-import { BettererVersionControlWorker, createVersionControl } from './fs';
-import { registerExtensions } from './register';
+import { BettererError } from '@betterer/errors';
+
+import { createInitialConfig, createFinalConfig } from './config';
+import { createVersionControl, destroyVersionControl } from './fs';
 import { loadDefaultReporter } from './reporters';
 import { BettererResultsFileΩ } from './results';
 import { BettererGlobals } from './types';
@@ -8,35 +9,21 @@ import { BettererGlobals } from './types';
 export async function createGlobals(options: unknown = {}): Promise<BettererGlobals> {
   const reporter = loadDefaultReporter();
   try {
-    const versionControl = await createVersionControl();
-    const config = await createConfig(options, versionControl);
-    const { cache } = config;
-    if (cache) {
-      await versionControl.enableCache(config.cachePath);
+    const config = await createInitialConfig(options);
+    try {
+      const versionControl = createVersionControl();
+      await createFinalConfig(options, config, versionControl);
+      if (config.cache) {
+        await versionControl.enableCache(config.cachePath);
+      }
+      const resultsFile = await BettererResultsFileΩ.create(config.resultsPath, versionControl);
+      return { config, resultsFile, versionControl };
+    } catch (error) {
+      await destroyVersionControl();
+      throw error;
     }
-    await registerExtensions(config);
-    const resultsFile = await BettererResultsFileΩ.create(config.resultsPath, versionControl);
-    return { config, resultsFile, versionControl };
   } catch (error) {
-    await reporter.configError(options, error);
+    await reporter.configError(options, error as BettererError);
     throw error;
   }
-}
-
-export async function createWorkerGlobals(
-  options: unknown = {},
-  versionControl: BettererVersionControlWorker
-): Promise<BettererGlobals> {
-  const config = await createConfig(options, versionControl);
-  const { cache } = config;
-
-  if (cache) {
-    await versionControl.enableCache(config.cachePath);
-  }
-
-  await registerExtensions(config);
-
-  const resultsFile = await BettererResultsFileΩ.create(config.resultsPath, versionControl);
-
-  return { config, resultsFile, versionControl };
 }

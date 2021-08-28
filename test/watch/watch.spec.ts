@@ -24,7 +24,7 @@ export default {
 
     await writeFile(indexPath, `console.log('foo');console.log('foo');`);
 
-    await betterer({ configPaths, resultsPath, cwd, workers: 1 });
+    await betterer({ configPaths, resultsPath, cwd, workers: false });
 
     const suiteSummaryDefers = [
       defer<BettererSuiteSummary>(),
@@ -46,7 +46,7 @@ export default {
           }
         }
       ],
-      workers: 1
+      workers: false
     });
 
     await writeFile(indexPath, `console.log('foo');\nconsole.log('foo');console.log('foo');`);

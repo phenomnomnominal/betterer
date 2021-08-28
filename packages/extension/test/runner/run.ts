@@ -23,6 +23,6 @@ export async function run(
 
     reportTestResults(null, results.numFailedTests);
   } catch (error) {
-    reportTestResults(error);
+    reportTestResults(error as Error);
   }
 }

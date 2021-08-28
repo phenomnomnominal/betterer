@@ -1,4 +1,4 @@
-export { createConfig, overrideConfig } from './config';
+export { createInitialConfig, createFinalConfig, createWorkerConfig, overrideConfig } from './config';
 export {
   BettererConfig,
   BettererConfigBase,
@@ -26,5 +26,6 @@ export {
   BettererOptionsStartStrict,
   BettererOptionsStartUpdate,
   BettererOptionsStart,
-  BettererOptionsWatch
+  BettererOptionsWatch,
+  BettererWorkerRunConfig
 } from './types';

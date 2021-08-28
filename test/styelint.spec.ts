@@ -47,13 +47,13 @@ export default {
     const resultsPath = paths.results;
     const stylesPath = resolve('./src/styles.scss');
 
-    const newTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(newTestRun.new)).toEqual(['stylelint']);
 
     await writeFile(stylesPath, `${STYLES_SOURCE}${STYLES_SOURCE}`);
 
-    const worseTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const worseTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(worseTestRun.worse)).toEqual(['stylelint']);
 
@@ -63,11 +63,11 @@ export default {
 
     await writeFile(stylesPath, '');
 
-    const betterTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const betterTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(betterTestRun.better)).toEqual(['stylelint']);
 
-    const completedTestRun = await betterer({ configPaths, resultsPath, workers: 1 });
+    const completedTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(runNames(completedTestRun.completed)).toEqual(['stylelint']);
 

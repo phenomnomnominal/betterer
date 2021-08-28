@@ -1,7 +1,6 @@
-import { BettererConfig } from '../config';
-import { BettererWorkerRunConfig } from './types';
+import { BettererConfig, BettererWorkerRunConfig } from '../config';
 
-export function createWorkerConfig(config: BettererConfig): BettererWorkerRunConfig {
+export function createWorkerRunConfig(config: BettererConfig): BettererWorkerRunConfig {
   return {
     cache: config.cache,
     cachePath: config.cachePath,
@@ -16,6 +15,7 @@ export function createWorkerConfig(config: BettererConfig): BettererWorkerRunCon
     strict: config.strict,
     tsconfigPath: config.tsconfigPath,
     update: config.update,
-    watch: config.watch
+    watch: config.watch,
+    workers: config.workers
   };
 }

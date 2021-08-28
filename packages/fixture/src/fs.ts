@@ -1,7 +1,7 @@
 import { ensureDir, ensureFile, remove } from 'fs-extra';
 import { promises as fs } from 'graceful-fs';
 import * as path from 'path';
-import { FixtureFileSystem, FixtureFileSystemFiles } from './types';
+import { FixtureFileSystem, FixtureFileSystemFiles, Paths } from './types';
 
 const DEFAULT_CONFIG_PATH = './.betterer';
 const DEFAULT_RESULTS_PATH = `./.betterer.results`;
@@ -40,7 +40,7 @@ export async function createFixtureFS(
     return fs.readFile(resolve(filePath), 'utf8');
   }
 
-  const paths = {
+  const paths: Paths = {
     config: resolve(DEFAULT_CONFIG_PATH),
     cwd: fixturePath,
     results: resolve(DEFAULT_RESULTS_PATH)

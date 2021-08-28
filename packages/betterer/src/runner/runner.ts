@@ -1,3 +1,5 @@
+import { BettererError } from '@betterer/errors';
+
 import { BettererConfig, BettererOptionsOverride } from '../config';
 import { BettererContextΩ, BettererContextStarted } from '../context';
 import { BettererFilePaths, destroyVersionControl } from '../fs';
@@ -23,17 +25,12 @@ export class BettererRunnerΩ implements BettererRunner {
   }
 
   public static async create(options: unknown): Promise<BettererRunnerΩ> {
-    try {
-      const globals = await createGlobals(options);
-      const { config } = globals;
-      const runWorkerPool = new BettererRunWorkerPoolΩ(config.workers);
-      const context = new BettererContextΩ(globals, runWorkerPool);
+    const globals = await createGlobals(options);
+    const { config } = globals;
+    const runWorkerPool = new BettererRunWorkerPoolΩ(config.workers);
+    const context = new BettererContextΩ(globals, runWorkerPool);
 
-      return new BettererRunnerΩ(config, context, runWorkerPool);
-    } catch (error) {
-      await destroyVersionControl();
-      throw error;
-    }
+    return new BettererRunnerΩ(config, context, runWorkerPool);
   }
 
   public options(optionsOverride: BettererOptionsOverride): void {
@@ -101,7 +98,7 @@ export class BettererRunnerΩ implements BettererRunner {
         this._running = this._context.run(changed);
         await this._running;
       } catch (error) {
-        await this._started.error(error);
+        await this._started.error(error as BettererError);
       }
     }
   }

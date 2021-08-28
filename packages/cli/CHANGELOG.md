@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0-alpha.0](https://github.com/phenomnomnominal/betterer/compare/v4.4.1...v5.0.0-alpha.0) (2021-08-27)
+
+
+### Features
+
+* **betterer ✨:** add betterer results command to show current test results ([#828](https://github.com/phenomnomnominal/betterer/issues/828)) ([9a16623](https://github.com/phenomnomnominal/betterer/commit/9a166238a390dcc46580b50c0eef3ba29de8209f))
+* **betterer ✨:** add option to initialise with automerging ([#832](https://github.com/phenomnomnominal/betterer/issues/832)) ([0acf68b](https://github.com/phenomnomnominal/betterer/commit/0acf68bca38a6b63ac03a7185ee3ed53ee5f3ae5))
+* **betterer ✨:** allow negation of filters ([#831](https://github.com/phenomnomnominal/betterer/issues/831)) ([84334f2](https://github.com/phenomnomnominal/betterer/commit/84334f28b16f5394380e26417cd088af48d2b842))
+* **betterer ✨:** explain what changed when there is a diff in ci mode ([#827](https://github.com/phenomnomnominal/betterer/issues/827)) ([d793e88](https://github.com/phenomnomnominal/betterer/commit/d793e88336b27ae34b6ba24d9d5f79e0c47ad4ff))
+* **betterer ✨:** run tests in parallel ([#815](https://github.com/phenomnomnominal/betterer/issues/815)) ([581cf51](https://github.com/phenomnomnominal/betterer/commit/581cf51dc90d8a8e7a42eaf48986c244de4bf14e))
+
+
+
+
+
 ## [4.4.1](https://github.com/phenomnomnominal/betterer/compare/v4.4.0...v4.4.1) (2021-07-09)
 
 

@@ -1,4 +1,4 @@
-import { betterer, BettererSuiteSummary } from '@betterer/betterer';
+import { watch, BettererSuiteSummary } from '@betterer/betterer';
 import assert from 'assert';
 
 import { createFixture } from '../fixture';
@@ -25,7 +25,7 @@ export default {
 
     const suiteSummaryDefer = defer<BettererSuiteSummary>();
 
-    const runner = await betterer.watch({
+    const runner = await watch({
       configPaths,
       resultsPath,
       cwd,
@@ -37,7 +37,7 @@ export default {
           }
         }
       ],
-      workers: 1
+      workers: false
     });
 
     await writeFile(indexPath, `console.log('foo');`);

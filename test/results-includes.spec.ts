@@ -25,7 +25,7 @@ module.exports = {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    await betterer({ configPaths, resultsPath, workers: 1, silent: true });
+    await betterer({ configPaths, resultsPath, workers: false, silent: true });
 
     const resultsSummary = await betterer.results({ configPaths, resultsPath, includes: ['**/file-with-issues.ts'] });
 

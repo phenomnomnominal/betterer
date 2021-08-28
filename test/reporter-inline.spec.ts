@@ -58,7 +58,7 @@ export const test = () => new BettererTest({
 
     let throws = false;
     try {
-      await betterer({ configPaths, resultsPath, reporters, workers: 1 });
+      await betterer({ configPaths, resultsPath, reporters, workers: false });
     } catch {
       throws = true;
     }

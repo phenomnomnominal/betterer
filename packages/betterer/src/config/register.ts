@@ -1,15 +1,13 @@
 import type { RegisterOptions } from 'ts-node';
 
-import { BettererConfig } from './config';
-
 export const JS_EXTENSION = '.js';
-export const RESULTS_EXTENTION = '.results';
+export const RESULTS_EXTENSION = '.results';
 export const TS_EXTENSION = '.ts';
 
 type Extensions = typeof require.extensions;
 
 let isRegistered = false;
-export async function registerExtensions(config: BettererConfig): Promise<void> {
+export async function registerExtensions(tsconfigPath: string | null): Promise<void> {
   if (isRegistered) {
     return;
   }
@@ -23,16 +21,16 @@ export async function registerExtensions(config: BettererConfig): Promise<void> 
   const JS = EXTENSIONS[JS_EXTENSION];
 
   if (!EXTENSIONS[TS_EXTENSION]) {
-    await registerTypeScript(config);
+    await registerTypeScript(tsconfigPath);
   }
 
   // Force `.betterer.results` files to be loaded as JS:
-  EXTENSIONS[RESULTS_EXTENTION] = (m: NodeModule, filePath: string): void => {
+  EXTENSIONS[RESULTS_EXTENSION] = (m: NodeModule, filePath: string): void => {
     JS(m, filePath);
   };
 }
 
-async function registerTypeScript(config: BettererConfig): Promise<void> {
+async function registerTypeScript(tsconfigPath: string | null): Promise<void> {
   let tsNode: typeof import('ts-node');
   try {
     await import('typescript');
@@ -49,8 +47,8 @@ async function registerTypeScript(config: BettererConfig): Promise<void> {
       module: 'commonjs'
     }
   };
-  if (config.tsconfigPath) {
-    tsRegisterOptions.project = config.tsconfigPath;
+  if (tsconfigPath) {
+    tsRegisterOptions.project = tsconfigPath;
   }
   tsNode.register(tsRegisterOptions);
 }

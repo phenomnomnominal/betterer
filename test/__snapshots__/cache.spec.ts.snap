@@ -2,13 +2,13 @@
 
 exports[`betterer should write a cache file 1`] = `
 "{
-  \\"src/index.ts\\": \\"4126639614\\"
+  \\"src/index.ts\\": \\"39946026984126639614\\"
 }"
 `;
 
 exports[`betterer should write a cache file 2`] = `
 "{
-  \\"src/index.ts\\": \\"4126639614\\"
+  \\"src/index.ts\\": \\"39946026984126639614\\"
 }"
 `;
 
@@ -26,7 +26,7 @@ exports[\`test\`] = {
 
 exports[`betterer should write a cache file 4`] = `
 "{
-  \\"src/index.ts\\": \\"5381\\"
+  \\"src/index.ts\\": \\"39946026985381\\"
 }"
 `;
 
@@ -311,7 +311,7 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 
 1 test got checked. 🤔
 1 test got better! 😍
-\\"test\\" met its goal! 🎉
+1 test met its goal! 🎉)
 ",
   "
    / | /     _         _   _
@@ -371,7 +371,7 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
-\\"test\\" met its goal! 🎉
+1 test met its goal! 🎉)
 ",
 ]
 `;

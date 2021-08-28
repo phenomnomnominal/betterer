@@ -1,6 +1,5 @@
 import { BettererError } from '@betterer/errors';
 import { WorkerRequireModule, WorkerRequireModuleAsync } from '@phenomnomnominal/worker-require';
-import { BettererConfig } from '../config';
 
 import { BettererDelta } from '../context';
 import { BettererFilePaths } from '../fs';
@@ -51,5 +50,3 @@ export type BettererRunSummaries = Array<BettererRunSummary>;
 
 export type BettererWorkerModule = WorkerRequireModule<typeof import('./run-worker')>;
 export type BettererWorker = WorkerRequireModuleAsync<BettererWorkerModule>;
-
-export type BettererWorkerRunConfig = Omit<BettererConfig, 'reporter' | 'workers'>;

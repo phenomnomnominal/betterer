@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0-alpha.0](https://github.com/phenomnomnominal/betterer/compare/v4.4.1...v5.0.0-alpha.0) (2021-08-27)
+
+
+### Bug Fixes
+
+* **betterer 🐛:** only render logs once test has finished running ([#814](https://github.com/phenomnomnominal/betterer/issues/814)) ([f691bfa](https://github.com/phenomnomnominal/betterer/commit/f691bfa6b87240d0764fdaa5386a2e584e907781))
+* **betterer 🐛:** split run and run summary ([#774](https://github.com/phenomnomnominal/betterer/issues/774)) ([54f8dfc](https://github.com/phenomnomnominal/betterer/commit/54f8dfcbd75e9009048b8d72e74ea975bd0e2060))
+
+
+### Code Refactoring
+
+* **betterer 🔧:** run.filePaths only defined on file tests ([#777](https://github.com/phenomnomnominal/betterer/issues/777)) ([286d239](https://github.com/phenomnomnominal/betterer/commit/286d239096157c668e816d7c2f3e26cddb49e17d))
+
+
+### Features
+
+* **betterer ✨:** add betterer results command to show current test results ([#828](https://github.com/phenomnomnominal/betterer/issues/828)) ([9a16623](https://github.com/phenomnomnominal/betterer/commit/9a166238a390dcc46580b50c0eef3ba29de8209f))
+* **betterer ✨:** explain what changed when there is a diff in ci mode ([#827](https://github.com/phenomnomnominal/betterer/issues/827)) ([d793e88](https://github.com/phenomnomnominal/betterer/commit/d793e88336b27ae34b6ba24d9d5f79e0c47ad4ff))
+* **betterer ✨:** run tests in parallel ([#815](https://github.com/phenomnomnominal/betterer/issues/815)) ([581cf51](https://github.com/phenomnomnominal/betterer/commit/581cf51dc90d8a8e7a42eaf48986c244de4bf14e))
+
+
+### BREAKING CHANGES
+
+* **betterer 🔧:** run.filePaths can be null for a global test
+
+
+
+
+
 ## [4.4.1](https://github.com/phenomnomnominal/betterer/compare/v4.4.0...v4.4.1) (2021-07-09)
 
 

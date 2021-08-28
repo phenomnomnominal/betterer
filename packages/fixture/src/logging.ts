@@ -5,13 +5,11 @@ import { FixtureLogs, FixtureOptions } from './types';
 
 const ANSI_REGEX = ansiRegex();
 const PROJECT_REGEXP = new RegExp(normalisePaths(process.cwd()), 'g');
-const STACK_TRACK_LINE_REGEXP = /\s+at\s+/;
+const STACK_TRACK_LINE_REGEXP = /^\s+at\s+/;
 
 export function createFixtureLogs(options: FixtureOptions = {}): FixtureLogs {
   const snapshotLogs: Array<string> = [];
   const log = (...messages: Array<string>): void => {
-    const previousLength = snapshotLogs.length;
-
     // Do some magic to sort out the logs for snapshots. This mucks up the snapshot of the printed logo,
     // but that hardly matters...
     messages.forEach((message) => {
@@ -40,14 +38,6 @@ export function createFixtureLogs(options: FixtureOptions = {}): FixtureLogs {
         snapshotLogs.push(message);
       }
     });
-
-    if (options.logStack && snapshotLogs.length !== previousLength) {
-      try {
-        throw new Error();
-      } catch (e) {
-        snapshotLogs.push((e as Error).stack || '');
-      }
-    }
   };
 
   jest.spyOn(process.stdout, 'write').mockImplementation((message: string | Uint8Array): boolean => {

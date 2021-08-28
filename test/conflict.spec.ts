@@ -40,7 +40,7 @@ console.info('foo');
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    await betterer({ configPaths, resultsPath, workers: 1 });
+    await betterer({ configPaths, resultsPath, workers: false });
 
     expect(logs).toMatchSnapshot();
 
