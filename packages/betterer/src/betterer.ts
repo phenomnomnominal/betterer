@@ -8,7 +8,7 @@ import { BettererSuiteSummary } from './suite';
 export async function betterer(options: BettererOptionsStart = {}): Promise<BettererSuiteSummary> {
   initDebug();
   const runner = await BettererRunnerΩ.create(options);
-  return runner.run(runner.config.filePaths);
+  return runner.run();
 }
 
 export function results(options: BettererOptionsResults = {}): Promise<BettererResultsSummary> {

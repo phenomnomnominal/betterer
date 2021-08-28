@@ -1,4 +1,5 @@
-import { BettererConfig, BettererOptionsOverride } from '../config';
+import { BettererError } from '@betterer/errors';
+import { BettererOptionsOverride } from '../config';
 import { BettererContextΩ } from '../context';
 import { BettererFilePaths } from '../fs';
 import { createGlobals } from '../globals';
@@ -10,14 +11,10 @@ import { createWatcher, WATCHER_EVENTS } from './watcher';
 const DEBOUNCE_TIME = 200;
 
 export class BettererRunnerΩ implements BettererRunner {
-  public config: BettererConfig;
-
   private _jobs: Array<BettererFilePaths> = [];
   private _running: Promise<void> | null = null;
 
-  private constructor(private _context: BettererContextΩ) {
-    this.config = this._context.config;
-  }
+  private constructor(private _context: BettererContextΩ) {}
 
   public static async create(options: unknown): Promise<BettererRunnerΩ> {
     const globals = await createGlobals(options);
@@ -41,14 +38,17 @@ export class BettererRunnerΩ implements BettererRunner {
     await this._context.options(optionsOverride);
   }
 
-  public async run(filePaths: BettererFilePaths): Promise<BettererSuiteSummary> {
-    this._addJob(filePaths);
+  public async run(): Promise<BettererSuiteSummary> {
+    this._addJob(this._context.config.filePaths);
     await this._processQueue();
     return this.stop();
   }
 
   public queue(filePathOrPaths: string | BettererFilePaths = []): Promise<void> {
     const filePaths: BettererFilePaths = Array.isArray(filePathOrPaths) ? filePathOrPaths : [filePathOrPaths as string];
+    if (this._context.isDestroyed) {
+      throw new BettererError('You cannot queue a test run after the runner has been stopped! 💥');
+    }
     this._addJob(filePaths);
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -80,6 +80,12 @@ export class BettererRunnerΩ implements BettererRunner {
   }
 
   private async _processQueue(): Promise<void> {
+    // It's possible for the queue debounce to trigger *after* `this.stop()` has been called:
+    if (this._context.isDestroyed) {
+      this._jobs = [];
+      return;
+    }
+
     if (this._jobs.length) {
       const filePaths = new Set<string>();
       this._jobs.forEach((job) => {

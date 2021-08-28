@@ -16,6 +16,7 @@ import { BettererContext, BettererContextStarted, BettererContextSummary } from 
 export class BettererContextΩ implements BettererContext {
   public readonly config: BettererConfig;
 
+  private _isDestroyed = false;
   private _reporter: BettererReporterΩ;
   private readonly _resultsFile: BettererResultsFileΩ;
   private _runWorkerPool: BettererRunWorkerPoolΩ;
@@ -32,6 +33,10 @@ export class BettererContextΩ implements BettererContext {
     this._versionControl = this._globals.versionControl;
 
     this._started = this._start();
+  }
+
+  public get isDestroyed(): boolean {
+    return this._isDestroyed;
   }
 
   public async options(optionsOverride: BettererOptionsOverride): Promise<void> {
@@ -80,12 +85,17 @@ export class BettererContextΩ implements BettererContext {
       const contextSummary = await this._started.end();
       return contextSummary.lastSuite;
     } finally {
-      if (this._watcher) {
-        await this._watcher.close();
-      }
-      await this._versionControl.destroy();
-      await this._runWorkerPool.destroy();
+      await this._destroy();
     }
+  }
+
+  private async _destroy(): Promise<void> {
+    this._isDestroyed = true;
+    if (this._watcher) {
+      await this._watcher.close();
+    }
+    await this._versionControl.destroy();
+    await this._runWorkerPool.destroy();
   }
 
   private _start(): BettererContextStarted {
