@@ -9,6 +9,7 @@ import { BettererTaskStatus } from './status';
 import { useTaskState } from './useTaskState';
 import { BettererTaskLog, BettererTaskRun } from './types';
 import { addTask } from './tasks';
+import { useTasks } from './useTasksState';
 
 export type BettererTaskLoggerProps = {
   name: string;
@@ -17,9 +18,10 @@ export type BettererTaskLoggerProps = {
 
 export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function BettererTaskLogger(props) {
   const { name, run } = props;
-  const [state, taskApi] = useTaskState();
+  const [tasksState] = useTasks();
+  const [taskState, taskApi] = useTaskState();
 
-  const { error, finalLogs, status } = state;
+  const { error, logs, status } = taskState;
 
   useEffect(() => {
     void (async () => {
@@ -87,9 +89,9 @@ export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function Bet
   return (
     <Box flexDirection="column">
       {status && <BettererTaskStatus name={name} status={status} />}
-      {finalLogs.length ? (
+      {tasksState.endTime != null && logs.length ? (
         <Box flexDirection="column">
-          {finalLogs.map((log, index) => (
+          {logs.map((log, index) => (
             <Text key={index}>{prependLogBlock(log)}</Text>
           ))}
         </Box>

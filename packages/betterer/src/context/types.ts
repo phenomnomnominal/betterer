@@ -5,7 +5,8 @@ import { BettererSuiteSummaries, BettererSuiteSummary } from '../suite';
 
 export type BettererContext = {
   readonly config: BettererConfig;
-  options(optionsOverride: BettererOptionsOverride): void;
+  options(optionsOverride: BettererOptionsOverride): Promise<void>;
+  stop(): Promise<BettererSuiteSummary | null>;
 };
 
 export type BettererContextStarted = {
@@ -13,7 +14,8 @@ export type BettererContextStarted = {
   error(error: BettererError): Promise<void>;
 };
 
-export type BettererContextSummary = Omit<BettererContext, 'options'> & {
+export type BettererContextSummary = {
+  readonly config: BettererConfig;
   suites: BettererSuiteSummaries;
   lastSuite: BettererSuiteSummary;
 };

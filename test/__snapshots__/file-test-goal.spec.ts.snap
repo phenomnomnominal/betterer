@@ -178,15 +178,6 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🔥 test: \\"test\\" got worse. (1 new issue, 3 total) 😔
-・ 2 existing issues in \\"<project>/fixtures/file-test-goal/src/index.ts\\".
-・ New issue in \\"<project>/fixtures/file-test-goal/src/index.ts\\"!
-・
-・   <project>/fixtures/file-test-goal/src/index.ts
-・   1 | debugger;
-・   2 | debugger;
-・ > 3 | debugger;
-・     | ^^^^^^^^^ Unexpected 'debugger' statement.
-・
 
 Error: \\"test\\" got worse. (1 new issue, 3 total) 😔
 ",

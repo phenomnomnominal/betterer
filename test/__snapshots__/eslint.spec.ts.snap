@@ -177,14 +177,6 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in \\"<project>/fixtures/eslint/src/index.ts\\".
-・ New issue in \\"<project>/fixtures/eslint/src/index.ts\\"!
-・
-・   <project>/fixtures/eslint/src/index.ts
-・   1 | debugger;
-・ > 2 | debugger;
-・     | ^^^^^^^^^ Unexpected 'debugger' statement.
-・
 
 Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ",

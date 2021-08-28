@@ -1,12 +1,10 @@
 import { Box, useApp } from 'ink';
-import React, { FC, memo, useCallback, useEffect, useRef, useState } from 'react';
-import { performance } from 'perf_hooks';
+import React, { FC, memo, useEffect } from 'react';
 
 import { BettererTaskStatus } from './status';
-import { useTasksState, BettererTasksStateContext } from './useTasksState';
+import { useTasksState, BettererTasksContext } from './useTasksState';
 import { BettererTaskLog, BettererTasksDone, BettererTasksStatusUpdate } from './types';
-
-const DEFAULT_TASK_TIME_INTERVAL = 100;
+import { useTimer } from './useTimer';
 
 export type BettererTasksLoggerProps = {
   exit?: boolean;
@@ -16,33 +14,20 @@ export type BettererTasksLoggerProps = {
 };
 
 export const BettererTasksLogger: FC<BettererTasksLoggerProps> = memo(function BettererTasksLogger(props) {
-  const { children, done, exit = true, name, update } = props;
+  const { children, done = () => void 0, exit = true, name, update } = props;
+
   const app = useApp();
-  const [state, api] = useTasksState();
-  const timer = useRef<NodeJS.Timeout | null>(null);
-  const [runningTime, setRunningTime] = useState(performance.now());
 
-  const { errors, endTime, startTime } = state;
+  const [time, clear] = useTimer();
 
-  const updateTime = useCallback(() => {
-    setRunningTime(performance.now());
-  }, [performance]);
-
-  const clearTime = useCallback(() => {
-    if (timer.current) {
-      clearInterval(timer.current);
-    }
-  }, []);
+  const [state, tasks] = useTasksState();
+  const { startTime, endTime, errors } = state;
 
   useEffect(() => {
-    if (endTime) {
-      clearTime();
-      return;
+    if (endTime != null) {
+      clear();
     }
-    timer.current = setInterval(updateTime, DEFAULT_TASK_TIME_INTERVAL);
-    updateTime();
-    return clearTime;
-  }, [updateTime, clearTime, endTime]);
+  }, [endTime, clear]);
 
   const result = `${update(state)}`;
   let status: BettererTaskLog = ['🌟', 'whiteBright', result];
@@ -58,18 +43,16 @@ export const BettererTasksLogger: FC<BettererTasksLoggerProps> = memo(function B
     if (exit) {
       setImmediate(() => app.exit());
     }
-    if (done) {
-      done();
-    }
+    done();
   }
 
   return (
-    <BettererTasksStateContext.Provider value={api}>
+    <BettererTasksContext.Provider value={[state, tasks]}>
       <Box flexDirection="column">
-        <BettererTaskStatus name={`${name} (${getTime(startTime, endTime || runningTime)}ms)`} status={status} />
+        <BettererTaskStatus name={`${name} (${getTime(startTime, endTime || time)}ms)`} status={status} />
         {children}
       </Box>
-    </BettererTasksStateContext.Provider>
+    </BettererTasksContext.Provider>
   );
 });
 

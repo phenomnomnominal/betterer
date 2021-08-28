@@ -1,13 +1,10 @@
 import { BettererRun, BettererRunSummary } from '@betterer/betterer';
 import { BettererTasksDone } from '@betterer/tasks';
-import { useApp } from 'ink';
 
 import { BettererReporterAction } from './state';
 
-export type BettererReporterApp = ReturnType<typeof useApp>;
-
 export type BettererReporterRenderer = {
-  render: (action?: BettererReporterAction, done?: BettererTasksDone) => Promise<void>;
+  render: (action?: BettererReporterAction, done?: BettererTasksDone) => void;
   stop: () => void;
 };
 

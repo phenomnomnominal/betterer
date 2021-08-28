@@ -1,7 +1,7 @@
 import { debug } from '@phenomnomnominal/debug';
 
 import { BettererOptionsRunner, BettererOptionsStart, BettererOptionsResults, BettererOptionsWatch } from './config';
-import { BettererRunner, BettererRunnerΩ, BettererWatcherΩ } from './runner';
+import { BettererRunner, BettererRunnerΩ } from './runner';
 import { BettererResultsSummary, BettererResultsSummaryΩ } from './results';
 import { BettererSuiteSummary } from './suite';
 
@@ -25,7 +25,7 @@ betterer.runner = runner;
 
 export function watch(options: BettererOptionsWatch = {}): Promise<BettererRunner> {
   initDebug();
-  return BettererWatcherΩ.create(options);
+  return BettererRunnerΩ.create({ ...options, watch: true });
 }
 betterer.watch = watch;
 

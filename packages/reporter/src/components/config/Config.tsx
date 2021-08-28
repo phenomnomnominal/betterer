@@ -14,22 +14,32 @@ export const Config: FC<ConfigProps> = function Config({ context, editField }) {
   const [filters, setFilters] = useState<string>(serialiseFilters(context.config));
   const [ignores, setIgnores] = useState<string>(serialiseIgnores(context.config));
 
-  function updateFilters(newFilters: string): Error | null {
+  function updateFilters(newFilters: string): [BettererOptionsFilters | null, Error | null] {
     setFilters(newFilters);
     try {
       const validated = deserialiseFilters(newFilters);
-      context.options({ filters: validated });
-      return null;
+      return [validated, null];
     } catch (error) {
-      return error as Error;
+      return [null, error as Error];
     }
   }
 
-  function updateIgnores(newIgnores: string): null {
+  function submitFilters(filters: BettererOptionsFilters): Promise<void> {
+    return context.options({ filters });
+  }
+
+  function updateIgnores(newIgnores: string): [BettererOptionsIgnores | null, Error | null] {
     setIgnores(newIgnores);
-    const validated = deserialiseIgnores(newIgnores);
-    context.options({ ignores: validated });
-    return null;
+    try {
+      const validated = deserialiseIgnores(newIgnores);
+      return [validated, null];
+    } catch (error) {
+      return [null, error as Error];
+    }
+  }
+
+  function submitIgnores(ignores: BettererOptionsIgnores): Promise<void> {
+    return context.options({ ignores });
   }
 
   return (
@@ -51,12 +61,22 @@ export const Config: FC<ConfigProps> = function Config({ context, editField }) {
         </>
       )}
       {editField == 'filters' && (
-        <EditConfig name="Filters" value={filters} onChange={updateFilters}>
+        <EditConfig<BettererOptionsFilters>
+          name="Filters"
+          value={filters}
+          onChange={updateFilters}
+          onSubmit={submitFilters}
+        >
           Use RegExp patterns e.g. /my test/. Use "," to separate multiple filters.
         </EditConfig>
       )}
       {editField == 'ignores' && (
-        <EditConfig name="Ignores" value={ignores} onChange={updateIgnores}>
+        <EditConfig<BettererOptionsIgnores>
+          name="Ignores"
+          value={ignores}
+          onChange={updateIgnores}
+          onSubmit={submitIgnores}
+        >
           Use glob patterns starting from CWD e.g. **/*.ts. Use "," to separate multiple ignores.
         </EditConfig>
       )}
@@ -73,6 +93,9 @@ function serialiseIgnores(config: BettererConfig): string {
 }
 
 function deserialiseFilters(filters: string): BettererOptionsFilters {
+  if (filters === '') {
+    return [];
+  }
   return filters.split(',').map((filter) => new RegExp(filter.replace(/^\//, '').replace(/\/$/, ''), 'i'));
 }
 

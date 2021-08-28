@@ -177,14 +177,6 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🔥 tsquery: \\"tsquery\\" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in \\"<project>/fixtures/tsquery/src/index.ts\\".
-・ New issue in \\"<project>/fixtures/tsquery/src/index.ts\\"!
-・
-・   <project>/fixtures/tsquery/src/index.ts
-・   1 | console.log('foo');
-・ > 2 | console.log('foo');
-・     | ^^^^^^^^^^^ TSQuery match
-・
 
 Error: \\"tsquery\\" got worse. (1 new issue, 2 total) 😔
 ",
