@@ -1,6 +1,7 @@
 import { BettererRunNames, BettererRunSummaries } from '@betterer/betterer';
 
 export type Paths = {
+  cache: string;
   config: string;
   results: string;
   cwd: string;
