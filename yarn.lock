@@ -1971,10 +1971,10 @@
   dependencies:
     esquery "^1.0.1"
 
-"@phenomnomnominal/worker-require@^0.0.33":
-  version "0.0.33"
-  resolved "https://registry.npmjs.org/@phenomnomnominal/worker-require/-/worker-require-0.0.33.tgz#89351e21fcf730bcf37dd38155e6c77e0e0eed11"
-  integrity sha512-X57WMepu5g918x9ZgF9a2N87NkZrx4JU2uigwfVw7awWASqxujN3Vxy4cZL692XZU6G/r77KCYfa7xVSNsr60A==
+"@phenomnomnominal/worker-require@^0.0.34":
+  version "0.0.34"
+  resolved "https://registry.npmjs.org/@phenomnomnominal/worker-require/-/worker-require-0.0.34.tgz#1b11ed024f28cbea741dfad255d077d2d957903a"
+  integrity sha512-2GoVa1PRjrCjOpbMdzsZMQzkx/yFKqWizZc+ZNYSWE+Ym8BG+qAGDcWehUmUmGqy22wS13qitdVt6sR/DAWkIw==
   dependencies:
     callsite "^1.0.0"
     comlink "^4.3.0"

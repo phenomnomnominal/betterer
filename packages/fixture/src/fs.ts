@@ -3,6 +3,7 @@ import { promises as fs } from 'graceful-fs';
 import * as path from 'path';
 import { FixtureFileSystem, FixtureFileSystemFiles, Paths } from './types';
 
+const DEFAULT_CACHE_PATH = './.betterer.cache';
 const DEFAULT_CONFIG_PATH = './.betterer';
 const DEFAULT_RESULTS_PATH = `./.betterer.results`;
 
@@ -41,6 +42,7 @@ export async function createFixtureFS(
   }
 
   const paths: Paths = {
+    cache: resolve(DEFAULT_CACHE_PATH),
     config: resolve(DEFAULT_CONFIG_PATH),
     cwd: fixturePath,
     results: resolve(DEFAULT_RESULTS_PATH)

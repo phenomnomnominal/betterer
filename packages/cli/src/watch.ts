@@ -25,11 +25,5 @@ export async function watchΔ(cwd: string, argv: BettererCLIArguments): Promise<
 
   // And then cast to BettererOptionsWatch. This is possibly invalid,
   // but it's nicer to do the options validation in @betterer/betterer
-  const runner = await betterer.watch(options as BettererOptionsWatch);
-
-  return new Promise((): void => {
-    process.on('SIGINT', () => {
-      void runner.stop(true);
-    });
-  });
+  await betterer.watch(options as BettererOptionsWatch);
 }

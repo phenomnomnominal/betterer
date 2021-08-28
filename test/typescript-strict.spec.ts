@@ -62,23 +62,24 @@ export default {
         `
     });
 
+    const cachePath = paths.cache;
     const configPaths = [paths.config];
     const resultsPath = paths.results;
     const indexPath = resolve('./src/index.ts');
 
     await writeFile(indexPath, INDEX_SOURCE);
 
-    const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
+    const newTestRun = await betterer({ cachePath, configPaths, resultsPath, workers: false });
 
     expect(runNames(newTestRun.new)).toEqual(['typescript']);
 
-    const sameTestRun = await betterer({ configPaths, resultsPath, workers: false });
+    const sameTestRun = await betterer({ cachePath, configPaths, resultsPath, workers: false });
 
     expect(runNames(sameTestRun.same)).toEqual(['typescript']);
 
     await writeFile(indexPath, `${INDEX_SOURCE}\nconst a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
 
-    const worseTestRun = await betterer({ configPaths, resultsPath, workers: false });
+    const worseTestRun = await betterer({ cachePath, configPaths, resultsPath, workers: false });
 
     expect(runNames(worseTestRun.worse)).toEqual(['typescript']);
 
@@ -88,7 +89,7 @@ export default {
 
     await writeFile(indexPath, INDEX_SOURCE.replace('sum.apply(null, [1, 2, 3]);', 'sum.apply(null, [1, 2]);'));
 
-    const betterTestRun = await betterer({ configPaths, resultsPath, workers: false });
+    const betterTestRun = await betterer({ cachePath, configPaths, resultsPath, workers: false });
 
     expect(runNames(betterTestRun.better)).toEqual(['typescript']);
 

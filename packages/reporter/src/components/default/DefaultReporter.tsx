@@ -1,16 +1,15 @@
 import React, { FC, memo } from 'react';
 
-import { Suite, SuiteSummary } from '../runs';
+import { Suite } from '../suite';
 import { BettererReporterState } from '../../state';
 
 export const DefaultReporter: FC<BettererReporterState> = memo(function DefaultReporter(props: BettererReporterState) {
   const { context, done, suiteSummary } = props;
   const suite = props.suite || props.suiteSummary;
 
-  return (
-    <>
-      {suite && <Suite suite={suite} done={done} />}
-      {suiteSummary && <SuiteSummary context={context} suiteSummary={suiteSummary} />}
-    </>
-  );
+  if (!suite) {
+    return null;
+  }
+
+  return <Suite context={context} suite={suite} suiteSummary={suiteSummary} done={done} />;
 });

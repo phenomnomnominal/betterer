@@ -182,15 +182,6 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🔥 typescript: \\"typescript\\" got worse. (1 new issue, 7 total) 😔
-・ 6 existing issues in \\"<project>/fixtures/typescript-strict/src/index.ts\\".
-・ New issue in \\"<project>/fixtures/typescript-strict/src/index.ts\\"!
-・
-・   <project>/fixtures/typescript-strict/src/index.ts
-・   32 | const a = 'a';
-・   33 | const one = 1;
-・ > 34 | console.log(a * one);
-・      |             ^ The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
-・
 
 Error: \\"typescript\\" got worse. (1 new issue, 7 total) 😔
 ",

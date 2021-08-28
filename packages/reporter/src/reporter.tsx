@@ -3,7 +3,7 @@ import React from 'react';
 import { BettererContext, BettererContextSummary, BettererReporter, BettererSuiteSummary } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import { reset } from '@betterer/tasks';
-import { Instance, render } from 'ink';
+import { Instance, render, RenderOptions } from 'ink';
 
 import { Error, Reporter } from './components';
 import { BettererReporterAction, contextEnd, createStore, suiteEnd, suiteStart } from './state';
@@ -13,8 +13,9 @@ import { BettererSuite } from '@betterer/betterer/src/suite';
 export const reporter: BettererReporter = createReporter();
 
 function createReporter(): BettererReporter {
-  const RENDER_OPTIONS = {
-    debug: process.env.NODE_ENV === 'test'
+  const RENDER_OPTIONS: RenderOptions = {
+    debug: process.env.NODE_ENV === 'test',
+    exitOnCtrlC: false
   };
 
   let renderer: BettererReporterRenderer;
@@ -23,14 +24,12 @@ function createReporter(): BettererReporter {
     configError(_: unknown, error: BettererError): void {
       renderError(error);
     },
-    async contextStart(context: BettererContext): Promise<void> {
+    contextStart(context: BettererContext): void {
       renderer = createRenderer(context);
-      await renderer.render();
+      renderer.render();
     },
-    async contextEnd(contextSummary: BettererContextSummary): Promise<void> {
-      if (contextSummary.suites.length > 1) {
-        await renderer.render(contextEnd(contextSummary));
-      }
+    contextEnd(contextSummary: BettererContextSummary): void {
+      renderer.render(contextEnd(contextSummary));
       renderer.stop();
     },
     contextError(_: BettererContext, error: BettererError): void {
@@ -42,8 +41,8 @@ function createReporter(): BettererReporter {
         void renderer.render(suiteStart(suite), resolve);
       });
     },
-    suiteEnd(suiteSummary: BettererSuiteSummary): Promise<void> {
-      return renderer.render(suiteEnd(suiteSummary));
+    suiteEnd(suiteSummary: BettererSuiteSummary): void {
+      renderer.render(suiteEnd(suiteSummary));
     }
   };
 
@@ -57,19 +56,20 @@ function createReporter(): BettererReporter {
     const dispatch = createStore(context);
 
     return {
-      async render(action?: BettererReporterAction, done?: () => void): Promise<void> {
+      render(action?: BettererReporterAction, done?: () => void): void {
         const state = dispatch(action);
-        app?.clear();
-        app = render(<Reporter {...state} done={done} />, RENDER_OPTIONS);
-        await tick();
+        // eslint-disable-next-line no-console
+        console.clear();
+        const component = <Reporter {...state} done={done} />;
+        if (!app) {
+          app = render(component, RENDER_OPTIONS);
+        } else {
+          app.rerender(component);
+        }
       },
       stop() {
         app.unmount();
       }
     };
   }
-}
-
-function tick(): Promise<void> {
-  return new Promise((resolve) => setImmediate(resolve));
 }

@@ -43,10 +43,12 @@ export declare type BettererConfigWatch = {
 
 export declare type BettererContext = {
     readonly config: BettererConfig;
-    options(optionsOverride: BettererOptionsOverride): void;
+    options(optionsOverride: BettererOptionsOverride): Promise<void>;
+    stop(): Promise<BettererSuiteSummary>;
 };
 
-export declare type BettererContextSummary = Omit<BettererContext, 'options'> & {
+export declare type BettererContextSummary = {
+    readonly config: BettererConfig;
     suites: BettererSuiteSummaries;
     lastSuite: BettererSuiteSummary;
 };
@@ -283,8 +285,8 @@ export declare type BettererRunNames = Array<string>;
 export declare type BettererRunner = {
     options(optionsOverride: BettererOptionsOverride): void;
     queue(filePaths?: string | BettererFilePaths): Promise<void>;
-    stop(force: true): Promise<BettererSuiteSummary | null>;
     stop(): Promise<BettererSuiteSummary>;
+    stop(force: true): Promise<null>;
 };
 
 export declare type BettererRuns = ReadonlyArray<BettererRun>;

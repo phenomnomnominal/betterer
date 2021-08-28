@@ -34,7 +34,7 @@
     "@betterer/reporter": "^5.0.0-alpha.0",
     "@betterer/results": "^5.0.0-alpha.0",
     "@phenomnomnominal/debug": "^0.2.5",
-    "@phenomnomnominal/worker-require": "^0.0.33",
+    "@phenomnomnominal/worker-require": "^0.0.34",
     "chokidar": "^3.3.1",
     "djb2a": "^1.2.0",
     "fast-memoize": "^2.5.2",

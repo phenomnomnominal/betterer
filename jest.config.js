@@ -12,7 +12,7 @@ module.exports = {
   coverageDirectory: '<rootDir>/reports/coverage',
   preset: 'ts-jest',
   testEnvironment: 'node',
-  testRegex: '.*\\.spec\\.ts$',
+  testMatch: ['**/*.spec.ts', '!**/*.e2e.spec.ts'],
   watchPathIgnorePatterns: ['<rootDir>/fixtures', '<rootDir>/packages/[^/]+/src'],
   modulePathIgnorePatterns: ['<rootDir>/packages/extension']
 };
