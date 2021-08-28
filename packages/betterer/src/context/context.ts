@@ -70,7 +70,7 @@ export class BettererContextΩ implements BettererContext {
     }
   }
 
-  public async stop(): Promise<BettererSuiteSummary | null> {
+  public async stop(): Promise<BettererSuiteSummary> {
     try {
       const contextSummary = await this._started.end();
       return contextSummary.lastSuite;

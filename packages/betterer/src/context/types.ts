@@ -6,7 +6,7 @@ import { BettererSuiteSummaries, BettererSuiteSummary } from '../suite';
 export type BettererContext = {
   readonly config: BettererConfig;
   options(optionsOverride: BettererOptionsOverride): Promise<void>;
-  stop(): Promise<BettererSuiteSummary | null>;
+  stop(): Promise<BettererSuiteSummary>;
 };
 
 export type BettererContextStarted = {
