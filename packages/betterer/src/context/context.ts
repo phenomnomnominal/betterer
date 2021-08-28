@@ -1,160 +1,131 @@
 import { BettererError } from '@betterer/errors';
-import assert from 'assert';
+import { FSWatcher } from 'chokidar';
 
-import { BettererConfig } from '../config';
-import { BettererFilePaths, BettererVersionControl } from '../fs';
+import { BettererConfig, BettererOptionsOverride, overrideConfig } from '../config';
+import { BettererFilePaths, BettererVersionControlWorker } from '../fs';
 import { BettererReporterΩ } from '../reporters';
-import { BettererResultsΩ, BettererResultΩ } from '../results';
-import { defer, Defer } from '../utils';
-import { BettererTestMetaMap, isBettererFileTest } from '../test';
-import { BettererRunsΩ, BettererRunΩ } from './run';
-import { BettererSummaryΩ } from './summary';
-import {
-  BettererContext,
-  BettererContextStarted,
-  BettererRunSummaries,
-  BettererRunSummary,
-  BettererSummaries,
-  BettererSummary
-} from './types';
-import { loadTests } from '../test/loader';
+import { BettererResultsFileΩ } from '../results';
+import { BettererRunWorkerPoolΩ, BettererRunΩ, createWorkerRunConfig } from '../run';
+import { BettererSuiteΩ, BettererSuiteSummariesΩ, BettererSuiteSummary } from '../suite';
+import { loadTestMeta } from '../test';
+import { defer } from '../utils';
+import { BettererGlobals } from '../types';
+import { BettererContextSummaryΩ } from './context-summary';
+import { BettererContext, BettererContextStarted, BettererContextSummary } from './types';
 
 export class BettererContextΩ implements BettererContext {
-  private _results = new BettererResultsΩ(this.config.resultsPath);
+  public readonly config: BettererConfig;
 
-  private _lifecycle: Defer<BettererSummaries>;
-  private _running: Promise<BettererRunSummaries> | null = null;
-  private _summaries: BettererSummaries = [];
-  private _tests: BettererTestMetaMap = {};
+  private _isDestroyed = false;
+  private _reporter: BettererReporterΩ;
+  private readonly _resultsFile: BettererResultsFileΩ;
+  private _runWorkerPool: BettererRunWorkerPoolΩ;
+  private _started: BettererContextStarted;
+  private _suiteSummaries: BettererSuiteSummariesΩ = [];
+  private readonly _versionControl: BettererVersionControlWorker;
 
-  constructor(
-    public readonly config: BettererConfig,
-    private _reporter: BettererReporterΩ,
-    private _versionControl: BettererVersionControl
-  ) {
-    this._lifecycle = defer();
+  constructor(private _globals: BettererGlobals, private readonly _watcher: FSWatcher | null) {
+    this.config = this._globals.config;
+
+    this._runWorkerPool = new BettererRunWorkerPoolΩ(this.config.workers);
+    this._resultsFile = this._globals.resultsFile;
+    this._reporter = this.config.reporter as BettererReporterΩ;
+    this._versionControl = this._globals.versionControl;
+
+    this._started = this._start();
   }
 
-  public get lifecycle(): Promise<BettererSummaries> {
-    return this._lifecycle.promise;
+  public get isDestroyed(): boolean {
+    return this._isDestroyed;
   }
 
-  public start(): BettererContextStarted {
+  public async options(optionsOverride: BettererOptionsOverride): Promise<void> {
+    // Wait for any pending run to finish, and any existing reporter to render:
+    await this._started.end();
+    // Override the config:
+    overrideConfig(this.config, optionsOverride);
+    // Start everything again, and trigger a new reporter:
+    this._started = this._start();
+
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    process.on('SIGTERM', () => this.stop());
+  }
+
+  public async run(filePaths: BettererFilePaths): Promise<void> {
+    try {
+      await this._resultsFile.sync();
+      await this._versionControl.sync();
+
+      filePaths = await this._versionControl.filterIgnored(filePaths);
+
+      const testMeta = loadTestMeta(this.config);
+      const testNames = Object.keys(testMeta);
+
+      const workerRunConfig = createWorkerRunConfig(this.config);
+
+      const runs = await Promise.all(
+        testNames.map(async (testName) => {
+          return BettererRunΩ.create(this._runWorkerPool, testName, workerRunConfig, filePaths, this._versionControl);
+        })
+      );
+
+      const suite = new BettererSuiteΩ(this.config, this._resultsFile, filePaths, runs);
+      const suiteSummary = await suite.run();
+      this._suiteSummaries = [...this._suiteSummaries, suiteSummary];
+    } catch (error) {
+      await this._started.error(error as BettererError);
+      if (!this.config.watch) {
+        throw error;
+      }
+    }
+  }
+
+  public async stop(): Promise<BettererSuiteSummary> {
+    try {
+      const contextSummary = await this._started.end();
+      return contextSummary.lastSuite;
+    } finally {
+      await this._destroy();
+    }
+  }
+
+  private async _destroy(): Promise<void> {
+    this._isDestroyed = true;
+    if (this._watcher) {
+      await this._watcher.close();
+    }
+    await this._versionControl.destroy();
+    await this._runWorkerPool.destroy();
+  }
+
+  private _start(): BettererContextStarted {
+    // Update `this._reporter` here because `this.options()` may have been called:
+    this._reporter = this.config.reporter as BettererReporterΩ;
+
+    const contextLifecycle = defer<BettererContextSummary>();
+
     // Don't await here! A custom reporter could be awaiting
     // the lifecycle promise which is unresolved right now!
-    const reportContextStart = this._reporter.contextStart(this, this.lifecycle);
+    const reportContextStart = this._reporter.contextStart(this, contextLifecycle.promise);
     return {
-      end: async (): Promise<void> => {
-        assert(this._summaries);
-        this._lifecycle.resolve(this._summaries);
+      end: async (): Promise<BettererContextSummary> => {
+        const contextSummary = new BettererContextSummaryΩ(this.config, this._suiteSummaries);
+        contextLifecycle.resolve(contextSummary);
         await reportContextStart;
-        await this._reporter.contextEnd(this, this._summaries);
-        const summaryΩ = this._summaries[this._summaries.length - 1] as BettererSummaryΩ;
-        if (summaryΩ.shouldWrite) {
-          await this._results.write(summaryΩ.result);
-          await this._versionControl.writeCache();
-          if (this.config.precommit) {
-            await this._versionControl.add(this.config.resultsPath);
-          }
+        await this._reporter.contextEnd(contextSummary);
+
+        const suiteSummaryΩ = contextSummary.lastSuite;
+        if (suiteSummaryΩ && !this.config.ci) {
+          await this._resultsFile.write(suiteSummaryΩ, this.config.precommit);
         }
+
+        return contextSummary;
       },
       error: async (error: BettererError): Promise<void> => {
-        this._lifecycle.reject(error);
+        contextLifecycle.reject(error);
         await reportContextStart;
         await this._reporter.contextError(this, error);
       }
     };
-  }
-
-  public async run(filePaths: BettererFilePaths): Promise<BettererSummary> {
-    if (this._running) {
-      await this._running;
-    }
-    await this._results.sync();
-    await this._versionControl.sync();
-
-    this._tests = loadTests(this.config);
-    const testNames = Object.keys(this._tests);
-
-    // Only run BettererFileTests when a list of filePaths is given:
-    const runFileTests = filePaths.length > 0;
-
-    const validFilePaths = filePaths.filter((filePath) => !this._versionControl.isIgnored(filePath));
-
-    const runs = testNames
-      .map((name) => {
-        const testMeta = this._tests[name];
-        const test = testMeta.factory();
-        if (runFileTests && !isBettererFileTest(test)) {
-          return null;
-        }
-        const baseline = this._results.getBaseline(name, test);
-        const expected = this._results.getExpectedResult(name, test);
-        const runFilePaths = isBettererFileTest(test) ? validFilePaths : null;
-        return new BettererRunΩ(this.config, name, testMeta, expected, baseline, runFilePaths);
-      })
-      .filter(Boolean) as BettererRunsΩ;
-
-    const runsLifecycle = defer<BettererSummary>();
-    const reportRunsStart = this._reporter.runsStart(runs, validFilePaths, runsLifecycle.promise);
-    try {
-      this._running = this._runTests(runs);
-      const runSummaries = await this._running;
-      const result = await this._results.print(runSummaries);
-      const expected = await this._results.read();
-      const summary = new BettererSummaryΩ(runSummaries, result, expected, this.config.ci);
-      this._summaries.push(summary);
-      runsLifecycle.resolve(summary);
-      await reportRunsStart;
-      await this._reporter.runsEnd(summary, validFilePaths);
-      return summary;
-    } catch (error) {
-      runsLifecycle.reject(error);
-      await reportRunsStart;
-      await this._reporter.runsError(runs, validFilePaths, error);
-      throw error;
-    }
-  }
-
-  public checkCache(filePath: string): boolean {
-    return this._versionControl.checkCache(filePath);
-  }
-
-  public updateCache(filePaths: BettererFilePaths): void {
-    return this._versionControl.updateCache(filePaths);
-  }
-
-  private async _runTests(runsΩ: BettererRunsΩ): Promise<BettererRunSummaries> {
-    return Promise.all(
-      runsΩ.map(async (runΩ) => {
-        // Don't await here! A custom reporter could be awaiting
-        // the lifecycle promise which is unresolved right now!
-        const reportRunStart = this._reporter.runStart(runΩ, runΩ.lifecycle);
-        const runSummary = await this._runTest(runΩ, reportRunStart);
-        await reportRunStart;
-        await this._reporter.runEnd(runSummary);
-        return runSummary;
-      })
-    );
-  }
-
-  private async _runTest(runΩ: BettererRunΩ, reportRunStart: Promise<void>): Promise<BettererRunSummary> {
-    const { test } = runΩ;
-
-    const running = runΩ.start();
-
-    if (runΩ.isSkipped) {
-      return running.skipped();
-    }
-
-    try {
-      const result = new BettererResultΩ(await test.test(runΩ, this));
-      return running.done(result);
-    } catch (error) {
-      const runSummary = running.failed(error);
-      await reportRunStart;
-      await this._reporter.runError(runΩ, error);
-      return runSummary;
-    }
   }
 }

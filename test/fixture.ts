@@ -5,7 +5,7 @@ const fixtureFactory = createFixtureDirectoryΔ(path.resolve(__dirname, '../fixt
 
 export async function createFixture(
   fixtureName: string,
-  files: FixtureFileSystemFiles,
+  files?: FixtureFileSystemFiles,
   options?: FixtureOptions
 ): Promise<Fixture> {
   const factory = await fixtureFactory;

@@ -1,25 +1,21 @@
-import {
-  BettererFileIssue,
-  BettererFileIssues,
-  BettererFileTestDiff,
-  BettererFileTestResult,
-  BettererSummary
-} from '@betterer/betterer';
+import { BettererRunSummary, BettererSuite } from '@betterer/betterer';
+import { BettererError } from '@betterer/errors';
 
-import { Diagnostic, DiagnosticSeverity, Connection, Position, TextDocuments } from 'vscode-languageserver/node';
+import { Connection, TextDocuments } from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { URI } from 'vscode-uri';
 
-import { EXTENSION_NAME } from '../constants';
 import { BettererStatus } from '../status';
-import { isString } from '../utils';
 import { getRunner, hasBetterer } from './betterer';
 import { getBettererConfig, getDebug, getEnabled } from './config';
 import { error, info } from './console';
 import { BettererInvalidConfigRequest, BettererNoLibraryRequest, isNoConfigError } from './requests';
 import { BettererStatusNotification } from './status';
+import { BettererDiagnostics } from './diagnostics';
+import { getFilePath } from './path';
 
 export class BettererValidator {
+  private _diagnostics = new BettererDiagnostics();
+
   constructor(private _connection: Connection, private _documents: TextDocuments<TextDocument>) {}
 
   public async validate(documents: Array<TextDocument>): Promise<void> {
@@ -35,208 +31,124 @@ export class BettererValidator {
 
     const enabled = await getEnabled(workspace);
 
-    let resolve: () => void;
-    const validating = new Promise<void>((res) => (resolve = res));
-
-    folders.map(async (folder) => {
-      const { uri } = folder;
-      const cwd = getFilePath(uri);
-      if (!cwd) {
-        return;
-      }
-
-      info(`Validator: About to run Betterer.`);
-
-      const extensionCwd = process.cwd();
-      const loading = load(this._connection);
-      let status = BettererStatus.ok;
-
-      try {
-        if (extensionCwd !== cwd) {
-          info(`Validator: Setting CWD to "${cwd}".`);
-          process.chdir(cwd);
-        }
-
-        info(`Validator: Getting Betterer for "${cwd}".`);
-        try {
-          await hasBetterer(cwd);
-        } catch {
-          error(`Validator: Betterer isn't installed`);
-          void this._connection.sendRequest(BettererNoLibraryRequest, { source: { uri } });
+    await Promise.all(
+      folders.map(async (folder) => {
+        const { uri } = folder;
+        const cwd = getFilePath(uri);
+        if (!cwd) {
           return;
         }
 
-        info(`Validator: Getting Betterer config.`);
-        const config = await getBettererConfig(cwd, workspace);
-        info(JSON.stringify(config));
-        const runner = await getRunner(cwd, config);
+        info(`Validator: About to run Betterer.`);
 
-        const validDocuments = documents
-          .map((document) => {
-            if (!this._documents.get(document.uri)) {
-              return;
-            }
+        const extensionCwd = process.cwd();
+        const loading = load(this._connection);
+        let status = BettererStatus.ok;
 
-            const filePath = getFilePath(document);
-            if (!filePath) {
-              return;
-            }
+        try {
+          if (extensionCwd !== cwd) {
+            info(`Validator: Setting CWD to "${cwd}".`);
+            process.chdir(cwd);
+          }
 
-            const { uri } = document;
-            if (!enabled) {
-              info(`Validator: Betterer disabled, clearing diagnostics for "${uri}".`);
-              this._connection.sendDiagnostics({ uri, diagnostics: [] });
-              return;
-            }
+          info(`Validator: Getting Betterer for "${cwd}".`);
+          try {
+            await hasBetterer(cwd);
+          } catch {
+            error(`Validator: Betterer isn't installed`);
+            void this._connection.sendRequest(BettererNoLibraryRequest, { source: { uri } });
+            return;
+          }
 
-            return document;
-          })
-          .filter(Boolean) as Array<TextDocument>;
+          info(`Validator: Getting Betterer config.`);
+          const config = await getBettererConfig(cwd, workspace);
+          info(JSON.stringify(config));
 
-        const filePaths = validDocuments.map((document) => getFilePath(document)) as Array<string>;
-        if (filePaths.length) {
-          info(`Validator: Running Betterer in "${cwd}".`);
-          info(`Validator: Running Betterer on "${JSON.stringify(filePaths)}."`);
+          const validDocuments = documents
+            .map((document) => {
+              if (!this._documents.get(document.uri)) {
+                return;
+              }
 
-          await runner.queue(filePaths, (summary) => {
-            this.report(validDocuments, summary);
-            resolve();
+              const filePath = getFilePath(document);
+              if (!filePath) {
+                return;
+              }
+
+              const { uri } = document;
+              if (!enabled) {
+                info(`Validator: Betterer disabled, clearing diagnostics for "${uri}".`);
+                this._connection.sendDiagnostics({ uri, diagnostics: [] });
+                return;
+              }
+
+              return document;
+            })
+            .filter(Boolean) as Array<TextDocument>;
+
+          const finalDocuments = validDocuments.filter((document) => {
+            const filePath = getFilePath(document) as string;
+            const isCachePath = filePath === config.cachePath;
+            const isResultPath = filePath === config.resultsPath;
+            const isConfigPath = !!config.configPaths?.includes(filePath);
+            const isTSConfigPath = filePath === config.tsconfigPath;
+            return !(isCachePath || isResultPath || isConfigPath || isTSConfigPath);
           });
-        } else {
-          resolve();
-        }
-      } catch (e) {
-        error(`Validator: ${e as string}`);
-        if (isNoConfigError(e)) {
-          void this._connection.sendRequest(BettererInvalidConfigRequest, { source: { uri } });
-          status = BettererStatus.warn;
-        } else {
-          status = BettererStatus.error;
-        }
-      } finally {
-        if (cwd !== extensionCwd) {
-          info(`Validator: Restoring CWD to "${extensionCwd}".`);
-          process.chdir(extensionCwd);
-        }
-      }
 
-      await loading();
-      this._connection.sendNotification(BettererStatusNotification, status);
-    });
+          const filePaths = finalDocuments.map((document) => getFilePath(document)) as Array<string>;
 
-    return validating;
-  }
+          if (finalDocuments.length) {
+            info(`Validator: Running Betterer in "${cwd}".`);
+            info(`Validator: Running Betterer on "${JSON.stringify(filePaths)}."`);
 
-  public report(documents: Array<TextDocument>, summary: BettererSummary): void {
-    documents.forEach((document) => {
-      const filePath = getFilePath(document);
-      if (!filePath) {
-        return;
-      }
+            const runner = await getRunner(config);
+            runner.options({
+              reporters: [
+                {
+                  suiteStart: (suite: BettererSuite): void => {
+                    this._diagnostics.prepare(suite);
+                  },
+                  runEnd: (runSummary: BettererRunSummary): void => {
+                    this.report(finalDocuments, runSummary);
+                  }
+                }
+              ]
+            });
 
-      const { uri } = document;
-      const diagnostics: Array<Diagnostic> = [];
-      info(`Validator: Clearing diagnostics for "${uri}".`);
-      this._connection.sendDiagnostics({ uri, diagnostics });
-
-      summary.runs.forEach((run) => {
-        if (run.isFailed) {
-          return;
-        }
-
-        const result = run.result.value as BettererFileTestResult;
-        if (!result) {
-          return;
-        }
-
-        let issues: BettererFileIssues;
-        try {
-          issues = result.getIssues(filePath);
+            try {
+              await runner.queue(filePaths);
+            } catch (e) {
+              error(`Validator: Error running Betterer on "${JSON.stringify(filePaths)}." - ${e as string}`);
+            }
+          }
         } catch (e) {
-          info(JSON.stringify((e as Error).message));
-          return;
+          error(`Validator: ${e as string}`);
+          if (isNoConfigError(e as BettererError)) {
+            void this._connection.sendRequest(BettererInvalidConfigRequest, { source: { uri } });
+            status = BettererStatus.warn;
+          } else {
+            status = BettererStatus.error;
+          }
+        } finally {
+          if (cwd !== extensionCwd) {
+            info(`Validator: Restoring CWD to "${extensionCwd}".`);
+            process.chdir(extensionCwd);
+          }
         }
 
-        info(`Validator: Got issues from Betterer for "${run.name}"`);
+        await loading();
+        this._connection.sendNotification(BettererStatusNotification, status);
+      })
+    );
+  }
 
-        let existingIssues: BettererFileIssues = [];
-        let newIssues: BettererFileIssues = [];
-
-        if (run.isNew) {
-          newIssues = issues;
-        } else if (run.isSkipped || run.isSame) {
-          existingIssues = issues;
-        } else {
-          const fileDiff = (run.diff as unknown as BettererFileTestDiff).diff[filePath];
-          info(`Validator: ${run.name} got diff from Betterer for "${filePath}"`);
-          existingIssues = fileDiff.existing || [];
-          newIssues = fileDiff.new || [];
-        }
-
-        info(`Validator: ${run.name} got "${existingIssues.length}" existing issues for "${filePath}"`);
-        info(`Validator: ${run.name} got "${newIssues.length}" new issues for "${filePath}"`);
-
-        existingIssues.forEach((issue: BettererFileIssue) => {
-          diagnostics.push(createWarning(run.name, 'existing issue', issue, document));
-        });
-        newIssues.forEach((issue) => {
-          diagnostics.push(createError(run.name, 'new issue', issue, document));
-        });
-      });
-
-      info(`Validator: Sending ${diagnostics.length} diagnostics to "${uri}".`);
-      this._connection.sendDiagnostics({ uri, diagnostics });
+  public report(documents: Array<TextDocument>, runSummary: BettererRunSummary): void {
+    documents.forEach((document) => {
+      const diagnostics = this._diagnostics.getDiagnostics(document, runSummary);
+      info(`Validator: Sending ${diagnostics.length.toString()} diagnostics to "${document.uri}".`);
+      this._connection.sendDiagnostics({ uri: document.uri, diagnostics });
     });
   }
-}
-
-function createDiagnostic(
-  name: string,
-  issue: BettererFileIssue,
-  extra: string,
-  document: TextDocument,
-  severity: DiagnosticSeverity
-): Diagnostic {
-  const { line, column, length, message } = issue;
-  let start: Position | null = null;
-  let end: Position | null = null;
-  start = { line, character: column };
-  end = document.positionAt(document.offsetAt(start) + length);
-  const range = { start, end };
-  const code = `[${name}]${extra ? ` - ${extra}` : ''}`;
-  return {
-    message,
-    severity,
-    source: EXTENSION_NAME,
-    range,
-    code
-  };
-}
-
-function createError(name: string, extra: string, issue: BettererFileIssue, document: TextDocument): Diagnostic {
-  return createDiagnostic(name, issue, extra, document, DiagnosticSeverity.Error);
-}
-
-function createWarning(name: string, extra: string, issue: BettererFileIssue, document: TextDocument): Diagnostic {
-  return createDiagnostic(name, issue, extra, document, DiagnosticSeverity.Warning);
-}
-
-function getFilePath(documentOrUri: URI | TextDocument | string): string | null {
-  if (!documentOrUri) {
-    return null;
-  }
-  let uri = null;
-  if (documentOrUri instanceof URI) {
-    uri = documentOrUri;
-  } else if (isString(documentOrUri)) {
-    uri = URI.parse(documentOrUri);
-  } else {
-    uri = URI.parse(documentOrUri.uri);
-  }
-  if (uri.scheme !== 'file') {
-    return null;
-  }
-  return uri.fsPath;
 }
 
 const LOADING_DELAY_TIME = 200;

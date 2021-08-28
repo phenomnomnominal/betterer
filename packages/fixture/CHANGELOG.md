@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0-alpha.0](https://github.com/phenomnomnominal/betterer/compare/v4.4.1...v5.0.0-alpha.0) (2021-08-27)
+
+
+### Bug Fixes
+
+* **betterer 🐛:** only render logs once test has finished running ([#814](https://github.com/phenomnomnominal/betterer/issues/814)) ([f691bfa](https://github.com/phenomnomnominal/betterer/commit/f691bfa6b87240d0764fdaa5386a2e584e907781))
+
+
+### Features
+
+* **betterer ✨:** add betterer results command to show current test results ([#828](https://github.com/phenomnomnominal/betterer/issues/828)) ([9a16623](https://github.com/phenomnomnominal/betterer/commit/9a166238a390dcc46580b50c0eef3ba29de8209f))
+* **betterer ✨:** add option to initialise with automerging ([#832](https://github.com/phenomnomnominal/betterer/issues/832)) ([0acf68b](https://github.com/phenomnomnominal/betterer/commit/0acf68bca38a6b63ac03a7185ee3ed53ee5f3ae5))
+
+
+
+
+
+## [4.4.1](https://github.com/phenomnomnominal/betterer/compare/v4.4.0...v4.4.1) (2021-07-09)
+
+**Note:** Version bump only for package @betterer/fixture
+
+
+
+
+
 # [4.4.0](https://github.com/phenomnomnominal/betterer/compare/v4.3.8...v4.4.0) (2021-06-18)
 
 **Note:** Version bump only for package @betterer/fixture

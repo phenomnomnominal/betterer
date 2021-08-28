@@ -1,11 +1,31 @@
-export { createConfig } from './config';
+export { createInitialConfig, createFinalConfig, createWorkerConfig, overrideConfig } from './config';
 export {
   BettererConfig,
+  BettererConfigBase,
+  BettererConfigRunner,
+  BettererConfigStart,
+  BettererConfigWatch,
   BettererConfigFilters,
   BettererConfigIgnores,
   BettererConfigPaths,
-  BettererConfigReporters,
+  BettererOptionsBase,
+  BettererOptionsExcludes,
+  BettererOptionsFilters,
+  BettererOptionsIgnores,
+  BettererOptionsIncludes,
+  BettererOptionsOverride,
+  BettererOptionsPaths,
+  BettererOptionsReporter,
+  BettererOptionsReporters,
+  BettererOptionsResults,
   BettererOptionsRunner,
+  BettererOptionsStartBase,
+  BettererOptionsStartCI,
+  BettererOptionsStartDefault,
+  BettererOptionsStartPrecommit,
+  BettererOptionsStartStrict,
+  BettererOptionsStartUpdate,
   BettererOptionsStart,
-  BettererOptionsWatch
+  BettererOptionsWatch,
+  BettererWorkerRunConfig
 } from './types';

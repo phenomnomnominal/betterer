@@ -3,37 +3,55 @@ import { BettererReporter } from '../reporters';
 export type BettererConfigPaths = ReadonlyArray<string>;
 export type BettererConfigFilters = ReadonlyArray<RegExp>;
 export type BettererConfigIgnores = ReadonlyArray<string>;
-export type BettererConfigReporter = string | BettererReporter;
-export type BettererConfigReporters = ReadonlyArray<BettererConfigReporter>;
 
-export type BettererConfig = {
-  // Base:
+export type BettererConfig = BettererConfigBase & BettererConfigStart & BettererConfigRunner & BettererConfigWatch;
+
+export type BettererWorkerRunConfig = Omit<BettererConfig, 'reporter'>;
+
+export type BettererConfigBase = {
   cache: boolean;
   cachePath: string;
   configPaths: BettererConfigPaths;
   cwd: string;
-  filePaths: BettererConfigPaths;
   filters: BettererConfigFilters;
-  reporters: BettererConfigReporters;
+  reporter: BettererReporter;
   resultsPath: string;
-  silent: boolean;
   tsconfigPath: string | null;
-  // Start:
+  workers: number;
+};
+
+export type BettererConfigStart = {
   ci: boolean;
+  filePaths: BettererConfigPaths;
   precommit: boolean;
   strict: boolean;
   update: boolean;
-  // Runner;
+};
+
+export type BettererConfigRunner = {
   ignores: BettererConfigIgnores;
-  // Watch:
+};
+
+export type BettererConfigWatch = {
   watch: boolean;
 };
 
 export type BettererOptionsPaths = Array<string> | string;
 export type BettererOptionsExcludes = Array<string | RegExp> | string;
 export type BettererOptionsFilters = Array<string | RegExp> | string;
+export type BettererOptionsIgnores = Array<string>;
 export type BettererOptionsIncludes = Array<string> | string;
-export type BettererOptionsReporters = Array<string | BettererReporter>;
+export type BettererOptionsReporter = string | BettererReporter;
+export type BettererOptionsReporters = Array<BettererOptionsReporter>;
+
+export type BettererOptionsResults = Partial<{
+  configPaths: BettererOptionsPaths;
+  cwd: string;
+  excludes: BettererOptionsExcludes;
+  filters: BettererOptionsFilters;
+  includes: BettererOptionsIncludes;
+  resultsPath: string;
+}>;
 
 export type BettererOptionsBase = Partial<{
   cache: boolean;
@@ -41,10 +59,17 @@ export type BettererOptionsBase = Partial<{
   configPaths: BettererOptionsPaths;
   cwd: string;
   filters: BettererOptionsFilters;
-  reporters: BettererConfigReporters;
+  reporters: BettererOptionsReporters;
   resultsPath: string;
   silent: boolean;
   tsconfigPath: string;
+  workers: number | boolean;
+}>;
+
+export type BettererOptionsOverride = Partial<{
+  filters: BettererOptionsFilters;
+  ignores: BettererOptionsIgnores;
+  reporters: BettererOptionsReporters;
 }>;
 
 export type BettererOptionsStartBase = BettererOptionsBase &
@@ -107,7 +132,7 @@ export type BettererOptionsStart =
 
 export type BettererOptionsRunner = BettererOptionsBase &
   Partial<{
-    ignores: BettererConfigIgnores;
+    ignores: BettererOptionsIgnores;
   }>;
 
 export type BettererOptionsWatch = BettererOptionsRunner &

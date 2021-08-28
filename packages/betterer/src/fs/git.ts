@@ -1,3 +1,6 @@
+import { BettererError } from '@betterer/errors';
+import assert from 'assert';
+import { promises as fs } from 'fs';
 import path from 'path';
 import simpleGit, { SimpleGit } from 'simple-git';
 
@@ -7,54 +10,57 @@ import { BettererFileCacheΩ } from './file-cache';
 import { read } from './reader';
 import { BettererFilePaths, BettererVersionControl } from './types';
 
-export class BettererGit implements BettererVersionControl {
-  private _cache: BettererFileCacheΩ;
+export class BettererGitΩ implements BettererVersionControl {
+  private _cache: BettererFileCacheΩ | null = null;
+  private _configPaths: BettererFilePaths = [];
   private _fileMap: Record<string, string> = {};
   private _filePaths: Array<string> = [];
-  private _git: SimpleGit;
-  private _rootDir: string;
+  private _git: SimpleGit | null = null;
+  private _gitDir: string | null = null;
+  private _rootDir: string | null = null;
   private _syncing: Promise<void> | null = null;
 
-  constructor(private _gitDir: string) {
-    this._rootDir = path.dirname(this._gitDir);
-    this._git = simpleGit(this._rootDir);
-    this._cache = new BettererFileCacheΩ(this);
-  }
-
   public async add(resultsPath: string): Promise<void> {
+    assert(this._git);
     await this._git.add(resultsPath);
   }
 
-  public checkCache(filePath: string): boolean {
-    return this._cache.checkCache(filePath);
+  public filterCached(filePaths: BettererFilePaths): BettererFilePaths {
+    assert(this._cache);
+    return this._cache.filterCached(filePaths);
+  }
+
+  public filterIgnored(filePaths: BettererFilePaths): BettererFilePaths {
+    return filePaths.filter((absolutePath) => this._fileMap[absolutePath]);
   }
 
   public async enableCache(cachePath: string): Promise<void> {
+    assert(this._cache);
     return this._cache.enableCache(cachePath);
   }
 
   public updateCache(filePaths: BettererFilePaths): void {
+    assert(this._cache);
     return this._cache.updateCache(filePaths);
   }
 
   public writeCache(): Promise<void> {
+    assert(this._cache);
     return this._cache.writeCache();
   }
 
-  public get filePaths(): BettererFilePaths {
+  public getFilePaths(): BettererFilePaths {
     return this._filePaths;
   }
 
-  public getHash(absolutePath: string): string | null {
-    return this._fileMap[absolutePath] || null;
-  }
-
-  public isIgnored(absolutePath: string): boolean {
-    return !this._fileMap[absolutePath];
-  }
-
-  public async init(): Promise<void> {
-    await this._git.init();
+  public async init(configPaths: BettererFilePaths): Promise<void> {
+    this._configPaths = configPaths;
+    this._gitDir = await this._findGitRoot();
+    this._rootDir = path.dirname(this._gitDir);
+    this._git = simpleGit(this._rootDir);
+    const configHash = await this._getConfigHash(this._configPaths);
+    this._cache = new BettererFileCacheΩ(configHash);
+    await this._init(this._git);
     await this.sync();
   }
 
@@ -67,7 +73,26 @@ export class BettererGit implements BettererVersionControl {
     this._syncing = null;
   }
 
-  private async _getUntrackedHash(filePath: string): Promise<string | null> {
+  private async _findGitRoot(): Promise<string> {
+    let dir = process.cwd();
+    while (dir !== path.parse(dir).root) {
+      try {
+        const gitPath = path.join(dir, '.git');
+        await fs.access(gitPath);
+        return gitPath;
+      } catch (err) {
+        dir = path.join(dir, '..');
+      }
+    }
+    throw new BettererError('.git directory not found. Betterer must be used within a git repository.');
+  }
+
+  private async _getConfigHash(configPaths: BettererFilePaths): Promise<string> {
+    const hashes = await Promise.all(configPaths.map(async (configPath) => this._getFileHash(configPath)));
+    return hashes.join('');
+  }
+
+  private async _getFileHash(filePath: string): Promise<string | null> {
     const content = await read(filePath);
     if (content == null) {
       return null;
@@ -76,7 +101,24 @@ export class BettererGit implements BettererVersionControl {
     return createHash(content);
   }
 
-  private _toFilePaths(output: string): Array<string> {
+  private async _init(git: SimpleGit): Promise<void> {
+    const retries = 3;
+    for (let i = 0; i < retries; i++) {
+      try {
+        await git.init();
+      } catch (error) {
+        if (i >= retries) {
+          throw error;
+        }
+      }
+    }
+  }
+
+  private _toFilePaths(rootDir: string, lines: Array<string>): Array<string> {
+    return lines.map((line) => toAbsolutePath(rootDir, line));
+  }
+
+  private _toLines(output: string): Array<string> {
     if (output.length === 0) {
       return [];
     }
@@ -87,21 +129,48 @@ export class BettererGit implements BettererVersionControl {
     this._fileMap = {};
     this._filePaths = [];
 
-    const tree = await this._git.raw(['ls-tree', '--full-tree', '-r', 'HEAD']);
-    const fileInfo = this._toFilePaths(tree).map((info) => info.split(/\s/));
-    const gitHashes: Record<string, string> = {};
+    assert(this._cache);
+    assert(this._git);
+    assert(this._rootDir);
+    const treeOutput = await this._git.raw(['ls-tree', '--full-tree', '-r', 'HEAD']);
+    const fileInfo = this._toLines(treeOutput).map((info) => info.split(/\s/));
+
+    const fileHashes: Record<string, string | null> = {};
+
+    // Collect hashes from git:
     fileInfo.forEach((fileInfo) => {
       const [, , hash, relativePath] = fileInfo;
-      const absolutePath = normalisedPath(path.join(this._rootDir, relativePath.trimStart()));
-      gitHashes[absolutePath] = hash;
+      assert(this._rootDir);
+      const absolutePath = toAbsolutePath(this._rootDir, relativePath);
+      fileHashes[absolutePath] = hash;
+      return absolutePath;
     });
 
-    const untracked = await this._git.raw(['ls-files', '--cached', '--others', '--exclude-standard']);
-    const untrackedFilePaths = this._toFilePaths(untracked);
+    // Collect hashes for modified files:
+    const modifiedOutput = await this._git.raw(['ls-files', '--modified']);
+    const modifiedFilePaths = this._toFilePaths(this._rootDir, this._toLines(modifiedOutput));
     await Promise.all(
-      untrackedFilePaths.map(async (relativePath) => {
-        const absolutePath = normalisedPath(path.join(this._rootDir, relativePath));
-        const hash = gitHashes[absolutePath] || (await this._getUntrackedHash(absolutePath));
+      modifiedFilePaths.map(async (absolutePath) => {
+        fileHashes[absolutePath] = await this._getFileHash(absolutePath);
+      })
+    );
+
+    // Collect all tracked files, excluding files that have been deleted, *and* all untracked files:
+    const allFilesOutput = await this._git.raw(['ls-files', '--cached', '--others', '--exclude-standard']);
+    const allFilePaths = this._toFilePaths(this._rootDir, this._toLines(allFilesOutput));
+    await Promise.all(
+      allFilePaths.map(async (absolutePath) => {
+        // If file is tracked:
+        //    `fileHashes[absolutePath]` = the git hash.
+        // If file was tracked and is now deleted:
+        //    `fileHashes[absolutePath]` = null
+        //    `this._getFileHash(absolutePath)` = null
+        // If file is untracked and is new:
+        //    `fileHashes[absolutePath]` = null
+        //    `this._getFileHash(absolutePath) = basic hash
+        const hash = fileHashes[absolutePath] || (await this._getFileHash(absolutePath));
+
+        // If hash is null then the file was deleted so it shouldn't be included:
         if (hash == null) {
           return;
         }
@@ -110,23 +179,15 @@ export class BettererGit implements BettererVersionControl {
       })
     );
 
-    const modified = await this._git.raw(['ls-files', '--modified']);
-    const modifiedFilePaths = this._toFilePaths(modified);
-    await Promise.all(
-      modifiedFilePaths.map(async (relativePath) => {
-        const absolutePath = normalisedPath(path.join(this._rootDir, relativePath));
-        const hash = await this._getUntrackedHash(absolutePath);
-
-        // If hash is null then the modification was a deletion:
-        if (hash == null) {
-          delete this._fileMap[absolutePath];
-          this._filePaths.splice(this._filePaths.indexOf(absolutePath), 1);
-          return;
-        }
-
-        this._fileMap[absolutePath] = hash;
-        this._filePaths.push(absolutePath);
-      })
-    );
+    const configFileModified = this._configPaths.some((configPath) => modifiedFilePaths.includes(configPath));
+    if (configFileModified) {
+      this._cache.setHashes({});
+    } else {
+      this._cache.setHashes(this._fileMap);
+    }
   }
+}
+
+function toAbsolutePath(rootDir: string, relativePath: string): string {
+  return normalisedPath(path.join(rootDir, relativePath.trimStart()));
 }

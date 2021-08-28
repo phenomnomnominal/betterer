@@ -1,14 +1,22 @@
-import { ensureFile, remove } from 'fs-extra';
+import { ensureDir, ensureFile, remove } from 'fs-extra';
 import { promises as fs } from 'graceful-fs';
 import * as path from 'path';
-import { FixtureFileSystem, FixtureFileSystemFiles } from './types';
+import { FixtureFileSystem, FixtureFileSystemFiles, Paths } from './types';
 
+const DEFAULT_CACHE_PATH = './.betterer.cache';
 const DEFAULT_CONFIG_PATH = './.betterer';
 const DEFAULT_RESULTS_PATH = `./.betterer.results`;
 
-export async function createFixtureFS(fixturePath: string, files: FixtureFileSystemFiles): Promise<FixtureFileSystem> {
+export async function createFixtureFS(
+  fixturePath: string,
+  files: FixtureFileSystemFiles = {}
+): Promise<FixtureFileSystem> {
   function resolve(itemPath: string): string {
-    return path.resolve(fixturePath, itemPath);
+    return normalisedPath(path.resolve(fixturePath, itemPath));
+  }
+
+  function normalisedPath(filePath: string): string {
+    return path.sep === path.posix.sep ? filePath : filePath.split(path.sep).join(path.posix.sep);
   }
 
   async function cleanup(): Promise<void> {
@@ -33,7 +41,8 @@ export async function createFixtureFS(fixturePath: string, files: FixtureFileSys
     return fs.readFile(resolve(filePath), 'utf8');
   }
 
-  const paths = {
+  const paths: Paths = {
+    cache: resolve(DEFAULT_CACHE_PATH),
     config: resolve(DEFAULT_CONFIG_PATH),
     cwd: fixturePath,
     results: resolve(DEFAULT_RESULTS_PATH)
@@ -45,6 +54,7 @@ export async function createFixtureFS(fixturePath: string, files: FixtureFileSys
     // Move on...
   }
 
+  await ensureDir(fixturePath);
   await Promise.all(
     Object.keys(files).map(async (itemPath) => {
       await writeFile(itemPath, files[itemPath]);

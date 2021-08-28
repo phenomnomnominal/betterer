@@ -15,13 +15,12 @@ export async function hasBetterer(cwd: string): Promise<boolean> {
   return !!libraryPath;
 }
 
-export async function getRunner(cwd: string, config: BettererOptionsRunner): Promise<BettererRunner> {
-  config = { ...config, cwd, silent: true, cache: true };
-  const key = JSON.stringify({ ...config, cwd });
+export async function getRunner(config: BettererOptionsRunner): Promise<BettererRunner> {
+  const key = JSON.stringify(config);
   if (RUNNERS.has(key)) {
     return RUNNERS.get(key) as BettererRunner;
   }
-  const { runner } = await getLibrary(cwd);
+  const { runner } = await getLibrary(config.cwd as string);
   const toCache = await runner(config);
   RUNNERS.set(key, toCache);
   return toCache;

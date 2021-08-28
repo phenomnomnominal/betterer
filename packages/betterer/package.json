@@ -1,7 +1,7 @@
 {
   "name": "@betterer/betterer",
   "description": "Main engine for runing betterer tests",
-  "version": "4.4.0",
+  "version": "5.0.0-alpha.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -28,26 +28,27 @@
     "node": ">=12"
   },
   "dependencies": {
-    "@betterer/constraints": "^4.0.0",
+    "@betterer/constraints": "^5.0.0-alpha.0",
     "@betterer/errors": "^4.0.0",
-    "@betterer/logger": "^4.3.8",
-    "@betterer/reporter": "^4.4.0",
+    "@betterer/logger": "^5.0.0-alpha.0",
+    "@betterer/reporter": "^5.0.0-alpha.0",
+    "@betterer/results": "^5.0.0-alpha.0",
     "@phenomnomnominal/debug": "^0.2.5",
+    "@phenomnomnominal/worker-require": "^0.0.34",
     "chokidar": "^3.3.1",
     "djb2a": "^1.2.0",
     "fast-memoize": "^2.5.2",
-    "find-git-root": "^1.0.4",
     "lines-and-columns": "^1.1.6",
     "minimatch": "^3.0.4",
-    "prettier": "^2.2.1",
-    "simple-git": "^2.39.0",
-    "ts-node": "^9.0.0",
-    "tslib": "^2.0.3"
+    "prettier": "^2.3.2",
+    "simple-git": "^2.44.0",
+    "ts-node": "^10.2.1",
+    "tslib": "^2.3.1"
   },
   "optionalDependencies": {
     "typescript": ">=2.7"
   },
   "devDependencies": {
-    "@types/prettier": "^2.2.1"
+    "@types/prettier": "^2.3.2"
   }
 }

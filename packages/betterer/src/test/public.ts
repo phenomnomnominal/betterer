@@ -4,11 +4,14 @@ export {
   BettererFileBase,
   BettererFile,
   BettererFileTestResult,
+  BettererFileTestResultSerialised,
   BettererFileDiff,
   BettererFilesDiff,
   BettererFileTestDiff,
   BettererFileIssue,
-  BettererFileIssues
+  BettererFileIssueSerialised,
+  BettererFileIssues,
+  BettererFileIssuesSerialised
 } from './file-test/public';
 export { BettererTest } from './test';
 export {
@@ -20,6 +23,7 @@ export {
   BettererSerialise,
   BettererSerialiser,
   BettererTestConstraint,
+  BettererTestDeadline,
   BettererTestFunction,
   BettererTestGoal,
   BettererTestConfig,

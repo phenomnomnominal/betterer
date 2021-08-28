@@ -9,7 +9,7 @@ describe('Betterer VSCode Extension', () => {
   it('should work', async () => {
     {
       const { resolve, readFile, deleteDirectory, deleteFile } = await createFixture('.', {
-        'package.json': '{ "name": "test-betterer-e2e-init" }'
+        'package.json': '{ "name": "e2e-init" }'
       });
 
       await vscode.commands.executeCommand('betterer.init');
@@ -29,12 +29,12 @@ describe('Betterer VSCode Extension', () => {
     }
 
     {
-      const { cleanup, resolve } = await createFixture('test-betterer-file-problems', {
+      const { cleanup, resolve } = await createFixture('e2e-eslint', {
         '.betterer.js': `
     const { eslint } = require('../../node_modules/@betterer/eslint');
 
     module.exports = {
-      'eslint enable new rule': eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
+      'e2e-eslint': () => eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
     };
           `,
         '.eslintrc.js': `
@@ -68,7 +68,7 @@ describe('Betterer VSCode Extension', () => {
           `,
         'package.json': `
     {
-      "name": "betterer-test-betterer-problems",
+      "name": "betterer-e2e-eslint",
       "version": "0.0.1"
     }
           `,
@@ -107,28 +107,30 @@ describe('Betterer VSCode Extension', () => {
         return diagnostic;
       });
 
-      expect(diagnostic.code).toEqual('[eslint enable new rule] - new issue');
+      expect(diagnostic.code).toEqual('[e2e-eslint] - new issue');
       expect(diagnostic.message).toEqual(`Unexpected 'debugger' statement.`);
 
       await cleanup();
     }
 
     {
-      const { cleanup, resolve } = await createFixture('test-betterer-file-only', {
+      const { cleanup, resolve } = await createFixture('e2e-typescript', {
         '.betterer.ts': `
+import { BettererTest } from '@betterer/betterer';
 import { typescript } from '@betterer/typescript';
+import { persist } from '@betterer/fixture';
 import { smaller } from '@betterer/constraints';
 
-let shrinks = 2;
+const shrinks = persist(__dirname, 'shrinks', 2);
 
 export default {
-  'typescript use strict mode': typescript('./tsconfig.json', {
+  'e2e-typescript': () => typescript('./tsconfig.json', {
     strict: true
   }).include('./src/**/*.ts'),
-  'should shrink': {
-    test: () => shrinks--,
+  'should shrink': () => new BettererTest({
+    test: () => shrinks.decrement(),
     constraint: smaller
-  }
+  })
 };
       `,
         'tsconfig.json': `
@@ -187,7 +189,7 @@ export function extractIds(list) {
         return diagnostic;
       });
 
-      expect(diagnostic.code).toEqual('[typescript use strict mode] - new issue');
+      expect(diagnostic.code).toEqual('[e2e-typescript] - new issue');
       expect(diagnostic.message).toEqual(`Parameter 'list' implicitly has an 'any' type.`);
 
       await cleanup();

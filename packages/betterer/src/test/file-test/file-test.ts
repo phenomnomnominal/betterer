@@ -1,10 +1,10 @@
 import assert from 'assert';
 import path from 'path';
 
-import { BettererContext, BettererContextΩ, BettererRun, BettererRunΩ } from '../../context';
 import { BettererFileResolverΩ, BettererFileGlobs, BettererFilePatterns } from '../../fs';
-import { createTestConfig } from '../config';
-import { BettererTestConstraint, BettererTestFunction, BettererTestGoal } from '../types';
+import { BettererRun, BettererWorkerRunΩ } from '../../run';
+import { createDeadline, createGoal, createTestConfig } from '../config';
+import { BettererTestConstraint, BettererTestDeadline, BettererTestFunction, BettererTestGoal } from '../types';
 import { constraint } from './constraint';
 import { differ } from './differ';
 import { BettererFileTestResultΩ } from './file-test-result';
@@ -55,13 +55,18 @@ export class BettererFileTest implements BettererFileTestBase {
     return this;
   }
 
+  public deadline(deadlineOverride: BettererTestDeadline): this {
+    this.config.deadline = createDeadline({ ...this.config, deadline: deadlineOverride });
+    return this;
+  }
+
   public exclude(...excludePatterns: BettererFilePatterns): this {
     this._resolver.exclude(...excludePatterns);
     return this;
   }
 
   public goal(goalOverride: BettererTestGoal<BettererFileTestResult>): this {
-    this.config.goal = goalOverride;
+    this.config.goal = createGoal({ ...this.config, goal: goalOverride });
     return this;
   }
 
@@ -85,28 +90,29 @@ function createTest(
   resolver: BettererFileResolverΩ,
   fileTest: BettererFileTestFunction
 ): BettererTestFunction<BettererFileTestResult> {
-  return async (run: BettererRun, context: BettererContext): Promise<BettererFileTestResult> => {
-    const runΩ = run as BettererRunΩ;
+  return async (run: BettererRun): Promise<BettererFileTestResult> => {
+    const runΩ = run as BettererWorkerRunΩ;
     assert(runΩ.filePaths);
 
-    resolver.setBaseDirectory(path.dirname(runΩ.test.configPath));
-    const contextΩ = context as BettererContextΩ;
+    const baseDirectory = path.dirname(runΩ.test.configPath);
+    const { versionControl } = runΩ.globals;
+    resolver.init(baseDirectory, versionControl);
 
     const hasSpecifiedFiles = runΩ.filePaths?.length > 0;
-    runΩ.filePaths = hasSpecifiedFiles ? resolver.validate(runΩ.filePaths) : resolver.files();
+    runΩ.filePaths = hasSpecifiedFiles ? await resolver.validate(runΩ.filePaths) : await resolver.files();
 
     let runFiles = runΩ.filePaths;
     if (!runΩ.isNew) {
-      runFiles = runFiles.filter((filePath) => !contextΩ.checkCache(filePath));
+      runFiles = await versionControl.filterCached(runFiles);
     }
 
     const cacheHit = runΩ.filePaths.length !== runFiles.length;
     const isPartial = hasSpecifiedFiles || cacheHit;
 
-    const result = new BettererFileTestResultΩ();
+    const result = new BettererFileTestResultΩ(resolver);
     await fileTest(runFiles, result, resolver);
 
-    contextΩ.updateCache(result.filePaths);
+    await versionControl.updateCache(result.filePaths);
 
     if (!isPartial || runΩ.isNew) {
       return result;
@@ -119,7 +125,7 @@ function createTest(
       .filter((filePath) => !runFiles.includes(filePath));
 
     // Filter them based on the current resolver:
-    const relevantExcludedFilePaths = resolver.validate(excludedFilesWithIssues);
+    const relevantExcludedFilePaths = await resolver.validate(excludedFilesWithIssues);
 
     // Add the existing issues to the new result:
     relevantExcludedFilePaths.forEach((filePath) => result.addExpected(expectedΩ.getFile(filePath)));

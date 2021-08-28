@@ -5,14 +5,10 @@ import { BettererTaskLog } from './types';
 
 export type BettererTaskStatusProps = {
   name: string;
-  status: BettererTaskLog | null;
+  status: BettererTaskLog;
 };
 
 export const BettererTaskStatus: FC<BettererTaskStatusProps> = function BettererTaskStatus({ name, status }) {
-  if (!status) {
-    return null;
-  }
-
   const [indicator, colour, message] = status;
 
   return (

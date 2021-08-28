@@ -1,1 +1,7 @@
-export { BettererFileGlobs, BettererFilePaths, BettererFilePatterns, BettererFileResolver } from './types';
+export {
+  BettererFileGlobs,
+  BettererFilePath,
+  BettererFilePaths,
+  BettererFilePatterns,
+  BettererFileResolver
+} from './types';

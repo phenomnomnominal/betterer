@@ -9,6 +9,7 @@ import { BettererTaskStatus } from './status';
 import { useTaskState } from './useTaskState';
 import { BettererTaskLog, BettererTaskRun } from './types';
 import { addTask } from './tasks';
+import { useTasks } from './useTasksState';
 
 export type BettererTaskLoggerProps = {
   name: string;
@@ -17,9 +18,10 @@ export type BettererTaskLoggerProps = {
 
 export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function BettererTaskLogger(props) {
   const { name, run } = props;
-  const [state, taskApi] = useTaskState();
+  const [tasksState] = useTasks();
+  const [taskState, taskApi] = useTaskState();
 
-  const { done, error, messageLogs, status } = state;
+  const { error, logs, status } = taskState;
 
   useEffect(() => {
     void (async () => {
@@ -78,7 +80,7 @@ export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function Bet
         taskApi.stop();
       } catch (error) {
         await statusError((error as Error).message);
-        taskApi.error(error);
+        taskApi.error(error as Error);
         process.exitCode = 1;
       }
     })();
@@ -86,16 +88,15 @@ export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function Bet
 
   return (
     <Box flexDirection="column">
-      {done && status && <BettererTaskStatus name={name} status={status} />}
-      {messageLogs.length ? (
+      {status && <BettererTaskStatus name={name} status={status} />}
+      {tasksState.endTime != null && logs.length ? (
         <Box flexDirection="column">
-          {messageLogs.map((log, index) => (
+          {logs.map((log, index) => (
             <Text key={index}>{prependLogBlock(log)}</Text>
           ))}
         </Box>
       ) : null}
       {error && <BettererErrorLog error={error} />}
-      {!done && status && <BettererTaskStatus name={name} status={status} />}
     </Box>
   );
 });

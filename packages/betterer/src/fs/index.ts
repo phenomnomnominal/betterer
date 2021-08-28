@@ -4,8 +4,7 @@ export {
   BettererFilePaths,
   BettererFilePatterns,
   BettererFileResolver,
-  BettererVersionControl
+  BettererVersionControlWorker
 } from './types';
-export { read } from './reader';
-export { createVersionControl, getVersionControl } from './version-control';
-export { forceRelativePaths, write } from './writer';
+export { createVersionControl } from './version-control';
+export { forceRelativePaths } from './writer';

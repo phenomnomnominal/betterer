@@ -1,16 +1,10 @@
-import { BettererSummary } from '../context';
+import { BettererOptionsOverride } from '../config';
 import { BettererFilePaths } from '../fs';
-
-export type BettererRunHandler = (summary: BettererSummary) => void;
+import { BettererSuiteSummary } from '../suite';
 
 export type BettererRunner = {
-  queue(filePaths?: string | BettererFilePaths, handler?: BettererRunHandler): Promise<void>;
-  stop(force: true): Promise<BettererSummary | null>;
-  stop(): Promise<BettererSummary>;
+  options(optionsOverride: BettererOptionsOverride): void;
+  queue(filePaths?: string | BettererFilePaths): Promise<void>;
+  stop(): Promise<BettererSuiteSummary>;
+  stop(force: true): Promise<null>;
 };
-
-export type BettererRunnerJob = {
-  filePaths: BettererFilePaths;
-  handler?: BettererRunHandler;
-};
-export type BettererRunnerJobs = Array<BettererRunnerJob>;

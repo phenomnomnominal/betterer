@@ -1,20 +1,16 @@
 export { ciΔ } from './ci';
 export { cliΔ } from './cli';
 export { initΔ } from './init';
+export { mergeΔ } from './merge';
 export { precommitΔ } from './precommit';
 export { startΔ } from './start';
-export { upgradeΔ } from './upgrade';
+export { resultsΔ } from './results';
 export { watchΔ } from './watch';
 export {
   BettererCLIEnvConfig,
   BettererCLIConfig,
   BettererCLIInitConfig,
-  BettererCLIBaseConfig,
-  BettererCLICacheConfig,
-  BettererCLIStartConfig,
-  BettererCLIUpgradeConfig,
-  BettererCLICIConfig,
-  BettererCLIWatchConfig,
+  BettererCLIMergeConfig,
   BettererCLIArguments,
   BettererPackageJSON
 } from './types';

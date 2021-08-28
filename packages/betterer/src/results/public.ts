@@ -1,1 +1,7 @@
-export { BettererResult } from './types';
+export {
+  BettererResult,
+  BettererFileTestResultSummary,
+  BettererResultsSummary,
+  BettererTestResultSummaries,
+  BettererTestResultSummary
+} from './types';

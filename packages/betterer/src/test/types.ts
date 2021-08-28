@@ -1,32 +1,30 @@
 import { BettererConstraintResult } from '@betterer/constraints';
-import { BettererLogger } from '@betterer/logger';
+import { BettererLogs } from '@betterer/logger';
 
-import { BettererContext, BettererDelta, BettererRun } from '../context';
+import { BettererDelta } from '../context';
+import { BettererRun } from '../run';
 import { MaybeAsync } from '../types';
 
-export type BettererTestFunction<DeserialisedType> = (
-  run: BettererRun,
-  context: BettererContext
-) => MaybeAsync<DeserialisedType>;
+export type BettererTestFunction<DeserialisedType> = (run: BettererRun) => MaybeAsync<DeserialisedType>;
 
 export type BettererTestConstraint<DeserialisedType> = (
   result: DeserialisedType,
   expected: DeserialisedType
 ) => MaybeAsync<BettererConstraintResult>;
 
+export type BettererTestDeadline = Date | string;
+
 export type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
 
-export type BettererDiff<DeserialisedType = unknown, DiffType = null> = {
-  expected: DeserialisedType;
-  result: DeserialisedType;
+export type BettererDiff<DiffType = null> = {
   diff: DiffType;
-  log: (logger: BettererLogger) => Promise<void>;
+  logs: BettererLogs;
 };
 
 export type BettererDiffer<DeserialisedType, DiffType> = (
   expected: DeserialisedType,
   result: DeserialisedType
-) => BettererDiff<DeserialisedType, DiffType>;
+) => BettererDiff<DiffType>;
 
 export type BettererPrinter<SerialisedType> = (serialised: SerialisedType) => MaybeAsync<string>;
 
@@ -54,7 +52,7 @@ export type BettererTestOptionsBasic = {
   constraint: BettererTestConstraint<number>;
   test: BettererTestFunction<number>;
   goal?: number | BettererTestGoal<number>;
-  deadline?: Date | string;
+  deadline?: BettererTestDeadline;
 };
 
 export type BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType> = {
@@ -65,7 +63,7 @@ export type BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffTyp
   progress?: BettererProgress<DeserialisedType>;
   serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
   goal: DeserialisedType | BettererTestGoal<DeserialisedType>;
-  deadline?: Date | string;
+  deadline?: BettererTestDeadline;
 };
 
 export type BettererTestOptions<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> =
@@ -94,13 +92,30 @@ export interface BettererTestBase<DeserialisedType = unknown, SerialisedType = D
   skip(): this;
 }
 
-export type BettererTestFactory = () => BettererTestBase;
-export type BettererTestMeta = {
-  configPath: string;
-  factory: BettererTestFactory;
-  name: string;
-  isOnly: boolean;
-  isSkipped: boolean;
+export type BettererTestFactory = () => MaybeAsync<BettererTestBase>;
+export type BettererTestFactoryMeta = {
+  readonly configPath: string;
+  readonly factory: BettererTestFactory;
+  readonly name: string;
 };
-export type BettererTestMetaMap = Record<string, BettererTestMeta>;
+export type BettererTestFactoryMetaMap = Record<string, BettererTestFactoryMeta>;
 export type BettererTestMap = Record<string, BettererTestFactory>;
+
+export type BettererTestMeta = {
+  readonly configPath: string;
+  readonly name: string;
+  readonly isFileTest: boolean;
+  readonly isOnly: boolean;
+  readonly isSkipped: boolean;
+} & (
+  | {
+      readonly isNew: true;
+      readonly baselineJSON: null;
+      readonly expectedJSON: null;
+    }
+  | {
+      readonly isNew: false;
+      readonly baselineJSON: string;
+      readonly expectedJSON: string;
+    }
+);

@@ -19,14 +19,26 @@ export type BettererCLIConfig = BettererCLIEnvConfig & {
   strict: boolean;
   tsconfig: string;
   update: boolean;
+  workers: number | boolean;
 };
 
 export type BettererCLIInitConfig = BettererCLIEnvConfig & {
+  automerge: boolean;
   config: string;
+  results: string;
 };
 
-export type BettererCLIUpgradeConfig = BettererCLIEnvConfig & {
-  configs: BettererCLIArguments;
+export type BettererCLIMergeConfig = BettererCLIEnvConfig & {
+  results: string;
+  contents: Array<string>;
+};
+
+export type BettererCLIResultsConfig = BettererCLIEnvConfig & {
+  config: BettererCLIArguments;
+  exclude: BettererCLIArguments;
+  filter: BettererCLIArguments;
+  include: BettererCLIArguments;
+  results: string;
 };
 
 export type BettererPackageJSON = {
@@ -34,50 +46,3 @@ export type BettererPackageJSON = {
   scripts: Record<string, string> & { betterer: string };
   devDependencies: Record<string, string>;
 };
-
-/* 
-  @deprecated doesn't make sense anymore. Will be removed in v5.0.0
-*/
-export type BettererCLIBaseConfig = BettererCLIEnvConfig & {
-  config: BettererCLIArguments;
-  filter: BettererCLIArguments;
-  reporter: BettererCLIArguments;
-  results: string;
-  silent: boolean;
-  tsconfig: string;
-};
-
-/* 
-  @deprecated doesn't make sense anymore. Will be removed in v5.0.0
-*/
-export type BettererCLICacheConfig = {
-  cache: boolean;
-  cachePath: string;
-};
-
-/* 
-  @deprecated doesn't make sense anymore. Will be removed in v5.0.0
-*/
-export type BettererCLICIConfig = BettererCLIBaseConfig & {
-  exclude: BettererCLIArguments;
-  include: BettererCLIArguments;
-};
-
-/* 
-  @deprecated doesn't make sense anymore. Will be removed in v5.0.0
-*/
-export type BettererCLIStartConfig = BettererCLIBaseConfig &
-  BettererCLICacheConfig & {
-    exclude: BettererCLIArguments;
-    include: BettererCLIArguments;
-    strict: boolean;
-    update: boolean;
-  };
-
-/* 
-  @deprecated doesn't make sense anymore. Will be removed in v5.0.0
-*/
-export type BettererCLIWatchConfig = BettererCLIBaseConfig &
-  BettererCLICacheConfig & {
-    ignore: BettererCLIArguments;
-  };

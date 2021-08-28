@@ -33,11 +33,15 @@ export function testWorse(context: string, delta = ''): string {
 }
 
 export function updateInstructions(): string {
-  return `You should try to fix the new issues! As a last resort, you can run \`betterer --update\` to force an update of the results file. 🆙`;
+  return 'You should try to fix the new issues! As a last resort, you can run `betterer --update` to force an update of the results file. 🆙';
 }
 
-export function unexpectedDiff(): string {
-  return 'Unexpected diff found:';
+export function unexpectedChanges(): string {
+  return 'Unexpected changes detected in these tests while running in CI mode:';
+}
+
+export function unexpectedChangesInstructions(): string {
+  return 'You should make sure the results file is up-to-date before committing! You might want to run `betterer precommit` in a commit hook. 💍';
 }
 
 export function filesChecking(files: number): string {

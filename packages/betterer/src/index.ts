@@ -1,17 +1,23 @@
-export { betterer, runner, watch } from './betterer';
+export { betterer, results, runner, watch } from './betterer';
 export {
   BettererConfig,
+  BettererConfigBase,
+  BettererConfigRunner,
+  BettererConfigStart,
+  BettererConfigWatch,
   BettererConfigFilters,
   BettererConfigIgnores,
   BettererConfigPaths,
-  BettererConfigReporter,
-  BettererConfigReporters,
   BettererOptionsBase,
   BettererOptionsExcludes,
   BettererOptionsFilters,
+  BettererOptionsIgnores,
   BettererOptionsIncludes,
+  BettererOptionsOverride,
   BettererOptionsPaths,
+  BettererOptionsReporter,
   BettererOptionsReporters,
+  BettererOptionsResults,
   BettererOptionsRunner,
   BettererOptionsStartBase,
   BettererOptionsStartCI,
@@ -22,21 +28,25 @@ export {
   BettererOptionsStart,
   BettererOptionsWatch
 } from './config/public';
+export { BettererContext, BettererContextSummary, BettererDelta } from './context/public';
 export {
-  BettererContext,
-  BettererDelta,
-  BettererRun,
-  BettererRunNames,
-  BettererRunSummary,
-  BettererRunSummaries,
-  BettererRuns,
-  BettererSummary,
-  BettererSummaries
-} from './context/public';
-export { BettererFileGlobs, BettererFilePaths, BettererFilePatterns, BettererFileResolver } from './fs/public';
-export { BettererResult } from './results/public';
+  BettererFileGlobs,
+  BettererFilePath,
+  BettererFilePaths,
+  BettererFilePatterns,
+  BettererFileResolver
+} from './fs/public';
+export {
+  BettererResult,
+  BettererFileTestResultSummary,
+  BettererResultsSummary,
+  BettererTestResultSummaries,
+  BettererTestResultSummary
+} from './results/public';
 export { BettererReporter } from './reporters/public';
-export { BettererRunner, BettererRunHandler } from './runner/public';
+export { BettererRun, BettererRunNames, BettererRunSummary, BettererRunSummaries, BettererRuns } from './run/public';
+export { BettererRunner } from './runner/public';
+export { BettererSuite, BettererSuiteSummary, BettererSuiteSummaries } from './suite/public';
 export {
   BettererDeserialise,
   BettererDiff,
@@ -47,16 +57,20 @@ export {
   BettererFileBase,
   BettererFileDiff,
   BettererFilesDiff,
-  BettererFileIssue,
   BettererFileTestResult,
+  BettererFileTestResultSerialised,
   BettererFileTestDiff,
+  BettererFileIssue,
+  BettererFileIssueSerialised,
   BettererFileIssues,
+  BettererFileIssuesSerialised,
   BettererPrinter,
   BettererProgress,
   BettererSerialise,
   BettererSerialiser,
   BettererTest,
   BettererTestConstraint,
+  BettererTestDeadline,
   BettererTestFunction,
   BettererTestGoal,
   BettererTestConfig,

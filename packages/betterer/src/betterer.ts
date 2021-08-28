@@ -1,30 +1,31 @@
 import { debug } from '@phenomnomnominal/debug';
 
-import { BettererOptionsRunner, BettererOptionsStart, BettererOptionsWatch } from './config';
-import { BettererSummary } from './context';
-import { createGlobals } from './globals';
-import { BettererRunner, BettererRunnerΩ, BettererWatcherΩ } from './runner';
+import { BettererOptionsRunner, BettererOptionsStart, BettererOptionsResults, BettererOptionsWatch } from './config';
+import { BettererRunner, BettererRunnerΩ } from './runner';
+import { BettererResultsSummary, BettererResultsSummaryΩ } from './results';
+import { BettererSuiteSummary } from './suite';
 
-export async function betterer(options: BettererOptionsStart = {}): Promise<BettererSummary> {
+export async function betterer(options: BettererOptionsStart = {}): Promise<BettererSuiteSummary> {
   initDebug();
-  const [config, reporter, versionControl] = await createGlobals(options);
-  const runner = new BettererRunnerΩ(config, reporter, versionControl);
-  return runner.run(config.filePaths);
+  const runner = await BettererRunnerΩ.create(options);
+  return runner.run();
 }
 
-export async function runner(options: BettererOptionsRunner = {}): Promise<BettererRunner> {
+export function results(options: BettererOptionsResults = {}): Promise<BettererResultsSummary> {
   initDebug();
-  const [config, reporter, versionControl] = await createGlobals(options);
-  return new BettererRunnerΩ(config, reporter, versionControl);
+  return BettererResultsSummaryΩ.create(options);
+}
+betterer.results = results;
+
+export function runner(options: BettererOptionsRunner = {}): Promise<BettererRunner> {
+  initDebug();
+  return BettererRunnerΩ.create(options);
 }
 betterer.runner = runner;
 
-export async function watch(options: BettererOptionsWatch = {}): Promise<BettererRunner> {
+export function watch(options: BettererOptionsWatch = {}): Promise<BettererRunner> {
   initDebug();
-  const [config, reporter, versionControl] = await createGlobals({ ...options, watch: true });
-  const watcher = new BettererWatcherΩ(config, reporter, versionControl);
-  await watcher.setup();
-  return watcher;
+  return BettererRunnerΩ.create({ ...options, watch: true });
 }
 betterer.watch = watch;
 

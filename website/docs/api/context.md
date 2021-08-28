@@ -7,12 +7,11 @@ slug: /context
 
 ## `BettererContext`
 
-A `BettererContext` represents the lifecycle of a set of tests runs.
+A `BettererContext` represents the context of a set of tests runs.
 
 ```typescript
 type BettererContext = {
   readonly config: BettererConfig;
-  readonly lifecycle: Promise<BettererSummaries>;
 };
 ```
 
@@ -21,10 +20,6 @@ type BettererContext = {
 #### `config`: [`BettererConfig`](./config#bettererconfig)
 
 > The configuration for the current context
-
-#### `lifecycle`: [`Promise<BettererSummaries>`](#betterersummaries)
-
-> A promise that will resolve when the context ends.
 
 ## `BettererDelta`
 
@@ -65,7 +60,6 @@ type BettererRun = {
   readonly diff: BettererDiff;
   readonly expected: BettererResult;
   readonly filePaths: BettererFilePaths;
-  readonly lifecycle: Promise<void>;
   readonly name: string;
   readonly delta: BettererDelta | null;
   readonly result: BettererResult;
@@ -96,10 +90,6 @@ type BettererRun = {
 #### `filePaths`: [`BettererFilePaths`](./runner#bettererfilepaths)
 
 > The list of [`BettererFilePaths`] that are being tested.
-
-#### `lifecycle`: `Promise<void>`
-
-> A promise that will resolve when the test run ends.
 
 #### `name`: `string`
 
@@ -149,14 +139,11 @@ A list of run names.
 type BettererRunNames = Array<string>;
 ```
 
-## `BettererSummary`
+## `BettererSuiteSummary`
 
 ```typescript
-type BettererSummary = {
+type BettererSuiteSummary = {
   readonly runs: BettererRuns;
-  readonly result: string;
-  readonly expected: string | null;
-  readonly unexpectedDiff: boolean;
   readonly better: BettererRuns;
   readonly completed: BettererRuns;
   readonly expired: BettererRuns;
@@ -175,18 +162,6 @@ type BettererSummary = {
 #### `runs`: [`BettererRuns`](#bettererruns)
 
 > The list of all runs.
-
-#### `result`: `string`
-
-> The serialised run results.
-
-#### `expected`: `string | null`
-
-> The serialised expected results. Will be `null` if it is the first time running **Betterer**.
-
-#### `unexpectedDiff`: `boolean`
-
-> Will be `true` if running in [CI mode](./running-betterer#ci-mode-run-your-tests-and-throw-on-changes) and `result` is not equal to `expected`
 
 ### State
 
@@ -229,11 +204,3 @@ type BettererSummary = {
 #### `worse`: [`BettererRuns`](#bettererruns)
 
 > The list of runs that got worse.
-
-## `BettererSummaries`
-
-A list of [`BettererSummary`](#betterersummary).
-
-```typescript
-type BettererSummaries = Array<BettererSummary>;
-```

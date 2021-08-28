@@ -8,6 +8,7 @@ export {
   BettererTaskLogger,
   BettererTaskLoggerProps,
   BettererTaskRun,
+  BettererTasksDone,
   BettererTasksLogger,
   BettererTasksLoggerProps,
   BettererTasksState,

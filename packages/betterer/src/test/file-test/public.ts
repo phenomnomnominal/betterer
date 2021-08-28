@@ -3,10 +3,13 @@ export {
   BettererFileBase,
   BettererFile,
   BettererFileTestResult,
+  BettererFileTestResultSerialised,
   BettererFileDiff,
   BettererFilesDiff,
   BettererFileTestDiff,
   BettererFileTestFunction,
   BettererFileIssue,
-  BettererFileIssues
+  BettererFileIssueSerialised,
+  BettererFileIssues,
+  BettererFileIssuesSerialised
 } from './types';

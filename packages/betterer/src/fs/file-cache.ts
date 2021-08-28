@@ -1,16 +1,17 @@
 import assert from 'assert';
 import path from 'path';
 import { read } from './reader';
-import { BettererFilePaths, BettererFileCacheMap, BettererFileCache, BettererVersionControl } from './types';
+import { BettererFilePaths, BettererFileCacheMap, BettererFileCache, BettererFileHashMap } from './types';
 import { forceRelativePaths, write } from './writer';
 
 export class BettererFileCacheΩ implements BettererFileCache {
   private _cachePath: string | null = null;
   private _diskCacheMap: BettererFileCacheMap = {};
+  private _fileHashMap: BettererFileHashMap = {};
   private _memoryCacheMap: BettererFileCacheMap = {};
   private _reading: Promise<string | null> | null = null;
 
-  constructor(private _versionControl: BettererVersionControl) {}
+  constructor(private _configHash: string) {}
 
   public async enableCache(cachePath: string): Promise<void> {
     this._cachePath = cachePath;
@@ -24,7 +25,7 @@ export class BettererFileCacheΩ implements BettererFileCache {
 
     // Clean up any expired cache entries before writing to disk:
     Object.keys(this._memoryCacheMap).forEach((filePath) => {
-      const hash = this._versionControl.getHash(filePath);
+      const hash = this._fileHashMap[filePath];
       if (hash === null) {
         delete this._memoryCacheMap[filePath];
       }
@@ -35,22 +36,24 @@ export class BettererFileCacheΩ implements BettererFileCache {
     this._diskCacheMap = this._memoryCacheMap;
   }
 
-  public checkCache(filePath: string): boolean {
+  public filterCached(filePaths: BettererFilePaths): BettererFilePaths {
     if (!this._cachePath) {
-      return false;
+      return filePaths;
     }
 
-    const hash = this._versionControl.getHash(filePath);
+    return filePaths.filter((filePath) => {
+      const hash = this._fileHashMap[filePath];
 
-    // If hash is null, then the file isn't tracked by version control *and* it can't be read,
-    // so it probably doesn't exist
-    if (hash === null) {
-      return false;
-    }
+      // If hash is null, then the file isn't tracked by version control *and* it can't be read,
+      // so it probably doesn't exist
+      if (hash === null) {
+        return true;
+      }
 
-    this._memoryCacheMap[filePath] = hash;
-    const previousHash = this._diskCacheMap[filePath];
-    return hash === previousHash;
+      this._memoryCacheMap[filePath] = hash;
+      const previousHash = this._diskCacheMap[filePath];
+      return hash !== previousHash;
+    });
   }
 
   public updateCache(filePaths: BettererFilePaths): void {
@@ -59,7 +62,7 @@ export class BettererFileCacheΩ implements BettererFileCache {
     }
 
     filePaths.forEach((filePath) => {
-      const hash = this._versionControl.getHash(filePath);
+      const hash = this._fileHashMap[filePath];
 
       // If hash is null, then the file isn't tracked by version control *and* it can't be read,
       // so it probably doesn't exist
@@ -68,6 +71,16 @@ export class BettererFileCacheΩ implements BettererFileCache {
       }
 
       this._memoryCacheMap[filePath] = hash;
+    });
+  }
+
+  public setHashes(fileHashMap: BettererFileHashMap): void {
+    if (!this._cachePath) {
+      return;
+    }
+    this._fileHashMap = {};
+    Object.keys(fileHashMap).forEach((absolutePath) => {
+      this._fileHashMap[absolutePath] = `${this._configHash}${fileHashMap[absolutePath]}`;
     });
   }
 

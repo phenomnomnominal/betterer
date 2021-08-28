@@ -1,37 +1,59 @@
-import { BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
-import { workerRequire, WorkerModule } from '@phenomnomnominal/worker-require';
-import * as path from 'path';
 import React, { FC, useCallback } from 'react';
 
-const createTestFile = workerRequire<WorkerModule<typeof import('./create-test-file')>>('./create-test-file');
-const updatePackageJSON = workerRequire<WorkerModule<typeof import('./update-package-json')>>('./update-package-json');
+import { BettererLogo, BettererTaskLogger, BettererTasksLogger, BettererTasksState } from '@betterer/tasks';
+import { workerRequire } from '@phenomnomnominal/worker-require';
+import { Box } from 'ink';
+
+import { CreateTestFileWorker, EnableAutomergeWorker, UpdatePackageJSONWorker } from './types';
 
 export type InitProps = {
-  config: string;
+  automerge: boolean;
+  configPath: string;
   cwd: string;
+  resultsPath: string;
   ts: boolean;
 };
 
-export const Init: FC<InitProps> = function Init({ cwd, config, ts }) {
+export const Init: FC<InitProps> = function Init({ automerge, cwd, configPath, resultsPath, ts }) {
   const runCreateTestFile = useCallback(
     async (logger) => {
-      await createTestFile.run(logger, path.resolve(cwd, config), ts);
-      createTestFile.destroy();
+      const createTestFile = workerRequire<CreateTestFileWorker>('./create-test-file');
+      try {
+        await createTestFile.run(logger, cwd, configPath, ts);
+      } finally {
+        await createTestFile.destroy();
+      }
     },
-    [createTestFile, cwd, config, ts]
+    [cwd, configPath, ts]
   );
   const runUpdagePackageJSON = useCallback(
     async (logger) => {
-      await updatePackageJSON.run(logger, cwd, ts);
-      updatePackageJSON.destroy();
+      const updatePackageJSON = workerRequire<UpdatePackageJSONWorker>('./update-package-json');
+      try {
+        await updatePackageJSON.run(logger, cwd, ts);
+      } finally {
+        await updatePackageJSON.destroy();
+      }
     },
-    [updatePackageJSON, cwd, config, ts]
+    [cwd, ts]
   );
+  const runEnableAutomerge = useCallback(async (logger) => {
+    const enableAutomerge = workerRequire<EnableAutomergeWorker>('./enable-automerge');
+    try {
+      await enableAutomerge.run(logger, cwd, resultsPath);
+    } finally {
+      await enableAutomerge.destroy();
+    }
+  }, []);
 
   return (
-    <BettererTasksLogger name="Initialising Betterer">
-      <BettererTaskLogger name="Create test file" run={runCreateTestFile}></BettererTaskLogger>
-      <BettererTaskLogger name="Update package.json" run={runUpdagePackageJSON}></BettererTaskLogger>
-    </BettererTasksLogger>
+    <Box flexDirection="column">
+      <BettererLogo />
+      <BettererTasksLogger name="Initialising Betterer" update={update}>
+        <BettererTaskLogger name="Create test file" run={runCreateTestFile} />
+        <BettererTaskLogger name="Update package.json" run={runUpdagePackageJSON} />
+        {automerge && <BettererTaskLogger name="Enable automerge" run={runEnableAutomerge} />}
+      </BettererTasksLogger>
+    </Box>
   );
 };

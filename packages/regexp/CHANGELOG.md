@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0-alpha.0](https://github.com/phenomnomnominal/betterer/compare/v4.4.1...v5.0.0-alpha.0) (2021-08-27)
+
+
+### Code Refactoring
+
+* **betterer 🔧:** simplify BettererFileResolver ([#736](https://github.com/phenomnomnominal/betterer/issues/736)) ([c6299ed](https://github.com/phenomnomnominal/betterer/commit/c6299ed6912e51ffc025464d3b44daa1c87a8a0f))
+
+
+### BREAKING CHANGES
+
+* **betterer 🔧:** No more BettererFileResolver magic, simplified public API
+
+
+
+
+
+## [4.4.1](https://github.com/phenomnomnominal/betterer/compare/v4.4.0...v4.4.1) (2021-07-09)
+
+**Note:** Version bump only for package @betterer/regexp
+
+
+
+
+
 # [4.4.0](https://github.com/phenomnomnominal/betterer/compare/v4.3.8...v4.4.0) (2021-06-18)
 
 **Note:** Version bump only for package @betterer/regexp

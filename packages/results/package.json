@@ -1,0 +1,34 @@
+{
+  "name": "@betterer/results",
+  "description": "results file helpers for @betterer/betterer",
+  "version": "5.0.0-alpha.0",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "Craig Spence <craigspence0@gmail.com>",
+  "homepage": "https://phenomnomnominal.github.io/betterer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phenomnomnominal/betterer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/phenomnomnominal/betterer/issues"
+  },
+  "scripts": {
+    "compile": "tsc -b .",
+    "api": "ts-api-guardian --out ../../goldens/api/@betterer/results.d.ts dist/index.d.ts"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "dependencies": {
+    "@betterer/errors": "^4.0.0",
+    "tslib": "^2.3.1"
+  }
+}

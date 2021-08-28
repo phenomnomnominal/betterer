@@ -4,7 +4,8 @@ import {
   BettererCLIConfig,
   BettererCLIEnvConfig,
   BettererCLIInitConfig,
-  BettererCLIUpgradeConfig
+  BettererCLIMergeConfig,
+  BettererCLIResultsConfig
 } from './types';
 
 export function cliOptions(argv: BettererCLIArguments): BettererCLIConfig {
@@ -19,26 +20,41 @@ export function cliOptions(argv: BettererCLIArguments): BettererCLIConfig {
   strictOption();
   tsconfigPathOption();
   updateOption();
+  workersOption();
   const options = setEnv<BettererCLIConfig>(argv);
   options.include = options.args;
   return options;
 }
 
 export function initOptions(argv: BettererCLIArguments): BettererCLIInitConfig {
+  automergeOption();
   configPathOption();
+  resultsPathOption();
   return setEnv<BettererCLIInitConfig>(argv);
 }
 
-export function upgradeOptions(argv: BettererCLIArguments): BettererCLIUpgradeConfig {
+export function mergeOptions(argv: BettererCLIArguments): BettererCLIMergeConfig {
+  resultsPathOption();
+  const options = setEnv<BettererCLIMergeConfig>(argv);
+  options.contents = options.args;
+  return options;
+}
+
+export function resultsOptions(argv: BettererCLIArguments): BettererCLIResultsConfig {
   configPathsOption();
-  return setEnv<BettererCLIUpgradeConfig>(argv);
+  excludesOption();
+  filtersOption();
+  resultsPathOption();
+  const options = setEnv<BettererCLIConfig>(argv);
+  options.include = options.args;
+  return options;
 }
 
 function setEnv<T extends BettererCLIEnvConfig>(argv: BettererCLIArguments): T & CommanderStatic {
   commander.option('-d, --debug', 'Enable verbose debug logging', false);
   commander.option('-l, --debug-log [value]', 'File path to save verbose debug logging to disk', './betterer.log');
 
-  const parsed = (commander.parse(argv) as unknown) as T & CommanderStatic;
+  const parsed = commander.parse(argv) as unknown as T & CommanderStatic;
   if (parsed.debug) {
     process.env.BETTERER_DEBUG = '1';
     process.env.BETTERER_DEBUG_TIME = '1';
@@ -67,6 +83,10 @@ function configPathsOption(): void {
   );
 }
 
+function automergeOption(): void {
+  commander.option('--automerge', 'Enable automatic merging for the Betterer results file');
+}
+
 function resultsPathOption(): void {
   commander.option('-r, --results [value]', 'Path to test results file relative to CWD');
 }
@@ -76,7 +96,11 @@ function tsconfigPathOption(): void {
 }
 
 function filtersOption(): void {
-  commander.option('-f, --filter [value]', 'RegExp filter for tests to run. Takes multiple values', argsToArray);
+  commander.option(
+    '-f, --filter [value]',
+    'RegExp filter for tests to run. Add "!" at the start to negate. Takes multiple values',
+    argsToArray
+  );
 }
 
 function excludesOption(): void {
@@ -113,6 +137,28 @@ function updateOption(): void {
   commander.option('-u, --update', 'When present, the results file will be updated, even if things get worse.');
 }
 
+function workersOption(): void {
+  commander.option(
+    '--workers [value]',
+    'number of workers to use. Set to `false` to run tests serially. Defaults to number of CPUs - 2.',
+    argsToPrimitive
+  );
+}
+
 function argsToArray(value: string, previous: BettererCLIArguments = []): BettererCLIArguments {
   return previous.concat([value]);
+}
+
+function argsToPrimitive(value: string): string | number | boolean {
+  if (value === 'true') {
+    return true;
+  }
+  if (value === 'false') {
+    return false;
+  }
+  const num = parseInt(value);
+  if (num.toString() === value) {
+    return num;
+  }
+  return value;
 }

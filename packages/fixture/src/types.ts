@@ -1,6 +1,7 @@
-import { BettererRunNames, BettererRuns } from '@betterer/betterer';
+import { BettererRunNames, BettererRunSummaries } from '@betterer/betterer';
 
 export type Paths = {
+  cache: string;
   config: string;
   results: string;
   cwd: string;
@@ -21,18 +22,17 @@ export type FixtureFileSystemFiles = Record<string, string>;
 
 export type Fixture = FixtureFileSystem & {
   logs: ReadonlyArray<string>;
-  runNames(runs: BettererRuns): BettererRunNames;
+  runNames(runs: BettererRunSummaries): BettererRunNames;
 };
 
 export type FixtureLogs = ReadonlyArray<string>;
 
 export type FixtureOptions = {
   logFilters?: Array<RegExp>;
-  logStack?: boolean;
 };
 
 export type FixtureFactory = (
   fixtureName: string,
-  files: FixtureFileSystemFiles,
+  files?: FixtureFileSystemFiles,
   options?: FixtureOptions
 ) => Promise<Fixture>;
