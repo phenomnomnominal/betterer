@@ -69,6 +69,9 @@ export class BettererContextΩ implements BettererContext {
       this._suiteSummaries = [...this._suiteSummaries, suiteSummary];
     } catch (error) {
       await this._started.error(error as BettererError);
+      if (!this.config.watch) {
+        throw error;
+      }
     }
   }
 
