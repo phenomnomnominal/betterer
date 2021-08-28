@@ -3,7 +3,7 @@ import React from 'react';
 import { BettererContext, BettererContextSummary, BettererReporter, BettererSuiteSummary } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import { reset } from '@betterer/tasks';
-import { Instance, render } from 'ink';
+import { Instance, render, RenderOptions } from 'ink';
 
 import { Error, Reporter } from './components';
 import { BettererReporterAction, contextEnd, createStore, suiteEnd, suiteStart } from './state';
@@ -13,8 +13,9 @@ import { BettererSuite } from '@betterer/betterer/src/suite';
 export const reporter: BettererReporter = createReporter();
 
 function createReporter(): BettererReporter {
-  const RENDER_OPTIONS = {
-    debug: process.env.NODE_ENV === 'test'
+  const RENDER_OPTIONS: RenderOptions = {
+    debug: process.env.NODE_ENV === 'test',
+    exitOnCtrlC: false
   };
 
   let renderer: BettererReporterRenderer;

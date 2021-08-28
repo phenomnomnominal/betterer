@@ -41,6 +41,9 @@ export class BettererContextΩ implements BettererContext {
     overrideConfig(this.config, optionsOverride);
     // Start everything again, and trigger a new reporter:
     this._started = this._start();
+
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    process.on('SIGTERM', () => this.stop());
   }
 
   public async run(filePaths: BettererFilePaths): Promise<void> {
@@ -66,7 +69,6 @@ export class BettererContextΩ implements BettererContext {
       this._suiteSummaries = [...this._suiteSummaries, suiteSummary];
     } catch (error) {
       await this._started.error(error as BettererError);
-      throw error;
     }
   }
 

@@ -50,14 +50,10 @@ export class BettererRunnerΩ implements BettererRunner {
   public queue(filePathOrPaths: string | BettererFilePaths = []): Promise<void> {
     const filePaths: BettererFilePaths = Array.isArray(filePathOrPaths) ? filePathOrPaths : [filePathOrPaths as string];
     this._addJob(filePaths);
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       setTimeout(() => {
         void (async () => {
-          try {
-            await this._processQueue();
-          } catch (error) {
-            reject(error);
-          }
+          await this._processQueue();
           resolve();
         })();
       }, DEBOUNCE_TIME);

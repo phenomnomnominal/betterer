@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 import { BettererContext } from '@betterer/betterer';
 import { useInput, useStdin } from 'ink';
@@ -6,10 +6,6 @@ import { useInput, useStdin } from 'ink';
 import { ConfigEditField } from '../config';
 
 export function useControls(context: BettererContext): ConfigEditField {
-  const quit = useCallback(async () => {
-    await context.stop();
-  }, [context]);
-
   const { isRawModeSupported } = useStdin();
 
   const [editing, setEditing] = useState<ConfigEditField>(null);
@@ -24,7 +20,7 @@ export function useControls(context: BettererContext): ConfigEditField {
     }
 
     if (key.escape) {
-      void quit();
+      void context.stop();
       return;
     }
 
@@ -34,7 +30,7 @@ export function useControls(context: BettererContext): ConfigEditField {
 
     // Don't exit on 'q' if the user is editing filters or ignores:
     if (input === 'q') {
-      void quit();
+      void context.stop();
     }
 
     if (input === 'f') {
