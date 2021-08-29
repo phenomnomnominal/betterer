@@ -1,31 +1,45 @@
 import React, { FC, useCallback } from 'react';
 
 import { BettererConfigPaths } from '@betterer/betterer';
-import { BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
-import { workerRequire, WorkerModule } from '@phenomnomnominal/worker-require';
-import path from 'path';
+import { BettererLogo, BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
+import { workerRequire } from '@phenomnomnominal/worker-require';
+import { Box } from 'ink';
+import * as path from 'path';
 
-const upgradeConfigFiles = workerRequire<WorkerModule<typeof import('./upgrade-config-files')>>(
-  './upgrade-config-files'
-);
+import { UpgradeConfigFileWorker } from './types';
 
 export type UpgradeProps = {
   configPaths: BettererConfigPaths;
   cwd: string;
+  save: boolean;
 };
 
-export const Upgrade: FC<UpgradeProps> = function Upgrade({ configPaths, cwd }) {
-  const runUpgradeConfigFiles = useCallback(
-    async (logger) => {
-      const absoluteConfigPaths = configPaths.map((configPath) => path.resolve(cwd, configPath));
-      await upgradeConfigFiles.run(logger, absoluteConfigPaths);
-      upgradeConfigFiles.destroy();
-    },
-    [upgradeConfigFiles, configPaths, cwd]
-  );
+export const Upgrade: FC<UpgradeProps> = function Upgrade({ configPaths, cwd, save }) {
   return (
-    <BettererTasksLogger name="Upgrading Betterer">
-      <BettererTaskLogger name="Upgrading config files" run={runUpgradeConfigFiles}></BettererTaskLogger>
-    </BettererTasksLogger>
+    <Box flexDirection="column">
+      <BettererLogo />
+      <BettererTasksLogger name="Upgrading Betterer">
+        {configPaths.map((configPath) => {
+          const runUpgradeConfigFile = useCallback(
+            async (logger) => {
+              const upgradeConfigFile = workerRequire<UpgradeConfigFileWorker>('./upgrade-config-file');
+              try {
+                await upgradeConfigFile.run(logger, path.resolve(cwd, configPath), save);
+              } finally {
+                await upgradeConfigFile.destroy();
+              }
+            },
+            [cwd, configPath]
+          );
+          return (
+            <BettererTaskLogger
+              key={configPath}
+              name={`Upgrading "${configPath}"`}
+              run={runUpgradeConfigFile}
+            ></BettererTaskLogger>
+          );
+        })}
+      </BettererTasksLogger>
+    </Box>
   );
 };

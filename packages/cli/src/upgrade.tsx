@@ -8,10 +8,14 @@ import { BettererCLIArguments } from './types';
 
 /** @internal Definitely not stable! Please don't use! */
 export async function upgradeΔ(cwd: string, argv: BettererCLIArguments): Promise<void> {
-  const { configs } = upgradeOptions(argv);
+  const RENDER_OPTIONS = {
+    debug: process.env.NODE_ENV === 'test'
+  };
 
-  const configPaths = configs ? configs : ['.betterer.ts'];
+  const { config, save } = upgradeOptions(argv);
 
-  const app = render(<Upgrade configPaths={configPaths} cwd={cwd} />);
+  const configPaths = config ? config : ['./.betterer.ts'];
+
+  const app = render(<Upgrade configPaths={configPaths} cwd={cwd} save={save} />, RENDER_OPTIONS);
   await app.waitUntilExit();
 }

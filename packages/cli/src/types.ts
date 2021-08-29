@@ -41,6 +41,11 @@ export type BettererCLIResultsConfig = BettererCLIEnvConfig & {
   results: string;
 };
 
+export type BettererCLIUpgradeConfig = BettererCLIEnvConfig & {
+  config: BettererCLIArguments;
+  save: boolean;
+};
+
 export type BettererPackageJSON = {
   version: string;
   scripts: Record<string, string> & { betterer: string };

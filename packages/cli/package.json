@@ -36,11 +36,19 @@
     "@betterer/errors": "^4.0.0",
     "@betterer/results": "^5.0.0-alpha.0",
     "@betterer/tasks": "^5.0.0-alpha.0",
+    "@phenomnomnominal/tsquery": "^4.1.1",
+    "@phenomnomnominal/tstemplate": "^0.1.0",
     "@phenomnomnominal/worker-require": "^0.0.34",
     "commander": "^5.1.0",
+    "chalk": "^4.1.2",
     "find-up": "^5.0.0",
     "ink": "^3.0.9",
+    "jest-diff": "^27.1.0",
+    "prettier": "^2.3.2",
     "react": ">=16",
     "tslib": "^2.3.1"
+  },
+  "devDependencies": {
+    "@types/prettier": "^2.3.2"
   }
 }

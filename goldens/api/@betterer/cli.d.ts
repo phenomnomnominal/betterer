@@ -55,4 +55,6 @@ export declare function resultsΔ(cwd: string, argv: BettererCLIArguments): Prom
 
 export declare function startΔ(cwd: string, argv: BettererCLIArguments, ci?: boolean): Promise<BettererSuiteSummary>;
 
+export declare function upgradeΔ(cwd: string, argv: BettererCLIArguments): Promise<void>;
+
 export declare function watchΔ(cwd: string, argv: BettererCLIArguments): Promise<void>;

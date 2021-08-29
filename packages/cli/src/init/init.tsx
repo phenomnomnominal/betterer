@@ -1,6 +1,6 @@
 import React, { FC, useCallback } from 'react';
 
-import { BettererLogo, BettererTaskLogger, BettererTasksLogger, BettererTasksState } from '@betterer/tasks';
+import { BettererLogo, BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
 import { workerRequire } from '@phenomnomnominal/worker-require';
 import { Box } from 'ink';
 
@@ -49,7 +49,7 @@ export const Init: FC<InitProps> = function Init({ automerge, cwd, configPath, r
   return (
     <Box flexDirection="column">
       <BettererLogo />
-      <BettererTasksLogger name="Initialising Betterer" update={update}>
+      <BettererTasksLogger name="Initialising Betterer">
         <BettererTaskLogger name="Create test file" run={runCreateTestFile} />
         <BettererTaskLogger name="Update package.json" run={runUpdagePackageJSON} />
         {automerge && <BettererTaskLogger name="Enable automerge" run={runEnableAutomerge} />}

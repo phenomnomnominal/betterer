@@ -2,19 +2,19 @@ import { Box, useApp } from 'ink';
 import React, { FC, memo, useEffect } from 'react';
 
 import { BettererTaskStatus } from './status';
-import { useTasksState, BettererTasksContext } from './useTasksState';
+import { useTasksState, BettererTasksContext, BettererTasksState } from './useTasksState';
 import { BettererTaskLog, BettererTasksDone, BettererTasksStatusUpdate } from './types';
 import { useTimer } from './useTimer';
 
 export type BettererTasksLoggerProps = {
   exit?: boolean;
   name: string;
-  update: BettererTasksStatusUpdate;
+  update?: BettererTasksStatusUpdate;
   done?: BettererTasksDone;
 };
 
 export const BettererTasksLogger: FC<BettererTasksLoggerProps> = memo(function BettererTasksLogger(props) {
-  const { children, done = () => void 0, exit = true, name, update } = props;
+  const { children, done = () => void 0, exit = true, name, update = defaultUpdate } = props;
 
   const app = useApp();
 
