@@ -36,7 +36,7 @@
     "test:extension": "lerna run test:extension",
     "prepublishOnly": "yarn run build",
     "publish": "lerna publish --conventional-commits",
-    "prepare": "husky install"
+    "prepare": "ngcc && husky install"
   },
   "engines": {
     "node": ">=12"
