@@ -1,0 +1,1 @@
+export { angular } from './angular';
