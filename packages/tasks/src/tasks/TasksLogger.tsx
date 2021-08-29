@@ -2,19 +2,19 @@ import { Box, useApp } from 'ink';
 import React, { FC, memo, useEffect } from 'react';
 
 import { BettererTaskStatus } from './status';
-import { useTasksState, BettererTasksContext } from './useTasksState';
+import { useTasksState, BettererTasksContext, BettererTasksState } from './useTasksState';
 import { BettererTaskLog, BettererTasksDone, BettererTasksStatusUpdate } from './types';
 import { useTimer } from './useTimer';
 
 export type BettererTasksLoggerProps = {
   exit?: boolean;
   name: string;
-  update: BettererTasksStatusUpdate;
+  update?: BettererTasksStatusUpdate;
   done?: BettererTasksDone;
 };
 
 export const BettererTasksLogger: FC<BettererTasksLoggerProps> = memo(function BettererTasksLogger(props) {
-  const { children, done = () => void 0, exit = true, name, update } = props;
+  const { children, done = () => void 0, exit = true, name, update = defaultUpdate } = props;
 
   const app = useApp();
 
@@ -60,4 +60,16 @@ const FORMATTER = Intl.NumberFormat();
 
 function getTime(startTime: number, time: number) {
   return FORMATTER.format(Math.floor(time - startTime));
+}
+
+function defaultUpdate(state: BettererTasksState): string {
+  const { done, errors, running } = state;
+  const runningStatus = running ? `${tasks(running)} running... ` : '';
+  const doneStatus = done ? `${tasks(done)} done! ` : '';
+  const errorStatus = errors ? `${tasks(errors)} errored! ` : '';
+  return `${runningStatus}${doneStatus}${errorStatus}`;
+}
+
+function tasks(n: number): string {
+  return `${n} ${n === 1 ? 'task' : 'tasks'}`;
 }

@@ -1,14 +1,18 @@
-import commander, { CommanderStatic } from 'commander';
+import { Command, CommanderStatic } from 'commander';
 import {
   BettererCLIArguments,
   BettererCLIConfig,
   BettererCLIEnvConfig,
   BettererCLIInitConfig,
   BettererCLIMergeConfig,
-  BettererCLIResultsConfig
+  BettererCLIResultsConfig,
+  BettererCLIUpgradeConfig
 } from './types';
 
+let commander = new Command();
+
 export function cliOptions(argv: BettererCLIArguments): BettererCLIConfig {
+  commander = new Command();
   cacheOption();
   configPathsOption();
   excludesOption();
@@ -27,6 +31,7 @@ export function cliOptions(argv: BettererCLIArguments): BettererCLIConfig {
 }
 
 export function initOptions(argv: BettererCLIArguments): BettererCLIInitConfig {
+  commander = new Command();
   automergeOption();
   configPathOption();
   resultsPathOption();
@@ -34,6 +39,7 @@ export function initOptions(argv: BettererCLIArguments): BettererCLIInitConfig {
 }
 
 export function mergeOptions(argv: BettererCLIArguments): BettererCLIMergeConfig {
+  commander = new Command();
   resultsPathOption();
   const options = setEnv<BettererCLIMergeConfig>(argv);
   options.contents = options.args;
@@ -41,6 +47,7 @@ export function mergeOptions(argv: BettererCLIArguments): BettererCLIMergeConfig
 }
 
 export function resultsOptions(argv: BettererCLIArguments): BettererCLIResultsConfig {
+  commander = new Command();
   configPathsOption();
   excludesOption();
   filtersOption();
@@ -48,6 +55,13 @@ export function resultsOptions(argv: BettererCLIArguments): BettererCLIResultsCo
   const options = setEnv<BettererCLIConfig>(argv);
   options.include = options.args;
   return options;
+}
+
+export function upgradeOptions(argv: BettererCLIArguments): BettererCLIUpgradeConfig {
+  commander = new Command();
+  configPathsOption();
+  saveOption();
+  return setEnv<BettererCLIUpgradeConfig>(argv);
 }
 
 function setEnv<T extends BettererCLIEnvConfig>(argv: BettererCLIArguments): T & CommanderStatic {
@@ -117,6 +131,10 @@ function reportersOption(): void {
     'npm package name for a Betterer reporter. Takes multiple values',
     argsToArray
   );
+}
+
+function saveOption(): void {
+  commander.option('--save', 'When present, Betterer will save the result of an upgrade to disk.');
 }
 
 function silentOption(): void {
