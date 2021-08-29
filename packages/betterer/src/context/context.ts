@@ -2,7 +2,7 @@ import { BettererError } from '@betterer/errors';
 import { FSWatcher } from 'chokidar';
 
 import { BettererConfig, BettererOptionsOverride, overrideConfig } from '../config';
-import { BettererFilePaths, BettererVersionControlWorker } from '../fs';
+import { BettererFilePaths, BettererFileResolverΩ, BettererVersionControlWorker } from '../fs';
 import { BettererReporterΩ } from '../reporters';
 import { BettererResultsFileΩ } from '../results';
 import { BettererRunWorkerPoolΩ, BettererRunΩ, createWorkerRunConfig } from '../run';
@@ -51,12 +51,15 @@ export class BettererContextΩ implements BettererContext {
     process.on('SIGTERM', () => this.stop());
   }
 
-  public async run(filePaths: BettererFilePaths): Promise<void> {
+  public async run(filePaths: BettererFilePaths, isRunOnce = false): Promise<void> {
     try {
       await this._resultsFile.sync();
       await this._versionControl.sync();
 
-      filePaths = await this._versionControl.filterIgnored(filePaths);
+      const resolver = new BettererFileResolverΩ(this.config.cwd, this._versionControl);
+      resolver.include(...this.config.includes);
+      resolver.exclude(...this.config.excludes);
+      filePaths = await resolver.validate(filePaths);
 
       const testMeta = loadTestMeta(this.config);
       const testNames = Object.keys(testMeta);
@@ -70,7 +73,7 @@ export class BettererContextΩ implements BettererContext {
       );
 
       const suite = new BettererSuiteΩ(this.config, this._resultsFile, filePaths, runs);
-      const suiteSummary = await suite.run();
+      const suiteSummary = await suite.run(isRunOnce);
       this._suiteSummaries = [...this._suiteSummaries, suiteSummary];
     } catch (error) {
       await this._started.error(error as BettererError);
@@ -78,6 +81,11 @@ export class BettererContextΩ implements BettererContext {
         throw error;
       }
     }
+  }
+
+  public async runOnce(): Promise<BettererSuiteSummary> {
+    await this.run([], true);
+    return this.stop();
   }
 
   public async stop(): Promise<BettererSuiteSummary> {
@@ -118,6 +126,7 @@ export class BettererContextΩ implements BettererContext {
         if (suiteSummaryΩ && !this.config.ci) {
           await this._resultsFile.write(suiteSummaryΩ, this.config.precommit);
         }
+        await this._versionControl.writeCache();
 
         return contextSummary;
       },

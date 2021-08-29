@@ -38,10 +38,8 @@ export class BettererRunnerΩ implements BettererRunner {
     await this._context.options(optionsOverride);
   }
 
-  public async run(): Promise<BettererSuiteSummary> {
-    this._addJob(this._context.config.filePaths);
-    await this._processQueue();
-    return this.stop();
+  public run(): Promise<BettererSuiteSummary> {
+    return this._context.runOnce();
   }
 
   public queue(filePathOrPaths: string | BettererFilePaths = []): Promise<void> {
@@ -93,10 +91,10 @@ export class BettererRunnerΩ implements BettererRunner {
           filePaths.add(path);
         });
       });
-      const changed = Array.from(filePaths).sort();
+      const runPaths = Array.from(filePaths).sort();
       this._jobs = [];
 
-      this._running = this._context.run(changed);
+      this._running = this._context.run(runPaths);
       await this._running;
     }
   }

@@ -32,6 +32,10 @@ export function testWorse(context: string, delta = ''): string {
   return `${context} got worse.${delta} 😔`;
 }
 
+export function testsChanged(): string {
+  return 'Your tests have changed, re-checking everything...\nThis could take a sec. ⏰';
+}
+
 export function updateInstructions(): string {
   return 'You should try to fix the new issues! As a last resort, you can run `betterer --update` to force an update of the results file. 🆙';
 }

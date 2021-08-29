@@ -40,9 +40,6 @@ export class BettererWorkerRunΩ implements BettererRun {
     const resultsFile = await BettererResultsFileΩ.create(config.resultsPath, versionControl);
     const globals = { config, resultsFile, versionControl };
 
-    await resultsFile.sync();
-    await versionControl.sync();
-
     const isNew = !resultsFile.hasResult(name);
 
     const testFactories = loadTestMeta(config);
@@ -141,6 +138,9 @@ export class BettererWorkerRunΩ implements BettererRun {
       diff: BettererDiff | null = null,
       error: BettererError | null = null
     ): Promise<BettererRunSummary> => {
+      const isBetter = status === BettererRunStatus.better;
+      const isSame = status === BettererRunStatus.same;
+      const isUpdated = status === BettererRunStatus.update;
       const isSkipped = status === BettererRunStatus.skipped;
       const isFailed = status === BettererRunStatus.failed;
       const isWorse = status === BettererRunStatus.worse;
@@ -165,6 +165,14 @@ export class BettererWorkerRunΩ implements BettererRun {
         const toPrint = isFailed || isSkipped || isWorse ? this.expected : (result as BettererResult);
         const toPrintSerialised = this.test.serialiser.serialise(toPrint.value, config.resultsPath);
         printed = forceRelativePaths(await this.test.printer(toPrintSerialised), config.resultsPath);
+      }
+
+      if (this.testMeta.isFileTest) {
+        if (isComplete) {
+          await this.globals.versionControl.clearCache(this.name);
+        } else if (isBetter || isSame || isUpdated || this.isNew) {
+          await this.globals.versionControl.updateCache(this.name, this.filePaths as Array<string>);
+        }
       }
 
       return new BettererRunSummaryΩ(

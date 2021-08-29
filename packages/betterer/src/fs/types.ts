@@ -5,13 +5,18 @@ export type BettererFilePath = string;
 export type BettererFilePaths = ReadonlyArray<BettererFilePath>;
 export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
 
-export type BettererFileCacheMap = Record<string, string>;
 export type BettererFileHashMap = Record<string, string>;
+export type BettererTestCacheMap = Record<string, BettererFileHashMap>;
+export type BettererCacheFile = {
+  version: number;
+  testCache: BettererTestCacheMap;
+};
 
 export type BettererFileCache = {
-  filterCached(filePaths: BettererFilePaths): BettererFilePaths;
+  clearCache(testName: string): void;
+  filterCached(testName: string, filePaths: BettererFilePaths): BettererFilePaths;
   enableCache(cachePath: string): Promise<void>;
-  updateCache(filePaths: BettererFilePaths): void;
+  updateCache(testName: string, filePaths: BettererFilePaths): void;
   writeCache(): Promise<void>;
 };
 

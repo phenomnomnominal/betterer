@@ -2,11 +2,27 @@
 
 exports[`betterer doesn't cache if a test gets worse 1`] = `
 "{
-  \\"src/index.ts\\": \\"39946026984126639614\\"
+  \\"version\\": 2,
+  \\"testCache\\": {
+    \\"test\\": {
+      \\"src/index.ts\\": \\"39946026984126639614\\"
+    }
+  }
 }"
 `;
 
 exports[`betterer doesn't cache if a test gets worse 2`] = `
+"{
+  \\"version\\": 2,
+  \\"testCache\\": {
+    \\"test\\": {
+      \\"src/index.ts\\": \\"39946026984126639614\\"
+    }
+  }
+}"
+`;
+
+exports[`betterer doesn't cache if a test gets worse 3`] = `
 Array [
   "
    / | /     _         _   _

@@ -24,7 +24,7 @@ export class BettererSuiteΩ implements BettererSuite {
     this._reporter = this._config.reporter as BettererReporterΩ;
   }
 
-  public async run(): Promise<BettererSuiteSummaryΩ> {
+  public async run(isRunOnce = false): Promise<BettererSuiteSummaryΩ> {
     // Attach lifecycle promises for Reporters:
     const runLifecycles = this.runs.map((run) => {
       const lifecycle = defer<BettererRunSummary>();
@@ -39,11 +39,16 @@ export class BettererSuiteΩ implements BettererSuite {
     try {
       const runSummaries = await this._runTests(runLifecycles);
       const changed = this._resultsFile.getChanged(runSummaries);
-      const suiteSummary = new BettererSuiteSummaryΩ(this.filePaths, runSummaries, changed);
-      runsLifecycle.resolve(suiteSummary);
+      const suiteSummaryΩ = new BettererSuiteSummaryΩ(this.filePaths, runSummaries, changed);
+      runsLifecycle.resolve(suiteSummaryΩ);
       await reportSuiteStart;
-      await this._reporter.suiteEnd(suiteSummary);
-      return suiteSummary;
+      await this._reporter.suiteEnd(suiteSummaryΩ);
+
+      if (!isRunOnce && suiteSummaryΩ && !this._config.ci) {
+        await this._resultsFile.writeNew(suiteSummaryΩ);
+      }
+
+      return suiteSummaryΩ;
     } catch (error) {
       runsLifecycle.reject(error as BettererError);
       await reportSuiteStart;

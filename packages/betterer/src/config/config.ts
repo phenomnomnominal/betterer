@@ -4,7 +4,7 @@ import { promises as fs } from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 
-import { BettererFileResolverΩ, BettererVersionControlWorker } from '../fs';
+import { BettererVersionControlWorker } from '../fs';
 import { registerExtensions } from './register';
 import { loadReporters, loadSilentReporter } from '../reporters';
 import { isBoolean, isNumber, isRegExp, isString, isUndefined } from '../utils';
@@ -50,7 +50,6 @@ export async function createFinalConfig(
   versionControl: BettererVersionControlWorker
 ): Promise<void> {
   await createFinalBaseConfig(options as BettererOptionsBase, config, versionControl);
-  await createFinalStartConfig(options as BettererOptionsStart, config, versionControl);
 }
 
 export function overrideConfig(config: BettererConfig, optionsOverride: BettererOptionsOverride): void {
@@ -146,40 +145,27 @@ function createRunnerConfig(options: BettererOptionsRunner): BettererConfigRunne
 
 function createStartConfig(options: BettererOptionsStart): BettererConfigStart {
   const ci = options.ci || false;
+  const excludes = toRegExps(toArray<string | RegExp>(options.excludes)) || [];
+  const includes = toArray<string>(options.includes) || [];
   const precommit = options.precommit || false;
   const strict = options.strict || false;
   const update = options.update || false;
 
   validateBool({ ci });
+  validateStringRegExpArray({ excludes });
+  validateStringArray({ includes });
   validateBool({ precommit });
   validateBool({ strict });
   validateBool({ update });
 
   return {
     ci,
-    filePaths: [],
+    excludes,
+    includes,
     precommit,
     strict,
     update
   };
-}
-
-async function createFinalStartConfig(
-  options: BettererOptionsStart,
-  config: BettererConfig,
-  versionControl: BettererVersionControlWorker
-): Promise<void> {
-  const includes = toArray<string>(options.includes) || [];
-  const excludes = toRegExps(toArray<string | RegExp>(options.excludes)) || [];
-
-  validateStringArray({ includes });
-  validateStringRegExpArray({ excludes });
-
-  const resolver = new BettererFileResolverΩ(config.cwd, versionControl);
-  resolver.include(...includes);
-  resolver.exclude(...excludes);
-
-  config.filePaths = await resolver.files();
 }
 
 function createWatchConfig(options: BettererOptionsWatch): BettererConfigWatch {
