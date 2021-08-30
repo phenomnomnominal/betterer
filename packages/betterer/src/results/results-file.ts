@@ -50,6 +50,23 @@ export class BettererResultsFileΩ {
     this._expected = await parse(this._resultsPath);
   }
 
+  public async writeNew(suiteSummary: BettererSuiteSummary): Promise<void> {
+    if (suiteSummary.new.length === 0) {
+      return;
+    }
+
+    const printedNew = print(
+      suiteSummary.new
+        .filter((runSummary) => !runSummary.isComplete)
+        .reduce((results, runSummary: BettererRunSummary) => {
+          results[runSummary.name] = { value: runSummary.printed as string };
+          return results;
+        }, this._expected)
+    );
+
+    await this._write(printedNew, false);
+  }
+
   public async write(suiteSummary: BettererSuiteSummary, precommit: boolean): Promise<void> {
     const printedExpected = print(this._expected);
     const printedResult = print(
@@ -63,11 +80,7 @@ export class BettererResultsFileΩ {
 
     const shouldWrite = printedResult !== printedExpected;
     if (shouldWrite) {
-      await write(printedResult, this._resultsPath);
-      await this._versionControl.writeCache();
-      if (precommit) {
-        await this._versionControl.add(this._resultsPath);
-      }
+      await this._write(printedResult, precommit);
     }
   }
 
@@ -76,5 +89,12 @@ export class BettererResultsFileΩ {
     assert(hasResult);
     const { value } = results[name];
     return value;
+  }
+
+  private async _write(result: string, precommit = false): Promise<void> {
+    await write(result, this._resultsPath);
+    if (precommit) {
+      await this._versionControl.add(this._resultsPath);
+    }
   }
 }

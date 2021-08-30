@@ -14,15 +14,21 @@ export async function createWatcher(globals: BettererGlobals): Promise<FSWatcher
     return null;
   }
 
-  const { cwd, resultsPath } = config;
+  const { cachePath, cwd, resultsPath } = config;
 
   const watcher = watch(cwd, {
     ignoreInitial: true,
     ignored: (itemPath: string) => {
-      const isCwd = normalisedPath(itemPath) === normalisedPath(cwd);
-      const isResultsPath = normalisedPath(itemPath) === normalisedPath(resultsPath);
-      if (isCwd || isResultsPath) {
+      itemPath = normalisedPath(itemPath);
+      const isCwd = itemPath === normalisedPath(cwd);
+      if (isCwd) {
         return false;
+      }
+
+      const isResultsPath = itemPath === normalisedPath(resultsPath);
+      const isCachePath = itemPath === normalisedPath(cachePath);
+      if (isResultsPath || isCachePath) {
+        return true;
       }
 
       // read `ignores` here so that it can be updated by watch mode:

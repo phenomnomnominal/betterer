@@ -25,13 +25,18 @@ export class BettererGitΩ implements BettererVersionControl {
     await this._git.add(resultsPath);
   }
 
-  public filterCached(filePaths: BettererFilePaths): BettererFilePaths {
+  public filterCached(testName: string, filePaths: BettererFilePaths): BettererFilePaths {
     assert(this._cache);
-    return this._cache.filterCached(filePaths);
+    return this._cache.filterCached(testName, filePaths);
   }
 
   public filterIgnored(filePaths: BettererFilePaths): BettererFilePaths {
     return filePaths.filter((absolutePath) => this._fileMap[absolutePath]);
+  }
+
+  public clearCache(testName: string): void {
+    assert(this._cache);
+    this._cache.clearCache(testName);
   }
 
   public async enableCache(cachePath: string): Promise<void> {
@@ -39,9 +44,9 @@ export class BettererGitΩ implements BettererVersionControl {
     return this._cache.enableCache(cachePath);
   }
 
-  public updateCache(filePaths: BettererFilePaths): void {
+  public updateCache(testName: string, filePaths: BettererFilePaths): void {
     assert(this._cache);
-    return this._cache.updateCache(filePaths);
+    return this._cache.updateCache(testName, filePaths);
   }
 
   public writeCache(): Promise<void> {
@@ -58,8 +63,7 @@ export class BettererGitΩ implements BettererVersionControl {
     this._gitDir = await this._findGitRoot();
     this._rootDir = path.dirname(this._gitDir);
     this._git = simpleGit(this._rootDir);
-    const configHash = await this._getConfigHash(this._configPaths);
-    this._cache = new BettererFileCacheΩ(configHash);
+    this._cache = new BettererFileCacheΩ(this._configPaths);
     await this._init(this._git);
     await this.sync();
   }
@@ -85,11 +89,6 @@ export class BettererGitΩ implements BettererVersionControl {
       }
     }
     throw new BettererError('.git directory not found. Betterer must be used within a git repository.');
-  }
-
-  private async _getConfigHash(configPaths: BettererFilePaths): Promise<string> {
-    const hashes = await Promise.all(configPaths.map(async (configPath) => this._getFileHash(configPath)));
-    return hashes.join('');
   }
 
   private async _getFileHash(filePath: string): Promise<string | null> {
@@ -179,12 +178,7 @@ export class BettererGitΩ implements BettererVersionControl {
       })
     );
 
-    const configFileModified = this._configPaths.some((configPath) => modifiedFilePaths.includes(configPath));
-    if (configFileModified) {
-      this._cache.setHashes({});
-    } else {
-      this._cache.setHashes(this._fileMap);
-    }
+    this._cache.setHashes(this._fileMap);
   }
 }
 

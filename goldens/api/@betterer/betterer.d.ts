@@ -31,7 +31,8 @@ export declare type BettererConfigRunner = {
 
 export declare type BettererConfigStart = {
     ci: boolean;
-    filePaths: BettererConfigPaths;
+    excludes: BettererConfigExcludes;
+    includes: BettererConfigIncludes;
     precommit: boolean;
     strict: boolean;
     update: boolean;
