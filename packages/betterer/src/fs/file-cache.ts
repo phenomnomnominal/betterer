@@ -1,5 +1,6 @@
 import assert from 'assert';
 import path from 'path';
+import { normalisedPath } from '../utils';
 import { read } from './reader';
 import {
   BettererFilePaths,
@@ -145,12 +146,12 @@ export class BettererFileCacheΩ implements BettererFileCache {
 
     // Transform relative paths back into absolute paths:
     const absoluteTestCacheMap: BettererTestCacheMap = {};
-    assert(this._cachePath);
     Object.keys(relativeTestCacheMap).forEach((testName) => {
       const relativeFileHashMap = relativeTestCacheMap[testName];
       const absoluteFileHashMap: BettererFileHashMap = {};
       Object.keys(relativeFileHashMap).forEach((relativePath) => {
-        const absolutePath = path.join(path.dirname(this._cachePath as string), relativePath);
+        assert(this._cachePath);
+        const absolutePath = normalisedPath(path.resolve(path.dirname(this._cachePath), relativePath));
         absoluteFileHashMap[absolutePath] = relativeFileHashMap[relativePath];
       });
       absoluteTestCacheMap[testName] = absoluteFileHashMap;
@@ -159,6 +160,6 @@ export class BettererFileCacheΩ implements BettererFileCache {
   }
 
   private _getConfigHash(newFileHashMap: BettererFileHashMap): string {
-    return this._configPaths.map((configPath) => newFileHashMap[configPath]).join('');
+    return this._configPaths.map((configPath) => newFileHashMap[normalisedPath(configPath)]).join('');
   }
 }
