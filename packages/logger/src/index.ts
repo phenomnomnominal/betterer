@@ -1,5 +1,5 @@
 export { codeΔ } from './code';
-export { diffΔ } from './diff';
+export { diffΔ, diffStringsΔ } from './diff';
 export {
   BettererLogger,
   BettererLog,
