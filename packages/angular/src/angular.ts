@@ -3,6 +3,27 @@ import { BettererFileTest } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import { DiagnosticWithLocation, flattenDiagnosticMessageText } from 'typescript';
 
+/**
+ * {@link https://www.npmjs.com/package/@betterer/angular | `@betterer/angular`}
+ *
+ * Use this test to incrementally introduce {@link https://angular.io/guide/angular-compiler-options | **Angular** compiler configuration} to your codebase.
+ *
+ * {@link angular | `angular`} is a {@link BettererFileTest | `BettererFileTest`}, so you can use {@link BettererFileTest.include | `exclude`}, {@link BettererFileTest.exclude | `exclude`}, {@link BettererFileTest.only | `only`}, and {@link BettererFileTest.skip | `skip`}.
+ *
+ * @example
+ * ```typescript
+ * import { angular } from '@betterer/angular';
+ *
+ * export default {
+ *   'stricter template compilation': () =>
+ *     angular('./tsconfig.json', {
+ *       strictTemplates: true
+ *     })
+ *     .include('./src/*.ts', './src/*.html')
+ * };
+ * ```
+ * @public
+ */
 export function angular(configFilePath: string, extraCompilerOptions: CompilerOptions): BettererFileTest {
   if (!configFilePath) {
     throw new BettererError(

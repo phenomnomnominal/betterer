@@ -62,7 +62,9 @@ export class BettererRunnerΩ implements BettererRunner {
   public async stop(force: true): Promise<null>;
   public async stop(force?: true): Promise<BettererSuiteSummary | null> {
     try {
-      await this._running;
+      if (!force) {
+        await this._running;
+      }
       return this._context.stop();
     } catch (error) {
       if (force) {
@@ -95,7 +97,11 @@ export class BettererRunnerΩ implements BettererRunner {
       this._jobs = [];
 
       this._running = this._context.run(runPaths);
-      await this._running;
+      try {
+        await this._running;
+      } catch {
+        // Errors will be handled by reporters
+      }
     }
   }
 }
