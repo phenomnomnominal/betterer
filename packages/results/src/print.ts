@@ -18,7 +18,13 @@ const ESCAPE_REPLACERS: Record<string, string> = {
 
 const RESULTS_HEADER = `// BETTERER RESULTS V2.`;
 
-export function print(results: BettererResults): string {
+/**
+ * Prints a {@link @betterer/results#BettererResults | `BettererResults`} object as a
+ * `require()`-able string of JavaScript.
+ *
+ * @internal This could change at any point! Please don't use!
+ */
+export function printResults__(results: BettererResults): string {
   const printedResults = Object.keys(results).map((name) => printResult(name, results[name].value));
   return [RESULTS_HEADER, ...printedResults].join('');
 }

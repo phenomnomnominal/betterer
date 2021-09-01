@@ -1,4 +1,4 @@
-import { parse, print, write, BettererResults } from '@betterer/results';
+import { parseResults__, printResults__, writeResults__, BettererResults } from '@betterer/results';
 import assert from 'assert';
 
 import { BettererVersionControlWorker } from '../fs';
@@ -18,7 +18,7 @@ export class BettererResultsFileΩ {
     resultsPath: string,
     versionControl: BettererVersionControlWorker
   ): Promise<BettererResultsFileΩ> {
-    const baseline = await parse(resultsPath);
+    const baseline = await parseResults__(resultsPath);
     const expected = baseline;
     return new BettererResultsFileΩ(resultsPath, versionControl, baseline, expected);
   }
@@ -47,7 +47,7 @@ export class BettererResultsFileΩ {
   }
 
   public async sync(): Promise<void> {
-    this._expected = await parse(this._resultsPath);
+    this._expected = await parseResults__(this._resultsPath);
   }
 
   public async writeNew(suiteSummary: BettererSuiteSummary): Promise<void> {
@@ -55,7 +55,7 @@ export class BettererResultsFileΩ {
       return;
     }
 
-    const printedNew = print(
+    const printedNew = printResults__(
       suiteSummary.new
         .filter((runSummary) => !runSummary.isComplete)
         .reduce((results, runSummary: BettererRunSummary) => {
@@ -68,8 +68,8 @@ export class BettererResultsFileΩ {
   }
 
   public async write(suiteSummary: BettererSuiteSummary, precommit: boolean): Promise<void> {
-    const printedExpected = print(this._expected);
-    const printedResult = print(
+    const printedExpected = printResults__(this._expected);
+    const printedResult = printResults__(
       suiteSummary.runs
         .filter((runSummary: BettererRunSummary) => runSummary.printed != null)
         .reduce((results, runSummary) => {
@@ -91,8 +91,8 @@ export class BettererResultsFileΩ {
     return value;
   }
 
-  private async _write(result: string, precommit = false): Promise<void> {
-    await write(result, this._resultsPath);
+  private async _write(results: string, precommit = false): Promise<void> {
+    await writeResults__(results, this._resultsPath);
     if (precommit) {
       await this._versionControl.add(this._resultsPath);
     }

@@ -4,39 +4,24 @@
 
 ```ts
 
-// Warning: (ae-missing-release-tag) "BettererResult" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererResult = {
     value: string;
 };
 
-// Warning: (ae-missing-release-tag) "BettererResults" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererResults = Record<string, BettererResult>;
 
-// Warning: (ae-missing-release-tag) "merge" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export function merge(ours: string, theirs: string): BettererResults;
+// @internal
+export function mergeResults__(ours: string, theirs: string): BettererResults;
 
-// Warning: (ae-missing-release-tag) "parse" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export function parse(resultsPath: string): Promise<BettererResults>;
+// @internal
+export function parseResults__(resultsPath: string): Promise<BettererResults>;
 
-// Warning: (ae-missing-release-tag) "print" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-function print_2(results: BettererResults): string;
-export { print_2 as print }
+// @internal
+export function printResults__(results: BettererResults): string;
 
-// Warning: (ae-missing-release-tag) "write" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export function write(toWrite: string, filePath: string): Promise<void>;
-
-// (No @packageDocumentation comment for this package)
+// @internal
+export function writeResults__(printedResults: string, resultsFile: string): Promise<void>;
 
 ```

@@ -1945,6 +1945,19 @@
     npmlog "^4.1.2"
     write-file-atomic "^3.0.3"
 
+"@microsoft/api-documenter@^7.13.42":
+  version "7.13.42"
+  resolved "https://registry.npmjs.org/@microsoft/api-documenter/-/api-documenter-7.13.42.tgz#9ffd100bc96b024324cb4cb82336bf92a9448b99"
+  integrity sha512-99pMXzOeWH6T7LQzJdjEjGLO5V11NAzPikvmBpQmO/2nipN6oLm7aEq+XO3rzQJ0vKDxESQalMLcE7CsedWzhg==
+  dependencies:
+    "@microsoft/api-extractor-model" "7.13.5"
+    "@microsoft/tsdoc" "0.13.2"
+    "@rushstack/node-core-library" "3.40.0"
+    "@rushstack/ts-command-line" "4.9.0"
+    colors "~1.2.1"
+    js-yaml "~3.13.1"
+    resolve "~1.17.0"
+
 "@microsoft/api-extractor-model@7.13.5":
   version "7.13.5"
   resolved "https://registry.npmjs.org/@microsoft/api-extractor-model/-/api-extractor-model-7.13.5.tgz#7836a81ba47b9a654062ed0361e4eee69afae51e"
@@ -6573,7 +6586,7 @@ jju@~1.4.0:
   resolved "https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
   integrity sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==
 
-js-yaml@^3.13.1:
+js-yaml@^3.13.1, js-yaml@~3.13.1:
   version "3.13.1"
   resolved "https://registry.npmjs.org/js-yaml/-/js-yaml-3.13.1.tgz#aff151b30bfdfa8e49e05da22e7415e9dfa37847"
   integrity sha512-YfbcO7jXDdyj0DGxYVSlSeQNHbD7XPWvrVWeVUujrQEoZzWJIRrCPoyk6kL6IAjAG2IolMK4T0hNUe0HOUs5Jw==

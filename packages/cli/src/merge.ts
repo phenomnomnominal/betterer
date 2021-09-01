@@ -1,4 +1,4 @@
-import { BettererResults, merge, parse, print, write } from '@betterer/results';
+import { BettererResults, mergeResults__, parseResults__, printResults__, writeResults__ } from '@betterer/results';
 import * as path from 'path';
 
 import { mergeOptions } from './options';
@@ -14,9 +14,9 @@ export async function mergeΔ(cwd: string, argv: BettererCLIArguments): Promise<
   let merged: BettererResults;
   if (contents.length) {
     const [ours, theirs] = contents;
-    merged = merge(ours, theirs);
+    merged = mergeResults__(ours, theirs);
   } else {
-    merged = await parse(resultsPath);
+    merged = await parseResults__(resultsPath);
   }
-  await write(print(merged), resultsPath);
+  await writeResults__(printResults__(merged), resultsPath);
 }

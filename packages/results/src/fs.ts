@@ -1,27 +1,33 @@
 import { BettererError } from '@betterer/errors';
 import { promises as fs } from 'fs';
 
-export async function access(filePath: string): Promise<boolean> {
+export async function accessResults(resultsFile: string): Promise<boolean> {
   try {
-    await fs.access(filePath);
+    await fs.access(resultsFile);
     return true;
   } catch {
     return false;
   }
 }
 
-export async function read(filePath: string): Promise<string> {
+export async function readResults(resultsFile: string): Promise<string> {
   try {
-    return await fs.readFile(filePath, 'utf-8');
+    return await fs.readFile(resultsFile, 'utf-8');
   } catch {
-    throw new BettererError(`could not read from "${filePath}". 😔`);
+    throw new BettererError(`could not read from "${resultsFile}". 😔`);
   }
 }
 
-export async function write(toWrite: string, filePath: string): Promise<void> {
+/**
+ * Writes a {@link @betterer/results#printResults__ | printed results object}
+ * to the given results file path.
+ *
+ * @internal This could change at any point! Please don't use!
+ */
+export async function writeResults__(printedResults: string, resultsFile: string): Promise<void> {
   try {
-    await fs.writeFile(filePath, toWrite, 'utf8');
+    await fs.writeFile(resultsFile, printedResults, 'utf8');
   } catch {
-    throw new BettererError(`could not write to "${filePath}". 😔`);
+    throw new BettererError(`could not write to "${resultsFile}". 😔`);
   }
 }
