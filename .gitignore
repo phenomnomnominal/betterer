@@ -9,6 +9,7 @@ yarn-error.log
 goldens/temp
 packages/**/yarn.lock
 website/build
+website/data
 website/.docusaurus
 packages/extension/.vscode-test
 *.patch
