@@ -6,15 +6,7 @@
 
 import { BettererFileTest } from '@betterer/betterer';
 
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/tsquery" does not have an export "BettererFileTest"
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/tsquery" does not have an export "BettererFileTest"
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/tsquery" does not have an export "BettererFileTest"
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/tsquery" does not have an export "BettererFileTest"
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/tsquery" does not have an export "BettererFileTest"
-//
 // @public
 export function tsquery(query: string): BettererFileTest;
-
-// (No @packageDocumentation comment for this package)
 
 ```

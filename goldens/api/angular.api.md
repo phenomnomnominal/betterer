@@ -7,15 +7,7 @@
 import { BettererFileTest } from '@betterer/betterer';
 import { CompilerOptions } from '@angular/compiler-cli';
 
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/angular" does not have an export "BettererFileTest"
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/angular" does not have an export "BettererFileTest"
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/angular" does not have an export "BettererFileTest"
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/angular" does not have an export "BettererFileTest"
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/angular" does not have an export "BettererFileTest"
-//
 // @public
 export function angular(configFilePath: string, extraCompilerOptions: CompilerOptions): BettererFileTest;
-
-// (No @packageDocumentation comment for this package)
 
 ```

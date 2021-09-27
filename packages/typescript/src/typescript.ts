@@ -19,7 +19,7 @@ type TypeScriptReadConfigResult = {
 const CODE_FILE_NOT_INCLUDED = 6307;
 
 /**
- * {@link https://www.npmjs.com/package/@betterer/typescript | `@betterer/typescript`}
+ * @public {@link https://www.npmjs.com/package/@betterer/typescript | `@betterer/typescript`}
  *
  * Use this test to incrementally introduce {@link https://www.typescriptlang.org/docs/handbook/compiler-options.html | **TypeScript** configuration} to your codebase.
  *
@@ -37,7 +37,6 @@ const CODE_FILE_NOT_INCLUDED = 6307;
  *    .include('./src/*.ts')
  * };
  * ```
- * @public
  */
 export function typescript(configFilePath: string, extraCompilerOptions: ts.CompilerOptions = {}): BettererFileTest {
   if (!configFilePath) {

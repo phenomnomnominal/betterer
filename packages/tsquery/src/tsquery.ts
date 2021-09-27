@@ -4,11 +4,11 @@ import { tsquery as tsq } from '@phenomnomnominal/tsquery';
 import { promises as fs } from 'fs';
 
 /**
- * {@link https://www.npmjs.com/package/@betterer/tsquery | `@betterer/tsquery`}
+ * @public {@link https://www.npmjs.com/package/@betterer/tsquery | `@betterer/tsquery`}
  *
  * Use this test to incrementally remove **TSQuery** matches from your codebase. See the {@link https://github.com/phenomnomnominal/tsquery | **TSQuery** documentation} for more details about the query syntax.
  *
- * {@link tsquery | `tsquery`} is a {@link BettererFileTest | `BettererFileTest`}, so you can use {@link BettererFileTest.include | `exclude`}, {@link BettererFileTest.exclude | `exclude`}, {@link BettererFileTest.only | `only`}, and {@link BettererFileTest.skip | `skip`}.
+ * {@link tsquery | `tsquery`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}, so you can use {@link @betterer/betterer#BettererFileTest.include | `exclude`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude`}, {@link @betterer/betterer#BettererFileTest.only | `only`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip`}.
  *
  * @example
  * ```typescript
@@ -21,8 +21,6 @@ import { promises as fs } from 'fs';
  *    .include('./src/*.ts')
  * };
  * ```
- *
- * @public
  */
 export function tsquery(query: string): BettererFileTest {
   if (!query) {
