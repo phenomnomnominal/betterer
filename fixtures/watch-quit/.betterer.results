@@ -1,0 +1,9 @@
+// BETTERER RESULTS V2.
+exports[`test`] = {
+  value: `{
+    "src/index.ts:1294262757": [
+      [0, 0, 11, "TSQuery match", "3870399096"],
+      [0, 19, 11, "TSQuery match", "3870399096"]
+    ]
+  }`
+};
