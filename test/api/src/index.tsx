@@ -27,7 +27,7 @@ export const APITest: FC<APITestProps> = function APITest({ packageNames }) {
           },
           [testPackageApi, packageName]
         );
-        return <BettererTaskLogger key={packageName} name={packageName} run={task} />;
+        return <BettererTaskLogger key={packageName} name={packageName} task={task} />;
       })}
     </BettererTasksLogger>
   );

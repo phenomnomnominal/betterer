@@ -18,6 +18,26 @@ type TypeScriptReadConfigResult = {
 // a subset of files, so we need to filter out those errors!
 const CODE_FILE_NOT_INCLUDED = 6307;
 
+/**
+ * @public {@link https://www.npmjs.com/package/@betterer/typescript | `@betterer/typescript`}
+ *
+ * Use this test to incrementally introduce {@link https://www.typescriptlang.org/docs/handbook/compiler-options.html | **TypeScript** configuration} to your codebase.
+ *
+ * {@link typescript | `typescript`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}, so you can use {@link @betterer/betterer#BettererFileTest.include | `exclude`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude`}, {@link @betterer/betterer#BettererFileTest.only | `only`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip`}.
+ *
+ * @example
+ * ```typescript
+ * import { typescript } from '@betterer/typescript';
+ *
+ * export default {
+ *  'stricter compilation': () =>
+ *    typescript('./tsconfig.json', {
+ *      strict: true
+ *    })
+ *    .include('./src/*.ts')
+ * };
+ * ```
+ */
 export function typescript(configFilePath: string, extraCompilerOptions: ts.CompilerOptions = {}): BettererFileTest {
   if (!configFilePath) {
     throw new BettererError(

@@ -1,6 +1,6 @@
-import { useContext, useReducer, useRef } from 'react';
+import { useReducer, useRef } from 'react';
 
-import { BettererTasksAction, BettererTasksStateContext, BettererTasksStateAPI } from './useTasksState';
+import { useTasks } from './useTasksState';
 import { BettererTaskLog, BettererTaskLogs } from './types';
 
 type BettererTaskState = {
@@ -8,7 +8,6 @@ type BettererTaskState = {
   running: boolean;
   status: BettererTaskLog | null;
   logs: BettererTaskLogs;
-  finalLogs: BettererTaskLogs;
   error: Error | null;
 };
 
@@ -17,12 +16,20 @@ const INITIAL_STATE: BettererTaskState = {
   running: false,
   status: null,
   logs: [],
-  finalLogs: [],
   error: null
 };
 
 type BettererTaskAction =
-  | BettererTasksAction
+  | {
+      type: 'start';
+    }
+  | {
+      type: 'stop';
+    }
+  | {
+      type: 'error';
+      data: Error;
+    }
   | {
       type: 'reset';
     }
@@ -35,7 +42,10 @@ type BettererTaskAction =
       data: BettererTaskLog;
     };
 
-type BettererTaskStateAPI = BettererTasksStateAPI & {
+type BettererTaskStateAPI = {
+  error(error: Error): void;
+  start(): void;
+  stop(): void;
   reset(): void;
   status(status: BettererTaskLog): Promise<void>;
   log(status: BettererTaskLog): Promise<void>;
@@ -43,7 +53,7 @@ type BettererTaskStateAPI = BettererTasksStateAPI & {
 
 export function useTaskState(): [BettererTaskState, BettererTaskStateAPI] {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
-  const tasks = useContext(BettererTasksStateContext);
+  const [, tasks] = useTasks();
   const api = useRef<BettererTaskStateAPI>({
     reset() {
       dispatch({ type: 'reset' });
@@ -93,8 +103,7 @@ function reducer(state: BettererTaskState, action: BettererTaskAction): Betterer
       return {
         ...state,
         running: false,
-        done: true,
-        finalLogs: state.logs
+        done: true
       };
     }
     case 'error': {
@@ -102,8 +111,7 @@ function reducer(state: BettererTaskState, action: BettererTaskAction): Betterer
         ...state,
         error: action.data,
         running: false,
-        done: true,
-        finalLogs: state.logs
+        done: true
       };
     }
     default: {

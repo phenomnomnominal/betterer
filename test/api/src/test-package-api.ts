@@ -1,20 +1,15 @@
 import { BettererError } from '@betterer/errors';
-import { BettererLogger } from '@betterer/logger';
-import { BettererTaskLog } from '@betterer/tasks';
+import { BettererLogger, diffStringsΔ } from '@betterer/logger';
+import { Extractor, ExtractorConfig } from '@microsoft/api-extractor';
 import { promises as fs } from 'fs';
 import * as path from 'path';
-import { publicApi, verifyAgainstGoldenFile } from 'ts-api-guardian';
 
-const EXCLUDED_PACKAGES = ['extension', 'fixture', 'tasks'];
-const DECLARATION_EXTENSION = '.d.ts';
-const BUILT_DECLARATION = `dist/index${DECLARATION_EXTENSION}`;
+const EXCLUDED_PACKAGES = ['extension', 'fixture'];
+const EXTRACTION_EXTENSION = '.api.md';
+const EXTRACTION_CONFIG_FILE = 'api-extractor.json';
 const PACKAGES_DIR = path.resolve(__dirname, '../../../packages');
-const GOLDENS_DIR = path.resolve(__dirname, '../../../goldens/api/@betterer');
-
-const API_OPTIONS = { allowModuleIdentifiers: ['ts', 'react'] };
-
-const CRLF = '\r\n';
-const CHUNK_SPLIT = '\n\n';
+const GOLDENS_DIR = path.resolve(__dirname, '../../../goldens/api');
+const TEMP_DIR = path.resolve(__dirname, '../../../goldens/temp');
 
 const INTERNAL_TOKENS = ['Ω'];
 
@@ -34,16 +29,22 @@ export async function getPackages(): Promise<Array<string>> {
   });
 }
 
-export async function run(logger: BettererLogger, packageName: string): Promise<string | BettererTaskLog> {
+export async function run(logger: BettererLogger, packageName: string): Promise<string> {
   await logger.progress(`Validating API for "@betterer/${packageName}" ...`);
 
-  const packageDeclarationPath = path.join(PACKAGES_DIR, packageName, BUILT_DECLARATION);
-  const packageGoldenPath = path.join(GOLDENS_DIR, `${packageName}${DECLARATION_EXTENSION}`);
+  const packageGoldenPath = path.join(GOLDENS_DIR, `${packageName}${EXTRACTION_EXTENSION}`);
+  const packageGeneratedPath = path.join(TEMP_DIR, `${packageName}${EXTRACTION_EXTENSION}`);
 
-  const packageGoldenRaw = await fs.readFile(packageGoldenPath, 'utf-8');
-  const packageGeneratedRaw = publicApi(packageDeclarationPath, API_OPTIONS);
-  const packageGolden = normaliseFile(packageGoldenRaw);
-  const packageGenerated = normaliseFile(packageGeneratedRaw);
+  const apiExtractorJsonPath: string = path.join(PACKAGES_DIR, packageName, EXTRACTION_CONFIG_FILE);
+  const extractorConfig = ExtractorConfig.loadFileAndPrepare(apiExtractorJsonPath);
+
+  Extractor.invoke(extractorConfig, {
+    localBuild: false,
+    messageCallback: (message) => (message.handled = true)
+  });
+
+  const packageGolden = await fs.readFile(packageGoldenPath, 'utf-8');
+  const packageGenerated = await fs.readFile(packageGeneratedPath, 'utf-8');
 
   const foundToken = INTERNAL_TOKENS.find((token) => {
     return checkForBannedTokens(packageGolden, token) || checkForBannedTokens(packageGenerated, token);
@@ -55,35 +56,14 @@ export async function run(logger: BettererLogger, packageName: string): Promise<
     );
   }
 
-  const isDefinitelyValid = packageGolden === packageGenerated;
-  const isProbablyValid = isDefinitelyValid || checkForOutOfOrder(packageGenerated, packageGolden);
-  if (isProbablyValid) {
-    if (isDefinitelyValid) {
-      return `No Breaking API changes found in "@betterer/${packageName}".`;
-    }
-    return [
-      '🤷‍♂️',
-      'green',
-      `No Breaking API changes found in "@betterer/${packageName}". There's a *slight* chance this could be a false positive, so maybe just double check it! 😬`
-    ];
+  if (packageGolden === packageGenerated) {
+    return `No Breaking API changes found in "@betterer/${packageName}".`;
   }
 
-  const diff = verifyAgainstGoldenFile(packageDeclarationPath, packageGoldenPath, API_OPTIONS);
+  const diff = diffStringsΔ(packageGolden, packageGenerated, { aAnnotation: 'Golden', bAnnotation: 'Current' });
   throw new BettererError(`API changes found in "@betterer/${packageName.toString()}"`, diff);
 }
 
 function checkForBannedTokens(types: string, token: string): boolean {
   return types.includes(token);
-}
-
-function checkForOutOfOrder(generated: string, golden: string): boolean {
-  const generatedChunks = generated.split(CHUNK_SPLIT);
-  const goldenChunks = golden.split(CHUNK_SPLIT);
-  const newChunks = generatedChunks.filter((chunk) => !golden.includes(chunk));
-  const missingChunks = goldenChunks.filter((chunk) => !generated.includes(chunk));
-  return newChunks.length === 0 && missingChunks.length === 0;
-}
-
-function normaliseFile(str: string): string {
-  return str.replace(new RegExp(CRLF, 'g'), '\n').trim();
 }

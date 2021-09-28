@@ -1,59 +1,57 @@
 import { BettererError } from '@betterer/errors';
-
-import { BettererConfig, BettererOptionsOverride } from '../config';
-import { BettererContextΩ, BettererContextStarted } from '../context';
-import { BettererFilePaths, destroyVersionControl } from '../fs';
+import { BettererOptionsOverride } from '../config';
+import { BettererContextΩ } from '../context';
+import { BettererFilePaths } from '../fs';
 import { createGlobals } from '../globals';
-import { BettererRunWorkerPoolΩ } from '../run';
 import { BettererSuiteSummary } from '../suite';
 import { normalisedPath } from '../utils';
 import { BettererRunner } from './types';
+import { createWatcher, WATCHER_EVENTS } from './watcher';
 
 const DEBOUNCE_TIME = 200;
 
 export class BettererRunnerΩ implements BettererRunner {
   private _jobs: Array<BettererFilePaths> = [];
-  private _running: Promise<BettererSuiteSummary> | null = null;
-  private _started: BettererContextStarted;
+  private _running: Promise<void> | null = null;
 
-  private constructor(
-    public readonly config: BettererConfig,
-    private _context: BettererContextΩ,
-    private _runWorkerPool: BettererRunWorkerPoolΩ
-  ) {
-    this._started = this._context.start();
-  }
+  private constructor(private _context: BettererContextΩ) {}
 
   public static async create(options: unknown): Promise<BettererRunnerΩ> {
     const globals = await createGlobals(options);
-    const { config } = globals;
-    const runWorkerPool = new BettererRunWorkerPoolΩ(config.workers);
-    const context = new BettererContextΩ(globals, runWorkerPool);
+    const watcher = await createWatcher(globals);
 
-    return new BettererRunnerΩ(config, context, runWorkerPool);
+    const context = new BettererContextΩ(globals, watcher);
+    const runner = new BettererRunnerΩ(context);
+
+    if (watcher) {
+      watcher.on('all', (event: string, filePath: string) => {
+        if (WATCHER_EVENTS.includes(event)) {
+          void runner.queue([filePath]);
+        }
+      });
+    }
+
+    return runner;
   }
 
-  public options(optionsOverride: BettererOptionsOverride): void {
-    this._context.options(optionsOverride);
+  public async options(optionsOverride: BettererOptionsOverride): Promise<void> {
+    await this._context.options(optionsOverride);
   }
 
-  public async run(filePaths: BettererFilePaths): Promise<BettererSuiteSummary> {
-    this._addJob(filePaths);
-    await this._processQueue();
-    return this.stop();
+  public run(): Promise<BettererSuiteSummary> {
+    return this._context.runOnce();
   }
 
   public queue(filePathOrPaths: string | BettererFilePaths = []): Promise<void> {
     const filePaths: BettererFilePaths = Array.isArray(filePathOrPaths) ? filePathOrPaths : [filePathOrPaths as string];
+    if (this._context.isDestroyed) {
+      throw new BettererError('You cannot queue a test run after the runner has been stopped! 💥');
+    }
     this._addJob(filePaths);
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       setTimeout(() => {
         void (async () => {
-          try {
-            await this._processQueue();
-          } catch (error) {
-            reject(error);
-          }
+          await this._processQueue();
           resolve();
         })();
       }, DEBOUNCE_TIME);
@@ -64,17 +62,15 @@ export class BettererRunnerΩ implements BettererRunner {
   public async stop(force: true): Promise<null>;
   public async stop(force?: true): Promise<BettererSuiteSummary | null> {
     try {
-      await this._running;
-      const contextSummary = await this._started.end();
-      return contextSummary.lastSuite;
+      if (!force) {
+        await this._running;
+      }
+      return this._context.stop();
     } catch (error) {
       if (force) {
         return null;
       }
       throw error;
-    } finally {
-      await destroyVersionControl();
-      await this._runWorkerPool.destroy();
     }
   }
 
@@ -84,21 +80,27 @@ export class BettererRunnerΩ implements BettererRunner {
   }
 
   private async _processQueue(): Promise<void> {
-    if (this._jobs.length) {
-      try {
-        const filePaths = new Set<string>();
-        this._jobs.forEach((job) => {
-          job.forEach((path) => {
-            filePaths.add(path);
-          });
-        });
-        const changed = Array.from(filePaths).sort();
-        this._jobs = [];
+    // It's possible for the queue debounce to trigger *after* `this.stop()` has been called:
+    if (this._context.isDestroyed) {
+      this._jobs = [];
+      return;
+    }
 
-        this._running = this._context.run(changed);
+    if (this._jobs.length) {
+      const filePaths = new Set<string>();
+      this._jobs.forEach((job) => {
+        job.forEach((path) => {
+          filePaths.add(path);
+        });
+      });
+      const runPaths = Array.from(filePaths).sort();
+      this._jobs = [];
+
+      this._running = this._context.run(runPaths);
+      try {
         await this._running;
-      } catch (error) {
-        await this._started.error(error as BettererError);
+      } catch {
+        // Errors will be handled by reporters
       }
     }
   }

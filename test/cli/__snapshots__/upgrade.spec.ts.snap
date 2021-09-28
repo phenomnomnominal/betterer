@@ -1,0 +1,614 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`betterer upgrade should doesn't change things it doesn't need to change 1`] = `
+Array [
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Upgrading Betterer (0ms): 1 task done!
+✅ Upgrading \\"./.betterer.ts\\": done!
+・ Nothing to upgrade!",
+]
+`;
+
+exports[`betterer upgrade should upgrade exported constant built-in tests in a CommonJS module 1`] = `
+Array [
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Upgrading Betterer (0ms): 1 task done!
+✅ Upgrading \\"./.betterer.ts\\": done!
+・
+・ Betterer can upgrade your test definition file automatically! ✨
+・ Here's what the changes will look like:
+・
+・ - Before
+・ + After
+・
+・   const { regexp } = require('@betterer/regexp');
+・
+・ - module.exports.noHack = regexp(/HACK/i).include('**/*.ts');
+・ + module.exports.noHack = () => regexp(/HACK/i).include('**/*.ts');
+・ +
+・
+・ If that looks okay, run \`betterer upgrade --save\` to write the changes to disk. 💾
+・",
+]
+`;
+
+exports[`betterer upgrade should upgrade exported constant built-in tests in an ES module 1`] = `
+Array [
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Upgrading Betterer (0ms): 1 task done!
+✅ Upgrading \\"./.betterer.ts\\": done!
+・
+・ Betterer can upgrade your test definition file automatically! ✨
+・ Here's what the changes will look like:
+・
+・ - Before
+・ + After
+・
+・   import { regexp } from '@betterer/regexp';
+・
+・ - export const noHack = regexp(/HACK/i).include('**/*.ts');
+・ + export const noHack = () => regexp(/HACK/i).include('**/*.ts');
+・ +
+・
+・ If that looks okay, run \`betterer upgrade --save\` to write the changes to disk. 💾
+・",
+]
+`;
+
+exports[`betterer upgrade should upgrade exported constant file tests in a CommonJS module 1`] = `
+Array [
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Upgrading Betterer (0ms): 1 task done!
+✅ Upgrading \\"./.betterer.ts\\": done!
+・
+・ Betterer can upgrade your test definition file automatically! ✨
+・ Here's what the changes will look like:
+・
+・ - Before
+・ + After
+・
+・   const { BettererFileTest } = require('@betterer/betterer');
+・
+・ - module.exports.countFiles = new BettererFileTest(async (files, fileTestResult) => {
+・ -   const [filePath] = files;
+・ + module.exports.countFiles = () =>
+・ +   new BettererFileTest(async (files, fileTestResult) => {
+・ +     const [filePath] = files;
+・ -   const file = fileTestResult.addFile(filePath, '');
+・ +     const file = fileTestResult.addFile(filePath, '');
+・ -   file.addIssue(0, 0, '\`$' + '{key}\`');
+・ +     file.addIssue(0, 0, '\`$' + '{key}\`');
+・ - });
+・ +   });
+・ +
+・
+・ If that looks okay, run \`betterer upgrade --save\` to write the changes to disk. 💾
+・",
+]
+`;
+
+exports[`betterer upgrade should upgrade exported constant file tests in an ES module 1`] = `
+Array [
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Upgrading Betterer (0ms): 1 task done!
+✅ Upgrading \\"./.betterer.ts\\": done!
+・
+・ Betterer can upgrade your test definition file automatically! ✨
+・ Here's what the changes will look like:
+・
+・ - Before
+・ + After
+・
+・   import { BettererFileTest } from '@betterer/betterer';
+・
+・ - export const countFiles = new BettererFileTest(async (files, fileTestResult) => {
+・ -   const [filePath] = files;
+・ + export const countFiles = () =>
+・ +   new BettererFileTest(async (files, fileTestResult) => {
+・ +     const [filePath] = files;
+・ -   const file = fileTestResult.addFile(filePath, '');
+・ +     const file = fileTestResult.addFile(filePath, '');
+・ -   file.addIssue(0, 0, '\`$' + '{key}\`');
+・ +     file.addIssue(0, 0, '\`$' + '{key}\`');
+・ - });
+・ +   });
+・ +
+・
+・ If that looks okay, run \`betterer upgrade --save\` to write the changes to disk. 💾
+・",
+]
+`;
+
+exports[`betterer upgrade should upgrade exported constant file tests with include in a CommonJS module 1`] = `
+Array [
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Upgrading Betterer (0ms): 1 task done!
+✅ Upgrading \\"./.betterer.ts\\": done!
+・
+・ Betterer can upgrade your test definition file automatically! ✨
+・ Here's what the changes will look like:
+・
+・ - Before
+・ + After
+・
+・   const { BettererFileTest } = require('@betterer/betterer');
+・
+・ - module.exports.countFiles = new BettererFileTest(async (files, fileTestResult) => {
+・ -   const [filePath] = files;
+・ + module.exports.countFiles = () =>
+・ +   new BettererFileTest(async (files, fileTestResult) => {
+・ +     const [filePath] = files;
+・ -   const file = fileTestResult.addFile(filePath, '');
+・ +     const file = fileTestResult.addFile(filePath, '');
+・ -   file.addIssue(0, 0, '\`$' + '{key}\`');
+・ +     file.addIssue(0, 0, '\`$' + '{key}\`');
+・ - }).include('./src/**/*.ts');
+・ +   }).include('./src/**/*.ts');
+・ +
+・
+・ If that looks okay, run \`betterer upgrade --save\` to write the changes to disk. 💾
+・",
+]
+`;
+
+exports[`betterer upgrade should upgrade exported constant file tests with include in an ES module 1`] = `
+Array [
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Upgrading Betterer (0ms): 1 task done!
+✅ Upgrading \\"./.betterer.ts\\": done!
+・
+・ Betterer can upgrade your test definition file automatically! ✨
+・ Here's what the changes will look like:
+・
+・ - Before
+・ + After
+・
+・   import { BettererFileTest } from '@betterer/betterer';
+・
+・ - export const countFiles = new BettererFileTest(async (files, fileTestResult) => {
+・ -   const [filePath] = files;
+・ + export const countFiles = () =>
+・ +   new BettererFileTest(async (files, fileTestResult) => {
+・ +     const [filePath] = files;
+・ -   const file = fileTestResult.addFile(filePath, '');
+・ +     const file = fileTestResult.addFile(filePath, '');
+・ -   file.addIssue(0, 0, '\`$' + '{key}\`');
+・ +     file.addIssue(0, 0, '\`$' + '{key}\`');
+・ - }).include('./src/**/*.ts');
+・ +   }).include('./src/**/*.ts');
+・ +
+・
+・ If that looks okay, run \`betterer upgrade --save\` to write the changes to disk. 💾
+・",
+]
+`;
+
+exports[`betterer upgrade should upgrade exported constant objects in a CommonJS module 1`] = `
+Array [
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Upgrading Betterer (0ms): 1 task done!
+✅ Upgrading \\"./.betterer.ts\\": done!
+・
+・ Betterer can upgrade your test definition file automatically! ✨
+・ Here's what the changes will look like:
+・
+・ - Before
+・ + After
+・
+・ + const { BettererTest } = require('@betterer/betterer');
+・   const { bigger } = require('@betterer/constraints');
+・
+・   let start = 0;
+・
+・ - module.exports.getsBetter = {
+・ + module.exports.getsBetter = () =>
+・ +   new BettererTest({
+・ -   test: () => start++,
+・ +     test: () => start++,
+・ -   constraint: bigger
+・ +     constraint: bigger
+・ - };
+・ +   });
+・ +
+・
+・ If that looks okay, run \`betterer upgrade --save\` to write the changes to disk. 💾
+・",
+]
+`;
+
+exports[`betterer upgrade should upgrade exported constant objects in an ES module 1`] = `
+Array [
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Upgrading Betterer (0ms): 1 task done!
+✅ Upgrading \\"./.betterer.ts\\": done!
+・
+・ Betterer can upgrade your test definition file automatically! ✨
+・ Here's what the changes will look like:
+・
+・ - Before
+・ + After
+・
+・ + import { BettererTest } from '@betterer/betterer';
+・   import { bigger } from '@betterer/constraints';
+・
+・   let start = 0;
+・
+・ - export const getsBetter = {
+・ -   test: () => start++,
+・ + export const getsBetter = () =>
+・ +   new BettererTest({
+・ +     test: () => start++,
+・ -   constraint: bigger
+・ +     constraint: bigger
+・ - };
+・ +   });
+・ +
+・
+・ If that looks okay, run \`betterer upgrade --save\` to write the changes to disk. 💾
+・",
+]
+`;
+
+exports[`betterer upgrade should upgrade exported constant tests in a CommonJS module 1`] = `
+Array [
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Upgrading Betterer (0ms): 1 task done!
+✅ Upgrading \\"./.betterer.ts\\": done!
+・
+・ Betterer can upgrade your test definition file automatically! ✨
+・ Here's what the changes will look like:
+・
+・ - Before
+・ + After
+・
+・   const { BettererTest } = require('@betterer/betterer');
+・   const { bigger } = require('@betterer/constraints');
+・
+・   let start = 0;
+・
+・ - module.exports.getsBetter = new BettererTest({
+・ + module.exports.getsBetter = () =>
+・ +   new BettererTest({
+・ -   test: () => start++,
+・ +     test: () => start++,
+・ -   constraint: bigger
+・ +     constraint: bigger
+・ - });
+・ +   });
+・ +
+・
+・ If that looks okay, run \`betterer upgrade --save\` to write the changes to disk. 💾
+・",
+]
+`;
+
+exports[`betterer upgrade should upgrade exported constant tests in an ES module 1`] = `
+Array [
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Upgrading Betterer (0ms): 1 task done!
+✅ Upgrading \\"./.betterer.ts\\": done!
+・
+・ Betterer can upgrade your test definition file automatically! ✨
+・ Here's what the changes will look like:
+・
+・ - Before
+・ + After
+・
+・   import { BettererTest } from '@betterer/betterer';
+・   import { bigger } from '@betterer/constraints';
+・
+・   let start = 0;
+・
+・ - export const getsBetter = new BettererTest({
+・ + export const getsBetter = () =>
+・ +   new BettererTest({
+・ -   test: () => start++,
+・ +     test: () => start++,
+・ -   constraint: bigger
+・ +     constraint: bigger
+・ - });
+・ +   });
+・ +
+・
+・ If that looks okay, run \`betterer upgrade --save\` to write the changes to disk. 💾
+・",
+]
+`;
+
+exports[`betterer upgrade should upgrade exported default test in a CJS module 1`] = `
+"const { BettererTest, BettererFileTest } = require('@betterer/betterer');
+const { bigger } = require('@betterer/constraints');
+
+let start = 0;
+
+module.exports = {
+  getsBetter: () =>
+    new BettererTest({
+      test: () => start++,
+      constraint: bigger
+    }),
+  'gets better': () =>
+    new BettererTest({
+      test: () => start++,
+      constraint: bigger
+    }),
+  countFiles: () =>
+    new BettererFileTest(async (files, fileTestResult) => {
+      const [filePath] = files;
+      const file = fileTestResult.addFile(filePath, '');
+      file.addIssue(0, 0, '\`$' + '{key}\`');
+    }),
+  'count files': () =>
+    new BettererFileTest(async (files, fileTestResult) => {
+      const [filePath] = files;
+      const file = fileTestResult.addFile(filePath, '');
+      file.addIssue(0, 0, '\`$' + '{key}\`');
+    }).include('./src/**/*.ts')
+};
+"
+`;
+
+exports[`betterer upgrade should upgrade exported default test in a CJS module 2`] = `
+Array [
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Upgrading Betterer (0ms): 1 task done!
+✅ Upgrading \\"./.betterer.ts\\": done!
+・
+・ Betterer can upgrade your test definition file automatically! ✨
+・ Here's what the changes will look like:
+・
+・ - Before
+・ + After
+・
+・   const { BettererTest, BettererFileTest } = require('@betterer/betterer');
+・   const { bigger } = require('@betterer/constraints');
+・
+・   let start = 0;
+・
+・   module.exports = {
+・ -   getsBetter: {
+・ -     test: () => start++,
+・ +   getsBetter: () =>
+・ +     new BettererTest({
+・ +       test: () => start++,
+・ -     constraint: bigger
+・ +       constraint: bigger
+・ -   },
+・ +     }),
+・ -   'gets better': new BettererTest({
+・ +   'gets better': () =>
+・ +     new BettererTest({
+・ -     test: () => start++,
+・ +       test: () => start++,
+・ -     constraint: bigger
+・ +       constraint: bigger
+・ -   }),
+・ +     }),
+・ -   countFiles: new BettererFileTest(async (files, fileTestResult) => {
+・ -     const [filePath] = files;
+・ +   countFiles: () =>
+・ +     new BettererFileTest(async (files, fileTestResult) => {
+・ +       const [filePath] = files;
+・ -     const file = fileTestResult.addFile(filePath, '');
+・ +       const file = fileTestResult.addFile(filePath, '');
+・ -     file.addIssue(0, 0, '\`$' + '{key}\`');
+・ +       file.addIssue(0, 0, '\`$' + '{key}\`');
+・ -   }),
+・ +     }),
+・ -   'count files': new BettererFileTest(async (files, fileTestResult) => {
+・ -     const [filePath] = files;
+・ +   'count files': () =>
+・ +     new BettererFileTest(async (files, fileTestResult) => {
+・ +       const [filePath] = files;
+・ -     const file = fileTestResult.addFile(filePath, '');
+・ +       const file = fileTestResult.addFile(filePath, '');
+・ -     file.addIssue(0, 0, '\`$' + '{key}\`');
+・ +       file.addIssue(0, 0, '\`$' + '{key}\`');
+・ -   }).include('./src/**/*.ts')
+・ +     }).include('./src/**/*.ts')
+・ - }
+・ + };
+・ +
+・
+・ If that looks okay, run \`betterer upgrade --save\` to write the changes to disk. 💾
+・",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Upgrading Betterer (0ms): 1 task done!
+✅ Upgrading \\"./.betterer.ts\\": done!
+・ Saved upgraded config to \\"<project>/fixtures/upgrade-exported-default-test-cjs/.betterer.ts\\"! ☀️",
+]
+`;
+
+exports[`betterer upgrade should upgrade exported default test in an ES module 1`] = `
+"import { BettererTest, BettererFileTest } from '@betterer/betterer';
+import { bigger } from '@betterer/constraints';
+
+let start = 0;
+
+export default {
+  getsBetter: () =>
+    new BettererTest({
+      test: () => start++,
+      constraint: bigger
+    }),
+  'gets better': () =>
+    new BettererTest({
+      test: () => start++,
+      constraint: bigger
+    }),
+  countFiles: () =>
+    new BettererFileTest(async (files, fileTestResult) => {
+      const [filePath] = files;
+      const file = fileTestResult.addFile(filePath, '');
+      file.addIssue(0, 0, '\`$' + '{key}\`');
+    }),
+  'count files': () =>
+    new BettererFileTest(async (files, fileTestResult) => {
+      const [filePath] = files;
+      const file = fileTestResult.addFile(filePath, '');
+      file.addIssue(0, 0, '\`$' + '{key}\`');
+    }).include('./src/**/*.ts')
+};
+"
+`;
+
+exports[`betterer upgrade should upgrade exported default test in an ES module 2`] = `
+Array [
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Upgrading Betterer (0ms): 1 task done!
+✅ Upgrading \\"./.betterer.ts\\": done!
+・
+・ Betterer can upgrade your test definition file automatically! ✨
+・ Here's what the changes will look like:
+・
+・ - Before
+・ + After
+・
+・   import { BettererTest, BettererFileTest } from '@betterer/betterer';
+・   import { bigger } from '@betterer/constraints';
+・
+・   let start = 0;
+・
+・   export default {
+・ -   getsBetter: {
+・ -     test: () => start++,
+・ +   getsBetter: () =>
+・ +     new BettererTest({
+・ +       test: () => start++,
+・ -     constraint: bigger
+・ +       constraint: bigger
+・ -   },
+・ +     }),
+・ -   'gets better': new BettererTest({
+・ +   'gets better': () =>
+・ +     new BettererTest({
+・ -     test: () => start++,
+・ +       test: () => start++,
+・ -     constraint: bigger
+・ +       constraint: bigger
+・ -   }),
+・ +     }),
+・ -   countFiles: new BettererFileTest(async (files, fileTestResult) => {
+・ -     const [filePath] = files;
+・ +   countFiles: () =>
+・ +     new BettererFileTest(async (files, fileTestResult) => {
+・ +       const [filePath] = files;
+・ -     const file = fileTestResult.addFile(filePath, '');
+・ +       const file = fileTestResult.addFile(filePath, '');
+・ -     file.addIssue(0, 0, '\`$' + '{key}\`');
+・ +       file.addIssue(0, 0, '\`$' + '{key}\`');
+・ -   }),
+・ +     }),
+・ -   'count files': new BettererFileTest(async (files, fileTestResult) => {
+・ -     const [filePath] = files;
+・ +   'count files': () =>
+・ +     new BettererFileTest(async (files, fileTestResult) => {
+・ +       const [filePath] = files;
+・ -     const file = fileTestResult.addFile(filePath, '');
+・ +       const file = fileTestResult.addFile(filePath, '');
+・ -     file.addIssue(0, 0, '\`$' + '{key}\`');
+・ +       file.addIssue(0, 0, '\`$' + '{key}\`');
+・ -   }).include('./src/**/*.ts')
+・ +     }).include('./src/**/*.ts')
+・ - }
+・ + };
+・ +
+・
+・ If that looks okay, run \`betterer upgrade --save\` to write the changes to disk. 💾
+・",
+  "
+   / | /     _         _   _
+ '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
+---ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
+ .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
+   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+
+🎉 Upgrading Betterer (0ms): 1 task done!
+✅ Upgrading \\"./.betterer.ts\\": done!
+・ Saved upgraded config to \\"<project>/fixtures/upgrade-exported-default-test-esm/.betterer.ts\\"! ☀️",
+]
+`;

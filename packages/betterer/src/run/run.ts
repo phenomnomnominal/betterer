@@ -19,6 +19,11 @@ export class BettererRunΩ implements BettererRun {
   ) {
     this.isNew = testMeta.isNew;
     this.isSkipped = testMeta.isSkipped;
+
+    // Always run all files for a new test, even if just passed a single file:
+    if (this.isNew && this.filePaths) {
+      this.filePaths = [];
+    }
   }
 
   public static async create(

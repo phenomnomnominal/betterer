@@ -52,11 +52,11 @@ ignored.ts
     await writeFile(nestedPath, `console.log('foo');`);
 
     const suiteSummary = await suiteSummaryDefer.promise;
-    const [run] = suiteSummary.runs;
+    const [runSummary] = suiteSummary.runSummaries;
 
     await runner.stop();
 
-    expect(run.filePaths).toHaveLength(1);
+    expect(runSummary.filePaths).toHaveLength(1);
 
     expect(logs).toMatchSnapshot();
 

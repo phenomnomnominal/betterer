@@ -95,24 +95,20 @@ function createTest(
     assert(runΩ.filePaths);
 
     const baseDirectory = path.dirname(runΩ.test.configPath);
-    const { versionControl } = runΩ.globals;
-    resolver.init(baseDirectory, versionControl);
 
-    const hasSpecifiedFiles = runΩ.filePaths?.length > 0;
+    const { config, versionControl } = runΩ.globals;
+    resolver.init(baseDirectory, versionControl, config);
+
+    const hasSpecifiedFiles = runΩ.filePaths.length > 0;
     runΩ.filePaths = hasSpecifiedFiles ? await resolver.validate(runΩ.filePaths) : await resolver.files();
 
-    let runFiles = runΩ.filePaths;
-    if (!runΩ.isNew) {
-      runFiles = await versionControl.filterCached(runFiles);
-    }
+    const runFiles = runΩ.isNew ? runΩ.filePaths : await versionControl.filterCached(run.name, runΩ.filePaths);
 
     const cacheHit = runΩ.filePaths.length !== runFiles.length;
     const isPartial = hasSpecifiedFiles || cacheHit;
 
     const result = new BettererFileTestResultΩ(resolver);
     await fileTest(runFiles, result, resolver);
-
-    await versionControl.updateCache(result.filePaths);
 
     if (!isPartial || runΩ.isNew) {
       return result;

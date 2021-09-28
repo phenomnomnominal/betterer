@@ -2,11 +2,27 @@
 
 exports[`betterer doesn't cache if a test gets worse 1`] = `
 "{
-  \\"src/index.ts\\": \\"39946026984126639614\\"
+  \\"version\\": 2,
+  \\"testCache\\": {
+    \\"test\\": {
+      \\"src/index.ts\\": \\"39946026984126639614\\"
+    }
+  }
 }"
 `;
 
 exports[`betterer doesn't cache if a test gets worse 2`] = `
+"{
+  \\"version\\": 2,
+  \\"testCache\\": {
+    \\"test\\": {
+      \\"src/index.ts\\": \\"39946026984126639614\\"
+    }
+  }
+}"
+`;
+
+exports[`betterer doesn't cache if a test gets worse 3`] = `
 Array [
   "
    / | /     _         _   _
@@ -171,14 +187,6 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in \\"<project>/fixtures/cache-worse/src/index.ts\\".
-・ New issue in \\"<project>/fixtures/cache-worse/src/index.ts\\"!
-・
-・   <project>/fixtures/cache-worse/src/index.ts
-・   1 | // HACK:
-・ > 2 | // HACK:
-・     | ^^^^^^^ RegExp match
-・
 
 Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ",
@@ -272,14 +280,6 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 
 🌟 Betterer (0ms): 1 test running...
 🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in \\"<project>/fixtures/cache-worse/src/index.ts\\".
-・ New issue in \\"<project>/fixtures/cache-worse/src/index.ts\\"!
-・
-・   <project>/fixtures/cache-worse/src/index.ts
-・   1 | // HACK:
-・ > 2 | // HACK:
-・     | ^^^^^^^ RegExp match
-・
 
 Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ",

@@ -1,8 +1,10 @@
 import { BettererReporter } from '../reporters';
 
 export type BettererConfigPaths = ReadonlyArray<string>;
+export type BettererConfigExcludes = ReadonlyArray<RegExp>;
 export type BettererConfigFilters = ReadonlyArray<RegExp>;
 export type BettererConfigIgnores = ReadonlyArray<string>;
+export type BettererConfigIncludes = ReadonlyArray<string>;
 
 export type BettererConfig = BettererConfigBase & BettererConfigStart & BettererConfigRunner & BettererConfigWatch;
 
@@ -22,7 +24,8 @@ export type BettererConfigBase = {
 
 export type BettererConfigStart = {
   ci: boolean;
-  filePaths: BettererConfigPaths;
+  excludes: BettererConfigExcludes;
+  includes: BettererConfigIncludes;
   precommit: boolean;
   strict: boolean;
   update: boolean;

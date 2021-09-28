@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 require('../dist/merge')
-  .mergeΔ(process.cwd(), process.argv)
+  .merge__(process.cwd(), process.argv)
   .then(function () {
     process.exitCode = 0;
   })

@@ -1,4 +1,4 @@
-import { parse, print, write, BettererResults } from '@betterer/results';
+import { parseResults__, printResults__, writeResults__, BettererResults } from '@betterer/results';
 import assert from 'assert';
 
 import { BettererVersionControlWorker } from '../fs';
@@ -18,7 +18,7 @@ export class BettererResultsFileΩ {
     resultsPath: string,
     versionControl: BettererVersionControlWorker
   ): Promise<BettererResultsFileΩ> {
-    const baseline = await parse(resultsPath);
+    const baseline = await parseResults__(resultsPath);
     const expected = baseline;
     return new BettererResultsFileΩ(resultsPath, versionControl, baseline, expected);
   }
@@ -47,13 +47,30 @@ export class BettererResultsFileΩ {
   }
 
   public async sync(): Promise<void> {
-    this._expected = await parse(this._resultsPath);
+    this._expected = await parseResults__(this._resultsPath);
+  }
+
+  public async writeNew(suiteSummary: BettererSuiteSummary): Promise<void> {
+    if (suiteSummary.new.length === 0) {
+      return;
+    }
+
+    const printedNew = printResults__(
+      suiteSummary.new
+        .filter((runSummary) => !runSummary.isComplete)
+        .reduce((results, runSummary: BettererRunSummary) => {
+          results[runSummary.name] = { value: runSummary.printed as string };
+          return results;
+        }, this._expected)
+    );
+
+    await this._write(printedNew, false);
   }
 
   public async write(suiteSummary: BettererSuiteSummary, precommit: boolean): Promise<void> {
-    const printedExpected = print(this._expected);
-    const printedResult = print(
-      suiteSummary.runs
+    const printedExpected = printResults__(this._expected);
+    const printedResult = printResults__(
+      suiteSummary.runSummaries
         .filter((runSummary: BettererRunSummary) => runSummary.printed != null)
         .reduce((results, runSummary) => {
           results[runSummary.name] = { value: runSummary.printed as string };
@@ -63,11 +80,7 @@ export class BettererResultsFileΩ {
 
     const shouldWrite = printedResult !== printedExpected;
     if (shouldWrite) {
-      await write(printedResult, this._resultsPath);
-      await this._versionControl.writeCache();
-      if (precommit) {
-        await this._versionControl.add(this._resultsPath);
-      }
+      await this._write(printedResult, precommit);
     }
   }
 
@@ -76,5 +89,12 @@ export class BettererResultsFileΩ {
     assert(hasResult);
     const { value } = results[name];
     return value;
+  }
+
+  private async _write(results: string, precommit = false): Promise<void> {
+    await writeResults__(results, this._resultsPath);
+    if (precommit) {
+      await this._versionControl.add(this._resultsPath);
+    }
   }
 }

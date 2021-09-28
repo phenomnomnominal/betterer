@@ -1,0 +1,49 @@
+{
+  "name": "@betterer/angular",
+  "description": "Angular test for @betterer/betterer",
+  "version": "5.0.0-alpha.0",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "Craig Spence <craigspence0@gmail.com>",
+  "homepage": "https://phenomnomnominal.github.io/betterer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phenomnomnominal/betterer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/phenomnomnominal/betterer/issues"
+  },
+  "scripts": {
+    "compile": "tsc -b .",
+    "api": "api-extractor run --local --verbose"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "dependencies": {
+    "@betterer/betterer": "^5.0.0-alpha.0",
+    "@betterer/errors": "^4.0.0",
+    "tslib": "^2.3.1"
+  },
+  "devDependencies": {
+    "@angular/common": "^12.1.0",
+    "@angular/compiler": "^12.1.0",
+    "@angular/compiler-cli": "^12.1.0",
+    "@angular/core": "^12.1.0",
+    "@angular/platform-browser": "^12.1.0",
+    "@angular/platform-browser-dynamic": "^12.1.0",
+    "rxjs": "^7.1.0",
+    "zone.js": "^0.11.4"
+  },
+  "peerDependencies": {
+    "@angular/compiler": "*",
+    "@angular/compiler-cli": "*"
+  }
+}

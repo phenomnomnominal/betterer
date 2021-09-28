@@ -1,13 +1,19 @@
+/**
+ * {@link https://www.npmjs.com/package/@betterer/tasks | `@betterer/tasks` }
+ *
+ * Task runner and logger used within {@link https://github.com/phenomnomnominal/betterer | **Betterer**}.
+ *
+ * 🚨 THIS PACKAGE SHOULD ONLY BE USED WITHIN THE BETTERER MONOREPO 🚨
+ *
+ * @packageDocumentation
+ */
+
 export { BettererErrorLog, BettererErrorLogProps } from './error-log';
 export { BettererLogo } from './logo';
 export {
-  getTask,
-  reset,
-  BettererTaskColour,
-  BettererTaskLog,
+  BettererTask,
   BettererTaskLogger,
   BettererTaskLoggerProps,
-  BettererTaskRun,
   BettererTasksDone,
   BettererTasksLogger,
   BettererTasksLoggerProps,

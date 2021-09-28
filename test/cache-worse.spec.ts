@@ -14,10 +14,10 @@ module.exports = {
     `
     });
 
+    const cachePath = paths.cache;
     const configPaths = [paths.config];
     const resultsPath = paths.results;
     const indexPath = resolve('./src/index.ts');
-    const cachePath = resolve('./.betterer.cache');
 
     await writeFile(indexPath, `// HACK:`);
 
@@ -33,6 +33,10 @@ module.exports = {
 
     expect(runNames(sameTestRun.same)).toEqual(['test']);
 
+    const sameCache = await readFile(cachePath);
+
+    expect(sameCache).toMatchSnapshot();
+
     await writeFile(indexPath, `// HACK:\n// HACK:`);
 
     const worseTestRun = await betterer({ configPaths, resultsPath, cachePath, workers: false });
@@ -41,7 +45,7 @@ module.exports = {
 
     const worseCache = await readFile(cachePath);
 
-    expect(worseCache).toEqual(newCache);
+    expect(worseCache).toEqual(sameCache);
 
     const stillWorseTestRun = await betterer({ configPaths, resultsPath, cachePath, workers: false });
 

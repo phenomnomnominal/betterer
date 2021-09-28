@@ -2,62 +2,47 @@ import { FSWatcher, watch } from 'chokidar';
 import minimatch from 'minimatch';
 import * as path from 'path';
 
-import { BettererOptionsOverride, BettererOptionsWatch } from '../config';
-import { BettererFilePaths } from '../fs';
-import { BettererSuiteSummary } from '../suite';
+import { BettererGlobals } from '../types';
 import { normalisedPath } from '../utils';
-import { BettererRunnerΩ } from './runner';
-import { BettererRunner } from './types';
 
-const EMIT_EVENTS = ['add', 'change'];
+export const WATCHER_EVENTS = ['add', 'change'];
 
-export class BettererWatcherΩ implements BettererRunner {
-  private constructor(private _runner: BettererRunnerΩ, private _watcher: FSWatcher) {}
+export async function createWatcher(globals: BettererGlobals): Promise<FSWatcher | null> {
+  const { config } = globals;
 
-  public static async create(options: BettererOptionsWatch): Promise<BettererWatcherΩ> {
-    const runner = await BettererRunnerΩ.create({ ...options, watch: true });
+  if (!config.watch) {
+    return null;
+  }
 
-    const { cwd, resultsPath } = runner.config;
+  const { cachePath, cwd, resultsPath } = config;
 
-    const watcher = watch(cwd, {
-      ignoreInitial: true,
-      ignored: (itemPath: string) => {
-        // read `ignores` here so that it can be updated by watch mode:
-        const { ignores } = runner.config;
-        const watchIgnores = [...ignores].map((ignore) => path.join(cwd, ignore));
-        return (
-          itemPath !== normalisedPath(cwd) &&
-          (itemPath === normalisedPath(resultsPath) ||
-            watchIgnores.some((ignore) => minimatch(itemPath, ignore, { matchBase: true })))
-        );
+  const watcher = watch(cwd, {
+    ignoreInitial: true,
+    ignored: (itemPath: string) => {
+      itemPath = normalisedPath(itemPath);
+      const isCwd = itemPath === normalisedPath(cwd);
+      if (isCwd) {
+        return false;
       }
-    });
 
-    watcher.on('all', (event: string, filePath: string) => {
-      if (EMIT_EVENTS.includes(event)) {
-        void runner.queue([filePath]);
+      const isResultsPath = itemPath === normalisedPath(resultsPath);
+      const isCachePath = itemPath === normalisedPath(cachePath);
+      if (isResultsPath || isCachePath) {
+        return true;
       }
-    });
 
-    await new Promise((resolve, reject) => {
-      watcher.on('ready', resolve);
-      watcher.on('error', reject);
-    });
-    return new BettererWatcherΩ(runner, watcher);
-  }
+      // read `ignores` here so that it can be updated by watch mode:
+      const { ignores } = config;
+      const watchIgnores = ignores.map((ignore) => path.join(cwd, ignore));
+      const isIgnored = watchIgnores.some((ignore) => minimatch(itemPath, ignore, { matchBase: true }));
+      return isIgnored;
+    }
+  });
 
-  public options(configOverride: BettererOptionsOverride): void {
-    this._runner.options(configOverride);
-  }
+  await new Promise((resolve, reject) => {
+    watcher.on('ready', resolve);
+    watcher.on('error', reject);
+  });
 
-  public queue(filePaths: string | BettererFilePaths): Promise<void> {
-    return this._runner.queue(filePaths);
-  }
-
-  public async stop(force: true): Promise<null>;
-  public async stop(): Promise<BettererSuiteSummary>;
-  public async stop(force?: true): Promise<BettererSuiteSummary | null> {
-    await this._watcher.close();
-    return await (force ? this._runner.stop(force) : this._runner.stop());
-  }
+  return watcher;
 }

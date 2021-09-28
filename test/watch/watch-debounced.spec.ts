@@ -46,7 +46,7 @@ export default {
 
     await runner.stop();
 
-    expect(suiteSummary.runs).toHaveLength(1);
+    expect(suiteSummary.runSummaries).toHaveLength(1);
 
     expect(logs).toMatchSnapshot();
 

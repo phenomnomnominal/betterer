@@ -1,6 +1,11 @@
-import { createContext, useReducer, useRef } from 'react';
+import { createContext, useContext, useReducer, useRef } from 'react';
 import { performance } from 'perf_hooks';
+import { BettererError } from '@betterer/errors';
 
+/**
+ * @public The current state of the running tasks. `endTime` will only be present when
+ * there are no more `running` tasks.
+ */
 export type BettererTasksState = {
   running: number;
   done: number;
@@ -21,16 +26,16 @@ export type BettererTasksAction =
       data: Error;
     };
 
-export type BettererTasksStateAPI = {
+export type BettererTasksAPI = {
   error(error: Error): void;
   start(): void;
   stop(): void;
 };
 
-export function useTasksState(): [BettererTasksState, BettererTasksStateAPI] {
+export function useTasksState(): [BettererTasksState, BettererTasksAPI] {
   const [state, dispatch] = useReducer(reducer, getInitialState());
 
-  const api = useRef<BettererTasksStateAPI>({
+  const api = useRef<BettererTasksAPI>({
     error(error: Error) {
       dispatch({ type: 'error', data: error });
     },
@@ -55,17 +60,15 @@ function getInitialState(): BettererTasksState {
   };
 }
 
-export const BettererTasksStateContext = createContext<BettererTasksStateAPI>({
-  error() {
-    throw new Error();
-  },
-  start() {
-    throw new Error();
-  },
-  stop() {
-    throw new Error();
+export const BettererTasksContext = createContext<[BettererTasksState, BettererTasksAPI] | null>(null);
+
+export function useTasks(): [BettererTasksState, BettererTasksAPI] {
+  const context = useContext(BettererTasksContext);
+  if (context === null) {
+    throw new BettererError('Trying to use `BettererTasksContext` before it was created` 🔥');
   }
-});
+  return context;
+}
 
 function reducer(state: BettererTasksState, action: BettererTasksAction): BettererTasksState {
   switch (action.type) {

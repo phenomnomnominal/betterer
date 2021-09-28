@@ -1,48 +1,59 @@
 import { Box, useApp } from 'ink';
-import React, { FC, memo, useCallback, useEffect, useRef, useState } from 'react';
-import { performance } from 'perf_hooks';
+import React, { FC, memo, useEffect } from 'react';
 
 import { BettererTaskStatus } from './status';
-import { useTasksState, BettererTasksStateContext } from './useTasksState';
+import { useTasksState, BettererTasksContext, BettererTasksState } from './useTasksState';
 import { BettererTaskLog, BettererTasksDone, BettererTasksStatusUpdate } from './types';
+import { useTimer } from './useTimer';
 
-const DEFAULT_TASK_TIME_INTERVAL = 100;
-
+/**
+ * @public `props` type for {@link BettererTasksLogger | `<BettererTasksLogger/>`}
+ */
 export type BettererTasksLoggerProps = {
+  /**
+   * Whether the Ink renderer instance should quit after the tasks are complete.
+   *
+   * @remarks
+   * Should be set this to `false` if the Ink instance is rendering any other components.
+   *
+   * @defaultValue `true`
+   */
   exit?: boolean;
+  /**
+   * The name of group of task that is shown to the user
+   */
   name: string;
-  update: BettererTasksStatusUpdate;
+  /**
+   * An optional hook to customise the output of the task status summary.
+   *
+   * @defaultValue `() => ${nRunning} tasks running... ${nDone} tasks done! ${nErrored} tasks errored!`
+   */
+  update?: BettererTasksStatusUpdate;
+  /**
+   * An optional callback function that is called whenever a set of tasks are completed.
+   */
   done?: BettererTasksDone;
 };
 
+/**
+ * @public Ink component for rendering the output of a set of {@link BettererTask | `BettererTask`s}.
+ * The output will update based on the current status of the tasks.
+ */
 export const BettererTasksLogger: FC<BettererTasksLoggerProps> = memo(function BettererTasksLogger(props) {
-  const { children, done, exit = true, name, update } = props;
+  const { children, done = () => void 0, exit = true, name, update = defaultUpdate } = props;
+
   const app = useApp();
-  const [state, api] = useTasksState();
-  const timer = useRef<NodeJS.Timeout | null>(null);
-  const [runningTime, setRunningTime] = useState(performance.now());
 
-  const { errors, endTime, startTime } = state;
+  const [time, clear] = useTimer();
 
-  const updateTime = useCallback(() => {
-    setRunningTime(performance.now());
-  }, [performance]);
-
-  const clearTime = useCallback(() => {
-    if (timer.current) {
-      clearInterval(timer.current);
-    }
-  }, []);
+  const [state, tasks] = useTasksState();
+  const { startTime, endTime, errors } = state;
 
   useEffect(() => {
-    if (endTime) {
-      clearTime();
-      return;
+    if (endTime != null) {
+      clear();
     }
-    timer.current = setInterval(updateTime, DEFAULT_TASK_TIME_INTERVAL);
-    updateTime();
-    return clearTime;
-  }, [updateTime, clearTime, endTime]);
+  }, [endTime, clear]);
 
   const result = `${update(state)}`;
   let status: BettererTaskLog = ['🌟', 'whiteBright', result];
@@ -58,18 +69,16 @@ export const BettererTasksLogger: FC<BettererTasksLoggerProps> = memo(function B
     if (exit) {
       setImmediate(() => app.exit());
     }
-    if (done) {
-      done();
-    }
+    done();
   }
 
   return (
-    <BettererTasksStateContext.Provider value={api}>
+    <BettererTasksContext.Provider value={[state, tasks]}>
       <Box flexDirection="column">
-        <BettererTaskStatus name={`${name} (${getTime(startTime, endTime || runningTime)}ms)`} status={status} />
+        <BettererTaskStatus name={`${name} (${getTime(startTime, endTime || time)}ms)`} status={status} />
         {children}
       </Box>
-    </BettererTasksStateContext.Provider>
+    </BettererTasksContext.Provider>
   );
 });
 
@@ -77,4 +86,16 @@ const FORMATTER = Intl.NumberFormat();
 
 function getTime(startTime: number, time: number) {
   return FORMATTER.format(Math.floor(time - startTime));
+}
+
+function defaultUpdate(state: BettererTasksState): string {
+  const { done, errors, running } = state;
+  const runningStatus = running ? `${tasks(running)} running... ` : '';
+  const doneStatus = done ? `${tasks(done)} done! ` : '';
+  const errorStatus = errors ? `${tasks(errors)} errored! ` : '';
+  return `${runningStatus}${doneStatus}${errorStatus}`;
+}
+
+function tasks(n: number): string {
+  return `${n} ${n === 1 ? 'task' : 'tasks'}`;
 }

@@ -1,8 +1,8 @@
 import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
-import { access, read } from './fs';
-import { merge } from './merge';
+import { accessResults, readResults } from './fs';
+import { mergeResults__ } from './merge';
 import { requireText } from './require';
 import { BettererResults } from './types';
 
@@ -11,17 +11,28 @@ const MERGE_CONFLICT_END = '>>>>>>>';
 const MERGE_CONFLICT_SEP = '=======';
 const MERGE_CONFLICT_START = '<<<<<<<';
 
-export async function parse(resultsPath: string): Promise<BettererResults> {
-  const exists = await access(resultsPath);
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * Parses the contents of a given results file path. If the file doesn't exist, it will
+ * return an empty object. If the file exists, but has merge conflicts, it will merge the
+ * files using {@link mergeResults__ | `mergeResults__`}.
+ *
+ * @throws {@link @betterer/errors#BettererError | `BettererError`}
+ * Throws if the results file cannot be parsed, or if it contains merge conflicts that
+ * can't be resolved.
+ */
+export async function parseResults__(resultsPath: string): Promise<BettererResults> {
+  const exists = await accessResults(resultsPath);
   if (!exists) {
     return {};
   }
-  const contents = await read(resultsPath);
+  const contents = await readResults(resultsPath);
 
   if (hasMergeConflicts(contents)) {
     try {
       const [ours, theirs] = extractConflicts(contents);
-      return merge(ours, theirs);
+      return mergeResults__(ours, theirs);
     } catch (error) {
       throw new BettererError(`could not resolve merge conflict in "${resultsPath}". 😔`, error as Error);
     }

@@ -52,10 +52,10 @@ module.exports = {
     const runner = await betterer.runner({ configPaths, resultsPath, cwd, workers: false });
     await runner.queue(testPath);
     const suiteSummary = await runner.stop();
-    const [run] = suiteSummary.runs;
+    const [runSummary] = suiteSummary.runSummaries;
 
-    expect(run.isComplete).toEqual(true);
-    expect(run.filePaths).toHaveLength(0);
+    expect(runSummary.isComplete).toEqual(true);
+    expect(runSummary.filePaths).toHaveLength(0);
 
     await cleanup();
   });

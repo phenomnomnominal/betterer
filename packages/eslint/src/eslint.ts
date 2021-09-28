@@ -3,9 +3,30 @@ import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 import { ESLint, Linter } from 'eslint';
 
-type ESLintRulesConfig = Record<string, Linter.RuleLevel | Linter.RuleLevelAndOptions>;
+import { BettererESLintRulesConfig } from './types';
 
-export function eslint(rules: ESLintRulesConfig): BettererFileTest {
+/**
+ * @public {@link https://www.npmjs.com/package/@betterer/eslint | `@betterer/eslint`}
+ *
+ * Use this test to incrementally introduce new {@link https://eslint.org/ | **ESLint**} rules to your codebase. You can pass as many **ESLint** {@link https://eslint.org/docs/rules/ | rule configurations} as you like:
+ *
+ * {@link eslint | `eslint`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}, so you can use {@link @betterer/betterer#BettererFileTest.include | `exclude`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude`}, {@link @betterer/betterer#BettererFileTest.only | `only`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip`}.
+ *
+ * @example
+ * ```typescript
+ * import { eslint } from '@betterer/eslint';
+ *
+ * export default {
+ *   'new eslint rules': () =>
+ *     eslint({
+ *       'no-debugger': 'error',
+ *       'no-unsafe-finally': 'error',
+ *     })
+ *     .include('./src/*.ts')
+ * };
+ * ```
+ */
+export function eslint(rules: BettererESLintRulesConfig): BettererFileTest {
   if (!rules) {
     throw new BettererError(
       "for `@betterer/eslint` to work, you need to provide rule options, e.g. `{ 'no-debugger': 'error' }`. ❌"

@@ -1,6 +1,6 @@
 import React, { FC, useCallback } from 'react';
 
-import { BettererLogo, BettererTaskLogger, BettererTasksLogger, BettererTasksState } from '@betterer/tasks';
+import { BettererLogo, BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
 import { workerRequire } from '@phenomnomnominal/worker-require';
 import { Box } from 'ink';
 
@@ -49,23 +49,11 @@ export const Init: FC<InitProps> = function Init({ automerge, cwd, configPath, r
   return (
     <Box flexDirection="column">
       <BettererLogo />
-      <BettererTasksLogger name="Initialising Betterer" update={update}>
-        <BettererTaskLogger name="Create test file" run={runCreateTestFile} />
-        <BettererTaskLogger name="Update package.json" run={runUpdagePackageJSON} />
-        {automerge && <BettererTaskLogger name="Enable automerge" run={runEnableAutomerge} />}
+      <BettererTasksLogger name="Initialising Betterer">
+        <BettererTaskLogger name="Create test file" task={runCreateTestFile} />
+        <BettererTaskLogger name="Update package.json" task={runUpdagePackageJSON} />
+        {automerge && <BettererTaskLogger name="Enable automerge" task={runEnableAutomerge} />}
       </BettererTasksLogger>
     </Box>
   );
 };
-
-function update(state: BettererTasksState): string {
-  const { done, errors, running } = state;
-  const runningStatus = running ? `${tasks(running)} running... ` : '';
-  const doneStatus = done ? `${tasks(done)} done! ` : '';
-  const errorStatus = errors ? `${tasks(errors)} errored! ` : '';
-  return `${runningStatus}${doneStatus}${errorStatus}`;
-}
-
-function tasks(n: number): string {
-  return `${n} ${n === 1 ? 'task' : 'tasks'}`;
-}

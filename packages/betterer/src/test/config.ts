@@ -83,7 +83,7 @@ function isComplex<DeserialisedType, SerialisedType, DiffType>(
 }
 
 export function defaultDiffer(expected: unknown, result: unknown): BettererDiff<unknown> {
-  const diff = diffΔ(expected, result);
+  const diff = diffΔ(expected, result, { aAnnotation: 'Expected', bAnnotation: 'Result' });
   const logs: BettererLogs = diff ? [{ error: diff }] : [];
   return {
     diff: null,

@@ -177,14 +177,6 @@ Array [
 
 🌟 Betterer (0ms): 1 test running...
 🔥 regexp: \\"regexp\\" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in \\"<project>/fixtures/regexp/src/index.ts\\".
-・ New issue in \\"<project>/fixtures/regexp/src/index.ts\\"!
-・
-・   <project>/fixtures/regexp/src/index.ts
-・   1 | // HACK:
-・ > 2 | // HACK:
-・     | ^^^^^^^ RegExp match
-・
 
 Error: \\"regexp\\" got worse. (1 new issue, 2 total) 😔
 ",

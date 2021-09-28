@@ -1,4 +1,4 @@
-import { BettererRunSummary, BettererSuite } from '@betterer/betterer';
+import { BettererFilePaths, BettererRunSummary, BettererSuite } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 
 import { Connection, TextDocuments } from 'vscode-languageserver/node';
@@ -44,6 +44,11 @@ export class BettererValidator {
         const extensionCwd = process.cwd();
         const loading = load(this._connection);
         let status = BettererStatus.ok;
+
+        function handleError(filePaths: BettererFilePaths, e: BettererError): void {
+          status = BettererStatus.error;
+          error(`Validator: Error running Betterer on "${JSON.stringify(filePaths)}." - ${e.message}`);
+        }
 
         try {
           if (extensionCwd !== cwd) {
@@ -105,21 +110,23 @@ export class BettererValidator {
             runner.options({
               reporters: [
                 {
+                  contextError: (_, e: BettererError): void => {
+                    handleError(filePaths, e);
+                  },
                   suiteStart: (suite: BettererSuite): void => {
                     this._diagnostics.prepare(suite);
                   },
                   runEnd: (runSummary: BettererRunSummary): void => {
                     this.report(finalDocuments, runSummary);
+                  },
+                  runError: (_, e: BettererError): void => {
+                    handleError(filePaths, e);
                   }
                 }
               ]
             });
 
-            try {
-              await runner.queue(filePaths);
-            } catch (e) {
-              error(`Validator: Error running Betterer on "${JSON.stringify(filePaths)}." - ${e as string}`);
-            }
+            await runner.queue(filePaths);
           }
         } catch (e) {
           error(`Validator: ${e as string}`);
