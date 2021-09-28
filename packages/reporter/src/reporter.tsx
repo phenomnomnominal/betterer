@@ -2,7 +2,6 @@ import React from 'react';
 
 import { BettererContext, BettererContextSummary, BettererReporter, BettererSuiteSummary } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
-import { reset } from '@betterer/tasks';
 import { Instance, render, RenderOptions } from 'ink';
 
 import { Error, Reporter } from './components';
@@ -36,7 +35,6 @@ function createReporter(): BettererReporter {
       renderError(error);
     },
     suiteStart(suite: BettererSuite): Promise<void> {
-      reset();
       return new Promise((resolve) => {
         void renderer.render(suiteStart(suite), resolve);
       });

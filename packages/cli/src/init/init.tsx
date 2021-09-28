@@ -50,9 +50,9 @@ export const Init: FC<InitProps> = function Init({ automerge, cwd, configPath, r
     <Box flexDirection="column">
       <BettererLogo />
       <BettererTasksLogger name="Initialising Betterer">
-        <BettererTaskLogger name="Create test file" run={runCreateTestFile} />
-        <BettererTaskLogger name="Update package.json" run={runUpdagePackageJSON} />
-        {automerge && <BettererTaskLogger name="Enable automerge" run={runEnableAutomerge} />}
+        <BettererTaskLogger name="Create test file" task={runCreateTestFile} />
+        <BettererTaskLogger name="Update package.json" task={runUpdagePackageJSON} />
+        {automerge && <BettererTaskLogger name="Enable automerge" task={runEnableAutomerge} />}
       </BettererTasksLogger>
     </Box>
   );

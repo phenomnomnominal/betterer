@@ -7,17 +7,30 @@ import { Box, Text } from 'ink';
 import { BettererErrorLog } from '../error-log';
 import { BettererTaskStatus } from './status';
 import { useTaskState } from './useTaskState';
-import { BettererTaskLog, BettererTaskRun } from './types';
-import { addTask } from './tasks';
+import { BettererTaskLog, BettererTask } from './types';
 import { useTasks } from './useTasksState';
 
+/**
+ * @public `props` type for {@link BettererTaskLogger | `<BettererTaskLogger/>`}
+ */
 export type BettererTaskLoggerProps = {
+  /**
+   * The name of the task that is shown to the user
+   */
   name: string;
-  run: BettererTaskRun;
+  /**
+   * The task to be run
+   */
+  task: BettererTask;
 };
 
+/**
+ * @public Ink component for rendering the output of a single {@link BettererTask | `BettererTask`}.
+ * The output will update based on the current status of the task. Once the task is finished, it will
+ * output any logging and any errors (if the task failed).
+ */
 export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function BettererTaskLogger(props) {
-  const { name, run } = props;
+  const { name, task } = props;
   const [tasksState] = useTasks();
   const [taskState, taskApi] = useTaskState();
 
@@ -26,7 +39,6 @@ export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function Bet
   useEffect(() => {
     void (async () => {
       taskApi.reset();
-      addTask(name, run);
 
       async function statusError(status: string): Promise<void> {
         await taskApi.status(['🔥', 'redBright', status]);
@@ -60,7 +72,7 @@ export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function Bet
 
       taskApi.start();
       try {
-        const result = await run({
+        const result = await task({
           progress: statusProgress,
           code: logCode,
           debug: logDebug,
@@ -72,10 +84,8 @@ export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function Bet
 
         if (typeof result === 'string') {
           await statusSuccess(result);
-        } else if (!result) {
-          await statusSuccess('done!');
         } else {
-          await taskApi.status(result);
+          await statusSuccess('done!');
         }
         taskApi.stop();
       } catch (error) {
@@ -84,7 +94,7 @@ export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function Bet
         process.exitCode = 1;
       }
     })();
-  }, [name, run, taskApi]);
+  }, [name, task, taskApi]);
 
   return (
     <Box flexDirection="column">

@@ -2,6 +2,10 @@ import { createContext, useContext, useReducer, useRef } from 'react';
 import { performance } from 'perf_hooks';
 import { BettererError } from '@betterer/errors';
 
+/**
+ * @public The current state of the running tasks. `endTime` will only be present when
+ * there are no more `running` tasks.
+ */
 export type BettererTasksState = {
   running: number;
   done: number;

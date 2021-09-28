@@ -52,23 +52,23 @@ export default {
     await writeFile(indexPath, `console.log('foo');\nconsole.log('foo');console.log('foo');`);
 
     const worseSuiteSummary = await worse.promise;
-    const [worseRun] = worseSuiteSummary.runs;
+    const [worseRunSummary] = worseSuiteSummary.runSummaries;
 
-    expect(worseRun.isWorse).toBe(true);
+    expect(worseRunSummary.isWorse).toBe(true);
 
     await writeFile(indexPath, `console.log('foo');console.log('foo');`);
 
     const sameSuiteSummary = await same.promise;
-    const [sameRun] = sameSuiteSummary.runs;
+    const [sameRunSummary] = sameSuiteSummary.runSummaries;
 
-    expect(sameRun.isSame).toBe(true);
+    expect(sameRunSummary.isSame).toBe(true);
 
     await writeFile(indexPath, `console.log('bar');`);
 
     const betterSuiteSummary = await better.promise;
-    const [betterRun] = betterSuiteSummary.runs;
+    const [betterRunSummary] = betterSuiteSummary.runSummaries;
 
-    expect(betterRun.isBetter).toBe(true);
+    expect(betterRunSummary.isBetter).toBe(true);
 
     await runner.stop();
 
