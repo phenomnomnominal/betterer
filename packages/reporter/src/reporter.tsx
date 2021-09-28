@@ -9,6 +9,15 @@ import { BettererReporterAction, contextEnd, createStore, suiteEnd, suiteStart }
 import { BettererReporterRenderer } from './types';
 import { BettererSuite } from '@betterer/betterer/src/suite';
 
+/**
+ * @public the default {@link @betterer/betterer#BettererReporter | `BettererReporter`}.
+ * Supports `betterer` and `betterer watch` modes.
+ *
+ * @remarks
+ * The reporter is implemented as an {@link https://github.com/vadimdemedes/ink | Ink } application
+ * to handle all the fancy terminal rerendering. It also means we can do cool stuff like dynamic settings
+ * in `betterer watch` mode.
+ */
 export const reporter: BettererReporter = createReporter();
 
 function createReporter(): BettererReporter {
@@ -36,7 +45,7 @@ function createReporter(): BettererReporter {
     },
     suiteStart(suite: BettererSuite): Promise<void> {
       return new Promise((resolve) => {
-        void renderer.render(suiteStart(suite), resolve);
+        renderer.render(suiteStart(suite), resolve);
       });
     },
     suiteEnd(suiteSummary: BettererSuiteSummary): void {

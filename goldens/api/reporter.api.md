@@ -6,11 +6,7 @@
 
 import { BettererReporter } from '@betterer/betterer';
 
-// Warning: (ae-missing-release-tag) "reporter" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export const reporter: BettererReporter;
-
-// (No @packageDocumentation comment for this package)
 
 ```
