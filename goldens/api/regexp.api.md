@@ -6,15 +6,7 @@
 
 import { BettererFileTest } from '@betterer/betterer';
 
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/regexp" does not have an export "BettererFileTest"
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/regexp" does not have an export "BettererFileTest"
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/regexp" does not have an export "BettererFileTest"
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/regexp" does not have an export "BettererFileTest"
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/regexp" does not have an export "BettererFileTest"
-//
 // @public
 export function regexp(pattern: RegExp): BettererFileTest;
-
-// (No @packageDocumentation comment for this package)
 
 ```

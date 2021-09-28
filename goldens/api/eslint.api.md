@@ -7,21 +7,10 @@
 import { BettererFileTest } from '@betterer/betterer';
 import { Linter } from 'eslint';
 
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/eslint" does not have an export "Linter"
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/eslint" does not have an export "Linter"
-//
 // @public
 export type BettererESLintRulesConfig = Record<string, Linter.RuleLevel | Linter.RuleLevelAndOptions>;
 
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/eslint" does not have an export "BettererFileTest"
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/eslint" does not have an export "BettererFileTest"
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/eslint" does not have an export "BettererFileTest"
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/eslint" does not have an export "BettererFileTest"
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/eslint" does not have an export "BettererFileTest"
-//
 // @public
 export function eslint(rules: BettererESLintRulesConfig): BettererFileTest;
-
-// (No @packageDocumentation comment for this package)
 
 ```

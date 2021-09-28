@@ -12,6 +12,8 @@ const MERGE_CONFLICT_SEP = '=======';
 const MERGE_CONFLICT_START = '<<<<<<<';
 
 /**
+ * @internal This could change at any point! Please don't use!
+ *
  * Parses the contents of a given results file path. If the file doesn't exist, it will
  * return an empty object. If the file exists, but has merge conflicts, it will merge the
  * files using {@link mergeResults__ | `mergeResults__`}.
@@ -19,8 +21,6 @@ const MERGE_CONFLICT_START = '<<<<<<<';
  * @throws {@link @betterer/errors#BettererError | `BettererError`}
  * Throws if the results file cannot be parsed, or if it contains merge conflicts that
  * can't be resolved.
- *
- * @internal This could change at any point! Please don't use!
  */
 export async function parseResults__(resultsPath: string): Promise<BettererResults> {
   const exists = await accessResults(resultsPath);

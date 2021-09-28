@@ -4,9 +4,7 @@
 
 ```ts
 
-// Warning: (ae-missing-release-tag) "BettererConstraintResult" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export enum BettererConstraintResult {
     // (undocumented)
     better = "better",
@@ -16,16 +14,10 @@ export enum BettererConstraintResult {
     worse = "worse"
 }
 
-// Warning: (ae-missing-release-tag) "bigger" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export function bigger(result: number, expected: number): BettererConstraintResult;
 
-// Warning: (ae-missing-release-tag) "smaller" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export function smaller(result: number, expected: number): BettererConstraintResult;
-
-// (No @packageDocumentation comment for this package)
 
 ```

@@ -4,9 +4,7 @@
 
 ```ts
 
-// Warning: (ae-missing-release-tag) "BettererError" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export class BettererError extends Error {
     constructor(message: string, ...details: BettererErrorDetails);
     // (undocumented)
@@ -15,21 +13,13 @@ export class BettererError extends Error {
     isBettererError: boolean;
 }
 
-// Warning: (ae-missing-release-tag) "BettererErrorDetail" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererErrorDetail = string | Error | BettererError;
 
-// Warning: (ae-missing-release-tag) "BettererErrorDetails" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererErrorDetails = ReadonlyArray<BettererErrorDetail>;
 
-// Warning: (ae-missing-release-tag) "isBettererError" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export function isBettererError(err: unknown): err is BettererError;
-
-// (No @packageDocumentation comment for this package)
 
 ```

@@ -10,6 +10,4 @@ import * as ts from 'typescript';
 // @public
 export function typescript(configFilePath: string, extraCompilerOptions?: ts.CompilerOptions): BettererFileTest;
 
-// (No @packageDocumentation comment for this package)
-
 ```

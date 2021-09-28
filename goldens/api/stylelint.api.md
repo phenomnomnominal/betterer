@@ -7,15 +7,7 @@
 import { BettererFileTest } from '@betterer/betterer';
 import { Configuration } from 'stylelint';
 
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/stylelint" does not have an export "BettererFileTest"
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/stylelint" does not have an export "BettererFileTest"
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/stylelint" does not have an export "BettererFileTest"
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/stylelint" does not have an export "BettererFileTest"
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/stylelint" does not have an export "BettererFileTest"
-//
 // @public
 export function stylelint(configOverrides: Partial<Configuration>): BettererFileTest;
-
-// (No @packageDocumentation comment for this package)
 
 ```

@@ -19,10 +19,10 @@ export async function readResults(resultsFile: string): Promise<string> {
 }
 
 /**
+ * @internal This could change at any point! Please don't use!
+ *
  * Writes a {@link @betterer/results#printResults__ | printed results object}
  * to the given results file path.
- *
- * @internal This could change at any point! Please don't use!
  */
 export async function writeResults__(printedResults: string, resultsFile: string): Promise<void> {
   try {
