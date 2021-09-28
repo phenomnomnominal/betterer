@@ -1,6 +1,5 @@
 import { BettererError } from '@betterer/errors';
 import { BettererLogger, diffStringsΔ } from '@betterer/logger';
-import { BettererTaskLog } from '@betterer/tasks';
 import { Extractor, ExtractorConfig } from '@microsoft/api-extractor';
 import { promises as fs } from 'fs';
 import * as path from 'path';
@@ -30,7 +29,7 @@ export async function getPackages(): Promise<Array<string>> {
   });
 }
 
-export async function run(logger: BettererLogger, packageName: string): Promise<string | BettererTaskLog> {
+export async function run(logger: BettererLogger, packageName: string): Promise<string> {
   await logger.progress(`Validating API for "@betterer/${packageName}" ...`);
 
   const packageGoldenPath = path.join(GOLDENS_DIR, `${packageName}${EXTRACTION_EXTENSION}`);

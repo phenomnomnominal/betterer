@@ -10,6 +10,9 @@ const LOGO = `
    / | \\    |_.__/\\___|\\__|\\__\\___|_|  \\___|_|   
  `;
 
+/**
+ * @public Ink component for rendering an ASCII version of the {@link https://github.com/phenomnomnominal/betterer | **Betterer**} logo.
+ */
 export const BettererLogo: FC = function BettererLogo() {
   return <Text color="yellowBright">{LOGO}</Text>;
 };

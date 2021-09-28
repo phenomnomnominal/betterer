@@ -9,7 +9,7 @@ import { SuiteSummary } from './SuiteSummary';
 
 export type SuiteProps = {
   context: BettererContext;
-  suite: BettererSuite;
+  suite: BettererSuite | BettererSuiteSummary;
   suiteSummary?: BettererSuiteSummary;
   done?: BettererTasksDone;
 };
@@ -20,7 +20,7 @@ export const Suite: FC<SuiteProps> = memo(function Runs({ context, suite, suiteS
       <Box flexDirection="column" paddingBottom={1}>
         <BettererTasksLogger name="Betterer" update={update} exit={false} done={done}>
           {suite.runs.map((run) => (
-            <BettererTaskLogger key={run.name} name={run.name} run={useTask(run)} />
+            <BettererTaskLogger key={run.name} name={run.name} task={useTask(run)} />
           ))}
         </BettererTasksLogger>
       </Box>

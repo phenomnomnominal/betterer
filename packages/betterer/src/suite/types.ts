@@ -6,8 +6,10 @@ export type BettererSuite = {
   readonly runs: BettererRuns;
 };
 
-export type BettererSuiteSummary = BettererSuite & {
-  readonly runs: BettererRunSummaries;
+export type BettererSuiteSummary = {
+  readonly filePaths: BettererFilePaths;
+  readonly runs: BettererRuns;
+  readonly runSummaries: BettererRunSummaries;
   readonly changed: BettererRunNames;
 
   readonly better: BettererRunSummaries;

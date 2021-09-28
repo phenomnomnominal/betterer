@@ -1,7 +1,7 @@
-import { BettererRun, BettererRunSummary } from '@betterer/betterer';
+import { BettererRun } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import { BettererLogger, BettererLoggerCodeInfo, BettererLoggerMessage, BettererLogs } from '@betterer/logger';
-import { BettererTaskRun, getTask } from '@betterer/tasks';
+import { BettererTask } from '@betterer/tasks';
 
 import {
   testBetter,
@@ -19,50 +19,56 @@ import { BettererReporterRun } from '../../types';
 import { quote } from '../../utils';
 import { getDelta } from './deltas';
 
-export function useTask(run: BettererRun | BettererRunSummary): BettererTaskRun {
-  return (
-    getTask(run.name) ||
-    (async (logger: BettererLogger) => {
-      const name = quote(run.name);
-      await logger.progress(testRunning(name));
+const TASKS = new Map<BettererRun, BettererTask>();
 
-      const runSummary = await (run as BettererReporterRun).lifecycle;
+export function useTask(run: BettererRun): BettererTask {
+  const existingTask = TASKS.get(run);
+  if (existingTask) {
+    return existingTask;
+  }
 
-      if (runSummary.isExpired) {
-        await logger.warn(testExpired(name));
-      }
+  const task = async (logger: BettererLogger) => {
+    const name = quote(run.name);
+    await logger.progress(testRunning(name));
 
-      const delta = getDelta(runSummary);
+    const runSummary = await (run as BettererReporterRun).lifecycle;
 
-      if (runSummary.isComplete) {
-        return testComplete(name, runSummary.isNew);
-      }
-      if (runSummary.isBetter) {
-        return testBetter(name, delta);
-      }
-      if (runSummary.isFailed) {
-        throw new BettererError(testFailed(name));
-      }
-      if (runSummary.isNew) {
-        return testNew(name, delta);
-      }
-      if (runSummary.isSkipped) {
-        return testSkipped(name, delta);
-      }
-      if (runSummary.isSame) {
-        return testSame(name, delta);
-      }
-      if (runSummary.isUpdated && runSummary.diff) {
-        await handleLogs(runSummary.diff.logs, logger);
-        return testUpdated(name, delta);
-      }
-      if (runSummary.isWorse && runSummary.diff) {
-        await handleLogs(runSummary.diff.logs, logger);
-        throw new BettererError(testWorse(name, delta));
-      }
-      return;
-    })
-  );
+    if (runSummary.isExpired) {
+      await logger.warn(testExpired(name));
+    }
+
+    const delta = getDelta(runSummary);
+
+    if (runSummary.isComplete) {
+      return testComplete(name, runSummary.isNew);
+    }
+    if (runSummary.isBetter) {
+      return testBetter(name, delta);
+    }
+    if (runSummary.isFailed) {
+      throw new BettererError(testFailed(name));
+    }
+    if (runSummary.isNew) {
+      return testNew(name, delta);
+    }
+    if (runSummary.isSkipped) {
+      return testSkipped(name, delta);
+    }
+    if (runSummary.isSame) {
+      return testSame(name, delta);
+    }
+    if (runSummary.isUpdated && runSummary.diff) {
+      await handleLogs(runSummary.diff.logs, logger);
+      return testUpdated(name, delta);
+    }
+    if (runSummary.isWorse && runSummary.diff) {
+      await handleLogs(runSummary.diff.logs, logger);
+      throw new BettererError(testWorse(name, delta));
+    }
+    return;
+  };
+  TASKS.set(run, task);
+  return task;
 }
 
 async function handleLogs(logs: BettererLogs, logger: BettererLogger): Promise<void> {

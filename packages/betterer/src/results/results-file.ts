@@ -70,7 +70,7 @@ export class BettererResultsFileΩ {
   public async write(suiteSummary: BettererSuiteSummary, precommit: boolean): Promise<void> {
     const printedExpected = printResults__(this._expected);
     const printedResult = printResults__(
-      suiteSummary.runs
+      suiteSummary.runSummaries
         .filter((runSummary: BettererRunSummary) => runSummary.printed != null)
         .reduce((results, runSummary) => {
           results[runSummary.name] = { value: runSummary.printed as string };

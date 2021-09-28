@@ -561,8 +561,10 @@ export type BettererSuiteSummaries = ReadonlyArray<BettererSuiteSummary>;
 // Warning: (ae-missing-release-tag) "BettererSuiteSummary" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-export type BettererSuiteSummary = BettererSuite & {
-    readonly runs: BettererRunSummaries;
+export type BettererSuiteSummary = {
+    readonly filePaths: BettererFilePaths;
+    readonly runs: BettererRuns;
+    readonly runSummaries: BettererRunSummaries;
     readonly changed: BettererRunNames;
     readonly better: BettererRunSummaries;
     readonly completed: BettererRunSummaries;

@@ -9,66 +9,37 @@
 import { BettererError } from '@betterer/errors';
 import { BettererLogger } from '@betterer/logger';
 import { FC } from 'react';
-import { ForegroundColor } from 'chalk';
 
-// Warning: (ae-missing-release-tag) "BettererErrorLog" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export const BettererErrorLog: FC<BettererErrorLogProps>;
 
-// Warning: (ae-missing-release-tag) "BettererErrorLogProps" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererErrorLogProps = {
     error: Error | BettererError;
 };
 
-// Warning: (ae-missing-release-tag) "BettererLogo" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export const BettererLogo: FC;
 
-// Warning: (ae-missing-release-tag) "BettererTaskColour" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererTaskColour = typeof ForegroundColor;
+// @public
+export type BettererTask = (logger: BettererLogger) => Promise<string | void>;
 
-// Warning: (ae-missing-release-tag) "BettererTaskLog" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererTaskLog = [indicator: string, colour: BettererTaskColour, message: string];
-
-// Warning: (ae-missing-release-tag) "BettererTaskLogger" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export const BettererTaskLogger: FC<BettererTaskLoggerProps>;
 
-// Warning: (ae-missing-release-tag) "BettererTaskLoggerProps" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererTaskLoggerProps = {
     name: string;
-    run: BettererTaskRun;
+    task: BettererTask;
 };
 
-// Warning: (ae-missing-release-tag) "BettererTaskRun" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererTaskRun = (logger: BettererLogger) => Promise<BettererTaskLog | string | void>;
-
-// Warning: (ae-missing-release-tag) "BettererTasksDone" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererTasksDone = () => void;
 
-// Warning: (ae-missing-release-tag) "BettererTasksLogger" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export const BettererTasksLogger: FC<BettererTasksLoggerProps>;
 
-// Warning: (ae-missing-release-tag) "BettererTasksLoggerProps" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererTasksLoggerProps = {
     exit?: boolean;
     name: string;
@@ -76,9 +47,7 @@ export type BettererTasksLoggerProps = {
     done?: BettererTasksDone;
 };
 
-// Warning: (ae-missing-release-tag) "BettererTasksState" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererTasksState = {
     running: number;
     done: number;
@@ -87,21 +56,7 @@ export type BettererTasksState = {
     endTime: number | null;
 };
 
-// Warning: (ae-missing-release-tag) "BettererTasksStatusUpdate" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererTasksStatusUpdate = (state: BettererTasksState) => string;
-
-// Warning: (ae-missing-release-tag) "getTask" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export function getTask(name: string): BettererTaskRun | null;
-
-// Warning: (ae-missing-release-tag) "reset" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export function reset(): void;
-
-// (No @packageDocumentation comment for this package)
 
 ```

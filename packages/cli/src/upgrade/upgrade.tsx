@@ -35,7 +35,7 @@ export const Upgrade: FC<UpgradeProps> = function Upgrade({ configPaths, cwd, sa
             <BettererTaskLogger
               key={configPath}
               name={`Upgrading "${configPath}"`}
-              run={runUpgradeConfigFile}
+              task={runUpgradeConfigFile}
             ></BettererTaskLogger>
           );
         })}

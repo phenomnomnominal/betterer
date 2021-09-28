@@ -6,13 +6,39 @@ import { useTasksState, BettererTasksContext, BettererTasksState } from './useTa
 import { BettererTaskLog, BettererTasksDone, BettererTasksStatusUpdate } from './types';
 import { useTimer } from './useTimer';
 
+/**
+ * @public `props` type for {@link BettererTasksLogger | `<BettererTasksLogger/>`}
+ */
 export type BettererTasksLoggerProps = {
+  /**
+   * Whether the Ink renderer instance should quit after the tasks are complete.
+   *
+   * @remarks
+   * Should be set this to `false` if the Ink instance is rendering any other components.
+   *
+   * @defaultValue `true`
+   */
   exit?: boolean;
+  /**
+   * The name of group of task that is shown to the user
+   */
   name: string;
+  /**
+   * An optional hook to customise the output of the task status summary.
+   *
+   * @defaultValue `() => ${nRunning} tasks running... ${nDone} tasks done! ${nErrored} tasks errored!`
+   */
   update?: BettererTasksStatusUpdate;
+  /**
+   * An optional callback function that is called whenever a set of tasks are completed.
+   */
   done?: BettererTasksDone;
 };
 
+/**
+ * @public Ink component for rendering the output of a set of {@link BettererTask | `BettererTask`s}.
+ * The output will update based on the current status of the tasks.
+ */
 export const BettererTasksLogger: FC<BettererTasksLoggerProps> = memo(function BettererTasksLogger(props) {
   const { children, done = () => void 0, exit = true, name, update = defaultUpdate } = props;
 
