@@ -39,7 +39,6 @@ export async function run(logger: BettererLogger, packageName: string): Promise<
   const extractorConfig = ExtractorConfig.loadFileAndPrepare(apiExtractorJsonPath);
 
   Extractor.invoke(extractorConfig, {
-    localBuild: false,
     messageCallback: (message) => (message.handled = true)
   });
 

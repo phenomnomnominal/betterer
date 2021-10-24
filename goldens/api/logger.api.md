@@ -19,14 +19,10 @@ export type BettererLog = {
     warn?: BettererLoggerMessage;
 };
 
-// Warning: (ae-missing-release-tag) "BettererLogCode" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererLogCode = (codeInfo: BettererLoggerCodeInfo) => Promise<void>;
 
-// Warning: (ae-missing-release-tag) "BettererLogger" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererLogger = {
     code: BettererLogCode;
     debug: BettererLogMessage;
@@ -37,9 +33,7 @@ export type BettererLogger = {
     warn: BettererLogMessage;
 };
 
-// Warning: (ae-missing-release-tag) "BettererLoggerCodeInfo" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererLoggerCodeInfo = {
     message: string;
     filePath: string;
@@ -49,19 +43,13 @@ export type BettererLoggerCodeInfo = {
     length: number;
 };
 
-// Warning: (ae-missing-release-tag) "BettererLoggerMessage" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererLoggerMessage = string;
 
-// Warning: (ae-missing-release-tag) "BettererLoggerMessages" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererLoggerMessages = Array<BettererLoggerMessage>;
 
-// Warning: (ae-missing-release-tag) "BettererLogMessage" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererLogMessage = (...messages: BettererLoggerMessages) => Promise<void>;
 
 // Warning: (ae-missing-release-tag) "BettererLogs" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
@@ -83,7 +71,5 @@ export function diffStringsΔ(a: string, b: string, diffOptions: DiffOptions): s
 //
 // @internal
 export function diffΔ<T>(a: T, b: T, diffOptions: DiffOptions): string | null;
-
-// (No @packageDocumentation comment for this package)
 
 ```
