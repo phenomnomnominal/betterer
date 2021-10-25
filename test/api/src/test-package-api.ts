@@ -1,5 +1,5 @@
 import { BettererError } from '@betterer/errors';
-import { BettererLogger, diffStringsΔ } from '@betterer/logger';
+import { BettererLogger, diffStrings__ } from '@betterer/logger';
 import { Extractor, ExtractorConfig } from '@microsoft/api-extractor';
 import { promises as fs } from 'fs';
 import * as path from 'path';
@@ -59,7 +59,7 @@ export async function run(logger: BettererLogger, packageName: string): Promise<
     return `No Breaking API changes found in "@betterer/${packageName}".`;
   }
 
-  const diff = diffStringsΔ(packageGolden, packageGenerated, { aAnnotation: 'Golden', bAnnotation: 'Current' });
+  const diff = diffStrings__(packageGolden, packageGenerated, { aAnnotation: 'Golden', bAnnotation: 'Current' });
   throw new BettererError(`API changes found in "@betterer/${packageName.toString()}"`, diff);
 }
 

@@ -6,8 +6,9 @@
  * @packageDocumentation
  */
 
-export { codeΔ } from './code';
-export { diffΔ, diffStringsΔ } from './diff';
+export { code__ } from './code';
+export { diff__, diffStrings__ } from './diff';
+export { log__ } from './log';
 export {
   BettererLogger,
   BettererLog,

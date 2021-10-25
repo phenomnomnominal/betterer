@@ -1,6 +1,6 @@
 import React, { FC, memo, useEffect } from 'react';
 
-import { BettererLoggerCodeInfo, codeΔ } from '@betterer/logger';
+import { BettererLoggerCodeInfo, code__ } from '@betterer/logger';
 import chalk from 'chalk';
 import { Box, Text } from 'ink';
 
@@ -51,7 +51,7 @@ export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function Bet
       }
 
       async function logCode(codeInfo: BettererLoggerCodeInfo): Promise<void> {
-        const codeFrame = codeΔ(codeInfo);
+        const codeFrame = code__(codeInfo);
         await taskApi.log(['💻', 'whiteBright', codeFrame]);
       }
       async function logDebug(log: string): Promise<void> {

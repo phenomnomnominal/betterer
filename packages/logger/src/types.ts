@@ -33,7 +33,7 @@ export type BettererLoggerCodeInfo = {
 export type BettererLogCode = (codeInfo: BettererLoggerCodeInfo) => Promise<void>;
 
 /**
- * @public The logging interface for **Betterer** reporter and task logging.
+ * @public the logger interface for **Betterer** reporter and task logging.
  */
 export type BettererLogger = {
   code: BettererLogCode;
@@ -45,6 +45,12 @@ export type BettererLogger = {
   warn: BettererLogMessage;
 };
 
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * A logging instruction which can be logged at a later time
+ * using {@link @betterer/logger#log__ | `log__()`}
+ */
 export type BettererLog = {
   code?: BettererLoggerCodeInfo;
   debug?: BettererLoggerMessage;
@@ -55,4 +61,10 @@ export type BettererLog = {
   warn?: BettererLoggerMessage;
 };
 
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * A set of logging instructions which can be logged at a later
+ * time using {@link @betterer/logger#log__ | `log__()`}
+ */
 export type BettererLogs = Array<BettererLog>;
