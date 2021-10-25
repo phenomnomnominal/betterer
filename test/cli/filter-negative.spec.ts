@@ -1,4 +1,4 @@
-import { startΔ } from '@betterer/cli';
+import { start__ } from '@betterer/cli';
 
 import { createFixture } from '../fixture';
 
@@ -36,15 +36,15 @@ module.exports = {
 
     const fixturePath = paths.cwd;
 
-    const firstRun = await startΔ(fixturePath, ARGV, false);
+    const firstRun = await start__(fixturePath, ARGV, false);
 
     expect(runNames(firstRun.ran)).toEqual(['test 1', 'test 2', 'test 3']);
 
-    const secondRun = await startΔ(fixturePath, [...ARGV, '--filter', '!1'], false);
+    const secondRun = await start__(fixturePath, [...ARGV, '--filter', '!1'], false);
 
     expect(runNames(secondRun.ran)).toEqual(['test 2', 'test 3']);
 
-    const thirdRun = await startΔ(fixturePath, [...ARGV, '--filter', 'test', '--filter', '![2|3]'], false);
+    const thirdRun = await start__(fixturePath, [...ARGV, '--filter', 'test', '--filter', '![2|3]'], false);
 
     expect(runNames(thirdRun.ran)).toEqual(['test 1']);
 

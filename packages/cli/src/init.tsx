@@ -11,8 +11,12 @@ const BETTERER_TS = './.betterer.ts';
 const BETTERER_RESULTS = './.betterer.results';
 const TS_EXTENSION = '.ts';
 
-/** @internal Definitely not stable! Please don't use! */
-export async function initΔ(cwd: string, argv: BettererCLIArguments): Promise<void> {
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * Run the **Betterer** `init` command to initialise **Betterer** in a new project.
+ */
+export async function init__(cwd: string, argv: BettererCLIArguments): Promise<void> {
   const RENDER_OPTIONS = {
     debug: process.env.NODE_ENV === 'test'
   };

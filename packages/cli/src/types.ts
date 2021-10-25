@@ -1,3 +1,8 @@
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * An array of string arguments for a CLI command.
+ */
 export type BettererCLIArguments = Array<string>;
 
 export type BettererCLIEnvConfig = {
@@ -46,6 +51,11 @@ export type BettererCLIUpgradeConfig = BettererCLIEnvConfig & {
   save: boolean;
 };
 
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * A basic representation of the package.json configuration file.
+ */
 export type BettererPackageJSON = {
   version: string;
   scripts: Record<string, string> & { betterer: string };

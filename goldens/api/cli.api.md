@@ -6,59 +6,10 @@
 
 import { BettererSuiteSummary } from '@betterer/betterer';
 
-// Warning: (ae-missing-release-tag) "BettererCLIArguments" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @internal
 export type BettererCLIArguments = Array<string>;
 
-// Warning: (ae-missing-release-tag) "BettererCLIConfig" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererCLIConfig = BettererCLIEnvConfig & {
-    cache: boolean;
-    cachePath: string;
-    config: BettererCLIArguments;
-    exclude: BettererCLIArguments;
-    filter: BettererCLIArguments;
-    ignore: BettererCLIArguments;
-    include: BettererCLIArguments;
-    reporter: BettererCLIArguments;
-    results: string;
-    silent: boolean;
-    strict: boolean;
-    tsconfig: string;
-    update: boolean;
-    workers: number | boolean;
-};
-
-// Warning: (ae-missing-release-tag) "BettererCLIEnvConfig" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererCLIEnvConfig = {
-    debug: boolean;
-    debugLog: string;
-};
-
-// Warning: (ae-missing-release-tag) "BettererCLIInitConfig" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererCLIInitConfig = BettererCLIEnvConfig & {
-    automerge: boolean;
-    config: string;
-    results: string;
-};
-
-// Warning: (ae-missing-release-tag) "BettererCLIMergeConfig" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererCLIMergeConfig = BettererCLIEnvConfig & {
-    results: string;
-    contents: Array<string>;
-};
-
-// Warning: (ae-missing-release-tag) "BettererPackageJSON" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @internal
 export type BettererPackageJSON = {
     version: string;
     scripts: Record<string, string> & {
@@ -67,51 +18,31 @@ export type BettererPackageJSON = {
     devDependencies: Record<string, string>;
 };
 
-// Warning: (ae-internal-missing-underscore) The name "ciΔ" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
-export function ciΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary>;
+export function ci__(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary>;
 
-// Warning: (ae-internal-missing-underscore) The name "cliΔ" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
-export function cliΔ(argv: BettererCLIArguments): void;
+export function cli__(argv: BettererCLIArguments): void;
 
-// Warning: (ae-internal-missing-underscore) The name "initΔ" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
-export function initΔ(cwd: string, argv: BettererCLIArguments): Promise<void>;
+export function init__(cwd: string, argv: BettererCLIArguments): Promise<void>;
 
-// Warning: (ae-internal-missing-underscore) The name "mergeΔ" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
-export function mergeΔ(cwd: string, argv: BettererCLIArguments): Promise<void>;
+export function merge__(cwd: string, argv: BettererCLIArguments): Promise<void>;
 
-// Warning: (ae-internal-missing-underscore) The name "precommitΔ" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
-export function precommitΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary>;
+export function precommit__(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary>;
 
-// Warning: (ae-internal-missing-underscore) The name "resultsΔ" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
-export function resultsΔ(cwd: string, argv: BettererCLIArguments): Promise<void>;
+export function results__(cwd: string, argv: BettererCLIArguments): Promise<void>;
 
-// Warning: (ae-internal-missing-underscore) The name "startΔ" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
-export function startΔ(cwd: string, argv: BettererCLIArguments, ci?: boolean): Promise<BettererSuiteSummary>;
+export function start__(cwd: string, argv: BettererCLIArguments, ci?: boolean): Promise<BettererSuiteSummary>;
 
-// Warning: (ae-internal-missing-underscore) The name "upgradeΔ" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
-export function upgradeΔ(cwd: string, argv: BettererCLIArguments): Promise<void>;
+export function upgrade__(cwd: string, argv: BettererCLIArguments): Promise<void>;
 
-// Warning: (ae-internal-missing-underscore) The name "watchΔ" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
-export function watchΔ(cwd: string, argv: BettererCLIArguments): Promise<void>;
-
-// (No @packageDocumentation comment for this package)
+export function watch__(cwd: string, argv: BettererCLIArguments): Promise<void>;
 
 ```
