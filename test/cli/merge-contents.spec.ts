@@ -1,4 +1,4 @@
-import { mergeΔ } from '@betterer/cli';
+import { merge__ } from '@betterer/cli';
 
 import { createFixture } from '../fixture';
 
@@ -31,7 +31,7 @@ exports[\`test\`] = {
     const resultsPath = paths.results;
     const fixturePath = paths.cwd;
 
-    await mergeΔ(fixturePath, [...ARGV, ours, theirs]);
+    await merge__(fixturePath, [...ARGV, ours, theirs]);
 
     const merged = await readFile(resultsPath);
 

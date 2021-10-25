@@ -7,8 +7,13 @@ import { resultsOptions } from './options';
 import { Results } from './results/results';
 import { BettererCLIArguments } from './types';
 
-/** @internal Definitely not stable! Please don't use! */
-export async function resultsΔ(cwd: string, argv: BettererCLIArguments): Promise<void> {
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * Run the **Betterer** `results` command to see the current status of
+ * the **Betterer** tests in a project.
+ */
+export async function results__(cwd: string, argv: BettererCLIArguments): Promise<void> {
   const RENDER_OPTIONS = {
     debug: process.env.NODE_ENV === 'test'
   };

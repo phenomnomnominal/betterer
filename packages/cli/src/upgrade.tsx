@@ -6,8 +6,12 @@ import { Upgrade } from './upgrade/upgrade';
 import { upgradeOptions } from './options';
 import { BettererCLIArguments } from './types';
 
-/** @internal Definitely not stable! Please don't use! */
-export async function upgradeΔ(cwd: string, argv: BettererCLIArguments): Promise<void> {
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * Run the **Betterer** `upgrade` command to upgrade **Betterer** in an existing project.
+ */
+export async function upgrade__(cwd: string, argv: BettererCLIArguments): Promise<void> {
   const RENDER_OPTIONS = {
     debug: process.env.NODE_ENV === 'test'
   };
