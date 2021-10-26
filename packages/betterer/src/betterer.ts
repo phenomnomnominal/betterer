@@ -5,24 +5,65 @@ import { BettererRunner, BettererRunnerΩ } from './runner';
 import { BettererResultsSummary, BettererResultsSummaryΩ } from './results';
 import { BettererSuiteSummary } from './suite';
 
+/**
+ * @public run **Betterer** with the given options.
+ *
+ * @example
+ * ```typescript
+ * import { betterer } from '@betterer/betterer';
+ *
+ * const suiteSummary = await betterer(options);
+ * ```
+ */
 export async function betterer(options: BettererOptionsStart = {}): Promise<BettererSuiteSummary> {
   initDebug();
   const runner = await BettererRunnerΩ.create(options);
   return runner.run();
 }
 
+/**
+ * @public get a summary of the current **Betterer** results.
+ *
+ * @example
+ * ```typescript
+ * import { betterer } from '@betterer/betterer';
+ *
+ * const resultsSummary = await betterer.results(options);
+ * ```
+ */
 export function results(options: BettererOptionsResults = {}): Promise<BettererResultsSummary> {
   initDebug();
   return BettererResultsSummaryΩ.create(options);
 }
 betterer.results = results;
 
+/**
+ * @public create a **BettererRunner** with the given options.
+ *
+ * @example
+ * ```typescript
+ * import { betterer } from '@betterer/betterer';
+ *
+ * const runner = await betterer.runner(options);
+ * ```
+ */
 export function runner(options: BettererOptionsRunner = {}): Promise<BettererRunner> {
   initDebug();
   return BettererRunnerΩ.create(options);
 }
 betterer.runner = runner;
 
+/**
+ * @public create a **BettererRunner** with the given options. Also starts up a file watcher
+ * for tracked files in the current directory.
+ *
+ * @example
+ * ```typescript
+ * import { betterer } from '@betterer/betterer';
+ *
+ * const runner = await betterer.runner(options);
+ * ```
+ */
 export function watch(options: BettererOptionsWatch = {}): Promise<BettererRunner> {
   initDebug();
   return BettererRunnerΩ.create({ ...options, watch: true });

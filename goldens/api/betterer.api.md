@@ -9,9 +9,8 @@ import { BettererError } from '@betterer/errors';
 import { BettererLogs } from '@betterer/logger';
 
 // Warning: (ae-missing-release-tag) "betterer" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-// Warning: (ae-missing-release-tag) "betterer" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
-// @public (undocumented)
+// @public
 export function betterer(options?: BettererOptionsStart): Promise<BettererSuiteSummary>;
 
 // @public (undocumented)
@@ -24,14 +23,17 @@ export namespace betterer {
     watch: watch;
 }
 
-// Warning: (ae-missing-release-tag) "BettererConfig" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-incompatible-release-tags) The symbol "BettererConfig" is marked as @public, but its signature references "BettererConfigBase" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "BettererConfig" is marked as @public, but its signature references "BettererConfigStart" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "BettererConfig" is marked as @public, but its signature references "BettererConfigRunner" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "BettererConfig" is marked as @public, but its signature references "BettererConfigWatch" which is marked as @internal
 //
-// @public (undocumented)
+// @public
 export type BettererConfig = BettererConfigBase & BettererConfigStart & BettererConfigRunner & BettererConfigWatch;
 
-// Warning: (ae-missing-release-tag) "BettererConfigBase" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-internal-missing-underscore) The name "BettererConfigBase" should be prefixed with an underscore because the declaration is marked as @internal
 //
-// @public (undocumented)
+// @internal
 export type BettererConfigBase = {
     cache: boolean;
     cachePath: string;
@@ -44,31 +46,31 @@ export type BettererConfigBase = {
     workers: number;
 };
 
-// Warning: (ae-missing-release-tag) "BettererConfigFilters" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
+export type BettererConfigExcludes = ReadonlyArray<RegExp>;
+
+// @public
 export type BettererConfigFilters = ReadonlyArray<RegExp>;
 
-// Warning: (ae-missing-release-tag) "BettererConfigIgnores" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererConfigIgnores = ReadonlyArray<string>;
 
-// Warning: (ae-missing-release-tag) "BettererConfigPaths" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
+export type BettererConfigIncludes = ReadonlyArray<string>;
+
+// @public
 export type BettererConfigPaths = ReadonlyArray<string>;
 
-// Warning: (ae-missing-release-tag) "BettererConfigRunner" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-internal-missing-underscore) The name "BettererConfigRunner" should be prefixed with an underscore because the declaration is marked as @internal
 //
-// @public (undocumented)
+// @internal
 export type BettererConfigRunner = {
     ignores: BettererConfigIgnores;
 };
 
-// Warning: (ae-missing-release-tag) "BettererConfigStart" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-internal-missing-underscore) The name "BettererConfigStart" should be prefixed with an underscore because the declaration is marked as @internal
 //
-// @public (undocumented)
+// @internal
 export type BettererConfigStart = {
     ci: boolean;
     excludes: BettererConfigExcludes;
@@ -78,9 +80,9 @@ export type BettererConfigStart = {
     update: boolean;
 };
 
-// Warning: (ae-missing-release-tag) "BettererConfigWatch" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-internal-missing-underscore) The name "BettererConfigWatch" should be prefixed with an underscore because the declaration is marked as @internal
 //
-// @public (undocumented)
+// @internal
 export type BettererConfigWatch = {
     watch: boolean;
 };
@@ -282,9 +284,9 @@ export type BettererFileTestResultSerialised = Record<string, BettererFileIssues
 // @public (undocumented)
 export type BettererFileTestResultSummary = Record<string, BettererFileIssues>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsBase" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-internal-missing-underscore) The name "BettererOptionsBase" should be prefixed with an underscore because the declaration is marked as @internal
 //
-// @public (undocumented)
+// @internal
 export type BettererOptionsBase = Partial<{
     cache: boolean;
     cachePath: string;
@@ -298,53 +300,32 @@ export type BettererOptionsBase = Partial<{
     workers: number | boolean;
 }>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsExcludes" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererOptionsExcludes = Array<string | RegExp> | string;
+// @public
+export type BettererOptionsExcludes = Array<string | RegExp> | string | RegExp;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsFilters" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererOptionsFilters = Array<string | RegExp> | string;
+// @public
+export type BettererOptionsFilters = Array<string | RegExp> | string | RegExp;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsIgnores" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererOptionsIgnores = Array<string>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsIncludes" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererOptionsIncludes = Array<string> | string;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsOverride" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererOptionsOverride = Partial<{
     filters: BettererOptionsFilters;
     ignores: BettererOptionsIgnores;
     reporters: BettererOptionsReporters;
 }>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsPaths" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererOptionsPaths = Array<string> | string;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsReporter" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererOptionsReporter = string | BettererReporter;
+// @public
+export type BettererOptionsReporters = Array<string | BettererReporter>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsReporters" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererOptionsReporters = Array<BettererOptionsReporter>;
-
-// Warning: (ae-missing-release-tag) "BettererOptionsResults" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererOptionsResults = Partial<{
     configPaths: BettererOptionsPaths;
     cwd: string;
@@ -354,29 +335,35 @@ export type BettererOptionsResults = Partial<{
     resultsPath: string;
 }>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsRunner" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsRunner" is marked as @public, but its signature references "BettererOptionsBase" which is marked as @internal
 //
-// @public (undocumented)
+// @public
 export type BettererOptionsRunner = BettererOptionsBase & Partial<{
     ignores: BettererOptionsIgnores;
 }>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsStart" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsStart" is marked as @public, but its signature references "BettererOptionsStartCI" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsStart" is marked as @public, but its signature references "BettererOptionsStartDefault" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsStart" is marked as @public, but its signature references "BettererOptionsStartPrecommit" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsStart" is marked as @public, but its signature references "BettererOptionsStartStrict" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsStart" is marked as @public, but its signature references "BettererOptionsStartUpdate" which is marked as @internal
+// Warning: (ae-unresolved-link) The @link reference could not be resolved: The reference is ambiguous because "betterer" has more than one declaration; you need to add a TSDoc member reference selector
+// Warning: (ae-unresolved-link) The @link reference could not be resolved: The reference is ambiguous because "betterer" has more than one declaration; you need to add a TSDoc member reference selector
 //
-// @public (undocumented)
+// @public
 export type BettererOptionsStart = BettererOptionsStartCI | BettererOptionsStartDefault | BettererOptionsStartPrecommit | BettererOptionsStartStrict | BettererOptionsStartUpdate;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsStartBase" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-internal-missing-underscore) The name "BettererOptionsStartBase" should be prefixed with an underscore because the declaration is marked as @internal
 //
-// @public (undocumented)
+// @internal
 export type BettererOptionsStartBase = BettererOptionsBase & Partial<{
     excludes: BettererOptionsExcludes;
     includes: BettererOptionsIncludes;
 }>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsStartCI" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-internal-missing-underscore) The name "BettererOptionsStartCI" should be prefixed with an underscore because the declaration is marked as @internal
 //
-// @public (undocumented)
+// @internal
 export type BettererOptionsStartCI = BettererOptionsStartBase & Partial<{
     ci: true;
     precommit: false;
@@ -385,9 +372,9 @@ export type BettererOptionsStartCI = BettererOptionsStartBase & Partial<{
     watch: false;
 }>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsStartDefault" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-internal-missing-underscore) The name "BettererOptionsStartDefault" should be prefixed with an underscore because the declaration is marked as @internal
 //
-// @public (undocumented)
+// @internal
 export type BettererOptionsStartDefault = BettererOptionsStartBase & Partial<{
     ci: false;
     precommit: false;
@@ -396,9 +383,9 @@ export type BettererOptionsStartDefault = BettererOptionsStartBase & Partial<{
     watch: false;
 }>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsStartPrecommit" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-internal-missing-underscore) The name "BettererOptionsStartPrecommit" should be prefixed with an underscore because the declaration is marked as @internal
 //
-// @public (undocumented)
+// @internal
 export type BettererOptionsStartPrecommit = BettererOptionsStartBase & Partial<{
     ci: false;
     precommit: true;
@@ -407,9 +394,9 @@ export type BettererOptionsStartPrecommit = BettererOptionsStartBase & Partial<{
     watch: false;
 }>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsStartStrict" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-internal-missing-underscore) The name "BettererOptionsStartStrict" should be prefixed with an underscore because the declaration is marked as @internal
 //
-// @public (undocumented)
+// @internal
 export type BettererOptionsStartStrict = BettererOptionsStartBase & Partial<{
     ci: false;
     precommit: false;
@@ -418,9 +405,9 @@ export type BettererOptionsStartStrict = BettererOptionsStartBase & Partial<{
     watch: false;
 }>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsStartUpdate" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-internal-missing-underscore) The name "BettererOptionsStartUpdate" should be prefixed with an underscore because the declaration is marked as @internal
 //
-// @public (undocumented)
+// @internal
 export type BettererOptionsStartUpdate = BettererOptionsStartBase & Partial<{
     ci: false;
     precommit: false;
@@ -429,9 +416,7 @@ export type BettererOptionsStartUpdate = BettererOptionsStartBase & Partial<{
     watch: false;
 }>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsWatch" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererOptionsWatch = BettererOptionsRunner & Partial<{
     watch: true;
 }>;
@@ -682,25 +667,14 @@ export type BettererTestResultSummary = {
     summary: string;
 };
 
-// Warning: (ae-missing-release-tag) "results" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export function results(options?: BettererOptionsResults): Promise<BettererResultsSummary>;
 
-// Warning: (ae-missing-release-tag) "runner" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export function runner(options?: BettererOptionsRunner): Promise<BettererRunner>;
 
-// Warning: (ae-missing-release-tag) "watch" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export function watch(options?: BettererOptionsWatch): Promise<BettererRunner>;
-
-// Warnings were encountered during analysis:
-//
-// src/config/types.ts:27:3 - (ae-forgotten-export) The symbol "BettererConfigExcludes" needs to be exported by the entry point index.d.ts
-// src/config/types.ts:28:3 - (ae-forgotten-export) The symbol "BettererConfigIncludes" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 

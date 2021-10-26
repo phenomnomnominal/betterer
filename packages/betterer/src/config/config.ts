@@ -6,7 +6,7 @@ import * as path from 'path';
 
 import { BettererVersionControlWorker } from '../fs';
 import { registerExtensions } from './register';
-import { loadReporters, loadSilentReporter } from '../reporters';
+import { loadReporters, loadSilentReporter, BettererReporter } from '../reporters';
 import { isBoolean, isNumber, isRegExp, isString, isUndefined } from '../utils';
 import {
   BettererConfig,
@@ -16,7 +16,6 @@ import {
   BettererConfigWatch,
   BettererOptionsBase,
   BettererOptionsOverride,
-  BettererOptionsReporter,
   BettererOptionsRunner,
   BettererOptionsStart,
   BettererOptionsWatch,
@@ -64,7 +63,7 @@ export function overrideConfig(config: BettererConfig, optionsOverride: Betterer
   }
 
   if (optionsOverride.reporters) {
-    const reporters = toArray<BettererOptionsReporter>(optionsOverride.reporters);
+    const reporters = toArray<string | BettererReporter>(optionsOverride.reporters);
     config.reporter = loadReporters(reporters, config.cwd);
   }
 }
@@ -75,7 +74,7 @@ function createInitialBaseConfig(options: BettererOptionsBase): BettererConfigBa
   const cachePath = options.cachePath || './.betterer.cache';
   const cwd = options.cwd || process.cwd();
   const filters = toRegExps(toArray<string | RegExp>(options.filters));
-  const reporters = toArray<BettererOptionsReporter>(options.reporters);
+  const reporters = toArray<string | BettererReporter>(options.reporters);
   const silent = isDebug || options.silent || false;
   const reporter = silent ? loadSilentReporter() : loadReporters(reporters, cwd);
   const resultsPath = options.resultsPath || './.betterer.results';

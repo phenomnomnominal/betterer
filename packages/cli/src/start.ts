@@ -7,7 +7,7 @@ import { BettererCLIArguments } from './types';
 /**
  * @internal This could change at any point! Please don't use!
  *
- * Run **Betterer** in the default `single-run` mode.
+ * Run **Betterer** in the default mode.
  */
 export function start__(
   cwd: string,
