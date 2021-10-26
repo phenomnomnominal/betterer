@@ -1,7 +1,6 @@
 export {
   BettererConfig,
   BettererConfigBase,
-  BettererConfigRunner,
   BettererConfigStart,
   BettererConfigWatch,
   BettererConfigFilters,

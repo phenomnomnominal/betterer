@@ -27,7 +27,7 @@ export namespace betterer {
 // Warning: (ae-missing-release-tag) "BettererConfig" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-export type BettererConfig = BettererConfigBase & BettererConfigStart & BettererConfigRunner & BettererConfigWatch;
+export type BettererConfig = BettererConfigBase & BettererConfigStart & BettererConfigWatch;
 
 // Warning: (ae-missing-release-tag) "BettererConfigBase" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
@@ -59,13 +59,6 @@ export type BettererConfigIgnores = ReadonlyArray<string>;
 // @public (undocumented)
 export type BettererConfigPaths = ReadonlyArray<string>;
 
-// Warning: (ae-missing-release-tag) "BettererConfigRunner" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererConfigRunner = {
-    ignores: BettererConfigIgnores;
-};
-
 // Warning: (ae-missing-release-tag) "BettererConfigStart" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
@@ -82,6 +75,7 @@ export type BettererConfigStart = {
 //
 // @public (undocumented)
 export type BettererConfigWatch = {
+    ignores: BettererConfigIgnores;
     watch: boolean;
 };
 
@@ -357,9 +351,7 @@ export type BettererOptionsResults = Partial<{
 // Warning: (ae-missing-release-tag) "BettererOptionsRunner" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-export type BettererOptionsRunner = BettererOptionsBase & Partial<{
-    ignores: BettererOptionsIgnores;
-}>;
+export type BettererOptionsRunner = BettererOptionsBase;
 
 // Warning: (ae-missing-release-tag) "BettererOptionsStart" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
@@ -433,6 +425,7 @@ export type BettererOptionsStartUpdate = BettererOptionsStartBase & Partial<{
 //
 // @public (undocumented)
 export type BettererOptionsWatch = BettererOptionsRunner & Partial<{
+    ignores: BettererOptionsIgnores;
     watch: true;
 }>;
 

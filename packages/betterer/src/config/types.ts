@@ -6,7 +6,7 @@ export type BettererConfigFilters = ReadonlyArray<RegExp>;
 export type BettererConfigIgnores = ReadonlyArray<string>;
 export type BettererConfigIncludes = ReadonlyArray<string>;
 
-export type BettererConfig = BettererConfigBase & BettererConfigStart & BettererConfigRunner & BettererConfigWatch;
+export type BettererConfig = BettererConfigBase & BettererConfigStart & BettererConfigWatch;
 
 export type BettererWorkerRunConfig = Omit<BettererConfig, 'reporter'>;
 
@@ -31,11 +31,8 @@ export type BettererConfigStart = {
   update: boolean;
 };
 
-export type BettererConfigRunner = {
-  ignores: BettererConfigIgnores;
-};
-
 export type BettererConfigWatch = {
+  ignores: BettererConfigIgnores;
   watch: boolean;
 };
 
@@ -133,12 +130,10 @@ export type BettererOptionsStart =
   | BettererOptionsStartStrict
   | BettererOptionsStartUpdate;
 
-export type BettererOptionsRunner = BettererOptionsBase &
-  Partial<{
-    ignores: BettererOptionsIgnores;
-  }>;
+export type BettererOptionsRunner = BettererOptionsBase;
 
 export type BettererOptionsWatch = BettererOptionsRunner &
   Partial<{
+    ignores: BettererOptionsIgnores;
     watch: true;
   }>;
