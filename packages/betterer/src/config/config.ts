@@ -11,12 +11,10 @@ import { isBoolean, isNumber, isRegExp, isString, isUndefined } from '../utils';
 import {
   BettererConfig,
   BettererConfigBase,
-  BettererConfigRunner,
   BettererConfigStart,
   BettererConfigWatch,
   BettererOptionsBase,
   BettererOptionsOverride,
-  BettererOptionsRunner,
   BettererOptionsStart,
   BettererOptionsWatch,
   BettererWorkerRunConfig
@@ -27,10 +25,9 @@ const TOTAL_CPUS = os.cpus().length;
 export async function createInitialConfig(options: unknown = {}): Promise<BettererConfig> {
   const baseConfig = createInitialBaseConfig(options as BettererOptionsBase);
   const startConfig = createStartConfig(options as BettererOptionsStart);
-  const runnerConfig = createRunnerConfig(options as BettererOptionsRunner);
   const watchConfig = createWatchConfig(options as BettererOptionsWatch);
 
-  const config = { ...baseConfig, ...runnerConfig, ...startConfig, ...watchConfig };
+  const config = { ...baseConfig, ...startConfig, ...watchConfig };
 
   modeConfig(config);
 
@@ -132,16 +129,6 @@ export async function createWorkerConfig(config: BettererWorkerRunConfig): Promi
   };
 }
 
-function createRunnerConfig(options: BettererOptionsRunner): BettererConfigRunner {
-  const ignores = toArray<string>(options.ignores);
-
-  validateStringArray({ ignores });
-
-  return {
-    ignores
-  };
-}
-
 function createStartConfig(options: BettererOptionsStart): BettererConfigStart {
   const ci = options.ci || false;
   const excludes = toRegExps(toArray<string | RegExp>(options.excludes)) || [];
@@ -168,11 +155,14 @@ function createStartConfig(options: BettererOptionsStart): BettererConfigStart {
 }
 
 function createWatchConfig(options: BettererOptionsWatch): BettererConfigWatch {
+  const ignores = toArray<string>(options.ignores);
   const watch = options.watch || false;
 
+  validateStringArray({ ignores });
   validateBool({ watch });
 
   return {
+    ignores,
     watch
   };
 }

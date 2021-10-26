@@ -2,7 +2,6 @@ export { betterer, results, runner, watch } from './betterer';
 export {
   BettererConfig,
   BettererConfigBase,
-  BettererConfigRunner,
   BettererConfigStart,
   BettererConfigWatch,
   BettererConfigExcludes,

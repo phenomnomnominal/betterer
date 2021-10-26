@@ -2,7 +2,6 @@ export { createInitialConfig, createFinalConfig, createWorkerConfig, overrideCon
 export {
   BettererConfig,
   BettererConfigBase,
-  BettererConfigRunner,
   BettererConfigStart,
   BettererConfigWatch,
   BettererConfigExcludes,

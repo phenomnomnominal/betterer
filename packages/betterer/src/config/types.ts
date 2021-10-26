@@ -35,7 +35,7 @@ export type BettererConfigPaths = ReadonlyArray<string>;
 /**
  * @public Full validated config object for **Betterer**.
  */
-export type BettererConfig = BettererConfigBase & BettererConfigStart & BettererConfigRunner & BettererConfigWatch;
+export type BettererConfig = BettererConfigBase & BettererConfigStart & BettererConfigWatch;
 
 export type BettererWorkerRunConfig = Omit<BettererConfig, 'reporter'>;
 
@@ -147,26 +147,13 @@ export type BettererConfigStart = {
   update: boolean;
 };
 
-/**
- * @internal This could change at any point! Please don't use!
- *
- * Configuration for a {@link @betterer/betterer#BettererRunner | `BettererRunner`}.
- */
-export type BettererConfigRunner = {
+export type BettererConfigWatch = {
   /**
    * File watcher ignore configuration. An array of {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob}
    * strings that match file paths that will be ignored by the file watcher in watch mode. All `ignores`
    * globs should be relative to the `cwd`.
    */
   ignores: BettererConfigIgnores;
-};
-
-/**
- * @internal This could change at any point! Please don't use!
- *
- * Configuration for a {@link @betterer/betterer#BettererRunner | `BettererRunner`} in watch mode.
- */
-export type BettererConfigWatch = {
   watch: boolean;
 };
 
@@ -436,15 +423,7 @@ export type BettererOptionsStart =
  * via the {@link @betterer/betterer#runner | `betterer.runner()` API}.
  * The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
  */
-export type BettererOptionsRunner = BettererOptionsBase &
-  Partial<{
-    /**
-     * File watcher ignore configuration. A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} string
-     * to match file paths that should be ignored by the file watcher in watch mode, or an array of them.
-     * @defaultValue `[]`
-     */
-    ignores: BettererOptionsIgnores;
-  }>;
+export type BettererOptionsRunner = BettererOptionsBase;
 
 /**
  * @public Options for when you create a {@link @betterer/betterer#BettererRunner | `BettererRunner`}
@@ -453,6 +432,7 @@ export type BettererOptionsRunner = BettererOptionsBase &
  */
 export type BettererOptionsWatch = BettererOptionsRunner &
   Partial<{
+    ignores: BettererOptionsIgnores;
     watch: true;
   }>;
 

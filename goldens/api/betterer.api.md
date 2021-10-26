@@ -25,11 +25,9 @@ export namespace betterer {
 
 // Warning: (ae-incompatible-release-tags) The symbol "BettererConfig" is marked as @public, but its signature references "BettererConfigBase" which is marked as @internal
 // Warning: (ae-incompatible-release-tags) The symbol "BettererConfig" is marked as @public, but its signature references "BettererConfigStart" which is marked as @internal
-// Warning: (ae-incompatible-release-tags) The symbol "BettererConfig" is marked as @public, but its signature references "BettererConfigRunner" which is marked as @internal
-// Warning: (ae-incompatible-release-tags) The symbol "BettererConfig" is marked as @public, but its signature references "BettererConfigWatch" which is marked as @internal
 //
 // @public
-export type BettererConfig = BettererConfigBase & BettererConfigStart & BettererConfigRunner & BettererConfigWatch;
+export type BettererConfig = BettererConfigBase & BettererConfigStart & BettererConfigWatch;
 
 // Warning: (ae-internal-missing-underscore) The name "BettererConfigBase" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -61,13 +59,6 @@ export type BettererConfigIncludes = ReadonlyArray<string>;
 // @public
 export type BettererConfigPaths = ReadonlyArray<string>;
 
-// Warning: (ae-internal-missing-underscore) The name "BettererConfigRunner" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal
-export type BettererConfigRunner = {
-    ignores: BettererConfigIgnores;
-};
-
 // Warning: (ae-internal-missing-underscore) The name "BettererConfigStart" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal
@@ -80,10 +71,11 @@ export type BettererConfigStart = {
     update: boolean;
 };
 
-// Warning: (ae-internal-missing-underscore) The name "BettererConfigWatch" should be prefixed with an underscore because the declaration is marked as @internal
+// Warning: (ae-missing-release-tag) "BettererConfigWatch" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
-// @internal
+// @public (undocumented)
 export type BettererConfigWatch = {
+    ignores: BettererConfigIgnores;
     watch: boolean;
 };
 
@@ -338,9 +330,7 @@ export type BettererOptionsResults = Partial<{
 // Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsRunner" is marked as @public, but its signature references "BettererOptionsBase" which is marked as @internal
 //
 // @public
-export type BettererOptionsRunner = BettererOptionsBase & Partial<{
-    ignores: BettererOptionsIgnores;
-}>;
+export type BettererOptionsRunner = BettererOptionsBase;
 
 // Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsStart" is marked as @public, but its signature references "BettererOptionsStartCI" which is marked as @internal
 // Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsStart" is marked as @public, but its signature references "BettererOptionsStartDefault" which is marked as @internal
@@ -418,6 +408,7 @@ export type BettererOptionsStartUpdate = BettererOptionsStartBase & Partial<{
 
 // @public
 export type BettererOptionsWatch = BettererOptionsRunner & Partial<{
+    ignores: BettererOptionsIgnores;
     watch: true;
 }>;
 
