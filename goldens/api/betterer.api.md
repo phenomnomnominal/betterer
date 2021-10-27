@@ -25,6 +25,7 @@ export namespace betterer {
 
 // Warning: (ae-incompatible-release-tags) The symbol "BettererConfig" is marked as @public, but its signature references "BettererConfigBase" which is marked as @internal
 // Warning: (ae-incompatible-release-tags) The symbol "BettererConfig" is marked as @public, but its signature references "BettererConfigStart" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "BettererConfig" is marked as @public, but its signature references "BettererConfigWatch" which is marked as @internal
 //
 // @public
 export type BettererConfig = BettererConfigBase & BettererConfigStart & BettererConfigWatch;
@@ -67,26 +68,20 @@ export type BettererConfigStart = {
     update: boolean;
 };
 
-// Warning: (ae-missing-release-tag) "BettererConfigWatch" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @internal
 export type BettererConfigWatch = {
     ignores: BettererConfigIgnores;
     watch: boolean;
 };
 
-// Warning: (ae-missing-release-tag) "BettererContext" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererContext = {
     readonly config: BettererConfig;
     options(optionsOverride: BettererOptionsOverride): Promise<void>;
     stop(): Promise<BettererSuiteSummary>;
 };
 
-// Warning: (ae-missing-release-tag) "BettererContextSummary" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererContextSummary = {
     readonly config: BettererConfig;
     suites: BettererSuiteSummaries;

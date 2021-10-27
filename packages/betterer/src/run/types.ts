@@ -1,10 +1,21 @@
 import { BettererError } from '@betterer/errors';
 import { WorkerRequireModule, WorkerRequireModuleAsync } from '@phenomnomnominal/worker-require';
 
-import { BettererDelta } from '../context';
 import { BettererFilePaths } from '../fs';
 import { BettererResult } from '../results';
 import { BettererDiff } from '../test';
+
+export type BettererDelta =
+  | {
+      readonly baseline: number;
+      readonly diff: number;
+      readonly result: number;
+    }
+  | {
+      readonly baseline: null;
+      readonly diff: 0;
+      readonly result: number;
+    };
 
 export type BettererRuns = ReadonlyArray<BettererRun>;
 export type BettererRunNames = Array<string>;

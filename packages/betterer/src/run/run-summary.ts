@@ -1,10 +1,9 @@
 import { BettererError } from '@betterer/errors';
 
-import { BettererDelta } from '../context';
 import { BettererFilePaths } from '../fs';
 import { BettererResult } from '../results';
 import { BettererDiff } from '../test';
-import { BettererRun, BettererRunSummary } from './types';
+import { BettererDelta, BettererRun, BettererRunSummary } from './types';
 
 export enum BettererRunStatus {
   better,

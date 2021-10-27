@@ -28,7 +28,7 @@ export {
   BettererOptionsStart,
   BettererOptionsWatch
 } from './config/public';
-export { BettererContext, BettererContextSummary, BettererDelta } from './context/public';
+export { BettererContext, BettererContextSummary } from './context/public';
 export {
   BettererFileGlobs,
   BettererFilePath,
@@ -44,7 +44,14 @@ export {
   BettererTestResultSummary
 } from './results/public';
 export { BettererReporter } from './reporters/public';
-export { BettererRun, BettererRunNames, BettererRunSummary, BettererRunSummaries, BettererRuns } from './run/public';
+export {
+  BettererDelta,
+  BettererRun,
+  BettererRunNames,
+  BettererRunSummary,
+  BettererRunSummaries,
+  BettererRuns
+} from './run/public';
 export { BettererRunner } from './runner/public';
 export { BettererSuite, BettererSuiteSummary, BettererSuiteSummaries } from './suite/public';
 export {
