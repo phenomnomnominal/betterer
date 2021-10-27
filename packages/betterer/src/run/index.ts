@@ -1,6 +1,7 @@
 export { BettererRunΩ, BettererRunsΩ } from './run';
 export { BettererRunWorkerPoolΩ } from './run-worker-pool';
 export {
+  BettererDelta,
   BettererRun,
   BettererRuns,
   BettererRunNames,
