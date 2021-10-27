@@ -29,8 +29,6 @@ export namespace betterer {
 // @public
 export type BettererConfig = BettererConfigBase & BettererConfigStart & BettererConfigWatch;
 
-// Warning: (ae-internal-missing-underscore) The name "BettererConfigBase" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
 export type BettererConfigBase = {
     cache: boolean;
@@ -59,8 +57,6 @@ export type BettererConfigIncludes = ReadonlyArray<string>;
 // @public
 export type BettererConfigPaths = ReadonlyArray<string>;
 
-// Warning: (ae-internal-missing-underscore) The name "BettererConfigStart" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
 export type BettererConfigStart = {
     ci: boolean;
@@ -276,8 +272,6 @@ export type BettererFileTestResultSerialised = Record<string, BettererFileIssues
 // @public (undocumented)
 export type BettererFileTestResultSummary = Record<string, BettererFileIssues>;
 
-// Warning: (ae-internal-missing-underscore) The name "BettererOptionsBase" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
 export type BettererOptionsBase = Partial<{
     cache: boolean;
@@ -343,16 +337,12 @@ export type BettererOptionsRunner = BettererOptionsBase;
 // @public
 export type BettererOptionsStart = BettererOptionsStartCI | BettererOptionsStartDefault | BettererOptionsStartPrecommit | BettererOptionsStartStrict | BettererOptionsStartUpdate;
 
-// Warning: (ae-internal-missing-underscore) The name "BettererOptionsStartBase" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
 export type BettererOptionsStartBase = BettererOptionsBase & Partial<{
     excludes: BettererOptionsExcludes;
     includes: BettererOptionsIncludes;
 }>;
 
-// Warning: (ae-internal-missing-underscore) The name "BettererOptionsStartCI" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
 export type BettererOptionsStartCI = BettererOptionsStartBase & Partial<{
     ci: true;
@@ -362,8 +352,6 @@ export type BettererOptionsStartCI = BettererOptionsStartBase & Partial<{
     watch: false;
 }>;
 
-// Warning: (ae-internal-missing-underscore) The name "BettererOptionsStartDefault" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
 export type BettererOptionsStartDefault = BettererOptionsStartBase & Partial<{
     ci: false;
@@ -373,8 +361,6 @@ export type BettererOptionsStartDefault = BettererOptionsStartBase & Partial<{
     watch: false;
 }>;
 
-// Warning: (ae-internal-missing-underscore) The name "BettererOptionsStartPrecommit" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
 export type BettererOptionsStartPrecommit = BettererOptionsStartBase & Partial<{
     ci: false;
@@ -384,8 +370,6 @@ export type BettererOptionsStartPrecommit = BettererOptionsStartBase & Partial<{
     watch: false;
 }>;
 
-// Warning: (ae-internal-missing-underscore) The name "BettererOptionsStartStrict" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
 export type BettererOptionsStartStrict = BettererOptionsStartBase & Partial<{
     ci: false;
@@ -395,8 +379,6 @@ export type BettererOptionsStartStrict = BettererOptionsStartBase & Partial<{
     watch: false;
 }>;
 
-// Warning: (ae-internal-missing-underscore) The name "BettererOptionsStartUpdate" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
 export type BettererOptionsStartUpdate = BettererOptionsStartBase & Partial<{
     ci: false;
