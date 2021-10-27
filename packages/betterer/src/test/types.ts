@@ -1,8 +1,7 @@
 import { BettererConstraintResult } from '@betterer/constraints';
 import { BettererLogs } from '@betterer/logger';
 
-import { BettererDelta } from '../context';
-import { BettererRun } from '../run';
+import { BettererDelta, BettererRun } from '../run';
 import { MaybeAsync } from '../types';
 
 export type BettererTestFunction<DeserialisedType> = (run: BettererRun) => MaybeAsync<DeserialisedType>;

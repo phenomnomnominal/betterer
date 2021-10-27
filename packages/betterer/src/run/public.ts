@@ -1,1 +1,8 @@
-export { BettererRun, BettererRunNames, BettererRuns, BettererRunSummary, BettererRunSummaries } from './types';
+export {
+  BettererDelta,
+  BettererRun,
+  BettererRunNames,
+  BettererRuns,
+  BettererRunSummary,
+  BettererRunSummaries
+} from './types';

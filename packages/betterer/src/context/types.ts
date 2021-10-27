@@ -19,15 +19,3 @@ export type BettererContextSummary = {
   suites: BettererSuiteSummaries;
   lastSuite: BettererSuiteSummary;
 };
-
-export type BettererDelta =
-  | {
-      readonly baseline: number;
-      readonly diff: number;
-      readonly result: number;
-    }
-  | {
-      readonly baseline: null;
-      readonly diff: 0;
-      readonly result: number;
-    };

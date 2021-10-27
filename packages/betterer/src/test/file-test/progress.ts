@@ -1,4 +1,4 @@
-import { BettererDelta } from '../../context';
+import { BettererDelta } from '../../run';
 import { BettererFileTestResultΩ } from './file-test-result';
 import { BettererFileTestResult } from './types';
 
