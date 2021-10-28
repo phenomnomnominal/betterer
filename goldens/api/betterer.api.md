@@ -147,9 +147,9 @@ export type BettererFileDiff = {
     new?: BettererFileIssuesSerialised;
 };
 
-// Warning: (ae-missing-release-tag) "BettererFileGlobs" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-unresolved-link) The @link reference could not be resolved: No member was found with name "cwd"
 //
-// @public (undocumented)
+// @public
 export type BettererFileGlobs = ReadonlyArray<string | ReadonlyArray<string>>;
 
 // Warning: (ae-missing-release-tag) "BettererFileIssue" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
@@ -178,27 +178,18 @@ export type BettererFileIssueSerialised = [line: number, column: number, length:
 // @public (undocumented)
 export type BettererFileIssuesSerialised = ReadonlyArray<BettererFileIssueSerialised>;
 
-// Warning: (ae-missing-release-tag) "BettererFilePath" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererFilePath = string;
 
-// Warning: (ae-missing-release-tag) "BettererFilePaths" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererFilePaths = ReadonlyArray<BettererFilePath>;
 
-// Warning: (ae-missing-release-tag) "BettererFilePatterns" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
 
-// Warning: (ae-missing-release-tag) "BettererFileResolver" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererFileResolver = {
-    baseDirectory: string;
-    files(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
+    readonly baseDirectory: string;
     resolve(...pathSegments: Array<string>): string;
     validate(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
 };
@@ -643,6 +634,10 @@ export function runner(options?: BettererOptionsRunner): Promise<BettererRunner>
 
 // @public
 export function watch(options?: BettererOptionsWatch): Promise<BettererRunner>;
+
+// Warnings were encountered during analysis:
+//
+// src/context/types.ts:32:7 - (tsdoc-reference-missing-dot) Expecting a period before the next component of a declaration reference
 
 // (No @packageDocumentation comment for this package)
 

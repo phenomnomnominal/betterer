@@ -1,26 +1,26 @@
 import { BettererReporter } from '../reporters';
 
 /**
- * @public An array of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expression}
+ * @public An array of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expressions}
  * that match file paths that will be excluded from an operation.
  */
 export type BettererConfigExcludes = ReadonlyArray<RegExp>;
 
 /**
- * @public An array of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expression}
+ * @public An array of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expressions}
  * that match names of relevant tests.
  */
 export type BettererConfigFilters = ReadonlyArray<RegExp>;
 
 /**
  * @public An array of absolute {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob}
- * strings that match file paths that will be ignored by the file watcher in watch mode.
+ * patterns that match file paths that will be ignored by the file watcher in watch mode.
  */
 export type BettererConfigIgnores = ReadonlyArray<string>;
 
 /**
  * @public An array of absolute {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob}
- * strings that match file paths that will be included in an operation.
+ * patterns that match file paths that will be included in an operation.
  */
 export type BettererConfigIncludes = ReadonlyArray<string>;
 
@@ -64,7 +64,7 @@ export type BettererConfigBase = {
    */
   cwd: string;
   /**
-   * An array of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expression}
+   * An array of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expressions}
    * that match names of relevant tests.
    */
   filters: BettererConfigFilters;
@@ -103,14 +103,14 @@ export type BettererConfigStart = {
    */
   ci: boolean;
   /**
-   * An array of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expression}
+   * An array of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expressions}
    * that match file paths that will be excluded from {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}
    * runs.
    */
   excludes: BettererConfigExcludes;
   /**
    * An array of absolute {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob}
-   * strings that match file paths that will be included in {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}
+   * patterns that match file paths that will be included in {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}
    * runs.
    */
   includes: BettererConfigIncludes;
@@ -151,7 +151,7 @@ export type BettererConfigStart = {
 export type BettererConfigWatch = {
   /**
    * An array of absolute {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob}
-   * strings that match file paths that will be ignored by the file watcher in watch mode.
+   * patterns that match file paths that will be ignored by the file watcher in watch mode.
    */
   ignores: BettererConfigIgnores;
   /**
@@ -184,14 +184,14 @@ export type BettererOptionsExcludes = Array<string | RegExp> | string | RegExp;
 export type BettererOptionsFilters = Array<string | RegExp> | string | RegExp;
 
 /**
- * @public A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} string
+ * @public A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} pattern
  * to match file paths that should be ignored by the file watcher in watch mode, or an array of
  * them.
  */
 export type BettererOptionsIgnores = Array<string>;
 
 /**
- * @public A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} string
+ * @public A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} pattern
  * to match file paths that should be included in an operation, or an array of them.
  */
 export type BettererOptionsIncludes = Array<string> | string;
@@ -235,7 +235,7 @@ export type BettererOptionsResults = Partial<{
    */
   filters: BettererOptionsFilters;
   /**
-   * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} string to match
+   * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} pattern to match
    * file paths that should be included in the {@link @betterer/betterer#BettererResultsSummary | `BettererResultsSummary`},
    * or an array of them.
    * @defaultValue `[]`
@@ -334,9 +334,9 @@ export type BettererOptionsStartBase = BettererOptionsBase &
      */
     excludes: BettererOptionsExcludes;
     /**
-     * An array containing {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob}
-     * strings to match file paths that should be included. All `includes` should be relative to
-     * the `cwd`.
+     * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} pattern to
+     * match file paths that should be included in {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}
+     * runs, or an array of them. All `includes` should be relative to the `cwd`.
      * @defaultValue `[]`
      */
     includes: BettererOptionsIncludes;
@@ -450,7 +450,7 @@ export type BettererOptionsRunner = BettererOptionsBase;
 export type BettererOptionsWatch = BettererOptionsRunner &
   Partial<{
     /**
-     * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} string to match
+     * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} pattern to match
      * file paths that should be ignored by the file watcher in watch mode, or an array of them.
      * All `ignores` should be relative to the `cwd`.
      * @defaultValue `[]`
@@ -472,7 +472,7 @@ export type BettererOptionsOverride = Partial<{
    */
   filters: BettererOptionsFilters;
   /**
-   * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} string to match
+   * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} pattern to match
    * file paths that should be ignored by the file watcher in watch mode, or an array of them. All
    * `ignores` should be relative to the `cwd`.
    * @defaultValue `[]`
