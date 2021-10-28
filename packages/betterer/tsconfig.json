@@ -9,7 +9,6 @@
   "references": [
     { "path": "../constraints" },
     { "path": "../errors" },
-    { "path": "../logger" },
-    { "path": "../results" }
+    { "path": "../logger" }
   ]
 }

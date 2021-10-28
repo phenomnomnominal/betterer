@@ -1,8 +1,14 @@
 import { debug } from '@phenomnomnominal/debug';
 
-import { BettererOptionsRunner, BettererOptionsStart, BettererOptionsResults, BettererOptionsWatch } from './config';
+import {
+  BettererOptionsRunner,
+  BettererOptionsStart,
+  BettererOptionsResults,
+  BettererOptionsWatch,
+  BettererOptionsMerge
+} from './config';
 import { BettererRunner, BettererRunnerΩ } from './runner';
-import { BettererResultsSummary, BettererResultsSummaryΩ } from './results';
+import { BettererMergerΩ, BettererResultsSummary, BettererResultsSummaryΩ } from './results';
 import { BettererSuiteSummary } from './suite';
 
 export async function betterer(options: BettererOptionsStart = {}): Promise<BettererSuiteSummary> {
@@ -10,6 +16,15 @@ export async function betterer(options: BettererOptionsStart = {}): Promise<Bett
   const runner = await BettererRunnerΩ.create(options);
   return runner.run();
 }
+
+/**
+ * @public resolve any merge conflicts in the specified results file.
+ */
+export async function merge(options: BettererOptionsMerge = {}): Promise<void> {
+  const merger = BettererMergerΩ.create(options);
+  return merger.merge();
+}
+betterer.merge = merge;
 
 export function results(options: BettererOptionsResults = {}): Promise<BettererResultsSummary> {
   initDebug();

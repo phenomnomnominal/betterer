@@ -20,6 +20,7 @@ import {
   BettererOptionsWatch,
   BettererWorkerRunConfig
 } from './types';
+import { BettererConfigMerge, BettererOptionsMerge } from '.';
 
 const TOTAL_CPUS = os.cpus().length;
 
@@ -118,6 +119,19 @@ async function createFinalBaseConfig(
   });
 
   await versionControl.init(config.configPaths);
+}
+
+export function createMergeConfig(options: BettererOptionsMerge): BettererConfigMerge {
+  const contents = toArray(options.contents);
+  const cwd = options.cwd || process.cwd();
+  const resultsPath = options.resultsPath || './.betterer.results';
+
+  validateStringArray({ contents });
+
+  return {
+    contents,
+    resultsPath: path.resolve(cwd, resultsPath)
+  };
 }
 
 export async function createWorkerConfig(config: BettererWorkerRunConfig): Promise<BettererConfig> {

@@ -1,0 +1,26 @@
+import { BettererOptionsMerge, createMergeConfig } from '../config';
+import { writeResults } from './fs';
+import { mergeResults } from './merge';
+import { parseResults } from './parse';
+import { printResults } from './print';
+import { BettererResultsSerialised } from './types';
+
+export class BettererMergerΩ {
+  private constructor(private _contents: Array<string>, private _resultsPath: string) {}
+
+  public static create(options: BettererOptionsMerge): BettererMergerΩ {
+    const { contents, resultsPath } = createMergeConfig(options);
+    return new BettererMergerΩ(contents, resultsPath);
+  }
+
+  public async merge(): Promise<void> {
+    let merged: BettererResultsSerialised;
+    if (this._contents.length === 2) {
+      const [ours, theirs] = this._contents;
+      merged = mergeResults(ours, theirs);
+    } else {
+      merged = await parseResults(this._resultsPath);
+    }
+    await writeResults(printResults(merged), this._resultsPath);
+  }
+}

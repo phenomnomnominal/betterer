@@ -122,7 +122,10 @@ export class BettererContextΩ implements BettererContext {
 
         const suiteSummaryΩ = contextSummary.lastSuite;
         if (suiteSummaryΩ && !this.config.ci) {
-          await this._resultsFile.write(suiteSummaryΩ, this.config.precommit);
+          await this._resultsFile.write(suiteSummaryΩ);
+          if (this.config.precommit) {
+            await this._versionControl.add(this.config.resultsPath);
+          }
         }
         await this._versionControl.writeCache();
 

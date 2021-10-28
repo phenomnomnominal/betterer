@@ -4,7 +4,7 @@ import assert from 'assert';
 
 import { BettererConfig, BettererWorkerRunConfig, createWorkerConfig } from '../config';
 import { BettererFilePaths, BettererVersionControlWorker, forceRelativePaths } from '../fs';
-import { BettererResult, BettererResultsFileΩ, BettererResultΩ } from '../results';
+import { BettererResultsFileΩ, BettererResultΩ } from '../results';
 import { BettererDiff, BettererTestConfig, BettererTestMeta, isBettererFileTest, loadTestMeta } from '../test';
 import { isBettererTest } from '../test';
 import { BettererGlobals } from '../types';
@@ -37,7 +37,7 @@ export class BettererWorkerRunΩ implements BettererRun {
     versionControl: BettererVersionControlWorker
   ): Promise<BettererWorkerRunΩ> {
     const config = await createWorkerConfig(runConfig);
-    const resultsFile = await BettererResultsFileΩ.create(config.resultsPath, versionControl);
+    const resultsFile = await BettererResultsFileΩ.create(config.resultsPath);
     const globals = { config, resultsFile, versionControl };
 
     const isNew = !resultsFile.hasResult(name);
@@ -134,7 +134,7 @@ export class BettererWorkerRunΩ implements BettererRun {
   private _run(config: BettererConfig, timestamp: number): BettererRunning {
     const end = async (
       status: BettererRunStatus,
-      result: BettererResult | null = null,
+      result: BettererResultΩ | null = null,
       diff: BettererDiff | null = null,
       error: BettererError | null = null
     ): Promise<BettererRunSummary> => {
@@ -162,7 +162,7 @@ export class BettererWorkerRunΩ implements BettererRun {
       let printed: string | null = null;
       const shouldPrint = !(isComplete || (this.isNew && (isFailed || isSkipped)));
       if (shouldPrint) {
-        const toPrint = isFailed || isSkipped || isWorse ? this.expected : (result as BettererResult);
+        const toPrint = isFailed || isSkipped || isWorse ? this.expected : (result as BettererResultΩ);
         const toPrintSerialised = this.test.serialiser.serialise(toPrint.value, config.resultsPath);
         printed = forceRelativePaths(await this.test.printer(toPrintSerialised), config.resultsPath);
       }
@@ -192,7 +192,7 @@ export class BettererWorkerRunΩ implements BettererRun {
     };
 
     return {
-      done: async (result: BettererResult): Promise<BettererRunSummary> => {
+      done: async (result: BettererResultΩ): Promise<BettererRunSummary> => {
         if (this.isNew) {
           return end(BettererRunStatus.new, result);
         }

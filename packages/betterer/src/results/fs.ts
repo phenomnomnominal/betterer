@@ -1,6 +1,9 @@
 import { BettererError } from '@betterer/errors';
 import { promises as fs } from 'fs';
 
+/**
+ * Checks if the given results file path can be accessed.
+ */
 export async function accessResults(resultsFile: string): Promise<boolean> {
   try {
     await fs.access(resultsFile);
@@ -10,6 +13,9 @@ export async function accessResults(resultsFile: string): Promise<boolean> {
   }
 }
 
+/**
+ * Reads the given results file path.
+ */
 export async function readResults(resultsFile: string): Promise<string> {
   try {
     return await fs.readFile(resultsFile, 'utf-8');
@@ -19,12 +25,10 @@ export async function readResults(resultsFile: string): Promise<string> {
 }
 
 /**
- * @internal This could change at any point! Please don't use!
- *
- * Writes a {@link @betterer/results#printResults__ | printed results object}
+ * Writes a {@link @betterer/results#printResults | printed results object}
  * to the given results file path.
  */
-export async function writeResults__(printedResults: string, resultsFile: string): Promise<void> {
+export async function writeResults(printedResults: string, resultsFile: string): Promise<void> {
   try {
     await fs.writeFile(resultsFile, printedResults, 'utf8');
   } catch {

@@ -16,7 +16,7 @@ export async function createGlobals(options: unknown = {}): Promise<BettererGlob
       if (config.cache) {
         await versionControl.enableCache(config.cachePath);
       }
-      const resultsFile = await BettererResultsFileΩ.create(config.resultsPath, versionControl);
+      const resultsFile = await BettererResultsFileΩ.create(config.resultsPath);
       return { config, resultsFile, versionControl };
     } catch (error) {
       await versionControl.destroy();

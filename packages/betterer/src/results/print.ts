@@ -1,4 +1,4 @@
-import { BettererResults } from './types';
+import { BettererResultsSerialised } from './types';
 
 // JS template string interpolation tokens
 const JS_INTERP_ESCAPED = '$\\{';
@@ -19,12 +19,10 @@ const ESCAPE_REPLACERS: Record<string, string> = {
 const RESULTS_HEADER = `// BETTERER RESULTS V2.`;
 
 /**
- * @internal This could change at any point! Please don't use!
- *
- * Prints a {@link @betterer/results#BettererResults | `BettererResults`} object as a
+ * Prints a {@link BettererResultsSerialised | `BettererResultsSerialised`} object as a
  * `require()`-able string of JavaScript.
  */
-export function printResults__(results: BettererResults): string {
+export function printResults(results: BettererResultsSerialised): string {
   const printedResults = Object.keys(results).map((name) => printResult(name, results[name].value));
   return [RESULTS_HEADER, ...printedResults].join('');
 }
