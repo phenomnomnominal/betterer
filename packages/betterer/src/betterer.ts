@@ -21,7 +21,7 @@ export async function betterer(options: BettererOptionsStart = {}): Promise<Bett
  * @public resolve any merge conflicts in the specified results file.
  */
 export async function merge(options: BettererOptionsMerge = {}): Promise<void> {
-  const merger = BettererMergerΩ.create(options);
+  const merger = await BettererMergerΩ.create(options);
   return merger.merge();
 }
 betterer.merge = merge;

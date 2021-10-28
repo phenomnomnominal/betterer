@@ -12,6 +12,7 @@ export {
   BettererOptionsFilters,
   BettererOptionsIgnores,
   BettererOptionsIncludes,
+  BettererOptionsMerge,
   BettererOptionsOverride,
   BettererOptionsPaths,
   BettererOptionsReporters,

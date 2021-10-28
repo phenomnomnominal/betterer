@@ -22,7 +22,6 @@ export {
   BettererOptionsMerge,
   BettererOptionsOverride,
   BettererOptionsPaths,
-  BettererOptionsReporter,
   BettererOptionsReporters,
   BettererOptionsResults,
   BettererOptionsRunner,

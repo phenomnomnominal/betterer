@@ -8,8 +8,8 @@ import { BettererResultsSerialised } from './types';
 export class BettererMergerΩ {
   private constructor(private _contents: Array<string>, private _resultsPath: string) {}
 
-  public static create(options: BettererOptionsMerge): BettererMergerΩ {
-    const { contents, resultsPath } = createMergeConfig(options);
+  public static async create(options: BettererOptionsMerge): Promise<BettererMergerΩ> {
+    const { contents, resultsPath } = await createMergeConfig(options);
     return new BettererMergerΩ(contents, resultsPath);
   }
 
