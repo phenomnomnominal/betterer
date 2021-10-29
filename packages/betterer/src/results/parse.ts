@@ -1,7 +1,7 @@
 import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
-import { accessResults, readResults } from './fs';
+import { read } from '../fs';
 import { mergeResults } from './merge';
 import { requireText } from './require';
 import { BettererResultsSerialised } from './types';
@@ -21,11 +21,10 @@ const MERGE_CONFLICT_START = '<<<<<<<';
  * can't be resolved.
  */
 export async function parseResults(resultsPath: string): Promise<BettererResultsSerialised> {
-  const exists = await accessResults(resultsPath);
-  if (!exists) {
+  const contents = await read(resultsPath);
+  if (!contents) {
     return {};
   }
-  const contents = await readResults(resultsPath);
 
   if (hasMergeConflicts(contents)) {
     try {

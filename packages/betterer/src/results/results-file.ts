@@ -1,8 +1,8 @@
 import assert from 'assert';
 
+import { BettererVersionControlWorker, write } from '../fs';
 import { BettererRunNames, BettererRunSummary, BettererRunSummaries } from '../run';
 import { BettererSuiteSummary } from '../suite';
-import { writeResults } from './fs';
 import { parseResults } from './parse';
 import { printResults } from './print';
 import { BettererResultsSerialised } from './types';
@@ -10,14 +10,18 @@ import { BettererResultsSerialised } from './types';
 export class BettererResultsFileΩ {
   private constructor(
     private _resultsPath: string,
+    private _versionControl: BettererVersionControlWorker,
     private _baseline: BettererResultsSerialised,
     private _expected: BettererResultsSerialised
   ) {}
 
-  public static async create(resultsPath: string): Promise<BettererResultsFileΩ> {
+  public static async create(
+    resultsPath: string,
+    versionControl: BettererVersionControlWorker
+  ): Promise<BettererResultsFileΩ> {
     const baseline = await parseResults(resultsPath);
     const expected = baseline;
-    return new BettererResultsFileΩ(resultsPath, baseline, expected);
+    return new BettererResultsFileΩ(resultsPath, versionControl, baseline, expected);
   }
 
   public getChanged(runSummaries: BettererRunSummaries): BettererRunNames {
@@ -61,10 +65,10 @@ export class BettererResultsFileΩ {
         }, this._expected)
     );
 
-    await writeResults(printedNew, this._resultsPath);
+    await write(printedNew, this._resultsPath);
   }
 
-  public async write(suiteSummary: BettererSuiteSummary): Promise<void> {
+  public async write(suiteSummary: BettererSuiteSummary, precommit: boolean): Promise<void> {
     const printedExpected = printResults(this._expected);
     const printedResult = printResults(
       suiteSummary.runSummaries
@@ -77,7 +81,10 @@ export class BettererResultsFileΩ {
 
     const shouldWrite = printedResult !== printedExpected;
     if (shouldWrite) {
-      await writeResults(printedResult, this._resultsPath);
+      await write(printedResult, this._resultsPath);
+      if (precommit) {
+        await this._versionControl.add(this._resultsPath);
+      }
     }
   }
 

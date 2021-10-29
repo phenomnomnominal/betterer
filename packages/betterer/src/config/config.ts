@@ -1,10 +1,9 @@
 import { BettererError } from '@betterer/errors';
 import assert from 'assert';
-import { promises as fs } from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 
-import { BettererVersionControlWorker } from '../fs';
+import { BettererVersionControlWorker, read } from '../fs';
 import { registerExtensions } from './register';
 import { BettererReporter, loadReporters, loadSilentReporter } from '../reporters';
 import { isBoolean, isNumber, isRegExp, isString, isUndefined } from '../utils';
@@ -277,7 +276,7 @@ async function validateFilePath<Config, PropertyName extends keyof Config>(confi
   const [propertyName] = Object.keys(config);
   const value = config[propertyName as PropertyName];
   validate(
-    value == null || (isString(value) && (await fs.readFile(value))),
+    value == null || (isString(value) && (await read(value)) !== null),
     `"${propertyName.toString()}" must be a path to a file. ${recieved(value)}`
   );
 }

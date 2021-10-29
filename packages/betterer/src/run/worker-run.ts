@@ -37,7 +37,7 @@ export class BettererWorkerRunΩ implements BettererRun {
     versionControl: BettererVersionControlWorker
   ): Promise<BettererWorkerRunΩ> {
     const config = await createWorkerConfig(runConfig);
-    const resultsFile = await BettererResultsFileΩ.create(config.resultsPath);
+    const resultsFile = await BettererResultsFileΩ.create(config.resultsPath, versionControl);
     const globals = { config, resultsFile, versionControl };
 
     const isNew = !resultsFile.hasResult(name);

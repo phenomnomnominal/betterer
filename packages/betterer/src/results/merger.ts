@@ -1,5 +1,5 @@
 import { BettererOptionsMerge, createMergeConfig } from '../config';
-import { writeResults } from './fs';
+import { write } from '../fs';
 import { mergeResults } from './merge';
 import { parseResults } from './parse';
 import { printResults } from './print';
@@ -21,6 +21,6 @@ export class BettererMergerΩ {
     } else {
       merged = await parseResults(this._resultsPath);
     }
-    await writeResults(printResults(merged), this._resultsPath);
+    await write(printResults(merged), this._resultsPath);
   }
 }
