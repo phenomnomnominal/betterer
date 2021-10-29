@@ -6,7 +6,9 @@ const ARGV = ['node', './bin/betterer'];
 
 describe('betterer cli', () => {
   it('should merge the given contents', async () => {
-    const { paths, cleanup, readFile } = await createFixture('merge-contents');
+    const { paths, cleanup, readFile } = await createFixture('merge-contents', {
+      '.betterer.results': ''
+    });
 
     const ours = `// BETTERER RESULTS V2.
 exports[\`test\`] = {

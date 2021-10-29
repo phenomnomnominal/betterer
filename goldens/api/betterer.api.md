@@ -17,6 +17,8 @@ export function betterer(options?: BettererOptionsStart): Promise<BettererSuiteS
 // @public (undocumented)
 export namespace betterer {
     var // (undocumented)
+    merge: merge;
+    var // (undocumented)
     results: results;
     var // (undocumented)
     runner: runner;
@@ -312,6 +314,15 @@ export type BettererOptionsIgnores = Array<string>;
 // @public (undocumented)
 export type BettererOptionsIncludes = Array<string> | string;
 
+// Warning: (ae-missing-release-tag) "BettererOptionsMerge" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export type BettererOptionsMerge = Partial<{
+    contents: Array<string>;
+    cwd: string;
+    resultsPath: string;
+}>;
+
 // Warning: (ae-missing-release-tag) "BettererOptionsOverride" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
@@ -326,15 +337,10 @@ export type BettererOptionsOverride = Partial<{
 // @public (undocumented)
 export type BettererOptionsPaths = Array<string> | string;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsReporter" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererOptionsReporter = string | BettererReporter;
-
 // Warning: (ae-missing-release-tag) "BettererOptionsReporters" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-export type BettererOptionsReporters = Array<BettererOptionsReporter>;
+export type BettererOptionsReporters = Array<string | BettererReporter>;
 
 // Warning: (ae-missing-release-tag) "BettererOptionsResults" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
@@ -453,13 +459,6 @@ export type BettererReporter = {
     runStart?(run: BettererRun, lifecycle: Promise<BettererRunSummary>): Promise<void> | void;
     runEnd?(run: BettererRunSummary): Promise<void> | void;
     runError?(run: BettererRun, error: BettererError): Promise<void> | void;
-};
-
-// Warning: (ae-missing-release-tag) "BettererResult" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererResult = {
-    value: unknown;
 };
 
 // Warning: (ae-missing-release-tag) "BettererResultsSummary" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
@@ -675,6 +674,9 @@ export type BettererTestResultSummary = {
     summary: string;
 };
 
+// @public
+export function merge(options?: BettererOptionsMerge): Promise<void>;
+
 // Warning: (ae-missing-release-tag) "results" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
@@ -694,6 +696,7 @@ export function watch(options?: BettererOptionsWatch): Promise<BettererRunner>;
 //
 // src/config/types.ts:27:3 - (ae-forgotten-export) The symbol "BettererConfigExcludes" needs to be exported by the entry point index.d.ts
 // src/config/types.ts:28:3 - (ae-forgotten-export) The symbol "BettererConfigIncludes" needs to be exported by the entry point index.d.ts
+// src/run/types.ts:24:3 - (ae-forgotten-export) The symbol "BettererResult" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 

@@ -36,13 +36,17 @@ export type BettererConfigWatch = {
   watch: boolean;
 };
 
+export type BettererConfigMerge = {
+  contents: Array<string>;
+  resultsPath: string;
+};
+
 export type BettererOptionsPaths = Array<string> | string;
 export type BettererOptionsExcludes = Array<string | RegExp> | string;
 export type BettererOptionsFilters = Array<string | RegExp> | string;
 export type BettererOptionsIgnores = Array<string>;
 export type BettererOptionsIncludes = Array<string> | string;
-export type BettererOptionsReporter = string | BettererReporter;
-export type BettererOptionsReporters = Array<BettererOptionsReporter>;
+export type BettererOptionsReporters = Array<string | BettererReporter>;
 
 export type BettererOptionsResults = Partial<{
   configPaths: BettererOptionsPaths;
@@ -50,6 +54,12 @@ export type BettererOptionsResults = Partial<{
   excludes: BettererOptionsExcludes;
   filters: BettererOptionsFilters;
   includes: BettererOptionsIncludes;
+  resultsPath: string;
+}>;
+
+export type BettererOptionsMerge = Partial<{
+  contents: Array<string>;
+  cwd: string;
   resultsPath: string;
 }>;
 

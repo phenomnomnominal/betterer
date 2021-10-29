@@ -1,6 +1,6 @@
 import { BettererWorkerRunConfig } from '../config';
 import { BettererFilePaths, BettererVersionControlWorker } from '../fs';
-import { BettererResult, BettererResultΩ } from '../results';
+import { BettererResultΩ } from '../results';
 import { BettererTestMeta } from '../test';
 import { BettererRunWorkerHandleΩ, BettererRunWorkerPoolΩ } from './run-worker-pool';
 import { BettererRun, BettererRunSummary } from './types';
@@ -13,8 +13,8 @@ export class BettererRunΩ implements BettererRun {
     public name: string,
     private _workerHandle: BettererRunWorkerHandleΩ,
     public testMeta: BettererTestMeta,
-    public baseline: BettererResult | null,
-    public expected: BettererResult | null,
+    public baseline: BettererResultΩ | null,
+    public expected: BettererResultΩ | null,
     public filePaths: BettererFilePaths | null
   ) {
     this.isNew = testMeta.isNew;
