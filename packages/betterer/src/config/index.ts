@@ -1,7 +1,14 @@
-export { createInitialConfig, createFinalConfig, createWorkerConfig, overrideConfig } from './config';
+export {
+  createInitialConfig,
+  createFinalConfig,
+  createMergeConfig,
+  createWorkerConfig,
+  overrideConfig
+} from './config';
 export {
   BettererConfig,
   BettererConfigBase,
+  BettererConfigMerge,
   BettererConfigStart,
   BettererConfigWatch,
   BettererConfigExcludes,
@@ -14,6 +21,7 @@ export {
   BettererOptionsFilters,
   BettererOptionsIgnores,
   BettererOptionsIncludes,
+  BettererOptionsMerge,
   BettererOptionsOverride,
   BettererOptionsPaths,
   BettererOptionsReporters,

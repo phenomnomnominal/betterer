@@ -1,4 +1,4 @@
-export { betterer, results, runner, watch } from './betterer';
+export { betterer, merge, results, runner, watch } from './betterer';
 export {
   BettererConfig,
   BettererConfigBase,
@@ -14,6 +14,7 @@ export {
   BettererOptionsFilters,
   BettererOptionsIgnores,
   BettererOptionsIncludes,
+  BettererOptionsMerge,
   BettererOptionsOverride,
   BettererOptionsPaths,
   BettererOptionsReporters,
@@ -37,7 +38,6 @@ export {
   BettererFileResolver
 } from './fs/public';
 export {
-  BettererResult,
   BettererFileTestResultSummary,
   BettererResultsSummary,
   BettererTestResultSummaries,

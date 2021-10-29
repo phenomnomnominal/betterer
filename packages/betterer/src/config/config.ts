@@ -1,19 +1,20 @@
 import { BettererError } from '@betterer/errors';
 import assert from 'assert';
-import { promises as fs } from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 
-import { BettererVersionControlWorker } from '../fs';
+import { BettererVersionControlWorker, read } from '../fs';
 import { registerExtensions } from './register';
-import { loadReporters, loadSilentReporter, BettererReporter } from '../reporters';
+import { BettererReporter, loadReporters, loadSilentReporter } from '../reporters';
 import { isBoolean, isNumber, isRegExp, isString, isUndefined } from '../utils';
 import {
   BettererConfig,
   BettererConfigBase,
+  BettererConfigMerge,
   BettererConfigStart,
   BettererConfigWatch,
   BettererOptionsBase,
+  BettererOptionsMerge,
   BettererOptionsOverride,
   BettererOptionsStart,
   BettererOptionsWatch,
@@ -117,6 +118,20 @@ async function createFinalBaseConfig(
   });
 
   await versionControl.init(config.configPaths);
+}
+
+export async function createMergeConfig(options: BettererOptionsMerge): Promise<BettererConfigMerge> {
+  const contents = toArray(options.contents);
+  const cwd = options.cwd || process.cwd();
+  const resultsPath = path.resolve(cwd, options.resultsPath || './.betterer.results');
+
+  validateStringArray({ contents });
+  await validateFilePath({ resultsPath });
+
+  return {
+    contents,
+    resultsPath: path.resolve(cwd, resultsPath)
+  };
 }
 
 export async function createWorkerConfig(config: BettererWorkerRunConfig): Promise<BettererConfig> {
@@ -261,7 +276,7 @@ async function validateFilePath<Config, PropertyName extends keyof Config>(confi
   const [propertyName] = Object.keys(config);
   const value = config[propertyName as PropertyName];
   validate(
-    value == null || (isString(value) && (await fs.readFile(value))),
+    value == null || (isString(value) && (await read(value)) !== null),
     `"${propertyName.toString()}" must be a path to a file. ${recieved(value)}`
   );
 }

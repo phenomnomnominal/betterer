@@ -1,8 +1,14 @@
 import { debug } from '@phenomnomnominal/debug';
 
-import { BettererOptionsRunner, BettererOptionsStart, BettererOptionsResults, BettererOptionsWatch } from './config';
+import {
+  BettererOptionsRunner,
+  BettererOptionsStart,
+  BettererOptionsResults,
+  BettererOptionsWatch,
+  BettererOptionsMerge
+} from './config';
 import { BettererRunner, BettererRunnerΩ } from './runner';
-import { BettererResultsSummary, BettererResultsSummaryΩ } from './results';
+import { BettererMergerΩ, BettererResultsSummary, BettererResultsSummaryΩ } from './results';
 import { BettererSuiteSummary } from './suite';
 
 /**
@@ -22,7 +28,16 @@ export async function betterer(options: BettererOptionsStart = {}): Promise<Bett
 }
 
 /**
- * @public get a summary of the current **Betterer** results.
+ * @public resolve any merge conflicts in the specified results file.
+ */
+export async function merge(options: BettererOptionsMerge = {}): Promise<void> {
+  const merger = await BettererMergerΩ.create(options);
+  return merger.merge();
+}
+betterer.merge = merge;
+
+/**
+ * * @public get a summary of the current **Betterer** results.
  *
  * @example
  * ```typescript

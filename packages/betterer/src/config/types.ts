@@ -165,6 +165,11 @@ export type BettererConfigWatch = {
   watch: boolean;
 };
 
+export type BettererConfigMerge = {
+  contents: Array<string>;
+  resultsPath: string;
+};
+
 /**
  * @public A path to a {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file}
  * containing **Betterer** tests, or an array of them.
@@ -246,6 +251,12 @@ export type BettererOptionsResults = Partial<{
    * The `resultsPath` should be relative to the `cwd`.
    * @defaultValue `'./.betterer.results'`
    */
+  resultsPath: string;
+}>;
+
+export type BettererOptionsMerge = Partial<{
+  contents: Array<string>;
+  cwd: string;
   resultsPath: string;
 }>;
 

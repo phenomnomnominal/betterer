@@ -16,6 +16,8 @@ export function betterer(options?: BettererOptionsStart): Promise<BettererSuiteS
 // @public (undocumented)
 export namespace betterer {
     var // (undocumented)
+    merge: merge;
+    var // (undocumented)
     results: results;
     var // (undocumented)
     runner: runner;
@@ -284,6 +286,15 @@ export type BettererOptionsIgnores = Array<string>;
 // @public
 export type BettererOptionsIncludes = Array<string> | string;
 
+// Warning: (ae-missing-release-tag) "BettererOptionsMerge" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export type BettererOptionsMerge = Partial<{
+    contents: Array<string>;
+    cwd: string;
+    resultsPath: string;
+}>;
+
 // @public
 export type BettererOptionsOverride = Partial<{
     filters: BettererOptionsFilters;
@@ -404,13 +415,6 @@ export type BettererReporter = {
     runStart?(run: BettererRun, lifecycle: Promise<BettererRunSummary>): Promise<void> | void;
     runEnd?(run: BettererRunSummary): Promise<void> | void;
     runError?(run: BettererRun, error: BettererError): Promise<void> | void;
-};
-
-// Warning: (ae-missing-release-tag) "BettererResult" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererResult = {
-    value: unknown;
 };
 
 // Warning: (ae-missing-release-tag) "BettererResultsSummary" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
@@ -627,6 +631,9 @@ export type BettererTestResultSummary = {
 };
 
 // @public
+export function merge(options?: BettererOptionsMerge): Promise<void>;
+
+// @public
 export function results(options?: BettererOptionsResults): Promise<BettererResultsSummary>;
 
 // @public
@@ -638,6 +645,7 @@ export function watch(options?: BettererOptionsWatch): Promise<BettererRunner>;
 // Warnings were encountered during analysis:
 //
 // src/context/types.ts:32:7 - (tsdoc-reference-missing-dot) Expecting a period before the next component of a declaration reference
+// src/run/types.ts:24:3 - (ae-forgotten-export) The symbol "BettererResult" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 
