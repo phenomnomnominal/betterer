@@ -1,7 +1,7 @@
 import { WorkerRequireModule, WorkerRequireModuleAsync } from '@phenomnomnominal/worker-require';
 
 /**
- * @public An array of {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob}
+ * @public An array of {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob }
  * patterns that match file paths that will be included in an operation. All globs should be
  * relative to the current {@link @betterer/betterer#BettererConfig.cwd | `BettererConfig.cwd`}.
  *
@@ -20,7 +20,7 @@ export type BettererFilePath = string;
 export type BettererFilePaths = ReadonlyArray<BettererFilePath>;
 
 /**
- * @public An array of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expressions}
+ * @public An array of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expressions }
  * that match file paths that will be excluded from an operation.
  *
  * Can contain nested arrays, which will be {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat | flattened}.
@@ -57,10 +57,10 @@ export type BettererVersionControlWorker =
  * @public A helper object for resolving file paths in a custom {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}.
  *
  * For ergonomic reasons, a test consumer should be able to use _relative_ paths when they use
- * a test, whether that be passing the path to a config file, or using {@link @betterer/betterer#BettererFileTest.include | `BettererFileTest.include`}
+ * a test, whether that be passing the path to a config file, or using {@link @betterer/betterer#BettererFileTest.include | `BettererFileTest.include` }
  * to select relevant files.
  *
- * To enable that, **Betterer** creates a `BettererFileResolver` whenever a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}
+ * To enable that, **Betterer** creates a `BettererFileResolver` whenever a {@link @betterer/betterer#BettererFileTest | `BettererFileTest` }
  * is run. The `baseDirectory` is set to the directory containing the {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file}.
  *
  * Internally **Betterer** uses the `BettererFileResolver` to manage file paths specifed by

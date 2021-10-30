@@ -2,7 +2,7 @@ import { BettererOptionsResults } from '../config';
 import { BettererFileResolverΩ } from '../fs';
 import { createGlobals } from '../globals';
 import { BettererFileTestResultΩ, isBettererFileTest, loadTestMeta } from '../test';
-import { BettererFileTestResultSummary, BettererResultsSummary, BettererTestResultSummaries } from './types';
+import { BettererFileTestResultSummaryDetails, BettererResultsSummary, BettererTestResultSummaries } from './types';
 
 export class BettererResultsSummaryΩ implements BettererResultsSummary {
   public readonly testResultSummaries: BettererTestResultSummaries;
@@ -46,16 +46,16 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
         const deserialised = test.config.serialiser.deserialise(serialised, config.resultsPath);
         if (isFileTest) {
           const resultΩ = deserialised as BettererFileTestResultΩ;
-          const summary = resultΩ.files
+          const details = resultΩ.files
             .filter((file) => !onlyFileTests || filePaths.includes(file.absolutePath))
             .reduce((summary, file) => {
               summary[file.absolutePath] = file.issues;
               return summary;
-            }, {} as BettererFileTestResultSummary);
-          return { name, isFileTest, summary };
+            }, {} as BettererFileTestResultSummaryDetails);
+          return { name, isFileTest, details };
         } else {
-          const summary = await test.config.printer(deserialised);
-          return { name, isFileTest, summary };
+          const details = await test.config.printer(deserialised);
+          return { name, isFileTest, details };
         }
       })
     );

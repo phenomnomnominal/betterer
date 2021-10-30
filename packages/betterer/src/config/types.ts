@@ -1,31 +1,31 @@
 import { BettererReporter } from '../reporters';
 
 /**
- * @public An array of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expressions}
+ * @public An array of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expressions }
  * that match file paths that will be excluded from an operation.
  */
 export type BettererConfigExcludes = ReadonlyArray<RegExp>;
 
 /**
- * @public An array of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expressions}
+ * @public An array of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expressions }
  * that match names of relevant tests.
  */
 export type BettererConfigFilters = ReadonlyArray<RegExp>;
 
 /**
- * @public An array of absolute {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob}
+ * @public An array of absolute {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob }
  * patterns that match file paths that will be ignored by the file watcher in watch mode.
  */
 export type BettererConfigIgnores = ReadonlyArray<string>;
 
 /**
- * @public An array of absolute {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob}
+ * @public An array of absolute {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob }
  * patterns that match file paths that will be included in an operation.
  */
 export type BettererConfigIncludes = ReadonlyArray<string>;
 
 /**
- * @public An array of absolute {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file paths}
+ * @public An array of absolute {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file paths }
  * containing **Betterer** tests.
  */
 export type BettererConfigPaths = ReadonlyArray<string>;
@@ -44,7 +44,7 @@ export type BettererWorkerRunConfig = Omit<BettererConfig, 'reporter'>;
  */
 export type BettererConfigBase = {
   /**
-   * When `true`, caching will be enabled for {@link @betterer/betterer#BettererFileTest | `BettererFileTest`s}.
+   * When `true`, caching will be enabled for {@link @betterer/betterer#BettererFileTest | `BettererFileTest`s }.
    * **Betterer** will only check files that have changes since the last test run. **Betterer**
    * will create a cache file at the `configPath`.
    */
@@ -55,7 +55,7 @@ export type BettererConfigBase = {
    */
   cachePath: string;
   /**
-   * An array of absolute {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file paths}
+   * An array of absolute {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file paths }
    * containing **Betterer** tests.
    */
   configPaths: BettererConfigPaths;
@@ -64,7 +64,7 @@ export type BettererConfigBase = {
    */
   cwd: string;
   /**
-   * An array of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expressions}
+   * An array of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expressions }
    * that match names of relevant tests.
    */
   filters: BettererConfigFilters;
@@ -94,7 +94,7 @@ export type BettererConfigBase = {
  */
 export type BettererConfigStart = {
   /**
-   * When `true`, {@link https://phenomnomnominal.github.io/betterer/docs/running-betterer#ci-mode-run-your-tests-and-throw-on-changes | CI mode}
+   * When `true`, {@link https://phenomnomnominal.github.io/betterer/docs/running-betterer#ci-mode-run-your-tests-and-throw-on-changes | CI mode }
    * is enabled. In CI mode, **Betterer** will throw an error if there is any difference between
    * the test results and the expected results.
    *
@@ -103,19 +103,19 @@ export type BettererConfigStart = {
    */
   ci: boolean;
   /**
-   * An array of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expressions}
-   * that match file paths that will be excluded from {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}
+   * An array of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expressions }
+   * that match file paths that will be excluded from {@link @betterer/betterer#BettererFileTest | `BettererFileTest` }
    * runs.
    */
   excludes: BettererConfigExcludes;
   /**
-   * An array of absolute {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob}
-   * patterns that match file paths that will be included in {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}
+   * An array of absolute {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob }
+   * patterns that match file paths that will be included in {@link @betterer/betterer#BettererFileTest | `BettererFileTest` }
    * runs.
    */
   includes: BettererConfigIncludes;
   /**
-   * When `true`, {@link https://phenomnomnominal.github.io/betterer/docs/running-betterer#precommit-mode | precommit mode}
+   * When `true`, {@link https://phenomnomnominal.github.io/betterer/docs/running-betterer#precommit-mode | precommit mode }
    * is enabled. In precommit mode, **Betterer** will automatically add the results file to the
    * current commit if it contains any changes.
    *
@@ -124,7 +124,7 @@ export type BettererConfigStart = {
    */
   precommit: boolean;
   /**
-   * When `true`, {@link https://phenomnomnominal.github.io/betterer/docs/running-betterer#strict-mode | strict mode}
+   * When `true`, {@link https://phenomnomnominal.github.io/betterer/docs/running-betterer#strict-mode | strict mode }
    * is enabled. In strict mode, **Betterer** will force `update` to be `false` and will not show
    * the message reminding the user about update mode.
    *
@@ -133,7 +133,7 @@ export type BettererConfigStart = {
    */
   strict: boolean;
   /**
-   * When `true`, {@link https://phenomnomnominal.github.io/betterer/docs/running-betterer#update-mode | update mode}
+   * When `true`, {@link https://phenomnomnominal.github.io/betterer/docs/running-betterer#update-mode | update mode }
    * is enabled. In update mode, **Betterer** will {@link https://phenomnomnominal.github.io/betterer/docs/updating-results | update the results file},
    * even if the latest test results are worse than the current results.
    *
@@ -150,13 +150,13 @@ export type BettererConfigStart = {
  */
 export type BettererConfigWatch = {
   /**
-   * An array of absolute {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob}
+   * An array of absolute {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob }
    * patterns that match file paths that will be ignored by the file watcher in watch mode.
    */
   ignores: BettererConfigIgnores;
   /**
-   * When `true`, {@link https://phenomnomnominal.github.io/betterer/docs/running-betterer#watch-mode | watch mode}
-   * is enabled. In watch mode, **Betterer** will run all {@link @betterer/betterer#BettererFileTest | `BettererFileTest`s}
+   * When `true`, {@link https://phenomnomnominal.github.io/betterer/docs/running-betterer#watch-mode | watch mode }
+   * is enabled. In watch mode, **Betterer** will run all {@link @betterer/betterer#BettererFileTest | `BettererFileTest`s }
    * whenever a file changes. Only files that are tracked by version control will be watched by
    * default. You can ignore additional files using `ignores`.
    *
@@ -171,32 +171,32 @@ export type BettererConfigMerge = {
 };
 
 /**
- * @public A path to a {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file}
+ * @public A path to a {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file }
  * containing **Betterer** tests, or an array of them.
  */
 export type BettererOptionsPaths = Array<string> | string;
 
 /**
- * @public A string or {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expression}
+ * @public A string or {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expression }
  * to match file paths that should be excluded from an operation, or an array of them.
  */
 export type BettererOptionsExcludes = Array<string | RegExp> | string | RegExp;
 
 /**
- * @public A string or {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expression}
+ * @public A string or {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expression }
  * to match the names of relevant tests, or an array of them.
  */
 export type BettererOptionsFilters = Array<string | RegExp> | string | RegExp;
 
 /**
- * @public A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} pattern
+ * @public A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob } pattern
  * to match file paths that should be ignored by the file watcher in watch mode, or an array of
  * them.
  */
 export type BettererOptionsIgnores = Array<string>;
 
 /**
- * @public A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} pattern
+ * @public A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob } pattern
  * to match file paths that should be included in an operation, or an array of them.
  */
 export type BettererOptionsIncludes = Array<string> | string;
@@ -208,14 +208,14 @@ export type BettererOptionsIncludes = Array<string> | string;
 export type BettererOptionsReporters = Array<string | BettererReporter>;
 
 /**
- * @public Options for when you create a {@link @betterer/betterer#BettererResultsSummary | `BettererResultsSummary`}
+ * @public Options for when you create a {@link @betterer/betterer#BettererResultsSummary | `BettererResultsSummary` }
  * via the {@link @betterer/betterer#results | `betterer.results()` API}.
  *
  * The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
  */
 export type BettererOptionsResults = Partial<{
   /**
-   * A path to a {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file}
+   * A path to a {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file }
    * containing **Betterer** tests, or an array of them. All `configPaths` should be relative to
    * the `cwd`.
    * @defaultValue `['./.betterer']`
@@ -223,24 +223,24 @@ export type BettererOptionsResults = Partial<{
   configPaths: BettererOptionsPaths;
   /**
    * The current working directory.
-   * @defaultValue {@link https://nodejs.org/api/process.html#process_process_cwd | `process.cwd()`}
+   * @defaultValue {@link https://nodejs.org/api/process.html#process_process_cwd | `process.cwd()` }
    */
   cwd: string;
   /**
-   * A string or {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expression}
+   * A string or {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expression }
    * to match file paths that should be excluded from the {@link @betterer/betterer#BettererResultsSummary | `BettererResultsSummary`},
    * or an array of them. Will be converted into {@link @betterer/betterer#BettererConfigExcludes | `BettererConfigExcludes`}.
    * @defaultValue `[]`
    */
   excludes: BettererOptionsExcludes;
   /**
-   * A string or {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expression}
+   * A string or {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expression }
    * to match the names of relevant tests, or an array of them. Will be converted into {@link @betterer/betterer#BettererConfigFilters | `BettererConfigFilters`}.
    * @defaultValue `[]`
    */
   filters: BettererOptionsFilters;
   /**
-   * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} pattern to match
+   * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob } pattern to match
    * file paths that should be included in the {@link @betterer/betterer#BettererResultsSummary | `BettererResultsSummary`},
    * or an array of them.
    * @defaultValue `[]`
@@ -280,7 +280,7 @@ export type BettererOptionsBase = Partial<{
    */
   cachePath: string;
   /**
-   * A path to a {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file}
+   * A path to a {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file }
    * containing **Betterer** tests, or an array of them. All `configPaths` should be relative to
    * the `cwd`.
    * @defaultValue `['./.betterer']`
@@ -292,13 +292,13 @@ export type BettererOptionsBase = Partial<{
    */
   cwd: string;
   /**
-   * A string or {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expression}
+   * A string or {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expression }
    * to match the names of tests that should be run, or an array of them. Will be converted into {@link @betterer/betterer#BettererConfigFilters | `BettererConfigFilters`}.
    * @defaultValue `[]`
    */
   filters: BettererOptionsFilters;
   /**
-   * An array of names of npm packages that export a {@link @betterer/betterer#BettererReporter | `BettererReporter`}
+   * An array of names of npm packages that export a {@link @betterer/betterer#BettererReporter | `BettererReporter` }
    * or `object`s that implement {@link @betterer/betterer#BettererReporter | `BettererReporter`}.
    * Ignored when `silent` is `true`.
    * @defaultValue `['@betterer/reporter']`
@@ -322,7 +322,7 @@ export type BettererOptionsBase = Partial<{
    */
   tsconfigPath: string;
   /**
-   * The number of {@link https://nodejs.org/api/worker_threads.html | worker threads} to use when
+   * The number of {@link https://nodejs.org/api/worker_threads.html | worker threads } to use when
    * running tests. When `workers` is `true`, **Betterer** will pick a sensible default.
    * When `workers` is `false` **Betterer** will run in a single thread.
    * @defaultValue `true`
@@ -338,15 +338,15 @@ export type BettererOptionsBase = Partial<{
 export type BettererOptionsStartBase = BettererOptionsBase &
   Partial<{
     /**
-     * A string or {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expression}
-     * to match file paths that should be excluded from {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}
+     * A string or {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expression }
+     * to match file paths that should be excluded from {@link @betterer/betterer#BettererFileTest | `BettererFileTest` }
      * runs, or an array of them. Will be converted into {@link @betterer/betterer#BettererConfigExcludes | `BettererConfigExcludes`}.
      * @defaultValue `[]`
      */
     excludes: BettererOptionsExcludes;
     /**
-     * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} pattern to
-     * match file paths that should be included in {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}
+     * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob } pattern to
+     * match file paths that should be included in {@link @betterer/betterer#BettererFileTest | `BettererFileTest` }
      * runs, or an array of them. All `includes` should be relative to the `cwd`.
      * @defaultValue `[]`
      */
@@ -445,7 +445,7 @@ export type BettererOptionsStart =
   | BettererOptionsStartUpdate;
 
 /**
- * @public Options for when you create a {@link @betterer/betterer#BettererRunner | `BettererRunner`}
+ * @public Options for when you create a {@link @betterer/betterer#BettererRunner | `BettererRunner` }
  * via the {@link @betterer/betterer#runner | `betterer.runner()` API}.
  *
  * The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
@@ -453,7 +453,7 @@ export type BettererOptionsStart =
 export type BettererOptionsRunner = BettererOptionsBase;
 
 /**
- * @public Options for when you create a {@link @betterer/betterer#BettererRunner | `BettererRunner`}
+ * @public Options for when you create a {@link @betterer/betterer#BettererRunner | `BettererRunner` }
  * via the {@link @betterer/betterer#watch | `betterer.watch()` JS API}.
  *
  * The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
@@ -461,7 +461,7 @@ export type BettererOptionsRunner = BettererOptionsBase;
 export type BettererOptionsWatch = BettererOptionsRunner &
   Partial<{
     /**
-     * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} pattern to match
+     * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob } pattern to match
      * file paths that should be ignored by the file watcher in watch mode, or an array of them.
      * All `ignores` should be relative to the `cwd`.
      * @defaultValue `[]`
@@ -477,20 +477,20 @@ export type BettererOptionsWatch = BettererOptionsRunner &
  */
 export type BettererOptionsOverride = Partial<{
   /**
-   * A string or {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expression}
+   * A string or {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expression }
    * to match the names of tests that should be run, or an array of them. Will be converted into {@link @betterer/betterer#BettererConfigFilters | `BettererConfigFilters`}.
    * @defaultValue `[]`
    */
   filters: BettererOptionsFilters;
   /**
-   * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} pattern to match
+   * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob } pattern to match
    * file paths that should be ignored by the file watcher in watch mode, or an array of them. All
    * `ignores` should be relative to the `cwd`.
    * @defaultValue `[]`
    */
   ignores: BettererOptionsIgnores;
   /**
-   * An array of names of npm packages that export a {@link @betterer/betterer#BettererReporter | `BettererReporter`}
+   * An array of names of npm packages that export a {@link @betterer/betterer#BettererReporter | `BettererReporter` }
    * or `object`s that implement {@link @betterer/betterer#BettererReporter | `BettererReporter`}.
    * Ignored when `silent` is `true`.
    * @defaultValue `['@betterer/reporter']`

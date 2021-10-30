@@ -37,13 +37,14 @@ export {
   BettererFilePatterns,
   BettererFileResolver
 } from './fs/public';
+export { BettererReporter } from './reporters/public';
 export {
-  BettererFileTestResultSummary,
+  BettererFileTestResultSummaryDetails,
+  BettererTestResultSummaryDetails,
   BettererResultsSummary,
   BettererTestResultSummaries,
   BettererTestResultSummary
 } from './results/public';
-export { BettererReporter } from './reporters/public';
 export {
   BettererDelta,
   BettererRun,

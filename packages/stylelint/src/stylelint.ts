@@ -6,9 +6,13 @@ import { Configuration, lint } from 'stylelint';
 /**
  * @public {@link https://www.npmjs.com/package/@betterer/stylelint | `@betterer/stylelint`}
  *
- * Use this test to incrementally introduce new {@link https://stylelint.io/ | **Stylelint**} rules to your codebase. You can pass as many **Stylelint** {@link https://stylelint.io/user-guide/rules/list/ | rule configurations} as you like:
+ * Use this test to incrementally introduce new {@link https://stylelint.io/ | **Stylelint**} rules
+ * to your codebase. You can pass as many **Stylelint** {@link https://stylelint.io/user-guide/rules/list/ | rule configurations}
+ * as you like:
  *
- * {@link stylelint | `stylelint`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}, so you can use {@link @betterer/betterer#BettererFileTest.include | `exclude`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude`}, {@link @betterer/betterer#BettererFileTest.only | `only`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip`}.
+ * {@link stylelint | `stylelint`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
+ * so you can use {@link @betterer/betterer#BettererFileTest.include | `exclude`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude`},
+ * {@link @betterer/betterer#BettererFileTest.only | `only`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip`}.
  *
  * @example
  * ```typescript

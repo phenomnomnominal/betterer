@@ -5,9 +5,12 @@ import { promises as fs } from 'fs';
 /**
  * @public {@link https://www.npmjs.com/package/@betterer/regexp | `@betterer/regexp`}
  *
- * Use this test to incrementally remove {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp | **RegExp**} matches from your codebase.
+ * Use this test to incrementally remove {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp | `RegExp` }
+ * matches from your codebase.
  *
- * {@link regexp | `regexp`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}, so you can use {@link @betterer/betterer#BettererFileTest.include | `exclude`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude`}, {@link @betterer/betterer#BettererFileTest.only | `only`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip`}.
+ * {@link regexp | `regexp`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
+ * so you can use {@link @betterer/betterer#BettererFileTest.include | `exclude`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude`},
+ * {@link @betterer/betterer#BettererFileTest.only | `only`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip`}.
  *
  * @example
  * ```typescript

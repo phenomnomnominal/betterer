@@ -29,6 +29,13 @@ export async function betterer(options: BettererOptionsStart = {}): Promise<Bett
 
 /**
  * @public resolve any merge conflicts in the specified results file.
+ *
+ * @example
+ * ```typescript
+ * import { betterer } from '@betterer/betterer';
+ *
+ * await betterer.merge(options);
+ * ```
  */
 export async function merge(options: BettererOptionsMerge = {}): Promise<void> {
   const merger = await BettererMergerΩ.create(options);
@@ -37,7 +44,11 @@ export async function merge(options: BettererOptionsMerge = {}): Promise<void> {
 betterer.merge = merge;
 
 /**
- * * @public get a summary of the current **Betterer** results.
+ * * @public get a summary of the results of the defined {@link @betterer/betterer#BettererTest | `BettererTest`s}.
+ *
+ * **Betterer** will read the {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file }
+ * and the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}
+ * and return a summary of the results.
  *
  * @example
  * ```typescript
@@ -70,7 +81,7 @@ betterer.runner = runner;
 
 /**
  * @public create a **BettererRunner** with the given options. Also starts up a file watcher
- * for tracked files in the current directory.
+ * for tracked files in the current working directory.
  *
  * @example
  * ```typescript

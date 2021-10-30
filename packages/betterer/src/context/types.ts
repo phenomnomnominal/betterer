@@ -8,17 +8,17 @@ import { BettererSuiteSummaries, BettererSuiteSummary } from '../suite';
  * `BettererContext` is responsible for a lot more than this interface suggests, but we want to
  * minimise the public API surface as much as possible.
  *
- * You can get the current `BettererContext` via the {@link @betterer/betterer#BettererReporter | `BettererReporter`}
+ * You can get the `BettererContext` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
  * interface.
  *
  * @example
  * ```typescript
  * const myReporter: BettererReporter = {
- *   // Access the current context before any tests are run:
+ *   // Access the context before any tests are run:
  *   contextStart (context: BettererContext) {
  *     // ...
  *   },
- *   // Access the current context when something goes wrong:
+ *   // Access the context when something goes wrong:
  *   contextError (context: BettererContext) {
  *     // ...
  *   }
@@ -27,8 +27,8 @@ import { BettererSuiteSummaries, BettererSuiteSummary } from '../suite';
  */
 export type BettererContext = {
   /**
-   * The current {@link @betterer/betterer#BettererConfig | config} of the context. You probably
-   * don't want to mess with this directly 🔥. If you need to update the config, you should use
+   * The {@link @betterer/betterer#BettererConfig | config} of the context. You probably don't want
+   * to mess with this directly 🔥. If you need to update the config, you should use
    * {@link @betterer/betterer#BettererContext.options() | `BettererContext.options()`} instead.
    */
   readonly config: BettererConfig;
@@ -37,8 +37,8 @@ export type BettererContext = {
    */
   options(optionsOverride: BettererOptionsOverride): Promise<void>;
   /**
-   * Stop the current test run and clean everything up. If tests are currently running, wait for
-   * them to end before stopping.
+   * Stop the test run and clean everything up. If tests are running, waits for them to end before
+   * stopping.
    */
   stop(): Promise<BettererSuiteSummary>;
 };
@@ -51,7 +51,7 @@ export type BettererContextStarted = {
 /**
  * @public The summary of a set of test suite runs.
  *
- * You can get the current `BettererContextSummary` via the {@link @betterer/betterer#BettererReporter | `BettererReporter`}
+ * You can get the `BettererContextSummary` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
  * interface.
  *
  * @example
@@ -64,7 +64,7 @@ export type BettererContextStarted = {
  * }
  * ```
  *
- * or using the Promise-based `lifecycle` interface:
+ * or by using {@link @betterer/betterer#BettererReporter | `BettererReporter`'s} Promise-based `lifecycle` interface:
  *
  * @example
  * ```typescript
@@ -79,7 +79,7 @@ export type BettererContextStarted = {
  */
 export type BettererContextSummary = {
   /**
-   * The current {@link @betterer/betterer#BettererConfig | config} of the context.
+   * The {@link @betterer/betterer#BettererConfig | config} of the context.
    */
   readonly config: BettererConfig;
   /**

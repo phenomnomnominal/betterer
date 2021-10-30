@@ -6,11 +6,16 @@ import { ESLint, Linter } from 'eslint';
 import { BettererESLintRulesConfig } from './types';
 
 /**
- * @public {@link https://www.npmjs.com/package/@betterer/eslint | `@betterer/eslint`}
+ * @public {@link https://www.npmjs.com/package/@betterer/eslint | `@betterer/eslint` }
  *
- * Use this test to incrementally introduce new {@link https://eslint.org/ | **ESLint**} rules to your codebase. You can pass as many **ESLint** {@link https://eslint.org/docs/rules/ | rule configurations} as you like:
+ * Use this test to incrementally introduce new {@link https://eslint.org/ | **ESLint**} rules to
+ * your codebase. You can pass as many **ESLint** {@link https://eslint.org/docs/rules/ | rule configurations}
+ * as you like:
  *
- * {@link eslint | `eslint`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}, so you can use {@link @betterer/betterer#BettererFileTest.include | `exclude`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude`}, {@link @betterer/betterer#BettererFileTest.only | `only`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip`}.
+ * {@link eslint | `eslint`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
+ * so you can use {@link @betterer/betterer#BettererFileTest.include | `exclude`},
+ * {@link @betterer/betterer#BettererFileTest.exclude | `exclude`}, {@link @betterer/betterer#BettererFileTest.only | `only`},
+ * and {@link @betterer/betterer#BettererFileTest.skip | `skip`}.
  *
  * @example
  * ```typescript

@@ -120,7 +120,7 @@ function createTest(
       .map((file) => file.absolutePath)
       .filter((filePath) => !runFiles.includes(filePath));
 
-    // Filter them based on the current resolver:
+    // Filter them based on the resolver:
     const relevantExcludedFilePaths = await resolver.validate(excludedFilesWithIssues);
 
     // Add the existing issues to the new result:

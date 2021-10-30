@@ -8,8 +8,8 @@ export type BettererTaskColour = typeof ForegroundColor;
 /**
  * @public An asynchronous task that will be orchestrated by the {@link @betterer/tasks#BettererTasksLogger | `BettererTasksLogger`}.
  *
- * @param logger - parameter provides access to asynchronous logging which will be shown to the user
- * once the task is complete.
+ * @param logger - parameter provides access to asynchronous logging which will be shown to the
+ * user once the task is complete.
  * @returns If the task returns it is a "success".
  * @throws If the task throws it is a "failure".
  */

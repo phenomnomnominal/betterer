@@ -7,7 +7,7 @@ import { BettererTaskLog, BettererTasksDone, BettererTasksStatusUpdate } from '.
 import { useTimer } from './useTimer';
 
 /**
- * @public `props` type for {@link BettererTasksLogger | `<BettererTasksLogger/>`}
+ * @public `props` type for {@link BettererTasksLogger | `<BettererTasksLogger/>`}.
  */
 export type BettererTasksLoggerProps = {
   /**
