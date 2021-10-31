@@ -492,7 +492,7 @@ export type BettererRunner = {
     options(optionsOverride: BettererOptionsOverride): void;
     queue(filePaths?: string | BettererFilePaths): Promise<void>;
     stop(): Promise<BettererSuiteSummary>;
-    stop(force: true): Promise<null>;
+    stop(force: true): Promise<BettererSuiteSummary | null>;
 };
 
 // Warning: (ae-missing-release-tag) "BettererRuns" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
