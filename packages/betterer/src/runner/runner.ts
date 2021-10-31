@@ -59,7 +59,7 @@ export class BettererRunnerΩ implements BettererRunner {
   }
 
   public async stop(): Promise<BettererSuiteSummary>;
-  public async stop(force: true): Promise<null>;
+  public async stop(force: true): Promise<BettererSuiteSummary | null>;
   public async stop(force?: true): Promise<BettererSuiteSummary | null> {
     try {
       if (!force) {
