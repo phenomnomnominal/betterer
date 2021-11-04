@@ -17,13 +17,13 @@ export type BettererRunner = {
    */
   queue(filePaths?: string | BettererFilePaths): Promise<void>;
   /**
-   * Stop the runner, but first wait for it to finish running the current suite.
+   * Stop the runner, but first wait for it to finish running the suite.
    * @returns - the most recent {@link @betterer/betterer#BettererSuiteSummary | `BettererSuiteSummary`}.
    */
   stop(): Promise<BettererSuiteSummary>;
   /**
-   * Stop the runner, without waiting for it to finish rrunning the current suite.
+   * Stop the runner, without waiting for it to finish running the suite.
    * @param force (or `null` if a run hasn't finished yet`).
    */
-  stop(force: true): Promise<null>;
+  stop(force: true): Promise<BettererSuiteSummary | null>;
 };
