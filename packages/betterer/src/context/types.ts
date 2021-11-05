@@ -34,6 +34,9 @@ export type BettererContext = {
   readonly config: BettererConfig;
   /**
    * Make changes to the context config. The updated config will be used for the next run.
+   *
+   * @param optionsOverride - the {@link @betterer/betterer#BettererOptionsFilters | `filters`}, {@link @betterer/betterer#BettererOptionsIgnored | `ignores`},
+   * and {@link @betterer/betterer#BettererOptionsReporters | `reporters`} to use for the next run.
    */
   options(optionsOverride: BettererOptionsOverride): Promise<void>;
   /**

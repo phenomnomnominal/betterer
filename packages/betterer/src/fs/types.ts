@@ -94,11 +94,20 @@ export type BettererFileResolver = {
   readonly baseDirectory: string;
   /**
    * Resolve a file path relative to the `baseDirectory`.
+   *
+   * @param pathSegments - string path segments to resolve. Works the same was as {@link path#resolve | 'path.resolve()' }
+   * but with `baseDirectory` as the first argument.
+   *
+   * @returns the resolved path.
    */
   resolve(...pathSegments: Array<string>): string;
   /**
    * Validate if some file paths are relevant for a test. Files can be included and excluded
    * via {@link @betterer/betterer#BettererFileTest.include | `BettererFileTest.include()`} and {@link @betterer/betterer#BettererFileTest.exclude | `BettererFileTest.exclude()`}.
+   *
+   * @param filePaths - an array of paths to validate.
+   *
+   * @returns the given paths filtered for relevance based on the `includes` and `excludes` of the {@link @betterer/betterer#BettererFileResolver | `BettererFileResolver`}.
    */
   validate(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
 };

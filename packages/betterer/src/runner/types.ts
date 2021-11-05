@@ -18,7 +18,8 @@ export type BettererRunner = {
   queue(filePaths?: string | BettererFilePaths): Promise<void>;
   /**
    * Stop the runner, but first wait for it to finish running the suite.
-   * @returns - the most recent {@link @betterer/betterer#BettererSuiteSummary | `BettererSuiteSummary`}.
+   * @returns the most recent {@link @betterer/betterer#BettererSuiteSummary | `BettererSuiteSummary`}.
+   * @throws the error if something went wrong while stopping everything.
    */
   stop(): Promise<BettererSuiteSummary>;
   /**

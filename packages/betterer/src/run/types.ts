@@ -5,20 +5,42 @@ import { BettererFilePaths } from '../fs';
 import { BettererResult } from '../results';
 import { BettererDiff } from '../test';
 
+/**
+ * @public the change between a test runs and its baseline. A {@link @betterer/betterer#BettererRun | `BettererRun`}
+ * has a `delta` property if the test has a {@link @betterer/betterer#BettererTest.progress | `BettererTest.progress()` }
+ * handler.
+ */
 export type BettererDelta =
   | {
+      /**
+       * The quantified baseline for the test. Set when the context is created and stays constant
+       * across multiple runs. Set to `null` when it is a new test.
+       */
       readonly baseline: number;
+      /**
+       * The difference between the current test result and the baseline. Set to `0` when it is a
+       * new test.
+       */
       readonly diff: number;
+      /**
+       * The quantified test result.
+       */
       readonly result: number;
     }
   | {
+      /**
+       * The `baseline` is `null` when it is a new test.
+       */
       readonly baseline: null;
+      /**
+       * The `diff` is `0` when it is a new test.
+       */
       readonly diff: 0;
+      /**
+       * The quantified test result.
+       */
       readonly result: number;
     };
-
-export type BettererRuns = ReadonlyArray<BettererRun>;
-export type BettererRunNames = Array<string>;
 
 export type BettererRun = {
   readonly baseline: BettererResult | null;
@@ -29,6 +51,15 @@ export type BettererRun = {
   readonly isNew: boolean;
   readonly isSkipped: boolean;
 };
+
+export type BettererRuns = ReadonlyArray<BettererRun>;
+
+/**
+ * @public An array of {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob }
+ * patterns that match file paths that will be included in an operation. All globs should be
+ * relative to the current {@link @betterer/betterer#BettererConfig.cwd | `BettererConfig.cwd`}.
+ */
+export type BettererRunNames = Array<string>;
 
 export type BettererReporterRun = BettererRun & {
   lifecycle: Promise<BettererRunSummary>;
