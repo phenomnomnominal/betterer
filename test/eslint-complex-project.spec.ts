@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the status of a new eslint rule with a complex set up', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture(
+    const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture(
       'eslint-complex-project',
       {
         '.betterer.ts': `
@@ -73,17 +73,17 @@ export enum Numbers {
 
     const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(newTestRun.new)).toEqual(['test']);
+    expect(testNames(newTestRun.new)).toEqual(['test']);
 
     const sameTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(sameTestRun.same)).toEqual(['test']);
+    expect(testNames(sameTestRun.same)).toEqual(['test']);
 
     await writeFile(indexPath, `debugger;\ndebugger;`);
 
     const worseTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(worseTestRun.worse)).toEqual(['test']);
+    expect(testNames(worseTestRun.worse)).toEqual(['test']);
 
     const result = await readFile(resultsPath);
 
@@ -93,11 +93,11 @@ export enum Numbers {
 
     const betterTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(betterTestRun.better)).toEqual(['test']);
+    expect(testNames(betterTestRun.better)).toEqual(['test']);
 
     const completedTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(completedTestRun.completed)).toEqual(['test']);
+    expect(testNames(completedTestRun.completed)).toEqual(['test']);
 
     expect(logs).toMatchSnapshot();
 

@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the status of a new eslint rule', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture('eslint', {
+    const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture('eslint', {
       '.betterer.js': `
 const { eslint } = require('@betterer/eslint');
 
@@ -50,17 +50,17 @@ module.exports = {
 
     const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(newTestRun.new)).toEqual(['test']);
+    expect(testNames(newTestRun.new)).toEqual(['test']);
 
     const sameTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(sameTestRun.same)).toEqual(['test']);
+    expect(testNames(sameTestRun.same)).toEqual(['test']);
 
     await writeFile(indexPath, `debugger;\ndebugger;`);
 
     const worseTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(worseTestRun.worse)).toEqual(['test']);
+    expect(testNames(worseTestRun.worse)).toEqual(['test']);
 
     const result = await readFile(resultsPath);
 
@@ -70,11 +70,11 @@ module.exports = {
 
     const betterTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(betterTestRun.better)).toEqual(['test']);
+    expect(testNames(betterTestRun.better)).toEqual(['test']);
 
     const completedTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(completedTestRun.completed)).toEqual(['test']);
+    expect(testNames(completedTestRun.completed)).toEqual(['test']);
 
     expect(logs).toMatchSnapshot();
 

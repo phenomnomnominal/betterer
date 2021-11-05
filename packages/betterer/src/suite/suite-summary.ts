@@ -1,5 +1,6 @@
 import { BettererFilePaths } from '../fs';
-import { BettererRunNames, BettererRuns, BettererRunSummaries } from '../run';
+import { BettererRuns, BettererRunSummaries } from '../run';
+import { BettererTestNames } from '../test';
 import { BettererSuiteSummary } from './types';
 
 export class BettererSuiteSummaryΩ implements BettererSuiteSummary {
@@ -7,7 +8,7 @@ export class BettererSuiteSummaryΩ implements BettererSuiteSummary {
     public readonly filePaths: BettererFilePaths,
     public readonly runs: BettererRuns,
     public readonly runSummaries: BettererRunSummaries,
-    public readonly changed: BettererRunNames
+    public readonly changed: BettererTestNames
   ) {}
 
   public get completed(): BettererRunSummaries {

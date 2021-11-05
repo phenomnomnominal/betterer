@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the status of the TypeScript compiler', async () => {
-    const { paths, logs, resolve, readFile, cleanup, writeFile, runNames } = await createFixture('typescript', {
+    const { paths, logs, resolve, readFile, cleanup, writeFile, testNames } = await createFixture('typescript', {
       '.betterer.ts': `
 import { typescript } from '@betterer/typescript';
 
@@ -37,17 +37,17 @@ export default {
 
     const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(newTestRun.new)).toEqual(['typescript']);
+    expect(testNames(newTestRun.new)).toEqual(['typescript']);
 
     const sameTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(sameTestRun.same)).toEqual(['typescript']);
+    expect(testNames(sameTestRun.same)).toEqual(['typescript']);
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(a * one, one * a);`);
 
     const worseTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(worseTestRun.worse)).toEqual(['typescript']);
+    expect(testNames(worseTestRun.worse)).toEqual(['typescript']);
 
     const result = await readFile(resultsPath);
 
@@ -57,11 +57,11 @@ export default {
 
     const betterTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(betterTestRun.better)).toEqual(['typescript']);
+    expect(testNames(betterTestRun.better)).toEqual(['typescript']);
 
     const completedTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(completedTestRun.completed)).toEqual(['typescript']);
+    expect(testNames(completedTestRun.completed)).toEqual(['typescript']);
 
     expect(logs).toMatchSnapshot();
 

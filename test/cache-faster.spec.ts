@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it(`actually makes shit faster`, async () => {
-    const { paths, cleanup, runNames } = await createFixture('cache-faster', {
+    const { paths, cleanup, testNames } = await createFixture('cache-faster', {
       '.betterer.js': `
 const { BettererFileTest } = require('@betterer/betterer');
 const { promises: fs } = require('fs');
@@ -35,13 +35,13 @@ module.exports = {
     const newTestRun = await betterer({ configPaths, resultsPath, cachePath, workers: false });
     const newTime = new Date().getTime() - newStart;
 
-    expect(runNames(newTestRun.new)).toEqual(['test']);
+    expect(testNames(newTestRun.new)).toEqual(['test']);
 
     const sameStart = new Date().getTime();
     const sameTestRun = await betterer({ configPaths, resultsPath, cachePath, workers: false });
     const sameTime = new Date().getTime() - sameStart;
 
-    expect(runNames(sameTestRun.same)).toEqual(['test']);
+    expect(testNames(sameTestRun.same)).toEqual(['test']);
 
     expect(sameTime).toBeLessThan(newTime);
 

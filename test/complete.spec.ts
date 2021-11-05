@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it(`should make a test as complete when it reaches its goal`, async () => {
-    const { logs, paths, readFile, cleanup, runNames } = await createFixture(
+    const { logs, paths, readFile, cleanup, testNames } = await createFixture(
       'complete',
       {
         '.betterer.js': `
@@ -38,16 +38,16 @@ module.exports = {
 
     const firstRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(firstRun.new)).toEqual(['should complete', 'complete']);
-    expect(runNames(firstRun.completed)).toEqual(['complete']);
+    expect(testNames(firstRun.new)).toEqual(['should complete', 'complete']);
+    expect(testNames(firstRun.completed)).toEqual(['complete']);
 
     const secondRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(secondRun.better)).toEqual(['should complete']);
+    expect(testNames(secondRun.better)).toEqual(['should complete']);
 
     const thirdRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(thirdRun.completed)).toEqual(['should complete', 'complete']);
+    expect(testNames(thirdRun.completed)).toEqual(['should complete', 'complete']);
 
     expect(logs).toMatchSnapshot();
 

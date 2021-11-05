@@ -36,7 +36,7 @@ sum.apply(null, [1, 2, 3]);
 
 describe('betterer', () => {
   it('should report the status of the TypeScript compiler in strict mode', async () => {
-    const { paths, logs, resolve, readFile, cleanup, writeFile, runNames } = await createFixture('typescript-strict', {
+    const { paths, logs, resolve, readFile, cleanup, writeFile, testNames } = await createFixture('typescript-strict', {
       '.betterer.ts': `
 import { typescript } from '@betterer/typescript';
 
@@ -71,17 +71,17 @@ export default {
 
     const newTestRun = await betterer({ cachePath, configPaths, resultsPath, workers: false });
 
-    expect(runNames(newTestRun.new)).toEqual(['typescript']);
+    expect(testNames(newTestRun.new)).toEqual(['typescript']);
 
     const sameTestRun = await betterer({ cachePath, configPaths, resultsPath, workers: false });
 
-    expect(runNames(sameTestRun.same)).toEqual(['typescript']);
+    expect(testNames(sameTestRun.same)).toEqual(['typescript']);
 
     await writeFile(indexPath, `${INDEX_SOURCE}\nconst a = 'a';\nconst one = 1;\nconsole.log(a * one);`);
 
     const worseTestRun = await betterer({ cachePath, configPaths, resultsPath, workers: false });
 
-    expect(runNames(worseTestRun.worse)).toEqual(['typescript']);
+    expect(testNames(worseTestRun.worse)).toEqual(['typescript']);
 
     const result = await readFile(resultsPath);
 
@@ -91,7 +91,7 @@ export default {
 
     const betterTestRun = await betterer({ cachePath, configPaths, resultsPath, workers: false });
 
-    expect(runNames(betterTestRun.better)).toEqual(['typescript']);
+    expect(testNames(betterTestRun.better)).toEqual(['typescript']);
 
     expect(logs).toMatchSnapshot();
 

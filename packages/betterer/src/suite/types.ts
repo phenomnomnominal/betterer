@@ -1,5 +1,6 @@
 import { BettererFilePaths } from '../fs';
-import { BettererRunNames, BettererRuns, BettererRunSummaries } from '../run';
+import { BettererRuns, BettererRunSummaries } from '../run';
+import { BettererTestNames } from '../test';
 
 export type BettererSuite = {
   readonly filePaths: BettererFilePaths;
@@ -10,7 +11,7 @@ export type BettererSuiteSummary = {
   readonly filePaths: BettererFilePaths;
   readonly runs: BettererRuns;
   readonly runSummaries: BettererRunSummaries;
-  readonly changed: BettererRunNames;
+  readonly changed: BettererTestNames;
 
   readonly better: BettererRunSummaries;
   readonly completed: BettererRunSummaries;
