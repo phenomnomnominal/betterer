@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the status of the TypeScript compiler when there is a npm dependency', async () => {
-    const { paths, logs, resolve, cleanup, writeFile, runNames } = await createFixture('typescript-dependency', {
+    const { paths, logs, resolve, cleanup, writeFile, testNames } = await createFixture('typescript-dependency', {
       '.betterer.ts': `
 import { typescript } from '@betterer/typescript';
 
@@ -38,7 +38,7 @@ export default {
 
     const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(newTestRun.new)).toEqual(['typescript']);
+    expect(testNames(newTestRun.new)).toEqual(['typescript']);
 
     expect(logs).toMatchSnapshot();
 

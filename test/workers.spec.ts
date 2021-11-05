@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should run tests in workers', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture(
+    const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture(
       'workers',
       {
         '.betterer.ts': `
@@ -44,15 +44,15 @@ console.log('foo');
 
     const newRun = await betterer({ configPaths, resultsPath, workers: true });
 
-    expect(runNames(newRun.ran)).toEqual(['test 1', 'test 2', 'test 3', 'test 4']);
+    expect(testNames(newRun.ran)).toEqual(['test 1', 'test 2', 'test 3', 'test 4']);
 
     await writeFile(indexPath, `// HACK\n// HACK`);
 
     const betterRun = await betterer({ configPaths, resultsPath, workers: true });
 
-    expect(runNames(betterRun.same)).toEqual(['test 1', 'test 2']);
-    expect(runNames(betterRun.better)).toEqual(['test 3']);
-    expect(runNames(betterRun.worse)).toEqual(['test 4']);
+    expect(testNames(betterRun.same)).toEqual(['test 1', 'test 2']);
+    expect(testNames(betterRun.better)).toEqual(['test 3']);
+    expect(testNames(betterRun.worse)).toEqual(['test 4']);
 
     expect(logs).toMatchSnapshot();
 

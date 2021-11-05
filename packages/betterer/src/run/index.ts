@@ -4,7 +4,6 @@ export {
   BettererDelta,
   BettererRun,
   BettererRuns,
-  BettererRunNames,
   BettererReporterRun,
   BettererRunSummary,
   BettererRunSummaries

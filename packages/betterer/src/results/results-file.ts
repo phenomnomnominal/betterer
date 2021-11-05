@@ -1,10 +1,11 @@
 import assert from 'assert';
 
 import { BettererVersionControlWorker, write } from '../fs';
-import { BettererRunNames, BettererRunSummary, BettererRunSummaries } from '../run';
+import { BettererRunSummary, BettererRunSummaries } from '../run';
 import { BettererSuiteSummary } from '../suite';
 import { parseResults } from './parse';
 import { printResults } from './print';
+import { BettererTestNames } from '../test';
 import { BettererResultsSerialised } from './types';
 
 export class BettererResultsFileΩ {
@@ -24,7 +25,7 @@ export class BettererResultsFileΩ {
     return new BettererResultsFileΩ(resultsPath, versionControl, baseline, expected);
   }
 
-  public getChanged(runSummaries: BettererRunSummaries): BettererRunNames {
+  public getChanged(runSummaries: BettererRunSummaries): BettererTestNames {
     const missingRuns = Object.keys(this._expected).filter(
       (name) => !runSummaries.find((runSummary) => runSummary.name === name)
     );

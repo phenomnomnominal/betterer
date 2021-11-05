@@ -90,9 +90,9 @@ export type BettererContextSummary = {
     lastSuite: BettererSuiteSummary;
 };
 
-// Warning: (ae-missing-release-tag) "BettererDelta" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-unresolved-link) The @link reference could not be resolved: No member was found with name "progress"
 //
-// @public (undocumented)
+// @public
 export type BettererDelta = {
     readonly baseline: number;
     readonly diff: number;
@@ -255,10 +255,8 @@ export type BettererFileTestResult = {
 // @public (undocumented)
 export type BettererFileTestResultSerialised = Record<string, BettererFileIssuesSerialised>;
 
-// Warning: (ae-missing-release-tag) "BettererFileTestResultSummary" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererFileTestResultSummary = Record<string, BettererFileIssues>;
+// @public
+export type BettererFileTestResultSummaryDetails = Record<string, BettererFileIssues>;
 
 // @internal
 export type BettererOptionsBase = Partial<{
@@ -401,9 +399,9 @@ export type BettererPrinter<SerialisedType> = (serialised: SerialisedType) => Ma
 // @public (undocumented)
 export type BettererProgress<DeserialisedType> = (baseline: DeserialisedType | null, result: DeserialisedType | null) => MaybeAsync<BettererDelta | null>;
 
-// Warning: (ae-missing-release-tag) "BettererReporter" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/betterer" does not have an export "beterer"
 //
-// @public (undocumented)
+// @public
 export type BettererReporter = {
     configError?(config: unknown, error: BettererError): Promise<void> | void;
     contextStart?(context: BettererContext, lifecycle: Promise<BettererContextSummary>): Promise<void> | void;
@@ -413,13 +411,11 @@ export type BettererReporter = {
     suiteEnd?(suiteSummary: BettererSuiteSummary): Promise<void> | void;
     suiteError?(suite: BettererSuite, error: BettererError): Promise<void> | void;
     runStart?(run: BettererRun, lifecycle: Promise<BettererRunSummary>): Promise<void> | void;
-    runEnd?(run: BettererRunSummary): Promise<void> | void;
+    runEnd?(runSummary: BettererRunSummary): Promise<void> | void;
     runError?(run: BettererRun, error: BettererError): Promise<void> | void;
 };
 
-// Warning: (ae-missing-release-tag) "BettererResultsSummary" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererResultsSummary = {
     testResultSummaries: BettererTestResultSummaries;
 };
@@ -436,13 +432,6 @@ export type BettererRun = {
     readonly isSkipped: boolean;
 };
 
-// Warning: (ae-missing-release-tag) "BettererRunNames" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererRunNames = Array<string>;
-
-// Warning: (ae-missing-release-tag) "BettererRunner" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
 // @public (undocumented)
 export type BettererRunner = {
     options(optionsOverride: BettererOptionsOverride): void;
@@ -513,7 +502,7 @@ export type BettererSuiteSummary = {
     readonly filePaths: BettererFilePaths;
     readonly runs: BettererRuns;
     readonly runSummaries: BettererRunSummaries;
-    readonly changed: BettererRunNames;
+    readonly changed: BettererTestNames;
     readonly better: BettererRunSummaries;
     readonly completed: BettererRunSummaries;
     readonly expired: BettererRunSummaries;
@@ -583,6 +572,11 @@ export type BettererTestFunction<DeserialisedType> = (run: BettererRun) => Maybe
 // @public (undocumented)
 export type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
 
+// Warning: (ae-missing-release-tag) "BettererTestNames" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export type BettererTestNames = ReadonlyArray<string>;
+
 // Warning: (ae-missing-release-tag) "BettererTestOptions" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
@@ -612,23 +606,25 @@ export type BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffTyp
     deadline?: BettererTestDeadline;
 };
 
-// Warning: (ae-missing-release-tag) "BettererTestResultSummaries" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererTestResultSummaries = ReadonlyArray<BettererTestResultSummary>;
 
+// Warning: (tsdoc-undefined-tag) The TSDoc tag "@package" is not defined in this configuration
 // Warning: (ae-missing-release-tag) "BettererTestResultSummary" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
-// @public (undocumented)
+// @public
 export type BettererTestResultSummary = {
     name: string;
     isFileTest: true;
-    summary: BettererFileTestResultSummary;
+    details: BettererFileTestResultSummaryDetails;
 } | {
     name: string;
     isFileTest: false;
-    summary: string;
+    details: BettererTestResultSummaryDetails;
 };
+
+// @public
+export type BettererTestResultSummaryDetails = string;
 
 // @public
 export function merge(options?: BettererOptionsMerge): Promise<void>;
@@ -645,7 +641,10 @@ export function watch(options?: BettererOptionsWatch): Promise<BettererRunner>;
 // Warnings were encountered during analysis:
 //
 // src/context/types.ts:32:7 - (tsdoc-reference-missing-dot) Expecting a period before the next component of a declaration reference
-// src/run/types.ts:24:3 - (ae-forgotten-export) The symbol "BettererResult" needs to be exported by the entry point index.d.ts
+// src/context/types.ts:41:3 - (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/betterer" does not have an export "BettererOptionsIgnored"
+// src/run/types.ts:46:3 - (ae-forgotten-export) The symbol "BettererResult" needs to be exported by the entry point index.d.ts
+// src/runner/types.ts:27:58 - (tsdoc-code-span-missing-delimiter) The code span is missing its closing backtick
+// src/runner/types.ts:27:6 - (tsdoc-param-tag-missing-hyphen) The @param block should be followed by a parameter name and then a hyphen
 
 // (No @packageDocumentation comment for this package)
 

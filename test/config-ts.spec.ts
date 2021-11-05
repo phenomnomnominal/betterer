@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should work with a .betterer.ts file', async () => {
-    const { logs, paths, readFile, cleanup, runNames } = await createFixture('config-ts', {
+    const { logs, paths, readFile, cleanup, testNames } = await createFixture('config-ts', {
       '.betterer.ts': `
 const { BettererTest } = require('@betterer/betterer');
 const { bigger } = require('@betterer/constraints');
@@ -26,11 +26,11 @@ module.exports = {
 
     const firstRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(firstRun.new)).toEqual(['test']);
+    expect(testNames(firstRun.new)).toEqual(['test']);
 
     const secondRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(secondRun.better)).toEqual(['test']);
+    expect(testNames(secondRun.better)).toEqual(['test']);
 
     expect(logs).toMatchSnapshot();
 

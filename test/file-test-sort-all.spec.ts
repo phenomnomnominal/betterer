@@ -4,15 +4,17 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should sort files by their file path', async () => {
-    const { paths, logs, cleanup, resolve, runNames, readFile, writeFile } = await createFixture('file-test-sort-all', {
-      '.betterer.js': `
+    const { paths, logs, cleanup, resolve, testNames, readFile, writeFile } = await createFixture(
+      'file-test-sort-all',
+      {
+        '.betterer.js': `
 const { eslint } = require('@betterer/eslint');
 
 module.exports = {
   test: () => eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
 };
       `,
-      '.eslintrc.js': `
+        '.eslintrc.js': `
 const path = require('path');
 
 module.exports = {
@@ -34,13 +36,14 @@ module.exports = {
   }
 };
     `,
-      'tsconfig.json': `
+        'tsconfig.json': `
 {
   "extends": "../../tsconfig.json",
   "include": ["./src/**/*", "./.betterer.js", "./.eslintrc.js"]
 }
     `
-    });
+      }
+    );
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
@@ -52,7 +55,7 @@ module.exports = {
 
     const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(newTestRun.ran)).toEqual(['test']);
+    expect(testNames(newTestRun.ran)).toEqual(['test']);
 
     const result = await readFile(resultsPath);
 

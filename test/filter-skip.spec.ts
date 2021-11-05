@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should not run a specific test called with skip()', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture(
+    const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture(
       'filter-skip',
       {
         '.betterer.skip.ts': `
@@ -53,8 +53,8 @@ export default {
 
     const run = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(run.ran)).toEqual(['test 1', 'test 2']);
-    expect(runNames(run.skipped)).toEqual([]);
+    expect(testNames(run.ran)).toEqual(['test 1', 'test 2']);
+    expect(testNames(run.skipped)).toEqual([]);
 
     const skipRun = await betterer({
       configPaths: [resolve('./.betterer.skip.ts')],
@@ -62,8 +62,8 @@ export default {
       workers: false
     });
 
-    expect(runNames(skipRun.ran)).toEqual([]);
-    expect(runNames(skipRun.skipped)).toEqual(['test 1', 'test 2']);
+    expect(testNames(skipRun.ran)).toEqual([]);
+    expect(testNames(skipRun.skipped)).toEqual(['test 1', 'test 2']);
 
     expect(logs).toMatchSnapshot();
 

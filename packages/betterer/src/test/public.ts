@@ -29,5 +29,6 @@ export {
   BettererTestConfig,
   BettererTestOptions,
   BettererTestOptionsBasic,
-  BettererTestOptionsComplex
+  BettererTestOptionsComplex,
+  BettererTestNames
 } from './types';

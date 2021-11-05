@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the status of the Angular compiler in strict mode', async () => {
-    const { paths, logs, readFile, cleanup, runNames } = await createFixture('angular-strict', {
+    const { paths, logs, readFile, cleanup, testNames } = await createFixture('angular-strict', {
       '.betterer.ts': `
 import { angular } from '@betterer/angular';
 
@@ -134,7 +134,7 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 
     const newTestRun = await betterer({ cachePath, configPaths, resultsPath, workers: false });
 
-    expect(runNames(newTestRun.new)).toEqual(['angular']);
+    expect(testNames(newTestRun.new)).toEqual(['angular']);
 
     const result = await readFile(resultsPath);
 
