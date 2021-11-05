@@ -480,11 +480,6 @@ export type BettererRun = {
     readonly isSkipped: boolean;
 };
 
-// Warning: (ae-missing-release-tag) "BettererRunNames" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererRunNames = Array<string>;
-
 // Warning: (ae-missing-release-tag) "BettererRunner" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
@@ -557,7 +552,7 @@ export type BettererSuiteSummary = {
     readonly filePaths: BettererFilePaths;
     readonly runs: BettererRuns;
     readonly runSummaries: BettererRunSummaries;
-    readonly changed: BettererRunNames;
+    readonly changed: BettererTestNames;
     readonly better: BettererRunSummaries;
     readonly completed: BettererRunSummaries;
     readonly expired: BettererRunSummaries;
@@ -626,6 +621,11 @@ export type BettererTestFunction<DeserialisedType> = (run: BettererRun) => Maybe
 //
 // @public (undocumented)
 export type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
+
+// Warning: (ae-missing-release-tag) "BettererTestNames" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export type BettererTestNames = ReadonlyArray<string>;
 
 // Warning: (ae-missing-release-tag) "BettererTestOptions" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
@@ -696,7 +696,7 @@ export function watch(options?: BettererOptionsWatch): Promise<BettererRunner>;
 //
 // src/config/types.ts:27:3 - (ae-forgotten-export) The symbol "BettererConfigExcludes" needs to be exported by the entry point index.d.ts
 // src/config/types.ts:28:3 - (ae-forgotten-export) The symbol "BettererConfigIncludes" needs to be exported by the entry point index.d.ts
-// src/run/types.ts:24:3 - (ae-forgotten-export) The symbol "BettererResult" needs to be exported by the entry point index.d.ts
+// src/run/types.ts:23:3 - (ae-forgotten-export) The symbol "BettererResult" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 

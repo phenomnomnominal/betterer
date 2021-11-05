@@ -16,7 +16,7 @@ a {
 
 describe('betterer', () => {
   it('should report the status of a new stylelint rule', async () => {
-    const { logs, paths, resolve, readFile, writeFile, cleanup, runNames } = await createFixture('stylelint', {
+    const { logs, paths, resolve, readFile, writeFile, cleanup, testNames } = await createFixture('stylelint', {
       '.betterer.ts': `
 import { stylelint } from '@betterer/stylelint';
 
@@ -49,13 +49,13 @@ export default {
 
     const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(newTestRun.new)).toEqual(['stylelint']);
+    expect(testNames(newTestRun.new)).toEqual(['stylelint']);
 
     await writeFile(stylesPath, `${STYLES_SOURCE}${STYLES_SOURCE}`);
 
     const worseTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(worseTestRun.worse)).toEqual(['stylelint']);
+    expect(testNames(worseTestRun.worse)).toEqual(['stylelint']);
 
     const result = await readFile(resultsPath);
 
@@ -65,11 +65,11 @@ export default {
 
     const betterTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(betterTestRun.better)).toEqual(['stylelint']);
+    expect(testNames(betterTestRun.better)).toEqual(['stylelint']);
 
     const completedTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(completedTestRun.completed)).toEqual(['stylelint']);
+    expect(testNames(completedTestRun.completed)).toEqual(['stylelint']);
 
     expect(logs).toMatchSnapshot();
 

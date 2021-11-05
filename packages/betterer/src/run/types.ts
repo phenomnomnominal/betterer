@@ -18,7 +18,6 @@ export type BettererDelta =
     };
 
 export type BettererRuns = ReadonlyArray<BettererRun>;
-export type BettererRunNames = Array<string>;
 
 export type BettererRun = {
   readonly baseline: BettererResult | null;

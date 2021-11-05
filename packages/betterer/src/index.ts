@@ -42,14 +42,7 @@ export {
   BettererTestResultSummary
 } from './results/public';
 export { BettererReporter } from './reporters/public';
-export {
-  BettererDelta,
-  BettererRun,
-  BettererRunNames,
-  BettererRunSummary,
-  BettererRunSummaries,
-  BettererRuns
-} from './run/public';
+export { BettererDelta, BettererRun, BettererRunSummary, BettererRunSummaries, BettererRuns } from './run/public';
 export { BettererRunner } from './runner/public';
 export { BettererSuite, BettererSuiteSummary, BettererSuiteSummaries } from './suite/public';
 export {
@@ -81,5 +74,6 @@ export {
   BettererTestConfig,
   BettererTestOptions,
   BettererTestOptionsBasic,
-  BettererTestOptionsComplex
+  BettererTestOptionsComplex,
+  BettererTestNames
 } from './test/public';

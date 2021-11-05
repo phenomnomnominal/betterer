@@ -118,3 +118,5 @@ export type BettererTestMeta = {
       readonly expectedJSON: string;
     }
 );
+
+export type BettererTestNames = ReadonlyArray<string>;

@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should sort files by their file path even when only running on a single file', async () => {
-    const { paths, logs, cleanup, resolve, runNames, readFile, writeFile } = await createFixture(
+    const { paths, logs, cleanup, resolve, testNames, readFile, writeFile } = await createFixture(
       'file-test-sort-subset',
       {
         '.betterer.js': `
@@ -54,7 +54,7 @@ module.exports = {
     await writeFile(resolve('./src/c.ts'), `debugger;\ndebugger;`);
 
     const firstRun = await betterer({ configPaths, resultsPath, workers: false });
-    expect(runNames(firstRun.ran)).toEqual(['test']);
+    expect(testNames(firstRun.ran)).toEqual(['test']);
 
     await writeFile(resolve('./src/c.ts'), `debugger;\ndebugger;\ndebugger;`);
 
@@ -65,7 +65,7 @@ module.exports = {
       update: true,
       workers: false
     });
-    expect(runNames(secondRun.ran)).toEqual(['test']);
+    expect(testNames(secondRun.ran)).toEqual(['test']);
 
     const result = await readFile(resultsPath);
 

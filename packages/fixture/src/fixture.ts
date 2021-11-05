@@ -1,4 +1,4 @@
-import { BettererRunNames, BettererRunSummaries } from '@betterer/betterer';
+import { BettererRunSummaries, BettererTestNames } from '@betterer/betterer';
 import { promises as fs } from 'graceful-fs';
 import * as path from 'path';
 
@@ -30,11 +30,11 @@ export async function createFixtureDirectoryΔ(fixturesPath: string): Promise<Fi
     return {
       ...fixtureFS,
       logs: fixtureLogs,
-      runNames
+      testNames
     };
   };
 }
 
-export function runNames(runs: BettererRunSummaries): BettererRunNames {
+export function testNames(runs: BettererRunSummaries): BettererTestNames {
   return runs.map((run) => run.name);
 }

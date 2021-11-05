@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the existence of RegExp matches', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture('regexp', {
+    const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture('regexp', {
       '.betterer.js': `
 const { regexp } = require('@betterer/regexp');
 
@@ -22,17 +22,17 @@ module.exports = {
 
     const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(newTestRun.new)).toEqual(['regexp']);
+    expect(testNames(newTestRun.new)).toEqual(['regexp']);
 
     const sameTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(sameTestRun.same)).toEqual(['regexp']);
+    expect(testNames(sameTestRun.same)).toEqual(['regexp']);
 
     await writeFile(indexPath, `// HACK:\n// HACK:`);
 
     const worseTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(worseTestRun.worse)).toEqual(['regexp']);
+    expect(testNames(worseTestRun.worse)).toEqual(['regexp']);
 
     const result = await readFile(resultsPath);
 
@@ -42,11 +42,11 @@ module.exports = {
 
     const betterTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(betterTestRun.better)).toEqual(['regexp']);
+    expect(testNames(betterTestRun.better)).toEqual(['regexp']);
 
     const completedTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(completedTestRun.completed)).toEqual(['regexp']);
+    expect(testNames(completedTestRun.completed)).toEqual(['regexp']);
 
     expect(logs).toMatchSnapshot();
 

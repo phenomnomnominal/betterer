@@ -1,4 +1,4 @@
-import { BettererRunNames, BettererRunSummaries } from '@betterer/betterer';
+import { BettererTestNames, BettererRunSummaries } from '@betterer/betterer';
 
 export type Paths = {
   cache: string;
@@ -22,7 +22,7 @@ export type FixtureFileSystemFiles = Record<string, string>;
 
 export type Fixture = FixtureFileSystem & {
   logs: ReadonlyArray<string>;
-  runNames(runs: BettererRunSummaries): BettererRunNames;
+  testNames(runs: BettererRunSummaries): BettererTestNames;
 };
 
 export type FixtureLogs = ReadonlyArray<string>;
