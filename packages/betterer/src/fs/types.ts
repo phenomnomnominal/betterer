@@ -57,14 +57,14 @@ export type BettererVersionControlWorker =
  * @public A helper object for resolving file paths in a custom {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}.
  *
  * For ergonomic reasons, a test consumer should be able to use _relative_ paths when they use
- * a test, whether that be passing the path to a config file, or using {@link @betterer/betterer#BettererFileTest.include | `BettererFileTest.include` }
+ * a test, whether that be passing the path to a config file, or using {@link @betterer/betterer#BettererFileTest.include | `BettererFileTest.include()` }
  * to select relevant files.
  *
  * To enable that, **Betterer** creates a `BettererFileResolver` whenever a {@link @betterer/betterer#BettererFileTest | `BettererFileTest` }
  * is run. The `baseDirectory` is set to the directory containing the {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file}.
  *
  * Internally **Betterer** uses the `BettererFileResolver` to manage file paths specifed by
- * `.include()` and `.exclude()`. A test function can use the `BettererFileResolver` to
+ * {@link @betterer/betterer#BettererFileTest.include | `BettererFileTest.include()` } and {@link @betterer/betterer#BettererFileTest.exclude | `BettererFileTest.exclude` }. A test function can use the `BettererFileResolver` to
  * resolve and validate file paths.
  *
  * @example

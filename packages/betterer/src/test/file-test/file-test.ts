@@ -25,8 +25,8 @@ import {
  * that makes it easier to implement such a test.
  *
  * @remarks
- * `BettererFileTest` also provides a useful example for the more complex possibilities of the
- * {@link @betterer/betterer#BettererTestOptions | `BettererTestOptions`} interface.
+ * `BettererFileTest` provides a useful example for the more complex possibilities of the {@link @betterer/betterer#BettererTestOptions | `BettererTestOptions` }
+ * interface.
  *
  * @example
  * ```typescript

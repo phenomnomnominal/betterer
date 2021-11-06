@@ -69,7 +69,7 @@ export type BettererTestFunction<DeserialisedType> = (run: BettererRun) => Maybe
 export type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
 
 /**
- * @public The difference between two results.
+ * @public The result of computing the difference between two results.
  */
 export type BettererDiff<DiffType = null> = {
   /**
@@ -85,6 +85,7 @@ export type BettererDiff<DiffType = null> = {
 
 /**
  * @public A function that compares two test results.
+ *
  * @param expected Expected result from the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
  * @param result Result from the current test run.
  */
@@ -96,6 +97,7 @@ export type BettererDiffer<DeserialisedType, DiffType> = (
 /**
  * @public A function that converts a serialised test result into the string that will be saved in
  * the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
+ *
  * @param serialised The serialised result.
  */
 export type BettererPrinter<SerialisedType> = (serialised: SerialisedType) => MaybeAsync<string>;
@@ -103,6 +105,7 @@ export type BettererPrinter<SerialisedType> = (serialised: SerialisedType) => Ma
 /**
  * @public A function that converts a test result to a number value that represents the progress towards
  * the goal.
+ *
  * @param baseline The baseline result for the current test.
  * @param result The result from the current test run.
  */
