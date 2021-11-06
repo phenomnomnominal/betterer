@@ -420,9 +420,7 @@ export type BettererResultsSummary = {
     testResultSummaries: BettererTestResultSummaries;
 };
 
-// Warning: (ae-missing-release-tag) "BettererRun" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererRun = {
     readonly baseline: BettererResult | null;
     readonly expected: BettererResult | null;
@@ -440,19 +438,13 @@ export type BettererRunner = {
     stop(force: true): Promise<BettererSuiteSummary | null>;
 };
 
-// Warning: (ae-missing-release-tag) "BettererRuns" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererRuns = ReadonlyArray<BettererRun>;
 
-// Warning: (ae-missing-release-tag) "BettererRunSummaries" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererRunSummaries = Array<BettererRunSummary>;
 
-// Warning: (ae-missing-release-tag) "BettererRunSummary" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererRunSummary = BettererRun & {
     readonly diff: BettererDiff | null;
     readonly delta: BettererDelta | null;
@@ -482,25 +474,19 @@ export type BettererSerialiser<DeserialisedType, SerialisedType = DeserialisedTy
     deserialise: BettererDeserialise<DeserialisedType, SerialisedType>;
 };
 
-// Warning: (ae-missing-release-tag) "BettererSuite" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererSuite = {
     readonly filePaths: BettererFilePaths;
     readonly runs: BettererRuns;
 };
 
-// Warning: (ae-missing-release-tag) "BettererSuiteSummaries" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererSuiteSummaries = ReadonlyArray<BettererSuiteSummary>;
 
 // Warning: (ae-missing-release-tag) "BettererSuiteSummary" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-export type BettererSuiteSummary = {
-    readonly filePaths: BettererFilePaths;
-    readonly runs: BettererRuns;
+export type BettererSuiteSummary = BettererSuite & {
     readonly runSummaries: BettererRunSummaries;
     readonly changed: BettererTestNames;
     readonly better: BettererRunSummaries;
@@ -642,9 +628,11 @@ export function watch(options?: BettererOptionsWatch): Promise<BettererRunner>;
 //
 // src/context/types.ts:32:7 - (tsdoc-reference-missing-dot) Expecting a period before the next component of a declaration reference
 // src/context/types.ts:41:3 - (ae-unresolved-link) The @link reference could not be resolved: The package "@betterer/betterer" does not have an export "BettererOptionsIgnored"
-// src/run/types.ts:46:3 - (ae-forgotten-export) The symbol "BettererResult" needs to be exported by the entry point index.d.ts
+// src/run/types.ts:58:3 - (ae-forgotten-export) The symbol "BettererResult" needs to be exported by the entry point index.d.ts
 // src/runner/types.ts:27:58 - (tsdoc-code-span-missing-delimiter) The code span is missing its closing backtick
 // src/runner/types.ts:27:6 - (tsdoc-param-tag-missing-hyphen) The @param block should be followed by a parameter name and then a hyphen
+// src/suite/types.ts:16:3 - (ae-unresolved-link) The @link reference could not be resolved: No member was found with name "includes"
+// src/suite/types.ts:16:3 - (ae-unresolved-link) The @link reference could not be resolved: No member was found with name "excludes"
 
 // (No @packageDocumentation comment for this package)
 

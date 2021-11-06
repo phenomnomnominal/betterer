@@ -45,7 +45,7 @@ export {
   BettererTestResultSummaries,
   BettererTestResultSummary
 } from './results/public';
-export { BettererDelta, BettererRun, BettererRunSummary, BettererRunSummaries, BettererRuns } from './run/public';
+export { BettererDelta, BettererRun, BettererRuns, BettererRunSummary, BettererRunSummaries } from './run/public';
 export { BettererRunner } from './runner/public';
 export { BettererSuite, BettererSuiteSummary, BettererSuiteSummaries } from './suite/public';
 export {
