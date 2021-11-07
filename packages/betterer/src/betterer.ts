@@ -87,7 +87,7 @@ betterer.runner = runner;
  * ```typescript
  * import { betterer } from '@betterer/betterer';
  *
- * const runner = await betterer.runner(options);
+ * const runner = await betterer.watch(options);
  * ```
  */
 export function watch(options: BettererOptionsWatch = {}): Promise<BettererRunner> {

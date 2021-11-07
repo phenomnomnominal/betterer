@@ -27,15 +27,15 @@ import { BettererSuiteSummaries, BettererSuiteSummary } from '../suite';
  */
 export type BettererContext = {
   /**
-   * The {@link @betterer/betterer#BettererConfig | config} of the context. You probably don't want
+   * The {@link @betterer/betterer#BettererConfig | `config``} of the context. You probably don't want
    * to mess with this directly 🔥. If you need to update the config, you should use
-   * {@link @betterer/betterer#BettererContext.options() | `BettererContext.options()`} instead.
+   * {@link @betterer/betterer#BettererContext.options | `BettererContext.options()`} instead.
    */
   readonly config: BettererConfig;
   /**
    * Make changes to the context config. The updated config will be used for the next run.
    *
-   * @param optionsOverride - the {@link @betterer/betterer#BettererOptionsFilters | `filters`}, {@link @betterer/betterer#BettererOptionsIgnored | `ignores`},
+   * @param optionsOverride - the {@link @betterer/betterer#BettererOptionsFilters | `filters`}, {@link @betterer/betterer#BettererOptionsIgnores | `ignores`},
    * and {@link @betterer/betterer#BettererOptionsReporters | `reporters`} to use for the next run.
    */
   options(optionsOverride: BettererOptionsOverride): Promise<void>;

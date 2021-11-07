@@ -9,7 +9,21 @@ import {
 } from './types';
 
 /**
- * @public
+ * @public The main interface to the **Betterer** [test system](./tests).
+ *
+ * @example
+ * ```typescript
+ * import { BettererTest } from '@betterer/betterer';
+ * import { smaller } from '@betterer/constraints';
+ * import glob from 'glob';
+ *
+ * const test = new BettererTest({
+ *   test: () => glob.sync('**\/*').length,
+ *   constraint: smaller
+ * });
+ * ```
+ *
+ * @param options - the options that define the test.
  */
 export class BettererTest<DeserialisedType, SerialisedType = DeserialisedType, DiffType = null>
   implements BettererTestBase<DeserialisedType, SerialisedType, DiffType>
@@ -43,7 +57,7 @@ export class BettererTest<DeserialisedType, SerialisedType = DeserialisedType, D
   /**
    * Override the constraint in the test configuration.
    *
-   * @param constraintOverride the new constraint for the test.
+   * @param constraintOverride - the new constraint for the test.
    * @returns this test, so it is chainable.
    */
   public constraint(constraintOverride: BettererTestConstraint<DeserialisedType>): this {
@@ -54,7 +68,7 @@ export class BettererTest<DeserialisedType, SerialisedType = DeserialisedType, D
   /**
    * Override the deadline in the test configuration.
    *
-   * @param deadlineOverride the new deadline for the test.
+   * @param deadlineOverride - the new deadline for the test.
    * @returns this test, so it is chainable.
    */
   public deadline(deadlineOverride: BettererTestDeadline): this {
@@ -65,7 +79,7 @@ export class BettererTest<DeserialisedType, SerialisedType = DeserialisedType, D
   /**
    * Override the goal in the test configuration.
    *
-   * @param goalOverride the new goal for the test.
+   * @param goalOverride - the new goal for the test.
    * @returns this test, so it is chainable.
    */
   public goal(goalOverride: BettererTestGoal<DeserialisedType>): this {

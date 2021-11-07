@@ -429,12 +429,12 @@ export type BettererOptionsStartUpdate = BettererOptionsStartBase &
   }>;
 
 /**
- * @public Options for when you run **Betterer** via the {@link @betterer/betterer#betterer | JS API}.
+ * @public Options for when you run **Betterer** via the {@link @betterer/betterer#betterer:function | JS API}.
  *
  * The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
  *
  * This is the union of valid possible options for a single **Betterer** run. This type should
- * prevent {@link @betterer/betterer#betterer | `betterer()` } from being called with invalid
+ * prevent {@link @betterer/betterer#betterer:function | `betterer()` } from being called with invalid
  * flags, as some combinations do not make sense.
  */
 export type BettererOptionsStart =

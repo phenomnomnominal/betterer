@@ -1,3 +1,11 @@
+/**
+ * {@link https://www.npmjs.com/package/@betterer/betterer | `@betterer/betterer` }
+ *
+ * JavaScript API for running [**`betterer`**](https://github.com/phenomnomnominal/betterer).
+ *
+ * @packageDocumentation
+ */
+
 export { betterer, merge, results, runner, watch } from './betterer';
 export {
   BettererConfig,
@@ -41,6 +49,7 @@ export { BettererReporter } from './reporters/public';
 export {
   BettererFileTestResultSummaryDetails,
   BettererTestResultSummaryDetails,
+  BettererResult,
   BettererResultsSummary,
   BettererTestResultSummaries,
   BettererTestResultSummary
@@ -70,6 +79,7 @@ export {
   BettererSerialise,
   BettererSerialiser,
   BettererTest,
+  BettererTestBase,
   BettererTestConstraint,
   BettererTestDeadline,
   BettererTestFunction,

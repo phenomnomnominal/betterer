@@ -4,11 +4,13 @@ import { BettererError } from '@betterer/errors';
 import { DiagnosticWithLocation, flattenDiagnosticMessageText } from 'typescript';
 
 /**
- * @public {@link https://www.npmjs.com/package/@betterer/angular | `@betterer/angular`}
+ * @public Use this test to incrementally introduce {@link https://angular.io/guide/angular-compiler-options | **Angular** compiler configuration }
+ * to your codebase.
  *
- * Use this test to incrementally introduce {@link https://angular.io/guide/angular-compiler-options | **Angular** compiler configuration } to your codebase.
- *
- * {@link angular | `angular`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}, so you can use {@link @betterer/betterer#BettererFileTest.include | `exclude`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude`}, {@link @betterer/betterer#BettererFileTest.only | `only`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip`}.
+ * @remarks
+ * {@link angular | `angular`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
+ * so you can use {@link @betterer/betterer#BettererFileTest.include | `include()`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude()`},
+ * {@link @betterer/betterer#BettererFileTest.only | `only()`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip()`}.
  *
  * @example
  * ```typescript

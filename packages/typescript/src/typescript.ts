@@ -19,14 +19,13 @@ type TypeScriptReadConfigResult = {
 const CODE_FILE_NOT_INCLUDED = 6307;
 
 /**
- * @public {@link https://www.npmjs.com/package/@betterer/typescript | `@betterer/typescript`}
- *
- * Use this test to incrementally introduce {@link https://www.typescriptlang.org/docs/handbook/compiler-options.html | **TypeScript** configuration}
+ * @public Use this test to incrementally introduce {@link https://www.typescriptlang.org/docs/handbook/compiler-options.html | **TypeScript** configuration}
  * to your codebase.
  *
+ * @remarks
  * {@link typescript | `typescript`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
- * so you can use {@link @betterer/betterer#BettererFileTest.include | `exclude`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude`},
- * {@link @betterer/betterer#BettererFileTest.only | `only`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip`}.
+ * so you can use {@link @betterer/betterer#BettererFileTest.include | `include()`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude()`},
+ * {@link @betterer/betterer#BettererFileTest.only | `only()`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip()`}.
  *
  * @example
  * ```typescript

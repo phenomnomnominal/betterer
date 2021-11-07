@@ -3,7 +3,7 @@ import { WorkerRequireModule, WorkerRequireModuleAsync } from '@phenomnomnominal
 /**
  * @public An array of {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob }
  * patterns that match file paths that will be included in an operation. All globs should be
- * relative to the current {@link @betterer/betterer#BettererConfig.cwd | `BettererConfig.cwd`}.
+ * relative to the current {@link @betterer/betterer#BettererConfigBase.cwd | `BettererConfigBase.cwd`}.
  *
  * Can contain nested arrays, which will be {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat | flattened}.
  */

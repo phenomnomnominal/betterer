@@ -83,7 +83,7 @@ export class BettererFileTest implements BettererFileTestBase {
   /**
    * Override the constraint in the test configuration.
    *
-   * @param constraintOverride the new constraint for the test.
+   * @param constraintOverride - the new constraint for the test.
    * @returns this test, so it is chainable.
    */
   public constraint(constraintOverride: BettererTestConstraint<BettererFileTestResult>): this {
@@ -94,7 +94,7 @@ export class BettererFileTest implements BettererFileTestBase {
   /**
    * Override the deadline in the test configuration.
    *
-   * @param deadlineOverride the new deadline for the test.
+   * @param deadlineOverride - the new deadline for the test.
    * @returns this test, so it is chainable.
    */
   public deadline(deadlineOverride: BettererTestDeadline): this {
@@ -105,7 +105,7 @@ export class BettererFileTest implements BettererFileTestBase {
   /**
    * Add a list of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expression } filters for files to exclude when running the test.
    *
-   * @param excludePatterns RegExp filters to match file paths that should be excluded.
+   * @param excludePatterns - RegExp filters to match file paths that should be excluded.
    * @returns this test, so it is chainable.
    */
   public exclude(...excludePatterns: BettererFilePatterns): this {
@@ -116,7 +116,7 @@ export class BettererFileTest implements BettererFileTestBase {
   /**
    * Override the goal in the test configuration.
    *
-   * @param goalOverride the new goal for the test.
+   * @param goalOverride - the new goal for the test.
    * @returns this test, so it is chainable.
    */
   public goal(goalOverride: BettererTestGoal<BettererFileTestResult>): this {
@@ -128,7 +128,7 @@ export class BettererFileTest implements BettererFileTestBase {
    * Add a list of {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob }
    * patterns for files to include when running the test.
    *
-   * @param includePatterns glob patterns to match file paths that should be included. All
+   * @param includePatterns - glob patterns to match file paths that should be included. All
    * `includes` should be relative to the {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file}.
    * @returns this test, so it is chainable.
    */

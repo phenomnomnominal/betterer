@@ -9,8 +9,8 @@ import { BettererTestNames } from '../test';
  */
 export type BettererSuite = {
   /**
-   * An array of file paths that will be tested. The file paths can be specified by the global {@link @betterer/betterer#BettererConfig.includes | `includes` }
-   * and {@link @betterer/betterer#BettererConfig.excludes | `excludes`} properties. Also used by
+   * An array of file paths that will be tested. The file paths can be specified by the global {@link @betterer/betterer#BettererConfigStart.includes | `includes` }
+   * and {@link @betterer/betterer#BettererConfigStart.excludes | `excludes`} properties. Also used by
    * watch mode to target individual files.
    */
   readonly filePaths: BettererFilePaths;
@@ -21,6 +21,37 @@ export type BettererSuite = {
   readonly runs: BettererRuns;
 };
 
+/**
+ * @public The summary of a {@link @betterer/betterer#BettererSuite | `BettererSuite`} suite. Includes
+ * everything from {@link @betterer/betterer#BettererSuite | `BettererSuite`}.
+ *
+ * You can get the `BettererSuiteSummary` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
+ * interface.
+ *
+ * @example
+ * ```typescript
+ * const myReporter: BettererReporter = {
+ *   // Access the summary after the suite has ended:
+ *   suiteEnd (suiteSummary: BettererSuiteSummary) {
+ *     // ...
+ *   }
+ * }
+ * ```
+ *
+ * or by using {@link @betterer/betterer#BettererReporter | `BettererReporter`'s} Promise-based
+ * `lifecycle` interface:
+ *
+ * @example
+ * ```typescript
+ * const myReporter: BettererReporter = {
+ *   // Access the summary after the suite has ended:
+ *   suiteStart (suite: BettererSuite, lifecycle: Promise<BettererSuiteSummary>) {
+ *     const summary: BettererSuiteSummary = await lifecycle;
+ *     // ...
+ *   }
+ * }
+ * ```
+ */
 export type BettererSuiteSummary = BettererSuite & {
   /**
    * An array containing a {@link @betterer/betterer#BettererRunSummary | `BettererRunSummary`}

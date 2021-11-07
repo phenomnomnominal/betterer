@@ -6,8 +6,8 @@ import { BettererResult } from '../results';
 import { BettererDiff } from '../test';
 
 /**
- * @public the change between a test runs and its baseline. A {@link @betterer/betterer#BettererRun | `BettererRun`}
- * has a `delta` property if the test has a {@link @betterer/betterer#BettererTest.progress | `BettererTest.progress()` }
+ * @public The change between a test runs and its baseline. A {@link @betterer/betterer#BettererRun | `BettererRun`}
+ * has a `delta` property if the test has a {@link @betterer/betterer#BettererTestOptionsComplex.progress | `progress()` }
  * handler.
  */
 export type BettererDelta =
@@ -103,7 +103,7 @@ export type BettererRunning = {
 
 /**
  * @public The summary of a {@link @betterer/betterer#BettererTest | `BettererTest`} run. Includes
- * everything from {@link @betterer/betterer#BettererRun | `BettererRunSummary`}.
+ * everything from {@link @betterer/betterer#BettererRun | `BettererRun`}.
  *
  * You can get the `BettererRunSummary` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
  * interface.

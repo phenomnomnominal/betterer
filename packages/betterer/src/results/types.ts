@@ -41,7 +41,7 @@ export type BettererResultsSummary = {
 export type BettererTestResultSummaries = ReadonlyArray<BettererTestResultSummary>;
 
 /**
- * @package The summary of the result of a {@link @betterer/betterer#BettererTest | `BettererTest`s}.
+ * @public The summary of the result of a {@link @betterer/betterer#BettererTest | `BettererTest`s}.
  */
 export type BettererTestResultSummary =
   | {

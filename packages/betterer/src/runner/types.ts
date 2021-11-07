@@ -3,7 +3,8 @@ import { BettererFilePaths } from '../fs';
 import { BettererSuiteSummary } from '../suite';
 
 /**
- * @public
+ * @public The JS API for controlling **Betterer** runs.
+ *
  */
 export type BettererRunner = {
   /**
@@ -24,7 +25,10 @@ export type BettererRunner = {
   stop(): Promise<BettererSuiteSummary>;
   /**
    * Stop the runner, without waiting for it to finish running the suite.
-   * @param force (or `null` if a run hasn't finished yet`).
+   *
+   * @param force - when `true`, the runner will stop immediately and any errors will be ignored.
+   * @returns the most recent {@link @betterer/betterer#BettererSuiteSummary | `BettererSuiteSummary`}.
+   * (or `null` if a run hasn't finished yet).
    */
   stop(force: true): Promise<BettererSuiteSummary | null>;
 };

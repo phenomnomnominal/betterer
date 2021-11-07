@@ -9,7 +9,7 @@ import { BettererSuiteSummary, BettererSuite } from '../suite';
  *
  * @remarks There are two ways to specify a custom `BettererReporter`:
  *
- * Defining the reporter _inline_ when calling `Betterer` via one of the {@link @betterer/betterer#beterer | JS APIs}:
+ * Defining the reporter _inline_ when calling `Betterer` via one of the {@link @betterer/betterer#(betterer:function) | JS APIs}:
  *
  * @example
  * ```typescript

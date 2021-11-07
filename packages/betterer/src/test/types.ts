@@ -23,8 +23,8 @@ import { MaybeAsync } from '../types';
  * }
  * ```
  *
- * @param result Result from the current test run.
- * @param expected Expected result from the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
+ * @param result - Result from the current test run.
+ * @param expected - Expected result from the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
  */
 export type BettererTestConstraint<DeserialisedType> = (
   result: DeserialisedType,
@@ -50,7 +50,7 @@ export type BettererTestDeadline = Date | string;
  * }
  * ```
  *
- * @param run The current run.
+ * @param run - The current run.
  */
 export type BettererTestFunction<DeserialisedType> = (run: BettererRun) => MaybeAsync<DeserialisedType>;
 
@@ -64,7 +64,7 @@ export type BettererTestFunction<DeserialisedType> = (run: BettererRun) => Maybe
  * }
  * ```
  *
- * @param result Result from the current test run.
+ * @param result - Result from the current test run.
  */
 export type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
 
@@ -86,8 +86,8 @@ export type BettererDiff<DiffType = null> = {
 /**
  * @public A function that compares two test results.
  *
- * @param expected Expected result from the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
- * @param result Result from the current test run.
+ * @param expected - Expected result from the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
+ * @param result - Result from the current test run.
  */
 export type BettererDiffer<DeserialisedType, DiffType> = (
   expected: DeserialisedType,
@@ -98,16 +98,16 @@ export type BettererDiffer<DeserialisedType, DiffType> = (
  * @public A function that converts a serialised test result into the string that will be saved in
  * the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
  *
- * @param serialised The serialised result.
+ * @param serialised - The serialised result.
  */
 export type BettererPrinter<SerialisedType> = (serialised: SerialisedType) => MaybeAsync<string>;
 
 /**
- * @public A function that converts a test result to a number value that represents the progress towards
+ * @public A function that converts a test result to a numeric value that represents the progress towards
  * the goal.
  *
- * @param baseline The baseline result for the current test.
- * @param result The result from the current test run.
+ * @param baseline - The baseline result for the test.
+ * @param result - The result from the current test run.
  */
 export type BettererProgress<DeserialisedType> = (
   baseline: DeserialisedType | null,
@@ -117,8 +117,8 @@ export type BettererProgress<DeserialisedType> = (
 /**
  * @public The function that converts from a `DeserialisedType` to a `SerialisedType`.
  *
- * @param result The result from the current test run.
- * @param resultsPath The path to the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
+ * @param result - The result from the current test run.
+ * @param resultsPath - The path to the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
  */
 export type BettererSerialise<DeserialisedType, SerialisedType> = (
   result: DeserialisedType,
@@ -128,8 +128,8 @@ export type BettererSerialise<DeserialisedType, SerialisedType> = (
 /**
  * @public The function that converts from a `SerialisedType` to a `DeserialisedType`.
  *
- * @param serialised The serialised result.
- * @param resultsPath The path to the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
+ * @param serialised - The serialised result.
+ * @param resultsPath - The path to the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
  */
 export type BettererDeserialise<DeserialisedType, SerialisedType> = (
   serialised: SerialisedType,
@@ -168,7 +168,7 @@ export type BettererTestOptionsBasic = {
 };
 
 /**
- * For a more complex version of a {@link @betterer/betterer#BettererTest | `BettererTest`} that
+ * @public For a more complex version of a {@link @betterer/betterer#BettererTest | `BettererTest`} that
  * operates on more complex objects, you need to define more complex behaviour.
  */
 export type BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType> = {
@@ -218,8 +218,6 @@ export type BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffTyp
  * be `number` or other primitive. To represent complex results, you can use a more complex type.
  * @typeParam SerialisedType The serialised type of a test result. Some complex result types (like [`BettererFileTestResult`](./betterer-file-test#bettererfiletestresult)) cannot be directly serialised to JSON, so it must be converted to a serailisable form.
  * @typeParam DiffType The diff between two results. Some complex result types (like [`BettererFileTestResult`](./betterer-file-test#bettererfiletestresult)) cannot be compared directly, so a diff can be constructed to better express the comparison.
- *
- *
  */
 export type BettererTestOptions<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> =
   | BettererTestOptionsBasic
@@ -240,6 +238,11 @@ export type BettererTestConfig<DeserialisedType = unknown, SerialisedType = Dese
   serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
 };
 
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * The base interface for a {@link @betterer/betterer#BettererTest | `BettererTest`}.
+ */
 export interface BettererTestBase<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> {
   config: BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
   isOnly: boolean;
@@ -278,4 +281,7 @@ export type BettererTestMeta = {
     }
 );
 
+/**
+ * @public An array of test names.
+ */
 export type BettererTestNames = ReadonlyArray<string>;
