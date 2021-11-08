@@ -24,8 +24,7 @@ import {
  * project. `BettererFileTest` provides a wrapper around {@link @betterer/betterer#BettererTest | `BettererTest` }
  * that makes it easier to implement such a test.
  *
- * @remarks
- * `BettererFileTest` provides a useful example for the more complex possibilities of the {@link @betterer/betterer#BettererTestOptions | `BettererTestOptions` }
+ * @remarks `BettererFileTest` provides a useful example for the more complex possibilities of the {@link @betterer/betterer#BettererTestOptions | `BettererTestOptions` }
  * interface.
  *
  * @example
@@ -41,7 +40,7 @@ import {
  *  });
  * ```
  *
- * @params fileTest The test function which will detect issues in specific files.
+ * @param fileTest - The test function that will detect issues in specific files.
  */
 export class BettererFileTest implements BettererFileTestBase {
   /**

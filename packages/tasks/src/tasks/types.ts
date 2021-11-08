@@ -26,7 +26,6 @@ export type BettererTasksDone = () => void;
 /**
  * @public A function that can be used to customise the output of the task status summary.
  *
- * @remarks
- * Useful for custom pluralisation and internationalisation.
+ * @remarks Useful for custom pluralisation and internationalisation.
  */
 export type BettererTasksStatusUpdate = (state: BettererTasksState) => string;

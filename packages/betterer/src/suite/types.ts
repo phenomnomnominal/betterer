@@ -6,6 +6,23 @@ import { BettererTestNames } from '../test';
  * @public A set of {@link @betterer/betterer#BettererTest | `BettererTest`} runs. Will become a
  * {@link @betterer/betterer#BettererSuiteSummary | `BettererSuiteSummary`} when the test suite is
  * completed.
+ *
+ * @remarks You can get the `BettererSuite` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
+ * interface.
+ *
+ * @example
+ * ```typescript
+ * const myReporter: BettererReporter = {
+ *   // Access the suite before any tests are run:
+ *   suiteStart (suite: BettererSuite) {
+ *     // ...
+ *   },
+ *   // Access the suite when something goes wrong:
+ *   suiteError (suite: BettererSuite) {
+ *     // ...
+ *   }
+ * }
+ * ```
  */
 export type BettererSuite = {
   /**
@@ -25,7 +42,7 @@ export type BettererSuite = {
  * @public The summary of a {@link @betterer/betterer#BettererSuite | `BettererSuite`} suite. Includes
  * everything from {@link @betterer/betterer#BettererSuite | `BettererSuite`}.
  *
- * You can get the `BettererSuiteSummary` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
+ * @remarks You can get the `BettererSuiteSummary` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
  * interface.
  *
  * @example
@@ -61,7 +78,7 @@ export type BettererSuiteSummary = BettererSuite & {
   /**
    * An array of the names of tests that have changed since they were previously run. This includes
    * tests that were deleted, tests that are new, tests that got better or worse, and tests that
-   * stayed the same (but still changed in some way).
+   * stayed the same but still changed in some way.
    */
   readonly changed: BettererTestNames;
 

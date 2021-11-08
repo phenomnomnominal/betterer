@@ -8,8 +8,7 @@ import { Configuration, lint } from 'stylelint';
  * to your codebase. You can pass as many **Stylelint** {@link https://stylelint.io/user-guide/rules/list/ | rule configurations}
  * as you like:
  *
- * @remarks
- * {@link stylelint | `stylelint`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
+ * @remarks {@link @betterer/stylelint#stylelint | `stylelint`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
  * so you can use {@link @betterer/betterer#BettererFileTest.include | `exclude`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude`},
  * {@link @betterer/betterer#BettererFileTest.only | `only`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip`}.
  *

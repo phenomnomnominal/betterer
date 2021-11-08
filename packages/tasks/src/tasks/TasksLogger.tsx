@@ -13,8 +13,7 @@ export type BettererTasksLoggerProps = {
   /**
    * Whether the Ink renderer instance should quit after the tasks are complete.
    *
-   * @remarks
-   * Should be set this to `false` if the Ink instance is rendering any other components.
+   * @remarks Should be set to `false` if the Ink instance is rendering any other components.
    *
    * @defaultValue `true`
    */

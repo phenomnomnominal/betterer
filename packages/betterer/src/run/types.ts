@@ -47,7 +47,23 @@ export type BettererDelta =
  * {@link @betterer/betterer#BettererRunSummary | `BettererRunSummary`} when the test run is
  * completed.
  *
- * A set of {@link @betterer/betterer#BettererRun | `BettererRun`s} make a {@link @betterer/betterer#BettererSuite | `BettererSuite`}.
+ * @remarks A set of {@link @betterer/betterer#BettererRun | `BettererRun`s} make a {@link @betterer/betterer#BettererSuite | `BettererSuite`}.
+ * You can get the `BettererRun` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
+ * interface.
+ *
+ * @example
+ * ```typescript
+ * const myReporter: BettererReporter = {
+ *   // Access the run before any tests are run:
+ *   runStart (run: BettererRun) {
+ *     // ...
+ *   },
+ *   // Access the run when something goes wrong:
+ *   runError (run: BettererRun) {
+ *     // ...
+ *   }
+ * }
+ * ```
  */
 export type BettererRun = {
   /**
@@ -105,7 +121,7 @@ export type BettererRunning = {
  * @public The summary of a {@link @betterer/betterer#BettererTest | `BettererTest`} run. Includes
  * everything from {@link @betterer/betterer#BettererRun | `BettererRun`}.
  *
- * You can get the `BettererRunSummary` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
+ * @remarks You can get the `BettererRunSummary` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
  * interface.
  *
  * @example

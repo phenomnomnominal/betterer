@@ -209,15 +209,21 @@ export type BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffTyp
 /**
  * @public Options for creating a {@link @betterer/betterer#BettererTest | `BettererTest`}.
  *
- * The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererTestConfig | `BettererTestConfig`}.
+ * @remarks The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererTestConfig | `BettererTestConfig`}.
+ * There is a lot of power (and therefore complexity) in this options object.
  *
- * There is a lot of power (and therefore complexity) in this options object. The types should
- * hopefully guide you towards a useful test, but feel free to reach out if you need help!
+ * #### `DeserialisedType`
+ * For simple tests this will be `number` or other primitive. To represent complex results, you can use a more complex type.
  *
- * @typeParam DeserialisedType The deserialised result type of a test. For simple tests this will
- * be `number` or other primitive. To represent complex results, you can use a more complex type.
- * @typeParam SerialisedType The serialised type of a test result. Some complex result types (like [`BettererFileTestResult`](./betterer-file-test#bettererfiletestresult)) cannot be directly serialised to JSON, so it must be converted to a serailisable form.
- * @typeParam DiffType The diff between two results. Some complex result types (like [`BettererFileTestResult`](./betterer-file-test#bettererfiletestresult)) cannot be compared directly, so a diff can be constructed to better express the comparison.
+ * #### `SerialisedType`
+ * Some complex result types (like [`BettererFileTestResult`](./betterer-file-test#bettererfiletestresult)) cannot be directly serialised to JSON, so it must be converted to a serailisable form.
+ *
+ * ### `DiffType`
+ * Some complex result types (like [`BettererFileTestResult`](./betterer-file-test#bettererfiletestresult)) cannot be compared directly, so a diff can be constructed to better express the comparison.
+ *
+ * @typeParam DeserialisedType - The deserialised result type of a test.
+ * @typeParam SerialisedType - The serialised type of a test result.
+ * @typeParam DiffType - The diff between two results.
  */
 export type BettererTestOptions<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> =
   | BettererTestOptionsBasic

@@ -22,8 +22,7 @@ const CODE_FILE_NOT_INCLUDED = 6307;
  * @public Use this test to incrementally introduce {@link https://www.typescriptlang.org/docs/handbook/compiler-options.html | **TypeScript** configuration}
  * to your codebase.
  *
- * @remarks
- * {@link typescript | `typescript`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
+ * @remarks {@link @betterer/typescript#typescript | `typescript`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
  * so you can use {@link @betterer/betterer#BettererFileTest.include | `include()`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude()`},
  * {@link @betterer/betterer#BettererFileTest.only | `only()`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip()`}.
  *

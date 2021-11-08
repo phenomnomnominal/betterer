@@ -9,7 +9,7 @@ import {
 } from './types';
 
 /**
- * @public The main interface to the **Betterer** [test system](./tests).
+ * @public The main interface to the **Betterer** {@link https://phenomnomnominal.github.io/betterer/docs/tests | test system}.
  *
  * @example
  * ```typescript

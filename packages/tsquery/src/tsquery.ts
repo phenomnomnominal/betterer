@@ -7,8 +7,7 @@ import { promises as fs } from 'fs';
  * @public Use this test to incrementally remove **TSQuery** matches from your codebase. See the {@link https://github.com/phenomnomnominal/tsquery | **TSQuery** documentation }
  * for more details about the query syntax.
  *
- * @remarks
- * {@link tsquery | `tsquery`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
+ * @remarks {@link @betterer/tsquery#tsquery | `tsquery`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
  * so you can use {@link @betterer/betterer#BettererFileTest.include | `exclude`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude`},
  * {@link @betterer/betterer#BettererFileTest.only | `only`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip`}.
  *

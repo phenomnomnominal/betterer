@@ -10,8 +10,7 @@ import { BettererESLintRulesConfig } from './types';
  * your codebase. You can pass as many **ESLint** {@link https://eslint.org/docs/rules/ | rule configurations}
  * as you like:
  *
- * @remarks
- * {@link eslint | `eslint`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
+ * @remarks {@link @betterer/eslint#eslint | `eslint`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
  * so you can use {@link @betterer/betterer#BettererFileTest.include | `exclude`},
  * {@link @betterer/betterer#BettererFileTest.exclude | `exclude`}, {@link @betterer/betterer#BettererFileTest.only | `only`},
  * and {@link @betterer/betterer#BettererFileTest.skip | `skip`}.

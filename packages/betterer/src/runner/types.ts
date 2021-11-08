@@ -4,7 +4,6 @@ import { BettererSuiteSummary } from '../suite';
 
 /**
  * @public The JS API for controlling **Betterer** runs.
- *
  */
 export type BettererRunner = {
   /**
@@ -12,6 +11,7 @@ export type BettererRunner = {
    */
   options(optionsOverride: BettererOptionsOverride): void;
   /**
+   * Queue a **Betterer** run.
    *
    * @param filePaths - List of files to test with **Betterer**. If `filePaths` is `undefined` then
    * all files will be tested.
@@ -19,6 +19,7 @@ export type BettererRunner = {
   queue(filePaths?: string | BettererFilePaths): Promise<void>;
   /**
    * Stop the runner, but first wait for it to finish running the suite.
+   *
    * @returns the most recent {@link @betterer/betterer#BettererSuiteSummary | `BettererSuiteSummary`}.
    * @throws the error if something went wrong while stopping everything.
    */

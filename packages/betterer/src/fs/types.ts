@@ -54,7 +54,7 @@ export type BettererVersionControlWorker =
   WorkerRequireModuleAsync<BettererVersionControlWorkerModule>['versionControl'];
 
 /**
- * @public A helper object for resolving file paths in a custom {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}.
+ * @public A helper for resolving file paths in a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}.
  *
  * For ergonomic reasons, a test consumer should be able to use _relative_ paths when they use
  * a test, whether that be passing the path to a config file, or using {@link @betterer/betterer#BettererFileTest.include | `BettererFileTest.include()` }

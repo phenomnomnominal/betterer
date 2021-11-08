@@ -8,7 +8,7 @@ import { BettererSuiteSummaries, BettererSuiteSummary } from '../suite';
  * `BettererContext` is responsible for a lot more than this interface suggests, but we want to
  * minimise the public API surface as much as possible.
  *
- * You can get the `BettererContext` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
+ * @remarks You can get the `BettererContext` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
  * interface.
  *
  * @example
@@ -54,7 +54,7 @@ export type BettererContextStarted = {
 /**
  * @public The summary of a set of test suite runs.
  *
- * You can get the `BettererContextSummary` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
+ * @remarks You can get the `BettererContextSummary` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
  * interface.
  *
  * @example

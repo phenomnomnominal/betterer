@@ -189,14 +189,14 @@ export type BettererOptionsExcludes = Array<string | RegExp> | string | RegExp;
 export type BettererOptionsFilters = Array<string | RegExp> | string | RegExp;
 
 /**
- * @public A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob } pattern
+ * @public A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} pattern
  * to match file paths that should be ignored by the file watcher in watch mode, or an array of
  * them.
  */
 export type BettererOptionsIgnores = Array<string>;
 
 /**
- * @public A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob } pattern
+ * @public A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} pattern
  * to match file paths that should be included in an operation, or an array of them.
  */
 export type BettererOptionsIncludes = Array<string> | string;
@@ -240,7 +240,7 @@ export type BettererOptionsResults = Partial<{
    */
   filters: BettererOptionsFilters;
   /**
-   * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob } pattern to match
+   * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} pattern to match
    * file paths that should be included in the {@link @betterer/betterer#BettererResultsSummary | `BettererResultsSummary`},
    * or an array of them.
    * @defaultValue `[]`
@@ -345,7 +345,7 @@ export type BettererOptionsStartBase = BettererOptionsBase &
      */
     excludes: BettererOptionsExcludes;
     /**
-     * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob } pattern to
+     * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} pattern to
      * match file paths that should be included in {@link @betterer/betterer#BettererFileTest | `BettererFileTest` }
      * runs, or an array of them. All `includes` should be relative to the `cwd`.
      * @defaultValue `[]`
@@ -429,12 +429,12 @@ export type BettererOptionsStartUpdate = BettererOptionsStartBase &
   }>;
 
 /**
- * @public Options for when you run **Betterer** via the {@link @betterer/betterer#betterer:function | JS API}.
+ * @public Options for when you run **Betterer** via the {@link @betterer/betterer#(betterer:function) | JS API}.
  *
  * The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
  *
  * This is the union of valid possible options for a single **Betterer** run. This type should
- * prevent {@link @betterer/betterer#betterer:function | `betterer()` } from being called with invalid
+ * prevent {@link @betterer/betterer#(betterer:function) | `betterer()` } from being called with invalid
  * flags, as some combinations do not make sense.
  */
 export type BettererOptionsStart =
@@ -461,12 +461,15 @@ export type BettererOptionsRunner = BettererOptionsBase;
 export type BettererOptionsWatch = BettererOptionsRunner &
   Partial<{
     /**
-     * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob } pattern to match
+     * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} pattern to match
      * file paths that should be ignored by the file watcher in watch mode, or an array of them.
      * All `ignores` should be relative to the `cwd`.
      * @defaultValue `[]`
      */
     ignores: BettererOptionsIgnores;
+    /**
+     * Must be `true` when using Watch mode.
+     */
     watch: true;
   }>;
 
@@ -483,7 +486,7 @@ export type BettererOptionsOverride = Partial<{
    */
   filters: BettererOptionsFilters;
   /**
-   * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob } pattern to match
+   * A {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob} pattern to match
    * file paths that should be ignored by the file watcher in watch mode, or an array of them. All
    * `ignores` should be relative to the `cwd`.
    * @defaultValue `[]`
