@@ -29,11 +29,9 @@ module.exports = {
 
     await betterer({ configPaths, resultsPath, workers: false, silent: true });
 
-    const resultsSummaries = await results({ configPaths, resultsPath, filters: [/test 1/] });
+    const resultsSummary = await results({ configPaths, resultsPath, filters: [/test 1/] });
 
-    const test1ResultSummary = resultsSummaries.resultSummaries.find(
-      (resultSummary) => resultSummary.name === 'test 1'
-    );
+    const test1ResultSummary = resultsSummary.resultSummaries.find((resultSummary) => resultSummary.name === 'test 1');
 
     expect(test1ResultSummary).toBeDefined();
     expect(test1ResultSummary?.isFileTest).toEqual(true);
