@@ -3,10 +3,10 @@ import React, { FC } from 'react';
 
 import { BettererTaskLog } from './types';
 
-export type BettererTaskStatusProps = {
+export interface BettererTaskStatusProps {
   name: string;
   status: BettererTaskLog;
-};
+}
 
 export const BettererTaskStatus: FC<BettererTaskStatusProps> = function BettererTaskStatus({ name, status }) {
   const [indicator, colour, message] = status;

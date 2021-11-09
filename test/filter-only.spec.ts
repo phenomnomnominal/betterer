@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should run only specific tests called with only()', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture(
+    const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture(
       'filter-only',
       {
         '.betterer.only.ts': `
@@ -63,8 +63,8 @@ export default {
 
     const run = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(run.ran)).toEqual(['test 1', 'test 2', 'test 3', 'test 4']);
-    expect(runNames(run.skipped)).toEqual([]);
+    expect(testNames(run.ran)).toEqual(['test 1', 'test 2', 'test 3', 'test 4']);
+    expect(testNames(run.skipped)).toEqual([]);
 
     const onlyRun = await betterer({
       configPaths: [resolve('./.betterer.only.ts')],
@@ -72,8 +72,8 @@ export default {
       workers: false
     });
 
-    expect(runNames(onlyRun.ran)).toEqual(['test 1', 'test 4']);
-    expect(runNames(onlyRun.skipped)).toEqual(['test 2', 'test 3']);
+    expect(testNames(onlyRun.ran)).toEqual(['test 1', 'test 4']);
+    expect(testNames(onlyRun.skipped)).toEqual(['test 2', 'test 3']);
 
     expect(logs).toMatchSnapshot();
 

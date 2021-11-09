@@ -4,11 +4,12 @@ import { BettererError } from '@betterer/errors';
 import { DiagnosticWithLocation, flattenDiagnosticMessageText } from 'typescript';
 
 /**
- * @public {@link https://www.npmjs.com/package/@betterer/angular | `@betterer/angular`}
+ * @public Use this test to incrementally introduce {@link https://angular.io/guide/angular-compiler-options | **Angular** compiler configuration }
+ * to your codebase.
  *
- * Use this test to incrementally introduce {@link https://angular.io/guide/angular-compiler-options | **Angular** compiler configuration} to your codebase.
- *
- * {@link angular | `angular`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}, so you can use {@link @betterer/betterer#BettererFileTest.include | `exclude`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude`}, {@link @betterer/betterer#BettererFileTest.only | `only`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip`}.
+ * @remarks {@link angular | `angular`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
+ * so you can use {@link @betterer/betterer#BettererFileTest.include | `include()`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude()`},
+ * {@link @betterer/betterer#BettererFileTest.only | `only()`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip()`}.
  *
  * @example
  * ```typescript
@@ -22,6 +23,13 @@ import { DiagnosticWithLocation, flattenDiagnosticMessageText } from 'typescript
  *     .include('./src/*.ts', './src/*.html')
  * };
  * ```
+ *
+ * @param configFilePath - the relative path to a tsconfig.json file
+ * @param extraCompilerOptions - addition {@link https://angular.io/guide/angular-compiler-options | **Angular** compiler configuration }
+ * to enable
+ *
+ * @throws {@link @betterer/errors#BettererError | `BettererError` }
+ * Will throw if the user doesn't pass `configFilePath` or `extraCompilerOptions`.
  */
 export function angular(configFilePath: string, extraCompilerOptions: CompilerOptions): BettererFileTest {
   if (!configFilePath) {

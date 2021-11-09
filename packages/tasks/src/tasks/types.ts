@@ -8,8 +8,8 @@ export type BettererTaskColour = typeof ForegroundColor;
 /**
  * @public An asynchronous task that will be orchestrated by the {@link @betterer/tasks#BettererTasksLogger | `BettererTasksLogger`}.
  *
- * @param logger - parameter provides access to asynchronous logging which will be shown to the user
- * once the task is complete.
+ * @param logger - parameter provides access to asynchronous logging which will be shown to the
+ * user once the task is complete.
  * @returns If the task returns it is a "success".
  * @throws If the task throws it is a "failure".
  */
@@ -26,7 +26,6 @@ export type BettererTasksDone = () => void;
 /**
  * @public A function that can be used to customise the output of the task status summary.
  *
- * @remarks
- * Useful for custom pluralisation and internationalisation.
+ * @remarks Useful for custom pluralisation and internationalisation.
  */
 export type BettererTasksStatusUpdate = (state: BettererTasksState) => string;

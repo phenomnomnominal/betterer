@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should work when a test changes and makes the result better', async () => {
-    const { logs, paths, readFile, cleanup, resolve, runNames } = await createFixture('better-test-change', {
+    const { logs, paths, readFile, cleanup, resolve, testNames } = await createFixture('better-test-change', {
       '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 
@@ -33,11 +33,11 @@ console.log('foo');
 
     const firstRun = await betterer({ configPaths: [resolve('.betterer.ts')], resultsPath, workers: false });
 
-    expect(runNames(firstRun.new)).toEqual(['test']);
+    expect(testNames(firstRun.new)).toEqual(['test']);
 
     const secondRun = await betterer({ configPaths: [resolve('.betterer.changed.ts')], resultsPath, workers: false });
 
-    expect(runNames(secondRun.better)).toEqual(['test']);
+    expect(testNames(secondRun.better)).toEqual(['test']);
 
     expect(logs).toMatchSnapshot();
 

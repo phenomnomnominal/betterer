@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should let you override the constraint of a file test', async () => {
-    const { paths, logs, cleanup, resolve, runNames, readFile, writeFile } = await createFixture(
+    const { paths, logs, cleanup, resolve, testNames, readFile, writeFile } = await createFixture(
       'file-test-constraint',
       {
         '.betterer.js': `
@@ -54,13 +54,13 @@ module.exports = {
 
     const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(newTestRun.new)).toEqual(['test']);
+    expect(testNames(newTestRun.new)).toEqual(['test']);
 
     await writeFile(indexPath, `debugger;\ndebugger;\ndebugger;`);
 
     const sameTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(sameTestRun.same)).toEqual(['test']);
+    expect(testNames(sameTestRun.same)).toEqual(['test']);
 
     const result = await readFile(resultsPath);
 

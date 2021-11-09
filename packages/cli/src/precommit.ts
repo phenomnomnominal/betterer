@@ -1,10 +1,14 @@
-import { BettererSuiteSummary, betterer, BettererOptionsStartCI } from '@betterer/betterer';
+import { BettererSuiteSummary, betterer, BettererOptionsStart } from '@betterer/betterer';
 
 import { cliOptions } from './options';
 import { BettererCLIArguments } from './types';
 
-/** @internal Definitely not stable! Please don't use! */
-export function precommitΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary> {
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * Run **Betterer** in `precommit` mode.
+ */
+export function precommit__(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary> {
   const { config, exclude, filter, include, results, silent, reporter, tsconfig, workers } = cliOptions(argv);
 
   // Mark options as unknown...
@@ -22,7 +26,7 @@ export function precommitΔ(cwd: string, argv: BettererCLIArguments): Promise<Be
     workers
   };
 
-  // And then cast to BettererOptionsStartCI. This is possibly invalid,
+  // And then cast to BettererOptionsStart. This is possibly invalid,
   // but it's nicer to do the options validation in @betterer/betterer
-  return betterer(options as BettererOptionsStartCI);
+  return betterer(options as BettererOptionsStart);
 }

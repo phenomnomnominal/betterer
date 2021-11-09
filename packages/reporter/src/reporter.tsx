@@ -13,10 +13,9 @@ import { BettererSuite } from '@betterer/betterer/src/suite';
  * @public the default {@link @betterer/betterer#BettererReporter | `BettererReporter`}.
  * Supports `betterer` and `betterer watch` modes.
  *
- * @remarks
- * The reporter is implemented as an {@link https://github.com/vadimdemedes/ink | Ink } application
- * to handle all the fancy terminal rerendering. It also means we can do cool stuff like dynamic settings
- * in `betterer watch` mode.
+ * @remarks The reporter is implemented as an {@link https://github.com/vadimdemedes/ink | Ink } application
+ * to handle all the fancy terminal rerendering. It also means we can do cool stuff like dynamic
+ * settings in `betterer watch` mode.
  */
 export const reporter: BettererReporter = createReporter();
 

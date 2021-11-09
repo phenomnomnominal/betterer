@@ -7,14 +7,13 @@ import { BettererTaskLog, BettererTasksDone, BettererTasksStatusUpdate } from '.
 import { useTimer } from './useTimer';
 
 /**
- * @public `props` type for {@link BettererTasksLogger | `<BettererTasksLogger/>`}
+ * @public `props` type for {@link BettererTasksLogger | `<BettererTasksLogger/>`}.
  */
-export type BettererTasksLoggerProps = {
+export interface BettererTasksLoggerProps {
   /**
    * Whether the Ink renderer instance should quit after the tasks are complete.
    *
-   * @remarks
-   * Should be set this to `false` if the Ink instance is rendering any other components.
+   * @remarks Should be set to `false` if the Ink instance is rendering any other components.
    *
    * @defaultValue `true`
    */
@@ -33,7 +32,7 @@ export type BettererTasksLoggerProps = {
    * An optional callback function that is called whenever a set of tasks are completed.
    */
   done?: BettererTasksDone;
-};
+}
 
 /**
  * @public Ink component for rendering the output of a set of {@link BettererTask | `BettererTask`s}.

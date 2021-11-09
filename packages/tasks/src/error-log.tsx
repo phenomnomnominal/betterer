@@ -4,20 +4,20 @@ import { BettererError, isBettererError } from '@betterer/errors';
 import { Box, Text } from 'ink';
 
 /**
- * @public `props` type for {@link BettererErrorLog | `<BettererErrorLog/>`}
+ * @public `props` type for {@link BettererErrorLog | `<BettererErrorLog/>`}.
  */
-export type BettererErrorLogProps = {
+export interface BettererErrorLogProps {
   /**
    * the `Error` or {@link @betterer/errors#BettererError | `BettererError`} to render.
    */
   error: Error | BettererError;
-};
+}
 
 /**
- * @public Ink component for rendering a {@link @betterer/errors#BettererError | `BettererError`}
- * and all its additional information. The `message`, `stack` and `details` of the `error` will be printed.
- * If any `detail` is an `Error` or  {@link @betterer/errors#BettererError | `BettererError`}, the component
- * will be rendered recursively.
+ * @public Ink component for rendering a {@link @betterer/errors#BettererError | `BettererError` }
+ * and all its additional information. The `message`, `stack` and `details` of the `error` will be
+ * printed. If any `detail` is an `Error` or  {@link @betterer/errors#BettererError | `BettererError`},
+ * the component will be rendered recursively.
  */
 export const BettererErrorLog: FC<BettererErrorLogProps> = function BettererErrorLog({ error }) {
   let errors: Array<Error | BettererError> = [];

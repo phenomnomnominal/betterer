@@ -3,8 +3,12 @@ import { betterer, BettererOptionsWatch } from '@betterer/betterer';
 import { cliOptions } from './options';
 import { BettererCLIArguments } from './types';
 
-/** @internal Definitely not stable! Please don't use! */
-export async function watchΔ(cwd: string, argv: BettererCLIArguments): Promise<void> {
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * Run **Betterer** in `watch` mode.
+ */
+export async function watch__(cwd: string, argv: BettererCLIArguments): Promise<void> {
   const { cache, cachePath, config, filter, ignore, reporter, results, silent, tsconfig, workers } = cliOptions(argv);
 
   // Mark options as unknown...

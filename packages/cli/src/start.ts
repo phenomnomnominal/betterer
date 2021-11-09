@@ -1,17 +1,21 @@
 import { BettererSuiteSummary, betterer, BettererOptionsStart } from '@betterer/betterer';
-import { ciΔ } from './ci';
+import { ci__ } from './ci';
 
 import { cliOptions } from './options';
 import { BettererCLIArguments } from './types';
 
-/** @internal Definitely not stable! Please don't use! */
-export function startΔ(
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * Run **Betterer** in the default mode.
+ */
+export function start__(
   cwd: string,
   argv: BettererCLIArguments,
   ci = process.env.CI === 'true'
 ): Promise<BettererSuiteSummary> {
   if (ci) {
-    return ciΔ(cwd, argv);
+    return ci__(cwd, argv);
   }
 
   const {

@@ -33,11 +33,11 @@ export function getServerOptions(context: ExtensionContext): ServerOptions {
   };
 }
 
-export type ClientErrorHandlers = {
+export interface ClientErrorHandlers {
   closed: ErrorHandler['closed'];
   error: ErrorHandler['error'];
   initFailed: InitializationFailedHandler;
-};
+}
 
 export function getClientOptions(errorHandlers: ClientErrorHandlers): LanguageClientOptions {
   const { initFailed, error, closed } = errorHandlers;

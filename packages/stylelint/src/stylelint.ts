@@ -4,11 +4,13 @@ import { promises as fs } from 'fs';
 import { Configuration, lint } from 'stylelint';
 
 /**
- * @public {@link https://www.npmjs.com/package/@betterer/stylelint | `@betterer/stylelint`}
+ * @public Use this test to incrementally introduce new {@link https://stylelint.io/ | **Stylelint**} rules
+ * to your codebase. You can pass as many **Stylelint** {@link https://stylelint.io/user-guide/rules/list/ | rule configurations}
+ * as you like:
  *
- * Use this test to incrementally introduce new {@link https://stylelint.io/ | **Stylelint**} rules to your codebase. You can pass as many **Stylelint** {@link https://stylelint.io/user-guide/rules/list/ | rule configurations} as you like:
- *
- * {@link stylelint | `stylelint`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}, so you can use {@link @betterer/betterer#BettererFileTest.include | `exclude`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude`}, {@link @betterer/betterer#BettererFileTest.only | `only`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip`}.
+ * @remarks {@link @betterer/stylelint#stylelint | `stylelint`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
+ * so you can use {@link @betterer/betterer#BettererFileTest.include | `exclude`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude`},
+ * {@link @betterer/betterer#BettererFileTest.only | `only`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip`}.
  *
  * @example
  * ```typescript
@@ -23,6 +25,11 @@ import { Configuration, lint } from 'stylelint';
  *   })
  *   .include('./src/*.css', './src/*.scss')
  * ```
+ *
+ * @param configOverrides - addition {@link https://stylelint.io/ | **Stylelint**} rules to enable
+ *
+ * @throws {@link @betterer/errors#BettererError | `BettererError` }
+ * Will throw if the user doesn't pass `configOverrides`
  */
 export function stylelint(configOverrides: Partial<Configuration>): BettererFileTest {
   if (!configOverrides) {

@@ -3,13 +3,13 @@ import { useReducer, useRef } from 'react';
 import { useTasks } from './useTasksState';
 import { BettererTaskLog, BettererTaskLogs } from './types';
 
-type BettererTaskState = {
+interface BettererTaskState {
   done: boolean;
   running: boolean;
   status: BettererTaskLog | null;
   logs: BettererTaskLogs;
   error: Error | null;
-};
+}
 
 const INITIAL_STATE: BettererTaskState = {
   done: false,
@@ -42,14 +42,14 @@ type BettererTaskAction =
       data: BettererTaskLog;
     };
 
-type BettererTaskStateAPI = {
+interface BettererTaskStateAPI {
   error(error: Error): void;
   start(): void;
   stop(): void;
   reset(): void;
   status(status: BettererTaskLog): Promise<void>;
   log(status: BettererTaskLog): Promise<void>;
-};
+}
 
 export function useTaskState(): [BettererTaskState, BettererTaskStateAPI] {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);

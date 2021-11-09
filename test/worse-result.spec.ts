@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should work when a test gets worse', async () => {
-    const { paths, logs, resolve, readFile, cleanup, runNames } = await createFixture(
+    const { paths, logs, resolve, readFile, cleanup, testNames } = await createFixture(
       'worse-result',
       {
         '.betterer.js': `
@@ -37,11 +37,11 @@ module.exports = {
 
     const firstRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(firstRun.new)).toEqual(['should shrink', 'should grow']);
+    expect(testNames(firstRun.new)).toEqual(['should shrink', 'should grow']);
 
     const secondRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(secondRun.worse)).toEqual(['should shrink', 'should grow']);
+    expect(testNames(secondRun.worse)).toEqual(['should shrink', 'should grow']);
 
     expect(logs).toMatchSnapshot();
 

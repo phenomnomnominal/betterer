@@ -1,11 +1,16 @@
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * An array of string arguments for a CLI command.
+ */
 export type BettererCLIArguments = Array<string>;
 
-export type BettererCLIEnvConfig = {
+export interface BettererCLIEnvConfig {
   debug: boolean;
   debugLog: string;
-};
+}
 
-export type BettererCLIConfig = BettererCLIEnvConfig & {
+export interface BettererCLIConfig extends BettererCLIEnvConfig {
   cache: boolean;
   cachePath: string;
   config: BettererCLIArguments;
@@ -20,34 +25,39 @@ export type BettererCLIConfig = BettererCLIEnvConfig & {
   tsconfig: string;
   update: boolean;
   workers: number | boolean;
-};
+}
 
-export type BettererCLIInitConfig = BettererCLIEnvConfig & {
+export interface BettererCLIInitConfig extends BettererCLIEnvConfig {
   automerge: boolean;
   config: string;
   results: string;
-};
+}
 
-export type BettererCLIMergeConfig = BettererCLIEnvConfig & {
+export interface BettererCLIMergeConfig extends BettererCLIEnvConfig {
   results: string;
   contents: Array<string>;
-};
+}
 
-export type BettererCLIResultsConfig = BettererCLIEnvConfig & {
+export interface BettererCLIResultsConfig extends BettererCLIEnvConfig {
   config: BettererCLIArguments;
   exclude: BettererCLIArguments;
   filter: BettererCLIArguments;
   include: BettererCLIArguments;
   results: string;
-};
+}
 
-export type BettererCLIUpgradeConfig = BettererCLIEnvConfig & {
+export interface BettererCLIUpgradeConfig extends BettererCLIEnvConfig {
   config: BettererCLIArguments;
   save: boolean;
-};
+}
 
-export type BettererPackageJSON = {
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * A basic representation of the package.json configuration file.
+ */
+export interface BettererPackageJSON {
   version: string;
   scripts: Record<string, string> & { betterer: string };
   devDependencies: Record<string, string>;
-};
+}

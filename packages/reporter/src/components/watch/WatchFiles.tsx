@@ -6,12 +6,12 @@ import { Box, Text } from 'ink';
 import { filesChecked, filesChecking, testsChanged } from '../../messages';
 import { Config, ConfigEditField } from '../config';
 
-export type WatchFilesProps = {
+export interface WatchFilesProps {
   context: BettererContext;
   editField: ConfigEditField;
   suite: BettererSuite;
   running: boolean;
-};
+}
 
 export const WatchFiles: FC<WatchFilesProps> = memo(function WatchFiles(props) {
   const { context, editField, suite, running } = props;

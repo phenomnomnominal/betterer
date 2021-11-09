@@ -63,6 +63,7 @@ describe('betterer modes', () => {
     const ignoresStartError: BettererOptionsStart = { ignores: [] };
     noop(ignoresStartError);
 
+    // @ts-expect-error `ignores` cannot be assigned to `BettererOptionsRunner`:
     const runner: BettererOptionsRunner = { ignores: [] };
     noop(runner);
 

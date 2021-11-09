@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 require('../dist/precommit')
-  .precommitΔ(process.cwd(), process.argv)
+  .precommit__(process.cwd(), process.argv)
   .then(function (suiteSummary) {
     process.exitCode = suiteSummary.worse.length !== 0 ? 1 : 0;
   })

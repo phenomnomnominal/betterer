@@ -1,5 +1,5 @@
 import { BettererError } from '@betterer/errors';
-import { BettererLogs, diffΔ } from '@betterer/logger';
+import { BettererLogs, diff__ } from '@betterer/logger';
 import { format } from 'prettier';
 
 import { isFunction } from '../utils';
@@ -83,7 +83,7 @@ function isComplex<DeserialisedType, SerialisedType, DiffType>(
 }
 
 export function defaultDiffer(expected: unknown, result: unknown): BettererDiff<unknown> {
-  const diff = diffΔ(expected, result, { aAnnotation: 'Expected', bAnnotation: 'Result' });
+  const diff = diff__(expected, result, { aAnnotation: 'Expected', bAnnotation: 'Result' });
   const logs: BettererLogs = diff ? [{ error: diff }] : [];
   return {
     diff: null,

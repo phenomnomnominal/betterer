@@ -8,11 +8,11 @@ import * as path from 'path';
 
 import { UpgradeConfigFileWorker } from './types';
 
-export type UpgradeProps = {
+export interface UpgradeProps {
   configPaths: BettererConfigPaths;
   cwd: string;
   save: boolean;
-};
+}
 
 export const Upgrade: FC<UpgradeProps> = function Upgrade({ configPaths, cwd, save }) {
   return (

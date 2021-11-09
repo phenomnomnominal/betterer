@@ -8,9 +8,9 @@ import { TestPackageAPIWorker } from './types';
 
 const testPackageApi = createWorkerRequire<TestPackageAPIWorker>('./test-package-api', { cache: false });
 
-type APITestProps = {
+interface APITestProps {
   packageNames: Array<string>;
-};
+}
 
 export const APITest: FC<APITestProps> = function APITest({ packageNames }) {
   return (
