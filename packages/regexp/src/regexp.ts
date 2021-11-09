@@ -20,6 +20,12 @@ import { promises as fs } from 'fs';
  *   'no hack comments': () => regexp(/(\/\/\s*HACK)/i).include('./src/*.ts')
  * };
  * ```
+ *
+ * @param pattern - {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp | `RegExp` }
+ * pattern to match
+ *
+ * @throws {@link @betterer/errors#BettererError | `BettererError` }
+ * Will throw if the user doesn't pass `pattern`
  */
 export function regexp(pattern: RegExp): BettererFileTest {
   if (!pattern) {

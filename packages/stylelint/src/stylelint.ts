@@ -25,6 +25,11 @@ import { Configuration, lint } from 'stylelint';
  *   })
  *   .include('./src/*.css', './src/*.scss')
  * ```
+ *
+ * @param configOverrides - addition {@link https://stylelint.io/ | **Stylelint**} rules to enable
+ *
+ * @throws {@link @betterer/errors#BettererError | `BettererError` }
+ * Will throw if the user doesn't pass `configOverrides`
  */
 export function stylelint(configOverrides: Partial<Configuration>): BettererFileTest {
   if (!configOverrides) {

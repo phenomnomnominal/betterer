@@ -22,6 +22,11 @@ import { promises as fs } from 'fs';
  *    .include('./src/*.ts')
  * };
  * ```
+ *
+ * @param query - {@link https://github.com/phenomnomnominal/tsquery | **TSQuery**} query to match
+ *
+ * @throws {@link @betterer/errors#BettererError | `BettererError` }
+ * Will throw if the user doesn't pass `query`
  */
 export function tsquery(query: string): BettererFileTest {
   if (!query) {

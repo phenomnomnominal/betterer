@@ -28,6 +28,11 @@ import { BettererESLintRulesConfig } from './types';
  *     .include('./src/*.ts')
  * };
  * ```
+ *
+ * @param rules - addition {@link https://eslint.org/ | **ESLint**} rules to enable
+ *
+ * @throws {@link @betterer/errors#BettererError | `BettererError` }
+ * Will throw if the user doesn't pass `rules`
  */
 export function eslint(rules: BettererESLintRulesConfig): BettererFileTest {
   if (!rules) {

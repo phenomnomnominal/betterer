@@ -254,9 +254,27 @@ export type BettererOptionsResults = Partial<{
   resultsPath: string;
 }>;
 
+/**
+ * @public Options for when merging conflicts in the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}
+ * via the {@link @betterer/betterer#merge | `betterer.merge()` API}.
+ *
+ * @remarks The options object will be validated by **Betterer**.
+ */
 export type BettererOptionsMerge = Partial<{
+  /**
+   * File contents for merging. If omitted, the `resultsPath` will be read and merged.
+   */
   contents: Array<string>;
+  /**
+   * The current working directory.
+   * @defaultValue {@link https://nodejs.org/api/process.html#process_process_cwd | `process.cwd()` }
+   */
   cwd: string;
+  /**
+   * The path to the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
+   * The `resultsPath` should be relative to the `cwd`.
+   * @defaultValue `'./.betterer.results'`
+   */
   resultsPath: string;
 }>;
 
@@ -431,7 +449,7 @@ export type BettererOptionsStartUpdate = BettererOptionsStartBase &
 /**
  * @public Options for when you run **Betterer** via the {@link @betterer/betterer#(betterer:function) | JS API}.
  *
- * The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
+ * @remarks The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
  *
  * This is the union of valid possible options for a single **Betterer** run. This type should
  * prevent {@link @betterer/betterer#(betterer:function) | `betterer()` } from being called with invalid
@@ -448,7 +466,7 @@ export type BettererOptionsStart =
  * @public Options for when you create a {@link @betterer/betterer#BettererRunner | `BettererRunner` }
  * via the {@link @betterer/betterer#runner | `betterer.runner()` API}.
  *
- * The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
+ * @remarks The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
  */
 export type BettererOptionsRunner = BettererOptionsBase;
 
@@ -456,7 +474,7 @@ export type BettererOptionsRunner = BettererOptionsBase;
  * @public Options for when you create a {@link @betterer/betterer#BettererRunner | `BettererRunner` }
  * via the {@link @betterer/betterer#watch | `betterer.watch()` JS API}.
  *
- * The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
+ * @remarks The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
  */
 export type BettererOptionsWatch = BettererOptionsRunner &
   Partial<{
@@ -476,7 +494,7 @@ export type BettererOptionsWatch = BettererOptionsRunner &
 /**
  * @public Options for when you override the config via the {@link @betterer/betterer#BettererContext.options | `BettererContext.options()` API}.
  *
- * The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
+ * @remarks The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
  */
 export type BettererOptionsOverride = Partial<{
   /**

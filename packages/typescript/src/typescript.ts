@@ -38,6 +38,13 @@ const CODE_FILE_NOT_INCLUDED = 6307;
  *    .include('./src/*.ts')
  * };
  * ```
+ *
+ * @param configFilePath - the relative path to a tsconfig.json file
+ * @param extraCompilerOptions - addition {@link https://www.typescriptlang.org/docs/handbook/compiler-options.html | **TypeScript** configuration }
+ * to enable
+ *
+ * @throws {@link @betterer/errors#BettererError | `BettererError` }
+ * Will throw if the user doesn't pass `configFilePath` or `extraCompilerOptions`.
  */
 export function typescript(configFilePath: string, extraCompilerOptions: ts.CompilerOptions = {}): BettererFileTest {
   if (!configFilePath) {

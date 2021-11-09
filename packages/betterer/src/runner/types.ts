@@ -15,6 +15,8 @@ export type BettererRunner = {
    *
    * @param filePaths - List of files to test with **Betterer**. If `filePaths` is `undefined` then
    * all files will be tested.
+   * @throws {@link @betterer/errors#BettererError | `BettererError` }
+   * Will throw if something goes wrong while running **Betterer**.
    */
   queue(filePaths?: string | BettererFilePaths): Promise<void>;
   /**
