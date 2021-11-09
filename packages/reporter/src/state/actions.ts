@@ -5,20 +5,20 @@ export const CONTEXT_END = 'contextEnd';
 export const SUITE_START = 'suiteStart';
 export const SUITE_END = 'suiteEnd';
 
-export type BettererContextEndAction = {
+export interface BettererContextEndAction {
   name: typeof CONTEXT_END;
   contextSummary: BettererContextSummary;
-};
+}
 
-export type BettererSuiteStartAction = {
+export interface BettererSuiteStartAction {
   name: typeof SUITE_START;
   suite: BettererSuite;
-};
+}
 
-export type BettererSuiteEndAction = {
+export interface BettererSuiteEndAction {
   name: typeof SUITE_END;
   suiteSummary: BettererSuiteSummary;
-};
+}
 
 export type BettererReporterAction = BettererContextEndAction | BettererSuiteStartAction | BettererSuiteEndAction;
 

@@ -65,7 +65,7 @@ export type BettererDelta =
  * }
  * ```
  */
-export type BettererRun = {
+export interface BettererRun {
   /**
    * The baseline result for the test run. If the {@link @betterer/betterer#BettererTest | `BettererTest`}
    * gets better over the lifetime of the {@link @betterer/betterer#BettererContext}, `baseline`
@@ -100,22 +100,22 @@ export type BettererRun = {
    * reporter will show that this test has been skipped.
    */
   readonly isSkipped: boolean;
-};
+}
 
 /**
  * @public An array of {@link @betterer/betterer#BettererRun | `BettererRun`s}.
  */
 export type BettererRuns = ReadonlyArray<BettererRun>;
 
-export type BettererReporterRun = BettererRun & {
+export interface BettererReporterRun extends BettererRun {
   lifecycle: Promise<BettererRunSummary>;
-};
+}
 
-export type BettererRunning = {
+export interface BettererRunning {
   failed(error: BettererError): Promise<BettererRunSummary>;
   done(result: BettererResult): Promise<BettererRunSummary>;
   skipped(): Promise<BettererRunSummary>;
-};
+}
 
 /**
  * @public The summary of a {@link @betterer/betterer#BettererTest | `BettererTest`} run. Includes
@@ -148,7 +148,7 @@ export type BettererRunning = {
  * }
  * ```
  */
-export type BettererRunSummary = BettererRun & {
+export interface BettererRunSummary extends BettererRun {
   /**
    * The verbose diff between the current test result and the expected result. Will be present when
    * `isWorse` is `true`.
@@ -214,7 +214,7 @@ export type BettererRunSummary = BettererRun & {
    * be updated.
    */
   readonly isWorse: boolean;
-};
+}
 
 /**
  * @public An array of {@link @betterer/betterer#BettererRunSummary | `BettererRunSummaries`}.

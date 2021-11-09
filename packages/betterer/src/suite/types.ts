@@ -24,7 +24,7 @@ import { BettererTestNames } from '../test';
  * }
  * ```
  */
-export type BettererSuite = {
+export interface BettererSuite {
   /**
    * An array of file paths that will be tested. The file paths can be specified by the global {@link @betterer/betterer#BettererConfigStart.includes | `includes` }
    * and {@link @betterer/betterer#BettererConfigStart.excludes | `excludes`} properties. Also used by
@@ -36,7 +36,7 @@ export type BettererSuite = {
    * for each test in the {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file}.
    */
   readonly runs: BettererRuns;
-};
+}
 
 /**
  * @public The summary of a {@link @betterer/betterer#BettererSuite | `BettererSuite`} suite. Includes
@@ -69,7 +69,7 @@ export type BettererSuite = {
  * }
  * ```
  */
-export type BettererSuiteSummary = BettererSuite & {
+export interface BettererSuiteSummary extends BettererSuite {
   /**
    * An array containing a {@link @betterer/betterer#BettererRunSummary | `BettererRunSummary`}
    * for each test in the {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file}.
@@ -132,7 +132,7 @@ export type BettererSuiteSummary = BettererSuite & {
    * for each test that got worse.
    */
   readonly worse: BettererRunSummaries;
-};
+}
 
 /**
  * @public An array of {@link @betterer/betterer#BettererSuiteSummary | `BettererSuiteSummaries`}.

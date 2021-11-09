@@ -13,7 +13,7 @@ import { useTasks } from './useTasksState';
 /**
  * @public `props` type for {@link BettererTaskLogger | `<BettererTaskLogger/>`}.
  */
-export type BettererTaskLoggerProps = {
+export interface BettererTaskLoggerProps {
   /**
    * The name of the task that is shown to the user.
    */
@@ -22,7 +22,7 @@ export type BettererTaskLoggerProps = {
    * The task to be run.
    */
   task: BettererTask;
-};
+}
 
 /**
  * @public Ink component for rendering the output of a single {@link BettererTask | `BettererTask`}.

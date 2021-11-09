@@ -31,11 +31,11 @@ export function normalisedPath(filePath: string): string {
 
 type Resolve<T> = (value: T) => void;
 type Reject = (error: Error) => void;
-export type Defer<T> = {
+export interface Defer<T> {
   promise: Promise<T>;
   resolve: Resolve<T>;
   reject: Reject;
-};
+}
 
 export function defer<T>(): Defer<T> {
   let resolve: Resolve<T> | null = null;

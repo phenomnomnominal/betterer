@@ -19,10 +19,10 @@ import {
   updateInstructions
 } from '../../messages';
 
-export type SuiteSummaryProps = {
+export interface SuiteSummaryProps {
   context: BettererContext;
   suiteSummary: BettererSuiteSummary;
-};
+}
 
 const TEXT_COLOURS: Record<string, TextProps['color']> = {
   better: 'greenBright',

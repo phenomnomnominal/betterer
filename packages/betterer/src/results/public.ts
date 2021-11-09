@@ -1,8 +1,10 @@
 export {
   BettererResult,
-  BettererFileTestResultSummaryDetails,
+  BettererTestResultSummary,
   BettererTestResultSummaryDetails,
-  BettererResultsSummary,
-  BettererTestResultSummaries,
-  BettererTestResultSummary
+  BettererFileTestResultSummary,
+  BettererFileTestResultSummaryDetails,
+  BettererResultSummary,
+  BettererResultSummaries,
+  BettererResultsSummary
 } from './types';

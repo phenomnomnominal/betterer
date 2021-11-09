@@ -5,7 +5,9 @@ import { nodeRequire } from '../utils';
 import { trace } from './trace';
 
 type BettererLibrary = typeof betterer;
-type BettererModule = { betterer: BettererLibrary };
+interface BettererModule {
+  betterer: BettererLibrary;
+}
 
 const PATH_TO_LIB = new Map<string, BettererLibrary>();
 const RUNNERS = new Map<string, BettererRunner>();

@@ -37,7 +37,7 @@ import { BettererSuiteSummary, BettererSuite } from '../suite';
  *
  * `'my-custom-module'` should export a `reporter` which implements the `BettererReporter` interface.
  */
-export type BettererReporter = {
+export interface BettererReporter {
   /**
    * The `configError()` hook is called when there is an error while instantiating and validating
    * the {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
@@ -124,8 +124,8 @@ export type BettererReporter = {
    * @param error - The error thrown while running the test.
    */
   runError?(run: BettererRun, error: BettererError): Promise<void> | void;
-};
+}
 
-export type BettererReporterModule = {
+export interface BettererReporterModule {
   reporter: BettererReporter;
-};
+}

@@ -4,9 +4,9 @@ const NO_LIBRARY_STATE_KEY = 'noLibraryMessageAlreadyShown';
 const INVALID_CONFIG_STATE_KEY = 'invalidConfigMessageAlreadyShown';
 
 type Workspaces = Record<string, boolean>;
-type State = {
+interface State {
   workspaces: Workspaces;
-};
+}
 
 export const getNoLibraryState = getState(NO_LIBRARY_STATE_KEY);
 export const getInvalidConfigState = getState(INVALID_CONFIG_STATE_KEY);

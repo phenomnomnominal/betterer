@@ -21,7 +21,7 @@ export type BettererFileTestResultSerialised = Record<string, BettererFileIssues
 /**
  * @public A diff object for a single file.
  */
-export type BettererFileDiff = {
+export interface BettererFileDiff {
   /**
    * The list of issues that have been fixed since the last run.
    */
@@ -34,7 +34,7 @@ export type BettererFileDiff = {
    * The list of new issues since the last run.
    */
   new?: BettererFileIssuesSerialised;
-};
+}
 
 /**
  * @public A map from file path to {@link @betterer/betterer#BettererFileDiff | `BettererFileDiff`}.
@@ -65,7 +65,7 @@ export type BettererFileTestFunction = (
 /**
  * @public An issue in a file
  */
-export type BettererFileIssue = {
+export interface BettererFileIssue {
   /**
    * The `0`-indexed line number of the issue in the file.
    */
@@ -87,7 +87,7 @@ export type BettererFileIssue = {
    * issues as they move around within a file.
    */
   readonly hash: string;
-};
+}
 
 /**
  * @public An array of {@link @betterer/betterer#BettererFileIssue | `BettererFileIssue`s}.
@@ -97,7 +97,7 @@ export type BettererFileIssues = ReadonlyArray<BettererFileIssue>;
 /**
  * @public Basic information about a file and its issues.
  */
-export type BettererFileBase = {
+export interface BettererFileBase {
   /**
    * The absolute path to the file.
    */
@@ -115,12 +115,12 @@ export type BettererFileBase = {
    * The key used for identifying the file in the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
    */
   readonly key: string;
-};
+}
 
 /**
  * @public Basic information about a file and its issues.
  */
-export type BettererFile = BettererFileBase & {
+export interface BettererFile extends BettererFileBase {
   /**
    * Add an issue to the file from start and end indices in the file contents string.
    *
@@ -151,7 +151,7 @@ export type BettererFile = BettererFileBase & {
    * @param hash - A hash for the issue. If omitted, the hash of `message` will be used.
    */
   addIssue(startLine: number, startCol: number, endLine: number, endCol: number, message: string, hash?: string): void;
-};
+}
 
 /**
  * @public A set of {@link @betterer/betterer#BettererFile | `BettererFile`s} which each have their
@@ -159,7 +159,7 @@ export type BettererFile = BettererFileBase & {
  *
  * @remarks `DeserialisedType` of a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}.
  */
-export type BettererFileTestResult = {
+export interface BettererFileTestResult {
   /**
    * Add a new file to the result set.
    *
@@ -175,7 +175,7 @@ export type BettererFileTestResult = {
    * all files.
    */
   getIssues(absolutePath?: string): BettererFileIssues;
-};
+}
 
 /**
  * @internal This could change at any point! Please don't use!

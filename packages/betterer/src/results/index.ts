@@ -8,7 +8,7 @@ export {
   BettererResultsSerialised,
   BettererFileTestResultSummaryDetails,
   BettererTestResultSummaryDetails,
-  BettererResultsSummary,
-  BettererTestResultSummaries,
-  BettererTestResultSummary
+  BettererResultSummary,
+  BettererResultSummaries,
+  BettererResultsSummary
 } from './types';

@@ -80,11 +80,11 @@ export default {
 
 type Resolve<T> = (value: T) => void;
 type Reject = (error: Error) => void;
-type Defer<T> = {
+interface Defer<T> {
   promise: Promise<T>;
   resolve: Resolve<T>;
   reject: Reject;
-};
+}
 
 function defer<T>(): Defer<T> {
   let resolve: Resolve<T> | null = null;

@@ -1,10 +1,10 @@
 import path from 'path';
 import { promises as fs } from 'fs';
 
-export type FixturePersist = {
+export interface FixturePersist {
   increment(): Promise<number>;
   decrement(): Promise<number>;
-};
+}
 
 export function persist(fixtureDir: string, name: string, start: number): FixturePersist {
   const persistPath = path.join(fixtureDir, `persist.${name}.json`);

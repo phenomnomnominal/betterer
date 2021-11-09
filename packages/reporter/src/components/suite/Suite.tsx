@@ -7,12 +7,12 @@ import { Box } from 'ink';
 import { useTask } from './tasks';
 import { SuiteSummary } from './SuiteSummary';
 
-export type SuiteProps = {
+export interface SuiteProps {
   context: BettererContext;
   suite: BettererSuite | BettererSuiteSummary;
   suiteSummary?: BettererSuiteSummary;
   done?: BettererTasksDone;
-};
+}
 
 export const Suite: FC<SuiteProps> = memo(function Runs({ context, suite, suiteSummary, done }) {
   return (

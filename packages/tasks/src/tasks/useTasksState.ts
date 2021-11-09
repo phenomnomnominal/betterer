@@ -6,13 +6,13 @@ import { BettererError } from '@betterer/errors';
  * @public The state of the running tasks. `endTime` will only be present when there are no more
  * `running` tasks.
  */
-export type BettererTasksState = {
+export interface BettererTasksState {
   running: number;
   done: number;
   errors: number;
   startTime: number;
   endTime: number | null;
-};
+}
 
 export type BettererTasksAction =
   | {
@@ -26,11 +26,11 @@ export type BettererTasksAction =
       data: Error;
     };
 
-export type BettererTasksAPI = {
+export interface BettererTasksAPI {
   error(error: Error): void;
   start(): void;
   stop(): void;
-};
+}
 
 export function useTasksState(): [BettererTasksState, BettererTasksAPI] {
   const [state, dispatch] = useReducer(reducer, getInitialState());

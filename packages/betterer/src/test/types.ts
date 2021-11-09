@@ -71,7 +71,7 @@ export type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => M
 /**
  * @public The result of computing the difference between two results.
  */
-export type BettererDiff<DiffType = null> = {
+export interface BettererDiff<DiffType = null> {
   /**
    * The difference between `expected` and `result`.
    */
@@ -81,7 +81,7 @@ export type BettererDiff<DiffType = null> = {
    * show these to the user once the test is complete.
    */
   logs: BettererLogs;
-};
+}
 
 /**
  * @public A function that compares two test results.
@@ -139,16 +139,16 @@ export type BettererDeserialise<DeserialisedType, SerialisedType> = (
 /**
  * @public The functions that convert between `SerialisedType` and `DeserialisedType`.
  */
-export type BettererSerialiser<DeserialisedType, SerialisedType = DeserialisedType> = {
+export interface BettererSerialiser<DeserialisedType, SerialisedType = DeserialisedType> {
   serialise: BettererSerialise<DeserialisedType, SerialisedType>;
   deserialise: BettererDeserialise<DeserialisedType, SerialisedType>;
-};
+}
 
 /**
  * @public The least complex version of a {@link @betterer/betterer#BettererTest | `BettererTest` }
  * operates on simple numbers and can be defined with just a few properties.
  */
-export type BettererTestOptionsBasic = {
+export interface BettererTestOptionsBasic {
   /**
    * The constraint function for the test.
    */
@@ -165,13 +165,13 @@ export type BettererTestOptionsBasic = {
    * The deadline for the test.
    */
   deadline?: BettererTestDeadline;
-};
+}
 
 /**
  * @public For a more complex version of a {@link @betterer/betterer#BettererTest | `BettererTest`} that
  * operates on more complex objects, you need to define more complex behaviour.
  */
-export type BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType> = {
+export interface BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType> {
   /**
    * The constraint function for the test.
    */
@@ -204,7 +204,7 @@ export type BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffTyp
    * The deadline for the test.
    */
   deadline?: BettererTestDeadline;
-};
+}
 
 /**
  * @public Options for creating a {@link @betterer/betterer#BettererTest | `BettererTest`}.
@@ -232,7 +232,7 @@ export type BettererTestOptions<DeserialisedType = unknown, SerialisedType = Des
 /**
  * @public The validated configuration for a {@link @betterer/betterer#BettererTest | `BettererTest`}.
  */
-export type BettererTestConfig<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> = {
+export interface BettererTestConfig<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> {
   configPath: string;
   constraint: BettererTestConstraint<DeserialisedType>;
   deadline: number;
@@ -242,7 +242,7 @@ export type BettererTestConfig<DeserialisedType = unknown, SerialisedType = Dese
   printer: BettererPrinter<SerialisedType>;
   progress: BettererProgress<DeserialisedType>;
   serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
-};
+}
 
 /**
  * @internal This could change at any point! Please don't use!
@@ -260,11 +260,11 @@ export interface BettererTestBase<DeserialisedType = unknown, SerialisedType = D
 }
 
 export type BettererTestFactory = () => MaybeAsync<BettererTestBase>;
-export type BettererTestFactoryMeta = {
+export interface BettererTestFactoryMeta {
   readonly configPath: string;
   readonly factory: BettererTestFactory;
   readonly name: string;
-};
+}
 export type BettererTestFactoryMetaMap = Record<string, BettererTestFactoryMeta>;
 export type BettererTestMap = Record<string, BettererTestFactory>;
 

@@ -5,13 +5,13 @@ import * as ts from 'typescript';
 
 const NEW_LINE = '\n';
 
-type TypeScriptReadConfigResult = {
+interface TypeScriptReadConfigResult {
   config: {
     compilerOptions: ts.CompilerOptions;
     files: BettererFilePaths;
     include?: BettererFileGlobs;
   };
-};
+}
 
 // TypeScript throws a 6307 error when it need to access type information from a file
 // that wasn't included by the tsconfig. This happens whenever we run the compiler on
