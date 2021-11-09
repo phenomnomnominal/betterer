@@ -1,6 +1,7 @@
 export {
   BettererResult,
-  BettererFileTestResultSummary,
+  BettererFileTestResultSummaryDetails,
+  BettererTestResultSummaryDetails,
   BettererResultsSummary,
   BettererTestResultSummaries,
   BettererTestResultSummary

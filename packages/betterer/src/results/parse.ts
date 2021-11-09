@@ -16,7 +16,7 @@ const MERGE_CONFLICT_START = '<<<<<<<';
  * return an empty object. If the file exists, but has merge conflicts, it will merge the
  * files using {@link mergeResults | `mergeResults`}.
  *
- * @throws {@link @betterer/errors#BettererError | `BettererError`}
+ * @throws {@link @betterer/errors#BettererError | `BettererError` }
  * Throws if the results file cannot be parsed, or if it contains merge conflicts that
  * can't be resolved.
  */

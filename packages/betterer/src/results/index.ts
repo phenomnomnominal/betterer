@@ -6,7 +6,8 @@ export {
   BettererResult,
   BettererResultSerialised,
   BettererResultsSerialised,
-  BettererFileTestResultSummary,
+  BettererFileTestResultSummaryDetails,
+  BettererTestResultSummaryDetails,
   BettererResultsSummary,
   BettererTestResultSummaries,
   BettererTestResultSummary

@@ -36,7 +36,7 @@ module.exports = {
     const fileWithIssues = resolve('./src/file-with-issues.ts');
     const fileWithIssue = resolve('./src/file-with-issue.ts');
 
-    const fileTestResultSummary = (!!testResultsSummary?.isFileTest && testResultsSummary.summary) || {};
+    const fileTestResultSummary = (!!testResultsSummary?.isFileTest && testResultsSummary.details) || {};
 
     expect(fileTestResultSummary[fileWithIssues]).toBeDefined();
     expect(fileTestResultSummary[fileWithIssue]).not.toBeDefined();

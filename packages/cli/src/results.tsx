@@ -10,8 +10,8 @@ import { BettererCLIArguments } from './types';
 /**
  * @internal This could change at any point! Please don't use!
  *
- * Run the **Betterer** `results` command to see the current status of
- * the **Betterer** tests in a project.
+ * Run the **Betterer** `results` command to see the status of the {@link @betterer/betterer#BettererTest | `BettererTest`s}
+ * in a project.
  */
 export async function results__(cwd: string, argv: BettererCLIArguments): Promise<void> {
   const RENDER_OPTIONS = {

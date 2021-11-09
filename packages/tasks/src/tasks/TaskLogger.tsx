@@ -11,22 +11,22 @@ import { BettererTaskLog, BettererTask } from './types';
 import { useTasks } from './useTasksState';
 
 /**
- * @public `props` type for {@link BettererTaskLogger | `<BettererTaskLogger/>`}
+ * @public `props` type for {@link BettererTaskLogger | `<BettererTaskLogger/>`}.
  */
 export type BettererTaskLoggerProps = {
   /**
-   * The name of the task that is shown to the user
+   * The name of the task that is shown to the user.
    */
   name: string;
   /**
-   * The task to be run
+   * The task to be run.
    */
   task: BettererTask;
 };
 
 /**
  * @public Ink component for rendering the output of a single {@link BettererTask | `BettererTask`}.
- * The output will update based on the current status of the task. Once the task is finished, it will
+ * The output will update based on the status of the task. Once the task is finished, it will
  * output any logging and any errors (if the task failed).
  */
 export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function BettererTaskLogger(props) {

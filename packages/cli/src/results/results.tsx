@@ -42,8 +42,8 @@ export const Results: FC<ResultsProps> = function Results({ options }) {
                 <Box key={testResultSummary.name} flexDirection="column">
                   <Text color="yellowBright">{`${testResultSummary.name}: `}</Text>
                   <Box flexDirection="column" paddingTop={1} paddingLeft={2}>
-                    {Object.keys(testResultSummary.summary).map((filePath) => {
-                      const issues = testResultSummary.summary[filePath];
+                    {Object.keys(testResultSummary.details).map((filePath) => {
+                      const issues = testResultSummary.details[filePath];
                       return issues.map((issue, index) => (
                         <Box key={index}>
                           <Text>{issue.message}</Text>
@@ -63,7 +63,7 @@ export const Results: FC<ResultsProps> = function Results({ options }) {
             return (
               <Box key={testResultSummary.name}>
                 <Text color="yellowBright">{`${testResultSummary.name}: `}</Text>
-                <Text>{testResultSummary.summary}</Text>
+                <Text>{testResultSummary.details}</Text>
               </Box>
             );
           })}

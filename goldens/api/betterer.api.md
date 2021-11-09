@@ -9,9 +9,8 @@ import { BettererError } from '@betterer/errors';
 import { BettererLogs } from '@betterer/logger';
 
 // Warning: (ae-missing-release-tag) "betterer" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-// Warning: (ae-missing-release-tag) "betterer" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
-// @public (undocumented)
+// @public
 export function betterer(options?: BettererOptionsStart): Promise<BettererSuiteSummary>;
 
 // @public (undocumented)
@@ -26,14 +25,14 @@ export namespace betterer {
     watch: watch;
 }
 
-// Warning: (ae-missing-release-tag) "BettererConfig" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-incompatible-release-tags) The symbol "BettererConfig" is marked as @public, but its signature references "BettererConfigBase" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "BettererConfig" is marked as @public, but its signature references "BettererConfigStart" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "BettererConfig" is marked as @public, but its signature references "BettererConfigWatch" which is marked as @internal
 //
-// @public (undocumented)
+// @public
 export type BettererConfig = BettererConfigBase & BettererConfigStart & BettererConfigWatch;
 
-// Warning: (ae-missing-release-tag) "BettererConfigBase" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @internal
 export type BettererConfigBase = {
     cache: boolean;
     cachePath: string;
@@ -46,24 +45,22 @@ export type BettererConfigBase = {
     workers: number;
 };
 
-// Warning: (ae-missing-release-tag) "BettererConfigFilters" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
+export type BettererConfigExcludes = ReadonlyArray<RegExp>;
+
+// @public
 export type BettererConfigFilters = ReadonlyArray<RegExp>;
 
-// Warning: (ae-missing-release-tag) "BettererConfigIgnores" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererConfigIgnores = ReadonlyArray<string>;
 
-// Warning: (ae-missing-release-tag) "BettererConfigPaths" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
+export type BettererConfigIncludes = ReadonlyArray<string>;
+
+// @public
 export type BettererConfigPaths = ReadonlyArray<string>;
 
-// Warning: (ae-missing-release-tag) "BettererConfigStart" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @internal
 export type BettererConfigStart = {
     ci: boolean;
     excludes: BettererConfigExcludes;
@@ -73,35 +70,27 @@ export type BettererConfigStart = {
     update: boolean;
 };
 
-// Warning: (ae-missing-release-tag) "BettererConfigWatch" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @internal
 export type BettererConfigWatch = {
     ignores: BettererConfigIgnores;
     watch: boolean;
 };
 
-// Warning: (ae-missing-release-tag) "BettererContext" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererContext = {
     readonly config: BettererConfig;
     options(optionsOverride: BettererOptionsOverride): Promise<void>;
     stop(): Promise<BettererSuiteSummary>;
 };
 
-// Warning: (ae-missing-release-tag) "BettererContextSummary" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererContextSummary = {
     readonly config: BettererConfig;
     suites: BettererSuiteSummaries;
     lastSuite: BettererSuiteSummary;
 };
 
-// Warning: (ae-missing-release-tag) "BettererDelta" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererDelta = {
     readonly baseline: number;
     readonly diff: number;
@@ -112,36 +101,26 @@ export type BettererDelta = {
     readonly result: number;
 };
 
-// Warning: (ae-missing-release-tag) "BettererDeserialise" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererDeserialise<DeserialisedType, SerialisedType> = (serialised: SerialisedType, resultsPath: string) => DeserialisedType;
 
-// Warning: (ae-missing-release-tag) "BettererDiff" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererDiff<DiffType = null> = {
     diff: DiffType;
     logs: BettererLogs;
 };
 
-// Warning: (ae-missing-release-tag) "BettererDiffer" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererDiffer<DeserialisedType, DiffType> = (expected: DeserialisedType, result: DeserialisedType) => BettererDiff<DiffType>;
 
-// Warning: (ae-missing-release-tag) "BettererFile" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererFile = BettererFileBase & {
     addIssue(start: number, end: number, message: string, hash?: string): void;
     addIssue(line: number, col: number, length: number, message: string, hash?: string): void;
     addIssue(startLine: number, startCol: number, endLine: number, endCol: number, message: string, hash?: string): void;
 };
 
-// Warning: (ae-missing-release-tag) "BettererFileBase" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererFileBase = {
     readonly absolutePath: string;
     readonly hash: string;
@@ -149,23 +128,17 @@ export type BettererFileBase = {
     readonly key: string;
 };
 
-// Warning: (ae-missing-release-tag) "BettererFileDiff" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererFileDiff = {
     fixed?: BettererFileIssuesSerialised;
     existing?: BettererFileIssuesSerialised;
     new?: BettererFileIssuesSerialised;
 };
 
-// Warning: (ae-missing-release-tag) "BettererFileGlobs" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererFileGlobs = ReadonlyArray<string | ReadonlyArray<string>>;
 
-// Warning: (ae-missing-release-tag) "BettererFileIssue" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererFileIssue = {
     readonly line: number;
     readonly column: number;
@@ -174,113 +147,73 @@ export type BettererFileIssue = {
     readonly hash: string;
 };
 
-// Warning: (ae-missing-release-tag) "BettererFileIssues" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererFileIssues = ReadonlyArray<BettererFileIssue>;
 
-// Warning: (ae-missing-release-tag) "BettererFileIssueSerialised" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererFileIssueSerialised = [line: number, column: number, length: number, message: string, hash: string];
 
-// Warning: (ae-missing-release-tag) "BettererFileIssuesSerialised" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererFileIssuesSerialised = ReadonlyArray<BettererFileIssueSerialised>;
 
-// Warning: (ae-missing-release-tag) "BettererFilePath" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererFilePath = string;
 
-// Warning: (ae-missing-release-tag) "BettererFilePaths" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererFilePaths = ReadonlyArray<BettererFilePath>;
 
-// Warning: (ae-missing-release-tag) "BettererFilePatterns" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
 
-// Warning: (ae-missing-release-tag) "BettererFileResolver" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererFileResolver = {
-    baseDirectory: string;
-    files(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
+    readonly baseDirectory: string;
     resolve(...pathSegments: Array<string>): string;
     validate(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
 };
 
-// Warning: (ae-missing-release-tag) "BettererFilesDiff" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererFilesDiff = Record<string, BettererFileDiff>;
 
 // Warning: (ae-forgotten-export) The symbol "BettererFileTestBase" needs to be exported by the entry point index.d.ts
-// Warning: (ae-missing-release-tag) "BettererFileTest" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
-// @public (undocumented)
+// @public
 export class BettererFileTest implements BettererFileTestBase {
     constructor(fileTest: BettererFileTestFunction);
     // Warning: (ae-forgotten-export) The symbol "BettererFileTestConfig" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
-    get config(): BettererFileTestConfig;
-    // (undocumented)
+    readonly config: BettererFileTestConfig;
     constraint(constraintOverride: BettererTestConstraint<BettererFileTestResult>): this;
-    // (undocumented)
     deadline(deadlineOverride: BettererTestDeadline): this;
-    // (undocumented)
     exclude(...excludePatterns: BettererFilePatterns): this;
-    // (undocumented)
     goal(goalOverride: BettererTestGoal<BettererFileTestResult>): this;
-    // (undocumented)
     include(...includePatterns: BettererFileGlobs): this;
-    // (undocumented)
     get isOnly(): boolean;
-    // (undocumented)
     get isSkipped(): boolean;
-    // (undocumented)
     only(): this;
-    // (undocumented)
     skip(): this;
 }
 
-// Warning: (ae-missing-release-tag) "BettererFileTestDiff" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererFileTestDiff = BettererDiff<BettererFilesDiff>;
 
 // Warning: (ae-forgotten-export) The symbol "MaybeAsync" needs to be exported by the entry point index.d.ts
-// Warning: (ae-missing-release-tag) "BettererFileTestFunction" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
-// @public (undocumented)
+// @public
 export type BettererFileTestFunction = (filePaths: BettererFilePaths, fileTestResult: BettererFileTestResult, resolver: BettererFileResolver) => MaybeAsync<void>;
 
-// Warning: (ae-missing-release-tag) "BettererFileTestResult" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererFileTestResult = {
     addFile(absolutePath: string, fileText: string): BettererFile;
     getIssues(absolutePath?: string): BettererFileIssues;
 };
 
-// Warning: (ae-missing-release-tag) "BettererFileTestResultSerialised" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererFileTestResultSerialised = Record<string, BettererFileIssuesSerialised>;
 
-// Warning: (ae-missing-release-tag) "BettererFileTestResultSummary" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererFileTestResultSummary = Record<string, BettererFileIssues>;
+// @public
+export type BettererFileTestResultSummaryDetails = Record<string, BettererFileIssues>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsBase" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @internal
 export type BettererOptionsBase = Partial<{
     cache: boolean;
     cachePath: string;
@@ -294,57 +227,39 @@ export type BettererOptionsBase = Partial<{
     workers: number | boolean;
 }>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsExcludes" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererOptionsExcludes = Array<string | RegExp> | string;
+// @public
+export type BettererOptionsExcludes = Array<string | RegExp> | string | RegExp;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsFilters" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererOptionsFilters = Array<string | RegExp> | string;
+// @public
+export type BettererOptionsFilters = Array<string | RegExp> | string | RegExp;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsIgnores" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererOptionsIgnores = Array<string>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsIncludes" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererOptionsIncludes = Array<string> | string;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsMerge" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererOptionsMerge = Partial<{
     contents: Array<string>;
     cwd: string;
     resultsPath: string;
 }>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsOverride" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererOptionsOverride = Partial<{
     filters: BettererOptionsFilters;
     ignores: BettererOptionsIgnores;
     reporters: BettererOptionsReporters;
 }>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsPaths" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererOptionsPaths = Array<string> | string;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsReporters" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererOptionsReporters = Array<string | BettererReporter>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsResults" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererOptionsResults = Partial<{
     configPaths: BettererOptionsPaths;
     cwd: string;
@@ -354,27 +269,27 @@ export type BettererOptionsResults = Partial<{
     resultsPath: string;
 }>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsRunner" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsRunner" is marked as @public, but its signature references "BettererOptionsBase" which is marked as @internal
 //
-// @public (undocumented)
+// @public
 export type BettererOptionsRunner = BettererOptionsBase;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsStart" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsStart" is marked as @public, but its signature references "BettererOptionsStartCI" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsStart" is marked as @public, but its signature references "BettererOptionsStartDefault" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsStart" is marked as @public, but its signature references "BettererOptionsStartPrecommit" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsStart" is marked as @public, but its signature references "BettererOptionsStartStrict" which is marked as @internal
+// Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsStart" is marked as @public, but its signature references "BettererOptionsStartUpdate" which is marked as @internal
 //
-// @public (undocumented)
+// @public
 export type BettererOptionsStart = BettererOptionsStartCI | BettererOptionsStartDefault | BettererOptionsStartPrecommit | BettererOptionsStartStrict | BettererOptionsStartUpdate;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsStartBase" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @internal
 export type BettererOptionsStartBase = BettererOptionsBase & Partial<{
     excludes: BettererOptionsExcludes;
     includes: BettererOptionsIncludes;
 }>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsStartCI" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @internal
 export type BettererOptionsStartCI = BettererOptionsStartBase & Partial<{
     ci: true;
     precommit: false;
@@ -383,9 +298,7 @@ export type BettererOptionsStartCI = BettererOptionsStartBase & Partial<{
     watch: false;
 }>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsStartDefault" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @internal
 export type BettererOptionsStartDefault = BettererOptionsStartBase & Partial<{
     ci: false;
     precommit: false;
@@ -394,9 +307,7 @@ export type BettererOptionsStartDefault = BettererOptionsStartBase & Partial<{
     watch: false;
 }>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsStartPrecommit" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @internal
 export type BettererOptionsStartPrecommit = BettererOptionsStartBase & Partial<{
     ci: false;
     precommit: true;
@@ -405,9 +316,7 @@ export type BettererOptionsStartPrecommit = BettererOptionsStartBase & Partial<{
     watch: false;
 }>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsStartStrict" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @internal
 export type BettererOptionsStartStrict = BettererOptionsStartBase & Partial<{
     ci: false;
     precommit: false;
@@ -416,9 +325,7 @@ export type BettererOptionsStartStrict = BettererOptionsStartBase & Partial<{
     watch: false;
 }>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsStartUpdate" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @internal
 export type BettererOptionsStartUpdate = BettererOptionsStartBase & Partial<{
     ci: false;
     precommit: false;
@@ -427,27 +334,19 @@ export type BettererOptionsStartUpdate = BettererOptionsStartBase & Partial<{
     watch: false;
 }>;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsWatch" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererOptionsWatch = BettererOptionsRunner & Partial<{
     ignores: BettererOptionsIgnores;
     watch: true;
 }>;
 
-// Warning: (ae-missing-release-tag) "BettererPrinter" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererPrinter<SerialisedType> = (serialised: SerialisedType) => MaybeAsync<string>;
 
-// Warning: (ae-missing-release-tag) "BettererProgress" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererProgress<DeserialisedType> = (baseline: DeserialisedType | null, result: DeserialisedType | null) => MaybeAsync<BettererDelta | null>;
 
-// Warning: (ae-missing-release-tag) "BettererReporter" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererReporter = {
     configError?(config: unknown, error: BettererError): Promise<void> | void;
     contextStart?(context: BettererContext, lifecycle: Promise<BettererContextSummary>): Promise<void> | void;
@@ -457,20 +356,21 @@ export type BettererReporter = {
     suiteEnd?(suiteSummary: BettererSuiteSummary): Promise<void> | void;
     suiteError?(suite: BettererSuite, error: BettererError): Promise<void> | void;
     runStart?(run: BettererRun, lifecycle: Promise<BettererRunSummary>): Promise<void> | void;
-    runEnd?(run: BettererRunSummary): Promise<void> | void;
+    runEnd?(runSummary: BettererRunSummary): Promise<void> | void;
     runError?(run: BettererRun, error: BettererError): Promise<void> | void;
 };
 
-// Warning: (ae-missing-release-tag) "BettererResultsSummary" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
+export type BettererResult = {
+    value: unknown;
+};
+
+// @public
 export type BettererResultsSummary = {
     testResultSummaries: BettererTestResultSummaries;
 };
 
-// Warning: (ae-missing-release-tag) "BettererRun" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererRun = {
     readonly baseline: BettererResult | null;
     readonly expected: BettererResult | null;
@@ -480,9 +380,7 @@ export type BettererRun = {
     readonly isSkipped: boolean;
 };
 
-// Warning: (ae-missing-release-tag) "BettererRunner" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererRunner = {
     options(optionsOverride: BettererOptionsOverride): void;
     queue(filePaths?: string | BettererFilePaths): Promise<void>;
@@ -490,19 +388,13 @@ export type BettererRunner = {
     stop(force: true): Promise<BettererSuiteSummary | null>;
 };
 
-// Warning: (ae-missing-release-tag) "BettererRuns" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererRuns = ReadonlyArray<BettererRun>;
 
-// Warning: (ae-missing-release-tag) "BettererRunSummaries" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererRunSummaries = Array<BettererRunSummary>;
 
-// Warning: (ae-missing-release-tag) "BettererRunSummary" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererRunSummary = BettererRun & {
     readonly diff: BettererDiff | null;
     readonly delta: BettererDelta | null;
@@ -519,38 +411,26 @@ export type BettererRunSummary = BettererRun & {
     readonly isWorse: boolean;
 };
 
-// Warning: (ae-missing-release-tag) "BettererSerialise" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererSerialise<DeserialisedType, SerialisedType> = (result: DeserialisedType, resultsPath: string) => SerialisedType;
 
-// Warning: (ae-missing-release-tag) "BettererSerialiser" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererSerialiser<DeserialisedType, SerialisedType = DeserialisedType> = {
     serialise: BettererSerialise<DeserialisedType, SerialisedType>;
     deserialise: BettererDeserialise<DeserialisedType, SerialisedType>;
 };
 
-// Warning: (ae-missing-release-tag) "BettererSuite" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererSuite = {
     readonly filePaths: BettererFilePaths;
     readonly runs: BettererRuns;
 };
 
-// Warning: (ae-missing-release-tag) "BettererSuiteSummaries" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererSuiteSummaries = ReadonlyArray<BettererSuiteSummary>;
 
-// Warning: (ae-missing-release-tag) "BettererSuiteSummary" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererSuiteSummary = {
-    readonly filePaths: BettererFilePaths;
-    readonly runs: BettererRuns;
+// @public
+export type BettererSuiteSummary = BettererSuite & {
     readonly runSummaries: BettererRunSummaries;
     readonly changed: BettererTestNames;
     readonly better: BettererRunSummaries;
@@ -565,31 +445,40 @@ export type BettererSuiteSummary = {
     readonly worse: BettererRunSummaries;
 };
 
-// Warning: (ae-forgotten-export) The symbol "BettererTestBase" needs to be exported by the entry point index.d.ts
-// Warning: (ae-missing-release-tag) "BettererTest" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-incompatible-release-tags) The symbol "BettererTest" is marked as @public, but its signature references "BettererTestBase" which is marked as @internal
 //
-// @public (undocumented)
+// @public
 export class BettererTest<DeserialisedType, SerialisedType = DeserialisedType, DiffType = null> implements BettererTestBase<DeserialisedType, SerialisedType, DiffType> {
     constructor(options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>);
-    // (undocumented)
     readonly config: BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
+    constraint(constraintOverride: BettererTestConstraint<DeserialisedType>): this;
+    deadline(deadlineOverride: BettererTestDeadline): this;
+    goal(goalOverride: BettererTestGoal<DeserialisedType>): this;
+    get isOnly(): boolean;
+    get isSkipped(): boolean;
+    only(): this;
+    skip(): this;
+}
+
+// @internal
+export interface BettererTestBase<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> {
+    // (undocumented)
+    config: BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
     // (undocumented)
     constraint(constraintOverride: BettererTestConstraint<DeserialisedType>): this;
     // (undocumented)
     goal(goalOverride: BettererTestGoal<DeserialisedType>): this;
     // (undocumented)
-    get isOnly(): boolean;
+    isOnly: boolean;
     // (undocumented)
-    get isSkipped(): boolean;
+    isSkipped: boolean;
     // (undocumented)
     only(): this;
     // (undocumented)
     skip(): this;
 }
 
-// Warning: (ae-missing-release-tag) "BettererTestConfig" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererTestConfig<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> = {
     configPath: string;
     constraint: BettererTestConstraint<DeserialisedType>;
@@ -602,39 +491,25 @@ export type BettererTestConfig<DeserialisedType = unknown, SerialisedType = Dese
     serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
 };
 
-// Warning: (ae-missing-release-tag) "BettererTestConstraint" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererTestConstraint<DeserialisedType> = (result: DeserialisedType, expected: DeserialisedType) => MaybeAsync<BettererConstraintResult>;
 
-// Warning: (ae-missing-release-tag) "BettererTestDeadline" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererTestDeadline = Date | string;
 
-// Warning: (ae-missing-release-tag) "BettererTestFunction" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererTestFunction<DeserialisedType> = (run: BettererRun) => MaybeAsync<DeserialisedType>;
 
-// Warning: (ae-missing-release-tag) "BettererTestGoal" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
 
-// Warning: (ae-missing-release-tag) "BettererTestNames" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererTestNames = ReadonlyArray<string>;
 
-// Warning: (ae-missing-release-tag) "BettererTestOptions" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererTestOptions<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> = BettererTestOptionsBasic | BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType>;
 
-// Warning: (ae-missing-release-tag) "BettererTestOptionsBasic" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererTestOptionsBasic = {
     constraint: BettererTestConstraint<number>;
     test: BettererTestFunction<number>;
@@ -642,9 +517,7 @@ export type BettererTestOptionsBasic = {
     deadline?: BettererTestDeadline;
 };
 
-// Warning: (ae-missing-release-tag) "BettererTestOptionsComplex" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType> = {
     constraint: BettererTestConstraint<DeserialisedType>;
     test: BettererTestFunction<DeserialisedType>;
@@ -656,48 +529,33 @@ export type BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffTyp
     deadline?: BettererTestDeadline;
 };
 
-// Warning: (ae-missing-release-tag) "BettererTestResultSummaries" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererTestResultSummaries = ReadonlyArray<BettererTestResultSummary>;
 
-// Warning: (ae-missing-release-tag) "BettererTestResultSummary" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererTestResultSummary = {
     name: string;
     isFileTest: true;
-    summary: BettererFileTestResultSummary;
+    details: BettererFileTestResultSummaryDetails;
 } | {
     name: string;
     isFileTest: false;
-    summary: string;
+    details: BettererTestResultSummaryDetails;
 };
+
+// @public
+export type BettererTestResultSummaryDetails = string;
 
 // @public
 export function merge(options?: BettererOptionsMerge): Promise<void>;
 
-// Warning: (ae-missing-release-tag) "results" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export function results(options?: BettererOptionsResults): Promise<BettererResultsSummary>;
 
-// Warning: (ae-missing-release-tag) "runner" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export function runner(options?: BettererOptionsRunner): Promise<BettererRunner>;
 
-// Warning: (ae-missing-release-tag) "watch" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export function watch(options?: BettererOptionsWatch): Promise<BettererRunner>;
-
-// Warnings were encountered during analysis:
-//
-// src/config/types.ts:27:3 - (ae-forgotten-export) The symbol "BettererConfigExcludes" needs to be exported by the entry point index.d.ts
-// src/config/types.ts:28:3 - (ae-forgotten-export) The symbol "BettererConfigIncludes" needs to be exported by the entry point index.d.ts
-// src/run/types.ts:23:3 - (ae-forgotten-export) The symbol "BettererResult" needs to be exported by the entry point index.d.ts
-
-// (No @packageDocumentation comment for this package)
 
 ```

@@ -1,4 +1,4 @@
-import { BettererSuiteSummary, betterer, BettererOptionsStartCI } from '@betterer/betterer';
+import { BettererSuiteSummary, betterer, BettererOptionsStart } from '@betterer/betterer';
 
 import { cliOptions } from './options';
 import { BettererCLIArguments } from './types';
@@ -26,7 +26,7 @@ export function ci__(cwd: string, argv: BettererCLIArguments): Promise<BettererS
     workers
   };
 
-  // And then cast to BettererOptionsStartCI. This is possibly invalid,
+  // And then cast to BettererOptionsStart. This is possibly invalid,
   // but it's nicer to do the options validation in @betterer/betterer
-  return betterer(options as BettererOptionsStartCI);
+  return betterer(options as BettererOptionsStart);
 }

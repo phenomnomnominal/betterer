@@ -1,8 +1,8 @@
 import { BettererErrorDetails } from './types';
 
 /**
- * @public A custom Error for use in **Betterer**. It attaches some
- * extra details to a standard JavaScript error for better logging and debugging.
+ * @public A custom Error for use in **Betterer**. It attaches some extra details to a standard
+ * JavaScript error for better logging and debugging.
  */
 export class BettererError extends Error {
   public details: BettererErrorDetails;
@@ -19,7 +19,7 @@ export class BettererError extends Error {
 }
 
 /**
- * @public Check if an object is a {@link BettererError | `BettererError`}
+ * @public Check if an object is a {@link BettererError | `BettererError`}.
  *
  * @example
  * ```typescript
