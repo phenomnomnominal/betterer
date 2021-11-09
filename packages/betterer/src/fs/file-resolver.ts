@@ -3,7 +3,7 @@ import minimatch from 'minimatch';
 import * as path from 'path';
 import { BettererConfig } from '../config';
 
-import { flatten } from '../utils';
+import { flatten, normalisedPath } from '../utils';
 import {
   BettererFileGlobs,
   BettererFilePaths,
@@ -52,7 +52,7 @@ export class BettererFileResolverΩ implements BettererFileResolver {
   }
 
   public resolve(...pathSegments: Array<string>): string {
-    return path.resolve(this.baseDirectory, ...pathSegments);
+    return normalisedPath(path.resolve(this.baseDirectory, ...pathSegments));
   }
 
   public include(...includePatterns: BettererFileGlobs): this {
