@@ -2,15 +2,15 @@ import { BettererOptionsResults } from '../config';
 import { BettererFileResolverΩ } from '../fs';
 import { createGlobals } from '../globals';
 import { BettererFileTestResultΩ, isBettererFileTest, loadTestMeta } from '../test';
-import { BettererFileTestResultSummaryDetails, BettererResultsSummary, BettererTestResultSummaries } from './types';
+import { BettererFileTestResultSummaryDetails, BettererResultsSummary, BettererResultSummaries } from './types';
 
 export class BettererResultsSummaryΩ implements BettererResultsSummary {
-  public readonly testResultSummaries: BettererTestResultSummaries;
+  public readonly resultSummaries: BettererResultSummaries;
 
-  private constructor(testResultSummaries: BettererTestResultSummaries, onlyFileTests: boolean) {
-    this.testResultSummaries = onlyFileTests
-      ? testResultSummaries.filter((testResultSummary) => testResultSummary.isFileTest)
-      : testResultSummaries;
+  private constructor(resultSummaries: BettererResultSummaries, onlyFileTests: boolean) {
+    this.resultSummaries = onlyFileTests
+      ? resultSummaries.filter((resultSummary) => resultSummary.isFileTest)
+      : resultSummaries;
   }
 
   public static async create(options: BettererOptionsResults): Promise<BettererResultsSummaryΩ> {

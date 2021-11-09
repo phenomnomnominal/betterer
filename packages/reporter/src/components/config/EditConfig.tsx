@@ -2,12 +2,12 @@ import React, { PropsWithChildren, useState } from 'react';
 import { Box, Text } from 'ink';
 import TextInput from 'ink-text-input';
 
-export type EditConfigProps<ValidatedConfigType> = {
+export interface EditConfigProps<ValidatedConfigType> {
   name: string;
   onChange: (newValue: string) => [ValidatedConfigType | null, Error | null];
   onSubmit: (newValue: ValidatedConfigType) => Promise<void>;
   value: string;
-};
+}
 
 export function EditConfig<ValidatedConfigType>(
   props: PropsWithChildren<EditConfigProps<ValidatedConfigType>>

@@ -5,7 +5,7 @@ import { BettererSuiteSummary } from '../suite';
 /**
  * @public The JS API for controlling **Betterer** runs.
  */
-export type BettererRunner = {
+export interface BettererRunner {
   /**
    * Make changes to the runner config. The updated config will be used for the next run.
    */
@@ -34,4 +34,4 @@ export type BettererRunner = {
    * (or `null` if a run hasn't finished yet).
    */
   stop(force: true): Promise<BettererSuiteSummary | null>;
-};
+}

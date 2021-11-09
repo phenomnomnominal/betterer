@@ -10,13 +10,16 @@ import { BettererSuiteSummary } from '@betterer/betterer';
 export type BettererCLIArguments = Array<string>;
 
 // @internal
-export type BettererPackageJSON = {
-    version: string;
+export interface BettererPackageJSON {
+    // (undocumented)
+    devDependencies: Record<string, string>;
+    // (undocumented)
     scripts: Record<string, string> & {
         betterer: string;
     };
-    devDependencies: Record<string, string>;
-};
+    // (undocumented)
+    version: string;
+}
 
 // @internal
 export function ci__(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary>;

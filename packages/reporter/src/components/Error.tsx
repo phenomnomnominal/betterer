@@ -4,9 +4,9 @@ import { BettererError } from '@betterer/errors';
 import { BettererErrorLog, BettererLogo } from '@betterer/tasks';
 import { Box } from 'ink';
 
-export type ErrorProps = {
+export interface ErrorProps {
   error: BettererError;
-};
+}
 
 export const Error: FC<ErrorProps> = function Error({ error }) {
   return (

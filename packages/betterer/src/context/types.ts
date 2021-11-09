@@ -25,7 +25,7 @@ import { BettererSuiteSummaries, BettererSuiteSummary } from '../suite';
  * }
  * ```
  */
-export type BettererContext = {
+export interface BettererContext {
   /**
    * The {@link @betterer/betterer#BettererConfig | `config``} of the context. You probably don't want
    * to mess with this directly 🔥. If you need to update the config, you should use
@@ -44,12 +44,12 @@ export type BettererContext = {
    * stopping.
    */
   stop(): Promise<BettererSuiteSummary>;
-};
+}
 
-export type BettererContextStarted = {
+export interface BettererContextStarted {
   end(): Promise<BettererContextSummary>;
   error(error: BettererError): Promise<void>;
-};
+}
 
 /**
  * @public The summary of a set of test suite runs.
@@ -80,7 +80,7 @@ export type BettererContextStarted = {
  * }
  * ```
  */
-export type BettererContextSummary = {
+export interface BettererContextSummary {
   /**
    * The {@link @betterer/betterer#BettererConfig | config} of the context.
    */
@@ -95,4 +95,4 @@ export type BettererContextSummary = {
    * suite run by a context.
    */
   lastSuite: BettererSuiteSummary;
-};
+}

@@ -47,12 +47,14 @@ export {
 } from './fs/public';
 export { BettererReporter } from './reporters/public';
 export {
+  BettererFileTestResultSummary,
   BettererFileTestResultSummaryDetails,
+  BettererTestResultSummary,
   BettererTestResultSummaryDetails,
   BettererResult,
-  BettererResultsSummary,
-  BettererTestResultSummaries,
-  BettererTestResultSummary
+  BettererResultSummary,
+  BettererResultSummaries,
+  BettererResultsSummary
 } from './results/public';
 export { BettererDelta, BettererRun, BettererRuns, BettererRunSummary, BettererRunSummaries } from './run/public';
 export { BettererRunner } from './runner/public';

@@ -1,5 +1,5 @@
 import { TextDocumentIdentifier } from 'vscode-languageclient/node';
 
-export type BettererRequestParams = {
+export interface BettererRequestParams {
   source: TextDocumentIdentifier;
-};
+}

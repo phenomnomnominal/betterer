@@ -17,14 +17,14 @@ export type BettererLogMessage = (...messages: BettererLoggerMessages) => Promis
 /**
  * @public the information required to log a code block with a message.
  */
-export type BettererLoggerCodeInfo = {
+export interface BettererLoggerCodeInfo {
   message: string;
   filePath: string;
   fileText: string;
   line: number;
   column: number;
   length: number;
-};
+}
 
 /**
  * @public a function that takes a {@link BettererLoggerCodeInfo | `BettererLoggerCodeInfo` }
@@ -35,7 +35,7 @@ export type BettererLogCode = (codeInfo: BettererLoggerCodeInfo) => Promise<void
 /**
  * @public the logger interface for **Betterer** reporter and task logging.
  */
-export type BettererLogger = {
+export interface BettererLogger {
   code: BettererLogCode;
   debug: BettererLogMessage;
   error: BettererLogMessage;
@@ -43,14 +43,14 @@ export type BettererLogger = {
   progress: BettererLogMessage;
   success: BettererLogMessage;
   warn: BettererLogMessage;
-};
+}
 
 /**
  * @internal This could change at any point! Please don't use!
  *
  * A logging instruction which can be logged at a later time using {@link @betterer/logger#log__ | `log__()`}.
  */
-export type BettererLog = {
+export interface BettererLog {
   code?: BettererLoggerCodeInfo;
   debug?: BettererLoggerMessage;
   error?: BettererLoggerMessage;
@@ -58,7 +58,7 @@ export type BettererLog = {
   progress?: BettererLoggerMessage;
   success?: BettererLoggerMessage;
   warn?: BettererLoggerMessage;
-};
+}
 
 /**
  * @internal This could change at any point! Please don't use!

@@ -29,14 +29,12 @@ module.exports = {
 
     const resultsSummary = await betterer.results({ configPaths, resultsPath, includes: ['**/file-with-issues.ts'] });
 
-    const testResultsSummary = resultsSummary.testResultSummaries.find(
-      (testResultsSummary) => testResultsSummary.name === 'test'
-    );
+    const testResultSummary = resultsSummary.resultSummaries.find((resultSummary) => resultSummary.name === 'test');
 
     const fileWithIssues = resolve('./src/file-with-issues.ts');
     const fileWithIssue = resolve('./src/file-with-issue.ts');
 
-    const fileTestResultSummary = (!!testResultsSummary?.isFileTest && testResultsSummary.details) || {};
+    const fileTestResultSummary = (!!testResultSummary?.isFileTest && testResultSummary.details) || {};
 
     expect(fileTestResultSummary[fileWithIssues]).toBeDefined();
     expect(fileTestResultSummary[fileWithIssue]).not.toBeDefined();

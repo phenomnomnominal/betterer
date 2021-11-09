@@ -28,9 +28,7 @@ module.exports = {
 
     const resultsSummary = await betterer.results({ configPaths, resultsPath });
 
-    const testResultSummary = resultsSummary.testResultSummaries.find(
-      (testResultSummary) => testResultSummary.name === 'test'
-    );
+    const testResultSummary = resultsSummary.resultSummaries.find((resultSummary) => resultSummary.name === 'test');
 
     const testResult = !testResultSummary?.isFileTest && testResultSummary?.details;
 

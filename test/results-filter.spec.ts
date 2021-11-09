@@ -29,25 +29,21 @@ module.exports = {
 
     await betterer({ configPaths, resultsPath, workers: false, silent: true });
 
-    const resultsSummary = await results({ configPaths, resultsPath, filters: [/test 1/] });
+    const resultsSummaries = await results({ configPaths, resultsPath, filters: [/test 1/] });
 
-    const test1ResultsSummary = resultsSummary.testResultSummaries.find(
-      (testResultsSummary) => testResultsSummary.name === 'test 1'
+    const test1ResultSummary = resultsSummaries.resultSummaries.find(
+      (resultSummary) => resultSummary.name === 'test 1'
     );
 
-    expect(test1ResultsSummary).toBeDefined();
-    expect(test1ResultsSummary?.isFileTest).toEqual(true);
-    expect(test1ResultsSummary?.isFileTest && test1ResultsSummary.details).toBeDefined();
+    expect(test1ResultSummary).toBeDefined();
+    expect(test1ResultSummary?.isFileTest).toEqual(true);
+    expect(test1ResultSummary?.isFileTest && test1ResultSummary.details).toBeDefined();
 
-    const test2ResultsSummary = resultsSummary.testResultSummaries.find(
-      (testResultsSummary) => testResultsSummary.name === 'test 2'
-    );
-    expect(test2ResultsSummary).not.toBeDefined();
+    const test2ResultSummary = resultsSummary.resultSummaries.find((resultSummary) => resultSummary.name === 'test 2');
+    expect(test2ResultSummary).not.toBeDefined();
 
-    const test3ResultsSummary = resultsSummary.testResultSummaries.find(
-      (testResultsSummary) => testResultsSummary.name === 'test 3'
-    );
-    expect(test3ResultsSummary).not.toBeDefined();
+    const test3ResultSummary = resultsSummary.resultSummaries.find((resultSummary) => resultSummary.name === 'test 3');
+    expect(test3ResultSummary).not.toBeDefined();
 
     await cleanup();
   });

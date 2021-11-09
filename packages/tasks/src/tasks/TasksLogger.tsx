@@ -9,7 +9,7 @@ import { useTimer } from './useTimer';
 /**
  * @public `props` type for {@link BettererTasksLogger | `<BettererTasksLogger/>`}.
  */
-export type BettererTasksLoggerProps = {
+export interface BettererTasksLoggerProps {
   /**
    * Whether the Ink renderer instance should quit after the tasks are complete.
    *
@@ -32,7 +32,7 @@ export type BettererTasksLoggerProps = {
    * An optional callback function that is called whenever a set of tasks are completed.
    */
   done?: BettererTasksDone;
-};
+}
 
 /**
  * @public Ink component for rendering the output of a set of {@link BettererTask | `BettererTask`s}.

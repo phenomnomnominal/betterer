@@ -28,26 +28,28 @@ export type BettererFilePaths = ReadonlyArray<BettererFilePath>;
 export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
 
 export type BettererFileHashMap = Record<string, string>;
+
 export type BettererTestCacheMap = Record<string, BettererFileHashMap>;
-export type BettererCacheFile = {
+
+export interface BettererCacheFile {
   version: number;
   testCache: BettererTestCacheMap;
-};
+}
 
-export type BettererFileCache = {
+export interface BettererFileCache {
   clearCache(testName: string): void;
   filterCached(testName: string, filePaths: BettererFilePaths): BettererFilePaths;
   enableCache(cachePath: string): Promise<void>;
   updateCache(testName: string, filePaths: BettererFilePaths): void;
   writeCache(): Promise<void>;
-};
+}
 
-export type BettererVersionControl = BettererFileCache & {
+export interface BettererVersionControl extends BettererFileCache {
   add(resultsPath: string): Promise<void>;
   getFilePaths(): BettererFilePaths;
   filterIgnored(filePaths: BettererFilePaths): BettererFilePaths;
   sync(): Promise<void>;
-};
+}
 
 export type BettererVersionControlWorkerModule = WorkerRequireModule<typeof import('./version-control-worker')>;
 export type BettererVersionControlWorker =
@@ -87,7 +89,7 @@ export type BettererVersionControlWorker =
  * };
  * ```
  */
-export type BettererFileResolver = {
+export interface BettererFileResolver {
   /**
    * The direction from which all file paths are resolved.
    */
@@ -110,4 +112,4 @@ export type BettererFileResolver = {
    * @returns the given paths filtered for relevance based on the `includes` and `excludes` of the {@link @betterer/betterer#BettererFileResolver | `BettererFileResolver`}.
    */
   validate(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
-};
+}
