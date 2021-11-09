@@ -129,11 +129,11 @@ export type BettererFileBase = {
 };
 
 // @public
-export interface BettererFileDiff {
-    existing?: BettererFileIssuesSerialised;
+export type BettererFileDiff = {
     fixed?: BettererFileIssuesSerialised;
+    existing?: BettererFileIssuesSerialised;
     new?: BettererFileIssuesSerialised;
-}
+};
 
 // @public
 export type BettererFileGlobs = ReadonlyArray<string | ReadonlyArray<string>>;
@@ -175,7 +175,6 @@ export type BettererFileResolver = {
 // @public
 export type BettererFilesDiff = Record<string, BettererFileDiff>;
 
-// Warning: (tsdoc-undefined-tag) The TSDoc tag "@params" is not defined in this configuration
 // Warning: (ae-forgotten-export) The symbol "BettererFileTestBase" needs to be exported by the entry point index.d.ts
 //
 // @public
@@ -240,9 +239,7 @@ export type BettererOptionsIgnores = Array<string>;
 // @public
 export type BettererOptionsIncludes = Array<string> | string;
 
-// Warning: (ae-missing-release-tag) "BettererOptionsMerge" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererOptionsMerge = Partial<{
     contents: Array<string>;
     cwd: string;
@@ -277,8 +274,6 @@ export type BettererOptionsResults = Partial<{
 // @public
 export type BettererOptionsRunner = BettererOptionsBase;
 
-// Warning: (tsdoc-reference-selector-missing-parens) Syntax error in declaration reference: the member selector must be enclosed in parentheses
-// Warning: (tsdoc-reference-selector-missing-parens) Syntax error in declaration reference: the member selector must be enclosed in parentheses
 // Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsStart" is marked as @public, but its signature references "BettererOptionsStartCI" which is marked as @internal
 // Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsStart" is marked as @public, but its signature references "BettererOptionsStartDefault" which is marked as @internal
 // Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsStart" is marked as @public, but its signature references "BettererOptionsStartPrecommit" which is marked as @internal
@@ -511,10 +506,6 @@ export type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => M
 // @public
 export type BettererTestNames = ReadonlyArray<string>;
 
-// Warning: (tsdoc-param-tag-missing-hyphen) The @typeParam block should be followed by a parameter name and then a hyphen
-// Warning: (tsdoc-param-tag-missing-hyphen) The @typeParam block should be followed by a parameter name and then a hyphen
-// Warning: (tsdoc-param-tag-missing-hyphen) The @typeParam block should be followed by a parameter name and then a hyphen
-//
 // @public
 export type BettererTestOptions<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> = BettererTestOptionsBasic | BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType>;
 
