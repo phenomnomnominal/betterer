@@ -32,7 +32,7 @@ module.exports = {
       (testResultSummary) => testResultSummary.name === 'test'
     );
 
-    const testResult = !testResultSummary?.isFileTest && testResultSummary?.summary;
+    const testResult = !testResultSummary?.isFileTest && testResultSummary?.details;
 
     expect(testResult).toBe('1\n');
 
