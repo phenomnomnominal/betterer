@@ -37,7 +37,7 @@ module.exports = {
 
     expect(test1ResultsSummary).toBeDefined();
     expect(test1ResultsSummary?.isFileTest).toEqual(true);
-    expect(test1ResultsSummary?.isFileTest && test1ResultsSummary.summary).toBeDefined();
+    expect(test1ResultsSummary?.isFileTest && test1ResultsSummary.details).toBeDefined();
 
     const test2ResultsSummary = resultsSummary.testResultSummaries.find(
       (testResultsSummary) => testResultsSummary.name === 'test 2'
