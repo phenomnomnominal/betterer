@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it(`should work when a test is the same`, async () => {
-    const { paths, logs, readFile, cleanup, runNames } = await createFixture(
+    const { paths, logs, readFile, cleanup, testNames } = await createFixture(
       'same-result',
       {
         '.betterer.js': `
@@ -31,11 +31,11 @@ module.exports = {
 
     const firstRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(firstRun.new)).toEqual(['test']);
+    expect(testNames(firstRun.new)).toEqual(['test']);
 
     const secondRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(secondRun.same)).toEqual(['test']);
+    expect(testNames(secondRun.same)).toEqual(['test']);
 
     expect(logs).toMatchSnapshot();
 

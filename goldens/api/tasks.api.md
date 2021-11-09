@@ -14,9 +14,9 @@ import { FC } from 'react';
 export const BettererErrorLog: FC<BettererErrorLogProps>;
 
 // @public
-export type BettererErrorLogProps = {
+export interface BettererErrorLogProps {
     error: Error | BettererError;
-};
+}
 
 // @public
 export const BettererLogo: FC;
@@ -28,10 +28,10 @@ export type BettererTask = (logger: BettererLogger) => Promise<string | void>;
 export const BettererTaskLogger: FC<BettererTaskLoggerProps>;
 
 // @public
-export type BettererTaskLoggerProps = {
+export interface BettererTaskLoggerProps {
     name: string;
     task: BettererTask;
-};
+}
 
 // @public
 export type BettererTasksDone = () => void;
@@ -40,21 +40,26 @@ export type BettererTasksDone = () => void;
 export const BettererTasksLogger: FC<BettererTasksLoggerProps>;
 
 // @public
-export type BettererTasksLoggerProps = {
+export interface BettererTasksLoggerProps {
+    done?: BettererTasksDone;
     exit?: boolean;
     name: string;
     update?: BettererTasksStatusUpdate;
-    done?: BettererTasksDone;
-};
+}
 
 // @public
-export type BettererTasksState = {
-    running: number;
+export interface BettererTasksState {
+    // (undocumented)
     done: number;
-    errors: number;
-    startTime: number;
+    // (undocumented)
     endTime: number | null;
-};
+    // (undocumented)
+    errors: number;
+    // (undocumented)
+    running: number;
+    // (undocumented)
+    startTime: number;
+}
 
 // @public
 export type BettererTasksStatusUpdate = (state: BettererTasksState) => string;

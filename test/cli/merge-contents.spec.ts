@@ -1,4 +1,4 @@
-import { mergeΔ } from '@betterer/cli';
+import { merge__ } from '@betterer/cli';
 
 import { createFixture } from '../fixture';
 
@@ -6,7 +6,9 @@ const ARGV = ['node', './bin/betterer'];
 
 describe('betterer cli', () => {
   it('should merge the given contents', async () => {
-    const { paths, cleanup, readFile } = await createFixture('merge-contents');
+    const { paths, cleanup, readFile } = await createFixture('merge-contents', {
+      '.betterer.results': ''
+    });
 
     const ours = `// BETTERER RESULTS V2.
 exports[\`test\`] = {
@@ -31,7 +33,7 @@ exports[\`test\`] = {
     const resultsPath = paths.results;
     const fixturePath = paths.cwd;
 
-    await mergeΔ(fixturePath, [...ARGV, ours, theirs]);
+    await merge__(fixturePath, [...ARGV, ours, theirs]);
 
     const merged = await readFile(resultsPath);
 

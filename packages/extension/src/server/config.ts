@@ -3,7 +3,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { RemoteWorkspace } from 'vscode-languageserver/node';
 
-type BettererExtensionConfig = {
+interface BettererExtensionConfig {
   cachePath: string;
   configPath: string;
   enable: boolean;
@@ -12,7 +12,7 @@ type BettererExtensionConfig = {
   tsconfigPath: string;
   debug: boolean;
   debugLogPath: string;
-};
+}
 
 export async function getEnabled(workspace: RemoteWorkspace): Promise<boolean> {
   const { enable } = await getConfig(workspace);

@@ -22,6 +22,7 @@ export {
   BettererProgress,
   BettererSerialise,
   BettererSerialiser,
+  BettererTestBase,
   BettererTestConstraint,
   BettererTestDeadline,
   BettererTestFunction,
@@ -29,5 +30,6 @@ export {
   BettererTestConfig,
   BettererTestOptions,
   BettererTestOptionsBasic,
-  BettererTestOptionsComplex
+  BettererTestOptionsComplex,
+  BettererTestNames
 } from './types';

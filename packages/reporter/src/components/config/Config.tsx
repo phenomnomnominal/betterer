@@ -5,10 +5,10 @@ import { Box, Text } from 'ink';
 import { EditConfig } from './EditConfig';
 
 export type ConfigEditField = 'filters' | 'ignores' | null;
-export type ConfigProps = {
+export interface ConfigProps {
   context: BettererContext;
   editField: ConfigEditField;
-};
+}
 
 export const Config: FC<ConfigProps> = function Config({ context, editField }) {
   const [filters, setFilters] = useState<string>(serialiseFilters(context.config));

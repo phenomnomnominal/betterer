@@ -1,12 +1,12 @@
 import { Module } from 'module';
 
-export type ESModule<T> = {
+interface ESModule<T> {
   default: T;
-};
+}
 
-export type ModulePrivate = {
+interface ModulePrivate {
   _compile(source: string, path: string): void;
-};
+}
 
 let count = 0;
 export function requireText<T>(text: string): T {

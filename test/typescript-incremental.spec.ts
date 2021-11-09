@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should work with an incremental build', async () => {
-    const { paths, logs, resolve, cleanup, readFile, writeFile, runNames } = await createFixture(
+    const { paths, logs, resolve, cleanup, readFile, writeFile, testNames } = await createFixture(
       'typescript-incremental',
       {
         '.betterer.ts': `
@@ -57,7 +57,7 @@ export function bar (a: number, b: number, c:number) {
     const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
     const newTime = new Date().getTime() - newStart;
 
-    expect(runNames(newTestRun.new)).toEqual(['typescript']);
+    expect(testNames(newTestRun.new)).toEqual(['typescript']);
 
     const buildInfo = await readFile(buildInfoPath);
 
@@ -69,7 +69,7 @@ export function bar (a: number, b: number, c:number) {
 
     expect(sameTime).toBeLessThan(newTime);
 
-    expect(runNames(sameTestRun.same)).toEqual(['typescript']);
+    expect(testNames(sameTestRun.same)).toEqual(['typescript']);
 
     expect(logs).toMatchSnapshot();
 

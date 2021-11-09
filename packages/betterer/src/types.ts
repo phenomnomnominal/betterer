@@ -4,8 +4,8 @@ import { BettererResultsFileΩ } from './results';
 
 export type MaybeAsync<T> = T | Promise<T>;
 
-export type BettererGlobals = {
+export interface BettererGlobals {
   config: BettererConfig;
   resultsFile: BettererResultsFileΩ;
   versionControl: BettererVersionControlWorker;
-};
+}

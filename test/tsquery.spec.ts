@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the existence of TSQuery matches', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture('tsquery', {
+    const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture('tsquery', {
       '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 
@@ -24,17 +24,17 @@ export default {
 
     const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(newTestRun.new)).toEqual(['tsquery']);
+    expect(testNames(newTestRun.new)).toEqual(['tsquery']);
 
     const sameTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(sameTestRun.same)).toEqual(['tsquery']);
+    expect(testNames(sameTestRun.same)).toEqual(['tsquery']);
 
     await writeFile(indexPath, `console.log('foo');\nconsole.log('foo');`);
 
     const worseTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(worseTestRun.worse)).toEqual(['tsquery']);
+    expect(testNames(worseTestRun.worse)).toEqual(['tsquery']);
 
     const result = await readFile(resultsPath);
 
@@ -44,11 +44,11 @@ export default {
 
     const betterTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(betterTestRun.better)).toEqual(['tsquery']);
+    expect(testNames(betterTestRun.better)).toEqual(['tsquery']);
 
     const completedTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(completedTestRun.completed)).toEqual(['tsquery']);
+    expect(testNames(completedTestRun.completed)).toEqual(['tsquery']);
 
     expect(logs).toMatchSnapshot();
 

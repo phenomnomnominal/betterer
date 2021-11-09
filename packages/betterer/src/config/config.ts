@@ -1,23 +1,21 @@
 import { BettererError } from '@betterer/errors';
 import assert from 'assert';
-import { promises as fs } from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 
-import { BettererVersionControlWorker } from '../fs';
+import { BettererVersionControlWorker, read } from '../fs';
 import { registerExtensions } from './register';
-import { loadReporters, loadSilentReporter } from '../reporters';
+import { BettererReporter, loadReporters, loadSilentReporter } from '../reporters';
 import { isBoolean, isNumber, isRegExp, isString, isUndefined } from '../utils';
 import {
   BettererConfig,
   BettererConfigBase,
-  BettererConfigRunner,
+  BettererConfigMerge,
   BettererConfigStart,
   BettererConfigWatch,
   BettererOptionsBase,
+  BettererOptionsMerge,
   BettererOptionsOverride,
-  BettererOptionsReporter,
-  BettererOptionsRunner,
   BettererOptionsStart,
   BettererOptionsWatch,
   BettererWorkerRunConfig
@@ -28,10 +26,9 @@ const TOTAL_CPUS = os.cpus().length;
 export async function createInitialConfig(options: unknown = {}): Promise<BettererConfig> {
   const baseConfig = createInitialBaseConfig(options as BettererOptionsBase);
   const startConfig = createStartConfig(options as BettererOptionsStart);
-  const runnerConfig = createRunnerConfig(options as BettererOptionsRunner);
   const watchConfig = createWatchConfig(options as BettererOptionsWatch);
 
-  const config = { ...baseConfig, ...runnerConfig, ...startConfig, ...watchConfig };
+  const config = { ...baseConfig, ...startConfig, ...watchConfig };
 
   modeConfig(config);
 
@@ -64,7 +61,7 @@ export function overrideConfig(config: BettererConfig, optionsOverride: Betterer
   }
 
   if (optionsOverride.reporters) {
-    const reporters = toArray<BettererOptionsReporter>(optionsOverride.reporters);
+    const reporters = toArray<string | BettererReporter>(optionsOverride.reporters);
     config.reporter = loadReporters(reporters, config.cwd);
   }
 }
@@ -75,7 +72,7 @@ function createInitialBaseConfig(options: BettererOptionsBase): BettererConfigBa
   const cachePath = options.cachePath || './.betterer.cache';
   const cwd = options.cwd || process.cwd();
   const filters = toRegExps(toArray<string | RegExp>(options.filters));
-  const reporters = toArray<BettererOptionsReporter>(options.reporters);
+  const reporters = toArray<string | BettererReporter>(options.reporters);
   const silent = isDebug || options.silent || false;
   const reporter = silent ? loadSilentReporter() : loadReporters(reporters, cwd);
   const resultsPath = options.resultsPath || './.betterer.results';
@@ -123,6 +120,20 @@ async function createFinalBaseConfig(
   await versionControl.init(config.configPaths);
 }
 
+export async function createMergeConfig(options: BettererOptionsMerge): Promise<BettererConfigMerge> {
+  const contents = toArray(options.contents);
+  const cwd = options.cwd || process.cwd();
+  const resultsPath = path.resolve(cwd, options.resultsPath || './.betterer.results');
+
+  validateStringArray({ contents });
+  await validateFilePath({ resultsPath });
+
+  return {
+    contents,
+    resultsPath: path.resolve(cwd, resultsPath)
+  };
+}
+
 export async function createWorkerConfig(config: BettererWorkerRunConfig): Promise<BettererConfig> {
   await registerExtensions(config.tsconfigPath);
 
@@ -130,16 +141,6 @@ export async function createWorkerConfig(config: BettererWorkerRunConfig): Promi
     ...config,
     reporter: loadSilentReporter(),
     workers: 1
-  };
-}
-
-function createRunnerConfig(options: BettererOptionsRunner): BettererConfigRunner {
-  const ignores = toArray<string>(options.ignores);
-
-  validateStringArray({ ignores });
-
-  return {
-    ignores
   };
 }
 
@@ -169,11 +170,14 @@ function createStartConfig(options: BettererOptionsStart): BettererConfigStart {
 }
 
 function createWatchConfig(options: BettererOptionsWatch): BettererConfigWatch {
+  const ignores = toArray<string>(options.ignores);
   const watch = options.watch || false;
 
+  validateStringArray({ ignores });
   validateBool({ watch });
 
   return {
+    ignores,
     watch
   };
 }
@@ -272,7 +276,7 @@ async function validateFilePath<Config, PropertyName extends keyof Config>(confi
   const [propertyName] = Object.keys(config);
   const value = config[propertyName as PropertyName];
   validate(
-    value == null || (isString(value) && (await fs.readFile(value))),
+    value == null || (isString(value) && (await read(value)) !== null),
     `"${propertyName.toString()}" must be a path to a file. ${recieved(value)}`
   );
 }

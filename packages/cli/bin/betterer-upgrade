@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../dist/upgrade').upgradeΔ(process.cwd(), process.argv);
+require('../dist/upgrade').upgrade__(process.cwd(), process.argv);

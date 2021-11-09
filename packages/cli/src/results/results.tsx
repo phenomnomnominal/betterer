@@ -7,9 +7,9 @@ import { Box, Text, useApp } from 'ink';
 import { GetResultsSummaryWorker } from './types';
 import { BettererLogo } from '@betterer/tasks';
 
-export type ResultsProps = {
+export interface ResultsProps {
   options: BettererOptionsResults;
-};
+}
 
 export const Results: FC<ResultsProps> = function Results({ options }) {
   const [resultsSummary, setResultsSummary] = useState<BettererResultsSummary | null>(null);
@@ -36,14 +36,14 @@ export const Results: FC<ResultsProps> = function Results({ options }) {
       <BettererLogo />
       {resultsSummary && (
         <Box flexDirection="column">
-          {resultsSummary.testResultSummaries.map((testResultSummary) => {
-            if (testResultSummary.isFileTest) {
+          {resultsSummary.resultSummaries.map((resultSummary) => {
+            if (resultSummary.isFileTest) {
               return (
-                <Box key={testResultSummary.name} flexDirection="column">
-                  <Text color="yellowBright">{`${testResultSummary.name}: `}</Text>
+                <Box key={resultSummary.name} flexDirection="column">
+                  <Text color="yellowBright">{`${resultSummary.name}: `}</Text>
                   <Box flexDirection="column" paddingTop={1} paddingLeft={2}>
-                    {Object.keys(testResultSummary.summary).map((filePath) => {
-                      const issues = testResultSummary.summary[filePath];
+                    {Object.keys(resultSummary.details).map((filePath) => {
+                      const issues = resultSummary.details[filePath];
                       return issues.map((issue, index) => (
                         <Box key={index}>
                           <Text>{issue.message}</Text>
@@ -61,9 +61,9 @@ export const Results: FC<ResultsProps> = function Results({ options }) {
               );
             }
             return (
-              <Box key={testResultSummary.name}>
-                <Text color="yellowBright">{`${testResultSummary.name}: `}</Text>
-                <Text>{testResultSummary.summary}</Text>
+              <Box key={resultSummary.name}>
+                <Text color="yellowBright">{`${resultSummary.name}: `}</Text>
+                <Text>{resultSummary.details}</Text>
               </Box>
             );
           })}

@@ -3,10 +3,10 @@ import { BettererTasksDone } from '@betterer/tasks';
 
 import { BettererReporterAction } from './state';
 
-export type BettererReporterRenderer = {
+export interface BettererReporterRenderer {
   render: (action?: BettererReporterAction, done?: BettererTasksDone) => void;
   stop: () => void;
-};
+}
 
 export type BettererReporterRun = BettererRun & {
   lifecycle: Promise<BettererRunSummary>;

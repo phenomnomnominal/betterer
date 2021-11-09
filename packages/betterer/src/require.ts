@@ -1,6 +1,6 @@
-type ESModule<T> = {
+interface ESModule<T> {
   default: T;
-};
+}
 
 export function requireUncached<T>(requirePath: string): T {
   delete require.cache[require.resolve(requirePath)];

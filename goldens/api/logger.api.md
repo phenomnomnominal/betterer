@@ -6,84 +6,83 @@
 
 import { DiffOptions } from 'jest-diff';
 
-// Warning: (ae-missing-release-tag) "BettererLog" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererLog = {
+// @internal
+export interface BettererLog {
+    // (undocumented)
     code?: BettererLoggerCodeInfo;
+    // (undocumented)
     debug?: BettererLoggerMessage;
+    // (undocumented)
     error?: BettererLoggerMessage;
+    // (undocumented)
     info?: BettererLoggerMessage;
+    // (undocumented)
     progress?: BettererLoggerMessage;
+    // (undocumented)
     success?: BettererLoggerMessage;
+    // (undocumented)
     warn?: BettererLoggerMessage;
-};
+}
 
-// Warning: (ae-missing-release-tag) "BettererLogCode" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererLogCode = (codeInfo: BettererLoggerCodeInfo) => Promise<void>;
 
-// Warning: (ae-missing-release-tag) "BettererLogger" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererLogger = {
+// @public
+export interface BettererLogger {
+    // (undocumented)
     code: BettererLogCode;
+    // (undocumented)
     debug: BettererLogMessage;
+    // (undocumented)
     error: BettererLogMessage;
+    // (undocumented)
     info: BettererLogMessage;
+    // (undocumented)
     progress: BettererLogMessage;
+    // (undocumented)
     success: BettererLogMessage;
+    // (undocumented)
     warn: BettererLogMessage;
-};
+}
 
-// Warning: (ae-missing-release-tag) "BettererLoggerCodeInfo" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type BettererLoggerCodeInfo = {
-    message: string;
-    filePath: string;
-    fileText: string;
-    line: number;
+// @public
+export interface BettererLoggerCodeInfo {
+    // (undocumented)
     column: number;
+    // (undocumented)
+    filePath: string;
+    // (undocumented)
+    fileText: string;
+    // (undocumented)
     length: number;
-};
+    // (undocumented)
+    line: number;
+    // (undocumented)
+    message: string;
+}
 
-// Warning: (ae-missing-release-tag) "BettererLoggerMessage" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererLoggerMessage = string;
 
-// Warning: (ae-missing-release-tag) "BettererLoggerMessages" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererLoggerMessages = Array<BettererLoggerMessage>;
 
-// Warning: (ae-missing-release-tag) "BettererLogMessage" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type BettererLogMessage = (...messages: BettererLoggerMessages) => Promise<void>;
 
-// Warning: (ae-missing-release-tag) "BettererLogs" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @internal
 export type BettererLogs = Array<BettererLog>;
 
-// Warning: (ae-internal-missing-underscore) The name "codeΔ" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
-export function codeΔ(codeInfo: BettererLoggerCodeInfo): string;
+export function code__(codeInfo: BettererLoggerCodeInfo): string;
 
-// Warning: (ae-internal-missing-underscore) The name "diffStringsΔ" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
-export function diffStringsΔ(a: string, b: string, diffOptions: DiffOptions): string;
+export function diff__<T>(a: T, b: T, diffOptions: DiffOptions): string | null;
 
-// Warning: (ae-internal-missing-underscore) The name "diffΔ" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
-export function diffΔ<T>(a: T, b: T, diffOptions: DiffOptions): string | null;
+export function diffStrings__(a: string, b: string, diffOptions: DiffOptions): string;
 
-// (No @packageDocumentation comment for this package)
+// @internal
+export function log__(logs: BettererLogs, logger: BettererLogger): Promise<void>;
 
 ```

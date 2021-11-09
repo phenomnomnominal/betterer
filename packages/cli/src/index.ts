@@ -1,17 +1,22 @@
-export { ciΔ } from './ci';
-export { cliΔ } from './cli';
-export { initΔ } from './init';
-export { mergeΔ } from './merge';
-export { precommitΔ } from './precommit';
-export { startΔ } from './start';
-export { resultsΔ } from './results';
-export { upgradeΔ } from './upgrade';
-export { watchΔ } from './watch';
-export {
-  BettererCLIEnvConfig,
-  BettererCLIConfig,
-  BettererCLIInitConfig,
-  BettererCLIMergeConfig,
-  BettererCLIArguments,
-  BettererPackageJSON
-} from './types';
+/**
+ * {@link https://www.npmjs.com/package/@betterer/cli | `@betterer/cli` }
+ *
+ * CLI module for {@link https://github.com/phenomnomnominal/betterer | **Betterer**}.
+ *
+ * 🚨 THIS PACKAGE SHOULD ONLY BE USED WITHIN THE BETTERER MONOREPO 🚨
+ *
+ * If you want to run **Betterer** programatically, you should use {@link https://www.npmjs.com/package/@betterer/betterer | @betterer/betterer}!
+ *
+ * @packageDocumentation
+ */
+
+export { ci__ } from './ci';
+export { cli__ } from './cli';
+export { init__ } from './init';
+export { merge__ } from './merge';
+export { precommit__ } from './precommit';
+export { start__ } from './start';
+export { results__ } from './results';
+export { upgrade__ } from './upgrade';
+export { watch__ } from './watch';
+export { BettererCLIArguments, BettererPackageJSON } from './types';

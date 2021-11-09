@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should mark a test as expired when it is past its deadline', async () => {
-    const { logs, paths, readFile, cleanup, runNames } = await createFixture('deadline-test-expired', {
+    const { logs, paths, readFile, cleanup, testNames } = await createFixture('deadline-test-expired', {
       '.betterer.js': `
 const { BettererTest } = require('@betterer/betterer');
 const { bigger } = require('@betterer/constraints');
@@ -32,7 +32,7 @@ module.exports = {
 
     const firstRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(firstRun.expired)).toEqual(['test']);
+    expect(testNames(firstRun.expired)).toEqual(['test']);
 
     expect(logs).toMatchSnapshot();
 

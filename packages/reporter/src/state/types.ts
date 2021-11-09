@@ -3,12 +3,12 @@ import { BettererTasksDone } from '@betterer/tasks';
 
 import { BettererReporterAction } from './actions';
 
-export type BettererReporterState = {
+export interface BettererReporterState {
   context: BettererContext;
   contextSummary?: BettererContextSummary;
   done?: BettererTasksDone;
   suite?: BettererSuite;
   suiteSummary?: BettererSuiteSummary;
-};
+}
 
 export type BettererReporterDispatch = (action?: BettererReporterAction) => BettererReporterState;

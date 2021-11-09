@@ -6,13 +6,13 @@ import { Box } from 'ink';
 
 import { CreateTestFileWorker, EnableAutomergeWorker, UpdatePackageJSONWorker } from './types';
 
-export type InitProps = {
+export interface InitProps {
   automerge: boolean;
   configPath: string;
   cwd: string;
   resultsPath: string;
   ts: boolean;
-};
+}
 
 export const Init: FC<InitProps> = function Init({ automerge, cwd, configPath, resultsPath, ts }) {
   const runCreateTestFile = useCallback(

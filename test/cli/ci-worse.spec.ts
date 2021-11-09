@@ -1,4 +1,4 @@
-import { startΔ, ciΔ } from '@betterer/cli';
+import { start__, ci__ } from '@betterer/cli';
 
 import { createFixture } from '../fixture';
 
@@ -39,11 +39,11 @@ export default {
     const fixturePath = paths.cwd;
     const indexPath = resolve('./src/index.ts');
 
-    await startΔ(fixturePath, ARGV, false);
+    await start__(fixturePath, ARGV, false);
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one * a);\nconsole.log(a * one);`);
 
-    const suiteSummary = await ciΔ(fixturePath, ARGV);
+    const suiteSummary = await ci__(fixturePath, ARGV);
 
     expect(suiteSummary.changed).toHaveLength(1);
     expect(suiteSummary.worse).toHaveLength(1);

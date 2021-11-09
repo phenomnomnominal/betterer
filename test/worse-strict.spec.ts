@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should stay worse if an update is not allowed', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile, runNames } = await createFixture('worse-strict', {
+    const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture('worse-strict', {
       '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 
@@ -24,14 +24,14 @@ export default {
 
     const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(runNames(newTestRun.new)).toEqual(['test']);
+    expect(testNames(newTestRun.new)).toEqual(['test']);
 
     await writeFile(indexPath, `console.log('foo');\nconsole.log('foo');`);
 
     // @ts-expect-error `strict` and `true` are mutually exclusive, but could be set via JS:
     const blockedTestRun = await betterer({ configPaths, resultsPath, strict: true, update: true, workers: false });
 
-    expect(runNames(blockedTestRun.worse)).toEqual(['test']);
+    expect(testNames(blockedTestRun.worse)).toEqual(['test']);
 
     const result = await readFile(resultsPath);
 

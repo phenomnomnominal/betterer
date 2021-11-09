@@ -1,6 +1,6 @@
 import React, { FC, memo, useEffect } from 'react';
 
-import { BettererLoggerCodeInfo, codeΔ } from '@betterer/logger';
+import { BettererLoggerCodeInfo, code__ } from '@betterer/logger';
 import chalk from 'chalk';
 import { Box, Text } from 'ink';
 
@@ -11,22 +11,22 @@ import { BettererTaskLog, BettererTask } from './types';
 import { useTasks } from './useTasksState';
 
 /**
- * @public `props` type for {@link BettererTaskLogger | `<BettererTaskLogger/>`}
+ * @public `props` type for {@link BettererTaskLogger | `<BettererTaskLogger/>`}.
  */
-export type BettererTaskLoggerProps = {
+export interface BettererTaskLoggerProps {
   /**
-   * The name of the task that is shown to the user
+   * The name of the task that is shown to the user.
    */
   name: string;
   /**
-   * The task to be run
+   * The task to be run.
    */
   task: BettererTask;
-};
+}
 
 /**
  * @public Ink component for rendering the output of a single {@link BettererTask | `BettererTask`}.
- * The output will update based on the current status of the task. Once the task is finished, it will
+ * The output will update based on the status of the task. Once the task is finished, it will
  * output any logging and any errors (if the task failed).
  */
 export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function BettererTaskLogger(props) {
@@ -51,7 +51,7 @@ export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function Bet
       }
 
       async function logCode(codeInfo: BettererLoggerCodeInfo): Promise<void> {
-        const codeFrame = codeΔ(codeInfo);
+        const codeFrame = code__(codeInfo);
         await taskApi.log(['💻', 'whiteBright', codeFrame]);
       }
       async function logDebug(log: string): Promise<void> {
