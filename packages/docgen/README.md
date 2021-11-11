@@ -1,11 +1,9 @@
-[![Betterer](https://raw.githubusercontent.com/phenomnomnominal/betterer/master/website/static/img/header.png)](https://phenomnomnominal.github.io/betterer/)
+[![Betterer](https://raw.githubusercontent.com/phenomnomnominal/betterer/master/docs/logo.png)](https://phenomnomnominal.github.io/betterer/)
 
-# `@betterer/constraints`
+# `doc-plugin-betterer`
 
-[![npm version](https://img.shields.io/npm/v/@betterer/constraints.svg)](https://www.npmjs.com/package/@betterer/constraints)
+[API-Documenter](https://rushstack.io/pages/api/api-documenter/) plugin to help organise documentation so they work with [Docusaurus](https://docusaurus.io/).
 
-Simple constraint functions for use with [**`Betterer`**](https://github.com/phenomnomnominal/betterer).
+## Usage
 
-## Docs
-
-[Check out the docs at `phenomnomnominal.github.io/betterer`! 🎉](https://phenomnomnominal.github.io/betterer/docs/constraints)
+> ## 🚨 THIS PACKAGE SHOULD ONLY BE USED WITHIN THE BETTERER MONOREPO 🚨
