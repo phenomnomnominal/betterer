@@ -24,9 +24,9 @@ import { DiagnosticWithLocation, flattenDiagnosticMessageText } from 'typescript
  * };
  * ```
  *
- * @param configFilePath - the relative path to a tsconfig.json file
- * @param extraCompilerOptions - addition {@link https://angular.io/guide/angular-compiler-options | **Angular** compiler configuration }
- * to enable
+ * @param configFilePath - The relative path to a tsconfig.json file.
+ * @param extraCompilerOptions - Additional {@link https://angular.io/guide/angular-compiler-options | **Angular** compiler configuration }
+ * to enable.
  *
  * @throws {@link @betterer/errors#BettererError | `BettererError` }
  * Will throw if the user doesn't pass `configFilePath` or `extraCompilerOptions`.

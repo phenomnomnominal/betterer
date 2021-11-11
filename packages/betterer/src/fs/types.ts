@@ -3,9 +3,9 @@ import { WorkerRequireModule, WorkerRequireModuleAsync } from '@phenomnomnominal
 /**
  * @public An array of {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob }
  * patterns that match file paths that will be included in an operation. All globs should be
- * relative to the current {@link @betterer/betterer#BettererConfigBase.cwd | `BettererConfigBase.cwd`}.
+ * relative to the current {@link @betterer/betterer#BettererConfig.cwd | `BettererConfig.cwd`}.
  *
- * Can contain nested arrays, which will be {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat | flattened}.
+ * @remarks - Can contain nested arrays, which will be {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat | flattened}.
  */
 export type BettererFileGlobs = ReadonlyArray<string | ReadonlyArray<string>>;
 
@@ -23,7 +23,7 @@ export type BettererFilePaths = ReadonlyArray<BettererFilePath>;
  * @public An array of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expressions }
  * that match file paths that will be excluded from an operation.
  *
- * Can contain nested arrays, which will be {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat | flattened}.
+ * @remarks - Can contain nested arrays, which will be {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat | flattened}.
  */
 export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
 
@@ -97,19 +97,19 @@ export interface BettererFileResolver {
   /**
    * Resolve a file path relative to the `baseDirectory`.
    *
-   * @param pathSegments - string path segments to resolve. Works the same was as {@link path#resolve | 'path.resolve()' }
+   * @param pathSegments - String path segments to resolve. Works the same was as {@link https://nodejs.org/api/path.html#pathresolvepaths | 'path.resolve()' }
    * but with `baseDirectory` as the first argument.
    *
-   * @returns the resolved path.
+   * @returns The resolved path.
    */
   resolve(...pathSegments: Array<string>): string;
   /**
    * Validate if some file paths are relevant for a test. Files can be included and excluded
    * via {@link @betterer/betterer#BettererFileTest.include | `BettererFileTest.include()`} and {@link @betterer/betterer#BettererFileTest.exclude | `BettererFileTest.exclude()`}.
    *
-   * @param filePaths - an array of paths to validate.
+   * @param filePaths - An array of paths to validate.
    *
-   * @returns the given paths filtered for relevance based on the `includes` and `excludes` of the {@link @betterer/betterer#BettererFileResolver | `BettererFileResolver`}.
+   * @returns The given paths filtered for relevance based on the `includes` and `excludes` of the {@link @betterer/betterer#BettererFileResolver | `BettererFileResolver`}.
    */
   validate(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
 }

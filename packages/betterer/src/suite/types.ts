@@ -7,7 +7,9 @@ import { BettererTestNames } from '../test';
  * {@link @betterer/betterer#BettererSuiteSummary | `BettererSuiteSummary`} when the test suite is
  * completed.
  *
- * @remarks You can get the `BettererSuite` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
+ * @remarks The internal implementation of `BettererSuite` is responsible for a lot more than
+ * this interface suggests, but we want to minimise the public API surface as much as possible.
+ * You can get the `BettererSuite` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
  * interface.
  *
  * @example
@@ -26,8 +28,8 @@ import { BettererTestNames } from '../test';
  */
 export interface BettererSuite {
   /**
-   * An array of file paths that will be tested. The file paths can be specified by the global {@link @betterer/betterer#BettererConfigStart.includes | `includes` }
-   * and {@link @betterer/betterer#BettererConfigStart.excludes | `excludes`} properties. Also used by
+   * An array of file paths that will be tested. The file paths can be specified by the global {@link @betterer/betterer#BettererConfig.includes | `includes` }
+   * and {@link @betterer/betterer#BettererConfig.excludes | `excludes`} properties. Also used by
    * watch mode to target individual files.
    */
   readonly filePaths: BettererFilePaths;

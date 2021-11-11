@@ -125,8 +125,8 @@ export interface BettererConfigStart {
   precommit: boolean;
   /**
    * When `true`, {@link https://phenomnomnominal.github.io/betterer/docs/running-betterer#strict-mode | strict mode }
-   * is enabled. In strict mode, **Betterer** will force `update` to be `false` and will not show
-   * the message reminding the user about update mode.
+   * is enabled. In strict mode, **Betterer** will force `update` to be `false` and will not show the message
+   * reminding the user about update mode.
    *
    * If `ci` or `precommit` is `true`, `strict` will be `false`. When `strict` is `true`, `update`
    * and `watch` will be `false`.
@@ -144,7 +144,7 @@ export interface BettererConfigStart {
 }
 
 /**
- * @internal This could change at any point! Please don't use!
+ * @public This could change at any point! Please don't use!
  *
  * Configuration for the **Betterer** watch mode.
  */
@@ -211,13 +211,12 @@ export type BettererOptionsReporters = Array<string | BettererReporter>;
  * @public Options for when you create a {@link @betterer/betterer#BettererResultsSummary | `BettererResultsSummary` }
  * via the {@link @betterer/betterer#results | `betterer.results()` API}.
  *
- * The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
+ * @remarks The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
  */
 export interface BettererOptionsResults {
   /**
    * A path to a {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file }
-   * containing **Betterer** tests, or an array of them. All `configPaths` should be relative to
-   * the `cwd`.
+   * containing **Betterer** tests, or an array of them. All `configPaths` should be relative to the `cwd`.
    * @defaultValue `['./.betterer']`
    */
   configPaths?: BettererOptionsPaths;

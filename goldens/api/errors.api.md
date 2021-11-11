@@ -7,9 +7,7 @@
 // @public
 export class BettererError extends Error {
     constructor(message: string, ...details: BettererErrorDetails);
-    // (undocumented)
     details: BettererErrorDetails;
-    // (undocumented)
     isBettererError: boolean;
 }
 

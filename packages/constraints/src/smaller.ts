@@ -1,7 +1,8 @@
 import { BettererConstraintResult } from './constraint-result';
 
 /**
- * @public `Betterer` constraint function for when a numeric result is expected to get smaller.
+ * @public `Betterer` {@link @betterer/betterer#BettererTestConstraint | constraint function} for
+ * when a numeric result is expected to get smaller.
  *
  * @example
  * ```typescript
@@ -12,6 +13,9 @@ import { BettererConstraintResult } from './constraint-result';
  * smaller(1, 2); // better
  * smaller(2, 2); // same
  * ```
+ *
+ * @param result - Result from the current test run.
+ * @param expected - Expected result from the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
  */
 export function smaller(result: number, expected: number): BettererConstraintResult {
   if (result === expected) {

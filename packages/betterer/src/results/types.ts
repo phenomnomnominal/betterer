@@ -77,17 +77,18 @@ export interface BettererTestResultSummary {
 }
 
 /**
- * @public The summary of the result of a {@link @betterer/betterer#BettererTest | `BettererTest`} or {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}.
+ * @public The summary of the result of a {@link @betterer/betterer#BettererTest | `BettererTest`}
+ * or {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}.
  */
 export type BettererResultSummary = BettererTestResultSummary | BettererFileTestResultSummary;
 
 /**
- * @public The result of a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}. A
- * mapping from the path to a file to an array of {@link @betterer/betterer#BettererFileIssues | `BettererFileIssues`}.
+ * @public The summarised result of a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}.
+ * A mapping from the path to a file to an array of {@link @betterer/betterer#BettererFileIssues | `BettererFileIssues`}.
  */
 export type BettererFileTestResultSummaryDetails = Record<string, BettererFileIssues>;
 
 /**
- * @public The printed result of a {@link @betterer/betterer#BettererTest | `BettererTest`}.
+ * @public The summarised result of a {@link @betterer/betterer#BettererTest | `BettererTest`}.
  */
 export type BettererTestResultSummaryDetails = string;

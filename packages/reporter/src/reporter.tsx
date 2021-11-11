@@ -10,7 +10,7 @@ import { BettererReporterRenderer } from './types';
 import { BettererSuite } from '@betterer/betterer/src/suite';
 
 /**
- * @public the default {@link @betterer/betterer#BettererReporter | `BettererReporter`}.
+ * @public The default {@link @betterer/betterer#BettererReporter | `BettererReporter`}.
  * Supports `betterer` and `betterer watch` modes.
  *
  * @remarks The reporter is implemented as an {@link https://github.com/vadimdemedes/ink | Ink } application

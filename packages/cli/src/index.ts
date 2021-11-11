@@ -1,6 +1,4 @@
 /**
- * {@link https://www.npmjs.com/package/@betterer/cli | `@betterer/cli` }
- *
  * CLI module for {@link https://github.com/phenomnomnominal/betterer | **Betterer**}.
  *
  * 🚨 THIS PACKAGE SHOULD ONLY BE USED WITHIN THE BETTERER MONOREPO 🚨

@@ -47,7 +47,9 @@ export type BettererDelta =
  * {@link @betterer/betterer#BettererRunSummary | `BettererRunSummary`} when the test run is
  * completed.
  *
- * @remarks A set of {@link @betterer/betterer#BettererRun | `BettererRun`s} make a {@link @betterer/betterer#BettererSuite | `BettererSuite`}.
+ * @remarks The internal implementation of `BettererRun` is responsible for a lot more than
+ * this interface suggests, but we want to minimise the public API surface as much as possible.
+ * A set of {@link @betterer/betterer#BettererRun | `BettererRun`s} make a {@link @betterer/betterer#BettererSuite | `BettererSuite`}.
  * You can get the `BettererRun` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
  * interface.
  *
@@ -82,7 +84,8 @@ export interface BettererRun {
   /**
    * An array of file paths that will be tested. Will be `null` if the test is not a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}.
    * If it is an empty array then all relevant files for the test (as defined by {@link @betterer/betterer#BettererFileTest.include | `BettererFileTest.include()`}
-   * and {@link @betterer/betterer#BettererFileTest.exclude | `BettererFileTest.exclude()`}) will be tested.
+   * and {@link @betterer/betterer#BettererFileTest.exclude | `BettererFileTest.exclude()`}) will
+   * be tested.
    */
   readonly filePaths: BettererFilePaths | null;
   /**

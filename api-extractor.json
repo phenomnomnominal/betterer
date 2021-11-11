@@ -11,7 +11,7 @@
 
   "docModel": {
     "enabled": true,
-    "apiJsonFilePath": "./website/data/json/<unscopedPackageName>.api.json"
+    "apiJsonFilePath": "./goldens/models/<unscopedPackageName>.api.json"
   },
 
   "dtsRollup": {

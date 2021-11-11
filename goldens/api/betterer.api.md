@@ -27,7 +27,6 @@ export namespace betterer {
 
 // Warning: (ae-incompatible-release-tags) The symbol "BettererConfig" is marked as @public, but its signature references "BettererConfigBase" which is marked as @internal
 // Warning: (ae-incompatible-release-tags) The symbol "BettererConfig" is marked as @public, but its signature references "BettererConfigStart" which is marked as @internal
-// Warning: (ae-incompatible-release-tags) The symbol "BettererConfig" is marked as @public, but its signature references "BettererConfigWatch" which is marked as @internal
 //
 // @public
 export interface BettererConfig extends BettererConfigBase, BettererConfigStart, BettererConfigWatch {
@@ -71,7 +70,7 @@ export interface BettererConfigStart {
     update: boolean;
 }
 
-// @internal
+// @public
 export interface BettererConfigWatch {
     ignores: BettererConfigIgnores;
     watch: boolean;
@@ -136,6 +135,8 @@ export interface BettererFileDiff {
     new?: BettererFileIssuesSerialised;
 }
 
+// Warning: (ae-unresolved-link) The @link reference could not be resolved: No member was found with name "cwd"
+//
 // @public
 export type BettererFileGlobs = ReadonlyArray<string | ReadonlyArray<string>>;
 
@@ -465,6 +466,8 @@ export interface BettererSerialiser<DeserialisedType, SerialisedType = Deseriali
 
 // @public
 export interface BettererSuite {
+    // Warning: (ae-unresolved-link) The @link reference could not be resolved: No member was found with name "includes"
+    // Warning: (ae-unresolved-link) The @link reference could not be resolved: No member was found with name "excludes"
     readonly filePaths: BettererFilePaths;
     readonly runs: BettererRuns;
 }

@@ -28,7 +28,7 @@
     "compile:docs": "yarn api && yarn docs",
     "compile:packages": "tsc -b packages",
     "compile:watch": "tsc -b packages -w",
-    "docs": "api-documenter generate -i ./website/data/json -o ./website/data/md",
+    "docs": "ts-node ./tools/docs-filter.ts && api-documenter generate -i ./goldens/models -o ./website/docs/api/",
     "lint": "eslint \"./packages/**/src/**/*.{js,ts}\" \"./test/**/*.{ts,tsx}\" \"./*.{js,ts}\" --fix",
     "format": "prettier \"**/!(*.snap)\" --write --loglevel=error",
     "test": "yarn clean:tests && jest",

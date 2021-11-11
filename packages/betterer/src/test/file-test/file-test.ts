@@ -82,8 +82,8 @@ export class BettererFileTest implements BettererFileTestBase {
   /**
    * Override the constraint in the test configuration.
    *
-   * @param constraintOverride - the new constraint for the test.
-   * @returns this test, so it is chainable.
+   * @param constraintOverride - The new constraint for the test.
+   * @returns This {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}, so it is chainable.
    */
   public constraint(constraintOverride: BettererTestConstraint<BettererFileTestResult>): this {
     this.config.constraint = constraintOverride;
@@ -93,8 +93,8 @@ export class BettererFileTest implements BettererFileTestBase {
   /**
    * Override the deadline in the test configuration.
    *
-   * @param deadlineOverride - the new deadline for the test.
-   * @returns this test, so it is chainable.
+   * @param deadlineOverride - The new deadline for the test.
+   * @returns This {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}, so it is chainable.
    */
   public deadline(deadlineOverride: BettererTestDeadline): this {
     this.config.deadline = createDeadline({ ...this.config, deadline: deadlineOverride });
@@ -105,7 +105,7 @@ export class BettererFileTest implements BettererFileTestBase {
    * Add a list of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expression } filters for files to exclude when running the test.
    *
    * @param excludePatterns - RegExp filters to match file paths that should be excluded.
-   * @returns this test, so it is chainable.
+   * @returns This {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}, so it is chainable.
    */
   public exclude(...excludePatterns: BettererFilePatterns): this {
     this._resolver.exclude(...excludePatterns);
@@ -115,8 +115,8 @@ export class BettererFileTest implements BettererFileTestBase {
   /**
    * Override the goal in the test configuration.
    *
-   * @param goalOverride - the new goal for the test.
-   * @returns this test, so it is chainable.
+   * @param goalOverride - The new goal for the test.
+   * @returns This {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}, so it is chainable.
    */
   public goal(goalOverride: BettererTestGoal<BettererFileTestResult>): this {
     this.config.goal = createGoal({ ...this.config, goal: goalOverride });
@@ -127,9 +127,9 @@ export class BettererFileTest implements BettererFileTestBase {
    * Add a list of {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob }
    * patterns for files to include when running the test.
    *
-   * @param includePatterns - glob patterns to match file paths that should be included. All
+   * @param includePatterns - Glob patterns to match file paths that should be included. All
    * `includes` should be relative to the {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file}.
-   * @returns this test, so it is chainable.
+   * @returns This {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}, so it is chainable.
    */
   public include(...includePatterns: BettererFileGlobs): this {
     this._resolver.include(...includePatterns);
@@ -139,7 +139,7 @@ export class BettererFileTest implements BettererFileTestBase {
   /**
    * Run only this test. All other tests will be marked as skipped.
    *
-   * @returns this test, so it is chainable.
+   * @returns This {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}, so it is chainable.
    */
   public only(): this {
     this._isOnly = true;
@@ -149,7 +149,7 @@ export class BettererFileTest implements BettererFileTestBase {
   /**
    * Skip this test.
    *
-   * @returns this test, so it is chainable.
+   * @returns This {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}, so it is chainable.
    */
   public skip(): this {
     this._isSkipped = true;
