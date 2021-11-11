@@ -144,7 +144,7 @@ export interface BettererConfigStart {
 }
 
 /**
- * @public This could change at any point! Please don't use!
+ * @internal This could change at any point! Please don't use!
  *
  * Configuration for the **Betterer** watch mode.
  */
