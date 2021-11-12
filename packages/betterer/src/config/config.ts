@@ -1,102 +1,188 @@
 import { BettererError } from '@betterer/errors';
 import assert from 'assert';
-import { promises as fs } from 'fs';
+import * as os from 'os';
 import * as path from 'path';
 
-import { BettererFileResolverΩ } from '../fs';
-import { isBoolean, isRegExp, isString, isUndefined } from '../utils';
+import { BettererVersionControlWorker, read } from '../fs';
+import { registerExtensions } from './register';
+import { BettererReporter, loadReporters, loadSilentReporter } from '../reporters';
+import { isBoolean, isNumber, isRegExp, isString, isUndefined } from '../utils';
 import {
   BettererConfig,
-  BettererConfigReporter,
+  BettererConfigBase,
+  BettererConfigMerge,
+  BettererConfigStart,
+  BettererConfigWatch,
   BettererOptionsBase,
-  BettererOptionsRunner,
+  BettererOptionsMerge,
+  BettererOptionsOverride,
   BettererOptionsStart,
-  BettererOptionsWatch
+  BettererOptionsWatch,
+  BettererWorkerRunConfig
 } from './types';
 
-export async function createConfig(options: unknown = {}): Promise<BettererConfig> {
-  const baseOptions = options as BettererOptionsBase;
-  const runnerOptions = options as BettererOptionsRunner;
-  const startOptions = options as BettererOptionsStart;
-  const watchOptions = options as BettererOptionsWatch;
+const TOTAL_CPUS = os.cpus().length;
 
-  const isDebug = !!process.env.BETTERER_DEBUG;
+export async function createInitialConfig(options: unknown = {}): Promise<BettererConfig> {
+  const baseConfig = createInitialBaseConfig(options as BettererOptionsBase);
+  const startConfig = createStartConfig(options as BettererOptionsStart);
+  const watchConfig = createWatchConfig(options as BettererOptionsWatch);
 
-  const relativeConfig: BettererConfig = {
-    // Base:
-    cache: baseOptions.cache || false,
-    cachePath: baseOptions.cachePath || './.betterer.cache',
-    configPaths: baseOptions.configPaths ? toArray<string>(baseOptions.configPaths) : ['./.betterer'],
-    cwd: baseOptions.cwd || process.cwd(),
-    filters: toRegExps(toArray<string | RegExp>(baseOptions.filters)),
-    reporters: toArray<BettererConfigReporter>(baseOptions.reporters),
-    resultsPath: baseOptions.resultsPath || './.betterer.results',
-    silent: isDebug || baseOptions.silent || false,
-    tsconfigPath: baseOptions.tsconfigPath || null,
+  const config = { ...baseConfig, ...startConfig, ...watchConfig };
 
-    // Runner:
-    ignores: toArray<string>(runnerOptions.ignores),
-
-    // Start:
-    ci: startOptions.ci || false,
-    filePaths: [],
-    precommit: startOptions.precommit || false,
-    strict: startOptions.strict || false,
-    update: startOptions.update || false,
-
-    // Watch
-    watch: watchOptions.watch || false
-  };
-
-  validateConfig(relativeConfig);
-  overrideConfig(relativeConfig);
-
-  const { includes, excludes } = startOptions;
-
-  const resolver = new BettererFileResolverΩ(relativeConfig.cwd);
-  resolver.include(...toArray<string>(includes));
-  resolver.exclude(...toRegExps(toArray<string | RegExp>(excludes)));
-
-  const config = {
-    ...relativeConfig,
-    cachePath: path.resolve(relativeConfig.cwd, relativeConfig.cachePath),
-    filePaths: resolver.files(),
-    configPaths: relativeConfig.configPaths.map((configPath) => path.resolve(relativeConfig.cwd, configPath)),
-    resultsPath: path.resolve(relativeConfig.cwd, relativeConfig.resultsPath),
-    tsconfigPath: relativeConfig.tsconfigPath ? path.resolve(relativeConfig.cwd, relativeConfig.tsconfigPath) : null
-  };
+  modeConfig(config);
 
   if (config.tsconfigPath) {
-    await validateFilePath('tsconfigPath', config);
+    await validateFilePath({ tsconfigPath: config.tsconfigPath });
   }
+
+  await registerExtensions(config.tsconfigPath);
 
   return config;
 }
 
-function validateConfig(config: BettererConfig): void {
-  // Base:
-  validateBool('cache', config);
-  validateString('cachePath', config);
-  validateStringArray('configPaths', config);
-  validateString('cwd', config);
-  validateStringRegExpArray('filters', config);
-  validateString('resultsPath', config);
-  validateBool('silent', config);
-
-  // Start:
-  validateBool('ci', config);
-  validateBool('precommit', config);
-  validateBool('strict', config);
-  validateBool('update', config);
-
-  // Runner:
-  validateStringArray('ignores', config);
-
-  // Watch:
-  validateBool('watch', config);
+export async function createFinalConfig(
+  options: unknown = {},
+  config: BettererConfig,
+  versionControl: BettererVersionControlWorker
+): Promise<void> {
+  await createFinalBaseConfig(options as BettererOptionsBase, config, versionControl);
 }
 
-function overrideConfig(config: BettererConfig) {
+export function overrideConfig(config: BettererConfig, optionsOverride: BettererOptionsOverride): void {
+  if (optionsOverride.filters) {
+    validateStringRegExpArray({ filters: optionsOverride.filters });
+    config.filters = toRegExps(toArray<string | RegExp>(optionsOverride.filters));
+  }
+
+  if (optionsOverride.ignores) {
+    validateStringArray({ ignores: optionsOverride.ignores });
+    config.ignores = toArray<string>(optionsOverride.ignores);
+  }
+
+  if (optionsOverride.reporters) {
+    const reporters = toArray<string | BettererReporter>(optionsOverride.reporters);
+    config.reporter = loadReporters(reporters, config.cwd);
+  }
+}
+
+function createInitialBaseConfig(options: BettererOptionsBase): BettererConfigBase {
+  const isDebug = !!process.env.BETTERER_DEBUG;
+  const cache = !!options.cachePath || options.cache || false;
+  const cachePath = options.cachePath || './.betterer.cache';
+  const cwd = options.cwd || process.cwd();
+  const filters = toRegExps(toArray<string | RegExp>(options.filters));
+  const reporters = toArray<string | BettererReporter>(options.reporters);
+  const silent = isDebug || options.silent || false;
+  const reporter = silent ? loadSilentReporter() : loadReporters(reporters, cwd);
+  const resultsPath = options.resultsPath || './.betterer.results';
+  const tsconfigPath = options.tsconfigPath || null;
+
+  validateBool({ cache });
+  validateString({ cachePath });
+  validateString({ cwd });
+  validateStringRegExpArray({ filters });
+  validateString({ resultsPath });
+  validateBool({ silent });
+  const workers = validateWorkers(options);
+
+  return {
+    cache,
+    cachePath: path.resolve(cwd, cachePath),
+    cwd,
+    configPaths: [],
+    filters,
+    reporter,
+    resultsPath: path.resolve(cwd, resultsPath),
+    tsconfigPath: tsconfigPath ? path.resolve(cwd, tsconfigPath) : null,
+    workers
+  };
+}
+
+async function createFinalBaseConfig(
+  options: BettererOptionsBase,
+  config: BettererConfig,
+  versionControl: BettererVersionControlWorker
+): Promise<void> {
+  const configPaths = options.configPaths ? toArray<string>(options.configPaths) : ['./.betterer'];
+
+  validateStringArray({ configPaths });
+
+  config.configPaths = configPaths.map((configPath) => {
+    configPath = path.resolve(config.cwd, configPath);
+    try {
+      return require.resolve(configPath);
+    } catch (error) {
+      throw new BettererError(`could not find config file at "${configPath}". 😔`, error as Error);
+    }
+  });
+
+  await versionControl.init(config.configPaths);
+}
+
+export async function createMergeConfig(options: BettererOptionsMerge): Promise<BettererConfigMerge> {
+  const contents = toArray(options.contents);
+  const cwd = options.cwd || process.cwd();
+  const resultsPath = path.resolve(cwd, options.resultsPath || './.betterer.results');
+
+  validateStringArray({ contents });
+  await validateFilePath({ resultsPath });
+
+  return {
+    contents,
+    resultsPath: path.resolve(cwd, resultsPath)
+  };
+}
+
+export async function createWorkerConfig(config: BettererWorkerRunConfig): Promise<BettererConfig> {
+  await registerExtensions(config.tsconfigPath);
+
+  return {
+    ...config,
+    reporter: loadSilentReporter(),
+    workers: 1
+  };
+}
+
+function createStartConfig(options: BettererOptionsStart): BettererConfigStart {
+  const ci = options.ci || false;
+  const excludes = toRegExps(toArray<string | RegExp>(options.excludes)) || [];
+  const includes = toArray<string>(options.includes) || [];
+  const precommit = options.precommit || false;
+  const strict = options.strict || false;
+  const update = options.update || false;
+
+  validateBool({ ci });
+  validateStringRegExpArray({ excludes });
+  validateStringArray({ includes });
+  validateBool({ precommit });
+  validateBool({ strict });
+  validateBool({ update });
+
+  return {
+    ci,
+    excludes,
+    includes,
+    precommit,
+    strict,
+    update
+  };
+}
+
+function createWatchConfig(options: BettererOptionsWatch): BettererConfigWatch {
+  const ignores = toArray<string>(options.ignores);
+  const watch = options.watch || false;
+
+  validateStringArray({ ignores });
+  validateBool({ watch });
+
+  return {
+    ignores,
+    watch
+  };
+}
+
+function modeConfig(config: BettererConfig) {
   // CI mode:
   if (config.ci) {
     config.precommit = false;
@@ -139,60 +225,83 @@ function overrideConfig(config: BettererConfig) {
   }
 }
 
-function validateBool<Config, PropertyName extends keyof Config>(propertyName: PropertyName, config: Config): void {
-  const value = config[propertyName];
+function validateBool<Config, PropertyName extends keyof Config>(config: Config): void {
+  const [propertyName] = Object.keys(config);
+  const value = config[propertyName as PropertyName];
   validate(isBoolean(value), `"${propertyName.toString()}" must be \`true\` or \`false\`. ${recieved(value)}`);
 }
 
-function validateString<Config, PropertyName extends keyof Config>(propertyName: PropertyName, config: Config): void {
-  const value = config[propertyName];
+function validateNumber<Config, PropertyName extends keyof Config>(config: Config): void {
+  const [propertyName] = Object.keys(config);
+  const value = config[propertyName as PropertyName];
+  validate(isNumber(value), `"${propertyName.toString()}" must be a number. ${recieved(value)}`);
+}
+
+function validateString<Config, PropertyName extends keyof Config>(config: Config): void {
+  const [propertyName] = Object.keys(config);
+  const value = config[propertyName as PropertyName];
   validate(isString(value), `"${propertyName.toString()}" must be a string. ${recieved(value)}`);
 }
 
-function validateStringOrArray<Config, PropertyName extends keyof Config>(
-  propertyName: PropertyName,
-  config: Config
-): void {
-  const value = config[propertyName];
+function validateStringOrArray<Config, PropertyName extends keyof Config>(config: Config): void {
+  const [propertyName] = Object.keys(config);
+  const value = config[propertyName as PropertyName];
   validate(
     isString(value) || Array.isArray(value),
     `"${propertyName.toString()}" must be a string or an array. ${recieved(value)}`
   );
 }
 
-function validateStringArray<Config, PropertyName extends keyof Config>(
-  propertyName: PropertyName,
-  config: Config
-): void {
-  const value = config[propertyName];
-  validateStringOrArray(propertyName, config);
+function validateStringArray<Config, PropertyName extends keyof Config>(config: Config): void {
+  const [propertyName] = Object.keys(config);
+  const value = config[propertyName as PropertyName];
+  validateStringOrArray(config);
   validate(
     !Array.isArray(value) || value.every((item) => isString(item)),
     `"${propertyName.toString()}" must be an array of strings. ${recieved(value)}`
   );
 }
 
-function validateStringRegExpArray<Config, PropertyName extends keyof Config>(
-  propertyName: PropertyName,
-  config: Config
-): void {
-  const value = config[propertyName];
-  validateStringOrArray(propertyName, config);
+function validateStringRegExpArray<Config, PropertyName extends keyof Config>(config: Config): void {
+  const [propertyName] = Object.keys(config);
+  const value = config[propertyName as PropertyName];
+  validateStringOrArray(config);
   validate(
     !Array.isArray(value) || value.every((item) => isString(item) || isRegExp(item)),
     `"${propertyName.toString()}" must be an array of strings or RegExps. ${recieved(value)}`
   );
 }
 
-async function validateFilePath<Config, PropertyName extends keyof Config>(
-  propertyName: PropertyName,
-  config: Config
-): Promise<void> {
-  const value = config[propertyName];
+async function validateFilePath<Config, PropertyName extends keyof Config>(config: Config): Promise<void> {
+  const [propertyName] = Object.keys(config);
+  const value = config[propertyName as PropertyName];
   validate(
-    value == null || (isString(value) && (await fs.readFile(value))),
+    value == null || (isString(value) && (await read(value)) !== null),
     `"${propertyName.toString()}" must be a path to a file. ${recieved(value)}`
   );
+}
+
+function validateWorkers(options: BettererOptionsBase = {}): number {
+  if (options.workers === true || isUndefined(options.workers)) {
+    options.workers = TOTAL_CPUS >= 4 ? TOTAL_CPUS - 2 : false;
+  }
+  if (options.workers === false || options.workers === 0) {
+    process.env.WORKER_REQUIRE = 'false';
+    // When disabled, set workers to 1 so that BettererRunWorkerPoolΩ
+    // can be instantiated correctly:
+    options.workers = 1;
+  }
+
+  const { workers } = options;
+
+  validateNumber({ workers });
+  validate(
+    isNumber(workers) && workers > 0 && workers <= TOTAL_CPUS,
+    `"workers" must be more than zero and not more than the number of available CPUs (${TOTAL_CPUS}). To disable workers, set to \`false\`. ${recieved(
+      workers
+    )}`
+  );
+  return workers;
 }
 
 function validate(value: unknown, message: string): asserts value is boolean {

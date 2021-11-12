@@ -1,6 +1,6 @@
-import { BettererFileIssuesMapSerialised } from './types';
+import { BettererFileTestResultSerialised } from './types';
 
-export function printer(serialised: BettererFileIssuesMapSerialised): string {
+export function printer(serialised: BettererFileTestResultSerialised): string {
   let printed = '{\n';
   Object.keys(serialised)
     .sort()

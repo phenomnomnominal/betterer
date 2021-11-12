@@ -2,6 +2,9 @@
   "files": [],
   "references": [
     {
+      "path": "angular"
+    },
+    {
       "path": "betterer"
     },
     {
@@ -9,6 +12,9 @@
     },
     {
       "path": "constraints"
+    },
+    {
+      "path": "docgen"
     },
     {
       "path": "eslint"

@@ -22,14 +22,16 @@ When you want to make an improvement to your codebase, start by making a new tes
 
 ```typescript
 // .betterer.ts
+import { BettererTest } from '@betterer/betterer';
 import { smaller } from '@betterer/constraints';
 
 export default {
-  'thing you want to improve': {
-    test: () => runMyTest(),
-    constraint: smaller,
-    goal: 0
-  }
+  'thing you want to improve': () =>
+    new BettererTest({
+      test: () => runMyTest(),
+      constraint: smaller,
+      goal: 0
+    })
 };
 ```
 
@@ -38,11 +40,8 @@ When you run **Betterer** for the first time it will store the result of your te
 ```javascript
 // BETTERER RESULTS V2.
 exports[`thing you want to improve`] = {
-  value: `12345
-`
+  value: `12345`
 };
 ```
 
-Whenever your tests run again, **Betterer** will compare the new result against the expected result.
-
-If it gets better, the [`.betterer.results`](./results-file) file will be updated with the new result ✅! If it gets worse, your test will fail and **Betterer** will throw an error ❌!
+Whenever your tests run again, **Betterer** will compare the new result against the expected result. If it gets better, the [`.betterer.results`](./results-file) file will be updated with the new result ✅! If it gets worse, your test will fail and **Betterer** will throw an error ❌!

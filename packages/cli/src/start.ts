@@ -1,17 +1,38 @@
-import { BettererSummary, betterer, BettererOptionsStart } from '@betterer/betterer';
-import { ciΔ } from './ci';
+import { BettererSuiteSummary, betterer, BettererOptionsStart } from '@betterer/betterer';
+import { ci__ } from './ci';
 
 import { cliOptions } from './options';
 import { BettererCLIArguments } from './types';
 
-/** @internal Definitely not stable! Please don't use! */
-export function startΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSummary> {
-  if (process.env.CI) {
-    return ciΔ(cwd, argv);
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * Run **Betterer** in the default mode.
+ */
+export function start__(
+  cwd: string,
+  argv: BettererCLIArguments,
+  ci = process.env.CI === 'true'
+): Promise<BettererSuiteSummary> {
+  if (ci) {
+    return ci__(cwd, argv);
   }
 
-  const { cache, cachePath, config, exclude, filter, include, results, reporter, silent, strict, tsconfig, update } =
-    cliOptions(argv);
+  const {
+    cache,
+    cachePath,
+    config,
+    exclude,
+    filter,
+    include,
+    results,
+    reporter,
+    silent,
+    strict,
+    tsconfig,
+    update,
+    workers
+  } = cliOptions(argv);
 
   // Mark options as unknown...
   const options: unknown = {
@@ -27,7 +48,8 @@ export function startΔ(cwd: string, argv: BettererCLIArguments): Promise<Better
     silent,
     strict,
     tsconfigPath: tsconfig,
-    update
+    update,
+    workers
   };
 
   // And then cast to BettererOptionsStart. This is possibly invalid,

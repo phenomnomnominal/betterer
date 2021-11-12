@@ -17,11 +17,12 @@ test/__snapshots__/**
 **/*.png
 .husky
 .betterer.results
-.bettererignore
+.gitattributes
 .gitignore
 .npmrc
 .prettierignore
 .yarnrc
+.lintstagedrc
 website/build
 website/.docusaurus
 *.patch

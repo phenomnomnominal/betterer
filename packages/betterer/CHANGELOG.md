@@ -3,6 +3,43 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0-alpha.0](https://github.com/phenomnomnominal/betterer/compare/v4.4.1...v5.0.0-alpha.0) (2021-08-27)
+
+
+### Bug Fixes
+
+* **betterer 🐛:** make sure cache isn't written when things get worse ([#819](https://github.com/phenomnomnominal/betterer/issues/819)) ([a98a6ba](https://github.com/phenomnomnominal/betterer/commit/a98a6ba1d691d77ee307b846f78f420a636aff10))
+* **betterer 🐛:** split run and run summary ([#774](https://github.com/phenomnomnominal/betterer/issues/774)) ([54f8dfc](https://github.com/phenomnomnominal/betterer/commit/54f8dfcbd75e9009048b8d72e74ea975bd0e2060))
+
+
+### Code Refactoring
+
+* **betterer 🔧:** run.filePaths only defined on file tests ([#777](https://github.com/phenomnomnominal/betterer/issues/777)) ([286d239](https://github.com/phenomnomnominal/betterer/commit/286d239096157c668e816d7c2f3e26cddb49e17d))
+* **betterer 🔧:** simplify BettererFileResolver ([#736](https://github.com/phenomnomnominal/betterer/issues/736)) ([c6299ed](https://github.com/phenomnomnominal/betterer/commit/c6299ed6912e51ffc025464d3b44daa1c87a8a0f))
+* **betterer 🔧:** tests must be defined as functions ([#780](https://github.com/phenomnomnominal/betterer/issues/780)) ([e0847ce](https://github.com/phenomnomnominal/betterer/commit/e0847ce699bb30a3dc00453b4242aebf673caec7))
+
+
+### Features
+
+* **betterer ✨:** add betterer results command to show current test results ([#828](https://github.com/phenomnomnominal/betterer/issues/828)) ([9a16623](https://github.com/phenomnomnominal/betterer/commit/9a166238a390dcc46580b50c0eef3ba29de8209f))
+* **betterer ✨:** add option to initialise with automerging ([#832](https://github.com/phenomnomnominal/betterer/issues/832)) ([0acf68b](https://github.com/phenomnomnominal/betterer/commit/0acf68bca38a6b63ac03a7185ee3ed53ee5f3ae5))
+* **betterer ✨:** allow negation of filters ([#831](https://github.com/phenomnomnominal/betterer/issues/831)) ([84334f2](https://github.com/phenomnomnominal/betterer/commit/84334f28b16f5394380e26417cd088af48d2b842))
+* **betterer ✨:** explain what changed when there is a diff in ci mode ([#827](https://github.com/phenomnomnominal/betterer/issues/827)) ([d793e88](https://github.com/phenomnomnominal/betterer/commit/d793e88336b27ae34b6ba24d9d5f79e0c47ad4ff))
+* **betterer ✨:** only show the first new issue in a file ([#818](https://github.com/phenomnomnominal/betterer/issues/818)) ([63d5da9](https://github.com/phenomnomnominal/betterer/commit/63d5da9db3b89a1b0ea5972e0ce8ec2c1194d202))
+* **betterer ✨:** run tests in parallel ([#815](https://github.com/phenomnomnominal/betterer/issues/815)) ([581cf51](https://github.com/phenomnomnominal/betterer/commit/581cf51dc90d8a8e7a42eaf48986c244de4bf14e))
+* **betterer ✨:** set deadline on a file test ([#817](https://github.com/phenomnomnominal/betterer/issues/817)) ([db9074a](https://github.com/phenomnomnominal/betterer/commit/db9074a4308af74751cfeb78cf550eee4ae2c5d3))
+
+
+### BREAKING CHANGES
+
+* **betterer 🔧:** tests must be defined as functions so they can be called lazily
+* **betterer 🔧:** run.filePaths can be null for a global test
+* **betterer 🔧:** No more BettererFileResolver magic, simplified public API
+
+
+
+
+
 ## [4.4.1](https://github.com/phenomnomnominal/betterer/compare/v4.4.0...v4.4.1) (2021-07-09)
 
 
@@ -146,7 +183,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **betterer 🐛:** force silent when debug flag is set ([#576](https://github.com/phenomnomnominal/betterer/issues/576)) ([aafbafb](https://github.com/phenomnomnominal/betterer/commit/aafbafb4c1cb379991b6c9e6f299c6a1aa8d4d40))
+* **betterer 🐛:** force silent when debug option is set ([#576](https://github.com/phenomnomnominal/betterer/issues/576)) ([aafbafb](https://github.com/phenomnomnominal/betterer/commit/aafbafb4c1cb379991b6c9e6f299c6a1aa8d4d40))
 
 
 
@@ -365,9 +402,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **betterer ✨:** add `reporters` config option and `--reporter` flag ([#129](https://github.com/phenomnomnominal/betterer/issues/129)) ([784b2fa](https://github.com/phenomnomnominal/betterer/commit/784b2fa515e4801e365906e70c3926ea94d976e4))
+* **betterer ✨:** add `reporters` config option and `--reporter` option ([#129](https://github.com/phenomnomnominal/betterer/issues/129)) ([784b2fa](https://github.com/phenomnomnominal/betterer/commit/784b2fa515e4801e365906e70c3926ea94d976e4))
 * **betterer ✨:** create per contributor score from git history of result file ([#131](https://github.com/phenomnomnominal/betterer/issues/131)) ([bc288c4](https://github.com/phenomnomnominal/betterer/commit/bc288c4eacb6f7cdc37580f430287a39ae7a4ad0))
-* **logger ✨:** add `silent` config option and `--silent` flag ([#127](https://github.com/phenomnomnominal/betterer/issues/127)) ([816fe34](https://github.com/phenomnomnominal/betterer/commit/816fe34c888096c1c967705f4855a44851a30b4a))
+* **logger ✨:** add `silent` config option and `--silent` option ([#127](https://github.com/phenomnomnominal/betterer/issues/127)) ([816fe34](https://github.com/phenomnomnominal/betterer/commit/816fe34c888096c1c967705f4855a44851a30b4a))
 
 
 

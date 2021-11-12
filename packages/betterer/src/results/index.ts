@@ -1,3 +1,14 @@
+export { BettererMergerΩ } from './merger';
+export { BettererResultsSummaryΩ } from './results-summary';
 export { BettererResultΩ } from './result';
-export { BettererResultsΩ } from './results';
-export { BettererExpectedResult, BettererExpectedResults, BettererResult } from './types';
+export { BettererResultsFileΩ } from './results-file';
+export {
+  BettererResult,
+  BettererResultSerialised,
+  BettererResultsSerialised,
+  BettererFileTestResultSummaryDetails,
+  BettererTestResultSummaryDetails,
+  BettererResultSummary,
+  BettererResultSummaries,
+  BettererResultsSummary
+} from './types';

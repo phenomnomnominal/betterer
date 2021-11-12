@@ -1,34 +1,30 @@
 import React, { FC } from 'react';
 
-import {
-  BettererContext,
-  BettererFilePaths,
-  BettererRuns,
-  BettererSummaries,
-  BettererSummary
-} from '@betterer/betterer';
 import { BettererLogo } from '@betterer/tasks';
-import { Box } from 'ink';
+import { Box, useInput, useStdin } from 'ink';
 
 import { DefaultReporter } from './default';
 import { WatchReporter } from './watch';
+import { BettererReporterState } from '../state';
 
-export type ReporterProps = {
-  context: BettererContext;
-  filePaths?: BettererFilePaths;
-  runs?: BettererRuns;
-  summary?: BettererSummary;
-  summaries?: BettererSummaries;
-};
-
-export const Reporter: FC<ReporterProps> = function Reporter(props: ReporterProps) {
+export const Reporter: FC<BettererReporterState> = function Reporter(props: BettererReporterState) {
   const { context } = props;
+
+  const { isRawModeSupported } = useStdin();
+
+  isRawModeSupported &&
+    useInput((input, key) => {
+      if (key.ctrl && input === 'c') {
+        void context.stop();
+        return;
+      }
+    });
 
   const ReporterComponent = context.config.watch ? WatchReporter : DefaultReporter;
 
   return (
-    <Box flexDirection="column" paddingBottom={1}>
-      <BettererLogo></BettererLogo>
+    <Box flexDirection="column">
+      <BettererLogo />
       <ReporterComponent {...props} />
     </Box>
   );

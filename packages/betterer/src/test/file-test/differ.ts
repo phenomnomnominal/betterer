@@ -1,4 +1,4 @@
-import { BettererLogger } from '@betterer/logger';
+import { BettererLogs } from '@betterer/logger';
 import assert from 'assert';
 
 import { BettererFileΩ } from './file';
@@ -6,10 +6,13 @@ import { BettererFileTestResultΩ } from './file-test-result';
 import {
   BettererFileTestDiff,
   BettererFileIssue,
+  BettererFileIssueSerialised,
   BettererFilesDiff,
   BettererFileTestResult,
   BettererFileBase
 } from './types';
+
+const FORMATTER = Intl.NumberFormat();
 
 export function differ(expected: BettererFileTestResult, result: BettererFileTestResult): BettererFileTestDiff {
   const diff: BettererFilesDiff = {};
@@ -55,22 +58,19 @@ export function differ(expected: BettererFileTestResult, result: BettererFileTes
 
   fixedFiles.forEach((file) => {
     diff[file.absolutePath] = {
-      fixed: file.issues
+      fixed: file.issues.map(serialiseIssue)
     };
   });
 
   newFiles.forEach((file) => {
     diff[file.absolutePath] = {
-      new: file.issues
+      new: file.issues.map(serialiseIssue)
     };
   });
 
   const existingFiles = [...unchangedResultFiles, ...changedResultFiles, ...Array.from(movedFiles.keys())];
   existingFiles.forEach((resultFile) => {
     const expectedFile = movedFiles.get(resultFile) || expectedΩ.getFile(resultFile.absolutePath);
-
-    assert(resultFile);
-    assert(expectedFile);
 
     // Convert all issues to their deserialised form for easier diffing:
     const resultIssues = [...resultFile.issues];
@@ -143,49 +143,50 @@ export function differ(expected: BettererFileTestResult, result: BettererFileTes
 
     // Otherwise construct the diff:
     diff[resultFile.absolutePath] = {
-      existing: [...unchangedExpectedIssues, ...movedIssues],
-      fixed: fixedIssues,
-      new: newIssues
+      existing: [...unchangedExpectedIssues, ...movedIssues].map(serialiseIssue),
+      fixed: fixedIssues.map(serialiseIssue),
+      new: newIssues.map(serialiseIssue)
     };
   });
 
   const filePaths = Object.keys(diff);
 
-  return {
-    expected,
-    result,
-    diff,
-    async log(logger: BettererLogger): Promise<void> {
-      await Promise.all(
-        filePaths.map(async (filePath) => {
-          const existing = diff[filePath].existing || [];
-          const fixed = diff[filePath].fixed || [];
-          if (fixed?.length) {
-            await logger.success(`${fixed.length} fixed ${getIssues(fixed.length)} in "${filePath}".`);
-          }
-          if (existing?.length) {
-            await logger.warn(`${existing.length} existing ${getIssues(existing.length)} in "${filePath}".`);
-          }
-          const newIssues = diff[filePath].new || [];
-          if (newIssues.length) {
-            const { length } = newIssues;
-            await logger.error(`${length} new ${getIssues(length)} in "${filePath}":`);
-
-            await Promise.all(
-              newIssues.map(async (issue) => {
-                const fileΩ = resultΩ.getFile(filePath) as BettererFileΩ;
-                const { fileText } = fileΩ;
-                const { line, column, length, message } = issue;
-                await logger.code({ message, filePath, fileText, line, column, length });
-              })
-            );
-          }
-        })
-      );
+  const logs: BettererLogs = [];
+  filePaths.forEach((filePath) => {
+    const existing = diff[filePath].existing || [];
+    const fixed = diff[filePath].fixed || [];
+    if (fixed?.length) {
+      logs.push({ success: `${fixed.length} fixed ${getIssues(fixed.length)} in "${filePath}".` });
     }
+    if (existing?.length) {
+      logs.push({ warn: `${existing.length} existing ${getIssues(existing.length)} in "${filePath}".` });
+    }
+    const newIssues = diff[filePath].new || [];
+    const nIssues = newIssues.length;
+    if (nIssues) {
+      logs.push({ error: `New ${getIssues(nIssues)} in "${filePath}"!` });
+      if (nIssues > 1) {
+        logs.push({ error: `Showing first of ${FORMATTER.format(nIssues)} new issues:` });
+      }
+
+      const [firstIssue] = newIssues;
+      const fileΩ = resultΩ.getFile(filePath) as BettererFileΩ;
+      const { fileText } = fileΩ;
+      const [line, column, length, message] = firstIssue;
+      logs.push({ code: { message, filePath, fileText, line, column, length } });
+    }
+  });
+
+  return {
+    diff,
+    logs
   };
 }
 
 function getIssues(count: number): string {
   return count === 1 ? 'issue' : 'issues';
+}
+
+function serialiseIssue(issue: BettererFileIssue): BettererFileIssueSerialised {
+  return [issue.line, issue.column, issue.length, issue.message, issue.hash];
 }

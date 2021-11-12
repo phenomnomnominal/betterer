@@ -1,5 +1,6 @@
 import { BettererPackageJSON } from '@betterer/cli';
 import assert from 'assert';
+import { Diagnostic, Uri } from 'vscode';
 
 import { vscode, createFixture } from './runner';
 
@@ -9,7 +10,7 @@ describe('Betterer VSCode Extension', () => {
   it('should work', async () => {
     {
       const { resolve, readFile, deleteDirectory, deleteFile } = await createFixture('.', {
-        'package.json': '{ "name": "test-betterer-e2e-init" }'
+        'package.json': '{ "name": "e2e-init" }'
       });
 
       await vscode.commands.executeCommand('betterer.init');
@@ -29,12 +30,12 @@ describe('Betterer VSCode Extension', () => {
     }
 
     {
-      const { cleanup, resolve } = await createFixture('test-betterer-file-problems', {
+      const { cleanup, resolve } = await createFixture('e2e-eslint', {
         '.betterer.js': `
     const { eslint } = require('../../node_modules/@betterer/eslint');
 
     module.exports = {
-      'eslint enable new rule': eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
+      'e2e-eslint': () => eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
     };
           `,
         '.eslintrc.js': `
@@ -68,7 +69,7 @@ describe('Betterer VSCode Extension', () => {
           `,
         'package.json': `
     {
-      "name": "betterer-test-betterer-problems",
+      "name": "betterer-e2e-eslint",
       "version": "0.0.1"
     }
           `,
@@ -89,46 +90,36 @@ describe('Betterer VSCode Extension', () => {
       await config.update('configPath', configPath);
       await config.update('tsconfigPath', tsconfigPath);
 
-      const document = await vscode.workspace.openTextDocument(indexUri);
-      const editor = await vscode.window.showTextDocument(document, 1, false);
-      await editor.edit((edit) => {
-        edit.insert(new vscode.Position(0, 0), 'debugger;');
-      });
-      await document.save();
+      await writeToFile(indexUri, 'debugger;');
 
-      const diagnostic = await waitFor(() => {
-        const found = vscode.languages.getDiagnostics().find((diagnostic) => {
-          const [url, diagnostics] = diagnostic;
-          return url.path === indexUri.path && diagnostics.length;
-        });
-        assert.ok(found);
-        const [, diagnostics] = found;
-        const [diagnostic] = diagnostics;
-        return diagnostic;
-      });
+      const { code, message } = await waitFor(() => getDiagnostics(indexUri));
 
-      expect(diagnostic.code).toEqual('[eslint enable new rule] - new issue');
-      expect(diagnostic.message).toEqual(`Unexpected 'debugger' statement.`);
+      // TODO: Restore the `new` vs `existing` check:
+      expect(code).toBeDefined();
+      expect(code?.toString().startsWith('[e2e-eslint]')).toEqual(true);
+      expect(message).toEqual(`Unexpected 'debugger' statement.`);
 
       await cleanup();
     }
 
     {
-      const { cleanup, resolve } = await createFixture('test-betterer-file-only', {
+      const { cleanup, resolve } = await createFixture('e2e-typescript', {
         '.betterer.ts': `
+import { BettererTest } from '@betterer/betterer';
 import { typescript } from '@betterer/typescript';
+import { persist } from '@betterer/fixture';
 import { smaller } from '@betterer/constraints';
 
-let shrinks = 2;
+const shrinks = persist(__dirname, 'shrinks', 2);
 
 export default {
-  'typescript use strict mode': typescript('./tsconfig.json', {
+  'e2e-typescript': () => typescript('./tsconfig.json', {
     strict: true
-  }),
-  'should shrink': {
-    test: () => shrinks--,
+  }).include('./src/**/*.ts'),
+  'should shrink': () => new BettererTest({
+    test: () => shrinks.decrement(),
     constraint: smaller
-  }
+  })
 };
       `,
         'tsconfig.json': `
@@ -161,39 +152,50 @@ export default {
       await config.update('configPath', configPath);
       await config.update('tsconfigPath', tsconfigPath);
 
-      const document = await vscode.workspace.openTextDocument(indexUri);
-      const editor = await vscode.window.showTextDocument(document, 1, false);
-      await editor.edit((edit) => {
-        edit.insert(
-          new vscode.Position(0, 0),
-          `
+      await writeToFile(
+        indexUri,
+        `
 export function extractIds(list) {
   return list.map((member) => member.id);
 }
-                  `
-        );
-      });
-      await document.save();
+        `
+      );
 
-      const diagnostic = await waitFor(() => {
-        const found = vscode.languages.getDiagnostics().find((diagnostic) => {
-          const [url, diagnostics] = diagnostic;
-          return url.path === indexUri.path && diagnostics.length;
-        });
-        assert.ok(found);
-        const [, diagnostics] = found;
-        const [diagnostic] = diagnostics;
+      const { code, message } = await waitFor(() => {
+        const diagnostic = getDiagnostics(indexUri);
         assert.ok(diagnostic.code !== 7044);
         return diagnostic;
       });
 
-      expect(diagnostic.code).toEqual('[typescript use strict mode] - new issue');
-      expect(diagnostic.message).toEqual(`Parameter 'list' implicitly has an 'any' type.`);
+      // TODO: Restore the `new` vs `existing` check:
+      expect(code).toBeDefined();
+      expect(code?.toString().startsWith('[e2e-typescript]')).toEqual(true);
+      expect(message).toEqual(`Parameter 'list' implicitly has an 'any' type.`);
 
       await cleanup();
     }
   });
 });
+
+async function writeToFile(uri: Uri, text: string): Promise<void> {
+  const document = await vscode.workspace.openTextDocument(uri);
+  const editor = await vscode.window.showTextDocument(document, 1, false);
+  await editor.edit((edit) => {
+    edit.insert(new vscode.Position(0, 0), text);
+  });
+  await document.save();
+}
+
+function getDiagnostics(uri: Uri): Diagnostic {
+  const found = vscode.languages.getDiagnostics().find((diagnostic) => {
+    const [url, diagnostics] = diagnostic;
+    return url.path === uri.path && diagnostics.length;
+  });
+  assert.ok(found);
+  const [, diagnostics] = found;
+  const [diagnostic] = diagnostics;
+  return diagnostic;
+}
 
 function waitFor<T>(test: () => T, timeout = 600000): Promise<T> {
   const start = Date.now();

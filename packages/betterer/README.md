@@ -8,4 +8,4 @@ JavaScript API for running [**`betterer`**](https://github.com/phenomnomnominal/
 
 ## Docs
 
-[Check out the docs at `phenomnomnominal.github.io/betterer`! 🎉](https://phenomnomnominal.github.io/betterer/docs/api)
+[Check out the docs at `phenomnomnominal.github.io/betterer`! 🎉](https://phenomnomnominal.github.io/betterer/docs/index)

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0-alpha.0](https://github.com/phenomnomnominal/betterer/compare/v4.4.1...v5.0.0-alpha.0) (2021-08-27)
+
+
+### Bug Fixes
+
+* **betterer 🐛:** only render logs once test has finished running ([#814](https://github.com/phenomnomnominal/betterer/issues/814)) ([f691bfa](https://github.com/phenomnomnominal/betterer/commit/f691bfa6b87240d0764fdaa5386a2e584e907781))
+* **betterer 🐛:** split run and run summary ([#774](https://github.com/phenomnomnominal/betterer/issues/774)) ([54f8dfc](https://github.com/phenomnomnominal/betterer/commit/54f8dfcbd75e9009048b8d72e74ea975bd0e2060))
+
+
+
+
+
 ## [4.4.1](https://github.com/phenomnomnominal/betterer/compare/v4.4.0...v4.4.1) (2021-07-09)
 
 

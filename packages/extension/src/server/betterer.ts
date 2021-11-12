@@ -5,7 +5,9 @@ import { nodeRequire } from '../utils';
 import { trace } from './trace';
 
 type BettererLibrary = typeof betterer;
-type BettererModule = { betterer: BettererLibrary };
+interface BettererModule {
+  betterer: BettererLibrary;
+}
 
 const PATH_TO_LIB = new Map<string, BettererLibrary>();
 const RUNNERS = new Map<string, BettererRunner>();
@@ -15,13 +17,12 @@ export async function hasBetterer(cwd: string): Promise<boolean> {
   return !!libraryPath;
 }
 
-export async function getRunner(cwd: string, config: BettererOptionsRunner): Promise<BettererRunner> {
-  config = { ...config, cwd, silent: true, cache: true };
-  const key = JSON.stringify({ ...config, cwd });
+export async function getRunner(config: BettererOptionsRunner): Promise<BettererRunner> {
+  const key = JSON.stringify(config);
   if (RUNNERS.has(key)) {
     return RUNNERS.get(key) as BettererRunner;
   }
-  const { runner } = await getLibrary(cwd);
+  const { runner } = await getLibrary(config.cwd as string);
   const toCache = await runner(config);
   RUNNERS.set(key, toCache);
   return toCache;

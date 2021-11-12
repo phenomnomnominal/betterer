@@ -1,0 +1,34 @@
+{
+  "name": "doc-plugin-betterer",
+  "description": "@microsoft/api-documenter plugin for @betterer/betterer",
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "Craig Spence <craigspence0@gmail.com>",
+  "homepage": "https://phenomnomnominal.github.io/betterer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phenomnomnominal/betterer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/phenomnomnominal/betterer/issues"
+  },
+  "scripts": {
+    "compile": "tsc -b ."
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "dependencies": {
+    "tslib": "^2.3.1",
+    "dedent": "^0.7.0"
+  },
+  "devDependencies": {
+    "@types/dedent": "^0.7.0"
+  }
+}

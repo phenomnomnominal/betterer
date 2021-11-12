@@ -8,10 +8,12 @@ export {
   BettererFileTestDiff,
   BettererFileDiff,
   BettererFileIssue,
-  BettererFileIssues
+  BettererFileIssues,
+  isBettererFileTest
 } from './file-test';
-export { BettererTest } from './test';
-export { BettererTestType, isBettererFileTestΔ, isBettererTest } from './type';
+export type { BettererFileTestResultΩ } from './file-test';
+export { loadTestMeta } from './loader';
+export { BettererTest, isBettererTest } from './test';
 export {
   BettererDeserialise,
   BettererDiff,
@@ -20,14 +22,19 @@ export {
   BettererProgress,
   BettererSerialise,
   BettererSerialiser,
+  BettererTestFactory,
+  BettererTestFactoryMeta,
+  BettererTestFactoryMetaMap,
+  BettererTestMap,
   BettererTestBase,
   BettererTestConstraint,
+  BettererTestDeadline,
   BettererTestFunction,
   BettererTestGoal,
-  BettererTestMap,
-  BettererTestConfigMap,
   BettererTestOptions,
   BettererTestOptionsBasic,
   BettererTestOptionsComplex,
-  BettererTestConfig
+  BettererTestConfig,
+  BettererTestMeta,
+  BettererTestNames
 } from './types';

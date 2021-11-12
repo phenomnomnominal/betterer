@@ -1,1 +1,1 @@
-export { DefaultReporter, DefaultReporterProps } from './DefaultReporter';
+export { DefaultReporter } from './DefaultReporter';

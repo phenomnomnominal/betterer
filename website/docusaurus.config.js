@@ -48,7 +48,7 @@ module.exports = {
       title: 'Betterer',
       logo: {
         alt: 'Betterer Logo',
-        src: 'img/logo.png'
+        src: '../img/logo.png'
       },
       items: [
         {
@@ -60,7 +60,7 @@ module.exports = {
         {
           label: 'API',
           type: 'doc',
-          docId: 'api/api',
+          docId: 'api/index',
           position: 'left'
         },
         {
@@ -118,7 +118,7 @@ module.exports = {
           items: [
             {
               label: 'API',
-              to: 'docs/api'
+              to: 'docs/index'
             },
             {
               label: 'Blog',
@@ -137,7 +137,7 @@ module.exports = {
       ],
       logo: {
         alt: 'Betterer Logo',
-        src: 'img/logo.png'
+        src: '../img/logo.png'
       },
       copyright: `Copyright © ${new Date().getFullYear()} Craig Spence`
     }
@@ -156,7 +156,6 @@ module.exports = {
           showReadingTime: true,
           editUrl: 'https://github.com/phenomnomnominal/betterer/edit/master/website/blog/'
         },
-        sidebarCollapsible: true,
         theme: {
           customCss: require.resolve('./src/css/custom.css')
         }

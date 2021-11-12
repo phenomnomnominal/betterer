@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0-alpha.0](https://github.com/phenomnomnominal/betterer/compare/v4.4.1...v5.0.0-alpha.0) (2021-08-27)
+
+**Note:** Version bump only for package @betterer/logger
+
+
+
+
+
 ## [4.3.8](https://github.com/phenomnomnominal/betterer/compare/v4.3.7...v4.3.8) (2021-06-16)
 
 **Note:** Version bump only for package @betterer/logger
@@ -124,7 +132,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 * **betterer ✨:** create per contributor score from git history of result file ([#131](https://github.com/phenomnomnominal/betterer/issues/131)) ([bc288c4](https://github.com/phenomnomnominal/betterer/commit/bc288c4eacb6f7cdc37580f430287a39ae7a4ad0))
-* **logger ✨:** add `silent` config option and `--silent` flag ([#127](https://github.com/phenomnomnominal/betterer/issues/127)) ([816fe34](https://github.com/phenomnomnominal/betterer/commit/816fe34c888096c1c967705f4855a44851a30b4a))
+* **logger ✨:** add `silent` config option and `--silent` option ([#127](https://github.com/phenomnomnominal/betterer/issues/127)) ([816fe34](https://github.com/phenomnomnominal/betterer/commit/816fe34c888096c1c967705f4855a44851a30b4a))
 
 
 

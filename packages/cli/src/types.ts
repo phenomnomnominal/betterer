@@ -1,11 +1,16 @@
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * An array of string arguments for a CLI command.
+ */
 export type BettererCLIArguments = Array<string>;
 
-export type BettererCLIEnvConfig = {
+export interface BettererCLIEnvConfig {
   debug: boolean;
   debugLog: string;
-};
+}
 
-export type BettererCLIConfig = BettererCLIEnvConfig & {
+export interface BettererCLIConfig extends BettererCLIEnvConfig {
   cache: boolean;
   cachePath: string;
   config: BettererCLIArguments;
@@ -19,61 +24,40 @@ export type BettererCLIConfig = BettererCLIEnvConfig & {
   strict: boolean;
   tsconfig: string;
   update: boolean;
-};
+  workers: number | boolean;
+}
 
-export type BettererCLIInitConfig = BettererCLIEnvConfig & {
+export interface BettererCLIInitConfig extends BettererCLIEnvConfig {
+  automerge: boolean;
   config: string;
-};
+  results: string;
+}
 
-export type BettererPackageJSON = {
+export interface BettererCLIMergeConfig extends BettererCLIEnvConfig {
+  results: string;
+  contents: Array<string>;
+}
+
+export interface BettererCLIResultsConfig extends BettererCLIEnvConfig {
+  config: BettererCLIArguments;
+  exclude: BettererCLIArguments;
+  filter: BettererCLIArguments;
+  include: BettererCLIArguments;
+  results: string;
+}
+
+export interface BettererCLIUpgradeConfig extends BettererCLIEnvConfig {
+  config: BettererCLIArguments;
+  save: boolean;
+}
+
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * A basic representation of the package.json configuration file.
+ */
+export interface BettererPackageJSON {
   version: string;
   scripts: Record<string, string> & { betterer: string };
   devDependencies: Record<string, string>;
-};
-
-/* 
-  @deprecated doesn't make sense anymore. Will be removed in v5.0.0
-*/
-export type BettererCLIBaseConfig = BettererCLIEnvConfig & {
-  config: BettererCLIArguments;
-  filter: BettererCLIArguments;
-  reporter: BettererCLIArguments;
-  results: string;
-  silent: boolean;
-  tsconfig: string;
-};
-
-/* 
-  @deprecated doesn't make sense anymore. Will be removed in v5.0.0
-*/
-export type BettererCLICacheConfig = {
-  cache: boolean;
-  cachePath: string;
-};
-
-/* 
-  @deprecated doesn't make sense anymore. Will be removed in v5.0.0
-*/
-export type BettererCLICIConfig = BettererCLIBaseConfig & {
-  exclude: BettererCLIArguments;
-  include: BettererCLIArguments;
-};
-
-/* 
-  @deprecated doesn't make sense anymore. Will be removed in v5.0.0
-*/
-export type BettererCLIStartConfig = BettererCLIBaseConfig &
-  BettererCLICacheConfig & {
-    exclude: BettererCLIArguments;
-    include: BettererCLIArguments;
-    strict: boolean;
-    update: boolean;
-  };
-
-/* 
-  @deprecated doesn't make sense anymore. Will be removed in v5.0.0
-*/
-export type BettererCLIWatchConfig = BettererCLIBaseConfig &
-  BettererCLICacheConfig & {
-    ignore: BettererCLIArguments;
-  };
+}

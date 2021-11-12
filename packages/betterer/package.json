@@ -1,7 +1,7 @@
 {
   "name": "@betterer/betterer",
   "description": "Main engine for runing betterer tests",
-  "version": "4.4.1",
+  "version": "5.0.0-alpha.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -22,18 +22,18 @@
   },
   "scripts": {
     "compile": "tsc -b .",
-    "api": "ts-api-guardian --out ../../goldens/api/@betterer/betterer.d.ts dist/index.d.ts"
+    "api": "api-extractor run --local --verbose"
   },
   "engines": {
     "node": ">=12"
   },
   "dependencies": {
-    "@betterer/constraints": "^4.0.0",
+    "@betterer/constraints": "^5.0.0-alpha.0",
     "@betterer/errors": "^4.0.0",
-    "@betterer/logger": "^4.3.8",
-    "@betterer/reporter": "^4.4.1",
+    "@betterer/logger": "^5.0.0-alpha.0",
+    "@betterer/reporter": "^5.0.0-alpha.0",
     "@phenomnomnominal/debug": "^0.2.5",
-    "callsite": "^1.0.0",
+    "@phenomnomnominal/worker-require": "^0.0.34",
     "chokidar": "^3.3.1",
     "djb2a": "^1.2.0",
     "fast-memoize": "^2.5.2",
@@ -48,7 +48,6 @@
     "typescript": ">=2.7"
   },
   "devDependencies": {
-    "@types/callsite": "^1.0.31",
     "@types/prettier": "^2.3.2"
   }
 }

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 require('../dist/ci')
-  .ciΔ(process.cwd(), process.argv)
-  .then(function (summary) {
-    process.exitCode = summary.unexpectedDiff || summary.worse.length !== 0 ? 1 : 0;
+  .ci__(process.cwd(), process.argv)
+  .then(function (suiteSummary) {
+    process.exitCode = suiteSummary.changed.length ? 1 : 0;
   })
   .catch(function () {
     process.exitCode = 1;

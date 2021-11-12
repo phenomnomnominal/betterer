@@ -1,25 +1,54 @@
-import { BettererFileResolver, BettererFileTest } from '@betterer/betterer';
+import { BettererFileTest } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 import { ESLint, Linter } from 'eslint';
 
-type ESLintRulesConfig = Record<string, Linter.RuleLevel | Linter.RuleLevelAndOptions>;
+import { BettererESLintRulesConfig } from './types';
 
-export function eslint(rules: ESLintRulesConfig): BettererFileTest {
+/**
+ * @public Use this test to incrementally introduce new {@link https://eslint.org/ | **ESLint**} rules to
+ * your codebase. You can pass as many **ESLint** {@link https://eslint.org/docs/rules/ | rule configurations}
+ * as you like:
+ *
+ * @remarks {@link @betterer/eslint#eslint | `eslint`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
+ * so you can use {@link @betterer/betterer#BettererFileTest.include | `include()`},
+ * {@link @betterer/betterer#BettererFileTest.exclude | `exclude()`}, {@link @betterer/betterer#BettererFileTest.only | `only()`},
+ * and {@link @betterer/betterer#BettererFileTest.skip | `skip()`}.
+ *
+ * @example
+ * ```typescript
+ * import { eslint } from '@betterer/eslint';
+ *
+ * export default {
+ *   'new eslint rules': () =>
+ *     eslint({
+ *       'no-debugger': 'error',
+ *       'no-unsafe-finally': 'error',
+ *     })
+ *     .include('./src/*.ts')
+ * };
+ * ```
+ *
+ * @param rules - Additional {@link https://eslint.org/ | **ESLint**} {@link https://eslint.org/docs/rules/ | rules}
+ * to enable.
+ *
+ * @throws {@link @betterer/errors#BettererError | `BettererError` }
+ * Will throw if the user doesn't pass `rules`.
+ */
+export function eslint(rules: BettererESLintRulesConfig): BettererFileTest {
   if (!rules) {
     throw new BettererError(
       "for `@betterer/eslint` to work, you need to provide rule options, e.g. `{ 'no-debugger': 'error' }`. ❌"
     );
   }
 
-  const resolver = new BettererFileResolver();
-  return new BettererFileTest(resolver, async (filePaths, fileTestResult) => {
+  return new BettererFileTest(async (filePaths, fileTestResult, resolver) => {
     if (!filePaths.length) {
       return;
     }
 
-    const { cwd } = resolver;
-    const cli = new ESLint({ cwd });
+    const { baseDirectory } = resolver;
+    const cli = new ESLint({ cwd: baseDirectory });
 
     await Promise.all(
       filePaths.map(async (filePath) => {
@@ -28,7 +57,7 @@ export function eslint(rules: ESLintRulesConfig): BettererFileTest {
         const runner = new ESLint({
           baseConfig: { ...linterOptions, rules },
           useEslintrc: false,
-          cwd
+          cwd: baseDirectory
         });
 
         const lintResults = await runner.lintFiles([filePath]);

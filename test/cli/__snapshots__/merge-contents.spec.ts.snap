@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`betterer cli should merge the given contents 1`] = `
+"// BETTERER RESULTS V2.
+exports[\`test\`] = {
+  value: \`{
+    \\"src/index.ts:913095150\\": [
+      [0, 0, 11, \\"TSQuery match\\", \\"3870399096\\"]
+    ]
+  }\`
+};
+"
+`;

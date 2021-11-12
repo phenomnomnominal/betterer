@@ -1,7 +1,7 @@
 {
   "name": "@betterer/logger",
   "description": "logger for @betterer/betterer",
-  "version": "4.3.8",
+  "version": "5.0.0-alpha.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -22,7 +22,7 @@
   },
   "scripts": {
     "compile": "tsc -b .",
-    "api": "ts-api-guardian --out ../../goldens/api/@betterer/logger.d.ts dist/index.d.ts"
+    "api": "api-extractor run --local --verbose"
   },
   "engines": {
     "node": ">=12"

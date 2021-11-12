@@ -1,6 +1,7 @@
 import { BettererError } from '@betterer/errors';
 import { BettererLogger } from '@betterer/logger';
 import { promises as fs } from 'fs';
+import * as path from 'path';
 
 const TEMPLATE_JS = `module.exports = {
   // Add tests here ☀️
@@ -11,7 +12,9 @@ const TEMPLATE_TS = `export default {
 };
 `;
 
-export async function run(logger: BettererLogger, configPath: string, ts: boolean): Promise<void> {
+export async function run(logger: BettererLogger, cwd: string, configPath: string, ts: boolean): Promise<void> {
+  configPath = path.resolve(cwd, configPath);
+
   await logger.progress(`creating "${configPath}" file...`);
 
   let exists = false;
@@ -29,8 +32,8 @@ export async function run(logger: BettererLogger, configPath: string, ts: boolea
   try {
     const template = ts ? TEMPLATE_TS : TEMPLATE_JS;
     await fs.writeFile(configPath, template, 'utf8');
-    await logger.info(`created "${configPath}"!`);
+    await logger.success(`created "${configPath}"!`);
   } catch {
-    throw new BettererError(`could not read "${configPath}".`);
+    throw new BettererError(`could not create "${configPath}".`);
   }
 }

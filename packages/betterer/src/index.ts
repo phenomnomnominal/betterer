@@ -1,17 +1,30 @@
-export { betterer, runner, watch } from './betterer';
+/**
+ * JavaScript API for running [**`betterer`**](https://github.com/phenomnomnominal/betterer).
+ *
+ * @packageDocumentation
+ */
+
+export { betterer, merge, results, runner, watch } from './betterer';
 export {
   BettererConfig,
+  BettererConfigBase,
+  BettererConfigStart,
+  BettererConfigWatch,
+  BettererConfigExcludes,
   BettererConfigFilters,
   BettererConfigIgnores,
+  BettererConfigIncludes,
   BettererConfigPaths,
-  BettererConfigReporter,
-  BettererConfigReporters,
   BettererOptionsBase,
   BettererOptionsExcludes,
   BettererOptionsFilters,
+  BettererOptionsIgnores,
   BettererOptionsIncludes,
+  BettererOptionsMerge,
+  BettererOptionsOverride,
   BettererOptionsPaths,
   BettererOptionsReporters,
+  BettererOptionsResults,
   BettererOptionsRunner,
   BettererOptionsStartBase,
   BettererOptionsStartCI,
@@ -22,44 +35,58 @@ export {
   BettererOptionsStart,
   BettererOptionsWatch
 } from './config/public';
+export { BettererContext, BettererContextSummary } from './context/public';
 export {
-  BettererContext,
-  BettererDelta,
-  BettererRun,
-  BettererRunNames,
-  BettererRuns,
-  BettererSummary,
-  BettererSummaries
-} from './context/public';
-export { BettererFileGlobs, BettererFilePaths, BettererFilePatterns, BettererFileResolver } from './fs/public';
-export { BettererResult } from './results/public';
+  BettererFileGlobs,
+  BettererFilePath,
+  BettererFilePaths,
+  BettererFilePatterns,
+  BettererFileResolver
+} from './fs/public';
 export { BettererReporter } from './reporters/public';
-export { BettererRunner, BettererRunHandler } from './runner/public';
+export {
+  BettererFileTestResultSummary,
+  BettererFileTestResultSummaryDetails,
+  BettererTestResultSummary,
+  BettererTestResultSummaryDetails,
+  BettererResult,
+  BettererResultSummary,
+  BettererResultSummaries,
+  BettererResultsSummary
+} from './results/public';
+export { BettererDelta, BettererRun, BettererRuns, BettererRunSummary, BettererRunSummaries } from './run/public';
+export { BettererRunner } from './runner/public';
+export { BettererSuite, BettererSuiteSummary, BettererSuiteSummaries } from './suite/public';
 export {
   BettererDeserialise,
   BettererDiff,
   BettererDiffer,
-  BettererFileTest,
-  BettererFileTestFunction,
   BettererFile,
   BettererFileBase,
   BettererFileDiff,
   BettererFilesDiff,
-  BettererFileIssue,
+  BettererFileTest,
+  BettererFileTestFunction,
   BettererFileTestResult,
+  BettererFileTestResultSerialised,
   BettererFileTestDiff,
+  BettererFileIssue,
+  BettererFileIssueSerialised,
   BettererFileIssues,
+  BettererFileIssuesSerialised,
   BettererPrinter,
   BettererProgress,
   BettererSerialise,
   BettererSerialiser,
   BettererTest,
+  BettererTestBase,
   BettererTestConstraint,
+  BettererTestDeadline,
   BettererTestFunction,
   BettererTestGoal,
   BettererTestConfig,
   BettererTestOptions,
   BettererTestOptionsBasic,
   BettererTestOptionsComplex,
-  isBettererFileTestΔ
+  BettererTestNames
 } from './test/public';

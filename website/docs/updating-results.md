@@ -7,7 +7,7 @@ slug: /updating-results
 
 ## Force update
 
-By default **Betterer** will only update the results file when your test results improve. However, sometimes you need to ship something and don't have time to fix any regressions. In those cases it can be useful to force an update to the result file:
+By default **Betterer** will only update the results file when your test results improve. However, sometimes you need to ship something and don't have time to fix any regressions. In those cases it can be useful to force an update to the result file by using the [`--update`](./running-betterer#start-options) option:
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';

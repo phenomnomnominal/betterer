@@ -1,7 +1,9 @@
 import { BettererError } from '@betterer/errors';
 
-import { BettererContext, BettererRun, BettererRuns, BettererSummary, BettererSummaries } from '../context';
-import { BettererFilePaths } from '../fs';
+import { BettererContext } from '../context';
+import { BettererContextSummary } from '../context/types';
+import { BettererRun, BettererRunSummary } from '../run';
+import { BettererSuite, BettererSuiteSummary } from '../suite';
 import { BettererReporter } from './types';
 
 export class BettererReporterΩ implements BettererReporter {
@@ -10,30 +12,39 @@ export class BettererReporterΩ implements BettererReporter {
   async configError(invalidConfig: unknown, error: BettererError): Promise<void> {
     await Promise.all(this._reporters.map((r) => r.configError?.(invalidConfig, error)));
   }
-  async contextStart(context: BettererContext, lifecycle: Promise<BettererSummaries>): Promise<void> {
+
+  async contextStart(context: BettererContext, lifecycle: Promise<BettererContextSummary>): Promise<void> {
     await Promise.all(this._reporters.map((r) => r.contextStart?.(context, lifecycle)));
   }
-  async contextEnd(context: BettererContext, summaries: BettererSummaries): Promise<void> {
-    await Promise.all(this._reporters.map((r) => r.contextEnd?.(context, summaries)));
+
+  async contextEnd(contextSummary: BettererContextSummary): Promise<void> {
+    await Promise.all(this._reporters.map((r) => r.contextEnd?.(contextSummary)));
   }
+
   async contextError(context: BettererContext, error: BettererError): Promise<void> {
     await Promise.all(this._reporters.map((r) => r.contextError?.(context, error)));
   }
-  async runsStart(runs: BettererRuns, files: BettererFilePaths, lifecycle: Promise<BettererSummary>): Promise<void> {
-    await Promise.all(this._reporters.map((r) => r.runsStart?.(runs, files, lifecycle)));
+
+  async suiteStart(suite: BettererSuite, lifecycle: Promise<BettererSuiteSummary>): Promise<void> {
+    await Promise.all(this._reporters.map((r) => r.suiteStart?.(suite, lifecycle)));
   }
-  async runsEnd(summary: BettererSummary, files: BettererFilePaths): Promise<void> {
-    await Promise.all(this._reporters.map((r) => r.runsEnd?.(summary, files)));
+
+  async suiteEnd(suiteSummary: BettererSuiteSummary): Promise<void> {
+    await Promise.all(this._reporters.map((r) => r.suiteEnd?.(suiteSummary)));
   }
-  async runsError(runs: BettererRuns, files: BettererFilePaths, error: BettererError): Promise<void> {
-    await Promise.all(this._reporters.map((r) => r.runsError?.(runs, files, error)));
+
+  async suiteError(suite: BettererSuite, error: BettererError): Promise<void> {
+    await Promise.all(this._reporters.map((r) => r.suiteError?.(suite, error)));
   }
-  async runStart(run: BettererRun, lifecycle: Promise<void>): Promise<void> {
+
+  async runStart(run: BettererRun, lifecycle: Promise<BettererRunSummary>): Promise<void> {
     await Promise.all(this._reporters.map((r) => r.runStart?.(run, lifecycle)));
   }
-  async runEnd(run: BettererRun): Promise<void> {
+
+  async runEnd(run: BettererRunSummary): Promise<void> {
     await Promise.all(this._reporters.map((r) => r.runEnd?.(run)));
   }
+
   async runError(run: BettererRun, error: BettererError): Promise<void> {
     await Promise.all(this._reporters.map((r) => r.runError?.(run, error)));
   }

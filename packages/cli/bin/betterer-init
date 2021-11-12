@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../dist/init').initΔ(process.cwd(), process.argv);
+require('../dist/init').init__(process.cwd(), process.argv);

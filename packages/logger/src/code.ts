@@ -6,8 +6,12 @@ import { BettererLoggerCodeInfo } from './types';
 
 const IS_JS_REGEXP = /.t|jsx?$/;
 
-/** @internal Definitely not stable! Please don't use! */
-export function codeΔ(codeInfo: BettererLoggerCodeInfo): string {
+/**
+ * @internal Definitely not stable! Please don't use!
+ *
+ * Logs a code block with syntax highlighting and a message.
+ */
+export function code__(codeInfo: BettererLoggerCodeInfo): string {
   const { filePath, fileText, message } = codeInfo;
   const isJS = IS_JS_REGEXP.exec(path.extname(filePath));
   const options = {

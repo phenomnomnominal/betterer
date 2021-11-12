@@ -1,85 +1,99 @@
 import { BettererError } from '@betterer/errors';
 
-import { BettererConfig } from '../config';
-import { BettererFilePaths } from '../fs';
-import { BettererResult } from '../results';
-import { BettererDiff, BettererTestConfig } from '../test';
+import { BettererConfig, BettererOptionsOverride } from '../config';
+import { BettererSuiteSummaries, BettererSuiteSummary } from '../suite';
 
-export type BettererRuns = ReadonlyArray<BettererRun>;
-export type BettererRunNames = Array<string>;
-
-export type BettererContext = {
+/**
+ * @public The context of a set of test suite runs.
+ *
+ * @remarks The internal implementation of `BettererContext` is responsible for a lot more than
+ * this interface suggests, but we want to minimise the public API surface as much as possible.
+ * You can get the `BettererContext` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
+ * interface.
+ *
+ * @example
+ * ```typescript
+ * const myReporter: BettererReporter = {
+ *   // Access the context before any tests are run:
+ *   contextStart (context: BettererContext) {
+ *     // ...
+ *   },
+ *   // Access the context when something goes wrong:
+ *   contextError (context: BettererContext) {
+ *     // ...
+ *   }
+ * }
+ * ```
+ */
+export interface BettererContext {
+  /**
+   * The {@link @betterer/betterer#BettererConfig | `config`} of the context. You probably don't
+   * want to mess with this directly 🔥. If you need to update the config, you should use
+   * {@link @betterer/betterer#BettererContext.options | `BettererContext.options()`} instead.
+   */
   readonly config: BettererConfig;
-  readonly lifecycle: Promise<BettererSummaries>;
-};
+  /**
+   * Make changes to the context config. The updated config will be used for the next run.
+   *
+   * @param optionsOverride - The {@link @betterer/betterer#BettererOptionsFilters | `filters`}, {@link @betterer/betterer#BettererOptionsIgnores | `ignores`},
+   * and {@link @betterer/betterer#BettererOptionsReporters | `reporters`} to use for the next run.
+   */
+  options(optionsOverride: BettererOptionsOverride): Promise<void>;
+  /**
+   * Stop the test run and clean everything up. If tests are running, waits for them to end before
+   * stopping.
+   */
+  stop(): Promise<BettererSuiteSummary>;
+}
 
-export type BettererContextStarted = {
-  end(): Promise<void>;
+export interface BettererContextStarted {
+  end(): Promise<BettererContextSummary>;
   error(error: BettererError): Promise<void>;
-};
+}
 
-export type BettererDelta =
-  | {
-      readonly baseline: number;
-      readonly diff: number;
-      readonly result: number;
-    }
-  | {
-      readonly baseline: null;
-      readonly diff: 0;
-      readonly result: number;
-    };
-
-export type BettererRun = {
-  readonly diff: BettererDiff;
-  readonly expected: BettererResult;
-  readonly filePaths: BettererFilePaths;
-  readonly lifecycle: Promise<void>;
-  readonly name: string;
-  readonly delta: BettererDelta | null;
-  readonly result: BettererResult;
-  readonly test: BettererTestConfig;
-  readonly timestamp: number;
-
-  readonly isBetter: boolean;
-  readonly isComplete: boolean;
-  readonly isExpired: boolean;
-  readonly isFailed: boolean;
-  readonly isNew: boolean;
-  readonly isObsolete: boolean;
-  readonly isSame: boolean;
-  readonly isSkipped: boolean;
-  readonly isUpdated: boolean;
-  readonly isWorse: boolean;
-};
-
-export type BettererRunStarted = {
-  better(result: BettererResult, isComplete: boolean): Promise<void>;
-  failed(error: BettererError): Promise<void>;
-  neww(result: BettererResult, isComplete: boolean): Promise<void>;
-  same(result: BettererResult): Promise<void>;
-  skipped(): Promise<void>;
-  update(result: BettererResult): Promise<void>;
-  worse(result: BettererResult): Promise<void>;
-};
-
-export type BettererSummary = {
-  readonly runs: BettererRuns;
-  readonly result: string;
-  readonly expected: string | null;
-  readonly unexpectedDiff: boolean;
-
-  readonly better: BettererRuns;
-  readonly completed: BettererRuns;
-  readonly expired: BettererRuns;
-  readonly failed: BettererRuns;
-  readonly new: BettererRuns;
-  readonly obsolete: BettererRuns;
-  readonly ran: BettererRuns;
-  readonly same: BettererRuns;
-  readonly skipped: BettererRuns;
-  readonly updated: BettererRuns;
-  readonly worse: BettererRuns;
-};
-
-export type BettererSummaries = Array<BettererSummary>;
+/**
+ * @public The summary of a set of test suite runs.
+ *
+ * @remarks You can get the `BettererContextSummary` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
+ * interface.
+ *
+ * @example
+ * ```typescript
+ * const myReporter: BettererReporter = {
+ *   // Access the summary after the context has ended:
+ *   contextEnd (contextSummary: BettererContextSummary) {
+ *     // ...
+ *   }
+ * }
+ * ```
+ *
+ * or by using {@link @betterer/betterer#BettererReporter | `BettererReporter`'s} Promise-based
+ * `lifecycle` interface:
+ *
+ * @example
+ * ```typescript
+ * const myReporter: BettererReporter = {
+ *   // Access the summary after the context has ended:
+ *   contextStart (context: BettererContext, lifecycle: Promise<BettererContextSummary>) {
+ *     const summary: BettererContextSummary = await lifecycle;
+ *     // ...
+ *   }
+ * }
+ * ```
+ */
+export interface BettererContextSummary {
+  /**
+   * The {@link @betterer/betterer#BettererConfig | config} of the context.
+   */
+  readonly config: BettererConfig;
+  /**
+   * The {@link @betterer/betterer#BettererSuiteSummaries | `BettererSuiteSummaries`} for all test
+   * suite runs completed by a context.
+   */
+  suites: BettererSuiteSummaries;
+  /**
+   * The {@link @betterer/betterer#BettererSuiteSummary | `BettererSuiteSummary`} for the last test
+   * suite run by a context.
+   */
+  lastSuite: BettererSuiteSummary;
+}

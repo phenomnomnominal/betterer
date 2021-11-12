@@ -1,14 +1,21 @@
-import { BettererSummary, betterer, BettererOptionsStartCI } from '@betterer/betterer';
+import { BettererSuiteSummary, betterer, BettererOptionsStart } from '@betterer/betterer';
 
 import { cliOptions } from './options';
 import { BettererCLIArguments } from './types';
 
-/** @internal Definitely not stable! Please don't use! */
-export function ciΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererSummary> {
-  const { config, exclude, filter, include, results, silent, reporter, tsconfig } = cliOptions(argv);
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * Run **Betterer** in `ci` mode.
+ */
+export function ci__(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary> {
+  const { cache, cachePath, config, exclude, filter, include, results, silent, reporter, tsconfig, workers } =
+    cliOptions(argv);
 
   // Mark options as unknown...
   const options: unknown = {
+    cache,
+    cachePath,
     ci: true,
     configPaths: config,
     cwd,
@@ -18,10 +25,11 @@ export function ciΔ(cwd: string, argv: BettererCLIArguments): Promise<BettererS
     reporters: reporter,
     resultsPath: results,
     silent,
-    tsconfigPath: tsconfig
+    tsconfigPath: tsconfig,
+    workers
   };
 
-  // And then cast to BettererOptionsStartCI. This is possibly invalid,
+  // And then cast to BettererOptionsStart. This is possibly invalid,
   // but it's nicer to do the options validation in @betterer/betterer
-  return betterer(options as BettererOptionsStartCI);
+  return betterer(options as BettererOptionsStart);
 }

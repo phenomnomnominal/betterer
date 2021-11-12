@@ -1,11 +1,24 @@
-import { BettererError, isBettererError } from '@betterer/errors';
-import { Box, Text } from 'ink';
 import React, { FC } from 'react';
 
-export type BettererErrorLogProps = {
-  error: Error | BettererError;
-};
+import { BettererError, isBettererError } from '@betterer/errors';
+import { Box, Text } from 'ink';
 
+/**
+ * @public `props` type for {@link BettererErrorLog | `<BettererErrorLog/>`}.
+ */
+export interface BettererErrorLogProps {
+  /**
+   * the `Error` or {@link @betterer/errors#BettererError | `BettererError`} to render.
+   */
+  error: Error | BettererError;
+}
+
+/**
+ * @public Ink component for rendering a {@link @betterer/errors#BettererError | `BettererError` }
+ * and all its additional information. The `message`, `stack` and `details` of the `error` will be
+ * printed. If any `detail` is an `Error` or  {@link @betterer/errors#BettererError | `BettererError`},
+ * the component will be rendered recursively.
+ */
 export const BettererErrorLog: FC<BettererErrorLogProps> = function BettererErrorLog({ error }) {
   let errors: Array<Error | BettererError> = [];
   let details: Array<string> = [];
@@ -13,6 +26,7 @@ export const BettererErrorLog: FC<BettererErrorLogProps> = function BettererErro
     errors = error.details.filter((detail) => isError(detail)) as Array<Error | BettererError>;
     details = error.details.filter((detail) => !isError(detail)) as Array<string>;
   }
+
   return (
     <>
       <Box flexDirection="column" paddingTop={1}>
@@ -20,11 +34,11 @@ export const BettererErrorLog: FC<BettererErrorLogProps> = function BettererErro
           <Text color="redBright">Error: </Text>
           <Text>{error.message}</Text>
         </Box>
-        {error.stack && (
+        {error.stack ? (
           <Box paddingLeft={2}>
             <Text>{processStack(error.stack)}</Text>
           </Box>
-        )}
+        ) : null}
         {details.map((detail, index) => (
           <Box key={index} paddingTop={1}>
             <Text>{detail.trim()}</Text>

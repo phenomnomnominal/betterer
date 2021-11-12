@@ -1,7 +1,21 @@
 import { BettererErrorDetails } from './types';
 
+/**
+ * @public A custom Error for use in **Betterer**. It attaches some extra details to a standard
+ * JavaScript error for better logging and debugging.
+ *
+ * @param message - The error message.
+ * @param details - Extra details for the error.
+ */
 export class BettererError extends Error {
+  /**
+   * Extra details for the error.
+   */
   public details: BettererErrorDetails;
+  /**
+   * Used by {@link @betterer/errors#isBettererError | `isBettererError()`} to detect that an
+   * object is an instance of `BettererError`.
+   */
   public isBettererError = true;
 
   constructor(message: string, ...details: BettererErrorDetails) {
@@ -14,6 +28,17 @@ export class BettererError extends Error {
   }
 }
 
+/**
+ * @public Check if an object is a {@link BettererError | `BettererError`}.
+ *
+ * @example
+ * ```typescript
+ * import { BettererError, isBettererError } from '@betterer/errors';
+ *
+ * isBettererError(new Error()); // false
+ * isBettererError(new BettererError()); // true
+ * ```
+ */
 export function isBettererError(err: unknown): err is BettererError {
   return !!(err as BettererError).isBettererError;
 }

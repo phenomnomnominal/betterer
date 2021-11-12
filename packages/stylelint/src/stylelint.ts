@@ -1,8 +1,38 @@
-import { BettererFileResolver, BettererFileTest } from '@betterer/betterer';
+import { BettererFileTest } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import { promises as fs } from 'fs';
 import { Configuration, lint } from 'stylelint';
 
+/**
+ * @public Use this test to incrementally introduce new {@link https://stylelint.io/ | **Stylelint**} rules
+ * to your codebase. You can pass as many **Stylelint** {@link https://stylelint.io/user-guide/rules/list/ | rule configurations}
+ * as you like:
+ *
+ * @remarks {@link @betterer/stylelint#stylelint | `stylelint`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
+ * so you can use {@link @betterer/betterer#BettererFileTest.include | `include()`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude()`},
+ * {@link @betterer/betterer#BettererFileTest.only | `only()`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip()`}.
+ *
+ * @example
+ * ```typescript
+ * import { stylelint } from '@betterer/stylelint';
+ *
+ * export default {
+ *   'new stylelint rules': () =>
+ *     stylelint({
+ *       rules: {
+ *         'unit-no-unknown': true,
+ *         'property-no-unknown': true
+ *       }
+ *     })
+ *     .include('./src/*.css', './src/*.scss')
+ * ```
+ *
+ * @param configOverrides - Additional {@link https://stylelint.io/ | **Stylelint**} {@link https://stylelint.io/user-guide/configure/#rules | rules}
+ * to enable.
+ *
+ * @throws {@link @betterer/errors#BettererError | `BettererError` }
+ * Will throw if the user doesn't pass `configOverrides`.
+ */
 export function stylelint(configOverrides: Partial<Configuration>): BettererFileTest {
   if (!configOverrides) {
     throw new BettererError(
@@ -10,8 +40,7 @@ export function stylelint(configOverrides: Partial<Configuration>): BettererFile
     );
   }
 
-  const resolver = new BettererFileResolver();
-  return new BettererFileTest(resolver, async (filePaths, fileTestResult) => {
+  return new BettererFileTest(async (filePaths, fileTestResult) => {
     if (!filePaths.length) {
       return;
     }

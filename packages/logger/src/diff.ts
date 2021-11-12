@@ -1,11 +1,24 @@
-import { diff } from 'jest-diff';
+import { diff, diffLinesUnified, diffStringsUnified, DiffOptions } from 'jest-diff';
 
-const DIFF_OPTIONS = {
-  aAnnotation: 'Expected',
-  bAnnotation: 'Result'
-};
+/**
+ * @internal Definitely not stable! Please don't use!
+ *
+ * Logs the diff between two objects.
+ */
+export function diff__<T>(a: T, b: T, diffOptions: DiffOptions): string | null {
+  return diff(a, b, diffOptions);
+}
 
-/** @internal Definitely not stable! Please don't use! */
-export function diffΔ<T>(expected: T, result: T): string | null {
-  return diff(expected, result, DIFF_OPTIONS);
+/**
+ * @internal Definitely not stable! Please don't use!
+ *
+ * Logs the diff between two strings.
+ */
+export function diffStrings__(a: string, b: string, diffOptions: DiffOptions): string {
+  // jest-diff recommends using `diffLinesUnified` if string lengths are above 20,000 for performance
+  if (a.length > 20_000 || b.length > 20_000) {
+    return diffLinesUnified(a.split('\n'), b.split('\n'), diffOptions);
+  }
+
+  return diffStringsUnified(a, b, diffOptions);
 }

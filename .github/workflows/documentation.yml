@@ -14,9 +14,12 @@ jobs:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: '14.x'
       - name: Test Build
         run: |
+          yarn install --frozen-lockfile
+          yarn api
+          yarn docs
           cd website
           yarn install --frozen-lockfile
           yarn build
@@ -27,7 +30,7 @@ jobs:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: '14.x'
       - name: Add key to allow access to repository
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
@@ -48,6 +51,9 @@ jobs:
         run: |
           git config --global user.email "actions@gihub.com"
           git config --global user.name "gh-actions"
+          yarn install --frozen-lockfile
+          yarn api
+          yarn docs
           cd website
           yarn install --frozen-lockfile
           yarn deploy
