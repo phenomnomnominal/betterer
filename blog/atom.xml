@@ -13,6 +13,146 @@
         <link href="https://phenomnomnominal.github.io/betterer/blog/2021/03/01/betterer-and-stylelint"/>
         <updated>2021-03-01T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[I just released v4.0.0 of Betterer 🎉 (now with sweet new docs!) and it has a bunch of simplified APIs for writing tests. And just before I shipped it, I got an issue asking how to write a Stylelint test, so let's do it here and explain it line by line:]]></summary>
+        <content type="html"><![CDATA[<p>I just released <a href="https://github.com/phenomnomnominal/betterer">v4.0.0 of <strong>Betterer</strong></a> 🎉 (now with <a href="https://phenomnomnominal.github.io/betterer/">sweet new docs!</a>) and it has a bunch of simplified APIs for writing <a href="https://phenomnomnominal.github.io/betterer/docs/betterer-file-test">tests</a>. And just before I shipped it, I got <a href="https://github.com/phenomnomnominal/betterer/issues/519">an issue</a> asking how to write a <a href="https://stylelint.io/"><strong>Stylelint</strong></a> test, so let&#x27;s do it here and explain it line by line:</p><h2>TL;DR;</h2><p>Here&#x27;s the full test:</p><pre><code class="language-typescript">// stylelint.ts
+import { BettererFileTest } from &#x27;@betterer/betterer&#x27;;
+import { promises as fs } from &#x27;fs&#x27;;
+import { Configuration, lint } from &#x27;stylelint&#x27;;
+
+export function stylelint(configOverrides: Partial&lt;Configuration&gt; = {}) {
+  return new BettererFileTest(async (filePaths, fileTestResult) =&gt; {
+    const result = await lint({
+      files: [...filePaths],
+      configOverrides
+    });
+
+    await Promise.all(
+      result.results.map(async (result) =&gt; {
+        const contents = await fs.readFile(result.source, &#x27;utf8&#x27;);
+        const file = fileTestResult.addFile(result.source, contents);
+        result.warnings.forEach((warning) =&gt; {
+          const { line, column, text } = warning;
+          file.addIssue(line - 1, column - 1, line - 1, column - 1, text, text);
+        });
+      })
+    );
+  });
+}
+</code></pre><p>And then using the test:</p><pre><code class="language-typescript">// .betterer.ts
+import { stylelint } from &#x27;./stylelint&#x27;;
+
+export default {
+  &#x27;no stylelint issues&#x27;: stylelint({
+    rules: {
+      &#x27;unit-no-unknown&#x27;: true
+    }
+  }).include(&#x27;./**/*.css&#x27;)
+};
+</code></pre><h2>NTL;PR (not that long, please read 😂)</h2><h3><strong>Stylelint</strong></h3><p>So how does it all work? Let&#x27;s start with the actual <strong>Stylelint</strong> part.</p><p><a href="https://stylelint.io/"><strong>Stylelint</strong></a> is pretty easy to set-up. You need a <code>stylelintrc.json</code> file with configuration:</p><pre><code class="language-json">{
+  &quot;extends&quot;: &quot;stylelint-config-standard&quot;
+}
+</code></pre><p>And then run it on your CSS files:</p><pre><code class="language-bash">stylelint &quot;**/*.css&quot;
+</code></pre><p>Running that does the following:</p><ol><li>searches for the <code>stylelintrc.json</code> configuration file</li><li>reads the configuration</li><li>finds the valid files</li><li>runs the rules</li><li>returns the results</li></ol><p><strong>Stylelint</strong> also has a <a href="https://stylelint.io/user-guide/usage/node-api">JS API</a> which we&#x27;re going to use:</p><pre><code class="language-typescript">import { lint } from &#x27;stylelint&#x27;;
+
+const result = await lint({
+  // ...
+});
+</code></pre><p>We could just run the above and it will test the current state of the files with the current configuration in <code>stylelintrc.json</code>. And that&#x27;s great ✨!</p><h3>Augmenting the configuration:</h3><p>For the <strong>Betterer</strong> test we want to augment the <code>stylelintrc.json</code> configuration with some extra rules... and <strong>Stylelint</strong> has <a href="https://stylelint.io/user-guide/usage/node-api#configoverrides">a really easy way</a> to do that:</p><pre><code class="language-typescript">import { Configuration, lint } from &#x27;stylelint&#x27;;
+
+function stylelint(configOverrides: Partial&lt;Configuration&gt; = {}) {
+  const result = await lint({
+    configOverrides
+  });
+}
+</code></pre><h3>Passing the list of files:</h3><p><strong>Stylelint</strong> also allows us to pass a specific set of files to test:</p><pre><code class="language-typescript">import { Configuration, lint } from &#x27;stylelint&#x27;;
+
+function stylelint(configOverrides: Partial&lt;Configuration&gt; = {}, files: Array&lt;string&gt;) {
+  const result = await lint({
+    files,
+    configOverrides
+  });
+}
+</code></pre><p>So we could call the <code>stylelint</code> function like:</p><pre><code class="language-typescript">stylelint(
+  {
+    rules: {
+      &#x27;unit-no-unknown&#x27;: true
+    }
+  },
+  &#x27;./**/*.css&#x27;
+);
+</code></pre><p>And that will run the <strong>Stylelint</strong> from the <code>stylelinerc.json</code> file, plus the <code>unit-no-unknown</code> rule, on all <code>.css</code> files! Thats most of the tricky stuff sorted ⭐️!</p><h3>Hooking into <strong>Betterer</strong>:</h3><p>This test needs to take advantage of all the snapshotting and diffing magic of <strong>Betterer</strong>, so we need to wrap it in a <a href="https://phenomnomnominal.github.io/betterer/docs/tests">test</a>. We want to be able to target individual files, so it specifically needs to be a <a href="https://phenomnomnominal.github.io/betterer/docs/betterer-file-test"><code>BettererFileTest</code></a>. The function argument is the actual test, which is an <code>async</code> function that runs the linter.</p><pre><code class="language-typescript">import { BettererFileTest } from &#x27;@betterer/betterer&#x27;;
+import { Configuration, lint } from &#x27;stylelint&#x27;;
+
+function stylelint(configOverrides: Partial&lt;Configuration&gt; = {}) {
+  return new BettererFileTest(async (filePaths) =&gt; {
+    // ...
+  });
+}
+</code></pre><p>Each time it runs <strong>Betterer</strong> will call that function with the relevant set of files, which we will pass along to <strong>Stylelint</strong>:</p><pre><code class="language-typescript">import { BettererFileTest } from &#x27;@betterer/betterer&#x27;;
+import { Configuration, lint } from &#x27;stylelint&#x27;;
+
+function stylelint(configOverrides: Partial&lt;Configuration&gt; = {}) {
+  return new BettererFileTest(async (filePaths) =&gt; {
+    const result = await lint({
+      files: [...filePaths],
+      configOverrides
+    });
+  });
+}
+</code></pre><h3>Adding files:</h3><p>Next thing is telling <strong>Betterer</strong> about all the files with issues reported by <strong>Stylelint</strong>. To do this we can use the <code>BettererFileTestResult</code> object, which is the second parameter of the test function:</p><pre><code class="language-typescript">new BettererFileTest(resolver, async (filePaths, fileTestResult) =&gt; {
+  // ...
+});
+</code></pre><p>The <code>result</code> object from <strong>Stylelint</strong> contains a list of <code>results</code>. For each item in that list, we need to read the file with <a href="https://nodejs.org/api/fs.html">Node&#x27;s <code>fs</code> module</a>, and then call <a href="https://phenomnomnominal.github.io/betterer/docs/betterer-file-test#addfile"><code>addFile()</code></a> with the file path (<code>result.source</code>), and the contents of the file. That returns a <a href="https://phenomnomnominal.github.io/betterer/docs/betterer-file-test#bettererfile"><code>BettererFile</code></a> object:</p><pre><code class="language-typescript">import { promises as fs } from &#x27;fs&#x27;;
+
+await Promise.all(
+  result.results.map(async (result) =&gt; {
+    const contents = await fs.readFile(result.source, &#x27;utf8&#x27;);
+    const file = fileTestResult.addFile(result.source, contents);
+  })
+);
+</code></pre><h3>Adding issues:</h3><p>The last thing to do is convert from <strong>Stylelint</strong> warnings to <strong>Betterer</strong> issues. To do that we use the <a href="https://phenomnomnominal.github.io/betterer/docs/betterer-file-test#addissue"><code>addIssue()</code></a> function! In this case we will use the following overload:</p><pre><code class="language-typescript">addIssue(startLine: number, startCol: number, endLine: number, endCol: number, message: string, hash?: string):
+</code></pre><p><strong>Stylelint</strong> only gives us the line and column for the start of the issue, so we use that as both the start position and the end position. <strong>Betterer</strong> expects them to be zero-indexed so we subtract <code>1</code> from both. This also means that the <a href="https://marketplace.visualstudio.com/items?itemName=Betterer.betterer-vscode">VS Code extension</a> will add a diagnostic to the whole token with the issue, which is pretty handy! We also pass the text of the issue twice, once as the <code>message</code>, and a second time as the <code>hash</code>. The <code>hash</code> is used by <strong>Betterer</strong> to track issues as they move around within a file. <strong>Stylelint</strong> adds specific details to the <code>message</code> so that makes it a good enough hash for our purposes. All up, converting an issue looks like this:</p><pre><code class="language-typescript">result.warnings.forEach((warning) =&gt; {
+  const { line, column, text } = warning;
+  file.addIssue(line - 1, column - 1, line - 1, column - 1, text, text);
+});
+</code></pre><h3>The whole test:</h3><p>Putting that all together and you get this:</p><pre><code class="language-typescript">// stylelint.ts
+import { BettererFileTest } from &#x27;@betterer/betterer&#x27;;
+import { promises as fs } from &#x27;fs&#x27;;
+import { Configuration, lint } from &#x27;stylelint&#x27;;
+
+export function stylelint(configOverrides: Partial&lt;Configuration&gt; = {}) {
+  return new BettererFileTest(async (filePaths, fileTestResult) =&gt; {
+    const result = await lint({
+      files: [...filePaths],
+      configOverrides
+    });
+
+    await Promise.all(
+      result.results.map(async (result) =&gt; {
+        const contents = await fs.readFile(result.source, &#x27;utf8&#x27;);
+        const file = fileTestResult.addFile(result.source, contents);
+        result.warnings.forEach((warning) =&gt; {
+          const { line, column, text } = warning;
+          file.addIssue(line - 1, column - 1, line - 1, column - 1, text, text);
+        });
+      })
+    );
+  });
+}
+</code></pre><p>And then we can use the test like this:</p><pre><code class="language-typescript">// .betterer.ts
+import { stylelint } from &#x27;./stylelint&#x27;;
+
+export default {
+  &#x27;no stylelint issues&#x27;: stylelint({
+    rules: {
+      &#x27;unit-no-unknown&#x27;: true
+    }
+  }).include(&#x27;./**/*.css&#x27;)
+};
+</code></pre><p>And that&#x27;s about it! The <strong>Stylelint</strong> API is the real MVP here, nice job to their team! 🔥🔥🔥</p><p>Hopefully that makes sense! I&#x27;m still pretty excited by <strong>Betterer</strong>, so hit me up on <a href="https://twitter.com/phenomnominal">Twitter</a> if you have thoughts/feelings/ideas 🦄</p>]]></content>
+        <author>
+            <name>Craig Spence</name>
+            <uri>http://twitter.com/phenomnominal</uri>
+        </author>
     </entry>
     <entry>
         <title type="html"><![CDATA[Improving accessibility with Betterer ☀️]]></title>
@@ -20,6 +160,71 @@
         <link href="https://phenomnomnominal.github.io/betterer/blog/2020/05/15/improving-accessibility-with-betterer"/>
         <updated>2020-05-15T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[So, yesterday I announced the new release of ☀️ Betterer, thanks if you've checked it out already!]]></summary>
+        <content type="html"><![CDATA[<p>So, yesterday I announced the new release of <a href="https://dev.to/phenomnominal/betterer-v1-0-0-301b">☀️ <strong>Betterer</strong></a>, thanks if you&#x27;ve checked it out already!</p><p>I wanted to write another post describing a different example, this time with a custom test instead of a built-in test! Let&#x27;s take a look at how we can prevent accessibility regressions (and hopefully encourage improvements!) 👀</p><h2><strong>Betterer</strong> TL;DR</h2><p><a href="https://github.com/phenomnomnominal/betterer"><strong>Betterer</strong></a> is a test runner that helps make incremental improvements to your code! It is based upon <a href="https://jestjs.io/docs/en/snapshot-testing"><strong>Jest</strong>&#x27;s snapshot testing</a>, but with a twist...</p><p><strong>Betterer</strong> works in two stages. The first time it runs a test, it will take a snapshot of the current state. From that point on, whenever it runs it will compare against that snapshot. It will either throw an error (if the test got worse ❌), or update the snapshot (if the test got better ✅). That&#x27;s pretty much it!</p><h2>Our first <strong>Betterer</strong> test</h2><p>Writing a test with <strong>Betterer</strong> involves implementing two functions! More formally, we need to implement the <code>BettererTest</code> type:</p><pre><code class="language-typescript">type BettererTest&lt;ResultType&gt; = {
+  test: () =&gt; ResultType | Promise&lt;ResultType&gt;;
+  constraint: (result: ResultType, expected: ResultType) =&gt; ResultType | Promise&lt;ResultType&gt;;
+};
+</code></pre><p>So we need to write two functions:</p><ul><li><code>test</code> - the action that needs to happen to get a result,</li><li><code>constraint</code> - the rule to apply to check if the result is <em>better</em>, <em>worse</em> or the <em>same</em></li></ul><p>We can implement these in their own file, or straight in the <code>.betterer.ts</code> file. To keep it simple, we&#x27;ll do the latter:</p><pre><code class="language-typescript">// .betterer.ts
+export default {
+  &#x27;improve accessibility&#x27;: {
+    test: ...?,
+    constraint: ...?
+  }
+};
+</code></pre><h3>Writing the test</h3><p>To implement our test, we&#x27;re going to use <a href="https://github.com/puppeteer/puppeteer"><strong>Puppeteer</strong></a> and <a href="https://github.com/dequelabs/axe-core"><strong>Axe</strong></a>. <strong>Puppeteer</strong> is a tool that will run a browser and load a page. <strong>Axe</strong> is a set of accessibility audits that we can run over a web page. We&#x27;re also going to use <a href="https://github.com/dequelabs/axe-puppeteer"><strong>Axe Puppeteer</strong></a> which makes it a bit easier to use <strong>Axe</strong> with <strong>Puppeteer</strong>.</p><p>Lucky for us, we can take the example straight from the <strong>Axe Puppeteer</strong> documentation! 😍</p><p>We launch <strong>Puppeteer</strong>, get the <code>page</code> that it creates for us and navigate to a website. Then we execute <strong>Axe</strong> and get the results. Next, we close the page and the browser, before finally returning the number of violations! 🤓</p><pre><code class="language-typescript">import { AxePuppeteer } from &#x27;axe-puppeteer&#x27;;
+import * as puppeteer from &#x27;puppeteer&#x27;;
+
+async function improveAccessibility() {
+  const browser = await puppeteer.launch();
+  const [page] = await browser.pages();
+
+  await page.goto(&#x27;https://phenomnomnominal.github.io/betterer&#x27;);
+  const results = await new AxePuppeteer(page).analyze();
+
+  await page.close();
+  await browser.close();
+
+  return results.violations.length;
+}
+</code></pre><p>That&#x27;s our test sorted!</p><h3>Writing the constraint</h3><p>Now what about the <code>constraint</code>? Since our test returns a number, we just need to compare the two results. We want our test to improve when the result is <em>smaller</em>, so the <code>constraint</code> should look something like this:</p><pre><code class="language-typescript">import { ConstraintResult } from &#x27;@betterer/constraint&#x27;;
+
+function constraint(result: number, expected: number): ConstraintResult {
+  if (current === previous) {
+    return ConstraintResult.same;
+  }
+  if (current &lt; previous) {
+    return ConstraintResult.better;
+  }
+  return ConstraintResult.worse;
+}
+</code></pre><p>Comparing numbers is fairly common, so we can use the pre-defined <code>smaller</code> or <code>bigger</code> constraints:</p><pre><code class="language-typescript">import { smaller } from &#x27;@betterer/constraint&#x27;;
+</code></pre><p>So I kind of lied, you can write a test with just one function! 😅</p><h3>The whole thing</h3><p>Putting it all together, we have our test:</p><pre><code class="language-typescript">// .betterer.ts
+import { smaller } from &#x27;@betterer/constraint&#x27;;
+import { AxePuppeteer } from &#x27;axe-puppeteer&#x27;;
+import * as puppeteer from &#x27;puppeteer&#x27;;
+
+export default {
+  &#x27;improve accessibility&#x27;: {
+    async test() {
+      const browser = await puppeteer.launch();
+      const [page] = await browser.pages();
+
+      await page.goto(&#x27;https://phenomnomnominal.github.io/betterer&#x27;);
+      const results = await new AxePuppeteer(page).analyze();
+
+      await page.close();
+      await browser.close();
+
+      return results.violations.length;
+    },
+    constraint: smaller
+  }
+};
+</code></pre><p>How&#x27;s that look? Not bad I reckon! <strong>Betterer</strong> will run the test for us and update the test snapshot whenever the results get better. That will help make sure that our audit score only goes in the right direction.</p><p>This test isn&#x27;t perfect - you may noticed that it doesn&#x27;t matter <em>what</em> the violations are, but <em>how many</em> there are! That&#x27;s something that we could improve later! For now it will stop us introducing more audit violations, which is a good start ⭐️⭐️⭐️</p><p>We could improve this test by keeping track of the specific violations that occurred, so we can have a clearer definition of what <em>better</em> or <em>worse</em> really is, but let&#x27;s leave that for another day!</p><h2>That&#x27;s it!</h2><p>That&#x27;s all I got for now. Please let me know what you think on <a href="https://twitter.com/phenomnominal">Twitter</a>! 🦄</p>]]></content>
+        <author>
+            <name>Craig Spence</name>
+            <uri>http://twitter.com/phenomnominal</uri>
+        </author>
     </entry>
     <entry>
         <title type="html"><![CDATA[Betterer v1.0.0 ☀️]]></title>
@@ -27,5 +232,57 @@
         <link href="https://phenomnomnominal.github.io/betterer/blog/2020/05/14/betterer-v1.0.0"/>
         <updated>2020-05-14T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[I'm stoked to announce v1.0.0 of Betterer!]]></summary>
+        <content type="html"><![CDATA[<p>I&#x27;m stoked to announce <a href="https://www.npmjs.com/org/betterer">v1.0.0</a> of <a href="https://github.com/phenomnomnominal/betterer"><strong>Betterer</strong>!</a></p><p>I&#x27;ve been locked down in New Zealand for the last little while, and I&#x27;ve used some of that time to smash out what I think is a pretty compelling v1 release of a tool that I&#x27;m really excited about!</p><h2>What is <strong>Betterer</strong>?</h2><p><a href="https://github.com/phenomnomnominal/betterer"><strong>Betterer</strong></a> is a test runner that helps make incremental improvements to your code! It is based upon <a href="https://jestjs.io/docs/en/snapshot-testing"><strong>Jest</strong>&#x27;s snapshot testing</a>, but with a twist...</p><p>I&#x27;m sure many of us have been in situations where we&#x27;ve seen big changes we&#x27;d like to make, or new standards or design decisions that we&#x27;d like to encourage, but we just don&#x27;t have the time to do it.</p><p>Usually one of two things happen:</p><ol><li><p>You start a long-lived branch that is awful to maintain and often impossible to merge. It ends up being a time sink ⏱</p></li><li><p>You and your team make an agreement to make the improvement over time. It gets forgotten about and nothing gets better (in fact usually it gets worse!) 😕</p></li></ol><p>I&#x27;ve seen this happen time and time and again! Sometimes it&#x27;s introducing a new style rule to a codebase. Other times it&#x27;s enabling stricter compilation, or decreasing the number of accessibility failures!</p><p><strong>Betterer</strong> works in two stages. The first time it runs a test, it will take a snapshot of the current state. From that point on, whenever it runs it will compare against that snapshot. It will either throw an error (if the test got worse ❌), or update the snapshot (if the test got better ✅). That&#x27;s pretty much it!</p><h2>How does it work?</h2><p>To get started, you can run the following from the root of your project:</p><pre><code class="language-bash">npx @betterer/cli init
+</code></pre><p>That will give you a brand new <code>.betterer.ts</code> config file which looks something like this:</p><pre><code class="language-typescript">// .betterer.ts
+
+export default {
+  // Add tests here ☀️
+};
+</code></pre><p>From here, it&#x27;s up to you to add some tests!</p><p>Let&#x27;s imagine you&#x27;re working with a codebase that uses <a href="https://momentjs.com/"><strong>Moment.js</strong></a>. You&#x27;d like to migrate away from it for performance reasons.</p><pre><code class="language-javascript">// src/subtract.js
+import * as moment from &#x27;moment&#x27;;
+
+const now = moment();
+
+console.log(now.subtract(4, &#x27;years&#x27;));
+</code></pre><p>Let&#x27;s also imagine that you&#x27;re using <strong>ESLint</strong> in this codebase. One approach to remove <strong>Moment.js</strong> might be to use <a href="https://eslint.org/docs/rules/no-restricted-imports">the <code>no-restricted-imports</code> <strong>ESLint</strong> rule</a>, add the <code>eslint-disable-next-line</code> comment all over the place, and cross your fingers that people don&#x27;t just add more... 🤔</p><p>Betterer gives us a better option! We can create a test for that specific rule:</p><pre><code class="language-typescript">// .betterer.ts
+import { eslintBetterer } from &#x27;@betterer/eslint&#x27;;
+
+export default {
+  &#x27;no import from moment&#x27;: eslintBetterer(&#x27;./src/**/*.js&#x27;, [
+    &#x27;no-restricted-imports&#x27;,
+    [
+      &#x27;error&#x27;,
+      {
+        name: &#x27;moment&#x27;,
+        message: &#x27;Please use &quot;date-fns&quot; instead.&#x27;
+      }
+    ]
+  ])
+};
+</code></pre><p>The first time we run the test with <strong>Betterer</strong>, it will look something like this:</p><p><img src="https://raw.githubusercontent.com/phenomnomnominal/betterer/master/docs/images/first-run.gif" alt="Terminal output showing Betterer running and indicating that the &quot;no import from moment&quot; test has run for the first time" title="First run"/></p><p><strong>Betterer</strong> has now created a snapshot of the current state, stored by default in a <code>.betterer.results</code> file:</p><pre><code class="language-javascript">// BETTERER RESULTS V1.
+exports[`no import from moment`] = {
+  timestamp: 1589459511808,
+  value: `{
+    &quot;src/subtract.js:566118541&quot;: [
+      [0, 0, 33, &quot;\&#x27;moment\&#x27; import is restricted from being used. Please use \\&quot;date-fns\\&quot; instead.&quot;, &quot;4035178381&quot;]
+    ]
+  }`
+};
+</code></pre><p>The snapshot contains information about the current issues in the code.</p><p>The next time we run the test, it will look like this:</p><p><img src="https://raw.githubusercontent.com/phenomnomnominal/betterer/master/docs/images/same-run.gif" alt="Terminal output showing Betterer running and indicating that the &quot;no import from moment&quot; test has run and stayed the same" title="Same run"/></p><p>Now, someone else on the team comes along and doesn&#x27;t know about the new rule, and they add a new file that uses <strong>Moment.js</strong>:</p><pre><code class="language-javascript">// src/add.js
+import * as moment from &#x27;moment&#x27;;
+
+const now = moment();
+
+console.log(now.add(4, &#x27;years&#x27;));
+</code></pre><p>When <strong>Betterer</strong> runs on their code, they get a nice big error:</p><p><img src="https://raw.githubusercontent.com/phenomnomnominal/betterer/master/docs/images/worse-run.gif" alt="Terminal output showing Betterer running and indicating that the &quot;no import from moment&quot; test has run and got worse" title="Worse run"/></p><p>Even though a new issue has been introduced, the <code>.betterer.results</code> file doesn&#x27;t change!</p><p>Our teammate reads the helpful error message from <strong>ESLint</strong> and they update their code to use <strong>date-fns</strong>...</p><pre><code class="language-javascript">// src/add.js
+import { addYears } from &#x27;date-fns&#x27;;
+
+console.log(addYears(Date.now(), 4));
+</code></pre><p>... and once again <strong>Betterer</strong> tells them that the result is the same:</p><p><img src="https://raw.githubusercontent.com/phenomnomnominal/betterer/master/docs/images/same-run.gif" alt="Terminal output showing Betterer running and indicating that the &quot;no import from moment&quot; test has run and stayed the same" title="Same run"/></p><p>Our teammate has a bit of time on their hands, so they decide to fix up our usage of <strong>Moment.js</strong> as well! 🎉</p><p>This time when they run <strong>Betterer</strong>, everything is good:</p><p><img src="https://raw.githubusercontent.com/phenomnomnominal/betterer/master/docs/images/better-run.gif" alt="Terminal output showing Betterer running and indicating that the &quot;no import from moment&quot; test has run and got better" title="Better run"/></p><p>There are now no remaining issues, so this test has met its goal. Since the existing issue has been resolved, it is removed from the snapshot in the <code>.betterer.results</code> file. This means we can move the rule from <strong>Betterer</strong> over to the normal <strong>ESLint</strong> configuration, so we don&#x27;t reintroduce the issues again.</p><p>Pretty neat eh! That&#x27;s an example of the built-in <code>@betterer/eslint</code> test, but there are <a href="https://github.com/phenomnomnominal/betterer/tree/master/packages/typescript">other</a> <a href="https://github.com/phenomnomnominal/betterer/tree/master/packages/regexp">built-in</a> <a href="https://github.com/phenomnomnominal/betterer/tree/master/packages/tsquery">tests</a> too. And you can of course write your own tests! Check out the <a href="https://github.com/phenomnomnominal/betterer#custom-tests">documentation for more details</a> (still a WIP 🚧)!</p><h2>What&#x27;s in v1.0.0?</h2><p>Everything I&#x27;ve mentioned so far has been working for a while! Over the last few months I&#x27;ve really solidified the implementation (basically a whole rewrite to be honest!):</p><ul><li>Better error handling and error messages</li><li>Better issue comparison. It now understands file renames and issues that around within the same file</li><li>The ability to run tests on a single file via the JS API, with <code>betterer.single</code></li><li>A whole bunch more tests!</li></ul><p>But I&#x27;ve also added a few key features that are worthy of a 1.0.0 release! 🔥🔥🔥</p><h3>Force Update (!)</h3><p>First things first, you can now run <strong>Betterer</strong> with the <code>--update</code> option, and the snapshot will be updated even if it got worse! This is handy for when you need to ship something, even if it makes it temporarily worse:</p><pre><code class="language-bash">betterer --update
+</code></pre><p>And because this is shamelessly stolen from Jest, you can also use <code>-u</code>.</p><h3>Watch mode (!!!)</h3><p>This one is huge! All the changes that I made were building up to this. You can now run <strong>Betterer</strong> in watch mode and get feedback as you fix up issues:</p><p><img src="https://dev-to-uploads.s3.amazonaws.com/i/z47lyc7qmtnnxov4ggra.gif" alt="Terminal output showing Betterer running in watch mode indicating that the &quot;no import from moment&quot; test has run on a specific file and got better" title="Watch mode"/></p><p>Same rules apply here, the snapshot will update whenever the test gets better!</p><p>There&#x27;s a bunch of other cool things that could happen with watch mode (gamification much?), so I&#x27;m pumped that it&#x27;s working! 🤩</p><h3>VS Code extension (!!!!!)</h3><p>Way to bury the lede! This is probably the coolest bit! Let&#x27;s just say it was a build up.</p><p><strong>Betterer</strong> runs entirely in its own world, so the usual <strong>ESLint</strong> or <strong>TypeScript</strong> extensions can&#x27;t report the issues. But everyone loves seeing red squiggly lines in the code editor, so <strong>Betterer</strong> now has <a href="https://marketplace.visualstudio.com/items?itemName=Betterer.betterer-vscode">its very own VS Code Extension</a> 🤯!</p><h4>Initialise in a new project</h4><p>You can run the <code>betterer.init</code> command in a project! It will generate config files and update your <code>package.json</code> with scripts and dependencies:</p><p><img src="https://dev-to-uploads.s3.amazonaws.com/i/7ij09ag7q2v12pv56h5x.gif" alt="VS Code screen capture output showing Betterer being initialised in a project" title="VS Code Extension Betterer init"/></p><h4>See all issues in a file</h4><p>And when you&#x27;ve got some tests setup, it will show you all the existing issues in a file, and when they were first created. And it will show you any new issues as you make them:</p><p><img src="https://dev-to-uploads.s3.amazonaws.com/i/uxmtcar93enfqgx12orr.gif" alt="VS Code screen capture output showing Betterer highlighting issues in a project" title="VS Code Extension Betterer issues"/></p><p>I reckon that&#x27;s pretty sweet!</p><h3>So, what&#x27;s next?</h3><p>Well, you&#x27;re going to try out <a href="https://github.com/phenomnomnominal/betterer"><strong>Betterer</strong></a> and open lots of issues and help me make it better(er)! If you&#x27;d like to contribute...</p><ul><li>There are <em>definitely</em> bugs to fix</li><li>The test coverage is pretty good, but there aren&#x27;t any E2E tests for the VS Code extension yet</li><li>The logging and reporting implementation could use some work</li><li>There is so much documentation to be written</li></ul><p>What a time to be alive! 🤓</p><p>In case you can&#x27;t tell, I&#x27;m unreasonably excited about this and I really think this will help with large and legacy codebases. Please let me know what you think on the <a href="https://twitter.com/phenomnominal">Twitters</a>!</p>]]></content>
+        <author>
+            <name>Craig Spence</name>
+            <uri>http://twitter.com/phenomnominal</uri>
+        </author>
     </entry>
 </feed>
