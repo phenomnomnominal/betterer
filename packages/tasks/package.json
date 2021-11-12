@@ -1,7 +1,7 @@
 {
   "name": "@betterer/tasks",
   "description": "task runner and loggerr for @betterer/betterer",
-  "version": "5.0.0-alpha.0",
+  "version": "5.0.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -28,7 +28,7 @@
     "node": ">=12"
   },
   "dependencies": {
-    "@betterer/errors": "^4.0.0",
+    "@betterer/errors": "^5.0.0",
     "chalk": "^4.1.2",
     "ink": "^3.0.9",
     "react": ">=16",

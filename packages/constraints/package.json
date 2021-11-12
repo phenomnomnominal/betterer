@@ -1,7 +1,7 @@
 {
   "name": "@betterer/constraints",
   "description": "default constraints for @betterer/betterer",
-  "version": "5.0.0-alpha.0",
+  "version": "5.0.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"

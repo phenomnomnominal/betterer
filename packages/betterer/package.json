@@ -1,7 +1,7 @@
 {
   "name": "@betterer/betterer",
   "description": "Main engine for runing betterer tests",
-  "version": "5.0.0-alpha.0",
+  "version": "5.0.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -28,10 +28,10 @@
     "node": ">=12"
   },
   "dependencies": {
-    "@betterer/constraints": "^5.0.0-alpha.0",
-    "@betterer/errors": "^4.0.0",
-    "@betterer/logger": "^5.0.0-alpha.0",
-    "@betterer/reporter": "^5.0.0-alpha.0",
+    "@betterer/constraints": "^5.0.0",
+    "@betterer/errors": "^5.0.0",
+    "@betterer/logger": "^5.0.0",
+    "@betterer/reporter": "^5.0.0",
     "@phenomnomnominal/debug": "^0.2.5",
     "@phenomnomnominal/worker-require": "^0.0.34",
     "chokidar": "^3.3.1",

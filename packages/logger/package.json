@@ -1,7 +1,7 @@
 {
   "name": "@betterer/logger",
   "description": "logger for @betterer/betterer",
-  "version": "5.0.0-alpha.0",
+  "version": "5.0.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@babel/code-frame": "^7.10.3",
-    "@betterer/errors": "^4.0.0",
+    "@betterer/errors": "^5.0.0",
     "jest-diff": "^27.0.6",
     "lines-and-columns": "^1.1.6",
     "react": ">=16",
