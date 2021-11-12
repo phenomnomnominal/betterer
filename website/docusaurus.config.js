@@ -48,7 +48,7 @@ module.exports = {
       title: 'Betterer',
       logo: {
         alt: 'Betterer Logo',
-        src: '../img/logo.png'
+        src: 'img/logo.png'
       },
       items: [
         {
@@ -137,7 +137,7 @@ module.exports = {
       ],
       logo: {
         alt: 'Betterer Logo',
-        src: '../img/logo.png'
+        src: 'img/logo.png'
       },
       copyright: `Copyright © ${new Date().getFullYear()} Craig Spence`
     }
