@@ -17,6 +17,9 @@ jobs:
           node-version: '14.x'
       - name: Test Build
         run: |
+          yarn install --frozen-lockfile
+          yarn api
+          yarn docs
           cd website
           yarn install --frozen-lockfile
           yarn build
@@ -48,6 +51,9 @@ jobs:
         run: |
           git config --global user.email "actions@gihub.com"
           git config --global user.name "gh-actions"
+          yarn install --frozen-lockfile
+          yarn api
+          yarn docs
           cd website
           yarn install --frozen-lockfile
           yarn deploy

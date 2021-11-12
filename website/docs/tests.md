@@ -7,7 +7,7 @@ slug: /tests
 
 A **Betterer** test is a programmatic definition of something that you want to improve in your codebase. Typically this will either be something that is measured _across the entire project_ (e.g. code coverage, or number of tests, or a specific performance metric), or something that is measured _on a per-file basis_ (e.g. type checking, or linting).
 
-Tests are defined as code and can be re-used and shared with other projects. **Betterer** even comes with a few [built-in tests](./built-in-tests).
+Tests are defined as code and can be re-used and shared with other projects. **Betterer** even comes with [a](./typescript) [few](./eslint) [built-in](./regexp) [tests](./stylelint).
 
 ## Basic test
 

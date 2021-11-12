@@ -88,7 +88,7 @@ Run `npm run betterer "src/**/*.js" "src/**/*.css" --exclude excluded.js` to run
 </Tabs>
 
 :::warning
-**Betterer** will only run [File Tests](./betterer-file-test) when targeting specific files.
+**Betterer** will only run [File Tests](./betterer.bettererfiletest) when targeting specific files.
 :::
 
 ### Start options
@@ -259,7 +259,7 @@ Run `npm run betterer watch` to run **Betterer** in watch mode.
 **Betterer** will start watch mode, and wait for any files to change. When a file is saved, it will run any tests that apply to that file, compare the new results against the saved results, and report the updated status. When you quit watch mode (by pressing `q`), the [`.betterer.results`](./results-file) file will be updated with the new results ✅!
 
 :::warning
-When running in watch mode, **Betterer** will currently only run [File Tests](./betterer-file-test). This might change in the future, so please raise an issue with your use case!
+When running in watch mode, **Betterer** will currently only run [File Tests](./betterer.bettererfiletest). This might change in the future, so please raise an issue with your use case!
 :::
 
 ### Watch options

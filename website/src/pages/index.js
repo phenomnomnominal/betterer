@@ -43,7 +43,7 @@ function Home() {
           <HomePromoSection>
             <HomeButton href={docUrl('introduction')}>Introduction</HomeButton>
             <HomeButton href={docUrl('installation')}>Get started</HomeButton>
-            <HomeButton href={docUrl('api')}>API Docs</HomeButton>
+            <HomeButton href={docUrl('index')}>API Docs</HomeButton>
           </HomePromoSection>
         </HomeIntro>
       </HomeSplashContainer>
