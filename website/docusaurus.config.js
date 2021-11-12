@@ -60,7 +60,7 @@ module.exports = {
         {
           label: 'API',
           type: 'doc',
-          docId: 'api/api',
+          docId: 'api/index',
           position: 'left'
         },
         {
@@ -118,7 +118,7 @@ module.exports = {
           items: [
             {
               label: 'API',
-              to: 'docs/api'
+              to: 'docs/index'
             },
             {
               label: 'Blog',

@@ -6,9 +6,5 @@
   },
   "include": ["./src/**/*.ts"],
   "exclude": ["../node_modules/*", "./node_modules/*", "./dist/*"],
-  "references": [
-    { "path": "../constraints" },
-    { "path": "../errors" },
-    { "path": "../logger" }
-  ]
+  "references": [{ "path": "../constraints" }, { "path": "../errors" }, { "path": "../logger" }]
 }

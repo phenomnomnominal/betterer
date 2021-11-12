@@ -8,19 +8,12 @@ import { DiffOptions } from 'jest-diff';
 
 // @internal
 export interface BettererLog {
-    // (undocumented)
     code?: BettererLoggerCodeInfo;
-    // (undocumented)
     debug?: BettererLoggerMessage;
-    // (undocumented)
     error?: BettererLoggerMessage;
-    // (undocumented)
     info?: BettererLoggerMessage;
-    // (undocumented)
     progress?: BettererLoggerMessage;
-    // (undocumented)
     success?: BettererLoggerMessage;
-    // (undocumented)
     warn?: BettererLoggerMessage;
 }
 
@@ -29,35 +22,22 @@ export type BettererLogCode = (codeInfo: BettererLoggerCodeInfo) => Promise<void
 
 // @public
 export interface BettererLogger {
-    // (undocumented)
     code: BettererLogCode;
-    // (undocumented)
     debug: BettererLogMessage;
-    // (undocumented)
     error: BettererLogMessage;
-    // (undocumented)
     info: BettererLogMessage;
-    // (undocumented)
     progress: BettererLogMessage;
-    // (undocumented)
     success: BettererLogMessage;
-    // (undocumented)
     warn: BettererLogMessage;
 }
 
 // @public
 export interface BettererLoggerCodeInfo {
-    // (undocumented)
     column: number;
-    // (undocumented)
     filePath: string;
-    // (undocumented)
     fileText: string;
-    // (undocumented)
     length: number;
-    // (undocumented)
     line: number;
-    // (undocumented)
     message: string;
 }
 

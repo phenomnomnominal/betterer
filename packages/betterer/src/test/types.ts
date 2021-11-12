@@ -5,7 +5,7 @@ import { BettererDelta, BettererRun } from '../run';
 import { MaybeAsync } from '../types';
 
 /**
- * @public A function that checks if a test result is {@link @betterrer/constraints#BettererConstraintResult | `better`, `worse`, or the `same`}
+ * @public A function that checks if a test result is {@link @betterer/constraints#BettererConstraintResult | `better`, `worse`, or the `same`}
  * than the expected result.
  *
  * @example
@@ -211,15 +211,6 @@ export interface BettererTestOptionsComplex<DeserialisedType, SerialisedType, Di
  *
  * @remarks The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererTestConfig | `BettererTestConfig`}.
  * There is a lot of power (and therefore complexity) in this options object.
- *
- * #### `DeserialisedType`
- * For simple tests this will be `number` or other primitive. To represent complex results, you can use a more complex type.
- *
- * #### `SerialisedType`
- * Some complex result types (like [`BettererFileTestResult`](./betterer-file-test#bettererfiletestresult)) cannot be directly serialised to JSON, so it must be converted to a serailisable form.
- *
- * ### `DiffType`
- * Some complex result types (like [`BettererFileTestResult`](./betterer-file-test#bettererfiletestresult)) cannot be compared directly, so a diff can be constructed to better express the comparison.
  *
  * @typeParam DeserialisedType - The deserialised result type of a test.
  * @typeParam SerialisedType - The serialised type of a test result.

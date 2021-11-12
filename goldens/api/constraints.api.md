@@ -6,11 +6,8 @@
 
 // @public
 export enum BettererConstraintResult {
-    // (undocumented)
     better = "better",
-    // (undocumented)
     same = "same",
-    // (undocumented)
     worse = "worse"
 }
 

@@ -136,6 +136,8 @@ export interface BettererFileDiff {
     new?: BettererFileIssuesSerialised;
 }
 
+// Warning: (ae-unresolved-link) The @link reference could not be resolved: No member was found with name "cwd"
+//
 // @public
 export type BettererFileGlobs = ReadonlyArray<string | ReadonlyArray<string>>;
 
@@ -465,6 +467,8 @@ export interface BettererSerialiser<DeserialisedType, SerialisedType = Deseriali
 
 // @public
 export interface BettererSuite {
+    // Warning: (ae-unresolved-link) The @link reference could not be resolved: No member was found with name "includes"
+    // Warning: (ae-unresolved-link) The @link reference could not be resolved: No member was found with name "excludes"
     readonly filePaths: BettererFilePaths;
     readonly runs: BettererRuns;
 }

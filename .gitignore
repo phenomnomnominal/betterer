@@ -6,10 +6,11 @@ lerna-debug.log
 yarn-error.log
 *.tsbuildinfo
 *.vsix
+goldens/models
 goldens/temp
 packages/**/yarn.lock
 website/build
-website/data
+website/docs/api/*.md
 website/.docusaurus
 packages/extension/.vscode-test
 *.patch

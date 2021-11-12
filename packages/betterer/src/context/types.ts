@@ -4,11 +4,11 @@ import { BettererConfig, BettererOptionsOverride } from '../config';
 import { BettererSuiteSummaries, BettererSuiteSummary } from '../suite';
 
 /**
- * @public The context of a set of test suite runs. The internal implementation of
- * `BettererContext` is responsible for a lot more than this interface suggests, but we want to
- * minimise the public API surface as much as possible.
+ * @public The context of a set of test suite runs.
  *
- * @remarks You can get the `BettererContext` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
+ * @remarks The internal implementation of `BettererContext` is responsible for a lot more than
+ * this interface suggests, but we want to minimise the public API surface as much as possible.
+ * You can get the `BettererContext` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
  * interface.
  *
  * @example
@@ -27,15 +27,15 @@ import { BettererSuiteSummaries, BettererSuiteSummary } from '../suite';
  */
 export interface BettererContext {
   /**
-   * The {@link @betterer/betterer#BettererConfig | `config``} of the context. You probably don't want
-   * to mess with this directly 🔥. If you need to update the config, you should use
+   * The {@link @betterer/betterer#BettererConfig | `config`} of the context. You probably don't
+   * want to mess with this directly 🔥. If you need to update the config, you should use
    * {@link @betterer/betterer#BettererContext.options | `BettererContext.options()`} instead.
    */
   readonly config: BettererConfig;
   /**
    * Make changes to the context config. The updated config will be used for the next run.
    *
-   * @param optionsOverride - the {@link @betterer/betterer#BettererOptionsFilters | `filters`}, {@link @betterer/betterer#BettererOptionsIgnores | `ignores`},
+   * @param optionsOverride - The {@link @betterer/betterer#BettererOptionsFilters | `filters`}, {@link @betterer/betterer#BettererOptionsIgnores | `ignores`},
    * and {@link @betterer/betterer#BettererOptionsReporters | `reporters`} to use for the next run.
    */
   options(optionsOverride: BettererOptionsOverride): Promise<void>;
@@ -67,7 +67,8 @@ export interface BettererContextStarted {
  * }
  * ```
  *
- * or by using {@link @betterer/betterer#BettererReporter | `BettererReporter`'s} Promise-based `lifecycle` interface:
+ * or by using {@link @betterer/betterer#BettererReporter | `BettererReporter`'s} Promise-based
+ * `lifecycle` interface:
  *
  * @example
  * ```typescript

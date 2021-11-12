@@ -1,6 +1,4 @@
 /**
- * {@link https://www.npmjs.com/package/@betterer/betterer | `@betterer/betterer` }
- *
  * JavaScript API for running [**`betterer`**](https://github.com/phenomnomnominal/betterer).
  *
  * @packageDocumentation

@@ -9,27 +9,29 @@ import { Configuration, lint } from 'stylelint';
  * as you like:
  *
  * @remarks {@link @betterer/stylelint#stylelint | `stylelint`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
- * so you can use {@link @betterer/betterer#BettererFileTest.include | `exclude`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude`},
- * {@link @betterer/betterer#BettererFileTest.only | `only`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip`}.
+ * so you can use {@link @betterer/betterer#BettererFileTest.include | `include()`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude()`},
+ * {@link @betterer/betterer#BettererFileTest.only | `only()`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip()`}.
  *
  * @example
  * ```typescript
  * import { stylelint } from '@betterer/stylelint';
  *
  * export default {
- *   'new stylelint rules': () => stylelint({
- *     rules: {
- *       'unit-no-unknown': true,
- *       'property-no-unknown': true
- *     }
- *   })
- *   .include('./src/*.css', './src/*.scss')
+ *   'new stylelint rules': () =>
+ *     stylelint({
+ *       rules: {
+ *         'unit-no-unknown': true,
+ *         'property-no-unknown': true
+ *       }
+ *     })
+ *     .include('./src/*.css', './src/*.scss')
  * ```
  *
- * @param configOverrides - addition {@link https://stylelint.io/ | **Stylelint**} rules to enable
+ * @param configOverrides - Additional {@link https://stylelint.io/ | **Stylelint**} {@link https://stylelint.io/user-guide/configure/#rules | rules}
+ * to enable.
  *
  * @throws {@link @betterer/errors#BettererError | `BettererError` }
- * Will throw if the user doesn't pass `configOverrides`
+ * Will throw if the user doesn't pass `configOverrides`.
  */
 export function stylelint(configOverrides: Partial<Configuration>): BettererFileTest {
   if (!configOverrides) {
