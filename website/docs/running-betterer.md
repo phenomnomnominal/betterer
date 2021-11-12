@@ -39,7 +39,7 @@ Run `npm run betterer start` or just `npm run betterer` to run **Betterer** once
 <!-- prettier-ignore -->
 <div className="video__container">
   <video loop autoPlay muted width="80%">
-    <source src="/videos/start.mp4" type="video/mp4"/>
+    <source src="/betterer/videos/start.mp4" type="video/mp4"/>
   </video>
 </div>
 
@@ -246,7 +246,7 @@ Run `npm run betterer watch` to run **Betterer** in watch mode.
 <!-- prettier-ignore -->
 <div className="video__container">
   <video loop autoPlay muted width="80%">
-    <source src="/videos/watch.mp4" type="video/mp4"/>
+    <source src="/betterer/videos/watch.mp4" type="video/mp4"/>
   </video>
 </div>
 
