@@ -87,7 +87,9 @@ function getBundleSize() {
 </TabItem>
 </Tabs>
 
-A [`BettererTest`](./betterer-test#betterertest) has a few nice helpers like `only()` and `skip()`.
+## Skipping and targeting tests
+
+A [`BettererTest`](./betterer.betterertest) has nice helpers for [skipping](./betterer.betterertest.skip) tests and [selecting specific tests](./betterer.betterertest.only) to run.
 
 <!-- prettier-ignore -->
 <Tabs
@@ -260,16 +262,18 @@ import { BettererTest } from '@betterer/betterer';
 import { bigger, smaller } from '@betterer/constraints';
 
 export default {
-  'should grow': new BettererTest({
-    test: () => getNumberOfTests(),
-    constraint: bigger,
-    deadline: new Date('2021/07/03')
-  }),
-  'should shrink': new BettererTest({
-    test: () => getBundleSize(),
-    constraint: smaller,
-    deadline: '2021/07/03'
-  })
+  'should grow': () =>
+    new BettererTest({
+      test: () => getNumberOfTests(),
+      constraint: bigger,
+      deadline: new Date('2021/07/03')
+    }),
+  'should shrink': () =>
+    new BettererTest({
+      test: () => getBundleSize(),
+      constraint: smaller,
+      deadline: '2021/07/03'
+    })
 };
 
 function getNumberOfTests(): number {
@@ -290,16 +294,18 @@ const { BettererTest } = require('@betterer/betterer');
 const { bigger, smaller } = require('@betterer/constraints');
 
 module.exports = {
-  'should grow': new BettererTest({
-    test: () => getNumberOfTests(),
-    constraint: bigger,
-    deadline: new Date('2021/07/03')
-  }),
-  'should shrink': new BettererTest({
-    test: () => getBundleSize(),
-    constraint: smaller,
-    deadline: '2021/07/03'
-  })
+  'should grow': () =>
+    new BettererTest({
+      test: () => getNumberOfTests(),
+      constraint: bigger,
+      deadline: new Date('2021/07/03')
+    }),
+  'should shrink': () =>
+    new BettererTest({
+      test: () => getBundleSize(),
+      constraint: smaller,
+      deadline: '2021/07/03'
+    })
 };
 
 function getNumberOfTests() {
@@ -316,7 +322,7 @@ function getBundleSize() {
 
 ## File test
 
-If you want to write a test that checks individual files, you can write a [`BettererFileTest`](./betterer-file-test#bettererfiletest):
+If you want to write a test that checks individual files, you can write a [`BettererFileTest`](./betterer.bettererfiletest):
 
 <!-- prettier-ignore -->
 <Tabs
@@ -375,11 +381,11 @@ function countFiles(issue) {
 </TabItem>
 </Tabs>
 
-- [Full `BettererFileTest` API](./betterer-file-test)
+- [Full `BettererFileTest` API](./betterer.bettererfiletest)
 
 ## Complex test
 
-If you want to do more fancy custom things, you can have complete control over [constraints](./betterer-test#betterertestconstraint), [diffing](./betterer-test#bettererdiffer), [serialising/deserialising](./betterer-test#bettererserialiser) and [printing](./betterer-test#bettererprinter).
+If you want to do more fancy custom things, you can have complete control over [constraints](./betterer.betterertestconstraint), [diffing](./betterer.bettererdiffer), [serialising/deserialising](./betterer.bettererserialiser) and [printing](./betterer.bettererprinter).
 
 <!-- prettier-ignore -->
 <Tabs
@@ -459,4 +465,4 @@ function accessibilityConstraint(result, expected) {
 </TabItem>
 </Tabs>
 
-- [Full `BettererTest` API](./betterer-test)
+- [Full `BettererTest` API](./betterer.betterertest)

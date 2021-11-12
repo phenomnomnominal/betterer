@@ -23,7 +23,7 @@ const FEATURES = [
 
 function Home() {
   const context = useDocusaurusContext();
-  const homeImageURL = useBaseUrl('img/betterer.png');
+  const homeImageURL = useBaseUrl('../img/betterer.png');
 
   function docUrl(doc) {
     return useBaseUrl(`docs/${doc}`);

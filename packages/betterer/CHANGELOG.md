@@ -183,7 +183,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **betterer 🐛:** force silent when debug flag is set ([#576](https://github.com/phenomnomnominal/betterer/issues/576)) ([aafbafb](https://github.com/phenomnomnominal/betterer/commit/aafbafb4c1cb379991b6c9e6f299c6a1aa8d4d40))
+* **betterer 🐛:** force silent when debug option is set ([#576](https://github.com/phenomnomnominal/betterer/issues/576)) ([aafbafb](https://github.com/phenomnomnominal/betterer/commit/aafbafb4c1cb379991b6c9e6f299c6a1aa8d4d40))
 
 
 
@@ -402,9 +402,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **betterer ✨:** add `reporters` config option and `--reporter` flag ([#129](https://github.com/phenomnomnominal/betterer/issues/129)) ([784b2fa](https://github.com/phenomnomnominal/betterer/commit/784b2fa515e4801e365906e70c3926ea94d976e4))
+* **betterer ✨:** add `reporters` config option and `--reporter` option ([#129](https://github.com/phenomnomnominal/betterer/issues/129)) ([784b2fa](https://github.com/phenomnomnominal/betterer/commit/784b2fa515e4801e365906e70c3926ea94d976e4))
 * **betterer ✨:** create per contributor score from git history of result file ([#131](https://github.com/phenomnomnominal/betterer/issues/131)) ([bc288c4](https://github.com/phenomnomnominal/betterer/commit/bc288c4eacb6f7cdc37580f430287a39ae7a4ad0))
-* **logger ✨:** add `silent` config option and `--silent` flag ([#127](https://github.com/phenomnomnominal/betterer/issues/127)) ([816fe34](https://github.com/phenomnomnominal/betterer/commit/816fe34c888096c1c967705f4855a44851a30b4a))
+* **logger ✨:** add `silent` config option and `--silent` option ([#127](https://github.com/phenomnomnominal/betterer/issues/127)) ([816fe34](https://github.com/phenomnomnominal/betterer/commit/816fe34c888096c1c967705f4855a44851a30b4a))
 
 
 

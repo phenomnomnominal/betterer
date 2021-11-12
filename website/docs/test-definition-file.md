@@ -5,7 +5,7 @@ sidebar_label: Test definition file
 slug: /test-definition-file
 ---
 
-All your tests should be exported from a test definition file. By default, **Betterer** expects this to be `.betterer.ts` or `.betterer.js`, but you can change that by using the [`--config`](./running-betterer#start-options) flag when running **Betterer**.
+All your tests should be exported from a test definition file. By default, **Betterer** expects this to be `.betterer.ts` or `.betterer.js`, but you can change that by using the [`--config`](./running-betterer#start-options) option when running **Betterer**. You can also split your tests into multiple test definition files and pass multiple paths to the [`--config`](./running-betterer#start-options) option.
 
 :::info
 From **Betterer** v5.0.0 all tests must be functions which return a **BettererTest**. This is so that your tests can be run in parallel! Any top-level code in you test definition file _could_ run multiple times.
@@ -31,13 +31,17 @@ import TabItem from '@theme/TabItem';
 
 ```typescript
 // .betterer.ts
+import { BettererTest } from '@betterer/betterer';
+
 export default {
-  'my test': () => {
-    // ... test config
-  },
-  'my other test': () => {
-    // ... test config
-  }
+  'my test': () =>
+    new BettererTest({
+      // ... test config
+    }),
+  'my other test': () =>
+    new BettererTest({
+      // ... test config
+    })
 };
 ```
 
@@ -46,13 +50,17 @@ export default {
 
 ```javascript
 // .betterer.js
-module.exports = () => {
-  'my test': {
-    // ... test config
-  },
-  'my other test': () => {
-    // ... test config
-  }
+const { BettererTest } = require('@betterer/betterer');
+
+module.exports = {
+  'my test': () =>
+    new BettererTest({
+      // ... test config
+    }),
+  'my other test': () =>
+    new BettererTest({
+      // ... test config
+    })
 };
 ```
 
@@ -76,12 +84,18 @@ You can also expose tests as specific named exports:
 
 ```typescript
 // .betterer.ts
+import { BettererTest } from '@betterer/betterer';
+
 export function myTest() {
-  // ... return test config
+  return new BettererTest({
+    // ... test config
+  });
 }
 
 export function myOtherTest() {
-  // ... return test config
+  return new BettererTest({
+    // ... test config
+  });
 }
 ```
 
@@ -90,12 +104,18 @@ export function myOtherTest() {
 
 ```javascript
 // .betterer.js
+const { BettererTest } = require('@betterer/betterer');
+
 module.exports.myTest = () => {
-  // ... return test config
+  return new BettererTest({
+    // ... test config
+  });
 };
 
 module.exports.myOtherTest = () => {
-  // ... return test config
+  return new BettererTest({
+    // ... test config
+  });
 };
 ```
 

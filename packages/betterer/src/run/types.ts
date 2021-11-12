@@ -207,7 +207,7 @@ export interface BettererRunSummary extends BettererRun {
   readonly isSame: boolean;
   /**
    * When `true`, this test is "worse", based on the result of the `constraint` function, but the
-   * `--update` flag was used. The {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}
+   * `--update` option was used. The {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}
    * will be updated with the new result.
    */
   readonly isUpdated: boolean;

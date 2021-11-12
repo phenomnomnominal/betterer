@@ -7,7 +7,7 @@ slug: /running-betterer
 
 You can run **Betterer** with the **Betterer CLI**. If you used `npx @betterer/cli init` to add **Betterer** to your project, `@betterer/cli` will already be added as a dependency, and there will be a `betterer` script in your `package.json` file.
 
-## Start mode (run your tests once)
+## Start mode
 
 If you just want to run your tests once (like before commiting your code), you can use `betterer start` or just `betterer`:
 
@@ -38,15 +38,15 @@ Run `npm run betterer start` or just `npm run betterer` to run **Betterer** once
 
 <!-- prettier-ignore -->
 <div className="video__container">
-  <video loop autoPlay muted width="100%">
-    <source src="/betterer/videos/start.mp4" type="video/mp4"/>
+  <video loop autoPlay muted width="80%">
+    <source src="/videos/start.mp4" type="video/mp4"/>
   </video>
 </div>
 
 **Betterer** will run your tests, compare the new results against the expected results, and report the updated status. If any test result is better, the [`.betterer.results`](./results-file) file will be updated with the new result ✅! If it gets worse, your test will fail and **Betterer** will throw an error ❌!
 
 :::info
-If it is your first time running a **Betterer** test it will create a `.betterer.results` file!
+If it is your first time running a **Betterer** test it will create a [`.betterer.results`](./results-file) file!
 :::
 
 ### Including and excluding files
@@ -54,6 +54,8 @@ If it is your first time running a **Betterer** test it will create a `.betterer
 If you want to test specific files, you can pass a file path or [glob](https://www.npmjs.com/package/glob#glob-primer) directly to the `start` command.
 
 If you include files with a generic glob and want to exclude a specific file, you can use the [`--exclude`](./running-betterer#start-options) option, which can take multiple values. Each exclude pattern should be a [regular expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp).
+
+#### Examples
 
 <!-- prettier-ignore -->
 <Tabs
@@ -70,7 +72,7 @@ Run `yarn betterer "src/**/*.js"` to run **Betterer** on all JavaScript files wi
 
 Run `yarn betterer "src/**/*.js" "src/**/*.css"` to run **Betterer** on all JavaScript and CSS files within `src`.
 
-Run `yarn betterer "src/**/*.js" "src/**/*.css"--exclude excluded.js ` to run **Betterer** on all JavaScript and CSS files within `src`, but not any files called `excluded.js`.
+Run `yarn betterer "src/**/*.js" "src/**/*.css" --exclude excluded.js` to run **Betterer** on all JavaScript and CSS files within `src`, but not any files called `excluded.js`.
 
   </TabItem>
   <TabItem
@@ -91,21 +93,24 @@ Run `npm run betterer "src/**/*.js" "src/**/*.css" --exclude excluded.js` to run
 
 ### Start options
 
-You can also pass the following options to the `start` script:
+You can pass the following options to `start`:
 
 | Option                     | Description                                                                 | Default                  |
 | -------------------------- | --------------------------------------------------------------------------- | ------------------------ |
+| `--cache`                  | When present, Betterer will only run on changed files.                      | `false`                  |
+| `--cachePath` [value]      | Path to Betterer cache file relative to CWD                                 | `./.betterer.cache`      |
 | `-c`, `--config` [value]   | Path to test definition file relative to CWD. Takes multiple values         | `./.betterer.ts`         |
-| `-r`, `--results` [value]  | Path to test results file relative to CWD                                   | `./.betterer.results`    |
-| `-t`, `--tsconfig` [value] | Path to TypeScript config file relative to CWD                              | `null`                   |
 | `--exclude` [value]        | RegExp filter for files to exclude. Takes multiple values                   | `[]`                     |
 | `-f`, `--filter` [value]   | Select tests to run by RegExp. Takes multiple values                        | `[]`                     |
-| `-s`, `--silent`           | Disable all default reporters. Custom reporters still work normally.        | `false`                  |
-| `-u`, `--update`           | Update the results file, even if things get worse                           | `false`                  |
-| `--strict`                 | Hide the "how to update" message and set `--update` to `false`.             | `false`                  |
 | `-R`, `--reporter` [value] | npm package name or file path to a Betterer reporter. Takes multiple values | `['@betterer/reporter']` |
+| `-r`, `--results` [value]  | Path to test results file relative to CWD                                   | `./.betterer.results`    |
+| `-s`, `--silent`           | Disable all default reporters. Custom reporters still work normally.        | `false`                  |
+| `--strict`                 | Hide the "how to update" message and set `--update` to `false`.             | `false`                  |
+| `-t`, `--tsconfig` [value] | Path to TypeScript config file relative to CWD                              | `null`                   |
+| `-u`, `--update`           | Update the results file, even if things get worse                           | `false`                  |
+| `--workers`                | number of workers to use. Set to `false` to run tests serially.             | Number of CPUs - 2       |
 
-### Read more about Start mode
+#### Read more about Start mode
 
 - [The test definition file](./test-definition-file)
 - [The results file](./results-file)
@@ -114,9 +119,9 @@ You can also pass the following options to the `start` script:
 - [Updating results](./updating-results)
 - [Reporters](./reporters)
 
-## CI mode (run your tests and throw on changes)
+## CI mode
 
-If you just want to run your tests on your CI server (like as part of a build review process), you can use `betterer ci`:
+When you run your tests on your CI server (like as part of a build review process), you should use `betterer ci`:
 
 <!-- prettier-ignore -->
 <Tabs
@@ -140,17 +145,79 @@ Run `npm run betterer ci` to run **Betterer** in CI mode.
   </TabItem>
 </Tabs>
 
-**Betterer** will run your tests, compare the new results against the expected results, and report the updated status. If there is a difference between the new results and the expected results **Betterer** will throw an error ❌.
+**Betterer** will run your tests, compare the new results against the expected results, and report the updated status. If there is any difference between the new results and the expected results, then the committed [results file](./results-file) doesn't reflect the real state of the codebase, and **Betterer** will throw an error ❌.
 
 ### CI options
 
-Same as [Start Options](#start-options)
+You can pass the following options to `ci`:
 
-### Read more about CI mode
+| Option                     | Description                                                                 | Default                  |
+| -------------------------- | --------------------------------------------------------------------------- | ------------------------ |
+| `--cache`                  | When present, Betterer will only run on changed files.                      | `false`                  |
+| `--cachePath` [value]      | Path to Betterer cache file relative to CWD                                 | `./.betterer.cache`      |
+| `-c`, `--config` [value]   | Path to test definition file relative to CWD. Takes multiple values         | `./.betterer.ts`         |
+| `--exclude` [value]        | RegExp filter for files to exclude. Takes multiple values                   | `[]`                     |
+| `-f`, `--filter` [value]   | Select tests to run by RegExp. Takes multiple values                        | `[]`                     |
+| `-R`, `--reporter` [value] | npm package name or file path to a Betterer reporter. Takes multiple values | `['@betterer/reporter']` |
+| `-r`, `--results` [value]  | Path to test results file relative to CWD                                   | `./.betterer.results`    |
+| `-s`, `--silent`           | Disable all default reporters. Custom reporters still work normally.        | `false`                  |
+| `-t`, `--tsconfig` [value] | Path to TypeScript config file relative to CWD                              | `null`                   |
+| `--workers`                | number of workers to use. Set to `false` to run tests serially.             | Number of CPUs - 2       |
 
-- [Suggested development workflow](./development-workflow)
+#### Read more about CI mode
 
-## Watch mode (run your tests when files change)
+- [Suggested workflow](./workflow)
+
+## Pre-commit mode
+
+If you just want to run your tests on your CI server (like as part of a build review process), you can use `betterer ci`:
+
+<!-- prettier-ignore -->
+<Tabs
+  groupId="package-manager"
+  defaultValue="yarn"
+  values={[
+    { label: 'Yarn', value: 'yarn' },
+    { label: 'npm', value: 'npm' },
+  ]}>
+  <TabItem
+    value="yarn">
+
+Run `yarn betterer precommit` to run **Betterer** in Pre-commit mode.
+
+  </TabItem>
+  <TabItem
+    value="npm">
+
+Run `npm run betterer precommit` to run **Betterer** in Pre-commit mode.
+
+  </TabItem>
+</Tabs>
+
+**Betterer** will run your tests, and if there is a difference between the new results and the expected results **Betterer** will add the [results file](./results-file) to the commit.
+
+### Pre-commit options
+
+You can pass the following options to `precommit`:
+
+| Option                     | Description                                                                 | Default                  |
+| -------------------------- | --------------------------------------------------------------------------- | ------------------------ |
+| `--cache`                  | When present, Betterer will only run on changed files.                      | `false`                  |
+| `--cachePath` [value]      | Path to Betterer cache file relative to CWD                                 | `./.betterer.cache`      |
+| `-c`, `--config` [value]   | Path to test definition file relative to CWD. Takes multiple values         | `./.betterer.ts`         |
+| `--exclude` [value]        | RegExp filter for files to exclude. Takes multiple values                   | `[]`                     |
+| `-f`, `--filter` [value]   | Select tests to run by RegExp. Takes multiple values                        | `[]`                     |
+| `-R`, `--reporter` [value] | npm package name or file path to a Betterer reporter. Takes multiple values | `['@betterer/reporter']` |
+| `-r`, `--results` [value]  | Path to test results file relative to CWD                                   | `./.betterer.results`    |
+| `-s`, `--silent`           | Disable all default reporters. Custom reporters still work normally.        | `false`                  |
+| `-t`, `--tsconfig` [value] | Path to TypeScript config file relative to CWD                              | `null`                   |
+| `--workers`                | number of workers to use. Set to `false` to run tests serially.             | Number of CPUs - 2       |
+
+#### Read more about Pre-commit mode
+
+- [Suggested workflow](./workflow)
+
+## Watch mode
 
 If you just want to run your tests each time your files change (like when working to fix a whole bunch of issues), you can use `betterer watch`:
 
@@ -178,8 +245,8 @@ Run `npm run betterer watch` to run **Betterer** in watch mode.
 
 <!-- prettier-ignore -->
 <div className="video__container">
-  <video loop autoPlay muted width="100%">
-    <source src="/betterer/videos/watch.mp4" type="video/mp4"/>
+  <video loop autoPlay muted width="80%">
+    <source src="/videos/watch.mp4" type="video/mp4"/>
   </video>
 </div>
 
@@ -197,17 +264,20 @@ When running in watch mode, **Betterer** will currently only run [File Tests](./
 
 ### Watch options
 
-You can pass the following options to the `watch` script:
+You can pass the following options to `watch`:
 
 | Option                     | Description                                                                 | Default                  |
 | -------------------------- | --------------------------------------------------------------------------- | ------------------------ |
+| `--cache`                  | When present, Betterer will only run on changed files.                      | `false`                  |
+| `--cachePath` [value]      | Path to Betterer cache file relative to CWD                                 | `./.betterer.cache`      |
 | `-c`, `--config` [path]    | Path to test definition file relative to CWD. Takes multiple values         | `./.betterer.ts`         |
-| `-r`, `--results` [path]   | Path to test results file relative to CWD                                   | `./.betterer.results`    |
-| `-t`, `--tsconfig` [path]  | Path to TypeScript config file relative to CWD                              | `null`                   |
 | `-f`, `--filter` [regexp]  | Select tests to run by RegExp. Takes multiple values                        | `[]`                     |
-| `-s`, `--silent`           | Disable all default reporters. Custom reporters still work normally.        | `false`                  |
 | `-i`, `--ignore` [glob]    | Ignore files by Glob when running in watch mode. Takes multiple values      | `[]`                     |
 | `-R`, `--reporter` [value] | npm package name or file path to a Betterer reporter. Takes multiple values | `['@betterer/reporter']` |
+| `-r`, `--results` [path]   | Path to test results file relative to CWD                                   | `./.betterer.results`    |
+| `-s`, `--silent`           | Disable all default reporters. Custom reporters still work normally.        | `false`                  |
+| `-t`, `--tsconfig` [path]  | Path to TypeScript config file relative to CWD                              | `null`                   |
+| `--workers`                | number of workers to use. Set to `false` to run tests serially.             | Number of CPUs - 2       |
 
 ### Ignoring files
 
@@ -247,7 +317,7 @@ When running in [Watch mode](./running-betterer#watch-mode-run-your-tests-when-f
 
 If something isn't working correctly, it can be useful for debugging purposes to get a debug log. You can pass the following options to any of the run commands:
 
-| Option                     | Description                                                                 | Default           |
-| -------------------------- | --------------------------------------------------------------------------- | ----------------- |
-| `-d`, `--debug`            | Enable debug mode. Also enables the `silent` flag to hide reporters output. | `false`           |
-| `-l`, `--debug-log` [path] | Path to the debug log file.                                                 | `./.betterer.log` |
+| Option                     | Description                                                                   | Default           |
+| -------------------------- | ----------------------------------------------------------------------------- | ----------------- |
+| `-d`, `--debug`            | Enable debug mode. Also enables the `silent` option to hide reporters output. | `false`           |
+| `-l`, `--debug-log` [path] | Path to the debug log file.                                                   | `./.betterer.log` |

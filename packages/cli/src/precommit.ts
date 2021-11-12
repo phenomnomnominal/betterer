@@ -9,10 +9,13 @@ import { BettererCLIArguments } from './types';
  * Run **Betterer** in `precommit` mode.
  */
 export function precommit__(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary> {
-  const { config, exclude, filter, include, results, silent, reporter, tsconfig, workers } = cliOptions(argv);
+  const { cache, cachePath, config, exclude, filter, include, results, silent, reporter, tsconfig, workers } =
+    cliOptions(argv);
 
   // Mark options as unknown...
   const options: unknown = {
+    cache,
+    cachePath,
     configPaths: config,
     cwd,
     excludes: exclude,

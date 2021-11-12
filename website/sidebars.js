@@ -1,17 +1,23 @@
 module.exports = {
   docs: {
     Betterer: ['introduction'],
-    'Get Started': ['installation', 'running-betterer'],
-    'More info': [
-      'test-definition-file',
-      'tests',
-      'results-file',
+    'Get Started': ['installation', 'running-betterer', 'workflow'],
+    'Core concepts': ['test-definition-file', 'tests', 'results-file', 'filters'],
+    'Advanced details': [
       'betterer-and-typescript',
-      'filters',
-      'updating-results',
+      'caching',
       'reporters',
-      'development-workflow',
-      'built-in-tests'
+      'results-summary',
+      'updating-results',
+      'upgrading'
+    ],
+    'Built-in tests': [
+      'angular-test',
+      'eslint-test',
+      'regexp-test',
+      'stylelint-test',
+      'tsquery-test',
+      'typescript-test'
     ]
   }
 };
