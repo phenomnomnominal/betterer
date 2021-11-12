@@ -446,7 +446,7 @@ export interface BettererOptionsStartUpdate extends BettererOptionsStartBase {
  *
  * This is the union of valid possible options for a single **Betterer** run. This type should
  * prevent {@link @betterer/betterer#(betterer:function) | `betterer()` } from being called with invalid
- * flags, as some combinations do not make sense.
+ * options, as some combinations do not make sense.
  */
 export type BettererOptionsStart =
   | BettererOptionsStartCI

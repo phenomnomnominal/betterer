@@ -5,7 +5,7 @@ sidebar_label: Tests
 slug: /tests
 ---
 
-A **Betterer** test is a programmatic definition of something that you want to improve in your codebase. Typically this will either be something that is measured _across the entire codebase_ (e.g. code coverage, or number of tests, or a specific performance metric), or something that is measured _on a per-file basis_ (e.g. type checking, or linting).
+A **Betterer** test is a programmatic definition of something that you want to improve in your codebase. Typically this will either be something that is measured _across the entire project_ (e.g. code coverage, or number of tests, or a specific performance metric), or something that is measured _on a per-file basis_ (e.g. type checking, or linting).
 
 Tests are defined as code and can be re-used and shared with other projects. **Betterer** even comes with a few [built-in tests](./built-in-tests).
 
@@ -29,85 +29,20 @@ import TabItem from '@theme/TabItem';
 
 ```typescript
 // .betterer.ts
-import { bigger, smaller } from '@betterer/constraints';
-
-export default {
-  'should grow': {
-    test: () => getNumberOfTests(),
-    constraint: bigger
-  },
-  'should shrink': {
-    test: () => getBundleSize(),
-    constraint: smaller
-  }
-};
-
-function getNumberOfTests(): number {
-  // ...
-}
-
-function getBundleSize(): number {
-  // ...
-}
-```
-
-</TabItem>
-<TabItem value="js">
-
-```javascript
-// .betterer.js
-const { bigger, smaller } = require('@betterer/constraints');
-
-module.exports = {
-  'should grow': {
-    test: () => getNumberOfTests(),
-    constraint: bigger
-  },
-  'should shrink': {
-    test: () => getBundleSize(),
-    constraint: smaller
-  }
-};
-
-function getNumberOfTests() {
-  // ...
-}
-
-function getBundleSize() {
-  // ...
-}
-```
-
-</TabItem>
-</Tabs>
-
-Most of the time you should wrap your test in a [`BettererTest`](./betterer-test#betterertest). This adds a few nice helpers like `only()` and `skip()`.
-
-<!-- prettier-ignore -->
-<Tabs
-  groupId="language"
-  defaultValue="ts"
-  values={[
-    { label: 'TypeScript', value: 'ts', },
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<TabItem value="ts">
-
-```typescript
-// .betterer.ts
 import { BettererTest } from '@betterer/betterer';
 import { bigger, smaller } from '@betterer/constraints';
 
 export default {
-  'should grow': new BettererTest({
-    test: () => getNumberOfTests(),
-    constraint: bigger
-  }).only(),
-  'should shrink': new BettererTest({
-    test: () => getBundleSize(),
-    constraint: smaller
-  }).skip()
+  'should grow': () =>
+    new BettererTest({
+      test: () => getNumberOfTests(),
+      constraint: bigger
+    }),
+  'should shrink': () =>
+    new BettererTest({
+      test: () => getBundleSize(),
+      constraint: smaller
+    })
 };
 
 function getNumberOfTests(): number {
@@ -128,14 +63,91 @@ const { BettererTest } = require('@betterer/betterer');
 const { bigger, smaller } = require('@betterer/constraints');
 
 module.exports = {
-  'should grow': new BettererTest({
-    test: () => getNumberOfTests(),
-    constraint: bigger
-  }).only(),
-  'should shrink': new BettererTest({
-    test: () => getBundleSize(),
-    constraint: smaller
-  }).skip()
+  'should grow': () =>
+    new BettererTest({
+      test: () => getNumberOfTests(),
+      constraint: bigger
+    }),
+  'should shrink': () =>
+    new BettererTest({
+      test: () => getBundleSize(),
+      constraint: smaller
+    })
+};
+
+function getNumberOfTests() {
+  // ...
+}
+
+function getBundleSize() {
+  // ...
+}
+```
+
+</TabItem>
+</Tabs>
+
+## Skipping and targeting tests
+
+A [`BettererTest`](./betterer.betterertest) has nice helpers for [skipping](./betterer.betterertest.skip) tests and [selecting specific tests](./betterer.betterertest.only) to run.
+
+<!-- prettier-ignore -->
+<Tabs
+  groupId="language"
+  defaultValue="ts"
+  values={[
+    { label: 'TypeScript', value: 'ts', },
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<TabItem value="ts">
+
+```typescript
+// .betterer.ts
+import { BettererTest } from '@betterer/betterer';
+import { bigger, smaller } from '@betterer/constraints';
+
+export default {
+  'should grow': () =>
+    new BettererTest({
+      test: () => getNumberOfTests(),
+      constraint: bigger
+    }).only(),
+  'should shrink': () =>
+    new BettererTest({
+      test: () => getBundleSize(),
+      constraint: smaller
+    }).skip()
+};
+
+function getNumberOfTests(): number {
+  // ...
+}
+
+function getBundleSize(): number {
+  // ...
+}
+```
+
+</TabItem>
+<TabItem value="js">
+
+```javascript
+// .betterer.js
+const { BettererTest } = require('@betterer/betterer');
+const { bigger, smaller } = require('@betterer/constraints');
+
+module.exports = {
+  'should grow': () =>
+    new BettererTest({
+      test: () => getNumberOfTests(),
+      constraint: bigger
+    }).only(),
+  'should shrink': () =>
+    new BettererTest({
+      test: () => getBundleSize(),
+      constraint: smaller
+    }).skip()
 };
 
 function getNumberOfTests() {
@@ -171,16 +183,18 @@ import { BettererTest } from '@betterer/betterer';
 import { bigger, smaller } from '@betterer/constraints';
 
 export default {
-  'should grow': new BettererTest({
-    test: () => getNumberOfTests(),
-    constraint: bigger,
-    goal: (value: number) => value > 1000
-  }).only(),
-  'should shrink': new BettererTest({
-    test: () => getBundleSize(),
-    constraint: smaller,
-    goal: 5
-  }).skip()
+  'should grow': () =>
+    new BettererTest({
+      test: () => getNumberOfTests(),
+      constraint: bigger,
+      goal: (value: number) => value > 1000
+    }),
+  'should shrink': () =>
+    new BettererTest({
+      test: () => getBundleSize(),
+      constraint: smaller,
+      goal: 5
+    })
 };
 
 function getNumberOfTests(): number {
@@ -201,16 +215,18 @@ const { BettererTest } = require('@betterer/betterer');
 const { bigger, smaller } = require('@betterer/constraints');
 
 module.exports = {
-  'should grow': new BettererTest({
-    test: () => getNumberOfTests(),
-    constraint: bigger,
-    goal: (value) => value > 1000
-  }).only(),
-  'should shrink': new BettererTest({
-    test: () => getBundleSize(),
-    constraint: smaller,
-    goal: 5
-  }).skip()
+  'should grow': () =>
+    new BettererTest({
+      test: () => getNumberOfTests(),
+      constraint: bigger,
+      goal: (value) => value > 1000
+    }),
+  'should shrink': () =>
+    new BettererTest({
+      test: () => getBundleSize(),
+      constraint: smaller,
+      goal: 5
+    })
 };
 
 function getNumberOfTests() {
@@ -246,16 +262,18 @@ import { BettererTest } from '@betterer/betterer';
 import { bigger, smaller } from '@betterer/constraints';
 
 export default {
-  'should grow': new BettererTest({
-    test: () => getNumberOfTests(),
-    constraint: bigger,
-    deadline: new Date('2021/07/03')
-  }),
-  'should shrink': new BettererTest({
-    test: () => getBundleSize(),
-    constraint: smaller,
-    deadline: '2021/07/03'
-  })
+  'should grow': () =>
+    new BettererTest({
+      test: () => getNumberOfTests(),
+      constraint: bigger,
+      deadline: new Date('2021/07/03')
+    }),
+  'should shrink': () =>
+    new BettererTest({
+      test: () => getBundleSize(),
+      constraint: smaller,
+      deadline: '2021/07/03'
+    })
 };
 
 function getNumberOfTests(): number {
@@ -276,16 +294,18 @@ const { BettererTest } = require('@betterer/betterer');
 const { bigger, smaller } = require('@betterer/constraints');
 
 module.exports = {
-  'should grow': new BettererTest({
-    test: () => getNumberOfTests(),
-    constraint: bigger,
-    deadline: new Date('2021/07/03')
-  }).only(),
-  'should shrink': new BettererTest({
-    test: () => getBundleSize(),
-    constraint: smaller,
-    deadline: '2021/07/03'
-  }).skip()
+  'should grow': () =>
+    new BettererTest({
+      test: () => getNumberOfTests(),
+      constraint: bigger,
+      deadline: new Date('2021/07/03')
+    }),
+  'should shrink': () =>
+    new BettererTest({
+      test: () => getBundleSize(),
+      constraint: smaller,
+      deadline: '2021/07/03'
+    })
 };
 
 function getNumberOfTests() {
@@ -302,7 +322,7 @@ function getBundleSize() {
 
 ## File test
 
-If you want to write a test that checks individual files, you can write a [`BettererFileTest`](./betterer-file-test#bettererfiletest):
+If you want to write a test that checks individual files, you can write a [`BettererFileTest`](./betterer.bettererfiletest):
 
 <!-- prettier-ignore -->
 <Tabs
@@ -320,7 +340,7 @@ If you want to write a test that checks individual files, you can write a [`Bett
 import { BettererFileTest } from '@betterer/betterer';
 
 export default {
-  'no more JavaScript files': countFiles('no more JavaScript files!').include('**/*.js')
+  'no more JavaScript files': () => countFiles('no more JavaScript files!').include('**/*.js')
 };
 
 function countFiles(issue: string) {
@@ -343,7 +363,7 @@ function countFiles(issue: string) {
 const { BettererFileTest } = require('@betterer/betterer');
 
 module.exports = {
-  'no more JavaScript': countFiles('no more JavaScript files!').include('**/*.js')
+  'no more JavaScript': () => countFiles('no more JavaScript files!').include('**/*.js')
 };
 
 function countFiles(issue) {
@@ -361,11 +381,11 @@ function countFiles(issue) {
 </TabItem>
 </Tabs>
 
-- [Full `BettererFileTest` API](./betterer-file-test)
+- [Full `BettererFileTest` API](./betterer.bettererfiletest)
 
 ## Complex test
 
-If you want to do more fancy custom things, you can have complete control over [constraints](./betterer-test#betterertestconstraint), [diffing](./betterer-test#bettererdiffer), [serialising/deserialising](./betterer-test#bettererserialiser) and [printing](./betterer-test#bettererprinter).
+If you want to do more fancy custom things, you can have complete control over [constraints](./betterer.betterertestconstraint), [diffing](./betterer.bettererdiffer), [serialising/deserialising](./betterer.bettererserialiser) and [printing](./betterer.bettererprinter).
 
 <!-- prettier-ignore -->
 <Tabs
@@ -389,10 +409,11 @@ type AccessibilityReport = {
 };
 
 export default {
-  'should be accessible': new BettererTest<AccessibilityReport>({
-    test: accessibilityTest,
-    constraint: accessibilityConstraint
-  })
+  'should be accessible': () =>
+    new BettererTest<AccessibilityReport>({
+      test: accessibilityTest,
+      constraint: accessibilityConstraint
+    })
 };
 
 function accessibilityTest(): AccessibilityReport {
@@ -419,10 +440,11 @@ const { BettererTest } = require('@betterer/betterer');
 const { BettererConstraintResult } = require('@betterer/constraints');
 
 module.exports = {
-  'should be accessible': new BettererTest({
-    test: accessibilityTest,
-    constraint: accessibilityConstraint
-  })
+  'should be accessible': () =>
+    new BettererTest({
+      test: accessibilityTest,
+      constraint: accessibilityConstraint
+    })
 };
 
 function accessibilityTest() {
@@ -443,4 +465,4 @@ function accessibilityConstraint(result, expected) {
 </TabItem>
 </Tabs>
 
-- [Full `BettererTest` API](./betterer-test)
+- [Full `BettererTest` API](./betterer.betterertest)

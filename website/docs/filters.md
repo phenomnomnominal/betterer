@@ -5,8 +5,6 @@ sidebar_label: Filters
 slug: /filters
 ---
 
-## Filters
-
 If you want to be selective about which tests run, you can use the [`--filter`](./running-betterer#start-options) option, which can take mutliple values. Each filter should be a [regular expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions).
 
 import Tabs from '@theme/Tabs';
@@ -38,4 +36,4 @@ Run `npm run betterer --filter my-test --filter my-other-test` to run **Betterer
   </TabItem>
 </Tabs>
 
-When running in [Watch mode](./running-betterer#watch-mode-run-your-tests-when-files-change), filters can be updated on the fly by first pressing `f`, and then modifying the current filter.
+When running in [Watch mode](./running-betterer#watch-mode), filters can be updated on the fly by first pressing `f`, and then modifying the current filter.

@@ -32,9 +32,11 @@ Running `npx @betterer/cli init` will modify your project's `package.json` file,
 
 You can pass the following options to the `init` script:
 
-| Option                  | Description                                  | Default          |
-| ----------------------- | -------------------------------------------- | ---------------- |
-| `-c`, `--config` [path] | Path to test definition file relative to CWD | `./.betterer.ts` |
+| Option                    | Description                                            | Default               |
+| ------------------------- | ------------------------------------------------------ | --------------------- |
+| `--automerge`             | Enable automatic merging for the Betterer results file | `false`               |
+| `-c`, `--config` [path]   | Path to test definition file relative to CWD           | `./.betterer.ts`      |
+| `-r`, `--results` [value] | Path to test results file relative to CWD              | `./.betterer.results` |
 
 :::info
 **Betterer** uses TypeScript by default! If you pass a `--config` path that ends with `.js`, JavaScript will be used instead and TypeScript will not be installed.
@@ -43,6 +45,7 @@ You can pass the following options to the `init` script:
 ### Read more about Init
 
 - [The test definition file](./test-definition-file)
+- [The results file](./results-file)
 
 ## Installing **Betterer** dependencies
 

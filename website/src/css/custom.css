@@ -36,6 +36,14 @@ body > div {
   min-width: 360px;
 }
 
+video {
+  margin: 0 10%;
+}
+
+.admonition {
+  margin: 3em 0 4em;
+}
+
 .footer--dark {
   --ifm-footer-background-color: #111111;
 }

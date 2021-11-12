@@ -126,7 +126,7 @@ export interface BettererSuiteSummary extends BettererSuite {
   readonly skipped: BettererRunSummaries;
   /**
    * An array containing a {@link @betterer/betterer#BettererRunSummary | `BettererRunSummary`}
-   * for each test that got worse, but the `--update` flag was enabled.
+   * for each test that got worse, but the `--update` option was enabled.
    */
   readonly updated: BettererRunSummaries;
   /**

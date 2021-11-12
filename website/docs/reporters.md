@@ -11,14 +11,14 @@ slug: /reporters
 
 <!-- prettier-ignore -->
 <div className="video__container">
-  <video loop autoPlay muted width="100%">
-    <source src="/betterer/videos/watch.mp4" type="video/mp4"/>
+  <video loop autoPlay muted width="80%">
+    <source src="/videos/watch.mp4" type="video/mp4"/>
   </video>
 </div>
 
 ### Custom reporters
 
-If you want to write your own reporter, you need to implement the [`BettererReporter`](./reporter#bettererreporter) API and export an instance from a JavaScript module:
+If you want to write your own reporter, you need to implement the [`BettererReporter`](./betterer.bettererreporter) API and export an instance from a JavaScript module:
 
 ```typescript
 // src/html-reporter.ts
@@ -44,7 +44,7 @@ function renderHTMLTemplate(contextSummary: BettererContextSummary): string {
 }
 ```
 
-You can then use the [`--reporter`](./running-betterer#start-options) flag when you run **Betterer**:
+You can then use the [`--reporter`](./running-betterer#start-options) option when you run **Betterer**:
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
