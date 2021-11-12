@@ -51,6 +51,10 @@ body > div {
   margin-bottom: 1rem;
 }
 
+html[data-theme='dark'] {
+  --docusaurus-btt-color: var(--ifm-color-black);
+}
+
 html[data-theme='dark'] .DocSearch {
   --docsearch-text-color: var(--ifm-font-color-base);
   --docsearch-muted-color: var(--ifm-color-secondary-darkest);
@@ -61,8 +65,8 @@ html[data-theme='dark'] .DocSearch {
   --docsearch-searchbox-background: var(--ifm-background-color);
   --docsearch-searchbox-focus-background: var(--ifm-color-black);
   /* Hit */
-  --docsearch-hit-color: var(--ifm-font-color-base);
-  --docsearch-hit-active-color: var(--ifm-color-white);
+  --docsearch-hit-color: var(--ifm-color-secondary-darkest);
+  --docsearch-hit-active-color: var(--ifm-color-black);
   --docsearch-hit-background: var(--ifm-color-emphasis-100);
   /* Footer */
   --docsearch-footer-background: var(--ifm-background-surface-color);
@@ -71,4 +75,8 @@ html[data-theme='dark'] .DocSearch {
     var(--ifm-color-emphasis-200) 0%,
     var(--ifm-color-emphasis-100) 100%
   );
+}
+
+code {
+  vertical-align: initial;
 }

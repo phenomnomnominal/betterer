@@ -11,9 +11,9 @@ import { BettererESLintRulesConfig } from './types';
  * as you like:
  *
  * @remarks {@link @betterer/eslint#eslint | `eslint`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
- * so you can use {@link @betterer/betterer#BettererFileTest.include | `exclude`},
- * {@link @betterer/betterer#BettererFileTest.exclude | `exclude`}, {@link @betterer/betterer#BettererFileTest.only | `only`},
- * and {@link @betterer/betterer#BettererFileTest.skip | `skip`}.
+ * so you can use {@link @betterer/betterer#BettererFileTest.include | `include()`},
+ * {@link @betterer/betterer#BettererFileTest.exclude | `exclude()`}, {@link @betterer/betterer#BettererFileTest.only | `only()`},
+ * and {@link @betterer/betterer#BettererFileTest.skip | `skip()`}.
  *
  * @example
  * ```typescript
@@ -29,10 +29,11 @@ import { BettererESLintRulesConfig } from './types';
  * };
  * ```
  *
- * @param rules - addition {@link https://eslint.org/ | **ESLint**} rules to enable
+ * @param rules - Additional {@link https://eslint.org/ | **ESLint**} {@link https://eslint.org/docs/rules/ | rules}
+ * to enable.
  *
  * @throws {@link @betterer/errors#BettererError | `BettererError` }
- * Will throw if the user doesn't pass `rules`
+ * Will throw if the user doesn't pass `rules`.
  */
 export function eslint(rules: BettererESLintRulesConfig): BettererFileTest {
   if (!rules) {

@@ -23,7 +23,7 @@ import {
  * });
  * ```
  *
- * @param options - the options that define the test.
+ * @param options - The options that define the test.
  */
 export class BettererTest<DeserialisedType, SerialisedType = DeserialisedType, DiffType = null>
   implements BettererTestBase<DeserialisedType, SerialisedType, DiffType>
@@ -57,8 +57,8 @@ export class BettererTest<DeserialisedType, SerialisedType = DeserialisedType, D
   /**
    * Override the constraint in the test configuration.
    *
-   * @param constraintOverride - the new constraint for the test.
-   * @returns this test, so it is chainable.
+   * @param constraintOverride - The new constraint for the test.
+   * @returns This {@link @betterer/betterer#BettererTest | `BettererTest`}, so it is chainable.
    */
   public constraint(constraintOverride: BettererTestConstraint<DeserialisedType>): this {
     this.config.constraint = constraintOverride;
@@ -68,8 +68,8 @@ export class BettererTest<DeserialisedType, SerialisedType = DeserialisedType, D
   /**
    * Override the deadline in the test configuration.
    *
-   * @param deadlineOverride - the new deadline for the test.
-   * @returns this test, so it is chainable.
+   * @param deadlineOverride - The new deadline for the test.
+   * @returns This {@link @betterer/betterer#BettererTest | `BettererTest`}, so it is chainable.
    */
   public deadline(deadlineOverride: BettererTestDeadline): this {
     this.config.deadline = createDeadline({ ...this.config, deadline: deadlineOverride });
@@ -79,8 +79,8 @@ export class BettererTest<DeserialisedType, SerialisedType = DeserialisedType, D
   /**
    * Override the goal in the test configuration.
    *
-   * @param goalOverride - the new goal for the test.
-   * @returns this test, so it is chainable.
+   * @param goalOverride - The new goal for the test.
+   * @returns This {@link @betterer/betterer#BettererTest | `BettererTest`}, so it is chainable.
    */
   public goal(goalOverride: BettererTestGoal<DeserialisedType>): this {
     this.config.goal = createGoal({ ...this.config, goal: goalOverride });
@@ -90,7 +90,7 @@ export class BettererTest<DeserialisedType, SerialisedType = DeserialisedType, D
   /**
    * Run only this test. All other tests will be marked as skipped.
    *
-   * @returns this test, so it is chainable.
+   * @returns This {@link @betterer/betterer#BettererTest | `BettererTest`}, so it is chainable.
    */
   public only(): this {
     this._isOnly = true;
@@ -100,7 +100,7 @@ export class BettererTest<DeserialisedType, SerialisedType = DeserialisedType, D
   /**
    * Skip this test.
    *
-   * @returns this test, so it is chainable.
+   * @returns This {@link @betterer/betterer#BettererTest | `BettererTest`}, so it is chainable.
    */
   public skip(): this {
     this._isSkipped = true;

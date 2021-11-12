@@ -1,6 +1,4 @@
 /**
- * {@link https://www.npmjs.com/package/@betterer/logger | `@betterer/logger` }
- *
  * Logger used within {@link https://github.com/phenomnomnominal/betterer | **Betterer**}.
  *
  * @packageDocumentation

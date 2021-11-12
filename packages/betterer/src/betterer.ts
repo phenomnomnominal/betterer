@@ -12,7 +12,7 @@ import { BettererMergerΩ, BettererResultsSummary, BettererResultsSummaryΩ } fr
 import { BettererSuiteSummary } from './suite';
 
 /**
- * @public run **Betterer** with the given options.
+ * @public Run **Betterer** with the given options.
  *
  * @example
  * ```typescript
@@ -21,6 +21,7 @@ import { BettererSuiteSummary } from './suite';
  * const suiteSummary = await betterer(options);
  * ```
  *
+ * @param options - Options for running **Betterer**.
  * @throws {@link @betterer/errors#BettererError | `BettererError` }
  * Will throw if something goes wrong while running **Betterer**.
  */
@@ -31,7 +32,7 @@ export async function betterer(options: BettererOptionsStart = {}): Promise<Bett
 }
 
 /**
- * @public resolve any merge conflicts in the specified results file.
+ * @public Resolve any merge conflicts in the specified results file.
  *
  * @example
  * ```typescript
@@ -40,6 +41,7 @@ export async function betterer(options: BettererOptionsStart = {}): Promise<Bett
  * await betterer.merge(options);
  * ```
  *
+ * @param options - Options for merging conflicts in the results file.
  * @throws {@link @betterer/errors#BettererError | `BettererError` }
  * Will throw if something goes wrong while merging conflicts in the results file.
  */
@@ -50,11 +52,10 @@ export async function merge(options: BettererOptionsMerge = {}): Promise<void> {
 betterer.merge = merge;
 
 /**
- * * @public get a summary of the results of the defined {@link @betterer/betterer#BettererTest | `BettererTest`s}.
+ * @public Get a summary of the results of the defined {@link @betterer/betterer#BettererTest | `BettererTest`s}.
  *
  * **Betterer** will read the {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file }
- * and the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}
- * and return a summary of the results.
+ * and the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file} and return a summary of the results.
  *
  * @example
  * ```typescript
@@ -63,6 +64,7 @@ betterer.merge = merge;
  * const resultsSummary = await betterer.results(options);
  * ```
  *
+ * @param options - Options for getting the summary of the results.
  * @throws {@link @betterer/errors#BettererError | `BettererError` }
  * Will throw if something goes wrong while getting the summary of the results.
  */
@@ -73,7 +75,7 @@ export function results(options: BettererOptionsResults = {}): Promise<BettererR
 betterer.results = results;
 
 /**
- * @public create a **BettererRunner** with the given options.
+ * @public Create a **BettererRunner** with the given options.
  *
  * @example
  * ```typescript
@@ -82,6 +84,7 @@ betterer.results = results;
  * const runner = await betterer.runner(options);
  * ```
  *
+ * @param options - Options for creating the runner.
  * @throws {@link @betterer/errors#BettererError | `BettererError` }
  * Will throw if something goes wrong while creating the runner.
  */
@@ -92,7 +95,7 @@ export function runner(options: BettererOptionsRunner = {}): Promise<BettererRun
 betterer.runner = runner;
 
 /**
- * @public create a **BettererRunner** with the given options. Also starts up a file watcher
+ * @public Create a **BettererRunner** with the given options. Also starts up a file watcher
  * for tracked files in the current working directory.
  *
  * @example
@@ -102,6 +105,7 @@ betterer.runner = runner;
  * const runner = await betterer.watch(options);
  * ```
  *
+ * @param options - Options for creating the runner.
  * @throws {@link @betterer/errors#BettererError | `BettererError` }
  * Will throw if something goes wrong while creating the runner or watcher.
  */

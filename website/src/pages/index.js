@@ -41,9 +41,9 @@ function Home() {
           <HomeTitle title={siteConfig.title} tagline={siteConfig.tagline} />
           <HomeCode />
           <HomePromoSection>
-            <HomeButton href={useBaseUrl('docs/introduction')}>Introduction</HomeButton>
-            <HomeButton href={useBaseUrl('docs/installation')}>Get started</HomeButton>
-            <HomeButton href={useBaseUrl('docs/api')}>API Docs</HomeButton>
+            <HomeButton href={docUrl('introduction')}>Introduction</HomeButton>
+            <HomeButton href={docUrl('installation')}>Get started</HomeButton>
+            <HomeButton href={docUrl('api')}>API Docs</HomeButton>
           </HomePromoSection>
         </HomeIntro>
       </HomeSplashContainer>
