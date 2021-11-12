@@ -13,20 +13,19 @@ Error type used within [**Betterer**](https://github.com/phenomnomnominal/better
 
 ## Classes
 
-|  Class | Description |
-|  --- | --- |
-|  [BettererError](./errors.betterererror.md) | A custom Error for use in **Betterer**. It attaches some extra details to a standard JavaScript error for better logging and debugging. |
+| Class                                      | Description                                                                                                                             |
+| ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| [BettererError](./errors.betterererror.md) | A custom Error for use in **Betterer**. It attaches some extra details to a standard JavaScript error for better logging and debugging. |
 
 ## Functions
 
-|  Function | Description |
-|  --- | --- |
-|  [isBettererError(err)](./errors.isbetterererror.md) | Check if an object is a [`BettererError`](./errors.betterererror.md). |
+| Function                                            | Description                                                           |
+| --------------------------------------------------- | --------------------------------------------------------------------- |
+| [isBettererError(err)](./errors.isbetterererror.md) | Check if an object is a [`BettererError`](./errors.betterererror.md). |
 
 ## Type Aliases
 
-|  Type Alias | Description |
-|  --- | --- |
-|  [BettererErrorDetail](./errors.betterererrordetail.md) | An additional piece of information attached to a [`BettererError`](./errors.betterererror.md). This might be a more detailed error message, or the original Error that caused the [`BettererError`](./errors.betterererror.md) to be created. |
-|  [BettererErrorDetails](./errors.betterererrordetails.md) | A list of [`BettererErrorDetail`s](./errors.betterererrordetail.md). |
-
+| Type Alias                                               | Description                                                                                                                                                                                                                                   |
+| -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [BettererErrorDetail](./errors.betterererrordetail.md)   | An additional piece of information attached to a [`BettererError`](./errors.betterererror.md). This might be a more detailed error message, or the original Error that caused the [`BettererError`](./errors.betterererror.md) to be created. |
+| [BettererErrorDetails](./errors.betterererrordetails.md) | A list of [`BettererErrorDetail`s](./errors.betterererrordetail.md).                                                                                                                                                                          |

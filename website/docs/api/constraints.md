@@ -17,14 +17,13 @@ A `constraint` function is responsible for comparing two **Betterer** test resul
 
 ## Enumerations
 
-|  Enumeration | Description |
-|  --- | --- |
-|  [BettererConstraintResult](./constraints.bettererconstraintresult.md) | The return type of a **Betterer** constraint function. Used to indicate whether the new result is <code>better</code>, <code>worse</code> or the <code>same</code> than the expected result. |
+| Enumeration                                                           | Description                                                                                                                                                                                  |
+| --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [BettererConstraintResult](./constraints.bettererconstraintresult.md) | The return type of a **Betterer** constraint function. Used to indicate whether the new result is <code>better</code>, <code>worse</code> or the <code>same</code> than the expected result. |
 
 ## Functions
 
-|  Function | Description |
-|  --- | --- |
-|  [bigger(result, expected)](./constraints.bigger.md) | <code>Betterer</code> [constraint function](./betterer.betterertestconstraint.md) for when a numeric result is expected to get bigger. |
-|  [smaller(result, expected)](./constraints.smaller.md) | <code>Betterer</code> [constraint function](./betterer.betterertestconstraint.md) for when a numeric result is expected to get smaller. |
-
+| Function                                              | Description                                                                                                                             |
+| ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| [bigger(result, expected)](./constraints.bigger.md)   | <code>Betterer</code> [constraint function](./betterer.betterertestconstraint.md) for when a numeric result is expected to get bigger.  |
+| [smaller(result, expected)](./constraints.smaller.md) | <code>Betterer</code> [constraint function](./betterer.betterertestconstraint.md) for when a numeric result is expected to get smaller. |

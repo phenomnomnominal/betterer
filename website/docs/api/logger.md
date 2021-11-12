@@ -13,17 +13,16 @@ Logger used within [**Betterer**](https://github.com/phenomnomnominal/betterer).
 
 ## Interfaces
 
-|  Interface | Description |
-|  --- | --- |
-|  [BettererLogger](./logger.bettererlogger.md) | The logger interface for **Betterer** reporter and task logging. |
-|  [BettererLoggerCodeInfo](./logger.bettererloggercodeinfo.md) | The information required to log a code block with a message. |
+| Interface                                                    | Description                                                      |
+| ------------------------------------------------------------ | ---------------------------------------------------------------- |
+| [BettererLogger](./logger.bettererlogger.md)                 | The logger interface for **Betterer** reporter and task logging. |
+| [BettererLoggerCodeInfo](./logger.bettererloggercodeinfo.md) | The information required to log a code block with a message.     |
 
 ## Type Aliases
 
-|  Type Alias | Description |
-|  --- | --- |
-|  [BettererLogCode](./logger.bettererlogcode.md) | A function that takes a [`BettererLoggerCodeInfo`](./logger.bettererloggercodeinfo.md) and logs it asynchronously. |
-|  [BettererLoggerMessage](./logger.bettererloggermessage.md) | A message to be logged. |
-|  [BettererLoggerMessages](./logger.bettererloggermessages.md) | An array of [`BettererLoggerMessage`s](./logger.bettererloggermessage.md) to be logged. |
-|  [BettererLogMessage](./logger.bettererlogmessage.md) | A function that takes an array of [`BettererLoggerMessage`s](./logger.bettererloggermessage.md) and logs them asynchronously. |
-
+| Type Alias                                                   | Description                                                                                                                   |
+| ------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| [BettererLogCode](./logger.bettererlogcode.md)               | A function that takes a [`BettererLoggerCodeInfo`](./logger.bettererloggercodeinfo.md) and logs it asynchronously.            |
+| [BettererLoggerMessage](./logger.bettererloggermessage.md)   | A message to be logged.                                                                                                       |
+| [BettererLoggerMessages](./logger.bettererloggermessages.md) | An array of [`BettererLoggerMessage`s](./logger.bettererloggermessage.md) to be logged.                                       |
+| [BettererLogMessage](./logger.bettererlogmessage.md)         | A function that takes an array of [`BettererLoggerMessage`s](./logger.bettererloggermessage.md) and logs them asynchronously. |
