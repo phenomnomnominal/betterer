@@ -14,11 +14,12 @@ Use this test to incrementally introduce new [**Stylelint**](https://stylelint.i
 import { stylelint } from '@betterer/stylelint';
 
 export default {
-  'no unknown units': () => stylelint({
-    rules: {
-      'unit-no-unknown': true
-    }
-  }).include('**/*.css)
+  'no unknown units': () =>
+    stylelint({
+      rules: {
+        'unit-no-unknown': true
+      }
+    }).include('**/*.css')
 };
 ```
 

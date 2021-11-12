@@ -22,13 +22,13 @@ import TabItem from '@theme/TabItem';
   <TabItem
     value="yarn">
 
-Run `yarn betterer results` to run the **Betterer** results command.
+Run `yarn betterer results` to get a summary of the current **Betterer** results.
 
   </TabItem>
   <TabItem
     value="npm">
 
-Run `npm run betterer results` to run the **Betterer** results command.
+Run `npm run betterer results` to get a summary of the current **Betterer** results.
 
   </TabItem>
 </Tabs>

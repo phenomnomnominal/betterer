@@ -170,7 +170,7 @@ You can pass the following options to `ci`:
 
 ## Pre-commit mode
 
-If you just want to run your tests on your CI server (like as part of a build review process), you can use `betterer ci`:
+If you just want to run your tests in a pre-commit hook, you can use `betterer precommit`:
 
 <!-- prettier-ignore -->
 <Tabs
@@ -194,7 +194,7 @@ Run `npm run betterer precommit` to run **Betterer** in Pre-commit mode.
   </TabItem>
 </Tabs>
 
-**Betterer** will run your tests, and if there is a difference between the new results and the expected results **Betterer** will add the [results file](./results-file) to the commit.
+**Betterer** will run your tests, and if there is a change in the [results file](./results-file) then **Betterer** will add it to the commit.
 
 ### Pre-commit options
 

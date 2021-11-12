@@ -4,7 +4,7 @@ title: Caching
 slug: /cache
 ---
 
-**Betterer** has build in cache functionality for [`BettererFileTest`s](./betterer.bettererfiletest). You can enable it by running **Betterer** with the [`--cache`](./running-betterer#start-options) option. **Betterer** will save a cache file at `.betterer-cache` (or whatever path you specify with the [`--cachePath`](./running-betterer#start-options) option).
+**Betterer** has built-in cache functionality for [`BettererFileTest`s](./betterer.bettererfiletest). You can enable it by running **Betterer** with the [`--cache`](./running-betterer#start-options) option. **Betterer** will save a cache file at `.betterer-cache` (or whatever path you specify with the [`--cachePath`](./running-betterer#start-options) option).
 
 **Betterer** will use the cache to avoid checking any files that haven't changed since the previous run. This means **Betterer** can run much faster if a test is using the `filePaths` parameter of [`BettererFileTestFunction`](./betterer.bettererfiletestfunction).
 

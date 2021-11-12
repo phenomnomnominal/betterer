@@ -34,8 +34,8 @@ You can pass the following options to the `init` script:
 
 | Option                    | Description                                            | Default               |
 | ------------------------- | ------------------------------------------------------ | --------------------- |
-| `-c`, `--config` [path]   | Path to test definition file relative to CWD           | `./.betterer.ts`      |
 | `--automerge`             | Enable automatic merging for the Betterer results file | `false`               |
+| `-c`, `--config` [path]   | Path to test definition file relative to CWD           | `./.betterer.ts`      |
 | `-r`, `--results` [value] | Path to test results file relative to CWD              | `./.betterer.results` |
 
 :::info
