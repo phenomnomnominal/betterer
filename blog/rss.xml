@@ -4,9 +4,78 @@
         <title>Betterer Blog</title>
         <link>https://phenomnomnominal.github.io/betterer/blog</link>
         <description>Betterer Blog</description>
-        <lastBuildDate>Mon, 01 Mar 2021 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 13 Nov 2021 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
+        <item>
+            <title><![CDATA[Betterer v5.0.0 ☀️]]></title>
+            <link>https://phenomnomnominal.github.io/betterer/blog/2021/11/13/betterer-v5.0.0</link>
+            <guid>Betterer v5.0.0 ☀️</guid>
+            <pubDate>Sat, 13 Nov 2021 00:00:00 GMT</pubDate>
+            <description><![CDATA[Oof, this one feels like it's been a while coming, but after a whole bunch of work, and a whole bunch of breaking changes I've just released v5.0.0 of Betterer! 🎉]]></description>
+            <content:encoded><![CDATA[<p>Oof, this one feels like it&#x27;s been a while coming, but after a whole bunch of work, and a whole bunch of breaking changes <strong>I&#x27;ve just released</strong> <a href="https://www.npmjs.com/package/@betterer/cli"><strong>v5.0.0</strong></a> <strong>of</strong> <a href="https://phenomnomnominal.github.io/betterer/"><strong>Betterer!</strong></a> 🎉</p><h2>What is <strong>Betterer</strong>?</h2><p><a href="https://phenomnomnominal.github.io/betterer/"><strong>Betterer</strong></a> is a test runner that helps make incremental improvements to your code!</p><p>The first time <strong>Betterer</strong> it runs a test, it will take a snapshot of the current state. From that point on, whenever it runs it will compare against that snapshot. It will either throw an error (if the test got worse ❌), or update the snapshot (if the test got better ✅). That&#x27;s pretty much it!</p><p>You can check out the (newly updated!) documentation at <a href="https://phenomnomnominal.github.io/betterer/">https://phenomnomnominal.github.io/betterer/</a></p><h2>What happened to v2, v3, v4...?</h2><p>&quot;But Craig&quot;, I hear you say, &quot;The <a href="https://dev.to/phenomnominal/betterer-v1-0-0-301b">last time you posted about <strong>Betterer</strong></a>, it was at v1.0.0!? What&#x27;s been going on?!&quot;. 🔥🔥🔥</p><p>That&#x27;s very astute of you dear reader, and let&#x27;s just put it this way - I sure do love breaking APIs! One of the interesting things about <strong>Betterer</strong> is that it is a tool designed for problems that emerge in large and old codebases. That means it has to be able to handle large and old codebases from the get go! So I&#x27;ve had a lot of fun as I&#x27;ve tried to figure out the best workflows and APIs for using <strong>Betterer</strong>.</p><p>Between v1.0.0 and now, I&#x27;ve released a bunch of features, consolidated and simplified APIs, and just generally made <strong>Betterer</strong> more usable and flexible. I&#x27;m pretty happy with where it is at now, so I figured it was about time for an update. I&#x27;ve even been talking about it at a few conferences now that they&#x27;re coming back! What a world 🌍!</p><h2>What&#x27;s in v5.0.0?</h2><h3>Parallel tests:</h3><p>Performance is hard. Prior to v5, the default <strong>Betterer</strong> reporter would struggle pretty badly, especially when lots of tests were running and producing lots of issues. That was because the main thread was responsible for updating the reporter output <em>and</em> running all the tests.</p><p>To fix this, <strong>Betterer</strong> will now execute all your tests using <a href="https://nodejs.org/api/worker_threads.html">Node.js Worker Threads</a>! That frees up the main thread to focus on rendering and also means that multiple tests can run at the same time. Getting this to work required breaking some APIs, so your <a href="https://phenomnomnominal.github.io/betterer/docs/test-definition-file">test definition file</a> needs to change:</p><h4>Before:</h4><pre><code class="language-typescript">// .betterer.ts
+import { BettererTest } from &#x27;@betterer/betterer&#x27;;
+
+export default {
+  &#x27;my test&#x27;: new BettererTest({
+    // ... test config
+  }),
+  &#x27;my other test&#x27;: new BettererTest({
+    // ... test config
+  })
+};
+</code></pre><h4>After:</h4><pre><code class="language-typescript">// .betterer.ts
+import { BettererTest } from &#x27;@betterer/betterer&#x27;;
+
+export default {
+  &#x27;my test&#x27;: () =&gt;
+    new BettererTest({
+      // ... test config
+    }),
+  &#x27;my other test&#x27;: () =&gt;
+    new BettererTest({
+      // ... test config
+    })
+};
+</code></pre><p>But never fear, you can use the <code>betterer upgrade</code> command to do this migration for you! Just running <code>betterer upgrade</code> will show you what the migration will look like, and <code>betterer upgrade --save</code> will actually update your files. Easy ✨. The <code>betterer upgrade</code> command will be used in the future when I (most probably) break more stuff.</p><p>Check out the <strong>beast</strong> of a PR <a href="https://github.com/phenomnomnominal/betterer/pull/815">here</a> (and yes, it took me three branches to get it right 😅)</p><hr/><h3><strong>Betterer</strong> ❤️ <strong>Angular</strong>:</h3><p>I&#x27;ve published a new <strong>Betterer</strong> test for incrementally adding <a href="https://angular.io/guide/angular-compiler-options"><strong>Angular</strong> compiler configuration</a> to a project! I&#x27;m pretty excited by this, as there are a lot of <em>big</em> Angular codebases out there that don&#x27;t utilise the full power of the Angular compiler. In particular, I think <strong>Betterer</strong> could be a good way to introduce the <a href="https://angular.io/guide/template-typecheck#strict-mode"><code>strictTemplates</code></a> option. You can now do that with the following:</p><pre><code class="language-typescript">//.betterer.ts
+import { angular } from &#x27;@betterer/angular&#x27;;
+
+export default {
+  &#x27;strict templates&#x27;: () =&gt;
+    angular(&#x27;./tsconfig.json&#x27;, {
+      strictTemplates: true
+    }).include(&#x27;./src/**/*.ts&#x27;, &#x27;./src/**/*.html&#x27;)
+};
+</code></pre><p>Expect to see a full post detailing this in the near future!</p><hr/><h3>Simpler <code>BettererFileTest</code>:</h3><p>The old <code>BettererFileTest</code> API was a bit clunky and confusing due to the <code>BettererFileResolver</code> thing. I&#x27;ve hidden that away in the internals, so now the public API is less clunky and confusing:</p><h4>Before:</h4><pre><code class="language-typescript">import { BettererFileResolver, BettererFileTest } from &#x27;@betterer/betterer&#x27;;
+
+function myFileTest() {
+  const resolver = new BettererFileResolver();
+  return new BettererFileTest(resolver, async (filePaths, fileTestResult) =&gt; {
+    // test implementation...
+  });
+}
+</code></pre><h4>After:</h4><pre><code class="language-typescript">import { BettererFileTest } from &#x27;@betterer/betterer&#x27;;
+
+function myFileTest() {
+  return new BettererFileTest(async (filePaths, fileTestResult, resolver) =&gt; {
+    // test implementation...
+  });
+}
+</code></pre><p>Smaller public API, less magic, and you only have to use it if you know why, choice! 👍</p><hr/><h3>Improved workflow:</h3><p>I&#x27;m still working on figuring out the ideal <strong>Betterer</strong> workflow. For now, I recommend running <strong>Betterer</strong> in <a href="https://phenomnomnominal.github.io/betterer/docs/running-betterer#pre-commit-mode">Pre-commit mode</a> as a pre-commit hook (perhaps using <a href="https://typicode.github.io/husky">husky</a> and <a href="https://github.com/okonet/lint-staged">lint-staged</a>) and in <a href="https://phenomnomnominal.github.io/betterer/docs/running-betterer#ci-mode">CI mode</a> on your build server.</p><p>But one thing about <strong>chonky</strong> codebases is that they often have <em>lots</em> of contributors! Lots of contributors making changes (and making things better) means that 👻 <em>merge</em> <em>conflicts</em> 👻 in the <a href="https://phenomnomnominal.github.io/betterer/docs/results-file">results file</a> are quite common!</p><p>To try to help with resolving merge conflicts, I&#x27;ve introduced the <code>betterer merge</code> command. You can still fix merge conflicts manually, but <code>betterer merge</code> will do it for you! If you&#x27;re as lazy as me, you can even enable <code>automerge</code> and you&#x27;ll never have to think about merging the results file ever again (I hope, this could still be buggy 🐛😅.</p><p>To enable automerge run:</p><pre><code class="language-bash">betterer init --automerge
+</code></pre><hr/><h3>Improved caching:</h3><p><strong>Betterer</strong> got some cool (ish) <a href="https://phenomnomnominal.github.io/betterer/docs/cache">caching</a> implemented in v4, but turns out caching is a hard problem (😅), so it&#x27;s <a href="https://github.com/phenomnomnominal/betterer/pull/712">taken</a> <a href="https://github.com/phenomnomnominal/betterer/pull/746/files">a</a> <a href="https://github.com/phenomnomnominal/betterer/pull/819/files">little</a> bit to get right.</p><p>It works by passing the <code>--cache</code> flag when running <strong>Betterer</strong>:</p><pre><code class="language-bash">betterer --cache
+</code></pre><p>That will create a file something like this:</p><pre><code class="language-json">{
+  &quot;version&quot;: 2,
+  &quot;testCache&quot;: {
+    &quot;no hack comments&quot;: {
+      &quot;packages/angular/src/angular.ts&quot;: &quot;b66de728222febdecb3cf11d3aa510b3a8a6ae0e37c0539e37787964573a56ad1b7eb6ee378a9087&quot;,
+      &quot;packages/angular/src/index.ts&quot;: &quot;b66de728222febdecb3cf11d3aa510b3a8a6ae0eb9494122f82a750085fc20d2c3b0f14b34897431&quot;,
+      &quot;packages/betterer/src/betterer.ts&quot;: &quot;b66de728222febdecb3cf11d3aa510b3a8a6ae0e94efcd2f99a4cf14222c400693335ac1b94696bb&quot;
+      // ...
+    }
+  }
+}
+</code></pre><p><strong>Betterer</strong> will use this cache to only re-test files that have actually changes, so it can be <em>much</em> faster (useful for running on <a href="https://phenomnomnominal.github.io/betterer/docs/running-betterer#pre-commit-mode">pre-commit</a>!) I suspect there are still issues here, so please try it out and create issues. 🙌</p><hr/><h3>Bug fixes and improvements:</h3><ul><li><a href="https://github.com/phenomnomnominal/betterer/pull/828/files"><code>betterer results</code></a> command to get a quick summary:</li></ul><p><img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tvzavtxwithpzxge39ut.png" alt="An example of Betterer&#x27;s results summary output"/></p><ul><li><p><a href="https://github.com/phenomnomnominal/betterer/issues/831">Negative filters</a>. I already suspect I&#x27;ll regret this, but you can now use <code>&quot;!&quot;</code> at the start of a filter to negate it. Now <code>--filter myTest</code> will just run <code>&quot;myTest&quot;</code>, and <code>--filter !myTest</code> will run every other test.</p></li><li><p>Rewrote most of the <a href="https://phenomnomnominal.github.io/betterer/docs/index">public API docs</a>. These are now generated from the code, so should <em>hopefully</em> be easier to keep up to date. 🤞</p></li><li><p>Removed a bunch of stuff from the public API. This means more consistency, and I&#x27;ll be less likely to accidentally break stuff in the future. 😇</p></li></ul><hr/><h2>Thanks ❤️</h2><p>Huge thanks to everyone who has helped me with this stuff, if you&#x27;ve read my <a href="https://twitter.com/phenomnominal/status/1453511720098541569">rambling, cryptic tweets</a>, opened <a href="https://github.com/phenomnomnominal/betterer">issues on Github</a>, chatted to me about <strong>Betterer</strong> at conferences, it&#x27;s all meant a lot! Maybe I&#x27;ll print some stickers or something? ☀️</p><p>Love 🥰 this? Hate 🤬 this? Go off in the comments, DM me on Twitter, or be the <strong>third</strong> person to join the <a href="https://discord.com/invite/YNgtXt6QVX"><strong>Betterer</strong> Discord</a>. Catch you on the line 💻!</p>]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Incrementally adding Stylelint rules with Betterer ☀️]]></title>
             <link>https://phenomnomnominal.github.io/betterer/blog/2021/03/01/betterer-and-stylelint</link>
