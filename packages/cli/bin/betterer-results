@@ -1,9 +1,6 @@
 #!/usr/bin/env node
 require('../dist/results')
   .results__(process.cwd(), process.argv)
-  .then(function () {
-    process.exitCode = 0;
-  })
   .catch(function () {
     process.exitCode = 1;
   });
