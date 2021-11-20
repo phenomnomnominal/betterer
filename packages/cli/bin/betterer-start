@@ -2,7 +2,9 @@
 require('../dist/start')
   .start__(process.cwd(), process.argv)
   .then(function (suiteSummary) {
-    process.exitCode = suiteSummary.worse.length !== 0 ? 1 : 0;
+    if (suiteSummary.worse.length > 0 || suiteSummary.failed.length > 0) {
+      process.exitCode = 1;
+    }
   })
   .catch(function () {
     process.exitCode = 1;
