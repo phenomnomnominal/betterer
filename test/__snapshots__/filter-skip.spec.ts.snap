@@ -89,6 +89,10 @@ Array [
 
 exports[`betterer should not run a specific test called with skip() 2`] = `
 "// BETTERER RESULTS V2.
+// 
+// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//
 exports[\`test 1\`] = {
   value: \`1
 \`

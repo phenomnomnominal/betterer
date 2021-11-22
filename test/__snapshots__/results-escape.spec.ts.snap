@@ -2,6 +2,10 @@
 
 exports[`betterer should escape interpolation characters in the result file 1`] = `
 "// BETTERER RESULTS V2.
+// 
+// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//
 exports[\`test\`] = {
   value: \`{
     \\"src/index.ts:5381\\": [

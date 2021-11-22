@@ -125,6 +125,10 @@ Array [
 
 exports[`betterer should work with named exports in the config file 2`] = `
 "// BETTERER RESULTS V2.
+// 
+// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//
 exports[\`test\`] = {
   value: \`2
 \`
