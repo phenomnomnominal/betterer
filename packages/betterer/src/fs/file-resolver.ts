@@ -37,7 +37,6 @@ export class BettererFileResolverΩ implements BettererFileResolver {
   public init(directory: string, versionControl: BettererVersionControlWorker | null, config: BettererConfig): void {
     this._baseDirectory = directory;
     this._versionControl = versionControl;
-    this.include(config.includes);
     this.exclude(config.excludes);
   }
 
