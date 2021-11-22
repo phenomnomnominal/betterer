@@ -66,6 +66,10 @@ Array [
 
 exports[`betterer should do nothing when a test is not past its deadline 2`] = `
 "// BETTERER RESULTS V2.
+// 
+// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//
 exports[\`test\`] = {
   value: \`1
 \`

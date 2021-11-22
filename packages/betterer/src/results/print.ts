@@ -16,7 +16,11 @@ const ESCAPE_REPLACERS: Record<string, string> = {
   '\u2029': '\\u2029'
 };
 
-const RESULTS_HEADER = `// BETTERER RESULTS V2.`;
+const RESULTS_HEADER = `// BETTERER RESULTS V2.
+// 
+// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//`;
 
 /**
  * Prints a {@link BettererResultsSerialised | `BettererResultsSerialised`} object as a

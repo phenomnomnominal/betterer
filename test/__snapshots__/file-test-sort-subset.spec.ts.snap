@@ -2,6 +2,10 @@
 
 exports[`betterer should sort files by their file path even when only running on a single file 1`] = `
 "// BETTERER RESULTS V2.
+// 
+// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//
 exports[\`test\`] = {
   value: \`{
     \\"src/a.ts:2053668783\\": [

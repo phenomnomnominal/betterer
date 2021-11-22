@@ -2,6 +2,10 @@
 
 exports[`betterer should stay the same when multiple issues are moved 1`] = `
 "// BETTERER RESULTS V2.
+// 
+// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//
 exports[\`test\`] = {
   value: \`{
     \\"src/index.ts:3120621594\\": [
@@ -15,6 +19,10 @@ exports[\`test\`] = {
 
 exports[`betterer should stay the same when multiple issues are moved 2`] = `
 "// BETTERER RESULTS V2.
+// 
+// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//
 exports[\`test\`] = {
   value: \`{
     \\"src/index.ts:3189117303\\": [

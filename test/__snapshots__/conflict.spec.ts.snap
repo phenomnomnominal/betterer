@@ -66,6 +66,10 @@ Array [
 
 exports[`betterer should work when there is a merge conflict in the results file 2`] = `
 "// BETTERER RESULTS V2.
+// 
+// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//
 exports[\`test\`] = {
   value: \`{
     \\"src/index.ts:1884655653\\": [

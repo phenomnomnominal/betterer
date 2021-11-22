@@ -122,6 +122,10 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 
 exports[`betterer should run tests in workers 2`] = `
 "// BETTERER RESULTS V2.
+// 
+// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//
 exports[\`test 1\`] = {
   value: \`0
 \`

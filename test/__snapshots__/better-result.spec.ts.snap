@@ -89,6 +89,10 @@ Array [
 
 exports[`betterer should work when a result gets better 2`] = `
 "// BETTERER RESULTS V2.
+// 
+// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//
 exports[\`should shrink\`] = {
   value: \`0
 \`

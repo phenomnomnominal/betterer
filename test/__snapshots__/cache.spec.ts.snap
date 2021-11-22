@@ -24,6 +24,10 @@ exports[`betterer should write a cache file 2`] = `
 
 exports[`betterer should write a cache file 3`] = `
 "// BETTERER RESULTS V2.
+// 
+// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//
 exports[\`test\`] = {
   value: \`{
     \\"src/index.ts:153364047\\": [
@@ -48,6 +52,10 @@ exports[`betterer should write a cache file 4`] = `
 
 exports[`betterer should write a cache file 5`] = `
 "// BETTERER RESULTS V2.
+// 
+// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//
 exports[\`test\`] = {
   value: \`{
     \\"src/index.ts:4126639614\\": [

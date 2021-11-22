@@ -2,6 +2,10 @@
 
 exports[`betterer should report the status of a new stylelint rule 1`] = `
 "// BETTERER RESULTS V2.
+// 
+// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//
 exports[\`stylelint\`] = {
   value: \`{
     \\"src/styles.scss:3896471814\\": [

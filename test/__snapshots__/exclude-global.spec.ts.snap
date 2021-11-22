@@ -2,6 +2,10 @@
 
 exports[`betterer should handle a global exclude 1`] = `
 "// BETTERER RESULTS V2.
+// 
+// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//
 exports[\`test\`] = {
   value: \`{
     \\"src/exclude.ts:645618020\\": [
@@ -20,6 +24,10 @@ exports[\`test\`] = {
 
 exports[`betterer should handle a global exclude 2`] = `
 "// BETTERER RESULTS V2.
+// 
+// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//
 exports[\`test\`] = {
   value: \`{
     \\"src/exclude.ts:645618020\\": [
@@ -35,6 +43,10 @@ exports[\`test\`] = {
 
 exports[`betterer should handle a global exclude 3`] = `
 "// BETTERER RESULTS V2.
+// 
+// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//
 exports[\`test\`] = {
   value: \`{
     \\"src/index.ts:645618020\\": [
