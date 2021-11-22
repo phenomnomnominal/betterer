@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0](https://github.com/phenomnomnominal/betterer/compare/v5.0.0...v5.1.0) (2021-11-22)
+
+
+### Bug Fixes
+
+* **betterer ✨:** global includes shouldn't add to file test includes ([#904](https://github.com/phenomnomnominal/betterer/issues/904)) ([e02ffbe](https://github.com/phenomnomnominal/betterer/commit/e02ffbe9cc2c0e590e1ddb251c1f1127af3ce1d0))
+
+
+### Features
+
+* **betterer ✨:** add merge information to the top of the results file ([#903](https://github.com/phenomnomnominal/betterer/issues/903)) ([def5edb](https://github.com/phenomnomnominal/betterer/commit/def5edbcbe576c7dcda9a5bd75c58ab28684cccf))
+
+
+
+
+
 # [5.0.0](https://github.com/phenomnomnominal/betterer/compare/v4.4.1...v5.0.0) (2021-11-12)
 
 **Note:** Version bump only for package @betterer/betterer

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0](https://github.com/phenomnomnominal/betterer/compare/v5.0.0...v5.1.0) (2021-11-22)
+
+
+### Bug Fixes
+
+* **betterer 🐛:** exitcode should be 1 when tests fail ([#901](https://github.com/phenomnomnominal/betterer/issues/901)) ([0b3d0dd](https://github.com/phenomnomnominal/betterer/commit/0b3d0ddac0b634e9991a1c569763279019c85244))
+
+
+
+
+
 # [5.0.0](https://github.com/phenomnomnominal/betterer/compare/v4.4.1...v5.0.0) (2021-11-12)
 
 **Note:** Version bump only for package @betterer/cli
