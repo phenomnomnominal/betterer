@@ -11,6 +11,7 @@ export function forceRelativePaths(toWrite: string, basePath: string): string {
 
 export async function write(toWrite: string, filePath: string): Promise<void> {
   try {
+    await fs.mkdir(path.dirname(filePath), { recursive: true });
     await fs.writeFile(filePath, toWrite, 'utf8');
   } catch {
     throw new BettererError(`could not write to "${filePath}". 😔`);
