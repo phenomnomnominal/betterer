@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should write a results file to a different path', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('results-escape', {
+    const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('results-path', {
       '.betterer.ts': `
 import { BettererFileTest } from '@betterer/betterer';
 

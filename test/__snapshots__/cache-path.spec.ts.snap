@@ -250,10 +250,10 @@ Error: \\"test\\" got worse. (1 new issue, 3 total) 😔
 
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. (1 new issue, 3 total) 😔
-・ 2 existing issues in \\"<project>/fixtures/cache/src/index.ts\\".
-・ New issue in \\"<project>/fixtures/cache/src/index.ts\\"!
+・ 2 existing issues in \\"<project>/fixtures/cache-path/src/index.ts\\".
+・ New issue in \\"<project>/fixtures/cache-path/src/index.ts\\"!
 ・
-・   <project>/fixtures/cache/src/index.ts
+・   <project>/fixtures/cache-path/src/index.ts
 ・   1 | // HACK:
 ・   2 | // HACK:
 ・ > 3 | // HACK:
@@ -271,10 +271,10 @@ Error: \\"test\\" got worse. (1 new issue, 3 total) 😔
 
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. (1 new issue, 3 total) 😔
-・ 2 existing issues in \\"<project>/fixtures/cache/src/index.ts\\".
-・ New issue in \\"<project>/fixtures/cache/src/index.ts\\"!
+・ 2 existing issues in \\"<project>/fixtures/cache-path/src/index.ts\\".
+・ New issue in \\"<project>/fixtures/cache-path/src/index.ts\\"!
 ・
-・   <project>/fixtures/cache/src/index.ts
+・   <project>/fixtures/cache-path/src/index.ts
 ・   1 | // HACK:
 ・   2 | // HACK:
 ・ > 3 | // HACK:
