@@ -11,7 +11,7 @@ import {
 
 export function deserialise(serialised: BettererFileTestResultSerialised, resultsPath: string): BettererFileTestResult {
   const resolver = new BettererFileResolverΩ(path.dirname(resultsPath));
-  const deserialised = new BettererFileTestResultΩ(resolver);
+  const deserialised = new BettererFileTestResultΩ(resolver, resultsPath);
   Object.keys(serialised).map((key) => {
     const [relativePath, fileHash] = key.split(':');
     const issues = serialised[key].map((issue) => {
@@ -19,7 +19,7 @@ export function deserialise(serialised: BettererFileTestResultSerialised, result
       return { line, column, length, message, hash };
     });
     const absolutePath = resolver.resolve(relativePath);
-    key = `${absolutePath}:${fileHash}`;
+    key = `${relativePath}:${fileHash}`;
     deserialised.addExpected({ absolutePath, key, hash: fileHash, issues });
   });
   return deserialised as BettererFileTestResult;

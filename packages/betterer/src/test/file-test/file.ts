@@ -21,10 +21,10 @@ export class BettererFileΩ implements BettererFile {
 
   private _issues: BettererFileIssues = [];
 
-  constructor(public readonly absolutePath: string, public readonly fileText: string) {
+  constructor(public readonly absolutePath: string, private _relativePath: string, public readonly fileText: string) {
     this.absolutePath = normalisedPath(absolutePath);
     this.hash = createHash(this.fileText);
-    this.key = `${this.absolutePath}:${this.hash}`;
+    this.key = `${this._relativePath}:${this.hash}`;
   }
 
   public get issues(): BettererFileIssues {

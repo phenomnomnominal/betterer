@@ -4,8 +4,8 @@ import { promises as fs } from 'fs';
 
 import { normalisedPath } from '../utils';
 
-export function forceRelativePaths(toWrite: string, filePath: string): string {
-  const directory = `${normalisedPath(path.dirname(filePath))}/`;
+export function forceRelativePaths(toWrite: string, basePath: string): string {
+  const directory = `${normalisedPath(path.dirname(basePath))}/`;
   return toWrite.replace(new RegExp(directory, 'g'), '');
 }
 
