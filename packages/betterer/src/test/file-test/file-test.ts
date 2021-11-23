@@ -178,7 +178,7 @@ function createTest(
     const cacheHit = runΩ.filePaths.length !== runFiles.length;
     const isPartial = hasSpecifiedFiles || cacheHit;
 
-    const result = new BettererFileTestResultΩ(resolver);
+    const result = new BettererFileTestResultΩ(resolver, config.resultsPath);
     await fileTest(runFiles, result, resolver);
 
     if (!isPartial || runΩ.isNew) {

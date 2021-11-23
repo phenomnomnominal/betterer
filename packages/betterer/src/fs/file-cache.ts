@@ -9,7 +9,7 @@ import {
   BettererFileHashMap,
   BettererCacheFile
 } from './types';
-import { forceRelativePaths, write } from './writer';
+import { write } from './writer';
 
 const BETTERER_CACHE_VERSION = 2;
 
@@ -69,8 +69,19 @@ export class BettererFileCacheΩ implements BettererFileCache {
       });
     });
 
-    const cache = { version: BETTERER_CACHE_VERSION, testCache: this._memoryCacheMap };
-    const cacheString = forceRelativePaths(JSON.stringify(cache, null, '  '), this._cachePath);
+    const relativeTestCache: BettererTestCacheMap = {};
+    Object.keys(this._memoryCacheMap).forEach((testName) => {
+      const absoluteFileHashMap = this._memoryCacheMap[testName];
+      const relativeFileHashMap: BettererFileHashMap = {};
+      Object.keys(absoluteFileHashMap).forEach((absoluteFilePath) => {
+        assert(this._cachePath);
+        const relativePath = normalisedPath(path.relative(path.dirname(this._cachePath), absoluteFilePath));
+        relativeFileHashMap[relativePath] = absoluteFileHashMap[absoluteFilePath];
+      });
+      relativeTestCache[testName] = relativeFileHashMap;
+    });
+    const cache = { version: BETTERER_CACHE_VERSION, testCache: relativeTestCache };
+    const cacheString = JSON.stringify(cache, null, '  ');
     await write(cacheString, this._cachePath);
   }
 
