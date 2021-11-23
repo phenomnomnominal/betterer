@@ -75,7 +75,7 @@ export class BettererFileCacheΩ implements BettererFileCache {
       const relativeFileHashMap: BettererFileHashMap = {};
       Object.keys(absoluteFileHashMap).forEach((absoluteFilePath) => {
         assert(this._cachePath);
-        const relativePath = path.relative(path.dirname(this._cachePath), absoluteFilePath);
+        const relativePath = normalisedPath(path.relative(path.dirname(this._cachePath), absoluteFilePath));
         relativeFileHashMap[relativePath] = absoluteFileHashMap[absoluteFilePath];
       });
       relativeTestCache[testName] = relativeFileHashMap;
