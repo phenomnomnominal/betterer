@@ -4,7 +4,7 @@ import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should write a cache file to a different path', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture('cache', {
+    const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture('cache-path', {
       '.betterer.js': `
 const { regexp } = require('@betterer/regexp');
 
