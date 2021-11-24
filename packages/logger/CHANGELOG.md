@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.2](https://github.com/phenomnomnominal/betterer/compare/v5.1.1...v5.1.2) (2021-11-24)
+
+
+### Bug Fixes
+
+* **betterer ✨:** add react-dom dependency ([#907](https://github.com/phenomnomnominal/betterer/issues/907)) ([049fe07](https://github.com/phenomnomnominal/betterer/commit/049fe0714a4940ff4dd6183e58913111d96d4944))
+
+
+
+
+
 # [5.0.0](https://github.com/phenomnomnominal/betterer/compare/v4.4.1...v5.0.0) (2021-11-12)
 
 **Note:** Version bump only for package @betterer/logger
