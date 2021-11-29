@@ -32,8 +32,8 @@
     "@betterer/errors": "^5.0.0",
     "jest-diff": "^27.0.6",
     "lines-and-columns": "^1.1.6",
-    "react": ">=16",
-    "react-dom": ">=16",
+    "react": "^16.8.4 || ^17.0.0",
+    "react-dom": "^16.8.4 || ^17.0.0",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
