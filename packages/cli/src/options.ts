@@ -1,4 +1,5 @@
-import { Command, CommanderStatic } from 'commander';
+import { Command } from 'commander';
+
 import {
   BettererCLIArguments,
   BettererCLIConfig,
@@ -9,10 +10,10 @@ import {
   BettererCLIUpgradeConfig
 } from './types';
 
-let commander = new Command();
+let program: Command;
 
 export function cliOptions(argv: BettererCLIArguments): BettererCLIConfig {
-  commander = new Command();
+  program = new Command();
   cacheOption();
   configPathsOption();
   excludesOption();
@@ -26,12 +27,12 @@ export function cliOptions(argv: BettererCLIArguments): BettererCLIConfig {
   updateOption();
   workersOption();
   const options = setEnv<BettererCLIConfig>(argv);
-  options.include = options.args;
+  options.include = program.args;
   return options;
 }
 
 export function initOptions(argv: BettererCLIArguments): BettererCLIInitConfig {
-  commander = new Command();
+  program = new Command();
   automergeOption();
   configPathOption();
   resultsPathOption();
@@ -39,36 +40,36 @@ export function initOptions(argv: BettererCLIArguments): BettererCLIInitConfig {
 }
 
 export function mergeOptions(argv: BettererCLIArguments): BettererCLIMergeConfig {
-  commander = new Command();
+  program = new Command();
   resultsPathOption();
   const options = setEnv<BettererCLIMergeConfig>(argv);
-  options.contents = options.args;
+  options.contents = program.args;
   return options;
 }
 
 export function resultsOptions(argv: BettererCLIArguments): BettererCLIResultsConfig {
-  commander = new Command();
+  program = new Command();
   configPathsOption();
   excludesOption();
   filtersOption();
   resultsPathOption();
   const options = setEnv<BettererCLIConfig>(argv);
-  options.include = options.args;
+  options.include = program.args;
   return options;
 }
 
 export function upgradeOptions(argv: BettererCLIArguments): BettererCLIUpgradeConfig {
-  commander = new Command();
+  program = new Command();
   configPathsOption();
   saveOption();
   return setEnv<BettererCLIUpgradeConfig>(argv);
 }
 
-function setEnv<T extends BettererCLIEnvConfig>(argv: BettererCLIArguments): T & CommanderStatic {
-  commander.option('-d, --debug', 'Enable verbose debug logging', false);
-  commander.option('-l, --debug-log [value]', 'File path to save verbose debug logging to disk', './betterer.log');
+function setEnv<T extends BettererCLIEnvConfig>(argv: BettererCLIArguments): T {
+  program.option('-d, --debug', 'Enable verbose debug logging', false);
+  program.option('-l, --debug-log [value]', 'File path to save verbose debug logging to disk', './betterer.log');
 
-  const parsed = commander.parse(argv) as unknown as T & CommanderStatic;
+  const parsed: T = program.parse(argv).opts();
   if (parsed.debug) {
     process.env.BETTERER_DEBUG = '1';
     process.env.BETTERER_DEBUG_TIME = '1';
@@ -81,16 +82,16 @@ function setEnv<T extends BettererCLIEnvConfig>(argv: BettererCLIArguments): T &
 }
 
 function cacheOption(): void {
-  commander.option('--cache', 'When present, Betterer will only run on changed files.');
-  commander.option('--cachePath [value]', 'Path to Betterer cache file relative to CWD');
+  program.option('--cache', 'When present, Betterer will only run on changed files.');
+  program.option('--cachePath [value]', 'Path to Betterer cache file relative to CWD');
 }
 
 function configPathOption(): void {
-  commander.option('-c, --config [value]', 'Path to test definition file relative to CWD');
+  program.option('-c, --config [value]', 'Path to test definition file relative to CWD');
 }
 
 function configPathsOption(): void {
-  commander.option(
+  program.option(
     '-c, --config [value]',
     'Path to test definition file relative to CWD. Takes multiple values',
     argsToArray
@@ -98,19 +99,19 @@ function configPathsOption(): void {
 }
 
 function automergeOption(): void {
-  commander.option('--automerge', 'Enable automatic merging for the Betterer results file');
+  program.option('--automerge', 'Enable automatic merging for the Betterer results file');
 }
 
 function resultsPathOption(): void {
-  commander.option('-r, --results [value]', 'Path to test results file relative to CWD');
+  program.option('-r, --results [value]', 'Path to test results file relative to CWD');
 }
 
 function tsconfigPathOption(): void {
-  commander.option('-t, --tsconfig [value]', 'Path to TypeScript config file relative to CWD');
+  program.option('-t, --tsconfig [value]', 'Path to TypeScript config file relative to CWD');
 }
 
 function filtersOption(): void {
-  commander.option(
+  program.option(
     '-f, --filter [value]',
     'RegExp filter for tests to run. Add "!" at the start to negate. Takes multiple values',
     argsToArray
@@ -118,15 +119,15 @@ function filtersOption(): void {
 }
 
 function excludesOption(): void {
-  commander.option('--exclude [value]', 'RegExp filter for files to exclude. Takes multiple values', argsToArray);
+  program.option('--exclude [value]', 'RegExp filter for files to exclude. Takes multiple values', argsToArray);
 }
 
 function ignoresOption(): void {
-  commander.option('-i, --ignore [value]', 'Glob pattern for files to ignore. Takes multiple values', argsToArray);
+  program.option('-i, --ignore [value]', 'Glob pattern for files to ignore. Takes multiple values', argsToArray);
 }
 
 function reportersOption(): void {
-  commander.option(
+  program.option(
     '-R, --reporter [value]',
     'npm package name for a Betterer reporter. Takes multiple values',
     argsToArray
@@ -134,29 +135,29 @@ function reportersOption(): void {
 }
 
 function saveOption(): void {
-  commander.option('--save', 'When present, Betterer will save the result of an upgrade to disk.');
+  program.option('--save', 'When present, Betterer will save the result of an upgrade to disk.');
 }
 
 function silentOption(): void {
-  commander.option(
+  program.option(
     '-s, --silent',
     'When present, all default reporters will be disabled. Custom reporters will still work normally.'
   );
 }
 
 function strictOption(): void {
-  commander.option(
+  program.option(
     '--strict',
     'When present, the "how to update" message will not be shown and the `--update` option will be set to false.'
   );
 }
 
 function updateOption(): void {
-  commander.option('-u, --update', 'When present, the results file will be updated, even if things get worse.');
+  program.option('-u, --update', 'When present, the results file will be updated, even if things get worse.');
 }
 
 function workersOption(): void {
-  commander.option(
+  program.option(
     '--workers [value]',
     'number of workers to use. Set to `false` to run tests serially. Defaults to number of CPUs - 2.',
     argsToPrimitive

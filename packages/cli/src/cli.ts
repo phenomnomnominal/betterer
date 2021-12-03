@@ -1,4 +1,5 @@
-import commander from 'commander';
+import { program, ExecutableCommandOptions } from 'commander';
+import path from 'path';
 
 import { BettererCLIArguments, BettererPackageJSON } from './types';
 
@@ -27,31 +28,31 @@ const { version } = require('../package.json') as BettererPackageJSON;
  * Run the **Betterer** command-lie interface.
  */
 export function cli__(argv: BettererCLIArguments): void {
-  commander.version(version);
+  program.version(version);
 
   // CI:
   // Throw if test run creates a diff
-  commander.command(Command.ci, 'run Betterer in CI mode');
+  program.command(Command.ci, 'run Betterer in CI mode', getExecutable(Command.ci));
 
   // Merge:
-  commander.command(Command.merge, 'merge the Betterer results file');
+  program.command(Command.merge, 'merge the Betterer results file', getExecutable(Command.merge));
 
   // Precommit:
   // Throw if test run is worse, `git add` if better
-  commander.command(Command.precommit, 'run Betterer in precommit mode');
+  program.command(Command.precommit, 'run Betterer in precommit mode', getExecutable(Command.precommit));
 
   // Results:
-  commander.command(Command.results, 'get current results of Betterer tests');
+  program.command(Command.results, 'get current results of Betterer tests', getExecutable(Command.results));
 
   // Run:
-  commander.command(Command.start, 'run Betterer');
-  commander.command(Command.watch, 'run Betterer in watch mode');
+  program.command(Command.start, 'run Betterer', getExecutable(Command.start));
+  program.command(Command.watch, 'run Betterer in watch mode', getExecutable(Command.watch));
 
   // Init:
-  commander.command(Command.init, 'init Betterer in a project');
+  program.command(Command.init, 'init Betterer in a project', getExecutable(Command.init));
 
   // Upgrade:
-  commander.command(Command.upgrade, 'upgrade Betterer files in a project');
+  program.command(Command.upgrade, 'upgrade Betterer files in a project', getExecutable(Command.upgrade));
 
   const args = argv.slice(0);
   const [, , command] = args;
@@ -59,5 +60,11 @@ export function cli__(argv: BettererCLIArguments): void {
     args.splice(2, 0, Command.start);
   }
 
-  commander.parse(args);
+  program.parse(args);
+}
+
+function getExecutable(name: CommandName): ExecutableCommandOptions {
+  return {
+    executableFile: path.resolve(__dirname, `../bin/betterer-${name}`)
+  };
 }
