@@ -69,7 +69,7 @@ function setEnv<T extends BettererCLIEnvConfig>(argv: BettererCLIArguments): T {
   program.option('-d, --debug', 'Enable verbose debug logging', false);
   program.option('-l, --debug-log [value]', 'File path to save verbose debug logging to disk', './betterer.log');
 
-  const parsed = program.parse(argv).opts() as T;
+  const parsed: T = program.parse(argv).opts();
   if (parsed.debug) {
     process.env.BETTERER_DEBUG = '1';
     process.env.BETTERER_DEBUG_TIME = '1';
