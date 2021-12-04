@@ -5652,9 +5652,9 @@ init-package-json@^2.0.2:
     validate-npm-package-name "^3.0.0"
 
 ink-text-input@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.npmjs.org/ink-text-input/-/ink-text-input-4.0.1.tgz#e3de3f7e7f4247d64018838c57bbbc6120901368"
-  integrity sha512-wiqkrB2tgnCnv51r2LpNLVfgrd/V+UXF3ccry+/Q7on9CBt8LVavX6NDYRMdXljuM+CcFV/sVro0bCr5oxB05w==
+  version "4.0.2"
+  resolved "https://registry.npmjs.org/ink-text-input/-/ink-text-input-4.0.2.tgz#59b41604058b29bc2b8c1335838c213076308205"
+  integrity sha512-euuugcNExOx5E+qNM1c+pDF7V8yw/xzCRWEfFk1KjQT9CYtaVAYre13YbMFsYPkGD26dvX6XAffUgkwXme/p5Q==
   dependencies:
     chalk "^4.1.0"
     type-fest "^0.15.1"
