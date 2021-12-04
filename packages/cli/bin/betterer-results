@@ -1,6 +1,0 @@
-#!/usr/bin/env node
-require('../dist/results')
-  .results__(process.cwd(), process.argv)
-  .catch(function () {
-    process.exitCode = 1;
-  });

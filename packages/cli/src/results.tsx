@@ -1,37 +1,45 @@
 import React from 'react';
 
 import { BettererOptionsResults } from '@betterer/betterer';
+import { Command } from 'commander';
 import { render } from 'ink';
 
-import { resultsOptions } from './options';
+import { resultsCommand, setEnv } from './options';
 import { Results } from './results/results';
-import { BettererCLIArguments } from './types';
+import { BettererCLIResultsConfig } from './types';
 
 /**
- * @internal This could change at any point! Please don't use!
- *
  * Run the **Betterer** `results` command to see the status of the {@link @betterer/betterer#BettererTest | `BettererTest`s}
  * in a project.
  */
-export async function results__(cwd: string, argv: BettererCLIArguments): Promise<void> {
-  const RENDER_OPTIONS = {
-    debug: process.env.NODE_ENV === 'test'
-  };
+export function results(cwd: string): Command {
+  const command = resultsCommand();
+  command.description();
+  command.action(async (config: BettererCLIResultsConfig, command: Command): Promise<void> => {
+    setEnv(config);
 
-  const { config, exclude, filter, include, results } = resultsOptions(argv);
+    const RENDER_OPTIONS = {
+      debug: process.env.NODE_ENV === 'test'
+    };
 
-  // Mark options as unknown...
-  const options: unknown = {
-    configPaths: config,
-    cwd,
-    excludes: exclude,
-    filters: filter,
-    includes: include,
-    resultsPath: results
-  };
+    // Mark options as unknown...
+    const options: unknown = {
+      configPaths: config.config,
+      cwd,
+      excludes: config.exclude,
+      filters: config.filter,
+      includes: command.args,
+      resultsPath: config.results
+    };
 
-  // And then cast to BettererOptionsResults. This is possibly invalid,
-  // but it's nicer to do the options validation in @betterer/betterer
-  const app = render(<Results options={options as BettererOptionsResults} />, RENDER_OPTIONS);
-  await app.waitUntilExit();
+    try {
+      // And then cast to BettererOptionsResults. This is possibly invalid,
+      // but it's nicer to do the options validation in @betterer/betterer
+      const app = render(<Results options={options as BettererOptionsResults} />, RENDER_OPTIONS);
+      await app.waitUntilExit();
+    } catch {
+      process.exitCode = 1;
+    }
+  });
+  return command;
 }

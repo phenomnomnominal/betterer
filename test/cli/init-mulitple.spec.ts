@@ -1,4 +1,4 @@
-import { init__ } from '@betterer/cli';
+import { cli__ } from '@betterer/cli';
 
 import { createFixture } from '../fixture';
 
@@ -25,8 +25,8 @@ describe('betterer cli', () => {
 
     let throws = false;
     try {
-      await init__(fixturePath, ARGV);
-      await init__(fixturePath, ARGV);
+      await cli__(fixturePath, [...ARGV, 'init']);
+      await cli__(fixturePath, [...ARGV, 'init']);
       await cleanup();
     } catch {
       throws = true;

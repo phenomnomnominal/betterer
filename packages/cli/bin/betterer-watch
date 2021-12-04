@@ -1,2 +1,0 @@
-#!/usr/bin/env node
-require('../dist/watch').watch__(process.cwd(), process.argv);

@@ -8,13 +8,5 @@
  * @packageDocumentation
  */
 
-export { ci__ } from './ci';
 export { cli__ } from './cli';
-export { init__ } from './init';
-export { merge__ } from './merge';
-export { precommit__ } from './precommit';
-export { start__ } from './start';
-export { results__ } from './results';
-export { upgrade__ } from './upgrade';
-export { watch__ } from './watch';
 export { BettererCLIArguments, BettererPackageJSON } from './types';

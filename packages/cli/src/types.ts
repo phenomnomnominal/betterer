@@ -5,6 +5,19 @@
  */
 export type BettererCLIArguments = Array<string>;
 
+export enum BettererCommand {
+  ci = 'ci',
+  init = 'init',
+  merge = 'merge',
+  precommit = 'precommit',
+  results = 'results',
+  start = 'start',
+  upgrade = 'upgrade',
+  watch = 'watch'
+}
+
+export type BettererCommandName = `${BettererCommand}`;
+
 export interface BettererCLIEnvConfig {
   debug: boolean;
   debugLog: string;

@@ -1,5 +1,5 @@
 import { betterer } from '@betterer/betterer';
-import { results__ } from '@betterer/cli';
+import { cli__ } from '@betterer/cli';
 
 import { createFixture } from '../fixture';
 
@@ -30,7 +30,7 @@ module.exports = {
 
     await betterer({ configPaths, resultsPath, workers: false, silent: true });
 
-    await results__(fixturePath, ARGV);
+    await cli__(fixturePath, [...ARGV, 'results']);
 
     expect(logs).toMatchSnapshot();
 
