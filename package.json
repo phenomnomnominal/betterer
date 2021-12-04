@@ -18,6 +18,7 @@
     "build": "yarn compile:packages && yarn test:api && yarn test && yarn test:e2e",
     "build:ci": "yarn compile:packages && yarn test:api && yarn format && yarn lint && yarn test && yarn betterer:ci",
     "build:extension": "lerna run build:extension",
+    "build:publish": "yarn compile:packages && yarn test:api && yarn test",
     "clean": "yarn clean:tests && yarn clean:compile && yarn clean:modules",
     "clean:tests": "rimraf fixtures && rimraf reports",
     "clean:compile": "lerna exec \"rimraf dist\" && rimraf ./**/tsconfig.tsbuildinfo",
@@ -36,7 +37,7 @@
     "test:debug": "yarn clean:tests && jest --runInBand --collectCoverage=false",
     "test:e2e": "yarn clean:tests && jest --runInBand --config ./jest.e2e.config.js",
     "test:extension": "lerna run test:extension",
-    "prepublishOnly": "yarn run build",
+    "prepublishOnly": "yarn run build:publish",
     "publish": "lerna publish --conventional-commits",
     "prepare": "ngcc && husky install"
   },
