@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@betterer/errors": "^5.0.0",
+    "@betterer/logger": "^5.0.0",
     "chalk": "^4.1.2",
     "ink": "^3.0.9",
     "react": ">=16.8.4 || >=17.0.0",
