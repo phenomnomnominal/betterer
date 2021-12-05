@@ -1,8 +1,8 @@
-import { upgrade__ } from '@betterer/cli';
+import { cli__ } from '@betterer/cli';
 
 import { createFixture } from '../fixture';
 
-const ARGV = ['node', './bin/betterer'];
+const ARGV = ['node', './bin/betterer', 'upgrade'];
 
 describe('betterer upgrade', () => {
   it('should upgrade exported constant objects in an ES module', async () => {
@@ -27,7 +27,7 @@ export const getsBetter = {
 
     const fixturePath = paths.cwd;
 
-    await upgrade__(fixturePath, ARGV);
+    await cli__(fixturePath, ARGV);
 
     expect(logs).toMatchSnapshot();
 
@@ -56,7 +56,7 @@ module.exports.getsBetter = {
 
     const fixturePath = paths.cwd;
 
-    await upgrade__(fixturePath, ARGV);
+    await cli__(fixturePath, ARGV);
 
     expect(logs).toMatchSnapshot();
 
@@ -86,7 +86,7 @@ export const getsBetter = new BettererTest({
 
     const fixturePath = paths.cwd;
 
-    await upgrade__(fixturePath, ARGV);
+    await cli__(fixturePath, ARGV);
 
     expect(logs).toMatchSnapshot();
 
@@ -116,7 +116,7 @@ module.exports.getsBetter = new BettererTest({
 
     const fixturePath = paths.cwd;
 
-    await upgrade__(fixturePath, ARGV);
+    await cli__(fixturePath, ARGV);
 
     expect(logs).toMatchSnapshot();
 
@@ -144,7 +144,7 @@ export const countFiles = new BettererFileTest(async (files, fileTestResult) => 
 
     const fixturePath = paths.cwd;
 
-    await upgrade__(fixturePath, ARGV);
+    await cli__(fixturePath, ARGV);
 
     expect(logs).toMatchSnapshot();
 
@@ -172,7 +172,7 @@ module.exports.countFiles = new BettererFileTest(async (files, fileTestResult) =
 
     const fixturePath = paths.cwd;
 
-    await upgrade__(fixturePath, ARGV);
+    await cli__(fixturePath, ARGV);
 
     expect(logs).toMatchSnapshot();
 
@@ -200,7 +200,7 @@ export const countFiles = new BettererFileTest(async (files, fileTestResult) => 
 
     const fixturePath = paths.cwd;
 
-    await upgrade__(fixturePath, ARGV);
+    await cli__(fixturePath, ARGV);
 
     expect(logs).toMatchSnapshot();
 
@@ -228,7 +228,7 @@ module.exports.countFiles = new BettererFileTest(async (files, fileTestResult) =
 
     const fixturePath = paths.cwd;
 
-    await upgrade__(fixturePath, ARGV);
+    await cli__(fixturePath, ARGV);
 
     expect(logs).toMatchSnapshot();
 
@@ -252,7 +252,7 @@ export const noHack = regexp(/HACK/i).include('**/*.ts');
 
     const fixturePath = paths.cwd;
 
-    await upgrade__(fixturePath, ARGV);
+    await cli__(fixturePath, ARGV);
 
     expect(logs).toMatchSnapshot();
 
@@ -276,7 +276,7 @@ module.exports.noHack = regexp(/HACK/i).include('**/*.ts');
 
     const fixturePath = paths.cwd;
 
-    await upgrade__(fixturePath, ARGV);
+    await cli__(fixturePath, ARGV);
 
     expect(logs).toMatchSnapshot();
 
@@ -322,9 +322,9 @@ export default {
 
     const fixturePath = paths.cwd;
 
-    await upgrade__(fixturePath, ARGV);
+    await cli__(fixturePath, ARGV);
 
-    await upgrade__(fixturePath, [...ARGV, '--save']);
+    await cli__(fixturePath, [...ARGV, '--save']);
 
     const upgradedConfig = await readFile(`${paths.config}.ts`);
 
@@ -374,9 +374,9 @@ module.exports = {
 
     const fixturePath = paths.cwd;
 
-    await upgrade__(fixturePath, ARGV);
+    await cli__(fixturePath, ARGV);
 
-    await upgrade__(fixturePath, [...ARGV, '--save']);
+    await cli__(fixturePath, [...ARGV, '--save']);
 
     const upgradedConfig = await readFile(`${paths.config}.ts`);
 
@@ -433,7 +433,7 @@ function bar () {
 
     const fixturePath = paths.cwd;
 
-    await upgrade__(fixturePath, ARGV);
+    await cli__(fixturePath, ARGV);
 
     expect(logs).toMatchSnapshot();
 

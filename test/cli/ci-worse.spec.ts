@@ -1,8 +1,8 @@
-import { start__, ci__ } from '@betterer/cli';
+import { cli__ } from '@betterer/cli';
 
 import { createFixture } from '../fixture';
 
-const ARGV = ['node', './bin/betterer', '--workers', 'false'];
+const ARGV = ['node', './bin/betterer'];
 
 describe('betterer ci', () => {
   it('should work when a test gets worse', async () => {
@@ -39,14 +39,11 @@ export default {
     const fixturePath = paths.cwd;
     const indexPath = resolve('./src/index.ts');
 
-    await start__(fixturePath, ARGV, false);
+    await cli__(fixturePath, [...ARGV, 'start'], false);
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one * a);\nconsole.log(a * one);`);
 
-    const suiteSummary = await ci__(fixturePath, ARGV);
-
-    expect(suiteSummary.changed).toHaveLength(1);
-    expect(suiteSummary.worse).toHaveLength(1);
+    await cli__(fixturePath, [...ARGV, 'ci']);
 
     expect(logs).toMatchSnapshot();
 

@@ -1,35 +1,46 @@
-import { BettererSuiteSummary, betterer, BettererOptionsStart } from '@betterer/betterer';
+import { betterer, BettererOptionsStart } from '@betterer/betterer';
+import { Command } from 'commander';
 
-import { cliOptions } from './options';
-import { BettererCLIArguments } from './types';
+import { cliCommand, setEnv } from './options';
+import { BettererCLIConfig, BettererCommand } from './types';
 
 /**
- * @internal This could change at any point! Please don't use!
- *
  * Run **Betterer** in `ci` mode.
  */
-export function ci__(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary> {
-  const { cache, cachePath, config, exclude, filter, include, results, silent, reporter, tsconfig, workers } =
-    cliOptions(argv);
+export function ci(cwd: string): Command {
+  const command = cliCommand(BettererCommand.ci);
+  command.description('run Betterer in CI mode');
+  command.action(async (config: BettererCLIConfig, command: Command): Promise<void> => {
+    setEnv(config);
 
-  // Mark options as unknown...
-  const options: unknown = {
-    cache,
-    cachePath,
-    ci: true,
-    configPaths: config,
-    cwd,
-    excludes: exclude,
-    filters: filter,
-    includes: include,
-    reporters: reporter,
-    resultsPath: results,
-    silent,
-    tsconfigPath: tsconfig,
-    workers
-  };
+    // Mark options as unknown...
+    const options: unknown = {
+      cache: config.cache,
+      cachePath: config.cachePath,
+      ci: true,
+      configPaths: config.config,
+      cwd,
+      excludes: config.exclude,
+      filters: config.filter,
+      includes: command.args,
+      reporters: config.reporter,
+      resultsPath: config.results,
+      silent: config.silent,
+      tsconfigPath: config.tsconfig,
+      workers: config.workers
+    };
 
-  // And then cast to BettererOptionsStart. This is possibly invalid,
-  // but it's nicer to do the options validation in @betterer/betterer
-  return betterer(options as BettererOptionsStart);
+    try {
+      // And then cast to BettererOptionsStart. This is possibly invalid,
+      // but it's nicer to do the options validation in @betterer/betterer
+      const suiteSummary = await betterer(options as BettererOptionsStart);
+      if (suiteSummary.changed.length > 0 || suiteSummary.failed.length > 0) {
+        process.exitCode = 1;
+      }
+    } catch {
+      process.exitCode = 1;
+    }
+  });
+
+  return command;
 }

@@ -1,4 +1,4 @@
-import { start__ } from '@betterer/cli';
+import { cli__ } from '@betterer/cli';
 
 import { createFixture } from '../fixture';
 
@@ -6,7 +6,7 @@ const ARGV = ['node', './bin/betterer'];
 
 describe('betterer cli', () => {
   it('should filter tests by name with negation', async () => {
-    const { logs, paths, cleanup, testNames } = await createFixture(
+    const { logs, paths, cleanup } = await createFixture(
       'filter-negative',
       {
         '.betterer.js': `
@@ -36,17 +36,11 @@ module.exports = {
 
     const fixturePath = paths.cwd;
 
-    const firstRun = await start__(fixturePath, ARGV, false);
+    await cli__(fixturePath, [...ARGV, 'start'], false);
 
-    expect(testNames(firstRun.ran)).toEqual(['test 1', 'test 2', 'test 3']);
+    await cli__(fixturePath, [...ARGV, 'start', '--filter', '!1'], false);
 
-    const secondRun = await start__(fixturePath, [...ARGV, '--filter', '!1'], false);
-
-    expect(testNames(secondRun.ran)).toEqual(['test 2', 'test 3']);
-
-    const thirdRun = await start__(fixturePath, [...ARGV, '--filter', 'test', '--filter', '![2|3]'], false);
-
-    expect(testNames(thirdRun.ran)).toEqual(['test 1']);
+    await cli__(fixturePath, [...ARGV, 'start', '--filter', 'test', '--filter', '![2|3]'], false);
 
     expect(logs).toMatchSnapshot();
 

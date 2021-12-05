@@ -4,8 +4,6 @@
 
 ```ts
 
-import { BettererSuiteSummary } from '@betterer/betterer';
-
 // @internal
 export type BettererCLIArguments = Array<string>;
 
@@ -22,30 +20,6 @@ export interface BettererPackageJSON {
 }
 
 // @internal
-export function ci__(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary>;
-
-// @internal
-export function cli__(argv: BettererCLIArguments): void;
-
-// @internal
-export function init__(cwd: string, argv: BettererCLIArguments): Promise<void>;
-
-// @internal
-export function merge__(cwd: string, argv: BettererCLIArguments): Promise<void>;
-
-// @internal
-export function precommit__(cwd: string, argv: BettererCLIArguments): Promise<BettererSuiteSummary>;
-
-// @internal
-export function results__(cwd: string, argv: BettererCLIArguments): Promise<void>;
-
-// @internal
-export function start__(cwd: string, argv: BettererCLIArguments, ci?: boolean): Promise<BettererSuiteSummary>;
-
-// @internal
-export function upgrade__(cwd: string, argv: BettererCLIArguments): Promise<void>;
-
-// @internal
-export function watch__(cwd: string, argv: BettererCLIArguments): Promise<void>;
+export function cli__(cwd: string, argv: BettererCLIArguments, isCI?: boolean): Promise<void>;
 
 ```

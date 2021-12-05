@@ -1,33 +1,38 @@
 import { betterer, BettererOptionsWatch } from '@betterer/betterer';
+import { Command } from 'commander';
 
-import { cliOptions } from './options';
-import { BettererCLIArguments } from './types';
+import { cliCommand, setEnv } from './options';
+import { BettererCLIConfig, BettererCommand } from './types';
 
 /**
- * @internal This could change at any point! Please don't use!
- *
  * Run **Betterer** in `watch` mode.
  */
-export async function watch__(cwd: string, argv: BettererCLIArguments): Promise<void> {
-  const { cache, cachePath, config, filter, ignore, reporter, results, silent, tsconfig, workers } = cliOptions(argv);
+export function watch(cwd: string): Command {
+  const command = cliCommand(BettererCommand.watch);
+  command.description('run Betterer in watch mode');
+  command.action(async (config: BettererCLIConfig): Promise<void> => {
+    setEnv(config);
 
-  // Mark options as unknown...
-  const options: unknown = {
-    cache,
-    cachePath,
-    configPaths: config,
-    cwd,
-    filters: filter,
-    ignores: ignore,
-    reporters: reporter,
-    resultsPath: results,
-    silent,
-    tsconfigPath: tsconfig,
-    watch: true,
-    workers
-  };
+    // Mark options as unknown...
+    const options: unknown = {
+      cache: config.cache,
+      cachePath: config.cachePath,
+      configPaths: config.config,
+      cwd,
+      filters: config.filter,
+      ignores: config.ignore,
+      reporters: config.reporter,
+      resultsPath: config.results,
+      silent: config.silent,
+      strict: config.strict,
+      tsconfigPath: config.tsconfig,
+      update: config.update,
+      workers: config.workers
+    };
 
-  // And then cast to BettererOptionsWatch. This is possibly invalid,
-  // but it's nicer to do the options validation in @betterer/betterer
-  await betterer.watch(options as BettererOptionsWatch);
+    // And then cast to BettererOptionsWatch. This is possibly invalid,
+    // but it's nicer to do the options validation in @betterer/betterer
+    await betterer.watch(options as BettererOptionsWatch);
+  });
+  return command;
 }

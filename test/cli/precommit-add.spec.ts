@@ -1,4 +1,4 @@
-import { precommit__, start__ } from '@betterer/cli';
+import { cli__ } from '@betterer/cli';
 import simpleGit from 'simple-git';
 
 import { createFixture } from '../fixture';
@@ -43,11 +43,11 @@ export default {
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one + one);\nconsole.log(a * one);`);
 
-    await start__(fixturePath, ARGV, false);
+    await cli__(fixturePath, [...ARGV, 'start'], false);
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one + one);`);
 
-    await precommit__(fixturePath, ARGV);
+    await cli__(fixturePath, [...ARGV, 'precommit']);
 
     expect(logs).toMatchSnapshot();
 

@@ -1,4 +1,4 @@
-import { BettererPackageJSON, init__ } from '@betterer/cli';
+import { BettererPackageJSON, cli__ } from '@betterer/cli';
 
 import { createFixture } from '../fixture';
 
@@ -27,7 +27,7 @@ describe('betterer cli', () => {
     const fixturePath = paths.cwd;
     const packageJSONPath = resolve('./package.json');
 
-    await init__(fixturePath, [...ARGV, '--config', configPath]);
+    await cli__(fixturePath, [...ARGV, 'init', '--config', configPath]);
 
     const packageJSON = JSON.parse(await readFile(packageJSONPath)) as BettererPackageJSON;
 
