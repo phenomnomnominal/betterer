@@ -1,7 +1,7 @@
 {
   "name": "@betterer/tasks",
   "description": "task runner and loggerr for @betterer/betterer",
-  "version": "5.1.3",
+  "version": "5.1.4",
   "license": "MIT",
   "publishConfig": {
     "access": "public"

@@ -1,7 +1,7 @@
 {
   "name": "@betterer/cli",
   "description": "betterer CLI",
-  "version": "5.1.3",
+  "version": "5.1.4",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -32,9 +32,9 @@
     "node": ">=12"
   },
   "dependencies": {
-    "@betterer/betterer": "^5.1.3",
+    "@betterer/betterer": "^5.1.4",
     "@betterer/errors": "^5.0.0",
-    "@betterer/tasks": "^5.1.3",
+    "@betterer/tasks": "^5.1.4",
     "@phenomnomnominal/tsquery": "^4.1.1",
     "@phenomnomnominal/tstemplate": "^0.1.0",
     "@phenomnomnominal/worker-require": "^0.0.34",
