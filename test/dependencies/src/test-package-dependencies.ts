@@ -28,7 +28,7 @@ export async function run(logger: BettererLogger, packageName: string): Promise<
   await logger.progress(`Validating dependencies for "${packageNameFull}" ...`);
 
   const parsed = await dependencyCheck({
-    path: require.resolve(packageNameFull),
+    path: path.resolve(PACKAGES_DIR, packageName),
     entries: ['package.json']
   });
   const missing = await dependencyCheck.missing(parsed.package, parsed.used);
