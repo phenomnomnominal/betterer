@@ -1,7 +1,7 @@
 {
   "name": "@betterer/fixture",
   "description": "Test fixtures for @betterer/betterer",
-  "version": "5.1.4",
+  "version": "5.1.5",
   "license": "MIT",
   "private": true,
   "main": "dist/index.js",
@@ -25,7 +25,7 @@
     "node": ">=12"
   },
   "dependencies": {
-    "@betterer/betterer": "^5.1.4",
+    "@betterer/betterer": "^5.1.5",
     "@betterer/errors": "^5.0.0",
     "ansi-regex": "^5.0.0",
     "fs-extra": "^10.0.0",
