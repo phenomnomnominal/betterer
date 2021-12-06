@@ -23,6 +23,6 @@
     "strict": true,
     "target": "ES2017",
     "outDir": "./dist",
-    "typeRoots": ["./node_modules/@types"]
+    "typeRoots": ["./node_modules/@types", "./types"]
   }
 }
