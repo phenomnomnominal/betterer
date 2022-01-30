@@ -46,6 +46,8 @@ export default {
 
     await cli__(fixturePath, [...ARGV, 'precommit']);
 
+    expect(process.exitCode).toEqual(1);
+
     expect(logs).toMatchSnapshot();
 
     const git = simpleGit();
