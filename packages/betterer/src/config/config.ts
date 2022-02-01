@@ -24,7 +24,10 @@ import {
 const TOTAL_CPUS = os.cpus().length;
 
 export async function createInitialConfig(options: unknown = {}): Promise<BettererConfig> {
-  const baseConfig = createInitialBaseConfig(options as BettererOptionsBase);
+  const tsconfigPath = resolveTsConfigPath(options as BettererOptionsBase);
+  await registerExtensions(tsconfigPath);
+
+  const baseConfig = createInitialBaseConfig(options as BettererOptionsBase, tsconfigPath);
   const startConfig = createStartConfig(options as BettererOptionsStart);
   const watchConfig = createWatchConfig(options as BettererOptionsWatch);
 
@@ -35,8 +38,6 @@ export async function createInitialConfig(options: unknown = {}): Promise<Better
   if (config.tsconfigPath) {
     await validateFilePath({ tsconfigPath: config.tsconfigPath });
   }
-
-  await registerExtensions(config.tsconfigPath);
 
   return config;
 }
@@ -66,7 +67,13 @@ export function overrideConfig(config: BettererConfig, optionsOverride: Betterer
   }
 }
 
-function createInitialBaseConfig(options: BettererOptionsBase): BettererConfigBase {
+function resolveTsConfigPath(options: BettererOptionsBase): string | null {
+  const cwd = options.cwd || process.cwd();
+  const tsconfigPath = options.tsconfigPath || null;
+  return tsconfigPath ? path.resolve(cwd, tsconfigPath) : null;
+}
+
+function createInitialBaseConfig(options: BettererOptionsBase, tsconfigPath: string | null): BettererConfigBase {
   const isDebug = !!process.env.BETTERER_DEBUG;
   const cache = !!options.cachePath || options.cache || false;
   const cachePath = options.cachePath || './.betterer.cache';
@@ -76,7 +83,6 @@ function createInitialBaseConfig(options: BettererOptionsBase): BettererConfigBa
   const silent = isDebug || options.silent || false;
   const reporter = silent ? loadSilentReporter() : loadReporters(reporters, cwd);
   const resultsPath = options.resultsPath || './.betterer.results';
-  const tsconfigPath = options.tsconfigPath || null;
 
   validateBool({ cache });
   validateString({ cachePath });
@@ -94,7 +100,7 @@ function createInitialBaseConfig(options: BettererOptionsBase): BettererConfigBa
     filters,
     reporter,
     resultsPath: path.resolve(cwd, resultsPath),
-    tsconfigPath: tsconfigPath ? path.resolve(cwd, tsconfigPath) : null,
+    tsconfigPath,
     workers
   };
 }
