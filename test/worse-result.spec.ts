@@ -43,6 +43,9 @@ module.exports = {
 
     expect(testNames(secondRun.worse)).toEqual(['should shrink', 'should grow']);
 
+    const [worseSummary] = secondRun.worse;
+    expect(worseSummary.diff).toBeDefined();
+
     expect(logs).toMatchSnapshot();
 
     const result = await readFile(resultsPath);

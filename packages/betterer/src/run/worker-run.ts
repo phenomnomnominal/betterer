@@ -203,12 +203,13 @@ export class BettererWorkerRunΩ implements BettererRun {
           return end(BettererRunStatus.same, result);
         }
 
+        const diff = this.test.differ(this.expected.value, result.value);
         if (comparison === BettererConstraintResult.better) {
-          return end(BettererRunStatus.better, result);
+          return end(BettererRunStatus.better, result, diff);
         }
 
         const status = config.update ? BettererRunStatus.update : BettererRunStatus.worse;
-        return end(status, result, this.test.differ(this.expected.value, result.value));
+        return end(status, result, diff);
       },
       failed: async (error: BettererError): Promise<BettererRunSummary> => {
         return end(BettererRunStatus.failed, null, null, error);
