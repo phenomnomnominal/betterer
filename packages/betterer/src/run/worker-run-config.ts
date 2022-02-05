@@ -16,6 +16,7 @@ export function createWorkerRunConfig(config: BettererConfig): BettererWorkerRun
     strict: config.strict,
     tsconfigPath: config.tsconfigPath,
     update: config.update,
+    versionControlPath: config.versionControlPath,
     watch: config.watch,
     workers: config.workers
   };

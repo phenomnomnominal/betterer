@@ -81,6 +81,10 @@ export interface BettererConfigBase {
    */
   tsconfigPath: string | null;
   /**
+   * The absolute path to the root directory of the repository.
+   */
+  versionControlPath: string;
+  /**
    * The number of {@link https://nodejs.org/api/worker_threads.html | worker threads} to use when
    * running **Betterer**.
    */

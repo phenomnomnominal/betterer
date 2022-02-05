@@ -1,10 +1,4 @@
-export {
-  createInitialConfig,
-  createFinalConfig,
-  createMergeConfig,
-  createWorkerConfig,
-  overrideConfig
-} from './config';
+export { createConfig, createMergeConfig, createWorkerConfig, overrideConfig } from './config';
 export {
   BettererConfig,
   BettererConfigBase,

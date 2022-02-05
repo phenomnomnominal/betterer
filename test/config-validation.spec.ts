@@ -13,7 +13,9 @@ jest.mock('os', () => {
 
 describe('betterer', () => {
   it('should throw when there is invalid config', async () => {
-    const { cleanup, logs, paths } = await createFixture('config-validation');
+    const { cleanup, logs, paths } = await createFixture('config-validation', {
+      '.betterer.js': ''
+    });
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 

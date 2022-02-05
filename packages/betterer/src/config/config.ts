@@ -23,11 +23,14 @@ import {
 
 const TOTAL_CPUS = os.cpus().length;
 
-export async function createInitialConfig(options: unknown = {}): Promise<BettererConfig> {
+export async function createConfig(
+  options: unknown = {},
+  versionControl: BettererVersionControlWorker
+): Promise<BettererConfig> {
   const tsconfigPath = resolveTsConfigPath(options as BettererOptionsBase);
   await registerExtensions(tsconfigPath);
 
-  const baseConfig = createInitialBaseConfig(options as BettererOptionsBase, tsconfigPath);
+  const baseConfig = await createBaseConfig(options as BettererOptionsBase, tsconfigPath, versionControl);
   const startConfig = createStartConfig(options as BettererOptionsStart);
   const watchConfig = createWatchConfig(options as BettererOptionsWatch);
 
@@ -40,14 +43,6 @@ export async function createInitialConfig(options: unknown = {}): Promise<Better
   }
 
   return config;
-}
-
-export async function createFinalConfig(
-  options: unknown = {},
-  config: BettererConfig,
-  versionControl: BettererVersionControlWorker
-): Promise<void> {
-  await createFinalBaseConfig(options as BettererOptionsBase, config, versionControl);
 }
 
 export function overrideConfig(config: BettererConfig, optionsOverride: BettererOptionsOverride): void {
@@ -73,11 +68,19 @@ function resolveTsConfigPath(options: BettererOptionsBase): string | null {
   return tsconfigPath ? path.resolve(cwd, tsconfigPath) : null;
 }
 
-function createInitialBaseConfig(options: BettererOptionsBase, tsconfigPath: string | null): BettererConfigBase {
+async function createBaseConfig(
+  options: BettererOptionsBase,
+  tsconfigPath: string | null,
+  versionControl: BettererVersionControlWorker
+): Promise<BettererConfigBase> {
+  const cwd = options.cwd || process.cwd();
+  const configPaths = options.configPaths ? toArray<string>(options.configPaths) : ['./.betterer'];
+
+  validateStringArray({ configPaths });
+
   const isDebug = !!process.env.BETTERER_DEBUG;
   const cache = !!options.cachePath || options.cache || false;
   const cachePath = options.cachePath || './.betterer.cache';
-  const cwd = options.cwd || process.cwd();
   const filters = toRegExps(toArray<string | RegExp>(options.filters));
   const reporters = toArray<string | BettererReporter>(options.reporters);
   const silent = isDebug || options.silent || false;
@@ -92,38 +95,21 @@ function createInitialBaseConfig(options: BettererOptionsBase, tsconfigPath: str
   validateBool({ silent });
   const workers = validateWorkers(options);
 
+  const validatedConfigPaths = validateConfigPaths(cwd, configPaths);
+  const versionControlPath = await versionControl.init(validatedConfigPaths);
+
   return {
     cache,
     cachePath: path.resolve(cwd, cachePath),
     cwd,
-    configPaths: [],
+    configPaths: validatedConfigPaths,
     filters,
     reporter,
     resultsPath: path.resolve(cwd, resultsPath),
     tsconfigPath,
+    versionControlPath,
     workers
   };
-}
-
-async function createFinalBaseConfig(
-  options: BettererOptionsBase,
-  config: BettererConfig,
-  versionControl: BettererVersionControlWorker
-): Promise<void> {
-  const configPaths = options.configPaths ? toArray<string>(options.configPaths) : ['./.betterer'];
-
-  validateStringArray({ configPaths });
-
-  config.configPaths = configPaths.map((configPath) => {
-    configPath = path.resolve(config.cwd, configPath);
-    try {
-      return require.resolve(configPath);
-    } catch (error) {
-      throw new BettererError(`could not find config file at "${configPath}". 😔`, error as Error);
-    }
-  });
-
-  await versionControl.init(config.configPaths);
 }
 
 export async function createMergeConfig(options: BettererOptionsMerge): Promise<BettererConfigMerge> {
@@ -276,6 +262,17 @@ function validateStringRegExpArray<Config, PropertyName extends keyof Config>(co
     !Array.isArray(value) || value.every((item) => isString(item) || isRegExp(item)),
     `"${propertyName.toString()}" must be an array of strings or RegExps. ${recieved(value)}`
   );
+}
+
+function validateConfigPaths(cwd: string, configPaths: Array<string>): Array<string> {
+  return configPaths.map((configPath) => {
+    const absoluteConfigPath = path.resolve(cwd, configPath);
+    try {
+      return require.resolve(absoluteConfigPath);
+    } catch (error) {
+      throw new BettererError(`could not find config file at "${absoluteConfigPath}". 😔`, error as Error);
+    }
+  });
 }
 
 async function validateFilePath<Config, PropertyName extends keyof Config>(config: Config): Promise<void> {
