@@ -8,20 +8,16 @@ import { BettererGlobals } from './types';
 
 export async function createGlobals(options: unknown = {}): Promise<BettererGlobals> {
   const reporter = loadDefaultReporter();
+  const versionControl = createVersionControl();
   try {
-    const versionControl = createVersionControl();
     const config = await createConfig(options, versionControl);
-    try {
-      if (config.cache) {
-        await versionControl.enableCache(config.cachePath);
-      }
-      const resultsFile = await BettererResultsFileΩ.create(config.resultsPath, versionControl);
-      return { config, resultsFile, versionControl };
-    } catch (error) {
-      await versionControl.destroy();
-      throw error;
+    if (config.cache) {
+      await versionControl.enableCache(config.cachePath);
     }
+    const resultsFile = await BettererResultsFileΩ.create(config.resultsPath, versionControl);
+    return { config, resultsFile, versionControl };
   } catch (error) {
+    await versionControl.destroy();
     await reporter.configError(options, error as BettererError);
     throw error;
   }
