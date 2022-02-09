@@ -84,7 +84,8 @@ export class BettererContextΩ implements BettererContext {
   public async runOnce(): Promise<BettererSuiteSummary> {
     try {
       await this.run([], true);
-      return this.stop();
+      const summary = await this.stop();
+      return summary;
     } finally {
       await this._destroy();
     }
