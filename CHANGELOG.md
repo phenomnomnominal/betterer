@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.6](https://github.com/phenomnomnominal/betterer/compare/v5.1.5...v5.1.6) (2022-02-09)
+
+
+### Bug Fixes
+
+* **betterer 🐛:** add missing diff to summary when run is better ([#959](https://github.com/phenomnomnominal/betterer/issues/959)) ([93b17da](https://github.com/phenomnomnominal/betterer/commit/93b17da08edbf5fddafa8d9d54f206234d2dc55a))
+* **betterer 🐛:** precommit should allow tests to get better ([#954](https://github.com/phenomnomnominal/betterer/issues/954)) ([c993667](https://github.com/phenomnomnominal/betterer/commit/c993667b788e2328c3a1742870b343934dfffa70))
+* **betterer 🐛:** use repository root when rewriting paths in results file ([#961](https://github.com/phenomnomnominal/betterer/issues/961)) ([6aad4a5](https://github.com/phenomnomnominal/betterer/commit/6aad4a5d9d0bab8e5936ab9edbb17cec8449fb25))
+* **betterer 🐛:** you should be able to write a reporter in TS ([#956](https://github.com/phenomnomnominal/betterer/issues/956)) ([d147351](https://github.com/phenomnomnominal/betterer/commit/d1473518c331155cb80a7352d9ac39eb5f66d3e6))
+
+
+
+
+
 ## [5.1.5](https://github.com/phenomnomnominal/betterer/compare/v5.1.4...v5.1.5) (2021-12-06)
 
 **Note:** Version bump only for package @betterer/monorepo

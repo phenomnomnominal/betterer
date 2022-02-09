@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.6](https://github.com/phenomnomnominal/betterer/compare/v5.1.5...v5.1.6) (2022-02-09)
+
+
+### Bug Fixes
+
+* **betterer 🐛:** precommit should allow tests to get better ([#954](https://github.com/phenomnomnominal/betterer/issues/954)) ([c993667](https://github.com/phenomnomnominal/betterer/commit/c993667b788e2328c3a1742870b343934dfffa70))
+
+
+
+
+
 ## [5.1.5](https://github.com/phenomnomnominal/betterer/compare/v5.1.4...v5.1.5) (2021-12-06)
 
 **Note:** Version bump only for package @betterer/cli
