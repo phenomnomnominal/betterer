@@ -41,7 +41,7 @@ export class BettererGitΩ implements BettererVersionControl {
 
   public async enableCache(cachePath: string): Promise<void> {
     assert(this._cache);
-    return this._cache.enableCache(cachePath);
+    return await this._cache.enableCache(cachePath);
   }
 
   public updateCache(testName: string, filePaths: BettererFilePaths): void {
@@ -71,7 +71,7 @@ export class BettererGitΩ implements BettererVersionControl {
 
   public async sync(): Promise<void> {
     if (this._syncing) {
-      return this._syncing;
+      return await this._syncing;
     }
     this._syncing = this._sync();
     await this._syncing;

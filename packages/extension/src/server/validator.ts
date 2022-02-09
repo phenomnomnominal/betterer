@@ -168,7 +168,7 @@ function load(connection: Connection): () => Promise<void> {
   }, LOADING_DELAY_TIME);
   return async (): Promise<void> => {
     if (isLoading) {
-      return new Promise((resolve) => {
+      return await new Promise((resolve) => {
         setTimeout(resolve, MINIMUM_LOADING_TIME);
       });
     }

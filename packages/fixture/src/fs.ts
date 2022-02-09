@@ -26,15 +26,15 @@ export async function createFixtureFS(
   async function writeFile(filePath: string, text: string): Promise<void> {
     const fullPath = resolve(filePath);
     await ensureFile(fullPath);
-    return fs.writeFile(fullPath, text.trim(), 'utf8');
+    return await fs.writeFile(fullPath, text.trim(), 'utf8');
   }
 
   async function deleteDirectory(directoryPath: string): Promise<void> {
-    return remove(directoryPath);
+    return await remove(directoryPath);
   }
 
   async function deleteFile(filePath: string): Promise<void> {
-    return fs.unlink(resolve(filePath));
+    return await fs.unlink(resolve(filePath));
   }
 
   function readFile(filePath: string): Promise<string> {

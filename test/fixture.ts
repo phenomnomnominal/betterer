@@ -9,5 +9,5 @@ export async function createFixture(
   options?: FixtureOptions
 ): Promise<Fixture> {
   const factory = await fixtureFactory;
-  return factory(fixtureName, files, options);
+  return await factory(fixtureName, files, options);
 }

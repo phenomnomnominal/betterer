@@ -63,7 +63,7 @@ export class BettererSuiteΩ implements BettererSuite {
     const hasOnly = !!runsΩ.find((run) => run.testMeta.isOnly);
     const { filters } = this._config;
 
-    return Promise.all(
+    return await Promise.all(
       runsΩ.map(async (runΩ, index) => {
         const lifecycle = runLifecycles[index];
 

@@ -68,7 +68,13 @@ export class BettererContextΩ implements BettererContext {
 
       const runs = await Promise.all(
         testNames.map(async (testName) => {
-          return BettererRunΩ.create(this._runWorkerPool, testName, workerRunConfig, filePaths, this._versionControl);
+          return await BettererRunΩ.create(
+            this._runWorkerPool,
+            testName,
+            workerRunConfig,
+            filePaths,
+            this._versionControl
+          );
         })
       );
 

@@ -28,7 +28,7 @@ import { BettererSuiteSummary } from './suite';
 export async function betterer(options: BettererOptionsStart = {}): Promise<BettererSuiteSummary> {
   initDebug();
   const runner = await BettererRunnerΩ.create(options);
-  return runner.run();
+  return await runner.run();
 }
 
 /**
@@ -47,7 +47,7 @@ export async function betterer(options: BettererOptionsStart = {}): Promise<Bett
  */
 export async function merge(options: BettererOptionsMerge = {}): Promise<void> {
   const merger = await BettererMergerΩ.create(options);
-  return merger.merge();
+  return await merger.merge();
 }
 betterer.merge = merge;
 

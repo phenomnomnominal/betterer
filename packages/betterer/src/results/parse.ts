@@ -36,7 +36,7 @@ export async function parseResults(resultsPath: string): Promise<BettererResults
   }
 
   try {
-    return requireText(contents);
+    return await requireText(contents);
   } catch {
     throw new BettererError(`could not read results from "${resultsPath}". 😔`);
   }

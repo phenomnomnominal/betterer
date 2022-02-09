@@ -65,7 +65,7 @@ export class BettererRunnerΩ implements BettererRunner {
       if (!force) {
         await this._running;
       }
-      return this._context.stop();
+      return await this._context.stop();
     } catch (error) {
       if (force) {
         return null;

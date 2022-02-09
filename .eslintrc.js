@@ -8,7 +8,8 @@ const BASE_EXTENDS = [
 ];
 
 const BASE_RULES = {
-  'eol-last': [2, 'always']
+  'eol-last': [2, 'always'],
+  '@typescript-eslint/return-await': [2, 'always']
 };
 
 const OVERRIDE_RULES = {
