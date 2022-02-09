@@ -43,6 +43,7 @@ export interface BettererConfigBase {
     reporter: BettererReporter;
     resultsPath: string;
     tsconfigPath: string | null;
+    versionControlPath: string;
     workers: number;
 }
 

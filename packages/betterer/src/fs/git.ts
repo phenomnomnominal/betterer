@@ -58,7 +58,7 @@ export class BettererGitΩ implements BettererVersionControl {
     return this._filePaths;
   }
 
-  public async init(configPaths: BettererFilePaths): Promise<void> {
+  public async init(configPaths: BettererFilePaths): Promise<string> {
     this._configPaths = configPaths;
     this._gitDir = await this._findGitRoot();
     this._rootDir = path.dirname(this._gitDir);
@@ -66,6 +66,7 @@ export class BettererGitΩ implements BettererVersionControl {
     this._cache = new BettererFileCacheΩ(this._configPaths);
     await this._init(this._git);
     await this.sync();
+    return this._rootDir;
   }
 
   public async sync(): Promise<void> {

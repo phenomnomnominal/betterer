@@ -164,7 +164,7 @@ export class BettererWorkerRunΩ implements BettererRun {
       if (shouldPrint) {
         const toPrint = isFailed || isSkipped || isWorse ? this.expected : (result as BettererResultΩ);
         const toPrintSerialised = this.test.serialiser.serialise(toPrint.value, config.resultsPath);
-        printed = forceRelativePaths(await this.test.printer(toPrintSerialised), config.cwd);
+        printed = forceRelativePaths(await this.test.printer(toPrintSerialised), config.versionControlPath);
       }
 
       if (this.testMeta.isFileTest) {
