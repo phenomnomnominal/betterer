@@ -109,14 +109,14 @@ export class BettererWorkerRunΩ implements BettererRun {
     const running = this._run(this.config, timestamp);
 
     if (isSkipped) {
-      return running.skipped();
+      return await running.skipped();
     }
 
     try {
       const result = new BettererResultΩ(await this.test.test(this));
-      return running.done(result);
+      return await running.done(result);
     } catch (error) {
-      return running.failed(error as BettererError);
+      return await running.failed(error as BettererError);
     }
   }
 
@@ -194,28 +194,28 @@ export class BettererWorkerRunΩ implements BettererRun {
     return {
       done: async (result: BettererResultΩ): Promise<BettererRunSummary> => {
         if (this.isNew) {
-          return end(BettererRunStatus.new, result);
+          return await end(BettererRunStatus.new, result);
         }
 
         const comparison = await this.test.constraint(result.value, this.expected.value);
 
         if (comparison === BettererConstraintResult.same) {
-          return end(BettererRunStatus.same, result);
+          return await end(BettererRunStatus.same, result);
         }
 
         const diff = this.test.differ(this.expected.value, result.value);
         if (comparison === BettererConstraintResult.better) {
-          return end(BettererRunStatus.better, result, diff);
+          return await end(BettererRunStatus.better, result, diff);
         }
 
         const status = config.update ? BettererRunStatus.update : BettererRunStatus.worse;
-        return end(status, result, diff);
+        return await end(status, result, diff);
       },
       failed: async (error: BettererError): Promise<BettererRunSummary> => {
-        return end(BettererRunStatus.failed, null, null, error);
+        return await end(BettererRunStatus.failed, null, null, error);
       },
       skipped: async (): Promise<BettererRunSummary> => {
-        return end(BettererRunStatus.skipped);
+        return await end(BettererRunStatus.skipped);
       }
     };
   }
