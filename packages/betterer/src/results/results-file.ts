@@ -33,7 +33,9 @@ export class BettererResultsFileΩ {
       .filter((runSummary) => !runSummary.isNew && !runSummary.isFailed && !runSummary.isSkipped)
       .filter((runSummary) => runSummary.printed !== this._getResult(runSummary.name, this._expected))
       .map((runSummary) => runSummary.name);
-    const newRuns = runSummaries.filter((runSummary) => runSummary.isNew).map((runSummary) => runSummary.name);
+    const newRuns = runSummaries
+      .filter((runSummary) => runSummary.isNew && !runSummary.isComplete)
+      .map((runSummary) => runSummary.name);
     const worseRuns = runSummaries.filter((runSummary) => runSummary.isWorse).map((runSummary) => runSummary.name);
     return [...missingRuns, ...changedRuns, ...newRuns, ...worseRuns];
   }

@@ -36,7 +36,7 @@
     "test": "yarn clean:tests && jest",
     "test:api": "yarn compile:api-test && node ./test/api/dist",
     "test:dependencies": "yarn compile:dependencies-test && node ./test/dependencies/dist",
-    "test:debug": "yarn clean:tests && jest --runInBand --collectCoverage=false",
+    "test:debug": "yarn clean:tests && NODE_OPTIONS=\"--inspect-brk\" node_modules/jest-cli/bin/jest.js --runInBand --collectCoverage=false",
     "test:e2e": "yarn clean:tests && jest --runInBand --config ./jest.e2e.config.js",
     "test:extension": "lerna run test:extension",
     "prepublishOnly": "yarn run build:publish",
