@@ -28,7 +28,9 @@ export class BettererSuiteSummaryΩ implements BettererSuiteSummary {
   }
 
   public get new(): BettererRunSummaries {
-    return this.runSummaries.filter((runSummary) => runSummary.isNew && !(runSummary.isSkipped || runSummary.isFailed));
+    return this.runSummaries.filter(
+      (runSummary) => runSummary.isNew && !(runSummary.isSkipped || runSummary.isFailed || runSummary.isComplete)
+    );
   }
 
   public get ran(): BettererRunSummaries {

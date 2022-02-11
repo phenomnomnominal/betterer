@@ -287,7 +287,7 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 
 1 test got checked. 🤔
 1 test got better! 😍
-1 test met its goal! 🎉)
+1 test met its goal! 🎉
 ",
   "
    / | /     _         _   _
@@ -346,8 +346,7 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 ✅ tsquery: \\"tsquery\\" has already met its goal! ✨
 
 1 test got checked. 🤔
-1 test got checked for the first time! 🎉
-1 test met its goal! 🎉)
+1 test met its goal! 🎉
 ",
 ]
 `;
