@@ -35,10 +35,6 @@ module.exports = {
       defaultMode: 'dark',
       disableSwitch: true
     },
-    googleAnalytics: {
-      trackingID: 'UA-35865678-1',
-      anonymizeIP: true
-    },
     prism: {
       theme: THEME
     },
@@ -158,8 +154,18 @@ module.exports = {
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css')
-        }
+        },
+        googleAnalytics: {
+          trackingID: 'UA-35865678-1',
+          anonymizeIP: true
+        },
       }
-    ]
+    ],
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        fromExtensions: ['md'],
+      },
+    ],
   ]
 };
