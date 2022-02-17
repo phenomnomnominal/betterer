@@ -6,6 +6,7 @@
     "packages/docgen",
     "packages/errors",
     "packages/eslint",
+    "packages/coverage",
     "packages/fixture",
     "packages/logger",
     "packages/regexp",
