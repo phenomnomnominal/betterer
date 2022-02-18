@@ -51,25 +51,9 @@ class BettererCoverageTestΩ
     if (Object.keys(actualIssues).length === 0) {
       logs.push({ warn: 'The result is empty. Have you maybe forgotten to run your tests?' });
     } else {
-      Object.keys(actualIssues).forEach((filePath) => {
-        const issue = actualIssues[filePath];
-        const expected = expectedIssues[filePath];
-        if (!expected) {
-          logs.push({ debug: `new file: ${filePath}` });
-          diff[filePath] = issue;
-        } else {
-          diff[filePath] = this.diffFileIssue(issue, expected, logs, filePath);
-        }
-      });
+      Object.assign(diff, this.detectNewOrUpdatedFiles(actualIssues, expectedIssues, logs));
     }
-    Object.keys(expectedIssues).forEach((expectedFile) => {
-      if (!actualIssues[expectedFile]) {
-        logs.push({ debug: `${expectedFile} is gone.` });
-        diff[expectedFile] = coverageAttributes
-          .map((attribute) => ({ [attribute]: -expectedIssues[expectedFile][attribute] }))
-          .reduce(reduceJoinRecords, {}) as BettererCoverageIssue;
-      }
-    });
+    Object.assign(diff, this.detectRemovedFiles(expectedIssues, actualIssues, logs));
     return {
       diff,
       logs
@@ -81,19 +65,11 @@ class BettererCoverageTestΩ
     expectedIssues: BettererCoverageIssues
   ): BettererConstraintResult {
     const { diff } = this.differ(expectedIssues, actualIssues);
-    let hasImproved = false;
-    for (const filePath of Object.keys(diff)) {
-      for (const attribute of coverageAttributes) {
-        const delta = diff[filePath][attribute];
-        if (delta > 0) {
-          return BettererConstraintResult.worse;
-        }
-        if (delta < 0) {
-          hasImproved = true;
-        }
-      }
+    const { isWorse, isImproved } = this.isWorseOrImproved(diff);
+    if (isWorse) {
+      return BettererConstraintResult.worse;
     }
-    if (hasImproved) {
+    if (isImproved) {
       return BettererConstraintResult.better;
     }
     return BettererConstraintResult.same;
@@ -115,17 +91,9 @@ class BettererCoverageTestΩ
   public test(run: BettererRun): BettererCoverageIssues {
     const { total, ...fileReports } = this.getCoverageSummary(run);
     if (this.onlyTotalCoverage) {
-      return this.getUncoveredIssues(total, 'total');
+      return this.getTotalIssues(total);
     }
-    return Object.keys(fileReports)
-      .filter((filePath) => this.includes.some((includeExpr) => includeExpr.test(filePath)))
-      .filter((filePath) => !this.excludes.some((excludeExpr) => excludeExpr.test(filePath)))
-      .map((filePath) => {
-        const fileCoverage = (fileReports as Record<string, IstanbulFileCoverage>)[filePath];
-        const relativePath = path.relative(this.baseDir, filePath);
-        return this.getUncoveredIssues(fileCoverage, relativePath);
-      })
-      .reduce(reduceJoinRecords, {});
+    return this.getAllUncoveredFileIssues(fileReports as Record<string, IstanbulFileCoverage>);
   }
 
   private getUncoveredIssues(fileCoverage: IstanbulFileCoverage, filePath: string) {
@@ -138,6 +106,22 @@ class BettererCoverageTestΩ
     return {
       [filePath]: fileReport
     };
+  }
+
+  private getTotalIssues(total: IstanbulFileCoverage) {
+    return this.getUncoveredIssues(total, 'total');
+  }
+
+  private getAllUncoveredFileIssues(fileReports: Record<string, IstanbulFileCoverage>): BettererCoverageIssues {
+    return Object.keys(fileReports)
+      .filter((filePath) => this.includes.some((includeExpr) => includeExpr.test(filePath)))
+      .filter((filePath) => !this.excludes.some((excludeExpr) => excludeExpr.test(filePath)))
+      .map((filePath) => path.relative(this.baseDir, filePath))
+      .map((relativeFilePath) => {
+        const fileCoverage = fileReports[relativeFilePath];
+        return this.getUncoveredIssues(fileCoverage, relativeFilePath);
+      })
+      .reduce(reduceJoinRecords, {});
   }
 
   private getCoverageSummary(run: BettererRun): IstanbulCoverageSummary {
@@ -158,8 +142,8 @@ class BettererCoverageTestΩ
   }
 
   private diffFileIssue(
-    issue: BettererCoverageIssue,
-    expected: BettererCoverageIssue,
+    actualIssue: BettererCoverageIssue,
+    expectedIssue: BettererCoverageIssue,
     logs: Array<BettererLog>,
     filePath: string
   ): BettererCoverageIssue {
@@ -170,19 +154,81 @@ class BettererCoverageTestΩ
       statements: 0
     };
     coverageAttributes.forEach((attribute) => {
-      const delta = issue[attribute] - expected[attribute];
+      const delta = actualIssue[attribute] - expectedIssue[attribute];
       if (delta < 0) {
         logs.push({
-          debug: `${attribute} is better in ${filePath}: ${issue[attribute]} < ${expected[attribute]}`
+          debug: `${attribute} is better in ${filePath}: ${actualIssue[attribute]} < ${expectedIssue[attribute]}`
         });
       } else if (delta > 0) {
         logs.push({
-          error: `${attribute} is worse in ${filePath}: ${issue[attribute]} > ${expected[attribute]}`
+          error: `${attribute} is worse in ${filePath}: ${actualIssue[attribute]} > ${expectedIssue[attribute]}`
         });
       }
       fileDiff[attribute] = delta;
     });
     return fileDiff;
+  }
+
+  private detectRemovedFiles(
+    expectedIssues: BettererCoverageIssues,
+    actualIssues: BettererCoverageIssues,
+    logs: Array<BettererLog>
+  ) {
+    const diff: BettererCoverageDiff = {};
+    Object.keys(expectedIssues).forEach((expectedFile) => {
+      if (!actualIssues[expectedFile]) {
+        logs.push({ debug: `${expectedFile} is gone.` });
+        diff[expectedFile] = this.getNegativeIssue(expectedIssues[expectedFile]);
+      }
+    });
+    return diff;
+  }
+
+  private getNegativeIssue(expectedIssue: BettererCoverageIssue) {
+    return coverageAttributes
+      .map((attribute) => ({ [attribute]: -expectedIssue[attribute] }))
+      .reduce(reduceJoinRecords, {}) as BettererCoverageIssue;
+  }
+
+  private detectNewOrUpdatedFiles(
+    actualIssues: BettererCoverageIssues,
+    expectedIssues: BettererCoverageIssues,
+    logs: Array<BettererLog>
+  ) {
+    const diff: BettererCoverageDiff = {};
+    Object.keys(actualIssues).forEach((filePath) => {
+      const issue = actualIssues[filePath];
+      const expected = expectedIssues[filePath];
+      if (!expected) {
+        logs.push({ debug: `new file: ${filePath}` });
+        diff[filePath] = issue;
+      } else {
+        diff[filePath] = this.diffFileIssue(issue, expected, logs, filePath);
+      }
+    });
+    return diff;
+  }
+
+  private isWorseOrImproved(diff: BettererCoverageDiff): { isWorse: boolean; isImproved: boolean } {
+    const result = {
+      isWorse: false,
+      isImproved: false
+    };
+    for (const filePath of Object.keys(diff)) {
+      for (const attribute of coverageAttributes) {
+        const delta = diff[filePath][attribute];
+        if (delta > 0) {
+          return {
+            isWorse: true,
+            isImproved: false
+          };
+        }
+        if (delta < 0) {
+          result.isImproved = true;
+        }
+      }
+    }
+    return result;
   }
 }
 
