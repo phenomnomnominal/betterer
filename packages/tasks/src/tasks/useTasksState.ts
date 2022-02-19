@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer, useRef } from 'react';
-import { performance } from 'perf_hooks';
 import { BettererError } from '@betterer/errors';
+import { getPreciseTime } from '../utils';
 
 /**
  * @public The state of the running tasks. `endTime` will only be present when there are no more
@@ -55,7 +55,7 @@ function getInitialState(): BettererTasksState {
     running: 0,
     done: 0,
     errors: 0,
-    startTime: performance.now(),
+    startTime: getPreciseTime(),
     endTime: null
   };
 }
@@ -107,5 +107,5 @@ function setEndTime(state: BettererTasksState): BettererTasksState {
   if (!shouldExit) {
     return state;
   }
-  return { ...state, endTime: performance.now() };
+  return { ...state, endTime: getPreciseTime() };
 }

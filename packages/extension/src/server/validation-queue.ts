@@ -18,7 +18,7 @@ export class BettererValidationQueue {
   }
 
   public addToQueue(event: TextDocumentChangeEvent<TextDocument>): void {
-    info(`Server: Adding "${event.document.uri}" to validation queue at ${Date.now().toString()}`);
+    info(`Server: Adding "${event.document.uri}" to validation queue at ${new Date().toISOString()}`);
     if (!this._queue.has(event.document)) {
       this._queue.set(event.document, event.document.version);
     } else {
@@ -28,7 +28,7 @@ export class BettererValidationQueue {
   }
 
   public removeFromQueue(event: TextDocumentChangeEvent<TextDocument>): void {
-    info(`Server: Removing "${event.document.uri}" from validation queue at ${Date.now().toString()}`);
+    info(`Server: Removing "${event.document.uri}" from validation queue at ${new Date().toISOString()}`);
     this._queue.delete(event.document);
   }
 
@@ -42,7 +42,7 @@ export class BettererValidationQueue {
   }
 
   private async _processQueue(): Promise<void> {
-    info(`Server: Processing queue at ${Date.now().toString()}`);
+    info(`Server: Processing queue at ${new Date().toISOString()}`);
     const documents = Array.from(this._queue.keys());
 
     this._queue = new Map();
