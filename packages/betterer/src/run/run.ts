@@ -2,6 +2,7 @@ import { BettererWorkerRunConfig } from '../config';
 import { BettererFilePaths, BettererVersionControlWorker } from '../fs';
 import { BettererResultΩ } from '../results';
 import { BettererTestMeta } from '../test';
+import { getTime } from '../utils';
 import { BettererRunWorkerHandleΩ, BettererRunWorkerPoolΩ } from './run-worker-pool';
 import { BettererRun, BettererRunSummary } from './types';
 
@@ -55,7 +56,7 @@ export class BettererRunΩ implements BettererRun {
   public async run(isSkipped: boolean): Promise<BettererRunSummary> {
     await this._workerHandle.free;
     this._workerHandle.claim();
-    const timestamp = Date.now();
+    const timestamp = getTime();
     const summary = await this._workerHandle.worker.run(this.name, this.filePaths, isSkipped, timestamp);
     this._workerHandle.release();
     return summary;
