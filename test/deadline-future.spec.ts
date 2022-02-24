@@ -1,6 +1,18 @@
 import { betterer } from '@betterer/betterer';
+import { jest } from '@jest/globals';
 
 import { createFixture } from './fixture';
+
+jest.mock('../packages/betterer/dist/utils.js', (): typeof import('../packages/betterer/dist/utils.js') => {
+  const original = jest.requireActual(
+    '../packages/betterer/dist/utils.js'
+  ) as typeof import('../packages/betterer/dist/utils.js');
+
+  return {
+    ...original,
+    getTime: () => 1589714460851
+  };
+});
 
 describe('betterer', () => {
   it('should do nothing when a test is not past its deadline', async () => {
@@ -22,8 +34,6 @@ module.exports = {
 };
       `
     });
-
-    jest.spyOn(Date, 'now').mockImplementation(() => 1589714460851);
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;

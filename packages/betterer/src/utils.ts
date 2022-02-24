@@ -73,3 +73,7 @@ export function flatten<T>(toFlatten: ReadonlyArray<T | ReadonlyArray<T>>): Arra
 function isItem<T>(pattern: unknown): pattern is T {
   return !Array.isArray(pattern);
 }
+
+export function getTime(): number {
+  return Date.now();
+}
