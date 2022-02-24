@@ -17,7 +17,8 @@ module.exports = {
       'regexp-test',
       'stylelint-test',
       'tsquery-test',
-      'typescript-test'
+      'typescript-test',
+      'coverage-test'
     ]
   }
 };
