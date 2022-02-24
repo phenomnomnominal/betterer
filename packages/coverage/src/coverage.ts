@@ -15,15 +15,15 @@ import {
   BettererCoverageIssues,
   BettererCoverageTest,
   BettererCoverageTestOptions,
-  coverageAttributes,
+  decodeCoverageSummary,
+  isSome,
+  IstanbulCoverageAspects,
   IstanbulCoverageSummary,
-  IstanbulCoverageSummaryType,
-  IstanbulFileCoverage
+  IstanbulFileCoverage,
+  Maybe
 } from './types';
 import { reduceJoinRecords, uncoveredFile } from './helpers';
-import { isRight } from 'fp-ts/Either';
 import { BettererError } from '@betterer/errors';
-import { Validation } from 'io-ts';
 
 class BettererCoverageTestΩ
   implements BettererTestOptionsComplex<BettererCoverageIssues, BettererCoverageIssues, BettererCoverageDiff>
@@ -77,7 +77,7 @@ class BettererCoverageTestΩ
 
   public goal(result: BettererCoverageIssues): boolean {
     return Object.keys(result).every((filePath) =>
-      coverageAttributes.every((attribute) => result[filePath][attribute] === 0)
+      IstanbulCoverageAspects.every((attribute) => result[filePath][attribute] === 0)
     );
   }
 
@@ -100,7 +100,7 @@ class BettererCoverageTestΩ
     const fileReport: BettererCoverageIssue = {
       ...uncoveredFile
     };
-    coverageAttributes.forEach((attribute) => {
+    IstanbulCoverageAspects.forEach((attribute) => {
       fileReport[attribute] = fileCoverage[attribute].total - fileCoverage[attribute].covered;
     });
     return {
@@ -126,16 +126,16 @@ class BettererCoverageTestΩ
 
   private getCoverageSummary(run: BettererRun): IstanbulCoverageSummary {
     const result = this.loadCoverageFile();
-    if (isRight(result)) {
-      return result.right;
+    if (isSome(result)) {
+      return result.value;
     } else {
       throw new BettererError(`${run.name} could not decode coverage file`);
     }
   }
 
-  private loadCoverageFile(): Validation<IstanbulCoverageSummary> {
+  private loadCoverageFile(): Maybe<IstanbulCoverageSummary> {
     try {
-      return IstanbulCoverageSummaryType.decode(JSON.parse(fs.readFileSync(this.coverageReportPath) as never));
+      return decodeCoverageSummary(JSON.parse(fs.readFileSync(this.coverageReportPath) as never));
     } catch (e) {
       throw new BettererError(`Could not find or open file ${this.coverageReportPath}`);
     }
@@ -153,7 +153,7 @@ class BettererCoverageTestΩ
       lines: 0,
       statements: 0
     };
-    coverageAttributes.forEach((attribute) => {
+    IstanbulCoverageAspects.forEach((attribute) => {
       const delta = actualIssue[attribute] - expectedIssue[attribute];
       if (delta < 0) {
         logs.push({
@@ -185,9 +185,10 @@ class BettererCoverageTestΩ
   }
 
   private getNegativeIssue(expectedIssue: BettererCoverageIssue) {
-    return coverageAttributes
-      .map((attribute) => ({ [attribute]: -expectedIssue[attribute] }))
-      .reduce(reduceJoinRecords, {}) as BettererCoverageIssue;
+    return IstanbulCoverageAspects.map((attribute) => ({ [attribute]: -expectedIssue[attribute] })).reduce(
+      reduceJoinRecords,
+      {}
+    ) as BettererCoverageIssue;
   }
 
   private detectNewOrUpdatedFiles(
@@ -215,7 +216,7 @@ class BettererCoverageTestΩ
       isImproved: false
     };
     for (const filePath of Object.keys(diff)) {
-      for (const attribute of coverageAttributes) {
+      for (const attribute of IstanbulCoverageAspects) {
         const delta = diff[filePath][attribute];
         if (delta > 0) {
           return {

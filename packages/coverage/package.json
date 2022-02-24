@@ -30,10 +30,7 @@
   "dependencies": {
     "@betterer/betterer": "^5.1.6",
     "@betterer/constraints": "^5.0.0",
-    "@betterer/logger": "^5.1.5",
     "@betterer/errors": "^5.0.0",
-    "fp-ts": "^2.11.8",
-    "io-ts": "^2.2.16",
-    "tslib": "^2.3.1"
+    "@betterer/logger": "^5.1.5"
   }
 }

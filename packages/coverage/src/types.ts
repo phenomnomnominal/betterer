@@ -1,38 +1,94 @@
 import { BettererTest } from '@betterer/betterer';
-import * as t from 'io-ts';
 
-const IstanbulCoverageType = t.type({
-  total: t.number,
-  covered: t.number,
-  skipped: t.number,
-  pct: t.number
-});
-
-const coverageTemplate: Record<BettererCoverageTypes, typeof IstanbulCoverageType> = {
-  lines: IstanbulCoverageType,
-  statements: IstanbulCoverageType,
-  functions: IstanbulCoverageType,
-  branches: IstanbulCoverageType
+const IstanbulCoverageTemplate = {
+  total: 0,
+  covered: 0,
+  skipped: 0,
+  pct: 0
 };
 
-export const coverageAttributes = Object.keys(coverageTemplate) as Array<BettererCoverageTypes>;
+type IstanbulCoverage = typeof IstanbulCoverageTemplate;
 
-const IstanbulFileCoverageType = t.type(coverageTemplate);
+const IstanbulFileCoverageTemplate: Record<BettererCoverageTypes, IstanbulCoverage> = {
+  lines: IstanbulCoverageTemplate,
+  statements: IstanbulCoverageTemplate,
+  functions: IstanbulCoverageTemplate,
+  branches: IstanbulCoverageTemplate
+};
 
-export const IstanbulCoverageSummaryType = t.union([
-  t.type({
-    total: IstanbulFileCoverageType
-  }),
-  t.record(t.string, IstanbulFileCoverageType)
-]);
+export const IstanbulCoverageAspects = Object.keys(IstanbulFileCoverageTemplate) as Array<BettererCoverageTypes>;
 
-export type IstanbulFileCoverage = t.TypeOf<typeof IstanbulFileCoverageType>;
+export type IstanbulFileCoverage = typeof IstanbulFileCoverageTemplate;
 
 /**
  * The output format of the istanbul json-summary reporter:
  * https://github.com/istanbuljs/istanbuljs/blob/master/packages/istanbul-reports/lib/json-summary/index.js
  */
-export type IstanbulCoverageSummary = t.TypeOf<typeof IstanbulCoverageSummaryType>;
+export type IstanbulCoverageSummary = Record<'total', IstanbulFileCoverage> & Record<string, IstanbulFileCoverage>;
+
+interface Some<Type> {
+  value: Type;
+}
+
+interface Unknown {
+  unknown: unknown;
+}
+
+function asUnknown(data: unknown): Unknown {
+  return {
+    unknown: data
+  };
+}
+
+export type Maybe<Type> = Some<Type> | Unknown;
+
+function hasOwn<P extends string>(object: unknown, prop: P): object is Record<P, unknown> {
+  return Object.hasOwnProperty.call(object, prop);
+}
+
+export function isSome<Type>(maybe: Maybe<Type>): maybe is Some<Type> {
+  return hasOwn(maybe, 'value');
+}
+
+function isObject(data: unknown): data is Record<string, unknown> {
+  return typeof data === 'object' && data !== null;
+}
+
+function isCoverage(data: unknown): data is IstanbulCoverage {
+  if (!isObject(data)) {
+    return false;
+  }
+  return Object.keys(IstanbulCoverageTemplate).every(
+    (attribute) => hasOwn(data, attribute) && typeof data[attribute] === 'number'
+  );
+}
+
+function isFileCoverage(data: unknown): data is IstanbulFileCoverage {
+  if (!isObject(data)) {
+    return false;
+  }
+  return Object.keys(IstanbulFileCoverageTemplate).every((aspect) => data[aspect] && isCoverage(data[aspect]));
+}
+
+function isIstanbulSummary(data: Record<string, unknown>): data is Record<string, IstanbulFileCoverage> {
+  return Object.keys(data).every((key) => {
+    return isFileCoverage(data[key]);
+  });
+}
+
+export function decodeCoverageSummary(data: IstanbulCoverageSummary | unknown): Maybe<IstanbulCoverageSummary> {
+  if (!isObject(data)) {
+    return asUnknown(data);
+  }
+  const allValid = isIstanbulSummary(data);
+  const hasTotalCoverage = hasOwn(data, 'total');
+  if (allValid && hasTotalCoverage) {
+    return {
+      value: data
+    };
+  }
+  return asUnknown(data);
+}
 
 /* Public Types */
 /**
