@@ -8,4 +8,4 @@ ESLint test for [**`Betterer`**](https://github.com/phenomnomnominal/betterer).
 
 ## Docs
 
-[Check out the docs at `phenomnomnominal.github.io/betterer`! 🎉](https://phenomnomnominal.github.io/betterer/docs/built-in-tests#betterereslint)
+[Check out the docs at `phenomnomnominal.github.io/betterer`! 🎉](https://phenomnomnominal.github.io/betterer/docs/eslint-test)
