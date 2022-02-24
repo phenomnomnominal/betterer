@@ -51,7 +51,7 @@ export function isSome<Type>(maybe: Maybe<Type>): maybe is Some<Type> {
 }
 
 function isObject(data: unknown): data is Record<string, unknown> {
-  return typeof data === 'object' && data !== null;
+  return typeof data === 'object' && data !== null && data !== undefined;
 }
 
 function isCoverage(data: unknown): data is IstanbulCoverage {
@@ -67,7 +67,7 @@ function isFileCoverage(data: unknown): data is IstanbulFileCoverage {
   if (!isObject(data)) {
     return false;
   }
-  return Object.keys(IstanbulFileCoverageTemplate).every((aspect) => data[aspect] && isCoverage(data[aspect]));
+  return Object.keys(IstanbulFileCoverageTemplate).every((aspect) => hasOwn(data, aspect) && isCoverage(data[aspect]));
 }
 
 function isIstanbulSummary(data: Record<string, unknown>): data is Record<string, IstanbulFileCoverage> {

@@ -116,9 +116,9 @@ class BettererCoverageTestΩ
     return Object.keys(fileReports)
       .filter((filePath) => this.includes.some((includeExpr) => includeExpr.test(filePath)))
       .filter((filePath) => !this.excludes.some((excludeExpr) => excludeExpr.test(filePath)))
-      .map((filePath) => path.relative(this.baseDir, filePath))
-      .map((relativeFilePath) => {
-        const fileCoverage = fileReports[relativeFilePath];
+      .map((filePath) => ({ relativeFilePath: path.relative(this.baseDir, filePath), absoluteFilePath: filePath }))
+      .map(({ relativeFilePath, absoluteFilePath }) => {
+        const fileCoverage = fileReports[absoluteFilePath];
         return this.getUncoveredIssues(fileCoverage, relativeFilePath);
       })
       .reduce(reduceJoinRecords, {});
