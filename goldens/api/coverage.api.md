@@ -30,9 +30,7 @@ export interface BettererCoverageTestOptions<TotalCoverage extends boolean = boo
 // @public
 export type BettererCoverageTypes = 'lines' | 'statements' | 'functions' | 'branches';
 
-// @public (undocumented)
+// @public
 export function coverage<TotalCoverage extends boolean>(options?: Partial<BettererCoverageTestOptions<TotalCoverage>>): BettererCoverageTest;
-
-// (No @packageDocumentation comment for this package)
 
 ```

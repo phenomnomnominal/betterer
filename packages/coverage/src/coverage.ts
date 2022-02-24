@@ -260,9 +260,12 @@ function getWrapped(
 }
 
 /**
- * @param options - configuration for the coverage test
- *
  * @public
+ * Use this test to track your test coverage. Only reads a coverage report in
+ * {@link https://github.com/istanbuljs/istanbuljs/blob/master/packages/istanbul-reports/lib/json-summary/index.js | json-summary format}, does
+ * not run your test suite for you. Make sure to run your tests separately before running betterer.
+ *
+ * @param options - configuration for the coverage test (see {@link @betterer/coverage#BettererCoverageTestOptions | `BettererCoverageTestOptions`})
  */
 export function coverage<TotalCoverage extends boolean>(
   options: Partial<BettererCoverageTestOptions<TotalCoverage>> = {}
