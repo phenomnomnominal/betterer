@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`betterer should normalise line endings within issues 1`] = `
+"// BETTERER RESULTS V2.
+// 
+// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//
+exports[\`test\`] = {
+  value: \`{
+    \\"src/index.js:1440504519\\": [
+      [0, 0, 30, \\"\\", \\"1440504519\\"]
+    ]
+  }\`
+};
+"
+`;
