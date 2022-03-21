@@ -26,8 +26,5 @@ If applicable, add screenshots to help explain your problem.
 - Betterer Version [e.g. 4.*]
 - Node Version [e.g. 14.*]
 
-**Debug log:**
-Please run **Betterer** with the [`--debug` option](https://phenomnomnominal.github.io/betterer/docs/running-betterer#debug-mode) and include the generated log file.
-
 **Additional context**
 Add any other context about the problem here.
