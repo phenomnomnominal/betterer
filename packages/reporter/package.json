@@ -1,7 +1,7 @@
 {
   "name": "@betterer/reporter",
   "description": "Default reporter @betterer/betterer",
-  "version": "5.1.6",
+  "version": "5.1.7",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -28,10 +28,10 @@
     "node": ">=12"
   },
   "dependencies": {
-    "@betterer/betterer": "^5.1.6",
+    "@betterer/betterer": "^5.1.7",
     "@betterer/errors": "^5.0.0",
     "@betterer/logger": "^5.1.5",
-    "@betterer/tasks": "^5.1.5",
+    "@betterer/tasks": "^5.1.7",
     "ink": "^3.0.9",
     "ink-text-input": "^4.0.1",
     "react": ">=16.8.4 || >=17.0.0",
