@@ -38,7 +38,7 @@
     "djb2a": "^1.2.0",
     "fast-memoize": "^2.5.2",
     "lines-and-columns": "^1.1.6",
-    "minimatch": "^3.0.4",
+    "minimatch": "^5.0.1",
     "prettier": "^2.3.2",
     "simple-git": "^3.1.1",
     "ts-node": "^10.2.1",
