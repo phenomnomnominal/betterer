@@ -31,6 +31,16 @@ export class BettererWorkerRunΩ implements BettererRun {
     this.isSkipped = testMeta.isSkipped;
   }
 
+  public get baseline(): BettererResultΩ {
+    assert(this._baseline != null);
+    return this._baseline;
+  }
+
+  public get expected(): BettererResultΩ {
+    assert(this._expected != null);
+    return this._expected;
+  }
+
   public static async create(
     runConfig: BettererWorkerRunConfig,
     name: string,
@@ -82,16 +92,6 @@ export class BettererWorkerRunΩ implements BettererRun {
     }
 
     return new BettererWorkerRunΩ(name, globals, testMeta, test.config);
-  }
-
-  public get baseline(): BettererResultΩ {
-    assert(this._baseline != null);
-    return this._baseline;
-  }
-
-  public get expected(): BettererResultΩ {
-    assert(this._expected != null);
-    return this._expected;
   }
 
   public async run(

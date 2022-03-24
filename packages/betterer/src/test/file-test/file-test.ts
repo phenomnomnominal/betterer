@@ -1,7 +1,7 @@
 import assert from 'assert';
 import path from 'path';
 
-import { BettererFileResolverΩ, BettererFileGlobs, BettererFilePatterns } from '../../fs';
+import { BettererFileResolverΩ, BettererFileGlobs, BettererFilePatterns, BettererFilePaths } from '../../fs';
 import { BettererRun, BettererWorkerRunΩ } from '../../run';
 import { createDeadline, createGoal, createTestConfig } from '../config';
 import { BettererTestConstraint, BettererTestDeadline, BettererTestFunction, BettererTestGoal } from '../types';
@@ -168,20 +168,45 @@ function createTest(
     const baseDirectory = path.dirname(runΩ.test.configPath);
 
     const { config, versionControl } = runΩ.globals;
-    resolver.init(baseDirectory, versionControl, config);
+    const { includes, excludes } = config;
+    resolver.init(baseDirectory, versionControl);
 
     const hasSpecifiedFiles = runΩ.filePaths.length > 0;
-    runΩ.filePaths = hasSpecifiedFiles ? await resolver.validate(runΩ.filePaths) : await resolver.files();
+    const hasGlobalIncludesExcludes = includes.length || excludes.length;
 
-    const runFiles = runΩ.isNew ? runΩ.filePaths : await versionControl.filterCached(run.name, runΩ.filePaths);
+    // Get the maximal set of files that the test could run on:
+    const testFiles = await resolver.files();
 
-    const cacheHit = runΩ.filePaths.length !== runFiles.length;
-    const isPartial = hasSpecifiedFiles || cacheHit;
+    // Get the set of files that the test will run on:
+    let runFiles: BettererFilePaths;
+    if (hasSpecifiedFiles && hasGlobalIncludesExcludes) {
+      runFiles = runΩ.filePaths;
+    } else if (hasSpecifiedFiles) {
+      runFiles = await resolver.validate(runΩ.filePaths);
+    } else if (hasGlobalIncludesExcludes) {
+      const globalResolver = new BettererFileResolverΩ(baseDirectory, versionControl);
+      globalResolver.include(config.includes);
+      globalResolver.exclude(config.excludes);
+      runFiles = await globalResolver.files();
+    } else {
+      runFiles = testFiles;
+    }
+
+    let isFullRun = runFiles === testFiles;
+
+    if (!run.isNew) {
+      const cacheMisses = await versionControl.filterCached(run.name, runFiles);
+      isFullRun = isFullRun && cacheMisses.length === runFiles.length;
+      runFiles = cacheMisses;
+    }
+
+    // Set the final files back on the `BettererRun`:
+    runΩ.filePaths = runFiles;
 
     const result = new BettererFileTestResultΩ(resolver, config.resultsPath);
     await fileTest(runFiles, result, resolver);
 
-    if (!isPartial || runΩ.isNew) {
+    if (isFullRun) {
       return result;
     }
 

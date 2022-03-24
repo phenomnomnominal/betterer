@@ -1,7 +1,8 @@
 import React, { FC, memo } from 'react';
 
-import { Suite } from '../suite';
 import { BettererReporterState } from '../../state';
+import { Suite } from '../suite';
+import { DefaultFiles } from './DefaultFiles';
 
 export const DefaultReporter: FC<BettererReporterState> = memo(function DefaultReporter(props: BettererReporterState) {
   const { context, done, suiteSummary } = props;
@@ -11,5 +12,10 @@ export const DefaultReporter: FC<BettererReporterState> = memo(function DefaultR
     return null;
   }
 
-  return <Suite context={context} suite={suite} suiteSummary={suiteSummary} done={done} />;
+  return (
+    <>
+      <DefaultFiles suite={suite} running={!suiteSummary} />
+      <Suite context={context} suite={suite} suiteSummary={suiteSummary} done={done} />
+    </>
+  );
 });

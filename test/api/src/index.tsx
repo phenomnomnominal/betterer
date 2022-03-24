@@ -1,5 +1,6 @@
 import React, { FC, useCallback } from 'react';
 
+import { BettererLogger } from '@betterer/logger';
 import { BettererTaskLogger, BettererTasksLogger, BettererTasksState } from '@betterer/tasks';
 import { createWorkerRequire } from '@phenomnomnominal/worker-require';
 import { render } from 'ink';
@@ -17,7 +18,7 @@ export const APITest: FC<APITestProps> = function APITest({ packageNames }) {
     <BettererTasksLogger name="Test Package APIs" update={update}>
       {packageNames.map((packageName) => {
         const task = useCallback(
-          async (logger) => {
+          async (logger: BettererLogger) => {
             const worker = testPackageApi();
             try {
               await worker.run(logger, packageName);

@@ -30,12 +30,15 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
       testNames = testNames.filter((name) => config.filters.some((filter) => filter.test(name)));
     }
 
-    const resolver = new BettererFileResolverΩ(config.cwd, versionControl);
-    resolver.include(...config.includes);
-    resolver.exclude(...config.excludes);
+    const { cwd, includes, excludes, resultsPath } = config;
+
+    const resolver = new BettererFileResolverΩ(cwd, versionControl);
+    resolver.include(...includes);
+    resolver.exclude(...excludes);
+
     const filePaths = await resolver.files();
 
-    const onlyFileTests = filePaths.length > 0;
+    const onlyFileTests = includes.length > 0 || excludes.length > 0;
 
     const testStatuses = await Promise.all(
       testNames.map(async (name) => {
@@ -43,7 +46,7 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
         const isFileTest = isBettererFileTest(test);
         const [expectedJSON] = resultsFile.getExpected(name);
         const serialised = JSON.parse(expectedJSON) as unknown;
-        const deserialised = test.config.serialiser.deserialise(serialised, config.resultsPath);
+        const deserialised = test.config.serialiser.deserialise(serialised, resultsPath);
         if (isFileTest) {
           const resultΩ = deserialised as BettererFileTestResultΩ;
           const details = resultΩ.files

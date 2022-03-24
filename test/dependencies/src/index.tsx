@@ -1,5 +1,6 @@
 import React, { FC, useCallback } from 'react';
 
+import { BettererLogger } from '@betterer/logger';
 import { BettererTaskLogger, BettererTasksLogger, BettererTasksState } from '@betterer/tasks';
 import { createWorkerRequire } from '@phenomnomnominal/worker-require';
 import { render } from 'ink';
@@ -19,7 +20,7 @@ export const DependenciesTest: FC<DependenciesTestProps> = function Dependencies
     <BettererTasksLogger name="Test Package Dependencies" update={update}>
       {packageNames.map((packageName) => {
         const task = useCallback(
-          async (logger) => {
+          async (logger: BettererLogger) => {
             const worker = testPackageDependencies();
             try {
               await worker.run(logger, packageName);
