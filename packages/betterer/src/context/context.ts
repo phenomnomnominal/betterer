@@ -51,15 +51,34 @@ export class BettererContextΩ implements BettererContext {
     process.on('SIGTERM', () => this.stop());
   }
 
-  public async run(filePaths: BettererFilePaths, isRunOnce = false): Promise<void> {
+  public async run(specifiedFilePaths: BettererFilePaths, isRunOnce = false): Promise<void> {
     try {
       await this._resultsFile.sync();
       await this._versionControl.sync();
 
-      const resolver = new BettererFileResolverΩ(this.config.cwd, this._versionControl);
-      resolver.include(...this.config.includes);
-      resolver.exclude(...this.config.excludes);
-      filePaths = await resolver.validate(filePaths);
+      const { cwd, includes, excludes } = this.config;
+
+      const globalResolver = new BettererFileResolverΩ(cwd, this._versionControl);
+      globalResolver.include(...includes);
+      globalResolver.exclude(...excludes);
+
+      const hasSpecifiedFiles = specifiedFilePaths.length > 0;
+      const hasGlobalIncludesExcludes = includes.length || excludes.length;
+
+      let filePaths: BettererFilePaths;
+      if (hasSpecifiedFiles && hasGlobalIncludesExcludes) {
+        // Validate specified files based on global `includes`/`excludes and gitignore rules:
+        filePaths = await globalResolver.validate(specifiedFilePaths);
+      } else if (hasSpecifiedFiles) {
+        // Validate specified files based on gitignore rules:
+        filePaths = await globalResolver.validate(specifiedFilePaths);
+      } else if (hasGlobalIncludesExcludes) {
+        // Resolve files based on global `includes`/`excludes and gitignore rules:
+        filePaths = await globalResolver.files();
+      } else {
+        // When `filePaths` is `[]` the test will use its specific resolver:
+        filePaths = [];
+      }
 
       const testMeta = loadTestMeta(this.config);
       const testNames = Object.keys(testMeta);

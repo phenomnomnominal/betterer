@@ -54,6 +54,7 @@ module.exports = {
     await writeFile(resolve('./src/c.ts'), `debugger;\ndebugger;`);
 
     const firstRun = await betterer({ configPaths, resultsPath, workers: false });
+
     expect(testNames(firstRun.ran)).toEqual(['test']);
 
     await writeFile(resolve('./src/c.ts'), `debugger;\ndebugger;\ndebugger;`);
@@ -65,6 +66,7 @@ module.exports = {
       update: true,
       workers: false
     });
+
     expect(testNames(secondRun.ran)).toEqual(['test']);
 
     const result = await readFile(resultsPath);

@@ -1,7 +1,6 @@
 import assert from 'assert';
 import minimatch from 'minimatch';
 import * as path from 'path';
-import { BettererConfig } from '../config';
 
 import { flatten, normalisedPath } from '../utils';
 import {
@@ -34,10 +33,9 @@ export class BettererFileResolverΩ implements BettererFileResolver {
     return this._versionControl;
   }
 
-  public init(directory: string, versionControl: BettererVersionControlWorker | null, config: BettererConfig): void {
+  public init(directory: string, versionControl: BettererVersionControlWorker | null): void {
     this._baseDirectory = directory;
     this._versionControl = versionControl;
-    this.exclude(config.excludes);
   }
 
   public async validate(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
@@ -60,6 +58,9 @@ export class BettererFileResolverΩ implements BettererFileResolver {
   }
 
   public exclude(...excludePatterns: BettererFilePatterns): this {
+    if (!this._included.length) {
+      this.include('**/*');
+    }
     this._excluded = [...this._excluded, ...flatten(excludePatterns)];
     return this;
   }
