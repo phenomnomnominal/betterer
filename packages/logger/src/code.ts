@@ -1,5 +1,5 @@
 import { codeFrameColumns } from '@babel/code-frame';
-import LinesAndColumns from 'lines-and-columns';
+import { LinesAndColumns } from 'lines-and-columns';
 import * as path from 'path';
 
 import { BettererLoggerCodeInfo } from './types';

@@ -1,5 +1,5 @@
 import assert from 'assert';
-import LinesAndColumns from 'lines-and-columns';
+import { LinesAndColumns } from 'lines-and-columns';
 
 import { createHash } from '../../hasher';
 import { isString, normalisedPath, normaliseNewlines } from '../../utils';
