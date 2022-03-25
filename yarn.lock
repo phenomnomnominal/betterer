@@ -7207,6 +7207,11 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.npmjs.org/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
 
+lines-and-columns@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.npmjs.org/lines-and-columns/-/lines-and-columns-2.0.3.tgz#b2f0badedb556b747020ab8ea7f0373e22efac1b"
+  integrity sha512-cNOjgCnLB+FnvWWtyRTzmB3POJ+cXxTA81LoW7u8JdmhfXzriropYwpjShnz1QLLWsQwY7nIxoDmcPTwphDK9w==
+
 lint-staged@>=11.1.2:
   version "12.3.7"
   resolved "https://registry.npmjs.org/lint-staged/-/lint-staged-12.3.7.tgz#ad0e2014302f704f9cf2c0ebdb97ac63d0f17be0"
