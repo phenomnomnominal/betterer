@@ -172,7 +172,7 @@ export function extractIds(list) {
       // TODO: Restore the `new` vs `existing` check:
       expect(code).toBeDefined();
       expect(code?.toString().startsWith('[e2e-typescript]')).toEqual(true);
-      expect(message).toEqual(`Parameter 'list' implicitly has an 'any' type.`);
+      expect(message).toEqual(`Parameter 'list' has an 'any' type.`);
 
       await cleanup();
     }
