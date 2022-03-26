@@ -40,12 +40,16 @@ export function createFixtureLogs(options: FixtureOptions = {}): FixtureLogs {
     });
   };
 
-  jest.spyOn(process.stdout, 'write').mockImplementation((message: string | Uint8Array): boolean => {
-    if (message) {
-      log(message.toString());
-    }
-    return true;
-  });
+  try {
+    jest.spyOn(process.stdout, 'write').mockImplementation((message: string | Uint8Array): boolean => {
+      if (message) {
+        log(message.toString());
+      }
+      return true;
+    });
+  } catch {
+    // Cannot wrap process.stdout.write
+  }
   process.stdout.columns = 1000;
   process.stdout.rows = 20;
 

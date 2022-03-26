@@ -15,12 +15,12 @@ interface BettererExtensionConfig {
 }
 
 export async function getEnabled(workspace: RemoteWorkspace): Promise<boolean> {
-  const { enable } = await getConfig(workspace);
+  const { enable } = await getExtensionConfig(workspace);
   return !!enable;
 }
 
 export async function getDebug(workspace: RemoteWorkspace): Promise<void> {
-  const { debug, debugLogPath } = await getConfig(workspace);
+  const { debug, debugLogPath } = await getExtensionConfig(workspace);
   const value = debug ? '1' : '';
   process.env.BETTERER_DEBUG = value;
   process.env.BETTERER_DEBUG_TIME = value;
@@ -30,8 +30,8 @@ export async function getDebug(workspace: RemoteWorkspace): Promise<void> {
   }
 }
 
-export async function getBettererConfig(cwd: string, workspace: RemoteWorkspace): Promise<BettererOptionsRunner> {
-  const { cachePath, configPath, filters, resultsPath, tsconfigPath } = await getConfig(workspace);
+export async function getBettererOptions(cwd: string, workspace: RemoteWorkspace): Promise<BettererOptionsRunner> {
+  const { cachePath, configPath, filters, resultsPath, tsconfigPath } = await getExtensionConfig(workspace);
   const config: BettererOptionsRunner = {
     cache: true,
     cachePath: path.resolve(cwd, cachePath),
@@ -53,6 +53,6 @@ export async function getBettererConfig(cwd: string, workspace: RemoteWorkspace)
   return config;
 }
 
-function getConfig(workspace: RemoteWorkspace): Promise<BettererExtensionConfig> {
+function getExtensionConfig(workspace: RemoteWorkspace): Promise<BettererExtensionConfig> {
   return workspace.getConfiguration({ section: 'betterer' }) as Promise<BettererExtensionConfig>;
 }

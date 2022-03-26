@@ -1,4 +1,10 @@
-import { BettererFilePaths, BettererRunSummary, BettererSuite } from '@betterer/betterer';
+import {
+  BettererConfig,
+  BettererContext,
+  BettererFilePaths,
+  BettererRunSummary,
+  BettererSuite
+} from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 
 import { Connection, TextDocuments } from 'vscode-languageserver/node';
@@ -6,7 +12,7 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { BettererStatus } from '../status';
 import { getRunner, hasBetterer } from './betterer';
-import { getBettererConfig, getDebug, getEnabled } from './config';
+import { getBettererOptions, getDebug, getEnabled } from './config';
 import { error, info } from './console';
 import { BettererInvalidConfigRequest, BettererNoLibraryRequest, isNoConfigError } from './requests';
 import { BettererStatusNotification } from './status';
@@ -66,8 +72,8 @@ export class BettererValidator {
           }
 
           info(`Validator: Getting Betterer config.`);
-          const config = await getBettererConfig(cwd, workspace);
-          info(JSON.stringify(config));
+          const options = await getBettererOptions(cwd, workspace);
+          info(JSON.stringify(options));
 
           const validDocuments = documents
             .map((document) => {
@@ -93,10 +99,10 @@ export class BettererValidator {
 
           const finalDocuments = validDocuments.filter((document) => {
             const filePath = getFilePath(document) as string;
-            const isCachePath = filePath === config.cachePath;
-            const isResultPath = filePath === config.resultsPath;
-            const isConfigPath = !!config.configPaths?.includes(filePath);
-            const isTSConfigPath = filePath === config.tsconfigPath;
+            const isCachePath = filePath === options.cachePath;
+            const isResultPath = filePath === options.resultsPath;
+            const isConfigPath = !!options.configPaths?.includes(filePath);
+            const isTSConfigPath = filePath === options.tsconfigPath;
             return !(isCachePath || isResultPath || isConfigPath || isTSConfigPath);
           });
 
@@ -106,18 +112,22 @@ export class BettererValidator {
             info(`Validator: Running Betterer in "${cwd}".`);
             info(`Validator: Running Betterer on "${JSON.stringify(filePaths)}."`);
 
-            const runner = await getRunner(config);
+            const runner = await getRunner(options);
+            let config: BettererConfig;
             runner.options({
               reporters: [
                 {
                   contextError: (_, e: BettererError): void => {
                     handleError(filePaths, e);
                   },
+                  contextStart: (context: BettererContext): void => {
+                    config = context.config;
+                  },
                   suiteStart: (suite: BettererSuite): void => {
                     this._diagnostics.prepare(suite);
                   },
                   runEnd: (runSummary: BettererRunSummary): void => {
-                    this.report(finalDocuments, runSummary);
+                    this.report(config, finalDocuments, runSummary);
                   },
                   runError: (_, e: BettererError): void => {
                     handleError(filePaths, e);
@@ -127,6 +137,8 @@ export class BettererValidator {
             });
 
             await runner.queue(filePaths);
+          } else {
+            info(`Validator: Not running Betterer, no documents need updating.`);
           }
         } catch (e) {
           error(`Validator: ${e as string}`);
@@ -149,9 +161,9 @@ export class BettererValidator {
     );
   }
 
-  public report(documents: Array<TextDocument>, runSummary: BettererRunSummary): void {
+  public report(config: BettererConfig, documents: Array<TextDocument>, runSummary: BettererRunSummary): void {
     documents.forEach((document) => {
-      const diagnostics = this._diagnostics.getDiagnostics(document, runSummary);
+      const diagnostics = this._diagnostics.getDiagnostics(config, document, runSummary);
       info(`Validator: Sending ${diagnostics.length.toString()} diagnostics to "${document.uri}".`);
       this._connection.sendDiagnostics({ uri: document.uri, diagnostics });
     });
