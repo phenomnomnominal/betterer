@@ -4,7 +4,7 @@
     "outDir": "./dist/test",
     "rootDir": "./test",
     "esModuleInterop": true,
-    "target": "ES2015",
+    "target": "ES2017",
     "module": "commonjs"
   },
   "include": ["./test/**/*.ts"],

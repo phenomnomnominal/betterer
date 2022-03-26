@@ -9,7 +9,7 @@ const VALIDATE_TIMEOUT = 100;
 
 export class BettererValidationQueue {
   private _queue = new Map<TextDocument, number>();
-  private _validating: Promise<void> = Promise.resolve();
+  private _validating: Promise<void> | null = null;
   private _validator: BettererValidator;
 
   constructor(connection: Connection, documents: TextDocuments<TextDocument>) {
@@ -35,9 +35,13 @@ export class BettererValidationQueue {
   private _trigger(): void {
     void (async () => {
       info(`Server: waiting for previous validation run to finish:`);
-      await this._validating;
+      if (this._validating) {
+        await this._validating;
+      }
+
       this._validating = this._processQueue();
       await this._validating;
+      this._validating = null;
     })();
   }
 
