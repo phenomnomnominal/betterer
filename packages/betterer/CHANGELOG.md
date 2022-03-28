@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.7](https://github.com/phenomnomnominal/betterer/compare/v5.1.6...v5.1.7) (2022-03-21)
+
+
+### Bug Fixes
+
+* **betterer 🐛:** ci mode should work when running an already completed test ([#971](https://github.com/phenomnomnominal/betterer/issues/971)) ([9d56186](https://github.com/phenomnomnominal/betterer/commit/9d56186b2066bea1b4e75e8a3f0d5531cda22d2c))
+* **betterer 🐛:** normalise issue text before creating issue ([#991](https://github.com/phenomnomnominal/betterer/issues/991)) ([6294c20](https://github.com/phenomnomnominal/betterer/commit/6294c201d4418d1f5e742f74940eea93af88282c))
+
+
+
+
+
 ## [5.1.6](https://github.com/phenomnomnominal/betterer/compare/v5.1.5...v5.1.6) (2022-02-09)
 
 

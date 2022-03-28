@@ -1,8 +1,8 @@
 import assert from 'assert';
-import LinesAndColumns from 'lines-and-columns';
+import { LinesAndColumns } from 'lines-and-columns';
 
 import { createHash } from '../../hasher';
-import { isString, normalisedPath } from '../../utils';
+import { isString, normalisedPath, normaliseNewlines } from '../../utils';
 import { BettererFileIssue, BettererFileIssues, BettererFile } from './types';
 
 const UNKNOWN_LOCATION = {
@@ -50,8 +50,10 @@ export class BettererFileΩ implements BettererFile {
 
     const [line, column, length, message, overrideHash] = issue;
     const start = lc.indexForLocation({ line, column }) || 0;
-    const hash = overrideHash || createHash(fileText.substr(start, length));
-    return { line, column, length, message, hash };
+    const issueText = fileText.substring(start, start + length);
+    const normalisedText = normaliseNewlines(issueText);
+    const hash = overrideHash || createHash(normalisedText);
+    return { line, column, length: normalisedText.length, message, hash };
   }
 }
 

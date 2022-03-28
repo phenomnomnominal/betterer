@@ -6,7 +6,11 @@
       "type": "extensionHost",
       "request": "launch",
       "runtimeExecutable": "${execPath}",
-      "args": ["--extensionDevelopmentPath=${workspaceRoot}/packages/extension"],
+      "args": [
+        "--extensionDevelopmentPath=${workspaceRoot}/packages/extension",
+        "--disable-workspace-trust",
+        "--disable-extensions",
+      ],
       "outFiles": ["${workspaceRoot}/packages/extension/dist/client/**/*.js"]
     },
     {
@@ -27,7 +31,8 @@
         "--extensionDevelopmentPath=${workspaceRoot}/packages/extension",
         "--extensionTestsPath=${workspaceFolder}/packages/extension/dist/test/runner/run.js",
         "${workspaceRoot}/fixtures",
-        "--disable-extensions"
+        "--disable-workspace-trust",
+        "--disable-extensions",
       ],
       "preLaunchTask": "Make Fixtures Directory",
       "outFiles": ["${workspaceRoot}/packages/extension/dist/test/**/*.js"]

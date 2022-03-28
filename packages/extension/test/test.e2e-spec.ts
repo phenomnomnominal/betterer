@@ -10,7 +10,8 @@ describe('Betterer VSCode Extension', () => {
   it('should work', async () => {
     {
       const { resolve, readFile, deleteDirectory, deleteFile } = await createFixture('.', {
-        'package.json': '{ "name": "e2e-init" }'
+        'package.json': '{ "name": "e2e-init" }',
+        'index.js': ''
       });
 
       await vscode.commands.executeCommand('betterer.init');
@@ -27,6 +28,7 @@ describe('Betterer VSCode Extension', () => {
       await deleteDirectory(resolve('./.vscode'));
       await deleteFile(resolve('./package.json'));
       await deleteFile(resolve('./.betterer.ts'));
+      await deleteFile(resolve('./index.js'));
     }
 
     {

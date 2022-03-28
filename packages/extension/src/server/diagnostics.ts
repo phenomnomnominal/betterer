@@ -1,3 +1,4 @@
+import path from 'path';
 import { Diagnostic, DiagnosticSeverity, Position } from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import {
@@ -6,7 +7,8 @@ import {
   BettererFileTestDiff,
   BettererFileTestResultSerialised,
   BettererRunSummary,
-  BettererSuite
+  BettererSuite,
+  BettererConfig
 } from '@betterer/betterer';
 
 import { EXTENSION_NAME } from '../constants';
@@ -18,7 +20,11 @@ type BettererFileDiagnostics = Record<string, Array<Diagnostic>>;
 export class BettererDiagnostics {
   private _diagnosticsMap: Record<string, BettererFileDiagnostics> = {};
 
-  public getDiagnostics(document: TextDocument, runSummary: BettererRunSummary): Array<Diagnostic> {
+  public getDiagnostics(
+    config: BettererConfig,
+    document: TextDocument,
+    runSummary: BettererRunSummary
+  ): Array<Diagnostic> {
     const filePath = getFilePath(document);
     if (filePath == null) {
       return [];
@@ -37,7 +43,8 @@ export class BettererDiagnostics {
 
     let issues: BettererFileIssuesSerialised;
     try {
-      issues = this._getFileIssues(result, filePath);
+      const issueFilePath = getIssuePath(config.resultsPath, filePath);
+      issues = this._getFileIssues(result, issueFilePath);
     } catch (e) {
       info(JSON.stringify((e as Error).message));
       return currentFileDiagnostics;
@@ -126,7 +133,17 @@ function createDiagnostic(
   let end: Position | null = null;
   start = { line, character: column };
   end = document.positionAt(document.offsetAt(start) + length);
+
+  // The length of an issues stored in the results file is based on LF line endings,
+  // so if the issue contains CRLF endings, increment the length by 1 for each new line:
+  let text = document.getText({ start, end });
+  while (text.replace(/\r\n/g, '\n').length < length) {
+    const crlfs = text.match(/\r\n/g) || [];
+    end = document.positionAt(document.offsetAt(start) + length + crlfs.length);
+    text = document.getText({ start, end });
+  }
   const range = { start, end };
+
   const code = `[${name}]${extra ? ` - ${extra}` : ''}`;
   return {
     message,
@@ -153,4 +170,13 @@ function createWarning(
   document: TextDocument
 ): Diagnostic {
   return createDiagnostic(name, issue, extra, document, DiagnosticSeverity.Warning);
+}
+
+function getIssuePath(resultsPath: string, filePath: string): string {
+  const directory = `${normalisedPath(path.dirname(resultsPath))}/`;
+  return filePath.replace(directory, '');
+}
+
+function normalisedPath(filePath: string): string {
+  return path.sep === path.posix.sep ? filePath : filePath.split(path.sep).join(path.posix.sep);
 }

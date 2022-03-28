@@ -3,13 +3,13 @@ import { betterer } from '@betterer/betterer';
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
-  it('should handle a global exclude', async () => {
-    const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('exclude-global', {
+  it('should handle a global include', async () => {
+    const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('include-global', {
       '.betterer.ts': `
 import { regexp } from '@betterer/regexp';
 
 export default {
-  test: () => regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
+  test: () => regexp(/(\\/\\/\\s*HACK)/i).include('./src/index.ts')
 };      
       `
     });
@@ -28,15 +28,16 @@ export default {
 
     expect(result).toMatchSnapshot();
 
-    const globalExcludeSummary = await betterer({
+    const globalIncludeSummary = await betterer({
       configPaths,
       cwd: paths.cwd,
-      excludes: [/global.ts/],
+      includes: ['./src/global.ts'],
       resultsPath,
-      workers: false
+      workers: false,
+      update: true
     });
 
-    expect(globalExcludeSummary.filePaths).toEqual([indexPath]);
+    expect(globalIncludeSummary.filePaths).toEqual([globalPath]);
 
     const globalExcludeResult = await readFile(resultsPath);
 

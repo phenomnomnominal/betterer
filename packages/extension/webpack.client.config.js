@@ -4,7 +4,11 @@ const nodeExternals = require('webpack-node-externals');
 module.exports = {
   entry: './src/client/extension.ts',
   mode: 'development',
-  externals: { ...nodeExternals(), vscode: 'commonjs vscode', fsevents: 'commonjs fsevents' },
+  externals: {
+    ...nodeExternals(),
+    vscode: 'commonjs vscode',
+    fsevents: 'commonjs fsevents'
+  },
   target: 'node',
   module: {
     rules: [

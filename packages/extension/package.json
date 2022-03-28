@@ -4,7 +4,7 @@
   "publisher": "Betterer",
   "private": true,
   "description": "VSCode extension for @betterer/betterer",
-  "version": "5.1.6",
+  "version": "5.1.7",
   "main": "./dist/client/client.js",
   "author": "Craig Spence <craigspence0@gmail.com>",
   "homepage": "https://phenomnomnominal.github.io/betterer",
@@ -143,22 +143,22 @@
     "lodash.debounce": "^4.0.8",
     "vscode-languageclient": "^7.0.0",
     "vscode-languageserver": "^7.0.0",
-    "vscode-languageserver-textdocument": "^1.0.1",
-    "vscode-uri": "^3.0.0"
+    "vscode-languageserver-textdocument": "^1.0.3",
+    "vscode-uri": "^3.0.2"
   },
   "devDependencies": {
-    "@betterer/betterer": "^5.1.6",
-    "@betterer/cli": "^5.1.6",
+    "@betterer/betterer": "^5.1.7",
+    "@betterer/cli": "^5.1.7",
     "@betterer/errors": "^5.0.0",
     "@betterer/logger": "^5.1.5",
     "@types/jest-cli": "^24.3.0",
     "@types/lodash.debounce": "^4.0.6",
-    "@types/vscode": "^1.59.0",
-    "jest-cli": "^27.0.4",
-    "ts-loader": "^9.2.5",
+    "@types/vscode": "^1.62.0",
+    "jest-cli": "^27.4.3",
+    "ts-loader": "^9.2.6",
     "vscode-test": "^1.6.1",
-    "webpack": "^5.50.0",
-    "webpack-cli": "^4.8.0",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
     "webpack-node-externals": "^3.0.0"
   }
 }
