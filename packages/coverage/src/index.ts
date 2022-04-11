@@ -1,15 +1,9 @@
 /**
- * Coverage test for {@link https://github.com/phenomnomnominal/betterer | **Betterer**}.
+ * {@link https://istanbul.js.org/ | Istanbul Coverage} test for {@link https://github.com/phenomnomnominal/betterer | **Betterer**}.
  *
  * @packageDocumentation
  */
 
-export { coverage } from './coverage';
-export {
-  BettererCoverageTypes,
-  BettererCoverageIssue,
-  BettererCoverageIssues,
-  BettererCoverageDiff,
-  BettererCoverageTest,
-  BettererCoverageTestOptions
-} from './types';
+export { coverage, coverageTotal } from './coverage';
+export type { BettererCoverageTest } from './coverage-test';
+export { BettererCoverageDiff, BettererCoverageIssue, BettererCoverageIssues, BettererCoverageTypes } from './types';

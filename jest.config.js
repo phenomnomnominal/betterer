@@ -10,9 +10,10 @@ module.exports = {
     '!<rootDir>/packages/fixture/dist/**/*.js'
   ],
   coverageDirectory: '<rootDir>/reports/coverage',
+  coverageReporters: ['clover', 'json', 'json-summary', 'lcov', 'text'],
   preset: 'ts-jest',
   testEnvironment: 'node',
-  testMatch: ['**/*.spec.ts', '!**/*.e2e.spec.ts'],
+  testMatch: ['**/*.spec.ts', '!**/*.e2e.spec.ts', '!**/workers.spec.ts'],
   watchPathIgnorePatterns: ['<rootDir>/fixtures', '<rootDir>/packages/[^/]+/src'],
   modulePathIgnorePatterns: ['<rootDir>/packages/extension']
 };

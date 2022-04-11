@@ -118,7 +118,7 @@ Error: \\"test\\" got worse. 😔
 
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. 😔
-・ lines is worse in src/file1.ts: 60 > 50
+・ \\"lines\\" coverage is worse in \\"src/file-1.ts\\": 60 > 50
 
 Error: \\"test\\" got worse. 😔
 ",
@@ -131,7 +131,7 @@ Error: \\"test\\" got worse. 😔
 
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. 😔
-・ lines is worse in src/file1.ts: 60 > 50
+・ \\"lines\\" coverage is worse in \\"src/file-1.ts\\": 60 > 50
 
 Error: \\"test\\" got worse. 😔
 
@@ -197,8 +197,8 @@ Error: \\"test\\" got worse. 😔
 
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. 😔
-・ lines is worse in src/file1.ts: 60 > 50
-・ lines is worse in src/file2.ts: 90 > 60
+・ \\"lines\\" coverage is better in \\"src/file-1.ts\\": 40 < 50
+・ \\"lines\\" coverage is worse in \\"src/file-2.ts\\": 90 > 60
 
 Error: \\"test\\" got worse. 😔
 ",
@@ -211,8 +211,8 @@ Error: \\"test\\" got worse. 😔
 
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. 😔
-・ lines is worse in src/file1.ts: 60 > 50
-・ lines is worse in src/file2.ts: 90 > 60
+・ \\"lines\\" coverage is better in \\"src/file-1.ts\\": 40 < 50
+・ \\"lines\\" coverage is worse in \\"src/file-2.ts\\": 90 > 60
 
 Error: \\"test\\" got worse. 😔
 
@@ -278,7 +278,9 @@ Error: \\"test\\" got worse. 😔
 
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. 😔
-・ new file: src/file3.ts
+・ \\"lines\\" coverage is better in \\"src/file-1.ts\\": 40 < 50
+・ \\"lines\\" coverage is worse in \\"src/file-2.ts\\": 90 > 60
+・ new file: src/file-3.ts
 
 Error: \\"test\\" got worse. 😔
 ",
@@ -291,7 +293,9 @@ Error: \\"test\\" got worse. 😔
 
 💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. 😔
-・ new file: src/file3.ts
+・ \\"lines\\" coverage is better in \\"src/file-1.ts\\": 40 < 50
+・ \\"lines\\" coverage is worse in \\"src/file-2.ts\\": 90 > 60
+・ new file: src/file-3.ts
 
 Error: \\"test\\" got worse. 😔
 

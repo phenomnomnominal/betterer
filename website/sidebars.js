@@ -13,12 +13,12 @@ module.exports = {
     ],
     'Built-in tests': [
       'angular-test',
+      'coverage-test',
       'eslint-test',
       'regexp-test',
       'stylelint-test',
       'tsquery-test',
-      'typescript-test',
-      'coverage-test'
+      'typescript-test'
     ]
   }
 };

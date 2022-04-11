@@ -8,31 +8,24 @@ slug: /coverage-test
 
 ### [`@betterer/coverage`](https://www.npmjs.com/package/@betterer/coverage)
 
-Use this test to increase the test coverage of your project.
+Use the `coverage` test to incrementally increase the per-file test coverage of your project.
 
-Before running betterer: run your test suite (e.g. jest) with coverage information written to `coverage/coverage-summary.json`
-using the [Istanbul](https://istanbul.js.org/) [json-summary](https://github.com/istanbuljs/istanbuljs/tree/master/packages/istanbul-reports/lib/json-summary)
-reporter (or any reporter which creates compatible output).
+[`@betterer/coverage`](https://www.npmjs.com/package/@betterer/coverage) expects an [Istanbul](https://istanbul.js.org/) [json-summary](https://github.com/istanbuljs/istanbuljs/tree/master/packages/istanbul-reports/lib/json-summary) to exist, so you must run your tests first.
 
-Set up your `.betterer.js` (or equivalent) file like so:
+```typescript
+import { coverage } from '@betterer/coverage';
 
-```javascript
-const { coverage } = require('@betterer/coverage');
-
-module.exports = {
-  test: () => coverage()
-};      
+export default {
+  'increase per-file test coverage': () => coverage()
+};
 ```
 
-Betterer will now fail if your test coverage decreases on any of your files.
-You can also configure the test to only consider total coverage, like so:
+Use the `coverageTotal` test to incrementally increase the total test coverage of your project.
 
 ```javascript
-const { coverage } = require('@betterer/coverage');
+import { coverage } from '@betterer/coverage';
 
-module.exports = {
-  test: () => coverage({
-    totalCoverage: true
-  })
+export default {
+   'increase total test coverage': () => coverageTotal()
 };      
 ```

@@ -8,13 +8,13 @@ exports[`betterer should report a stable per-file coverage result 1`] = `
 //
 exports[\`test\`] = {
   value: \`{
-  \\"src/file1.ts\\": {
+  \\"src/file-1.ts\\": {
     \\"lines\\": 50,
     \\"statements\\": 130,
     \\"functions\\": 15,
     \\"branches\\": 100
   },
-  \\"src/file2.ts\\": {
+  \\"src/file-2.ts\\": {
     \\"lines\\": 60,
     \\"statements\\": 140,
     \\"functions\\": 4,
