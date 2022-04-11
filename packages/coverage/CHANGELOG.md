@@ -1,0 +1,17 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [5.2.0](https://github.com/phenomnomnominal/betterer/compare/v5.1.8...v5.2.0) (2022-04-11)
+
+
+### Features
+
+* **coverage ✨:** add coverage test ([ecfdb77](https://github.com/phenomnomnominal/betterer/commit/ecfdb777b01eb6a0ddb1e53193af113d0616dd9a))
+
+
+### Reverts
+
+* Revert "feature(coverage ✨): add coverage test" ([edec2d1](https://github.com/phenomnomnominal/betterer/commit/edec2d1423ce5f4f986ca8f9e52a17e7ed9ce229))
+* Revert "chore(release 🔖): publish 5.1.8" ([98a44eb](https://github.com/phenomnomnominal/betterer/commit/98a44ebf5cbf47cd2717e093c1da3714b26afb0b))

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.2.0](https://github.com/phenomnomnominal/betterer/compare/v5.1.8...v5.2.0) (2022-04-11)
+
+
+### Reverts
+
+* Revert "chore(release 🔖): publish 5.1.8" ([98a44eb](https://github.com/phenomnomnominal/betterer/commit/98a44ebf5cbf47cd2717e093c1da3714b26afb0b))
+
+
+
+
+
 ## [5.1.5](https://github.com/phenomnomnominal/betterer/compare/v5.1.4...v5.1.5) (2021-12-06)
 
 **Note:** Version bump only for package @betterer/logger
