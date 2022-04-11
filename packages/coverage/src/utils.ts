@@ -1,3 +1,5 @@
+import path from 'path';
+
 export function flatten<T>(toFlatten: ReadonlyArray<T | ReadonlyArray<T>>): Array<T> {
   const flattened: Array<T> = [];
   toFlatten.forEach((t) => {
@@ -16,4 +18,8 @@ function isItem<T>(pattern: unknown): pattern is T {
 
 export function isNumber(input: unknown): input is number {
   return typeof input === 'number';
+}
+
+export function normalisedPath(filePath: string): string {
+  return path.sep === path.posix.sep ? filePath : filePath.split(path.sep).join(path.posix.sep);
 }

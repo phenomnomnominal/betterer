@@ -11,7 +11,7 @@ import {
   IstanbulCoverageSummary,
   IstanbulFileCoverage
 } from './types';
-import { isNumber } from './utils';
+import { isNumber, normalisedPath } from './utils';
 
 export async function test(
   run: BettererRun,
@@ -29,7 +29,7 @@ export async function test(
     .filter((filePath) => !excluded.length || !excluded.some((exclude) => exclude.test(filePath)))
     .forEach((filePath) => {
       const fileCoverage = summary[filePath];
-      const relativeFilePath = path.relative(baseDirectory, filePath);
+      const relativeFilePath = normalisedPath(path.relative(baseDirectory, filePath));
       uncovered[relativeFilePath] = getUncoveredIssues(fileCoverage);
     });
   return uncovered;
