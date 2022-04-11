@@ -3,7 +3,6 @@
     "packages/betterer",
     "packages/cli",
     "packages/constraints",
-    "packages/coverage",
     "packages/docgen",
     "packages/errors",
     "packages/eslint",

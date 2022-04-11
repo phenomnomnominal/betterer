@@ -14,7 +14,6 @@ void (async () => {
     'angular',
     'betterer',
     'constraints',
-    'coverage',
     'errors',
     'eslint',
     'logger',

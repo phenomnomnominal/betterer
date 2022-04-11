@@ -109,16 +109,5 @@ export class BettererTest<DeserialisedType, SerialisedType = DeserialisedType, D
 }
 
 export function isBettererTest(test: unknown): test is BettererTestBase {
-  if (!test) {
-    return false;
-  }
-  return getBaseName((test as ObjectConstructor).constructor) === BettererTest.name;
-}
-
-function getBaseName(input: unknown): string | null {
-  const proto: unknown = Object.getPrototypeOf(input);
-  if (proto === Function.prototype) {
-    return (input as ObjectConstructor)?.name || null;
-  }
-  return getBaseName(proto);
+  return !!test && (test as BettererTestBase).constructor.name === BettererTest.name;
 }

@@ -14,9 +14,6 @@
       "path": "constraints"
     },
     {
-      "path": "coverage"
-    },
-    {
       "path": "docgen"
     },
     {
