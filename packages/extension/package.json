@@ -16,7 +16,7 @@
     "url": "https://github.com/phenomnomnominal/betterer/issues"
   },
   "engines": {
-    "vscode": "^1.52.0"
+    "vscode": "^1.62.0"
   },
   "categories": [
     "Linters"
