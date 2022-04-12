@@ -110,8 +110,9 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-Checking 1 file... 🤔
+Checking 2 files... 🤔
 
+・ <project>/fixtures/include-global/global.ts
 ・ <project>/fixtures/include-global/src/global.ts
 
 🌟 Betterer (0ms):
@@ -123,8 +124,9 @@ Checking 1 file... 🤔
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-Checking 1 file... 🤔
+Checking 2 files... 🤔
 
+・ <project>/fixtures/include-global/global.ts
 ・ <project>/fixtures/include-global/src/global.ts
 
 🌟 Betterer (0ms): 1 test running...
@@ -137,8 +139,9 @@ Checking 1 file... 🤔
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-Checking 1 file... 🤔
+Checking 2 files... 🤔
 
+・ <project>/fixtures/include-global/global.ts
 ・ <project>/fixtures/include-global/src/global.ts
 
 🌟 Betterer (0ms): 1 test running...
@@ -151,8 +154,9 @@ Checking 1 file... 🤔
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-Checking 1 file... 🤔
+Checking 2 files... 🤔
 
+・ <project>/fixtures/include-global/global.ts
 ・ <project>/fixtures/include-global/src/global.ts
 
 🎉 Betterer (0ms): 1 test done!
@@ -171,8 +175,9 @@ Checking 1 file... 🤔
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-Checked 1 file! 🔍
+Checked 2 files! 🔍
 
+・ <project>/fixtures/include-global/global.ts
 ・ <project>/fixtures/include-global/src/global.ts
 
 🎉 Betterer (0ms): 1 test done!
