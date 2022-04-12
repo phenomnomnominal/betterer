@@ -39,6 +39,6 @@ export async function initBetterer(): Promise<void> {
   }
 
   const terminal = window.createTerminal({ name: `${EXTENSION_NAME} init`, cwd: folder.uri.fsPath });
-  terminal.sendText(`npx @betterer/cli init`);
+  terminal.sendText(`npm_config_yes=true npx @betterer/cli init`);
   terminal.show();
 }

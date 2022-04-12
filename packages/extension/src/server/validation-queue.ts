@@ -34,8 +34,8 @@ export class BettererValidationQueue {
 
   private _trigger(): void {
     void (async () => {
-      info(`Server: waiting for previous validation run to finish:`);
       if (this._validating) {
+        info(`Server: waiting for previous validation run to finish:`);
         await this._validating;
       }
 

@@ -30,6 +30,7 @@ export class BettererDiagnostics {
       return [];
     }
 
+    this._resetDiagnosticsForFile(filePath, runSummary.name);
     const currentFileDiagnostics = this._getAllDiagnosticsForFile(filePath);
 
     if (runSummary.isFailed) {
@@ -107,6 +108,12 @@ export class BettererDiagnostics {
     return this._getAllDiagnosticsForFile(filePath);
   }
 
+  private _resetDiagnosticsForFile(filePath: string, testName: string): void {
+    const fileDiagnostics = this._diagnosticsMap[filePath] || {};
+    fileDiagnostics[testName] = [];
+    this._diagnosticsMap[filePath] = fileDiagnostics;
+  }
+
   private _getAllDiagnosticsForFile(filePath: string): Array<Diagnostic> {
     const fileDiagnostics = this._diagnosticsMap[filePath] || {};
     return Object.keys(fileDiagnostics).flatMap((testName) => fileDiagnostics[testName]);
@@ -144,7 +151,7 @@ function createDiagnostic(
   }
   const range = { start, end };
 
-  const code = `[${name}]${extra ? ` - ${extra}` : ''}`;
+  const code = `[${name}] - ${extra}`;
   return {
     message,
     severity,
@@ -174,7 +181,7 @@ function createWarning(
 
 function getIssuePath(resultsPath: string, filePath: string): string {
   const directory = `${normalisedPath(path.dirname(resultsPath))}/`;
-  return filePath.replace(directory, '');
+  return path.relative(directory, filePath);
 }
 
 function normalisedPath(filePath: string): string {
