@@ -168,26 +168,20 @@ function createTest(
     const baseDirectory = path.dirname(runΩ.test.configPath);
 
     const { config, versionControl } = runΩ.globals;
-    const { includes, excludes } = config;
     resolver.init(baseDirectory, versionControl);
 
     const hasSpecifiedFiles = runΩ.filePaths.length > 0;
-    const hasGlobalIncludesExcludes = includes.length || excludes.length;
 
     // Get the maximal set of files that the test could run on:
     const testFiles = await resolver.files();
 
     // Get the set of files that the test will run on:
     let runFiles: BettererFilePaths;
-    if (hasSpecifiedFiles && hasGlobalIncludesExcludes) {
-      runFiles = runΩ.filePaths;
-    } else if (hasSpecifiedFiles) {
+
+    // Specified files will include files from a global `includes`.
+    if (hasSpecifiedFiles) {
+      // Validate that they are relevant for this file test:
       runFiles = await resolver.validate(runΩ.filePaths);
-    } else if (hasGlobalIncludesExcludes) {
-      const globalResolver = new BettererFileResolverΩ(baseDirectory, versionControl);
-      globalResolver.include(config.includes);
-      globalResolver.exclude(config.excludes);
-      runFiles = await globalResolver.files();
     } else {
       runFiles = testFiles;
     }

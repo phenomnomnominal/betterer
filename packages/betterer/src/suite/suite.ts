@@ -104,6 +104,10 @@ export class BettererSuiteΩ implements BettererSuite {
         const reportRunStart = this._reporter.runStart(runΩ, lifecycle.promise);
         const runSummary = await runΩ.run(isSkipped);
 
+        // `filePaths` will be updated in the worker if the test filters the files
+        // so it needs to be updated
+        runΩ.filePaths = runSummary.filePaths;
+
         if (runSummary.isFailed) {
           const { error } = runSummary;
           assert(error);
