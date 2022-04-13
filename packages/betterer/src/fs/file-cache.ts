@@ -113,12 +113,17 @@ export class BettererFileCacheΩ implements BettererFileCache {
     this._memoryCacheMap[testName] = this._memoryCacheMap[testName] || {};
     const testCache = this._memoryCacheMap[testName];
 
-    filePaths.forEach((filePath) => {
+    const existingFilePaths = Object.keys(testCache);
+
+    const cacheFilePaths = Array.from(new Set([...existingFilePaths, ...filePaths]));
+
+    cacheFilePaths.forEach((filePath) => {
       const hash = this._fileHashMap[filePath];
 
       // If hash is null, then the file isn't tracked by version control *and* it can't be read,
       // so it probably doesn't exist
       if (hash === null) {
+        delete testCache[filePath];
         return;
       }
 
