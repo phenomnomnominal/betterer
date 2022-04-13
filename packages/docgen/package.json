@@ -1,7 +1,7 @@
 {
   "name": "doc-plugin-betterer",
   "description": "@microsoft/api-documenter plugin for @betterer/betterer",
-  "version": "5.0.0",
+  "version": "5.3.0",
   "license": "MIT",
   "private": true,
   "main": "dist/index.js",
