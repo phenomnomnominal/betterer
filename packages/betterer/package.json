@@ -1,7 +1,7 @@
 {
   "name": "@betterer/betterer",
   "description": "Main engine for runing betterer tests",
-  "version": "5.2.1",
+  "version": "5.2.2",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -31,7 +31,7 @@
     "@betterer/constraints": "^5.0.0",
     "@betterer/errors": "^5.0.0",
     "@betterer/logger": "^5.2.0",
-    "@betterer/reporter": "^5.2.1",
+    "@betterer/reporter": "^5.2.2",
     "@phenomnomnominal/debug": "^0.2.5",
     "@phenomnomnominal/worker-require": "^0.0.34",
     "chokidar": "^3.3.1",
