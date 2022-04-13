@@ -115,20 +115,22 @@ export class BettererFileCacheΩ implements BettererFileCache {
 
     const existingFilePaths = Object.keys(testCache);
 
-    const cacheFilePaths = Array.from(new Set([...existingFilePaths, ...filePaths]));
+    const cacheFilePaths = Array.from(new Set([...existingFilePaths, ...filePaths])).sort();
 
+    const updatedCache: BettererFileHashMap = {};
     cacheFilePaths.forEach((filePath) => {
       const hash = this._fileHashMap[filePath];
 
       // If hash is null, then the file isn't tracked by version control *and* it can't be read,
       // so it probably doesn't exist
       if (hash === null) {
-        delete testCache[filePath];
         return;
       }
 
-      testCache[filePath] = hash;
+      updatedCache[filePath] = hash;
     });
+
+    this._memoryCacheMap[testName] = updatedCache;
   }
 
   public setHashes(newHashes: BettererFileHashMap): void {
