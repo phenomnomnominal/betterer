@@ -20,6 +20,9 @@ export function useTimer(): [number, BettererTimerClear] {
   }, []);
 
   useEffect(() => {
+    if (process.env.CI) {
+      return;
+    }
     timer.current = setInterval(updateTime, DEFAULT_TASK_TIME_INTERVAL);
     updateTime();
     return clearTime;
