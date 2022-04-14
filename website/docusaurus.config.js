@@ -28,7 +28,8 @@ module.exports = {
   ],
   themeConfig: {
     algolia: {
-      apiKey: '294187e59bb9be56291c9088e9d49afe',
+      appId: '9C3WHASP4G',
+      apiKey: '0597c8cd1d4a067d017760bf94f1b78e',
       indexName: 'betterer'
     },
     colorMode: {
@@ -158,14 +159,14 @@ module.exports = {
         googleAnalytics: {
           trackingID: 'UA-35865678-1',
           anonymizeIP: true
-        },
+        }
       }
     ],
     [
       '@docusaurus/plugin-client-redirects',
       {
-        fromExtensions: ['md'],
-      },
-    ],
+        fromExtensions: ['md']
+      }
+    ]
   ]
 };
