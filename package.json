@@ -51,8 +51,8 @@
   "devDependencies": {
     "@betterer/cli": "^5.0.0-alpha.0",
     "@betterer/regexp": "^5.0.0-alpha.0",
-    "@commitlint/cli": "^13.1.0",
-    "@commitlint/config-conventional": "^13.1.0",
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
     "@microsoft/api-documenter": "^7.13.54",
     "@microsoft/api-extractor": "^7.18.11",
     "@phenomnomnominal/commitlint-plugin": "^1.1.1",
