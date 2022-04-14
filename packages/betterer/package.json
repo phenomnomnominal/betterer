@@ -40,7 +40,7 @@
     "lines-and-columns": "^2.0.3",
     "minimatch": "^5.0.1",
     "prettier": "^2.3.2",
-    "simple-git": "^3.1.1",
+    "simple-git": "^3.6.0",
     "ts-node": "^10.2.1",
     "tslib": "^2.3.1"
   },
