@@ -1,7 +1,7 @@
 import { betterer, BettererOptionsWatch } from '@betterer/betterer';
 import { Command } from 'commander';
 
-import { cliCommand, setEnv } from './options';
+import { cliCommand } from './options';
 import { BettererCLIConfig, BettererCommand } from './types';
 
 /**
@@ -11,8 +11,6 @@ export function watch(cwd: string): Command {
   const command = cliCommand(BettererCommand.watch);
   command.description('run Betterer in watch mode');
   command.action(async (config: BettererCLIConfig): Promise<void> => {
-    setEnv(config);
-
     // Mark options as unknown...
     const options: unknown = {
       cache: config.cache,

@@ -1,7 +1,7 @@
 import { betterer, BettererOptionsStart } from '@betterer/betterer';
 import { Command } from 'commander';
 
-import { cliCommand, setEnv } from './options';
+import { cliCommand } from './options';
 import { BettererCLIConfig, BettererCommand } from './types';
 
 /**
@@ -11,8 +11,6 @@ export function start(cwd: string, ci: boolean): Command {
   const command = cliCommand(BettererCommand.start);
   command.description('run Betterer');
   command.action(async (config: BettererCLIConfig, command: Command): Promise<void> => {
-    setEnv(config);
-
     // Mark options as unknown...
     const options: unknown = {
       cache: config.cache,

@@ -4,7 +4,7 @@ import { render } from 'ink';
 import path from 'path';
 
 import { Init } from './init/init';
-import { initCommand, setEnv } from './options';
+import { initCommand } from './options';
 import { BettererCLIInitConfig } from './types';
 
 const BETTERER_TS = './.betterer.ts';
@@ -18,8 +18,6 @@ export function init(cwd: string): Command {
   const command = initCommand();
   command.description('init Betterer in a project');
   command.action(async (config: BettererCLIInitConfig): Promise<void> => {
-    setEnv(config);
-
     const RENDER_OPTIONS = {
       debug: process.env.NODE_ENV === 'test'
     };

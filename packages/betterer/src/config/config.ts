@@ -78,12 +78,11 @@ async function createBaseConfig(
 
   validateStringArray({ configPaths });
 
-  const isDebug = !!process.env.BETTERER_DEBUG;
   const cache = !!options.cachePath || options.cache || false;
   const cachePath = options.cachePath || './.betterer.cache';
   const filters = toRegExps(toArray<string | RegExp>(options.filters));
   const reporters = toArray<string | BettererReporter>(options.reporters);
-  const silent = isDebug || options.silent || false;
+  const silent = options.silent || false;
   const reporter = silent ? loadSilentReporter() : loadReporters(reporters, cwd);
   const resultsPath = options.resultsPath || './.betterer.results';
 

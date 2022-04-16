@@ -4,7 +4,7 @@ import { BettererOptionsResults } from '@betterer/betterer';
 import { Command } from 'commander';
 import { render } from 'ink';
 
-import { resultsCommand, setEnv } from './options';
+import { resultsCommand } from './options';
 import { Results } from './results/results';
 import { BettererCLIResultsConfig } from './types';
 
@@ -16,8 +16,6 @@ export function results(cwd: string): Command {
   const command = resultsCommand();
   command.description();
   command.action(async (config: BettererCLIResultsConfig, command: Command): Promise<void> => {
-    setEnv(config);
-
     const RENDER_OPTIONS = {
       debug: process.env.NODE_ENV === 'test'
     };

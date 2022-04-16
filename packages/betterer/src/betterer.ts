@@ -1,5 +1,3 @@
-import { debug } from '@phenomnomnominal/debug';
-
 import {
   BettererOptionsRunner,
   BettererOptionsStart,
@@ -26,7 +24,6 @@ import { BettererSuiteSummary } from './suite';
  * Will throw if something goes wrong while running **Betterer**.
  */
 export async function betterer(options: BettererOptionsStart = {}): Promise<BettererSuiteSummary> {
-  initDebug();
   const runner = await BettererRunnerΩ.create(options);
   return await runner.run();
 }
@@ -69,7 +66,6 @@ betterer.merge = merge;
  * Will throw if something goes wrong while getting the summary of the results.
  */
 export function results(options: BettererOptionsResults = {}): Promise<BettererResultsSummary> {
-  initDebug();
   return BettererResultsSummaryΩ.create(options);
 }
 betterer.results = results;
@@ -89,7 +85,6 @@ betterer.results = results;
  * Will throw if something goes wrong while creating the runner.
  */
 export function runner(options: BettererOptionsRunner = {}): Promise<BettererRunner> {
-  initDebug();
   return BettererRunnerΩ.create(options);
 }
 betterer.runner = runner;
@@ -110,22 +105,6 @@ betterer.runner = runner;
  * Will throw if something goes wrong while creating the runner or watcher.
  */
 export function watch(options: BettererOptionsWatch = {}): Promise<BettererRunner> {
-  initDebug();
   return BettererRunnerΩ.create({ ...options, watch: true });
 }
 betterer.watch = watch;
-
-function initDebug(): void {
-  const enabled = !!process.env.BETTERER_DEBUG;
-  if (enabled) {
-    debug({
-      header: 'betterer',
-      include: [/@betterer\//],
-      ignore: [require.resolve('./utils'), require.resolve('./register')],
-      enabled,
-      time: !!process.env.BETTERER_DEBUG_TIME,
-      values: !!process.env.BETTERER_DEBUG_VALUES,
-      logPath: process.env.BETTERER_DEBUG_LOG
-    });
-  }
-}

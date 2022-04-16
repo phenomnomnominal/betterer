@@ -18,12 +18,7 @@ export enum BettererCommand {
 
 export type BettererCommandName = `${BettererCommand}`;
 
-export interface BettererCLIEnvConfig {
-  debug: boolean;
-  debugLog: string;
-}
-
-export interface BettererCLIConfig extends BettererCLIEnvConfig {
+export interface BettererCLIConfig {
   cache: boolean;
   cachePath: string;
   config: BettererCLIArguments;
@@ -40,18 +35,18 @@ export interface BettererCLIConfig extends BettererCLIEnvConfig {
   workers: number | boolean;
 }
 
-export interface BettererCLIInitConfig extends BettererCLIEnvConfig {
+export interface BettererCLIInitConfig {
   automerge: boolean;
   config: string;
   results: string;
 }
 
-export interface BettererCLIMergeConfig extends BettererCLIEnvConfig {
+export interface BettererCLIMergeConfig {
   results: string;
   contents: Array<string>;
 }
 
-export interface BettererCLIResultsConfig extends BettererCLIEnvConfig {
+export interface BettererCLIResultsConfig {
   config: BettererCLIArguments;
   exclude: BettererCLIArguments;
   filter: BettererCLIArguments;
@@ -59,7 +54,7 @@ export interface BettererCLIResultsConfig extends BettererCLIEnvConfig {
   results: string;
 }
 
-export interface BettererCLIUpgradeConfig extends BettererCLIEnvConfig {
+export interface BettererCLIUpgradeConfig {
   config: BettererCLIArguments;
   save: boolean;
 }

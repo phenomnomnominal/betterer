@@ -3,7 +3,7 @@ import { Command } from 'commander';
 import { render } from 'ink';
 
 import { Upgrade } from './upgrade/upgrade';
-import { setEnv, upgradeCommand } from './options';
+import { upgradeCommand } from './options';
 import { BettererCLIUpgradeConfig } from './types';
 
 /**
@@ -13,8 +13,6 @@ export function upgrade(cwd: string): Command {
   const command = upgradeCommand();
   command.description('upgrade Betterer files in a project');
   command.action(async (config: BettererCLIUpgradeConfig): Promise<void> => {
-    setEnv(config);
-
     const RENDER_OPTIONS = {
       debug: process.env.NODE_ENV === 'test'
     };

@@ -12,7 +12,7 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { BettererStatus } from '../status';
 import { getRunner, hasBetterer } from './betterer';
-import { getBettererOptions, getDebug, getEnabled } from './config';
+import { getBettererOptions, getEnabled } from './config';
 import { error, info } from './console';
 import { BettererInvalidConfigRequest, BettererNoLibraryRequest, isNoConfigError } from './requests';
 import { BettererStatusNotification } from './status';
@@ -26,8 +26,6 @@ export class BettererValidator {
 
   public async validate(documents: Array<TextDocument>): Promise<void> {
     const { workspace } = this._connection;
-
-    await getDebug(workspace);
 
     const folders = await workspace.getWorkspaceFolders();
     if (!folders) {
