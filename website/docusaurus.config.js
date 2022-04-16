@@ -30,7 +30,8 @@ module.exports = {
     algolia: {
       appId: '9C3WHASP4G',
       apiKey: '0597c8cd1d4a067d017760bf94f1b78e',
-      indexName: 'betterer'
+      indexName: 'betterer',
+      contextualSearch: false
     },
     colorMode: {
       defaultMode: 'dark',
