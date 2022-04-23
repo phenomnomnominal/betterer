@@ -1,22 +1,21 @@
 import '@betterer/fixture';
 import { jest } from '@jest/globals';
+import { replace } from 'testdouble';
+
+import { setupTestdouble } from './setup-testdouble';
 
 jest.setTimeout(300000);
 
-type BettererUtils = typeof import('../packages/betterer/dist/utils.js');
-jest.mock('../packages/betterer/dist/utils.js', (): BettererUtils => {
-  const original = jest.requireActual('../packages/betterer/dist/utils.js') as BettererUtils;
+setupTestdouble();
 
-  return {
-    ...original,
-    getTime: () => 0
-  };
+import * as bettererUtils from '../packages/betterer/dist/utils.js';
+
+replace('../packages/betterer/dist/utils.js', {
+  ...bettererUtils,
+  getTime: () => 0
 });
 
-type BettererTasksUtils = typeof import('../packages/tasks/dist/utils.js');
-jest.mock('../packages/tasks/dist/utils.js', (): BettererTasksUtils => {
-  return {
-    getTime: () => 0,
-    getPreciseTime: () => 0
-  };
+replace('../packages/tasks/dist/utils.js', {
+  getTime: () => 0,
+  getPreciseTime: () => 0
 });
