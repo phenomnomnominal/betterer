@@ -1,9 +1,18 @@
-import { betterer } from '@betterer/betterer';
+import { replace } from 'testdouble';
 
+import * as bettererUtils from '../packages/betterer/dist/utils.js';
 import { createFixture } from './fixture';
+import { setupTestdouble } from './setup-testdouble';
 
 // Use real getTime() function
-jest.unmock('../packages/betterer/dist/utils.js');
+jest.resetModules();
+setupTestdouble();
+replace('../packages/betterer/dist/utils.js', {
+  ...bettererUtils,
+  getTime: () => Date.now()
+});
+
+import { betterer } from '@betterer/betterer';
 
 describe('betterer', () => {
   it('should mark a file test as expired when it is past its deadline', async () => {

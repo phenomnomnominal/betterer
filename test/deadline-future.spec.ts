@@ -1,18 +1,17 @@
-import { betterer } from '@betterer/betterer';
-import { jest } from '@jest/globals';
+import { replace } from 'testdouble';
 
+import * as bettererUtils from '../packages/betterer/dist/utils.js';
 import { createFixture } from './fixture';
+import { setupTestdouble } from './setup-testdouble';
 
-jest.mock('../packages/betterer/dist/utils.js', (): typeof import('../packages/betterer/dist/utils.js') => {
-  const original = jest.requireActual(
-    '../packages/betterer/dist/utils.js'
-  ) as typeof import('../packages/betterer/dist/utils.js');
-
-  return {
-    ...original,
-    getTime: () => 1589714460851
-  };
+jest.resetModules();
+setupTestdouble();
+replace('../packages/betterer/dist/utils.js', {
+  ...bettererUtils,
+  getTime: () => 1589714460851
 });
+
+import { betterer } from '@betterer/betterer';
 
 describe('betterer', () => {
   it('should do nothing when a test is not past its deadline', async () => {

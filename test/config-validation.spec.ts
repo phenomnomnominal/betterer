@@ -1,15 +1,15 @@
-import { betterer } from '@betterer/betterer';
+import * as os from 'os';
+import { replace } from 'testdouble';
 
 import { createFixture } from './fixture';
 
-jest.mock('os', () => {
-  const os: typeof import('os') = jest.requireActual('os');
-  const [cpu] = os.cpus();
-  return {
-    ...os,
-    cpus: () => [cpu]
-  };
+const [cpu] = os.cpus();
+replace('os', {
+  ...os,
+  cpus: () => [cpu]
 });
+
+import { betterer } from '@betterer/betterer';
 
 describe('betterer', () => {
   it('should throw when there is invalid config', async () => {
