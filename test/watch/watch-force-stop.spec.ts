@@ -1,6 +1,6 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from '../fixture';
+
+import { betterer } from '@betterer/betterer';
 
 describe('betterer.watch', () => {
   it('should stop when forced', async () => {

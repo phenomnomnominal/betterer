@@ -1,6 +1,6 @@
-import { betterer, runner } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
+
+import { betterer, runner } from '@betterer/betterer';
 
 describe('betterer', () => {
   it('should throw when reading the results file fails', async () => {

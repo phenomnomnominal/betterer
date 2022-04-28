@@ -1,6 +1,6 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
+
+import { betterer } from '@betterer/betterer';
 
 describe('betterer', () => {
   it('should mark a test as expired when it is past its deadline', async () => {
@@ -23,9 +23,7 @@ module.exports = {
       `
     });
 
-    jest.spyOn(Date, 'now').mockImplementation(() => {
-      return new Date().getTime();
-    });
+    jest.spyOn(Date, 'now').mockImplementation(() => new Date().getTime());
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;

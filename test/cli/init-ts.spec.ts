@@ -1,6 +1,6 @@
-import { BettererPackageJSON, cli__ } from '@betterer/cli';
-
 import { createFixture } from '../fixture';
+
+import { BettererPackageJSON, cli__ } from '@betterer/cli';
 
 const ARGV = ['node', './bin/betterer'];
 

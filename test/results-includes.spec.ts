@@ -1,6 +1,6 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
+
+import { betterer } from '@betterer/betterer';
 
 describe('betterer', () => {
   it('should return only the current results for an included file', async () => {

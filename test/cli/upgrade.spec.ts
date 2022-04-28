@@ -1,6 +1,6 @@
-import { cli__ } from '@betterer/cli';
-
 import { createFixture } from '../fixture';
+
+import { cli__ } from '@betterer/cli';
 
 const ARGV = ['node', './bin/betterer', 'upgrade'];
 

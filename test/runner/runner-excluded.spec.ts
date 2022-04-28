@@ -1,6 +1,6 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from '../fixture';
+
+import { betterer } from '@betterer/betterer';
 
 describe('betterer.runner', () => {
   it(`should ignore any files that aren't included in the test`, async () => {

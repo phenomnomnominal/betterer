@@ -1,6 +1,6 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
+
+import { betterer } from '@betterer/betterer';
 
 describe('betterer', () => {
   it('should sort files by their file path correctly with absolute paths', async () => {

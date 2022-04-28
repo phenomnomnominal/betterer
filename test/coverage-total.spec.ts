@@ -1,7 +1,7 @@
+import { createFixture } from './fixture';
+
 import { betterer } from '@betterer/betterer';
 import { BettererCoverageIssues } from '@betterer/coverage';
-
-import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the total coverage', async () => {

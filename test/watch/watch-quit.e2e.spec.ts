@@ -1,7 +1,7 @@
+import { createFixture } from '../fixture';
+
 import { betterer } from '@betterer/betterer';
 import assert from 'assert';
-
-import { createFixture } from '../fixture';
 
 describe('betterer.watch', () => {
   it('should quit when "q" is pressed', async () => {

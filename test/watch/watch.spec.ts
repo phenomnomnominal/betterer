@@ -1,7 +1,7 @@
+import { createFixture } from '../fixture';
+
 import { betterer, BettererSuiteSummary } from '@betterer/betterer';
 import assert from 'assert';
-
-import { createFixture } from '../fixture';
 
 describe('betterer.watch', () => {
   it('should run in watch mode', async () => {

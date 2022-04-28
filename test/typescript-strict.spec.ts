@@ -1,6 +1,6 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
+
+import { betterer } from '@betterer/betterer';
 
 const INDEX_SOURCE = `export function extractIds(list) {
   return list.map(member => member.id);

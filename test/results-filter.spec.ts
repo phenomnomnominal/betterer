@@ -1,6 +1,6 @@
-import { betterer, results } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
+
+import { betterer, results } from '@betterer/betterer';
 
 describe('betterer', () => {
   it('should return only the current results for a filtered test', async () => {

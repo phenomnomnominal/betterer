@@ -1,5 +1,6 @@
 import ansiRegex from 'ansi-regex';
 import * as path from 'path';
+import { WriteStream } from 'tty';
 
 import { FixtureLogs, FixtureOptions } from './types';
 
@@ -7,7 +8,7 @@ const ANSI_REGEX = ansiRegex();
 const PROJECT_REGEXP = new RegExp(normalisePaths(process.cwd()), 'g');
 const STACK_TRACK_LINE_REGEXP = /^\s+at\s+/;
 
-export function createFixtureLogs(options: FixtureOptions = {}): FixtureLogs {
+export function createFixtureLogs(fixtureStdOut: WriteStream, options: FixtureOptions = {}): FixtureLogs {
   const snapshotLogs: Array<string> = [];
   const log = (...messages: Array<string>): void => {
     // Do some magic to sort out the logs for snapshots. This mucks up the snapshot of the printed logo,
@@ -40,18 +41,14 @@ export function createFixtureLogs(options: FixtureOptions = {}): FixtureLogs {
     });
   };
 
-  try {
-    jest.spyOn(process.stdout, 'write').mockImplementation((message: string | Uint8Array): boolean => {
-      if (message) {
-        log(message.toString());
-      }
-      return true;
-    });
-  } catch {
-    // Cannot wrap process.stdout.write
-  }
-  process.stdout.columns = 1000;
-  process.stdout.rows = 20;
+  jest.spyOn(fixtureStdOut, 'write').mockImplementation((message: string | Uint8Array): boolean => {
+    if (message) {
+      log(message.toString());
+    }
+    return true;
+  });
+  fixtureStdOut.columns = 1000;
+  fixtureStdOut.rows = 20;
 
   return snapshotLogs as FixtureLogs;
 }

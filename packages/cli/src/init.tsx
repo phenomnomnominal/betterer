@@ -6,6 +6,7 @@ import path from 'path';
 import { Init } from './init/init';
 import { initCommand, setEnv } from './options';
 import { BettererCLIInitConfig } from './types';
+import { getRenderOptions } from './render';
 
 const BETTERER_TS = './.betterer.ts';
 const BETTERER_RESULTS = './.betterer.results';
@@ -20,10 +21,6 @@ export function init(cwd: string): Command {
   command.action(async (config: BettererCLIInitConfig): Promise<void> => {
     setEnv(config);
 
-    const RENDER_OPTIONS = {
-      debug: process.env.NODE_ENV === 'test'
-    };
-
     const finalConfig = config.config || BETTERER_TS;
     const finalResults = config.results || BETTERER_RESULTS;
     const ext = path.extname(finalConfig);
@@ -31,7 +28,7 @@ export function init(cwd: string): Command {
 
     const app = render(
       <Init automerge={config.automerge} configPath={finalConfig} cwd={cwd} resultsPath={finalResults} ts={ts} />,
-      RENDER_OPTIONS
+      getRenderOptions()
     );
     await app.waitUntilExit();
   });

@@ -1,6 +1,6 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
+
+import { betterer } from '@betterer/betterer';
 
 describe('betterer --reporter', () => {
   it('should throw when a hook is not a function', async () => {

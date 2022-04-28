@@ -1,7 +1,7 @@
+import { createFixture } from '../fixture';
+
 import { cli__ } from '@betterer/cli';
 import simpleGit from 'simple-git';
-
-import { createFixture } from '../fixture';
 
 const ARGV = ['node', './bin/betterer'];
 

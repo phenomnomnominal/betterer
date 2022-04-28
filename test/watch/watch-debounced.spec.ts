@@ -1,7 +1,7 @@
+import { createFixture } from '../fixture';
+
 import { watch, BettererSuiteSummary } from '@betterer/betterer';
 import assert from 'assert';
-
-import { createFixture } from '../fixture';
 
 describe('betterer.watch', () => {
   it('should debounce runs when multiple files change', async () => {

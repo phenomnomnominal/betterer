@@ -3,6 +3,8 @@ import * as path from 'path';
 
 const fixtureFactory = createFixtureDirectoryΔ(path.resolve(__dirname, '../fixtures'));
 
+jest.setTimeout(300000);
+
 export async function createFixture(
   fixtureName: string,
   files?: FixtureFileSystemFiles,

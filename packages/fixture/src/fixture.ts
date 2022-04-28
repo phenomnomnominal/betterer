@@ -1,10 +1,21 @@
-import { BettererRunSummaries, BettererTestNames } from '@betterer/betterer';
 import { promises as fs } from 'graceful-fs';
 import * as path from 'path';
 
 import { createFixtureFS } from './fs';
 import { createFixtureLogs } from './logging';
-import { Fixture, FixtureFactory, FixtureFileSystemFiles, FixtureOptions } from './types';
+import { setupModuleMocking, createFixtureStdOut, createFixtureDate } from './mocks';
+import {
+  Fixture,
+  FixtureFactory,
+  FixtureFileSystemFiles,
+  FixtureOptions,
+  FixtureRunSummaries,
+  FixtureTestNames
+} from './types';
+
+setupModuleMocking();
+const fixtureDate = createFixtureDate();
+const fixtureStdOut = createFixtureStdOut();
 
 /** @internal Definitely not stable! Please don't use! */
 export async function createFixtureDirectoryΔ(fixturesPath: string): Promise<FixtureFactory> {
@@ -21,8 +32,12 @@ export async function createFixtureDirectoryΔ(fixturesPath: string): Promise<Fi
   ): Promise<Fixture> {
     const fixturePath = path.resolve(fixturesPath, fixtureName);
     const fixtureFS = await createFixtureFS(fixturePath, files);
+    const fixtureLogs = createFixtureLogs(fixtureStdOut, options);
 
-    const fixtureLogs = createFixtureLogs(options);
+    const getTime = options?.mocks?.getTime;
+    if (getTime) {
+      fixtureDate.getTime = getTime;
+    }
 
     // Wait long enough that the watch mode debounce doesn't get in the way:
     await new Promise((resolve) => setTimeout(resolve, 500));
@@ -35,6 +50,6 @@ export async function createFixtureDirectoryΔ(fixturesPath: string): Promise<Fi
   };
 }
 
-export function testNames(runs: BettererRunSummaries): BettererTestNames {
+export function testNames(runs: FixtureRunSummaries): FixtureTestNames {
   return runs.map((run) => run.name);
 }

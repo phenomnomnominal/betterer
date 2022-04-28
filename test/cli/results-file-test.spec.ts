@@ -1,7 +1,7 @@
+import { createFixture } from '../fixture';
+
 import { betterer } from '@betterer/betterer';
 import { cli__ } from '@betterer/cli';
-
-import { createFixture } from '../fixture';
 
 const ARGV = ['node', './bin/betterer'];
 

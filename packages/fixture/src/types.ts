@@ -1,5 +1,3 @@
-import { BettererTestNames, BettererRunSummaries } from '@betterer/betterer';
-
 export interface Paths {
   cache: string;
   config: string;
@@ -20,15 +18,25 @@ export interface FixtureFileSystem {
 
 export type FixtureFileSystemFiles = Record<string, string>;
 
+export type FixtureRunSummary = { name: string };
+export type FixtureRunSummaries = Array<FixtureRunSummary>;
+export type FixtureTestNames = Array<string>;
+
 export type Fixture = FixtureFileSystem & {
   logs: ReadonlyArray<string>;
-  testNames(runs: BettererRunSummaries): BettererTestNames;
+  testNames(runs: FixtureRunSummaries): FixtureTestNames;
 };
 
 export type FixtureLogs = ReadonlyArray<string>;
+export type FixtureMockDate = {
+  getTime(): number;
+};
+
+export type FixtureMocks = FixtureMockDate;
 
 export interface FixtureOptions {
   logFilters?: Array<RegExp>;
+  mocks?: FixtureMocks;
 }
 
 export type FixtureFactory = (

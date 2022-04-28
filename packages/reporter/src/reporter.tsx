@@ -1,13 +1,19 @@
 import React from 'react';
 
-import { BettererContext, BettererContextSummary, BettererReporter, BettererSuiteSummary } from '@betterer/betterer';
+import {
+  BettererContext,
+  BettererContextSummary,
+  BettererReporter,
+  BettererSuite,
+  BettererSuiteSummary
+} from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import { Instance, render, RenderOptions } from 'ink';
 
 import { Error, Reporter } from './components';
+import { getRenderOptions } from './render';
 import { BettererReporterAction, contextEnd, createStore, suiteEnd, suiteStart } from './state';
 import { BettererReporterRenderer } from './types';
-import { BettererSuite } from '@betterer/betterer/src/suite';
 
 /**
  * @public The default {@link @betterer/betterer#BettererReporter | `BettererReporter`}.
@@ -21,7 +27,6 @@ export const reporter: BettererReporter = createReporter();
 
 function createReporter(): BettererReporter {
   const RENDER_OPTIONS: RenderOptions = {
-    debug: process.env.NODE_ENV === 'test',
     exitOnCtrlC: false
   };
 
@@ -53,7 +58,7 @@ function createReporter(): BettererReporter {
   };
 
   function renderError(error: BettererError): void {
-    render(<Error error={error} />, RENDER_OPTIONS);
+    render(<Error error={error} />, getRenderOptions(RENDER_OPTIONS));
   }
 
   function createRenderer(context: BettererContext): BettererReporterRenderer {
@@ -68,7 +73,7 @@ function createReporter(): BettererReporter {
         console.clear();
         const component = <Reporter {...state} done={done} />;
         if (!app) {
-          app = render(component, RENDER_OPTIONS);
+          app = render(component, getRenderOptions(RENDER_OPTIONS));
         } else {
           app.rerender(component);
         }

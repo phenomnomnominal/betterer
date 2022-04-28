@@ -4,6 +4,7 @@ import { render } from 'ink';
 
 import { Upgrade } from './upgrade/upgrade';
 import { setEnv, upgradeCommand } from './options';
+import { getRenderOptions } from './render';
 import { BettererCLIUpgradeConfig } from './types';
 
 /**
@@ -15,13 +16,9 @@ export function upgrade(cwd: string): Command {
   command.action(async (config: BettererCLIUpgradeConfig): Promise<void> => {
     setEnv(config);
 
-    const RENDER_OPTIONS = {
-      debug: process.env.NODE_ENV === 'test'
-    };
-
     const configPaths = config.config ? config.config : ['./.betterer.ts'];
 
-    const app = render(<Upgrade configPaths={configPaths} cwd={cwd} save={config.save} />, RENDER_OPTIONS);
+    const app = render(<Upgrade configPaths={configPaths} cwd={cwd} save={config.save} />, getRenderOptions());
     await app.waitUntilExit();
   });
 

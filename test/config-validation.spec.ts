@@ -1,7 +1,7 @@
+import { createFixture } from './fixture';
+
 import * as os from 'os';
 import { replace } from 'testdouble';
-
-import { createFixture } from './fixture';
 
 const [cpu] = os.cpus();
 replace('os', {

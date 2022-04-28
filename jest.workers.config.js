@@ -1,5 +1,4 @@
 module.exports = {
-  setupFilesAfterEnv: ['./test/setup.ts'],
   preset: 'ts-jest',
   testEnvironment: 'node',
   testRegex: '.*\\workers.spec\\.ts$',

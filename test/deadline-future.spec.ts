@@ -1,22 +1,13 @@
-import { replace } from 'testdouble';
-
-import * as bettererUtils from '../packages/betterer/dist/utils.js';
 import { createFixture } from './fixture';
-import { setupTestdouble } from './setup-testdouble';
-
-jest.resetModules();
-setupTestdouble();
-replace('../packages/betterer/dist/utils.js', {
-  ...bettererUtils,
-  getTime: () => 1589714460851
-});
 
 import { betterer } from '@betterer/betterer';
 
 describe('betterer', () => {
   it('should do nothing when a test is not past its deadline', async () => {
-    const { logs, paths, readFile, cleanup, testNames } = await createFixture('deadline-future', {
-      '.betterer.js': `
+    const { logs, paths, readFile, cleanup, testNames } = await createFixture(
+      'deadline-future',
+      {
+        '.betterer.js': `
 const { BettererTest } = require('@betterer/betterer');
 const { bigger } = require('@betterer/constraints');
 const { persist } = require('@betterer/fixture');
@@ -32,7 +23,13 @@ module.exports = {
   })
 };
       `
-    });
+      },
+      {
+        mocks: {
+          getTime: () => 1589714460851
+        }
+      }
+    );
 
     const configPaths = [paths.config];
     const resultsPath = paths.results;
