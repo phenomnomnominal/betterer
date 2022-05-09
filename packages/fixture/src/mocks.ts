@@ -33,7 +33,7 @@ export function createFixtureDate(): FixtureMockDate {
 }
 
 export function createFixtureStdOut() {
-  const fixtureStdOut = new WriteStream(3);
+  const fixtureStdOut = new WriteStream(1);
   replace('../../cli/dist/render', {
     ...cliRender,
     getRenderOptions: () => {
