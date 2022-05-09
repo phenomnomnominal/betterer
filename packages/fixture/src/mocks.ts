@@ -9,6 +9,7 @@ import * as reporterRender from '../../reporter/dist/render';
 
 export function setupModuleMocking() {
   /* eslint-disable */
+  const jest = require('jest');
   const td = require('testdouble');
   require('testdouble-jest')(td, jest);
   /* eslint-enable */
