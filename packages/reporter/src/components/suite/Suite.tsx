@@ -1,8 +1,6 @@
-import React, { FC, memo } from 'react';
-
 import { BettererContext, BettererSuite, BettererSuiteSummary } from '@betterer/betterer';
+import { React, Box, FC, memo } from '@betterer/render';
 import { BettererTaskLogger, BettererTasksLogger, BettererTasksDone, BettererTasksState } from '@betterer/tasks';
-import { Box } from 'ink';
 
 import { useTask } from './tasks';
 import { SuiteSummary } from './SuiteSummary';

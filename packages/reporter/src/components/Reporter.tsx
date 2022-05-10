@@ -1,7 +1,5 @@
-import React, { FC } from 'react';
-
+import { React, FC, Box, useInput, useStdin } from '@betterer/render';
 import { BettererLogo } from '@betterer/tasks';
-import { Box, useInput, useStdin } from 'ink';
 
 import { DefaultReporter } from './default';
 import { WatchReporter } from './watch';

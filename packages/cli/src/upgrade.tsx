@@ -1,6 +1,5 @@
-import React from 'react';
+import { React, render } from '@betterer/render';
 import { Command } from 'commander';
-import { render } from 'ink';
 
 import { Upgrade } from './upgrade/upgrade';
 import { setEnv, upgradeCommand } from './options';

@@ -1,5 +1,6 @@
-import { createContext, useContext, useReducer, useRef } from 'react';
 import { BettererError } from '@betterer/errors';
+import { createContext, useContext, useReducer, useRef } from '@betterer/render';
+
 import { getPreciseTime } from '../utils';
 
 /**
