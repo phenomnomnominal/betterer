@@ -9,6 +9,7 @@ import { FC } from 'react';
 import { memo } from 'react';
 import { PropsWithChildren } from 'react';
 import R from 'react';
+import TI from 'ink-text-input';
 import { useCallback } from 'react';
 import { useContext } from 'react';
 import { useEffect } from 'react';
@@ -24,11 +25,15 @@ export { memo }
 
 export { PropsWithChildren }
 
-// Warning: (ae-missing-release-tag) "React" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @internal
 const React_2: typeof R;
 export { React_2 as React }
+
+// @internal
+export const TextInput: (props: TextInputProps) => JSX.Element;
+
+// @internal
+export type TextInputProps = React.ComponentProps<typeof TI>;
 
 export { useCallback }
 
