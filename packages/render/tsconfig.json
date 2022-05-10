@@ -4,7 +4,7 @@
     "outDir": "./dist",
     "rootDir": "./src"
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
+  "include": ["./src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["../node_modules/*", "./node_modules/*", "./dist/*"],
-  "references": [{ "path": "../errors" }, { "path": "../logger" }, { "path": "../render" }]
+  "references": []
 }

@@ -1,7 +1,5 @@
-import React, { FC } from 'react';
-
 import { BettererError, isBettererError } from '@betterer/errors';
-import { Box, Text } from 'ink';
+import { React, Box, FC, Text } from '@betterer/render';
 
 /**
  * @public `props` type for {@link BettererErrorLog | `<BettererErrorLog/>`}.

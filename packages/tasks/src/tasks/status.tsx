@@ -1,5 +1,4 @@
-import { Text } from 'ink';
-import React, { FC } from 'react';
+import { React, FC, Text } from '@betterer/render';
 
 import { BettererTaskLog } from './types';
 
