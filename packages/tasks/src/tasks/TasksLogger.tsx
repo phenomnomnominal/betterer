@@ -1,5 +1,4 @@
-import { Box, useApp } from 'ink';
-import React, { FC, memo, useEffect } from 'react';
+import { React, Box, FC, memo, useApp, useEffect } from '@betterer/render';
 
 import { BettererTaskStatus } from './status';
 import { useTasksState, BettererTasksContext, BettererTasksState } from './useTasksState';

@@ -1,6 +1,4 @@
-import React, { FC, memo } from 'react';
-
-import { Box, Text } from 'ink';
+import { React, Box, FC, Text, memo } from '@betterer/render';
 
 import { watchEnd } from '../../messages';
 

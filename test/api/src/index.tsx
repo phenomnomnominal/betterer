@@ -1,9 +1,7 @@
-import React, { FC, useCallback } from 'react';
-
 import { BettererLogger } from '@betterer/logger';
+import { React, FC, render, useCallback } from '@betterer/render';
 import { BettererTaskLogger, BettererTasksLogger, BettererTasksState } from '@betterer/tasks';
 import { createWorkerRequire } from '@phenomnomnominal/worker-require';
-import { render } from 'ink';
 
 import { TestPackageAPIWorker } from './types';
 
