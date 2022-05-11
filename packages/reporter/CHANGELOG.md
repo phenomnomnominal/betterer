@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.3](https://github.com/phenomnomnominal/betterer/compare/v5.3.2...v5.3.3) (2022-05-11)
+
+
+### Reverts
+
+* Revert bug(betterer 🐛): try to isolate react dependency so multiple versions don't break things (#1040) This reverts commit 886870d1f0f7061651e0b0596204668845d9aa17. ([6671705](https://github.com/phenomnomnominal/betterer/commit/66717058004c74e0153a16ad9ce3b32ac4c0ead5)), closes [#1040](https://github.com/phenomnomnominal/betterer/issues/1040)
+
+
+
+
+
 ## [5.3.2](https://github.com/phenomnomnominal/betterer/compare/v5.3.1...v5.3.2) (2022-05-11)
 
 **Note:** Version bump only for package @betterer/reporter
