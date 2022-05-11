@@ -1,4 +1,7 @@
-import { React, Box, PropsWithChildren, Text, TextInput, useState } from '@betterer/render';
+import React, { PropsWithChildren, useState } from 'react';
+import { Box, Text } from 'ink';
+import TextInput from 'ink-text-input';
+
 export interface EditConfigProps<ValidatedConfigType> {
   name: string;
   onChange: (newValue: string) => [ValidatedConfigType | null, Error | null];

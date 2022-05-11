@@ -1,5 +1,6 @@
-import { React, render } from '@betterer/render';
+import React from 'react';
 import { Command } from 'commander';
+import { render } from 'ink';
 import path from 'path';
 
 import { Init } from './init/init';

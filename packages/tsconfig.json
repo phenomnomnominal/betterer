@@ -35,9 +35,6 @@
       "path": "regexp"
     },
     {
-      "path": "render"
-    },
-    {
       "path": "reporter"
     },
     {

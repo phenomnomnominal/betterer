@@ -31,6 +31,8 @@
     "@babel/code-frame": "^7.10.3",
     "jest-diff": "^27.0.6",
     "lines-and-columns": "^2.0.3",
+    "react": ">=16.8.4 || >=17.0.0",
+    "react-dom": ">=16.8.4 || >=17.0.0",
     "tslib": "^2.3.1"
   },
   "devDependencies": {

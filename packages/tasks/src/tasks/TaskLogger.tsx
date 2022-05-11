@@ -1,6 +1,8 @@
+import React, { FC, memo, useEffect } from 'react';
+
 import { BettererLoggerCodeInfo, code__ } from '@betterer/logger';
-import { React, Box, FC, Text, memo, useEffect } from '@betterer/render';
 import chalk from 'chalk';
+import { Box, Text } from 'ink';
 
 import { BettererErrorLog } from '../error-log';
 import { BettererTaskStatus } from './status';

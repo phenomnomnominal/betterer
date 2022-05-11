@@ -1,5 +1,7 @@
+import React, { FC, memo } from 'react';
+
 import { BettererContext, BettererSuite } from '@betterer/betterer';
-import { React, Box, FC, Text, memo } from '@betterer/render';
+import { Box, Text } from 'ink';
 
 import { filesChecked, filesChecking, testsChanged } from '../../messages';
 import { Config, ConfigEditField } from '../config';

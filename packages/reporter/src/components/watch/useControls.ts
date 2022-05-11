@@ -1,5 +1,7 @@
+import { useState } from 'react';
+
 import { BettererContext } from '@betterer/betterer';
-import { useInput, useState, useStdin } from '@betterer/render';
+import { useInput, useStdin } from 'ink';
 
 import { ConfigEditField } from '../config';
 

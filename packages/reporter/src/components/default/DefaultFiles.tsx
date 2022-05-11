@@ -1,5 +1,7 @@
+import React, { FC, memo } from 'react';
+
 import { BettererSuite } from '@betterer/betterer';
-import { React, Box, FC, Text, memo } from '@betterer/render';
+import { Box, Text } from 'ink';
 
 import { filesChecked, filesChecking } from '../../messages';
 

@@ -1,6 +1,8 @@
+import React from 'react';
+
 import { BettererContext, BettererContextSummary, BettererReporter, BettererSuiteSummary } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
-import {React, render, Instance, RenderOptions } from '@betterer/render';
+import { Instance, render, RenderOptions } from 'ink';
 
 import { Error, Reporter } from './components';
 import { BettererReporterAction, contextEnd, createStore, suiteEnd, suiteStart } from './state';

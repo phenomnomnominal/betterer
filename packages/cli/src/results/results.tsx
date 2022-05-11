@@ -1,6 +1,8 @@
+import React, { FC, useEffect, useState } from 'react';
+
 import { BettererOptionsResults, BettererResultsSummary } from '@betterer/betterer';
-import { React, Box, FC, Text, useApp, useEffect, useState } from '@betterer/render';
 import { workerRequire } from '@phenomnomnominal/worker-require';
+import { Box, Text, useApp } from 'ink';
 
 import { GetResultsSummaryWorker } from './types';
 import { BettererLogo } from '@betterer/tasks';

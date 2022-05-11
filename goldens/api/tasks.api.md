@@ -8,7 +8,7 @@
 
 import { BettererError } from '@betterer/errors';
 import { BettererLogger } from '@betterer/logger';
-import { FC } from '@betterer/render';
+import { FC } from 'react';
 
 // @public
 export const BettererErrorLog: FC<BettererErrorLogProps>;

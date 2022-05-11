@@ -1,4 +1,4 @@
-import { React, FC, memo } from '@betterer/render';
+import React, { FC, memo } from 'react';
 
 import { BettererReporterState } from '../../state';
 import { Suite } from '../suite';

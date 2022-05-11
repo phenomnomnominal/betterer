@@ -1,7 +1,9 @@
+import React, { FC, useCallback } from 'react';
+
 import { BettererConfigPaths } from '@betterer/betterer';
-import { React, Box, FC, useCallback } from '@betterer/render';
 import { BettererLogo, BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
 import { workerRequire } from '@phenomnomnominal/worker-require';
+import { Box } from 'ink';
 import * as path from 'path';
 
 import { UpgradeConfigFileWorker } from './types';

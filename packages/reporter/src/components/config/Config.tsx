@@ -1,5 +1,6 @@
 import { BettererContext, BettererConfig, BettererOptionsFilters, BettererOptionsIgnores } from '@betterer/betterer';
-import { React, Box, FC, Text, useState } from '@betterer/render';
+import React, { FC, useState } from 'react';
+import { Box, Text } from 'ink';
 
 import { EditConfig } from './EditConfig';
 

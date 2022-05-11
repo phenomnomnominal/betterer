@@ -1,4 +1,6 @@
-import { React, FC, Text } from '@betterer/render';
+import React, { FC } from 'react';
+
+import { Text } from 'ink';
 
 const LOGO = `
    \\ | /     _         _   _                     

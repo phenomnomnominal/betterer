@@ -1,6 +1,8 @@
+import React from 'react';
+
 import { BettererOptionsResults } from '@betterer/betterer';
-import { React, render } from '@betterer/render';
 import { Command } from 'commander';
+import { render } from 'ink';
 
 import { resultsCommand, setEnv } from './options';
 import { Results } from './results/results';
