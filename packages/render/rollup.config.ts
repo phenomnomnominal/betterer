@@ -7,14 +7,16 @@ import replace from '@rollup/plugin-replace';
 export default {
   input: './src/index.tsx',
   output: {
-    sourcemap: true,
     dir: 'dist',
-    format: 'cjs'
+    format: 'cjs',
+    sourcemap: true,
+    strict: false
   },
   plugins: [
     replace({
       preventAssignment: true,
-      'process.env.NODE_ENV': JSON.stringify('development')
+      'process.env.NODE_ENV': JSON.stringify('development'),
+      "'use strict'": ''
     }),
     nodeResolve({
       preferBuiltins: false
