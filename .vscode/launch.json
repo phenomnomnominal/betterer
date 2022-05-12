@@ -9,7 +9,7 @@
       "args": [
         "--extensionDevelopmentPath=${workspaceRoot}/packages/extension",
         "--disable-workspace-trust",
-        "--disable-extensions",
+        "--disable-extensions"
       ],
       "outFiles": ["${workspaceRoot}/packages/extension/dist/client/**/*.js"]
     },
@@ -32,7 +32,7 @@
         "--extensionTestsPath=${workspaceFolder}/packages/extension/dist/test/runner/run.js",
         "${workspaceRoot}/fixtures",
         "--disable-workspace-trust",
-        "--disable-extensions",
+        "--disable-extensions"
       ],
       "preLaunchTask": "Make Fixtures Directory",
       "outFiles": ["${workspaceRoot}/packages/extension/dist/test/**/*.js"]

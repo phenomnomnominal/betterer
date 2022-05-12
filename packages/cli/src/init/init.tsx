@@ -1,8 +1,6 @@
-import React, { FC, useCallback } from 'react';
-
+import { Box, React, FC, useCallback } from '@betterer/render';
 import { BettererLogo, BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
 import { workerRequire } from '@phenomnomnominal/worker-require';
-import { Box } from 'ink';
 
 import { CreateTestFileWorker, EnableAutomergeWorker, UpdatePackageJSONWorker } from './types';
 

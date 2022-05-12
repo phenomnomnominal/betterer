@@ -1,13 +1,13 @@
 {
-  "name": "@betterer/logger",
-  "description": "logger for @betterer/betterer",
+  "name": "@betterer/render",
+  "description": "Renderer for @betterer/betterer",
   "version": "5.3.3",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/ts/index.d.ts",
   "files": [
     "dist"
   ],
@@ -21,19 +21,23 @@
     "url": "https://github.com/phenomnomnominal/betterer/issues"
   },
   "scripts": {
-    "compile": "tsc -b .",
+    "compile": "tsc -b . && rollup --config rollup.config.ts",
     "api": "api-extractor run --local --verbose"
   },
   "engines": {
     "node": ">=12"
   },
-  "dependencies": {
-    "@babel/code-frame": "^7.10.3",
-    "jest-diff": "^27.0.6",
-    "lines-and-columns": "^2.0.3",
-    "tslib": "^2.3.1"
-  },
   "devDependencies": {
-    "@types/babel__code-frame": "^7.0.1"
+    "@types/react": "^16.14.26",
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-replace": "^4.0.0",
+    "@rollup/plugin-typescript": "^8.3.2",
+    "ink": "^3.0.9",
+    "ink-text-input": "^4.0.1",
+    "react": "^16.14.0",
+    "rollup": "^2.72.1",
+    "tslib": "^2.3.1"
   }
 }

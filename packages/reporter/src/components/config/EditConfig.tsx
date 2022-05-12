@@ -1,6 +1,4 @@
-import React, { PropsWithChildren, useState } from 'react';
-import { Box, Text } from 'ink';
-import TextInput from 'ink-text-input';
+import { React, Box, PropsWithChildren, Text, TextInput, useState } from '@betterer/render';
 
 export interface EditConfigProps<ValidatedConfigType> {
   name: string;
