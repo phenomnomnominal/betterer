@@ -1,7 +1,7 @@
 {
   "name": "@betterer/render",
   "description": "Renderer for @betterer/betterer",
-  "version": "5.3.3",
+  "version": "5.3.4",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -28,12 +28,12 @@
     "node": ">=12"
   },
   "devDependencies": {
-    "@types/react": "^16.14.26",
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-replace": "^4.0.0",
     "@rollup/plugin-typescript": "^8.3.2",
+    "@types/react": "^16.14.26",
     "ink": "^3.0.9",
     "ink-text-input": "^4.0.1",
     "react": "^16.14.0",
