@@ -10,6 +10,8 @@
     "packages/fixture",
     "packages/logger",
     "packages/regexp",
+    "packages/render",
+    "packages/reporter",
     "packages/stylelint",
     "packages/tasks",
     "packages/tsquery",

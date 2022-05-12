@@ -26,6 +26,6 @@ Use the `coverageTotal` test to incrementally increase the total test coverage o
 import { coverage } from '@betterer/coverage';
 
 export default {
-   'increase total test coverage': () => coverageTotal()
-};      
+  'increase total test coverage': () => coverageTotal()
+};
 ```
