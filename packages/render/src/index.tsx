@@ -34,7 +34,7 @@ export {
   memo
 } from 'react';
 
-export * from 'ink';
+export { render, Box, Instance, RenderOptions, Text, TextProps, useApp, useInput, useStdin } from 'ink';
 
 import TI from 'ink-text-input';
 

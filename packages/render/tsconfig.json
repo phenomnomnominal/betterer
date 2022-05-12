@@ -1,8 +1,9 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./src"
+    "outDir": "./dist/ts",
+    "rootDir": "./src",
+    "module": "ES2020"
   },
   "include": ["./src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["../node_modules/*", "./node_modules/*", "./dist/*"],
