@@ -150,7 +150,7 @@ export class BettererWorkerRunΩ implements BettererRun {
 
       const delta = await this.test.progress(baselineValue, resultValue);
 
-      const { resultsPath } = config;
+      const { resultsPath, ci } = config;
       const { serialise } = this.test.serialiser;
 
       const resultSerialised = resultValue != null ? new BettererResultΩ(serialise(resultValue, resultsPath)) : null;
@@ -167,7 +167,7 @@ export class BettererWorkerRunΩ implements BettererRun {
         printed = forceRelativePaths(await this.test.printer(toPrintSerialised), config.versionControlPath);
       }
 
-      if (this.testMeta.isFileTest) {
+      if (this.testMeta.isFileTest && !ci) {
         if (isComplete) {
           await this.globals.versionControl.clearCache(this.name);
         } else if (isBetter || isSame || isUpdated || this.isNew) {
