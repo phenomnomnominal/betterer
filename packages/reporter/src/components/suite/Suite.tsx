@@ -13,10 +13,11 @@ export interface SuiteProps {
 }
 
 export const Suite: FC<SuiteProps> = memo(function Runs({ context, suite, suiteSummary, done }) {
+  const { ci, precommit } = context.config;
   return (
     <>
       <Box flexDirection="column" paddingBottom={1}>
-        <BettererTasksLogger name="Betterer" update={update} exit={false} done={done}>
+        <BettererTasksLogger name="Betterer" update={update} exit={false} done={done} timer={!precommit && !ci}>
           {suite.runs.map((run) => (
             <BettererTaskLogger key={run.name} name={run.name} task={useTask(run)} />
           ))}
