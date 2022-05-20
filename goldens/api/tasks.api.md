@@ -44,6 +44,7 @@ export interface BettererTasksLoggerProps {
     done?: BettererTasksDone;
     exit?: boolean;
     name: string;
+    timer?: boolean;
     update?: BettererTasksStatusUpdate;
 }
 

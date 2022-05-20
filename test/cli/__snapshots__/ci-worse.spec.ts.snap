@@ -75,7 +75,7 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms):
+🌟 Betterer:
 ",
   "
    / | /     _         _   _
@@ -84,7 +84,7 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 1 test running...
+🌟 Betterer: 1 test running...
 🤔 test: running \\"test\\"!
 ",
   "
@@ -94,7 +94,7 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 1 test running...
+🌟 Betterer: 1 test running...
 🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ",
   "
@@ -104,7 +104,7 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 1 test running...
+🌟 Betterer: 1 test running...
 🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
 
 Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
@@ -116,7 +116,7 @@ Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-💥 Betterer (0ms): 1 test done! 1 test errored!
+💥 Betterer: 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/ci-worse/src/index.ts\\".
 ・ New issue in \\"<project>/fixtures/ci-worse/src/index.ts\\"!
@@ -137,7 +137,7 @@ Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-💥 Betterer (0ms): 1 test done! 1 test errored!
+💥 Betterer: 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/ci-worse/src/index.ts\\".
 ・ New issue in \\"<project>/fixtures/ci-worse/src/index.ts\\"!

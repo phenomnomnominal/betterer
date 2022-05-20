@@ -79,7 +79,7 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/precommit-specific-file/src/new-file.ts
 
-🌟 Betterer (0ms):
+🌟 Betterer:
 ",
   "
    / | /     _         _   _
@@ -92,7 +92,7 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/precommit-specific-file/src/new-file.ts
 
-🌟 Betterer (0ms): 1 test running...
+🌟 Betterer: 1 test running...
 🤔 test: running \\"test\\"!
 ",
   "
@@ -106,7 +106,7 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/precommit-specific-file/src/new-file.ts
 
-🌟 Betterer (0ms): 1 test running...
+🌟 Betterer: 1 test running...
 ✅ test: \\"test\\" stayed the same. (3 issues) 😐
 ",
   "
@@ -120,7 +120,7 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/precommit-specific-file/src/new-file.ts
 
-🎉 Betterer (0ms): 1 test done!
+🎉 Betterer: 1 test done!
 ✅ test: \\"test\\" stayed the same. (3 issues) 😐
 ",
   "
@@ -134,7 +134,7 @@ Checked 1 file! 🔍
 
 ・ <project>/fixtures/precommit-specific-file/src/new-file.ts
 
-🎉 Betterer (0ms): 1 test done!
+🎉 Betterer: 1 test done!
 ✅ test: \\"test\\" stayed the same. (3 issues) 😐
 
 1 test got checked. 🤔
