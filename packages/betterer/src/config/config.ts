@@ -96,7 +96,7 @@ async function createBaseConfig(
   const workers = validateWorkers(options);
 
   const validatedConfigPaths = validateConfigPaths(cwd, configPaths);
-  const versionControlPath = await versionControl.init(validatedConfigPaths);
+  const versionControlPath = await versionControl.init(validatedConfigPaths, cwd);
 
   return {
     cache,
