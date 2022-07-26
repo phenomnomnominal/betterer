@@ -51,8 +51,8 @@
   },
   "types": "test/betterer-public-api.d.ts",
   "devDependencies": {
-    "@betterer/cli": "^5.0.0-alpha.0",
-    "@betterer/regexp": "^5.0.0-alpha.0",
+    "@betterer/cli": "^5.3.6",
+    "@betterer/regexp": "^5.3.6",
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
     "@microsoft/api-documenter": "^7.13.54",

@@ -54,9 +54,16 @@ export function eslint(rules: BettererESLintRulesConfig): BettererFileTest {
       filePaths.map(async (filePath) => {
         const linterOptions = (await cli.calculateConfigForFile(filePath)) as Linter.Config;
 
+        // Explicitly disable all other configured rules:
+        const disabledRules: BettererESLintRulesConfig = {};
+        Object.keys(linterOptions.rules || {}).forEach((ruleName) => {
+          disabledRules[ruleName] = 'off';
+        });
+        const finalRules = { ...disabledRules, ...rules };
+
         const runner = new ESLint({
-          baseConfig: { ...linterOptions, rules },
-          useEslintrc: false,
+          overrideConfig: { rules: finalRules },
+          useEslintrc: true,
           cwd: baseDirectory
         });
 
