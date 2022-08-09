@@ -7,6 +7,6 @@
 import { BettererFileTest } from '@betterer/betterer';
 
 // @public
-export function regexp(pattern: RegExp): BettererFileTest;
+export function regexp(pattern: RegExp, issueMessage?: string): BettererFileTest;
 
 ```

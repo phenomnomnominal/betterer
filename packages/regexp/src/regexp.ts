@@ -24,12 +24,12 @@ import { promises as fs } from 'fs';
  * @param pattern - A {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp | `RegExp` }
  * pattern to match.
  *
- * @param issueMessage - A message that describes the issue.
+ * @param issueMessage - A message that describes the issue. Defaults to 'RegExp match'.
  *
  * @throws {@link @betterer/errors#BettererError | `BettererError` }
  * Will throw if the user doesn't pass `pattern`.
  */
-export function regexp(pattern: RegExp, issueMessage?: string): BettererFileTest {
+export function regexp(pattern: RegExp, issueMessage = 'RegExp match'): BettererFileTest {
   if (!pattern) {
     throw new BettererError('for `@betterer/regexp` to work, you need to provide a RegExp, e.g. `/^foo$/`. ❌');
   }
@@ -51,7 +51,7 @@ export function regexp(pattern: RegExp, issueMessage?: string): BettererFileTest
         matches.forEach((match) => {
           const [matchText] = match;
           const start = match.index;
-          file.addIssue(start, start + matchText.length, issueMessage ?? 'RegExp match');
+          file.addIssue(start, start + matchText.length, issueMessage);
         });
       })
     );

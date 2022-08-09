@@ -1,0 +1,38 @@
+import { betterer } from '@betterer/betterer';
+
+import { createFixture } from './fixture';
+
+describe('betterer', () => {
+  it('should report the existence of TSQuery matches', async () => {
+    const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture('tsquery', {
+      '.betterer.ts': `
+import { tsquery } from '@betterer/tsquery';
+
+export default {
+  tsquery: () => tsquery(
+    'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]',
+    'no console logs here'
+  ).include('./src/**/*.ts')
+};
+    `
+    });
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+    const indexPath = resolve('./src/index.ts');
+
+    await writeFile(indexPath, `console.log('foo');`);
+
+    const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
+
+    expect(testNames(newTestRun.new)).toEqual(['tsquery']);
+
+    const result = await readFile(resultsPath);
+
+    expect(result).toMatchSnapshot();
+
+    expect(logs).toMatchSnapshot();
+
+    await cleanup();
+  });
+});
