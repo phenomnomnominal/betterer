@@ -53,7 +53,7 @@ module.exports = {
     await cleanup();
   });
 
-  it('should report the existence of RegExp matches', async () => {
+  it('should report the existence of RegExp matches, with a custom issue message', async () => {
     const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture(
       'regexp-with-issue-message',
       {
