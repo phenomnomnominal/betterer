@@ -26,10 +26,12 @@ import { promises as fs } from 'fs';
  *
  * @param query - A {@link https://github.com/phenomnomnominal/tsquery | **TSQuery**} query to match.
  *
+ * @param issueMessage - A message that describes the issue. Defaults to 'TSQuery match'.
+ *
  * @throws {@link @betterer/errors#BettererError | `BettererError` }
  * Will throw if the user doesn't pass `query`.
  */
-export function tsquery(query: string): BettererFileTest {
+export function tsquery(query: string, issueMessage = 'TSQuery match'): BettererFileTest {
   if (!query) {
     throw new BettererError(
       "for `@betterer/tsquery` to work, you need to provide a query, e.g. `'CallExpression > PropertyAccessExpression'`. ❌"
@@ -51,7 +53,7 @@ export function tsquery(query: string): BettererFileTest {
         }
         const file = fileTestResult.addFile(filePath, fileText);
         matches.forEach((match) => {
-          file.addIssue(match.getStart(), match.getEnd(), 'TSQuery match');
+          file.addIssue(match.getStart(), match.getEnd(), issueMessage);
         });
       })
     );

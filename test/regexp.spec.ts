@@ -10,7 +10,7 @@ const { regexp } = require('@betterer/regexp');
 
 module.exports = {
   'regexp': () => regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
-};      
+};
     `
     });
 

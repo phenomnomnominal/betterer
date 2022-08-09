@@ -7,6 +7,6 @@
 import { BettererFileTest } from '@betterer/betterer';
 
 // @public
-export function tsquery(query: string): BettererFileTest;
+export function tsquery(query: string, issueMessage?: string): BettererFileTest;
 
 ```
