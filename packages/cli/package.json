@@ -39,7 +39,7 @@
     "@phenomnomnominal/tsquery": "^4.1.1",
     "@phenomnomnominal/tstemplate": "^0.1.0",
     "@phenomnomnominal/worker-require": "^0.0.34",
-    "chalk": "^4.1.2",
+    "chalk": "^5.1.2",
     "commander": "^8.3.0",
     "find-up": "^5.0.0",
     "jest-diff": "^27.1.0",
