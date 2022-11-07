@@ -33,11 +33,10 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@types/stylelint": "^13.13.1",
-    "stylelint": "^13.11.0",
-    "stylelint-order": "^4.1.0"
+    "stylelint": "^14.14.1",
+    "stylelint-order": "^5.0.0"
   },
   "peerDependencies": {
-    "stylelint": "^13.0.0"
+    "stylelint": "^14.0.0"
   }
 }

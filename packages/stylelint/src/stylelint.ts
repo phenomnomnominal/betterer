@@ -1,7 +1,7 @@
 import { BettererFileTest } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import { promises as fs } from 'fs';
-import { Configuration, lint } from 'stylelint';
+import { Config, lint, LintResult } from 'stylelint';
 
 /**
  * @public Use this test to incrementally introduce new {@link https://stylelint.io/ | **Stylelint**} rules
@@ -33,7 +33,7 @@ import { Configuration, lint } from 'stylelint';
  * @throws {@link @betterer/errors#BettererError | `BettererError` }
  * Will throw if the user doesn't pass `configOverrides`.
  */
-export function stylelint(configOverrides: Partial<Configuration>): BettererFileTest {
+export function stylelint(configOverrides: Config): BettererFileTest {
   if (!configOverrides) {
     throw new BettererError(
       'for `@betterer/stylelint` to work, you need to provide configuration options, e.g. `{ rules: { "unit-no-unknown": true } }`. ❌'
@@ -45,20 +45,22 @@ export function stylelint(configOverrides: Partial<Configuration>): BettererFile
       return;
     }
 
-    const result = await lint({
+    const { results } = await lint({
       files: [...filePaths],
-      configOverrides
+      config: configOverrides
     });
 
     await Promise.all(
-      result.results.map(async (result) => {
-        const contents = await fs.readFile(result.source, 'utf8');
-        const file = fileTestResult.addFile(result.source, contents);
-        result.warnings.forEach((warning) => {
-          const { line, column, text } = warning;
-          file.addIssue(line - 1, column - 1, line - 1, column - 1, text, text);
-        });
-      })
+      results
+        .filter((result): result is Required<LintResult> => !!result.source)
+        .map(async ({ source, warnings }) => {
+          const contents = await fs.readFile(source, 'utf8');
+          const file = fileTestResult.addFile(source, contents);
+          warnings.forEach((warning) => {
+            const { line, column, text } = warning;
+            file.addIssue(line - 1, column - 1, line - 1, column - 1, text, text);
+          });
+        })
     );
   });
 }
