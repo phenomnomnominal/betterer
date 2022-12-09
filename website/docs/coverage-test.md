@@ -23,7 +23,7 @@ export default {
 Use the `coverageTotal` test to incrementally increase the total test coverage of your project.
 
 ```javascript
-import { coverage } from '@betterer/coverage';
+import { coverageTotal } from '@betterer/coverage';
 
 export default {
   'increase total test coverage': () => coverageTotal()
