@@ -2,7 +2,7 @@
 
 exports[`betterer should exclude specific files from results 1`] = `
 "// BETTERER RESULTS V2.
-// 
+//
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
 // https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
 //
@@ -21,7 +21,7 @@ exports[\`test\`] = {
 
 exports[`betterer should exclude specific files from results 2`] = `
 "// BETTERER RESULTS V2.
-// 
+//
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
 // https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
 //

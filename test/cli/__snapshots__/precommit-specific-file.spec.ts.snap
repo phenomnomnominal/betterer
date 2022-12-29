@@ -145,7 +145,7 @@ Checked 1 file! 🔍
 
 exports[`betterer precommit should test just the specified files 2`] = `
 "// BETTERER RESULTS V2.
-// 
+//
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
 // https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
 //

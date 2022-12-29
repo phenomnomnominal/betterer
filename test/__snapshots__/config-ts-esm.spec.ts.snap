@@ -125,7 +125,7 @@ Array [
 
 exports[`betterer should work with a .betterer.ts file that uses ES modules 2`] = `
 "// BETTERER RESULTS V2.
-// 
+//
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
 // https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
 //
