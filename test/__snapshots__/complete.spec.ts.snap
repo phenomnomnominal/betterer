@@ -132,7 +132,7 @@ Array [
 
 exports[`betterer should mark a test as complete when it reaches its goal 2`] = `
 "// BETTERER RESULTS V2.
-// 
+//
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
 // https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
 //"
