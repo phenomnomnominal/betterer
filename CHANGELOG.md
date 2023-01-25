@@ -8,7 +8,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **beterer ✨:** add custom issue message to RegExp and TSQuery ([#1073](https://github.com/phenomnomnominal/betterer/issues/1073)) ([f3dc74d](https://github.com/phenomnomnominal/betterer/commit/f3dc74dc24680aa52c1fa4a754e68f65a57463f5))
+* **betterer ✨:** add custom issue message to RegExp and TSQuery ([#1073](https://github.com/phenomnomnominal/betterer/issues/1073)) ([f3dc74d](https://github.com/phenomnomnominal/betterer/commit/f3dc74dc24680aa52c1fa4a754e68f65a57463f5))
 
 
 
