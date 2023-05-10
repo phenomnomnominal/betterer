@@ -13,17 +13,18 @@
   },
   "dependencies": {
     "@algolia/client-search": "^4.13.0",
-    "@docusaurus/core": "^2.0.0-beta.18",
-    "@docusaurus/plugin-client-redirects": "^2.0.0-beta.18",
-    "@docusaurus/preset-classic": "^2.0.0-beta.18",
+    "@docusaurus/core": "^2.4.0",
+    "@docusaurus/plugin-client-redirects": "^2.4.0",
+    "@docusaurus/preset-classic": "^2.4.0",
     "@mdx-js/react": "^1.6.21",
-    "clsx": "^1.1.1",
+    "clsx": "^1.2.1",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-loadable": "^5.5.0"
   },
   "devDependencies": {
-    "typescript": "^4.4.2",
-    "@types/react": "^17.0.2"
+    "@types/react": "^17.0.2",
+    "typescript": "^4.4.2"
   },
   "browserslist": {
     "production": [
