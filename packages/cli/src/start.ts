@@ -23,6 +23,7 @@ export function start(cwd: string, ci: boolean): Command {
       excludes: config.exclude,
       filters: config.filter,
       includes: command.args,
+      logo: config.logo,
       reporters: config.reporter,
       resultsPath: config.results,
       silent: config.silent,

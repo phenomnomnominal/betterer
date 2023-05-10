@@ -65,7 +65,7 @@ export type BettererVersionControlWorker =
  * To enable that, **Betterer** creates a `BettererFileResolver` whenever a {@link @betterer/betterer#BettererFileTest | `BettererFileTest` }
  * is run. The `baseDirectory` is set to the directory containing the {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file}.
  *
- * Internally **Betterer** uses the `BettererFileResolver` to manage file paths specifed by
+ * Internally **Betterer** uses the `BettererFileResolver` to manage file paths specified by
  * {@link @betterer/betterer#BettererFileTest.include | `BettererFileTest.include()` } and {@link @betterer/betterer#BettererFileTest.exclude | `BettererFileTest.exclude` }.
  * A test function can use the `BettererFileResolver` to resolve and validate file paths.
  *

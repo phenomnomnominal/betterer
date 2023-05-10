@@ -22,6 +22,7 @@ export function precommit(cwd: string): Command {
       excludes: config.exclude,
       filters: config.filter,
       includes: command.args,
+      logo: config.logo,
       precommit: true,
       reporters: config.reporter,
       resultsPath: config.results,

@@ -37,8 +37,8 @@ function createReporter(): BettererReporter {
       renderer.render(contextEnd(contextSummary));
       renderer.stop();
     },
-    contextError(_: BettererContext, error: BettererError): void {
-      renderError(error);
+    contextError(context: BettererContext, error: BettererError): void {
+      renderError(error, context.config.logo);
     },
     suiteStart(suite: BettererSuite): Promise<void> {
       return new Promise((resolve) => {
@@ -50,8 +50,8 @@ function createReporter(): BettererReporter {
     }
   };
 
-  function renderError(error: BettererError): void {
-    render(<Error error={error} />, RENDER_OPTIONS);
+  function renderError(error: BettererError, logo = false): void {
+    render(<Error error={error} logo={logo} />, RENDER_OPTIONS);
   }
 
   function createRenderer(context: BettererContext): BettererReporterRenderer {

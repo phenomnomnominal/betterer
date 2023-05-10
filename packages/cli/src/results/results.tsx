@@ -7,9 +7,10 @@ import { BettererLogo } from '@betterer/tasks';
 
 export interface ResultsProps {
   options: BettererOptionsResults;
+  logo: boolean;
 }
 
-export const Results: FC<ResultsProps> = function Results({ options }) {
+export const Results: FC<ResultsProps> = function Results({ options, logo }) {
   const [resultsSummary, setResultsSummary] = useState<BettererResultsSummary | null>(null);
   useEffect(() => {
     void (async () => {
@@ -31,7 +32,7 @@ export const Results: FC<ResultsProps> = function Results({ options }) {
 
   return (
     <Box flexDirection="column">
-      <BettererLogo />
+      {logo && <BettererLogo />}
       {resultsSummary && (
         <Box flexDirection="column">
           {resultsSummary.resultSummaries.map((resultSummary) => {

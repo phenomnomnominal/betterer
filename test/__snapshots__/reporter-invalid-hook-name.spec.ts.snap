@@ -3,13 +3,6 @@
 exports[`betterer --reporter should throw when there is an invalid hook name 1`] = `
 Array [
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
 Error: could not require \\"<project>/fixtures/reporter-invalid-hook-name/reporter.js\\". 😔
 
 Error: \\"notAHook\\" is not a valid reporter hook name. 😔

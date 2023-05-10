@@ -20,7 +20,10 @@ export function upgrade(cwd: string): Command {
 
     const configPaths = config.config ? config.config : ['./.betterer.ts'];
 
-    const app = render(<Upgrade configPaths={configPaths} cwd={cwd} save={config.save} />, RENDER_OPTIONS);
+    const app = render(
+      <Upgrade configPaths={configPaths} cwd={cwd} save={config.save} logo={config.logo} />,
+      RENDER_OPTIONS
+    );
     await app.waitUntilExit();
   });
 

@@ -69,6 +69,10 @@ export interface BettererConfigBase {
    */
   filters: BettererConfigFilters;
   /**
+   * When `true`, the default reporter will render the Betterer logo.
+   */
+  logo: boolean;
+  /**
    * The reporter instance. All reporter hooks will be a noop if `silent` is `true`.
    */
   reporter: BettererReporter;
@@ -318,6 +322,11 @@ export interface BettererOptionsBase {
    * @defaultValue `[]`
    */
   filters?: BettererOptionsFilters;
+  /**
+   * When `true`, the default reporter will render the Betterer logo.
+   * @defaultValue `false`
+   */
+  logo?: boolean;
   /**
    * An array of names of npm packages that export a {@link @betterer/betterer#BettererReporter | `BettererReporter` }
    * or `object`s that implement {@link @betterer/betterer#BettererReporter | `BettererReporter`}.
