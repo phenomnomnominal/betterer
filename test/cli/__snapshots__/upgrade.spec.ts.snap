@@ -2,14 +2,7 @@
 
 exports[`betterer upgrade should doesn't change things it doesn't need to change 1`] = `
 Array [
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Upgrading Betterer (0ms): 1 task done!
+  "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・ Nothing to upgrade!",
 ]
@@ -17,14 +10,7 @@ Array [
 
 exports[`betterer upgrade should upgrade exported constant built-in tests in a CommonJS module 1`] = `
 Array [
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Upgrading Betterer (0ms): 1 task done!
+  "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
 ・ Betterer can upgrade your test definition file automatically! ✨
@@ -46,14 +32,7 @@ Array [
 
 exports[`betterer upgrade should upgrade exported constant built-in tests in an ES module 1`] = `
 Array [
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Upgrading Betterer (0ms): 1 task done!
+  "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
 ・ Betterer can upgrade your test definition file automatically! ✨
@@ -75,14 +54,7 @@ Array [
 
 exports[`betterer upgrade should upgrade exported constant file tests in a CommonJS module 1`] = `
 Array [
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Upgrading Betterer (0ms): 1 task done!
+  "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
 ・ Betterer can upgrade your test definition file automatically! ✨
@@ -113,14 +85,7 @@ Array [
 
 exports[`betterer upgrade should upgrade exported constant file tests in an ES module 1`] = `
 Array [
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Upgrading Betterer (0ms): 1 task done!
+  "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
 ・ Betterer can upgrade your test definition file automatically! ✨
@@ -151,14 +116,7 @@ Array [
 
 exports[`betterer upgrade should upgrade exported constant file tests with include in a CommonJS module 1`] = `
 Array [
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Upgrading Betterer (0ms): 1 task done!
+  "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
 ・ Betterer can upgrade your test definition file automatically! ✨
@@ -189,14 +147,7 @@ Array [
 
 exports[`betterer upgrade should upgrade exported constant file tests with include in an ES module 1`] = `
 Array [
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Upgrading Betterer (0ms): 1 task done!
+  "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
 ・ Betterer can upgrade your test definition file automatically! ✨
@@ -227,14 +178,7 @@ Array [
 
 exports[`betterer upgrade should upgrade exported constant objects in a CommonJS module 1`] = `
 Array [
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Upgrading Betterer (0ms): 1 task done!
+  "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
 ・ Betterer can upgrade your test definition file automatically! ✨
@@ -266,14 +210,7 @@ Array [
 
 exports[`betterer upgrade should upgrade exported constant objects in an ES module 1`] = `
 Array [
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Upgrading Betterer (0ms): 1 task done!
+  "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
 ・ Betterer can upgrade your test definition file automatically! ✨
@@ -305,14 +242,7 @@ Array [
 
 exports[`betterer upgrade should upgrade exported constant tests in a CommonJS module 1`] = `
 Array [
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Upgrading Betterer (0ms): 1 task done!
+  "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
 ・ Betterer can upgrade your test definition file automatically! ✨
@@ -344,14 +274,7 @@ Array [
 
 exports[`betterer upgrade should upgrade exported constant tests in an ES module 1`] = `
 Array [
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Upgrading Betterer (0ms): 1 task done!
+  "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
 ・ Betterer can upgrade your test definition file automatically! ✨
@@ -416,14 +339,7 @@ module.exports = {
 
 exports[`betterer upgrade should upgrade exported default test in a CJS module 2`] = `
 Array [
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Upgrading Betterer (0ms): 1 task done!
+  "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
 ・ Betterer can upgrade your test definition file automatically! ✨
@@ -484,14 +400,7 @@ Array [
 ・
 ・ If that looks okay, run \`betterer upgrade --save\` to write the changes to disk. 💾
 ・",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Upgrading Betterer (0ms): 1 task done!
+  "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・ Saved upgraded config to \\"<project>/fixtures/upgrade-exported-default-test-cjs/.betterer.ts\\"! ☀️",
 ]
@@ -532,14 +441,7 @@ export default {
 
 exports[`betterer upgrade should upgrade exported default test in an ES module 2`] = `
 Array [
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Upgrading Betterer (0ms): 1 task done!
+  "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
 ・ Betterer can upgrade your test definition file automatically! ✨
@@ -600,14 +502,7 @@ Array [
 ・
 ・ If that looks okay, run \`betterer upgrade --save\` to write the changes to disk. 💾
 ・",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Upgrading Betterer (0ms): 1 task done!
+  "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・ Saved upgraded config to \\"<project>/fixtures/upgrade-exported-default-test-esm/.betterer.ts\\"! ☀️",
 ]

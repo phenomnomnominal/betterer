@@ -31,6 +31,7 @@ export interface BettererCLIConfig extends BettererCLIEnvConfig {
   filter: BettererCLIArguments;
   ignore: BettererCLIArguments;
   include: BettererCLIArguments;
+  logo: boolean;
   reporter: BettererCLIArguments;
   results: string;
   silent: boolean;
@@ -43,12 +44,14 @@ export interface BettererCLIConfig extends BettererCLIEnvConfig {
 export interface BettererCLIInitConfig extends BettererCLIEnvConfig {
   automerge: boolean;
   config: string;
+  logo: boolean;
   results: string;
 }
 
 export interface BettererCLIMergeConfig extends BettererCLIEnvConfig {
-  results: string;
   contents: Array<string>;
+  logo: boolean;
+  results: string;
 }
 
 export interface BettererCLIResultsConfig extends BettererCLIEnvConfig {
@@ -56,11 +59,13 @@ export interface BettererCLIResultsConfig extends BettererCLIEnvConfig {
   exclude: BettererCLIArguments;
   filter: BettererCLIArguments;
   include: BettererCLIArguments;
+  logo: boolean;
   results: string;
 }
 
 export interface BettererCLIUpgradeConfig extends BettererCLIEnvConfig {
   config: BettererCLIArguments;
+  logo: boolean;
   save: boolean;
 }
 

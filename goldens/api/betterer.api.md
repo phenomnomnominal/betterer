@@ -40,6 +40,7 @@ export interface BettererConfigBase {
     configPaths: BettererConfigPaths;
     cwd: string;
     filters: BettererConfigFilters;
+    logo: boolean;
     reporter: BettererReporter;
     resultsPath: string;
     tsconfigPath: string | null;
@@ -231,6 +232,7 @@ export interface BettererOptionsBase {
     configPaths?: BettererOptionsPaths;
     cwd?: string;
     filters?: BettererOptionsFilters;
+    logo?: boolean;
     reporters?: BettererOptionsReporters;
     resultsPath?: string;
     silent?: boolean;

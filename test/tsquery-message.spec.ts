@@ -3,7 +3,7 @@ import { betterer } from '@betterer/betterer';
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
-  it('should report the existence of TSQuery matches', async () => {
+  it('should include custom TSQuery warning messages', async () => {
     const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture('tsquery', {
       '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';

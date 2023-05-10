@@ -11,6 +11,7 @@ export function cliCommand(name: BettererCommand): Command {
   excludesOption();
   filtersOption();
   ignoresOption();
+  logoOption();
   reportersOption();
   resultsPathOption();
   silentOption();
@@ -26,6 +27,7 @@ export function initCommand(): Command {
   command = new Command(BettererCommand.init);
   automergeOption();
   configPathOption();
+  logoOption();
   resultsPathOption();
   debug();
   return command;
@@ -43,6 +45,7 @@ export function resultsCommand(): Command {
   configPathsOption();
   excludesOption();
   filtersOption();
+  logoOption();
   resultsPathOption();
   debug();
   return command;
@@ -51,6 +54,7 @@ export function resultsCommand(): Command {
 export function upgradeCommand(): Command {
   command = new Command(BettererCommand.upgrade);
   configPathsOption();
+  logoOption();
   saveOption();
   debug();
   return command;
@@ -115,6 +119,14 @@ function excludesOption(): void {
 
 function ignoresOption(): void {
   command.option('-i, --ignore [value]', 'Glob pattern for files to ignore. Takes multiple values', argsToArray);
+}
+
+function logoOption(): void {
+  command.option(
+    '--logo',
+    'When set to `false` the default reporter will not emit a logo. Defaults to `true`',
+    argsToPrimitive
+  );
 }
 
 function reportersOption(): void {

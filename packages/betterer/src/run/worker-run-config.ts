@@ -11,6 +11,7 @@ export function createWorkerRunConfig(config: BettererConfig): BettererWorkerRun
     filters: config.filters,
     includes: config.includes,
     ignores: config.ignores,
+    logo: config.logo,
     precommit: config.precommit,
     resultsPath: config.resultsPath,
     strict: config.strict,

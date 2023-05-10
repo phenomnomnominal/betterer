@@ -33,7 +33,7 @@ export function results(cwd: string): Command {
     try {
       // And then cast to BettererOptionsResults. This is possibly invalid,
       // but it's nicer to do the options validation in @betterer/betterer
-      const app = render(<Results options={options as BettererOptionsResults} />, RENDER_OPTIONS);
+      const app = render(<Results options={options as BettererOptionsResults} logo={config.logo} />, RENDER_OPTIONS);
       await app.waitUntilExit();
     } catch {
       process.exitCode = 1;
