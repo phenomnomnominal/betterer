@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from '@betterer/render';
 import { getPreciseTime } from '../utils';
 
 const DEFAULT_TASK_TIME_INTERVAL = 100;
 
 export type BettererTimerClear = () => void;
 
-export function useTimer(): [number, BettererTimerClear] {
+export function useTimer(enable = true): [number, BettererTimerClear] {
   const timer = useRef<NodeJS.Timeout | null>(null);
   const [time, setTime] = useState(getPreciseTime());
 
@@ -20,7 +20,7 @@ export function useTimer(): [number, BettererTimerClear] {
   }, []);
 
   useEffect(() => {
-    if (process.env.CI) {
+    if (!enable) {
       return;
     }
     timer.current = setInterval(updateTime, DEFAULT_TASK_TIME_INTERVAL);

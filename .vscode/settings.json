@@ -1,4 +1,5 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
-  "betterer.tsconfigPath": "./tsconfig.json"
+  "betterer.tsconfigPath": "./tsconfig.json",
+  "cSpell.words": ["automerge"]
 }

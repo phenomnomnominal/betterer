@@ -1,22 +1,22 @@
-import React, { FC, useCallback } from 'react';
-
+import { Box, React, FC, useCallback } from '@betterer/render';
 import { BettererLogo, BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
 import { workerRequire } from '@phenomnomnominal/worker-require';
-import { Box } from 'ink';
 
 import { CreateTestFileWorker, EnableAutomergeWorker, UpdatePackageJSONWorker } from './types';
+import { BettererLogger } from '@betterer/logger';
 
 export interface InitProps {
   automerge: boolean;
   configPath: string;
   cwd: string;
+  logo: boolean;
   resultsPath: string;
   ts: boolean;
 }
 
-export const Init: FC<InitProps> = function Init({ automerge, cwd, configPath, resultsPath, ts }) {
+export const Init: FC<InitProps> = function Init({ automerge, cwd, configPath, logo, resultsPath, ts }) {
   const runCreateTestFile = useCallback(
-    async (logger) => {
+    async (logger: BettererLogger) => {
       const createTestFile = workerRequire<CreateTestFileWorker>('./create-test-file');
       try {
         await createTestFile.run(logger, cwd, configPath, ts);
@@ -26,8 +26,8 @@ export const Init: FC<InitProps> = function Init({ automerge, cwd, configPath, r
     },
     [cwd, configPath, ts]
   );
-  const runUpdagePackageJSON = useCallback(
-    async (logger) => {
+  const runUpdatePackageJSON = useCallback(
+    async (logger: BettererLogger) => {
       const updatePackageJSON = workerRequire<UpdatePackageJSONWorker>('./update-package-json');
       try {
         await updatePackageJSON.run(logger, cwd, ts);
@@ -37,7 +37,7 @@ export const Init: FC<InitProps> = function Init({ automerge, cwd, configPath, r
     },
     [cwd, ts]
   );
-  const runEnableAutomerge = useCallback(async (logger) => {
+  const runEnableAutomerge = useCallback(async (logger: BettererLogger) => {
     const enableAutomerge = workerRequire<EnableAutomergeWorker>('./enable-automerge');
     try {
       await enableAutomerge.run(logger, cwd, resultsPath);
@@ -48,10 +48,10 @@ export const Init: FC<InitProps> = function Init({ automerge, cwd, configPath, r
 
   return (
     <Box flexDirection="column">
-      <BettererLogo />
+      {logo && <BettererLogo />}
       <BettererTasksLogger name="Initialising Betterer">
         <BettererTaskLogger name="Create test file" task={runCreateTestFile} />
-        <BettererTaskLogger name="Update package.json" task={runUpdagePackageJSON} />
+        <BettererTaskLogger name="Update package.json" task={runUpdatePackageJSON} />
         {automerge && <BettererTaskLogger name="Enable automerge" task={runEnableAutomerge} />}
       </BettererTasksLogger>
     </Box>

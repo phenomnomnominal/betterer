@@ -1,5 +1,4 @@
-import { Box, useApp } from 'ink';
-import React, { FC, memo, useEffect } from 'react';
+import { React, Box, FC, memo, useApp, useEffect } from '@betterer/render';
 
 import { BettererTaskStatus } from './status';
 import { useTasksState, BettererTasksContext, BettererTasksState } from './useTasksState';
@@ -32,6 +31,12 @@ export interface BettererTasksLoggerProps {
    * An optional callback function that is called whenever a set of tasks are completed.
    */
   done?: BettererTasksDone;
+  /**
+   * Whether the running time should be rendered.
+   *
+   * @defaultValue `true`
+   */
+  timer?: boolean;
 }
 
 /**
@@ -39,11 +44,11 @@ export interface BettererTasksLoggerProps {
  * The output will update based on the current status of the tasks.
  */
 export const BettererTasksLogger: FC<BettererTasksLoggerProps> = memo(function BettererTasksLogger(props) {
-  const { children, done = () => void 0, exit = true, name, update = defaultUpdate } = props;
+  const { children, done = () => void 0, exit = true, name, update = defaultUpdate, timer = true } = props;
 
   const app = useApp();
 
-  const [time, clear] = useTimer();
+  const [time, clear] = useTimer(timer);
 
   const [state, tasks] = useTasksState();
   const { startTime, endTime, errors } = state;
@@ -71,10 +76,12 @@ export const BettererTasksLogger: FC<BettererTasksLoggerProps> = memo(function B
     done();
   }
 
+  const label = timer ? ` (${getTime(startTime, endTime || time)}ms)` : '';
+
   return (
     <BettererTasksContext.Provider value={[state, tasks]}>
       <Box flexDirection="column">
-        <BettererTaskStatus name={`${name} (${getTime(startTime, endTime || time)}ms)`} status={status} />
+        <BettererTaskStatus name={`${name}${label}`} status={status} />
         {children}
       </Box>
     </BettererTasksContext.Provider>

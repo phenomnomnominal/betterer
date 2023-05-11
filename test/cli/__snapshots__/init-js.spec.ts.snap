@@ -2,14 +2,7 @@
 
 exports[`betterer cli should initialise betterer in a repo with JS 1`] = `
 Array [
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Initialising Betterer (0ms): 2 tasks done!
+  "🎉 Initialising Betterer (0ms): 2 tasks done!
 ✅ Create test file: done!
 ・ created \\"<project>/fixtures/init-js/.betterer.js\\"!
 ✅ Update package.json: done!

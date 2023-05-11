@@ -3,434 +3,142 @@
 exports[`betterer should throw when there is invalid config 1`] = `
 Array [
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"cache\\" must be \`true\` or \`false\`. Recieved \`1234\`.
+Error: \\"cache\\" must be \`true\` or \`false\`. Received \`1234\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"cache\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
+Error: \\"cache\\" must be \`true\` or \`false\`. Received \`\\"betterer\\"\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"cache\\" must be \`true\` or \`false\`. Recieved \`{}\`.
+Error: \\"cache\\" must be \`true\` or \`false\`. Received \`{}\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"cachePath\\" must be a string. Recieved \`1234\`.
+Error: \\"cachePath\\" must be a string. Received \`1234\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"cachePath\\" must be a string. Recieved \`{}\`.
+Error: \\"cachePath\\" must be a string. Received \`{}\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"cachePath\\" must be a string. Recieved \`true\`.
+Error: \\"cachePath\\" must be a string. Received \`true\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"ci\\" must be \`true\` or \`false\`. Recieved \`1234\`.
+Error: \\"ci\\" must be \`true\` or \`false\`. Received \`1234\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"ci\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
+Error: \\"ci\\" must be \`true\` or \`false\`. Received \`\\"betterer\\"\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"ci\\" must be \`true\` or \`false\`. Recieved \`{}\`.
+Error: \\"ci\\" must be \`true\` or \`false\`. Received \`{}\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"configPaths\\" must be an array of strings. Recieved \`[1234]\`.
+Error: \\"configPaths\\" must be an array of strings. Received \`[1234]\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"configPaths\\" must be an array of strings. Recieved \`[true]\`.
+Error: \\"configPaths\\" must be an array of strings. Received \`[true]\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"configPaths\\" must be an array of strings. Recieved \`[{}]\`.
+Error: \\"configPaths\\" must be an array of strings. Received \`[{}]\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"configPaths\\" must be an array of strings. Recieved \`[1234]\`.
+Error: \\"configPaths\\" must be an array of strings. Received \`[1234]\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"cwd\\" must be a string. Recieved \`1234\`.
+Error: \\"cwd\\" must be a string. Received \`1234\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"cwd\\" must be a string. Recieved \`{}\`.
+Error: \\"cwd\\" must be a string. Received \`{}\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[1234]\`.
+Error: \\"filters\\" must be an array of strings or RegExps. Received \`[1234]\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[true]\`.
+Error: \\"filters\\" must be an array of strings or RegExps. Received \`[true]\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[{}]\`.
+Error: \\"filters\\" must be an array of strings or RegExps. Received \`[{}]\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"filters\\" must be an array of strings or RegExps. Recieved \`[1234]\`.
+Error: \\"filters\\" must be an array of strings or RegExps. Received \`[1234]\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"ignores\\" must be an array of strings. Recieved \`[1234]\`.
+Error: \\"ignores\\" must be an array of strings. Received \`[1234]\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"ignores\\" must be an array of strings. Recieved \`[true]\`.
+Error: \\"ignores\\" must be an array of strings. Received \`[true]\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"ignores\\" must be an array of strings. Recieved \`[{}]\`.
+Error: \\"ignores\\" must be an array of strings. Received \`[{}]\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"ignores\\" must be an array of strings. Recieved \`[1234]\`.
+Error: \\"ignores\\" must be an array of strings. Received \`[1234]\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"precommit\\" must be \`true\` or \`false\`. Recieved \`1234\`.
+Error: \\"logo\\" must be \`true\` or \`false\`. Received \`1234\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"precommit\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
+Error: \\"logo\\" must be \`true\` or \`false\`. Received \`{}\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"precommit\\" must be \`true\` or \`false\`. Recieved \`{}\`.
+Error: \\"logo\\" must be \`true\` or \`false\`. Received \`[1234]\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"resultsPath\\" must be a string. Recieved \`1234\`.
+Error: \\"precommit\\" must be \`true\` or \`false\`. Received \`1234\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"resultsPath\\" must be a string. Recieved \`true\`.
+Error: \\"precommit\\" must be \`true\` or \`false\`. Received \`\\"betterer\\"\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"resultsPath\\" must be a string. Recieved \`{}\`.
+Error: \\"precommit\\" must be \`true\` or \`false\`. Received \`{}\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`1234\`.
+Error: \\"resultsPath\\" must be a string. Received \`1234\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
+Error: \\"resultsPath\\" must be a string. Received \`true\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"silent\\" must be \`true\` or \`false\`. Recieved \`{}\`.
+Error: \\"resultsPath\\" must be a string. Received \`{}\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"strict\\" must be \`true\` or \`false\`. Recieved \`1234\`.
+Error: \\"silent\\" must be \`true\` or \`false\`. Received \`1234\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"strict\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
+Error: \\"silent\\" must be \`true\` or \`false\`. Received \`\\"betterer\\"\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"strict\\" must be \`true\` or \`false\`. Recieved \`{}\`.
+Error: \\"silent\\" must be \`true\` or \`false\`. Received \`{}\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"update\\" must be \`true\` or \`false\`. Recieved \`1234\`.
+Error: \\"strict\\" must be \`true\` or \`false\`. Received \`1234\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"update\\" must be \`true\` or \`false\`. Recieved \`\\"betterer\\"\`.
+Error: \\"strict\\" must be \`true\` or \`false\`. Received \`\\"betterer\\"\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"update\\" must be \`true\` or \`false\`. Recieved \`{}\`.
+Error: \\"strict\\" must be \`true\` or \`false\`. Received \`{}\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"workers\\" must be a number. Recieved \`\\"betterer\\"\`.
+Error: \\"update\\" must be \`true\` or \`false\`. Received \`1234\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"workers\\" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Recieved \`null\`.
+Error: \\"update\\" must be \`true\` or \`false\`. Received \`\\"betterer\\"\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"workers\\" must be a number. Recieved \`{}\`.
+Error: \\"update\\" must be \`true\` or \`false\`. Received \`{}\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"workers\\" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Recieved \`-1\`.
+Error: \\"workers\\" must be a number. Received \`\\"betterer\\"\`.
 ",
   "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-
-Error: \\"workers\\" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Recieved \`1000\`.
+Error: \\"workers\\" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Received \`null\`.
+",
+  "
+Error: \\"workers\\" must be a number. Received \`{}\`.
+",
+  "
+Error: \\"workers\\" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Received \`-1\`.
+",
+  "
+Error: \\"workers\\" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Received \`1000\`.
 ",
 ]
 `;

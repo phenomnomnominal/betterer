@@ -2,82 +2,26 @@
 
 exports[`betterer should not run a specific test called with skip() 1`] = `
 Array [
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+  "🌟 Betterer (0ms):
 ",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms):
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Betterer (0ms): 2 tests done!
+  "🎉 Betterer (0ms): 2 tests done!
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
 ✅ test 2: \\"test 2\\" got checked for the first time! (1 issue) 🎉
 ",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Betterer (0ms): 2 tests done!
+  "🎉 Betterer (0ms): 2 tests done!
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
 ✅ test 2: \\"test 2\\" got checked for the first time! (1 issue) 🎉
 
 2 tests got checked. 🤔
 2 tests got checked for the first time! 🎉
 ",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+  "🌟 Betterer (0ms):
 ",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms):
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Betterer (0ms): 2 tests done!
+  "🎉 Betterer (0ms): 2 tests done!
 ✅ test 1: \\"test 1\\" got skipped. 🚫
 ✅ test 2: \\"test 2\\" got skipped. 🚫
 ",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Betterer (0ms): 2 tests done!
+  "🎉 Betterer (0ms): 2 tests done!
 ✅ test 1: \\"test 1\\" got skipped. 🚫
 ✅ test 2: \\"test 2\\" got skipped. 🚫
 
@@ -89,7 +33,7 @@ Array [
 
 exports[`betterer should not run a specific test called with skip() 2`] = `
 "// BETTERER RESULTS V2.
-// 
+//
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
 // https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
 //

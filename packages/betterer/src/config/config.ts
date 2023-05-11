@@ -82,6 +82,7 @@ async function createBaseConfig(
   const cache = !!options.cachePath || options.cache || false;
   const cachePath = options.cachePath || './.betterer.cache';
   const filters = toRegExps(toArray<string | RegExp>(options.filters));
+  const logo = options.logo || false;
   const reporters = toArray<string | BettererReporter>(options.reporters);
   const silent = isDebug || options.silent || false;
   const reporter = silent ? loadSilentReporter() : loadReporters(reporters, cwd);
@@ -91,12 +92,13 @@ async function createBaseConfig(
   validateString({ cachePath });
   validateString({ cwd });
   validateStringRegExpArray({ filters });
+  validateBool({ logo });
   validateString({ resultsPath });
   validateBool({ silent });
   const workers = validateWorkers(options);
 
   const validatedConfigPaths = validateConfigPaths(cwd, configPaths);
-  const versionControlPath = await versionControl.init(validatedConfigPaths);
+  const versionControlPath = await versionControl.init(validatedConfigPaths, cwd);
 
   return {
     cache,
@@ -104,6 +106,7 @@ async function createBaseConfig(
     cwd,
     configPaths: validatedConfigPaths,
     filters,
+    logo,
     reporter,
     resultsPath: path.resolve(cwd, resultsPath),
     tsconfigPath,
@@ -217,50 +220,50 @@ function modeConfig(config: BettererConfig) {
   }
 }
 
-function validateBool<Config, PropertyName extends keyof Config>(config: Config): void {
+function validateBool<Config extends object, PropertyName extends keyof Config>(config: Config): void {
   const [propertyName] = Object.keys(config);
   const value = config[propertyName as PropertyName];
-  validate(isBoolean(value), `"${propertyName.toString()}" must be \`true\` or \`false\`. ${recieved(value)}`);
+  validate(isBoolean(value), `"${propertyName.toString()}" must be \`true\` or \`false\`. ${received(value)}`);
 }
 
-function validateNumber<Config, PropertyName extends keyof Config>(config: Config): void {
+function validateNumber<Config extends object, PropertyName extends keyof Config>(config: Config): void {
   const [propertyName] = Object.keys(config);
   const value = config[propertyName as PropertyName];
-  validate(isNumber(value), `"${propertyName.toString()}" must be a number. ${recieved(value)}`);
+  validate(isNumber(value), `"${propertyName.toString()}" must be a number. ${received(value)}`);
 }
 
-function validateString<Config, PropertyName extends keyof Config>(config: Config): void {
+function validateString<Config extends object, PropertyName extends keyof Config>(config: Config): void {
   const [propertyName] = Object.keys(config);
   const value = config[propertyName as PropertyName];
-  validate(isString(value), `"${propertyName.toString()}" must be a string. ${recieved(value)}`);
+  validate(isString(value), `"${propertyName.toString()}" must be a string. ${received(value)}`);
 }
 
-function validateStringOrArray<Config, PropertyName extends keyof Config>(config: Config): void {
+function validateStringOrArray<Config extends object, PropertyName extends keyof Config>(config: Config): void {
   const [propertyName] = Object.keys(config);
   const value = config[propertyName as PropertyName];
   validate(
     isString(value) || Array.isArray(value),
-    `"${propertyName.toString()}" must be a string or an array. ${recieved(value)}`
+    `"${propertyName.toString()}" must be a string or an array. ${received(value)}`
   );
 }
 
-function validateStringArray<Config, PropertyName extends keyof Config>(config: Config): void {
+function validateStringArray<Config extends object, PropertyName extends keyof Config>(config: Config): void {
   const [propertyName] = Object.keys(config);
   const value = config[propertyName as PropertyName];
   validateStringOrArray(config);
   validate(
     !Array.isArray(value) || value.every((item) => isString(item)),
-    `"${propertyName.toString()}" must be an array of strings. ${recieved(value)}`
+    `"${propertyName.toString()}" must be an array of strings. ${received(value)}`
   );
 }
 
-function validateStringRegExpArray<Config, PropertyName extends keyof Config>(config: Config): void {
+function validateStringRegExpArray<Config extends object, PropertyName extends keyof Config>(config: Config): void {
   const [propertyName] = Object.keys(config);
   const value = config[propertyName as PropertyName];
   validateStringOrArray(config);
   validate(
     !Array.isArray(value) || value.every((item) => isString(item) || isRegExp(item)),
-    `"${propertyName.toString()}" must be an array of strings or RegExps. ${recieved(value)}`
+    `"${propertyName.toString()}" must be an array of strings or RegExps. ${received(value)}`
   );
 }
 
@@ -275,12 +278,14 @@ function validateConfigPaths(cwd: string, configPaths: Array<string>): Array<str
   });
 }
 
-async function validateFilePath<Config, PropertyName extends keyof Config>(config: Config): Promise<void> {
+async function validateFilePath<Config extends object, PropertyName extends keyof Config>(
+  config: Config
+): Promise<void> {
   const [propertyName] = Object.keys(config);
   const value = config[propertyName as PropertyName];
   validate(
     value == null || (isString(value) && (await read(value)) !== null),
-    `"${propertyName.toString()}" must be a path to a file. ${recieved(value)}`
+    `"${propertyName.toString()}" must be a path to a file. ${received(value)}`
   );
 }
 
@@ -300,7 +305,7 @@ function validateWorkers(options: BettererOptionsBase = {}): number {
   validateNumber({ workers });
   validate(
     isNumber(workers) && workers > 0 && workers <= TOTAL_CPUS,
-    `"workers" must be more than zero and not more than the number of available CPUs (${TOTAL_CPUS}). To disable workers, set to \`false\`. ${recieved(
+    `"workers" must be more than zero and not more than the number of available CPUs (${TOTAL_CPUS}). To disable workers, set to \`false\`. ${received(
       workers
     )}`
   );
@@ -316,8 +321,8 @@ function validate(value: unknown, message: string): asserts value is boolean {
   }
 }
 
-function recieved(value: unknown): string {
-  return `Recieved \`${JSON.stringify(value)}\`.`;
+function received(value: unknown): string {
+  return `Received \`${JSON.stringify(value)}\`.`;
 }
 
 function toArray<T>(value?: ReadonlyArray<T> | Array<T> | T): Array<T> {

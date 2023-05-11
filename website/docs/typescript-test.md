@@ -16,7 +16,8 @@ import { typescript } from '@betterer/typescript';
 export default {
   'stricter compilation': () =>
     typescript('./tsconfig.json', {
-      strict: true
+      strict: true,
+      noEmit: true
     }).include('./src/**/*.ts')
 };
 ```

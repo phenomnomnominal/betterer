@@ -1,6 +1,5 @@
-import React from 'react';
+import { React, render } from '@betterer/render';
 import { Command } from 'commander';
-import { render } from 'ink';
 
 import { Upgrade } from './upgrade/upgrade';
 import { setEnv, upgradeCommand } from './options';
@@ -18,7 +17,10 @@ export function upgrade(cwd: string): Command {
 
     const configPaths = config.config ? config.config : ['./.betterer.ts'];
 
-    const app = render(<Upgrade configPaths={configPaths} cwd={cwd} save={config.save} />, getRenderOptions());
+    const app = render(
+      <Upgrade configPaths={configPaths} cwd={cwd} save={config.save} logo={config.logo} />,
+      getRenderOptions()
+    );
     await app.waitUntilExit();
   });
 

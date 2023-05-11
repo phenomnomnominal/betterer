@@ -8,7 +8,7 @@
 
 import { BettererError } from '@betterer/errors';
 import { BettererLogger } from '@betterer/logger';
-import { FC } from 'react';
+import { FC } from '@betterer/render';
 
 // @public
 export const BettererErrorLog: FC<BettererErrorLogProps>;
@@ -44,6 +44,7 @@ export interface BettererTasksLoggerProps {
     done?: BettererTasksDone;
     exit?: boolean;
     name: string;
+    timer?: boolean;
     update?: BettererTasksStatusUpdate;
 }
 

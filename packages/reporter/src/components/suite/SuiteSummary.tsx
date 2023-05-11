@@ -1,7 +1,5 @@
-import React, { FC, memo } from 'react';
-
 import { BettererContext, BettererSuiteSummary } from '@betterer/betterer';
-import { Box, Text, TextProps } from 'ink';
+import { React, Box, FC, Text, TextProps, memo } from '@betterer/render';
 
 import {
   testBetter,

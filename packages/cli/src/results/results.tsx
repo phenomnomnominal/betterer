@@ -1,17 +1,16 @@
-import React, { FC, useEffect, useState } from 'react';
-
 import { BettererOptionsResults, BettererResultsSummary } from '@betterer/betterer';
+import { React, Box, FC, Text, useApp, useEffect, useState } from '@betterer/render';
 import { workerRequire } from '@phenomnomnominal/worker-require';
-import { Box, Text, useApp } from 'ink';
 
 import { GetResultsSummaryWorker } from './types';
 import { BettererLogo } from '@betterer/tasks';
 
 export interface ResultsProps {
   options: BettererOptionsResults;
+  logo: boolean;
 }
 
-export const Results: FC<ResultsProps> = function Results({ options }) {
+export const Results: FC<ResultsProps> = function Results({ options, logo }) {
   const [resultsSummary, setResultsSummary] = useState<BettererResultsSummary | null>(null);
   useEffect(() => {
     void (async () => {
@@ -33,7 +32,7 @@ export const Results: FC<ResultsProps> = function Results({ options }) {
 
   return (
     <Box flexDirection="column">
-      <BettererLogo />
+      {logo && <BettererLogo />}
       {resultsSummary && (
         <Box flexDirection="column">
           {resultsSummary.resultSummaries.map((resultSummary) => {

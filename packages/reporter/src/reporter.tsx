@@ -8,7 +8,7 @@ import {
   BettererSuiteSummary
 } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
-import { Instance, render, RenderOptions } from 'ink';
+import { render, Instance, RenderOptions } from '@betterer/render';
 
 import { Error, Reporter } from './components';
 import { getRenderOptions } from './render';
@@ -44,8 +44,8 @@ function createReporter(): BettererReporter {
       renderer.render(contextEnd(contextSummary));
       renderer.stop();
     },
-    contextError(_: BettererContext, error: BettererError): void {
-      renderError(error);
+    contextError(context: BettererContext, error: BettererError): void {
+      renderError(error, context.config.logo);
     },
     suiteStart(suite: BettererSuite): Promise<void> {
       return new Promise((resolve) => {
@@ -57,8 +57,8 @@ function createReporter(): BettererReporter {
     }
   };
 
-  function renderError(error: BettererError): void {
-    render(<Error error={error} />, getRenderOptions(RENDER_OPTIONS));
+  function renderError(error: BettererError, logo = false): void {
+    render(<Error error={error} logo={logo} />, getRenderOptions(RENDER_OPTIONS));
   }
 
   function createRenderer(context: BettererContext): BettererReporterRenderer {

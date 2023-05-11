@@ -1,6 +1,5 @@
-import React from 'react';
+import { React, render } from '@betterer/render';
 import { Command } from 'commander';
-import { render } from 'ink';
 import path from 'path';
 
 import { Init } from './init/init';
@@ -27,7 +26,14 @@ export function init(cwd: string): Command {
     const ts = ext === TS_EXTENSION;
 
     const app = render(
-      <Init automerge={config.automerge} configPath={finalConfig} cwd={cwd} resultsPath={finalResults} ts={ts} />,
+      <Init
+        automerge={config.automerge}
+        configPath={finalConfig}
+        cwd={cwd}
+        logo={config.logo}
+        resultsPath={finalResults}
+        ts={ts}
+      />,
       getRenderOptions()
     );
     await app.waitUntilExit();

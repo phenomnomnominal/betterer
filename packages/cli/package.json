@@ -1,7 +1,7 @@
 {
   "name": "@betterer/cli",
   "description": "betterer CLI",
-  "version": "5.3.0",
+  "version": "5.4.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -32,20 +32,18 @@
     "node": ">=12"
   },
   "dependencies": {
-    "@betterer/betterer": "^5.3.0",
+    "@betterer/betterer": "^5.4.0",
     "@betterer/errors": "^5.3.0",
-    "@betterer/tasks": "^5.3.0",
+    "@betterer/render": "^5.3.4",
+    "@betterer/tasks": "^5.3.6",
     "@phenomnomnominal/tsquery": "^4.1.1",
     "@phenomnomnominal/tstemplate": "^0.1.0",
     "@phenomnomnominal/worker-require": "^0.0.34",
     "chalk": "^4.1.2",
     "commander": "^8.3.0",
     "find-up": "^5.0.0",
-    "ink": "^3.0.9",
     "jest-diff": "^27.1.0",
     "prettier": "^2.3.2",
-    "react": ">=16.8.4 || >=17.0.0",
-    "react-dom": ">=16.8.4 || >=17.0.0",
     "tslib": "^2.3.1"
   },
   "devDependencies": {

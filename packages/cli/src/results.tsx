@@ -1,8 +1,6 @@
-import React from 'react';
-
 import { BettererOptionsResults } from '@betterer/betterer';
+import { React, render } from '@betterer/render';
 import { Command } from 'commander';
-import { render } from 'ink';
 
 import { resultsCommand, setEnv } from './options';
 import { getRenderOptions } from './render';
@@ -32,7 +30,10 @@ export function results(cwd: string): Command {
     try {
       // And then cast to BettererOptionsResults. This is possibly invalid,
       // but it's nicer to do the options validation in @betterer/betterer
-      const app = render(<Results options={options as BettererOptionsResults} />, getRenderOptions());
+      const app = render(
+        <Results options={options as BettererOptionsResults} logo={config.logo} />,
+        getRenderOptions()
+      );
       await app.waitUntilExit();
     } catch {
       process.exitCode = 1;

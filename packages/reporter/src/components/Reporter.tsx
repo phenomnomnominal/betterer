@@ -1,7 +1,5 @@
-import React, { FC } from 'react';
-
+import { React, FC, Box, useInput, useStdin } from '@betterer/render';
 import { BettererLogo } from '@betterer/tasks';
-import { Box, useInput, useStdin } from 'ink';
 
 import { DefaultReporter } from './default';
 import { WatchReporter } from './watch';
@@ -24,7 +22,7 @@ export const Reporter: FC<BettererReporterState> = function Reporter(props: Bett
 
   return (
     <Box flexDirection="column">
-      <BettererLogo />
+      {context.config.logo && <BettererLogo />}
       <ReporterComponent {...props} />
     </Box>
   );

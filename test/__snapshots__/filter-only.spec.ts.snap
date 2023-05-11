@@ -2,43 +2,15 @@
 
 exports[`betterer should run only specific tests called with only() 1`] = `
 Array [
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+  "🌟 Betterer (0ms):
 ",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms):
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Betterer (0ms): 4 tests done!
+  "🎉 Betterer (0ms): 4 tests done!
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
 ✅ test 2: \\"test 2\\" got checked for the first time! 🎉
 ✅ test 3: \\"test 3\\" got checked for the first time! 🎉
 ✅ test 4: \\"test 4\\" got checked for the first time! (1 issue) 🎉
 ",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Betterer (0ms): 4 tests done!
+  "🎉 Betterer (0ms): 4 tests done!
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
 ✅ test 2: \\"test 2\\" got checked for the first time! 🎉
 ✅ test 3: \\"test 3\\" got checked for the first time! 🎉
@@ -47,43 +19,15 @@ Array [
 4 tests got checked. 🤔
 4 tests got checked for the first time! 🎉
 ",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
+  "🌟 Betterer (0ms):
 ",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms):
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Betterer (0ms): 4 tests done!
+  "🎉 Betterer (0ms): 4 tests done!
 ✅ test 1: \\"test 1\\" stayed the same. 😐
 ✅ test 2: \\"test 2\\" got skipped. 🚫
 ✅ test 3: \\"test 3\\" got skipped. 🚫
 ✅ test 4: \\"test 4\\" stayed the same. (1 issue) 😐
 ",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Betterer (0ms): 4 tests done!
+  "🎉 Betterer (0ms): 4 tests done!
 ✅ test 1: \\"test 1\\" stayed the same. 😐
 ✅ test 2: \\"test 2\\" got skipped. 🚫
 ✅ test 3: \\"test 3\\" got skipped. 🚫
@@ -98,7 +42,7 @@ Array [
 
 exports[`betterer should run only specific tests called with only() 2`] = `
 "// BETTERER RESULTS V2.
-// 
+//
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
 // https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
 //

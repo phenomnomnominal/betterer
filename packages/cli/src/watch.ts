@@ -21,6 +21,7 @@ export function watch(cwd: string): Command {
       cwd,
       filters: config.filter,
       ignores: config.ignore,
+      logo: config.logo,
       reporters: config.reporter,
       resultsPath: config.results,
       silent: config.silent,

@@ -17,7 +17,7 @@ const ESCAPE_REPLACERS: Record<string, string> = {
 };
 
 const RESULTS_HEADER = `// BETTERER RESULTS V2.
-// 
+//
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
 // https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
 //`;
