@@ -2,28 +2,14 @@
 
 exports[`betterer.watch should quit when "q" is pressed 1`] = `
 Array [
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-Filters (press \\"f\\" to edit): No current filter patterns
+  "Filters (press \\"f\\" to edit): No current filter patterns
 Ignores (press \\"i\\" to edit): No current ignore patterns
 
 Starting Betterer in watch mode! 🎉
 
 (press \\"q\\" to quit)
 ",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-Filters (press \\"f\\" to edit): No current filter patterns
+  "Filters (press \\"f\\" to edit): No current filter patterns
 Ignores (press \\"i\\" to edit): No current ignore patterns
 
 Checking 1 file... 🤔
@@ -34,14 +20,7 @@ Checking 1 file... 🤔
 
 (press \\"q\\" to quit)
 ",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-Filters (press \\"f\\" to edit): No current filter patterns
+  "Filters (press \\"f\\" to edit): No current filter patterns
 Ignores (press \\"i\\" to edit): No current ignore patterns
 
 Checking 1 file... 🤔
@@ -53,14 +32,7 @@ Checking 1 file... 🤔
 
 (press \\"q\\" to quit)
 ",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-Filters (press \\"f\\" to edit): No current filter patterns
+  "Filters (press \\"f\\" to edit): No current filter patterns
 Ignores (press \\"i\\" to edit): No current ignore patterns
 
 Checking 1 file... 🤔
@@ -72,14 +44,7 @@ Checking 1 file... 🤔
 
 (press \\"q\\" to quit)
 ",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-Filters (press \\"f\\" to edit): No current filter patterns
+  "Filters (press \\"f\\" to edit): No current filter patterns
 Ignores (press \\"i\\" to edit): No current ignore patterns
 
 Checking 1 file... 🤔
@@ -91,14 +56,7 @@ Checking 1 file... 🤔
 
 (press \\"q\\" to quit)
 ",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-Filters (press \\"f\\" to edit): No current filter patterns
+  "Filters (press \\"f\\" to edit): No current filter patterns
 Ignores (press \\"i\\" to edit): No current ignore patterns
 
 Checked 1 file! 🔍
@@ -113,14 +71,7 @@ Checked 1 file! 🔍
 
 (press \\"q\\" to quit)
 ",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-Stopping watch mode... 👋
+  "Stopping watch mode... 👋
 ",
 ]
 `;
