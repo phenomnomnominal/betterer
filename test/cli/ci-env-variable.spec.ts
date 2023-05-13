@@ -1,5 +1,3 @@
-import { cli__ } from '@betterer/cli';
-
 import { createFixture } from '../fixture';
 
 const ARGV = ['node', './bin/betterer'];
@@ -38,6 +36,8 @@ export default {
 
     const fixturePath = paths.cwd;
     const indexPath = resolve('./src/index.ts');
+
+    const { cli__ } = await import('@betterer/cli');
 
     await cli__(fixturePath, [...ARGV, 'start'], false);
 

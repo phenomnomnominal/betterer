@@ -1,4 +1,3 @@
-import { cli__ } from '@betterer/cli';
 import simpleGit from 'simple-git';
 
 import { createFixture } from '../fixture';
@@ -39,6 +38,8 @@ export default {
 
     const fixturePath = paths.cwd;
     const indexPath = resolve('./src/index.ts');
+
+    const { cli__ } = await import('@betterer/cli');
 
     await cli__(fixturePath, [...ARGV, 'start'], false);
 

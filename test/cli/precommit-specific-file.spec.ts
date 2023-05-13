@@ -1,4 +1,3 @@
-import { cli__ } from '@betterer/cli';
 import simpleGit from 'simple-git';
 
 import { createFixture } from '../fixture';
@@ -57,6 +56,8 @@ debugger;
     const newFilePath = resolve('./src/new-file.ts');
 
     await writeFile(newFilePath, 'debugger;');
+
+    const { cli__ } = await import('@betterer/cli');
 
     await cli__(fixturePath, [...ARGV, 'start'], false);
 

@@ -24,7 +24,7 @@ const RESULTS_HEADER = `// BETTERER RESULTS V2.
 
 /**
  * Prints a {@link BettererResultsSerialised | `BettererResultsSerialised`} object as a
- * `require()`-able string of JavaScript.
+ * `import()`-able string of JavaScript.
  */
 export function printResults(results: BettererResultsSerialised): string {
   const printedResults = Object.keys(results).map((name) => printResult(name, results[name].value));
