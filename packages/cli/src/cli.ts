@@ -6,10 +6,10 @@ import { merge } from './merge';
 import { precommit } from './precommit';
 import { start } from './start';
 import { results } from './results';
-import { BettererCLIArguments, BettererCommand, BettererCommandName, BettererPackageJSON } from './types';
+import { BettererCLIArguments, BettererCommand, BettererCommandName } from './types';
 import { watch } from './watch';
 import { upgrade } from './upgrade';
-import { promises as fs } from 'fs';
+import { getVersion } from './version';
 
 /**
  * @internal This could change at any point! Please don't use!
@@ -17,10 +17,9 @@ import { promises as fs } from 'fs';
  * Run the **Betterer** command-line interface.
  */
 export async function cli__(cwd: string, argv: BettererCLIArguments, isCI = process.env.CI === 'true'): Promise<void> {
-  const cliPackageJSON = await fs.readFile('../package.json', 'utf-8');
-  const { version } = JSON.parse(cliPackageJSON) as BettererPackageJSON;
 
   const program = new Command('Betterer');
+  const version = await getVersion();
   program.version(version);
 
   // Init:
