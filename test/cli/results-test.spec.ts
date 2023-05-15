@@ -1,6 +1,3 @@
-import { betterer } from '@betterer/betterer';
-import { cli__ } from '@betterer/cli';
-
 import { createFixture } from '../fixture';
 
 const ARGV = ['node', './bin/betterer'];
@@ -28,7 +25,11 @@ module.exports = {
     const resultsPath = paths.results;
     const fixturePath = paths.cwd;
 
+    const { betterer } = await import('@betterer/betterer');
+
     await betterer({ configPaths, resultsPath, workers: false, silent: true });
+
+    const { cli__ } = await import('@betterer/cli');
 
     await cli__(fixturePath, [...ARGV, 'results']);
 

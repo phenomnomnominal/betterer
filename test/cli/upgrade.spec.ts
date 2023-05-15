@@ -1,5 +1,3 @@
-import { cli__ } from '@betterer/cli';
-
 import { createFixture } from '../fixture';
 
 const ARGV = ['node', './bin/betterer', 'upgrade'];
@@ -26,6 +24,8 @@ export const getsBetter = {
     );
 
     const fixturePath = paths.cwd;
+
+    const { cli__ } = await import('@betterer/cli');
 
     await cli__(fixturePath, ARGV);
 
@@ -55,6 +55,8 @@ module.exports.getsBetter = {
     );
 
     const fixturePath = paths.cwd;
+
+    const { cli__ } = await import('@betterer/cli');
 
     await cli__(fixturePath, ARGV);
 
@@ -86,6 +88,8 @@ export const getsBetter = new BettererTest({
 
     const fixturePath = paths.cwd;
 
+    const { cli__ } = await import('@betterer/cli');
+
     await cli__(fixturePath, ARGV);
 
     expect(logs).toMatchSnapshot();
@@ -116,6 +120,8 @@ module.exports.getsBetter = new BettererTest({
 
     const fixturePath = paths.cwd;
 
+    const { cli__ } = await import('@betterer/cli');
+
     await cli__(fixturePath, ARGV);
 
     expect(logs).toMatchSnapshot();
@@ -143,6 +149,8 @@ export const countFiles = new BettererFileTest(async (files, fileTestResult) => 
     );
 
     const fixturePath = paths.cwd;
+
+    const { cli__ } = await import('@betterer/cli');
 
     await cli__(fixturePath, ARGV);
 
@@ -172,6 +180,8 @@ module.exports.countFiles = new BettererFileTest(async (files, fileTestResult) =
 
     const fixturePath = paths.cwd;
 
+    const { cli__ } = await import('@betterer/cli');
+
     await cli__(fixturePath, ARGV);
 
     expect(logs).toMatchSnapshot();
@@ -199,6 +209,8 @@ export const countFiles = new BettererFileTest(async (files, fileTestResult) => 
     );
 
     const fixturePath = paths.cwd;
+
+    const { cli__ } = await import('@betterer/cli');
 
     await cli__(fixturePath, ARGV);
 
@@ -228,6 +240,8 @@ module.exports.countFiles = new BettererFileTest(async (files, fileTestResult) =
 
     const fixturePath = paths.cwd;
 
+    const { cli__ } = await import('@betterer/cli');
+
     await cli__(fixturePath, ARGV);
 
     expect(logs).toMatchSnapshot();
@@ -252,6 +266,8 @@ export const noHack = regexp(/HACK/i).include('**/*.ts');
 
     const fixturePath = paths.cwd;
 
+    const { cli__ } = await import('@betterer/cli');
+
     await cli__(fixturePath, ARGV);
 
     expect(logs).toMatchSnapshot();
@@ -275,6 +291,8 @@ module.exports.noHack = regexp(/HACK/i).include('**/*.ts');
     );
 
     const fixturePath = paths.cwd;
+
+    const { cli__ } = await import('@betterer/cli');
 
     await cli__(fixturePath, ARGV);
 
@@ -321,6 +339,8 @@ export default {
     );
 
     const fixturePath = paths.cwd;
+
+    const { cli__ } = await import('@betterer/cli');
 
     await cli__(fixturePath, ARGV);
 
@@ -373,6 +393,8 @@ module.exports = {
     );
 
     const fixturePath = paths.cwd;
+
+    const { cli__ } = await import('@betterer/cli');
 
     await cli__(fixturePath, ARGV);
 
@@ -432,6 +454,8 @@ function bar () {
     );
 
     const fixturePath = paths.cwd;
+
+    const { cli__ } = await import('@betterer/cli');
 
     await cli__(fixturePath, ARGV);
 

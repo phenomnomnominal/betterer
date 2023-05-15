@@ -1,5 +1,3 @@
-import { cli__ } from '@betterer/cli';
-
 import { createFixture } from '../fixture';
 
 const ARGV = ['node', './bin/betterer'];
@@ -28,6 +26,8 @@ exports[\`test\`] = {
 
     const resultsPath = paths.results;
     const fixturePath = paths.cwd;
+
+    const { cli__ } = await import('@betterer/cli');
 
     await cli__(fixturePath, [...ARGV, 'merge']);
 

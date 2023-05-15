@@ -19,7 +19,7 @@
     "build:ci": "yarn compile:packages && yarn test:api && yarn test:dependencies && yarn format && yarn lint && yarn test && yarn test:workers && yarn betterer:ci",
     "build:extension": "lerna run build:extension",
     "build:publish": "yarn compile:packages && yarn test:api && yarn test:dependencies && yarn test",
-    "clean": "yarn clean:tests && yarn clean:compile && yarn clean:modules & clean:rollup",
+    "clean": "yarn clean:tests && yarn clean:compile && yarn clean:modules && clean:rollup",
     "clean:tests": "rimraf fixtures && rimraf reports",
     "clean:compile": "lerna exec \"rimraf dist\" && rimraf ./**/tsconfig.tsbuildinfo",
     "clean:modules": "lerna exec \"rimraf node_modules\" && rimraf website/node_modules && rimraf node_modules && yarn",

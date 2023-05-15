@@ -4,12 +4,7 @@ import findUp from 'find-up';
 import { promises as fs } from 'fs';
 
 import { BettererPackageJSON } from '../types';
-
-// HACK:
-// It's easier to use require than to try to get `await import`
-// to work right for the package.json...
-/* eslint-disable @typescript-eslint/no-var-requires */
-const { version } = require('../../package.json') as BettererPackageJSON;
+import { getVersion } from '../version';
 
 export async function run(logger: BettererLogger, cwd: string, ts: boolean): Promise<void> {
   await logger.progress('adding "betterer" to package.json file...');
@@ -38,6 +33,7 @@ export async function run(logger: BettererLogger, cwd: string, ts: boolean): Pro
   if (packageJSON.devDependencies['@betterer/cli']) {
     await logger.warn('"@betterer/cli" dependency already exists, moving on...');
   } else {
+    const version = await getVersion();
     packageJSON.devDependencies['@betterer/cli'] = `^${version}`;
     await logger.success('added "@betterer/cli" dependency to package.json file');
   }

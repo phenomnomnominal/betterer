@@ -6,15 +6,10 @@ import { merge } from './merge';
 import { precommit } from './precommit';
 import { start } from './start';
 import { results } from './results';
-import { BettererCLIArguments, BettererCommand, BettererCommandName, BettererPackageJSON } from './types';
+import { BettererCLIArguments, BettererCommand, BettererCommandName } from './types';
 import { watch } from './watch';
 import { upgrade } from './upgrade';
-
-// HACK:
-// It's easier to use require than to try to get `await import`
-// to work right for the package.json...
-/* eslint-disable @typescript-eslint/no-var-requires */
-const { version } = require('../package.json') as BettererPackageJSON;
+import { getVersion } from './version';
 
 /**
  * @internal This could change at any point! Please don't use!
@@ -22,7 +17,9 @@ const { version } = require('../package.json') as BettererPackageJSON;
  * Run the **Betterer** command-line interface.
  */
 export async function cli__(cwd: string, argv: BettererCLIArguments, isCI = process.env.CI === 'true'): Promise<void> {
+
   const program = new Command('Betterer');
+  const version = await getVersion();
   program.version(version);
 
   // Init:

@@ -1,5 +1,3 @@
-import { cli__ } from '@betterer/cli';
-
 import { createFixture } from '../fixture';
 
 const ARGV = ['node', './bin/betterer'];
@@ -22,6 +20,8 @@ describe('betterer cli', () => {
     );
 
     const fixturePath = paths.cwd;
+
+    const { cli__ } = await import('@betterer/cli');
 
     let throws = false;
     try {
