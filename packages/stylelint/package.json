@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@types/stylelint": "^13.13.1",
-    "stylelint": "^13.11.0",
+    "stylelint": "^15.10.1",
     "stylelint-order": "^4.1.0"
   },
   "peerDependencies": {
