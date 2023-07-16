@@ -1,7 +1,10 @@
 import { replace } from 'testdouble';
 
-import * as bettererUtils from '../packages/betterer/dist/utils.js';
+// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
+import * as bettererUtils from '../packages/betterer/dist/utils';
+// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from './fixture';
+// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { setupTestdouble } from './setup-testdouble';
 
 // Use real getTime() function

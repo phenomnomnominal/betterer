@@ -1,10 +1,12 @@
-import { BettererOptionsResults } from '@betterer/betterer';
-import { React, render } from '@betterer/render';
-import { Command } from 'commander';
+import type { BettererOptionsResults } from '@betterer/betterer';
+import type { Command } from 'commander';
 
-import { resultsCommand, setEnv } from './options';
-import { Results } from './results/results';
-import { BettererCLIResultsConfig } from './types';
+import type { BettererCLIResultsConfig } from './types.js';
+
+import { React, render } from '@betterer/render';
+
+import { resultsCommand, setEnv } from './options.js';
+import { Results } from './results/results.js';
 
 /**
  * Run the **Betterer** `results` command to see the status of the {@link @betterer/betterer#BettererTest | `BettererTest`s}

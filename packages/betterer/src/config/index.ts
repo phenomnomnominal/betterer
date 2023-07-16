@@ -1,4 +1,4 @@
-export { createConfig, createMergeConfig, createWorkerConfig, overrideConfig } from './config';
+export { createConfig, createMergeConfig, createWorkerConfig, overrideConfig } from './config.js';
 export {
   BettererConfig,
   BettererConfigBase,
@@ -30,4 +30,4 @@ export {
   BettererOptionsStart,
   BettererOptionsWatch,
   BettererWorkerRunConfig
-} from './types';
+} from './types.js';

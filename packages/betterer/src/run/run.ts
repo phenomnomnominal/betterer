@@ -1,11 +1,11 @@
-import type { BettererWorkerRunConfig } from '../config';
-import type { BettererFilePaths, BettererVersionControlWorker } from '../fs';
-import type { BettererTestMeta } from '../test';
-import type { BettererRunWorkerHandleΩ, BettererRunWorkerPoolΩ } from './run-worker-pool';
-import type { BettererRun, BettererRunSummary } from './types';
+import type { BettererWorkerRunConfig } from '../config/index.js';
+import type { BettererFilePaths, BettererVersionControlWorker } from '../fs/index.js';
+import type { BettererTestMeta } from '../test/index.js';
+import type { BettererRunWorkerHandleΩ, BettererRunWorkerPoolΩ } from './run-worker-pool.js';
+import type { BettererRun, BettererRunSummary } from './types.js';
 
-import { BettererResultΩ } from '../results';
-import { getTime } from '../utils';
+import { BettererResultΩ } from '../results/index.js';
+import { getTime } from '../utils.js';
 
 export class BettererRunΩ implements BettererRun {
   public readonly isNew: boolean;

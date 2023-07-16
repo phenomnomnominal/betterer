@@ -1,14 +1,16 @@
+// eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
 import type { StatusBarItem } from 'vscode';
 import type { LanguageClient } from 'vscode-languageclient/node';
 
+// eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
 import { StatusBarAlignment, window } from 'vscode';
 import { NotificationType, State } from 'vscode-languageclient/node';
-import { EXTENSION_NAME } from '../constants';
-import { BettererStatus } from '../status';
-import { COMMAND_NAMES } from './commands';
-import { SERVER_PROCESS_ENDED, SERVER_PROCESS_SHUT_DOWN } from './error-messages';
-import { error } from './logger';
-import { getAlwaysShowStatus } from './settings';
+import { EXTENSION_NAME } from '../constants.js';
+import { BettererStatus } from '../status.js';
+import { COMMAND_NAMES } from './commands/index.js';
+import { SERVER_PROCESS_ENDED, SERVER_PROCESS_SHUT_DOWN } from './error-messages.js';
+import { error } from './logger.js';
+import { getAlwaysShowStatus } from './settings.js';
 
 const SERVER_RUNNING = `${EXTENSION_NAME} is running.`;
 const SERVER_STOPPED = `${EXTENSION_NAME} stopped.`;

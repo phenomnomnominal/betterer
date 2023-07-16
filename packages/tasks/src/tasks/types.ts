@@ -1,7 +1,7 @@
 import type { BettererLogger } from '@betterer/logger';
 import type { ForegroundColor } from 'chalk';
 
-import type { BettererTasksState } from './useTasksState';
+import type { BettererTasksState } from './useTasksState.js';
 
 export type BettererTaskColour = typeof ForegroundColor;
 

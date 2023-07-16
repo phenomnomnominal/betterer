@@ -1,6 +1,6 @@
 import type { BettererContext } from '@betterer/betterer';
 
-import type { ConfigEditField } from '../config';
+import type { ConfigEditField } from '../config/index.js';
 
 import { useInput, useState, useStdin } from '@betterer/render';
 

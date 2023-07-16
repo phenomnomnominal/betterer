@@ -1,5 +1,6 @@
-import assert from 'assert';
+import assert from 'node:assert';
 
+// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from '../fixture';
 
 describe('betterer.watch', () => {

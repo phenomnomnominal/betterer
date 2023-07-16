@@ -1,12 +1,12 @@
 import type { BettererRunSummaries, BettererTestNames } from '@betterer/betterer';
 
-import type { Fixture, FixtureFactory, FixtureFileSystemFiles, FixtureOptions } from './types';
+import type { Fixture, FixtureFactory, FixtureFileSystemFiles, FixtureOptions } from './types.js';
 
 import { promises as fs } from 'graceful-fs';
-import * as path from 'path';
+import path from 'node:path';
 
-import { createFixtureFS } from './fs';
-import { createFixtureLogs } from './logging';
+import { createFixtureFS } from './fs.js';
+import { createFixtureLogs } from './logging.js';
 
 /** @internal Definitely not stable! Please don't use! */
 export async function createFixtureDirectoryΔ(fixturesPath: string): Promise<FixtureFactory> {

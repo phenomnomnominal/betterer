@@ -1,12 +1,12 @@
 import type { BettererOptionsStart } from '@betterer/betterer';
 import type { Command } from 'commander';
 
-import type { BettererCLIConfig } from './types';
+import type { BettererCLIConfig } from './types.js';
 
 import { betterer } from '@betterer/betterer';
 
-import { cliCommand, setEnv } from './options';
-import { BettererCommand } from './types';
+import { cliCommand, setEnv } from './options.js';
+import { BettererCommand } from './types.js';
 
 /**
  * Run **Betterer** in `precommit` mode.

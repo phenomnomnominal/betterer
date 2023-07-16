@@ -1,21 +1,21 @@
 import type { BettererError } from '@betterer/errors';
 import type { FSWatcher } from 'chokidar';
 
-import type { BettererConfig, BettererOptionsOverride } from '../config';
-import type { BettererFilePaths, BettererVersionControlWorker } from '../fs';
-import type { BettererReporterΩ } from '../reporters';
-import type { BettererResultsFileΩ } from '../results';
-import type { BettererSuiteSummariesΩ, BettererSuiteSummary } from '../suite';
-import type { BettererGlobals } from '../types';
-import type { BettererContext, BettererContextStarted, BettererContextSummary } from './types';
+import type { BettererConfig, BettererOptionsOverride } from '../config/index.js';
+import type { BettererFilePaths, BettererVersionControlWorker } from '../fs/index.js';
+import type { BettererReporterΩ } from '../reporters/index.js';
+import type { BettererResultsFileΩ } from '../results/index.js';
+import type { BettererSuiteSummariesΩ, BettererSuiteSummary } from '../suite/index.js';
+import type { BettererGlobals } from '../types.js';
+import type { BettererContext, BettererContextStarted, BettererContextSummary } from './types.js';
 
-import { overrideConfig } from '../config';
-import { BettererFileResolverΩ } from '../fs';
-import { BettererRunWorkerPoolΩ, BettererRunΩ, createWorkerRunConfig } from '../run';
-import { BettererSuiteΩ } from '../suite';
-import { loadTestMeta } from '../test';
-import { defer } from '../utils';
-import { BettererContextSummaryΩ } from './context-summary';
+import { overrideConfig } from '../config/index.js';
+import { BettererFileResolverΩ } from '../fs/index.js';
+import { BettererRunWorkerPoolΩ, BettererRunΩ, createWorkerRunConfig } from '../run/index.js';
+import { BettererSuiteΩ } from '../suite/index.js';
+import { loadTestMeta } from '../test/index.js';
+import { defer } from '../utils.js';
+import { BettererContextSummaryΩ } from './context-summary.js';
 
 export class BettererContextΩ implements BettererContext {
   public readonly config: BettererConfig;
@@ -51,7 +51,7 @@ export class BettererContextΩ implements BettererContext {
     // Start everything again, and trigger a new reporter:
     this._started = this._start();
 
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises -- SIGTERM doesn't care about Promises
     process.on('SIGTERM', () => this.stop());
   }
 

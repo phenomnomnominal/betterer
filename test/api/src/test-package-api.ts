@@ -2,8 +2,8 @@ import { BettererError } from '@betterer/errors';
 import type { BettererLogger } from '@betterer/logger';
 import { diffStrings__ } from '@betterer/logger';
 import { Extractor, ExtractorConfig } from '@microsoft/api-extractor';
-import { promises as fs } from 'fs';
-import * as path from 'path';
+import { promises as fs } from 'node:fs';
+import path from 'node:path';
 
 const EXCLUDED_PACKAGES = ['docgen', 'extension', 'fixture', 'render'];
 const EXTRACTION_EXTENSION = '.api.md';

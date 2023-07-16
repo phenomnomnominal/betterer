@@ -1,1 +1,1 @@
-export { getDelta } from './delta';
+export { getDelta } from './delta.js';

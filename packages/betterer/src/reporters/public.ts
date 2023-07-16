@@ -1,1 +1,1 @@
-export { BettererReporter } from './types';
+export { BettererReporter } from './types.js';

@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
 import type { ExtensionContext } from 'vscode';
 import type {
   ErrorHandler,
@@ -6,12 +7,13 @@ import type {
   ServerOptions
 } from 'vscode-languageclient/node';
 
-import * as path from 'path';
+import path from 'node:path';
+// eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
 import { workspace } from 'vscode';
 import { RevealOutputChannelOn, TransportKind } from 'vscode-languageclient/node';
 
-import { EXTENSION_NAME } from '../constants';
-import { getRuntime } from './settings';
+import { EXTENSION_NAME } from '../constants.js';
+import { getRuntime } from './settings.js';
 
 export function getServerOptions(context: ExtensionContext): ServerOptions {
   const serverModule = context.asAbsolutePath(path.join('dist', 'server', 'server.js'));

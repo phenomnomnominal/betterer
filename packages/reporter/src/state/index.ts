@@ -9,6 +9,6 @@ export {
   contextEnd,
   suiteStart,
   suiteEnd
-} from './actions';
-export { createStore } from './store';
-export { BettererReporterState } from './types';
+} from './actions.js';
+export { createStore } from './store.js';
+export { BettererReporterState } from './types.js';

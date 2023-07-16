@@ -1,17 +1,17 @@
-import type { BettererCLIArguments, BettererCommandName } from './types';
+import type { BettererCLIArguments, BettererCommandName } from './types.js';
 
 import { Command } from 'commander';
 
-import { ci } from './ci';
-import { init } from './init';
-import { merge } from './merge';
-import { precommit } from './precommit';
-import { start } from './start';
-import { results } from './results';
-import { BettererCommand } from './types';
-import { watch } from './watch';
-import { upgrade } from './upgrade';
-import { getVersion } from './version';
+import { ci } from './ci.js';
+import { init } from './init.js';
+import { merge } from './merge.js';
+import { precommit } from './precommit.js';
+import { start } from './start.js';
+import { results } from './results.js';
+import { BettererCommand } from './types.js';
+import { watch } from './watch.js';
+import { upgrade } from './upgrade.js';
+import { getVersion } from './version.js';
 
 /**
  * @internal This could change at any point! Please don't use!

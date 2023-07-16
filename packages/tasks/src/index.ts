@@ -6,8 +6,8 @@
  * @packageDocumentation
  */
 
-export { BettererErrorLog, BettererErrorLogProps } from './error-log';
-export { BettererLogo } from './logo';
+export { BettererErrorLog, BettererErrorLogProps } from './error-log.js';
+export { BettererLogo } from './logo.js';
 export {
   BettererTask,
   BettererTaskLogger,
@@ -17,4 +17,4 @@ export {
   BettererTasksLoggerProps,
   BettererTasksState,
   BettererTasksStatusUpdate
-} from './tasks/public';
+} from './tasks/public.js';

@@ -3,7 +3,7 @@ import type { ExportAssignment, SourceFile, VariableDeclaration } from 'typescri
 import { tsquery } from '@phenomnomnominal/tsquery';
 import { factory, isObjectLiteralExpression } from 'typescript';
 
-import { reparse, wrapTest, wrapTests } from './utils';
+import { reparse, wrapTest, wrapTests } from './utils.js';
 
 // export const foo
 const EXPORT_TEST_QUERY = 'VariableStatement:has(ExportKeyword) VariableDeclaration';

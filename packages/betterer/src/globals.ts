@@ -1,10 +1,10 @@
 import type { BettererError } from '@betterer/errors';
-import type { BettererGlobals } from './types';
+import type { BettererGlobals } from './types.js';
 
-import { createConfig } from './config';
-import { createVersionControl } from './fs';
-import { loadDefaultReporter } from './reporters';
-import { BettererResultsFileΩ } from './results';
+import { createConfig } from './config/index.js';
+import { createVersionControl } from './fs/index.js';
+import { loadDefaultReporter } from './reporters/index.js';
+import { BettererResultsFileΩ } from './results/index.js';
 
 export async function createGlobals(options: unknown = {}): Promise<BettererGlobals> {
   const reporter = loadDefaultReporter();

@@ -1,6 +1,6 @@
 import { BettererError } from '@betterer/errors';
 import { runCLI } from '@jest/core';
-import * as path from 'path';
+import path from 'node:path';
 
 const ARGS = { _: [], $0: '' };
 

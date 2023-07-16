@@ -1,17 +1,17 @@
 import type { SimpleGit } from 'simple-git';
 
-import type { BettererFilePaths, BettererVersionControl } from './types';
+import type { BettererFilePaths, BettererVersionControl } from './types.js';
 
 import { BettererError } from '@betterer/errors';
-import assert from 'assert';
-import { promises as fs } from 'fs';
-import path from 'path';
-import simpleGit from 'simple-git';
+import assert from 'node:assert';
+import { promises as fs } from 'node:fs';
+import path from 'node:path';
+import { simpleGit } from 'simple-git';
 
-import { createHash } from '../hasher';
-import { normalisedPath } from '../utils';
-import { BettererFileCacheΩ } from './file-cache';
-import { read } from './reader';
+import { createHash } from '../hasher.js';
+import { normalisedPath } from '../utils.js';
+import { BettererFileCacheΩ } from './file-cache.js';
+import { read } from './reader.js';
 
 export class BettererGitΩ implements BettererVersionControl {
   private _cache: BettererFileCacheΩ | null = null;

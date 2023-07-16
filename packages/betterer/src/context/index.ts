@@ -1,2 +1,2 @@
-export { BettererContextΩ } from './context';
-export { BettererContext, BettererContextSummary } from './types';
+export { BettererContextΩ } from './context.js';
+export { BettererContext, BettererContextSummary } from './types.js';

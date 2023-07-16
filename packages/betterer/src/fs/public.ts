@@ -4,4 +4,4 @@ export {
   BettererFilePaths,
   BettererFilePatterns,
   BettererFileResolver
-} from './types';
+} from './types.js';

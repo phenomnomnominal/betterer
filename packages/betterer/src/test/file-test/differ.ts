@@ -1,7 +1,7 @@
 import type { BettererLogs } from '@betterer/logger';
 
-import type { BettererFileΩ } from './file';
-import type { BettererFileTestResultΩ } from './file-test-result';
+import type { BettererFileΩ } from './file.js';
+import type { BettererFileTestResultΩ } from './file-test-result.js';
 import type {
   BettererFileTestDiff,
   BettererFileIssue,
@@ -9,9 +9,9 @@ import type {
   BettererFilesDiff,
   BettererFileTestResult,
   BettererFileBase
-} from './types';
+} from './types.js';
 
-import assert from 'assert';
+import assert from 'node:assert';
 
 const FORMATTER = Intl.NumberFormat();
 

@@ -14,6 +14,7 @@
     "GOLDENS",
     "hasher",
     "initialise",
+    "initialised",
     "Initialising",
     "Lifecycles",
     "loglevel",

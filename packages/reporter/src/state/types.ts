@@ -1,7 +1,7 @@
 import type { BettererContext, BettererSuite, BettererSuiteSummary, BettererContextSummary } from '@betterer/betterer';
 import type { BettererTasksDone } from '@betterer/tasks';
 
-import type { BettererReporterAction } from './actions';
+import type { BettererReporterAction } from './actions.js';
 
 export interface BettererReporterState {
   context: BettererContext;

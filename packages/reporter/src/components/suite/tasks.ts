@@ -16,10 +16,10 @@ import {
   testSkipped,
   testUpdated,
   testWorse
-} from '../../messages';
-import type { BettererReporterRun } from '../../types';
-import { quote } from '../../utils';
-import { getDelta } from './deltas';
+} from '../../messages.js';
+import type { BettererReporterRun } from '../../types.js';
+import { quote } from '../../utils.js';
+import { getDelta } from './deltas/index.js';
 
 const TASKS = new Map<BettererRun, BettererTask>();
 

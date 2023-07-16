@@ -1,1 +1,1 @@
-export { DefaultReporter } from './DefaultReporter';
+export { DefaultReporter } from './DefaultReporter.js';

@@ -1,4 +1,4 @@
-export { BettererSuiteΩ } from './suite';
-export { BettererSuiteSummaryΩ } from './suite-summary';
-export type { BettererSuiteSummariesΩ } from './suite-summary';
-export { BettererSuite, BettererSuiteSummaries, BettererSuiteSummary } from './types';
+export { BettererSuiteΩ } from './suite.js';
+export { BettererSuiteSummaryΩ } from './suite-summary.js';
+export type { BettererSuiteSummariesΩ } from './suite-summary.js';
+export { BettererSuite, BettererSuiteSummaries, BettererSuiteSummary } from './types.js';

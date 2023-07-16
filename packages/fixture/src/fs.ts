@@ -1,8 +1,8 @@
-import type { FixtureFileSystem, FixtureFileSystemFiles, Paths } from './types';
+import type { FixtureFileSystem, FixtureFileSystemFiles, Paths } from './types.js';
 
 import { ensureDir, ensureFile, remove } from 'fs-extra';
 import { promises as fs } from 'graceful-fs';
-import * as path from 'path';
+import path from 'node:path';
 
 const DEFAULT_CACHE_PATH = './.betterer.cache';
 const DEFAULT_CONFIG_PATH = './.betterer';

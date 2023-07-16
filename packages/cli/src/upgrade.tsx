@@ -1,9 +1,11 @@
-import { React, render } from '@betterer/render';
-import { Command } from 'commander';
+import type { Command } from 'commander';
 
-import { Upgrade } from './upgrade/upgrade';
-import { setEnv, upgradeCommand } from './options';
-import { BettererCLIUpgradeConfig } from './types';
+import type { BettererCLIUpgradeConfig } from './types.js';
+
+import { React, render } from '@betterer/render';
+
+import { Upgrade } from './upgrade/upgrade.js';
+import { setEnv, upgradeCommand } from './options.js';
 
 /**
  * Run the **Betterer** `upgrade` command to upgrade **Betterer** in an existing project.

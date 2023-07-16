@@ -1,10 +1,12 @@
-import { React, render } from '@betterer/render';
-import { Command } from 'commander';
-import path from 'path';
+import type { Command } from 'commander';
 
-import { Init } from './init/init';
-import { initCommand, setEnv } from './options';
-import { BettererCLIInitConfig } from './types';
+import type { BettererCLIInitConfig } from './types.js';
+
+import { React, render } from '@betterer/render';
+import path from 'node:path';
+
+import { Init } from './init/init.js';
+import { initCommand, setEnv } from './options.js';
 
 const BETTERER_TS = './.betterer.ts';
 const BETTERER_RESULTS = './.betterer.results';

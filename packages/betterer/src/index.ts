@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-export { betterer, merge, results, runner, watch } from './betterer';
+export { betterer, merge, results, runner, watch } from './betterer.js';
 export {
   BettererConfig,
   BettererConfigBase,
@@ -34,16 +34,16 @@ export {
   BettererOptionsStartUpdate,
   BettererOptionsStart,
   BettererOptionsWatch
-} from './config/public';
-export { BettererContext, BettererContextSummary } from './context/public';
+} from './config/public.js';
+export { BettererContext, BettererContextSummary } from './context/public.js';
 export {
   BettererFileGlobs,
   BettererFilePath,
   BettererFilePaths,
   BettererFilePatterns,
   BettererFileResolver
-} from './fs/public';
-export { BettererReporter } from './reporters/public';
+} from './fs/public.js';
+export { BettererReporter } from './reporters/public.js';
 export {
   BettererFileTestResultSummary,
   BettererFileTestResultSummaryDetails,
@@ -53,10 +53,10 @@ export {
   BettererResultSummary,
   BettererResultSummaries,
   BettererResultsSummary
-} from './results/public';
-export { BettererDelta, BettererRun, BettererRuns, BettererRunSummary, BettererRunSummaries } from './run/public';
-export { BettererRunner } from './runner/public';
-export { BettererSuite, BettererSuiteSummary, BettererSuiteSummaries } from './suite/public';
+} from './results/public.js';
+export { BettererDelta, BettererRun, BettererRuns, BettererRunSummary, BettererRunSummaries } from './run/public.js';
+export { BettererRunner } from './runner/public.js';
+export { BettererSuite, BettererSuiteSummary, BettererSuiteSummaries } from './suite/public.js';
 export {
   BettererDeserialise,
   BettererDiff,
@@ -89,4 +89,4 @@ export {
   BettererTestOptionsBasic,
   BettererTestOptionsComplex,
   BettererTestNames
-} from './test/public';
+} from './test/public.js';

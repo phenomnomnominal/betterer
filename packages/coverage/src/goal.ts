@@ -1,4 +1,4 @@
-import type { BettererCoverageIssues } from './types';
+import type { BettererCoverageIssues } from './types.js';
 
 export function goal(result: BettererCoverageIssues): boolean {
   return Object.keys(result).every((filePath) => {

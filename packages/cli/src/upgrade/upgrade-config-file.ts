@@ -3,13 +3,13 @@ import type { SourceFile } from 'typescript';
 
 import { BettererError } from '@betterer/errors';
 import { tsquery } from '@phenomnomnominal/tsquery';
-import { promises as fs } from 'fs';
+import { promises as fs } from 'node:fs';
 import { format, resolveConfig } from 'prettier';
 import { createPrinter, ModuleKind } from 'typescript';
 
-import { diff } from './diff';
-import { upgradeCJS } from './upgrade-cjs';
-import { upgradeESM } from './upgrade-esm';
+import { diff } from './diff.js';
+import { upgradeCJS } from './upgrade-cjs.js';
+import { upgradeESM } from './upgrade-esm.js';
 
 const printer = createPrinter();
 

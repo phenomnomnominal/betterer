@@ -1,4 +1,4 @@
-import type { BettererVersionControlWorker, BettererVersionControlWorkerModule } from './types';
+import type { BettererVersionControlWorker, BettererVersionControlWorkerModule } from './types.js';
 
 import { workerRequire } from '@phenomnomnominal/worker-require';
 

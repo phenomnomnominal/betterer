@@ -1,17 +1,19 @@
 import type { LanguageClient } from 'vscode-languageclient/node';
+// eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
 import type { ExtensionContext } from 'vscode';
 
 import { RequestType } from 'vscode-languageclient/node';
+// eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
 import { Uri, workspace } from 'vscode';
 
 import {
   BETTERER_CONFIG_FILE_INVALID,
   BETTERER_CONFIG_FILE_INVALID_DETAILS,
   BETTERER_OUTPUT_CHANNEL
-} from '../error-messages';
-import { info } from '../logger';
-import type { BettererRequestParams } from './types';
-import { getInvalidConfigState } from './state';
+} from '../error-messages.js';
+import { info } from '../logger.js';
+import type { BettererRequestParams } from './types.js';
+import { getInvalidConfigState } from './state.js';
 
 export const BettererInvalidConfigRequest = new RequestType<BettererRequestParams, void, void>(
   'betterer/invalidConfig'

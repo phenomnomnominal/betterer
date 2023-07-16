@@ -6,14 +6,14 @@ import type {
   IstanbulCoverage,
   IstanbulCoverageSummary,
   IstanbulFileCoverage
-} from './types';
+} from './types.js';
 
 import { BettererError } from '@betterer/errors';
-import { promises as fs } from 'fs';
+import { promises as fs } from 'node:fs';
 import minimatch from 'minimatch';
-import path from 'path';
+import path from 'node:path';
 
-import { isNumber, normalisedPath } from './utils';
+import { isNumber, normalisedPath } from './utils.js';
 
 export async function test(
   run: BettererRun,

@@ -9,14 +9,14 @@ import type { BettererError } from '@betterer/errors';
 import type { Connection, TextDocuments } from 'vscode-languageserver/node';
 import type { TextDocument } from 'vscode-languageserver-textdocument';
 
-import { BettererStatus } from '../status';
-import { getRunner, hasBetterer } from './betterer';
-import { getBettererOptions, getDebug, getEnabled } from './config';
-import { error, info } from './console';
-import { BettererInvalidConfigRequest, BettererNoLibraryRequest, isNoConfigError } from './requests';
-import { BettererStatusNotification } from './status';
-import { BettererDiagnostics } from './diagnostics';
-import { getFilePath } from './path';
+import { BettererStatus } from '../status.js';
+import { getRunner, hasBetterer } from './betterer.js';
+import { getBettererOptions, getDebug, getEnabled } from './config.js';
+import { error, info } from './console.js';
+import { BettererInvalidConfigRequest, BettererNoLibraryRequest, isNoConfigError } from './requests/index.js';
+import { BettererStatusNotification } from './status.js';
+import { BettererDiagnostics } from './diagnostics.js';
+import { getFilePath } from './path.js';
 
 export class BettererValidator {
   private _diagnostics = new BettererDiagnostics();

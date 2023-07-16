@@ -3,7 +3,7 @@ import type { BinaryExpression, SourceFile } from 'typescript';
 import { tsquery } from '@phenomnomnominal/tsquery';
 import { factory, isObjectLiteralExpression } from 'typescript';
 
-import { reparse, wrapTest, wrapTests } from './utils';
+import { reparse, wrapTest, wrapTests } from './utils.js';
 
 // foo
 const TEST_NAME_QUERY = 'Identifier[name!=/module/][name!=/exports/]';

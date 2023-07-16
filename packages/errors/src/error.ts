@@ -1,4 +1,4 @@
-import type { BettererErrorDetails } from './types';
+import type { BettererErrorDetails } from './types.js';
 
 /**
  * @public A custom Error for use in **Betterer**. It attaches some extra details to a standard

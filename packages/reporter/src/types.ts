@@ -1,7 +1,7 @@
 import type { BettererRun, BettererRunSummary } from '@betterer/betterer';
 import type { BettererTasksDone } from '@betterer/tasks';
 
-import type { BettererReporterAction } from './state';
+import type { BettererReporterAction } from './state/index.js';
 
 export interface BettererReporterRenderer {
   render: (action?: BettererReporterAction, done?: BettererTasksDone) => void;

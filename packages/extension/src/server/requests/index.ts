@@ -1,2 +1,2 @@
-export { BettererInvalidConfigRequest, isNoConfigError } from './invalid-config';
-export { BettererNoLibraryRequest } from './no-library';
+export { BettererInvalidConfigRequest, isNoConfigError } from './invalid-config.js';
+export { BettererNoLibraryRequest } from './no-library.js';

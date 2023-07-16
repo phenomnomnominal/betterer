@@ -1,2 +1,2 @@
-export { BettererRunnerΩ } from './runner';
-export { BettererRunner } from './types';
+export { BettererRunnerΩ } from './runner.js';
+export { BettererRunner } from './types.js';

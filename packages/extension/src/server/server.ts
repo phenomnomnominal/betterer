@@ -11,10 +11,10 @@ import {
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { debounce } from 'lodash';
 
-import { info, initConsole } from './console';
-import { createErrorHandler } from './error-handler';
-import { BettererValidationQueue } from './validation-queue';
-import { initTrace } from './trace';
+import { info, initConsole } from './console.js';
+import { createErrorHandler } from './error-handler.js';
+import { BettererValidationQueue } from './validation-queue.js';
+import { initTrace } from './trace.js';
 
 const ENVIRONMENT_CHANGE_TIMEOUT = 100;
 

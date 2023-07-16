@@ -1,5 +1,6 @@
-import simpleGit from 'simple-git';
+import { simpleGit } from 'simple-git';
 
+// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from '../fixture';
 
 const ARGV = ['node', './bin/betterer'];
@@ -45,6 +46,8 @@ export default {
     const { cli__ } = await import('@betterer/cli');
 
     await cli__(fixturePath, [...ARGV, 'start'], false);
+
+    expect(process.exitCode).toBeUndefined();
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one + one);`);
 

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from '@betterer/render';
-import { getPreciseTime } from '../utils';
+import { getPreciseTime } from '../utils.js';
 
 const DEFAULT_TASK_TIME_INTERVAL = 100;
 

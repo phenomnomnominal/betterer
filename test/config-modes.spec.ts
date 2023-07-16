@@ -5,8 +5,7 @@ function noop(options: unknown): unknown {
 }
 
 describe('betterer modes', () => {
-  // No need to assert, just testing the types:
-  // eslint-disable-next-line jest/expect-expect
+  // eslint-disable-next-line jest/expect-expect -- no need to assert, just testing the types
   it('handles options for running Betterer', () => {
     const ci: BettererOptionsStart = { ci: true, precommit: false, strict: true, update: false, watch: false };
     noop(ci);

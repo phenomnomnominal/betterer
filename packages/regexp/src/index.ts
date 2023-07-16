@@ -5,4 +5,4 @@
  * @packageDocumentation
  */
 
-export { regexp } from './regexp';
+export { regexp } from './regexp.js';

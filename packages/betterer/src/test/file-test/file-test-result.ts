@@ -1,10 +1,10 @@
-import type { BettererFilePaths, BettererFileResolver } from '../../fs';
-import type { BettererFileTestResult, BettererFileIssues, BettererFile, BettererFileBase } from './types';
+import type { BettererFilePaths, BettererFileResolver } from '../../fs/index.js';
+import type { BettererFileTestResult, BettererFileIssues, BettererFile, BettererFileBase } from './types.js';
 
-import assert from 'assert';
-import path from 'path';
+import assert from 'node:assert';
+import path from 'node:path';
 
-import { BettererFileΩ } from './file';
+import { BettererFileΩ } from './file.js';
 
 export class BettererFileTestResultΩ implements BettererFileTestResult {
   private _fileMap: Record<string, BettererFileBase> = {};

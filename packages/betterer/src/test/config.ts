@@ -6,13 +6,13 @@ import type {
   BettererTestOptionsComplex,
   BettererTestGoal,
   BettererDiff
-} from './types';
+} from './types.js';
 
 import { BettererError } from '@betterer/errors';
 import { diff__ } from '@betterer/logger';
 import { format } from 'prettier';
 
-import { isFunction } from '../utils';
+import { isFunction } from '../utils.js';
 
 export function createTestConfig<DeserialisedType, SerialisedType, DiffType>(
   options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>

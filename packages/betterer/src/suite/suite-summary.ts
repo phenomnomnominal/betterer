@@ -1,7 +1,7 @@
-import type { BettererFilePaths } from '../fs';
-import type { BettererRuns, BettererRunSummaries } from '../run';
-import type { BettererTestNames } from '../test';
-import type { BettererSuiteSummary } from './types';
+import type { BettererFilePaths } from '../fs/index.js';
+import type { BettererRuns, BettererRunSummaries } from '../run/index.js';
+import type { BettererTestNames } from '../test/index.js';
+import type { BettererSuiteSummary } from './types.js';
 
 export class BettererSuiteSummaryΩ implements BettererSuiteSummary {
   constructor(

@@ -1,12 +1,12 @@
 import type { FSWatcher } from 'chokidar';
 
-import type { BettererGlobals } from '../types';
+import type { BettererGlobals } from '../types.js';
 
 import { watch } from 'chokidar';
 import minimatch from 'minimatch';
-import * as path from 'path';
+import path from 'node:path';
 
-import { normalisedPath } from '../utils';
+import { normalisedPath } from '../utils.js';
 
 export const WATCHER_EVENTS = ['add', 'change'];
 

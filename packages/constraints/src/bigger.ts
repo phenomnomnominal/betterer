@@ -1,4 +1,4 @@
-import { BettererConstraintResult } from './constraint-result';
+import { BettererConstraintResult } from './constraint-result.js';
 
 /**
  * @public `Betterer` {@link @betterer/betterer#BettererTestConstraint | constraint function} for when

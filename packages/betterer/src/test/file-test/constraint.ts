@@ -1,8 +1,8 @@
-import type { BettererFileTestResult } from './types';
+import type { BettererFileTestResult } from './types.js';
 
 import { BettererConstraintResult } from '@betterer/constraints';
 
-import { differ } from './differ';
+import { differ } from './differ.js';
 
 export function constraint(result: BettererFileTestResult, expected: BettererFileTestResult): BettererConstraintResult {
   const { diff } = differ(expected, result);

@@ -1,9 +1,9 @@
-import type { BettererOptionsResults } from '../config';
-import { BettererFileResolverΩ } from '../fs';
-import { createGlobals } from '../globals';
-import type { BettererFileTestResultΩ } from '../test';
-import { isBettererFileTest, loadTestMeta } from '../test';
-import type { BettererFileTestResultSummaryDetails, BettererResultsSummary, BettererResultSummaries } from './types';
+import type { BettererOptionsResults } from '../config/index.js';
+import { BettererFileResolverΩ } from '../fs/index.js';
+import { createGlobals } from '../globals.js';
+import type { BettererFileTestResultΩ } from '../test/index.js';
+import { isBettererFileTest, loadTestMeta } from '../test/index.js';
+import type { BettererFileTestResultSummaryDetails, BettererResultsSummary, BettererResultSummaries } from './types.js';
 
 export class BettererResultsSummaryΩ implements BettererResultsSummary {
   public readonly resultSummaries: BettererResultSummaries;

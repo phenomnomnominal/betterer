@@ -1,10 +1,10 @@
-import type { BettererFileIssue, BettererFileIssues, BettererFile } from './types';
+import type { BettererFileIssue, BettererFileIssues, BettererFile } from './types.js';
 
-import assert from 'assert';
+import assert from 'node:assert';
 import { LinesAndColumns } from 'lines-and-columns';
 
-import { createHash } from '../../hasher';
-import { isString, normalisedPath, normaliseNewlines } from '../../utils';
+import { createHash } from '../../hasher.js';
+import { isString, normalisedPath, normaliseNewlines } from '../../utils.js';
 
 const UNKNOWN_LOCATION = {
   line: 0,

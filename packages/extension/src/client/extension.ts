@@ -1,16 +1,18 @@
+// eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
 import type { ExtensionContext } from 'vscode';
 import type { ErrorAction, ErrorHandler } from 'vscode-languageclient/node';
 
-import assert from 'assert';
+import assert from 'node:assert';
+// eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
 import { commands } from 'vscode';
 import { CloseAction, LanguageClient } from 'vscode-languageclient/node';
-import { EXTENSION_NAME } from '../constants';
-import { COMMAND_NAMES, disableBetterer, enableBetterer, initBetterer } from './commands';
-import { CLIENT_START_FAILED, SERVER_START_FAILED } from './error-messages';
-import { error } from './logger';
-import { getClientOptions, getServerOptions } from './options';
-import { BettererInvalidConfigRequest, BettererNoLibraryRequest, invalidConfig, noLibrary } from './requests';
-import { BettererStatusBar } from './status';
+import { EXTENSION_NAME } from '../constants.js';
+import { COMMAND_NAMES, disableBetterer, enableBetterer, initBetterer } from './commands/index.js';
+import { CLIENT_START_FAILED, SERVER_START_FAILED } from './error-messages.js';
+import { error } from './logger.js';
+import { getClientOptions, getServerOptions } from './options.js';
+import { BettererInvalidConfigRequest, BettererNoLibraryRequest, invalidConfig, noLibrary } from './requests/index.js';
+import { BettererStatusBar } from './status.js';
 
 export async function activate(context: ExtensionContext): Promise<void> {
   context.subscriptions.push(

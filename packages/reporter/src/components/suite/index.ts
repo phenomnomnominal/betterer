@@ -1,1 +1,1 @@
-export { Suite, SuiteProps } from './Suite';
+export { Suite, SuiteProps } from './Suite.js';

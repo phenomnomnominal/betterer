@@ -1,5 +1,5 @@
-import { BettererCoverageTest } from './coverage-test';
-import { test, testTotal } from './test';
+import { BettererCoverageTest } from './coverage-test.js';
+import { test, testTotal } from './test.js';
 
 /**
  * @public

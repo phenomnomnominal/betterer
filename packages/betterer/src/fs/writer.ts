@@ -1,8 +1,8 @@
 import { BettererError } from '@betterer/errors';
-import path from 'path';
-import { promises as fs } from 'fs';
+import path from 'node:path';
+import { promises as fs } from 'node:fs';
 
-import { normalisedPath } from '../utils';
+import { normalisedPath } from '../utils.js';
 
 export function forceRelativePaths(toWrite: string, basePath: string): string {
   const directory = `${normalisedPath(path.dirname(basePath))}/`;

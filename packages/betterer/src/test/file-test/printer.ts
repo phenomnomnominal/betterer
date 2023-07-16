@@ -1,4 +1,4 @@
-import type { BettererFileTestResultSerialised } from './types';
+import type { BettererFileTestResultSerialised } from './types.js';
 
 export function printer(serialised: BettererFileTestResultSerialised): string {
   let printed = '{\n';

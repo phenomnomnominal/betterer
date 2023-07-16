@@ -1,7 +1,7 @@
 import { BettererFileTest } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import { tsquery as tsq } from '@phenomnomnominal/tsquery';
-import { promises as fs } from 'fs';
+import { promises as fs } from 'node:fs';
 
 /**
  * @public Use this test to incrementally remove **TSQuery** matches from your codebase. See the {@link https://github.com/phenomnomnominal/tsquery | **TSQuery** documentation }

@@ -1,14 +1,14 @@
-import type { BettererVersionControlWorker } from '../fs';
-import type { BettererRunSummary, BettererRunSummaries } from '../run';
-import type { BettererSuiteSummary } from '../suite';
-import type { BettererTestNames } from '../test';
-import type { BettererResultsSerialised } from './types';
+import type { BettererVersionControlWorker } from '../fs/index.js';
+import type { BettererRunSummary, BettererRunSummaries } from '../run/index.js';
+import type { BettererSuiteSummary } from '../suite/index.js';
+import type { BettererTestNames } from '../test/index.js';
+import type { BettererResultsSerialised } from './types.js';
 
-import assert from 'assert';
+import assert from 'node:assert';
 
-import { write } from '../fs';
-import { parseResults } from './parse';
-import { printResults } from './print';
+import { write } from '../fs/index.js';
+import { parseResults } from './parse.js';
+import { printResults } from './print.js';
 
 export class BettererResultsFileΩ {
   private constructor(

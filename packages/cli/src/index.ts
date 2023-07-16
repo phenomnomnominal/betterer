@@ -8,5 +8,5 @@
  * @packageDocumentation
  */
 
-export { cli__ } from './cli';
-export { BettererCLIArguments, BettererPackageJSON } from './types';
+export { cli__ } from './cli.js';
+export { BettererCLIArguments, BettererPackageJSON } from './types.js';

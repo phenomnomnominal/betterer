@@ -1,4 +1,4 @@
-import type { BettererReporter } from '../reporters';
+import type { BettererReporter } from '../reporters/index.js';
 
 /**
  * @public An array of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions | Regular Expressions }

@@ -1,7 +1,7 @@
 import type { BettererError } from '@betterer/errors';
 
-import type { BettererConfig, BettererOptionsOverride } from '../config';
-import type { BettererSuiteSummaries, BettererSuiteSummary } from '../suite';
+import type { BettererConfig, BettererOptionsOverride } from '../config/index.js';
+import type { BettererSuiteSummaries, BettererSuiteSummary } from '../suite/index.js';
 
 /**
  * @public The context of a set of test suite runs.

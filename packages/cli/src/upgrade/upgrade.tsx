@@ -2,7 +2,7 @@ import { BettererConfigPaths } from '@betterer/betterer';
 import { React, Box, FC, useCallback } from '@betterer/render';
 import { BettererLogo, BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
 import { workerRequire } from '@phenomnomnominal/worker-require';
-import * as path from 'path';
+import path from 'node:path';
 
 import { UpgradeConfigFileWorker } from './types';
 import { BettererLogger } from '@betterer/logger';

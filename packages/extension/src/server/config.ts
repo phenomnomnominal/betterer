@@ -1,8 +1,8 @@
 import type { BettererOptionsRunner } from '@betterer/betterer';
 import type { RemoteWorkspace } from 'vscode-languageserver/node';
 
-import { promises as fs } from 'fs';
-import path from 'path';
+import { promises as fs } from 'node:fs';
+import path from 'node:path';
 
 interface BettererExtensionConfig {
   cachePath: string;

@@ -4,4 +4,4 @@
  * @packageDocumentation
  */
 
-export { typescript } from './typescript';
+export { typescript } from './typescript.js';

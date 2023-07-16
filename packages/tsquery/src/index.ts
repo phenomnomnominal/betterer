@@ -4,4 +4,4 @@
  * @packageDocumentation
  */
 
-export { tsquery } from './tsquery';
+export { tsquery } from './tsquery.js';

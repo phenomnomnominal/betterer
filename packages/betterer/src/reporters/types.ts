@@ -1,8 +1,8 @@
 import type { BettererError } from '@betterer/errors';
 
-import type { BettererContext, BettererContextSummary } from '../context';
-import type { BettererRun, BettererRunSummary } from '../run';
-import type { BettererSuiteSummary, BettererSuite } from '../suite';
+import type { BettererContext, BettererContextSummary } from '../context/index.js';
+import type { BettererRun, BettererRunSummary } from '../run/index.js';
+import type { BettererSuiteSummary, BettererSuite } from '../suite/index.js';
 
 /**
  * @public The interface for hooking into **Betterer**'s reporter system.

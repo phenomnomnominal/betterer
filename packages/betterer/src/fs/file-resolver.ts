@@ -4,13 +4,13 @@ import type {
   BettererFilePatterns,
   BettererFileResolver,
   BettererVersionControlWorker
-} from './types';
+} from './types.js';
 
-import assert from 'assert';
+import assert from 'node:assert';
 import minimatch from 'minimatch';
-import * as path from 'path';
+import path from 'node:path';
 
-import { flatten, normalisedPath } from '../utils';
+import { flatten, normalisedPath } from '../utils.js';
 
 export class BettererFileResolverΩ implements BettererFileResolver {
   private _excluded: Array<RegExp> = [];

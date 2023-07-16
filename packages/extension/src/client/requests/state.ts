@@ -1,5 +1,7 @@
+// eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
 import type { ExtensionContext, Uri } from 'vscode';
 
+// eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
 import { workspace } from 'vscode';
 
 const NO_LIBRARY_STATE_KEY = 'noLibraryMessageAlreadyShown';

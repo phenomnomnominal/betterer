@@ -1,5 +1,5 @@
-import assert from 'assert';
-import * as path from 'path';
+import assert from 'node:assert';
+import path from 'node:path';
 
 export function isBoolean(value: unknown): value is boolean {
   return typeof value === 'boolean';

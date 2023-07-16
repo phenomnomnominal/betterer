@@ -1,19 +1,18 @@
-import type { BettererConfig, BettererWorkerRunConfig } from '../config';
-import type { BettererFilePaths, BettererVersionControlWorker } from '../fs';
-import type { BettererDiff, BettererTestConfig, BettererTestMeta } from '../test';
-import type { BettererGlobals } from '../types';
-import type { BettererRun, BettererRunning, BettererRunSummary } from './types';
+import type { BettererConfig, BettererWorkerRunConfig } from '../config/index.js';
+import type { BettererFilePaths, BettererVersionControlWorker } from '../fs/index.js';
+import type { BettererDiff, BettererTestConfig, BettererTestMeta } from '../test/index.js';
+import type { BettererGlobals } from '../types.js';
+import type { BettererRun, BettererRunning, BettererRunSummary } from './types.js';
 
 import { BettererConstraintResult } from '@betterer/constraints';
 import { BettererError } from '@betterer/errors';
-import assert from 'assert';
+import assert from 'node:assert';
 
-import { createWorkerConfig } from '../config';
-import { forceRelativePaths } from '../fs';
-import { BettererResultsFileΩ, BettererResultΩ } from '../results';
-import { isBettererFileTest, loadTestMeta } from '../test';
-import { isBettererTest } from '../test';
-import { BettererRunStatus, BettererRunSummaryΩ } from './run-summary';
+import { createWorkerConfig } from '../config/index.js';
+import { forceRelativePaths } from '../fs/index.js';
+import { BettererResultsFileΩ, BettererResultΩ } from '../results/index.js';
+import { isBettererFileTest, loadTestMeta, isBettererTest } from '../test/index.js';
+import { BettererRunStatus, BettererRunSummaryΩ } from './run-summary.js';
 
 export class BettererWorkerRunΩ implements BettererRun {
   public readonly config: BettererConfig;

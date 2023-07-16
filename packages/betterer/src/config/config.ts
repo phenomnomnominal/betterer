@@ -1,5 +1,5 @@
-import type { BettererVersionControlWorker } from '../fs';
-import type { BettererReporter } from '../reporters';
+import type { BettererVersionControlWorker } from '../fs/index.js';
+import type { BettererReporter } from '../reporters/index.js';
 import type {
   BettererConfig,
   BettererConfigBase,
@@ -12,17 +12,17 @@ import type {
   BettererOptionsStart,
   BettererOptionsWatch,
   BettererWorkerRunConfig
-} from './types';
+} from './types.js';
 
 import { BettererError } from '@betterer/errors';
-import assert from 'assert';
-import * as os from 'os';
-import * as path from 'path';
+import assert from 'node:assert';
+import os from 'node:os';
+import path from 'node:path';
 
-import { read } from '../fs';
-import { registerExtensions } from './register';
-import { loadReporters, loadSilentReporter } from '../reporters';
-import { isBoolean, isNumber, isRegExp, isString, isUndefined } from '../utils';
+import { read } from '../fs/index.js';
+import { registerExtensions } from './register.js';
+import { loadReporters, loadSilentReporter } from '../reporters/index.js';
+import { isBoolean, isNumber, isRegExp, isString, isUndefined } from '../utils.js';
 
 const TOTAL_CPUS = os.cpus().length;
 

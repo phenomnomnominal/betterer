@@ -1,10 +1,11 @@
-import * as os from 'os';
+import os from 'node:os';
 import { replace } from 'testdouble';
 
+// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from './fixture';
 
 const [cpu] = os.cpus();
-replace('os', {
+replace('node:os', {
   ...os,
   cpus: () => [cpu]
 });

@@ -1,5 +1,5 @@
-import type { BettererFileTestResultΩ } from './file-test-result';
-import type { BettererFileTestResult } from './types';
+import type { BettererFileTestResultΩ } from './file-test-result.js';
+import type { BettererFileTestResult } from './types.js';
 
 export function goal(result: BettererFileTestResult): boolean {
   const resultΩ = result as BettererFileTestResultΩ;
