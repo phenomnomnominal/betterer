@@ -1,3 +1,5 @@
+import type { BettererCLIArguments, BettererCommandName } from './types';
+
 import { Command } from 'commander';
 
 import { ci } from './ci';
@@ -6,7 +8,7 @@ import { merge } from './merge';
 import { precommit } from './precommit';
 import { start } from './start';
 import { results } from './results';
-import { BettererCLIArguments, BettererCommand, BettererCommandName } from './types';
+import { BettererCommand } from './types';
 import { watch } from './watch';
 import { upgrade } from './upgrade';
 import { getVersion } from './version';
@@ -17,7 +19,6 @@ import { getVersion } from './version';
  * Run the **Betterer** command-line interface.
  */
 export async function cli__(cwd: string, argv: BettererCLIArguments, isCI = process.env.CI === 'true'): Promise<void> {
-
   const program = new Command('Betterer');
   const version = await getVersion();
   program.version(version);

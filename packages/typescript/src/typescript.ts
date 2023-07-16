@@ -1,4 +1,6 @@
-import { BettererFileGlobs, BettererFilePaths, BettererFileTest } from '@betterer/betterer';
+import type { BettererFileGlobs, BettererFilePaths } from '@betterer/betterer';
+
+import { BettererFileTest } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import * as path from 'path';
 import * as ts from 'typescript';

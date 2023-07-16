@@ -1,4 +1,4 @@
-import { WorkerRequireModule, WorkerRequireModuleAsync } from '@phenomnomnominal/worker-require';
+import type { WorkerRequireModule, WorkerRequireModuleAsync } from '@phenomnomnominal/worker-require';
 
 /**
  * @public An array of {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob }

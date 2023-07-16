@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should remove files from the cache when they are deleted', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, readFile, cleanup, resolve, writeFile, deleteFile, testNames } = await createFixture(
       'cache-deleted-file',
       {

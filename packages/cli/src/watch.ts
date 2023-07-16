@@ -1,8 +1,12 @@
-import { betterer, BettererOptionsWatch } from '@betterer/betterer';
-import { Command } from 'commander';
+import type { BettererOptionsWatch } from '@betterer/betterer';
+import type { Command } from 'commander';
+
+import type { BettererCLIConfig } from './types';
+
+import { betterer } from '@betterer/betterer';
 
 import { cliCommand, setEnv } from './options';
-import { BettererCLIConfig, BettererCommand } from './types';
+import { BettererCommand } from './types';
 
 /**
  * Run **Betterer** in `watch` mode.

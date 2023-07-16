@@ -1,17 +1,18 @@
-import {
-  betterer,
+import type {
   BettererContext,
+  BettererContextSummary,
   BettererRun,
   BettererRunSummary,
   BettererSuite,
   BettererSuiteSummary
 } from '@betterer/betterer';
-import { BettererContextSummary } from '../packages/betterer/src';
 
 import { createFixture } from './fixture';
 
 describe('betterer --reporter', () => {
   it('should work with a lifecycle based reporter', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { paths, cleanup } = await createFixture('reporter-lifecycle', {
       '.betterer.ts': `
 import { BettererTest } from '@betterer/betterer';

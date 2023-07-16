@@ -1,16 +1,18 @@
-import { BettererRun } from '@betterer/betterer';
-import { BettererError } from '@betterer/errors';
-import { promises as fs } from 'fs';
-import minimatch from 'minimatch';
-import path from 'path';
+import type { BettererRun } from '@betterer/betterer';
 
-import {
+import type {
   BettererCoverageIssue,
   BettererCoverageIssues,
   IstanbulCoverage,
   IstanbulCoverageSummary,
   IstanbulFileCoverage
 } from './types';
+
+import { BettererError } from '@betterer/errors';
+import { promises as fs } from 'fs';
+import minimatch from 'minimatch';
+import path from 'path';
+
 import { isNumber, normalisedPath } from './utils';
 
 export async function test(

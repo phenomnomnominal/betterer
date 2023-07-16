@@ -1,13 +1,14 @@
-import * as path from 'path';
-
-import { BettererFileResolverΩ } from '../../fs';
-import { BettererFileTestResultΩ } from './file-test-result';
-import {
+import type {
   BettererFileTestResult,
   BettererFileIssues,
   BettererFileTestResultSerialised,
   BettererFileBase
 } from './types';
+
+import * as path from 'path';
+
+import { BettererFileResolverΩ } from '../../fs';
+import { BettererFileTestResultΩ } from './file-test-result';
 
 export function deserialise(serialised: BettererFileTestResultSerialised, resultsPath: string): BettererFileTestResult {
   const resolver = new BettererFileResolverΩ(path.dirname(resultsPath));

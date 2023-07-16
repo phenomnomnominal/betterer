@@ -1,4 +1,4 @@
-import { BettererRunSummary } from '@betterer/betterer';
+import type { BettererRunSummary } from '@betterer/betterer';
 
 import { fileTestDelta } from './file-test-delta';
 

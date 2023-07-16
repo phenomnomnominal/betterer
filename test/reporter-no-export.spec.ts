@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer --reporter', () => {
   it('should throw when there is nothing exported', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, cleanup, resolve } = await createFixture('reporter-no-export', {
       'reporter.js': ``
     });

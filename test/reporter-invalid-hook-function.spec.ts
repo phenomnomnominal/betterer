@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer --reporter', () => {
   it('should throw when a hook is not a function', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, cleanup, resolve } = await createFixture('reporter-invalid-hook-function', {
       'reporter.js': `
 module.exports.reporter = {

@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it(`actually makes shit faster`, async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { paths, cleanup, testNames } = await createFixture('cache-faster', {
       '.betterer.js': `
 const { BettererFileTest } = require('@betterer/betterer');

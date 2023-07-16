@@ -1,4 +1,5 @@
-import { BettererPackageJSON } from '@betterer/cli';
+import type { BettererPackageJSON } from '@betterer/cli';
+
 import { execSync } from 'child_process';
 import * as path from 'path';
 

@@ -1,11 +1,13 @@
+import type { BettererOptionsOverride } from '../config';
+import type { BettererFilePaths } from '../fs';
+import type { BettererSuiteSummary } from '../suite';
+import type { BettererRunner } from './types';
+
 import { BettererError } from '@betterer/errors';
-import { BettererOptionsOverride } from '../config';
+
 import { BettererContextΩ } from '../context';
-import { BettererFilePaths } from '../fs';
 import { createGlobals } from '../globals';
-import { BettererSuiteSummary } from '../suite';
 import { normalisedPath } from '../utils';
-import { BettererRunner } from './types';
 import { createWatcher, WATCHER_EVENTS } from './watcher';
 
 const DEBOUNCE_TIME = 200;

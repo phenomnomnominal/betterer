@@ -1,4 +1,6 @@
-import { Connection, NotificationType } from 'vscode-languageserver/node';
+import type { Connection } from 'vscode-languageserver/node';
+
+import { NotificationType } from 'vscode-languageserver/node';
 
 import { isString } from '../utils';
 

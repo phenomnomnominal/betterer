@@ -1,12 +1,14 @@
+import type { BettererVersionControlWorker } from '../fs';
+import type { BettererRunSummary, BettererRunSummaries } from '../run';
+import type { BettererSuiteSummary } from '../suite';
+import type { BettererTestNames } from '../test';
+import type { BettererResultsSerialised } from './types';
+
 import assert from 'assert';
 
-import { BettererVersionControlWorker, write } from '../fs';
-import { BettererRunSummary, BettererRunSummaries } from '../run';
-import { BettererSuiteSummary } from '../suite';
+import { write } from '../fs';
 import { parseResults } from './parse';
 import { printResults } from './print';
-import { BettererTestNames } from '../test';
-import { BettererResultsSerialised } from './types';
 
 export class BettererResultsFileΩ {
   private constructor(

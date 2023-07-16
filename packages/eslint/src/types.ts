@@ -1,4 +1,4 @@
-import { Linter } from 'eslint';
+import type { Linter } from 'eslint';
 
 /**
  * @public The {@link @betterer/eslint#eslint | `eslint`} test factory takes a map of rule names

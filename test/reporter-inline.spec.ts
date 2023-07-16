@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer --reporter', () => {
   it('should work with an inline reporter', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { paths, cleanup } = await createFixture('reporter-inline', {
       '.betterer.ts': `
 import { BettererTest } from '@betterer/betterer';

@@ -1,9 +1,9 @@
-import { betterer, runner } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should throw when reading the results file fails', async () => {
+    const { betterer, runner } = await import('@betterer/betterer');
+
     const { logs, paths, cleanup, resolve, writeFile } = await createFixture('results-read-error', {
       '.betterer.js': `
 const { BettererTest } = require('@betterer/betterer');

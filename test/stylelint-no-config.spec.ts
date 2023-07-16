@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should throw if there is no config', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { paths, logs, cleanup } = await createFixture('stylelint-no-config', {
       '.betterer.js': `
 const { stylelint } = require('@betterer/stylelint');

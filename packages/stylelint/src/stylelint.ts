@@ -1,7 +1,9 @@
+import type { Configuration } from 'stylelint';
+
 import { BettererFileTest } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import { promises as fs } from 'fs';
-import { Configuration, lint } from 'stylelint';
+import { lint } from 'stylelint';
 
 /**
  * @public Use this test to incrementally introduce new {@link https://stylelint.io/ | **Stylelint**} rules

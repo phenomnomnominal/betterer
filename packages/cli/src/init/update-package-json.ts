@@ -1,9 +1,11 @@
+import type { BettererLogger } from '@betterer/logger';
+
+import type { BettererPackageJSON } from '../types';
+
 import { BettererError } from '@betterer/errors';
-import { BettererLogger } from '@betterer/logger';
 import findUp from 'find-up';
 import { promises as fs } from 'fs';
 
-import { BettererPackageJSON } from '../types';
 import { getVersion } from '../version';
 
 export async function run(logger: BettererLogger, cwd: string, ts: boolean): Promise<void> {

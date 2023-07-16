@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should work with an incremental build', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { paths, logs, resolve, cleanup, readFile, writeFile, testNames } = await createFixture(
       'typescript-incremental',
       {

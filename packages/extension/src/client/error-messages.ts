@@ -1,4 +1,4 @@
-import { WorkspaceFolder } from 'vscode';
+import type { WorkspaceFolder } from 'vscode';
 
 import { EXTENSION_NAME } from '../constants';
 

@@ -1,9 +1,11 @@
+import type { BettererLogger } from '@betterer/logger';
+import type { SourceFile } from 'typescript';
+
 import { BettererError } from '@betterer/errors';
-import { BettererLogger } from '@betterer/logger';
 import { tsquery } from '@phenomnomnominal/tsquery';
 import { promises as fs } from 'fs';
 import { format, resolveConfig } from 'prettier';
-import { createPrinter, SourceFile, ModuleKind } from 'typescript';
+import { createPrinter, ModuleKind } from 'typescript';
 
 import { diff } from './diff';
 import { upgradeCJS } from './upgrade-cjs';
@@ -35,10 +37,10 @@ export async function run(logger: BettererLogger, configPath: string, save: bool
   const printed = printUpgraded(originalSourceFile, upgradedSourceFile);
 
   const formatOptions = { ...config, parser: 'typescript' };
-  const fomattedOriginal = format(fileText, formatOptions);
+  const formattedOriginal = format(fileText, formatOptions);
   const formatted = format(printed, formatOptions);
 
-  if (fomattedOriginal !== formatted) {
+  if (formattedOriginal !== formatted) {
     if (!save) {
       await logger.info('\nBetterer can upgrade your test definition file automatically! ✨');
       await logger.info(`Here's what the changes will look like:\n`);
@@ -61,11 +63,11 @@ export async function run(logger: BettererLogger, configPath: string, save: bool
 const EXPORT_QUERY = 'ExportDeclaration, ExportAssignment';
 
 // export const thing = 'foo';
-const EXPORT_VARIABLE_DECLARTION_QUERY = 'VariableStatement:has(ExportKeyword)';
+const EXPORT_VARIABLE_DECLARATION_QUERY = 'VariableStatement:has(ExportKeyword)';
 
 function getModuleType(originalSourceFile: SourceFile): ModuleKind | null {
   const [exportStatement] = tsquery(originalSourceFile, EXPORT_QUERY);
-  const [exportVariableDeclaration] = tsquery(originalSourceFile, EXPORT_VARIABLE_DECLARTION_QUERY);
+  const [exportVariableDeclaration] = tsquery(originalSourceFile, EXPORT_VARIABLE_DECLARATION_QUERY);
 
   if (exportStatement || exportVariableDeclaration) {
     return ModuleKind.ES2015;
@@ -90,7 +92,7 @@ function getImport(originalSourceFile: SourceFile, upgradedSourceFile: SourceFil
   }
 
   const [exportStatement] = tsquery(originalSourceFile, EXPORT_QUERY);
-  const [exportVariableDeclaration] = tsquery(originalSourceFile, EXPORT_VARIABLE_DECLARTION_QUERY);
+  const [exportVariableDeclaration] = tsquery(originalSourceFile, EXPORT_VARIABLE_DECLARATION_QUERY);
 
   if (exportStatement || exportVariableDeclaration) {
     return `import { BettererTest } from '@betterer/betterer';`;

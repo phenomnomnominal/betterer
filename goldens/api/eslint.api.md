@@ -5,7 +5,7 @@
 ```ts
 
 import { BettererFileTest } from '@betterer/betterer';
-import { Linter } from 'eslint';
+import type { Linter } from 'eslint';
 
 // @public
 export type BettererESLintRulesConfig = Record<string, Linter.RuleLevel | Linter.RuleLevelAndOptions>;

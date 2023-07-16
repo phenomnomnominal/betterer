@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer --reporter', () => {
   it('should work with an npm module', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { paths, cleanup } = await createFixture('reporter-npm', {
       '.betterer.js': ``
     });

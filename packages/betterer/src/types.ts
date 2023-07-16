@@ -1,6 +1,6 @@
-import { BettererConfig } from './config';
-import { BettererVersionControlWorker } from './fs';
-import { BettererResultsFileΩ } from './results';
+import type { BettererConfig } from './config';
+import type { BettererVersionControlWorker } from './fs';
+import type { BettererResultsFileΩ } from './results';
 
 export type MaybeAsync<T> = T | Promise<T>;
 

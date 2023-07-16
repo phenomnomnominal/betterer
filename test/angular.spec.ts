@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the status of the Angular compiler in strict mode', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { paths, logs, readFile, cleanup, testNames } = await createFixture('angular-strict', {
       '.betterer.ts': `
 import { angular } from '@betterer/angular';

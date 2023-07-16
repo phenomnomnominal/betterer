@@ -1,4 +1,4 @@
-import { BettererFileIssues } from '../test';
+import type { BettererFileIssues } from '../test';
 
 /**
  * @public The deserialised result object for a single run of a single {@link @betterer/betterer#BettererTest | `BettererTest`}.

@@ -1,7 +1,8 @@
-import { BettererWorkerRunConfig } from '../config';
-import { BettererFilePaths, BettererVersionControlWorker } from '../fs';
-import { BettererTestMeta } from '../test';
-import { BettererRunSummary } from './types';
+import type { BettererWorkerRunConfig } from '../config';
+import type { BettererFilePaths, BettererVersionControlWorker } from '../fs';
+import type { BettererTestMeta } from '../test';
+import type { BettererRunSummary } from './types';
+
 import { BettererWorkerRunΩ } from './worker-run';
 
 const TEST_NAME_RUN: Record<string, BettererWorkerRunΩ> = {};

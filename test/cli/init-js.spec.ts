@@ -1,4 +1,4 @@
-import { BettererPackageJSON, cli__ } from '@betterer/cli';
+import type { BettererPackageJSON } from '@betterer/cli';
 
 import { createFixture } from '../fixture';
 
@@ -8,6 +8,8 @@ import { version } from '../../packages/cli/package.json';
 
 describe('betterer cli', () => {
   it('should initialise betterer in a repo with JS', async () => {
+    const { cli__ } = await import('@betterer/cli');
+
     const { cleanup, logs, paths, readFile, resolve } = await createFixture(
       'init-js',
       {

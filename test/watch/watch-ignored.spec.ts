@@ -1,10 +1,13 @@
-import { betterer, BettererSuiteSummary } from '@betterer/betterer';
+import type { BettererSuiteSummary } from '@betterer/betterer';
+
 import assert from 'assert';
 
 import { createFixture } from '../fixture';
 
 describe('betterer.watch', () => {
   it('should ignore .gitignored files', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, resolve, cleanup, writeFile } = await createFixture('watch-ignored', {
       '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';

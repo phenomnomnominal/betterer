@@ -1,6 +1,6 @@
-import { BettererFilePaths } from '../fs';
-import { BettererRuns, BettererRunSummaries } from '../run';
-import { BettererTestNames } from '../test';
+import type { BettererFilePaths } from '../fs';
+import type { BettererRuns, BettererRunSummaries } from '../run';
+import type { BettererTestNames } from '../test';
 
 /**
  * @public A set of {@link @betterer/betterer#BettererTest | `BettererTest`} runs. Will become a

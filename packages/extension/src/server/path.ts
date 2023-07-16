@@ -1,4 +1,5 @@
-import { TextDocument } from 'vscode-languageserver-textdocument';
+import type { TextDocument } from 'vscode-languageserver-textdocument';
+
 import { URI } from 'vscode-uri';
 
 import { isString } from '../utils';

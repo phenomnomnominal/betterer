@@ -1,9 +1,9 @@
-import { BettererError } from '@betterer/errors';
-import { WorkerRequireModule, WorkerRequireModuleAsync } from '@phenomnomnominal/worker-require';
+import type { BettererError } from '@betterer/errors';
+import type { WorkerRequireModule, WorkerRequireModuleAsync } from '@phenomnomnominal/worker-require';
 
-import { BettererFilePaths } from '../fs';
-import { BettererResult } from '../results';
-import { BettererDiff } from '../test';
+import type { BettererFilePaths } from '../fs';
+import type { BettererResult } from '../results';
+import type { BettererDiff } from '../test';
 
 /**
  * @public The change between a test runs and its baseline. A {@link @betterer/betterer#BettererRun | `BettererRun`}

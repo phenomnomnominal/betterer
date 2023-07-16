@@ -1,10 +1,18 @@
+import type { BettererFileGlobs, BettererFilePatterns, BettererFilePaths } from '../../fs';
+import type { BettererRun, BettererWorkerRunΩ } from '../../run';
+import type { BettererTestConstraint, BettererTestDeadline, BettererTestFunction, BettererTestGoal } from '../types';
+import type {
+  BettererFileTestBase,
+  BettererFileTestConfig,
+  BettererFileTestFunction,
+  BettererFileTestResult
+} from './types';
+
 import assert from 'assert';
 import path from 'path';
 
-import { BettererFileResolverΩ, BettererFileGlobs, BettererFilePatterns, BettererFilePaths } from '../../fs';
-import { BettererRun, BettererWorkerRunΩ } from '../../run';
+import { BettererFileResolverΩ } from '../../fs';
 import { createDeadline, createGoal, createTestConfig } from '../config';
-import { BettererTestConstraint, BettererTestDeadline, BettererTestFunction, BettererTestGoal } from '../types';
 import { constraint } from './constraint';
 import { differ } from './differ';
 import { BettererFileTestResultΩ } from './file-test-result';
@@ -12,12 +20,6 @@ import { goal } from './goal';
 import { printer } from './printer';
 import { progress } from './progress';
 import { deserialise, serialise } from './serialiser';
-import {
-  BettererFileTestBase,
-  BettererFileTestConfig,
-  BettererFileTestFunction,
-  BettererFileTestResult
-} from './types';
 
 /**
  * @public A very common usecase for **Betterer** is to track issues across all the files in a

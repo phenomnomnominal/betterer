@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it(`doesn't cache if a test gets worse`, async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture('cache-worse', {
       '.betterer.js': `
 const { regexp } = require('@betterer/regexp');

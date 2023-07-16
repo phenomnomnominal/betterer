@@ -1,15 +1,19 @@
+import type { BettererConfig, BettererWorkerRunConfig } from '../config';
+import type { BettererFilePaths, BettererVersionControlWorker } from '../fs';
+import type { BettererDiff, BettererTestConfig, BettererTestMeta } from '../test';
+import type { BettererGlobals } from '../types';
+import type { BettererRun, BettererRunning, BettererRunSummary } from './types';
+
 import { BettererConstraintResult } from '@betterer/constraints';
 import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
-import { BettererConfig, BettererWorkerRunConfig, createWorkerConfig } from '../config';
-import { BettererFilePaths, BettererVersionControlWorker, forceRelativePaths } from '../fs';
+import { createWorkerConfig } from '../config';
+import { forceRelativePaths } from '../fs';
 import { BettererResultsFileΩ, BettererResultΩ } from '../results';
-import { BettererDiff, BettererTestConfig, BettererTestMeta, isBettererFileTest, loadTestMeta } from '../test';
+import { isBettererFileTest, loadTestMeta } from '../test';
 import { isBettererTest } from '../test';
-import { BettererGlobals } from '../types';
 import { BettererRunStatus, BettererRunSummaryΩ } from './run-summary';
-import { BettererRun, BettererRunning, BettererRunSummary } from './types';
 
 export class BettererWorkerRunΩ implements BettererRun {
   public readonly config: BettererConfig;

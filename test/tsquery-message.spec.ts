@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should include custom TSQuery warning messages', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture('tsquery', {
       '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';

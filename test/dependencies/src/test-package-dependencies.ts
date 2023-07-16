@@ -1,5 +1,6 @@
+import type { BettererLogger } from '@betterer/logger';
+
 import { BettererError } from '@betterer/errors';
-import { BettererLogger } from '@betterer/logger';
 import dependencyCheck from 'dependency-check';
 import { promises as fs } from 'fs';
 import * as path from 'path';

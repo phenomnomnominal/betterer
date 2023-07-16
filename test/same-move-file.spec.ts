@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should stay the same when a file is moved', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { deleteFile, paths, logs, cleanup, resolve, readFile, writeFile, testNames } = await createFixture(
       'same-move-file',
       {

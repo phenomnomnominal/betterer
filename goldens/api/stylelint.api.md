@@ -5,7 +5,7 @@
 ```ts
 
 import { BettererFileTest } from '@betterer/betterer';
-import { Configuration } from 'stylelint';
+import type { Configuration } from 'stylelint';
 
 // @public
 export function stylelint(configOverrides: Partial<Configuration>): BettererFileTest;

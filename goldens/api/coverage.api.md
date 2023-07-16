@@ -4,9 +4,9 @@
 
 ```ts
 
-import { BettererFileGlobs } from '@betterer/betterer';
-import { BettererFilePatterns } from '@betterer/betterer';
-import { BettererRun } from '@betterer/betterer';
+import type { BettererFileGlobs } from '@betterer/betterer';
+import type { BettererFilePatterns } from '@betterer/betterer';
+import type { BettererRun } from '@betterer/betterer';
 import { BettererTest } from '@betterer/betterer';
 
 // @public

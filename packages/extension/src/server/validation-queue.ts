@@ -1,6 +1,7 @@
+import type { Connection, TextDocumentChangeEvent, TextDocuments } from 'vscode-languageserver';
+import type { TextDocument } from 'vscode-languageserver-textdocument';
+
 import debounce from 'lodash.debounce';
-import { Connection, TextDocumentChangeEvent, TextDocuments } from 'vscode-languageserver';
-import { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { info } from './console';
 import { BettererValidator } from './validator';

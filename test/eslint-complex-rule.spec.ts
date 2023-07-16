@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should handle complex eslint rule options', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('eslint-complex-rule', {
       '.betterer.ts': `
 import { eslint } from '@betterer/eslint';

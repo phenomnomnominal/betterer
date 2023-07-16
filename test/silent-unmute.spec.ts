@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer --silent', () => {
   it('should be possible to unmute a subsequent run', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, cleanup } = await createFixture('silent-unmute', {
       '.betterer.js': `
 const { BettererTest } = require('@betterer/betterer');

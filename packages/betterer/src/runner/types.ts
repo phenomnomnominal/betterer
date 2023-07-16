@@ -1,6 +1,6 @@
-import { BettererOptionsOverride } from '../config';
-import { BettererFilePaths } from '../fs';
-import { BettererSuiteSummary } from '../suite';
+import type { BettererOptionsOverride } from '../config';
+import type { BettererFilePaths } from '../fs';
+import type { BettererSuiteSummary } from '../suite';
 
 /**
  * @public The JS API for controlling **Betterer** runs.

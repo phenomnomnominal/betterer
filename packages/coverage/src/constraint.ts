@@ -1,7 +1,8 @@
+import type { BettererCoverageDiff, BettererCoverageIssues } from './types';
+
 import { BettererConstraintResult } from '@betterer/constraints';
 
 import { differ } from './differ';
-import { BettererCoverageDiff, BettererCoverageIssues } from './types';
 
 export function constraint(result: BettererCoverageIssues, expected: BettererCoverageIssues): BettererConstraintResult {
   const { diff } = differ(result, expected);

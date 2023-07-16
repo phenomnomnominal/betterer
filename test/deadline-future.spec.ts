@@ -11,10 +11,10 @@ replace('../packages/betterer/dist/utils.js', {
   getTime: () => 1589714460851
 });
 
-import { betterer } from '@betterer/betterer';
-
 describe('betterer', () => {
   it('should do nothing when a test is not past its deadline', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, readFile, cleanup, testNames } = await createFixture('deadline-future', {
       '.betterer.js': `
 const { BettererTest } = require('@betterer/betterer');

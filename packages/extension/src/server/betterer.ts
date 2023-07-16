@@ -1,4 +1,5 @@
-import { betterer, BettererOptionsRunner, BettererRunner } from '@betterer/betterer';
+import type { betterer, BettererOptionsRunner, BettererRunner } from '@betterer/betterer';
+
 import { Files } from 'vscode-languageserver/node';
 
 import { nodeRequire } from '../utils';

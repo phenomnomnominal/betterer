@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should throw if there is no query', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { paths, logs, cleanup } = await createFixture('tsquery-no-query', {
       '.betterer.js': `
 const { tsquery } = require('@betterer/tsquery');

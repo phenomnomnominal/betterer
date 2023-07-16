@@ -1,15 +1,8 @@
+import type { ArrowFunction, Node, ObjectLiteralExpression, SourceFile } from 'typescript';
+
 import { tsquery } from '@phenomnomnominal/tsquery';
 import { tstemplate } from '@phenomnomnominal/tstemplate';
-import {
-  ArrowFunction,
-  createPrinter,
-  factory,
-  isFunctionLike,
-  isPropertyAssignment,
-  Node,
-  ObjectLiteralExpression,
-  SourceFile
-} from 'typescript';
+import { createPrinter, factory, isFunctionLike, isPropertyAssignment } from 'typescript';
 
 export function reparse(upgradedSourceFile: SourceFile, configPath: string): SourceFile {
   return tsquery.ast(createPrinter().printFile(upgradedSourceFile), configPath);

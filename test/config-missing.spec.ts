@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should throw when there is not a config file', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, cleanup } = await createFixture('config-missing');
 
     const configPaths = [paths.config];

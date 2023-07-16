@@ -1,7 +1,9 @@
-import { BettererRun } from '@betterer/betterer';
+import type { BettererRun } from '@betterer/betterer';
+import type { BettererLogger } from '@betterer/logger';
+import type { BettererTask } from '@betterer/tasks';
+
 import { BettererError } from '@betterer/errors';
-import { BettererLogger, log__ } from '@betterer/logger';
-import { BettererTask } from '@betterer/tasks';
+import { log__ } from '@betterer/logger';
 
 import {
   testBetter,
@@ -15,7 +17,7 @@ import {
   testUpdated,
   testWorse
 } from '../../messages';
-import { BettererReporterRun } from '../../types';
+import type { BettererReporterRun } from '../../types';
 import { quote } from '../../utils';
 import { getDelta } from './deltas';
 

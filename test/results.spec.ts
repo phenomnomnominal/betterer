@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should return the current results for a test', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { paths, cleanup } = await createFixture('results', {
       '.betterer.js': `
 const { BettererTest } = require('@betterer/betterer');

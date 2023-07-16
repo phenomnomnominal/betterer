@@ -1,8 +1,9 @@
-import { betterer } from '@betterer/betterer';
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should report a worse file coverage result', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const fixture = await createFixture('coverage-files-worse', {
       '.betterer.js': `
 const { coverage } = require('@betterer/coverage');

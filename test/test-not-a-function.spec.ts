@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should throw if a test is not a function', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { paths, logs, cleanup } = await createFixture('test-not-a-function', {
       '.betterer.js': `
 const { BettererTest } = require('@betterer/betterer');

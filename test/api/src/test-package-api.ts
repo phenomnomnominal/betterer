@@ -1,5 +1,6 @@
 import { BettererError } from '@betterer/errors';
-import { BettererLogger, diffStrings__ } from '@betterer/logger';
+import type { BettererLogger } from '@betterer/logger';
+import { diffStrings__ } from '@betterer/logger';
 import { Extractor, ExtractorConfig } from '@microsoft/api-extractor';
 import { promises as fs } from 'fs';
 import * as path from 'path';

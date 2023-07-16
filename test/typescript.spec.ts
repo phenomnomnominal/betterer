@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the status of the TypeScript compiler', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { paths, logs, resolve, readFile, cleanup, writeFile, testNames } = await createFixture('typescript', {
       '.betterer.ts': `
 import { typescript } from '@betterer/typescript';

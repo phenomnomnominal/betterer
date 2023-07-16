@@ -1,10 +1,13 @@
-import { BettererFileGlobs, BettererFilePatterns, BettererRun, BettererTest } from '@betterer/betterer';
+import type { BettererFileGlobs, BettererFilePatterns, BettererRun } from '@betterer/betterer';
+
+import type { BettererCoverageDiff, BettererCoverageIssues, BettererCoverageTestFunction } from './types';
+
+import { BettererTest } from '@betterer/betterer';
 
 import { constraint } from './constraint';
 import { differ } from './differ';
 import { goal } from './goal';
 import { deserialise, serialise } from './serialiser';
-import { BettererCoverageDiff, BettererCoverageIssues, BettererCoverageTestFunction } from './types';
 import { flatten } from './utils';
 
 /**

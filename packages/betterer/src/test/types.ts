@@ -1,8 +1,8 @@
-import { BettererConstraintResult } from '@betterer/constraints';
-import { BettererLogs } from '@betterer/logger';
+import type { BettererConstraintResult } from '@betterer/constraints';
+import type { BettererLogs } from '@betterer/logger';
 
-import { BettererDelta, BettererRun } from '../run';
-import { MaybeAsync } from '../types';
+import type { BettererDelta, BettererRun } from '../run';
+import type { MaybeAsync } from '../types';
 
 /**
  * @public A function that checks if a test result is {@link @betterer/constraints#BettererConstraintResult | `better`, `worse`, or the `same`}

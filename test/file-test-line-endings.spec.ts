@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should normalise line endings within issues', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { paths, cleanup, testNames, resolve, readFile, writeFile } = await createFixture('file-test-line-endings', {
       '.betterer.js': `
 const { BettererFileTest } = require('@betterer/betterer');

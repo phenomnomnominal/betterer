@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer --reporter', () => {
   it('should work with a local module', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { paths, cleanup, resolve } = await createFixture('reporter-local', {
       'reporter.js': `
         module.exports.reporter = {};

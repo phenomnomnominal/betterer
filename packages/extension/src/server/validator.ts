@@ -1,14 +1,13 @@
-import {
+import type {
   BettererConfig,
   BettererContext,
   BettererFilePaths,
   BettererRunSummary,
   BettererSuite
 } from '@betterer/betterer';
-import { BettererError } from '@betterer/errors';
-
-import { Connection, TextDocuments } from 'vscode-languageserver/node';
-import { TextDocument } from 'vscode-languageserver-textdocument';
+import type { BettererError } from '@betterer/errors';
+import type { Connection, TextDocuments } from 'vscode-languageserver/node';
+import type { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { BettererStatus } from '../status';
 import { getRunner, hasBetterer } from './betterer';

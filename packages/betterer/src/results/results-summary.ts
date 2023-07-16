@@ -1,8 +1,9 @@
-import { BettererOptionsResults } from '../config';
+import type { BettererOptionsResults } from '../config';
 import { BettererFileResolverΩ } from '../fs';
 import { createGlobals } from '../globals';
-import { BettererFileTestResultΩ, isBettererFileTest, loadTestMeta } from '../test';
-import { BettererFileTestResultSummaryDetails, BettererResultsSummary, BettererResultSummaries } from './types';
+import type { BettererFileTestResultΩ } from '../test';
+import { isBettererFileTest, loadTestMeta } from '../test';
+import type { BettererFileTestResultSummaryDetails, BettererResultsSummary, BettererResultSummaries } from './types';
 
 export class BettererResultsSummaryΩ implements BettererResultsSummary {
   public readonly resultSummaries: BettererResultSummaries;

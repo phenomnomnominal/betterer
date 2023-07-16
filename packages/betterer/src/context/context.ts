@@ -1,17 +1,21 @@
-import { BettererError } from '@betterer/errors';
-import { FSWatcher } from 'chokidar';
+import type { BettererError } from '@betterer/errors';
+import type { FSWatcher } from 'chokidar';
 
-import { BettererConfig, BettererOptionsOverride, overrideConfig } from '../config';
-import { BettererFilePaths, BettererFileResolverΩ, BettererVersionControlWorker } from '../fs';
-import { BettererReporterΩ } from '../reporters';
-import { BettererResultsFileΩ } from '../results';
+import type { BettererConfig, BettererOptionsOverride } from '../config';
+import type { BettererFilePaths, BettererVersionControlWorker } from '../fs';
+import type { BettererReporterΩ } from '../reporters';
+import type { BettererResultsFileΩ } from '../results';
+import type { BettererSuiteSummariesΩ, BettererSuiteSummary } from '../suite';
+import type { BettererGlobals } from '../types';
+import type { BettererContext, BettererContextStarted, BettererContextSummary } from './types';
+
+import { overrideConfig } from '../config';
+import { BettererFileResolverΩ } from '../fs';
 import { BettererRunWorkerPoolΩ, BettererRunΩ, createWorkerRunConfig } from '../run';
-import { BettererSuiteΩ, BettererSuiteSummariesΩ, BettererSuiteSummary } from '../suite';
+import { BettererSuiteΩ } from '../suite';
 import { loadTestMeta } from '../test';
 import { defer } from '../utils';
-import { BettererGlobals } from '../types';
 import { BettererContextSummaryΩ } from './context-summary';
-import { BettererContext, BettererContextStarted, BettererContextSummary } from './types';
 
 export class BettererContextΩ implements BettererContext {
   public readonly config: BettererConfig;

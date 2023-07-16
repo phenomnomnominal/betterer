@@ -1,7 +1,8 @@
-import { BettererContext } from '@betterer/betterer';
-import { useInput, useState, useStdin } from '@betterer/render';
+import type { BettererContext } from '@betterer/betterer';
 
-import { ConfigEditField } from '../config';
+import type { ConfigEditField } from '../config';
+
+import { useInput, useState, useStdin } from '@betterer/render';
 
 export function useControls(context: BettererContext): ConfigEditField {
   const { isRawModeSupported } = useStdin();

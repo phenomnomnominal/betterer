@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should work when including specific files', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const fixture = await createFixture('coverage-files-include', {
       '.betterer.ts': `
 import { coverage } from '@betterer/coverage';

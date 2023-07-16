@@ -1,14 +1,23 @@
-import { BettererError } from '@betterer/errors';
+import type { BettererError } from '@betterer/errors';
+
+import type { BettererConfig } from '../config';
+import type { BettererFilePaths } from '../fs';
+import type { BettererReporterΩ } from '../reporters';
+import type { BettererResultsFileΩ } from '../results';
+import type {
+  BettererReporterRun,
+  BettererRuns,
+  BettererRunSummaries,
+  BettererRunSummary,
+  BettererRunsΩ
+} from '../run';
+import type { Defer } from '../utils';
+import type { BettererSuite } from './types';
+
 import assert from 'assert';
 
-import { BettererConfig } from '../config';
-import { BettererFilePaths } from '../fs';
-import { BettererReporterΩ } from '../reporters';
-import { BettererResultsFileΩ } from '../results';
-import { BettererReporterRun, BettererRuns, BettererRunSummaries, BettererRunSummary, BettererRunsΩ } from '../run';
-import { Defer, defer } from '../utils';
+import { defer } from '../utils';
 import { BettererSuiteSummaryΩ } from './suite-summary';
-import { BettererSuite } from './types';
 
 const NEGATIVE_FILTER_TOKEN = '!';
 

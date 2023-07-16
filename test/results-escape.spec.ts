@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should escape interpolation characters in the result file', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('results-escape', {
       '.betterer.ts': `
 import { BettererFileTest } from '@betterer/betterer';

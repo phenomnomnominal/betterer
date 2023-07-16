@@ -1,5 +1,5 @@
-import { BettererRun } from '@betterer/betterer';
-import { CoverageSummaryData, Totals } from 'istanbul-lib-coverage';
+import type { BettererRun } from '@betterer/betterer';
+import type { CoverageSummaryData, Totals } from 'istanbul-lib-coverage';
 
 export type IstanbulCoverage = Totals;
 export type IstanbulFileCoverage = CoverageSummaryData;

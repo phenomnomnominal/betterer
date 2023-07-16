@@ -5,7 +5,7 @@
 ```ts
 
 import { BettererFileTest } from '@betterer/betterer';
-import { CompilerOptions } from '@angular/compiler-cli';
+import type { CompilerOptions } from '@angular/compiler-cli';
 
 // @public
 export function angular(configFilePath: string, extraCompilerOptions: CompilerOptions): BettererFileTest;

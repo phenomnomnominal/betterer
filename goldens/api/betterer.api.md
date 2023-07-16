@@ -4,9 +4,9 @@
 
 ```ts
 
-import { BettererConstraintResult } from '@betterer/constraints';
-import { BettererError } from '@betterer/errors';
-import { BettererLogs } from '@betterer/logger';
+import type { BettererConstraintResult } from '@betterer/constraints';
+import type { BettererError } from '@betterer/errors';
+import type { BettererLogs } from '@betterer/logger';
 
 // Warning: (ae-missing-release-tag) "betterer" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //

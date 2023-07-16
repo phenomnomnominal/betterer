@@ -1,7 +1,7 @@
+import type { FixtureLogs, FixtureOptions } from './types';
+
 import ansiRegex from 'ansi-regex';
 import * as path from 'path';
-
-import { FixtureLogs, FixtureOptions } from './types';
 
 const ANSI_REGEX = ansiRegex();
 const PROJECT_REGEXP = new RegExp(normalisePaths(process.cwd()), 'g');

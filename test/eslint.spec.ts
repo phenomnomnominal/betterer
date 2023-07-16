@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the status of a new eslint rule', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture('eslint', {
       '.betterer.js': `
 const { eslint } = require('@betterer/eslint');

@@ -1,5 +1,7 @@
+import type { BinaryExpression, SourceFile } from 'typescript';
+
 import { tsquery } from '@phenomnomnominal/tsquery';
-import { BinaryExpression, factory, isObjectLiteralExpression, SourceFile } from 'typescript';
+import { factory, isObjectLiteralExpression } from 'typescript';
 
 import { reparse, wrapTest, wrapTests } from './utils';
 

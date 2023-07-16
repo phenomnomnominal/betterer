@@ -1,8 +1,9 @@
-import {
-  MarkdownDocumenterFeature,
+import type {
   IApiDocumenterPluginManifest,
   IMarkdownDocumenterFeatureOnBeforeWritePageArgs
 } from '@microsoft/api-documenter';
+
+import { MarkdownDocumenterFeature } from '@microsoft/api-documenter';
 import dedent from 'dedent';
 import path from 'path';
 
