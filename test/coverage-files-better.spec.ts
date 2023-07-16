@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should report an improved file coverage result', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const fixture = await createFixture('coverage-files-better', {
       '.betterer.js': `
 const { coverage } = require('@betterer/coverage');
@@ -102,7 +102,7 @@ module.exports = {
 
     expect(fixture.testNames(evenBetterTestRun.better)).toEqual(['test']);
 
-    // file-2 is fully covereed
+    // file-2 is fully covered
     const completedCoverage = `{
   "total": {
     "lines": { "total": 120, "covered": 120, "skipped": 0, "pct": 100 },

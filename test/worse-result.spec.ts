@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should work when a test gets worse', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { paths, logs, resolve, readFile, cleanup, testNames } = await createFixture(
       'worse-result',
       {

@@ -1,9 +1,10 @@
+import type { BettererFilePaths, BettererFileResolver } from '../../fs';
+import type { BettererFileTestResult, BettererFileIssues, BettererFile, BettererFileBase } from './types';
+
 import assert from 'assert';
 import path from 'path';
 
-import { BettererFilePaths, BettererFileResolver } from '../../fs';
 import { BettererFileΩ } from './file';
-import { BettererFileTestResult, BettererFileIssues, BettererFile, BettererFileBase } from './types';
 
 export class BettererFileTestResultΩ implements BettererFileTestResult {
   private _fileMap: Record<string, BettererFileBase> = {};

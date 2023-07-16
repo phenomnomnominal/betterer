@@ -1,4 +1,4 @@
-import { RemoteConsole } from 'vscode-languageserver';
+import type { RemoteConsole } from 'vscode-languageserver';
 
 let consoleInstance: RemoteConsole;
 

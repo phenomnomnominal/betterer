@@ -1,5 +1,8 @@
-import { StatusBarAlignment, StatusBarItem, window } from 'vscode';
-import { LanguageClient, NotificationType, State } from 'vscode-languageclient/node';
+import type { StatusBarItem } from 'vscode';
+import type { LanguageClient } from 'vscode-languageclient/node';
+
+import { StatusBarAlignment, window } from 'vscode';
+import { NotificationType, State } from 'vscode-languageclient/node';
 import { EXTENSION_NAME } from '../constants';
 import { BettererStatus } from '../status';
 import { COMMAND_NAMES } from './commands';

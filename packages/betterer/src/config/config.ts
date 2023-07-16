@@ -1,13 +1,6 @@
-import { BettererError } from '@betterer/errors';
-import assert from 'assert';
-import * as os from 'os';
-import * as path from 'path';
-
-import { BettererVersionControlWorker, read } from '../fs';
-import { registerExtensions } from './register';
-import { BettererReporter, loadReporters, loadSilentReporter } from '../reporters';
-import { isBoolean, isNumber, isRegExp, isString, isUndefined } from '../utils';
-import {
+import type { BettererVersionControlWorker } from '../fs';
+import type { BettererReporter } from '../reporters';
+import type {
   BettererConfig,
   BettererConfigBase,
   BettererConfigMerge,
@@ -20,6 +13,16 @@ import {
   BettererOptionsWatch,
   BettererWorkerRunConfig
 } from './types';
+
+import { BettererError } from '@betterer/errors';
+import assert from 'assert';
+import * as os from 'os';
+import * as path from 'path';
+
+import { read } from '../fs';
+import { registerExtensions } from './register';
+import { loadReporters, loadSilentReporter } from '../reporters';
+import { isBoolean, isNumber, isRegExp, isString, isUndefined } from '../utils';
 
 const TOTAL_CPUS = os.cpus().length;
 

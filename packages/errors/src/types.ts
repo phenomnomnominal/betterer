@@ -1,4 +1,4 @@
-import { BettererError } from './error';
+import type { BettererError } from './error';
 
 /**
  * @public An additional piece of information attached to a {@link BettererError | `BettererError`}.

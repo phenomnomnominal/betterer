@@ -1,6 +1,8 @@
+import type { WorkspaceFolder } from 'vscode';
+
 import * as fs from 'fs';
 import * as path from 'path';
-import { WorkspaceFolder, window, workspace } from 'vscode';
+import { window, workspace } from 'vscode';
 
 import { EXTENSION_NAME } from '../../constants';
 import { ALREADY_CONFIGURED, INIT_COMMAND_REQUIRES_WORKSPACE } from '../error-messages';

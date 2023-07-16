@@ -1,5 +1,3 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 const STYLES_SOURCE = `
@@ -16,6 +14,8 @@ a {
 
 describe('betterer', () => {
   it('should report the status of a new stylelint rule', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, resolve, readFile, writeFile, cleanup, testNames } = await createFixture('stylelint', {
       '.betterer.ts': `
 import { stylelint } from '@betterer/stylelint';

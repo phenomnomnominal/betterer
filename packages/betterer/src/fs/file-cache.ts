@@ -1,14 +1,15 @@
-import assert from 'assert';
-import path from 'path';
-import { normalisedPath } from '../utils';
-import { read } from './reader';
-import {
+import type {
   BettererFilePaths,
   BettererTestCacheMap,
   BettererFileCache,
   BettererFileHashMap,
   BettererCacheFile
 } from './types';
+
+import assert from 'assert';
+import path from 'path';
+import { normalisedPath } from '../utils';
+import { read } from './reader';
 import { write } from './writer';
 
 const BETTERER_CACHE_VERSION = 2;

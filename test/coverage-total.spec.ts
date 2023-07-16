@@ -1,10 +1,11 @@
-import { betterer } from '@betterer/betterer';
-import { BettererCoverageIssues } from '@betterer/coverage';
+import type { BettererCoverageIssues } from '@betterer/coverage';
 
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should report the total coverage', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const fixture = await createFixture('coverage-total', {
       '.betterer.js': `
 const { coverageTotal } = require('@betterer/coverage');

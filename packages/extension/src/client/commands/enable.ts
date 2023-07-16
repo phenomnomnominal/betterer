@@ -1,4 +1,6 @@
-import { WorkspaceFolder, workspace } from 'vscode';
+import type { WorkspaceFolder } from 'vscode';
+
+import { workspace } from 'vscode';
 
 import { EXTENSION_NAME } from '../../constants';
 import { ALREADY_ENABLED, ENABLE_COMMAND_REQUIRES_WORKSPACE } from '../error-messages';

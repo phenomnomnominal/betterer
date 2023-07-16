@@ -1,4 +1,4 @@
-import { BettererDelta } from '@betterer/betterer';
+import type { BettererDelta } from '@betterer/betterer';
 
 const formatter = Intl.NumberFormat();
 

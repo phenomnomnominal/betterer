@@ -1,9 +1,10 @@
+import type { BettererFileIssue, BettererFileIssues, BettererFile } from './types';
+
 import assert from 'assert';
 import { LinesAndColumns } from 'lines-and-columns';
 
 import { createHash } from '../../hasher';
 import { isString, normalisedPath, normaliseNewlines } from '../../utils';
-import { BettererFileIssue, BettererFileIssues, BettererFile } from './types';
 
 const UNKNOWN_LOCATION = {
   line: 0,

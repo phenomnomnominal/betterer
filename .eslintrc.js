@@ -17,7 +17,8 @@ const OVERRIDE_RULES = {
   'no-console': 2,
   '@typescript-eslint/unbound-method': 0,
   '@typescript-eslint/no-use-before-define': [2, { functions: false }],
-  '@typescript-eslint/member-ordering': 2
+  '@typescript-eslint/member-ordering': 2,
+  '@typescript-eslint/consistent-type-imports': [2, { prefer: 'type-imports', disallowTypeAnnotations: false }]
 };
 
 module.exports = {

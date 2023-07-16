@@ -1,4 +1,6 @@
-import { ExtensionContext, Uri, workspace } from 'vscode';
+import type { ExtensionContext, Uri } from 'vscode';
+
+import { workspace } from 'vscode';
 
 const NO_LIBRARY_STATE_KEY = 'noLibraryMessageAlreadyShown';
 const INVALID_CONFIG_STATE_KEY = 'invalidConfigMessageAlreadyShown';

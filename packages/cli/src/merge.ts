@@ -1,7 +1,11 @@
-import { betterer, BettererOptionsMerge } from '@betterer/betterer';
-import { Command } from 'commander';
+import type { BettererOptionsMerge } from '@betterer/betterer';
+import type { Command } from 'commander';
+
+import type { BettererCLIMergeConfig } from './types';
+
+import { betterer } from '@betterer/betterer';
+
 import { mergeCommand, setEnv } from './options';
-import { BettererCLIMergeConfig } from './types';
 
 /**
  * Run the **Betterer** `merge` command to resolve any merge conflicts in the

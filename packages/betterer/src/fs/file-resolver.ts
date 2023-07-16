@@ -1,15 +1,16 @@
-import assert from 'assert';
-import minimatch from 'minimatch';
-import * as path from 'path';
-
-import { flatten, normalisedPath } from '../utils';
-import {
+import type {
   BettererFileGlobs,
   BettererFilePaths,
   BettererFilePatterns,
   BettererFileResolver,
   BettererVersionControlWorker
 } from './types';
+
+import assert from 'assert';
+import minimatch from 'minimatch';
+import * as path from 'path';
+
+import { flatten, normalisedPath } from '../utils';
 
 export class BettererFileResolverΩ implements BettererFileResolver {
   private _excluded: Array<RegExp> = [];

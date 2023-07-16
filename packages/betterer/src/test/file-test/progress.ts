@@ -1,6 +1,6 @@
-import { BettererDelta } from '../../run';
-import { BettererFileTestResultΩ } from './file-test-result';
-import { BettererFileTestResult } from './types';
+import type { BettererDelta } from '../../run';
+import type { BettererFileTestResultΩ } from './file-test-result';
+import type { BettererFileTestResult } from './types';
 
 export function progress(
   baseline: BettererFileTestResult | null,

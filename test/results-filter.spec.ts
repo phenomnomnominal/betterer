@@ -1,9 +1,9 @@
-import { betterer, results } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should return only the current results for a filtered test', async () => {
+    const { betterer, results } = await import('@betterer/betterer');
+
     const { paths, cleanup } = await createFixture('results-filter', {
       '.betterer.js': `
 const { regexp } = require('@betterer/regexp');

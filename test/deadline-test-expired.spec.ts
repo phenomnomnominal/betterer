@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should mark a test as expired when it is past its deadline', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, readFile, cleanup, testNames } = await createFixture('deadline-test-expired', {
       '.betterer.js': `
 const { BettererTest } = require('@betterer/betterer');

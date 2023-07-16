@@ -1,8 +1,9 @@
+import type { TextDocumentChangeEvent } from 'vscode-languageserver/node';
+
 import {
   DidChangeConfigurationNotification,
   DidChangeWatchedFilesNotification,
   DidChangeWorkspaceFoldersNotification,
-  TextDocumentChangeEvent,
   TextDocumentSyncKind,
   TextDocuments,
   createConnection

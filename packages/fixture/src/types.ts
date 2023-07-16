@@ -1,4 +1,4 @@
-import { BettererTestNames, BettererRunSummaries } from '@betterer/betterer';
+import type { BettererTestNames, BettererRunSummaries } from '@betterer/betterer';
 
 export interface Paths {
   cache: string;

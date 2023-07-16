@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should not stay worse if an update is forced', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture('worse-update', {
       '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';

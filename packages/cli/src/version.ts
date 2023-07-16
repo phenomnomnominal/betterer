@@ -1,6 +1,7 @@
+import type { BettererPackageJSON } from './types';
+
 import { promises as fs } from 'fs';
 import path from 'path';
-import { BettererPackageJSON } from './types';
 
 export async function getVersion(): Promise<string> {
   const packageJSONPath = path.resolve(__dirname, '../package.json');

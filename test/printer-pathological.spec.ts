@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should handle printing for pathological cases', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { paths, readFile, cleanup } = await createFixture('printer-pathological', {
       '.betterer.js': `
 const { BettererTest } = require('@betterer/betterer');

@@ -1,9 +1,11 @@
+import type { Linter } from 'eslint';
+
+import type { BettererESLintRulesConfig } from './types';
+
 import { BettererFileTest } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import assert from 'assert';
-import { ESLint, Linter } from 'eslint';
-
-import { BettererESLintRulesConfig } from './types';
+import { ESLint } from 'eslint';
 
 /**
  * @public Use this test to incrementally introduce new {@link https://eslint.org/ | **ESLint**} rules to

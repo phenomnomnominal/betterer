@@ -1,4 +1,4 @@
-import { BettererOptionsStart, BettererOptionsRunner, BettererOptionsWatch } from '@betterer/betterer';
+import type { BettererOptionsStart, BettererOptionsRunner, BettererOptionsWatch } from '@betterer/betterer';
 
 function noop(options: unknown): unknown {
   return options;

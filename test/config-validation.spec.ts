@@ -9,10 +9,10 @@ replace('os', {
   cpus: () => [cpu]
 });
 
-import { betterer } from '@betterer/betterer';
-
 describe('betterer', () => {
   it('should throw when there is invalid config', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { cleanup, logs, paths } = await createFixture('config-validation', {
       '.betterer.js': ''
     });

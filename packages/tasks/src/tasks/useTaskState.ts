@@ -1,7 +1,8 @@
+import type { BettererTaskLog, BettererTaskLogs } from './types';
+
 import { useReducer, useRef } from '@betterer/render';
 
 import { useTasks } from './useTasksState';
-import { BettererTaskLog, BettererTaskLogs } from './types';
 
 interface BettererTaskState {
   done: boolean;

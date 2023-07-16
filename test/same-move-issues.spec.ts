@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should stay the same when multiple issues are moved', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { paths, logs, cleanup, resolve, readFile, writeFile, testNames } = await createFixture('same-move-issues', {
       'src/index.ts': `
 const a = 'a';

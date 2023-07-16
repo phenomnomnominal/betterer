@@ -1,7 +1,6 @@
-import path from 'path';
-import { Diagnostic, DiagnosticSeverity, Position } from 'vscode-languageserver/node';
-import { TextDocument } from 'vscode-languageserver-textdocument';
-import {
+import type { Diagnostic, Position } from 'vscode-languageserver/node';
+import type { TextDocument } from 'vscode-languageserver-textdocument';
+import type {
   BettererFileIssueSerialised,
   BettererFileIssuesSerialised,
   BettererFileTestDiff,
@@ -10,6 +9,9 @@ import {
   BettererSuite,
   BettererConfig
 } from '@betterer/betterer';
+
+import path from 'path';
+import { DiagnosticSeverity } from 'vscode-languageserver/node';
 
 import { EXTENSION_NAME } from '../constants';
 import { info } from './console';

@@ -1,10 +1,11 @@
+import type { BettererResultsSerialised } from './types';
+
 import { BettererError } from '@betterer/errors';
 import assert from 'assert';
 
 import { read } from '../fs';
 import { mergeResults } from './merge';
 import { requireText } from './require';
-import { BettererResultsSerialised } from './types';
 
 const MERGE_CONFLICT_ANCESTOR = '|||||||';
 const MERGE_CONFLICT_END = '>>>>>>>';

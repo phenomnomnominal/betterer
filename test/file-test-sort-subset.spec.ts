@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should sort files by their file path even when only running on a single file', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { paths, logs, cleanup, resolve, testNames, readFile, writeFile } = await createFixture(
       'file-test-sort-subset',
       {

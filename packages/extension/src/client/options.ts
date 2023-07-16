@@ -1,13 +1,14 @@
-import * as path from 'path';
-import { ExtensionContext, workspace } from 'vscode';
-import {
+import type { ExtensionContext } from 'vscode';
+import type {
   ErrorHandler,
   InitializationFailedHandler,
   LanguageClientOptions,
-  RevealOutputChannelOn,
-  ServerOptions,
-  TransportKind
+  ServerOptions
 } from 'vscode-languageclient/node';
+
+import * as path from 'path';
+import { workspace } from 'vscode';
+import { RevealOutputChannelOn, TransportKind } from 'vscode-languageclient/node';
 
 import { EXTENSION_NAME } from '../constants';
 import { getRuntime } from './settings';

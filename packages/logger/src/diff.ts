@@ -1,4 +1,6 @@
-import { diff, diffLinesUnified, diffStringsUnified, DiffOptions } from 'jest-diff';
+import type { DiffOptions } from 'jest-diff';
+
+import { diff, diffLinesUnified, diffStringsUnified } from 'jest-diff';
 
 /**
  * @internal Definitely not stable! Please don't use!

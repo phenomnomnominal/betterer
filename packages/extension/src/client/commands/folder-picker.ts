@@ -1,4 +1,6 @@
-import { WorkspaceFolder, window } from 'vscode';
+import type { WorkspaceFolder } from 'vscode';
+
+import { window } from 'vscode';
 
 export async function pickFolder(
   folders: Array<WorkspaceFolder>,

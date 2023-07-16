@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from '../fixture';
 
 describe('betterer.watch', () => {
   it('should stop when forced', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, cleanup } = await createFixture('watch-force-stop', {
       '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';

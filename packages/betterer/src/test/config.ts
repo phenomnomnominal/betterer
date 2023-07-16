@@ -1,15 +1,18 @@
-import { BettererError } from '@betterer/errors';
-import { BettererLogs, diff__ } from '@betterer/logger';
-import { format } from 'prettier';
+import type { BettererLogs } from '@betterer/logger';
 
-import { isFunction } from '../utils';
-import {
+import type {
   BettererTestConfig,
   BettererTestOptions,
   BettererTestOptionsComplex,
   BettererTestGoal,
   BettererDiff
 } from './types';
+
+import { BettererError } from '@betterer/errors';
+import { diff__ } from '@betterer/logger';
+import { format } from 'prettier';
+
+import { isFunction } from '../utils';
 
 export function createTestConfig<DeserialisedType, SerialisedType, DiffType>(
   options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>

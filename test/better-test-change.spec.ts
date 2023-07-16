@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should work when a test changes and makes the result better', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, readFile, cleanup, resolve, testNames } = await createFixture('better-test-change', {
       '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';

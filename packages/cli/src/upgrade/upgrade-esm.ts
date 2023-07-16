@@ -1,5 +1,7 @@
+import type { ExportAssignment, SourceFile, VariableDeclaration } from 'typescript';
+
 import { tsquery } from '@phenomnomnominal/tsquery';
-import { ExportAssignment, factory, isObjectLiteralExpression, SourceFile, VariableDeclaration } from 'typescript';
+import { factory, isObjectLiteralExpression } from 'typescript';
 
 import { reparse, wrapTest, wrapTests } from './utils';
 

@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should fail when the coverage report is missing', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const fixture = await createFixture('coverage-report-missing', {
       '.betterer.js': `
 const { coverageTotal } = require('@betterer/coverage');

@@ -1,4 +1,4 @@
-import { Tracer } from 'vscode-languageserver/node';
+import type { Tracer } from 'vscode-languageserver/node';
 
 let tracerInstance: Tracer;
 

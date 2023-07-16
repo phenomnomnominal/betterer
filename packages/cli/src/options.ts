@@ -1,6 +1,8 @@
+import type { BettererCLIArguments, BettererCLIEnvConfig } from './types';
+
 import { Command } from 'commander';
 
-import { BettererCLIArguments, BettererCLIEnvConfig, BettererCommand } from './types';
+import { BettererCommand } from './types';
 
 let command: Command;
 

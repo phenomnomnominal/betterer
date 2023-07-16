@@ -1,5 +1,26 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
   "betterer.tsconfigPath": "./tsconfig.json",
-  "cSpell.words": ["automerge"]
+  "cSpell.words": [
+    "automerge",
+    "bettere",
+    "betterertest",
+    "borks",
+    "bufferutil",
+    "commitlint",
+    "crlfs",
+    "Deserialiser",
+    "docgen",
+    "GOLDENS",
+    "hasher",
+    "initialise",
+    "Initialising",
+    "Lifecycles",
+    "loglevel",
+    "ngcc",
+    "reparse",
+    "stylelintrc",
+    "tsbuildinfo",
+    "tstemplate"
+  ]
 }

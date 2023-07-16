@@ -1,7 +1,7 @@
+import type { BettererWorker, BettererWorkerModule } from './types';
+
 import assert from 'assert';
 import { workerRequire } from '@phenomnomnominal/worker-require';
-
-import { BettererWorker, BettererWorkerModule } from './types';
 
 export class BettererRunWorkerHandleΩ {
   public worker: BettererWorker = workerRequire<BettererWorkerModule>('./run-worker', { cache: false });

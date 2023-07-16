@@ -1,11 +1,12 @@
+import type { BettererOptionsReporters } from '../config';
+import type { BettererReporter, BettererReporterModule } from './types';
+
 import { BettererError } from '@betterer/errors';
 import * as path from 'path';
 
-import { BettererOptionsReporters } from '../config';
 import { requireUncached } from '../require';
 import { isFunction, isString } from '../utils';
 import { BettererReporterΩ } from './reporter';
-import { BettererReporter, BettererReporterModule } from './types';
 
 const DEFAULT_REPORTER = '@betterer/reporter';
 const HOOK_NAMES = Object.getOwnPropertyNames(BettererReporterΩ.prototype) as ReadonlyArray<keyof BettererReporter>;

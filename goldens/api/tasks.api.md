@@ -7,7 +7,7 @@
 /// <reference types="react" />
 
 import { BettererError } from '@betterer/errors';
-import { BettererLogger } from '@betterer/logger';
+import type { BettererLogger } from '@betterer/logger';
 import { FC } from '@betterer/render';
 
 // @public

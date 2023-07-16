@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should not update the cache file in CI mode', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture('cache-ci', {
       '.betterer.js': `
 const { regexp } = require('@betterer/regexp');

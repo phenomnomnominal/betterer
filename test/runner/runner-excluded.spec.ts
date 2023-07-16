@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from '../fixture';
 
 describe('betterer.runner', () => {
   it(`should ignore any files that aren't included in the test`, async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { paths, resolve, cleanup, writeFile } = await createFixture('runner-excluded', {
       '.betterer.js': `
 const { eslint } = require('@betterer/eslint');

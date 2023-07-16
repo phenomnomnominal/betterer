@@ -4,7 +4,7 @@
 
 ```ts
 
-import { DiffOptions } from 'jest-diff';
+import type { DiffOptions } from 'jest-diff';
 
 // @internal
 export interface BettererLog {

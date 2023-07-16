@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should load a custom tsconfigPath', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, resolve, cleanup } = await createFixture('config-tsconfig', {
       '.betterer.ts': `
 import { BettererTest } from '@betterer/betterer';

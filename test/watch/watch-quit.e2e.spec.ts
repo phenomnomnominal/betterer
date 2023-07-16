@@ -1,10 +1,11 @@
-import { betterer } from '@betterer/betterer';
 import assert from 'assert';
 
 import { createFixture } from '../fixture';
 
 describe('betterer.watch', () => {
   it('should quit when "q" is pressed', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, cleanup, resolve, writeFile } = await createFixture('watch-quit', {
       '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';

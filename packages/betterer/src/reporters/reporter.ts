@@ -1,10 +1,10 @@
-import { BettererError } from '@betterer/errors';
+import type { BettererError } from '@betterer/errors';
 
-import { BettererContext } from '../context';
-import { BettererContextSummary } from '../context/types';
-import { BettererRun, BettererRunSummary } from '../run';
-import { BettererSuite, BettererSuiteSummary } from '../suite';
-import { BettererReporter } from './types';
+import type { BettererContext } from '../context';
+import type { BettererContextSummary } from '../context/types';
+import type { BettererRun, BettererRunSummary } from '../run';
+import type { BettererSuite, BettererSuiteSummary } from '../suite';
+import type { BettererReporter } from './types';
 
 export class BettererReporterΩ implements BettererReporter {
   constructor(private _reporters: Array<BettererReporter>) {}

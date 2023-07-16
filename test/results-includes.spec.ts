@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should return only the current results for an included file', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { paths, cleanup, resolve } = await createFixture('results-includes', {
       '.betterer.js': `
 const { regexp } = require('@betterer/regexp');

@@ -12,10 +12,10 @@ replace('../packages/betterer/dist/utils.js', {
   getTime: () => Date.now()
 });
 
-import { betterer } from '@betterer/betterer';
-
 describe('betterer', () => {
   it('should mark a file test as expired when it is past its deadline', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, readFile, cleanup, testNames } = await createFixture('deadline-file-test-expired', {
       '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';

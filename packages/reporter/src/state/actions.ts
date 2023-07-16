@@ -1,5 +1,5 @@
-import { BettererSuiteSummary, BettererContextSummary } from '@betterer/betterer';
-import { BettererSuite } from '@betterer/betterer';
+import type { BettererSuiteSummary, BettererContextSummary } from '@betterer/betterer';
+import type { BettererSuite } from '@betterer/betterer';
 
 export const CONTEXT_END = 'contextEnd';
 export const SUITE_START = 'suiteStart';

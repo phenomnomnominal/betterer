@@ -1,7 +1,9 @@
-import { BettererContext } from '@betterer/betterer';
+import type { BettererContext } from '@betterer/betterer';
 
-import { BettererReporterAction, CONTEXT_END, SUITE_END, SUITE_START } from './actions';
-import { BettererReporterDispatch, BettererReporterState } from './types';
+import type { BettererReporterAction } from './actions';
+import type { BettererReporterDispatch, BettererReporterState } from './types';
+
+import { CONTEXT_END, SUITE_END, SUITE_START } from './actions';
 
 export function createStore(context: BettererContext): BettererReporterDispatch {
   const reducer = (state: BettererReporterState, action: BettererReporterAction): BettererReporterState => {

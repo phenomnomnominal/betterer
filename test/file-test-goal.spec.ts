@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should let you override the goal of a file test', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { paths, logs, cleanup, resolve, testNames, readFile, writeFile } = await createFixture('file-test-goal', {
       '.betterer.js': `
 const { eslint } = require('@betterer/eslint');

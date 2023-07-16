@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer', () => {
   it('should work with named exports in the config file', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, readFile, cleanup, testNames } = await createFixture('config-named-exports', {
       '.betterer.ts': `
 import { BettererTest } from '@betterer/betterer';

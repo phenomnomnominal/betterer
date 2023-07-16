@@ -1,5 +1,4 @@
-import { createDeadline, createGoal, createTestConfig } from './config';
-import {
+import type {
   BettererTestBase,
   BettererTestConfig,
   BettererTestConstraint,
@@ -7,6 +6,8 @@ import {
   BettererTestGoal,
   BettererTestOptions
 } from './types';
+
+import { createDeadline, createGoal, createTestConfig } from './config';
 
 /**
  * @public The main interface to the **Betterer** {@link https://phenomnomnominal.github.io/betterer/docs/tests | test system}.

@@ -1,5 +1,8 @@
-import { LanguageClient, RequestType } from 'vscode-languageclient/node';
-import { ExtensionContext, Uri, workspace } from 'vscode';
+import type { LanguageClient } from 'vscode-languageclient/node';
+import type { ExtensionContext } from 'vscode';
+
+import { RequestType } from 'vscode-languageclient/node';
+import { Uri, workspace } from 'vscode';
 
 import {
   BETTERER_CONFIG_FILE_INVALID,
@@ -7,7 +10,7 @@ import {
   BETTERER_OUTPUT_CHANNEL
 } from '../error-messages';
 import { info } from '../logger';
-import { BettererRequestParams } from './types';
+import type { BettererRequestParams } from './types';
 import { getInvalidConfigState } from './state';
 
 export const BettererInvalidConfigRequest = new RequestType<BettererRequestParams, void, void>(

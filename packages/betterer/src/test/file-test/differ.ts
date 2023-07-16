@@ -1,9 +1,8 @@
-import { BettererLogs } from '@betterer/logger';
-import assert from 'assert';
+import type { BettererLogs } from '@betterer/logger';
 
-import { BettererFileΩ } from './file';
-import { BettererFileTestResultΩ } from './file-test-result';
-import {
+import type { BettererFileΩ } from './file';
+import type { BettererFileTestResultΩ } from './file-test-result';
+import type {
   BettererFileTestDiff,
   BettererFileIssue,
   BettererFileIssueSerialised,
@@ -11,6 +10,8 @@ import {
   BettererFileTestResult,
   BettererFileBase
 } from './types';
+
+import assert from 'assert';
 
 const FORMATTER = Intl.NumberFormat();
 

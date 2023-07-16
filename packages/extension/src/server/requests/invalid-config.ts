@@ -1,7 +1,8 @@
-import { BettererError } from '@betterer/errors';
-import { RequestType } from 'vscode-languageserver/node';
+import type { BettererError } from '@betterer/errors';
 
-import { BettererRequestParams } from './types';
+import type { BettererRequestParams } from './types';
+
+import { RequestType } from 'vscode-languageserver/node';
 
 const POSSIBLE_ERROR_MESSAGES = ['could not read config from', 'for a test to work'];
 

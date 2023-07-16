@@ -1,7 +1,10 @@
-import { CompilerOptions, performCompilation, readConfiguration } from '@angular/compiler-cli';
+import type { CompilerOptions } from '@angular/compiler-cli';
+import type { DiagnosticWithLocation } from 'typescript';
+
+import { performCompilation, readConfiguration } from '@angular/compiler-cli';
 import { BettererFileTest } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
-import { DiagnosticWithLocation, flattenDiagnosticMessageText } from 'typescript';
+import { flattenDiagnosticMessageText } from 'typescript';
 
 /**
  * @public Use this test to incrementally introduce {@link https://angular.io/guide/angular-compiler-options | **Angular** compiler configuration }

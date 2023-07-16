@@ -1,9 +1,9 @@
-import { betterer } from '@betterer/betterer';
-
 import { createFixture } from './fixture';
 
 describe('betterer --silent', () => {
   it('should mute all console output', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
     const { logs, paths, cleanup } = await createFixture('silent-mute', {
       '.betterer.js': `
 const { BettererTest } = require('@betterer/betterer');

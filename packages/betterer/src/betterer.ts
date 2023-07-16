@@ -1,15 +1,18 @@
 import { debug } from '@phenomnomnominal/debug';
 
-import {
+import type {
   BettererOptionsRunner,
   BettererOptionsStart,
   BettererOptionsResults,
   BettererOptionsWatch,
   BettererOptionsMerge
 } from './config';
-import { BettererRunner, BettererRunnerΩ } from './runner';
-import { BettererMergerΩ, BettererResultsSummary, BettererResultsSummaryΩ } from './results';
-import { BettererSuiteSummary } from './suite';
+import type { BettererRunner } from './runner';
+import type { BettererResultsSummary } from './results';
+import type { BettererSuiteSummary } from './suite';
+
+import { BettererRunnerΩ } from './runner';
+import { BettererMergerΩ, BettererResultsSummaryΩ } from './results';
 
 /**
  * @public Run **Betterer** with the given options.
