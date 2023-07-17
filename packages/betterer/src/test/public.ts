@@ -12,8 +12,8 @@ export {
   BettererFileIssueSerialised,
   BettererFileIssues,
   BettererFileIssuesSerialised
-} from './file-test/public';
-export { BettererTest } from './test';
+} from './file-test/public.js';
+export { BettererTest } from './test.js';
 export {
   BettererDeserialise,
   BettererDiff,
@@ -32,4 +32,4 @@ export {
   BettererTestOptionsBasic,
   BettererTestOptionsComplex,
   BettererTestNames
-} from './types';
+} from './types.js';

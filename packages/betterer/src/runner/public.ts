@@ -1,1 +1,1 @@
-export { BettererRunner } from './types';
+export { BettererRunner } from './types.js';

@@ -4,13 +4,13 @@ import type {
   BettererFileCache,
   BettererFileHashMap,
   BettererCacheFile
-} from './types';
+} from './types.js';
 
-import assert from 'assert';
-import path from 'path';
-import { normalisedPath } from '../utils';
-import { read } from './reader';
-import { write } from './writer';
+import assert from 'node:assert';
+import path from 'node:path';
+import { normalisedPath } from '../utils.js';
+import { read } from './reader.js';
+import { write } from './writer.js';
 
 const BETTERER_CACHE_VERSION = 2;
 

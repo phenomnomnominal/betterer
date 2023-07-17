@@ -14,7 +14,7 @@ Here's the full test:
 ```typescript
 // stylelint.ts
 import { BettererFileTest } from '@betterer/betterer';
-import { promises as fs } from 'fs';
+import { promises as fs } from 'node:fs';
 import { Configuration, lint } from 'stylelint';
 
 export function stylelint(configOverrides: Partial<Configuration> = {}) {
@@ -181,7 +181,7 @@ new BettererFileTest(resolver, async (filePaths, fileTestResult) => {
 The `result` object from **Stylelint** contains a list of `results`. For each item in that list, we need to read the file with [Node's `fs` module](https://nodejs.org/api/fs.html), and then call [`addFile()`](https://phenomnomnominal.github.io/betterer/docs/betterer-file-test#addfile) with the file path (`result.source`), and the contents of the file. That returns a [`BettererFile`](https://phenomnomnominal.github.io/betterer/docs/betterer-file-test#bettererfile) object:
 
 ```typescript
-import { promises as fs } from 'fs';
+import { promises as fs } from 'node:fs';
 
 await Promise.all(
   result.results.map(async (result) => {
@@ -215,7 +215,7 @@ Putting that all together and you get this:
 ```typescript
 // stylelint.ts
 import { BettererFileTest } from '@betterer/betterer';
-import { promises as fs } from 'fs';
+import { promises as fs } from 'node:fs';
 import { Configuration, lint } from 'stylelint';
 
 export function stylelint(configOverrides: Partial<Configuration> = {}) {

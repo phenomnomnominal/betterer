@@ -24,7 +24,7 @@ If you want to write your own reporter, you need to implement the [`BettererRepo
 // src/html-reporter.ts
 import { BettererContext, BettererContextSummary, BettererReporter } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
-import { promises as fs } from 'fs';
+import { promises as fs } from 'node:fs';
 
 export const reporter: BettererReporter = createHTMLReporter();
 

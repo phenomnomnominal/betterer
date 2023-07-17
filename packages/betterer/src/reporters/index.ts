@@ -1,3 +1,3 @@
-export type { BettererReporterΩ } from './reporter';
-export { loadDefaultReporter, loadSilentReporter, loadReporters } from './loader';
-export { BettererReporter, BettererReporterModule } from './types';
+export type { BettererReporterΩ } from './reporter.js';
+export { loadDefaultReporter, loadSilentReporter, loadReporters } from './loader.js';
+export { BettererReporter, BettererReporterModule } from './types.js';

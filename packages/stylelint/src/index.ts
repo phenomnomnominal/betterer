@@ -4,4 +4,4 @@
  * @packageDocumentation
  */
 
-export { stylelint } from './stylelint';
+export { stylelint } from './stylelint.js';

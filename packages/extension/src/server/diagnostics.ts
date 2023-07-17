@@ -10,12 +10,12 @@ import type {
   BettererConfig
 } from '@betterer/betterer';
 
-import path from 'path';
+import path from 'node:path';
 import { DiagnosticSeverity } from 'vscode-languageserver/node';
 
-import { EXTENSION_NAME } from '../constants';
-import { info } from './console';
-import { getFilePath } from './path';
+import { EXTENSION_NAME } from '../constants.js';
+import { info } from './console.js';
+import { getFilePath } from './path.js';
 
 type BettererFileDiagnostics = Record<string, Array<Diagnostic>>;
 

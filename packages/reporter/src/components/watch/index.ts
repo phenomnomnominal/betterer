@@ -1,1 +1,1 @@
-export { WatchReporter } from './WatchReporter';
+export { WatchReporter } from './WatchReporter.js';

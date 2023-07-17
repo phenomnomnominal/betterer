@@ -4,7 +4,7 @@ interface ESModule<T> {
 
 export function requireUncached<T>(requirePath: string): T {
   delete require.cache[require.resolve(requirePath)];
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  // eslint-disable-next-line @typescript-eslint/no-var-requires -- migrating away from CJS requires
   const m = require(requirePath) as unknown;
   return getDefaultExport<T>(m);
 }

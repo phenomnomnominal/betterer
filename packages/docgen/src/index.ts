@@ -5,7 +5,7 @@ import type {
 
 import { MarkdownDocumenterFeature } from '@microsoft/api-documenter';
 import dedent from 'dedent';
-import path from 'path';
+import path from 'node:path';
 
 const REPLACERS = new Map<RegExp, string>([
   [/\\\*/g, '*'],

@@ -10,10 +10,10 @@ export {
   BettererFileIssue,
   BettererFileIssues,
   isBettererFileTest
-} from './file-test';
-export type { BettererFileTestResultΩ } from './file-test';
-export { loadTestMeta } from './loader';
-export { BettererTest, isBettererTest } from './test';
+} from './file-test/index.js';
+export type { BettererFileTestResultΩ } from './file-test/index.js';
+export { loadTestMeta } from './loader.js';
+export { BettererTest, isBettererTest } from './test.js';
 export {
   BettererDeserialise,
   BettererDiff,
@@ -37,4 +37,4 @@ export {
   BettererTestConfig,
   BettererTestMeta,
   BettererTestNames
-} from './types';
+} from './types.js';

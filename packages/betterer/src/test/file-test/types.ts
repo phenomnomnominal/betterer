@@ -1,7 +1,7 @@
-import type { BettererFilePaths, BettererFileResolver } from '../../fs';
-import type { BettererDiff } from '../../test';
-import type { MaybeAsync } from '../../types';
-import type { BettererTestBase, BettererTestConfig } from '../types';
+import type { BettererFilePaths, BettererFileResolver } from '../../fs/index.js';
+import type { BettererDiff } from '../../test/index.js';
+import type { MaybeAsync } from '../../types.js';
+import type { BettererTestBase, BettererTestConfig } from '../types.js';
 
 /**
  * @public A serialised {@link @betterer/betterer#BettererFileIssue | `BettererFileIssue`}.

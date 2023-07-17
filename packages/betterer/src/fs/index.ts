@@ -1,11 +1,11 @@
-export { BettererFileResolverΩ } from './file-resolver';
-export { read } from './reader';
+export { BettererFileResolverΩ } from './file-resolver.js';
+export { read } from './reader.js';
 export {
   BettererFileGlobs,
   BettererFilePaths,
   BettererFilePatterns,
   BettererFileResolver,
   BettererVersionControlWorker
-} from './types';
-export { createVersionControl } from './version-control';
-export { forceRelativePaths, write } from './writer';
+} from './types.js';
+export { createVersionControl } from './version-control.js';
+export { forceRelativePaths, write } from './writer.js';

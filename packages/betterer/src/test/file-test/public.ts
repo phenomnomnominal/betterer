@@ -1,4 +1,4 @@
-export { BettererFileTest } from './file-test';
+export { BettererFileTest } from './file-test.js';
 export {
   BettererFileBase,
   BettererFile,
@@ -12,4 +12,4 @@ export {
   BettererFileIssueSerialised,
   BettererFileIssues,
   BettererFileIssuesSerialised
-} from './types';
+} from './types.js';

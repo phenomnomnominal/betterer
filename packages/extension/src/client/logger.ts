@@ -1,5 +1,7 @@
+// eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
 import type { MessageItem } from 'vscode';
 
+// eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
 import { window } from 'vscode';
 
 export function error(message: string): Thenable<string | void> {

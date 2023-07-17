@@ -27,4 +27,4 @@ export {
   BettererOptionsStartUpdate,
   BettererOptionsStart,
   BettererOptionsWatch
-} from './types';
+} from './types.js';

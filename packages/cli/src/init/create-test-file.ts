@@ -1,8 +1,8 @@
 import type { BettererLogger } from '@betterer/logger';
 
 import { BettererError } from '@betterer/errors';
-import { promises as fs } from 'fs';
-import * as path from 'path';
+import { promises as fs } from 'node:fs';
+import path from 'node:path';
 
 const TEMPLATE_JS = `module.exports = {
   // Add tests here ☀️

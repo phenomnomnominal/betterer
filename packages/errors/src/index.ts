@@ -4,5 +4,5 @@
  * @packageDocumentation
  */
 
-export { BettererError, isBettererError } from './error';
-export { BettererErrorDetail, BettererErrorDetails } from './types';
+export { BettererError, isBettererError } from './error.js';
+export { BettererErrorDetail, BettererErrorDetails } from './types.js';

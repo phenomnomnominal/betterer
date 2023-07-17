@@ -1,2 +1,2 @@
-export { Error, ErrorProps } from './Error';
-export { Reporter } from './Reporter';
+export { Error, ErrorProps } from './Error.js';
+export { Reporter } from './Reporter.js';

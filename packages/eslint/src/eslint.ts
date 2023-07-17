@@ -1,10 +1,10 @@
 import type { Linter } from 'eslint';
 
-import type { BettererESLintRulesConfig } from './types';
+import type { BettererESLintRulesConfig } from './types.js';
 
 import { BettererFileTest } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
-import assert from 'assert';
+import assert from 'node:assert';
 import { ESLint } from 'eslint';
 
 /**

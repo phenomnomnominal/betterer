@@ -1,14 +1,14 @@
 import type { BettererFileGlobs, BettererFilePatterns, BettererRun } from '@betterer/betterer';
 
-import type { BettererCoverageDiff, BettererCoverageIssues, BettererCoverageTestFunction } from './types';
+import type { BettererCoverageDiff, BettererCoverageIssues, BettererCoverageTestFunction } from './types.js';
 
 import { BettererTest } from '@betterer/betterer';
 
-import { constraint } from './constraint';
-import { differ } from './differ';
-import { goal } from './goal';
-import { deserialise, serialise } from './serialiser';
-import { flatten } from './utils';
+import { constraint } from './constraint.js';
+import { differ } from './differ.js';
+import { goal } from './goal.js';
+import { deserialise, serialise } from './serialiser.js';
+import { flatten } from './utils.js';
 
 /**
  * @public `BettererCoverageTest` provides a wrapper around {@link @betterer/betterer#BettererTest | `BettererTest` }

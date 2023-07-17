@@ -1,6 +1,6 @@
 import type { BettererDiff } from '@betterer/betterer';
 import type { BettererLog, BettererLogs } from '@betterer/logger';
-import type { BettererCoverageDiff, BettererCoverageIssue, BettererCoverageIssues } from './types';
+import type { BettererCoverageDiff, BettererCoverageIssue, BettererCoverageIssues } from './types.js';
 
 export function differ(
   expected: BettererCoverageIssues,

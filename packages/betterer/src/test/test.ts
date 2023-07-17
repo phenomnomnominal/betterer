@@ -5,9 +5,9 @@ import type {
   BettererTestDeadline,
   BettererTestGoal,
   BettererTestOptions
-} from './types';
+} from './types.js';
 
-import { createDeadline, createGoal, createTestConfig } from './config';
+import { createDeadline, createGoal, createTestConfig } from './config.js';
 
 /**
  * @public The main interface to the **Betterer** {@link https://phenomnomnominal.github.io/betterer/docs/tests | test system}.

@@ -4,5 +4,5 @@
  * @packageDocumentation
  */
 
-export { eslint } from './eslint';
-export { BettererESLintRulesConfig } from './types';
+export { eslint } from './eslint.js';
+export { BettererESLintRulesConfig } from './types.js';

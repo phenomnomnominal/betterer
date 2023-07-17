@@ -1,5 +1,5 @@
-export { BettererFileTest, isBettererFileTest } from './file-test';
-export type { BettererFileTestResultΩ } from './file-test-result';
+export { BettererFileTest, isBettererFileTest } from './file-test.js';
+export type { BettererFileTestResultΩ } from './file-test-result.js';
 export {
   BettererFileTestResult,
   BettererFileTestResultSerialised,
@@ -13,4 +13,4 @@ export {
   BettererFileIssueSerialised,
   BettererFileIssues,
   BettererFileIssuesSerialised
-} from './types';
+} from './types.js';

@@ -1,6 +1,8 @@
-import { BettererPackageJSON } from '@betterer/cli';
-import assert from 'assert';
-import { Diagnostic, Uri } from 'vscode';
+import type { BettererPackageJSON } from '@betterer/cli';
+// eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
+import type { Diagnostic, Uri } from 'vscode';
+
+import assert from 'node:assert';
 
 import { vscode, createFixture } from './runner';
 

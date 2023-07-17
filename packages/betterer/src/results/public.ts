@@ -7,4 +7,4 @@ export {
   BettererResultSummary,
   BettererResultSummaries,
   BettererResultsSummary
-} from './types';
+} from './types.js';

@@ -1,8 +1,8 @@
-import type { BettererLoggerCodeInfo } from './types';
+import type { BettererLoggerCodeInfo } from './types.js';
 
 import { codeFrameColumns } from '@babel/code-frame';
 import { LinesAndColumns } from 'lines-and-columns';
-import * as path from 'path';
+import path from 'node:path';
 
 const IS_JS_REGEXP = /.t|jsx?$/;
 

@@ -1,6 +1,7 @@
+// eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
 import type { WorkspaceFolder } from 'vscode';
 
-import { EXTENSION_NAME } from '../constants';
+import { EXTENSION_NAME } from '../constants.js';
 
 const NAME = EXTENSION_NAME;
 const DEFAULT_CONFIG_FILE = `.betterer.ts`;
@@ -33,7 +34,7 @@ export const BETTERER_CONFIG_FILE_INVALID = `Failed to load ${NAME} config. ${SE
 export const BETTERER_CONFIG_FILE_INVALID_DETAILS = (workspaceFolder: WorkspaceFolder): string => {
   return `
 
-Invlaid ${NAME} configuration file (e.g. ${DEFAULT_CONFIG_FILE}) found for workspace: ${workspaceFolder.name}
+Invalid ${NAME} configuration file (e.g. ${DEFAULT_CONFIG_FILE}) found for workspace: ${workspaceFolder.name}
 The workspace will not be validated. Consider executing the 'Initialise ${NAME}' command to add ${NAME} to the workspace.
 
 ${DISABLE_FOR_WORKSPACE(workspaceFolder)}

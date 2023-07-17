@@ -6,7 +6,7 @@ import { React, render, useCallback } from '@betterer/render';
 import { BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
 import { createWorkerRequire } from '@phenomnomnominal/worker-require';
 
-import type { TestPackageDependenciesWorker } from './types';
+import type { TestPackageDependenciesWorker } from './types.js';
 
 const testPackageDependencies = createWorkerRequire<TestPackageDependenciesWorker>('./test-package-dependencies', {
   cache: false

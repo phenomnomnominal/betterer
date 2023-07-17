@@ -1,12 +1,14 @@
+// eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
 import type { WorkspaceFolder } from 'vscode';
 
+// eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
 import { workspace } from 'vscode';
 
-import { EXTENSION_NAME } from '../../constants';
-import { ALREADY_ENABLED, ENABLE_COMMAND_REQUIRES_WORKSPACE } from '../error-messages';
-import { error, info } from '../logger';
-import { enable, getEnabled } from '../settings';
-import { pickFolder } from './folder-picker';
+import { EXTENSION_NAME } from '../../constants.js';
+import { ALREADY_ENABLED, ENABLE_COMMAND_REQUIRES_WORKSPACE } from '../error-messages.js';
+import { error, info } from '../logger.js';
+import { enable, getEnabled } from '../settings.js';
+import { pickFolder } from './folder-picker.js';
 
 export async function enableBetterer(): Promise<void> {
   const { workspaceFolders } = workspace;

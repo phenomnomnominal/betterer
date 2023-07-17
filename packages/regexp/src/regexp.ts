@@ -1,6 +1,6 @@
 import { BettererFileTest } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
-import { promises as fs } from 'fs';
+import { promises as fs } from 'node:fs';
 
 /**
  * @public  Use this test to incrementally remove {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp | `RegExp` }

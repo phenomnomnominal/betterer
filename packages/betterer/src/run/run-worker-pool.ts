@@ -1,6 +1,6 @@
-import type { BettererWorker, BettererWorkerModule } from './types';
+import type { BettererWorker, BettererWorkerModule } from './types.js';
 
-import assert from 'assert';
+import assert from 'node:assert';
 import { workerRequire } from '@phenomnomnominal/worker-require';
 
 export class BettererRunWorkerHandleΩ {

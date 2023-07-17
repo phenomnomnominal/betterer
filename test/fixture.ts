@@ -1,6 +1,6 @@
 import type { Fixture, FixtureFileSystemFiles, FixtureOptions } from '@betterer/fixture';
 import { createFixtureDirectoryΔ } from '@betterer/fixture';
-import * as path from 'path';
+import path from 'node:path';
 
 const fixtureFactory = createFixtureDirectoryΔ(path.resolve(__dirname, '../fixtures'));
 

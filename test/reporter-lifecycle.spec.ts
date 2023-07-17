@@ -7,6 +7,7 @@ import type {
   BettererSuiteSummary
 } from '@betterer/betterer';
 
+// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from './fixture';
 
 describe('betterer --reporter', () => {

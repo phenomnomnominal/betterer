@@ -1,3 +1,4 @@
+// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from './fixture';
 
 const INDEX_SOURCE = `export function extractIds(list) {

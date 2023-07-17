@@ -2,8 +2,8 @@ import type { BettererLogger } from '@betterer/logger';
 
 import { BettererError } from '@betterer/errors';
 import dependencyCheck from 'dependency-check';
-import { promises as fs } from 'fs';
-import * as path from 'path';
+import { promises as fs } from 'node:fs';
+import path from 'node:path';
 
 const EXCLUDED_PACKAGES = ['docgen', 'extension', 'fixture'];
 const PACKAGES_DIR = path.resolve(__dirname, '../../../packages');
@@ -38,7 +38,8 @@ export async function run(logger: BettererLogger, packageName: string): Promise<
   });
 
   const missing = await dependencyCheck.missing(parsed.package, parsed.used);
-  const errors = missing.filter((dependency) => !IGNORED[packageName].includes(dependency));
+  const removeBuiltIns = missing.filter((dependency) => !dependency.startsWith('node:'));
+  const errors = removeBuiltIns.filter((dependency) => !IGNORED[packageName]?.includes(dependency));
 
   if (!errors.length) {
     return `No missing dependencies found in "${packageNameFull}".`;

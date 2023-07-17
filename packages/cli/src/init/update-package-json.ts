@@ -1,12 +1,12 @@
 import type { BettererLogger } from '@betterer/logger';
 
-import type { BettererPackageJSON } from '../types';
+import type { BettererPackageJSON } from '../types.js';
 
 import { BettererError } from '@betterer/errors';
 import findUp from 'find-up';
-import { promises as fs } from 'fs';
+import { promises as fs } from 'node:fs';
 
-import { getVersion } from '../version';
+import { getVersion } from '../version.js';
 
 export async function run(logger: BettererLogger, cwd: string, ts: boolean): Promise<void> {
   await logger.progress('adding "betterer" to package.json file...');

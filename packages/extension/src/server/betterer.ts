@@ -2,8 +2,8 @@ import type { betterer, BettererOptionsRunner, BettererRunner } from '@betterer/
 
 import { Files } from 'vscode-languageserver/node';
 
-import { nodeRequire } from '../utils';
-import { trace } from './trace';
+import { nodeRequire } from '../utils.js';
+import { trace } from './trace.js';
 
 type BettererLibrary = typeof betterer;
 interface BettererModule {

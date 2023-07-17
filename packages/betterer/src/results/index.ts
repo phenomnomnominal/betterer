@@ -1,7 +1,7 @@
-export { BettererMergerΩ } from './merger';
-export { BettererResultsSummaryΩ } from './results-summary';
-export { BettererResultΩ } from './result';
-export { BettererResultsFileΩ } from './results-file';
+export { BettererMergerΩ } from './merger.js';
+export { BettererResultsSummaryΩ } from './results-summary.js';
+export { BettererResultΩ } from './result.js';
+export { BettererResultsFileΩ } from './results-file.js';
 export {
   BettererResult,
   BettererResultSerialised,
@@ -11,4 +11,4 @@ export {
   BettererResultSummary,
   BettererResultSummaries,
   BettererResultsSummary
-} from './types';
+} from './types.js';

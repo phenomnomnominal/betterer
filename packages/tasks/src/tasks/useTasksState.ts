@@ -1,7 +1,7 @@
 import { BettererError } from '@betterer/errors';
 import { createContext, useContext, useReducer, useRef } from '@betterer/render';
 
-import { getPreciseTime } from '../utils';
+import { getPreciseTime } from '../utils.js';
 
 /**
  * @public The state of the running tasks. `endTime` will only be present when there are no more

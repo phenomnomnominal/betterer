@@ -9,7 +9,7 @@
  * @packageDocumentation
  */
 
-export { BettererConstraintResult } from './constraint-result';
+export { BettererConstraintResult } from './constraint-result.js';
 
-export { bigger } from './bigger';
-export { smaller } from './smaller';
+export { bigger } from './bigger.js';
+export { smaller } from './smaller.js';

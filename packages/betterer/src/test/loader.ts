@@ -1,10 +1,10 @@
-import type { BettererConfig } from '../config';
-import type { BettererTestMap, BettererTestFactoryMetaMap } from './types';
+import type { BettererConfig } from '../config/index.js';
+import type { BettererTestMap, BettererTestFactoryMetaMap } from './types.js';
 
 import { BettererError } from '@betterer/errors';
 
-import { requireUncached } from '../require';
-import { isFunction } from '../utils';
+import { requireUncached } from '../require.js';
+import { isFunction } from '../utils.js';
 
 export function loadTestMeta(config: BettererConfig): BettererTestFactoryMetaMap {
   let testMetaMap: BettererTestFactoryMetaMap = {};

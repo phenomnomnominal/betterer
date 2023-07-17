@@ -1,4 +1,4 @@
-import type { BettererLoggerCodeInfo, BettererLoggerMessage, BettererLogger, BettererLogs } from './types';
+import type { BettererLoggerCodeInfo, BettererLoggerMessage, BettererLogger, BettererLogs } from './types.js';
 
 /**
  * @internal This could change at any point! Please don't use!

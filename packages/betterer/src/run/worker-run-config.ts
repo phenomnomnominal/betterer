@@ -1,4 +1,4 @@
-import type { BettererConfig, BettererWorkerRunConfig } from '../config';
+import type { BettererConfig, BettererWorkerRunConfig } from '../config/index.js';
 
 export function createWorkerRunConfig(config: BettererConfig): BettererWorkerRunConfig {
   return {

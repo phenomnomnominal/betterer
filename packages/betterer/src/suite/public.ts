@@ -1,1 +1,1 @@
-export { BettererSuite, BettererSuiteSummaries, BettererSuiteSummary } from './types';
+export { BettererSuite, BettererSuiteSummaries, BettererSuiteSummary } from './types.js';

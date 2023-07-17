@@ -1,4 +1,4 @@
-import type { BettererResultsSerialised } from './types';
+import type { BettererResultsSerialised } from './types.js';
 
 // JS template string interpolation tokens
 const JS_INTERP_ESCAPED = '$\\{';

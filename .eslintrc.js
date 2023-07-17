@@ -4,35 +4,41 @@ const BASE_EXTENDS = [
   'eslint:recommended',
   'plugin:@typescript-eslint/recommended',
   'plugin:@typescript-eslint/recommended-requiring-type-checking',
-  'plugin:prettier/recommended'
+  'plugin:prettier/recommended',
+  'plugin:import/recommended',
+  'plugin:import/typescript',
+  'plugin:eslint-comments/recommended',
+  'plugin:require-extensions/recommended'
 ];
 
 const BASE_RULES = {
-  'eol-last': [2, 'always'],
-  '@typescript-eslint/return-await': [2, 'always']
+  'eol-last': ['error', 'always'],
+  '@typescript-eslint/return-await': ['error', 'always'],
+  '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
+  '@typescript-eslint/member-ordering': 'error',
+  '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports', disallowTypeAnnotations: false }],
+  'eslint-comments/require-description': ['error', { ignore: ['eslint-enable'] }],
+  'import/no-unresolved': 'off'
 };
 
 const OVERRIDE_RULES = {
   ...BASE_RULES,
-  'no-console': 2,
-  '@typescript-eslint/unbound-method': 0,
-  '@typescript-eslint/no-use-before-define': [2, { functions: false }],
-  '@typescript-eslint/member-ordering': 2,
-  '@typescript-eslint/consistent-type-imports': [2, { prefer: 'type-imports', disallowTypeAnnotations: false }]
+  'no-console': 'error',
+  '@typescript-eslint/unbound-method': 'off'
 };
 
 module.exports = {
   env: {
-    es6: true,
+    es2021: true,
     node: true
   },
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 2020,
+    ecmaVersion: 2021,
     project: path.resolve(__dirname, './tsconfig.eslint.json'),
     sourceType: 'module'
   },
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'require-extensions'],
   rules: {
     ...BASE_RULES
   },
@@ -57,5 +63,10 @@ module.exports = {
         browser: true
       }
     }
-  ]
+  ],
+  settings: {
+    'import/resolver': {
+      typescript: true
+    }
+  }
 };

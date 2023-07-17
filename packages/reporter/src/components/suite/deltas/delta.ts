@@ -1,6 +1,6 @@
 import type { BettererRunSummary } from '@betterer/betterer';
 
-import { fileTestDelta } from './file-test-delta';
+import { fileTestDelta } from './file-test-delta.js';
 
 export function getDelta(runSummary: BettererRunSummary): string {
   if (runSummary.filePaths != null) {

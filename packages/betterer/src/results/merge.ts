@@ -1,6 +1,6 @@
-import type { BettererResultsSerialised } from './types';
+import type { BettererResultsSerialised } from './types.js';
 
-import { requireText } from './require';
+import { requireText } from './require.js';
 
 /**
  * Takes two strings of JavaScript, evaluates their contents, and merges the results,

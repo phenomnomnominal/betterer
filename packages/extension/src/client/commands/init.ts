@@ -1,13 +1,15 @@
+// eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
 import type { WorkspaceFolder } from 'vscode';
 
-import * as fs from 'fs';
-import * as path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
+// eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
 import { window, workspace } from 'vscode';
 
-import { EXTENSION_NAME } from '../../constants';
-import { ALREADY_CONFIGURED, INIT_COMMAND_REQUIRES_WORKSPACE } from '../error-messages';
-import { error, info } from '../logger';
-import { pickFolder } from './folder-picker';
+import { EXTENSION_NAME } from '../../constants.js';
+import { ALREADY_CONFIGURED, INIT_COMMAND_REQUIRES_WORKSPACE } from '../error-messages.js';
+import { error, info } from '../logger.js';
+import { pickFolder } from './folder-picker.js';
 
 const CONFIG_FILES = ['.betterer.ts', '.betterer.js'];
 

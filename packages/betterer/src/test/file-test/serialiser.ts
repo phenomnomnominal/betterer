@@ -3,12 +3,12 @@ import type {
   BettererFileIssues,
   BettererFileTestResultSerialised,
   BettererFileBase
-} from './types';
+} from './types.js';
 
-import * as path from 'path';
+import path from 'node:path';
 
-import { BettererFileResolverΩ } from '../../fs';
-import { BettererFileTestResultΩ } from './file-test-result';
+import { BettererFileResolverΩ } from '../../fs/index.js';
+import { BettererFileTestResultΩ } from './file-test-result.js';
 
 export function deserialise(serialised: BettererFileTestResultSerialised, resultsPath: string): BettererFileTestResult {
   const resolver = new BettererFileResolverΩ(path.dirname(resultsPath));

@@ -4,4 +4,4 @@
  * @packageDocumentation
  */
 
-export { angular } from './angular';
+export { angular } from './angular.js';

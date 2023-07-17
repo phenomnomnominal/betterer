@@ -1,5 +1,5 @@
 import { createFixtureDirectoryΔ } from '@betterer/fixture';
-import * as path from 'path';
+import path from 'node:path';
 import { runTests } from 'vscode-test';
 
 async function main() {

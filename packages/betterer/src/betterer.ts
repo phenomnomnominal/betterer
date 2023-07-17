@@ -6,13 +6,13 @@ import type {
   BettererOptionsResults,
   BettererOptionsWatch,
   BettererOptionsMerge
-} from './config';
-import type { BettererRunner } from './runner';
-import type { BettererResultsSummary } from './results';
-import type { BettererSuiteSummary } from './suite';
+} from './config/index.js';
+import type { BettererRunner } from './runner/index.js';
+import type { BettererResultsSummary } from './results/index.js';
+import type { BettererSuiteSummary } from './suite/index.js';
 
-import { BettererRunnerΩ } from './runner';
-import { BettererMergerΩ, BettererResultsSummaryΩ } from './results';
+import { BettererRunnerΩ } from './runner/index.js';
+import { BettererMergerΩ, BettererResultsSummaryΩ } from './results/index.js';
 
 /**
  * @public Run **Betterer** with the given options.

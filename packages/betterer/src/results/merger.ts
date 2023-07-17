@@ -1,11 +1,11 @@
-import type { BettererOptionsMerge } from '../config';
-import type { BettererResultsSerialised } from './types';
+import type { BettererOptionsMerge } from '../config/index.js';
+import type { BettererResultsSerialised } from './types.js';
 
-import { createMergeConfig } from '../config';
-import { write } from '../fs';
-import { mergeResults } from './merge';
-import { parseResults } from './parse';
-import { printResults } from './print';
+import { createMergeConfig } from '../config/index.js';
+import { write } from '../fs/index.js';
+import { mergeResults } from './merge.js';
+import { parseResults } from './parse.js';
+import { printResults } from './print.js';
 
 export class BettererMergerΩ {
   private constructor(private _contents: Array<string>, private _resultsPath: string) {}

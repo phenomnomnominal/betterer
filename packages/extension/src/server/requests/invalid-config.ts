@@ -1,6 +1,6 @@
 import type { BettererError } from '@betterer/errors';
 
-import type { BettererRequestParams } from './types';
+import type { BettererRequestParams } from './types.js';
 
 import { RequestType } from 'vscode-languageserver/node';
 

@@ -1,1 +1,1 @@
-export { Config, ConfigEditField, ConfigProps } from './Config';
+export { Config, ConfigEditField, ConfigProps } from './Config.js';

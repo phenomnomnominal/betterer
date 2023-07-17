@@ -3,8 +3,8 @@ import type { TextDocument } from 'vscode-languageserver-textdocument';
 
 import debounce from 'lodash.debounce';
 
-import { info } from './console';
-import { BettererValidator } from './validator';
+import { info } from './console.js';
+import { BettererValidator } from './validator.js';
 
 const VALIDATE_TIMEOUT = 100;
 

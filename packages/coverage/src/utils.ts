@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 
 export function flatten<T>(toFlatten: ReadonlyArray<T | ReadonlyArray<T>>): Array<T> {
   const flattened: Array<T> = [];
