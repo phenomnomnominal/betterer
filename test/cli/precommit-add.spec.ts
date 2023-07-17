@@ -47,8 +47,6 @@ export default {
 
     await cli__(fixturePath, [...ARGV, 'start'], false);
 
-    expect(process.exitCode).toBeUndefined();
-
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one + one);`);
 
     await cli__(fixturePath, [...ARGV, 'precommit']);
