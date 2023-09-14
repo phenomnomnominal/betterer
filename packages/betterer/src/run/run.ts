@@ -4,8 +4,9 @@ import type { BettererTestMeta } from '../test/index.js';
 import type { BettererRunWorkerHandleΩ, BettererRunWorkerPoolΩ } from './run-worker-pool.js';
 import type { BettererRun, BettererRunSummary } from './types.js';
 
+import { getTime__ } from '@betterer/time';
+
 import { BettererResultΩ } from '../results/index.js';
-import { getTime } from '../utils.js';
 
 export class BettererRunΩ implements BettererRun {
   public readonly isNew: boolean;
@@ -57,7 +58,7 @@ export class BettererRunΩ implements BettererRun {
   public async run(isSkipped: boolean): Promise<BettererRunSummary> {
     await this._workerHandle.free;
     this._workerHandle.claim();
-    const timestamp = getTime();
+    const timestamp = getTime__();
     const summary = await this._workerHandle.worker.run(this.name, this.filePaths, isSkipped, timestamp);
     this._workerHandle.release();
     return summary;

@@ -1,5 +1,7 @@
-import { BettererError } from '@betterer/errors';
-import { React, FC, Box } from '@betterer/render';
+import type { BettererError } from '@betterer/errors';
+import type { FC } from '@betterer/render';
+
+import { React, Box } from '@betterer/render';
 import { BettererErrorLog, BettererLogo } from '@betterer/tasks';
 
 export interface ErrorProps {

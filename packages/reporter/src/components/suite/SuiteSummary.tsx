@@ -1,5 +1,7 @@
-import { BettererContext, BettererSuiteSummary } from '@betterer/betterer';
-import { React, Box, FC, Text, TextProps, memo } from '@betterer/render';
+import type { BettererContext, BettererSuiteSummary } from '@betterer/betterer';
+import type { FC, TextProps } from '@betterer/render';
+
+import { React, Box, Text, memo } from '@betterer/render';
 
 import {
   testBetter,
@@ -15,7 +17,7 @@ import {
   unexpectedChanges,
   unexpectedChangesInstructions,
   updateInstructions
-} from '../../messages';
+} from '../../messages.js';
 
 export interface SuiteSummaryProps {
   context: BettererContext;

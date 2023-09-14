@@ -1,9 +1,12 @@
-import { React, FC, Box, useInput, useStdin } from '@betterer/render';
+import type { FC } from '@betterer/render';
+
+import type { BettererReporterState } from '../state/index.js';
+
+import { React, Box, useInput, useStdin } from '@betterer/render';
 import { BettererLogo } from '@betterer/tasks';
 
-import { DefaultReporter } from './default';
-import { WatchReporter } from './watch';
-import { BettererReporterState } from '../state';
+import { DefaultReporter } from './default/index.js';
+import { WatchReporter } from './watch/index.js';
 
 export const Reporter: FC<BettererReporterState> = function Reporter(props: BettererReporterState) {
   const { context } = props;

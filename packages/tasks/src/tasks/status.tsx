@@ -1,6 +1,8 @@
-import { React, FC, Text } from '@betterer/render';
+import type { FC } from '@betterer/render';
 
-import { BettererTaskLog } from './types';
+import type { BettererTaskLog } from './types.js';
+
+import { React, Text } from '@betterer/render';
 
 export interface BettererTaskStatusProps {
   name: string;

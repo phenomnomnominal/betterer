@@ -1,9 +1,13 @@
-import { React, Box, FC, Text, memo } from '@betterer/render';
+import type { BettererContext } from '@betterer/betterer';
+import type { FC } from '@betterer/render';
 
-import { watchStart } from '../../messages';
-import { BettererContext } from '@betterer/betterer';
-import { Config, ConfigEditField } from '../config';
-import { WatchInstructions } from './WatchInstructions';
+import type { ConfigEditField } from '../config/index.js';
+
+import { React, Box, Text, memo } from '@betterer/render';
+
+import { watchStart } from '../../messages.js';
+import { Config } from '../config/index.js';
+import { WatchInstructions } from './WatchInstructions.js';
 
 export interface WatchStartingProps {
   context: BettererContext;

@@ -1,7 +1,7 @@
 import type { BettererLogger } from '@betterer/logger';
+import type { FC } from '@betterer/render';
 import type { BettererTasksState } from '@betterer/tasks';
 
-import type { FC } from '@betterer/render';
 import { React, render, useCallback } from '@betterer/render';
 import { BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
 import { createWorkerRequire } from '@phenomnomnominal/worker-require';

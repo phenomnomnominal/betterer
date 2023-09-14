@@ -1,8 +1,12 @@
-import { BettererContext, BettererSuite } from '@betterer/betterer';
-import { React, Box, FC, Text, memo } from '@betterer/render';
+import type { BettererContext, BettererSuite } from '@betterer/betterer';
+import type { FC } from '@betterer/render';
 
-import { filesChecked, filesChecking, testsChanged } from '../../messages';
-import { Config, ConfigEditField } from '../config';
+import type { ConfigEditField } from '../config/index.js';
+
+import { React, Box, Text, memo } from '@betterer/render';
+
+import { filesChecked, filesChecking, testsChanged } from '../../messages.js';
+import { Config } from '../config/index.js';
 
 export interface WatchFilesProps {
   context: BettererContext;

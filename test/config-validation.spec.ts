@@ -1,13 +1,16 @@
-import os from 'node:os';
-import { replace } from 'testdouble';
+import { jest } from '@jest/globals';
 
 // eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from './fixture';
 
-const [cpu] = os.cpus();
-replace('node:os', {
-  ...os,
-  cpus: () => [cpu]
+jest.mock('node:os', (): typeof import('node:os') => {
+  const os = jest.requireActual('node:os') as typeof import('node:os');
+
+  const [cpu] = os.cpus();
+  return {
+    ...os,
+    cpus: () => [cpu]
+  };
 });
 
 describe('betterer', () => {

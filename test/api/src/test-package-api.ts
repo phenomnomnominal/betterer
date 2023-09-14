@@ -5,7 +5,7 @@ import { Extractor, ExtractorConfig } from '@microsoft/api-extractor';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
-const EXCLUDED_PACKAGES = ['docgen', 'extension', 'fixture', 'render'];
+const EXCLUDED_PACKAGES = ['docgen', 'extension', 'fixture', 'render', 'time'];
 const EXTRACTION_EXTENSION = '.api.md';
 const EXTRACTION_CONFIG_FILE = 'api-extractor.json';
 const PACKAGES_DIR = path.resolve(__dirname, '../../../packages');

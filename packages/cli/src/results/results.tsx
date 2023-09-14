@@ -1,9 +1,10 @@
-import { BettererOptionsResults, BettererResultsSummary } from '@betterer/betterer';
-import { React, Box, FC, Text, useApp, useEffect, useState } from '@betterer/render';
-import { workerRequire } from '@phenomnomnominal/worker-require';
+import type { FC } from '@betterer/render';
+import type { BettererOptionsResults, BettererResultsSummary } from '@betterer/betterer';
+import type { GetResultsSummaryWorker } from './types.js';
 
-import { GetResultsSummaryWorker } from './types';
+import { React, Box, Text, useApp, useEffect, useState } from '@betterer/render';
 import { BettererLogo } from '@betterer/tasks';
+import { workerRequire } from '@phenomnomnominal/worker-require';
 
 export interface ResultsProps {
   options: BettererOptionsResults;

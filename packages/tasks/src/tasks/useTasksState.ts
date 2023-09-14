@@ -1,7 +1,7 @@
 import { BettererError } from '@betterer/errors';
 import { createContext, useContext, useReducer, useRef } from '@betterer/render';
 
-import { getPreciseTime } from '../utils.js';
+import { getPreciseTime__ } from '@betterer/time';
 
 /**
  * @public The state of the running tasks. `endTime` will only be present when there are no more
@@ -56,7 +56,7 @@ function getInitialState(): BettererTasksState {
     running: 0,
     done: 0,
     errors: 0,
-    startTime: getPreciseTime(),
+    startTime: getPreciseTime__(),
     endTime: null
   };
 }
@@ -108,5 +108,5 @@ function setEndTime(state: BettererTasksState): BettererTasksState {
   if (!shouldExit) {
     return state;
   }
-  return { ...state, endTime: getPreciseTime() };
+  return { ...state, endTime: getPreciseTime__() };
 }

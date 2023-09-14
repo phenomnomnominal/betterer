@@ -1,18 +1,17 @@
-import { replace } from 'testdouble';
+import { jest } from '@jest/globals';
 
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import * as bettererUtils from '../packages/betterer/dist/utils';
 // eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from './fixture';
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { setupTestdouble } from './setup-testdouble';
 
-// Use real getTime() function
 jest.resetModules();
-setupTestdouble();
-replace('../packages/betterer/dist/utils.js', {
-  ...bettererUtils,
-  getTime: () => Date.now()
+jest.mock('@betterer/time', (): typeof import('@betterer/time') => {
+  const time = jest.requireActual('@betterer/time') as typeof import('@betterer/time');
+
+  return {
+    ...time,
+    getPreciseTime__: () => 0,
+    getTime__: () => Date.now()
+  };
 });
 
 describe('betterer', () => {

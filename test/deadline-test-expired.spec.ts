@@ -1,6 +1,8 @@
 // eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from './fixture';
 
+jest.resetModules();
+
 describe('betterer', () => {
   it('should mark a test as expired when it is past its deadline', async () => {
     const { betterer } = await import('@betterer/betterer');
@@ -22,10 +24,6 @@ module.exports = {
   })
 };
       `
-    });
-
-    jest.spyOn(Date, 'now').mockImplementation(() => {
-      return new Date().getTime();
     });
 
     const configPaths = [paths.config];
