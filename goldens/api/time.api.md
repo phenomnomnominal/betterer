@@ -4,13 +4,9 @@
 
 ```ts
 
-// Warning: (ae-internal-missing-underscore) The name "getPreciseTime__" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
 export function getPreciseTime__(): number;
 
-// Warning: (ae-internal-missing-underscore) The name "getTime__" should be prefixed with an underscore because the declaration is marked as @internal
-//
 // @internal
 export function getTime__(): number;
 
