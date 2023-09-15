@@ -1,4 +1,6 @@
-import { React, Box, FC, Text, memo } from '@betterer/render';
+import type { FC } from '@betterer/render';
+
+import { React, Box, Text, memo } from '@betterer/render';
 
 export const WatchInstructions: FC = memo(function WatchInstructions() {
   return (

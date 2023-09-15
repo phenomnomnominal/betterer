@@ -1,9 +1,12 @@
-import { BettererContext, BettererSuite, BettererSuiteSummary } from '@betterer/betterer';
-import { React, Box, FC, memo } from '@betterer/render';
-import { BettererTaskLogger, BettererTasksLogger, BettererTasksDone, BettererTasksState } from '@betterer/tasks';
+import type { BettererContext, BettererSuite, BettererSuiteSummary } from '@betterer/betterer';
+import type { FC } from '@betterer/render';
+import type { BettererTasksDone, BettererTasksState } from '@betterer/tasks';
 
-import { useTask } from './tasks';
-import { SuiteSummary } from './SuiteSummary';
+import { React, Box, memo } from '@betterer/render';
+import { BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
+
+import { useTask } from './tasks.js';
+import { SuiteSummary } from './SuiteSummary.js';
 
 export interface SuiteProps {
   context: BettererContext;

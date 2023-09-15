@@ -1,12 +1,15 @@
-import { React, FC, memo } from '@betterer/render';
+import type { FC } from '@betterer/render';
 
-import { BettererReporterState } from '../../state';
-import { Suite } from '../suite';
-import { WatchEnding } from './WatchEnding';
-import { WatchFiles } from './WatchFiles';
-import { WatchInstructions } from './WatchInstructions';
-import { WatchStarting } from './WatchStarting';
-import { useControls } from './useControls';
+import type { BettererReporterState } from '../../state/index.js';
+
+import { React, memo } from '@betterer/render';
+
+import { Suite } from '../suite/index.js';
+import { WatchEnding } from './WatchEnding.js';
+import { WatchFiles } from './WatchFiles.js';
+import { WatchInstructions } from './WatchInstructions.js';
+import { WatchStarting } from './WatchStarting.js';
+import { useControls } from './useControls.js';
 
 export const WatchReporter: FC<BettererReporterState> = memo(function WatchReporter(props) {
   const { context, contextSummary, done, suiteSummary } = props;

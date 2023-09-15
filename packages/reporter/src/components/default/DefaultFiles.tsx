@@ -1,7 +1,10 @@
-import { BettererSuite } from '@betterer/betterer';
-import { React, Box, FC, Text, memo } from '@betterer/render';
+import type { BettererSuite } from '@betterer/betterer';
 
-import { filesChecked, filesChecking } from '../../messages';
+import type { FC } from '@betterer/render';
+
+import { React, Box, Text, memo } from '@betterer/render';
+
+import { filesChecked, filesChecking } from '../../messages.js';
 
 export interface DefaultFilesProps {
   suite: BettererSuite;

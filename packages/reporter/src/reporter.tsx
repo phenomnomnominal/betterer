@@ -1,11 +1,18 @@
-import { BettererContext, BettererContextSummary, BettererReporter, BettererSuiteSummary } from '@betterer/betterer';
-import { BettererError } from '@betterer/errors';
-import { React, render, Instance, RenderOptions } from '@betterer/render';
+import type {
+  BettererContext,
+  BettererContextSummary,
+  BettererReporter,
+  BettererSuite,
+  BettererSuiteSummary
+} from '@betterer/betterer';
+import type { BettererError } from '@betterer/errors';
+import type { Instance, RenderOptions } from '@betterer/render';
+import type { BettererReporterAction } from './state/index.js';
+import type { BettererReporterRenderer } from './types.js';
 
-import { Error, Reporter } from './components';
-import { BettererReporterAction, contextEnd, createStore, suiteEnd, suiteStart } from './state';
-import { BettererReporterRenderer } from './types';
-import { BettererSuite } from '@betterer/betterer/src/suite';
+import { React, render } from '@betterer/render';
+import { Error, Reporter } from './components/index.js';
+import { contextEnd, createStore, suiteEnd, suiteStart } from './state/index.js';
 
 /**
  * @public The default {@link @betterer/betterer#BettererReporter | `BettererReporter`}.
@@ -62,7 +69,7 @@ function createReporter(): BettererReporter {
     return {
       render(action?: BettererReporterAction, done?: () => void): void {
         const state = dispatch(action);
-        // eslint-disable-next-line no-console
+        // eslint-disable-next-line no-console -- Clear the console before re-rendering the CLI UI:
         console.clear();
         const component = <Reporter {...state} done={done} />;
         if (!app) {

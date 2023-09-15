@@ -1,6 +1,8 @@
-import { React, Box, FC, Text, memo } from '@betterer/render';
+import type { FC } from '@betterer/render';
 
-import { watchEnd } from '../../messages';
+import { React, Box, Text, memo } from '@betterer/render';
+
+import { watchEnd } from '../../messages.js';
 
 export const WatchEnding: FC = memo(function WatchEnding() {
   return (

@@ -1,12 +1,16 @@
-import { BettererLoggerCodeInfo, code__ } from '@betterer/logger';
-import { React, Box, FC, Text, memo, useEffect } from '@betterer/render';
+import type { BettererLoggerCodeInfo } from '@betterer/logger';
+import type { FC } from '@betterer/render';
+
+import type { BettererTaskLog, BettererTask } from './types.js';
+
+import { code__ } from '@betterer/logger';
+import { React, Box, Text, memo, useEffect } from '@betterer/render';
 import chalk from 'chalk';
 
-import { BettererErrorLog } from '../error-log';
-import { BettererTaskStatus } from './status';
-import { useTaskState } from './useTaskState';
-import { BettererTaskLog, BettererTask } from './types';
-import { useTasks } from './useTasksState';
+import { BettererErrorLog } from '../error-log.js';
+import { BettererTaskStatus } from './status.js';
+import { useTaskState } from './useTaskState.js';
+import { useTasks } from './useTasksState.js';
 
 /**
  * @public `props` type for {@link BettererTaskLogger | `<BettererTaskLogger/>`}.

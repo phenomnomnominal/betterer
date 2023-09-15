@@ -1,9 +1,10 @@
-import { Box, React, FC, useCallback } from '@betterer/render';
+import type { BettererLogger } from '@betterer/logger';
+import type { FC } from '@betterer/render';
+import type { CreateTestFileWorker, EnableAutomergeWorker, UpdatePackageJSONWorker } from './types.js';
+
+import { Box, React, useCallback } from '@betterer/render';
 import { BettererLogo, BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
 import { workerRequire } from '@phenomnomnominal/worker-require';
-
-import { CreateTestFileWorker, EnableAutomergeWorker, UpdatePackageJSONWorker } from './types';
-import { BettererLogger } from '@betterer/logger';
 
 export interface InitProps {
   automerge: boolean;

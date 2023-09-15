@@ -1,4 +1,6 @@
-import { React, Box, PropsWithChildren, Text, TextInput, useState } from '@betterer/render';
+import type { PropsWithChildren } from '@betterer/render';
+
+import { React, Box, Text, TextInput, useState } from '@betterer/render';
 
 export interface EditConfigProps<ValidatedConfigType> {
   name: string;
@@ -31,7 +33,7 @@ export function EditConfig<ValidatedConfigType>(
       <Text color="grey">{children} Press "enter" to confirm.</Text>
       <Box>
         <Text color={error ? 'redBright' : 'yellowBright'}>{name}: </Text>
-        <TextInput value={value} onChange={change} onSubmit={submit}></TextInput>
+        <TextInput value={value} onChange={change} onSubmit={() => void submit()}></TextInput>
       </Box>
       <Box>{error && <Text>{error.message}</Text>}</Box>
     </Box>

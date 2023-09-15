@@ -4,7 +4,7 @@
 
 ```ts
 
-import { BettererReporter } from '@betterer/betterer';
+import type { BettererReporter } from '@betterer/betterer';
 
 // @public
 export const reporter: BettererReporter;

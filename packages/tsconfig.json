@@ -47,6 +47,9 @@
       "path": "tasks"
     },
     {
+      "path": "time"
+    },
+    {
       "path": "tsquery"
     },
     {

@@ -1,7 +1,14 @@
-import { BettererContext, BettererConfig, BettererOptionsFilters, BettererOptionsIgnores } from '@betterer/betterer';
-import { React, Box, FC, Text, useState } from '@betterer/render';
+import type {
+  BettererContext,
+  BettererConfig,
+  BettererOptionsFilters,
+  BettererOptionsIgnores
+} from '@betterer/betterer';
+import type { FC } from '@betterer/render';
 
-import { EditConfig } from './EditConfig';
+import { React, Box, Text, useState } from '@betterer/render';
+
+import { EditConfig } from './EditConfig.js';
 
 export type ConfigEditField = 'filters' | 'ignores' | null;
 export interface ConfigProps {

@@ -6,9 +6,9 @@
 
 /// <reference types="react" />
 
-import { BettererError } from '@betterer/errors';
+import type { BettererError } from '@betterer/errors';
 import type { BettererLogger } from '@betterer/logger';
-import { FC } from '@betterer/render';
+import type { FC } from '@betterer/render';
 
 // @public
 export const BettererErrorLog: FC<BettererErrorLogProps>;

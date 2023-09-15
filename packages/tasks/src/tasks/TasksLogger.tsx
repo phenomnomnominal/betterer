@@ -1,9 +1,13 @@
-import { React, Box, FC, memo, useApp, useEffect } from '@betterer/render';
+import type { FC } from '@betterer/render';
 
-import { BettererTaskStatus } from './status';
-import { useTasksState, BettererTasksContext, BettererTasksState } from './useTasksState';
-import { BettererTaskLog, BettererTasksDone, BettererTasksStatusUpdate } from './types';
-import { useTimer } from './useTimer';
+import type { BettererTaskLog, BettererTasksDone, BettererTasksStatusUpdate } from './types.js';
+import type { BettererTasksState } from './useTasksState.js';
+
+import { React, Box, memo, useApp, useEffect } from '@betterer/render';
+
+import { BettererTaskStatus } from './status.js';
+import { useTasksState, BettererTasksContext } from './useTasksState.js';
+import { useTimer } from './useTimer.js';
 
 /**
  * @public `props` type for {@link BettererTasksLogger | `<BettererTasksLogger/>`}.
@@ -76,7 +80,7 @@ export const BettererTasksLogger: FC<BettererTasksLoggerProps> = memo(function B
     done();
   }
 
-  const label = timer ? ` (${getTime(startTime, endTime || time)}ms)` : '';
+  const label = timer ? ` (${formatTime(startTime, endTime || time)}ms)` : '';
 
   return (
     <BettererTasksContext.Provider value={[state, tasks]}>
@@ -90,7 +94,7 @@ export const BettererTasksLogger: FC<BettererTasksLoggerProps> = memo(function B
 
 const FORMATTER = Intl.NumberFormat();
 
-function getTime(startTime: number, time: number) {
+function formatTime(startTime: number, time: number) {
   return FORMATTER.format(Math.floor(time - startTime));
 }
 

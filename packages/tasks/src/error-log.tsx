@@ -1,5 +1,8 @@
-import { BettererError, isBettererError } from '@betterer/errors';
-import { React, Box, FC, Text } from '@betterer/render';
+import type { BettererError } from '@betterer/errors';
+import type { FC } from '@betterer/render';
+
+import { isBettererError } from '@betterer/errors';
+import { React, Box, Text } from '@betterer/render';
 
 /**
  * @public `props` type for {@link BettererErrorLog | `<BettererErrorLog/>`}.
