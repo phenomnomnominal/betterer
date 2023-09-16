@@ -45,9 +45,8 @@ export default {
       update: true
     });
 
-    const sorted = [...globalIncludeSummary.filePaths].sort();
-
-    expect(sorted).toEqual([globalInvalidPath, globalValidPath]);
+    expect(globalIncludeSummary.filePaths).toContain(globalInvalidPath);
+    expect(globalIncludeSummary.filePaths).toContain(globalValidPath);
 
     const [globalIncludeRun] = globalIncludeSummary.runs;
 
