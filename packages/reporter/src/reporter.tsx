@@ -6,11 +6,11 @@ import type {
   BettererSuiteSummary
 } from '@betterer/betterer';
 import type { BettererError } from '@betterer/errors';
-import type { Instance, RenderOptions } from '@betterer/render';
+import type { Instance } from '@betterer/render';
 import type { BettererReporterAction } from './state/index.js';
 import type { BettererReporterRenderer } from './types.js';
 
-import { React, render } from '@betterer/render';
+import { React, getRenderOptions, render } from '@betterer/render';
 import { Error, Reporter } from './components/index.js';
 import { contextEnd, createStore, suiteEnd, suiteStart } from './state/index.js';
 
@@ -25,10 +25,9 @@ import { contextEnd, createStore, suiteEnd, suiteStart } from './state/index.js'
 export const reporter: BettererReporter = createReporter();
 
 function createReporter(): BettererReporter {
-  const RENDER_OPTIONS: RenderOptions = {
-    debug: process.env.NODE_ENV === 'test',
+  const renderOptions = getRenderOptions(process.env.NODE_ENV, {
     exitOnCtrlC: false
-  };
+  });
 
   let renderer: BettererReporterRenderer;
 
@@ -58,7 +57,7 @@ function createReporter(): BettererReporter {
   };
 
   function renderError(error: BettererError, logo = false): void {
-    render(<Error error={error} logo={logo} />, RENDER_OPTIONS);
+    render(<Error error={error} logo={logo} />, renderOptions);
   }
 
   function createRenderer(context: BettererContext): BettererReporterRenderer {
@@ -71,9 +70,10 @@ function createReporter(): BettererReporter {
         const state = dispatch(action);
         // eslint-disable-next-line no-console -- Clear the console before re-rendering the CLI UI:
         console.clear();
+
         const component = <Reporter {...state} done={done} />;
         if (!app) {
-          app = render(component, RENDER_OPTIONS);
+          app = render(component, renderOptions);
         } else {
           app.rerender(component);
         }

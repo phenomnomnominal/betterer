@@ -7,7 +7,8 @@ module.exports = {
     '!<rootDir>/packages/**/dist/**/public.js',
     '!<rootDir>/packages/extension/.vscode-test/**/*',
     '!<rootDir>/packages/extension/dist/**/*.js',
-    '!<rootDir>/packages/fixture/dist/**/*.js'
+    '!<rootDir>/packages/fixture/dist/**/*.js',
+    '!<rootDir>/packages/render/dist/**/*.js'
   ],
   coverageDirectory: '<rootDir>/reports/coverage',
   coverageReporters: ['clover', 'json', 'json-summary', 'lcov', 'text'],

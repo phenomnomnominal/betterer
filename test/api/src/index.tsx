@@ -2,7 +2,7 @@ import type { BettererLogger } from '@betterer/logger';
 import type { FC } from '@betterer/render';
 import type { BettererTasksState } from '@betterer/tasks';
 
-import { React, render, useCallback } from '@betterer/render';
+import { React, getRenderOptions, render, useCallback } from '@betterer/render';
 import { BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
 import { createWorkerRequire } from '@phenomnomnominal/worker-require';
 
@@ -49,7 +49,7 @@ function tests(n: number): string {
 
 void (async () => {
   const worker = testPackageApi();
-  const test = render(<APITest packageNames={await worker.getPackages()} />);
+  const test = render(<APITest packageNames={await worker.getPackages()} />, getRenderOptions(process.env.NODE_ENV));
   await worker.destroy();
   await test.waitUntilExit();
 })();

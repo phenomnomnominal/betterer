@@ -3,7 +3,7 @@ import type { Command } from 'commander';
 
 import type { BettererCLIResultsConfig } from './types.js';
 
-import { React, render } from '@betterer/render';
+import { React, getRenderOptions, render } from '@betterer/render';
 
 import { resultsCommand, setEnv } from './options.js';
 import { Results } from './results/results.js';
@@ -18,10 +18,6 @@ export function results(cwd: string): Command {
   command.action(async (config: BettererCLIResultsConfig, command: Command): Promise<void> => {
     setEnv(config);
 
-    const RENDER_OPTIONS = {
-      debug: process.env.NODE_ENV === 'test'
-    };
-
     // Mark options as unknown...
     const options: unknown = {
       configPaths: config.config,
@@ -35,7 +31,10 @@ export function results(cwd: string): Command {
     try {
       // And then cast to BettererOptionsResults. This is possibly invalid,
       // but it's nicer to do the options validation in @betterer/betterer
-      const app = render(<Results options={options as BettererOptionsResults} logo={config.logo} />, RENDER_OPTIONS);
+      const app = render(
+        <Results options={options as BettererOptionsResults} logo={config.logo} />,
+        getRenderOptions(process.env.NODE_ENV)
+      );
       await app.waitUntilExit();
     } catch {
       process.exitCode = 1;
