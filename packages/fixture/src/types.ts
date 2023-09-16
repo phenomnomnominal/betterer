@@ -25,7 +25,11 @@ export type Fixture = FixtureFileSystem & {
   testNames(runs: BettererRunSummaries): BettererTestNames;
 };
 
+// Readonly externally:
 export type FixtureLogs = ReadonlyArray<string>;
+
+// Writable internally:
+export type FixtureLogsMap = Record<string, Array<string>>;
 
 export interface FixtureOptions {
   logFilters?: Array<RegExp>;

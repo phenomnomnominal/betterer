@@ -1,5 +1,6 @@
-import type { FixtureLogs, FixtureOptions } from './types.js';
+import type { FixtureLogs, FixtureLogsMap, FixtureOptions } from './types.js';
 
+import { getStdOut } from '@betterer/render';
 import ansiRegex from 'ansi-regex';
 import path from 'node:path';
 
@@ -7,14 +8,19 @@ const ANSI_REGEX = ansiRegex();
 const PROJECT_REGEXP = new RegExp(normalisePaths(process.cwd()), 'g');
 const STACK_TRACK_LINE_REGEXP = /^\s+at\s+/;
 
+const FIXTURE_LOGS_MAP: FixtureLogsMap = {};
+
 export function createFixtureLogs(options: FixtureOptions = {}): FixtureLogs {
-  const snapshotLogs: Array<string> = [];
+  const fixtureLogs: Array<string> = [];
+  FIXTURE_LOGS_MAP[expect.getState().currentTestName] = fixtureLogs;
+
   const log = (...messages: Array<string>): void => {
+    const currentFixtureLogs = FIXTURE_LOGS_MAP[expect.getState().currentTestName];
     // Do some magic to sort out the logs for snapshots. This mucks up the snapshot of the printed logo,
     // but that hardly matters...
     messages.forEach((message) => {
       if (!isString(message)) {
-        snapshotLogs.push(message);
+        currentFixtureLogs.push(message);
         return;
       }
       message = replaceAnsi(message);
@@ -33,27 +39,28 @@ export function createFixtureLogs(options: FixtureOptions = {}): FixtureLogs {
       if (trimmed.length === 0) {
         return;
       }
-      const [previous] = snapshotLogs.slice(-1);
+      const [previous] = currentFixtureLogs.slice(-1);
       if (message !== previous) {
-        snapshotLogs.push(message);
+        currentFixtureLogs.push(message);
       }
     });
   };
 
+  const stdout = getStdOut();
   try {
-    jest.spyOn(process.stdout, 'write').mockImplementation((message: string | Uint8Array): boolean => {
+    jest.spyOn(stdout, 'write').mockImplementation((message: string | Uint8Array): boolean => {
       if (message) {
         log(message.toString());
       }
       return true;
     });
   } catch {
-    // Cannot wrap process.stdout.write
+    // Cannot wrap stdout.write
   }
-  process.stdout.columns = 1000;
-  process.stdout.rows = 20;
+  stdout.columns = 1000;
+  stdout.rows = 20;
 
-  return snapshotLogs as FixtureLogs;
+  return fixtureLogs as FixtureLogs;
 }
 
 function isString(message: unknown): message is string {

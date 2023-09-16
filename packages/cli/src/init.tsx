@@ -2,7 +2,7 @@ import type { Command } from 'commander';
 
 import type { BettererCLIInitConfig } from './types.js';
 
-import { React, render } from '@betterer/render';
+import { React, getRenderOptions, render } from '@betterer/render';
 import path from 'node:path';
 
 import { Init } from './init/init.js';
@@ -21,10 +21,6 @@ export function init(cwd: string): Command {
   command.action(async (config: BettererCLIInitConfig): Promise<void> => {
     setEnv(config);
 
-    const RENDER_OPTIONS = {
-      debug: process.env.NODE_ENV === 'test'
-    };
-
     const finalConfig = config.config || BETTERER_TS;
     const finalResults = config.results || BETTERER_RESULTS;
     const ext = path.extname(finalConfig);
@@ -39,7 +35,7 @@ export function init(cwd: string): Command {
         resultsPath={finalResults}
         ts={ts}
       />,
-      RENDER_OPTIONS
+      getRenderOptions(process.env.NODE_ENV)
     );
     await app.waitUntilExit();
   });

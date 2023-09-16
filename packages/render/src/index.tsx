@@ -21,20 +21,33 @@ import R from 'react';
  */
 export const React = R;
 
-export {
-  createContext,
-  FC,
-  PropsWithChildren,
-  useCallback,
-  useContext,
-  useEffect,
-  useReducer,
-  useRef,
-  useState,
-  memo
-} from 'react';
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * Re-exported from `ink`
+ */
+export type { Instance, RenderOptions, TextProps } from 'ink';
 
-export { render, Box, Instance, RenderOptions, Text, TextProps, useApp, useInput, useStdin } from 'ink';
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * Re-exported from `react`
+ */
+export type { FC, PropsWithChildren } from 'react';
+
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * Re-exported from `ink`
+ */
+export { render, Box, Text, useApp, useInput, useStdin } from 'ink';
+
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * Re-exported from `react`
+ */
+export { createContext, useCallback, useContext, useEffect, useReducer, useRef, useState, memo } from 'react';
 
 import TI from 'ink-text-input';
 
@@ -53,3 +66,50 @@ export type TextInputProps = React.ComponentProps<typeof TI>;
 export const TextInput = (props: TextInputProps) => {
   return <TI {...props} />;
 };
+
+type Process = typeof import('process');
+type StdErr = Process['stderr'];
+type StdIn = Process['stdin'];
+type StdOut = Process['stdout'];
+
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * Wrapped to get process.stderr so it can be stubbed for testing.
+ */
+export function getStdErr(): StdErr {
+  return process.stderr;
+}
+
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * Wrapped to get process.stdin so it can be stubbed for testing.
+ */
+export function getStdIn(): StdIn {
+  return process.stdin;
+}
+
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * Wrapped to get process.stdout so it can be stubbed for testing.
+ */
+export function getStdOut(): StdOut {
+  return process.stdout;
+}
+
+import type { RenderOptions } from 'ink';
+
+/**
+ * @internal This could change at any point! Please don't use!
+ */
+export function getRenderOptions(env = '', options: RenderOptions = {}): RenderOptions {
+  return {
+    debug: env === 'test',
+    stderr: getStdErr(),
+    stdin: getStdIn(),
+    stdout: getStdOut(),
+    ...options
+  };
+}
