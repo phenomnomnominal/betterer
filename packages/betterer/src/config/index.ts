@@ -10,6 +10,7 @@ export {
   BettererConfigIgnores,
   BettererConfigIncludes,
   BettererConfigPaths,
+  BettererOptionsAll,
   BettererOptionsBase,
   BettererOptionsExcludes,
   BettererOptionsFilters,

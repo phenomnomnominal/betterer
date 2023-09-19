@@ -5,7 +5,7 @@ import type { BettererConfig, BettererOptionsOverride } from '../config/index.js
 import type { BettererFilePaths, BettererVersionControlWorker } from '../fs/index.js';
 import type { BettererReporterΩ } from '../reporters/index.js';
 import type { BettererResultsFileΩ } from '../results/index.js';
-import type { BettererSuiteSummariesΩ, BettererSuiteSummary } from '../suite/index.js';
+import type { BettererSuiteSummaries, BettererSuiteSummary } from '../suite/index.js';
 import type { BettererGlobals } from '../types.js';
 import type { BettererContext, BettererContextStarted, BettererContextSummary } from './types.js';
 
@@ -13,8 +13,8 @@ import { overrideConfig } from '../config/index.js';
 import { BettererFileResolverΩ } from '../fs/index.js';
 import { BettererRunWorkerPoolΩ, BettererRunΩ, createWorkerRunConfig } from '../run/index.js';
 import { BettererSuiteΩ } from '../suite/index.js';
-import { loadTestMeta } from '../test/index.js';
 import { defer } from '../utils.js';
+import { importWorker } from '../worker/index.js';
 import { BettererContextSummaryΩ } from './context-summary.js';
 
 export class BettererContextΩ implements BettererContext {
@@ -22,10 +22,12 @@ export class BettererContextΩ implements BettererContext {
 
   private _isDestroyed = false;
   private _reporter: BettererReporterΩ;
-  private readonly _resultsFile: BettererResultsFileΩ;
-  private _runWorkerPool: BettererRunWorkerPoolΩ;
   private _started: BettererContextStarted;
-  private _suiteSummaries: BettererSuiteSummariesΩ = [];
+  private _suiteSummaries: BettererSuiteSummaries = [];
+
+  private readonly _resultsFile: BettererResultsFileΩ;
+  private readonly _runWorkerPool: BettererRunWorkerPoolΩ;
+  private readonly _testMetaLoader = importWorker<typeof import('./context.worker.js')>('./context.worker.js');
   private readonly _versionControl: BettererVersionControlWorker;
 
   constructor(private _globals: BettererGlobals, private readonly _watcher: FSWatcher | null) {
@@ -84,8 +86,8 @@ export class BettererContextΩ implements BettererContext {
         filePaths = [];
       }
 
-      const testMeta = loadTestMeta(this.config);
-      const testNames = Object.keys(testMeta);
+      // Load test names in a worker so the import cache is always clean:
+      const testNames = await this._testMetaLoader.api.loadTestNames(this.config.tsconfigPath, this.config.configPaths);
 
       const workerRunConfig = createWorkerRunConfig(this.config);
 
@@ -130,29 +132,34 @@ export class BettererContextΩ implements BettererContext {
   }
 
   private async _destroy(): Promise<void> {
+    if (this._isDestroyed) {
+      return;
+    }
     this._isDestroyed = true;
     if (this._watcher) {
       await this._watcher.close();
     }
+    await this._testMetaLoader.destroy();
     await this._versionControl.destroy();
     await this._runWorkerPool.destroy();
   }
 
   private _start(): BettererContextStarted {
-    // Update `this._reporter` here because `this.options()` may have been called:
+    // Update `this._reporterΩ` here because `this.options()` may have been called:
     this._reporter = this.config.reporter as BettererReporterΩ;
+    const reporterΩ = this._reporter;
 
     const contextLifecycle = defer<BettererContextSummary>();
 
     // Don't await here! A custom reporter could be awaiting
     // the lifecycle promise which is unresolved right now!
-    const reportContextStart = this._reporter.contextStart(this, contextLifecycle.promise);
+    const reportContextStart = reporterΩ.contextStart(this, contextLifecycle.promise);
     return {
       end: async (): Promise<BettererContextSummary> => {
         const contextSummary = new BettererContextSummaryΩ(this.config, this._suiteSummaries);
         contextLifecycle.resolve(contextSummary);
         await reportContextStart;
-        await this._reporter.contextEnd(contextSummary);
+        await reporterΩ.contextEnd(contextSummary);
 
         const suiteSummaryΩ = contextSummary.lastSuite;
         if (suiteSummaryΩ && !this.config.ci) {
@@ -165,7 +172,7 @@ export class BettererContextΩ implements BettererContext {
       error: async (error: BettererError): Promise<void> => {
         contextLifecycle.reject(error);
         await reportContextStart;
-        await this._reporter.contextError(this, error);
+        await reporterΩ.contextError(this, error);
       }
     };
   }

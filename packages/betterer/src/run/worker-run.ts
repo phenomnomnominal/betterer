@@ -1,5 +1,6 @@
 import type { BettererConfig, BettererWorkerRunConfig } from '../config/index.js';
 import type { BettererFilePaths, BettererVersionControlWorker } from '../fs/index.js';
+import type { BettererResult } from '../results/index.js';
 import type { BettererDiff, BettererTestConfig, BettererTestMeta } from '../test/index.js';
 import type { BettererGlobals } from '../types.js';
 import type { BettererRun, BettererRunning, BettererRunSummary } from './types.js';
@@ -52,10 +53,9 @@ export class BettererWorkerRunΩ implements BettererRun {
     const config = await createWorkerConfig(runConfig);
     const resultsFile = await BettererResultsFileΩ.create(config.resultsPath, versionControl);
     const globals = { config, resultsFile, versionControl };
-
     const isNew = !resultsFile.hasResult(name);
 
-    const testFactories = loadTestMeta(config);
+    const testFactories = loadTestMeta(config.configPaths);
     const testFactoryMeta = testFactories[name];
     const test = await testFactoryMeta.factory();
 
@@ -137,7 +137,7 @@ export class BettererWorkerRunΩ implements BettererRun {
   private _run(config: BettererConfig, timestamp: number): BettererRunning {
     const end = async (
       status: BettererRunStatus,
-      result: BettererResultΩ | null = null,
+      result: BettererResult | null = null,
       diff: BettererDiff | null = null,
       error: BettererError | null = null
     ): Promise<BettererRunSummary> => {
@@ -165,7 +165,7 @@ export class BettererWorkerRunΩ implements BettererRun {
       let printed: string | null = null;
       const shouldPrint = !(isComplete || (this.isNew && (isFailed || isSkipped)));
       if (shouldPrint) {
-        const toPrint = isFailed || isSkipped || isWorse ? this.expected : (result as BettererResultΩ);
+        const toPrint = isFailed || isSkipped || isWorse ? this.expected : (result as BettererResult);
         const toPrintSerialised = this.test.serialiser.serialise(toPrint.value, config.resultsPath);
         printed = forceRelativePaths(await this.test.printer(toPrintSerialised), config.versionControlPath);
       }

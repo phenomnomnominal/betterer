@@ -35,7 +35,9 @@
     "@betterer/time": "^5.3.4",
     "@phenomnomnominal/debug": "^0.2.5",
     "@phenomnomnominal/worker-require": "^0.0.34",
+    "callsite": "^1.0.0",
     "chokidar": "^3.3.1",
+    "comlink": "^4.4.1",
     "djb2a": "^1.2.0",
     "fast-memoize": "^2.5.2",
     "lines-and-columns": "^2.0.3",
@@ -49,6 +51,7 @@
     "typescript": ">=2.7"
   },
   "devDependencies": {
+    "@types/callsite": "^1.0.32",
     "@types/prettier": "^2.3.2"
   }
 }

@@ -1,9 +1,10 @@
+import type { BettererWorkerHandle } from '../worker/types.js';
 import type { BettererWorker, BettererWorkerModule } from './types.js';
 
 import assert from 'node:assert';
 import { workerRequire } from '@phenomnomnominal/worker-require';
 
-export class BettererRunWorkerHandleΩ {
+export class BettererRunWorkerHandleΩ implements BettererWorkerHandle {
   public worker: BettererWorker = workerRequire<BettererWorkerModule>('./run-worker', { cache: false });
   public free = Promise.resolve();
 
@@ -13,6 +14,10 @@ export class BettererRunWorkerHandleΩ {
     this.free = new Promise<void>((resolve) => {
       this._release = resolve;
     });
+  }
+
+  public async destroy(): Promise<void> {
+    await this.worker.destroy();
   }
 
   public release(): void {
@@ -30,7 +35,7 @@ export class BettererRunWorkerPoolΩ {
   }
 
   public async destroy(): Promise<void> {
-    await Promise.all(this._handles.map((handle) => handle.worker.destroy()));
+    await Promise.all(this._handles.map((handle) => handle.destroy()));
   }
 
   public getWorkerHandle(): BettererRunWorkerHandleΩ {

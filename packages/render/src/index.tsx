@@ -67,10 +67,22 @@ export const TextInput = (props: TextInputProps) => {
   return <TI {...props} />;
 };
 
-type Process = typeof import('process');
-type StdErr = Process['stderr'];
-type StdIn = Process['stdin'];
-type StdOut = Process['stdout'];
+/**
+ * @internal This could change at any point! Please don't use!
+ */
+export type Process = typeof import('process');
+/**
+ * @internal This could change at any point! Please don't use!
+ */
+export type StdErr = Process['stderr'];
+/**
+ * @internal This could change at any point! Please don't use!
+ */
+export type StdIn = Process['stdin'];
+/**
+ * @internal This could change at any point! Please don't use!
+ */
+export type StdOut = Process['stdout'];
 
 /**
  * @internal This could change at any point! Please don't use!

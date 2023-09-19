@@ -5,9 +5,11 @@ Array [
   "
 Error: could not import config from \\"<project>/fixtures/config-invalid/.betterer.ts\\". 😔
 
-Error: fixtures/config-invalid/.betterer.ts:1:20 - error TS1109: Expression expected.
+Error: ⨯ Unable to compile TypeScript:
+       fixtures/config-invalid/.betterer.ts:1:20 - error TS1109: Expression expected.
 
        1 export const test = // Syntax Error
+
 
 ",
 ]

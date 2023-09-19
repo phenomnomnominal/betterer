@@ -59,5 +59,8 @@ function isError(value: unknown): value is Error | BettererError {
 
 function processStack(stack: string): string {
   const [, ...stackLines] = stack.split('\n');
-  return stackLines.slice(0, 10).join('\n');
+  return stackLines
+    .filter((line) => line.trim().startsWith('at'))
+    .slice(0, 10)
+    .join('\n');
 }

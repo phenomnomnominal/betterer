@@ -6,6 +6,7 @@ import type {
   BettererConfigMerge,
   BettererConfigStart,
   BettererConfigWatch,
+  BettererOptionsAll,
   BettererOptionsBase,
   BettererOptionsMerge,
   BettererOptionsOverride,
@@ -27,7 +28,7 @@ import { isBoolean, isNumber, isRegExp, isString, isUndefined } from '../utils.j
 const TOTAL_CPUS = os.cpus().length;
 
 export async function createConfig(
-  options: unknown = {},
+  options: BettererOptionsAll = {},
   versionControl: BettererVersionControlWorker
 ): Promise<BettererConfig> {
   const tsconfigPath = resolveTsConfigPath(options as BettererOptionsBase);

@@ -14,7 +14,7 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
       : resultSummaries;
   }
 
-  public static async create(options: BettererOptionsResults): Promise<BettererResultsSummaryΩ> {
+  public static async create(options: BettererOptionsResults): Promise<BettererResultsSummary> {
     const { config, resultsFile, versionControl } = await createGlobals({
       configPaths: options.configPaths,
       cwd: options.cwd,
@@ -24,7 +24,7 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
       resultsPath: options.resultsPath
     });
 
-    const testFactories = loadTestMeta(config);
+    const testFactories = loadTestMeta(config.configPaths);
 
     let testNames = Object.keys(testFactories);
     if (config.filters.length) {

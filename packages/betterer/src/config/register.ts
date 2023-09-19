@@ -45,7 +45,8 @@ async function registerTypeScript(tsconfigPath: string | null): Promise<void> {
     transpileOnly: true,
     compilerOptions: {
       module: 'commonjs'
-    }
+    },
+    pretty: true
   };
   if (tsconfigPath) {
     tsRegisterOptions.project = tsconfigPath;

@@ -1,22 +1,21 @@
 import type { BettererOptionsReporters } from '../config/index.js';
-import type { BettererReporter, BettererReporterModule } from './types.js';
+import type { BettererReporter, BettererReporterFactory, BettererReporterModule } from './types.js';
 
 import { BettererError } from '@betterer/errors';
 import path from 'node:path';
 
-import { requireUncached } from '../require.js';
+import { importDefault } from '../import.js';
 import { isFunction, isString } from '../utils.js';
 import { BettererReporterΩ } from './reporter.js';
 
-const DEFAULT_REPORTER = '@betterer/reporter';
 const HOOK_NAMES = Object.getOwnPropertyNames(BettererReporterΩ.prototype) as ReadonlyArray<keyof BettererReporter>;
 
-export function loadDefaultReporter(): BettererReporterΩ {
-  const module = requireUncached<BettererReporterModule>(DEFAULT_REPORTER);
-  return new BettererReporterΩ([module.reporter]);
+export function loadDefaultReporter(): BettererReporter {
+  const { createReporter__ } = importDefault<BettererReporterFactory>('@betterer/reporter');
+  return new BettererReporterΩ([createReporter__()]);
 }
 
-export function loadReporters(reporters: BettererOptionsReporters, cwd: string): BettererReporterΩ {
+export function loadReporters(reporters: BettererOptionsReporters, cwd: string): BettererReporter {
   if (reporters.length === 0) {
     return loadDefaultReporter();
   }
@@ -26,7 +25,7 @@ export function loadReporters(reporters: BettererOptionsReporters, cwd: string):
       if (isString(reporter)) {
         reporter = resolveReporter(cwd, reporter);
         try {
-          const module = requireUncached<BettererReporterModule>(reporter);
+          const module = importDefault<BettererReporterModule>(reporter);
           if (!module || !module.reporter) {
             throw new BettererError(`"${reporter}" didn't create a reporter. 😔`);
           }

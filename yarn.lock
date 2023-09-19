@@ -2415,6 +2415,11 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/callsite@^1.0.32":
+  version "1.0.32"
+  resolved "https://registry.npmjs.org/@types/callsite/-/callsite-1.0.32.tgz#597fffd77dd148a01d97f23ce2de0d5554b7000c"
+  integrity sha512-cYpP9vbWPRlwAoejiH+KvH7RYW9klpVt2Da5rYhnb6K4p9jXt1J2uLSLOds0QmfD/dbnCByUtBCs8s7DSuMczQ==
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.npmjs.org/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -4107,6 +4112,11 @@ comlink@^4.3.0:
   version "4.3.0"
   resolved "https://registry.npmjs.org/comlink/-/comlink-4.3.0.tgz#80b3366baccd87897dab3638ebfcfae28b2f87c7"
   integrity sha512-mu4KKKNuW8TvkfpW/H88HBPeILubBS6T94BdD1VWBXNXfiyqVtwUCVNO1GeNOBTsIswzsMjWlycYr+77F5b84g==
+
+comlink@^4.4.1:
+  version "4.4.1"
+  resolved "https://registry.npmjs.org/comlink/-/comlink-4.4.1.tgz#e568b8e86410b809e8600eb2cf40c189371ef981"
+  integrity sha512-+1dlx0aY5Jo1vHy/tSsIGpSkN4tS9rZSW8FIhG0JH/crs9wwweswIo/POr451r7bZww3hFbPAKnTpimzL/mm4Q==
 
 commander@^10.0.1:
   version "10.0.1"
