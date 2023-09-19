@@ -10,7 +10,6 @@ import type {
 
 import { BettererError } from '@betterer/errors';
 import { diff__ } from '@betterer/logger';
-import { format } from 'prettier';
 
 import { isFunction } from '../utils.js';
 
@@ -94,7 +93,10 @@ export function defaultDiffer(expected: unknown, result: unknown): BettererDiff<
   };
 }
 
-function defaultPrinter(serialised: unknown): string {
+async function defaultPrinter(serialised: unknown): Promise<string> {
+  // Prettier is noisy when importing, so let's defer it for easier debugging:
+  const { format } = await import('prettier');
+
   return format(JSON.stringify(serialised), { parser: 'json' });
 }
 

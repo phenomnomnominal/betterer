@@ -1,4 +1,4 @@
-import type { BettererOptionsOverride } from '../config/index.js';
+import type { BettererOptionsAll, BettererOptionsOverride } from '../config/index.js';
 import type { BettererFilePaths } from '../fs/index.js';
 import type { BettererSuiteSummary } from '../suite/index.js';
 import type { BettererRunner } from './types.js';
@@ -18,7 +18,7 @@ export class BettererRunnerΩ implements BettererRunner {
 
   private constructor(private _context: BettererContextΩ) {}
 
-  public static async create(options: unknown): Promise<BettererRunnerΩ> {
+  public static async create(options: BettererOptionsAll): Promise<BettererRunnerΩ> {
     const globals = await createGlobals(options);
     const watcher = await createWatcher(globals);
 

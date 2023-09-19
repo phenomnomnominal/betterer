@@ -4,4 +4,4 @@
  * @packageDocumentation
  */
 
-export { reporter } from './reporter.js';
+export { reporter, createReporter } from './reporter.js';

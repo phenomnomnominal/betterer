@@ -24,7 +24,7 @@ import { contextEnd, createStore, suiteEnd, suiteStart } from './state/index.js'
  */
 export const reporter: BettererReporter = createReporter();
 
-function createReporter(): BettererReporter {
+export function createReporter(): BettererReporter {
   const renderOptions = getRenderOptions(process.env.NODE_ENV, {
     exitOnCtrlC: false
   });

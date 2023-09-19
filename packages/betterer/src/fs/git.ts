@@ -1,6 +1,6 @@
 import type { SimpleGit } from 'simple-git';
 
-import type { BettererFilePaths, BettererVersionControl } from './types.js';
+import type { BettererFileCache, BettererFilePaths, BettererVersionControl } from './types.js';
 
 import { BettererError } from '@betterer/errors';
 import assert from 'node:assert';
@@ -14,7 +14,7 @@ import { BettererFileCacheΩ } from './file-cache.js';
 import { read } from './reader.js';
 
 export class BettererGitΩ implements BettererVersionControl {
-  private _cache: BettererFileCacheΩ | null = null;
+  private _cache: BettererFileCache | null = null;
   private _configPaths: BettererFilePaths = [];
   private _fileMap: Record<string, string> = {};
   private _filePaths: Array<string> = [];
@@ -182,7 +182,8 @@ export class BettererGitΩ implements BettererVersionControl {
       })
     );
 
-    this._cache.setHashes(this._fileMap);
+    const cacheΩ = this._cache as BettererFileCacheΩ;
+    cacheΩ.setHashes(this._fileMap);
   }
 }
 

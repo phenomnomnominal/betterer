@@ -1,14 +1,14 @@
-import type { BettererConfig } from '../config/index.js';
+import type { BettererConfigPaths } from '../config/index.js';
 import type { BettererTestMap, BettererTestFactoryMetaMap } from './types.js';
 
 import { BettererError } from '@betterer/errors';
 
-import { requireUncached } from '../require.js';
 import { isFunction } from '../utils.js';
+import { importDefault } from '../import.js';
 
-export function loadTestMeta(config: BettererConfig): BettererTestFactoryMetaMap {
+export function loadTestMeta(configPaths: BettererConfigPaths): BettererTestFactoryMetaMap {
   let testMetaMap: BettererTestFactoryMetaMap = {};
-  config.configPaths.map((configPath) => {
+  configPaths.map((configPath) => {
     const testMeta = loadTestMetaFromConfig(configPath);
     testMetaMap = { ...testMetaMap, ...testMeta };
   });
@@ -18,7 +18,7 @@ export function loadTestMeta(config: BettererConfig): BettererTestFactoryMetaMap
 function loadTestMetaFromConfig(configPath: string): BettererTestFactoryMetaMap {
   try {
     const testMeta: BettererTestFactoryMetaMap = {};
-    const exports = requireUncached<BettererTestMap>(configPath);
+    const exports = importDefault<BettererTestMap>(configPath);
     Object.keys(exports).forEach((name) => {
       const factory = exports[name];
       if (!isFunction(factory)) {

@@ -1,4 +1,9 @@
-import type { BettererFileGlobs, BettererFilePatterns, BettererFilePaths } from '../../fs/index.js';
+import type {
+  BettererFileGlobs,
+  BettererFilePatterns,
+  BettererFilePaths,
+  BettererFileResolver
+} from '../../fs/index.js';
 import type { BettererRun, BettererWorkerRunΩ } from '../../run/index.js';
 import type { BettererTestConstraint, BettererTestDeadline, BettererTestFunction, BettererTestGoal } from '../types.js';
 import type {
@@ -52,7 +57,7 @@ export class BettererFileTest implements BettererFileTestBase {
 
   private _isOnly = false;
   private _isSkipped = false;
-  private _resolver: BettererFileResolverΩ;
+  private _resolver: BettererFileResolver;
 
   constructor(fileTest: BettererFileTestFunction) {
     this._resolver = new BettererFileResolverΩ();
@@ -110,7 +115,8 @@ export class BettererFileTest implements BettererFileTestBase {
    * @returns This {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}, so it is chainable.
    */
   public exclude(...excludePatterns: BettererFilePatterns): this {
-    this._resolver.exclude(...excludePatterns);
+    const resolverΩ = this._resolver as BettererFileResolverΩ;
+    resolverΩ.exclude(...excludePatterns);
     return this;
   }
 
@@ -134,7 +140,8 @@ export class BettererFileTest implements BettererFileTestBase {
    * @returns This {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}, so it is chainable.
    */
   public include(...includePatterns: BettererFileGlobs): this {
-    this._resolver.include(...includePatterns);
+    const resolverΩ = this._resolver as BettererFileResolverΩ;
+    resolverΩ.include(...includePatterns);
     return this;
   }
 
@@ -160,22 +167,23 @@ export class BettererFileTest implements BettererFileTestBase {
 }
 
 function createTest(
-  resolver: BettererFileResolverΩ,
+  resolver: BettererFileResolver,
   fileTest: BettererFileTestFunction
 ): BettererTestFunction<BettererFileTestResult> {
   return async (run: BettererRun): Promise<BettererFileTestResult> => {
+    const resolverΩ = resolver as BettererFileResolverΩ;
     const runΩ = run as BettererWorkerRunΩ;
     assert(runΩ.filePaths);
 
     const baseDirectory = path.dirname(runΩ.test.configPath);
 
     const { config, versionControl } = runΩ.globals;
-    resolver.init(baseDirectory, versionControl);
+    resolverΩ.init(baseDirectory, versionControl);
 
     const hasSpecifiedFiles = runΩ.filePaths.length > 0;
 
     // Get the maximal set of files that the test could run on:
-    const testFiles = await resolver.files();
+    const testFiles = await resolverΩ.files();
 
     // Get the set of files that the test will run on:
     let runFiles: BettererFilePaths;
@@ -183,7 +191,7 @@ function createTest(
     // Specified files will include files from a global `includes`.
     if (hasSpecifiedFiles) {
       // Validate that they are relevant for this file test:
-      runFiles = await resolver.validate(runΩ.filePaths);
+      runFiles = await resolverΩ.validate(runΩ.filePaths);
     } else {
       runFiles = testFiles;
     }

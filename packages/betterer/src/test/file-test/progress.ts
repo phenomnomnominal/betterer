@@ -9,7 +9,7 @@ export function progress(
   if (result == null) {
     return null;
   }
-  const resultIssues = countIssues(result as BettererFileTestResultΩ);
+  const resultIssues = countIssues(result);
   if (baseline == null) {
     return {
       baseline: null,
@@ -17,7 +17,7 @@ export function progress(
       diff: 0
     };
   }
-  const baselineIssues = countIssues(baseline as BettererFileTestResultΩ);
+  const baselineIssues = countIssues(baseline);
   return {
     baseline: baselineIssues,
     diff: resultIssues - baselineIssues,
@@ -25,6 +25,7 @@ export function progress(
   };
 }
 
-function countIssues(result: BettererFileTestResultΩ): number {
-  return result.files.reduce((sum, file) => sum + file.issues.length, 0);
+function countIssues(result: BettererFileTestResult): number {
+  const resultΩ = result as BettererFileTestResultΩ;
+  return resultΩ.files.reduce((sum, file) => sum + file.issues.length, 0);
 }

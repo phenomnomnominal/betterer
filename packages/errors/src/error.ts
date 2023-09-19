@@ -40,5 +40,5 @@ export class BettererError extends Error {
  * ```
  */
 export function isBettererError(err: unknown): err is BettererError {
-  return !!(err as BettererError).isBettererError;
+  return !!(err as BettererError)?.isBettererError;
 }

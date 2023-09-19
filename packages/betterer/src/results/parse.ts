@@ -4,8 +4,8 @@ import { BettererError } from '@betterer/errors';
 import assert from 'node:assert';
 
 import { read } from '../fs/index.js';
+import { importText } from '../import.js';
 import { mergeResults } from './merge.js';
-import { requireText } from './require.js';
 
 const MERGE_CONFLICT_ANCESTOR = '|||||||';
 const MERGE_CONFLICT_END = '>>>>>>>';
@@ -37,7 +37,7 @@ export async function parseResults(resultsPath: string): Promise<BettererResults
   }
 
   try {
-    return await requireText(contents);
+    return await importText(contents);
   } catch {
     throw new BettererError(`could not read results from "${resultsPath}". 😔`);
   }

@@ -496,6 +496,8 @@ export interface BettererOptionsWatch extends BettererOptionsRunner {
   watch?: true;
 }
 
+export type BettererOptionsAll = BettererOptionsStart | BettererOptionsWatch | BettererOptionsResults;
+
 /**
  * @public Options for when you override the config via the {@link @betterer/betterer#BettererContext.options | `BettererContext.options()` API}.
  *
