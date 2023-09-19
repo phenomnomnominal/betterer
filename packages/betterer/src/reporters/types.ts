@@ -131,5 +131,5 @@ export interface BettererReporterModule {
 }
 
 export interface BettererReporterFactory {
-  createReporter: () => BettererReporter;
+  createReporter__: () => BettererReporter;
 }

@@ -22,9 +22,14 @@ import { contextEnd, createStore, suiteEnd, suiteStart } from './state/index.js'
  * to handle all the fancy terminal rerendering. It also means we can do cool stuff like dynamic
  * settings in `betterer watch` mode.
  */
-export const reporter: BettererReporter = createReporter();
+export const reporter: BettererReporter = createReporter__();
 
-export function createReporter(): BettererReporter {
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * @remarks used in {@link @betterer/betterer#BettererReporter | `BettererReporter`} to make sure there is always a fresh default Reporter
+ */
+export function createReporter__(): BettererReporter {
   const renderOptions = getRenderOptions(process.env.NODE_ENV, {
     exitOnCtrlC: false
   });

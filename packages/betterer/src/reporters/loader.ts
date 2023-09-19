@@ -11,8 +11,8 @@ import { BettererReporterΩ } from './reporter.js';
 const HOOK_NAMES = Object.getOwnPropertyNames(BettererReporterΩ.prototype) as ReadonlyArray<keyof BettererReporter>;
 
 export function loadDefaultReporter(): BettererReporter {
-  const { createReporter } = importDefault<BettererReporterFactory>('@betterer/reporter');
-  return new BettererReporterΩ([createReporter()]);
+  const { createReporter__ } = importDefault<BettererReporterFactory>('@betterer/reporter');
+  return new BettererReporterΩ([createReporter__()]);
 }
 
 export function loadReporters(reporters: BettererOptionsReporters, cwd: string): BettererReporter {

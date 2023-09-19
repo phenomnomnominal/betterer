@@ -6,6 +6,9 @@
 
 import type { BettererReporter } from '@betterer/betterer';
 
+// @internal
+export function createReporter__(): BettererReporter;
+
 // @public
 export const reporter: BettererReporter;
 

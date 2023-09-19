@@ -9,6 +9,7 @@ import { createContext } from 'react';
 import { FC } from 'react';
 import { Instance } from 'ink';
 import { memo } from 'react';
+import { process as process_2 } from 'process';
 import { PropsWithChildren } from 'react';
 import R from 'react';
 import { render } from 'ink';
@@ -32,9 +33,24 @@ export { createContext }
 
 export { FC }
 
+// @internal
+export function getRenderOptions(env?: string, options?: RenderOptions): RenderOptions;
+
+// @internal
+export function getStdErr(): StdErr;
+
+// @internal
+export function getStdIn(): StdIn;
+
+// @internal
+export function getStdOut(): StdOut;
+
 export { Instance }
 
 export { memo }
+
+// @internal
+export type Process = process_2;
 
 export { PropsWithChildren }
 
@@ -45,6 +61,15 @@ export { React_2 as React }
 export { render }
 
 export { RenderOptions }
+
+// @internal
+export type StdErr = Process['stderr'];
+
+// @internal
+export type StdIn = Process['stdin'];
+
+// @internal
+export type StdOut = Process['stdout'];
 
 export { Text_2 as Text }
 
