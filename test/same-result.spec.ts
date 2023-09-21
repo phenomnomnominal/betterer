@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest';
+
 // eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from './fixture';
 
@@ -8,13 +10,13 @@ describe('betterer', () => {
     const { paths, logs, readFile, cleanup, testNames } = await createFixture(
       'same-result',
       {
-        '.betterer.js': `
-const { BettererTest } = require('@betterer/betterer');
-const { bigger } = require('@betterer/constraints');
+        '.betterer.mjs': `
+import { BettererTest } from '@betterer/betterer';
+import { bigger } from '@betterer/constraints';
 
 const start = 0;
 
-module.exports = {
+export default {
   test: () => new BettererTest({
     test: () => start,
     constraint: bigger

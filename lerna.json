@@ -16,7 +16,8 @@
     "packages/tasks",
     "packages/time",
     "packages/tsquery",
-    "packages/typescript"
+    "packages/typescript",
+    "packages/worker"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,

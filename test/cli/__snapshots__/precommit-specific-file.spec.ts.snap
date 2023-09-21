@@ -1,84 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer precommit should test just the specified files 1`] = `
-Array [
-  "🌟 Betterer (0ms):
-",
-  "🌟 Betterer (0ms): 1 test running...
-🤔 test: running \\"test\\"!
-",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: \\"test\\" got checked for the first time! (3 issues) 🎉
-",
-  "🎉 Betterer (0ms): 1 test done!
-✅ test: \\"test\\" got checked for the first time! (3 issues) 🎉
-",
-  "🎉 Betterer (0ms): 1 test done!
-✅ test: \\"test\\" got checked for the first time! (3 issues) 🎉
-
-1 test got checked. 🤔
-1 test got checked for the first time! 🎉
-",
-  "Checking 1 file... 🤔
-
-・ <project>/fixtures/precommit-specific-file/src/new-file.ts
-
-🌟 Betterer:
-",
-  "Checking 1 file... 🤔
-
-・ <project>/fixtures/precommit-specific-file/src/new-file.ts
-
-🌟 Betterer: 1 test running...
-🤔 test: running \\"test\\"!
-",
-  "Checking 1 file... 🤔
-
-・ <project>/fixtures/precommit-specific-file/src/new-file.ts
-
-🌟 Betterer: 1 test running...
-✅ test: \\"test\\" stayed the same. (3 issues) 😐
-",
-  "Checking 1 file... 🤔
-
-・ <project>/fixtures/precommit-specific-file/src/new-file.ts
-
-🎉 Betterer: 1 test done!
-✅ test: \\"test\\" stayed the same. (3 issues) 😐
-",
-  "Checked 1 file! 🔍
-
-・ <project>/fixtures/precommit-specific-file/src/new-file.ts
-
-🎉 Betterer: 1 test done!
-✅ test: \\"test\\" stayed the same. (3 issues) 😐
-
-1 test got checked. 🤔
-1 test stayed the same. 😐
+exports[`betterer precommit > should test just the specified files 1`] = `
+[
+  "
+Error: could not import config from \\"<project>/fixtures/precommit-specific-file/.betterer.js\\". 😔
 ",
 ]
 `;
-
-exports[`betterer precommit should test just the specified files 2`] = `
-"// BETTERER RESULTS V2.
-//
-// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
-// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
-//
-exports[\`test\`] = {
-  value: \`{
-    \\"src/existing-file-1.ts:3201740415\\": [
-      [0, 0, 9, \\"Unexpected \\\\'debugger\\\\' statement.\\", \\"3201740415\\"]
-    ],
-    \\"src/existing-file-2.ts:3201740415\\": [
-      [0, 0, 9, \\"Unexpected \\\\'debugger\\\\' statement.\\", \\"3201740415\\"]
-    ],
-    \\"src/new-file.ts:3201740415\\": [
-      [0, 0, 9, \\"Unexpected \\\\'debugger\\\\' statement.\\", \\"3201740415\\"]
-    ]
-  }\`
-};
-"
-`;
-
-exports[`betterer precommit should test just the specified files 3`] = `undefined`;

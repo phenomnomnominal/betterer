@@ -24,7 +24,7 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
       resultsPath: options.resultsPath
     });
 
-    const testFactories = loadTestMeta(config.configPaths);
+    const testFactories = await loadTestMeta(config.configPaths);
 
     let testNames = Object.keys(testFactories);
     if (config.filters.length) {

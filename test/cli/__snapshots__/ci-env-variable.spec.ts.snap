@@ -1,46 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer ci should work with \`start\` and the CI env variable 1`] = `
-Array [
-  "🌟 Betterer (0ms):
-",
-  "🌟 Betterer (0ms): 1 test running...
-🤔 test: running \\"test\\"!
-",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
-",
-  "🎉 Betterer (0ms): 1 test done!
-✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
-",
-  "🎉 Betterer (0ms): 1 test done!
-✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
-
-1 test got checked. 🤔
-1 test got checked for the first time! 🎉
-",
-  "🌟 Betterer:
-",
-  "🌟 Betterer: 1 test running...
-🤔 test: running \\"test\\"!
-",
-  "🌟 Betterer: 1 test running...
-✅ test: \\"test\\" stayed the same. (1 issue) 😐
-",
-  "🎉 Betterer: 1 test done!
-✅ test: \\"test\\" stayed the same. (1 issue) 😐
-",
-  "🎉 Betterer: 1 test done!
-✅ test: \\"test\\" stayed the same. (1 issue) 😐
-
-1 test got checked. 🤔
-1 test stayed the same. 😐
-
-Unexpected changes detected in these tests while running in CI mode:
-
- \\"test\\"
-
-You should make sure the results file is up-to-date before committing! You might want to run \`betterer precommit\` in a commit hook. 💍
+exports[`betterer ci > should work with \`start\` and the CI env variable 1`] = `
+[
+  "
+Error: could not import config from \\"<project>/fixtures/ci-env-variable/.betterer.ts\\". 😔
 ",
 ]
 `;

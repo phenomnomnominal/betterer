@@ -1,68 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer precommit should not update the changeset when a test gets worse 1`] = `
-Array [
-  "🌟 Betterer (0ms):
-",
-  "🌟 Betterer (0ms): 1 test running...
-🤔 test: running \\"test\\"!
-",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
-",
-  "🎉 Betterer (0ms): 1 test done!
-✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
-",
-  "🎉 Betterer (0ms): 1 test done!
-✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
-
-1 test got checked. 🤔
-1 test got checked for the first time! 🎉
-",
-  "🌟 Betterer:
-",
-  "🌟 Betterer: 1 test running...
-🤔 test: running \\"test\\"!
-",
-  "🌟 Betterer: 1 test running...
-🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
-",
-  "🌟 Betterer: 1 test running...
-🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
-
-Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
-",
-  "💥 Betterer: 1 test done! 1 test errored!
-🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in \\"<project>/fixtures/precommit-worse/src/index.ts\\".
-・ New issue in \\"<project>/fixtures/precommit-worse/src/index.ts\\"!
-・
-・   <project>/fixtures/precommit-worse/src/index.ts
-・   2 | const one = 1;
-・   3 | console.log(one * a);
-・ > 4 | console.log(a * one);
-・     |             ^ The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
-・
-
-Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
-",
-  "💥 Betterer: 1 test done! 1 test errored!
-🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in \\"<project>/fixtures/precommit-worse/src/index.ts\\".
-・ New issue in \\"<project>/fixtures/precommit-worse/src/index.ts\\"!
-・
-・   <project>/fixtures/precommit-worse/src/index.ts
-・   2 | const one = 1;
-・   3 | console.log(one * a);
-・ > 4 | console.log(a * one);
-・     |             ^ The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
-・
-
-Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
-
-1 test got checked. 🤔
-1 test got worse. 😔
-
+exports[`betterer precommit > should not update the changeset when a test gets worse 1`] = `
+[
+  "
+Error: could not import config from \\"<project>/fixtures/precommit-worse/.betterer.ts\\". 😔
 ",
 ]
 `;

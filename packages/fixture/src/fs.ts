@@ -1,7 +1,7 @@
 import type { FixtureFileSystem, FixtureFileSystemFiles, Paths } from './types.js';
 
 import { ensureDir, ensureFile, remove } from 'fs-extra';
-import { promises as fs } from 'graceful-fs';
+import gracefulfs from 'graceful-fs';
 import path from 'node:path';
 
 const DEFAULT_CACHE_PATH = './.betterer.cache';
@@ -27,7 +27,7 @@ export async function createFixtureFS(
   async function writeFile(filePath: string, text: string): Promise<void> {
     const fullPath = resolve(filePath);
     await ensureFile(fullPath);
-    return await fs.writeFile(fullPath, text.trim(), 'utf8');
+    return await gracefulfs.promises.writeFile(fullPath, text.trim(), 'utf8');
   }
 
   async function deleteDirectory(directoryPath: string): Promise<void> {
@@ -35,11 +35,11 @@ export async function createFixtureFS(
   }
 
   async function deleteFile(filePath: string): Promise<void> {
-    return await fs.unlink(resolve(filePath));
+    return await gracefulfs.promises.unlink(resolve(filePath));
   }
 
   function readFile(filePath: string): Promise<string> {
-    return fs.readFile(resolve(filePath), 'utf8');
+    return gracefulfs.promises.readFile(resolve(filePath), 'utf8');
   }
 
   const paths: Paths = {

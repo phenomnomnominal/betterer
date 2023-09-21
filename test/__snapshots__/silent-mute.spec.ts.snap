@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`betterer --silent should mute all console output 1`] = `Array []`;

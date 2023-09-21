@@ -1,14 +1,16 @@
 import '@betterer/fixture';
-import { jest } from '@jest/globals';
+import { beforeEach, vitest } from 'vitest';
 
-jest.setTimeout(300000);
-
-jest.mock('@betterer/time', (): typeof import('@betterer/time') => {
-  const time = jest.requireActual('@betterer/time') as typeof import('@betterer/time');
+vitest.mock('@betterer/time', async (): Promise<typeof import('@betterer/time')> => {
+  const time: typeof import('@betterer/time') = await vitest.importActual('@betterer/time');
 
   return {
     ...time,
     getPreciseTime__: () => 0,
     getTime__: () => 0
   };
+});
+
+beforeEach(({ expect }) => {
+  process.env.BETTERER_TEST_NAME = expect.getState().currentTestName;
 });

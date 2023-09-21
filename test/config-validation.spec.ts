@@ -1,10 +1,10 @@
-import { jest } from '@jest/globals';
+import { describe, it, expect, vitest } from 'vitest';
 
 // eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from './fixture';
 
-jest.mock('node:os', (): typeof import('node:os') => {
-  const os = jest.requireActual('node:os') as typeof import('node:os');
+vitest.mock('node:os', async (): Promise<typeof import('node:os')> => {
+  const os: typeof import('node:os') = await vitest.importActual('node:os');
 
   const [cpu] = os.cpus();
   return {
@@ -18,7 +18,7 @@ describe('betterer', () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { cleanup, logs, paths } = await createFixture('config-validation', {
-      '.betterer.js': ''
+      '.betterer.mjs': ''
     });
     const configPaths = [paths.config];
     const resultsPath = paths.results;

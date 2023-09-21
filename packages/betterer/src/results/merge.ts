@@ -7,5 +7,5 @@ import { importText } from '../import.js';
  * with the latter taking precedence.
  */
 export function mergeResults(ours: string, theirs: string): BettererResultsSerialised {
-  return { ...importText(ours), ...importText(theirs) };
+  return { ...importText<BettererResultsSerialised>(ours), ...importText<BettererResultsSerialised>(theirs) };
 }

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer should report the total coverage 1`] = `
+exports[`betterer > should report the total coverage 1`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
@@ -15,8 +15,8 @@ exports[\`test\`] = {
 "
 `;
 
-exports[`betterer should report the total coverage 2`] = `
-Array [
+exports[`betterer > should report the total coverage 2`] = `
+[
   "🌟 Betterer (0ms):
 ",
   "🌟 Betterer (0ms): 1 test running...

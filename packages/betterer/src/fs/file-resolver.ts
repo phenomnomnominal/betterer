@@ -42,7 +42,7 @@ export class BettererFileResolverΩ implements BettererFileResolver {
   public async validate(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
     // If `include()` was never called, just filter the given list:
     if (!this._included.length) {
-      const validFilePaths = await this.versionControl.filterIgnored(filePaths);
+      const validFilePaths = await this.versionControl.api.filterIgnored(filePaths);
       return validFilePaths.filter((filePath) => !this._isExcluded(filePath));
     }
     await this._update();
@@ -73,7 +73,7 @@ export class BettererFileResolverΩ implements BettererFileResolver {
 
   private async _update(): Promise<void> {
     this._validatedFilePathsMap = {};
-    const filePaths = await this.versionControl.getFilePaths();
+    const filePaths = await this.versionControl.api.getFilePaths();
     filePaths.forEach((filePath) => {
       this._validatedFilePathsMap[filePath] = this._isIncluded(filePath);
     });

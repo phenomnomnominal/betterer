@@ -2,6 +2,7 @@ import type { FixtureLogs, FixtureLogsMap, FixtureOptions } from './types.js';
 
 import { getStdOut } from '@betterer/render';
 import ansiRegex from 'ansi-regex';
+import assert from 'node:assert';
 import path from 'node:path';
 
 const ANSI_REGEX = ansiRegex();
@@ -11,11 +12,20 @@ const STACK_TRACK_LINE_REGEXP = /^\s+at\s+/;
 const FIXTURE_LOGS_MAP: FixtureLogsMap = {};
 
 export function createFixtureLogs(options: FixtureOptions = {}): FixtureLogs {
+  function assertTest(): string {
+    const testName = process.env.BETTERER_TEST_NAME;
+    assert(testName);
+    return testName;
+  }
+
+  const testName = assertTest();
   const fixtureLogs: Array<string> = [];
-  FIXTURE_LOGS_MAP[expect.getState().currentTestName] = fixtureLogs;
+  FIXTURE_LOGS_MAP[testName] = fixtureLogs;
 
   const log = (...messages: Array<string>): void => {
-    const currentFixtureLogs = FIXTURE_LOGS_MAP[expect.getState().currentTestName];
+    const testName = assertTest();
+    const currentFixtureLogs = FIXTURE_LOGS_MAP[testName];
+
     // Do some magic to sort out the logs for snapshots. This mucks up the snapshot of the printed logo,
     // but that hardly matters...
     messages.forEach((message) => {
@@ -47,16 +57,12 @@ export function createFixtureLogs(options: FixtureOptions = {}): FixtureLogs {
   };
 
   const stdout = getStdOut();
-  try {
-    jest.spyOn(stdout, 'write').mockImplementation((message: string | Uint8Array): boolean => {
-      if (message) {
-        log(message.toString());
-      }
-      return true;
-    });
-  } catch {
-    // Cannot wrap stdout.write
-  }
+  stdout.write = (message: string | Uint8Array): boolean => {
+    if (message) {
+      log(message.toString());
+    }
+    return true;
+  };
   stdout.columns = 1000;
   stdout.rows = 20;
 

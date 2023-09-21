@@ -36,5 +36,6 @@ export {
   BettererTestOptionsComplex,
   BettererTestConfig,
   BettererTestMeta,
-  BettererTestNames
+  BettererTestNames,
+  BettererTestLoaderWorker
 } from './types.js';

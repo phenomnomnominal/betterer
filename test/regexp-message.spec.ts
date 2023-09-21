@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest';
+
 // eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from './fixture';
 
@@ -8,10 +10,10 @@ describe('betterer', () => {
     const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture(
       'regexp-with-issue-message',
       {
-        '.betterer.js': `
-const { regexp } = require('@betterer/regexp');
+        '.betterer.mjs': `
+import { regexp } from '@betterer/regexp';
 
-module.exports = {
+export default {
   'regexp': () => regexp(/(\\/\\/\\s*HACK)/i, "no hacks here!").include('./src/**/*.ts')
 };
     `

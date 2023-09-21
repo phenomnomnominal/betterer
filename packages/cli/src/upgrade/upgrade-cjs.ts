@@ -1,7 +1,7 @@
 import type { BinaryExpression, SourceFile } from 'typescript';
 
 import { tsquery } from '@phenomnomnominal/tsquery';
-import { factory, isObjectLiteralExpression } from 'typescript';
+import ts from 'typescript';
 
 import { reparse, wrapTest, wrapTests } from './utils.js';
 
@@ -18,8 +18,8 @@ export function upgradeCJS(originalSourceFile: SourceFile, configPath: string): 
   let upgraded = reparse(
     tsquery.map(originalSourceFile, EXPORT_TESTS_QUERY, (configExports) => {
       const { left, operatorToken, right } = configExports as BinaryExpression;
-      if (isObjectLiteralExpression(right)) {
-        return factory.createBinaryExpression(left, operatorToken, wrapTests(right));
+      if (ts.isObjectLiteralExpression(right)) {
+        return ts.factory.createBinaryExpression(left, operatorToken, wrapTests(right));
       }
       return configExports;
     }),
@@ -33,7 +33,7 @@ export function upgradeCJS(originalSourceFile: SourceFile, configPath: string): 
       if (!wrapped) {
         return configExportConst;
       }
-      return factory.createBinaryExpression(left, operatorToken, wrapped);
+      return ts.factory.createBinaryExpression(left, operatorToken, wrapped);
     }),
     configPath
   );

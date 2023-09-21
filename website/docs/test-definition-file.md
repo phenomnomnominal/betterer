@@ -49,10 +49,10 @@ export default {
 <TabItem value="js">
 
 ```javascript
-// .betterer.js
-const { BettererTest } = require('@betterer/betterer');
+// .betterer.mjs
+import { BettererTest } from '@betterer/betterer';
 
-module.exports = {
+export default {
   'my test': () =>
     new BettererTest({
       // ... test config
@@ -86,13 +86,13 @@ You can also expose tests as specific named exports:
 // .betterer.ts
 import { BettererTest } from '@betterer/betterer';
 
-export function myTest() {
+export function myTest(): BettererTest {
   return new BettererTest({
     // ... test config
   });
 }
 
-export function myOtherTest() {
+export function myOtherTest(): BettererTest {
   return new BettererTest({
     // ... test config
   });
@@ -103,16 +103,16 @@ export function myOtherTest() {
 <TabItem value="js">
 
 ```javascript
-// .betterer.js
-const { BettererTest } = require('@betterer/betterer');
+// .betterer.mjs
+import { BettererTest } from '@betterer/betterer';
 
-module.exports.myTest = () => {
+export const myTest = () => {
   return new BettererTest({
     // ... test config
   });
 };
 
-module.exports.myOtherTest = () => {
+export function myOtherTest () {
   return new BettererTest({
     // ... test config
   });

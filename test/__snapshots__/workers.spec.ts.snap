@@ -1,4 +1,32 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`betterer > should run tests in workers 1`] = `[]`;
+
+exports[`betterer > should run tests in workers 2`] = `
+"// BETTERER RESULTS V2.
+//
+// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//
+exports[\`test 1\`] = {
+  value: \`0
+\`
+};
+
+exports[\`test 2\`] = {
+  value: \`0
+\`
+};
+
+exports[\`test 4\`] = {
+  value: \`{
+    \\"src/index.ts:2760033717\\": [
+      [0, 0, 7, \\"RegExp match\\", \\"645651780\\"]
+    ]
+  }\`
+};
+"
+`;
 
 exports[`betterer should run tests in workers 1`] = `
 Array [

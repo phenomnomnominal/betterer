@@ -6,15 +6,17 @@ import type { BettererFilePaths, BettererVersionControlWorker } from '../fs/inde
 import type { BettererReporterΩ } from '../reporters/index.js';
 import type { BettererResultsFileΩ } from '../results/index.js';
 import type { BettererSuiteSummaries, BettererSuiteSummary } from '../suite/index.js';
+import type { BettererTestLoaderWorker } from '../test/index.js';
 import type { BettererGlobals } from '../types.js';
 import type { BettererContext, BettererContextStarted, BettererContextSummary } from './types.js';
+
+import { importWorker } from '@betterer/worker';
 
 import { overrideConfig } from '../config/index.js';
 import { BettererFileResolverΩ } from '../fs/index.js';
 import { BettererRunWorkerPoolΩ, BettererRunΩ, createWorkerRunConfig } from '../run/index.js';
 import { BettererSuiteΩ } from '../suite/index.js';
 import { defer } from '../utils.js';
-import { importWorker } from '../worker/index.js';
 import { BettererContextSummaryΩ } from './context-summary.js';
 
 export class BettererContextΩ implements BettererContext {
@@ -27,7 +29,7 @@ export class BettererContextΩ implements BettererContext {
 
   private readonly _resultsFile: BettererResultsFileΩ;
   private readonly _runWorkerPool: BettererRunWorkerPoolΩ;
-  private readonly _testMetaLoader = importWorker<typeof import('./context.worker.js')>('./context.worker.js');
+  private readonly _testMetaLoader: BettererTestLoaderWorker = importWorker('../test/loader.worker.js');
   private readonly _versionControl: BettererVersionControlWorker;
 
   constructor(private _globals: BettererGlobals, private readonly _watcher: FSWatcher | null) {
@@ -49,7 +51,7 @@ export class BettererContextΩ implements BettererContext {
     // Wait for any pending run to finish, and any existing reporter to render:
     await this._started.end();
     // Override the config:
-    overrideConfig(this.config, optionsOverride);
+    await overrideConfig(this.config, optionsOverride);
     // Start everything again, and trigger a new reporter:
     this._started = this._start();
 
@@ -60,7 +62,7 @@ export class BettererContextΩ implements BettererContext {
   public async run(specifiedFilePaths: BettererFilePaths, isRunOnce = false): Promise<void> {
     try {
       await this._resultsFile.sync();
-      await this._versionControl.sync();
+      await this._versionControl.api.sync();
 
       const { cwd, includes, excludes } = this.config;
 
@@ -165,7 +167,7 @@ export class BettererContextΩ implements BettererContext {
         if (suiteSummaryΩ && !this.config.ci) {
           await this._resultsFile.write(suiteSummaryΩ, this.config.precommit);
         }
-        await this._versionControl.writeCache();
+        await this._versionControl.api.writeCache();
 
         return contextSummary;
       },

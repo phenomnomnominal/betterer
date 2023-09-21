@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest';
+
 // eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from './fixture';
 
@@ -6,19 +8,13 @@ describe('betterer', () => {
     const { betterer } = await import('@betterer/betterer');
 
     const fixture = await createFixture('coverage-files-better', {
-      '.betterer.js': `
-const { coverage } = require('@betterer/coverage');
+      '.betterer.mjs': `
+import { coverage } from '@betterer/coverage';
 
-module.exports = {
+export default {
   test: () => coverage()
 };    
-        `,
-      'tsconfig.json': `
-{
-  "extends": "../../tsconfig.json",
-  "include": ["./src/**/*", "./.betterer.js"]
-}
-      `
+        `
     });
 
     const file1Path = fixture.resolve('./src/file-1.ts');

@@ -24,6 +24,7 @@ import { read } from '../fs/index.js';
 import { registerExtensions } from './register.js';
 import { loadReporters, loadSilentReporter } from '../reporters/index.js';
 import { isBoolean, isNumber, isRegExp, isString, isUndefined } from '../utils.js';
+import { importResolve } from '../import.js';
 
 const TOTAL_CPUS = os.cpus().length;
 
@@ -49,7 +50,7 @@ export async function createConfig(
   return config;
 }
 
-export function overrideConfig(config: BettererConfig, optionsOverride: BettererOptionsOverride): void {
+export async function overrideConfig(config: BettererConfig, optionsOverride: BettererOptionsOverride): Promise<void> {
   if (optionsOverride.filters) {
     validateStringRegExpArray({ filters: optionsOverride.filters });
     config.filters = toRegExps(toArray<string | RegExp>(optionsOverride.filters));
@@ -62,7 +63,7 @@ export function overrideConfig(config: BettererConfig, optionsOverride: Betterer
 
   if (optionsOverride.reporters) {
     const reporters = toArray<string | BettererReporter>(optionsOverride.reporters);
-    config.reporter = loadReporters(reporters, config.cwd);
+    config.reporter = await loadReporters(reporters, config.cwd);
   }
 }
 
@@ -89,7 +90,7 @@ async function createBaseConfig(
   const logo = options.logo || false;
   const reporters = toArray<string | BettererReporter>(options.reporters);
   const silent = isDebug || options.silent || false;
-  const reporter = silent ? loadSilentReporter() : loadReporters(reporters, cwd);
+  const reporter = silent ? loadSilentReporter() : await loadReporters(reporters, cwd);
   const resultsPath = options.resultsPath || './.betterer.results';
 
   validateBool({ cache });
@@ -102,7 +103,7 @@ async function createBaseConfig(
   const workers = validateWorkers(options);
 
   const validatedConfigPaths = validateConfigPaths(cwd, configPaths);
-  const versionControlPath = await versionControl.init(validatedConfigPaths, cwd);
+  const versionControlPath = await versionControl.api.init(validatedConfigPaths, cwd);
 
   return {
     cache,
@@ -275,7 +276,7 @@ function validateConfigPaths(cwd: string, configPaths: Array<string>): Array<str
   return configPaths.map((configPath) => {
     const absoluteConfigPath = path.resolve(cwd, configPath);
     try {
-      return require.resolve(absoluteConfigPath);
+      return importResolve(absoluteConfigPath);
     } catch (error) {
       throw new BettererError(`could not find config file at "${absoluteConfigPath}". 😔`, error as Error);
     }

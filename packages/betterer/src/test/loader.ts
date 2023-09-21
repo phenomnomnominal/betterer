@@ -3,22 +3,24 @@ import type { BettererTestMap, BettererTestFactoryMetaMap } from './types.js';
 
 import { BettererError } from '@betterer/errors';
 
-import { isFunction } from '../utils.js';
 import { importDefault } from '../import.js';
+import { isFunction } from '../utils.js';
 
-export function loadTestMeta(configPaths: BettererConfigPaths): BettererTestFactoryMetaMap {
+export async function loadTestMeta(configPaths: BettererConfigPaths): Promise<BettererTestFactoryMetaMap> {
   let testMetaMap: BettererTestFactoryMetaMap = {};
-  configPaths.map((configPath) => {
-    const testMeta = loadTestMetaFromConfig(configPath);
-    testMetaMap = { ...testMetaMap, ...testMeta };
-  });
+  await Promise.all(
+    configPaths.map(async (configPath) => {
+      const testMeta = await loadTestMetaFromConfig(configPath);
+      testMetaMap = { ...testMetaMap, ...testMeta };
+    })
+  );
   return testMetaMap;
 }
 
-function loadTestMetaFromConfig(configPath: string): BettererTestFactoryMetaMap {
+async function loadTestMetaFromConfig(configPath: string): Promise<BettererTestFactoryMetaMap> {
   try {
     const testMeta: BettererTestFactoryMetaMap = {};
-    const exports = importDefault<BettererTestMap>(configPath);
+    const exports = await importDefault<BettererTestMap>(configPath);
     Object.keys(exports).forEach((name) => {
       const factory = exports[name];
       if (!isFunction(factory)) {

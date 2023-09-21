@@ -1,23 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer cli should show the logo 1`] = `
-Array [
-  "🌟 Betterer (0ms):
-",
-  "🌟 Betterer (0ms): 1 test running...
-🤔 test 1: running \\"test 1\\"!
-",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test 1: \\"test 1\\" got checked for the first time! 🎉
-",
-  "🎉 Betterer (0ms): 1 test done!
-✅ test 1: \\"test 1\\" got checked for the first time! 🎉
-",
-  "🎉 Betterer (0ms): 1 test done!
-✅ test 1: \\"test 1\\" got checked for the first time! 🎉
-
-1 test got checked. 🤔
-1 test got checked for the first time! 🎉
+exports[`betterer cli > should show the logo 1`] = `
+[
+  "
+Error: could not import config from \\"<project>/fixtures/logo-show/.betterer.js\\". 😔
 ",
   "
    / | /     _         _   _
@@ -33,50 +19,8 @@ Array [
  .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
    / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms):
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
 
-🌟 Betterer (0ms): 1 test running...
-🤔 test 1: running \\"test 1\\"!
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🌟 Betterer (0ms): 1 test running...
-✅ test 1: \\"test 1\\" stayed the same. 😐
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Betterer (0ms): 1 test done!
-✅ test 1: \\"test 1\\" stayed the same. 😐
-",
-  "
-   / | /     _         _   _
- '-.ooo.-'  | |__  ___| |_| |_ ___ _ __ ___ _ __
----ooooo--- | '_ // _ / __| __/ _ / '__/ _ / '__|
- .-'ooo'-.  | |_)|  __/ |_| ||  __/ | |  __/ |
-   / | /    |_.__//___|/__|/__/___|_|  /___|_|
-
-🎉 Betterer (0ms): 1 test done!
-✅ test 1: \\"test 1\\" stayed the same. 😐
-
-1 test got checked. 🤔
-1 test stayed the same. 😐
+Error: could not import config from \\"<project>/fixtures/logo-show/.betterer.js\\". 😔
 ",
 ]
 `;

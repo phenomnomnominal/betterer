@@ -1,7 +1,7 @@
 import type { ExportAssignment, SourceFile, VariableDeclaration } from 'typescript';
 
 import { tsquery } from '@phenomnomnominal/tsquery';
-import { factory, isObjectLiteralExpression } from 'typescript';
+import ts from 'typescript';
 
 import { reparse, wrapTest, wrapTests } from './utils.js';
 
@@ -15,8 +15,8 @@ export function upgradeESM(originalSourceFile: SourceFile, configPath: string): 
   let upgraded = reparse(
     tsquery.map(originalSourceFile, EXPORT_TESTS_QUERY, (configExports) => {
       const { expression, decorators, modifiers, isExportEquals } = configExports as ExportAssignment;
-      if (isObjectLiteralExpression(expression)) {
-        return factory.createExportAssignment(decorators, modifiers, isExportEquals, wrapTests(expression));
+      if (ts.isObjectLiteralExpression(expression)) {
+        return ts.factory.createExportAssignment(decorators, modifiers, isExportEquals, wrapTests(expression));
       }
       return configExports;
     }),
@@ -30,7 +30,7 @@ export function upgradeESM(originalSourceFile: SourceFile, configPath: string): 
       if (!wrapped) {
         return configExportConst;
       }
-      return factory.createVariableDeclaration(name, exclamationToken, type, wrapped);
+      return ts.factory.createVariableDeclaration(name, exclamationToken, type, wrapped);
     }),
     configPath
   );

@@ -1,11 +1,11 @@
-import { jest } from '@jest/globals';
+import { describe, it, expect, vitest } from 'vitest';
 
 // eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from './fixture';
 
-jest.resetModules();
-jest.mock('@betterer/time', (): typeof import('@betterer/time') => {
-  const time = jest.requireActual('@betterer/time') as typeof import('@betterer/time');
+vitest.resetModules();
+vitest.mock('@betterer/time', async (): Promise<typeof import('@betterer/time')> => {
+  const time: typeof import('@betterer/time') = await vitest.importActual('@betterer/time');
 
   return {
     ...time,
@@ -19,14 +19,14 @@ describe('betterer', () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { logs, paths, readFile, cleanup, testNames } = await createFixture('deadline-future', {
-      '.betterer.js': `
-const { BettererTest } = require('@betterer/betterer');
-const { bigger } = require('@betterer/constraints');
-const { persist } = require('@betterer/fixture');
+      '.betterer.mjs': `
+import { BettererTest } from '@betterer/betterer';
+import { bigger } from '@betterer/constraints';
+import { persist } from '@betterer/fixture';
 
 const grows = persist(__dirname, 'grows', 0);
 
-module.exports = {
+export default {
   test: () => new BettererTest({
     test: () => grows.increment(),
     constraint: bigger,

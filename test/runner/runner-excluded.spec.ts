@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest';
+
 // eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from '../fixture';
 
@@ -6,17 +8,17 @@ describe('betterer.runner', () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { paths, resolve, cleanup, writeFile } = await createFixture('runner-excluded', {
-      '.betterer.js': `
-const { eslint } = require('@betterer/eslint');
+      '.betterer.mjs': `
+import { eslint } from '@betterer/eslint';
 
-module.exports = {
+export default {
   test: () => eslint({ 'no-debugger': 'error'}).include('./src/**/*.ts')
 };    
       `,
       '.eslintrc.js': `
 const path = require('path');
 
-module.exports = {
+export default {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2018,
@@ -38,7 +40,7 @@ module.exports = {
       'tsconfig.json': `
 {
   "extends": "../../tsconfig.json",
-  "include": ["./src/**/*", "./.betterer.js", "./.eslintrc.js"]
+  "include": ["./src/**/*", "./.betterer.mjs", "./.eslintrc.js"]
 }      
       `
     });

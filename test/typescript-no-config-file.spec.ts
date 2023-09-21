@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest';
+
 // eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from './fixture';
 
@@ -6,10 +8,10 @@ describe('betterer', () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { paths, logs, cleanup } = await createFixture('typescript-no-config-file', {
-      '.betterer.js': `
-const { typescript } = require('@betterer/typescript');
+      '.betterer.mjs': `
+import { typescript } from '@betterer/typescript';
 
-module.exports = {
+export default {
   typescript: () => typescript()
 };
       `

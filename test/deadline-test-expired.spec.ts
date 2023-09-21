@@ -1,21 +1,23 @@
+import { describe, it, expect, vitest } from 'vitest';
+
 // eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from './fixture';
 
-jest.resetModules();
+vitest.resetModules();
 
 describe('betterer', () => {
   it('should mark a test as expired when it is past its deadline', async () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { logs, paths, readFile, cleanup, testNames } = await createFixture('deadline-test-expired', {
-      '.betterer.js': `
-const { BettererTest } = require('@betterer/betterer');
-const { bigger } = require('@betterer/constraints');
-const { persist } = require('@betterer/fixture');
+      '.betterer.mjs': `
+import { BettererTest } from '@betterer/betterer';
+import { bigger } from '@betterer/constraints';
+import { persist } from '@betterer/fixture';
 
 const grows = persist(__dirname, 'grows', 0);
 
-module.exports = {
+export default {
   test: () => new BettererTest({
     test: () => grows.increment(),
     constraint: bigger,

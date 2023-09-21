@@ -37,7 +37,7 @@ export async function parseResults(resultsPath: string): Promise<BettererResults
   }
 
   try {
-    return await importText(contents);
+    return importText<BettererResultsSerialised>(contents);
   } catch {
     throw new BettererError(`could not read results from "${resultsPath}". 😔`);
   }

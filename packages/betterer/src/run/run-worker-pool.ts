@@ -1,11 +1,12 @@
-import type { BettererWorkerHandle } from '../worker/types.js';
-import type { BettererWorker, BettererWorkerModule } from './types.js';
+import type { BettererWorkerHandle } from '@betterer/worker';
+
+import type { BettererRunWorker } from './types.js';
 
 import assert from 'node:assert';
-import { workerRequire } from '@phenomnomnominal/worker-require';
+import { importWorker } from '@betterer/worker';
 
 export class BettererRunWorkerHandleΩ implements BettererWorkerHandle {
-  public worker: BettererWorker = workerRequire<BettererWorkerModule>('./run-worker', { cache: false });
+  public worker: BettererRunWorker = importWorker('./run.worker.js');
   public free = Promise.resolve();
 
   private _release: (() => void) | null = null;

@@ -1,7 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer.watch should stop when forced 1`] = `
-Array [
+exports[`betterer.watch > should stop when forced 1`] = `
+[
   "Filters (press \\"f\\" to edit): No current filter patterns
 Ignores (press \\"i\\" to edit): No current ignore patterns
 

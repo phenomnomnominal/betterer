@@ -1,0 +1,26 @@
+import type { BettererConfigPaths } from '../config/types.js';
+import type { BettererTestNames } from './types.js';
+
+import { exposeWorker } from '@betterer/worker';
+
+import { registerExtensions } from '../config/register.js';
+import { loadTestMeta } from './loader.js';
+
+export async function loadTestNames(
+  tsconfigPath: string | null,
+  configPaths: BettererConfigPaths
+): Promise<BettererTestNames> {
+  debugger;
+  try {
+    await registerExtensions(tsconfigPath);
+    const testMeta = await loadTestMeta(configPaths);
+    return Object.keys(testMeta);
+  } catch (e) {
+    debugger;
+    throw e;
+  }
+}
+
+exposeWorker({
+  loadTestNames
+});

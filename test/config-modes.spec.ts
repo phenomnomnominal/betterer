@@ -1,3 +1,5 @@
+import { describe, it } from 'vitest';
+
 import type { BettererOptionsStart, BettererOptionsRunner, BettererOptionsWatch } from '@betterer/betterer';
 
 function noop(options: unknown): unknown {

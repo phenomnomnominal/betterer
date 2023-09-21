@@ -1,4 +1,5 @@
 import { simpleGit } from 'simple-git';
+import { describe, it, expect } from 'vitest';
 
 // eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from '../fixture';
@@ -8,10 +9,10 @@ const ARGV = ['node', './bin/betterer'];
 describe('betterer precommit', () => {
   it('should test just the specified files', async () => {
     const { paths, logs, cleanup, resolve, readFile, writeFile } = await createFixture('precommit-specific-file', {
-      '.betterer.js': `
-const { eslint } = require('@betterer/eslint');
+      '.betterer.mjs': `
+import { eslint } from '@betterer/eslint';
 
-module.exports = {
+export default {
   test: () => eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
 };
       `,
@@ -40,7 +41,7 @@ module.exports = {
       'tsconfig.json': `
 {
   "extends": "../../tsconfig.json",
-  "include": ["./src/**/*", "./.betterer.js", "./.eslintrc.js"]
+  "include": ["./src/**/*", "./.betterer.mjs", "./.eslintrc.js"]
 }
       `,
       './src/existing-file-1.ts': `

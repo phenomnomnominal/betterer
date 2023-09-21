@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest';
+
 // eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from './fixture';
 
@@ -6,9 +8,9 @@ describe('betterer', () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { paths, readFile, cleanup } = await createFixture('printer-pathological', {
-      '.betterer.js': `
-const { BettererTest } = require('@betterer/betterer');
-const { smaller } = require('@betterer/constraints');
+      '.betterer.mjs': `
+import { BettererTest } from '@betterer/betterer';
+import { smaller } from '@betterer/constraints';
 
 const paths = [
   './some/long/path/to/some/file',
@@ -54,7 +56,7 @@ const map = {
   s: './some/long/path/to/some/file',
 };
 
-module.exports = {
+export default {
   'big array': () => new BettererTest({
     test: () => paths,
     constraint: () => 'same',

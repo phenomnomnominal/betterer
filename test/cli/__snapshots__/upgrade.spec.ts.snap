@@ -1,15 +1,15 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer upgrade should doesn't change things it doesn't need to change 1`] = `
-Array [
+exports[`betterer upgrade > should doesn't change things it doesn't need to change 1`] = `
+[
   "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・ Nothing to upgrade!",
 ]
 `;
 
-exports[`betterer upgrade should upgrade exported constant built-in tests in a CommonJS module 1`] = `
-Array [
+exports[`betterer upgrade > should upgrade exported constant built-in tests in a CommonJS module 1`] = `
+[
   "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
@@ -19,7 +19,7 @@ Array [
 ・ - Before
 ・ + After
 ・
-・   const { regexp } = require('@betterer/regexp');
+・   import { regexp } from '@betterer/regexp';
 ・
 ・ - module.exports.noHack = regexp(/HACK/i).include('**/*.ts');
 ・ + module.exports.noHack = () => regexp(/HACK/i).include('**/*.ts');
@@ -30,8 +30,8 @@ Array [
 ]
 `;
 
-exports[`betterer upgrade should upgrade exported constant built-in tests in an ES module 1`] = `
-Array [
+exports[`betterer upgrade > should upgrade exported constant built-in tests in an ES module 1`] = `
+[
   "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
@@ -52,8 +52,8 @@ Array [
 ]
 `;
 
-exports[`betterer upgrade should upgrade exported constant file tests in a CommonJS module 1`] = `
-Array [
+exports[`betterer upgrade > should upgrade exported constant file tests in a CommonJS module 1`] = `
+[
   "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
@@ -63,7 +63,7 @@ Array [
 ・ - Before
 ・ + After
 ・
-・   const { BettererFileTest } = require('@betterer/betterer');
+・   import { BettererFileTest } from '@betterer/betterer';
 ・
 ・ - module.exports.countFiles = new BettererFileTest(async (files, fileTestResult) => {
 ・ -   const [filePath] = files;
@@ -83,8 +83,8 @@ Array [
 ]
 `;
 
-exports[`betterer upgrade should upgrade exported constant file tests in an ES module 1`] = `
-Array [
+exports[`betterer upgrade > should upgrade exported constant file tests in an ES module 1`] = `
+[
   "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
@@ -114,8 +114,8 @@ Array [
 ]
 `;
 
-exports[`betterer upgrade should upgrade exported constant file tests with include in a CommonJS module 1`] = `
-Array [
+exports[`betterer upgrade > should upgrade exported constant file tests with include in a CommonJS module 1`] = `
+[
   "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
@@ -125,7 +125,7 @@ Array [
 ・ - Before
 ・ + After
 ・
-・   const { BettererFileTest } = require('@betterer/betterer');
+・   import { BettererFileTest } from '@betterer/betterer';
 ・
 ・ - module.exports.countFiles = new BettererFileTest(async (files, fileTestResult) => {
 ・ -   const [filePath] = files;
@@ -145,8 +145,8 @@ Array [
 ]
 `;
 
-exports[`betterer upgrade should upgrade exported constant file tests with include in an ES module 1`] = `
-Array [
+exports[`betterer upgrade > should upgrade exported constant file tests with include in an ES module 1`] = `
+[
   "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
@@ -176,8 +176,8 @@ Array [
 ]
 `;
 
-exports[`betterer upgrade should upgrade exported constant objects in a CommonJS module 1`] = `
-Array [
+exports[`betterer upgrade > should upgrade exported constant objects in a CommonJS module 1`] = `
+[
   "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
@@ -187,15 +187,15 @@ Array [
 ・ - Before
 ・ + After
 ・
-・ + const { BettererTest } = require('@betterer/betterer');
-・   const { bigger } = require('@betterer/constraints');
+・ + import { BettererTest } from '@betterer/betterer';
+・   import { bigger } from '@betterer/constraints';
 ・
 ・   let start = 0;
 ・
 ・ - module.exports.getsBetter = {
+・ -   test: () => start++,
 ・ + module.exports.getsBetter = () =>
 ・ +   new BettererTest({
-・ -   test: () => start++,
 ・ +     test: () => start++,
 ・ -   constraint: bigger
 ・ +     constraint: bigger
@@ -208,8 +208,8 @@ Array [
 ]
 `;
 
-exports[`betterer upgrade should upgrade exported constant objects in an ES module 1`] = `
-Array [
+exports[`betterer upgrade > should upgrade exported constant objects in an ES module 1`] = `
+[
   "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
@@ -240,8 +240,8 @@ Array [
 ]
 `;
 
-exports[`betterer upgrade should upgrade exported constant tests in a CommonJS module 1`] = `
-Array [
+exports[`betterer upgrade > should upgrade exported constant tests in a CommonJS module 1`] = `
+[
   "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
@@ -251,8 +251,8 @@ Array [
 ・ - Before
 ・ + After
 ・
-・   const { BettererTest } = require('@betterer/betterer');
-・   const { bigger } = require('@betterer/constraints');
+・   import { BettererTest } from '@betterer/betterer';
+・   import { bigger } from '@betterer/constraints';
 ・
 ・   let start = 0;
 ・
@@ -272,8 +272,8 @@ Array [
 ]
 `;
 
-exports[`betterer upgrade should upgrade exported constant tests in an ES module 1`] = `
-Array [
+exports[`betterer upgrade > should upgrade exported constant tests in an ES module 1`] = `
+[
   "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
@@ -304,7 +304,7 @@ Array [
 ]
 `;
 
-exports[`betterer upgrade should upgrade exported default test in a CJS module 1`] = `
+exports[`betterer upgrade > should upgrade exported default test in a CJS module 1`] = `
 "const { BettererTest, BettererFileTest } = require('@betterer/betterer');
 const { bigger } = require('@betterer/constraints');
 
@@ -337,8 +337,8 @@ module.exports = {
 "
 `;
 
-exports[`betterer upgrade should upgrade exported default test in a CJS module 2`] = `
-Array [
+exports[`betterer upgrade > should upgrade exported default test in a CJS module 2`] = `
+[
   "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・
@@ -406,7 +406,7 @@ Array [
 ]
 `;
 
-exports[`betterer upgrade should upgrade exported default test in an ES module 1`] = `
+exports[`betterer upgrade > should upgrade exported default test in an ES module 1`] = `
 "import { BettererTest, BettererFileTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
 
@@ -439,8 +439,8 @@ export default {
 "
 `;
 
-exports[`betterer upgrade should upgrade exported default test in an ES module 2`] = `
-Array [
+exports[`betterer upgrade > should upgrade exported default test in an ES module 2`] = `
+[
   "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading \\"./.betterer.ts\\": done!
 ・

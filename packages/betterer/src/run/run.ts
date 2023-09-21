@@ -39,7 +39,7 @@ export class BettererRunΩ implements BettererRun {
     const workerHandle = runWorkerPool.getWorkerHandle();
     await workerHandle.free;
     workerHandle.claim();
-    const testMeta = await workerHandle.worker.init(testName, config, versionControl);
+    const testMeta = await workerHandle.worker.api.init(testName, config, versionControl);
     workerHandle.release();
 
     const baseline = !testMeta.isNew ? new BettererResultΩ(JSON.parse(testMeta.baselineJSON)) : null;
@@ -59,7 +59,7 @@ export class BettererRunΩ implements BettererRun {
     await this._workerHandle.free;
     this._workerHandle.claim();
     const timestamp = getTime__();
-    const summary = await this._workerHandle.worker.run(this.name, this.filePaths, isSkipped, timestamp);
+    const summary = await this._workerHandle.worker.api.run(this.name, this.filePaths, isSkipped, timestamp);
     this._workerHandle.release();
     return summary;
   }

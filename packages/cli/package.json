@@ -7,13 +7,14 @@
     "access": "public"
   },
   "main": "dist/index.js",
+  "type": "module",
   "types": "dist/index.d.ts",
   "files": [
     "bin",
     "dist"
   ],
   "bin": {
-    "betterer": "./bin/betterer"
+    "betterer": "./bin/betterer.mjs"
   },
   "author": "Craig Spence <craigspence0@gmail.com>",
   "homepage": "https://phenomnomnominal.github.io/betterer",
@@ -38,7 +39,6 @@
     "@betterer/tasks": "^5.3.6",
     "@phenomnomnominal/tsquery": "^4.1.1",
     "@phenomnomnominal/tstemplate": "^0.1.0",
-    "@phenomnomnominal/worker-require": "^0.0.34",
     "chalk": "^4.1.2",
     "commander": "^8.3.0",
     "find-up": "^5.0.0",

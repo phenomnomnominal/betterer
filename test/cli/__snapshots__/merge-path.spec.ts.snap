@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer cli should merge the results file 1`] = `
+exports[`betterer cli > should merge the results file 1`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
@@ -16,7 +16,7 @@ exports[\`test\`] = {
 "
 `;
 
-exports[`betterer cli should merge the results file 2`] = `
+exports[`betterer cli > should merge the results file 2`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:

@@ -54,6 +54,9 @@
     },
     {
       "path": "typescript"
+    },
+    {
+      "path": "worker"
     }
   ]
 }

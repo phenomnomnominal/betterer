@@ -6,6 +6,8 @@
 
 import type { BettererReporter } from '@betterer/betterer';
 
+// Warning: (ae-internal-missing-underscore) The name "createReporter__" should be prefixed with an underscore because the declaration is marked as @internal
+//
 // @internal
 export function createReporter__(): BettererReporter;
 

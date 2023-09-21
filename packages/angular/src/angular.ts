@@ -4,7 +4,7 @@ import type { DiagnosticWithLocation } from 'typescript';
 import { performCompilation, readConfiguration } from '@angular/compiler-cli';
 import { BettererFileTest } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
-import { flattenDiagnosticMessageText } from 'typescript';
+import ts from 'typescript';
 
 /**
  * @public Use this test to incrementally introduce {@link https://angular.io/guide/angular-compiler-options | **Angular** compiler configuration }
@@ -61,7 +61,7 @@ export function angular(configFilePath: string, extraCompilerOptions: CompilerOp
       const { file, start, length } = diagnostic as DiagnosticWithLocation;
       const { fileName } = file;
       const result = fileTestResult.addFile(fileName, file.getFullText());
-      const message = flattenDiagnosticMessageText(diagnostic.messageText, '\n');
+      const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
       result.addIssue(start, start + length, message);
     });
   });

@@ -2,6 +2,7 @@ import type { BettererPackageJSON } from '@betterer/cli';
 
 import { execSync } from 'node:child_process';
 import path from 'node:path';
+import { describe, it, expect } from 'vitest';
 
 describe('betterer cli', () => {
   it('should print the version', () => {

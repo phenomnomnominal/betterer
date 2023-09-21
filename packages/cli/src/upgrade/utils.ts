@@ -2,10 +2,10 @@ import type { ArrowFunction, Node, ObjectLiteralExpression, SourceFile } from 't
 
 import { tsquery } from '@phenomnomnominal/tsquery';
 import { tstemplate } from '@phenomnomnominal/tstemplate';
-import { createPrinter, factory, isFunctionLike, isPropertyAssignment } from 'typescript';
+import ts from 'typescript';
 
 export function reparse(upgradedSourceFile: SourceFile, configPath: string): SourceFile {
-  return tsquery.ast(createPrinter().printFile(upgradedSourceFile), configPath);
+  return tsquery.ast(ts.createPrinter().printFile(upgradedSourceFile), configPath);
 }
 
 // new BettererTest();
@@ -52,14 +52,14 @@ export function wrapTest(node: Node): ArrowFunction | null {
 
 export function wrapTests(expression: ObjectLiteralExpression): ObjectLiteralExpression {
   const { properties } = expression;
-  return factory.createObjectLiteralExpression(
+  return ts.factory.createObjectLiteralExpression(
     properties.map((property) => {
-      if (isPropertyAssignment(property) && !isFunctionLike(property.initializer)) {
+      if (ts.isPropertyAssignment(property) && !ts.isFunctionLike(property.initializer)) {
         const wrapped = wrapTest(property.initializer);
         if (!wrapped) {
           return property;
         }
-        return factory.createPropertyAssignment(property.name, wrapped);
+        return ts.factory.createPropertyAssignment(property.name, wrapped);
       }
       return property;
     })

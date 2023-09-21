@@ -4,30 +4,14 @@ export const JS_EXTENSION = '.js';
 export const RESULTS_EXTENSION = '.results';
 export const TS_EXTENSION = '.ts';
 
-type Extensions = typeof require.extensions;
-
-let isRegistered = false;
+let isRegistered = true;
 export async function registerExtensions(tsconfigPath: string | null): Promise<void> {
   if (isRegistered) {
     return;
   }
   isRegistered = true;
 
-  // Need to do this so that webpack doesn't remove it
-  // during the extension bundle...
-  const EXTENSIONS: Extensions = eval(`require.extensions`) as Extensions;
-
-  // Get the original JS module require:
-  const JS = EXTENSIONS[JS_EXTENSION];
-
-  if (!EXTENSIONS[TS_EXTENSION]) {
-    await registerTypeScript(tsconfigPath);
-  }
-
-  // Force `.betterer.results` files to be loaded as JS:
-  EXTENSIONS[RESULTS_EXTENSION] = (m: NodeModule, filePath: string): void => {
-    JS(m, filePath);
-  };
+  await registerTypeScript(tsconfigPath);
 }
 
 async function registerTypeScript(tsconfigPath: string | null): Promise<void> {
@@ -44,7 +28,7 @@ async function registerTypeScript(tsconfigPath: string | null): Promise<void> {
   const tsRegisterOptions: RegisterOptions = {
     transpileOnly: true,
     compilerOptions: {
-      module: 'commonjs'
+      module: 'esnext'
     },
     pretty: true
   };

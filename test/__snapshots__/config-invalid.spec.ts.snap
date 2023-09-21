@@ -1,16 +1,13 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer should throw when there is an invalid config file 1`] = `
-Array [
+exports[`betterer > should throw when there is an invalid config file 1`] = `
+[
   "
 Error: could not import config from \\"<project>/fixtures/config-invalid/.betterer.ts\\". 😔
 
-Error: ⨯ Unable to compile TypeScript:
-       fixtures/config-invalid/.betterer.ts:1:20 - error TS1109: Expression expected.
-
-       1 export const test = // Syntax Error
-
-
+Error: Transform failed with 1 error:
+       <project>/fixtures/config-invalid/.betterer.1694871915076.ts:1:35: ERROR: Unexpected end of file
+  <project>/fixtures/config-invalid/.betterer.1694871915076.ts:1:35: ERROR: Unexpected end of file
 ",
 ]
 `;

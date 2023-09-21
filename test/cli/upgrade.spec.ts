@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest';
+
 // eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from '../fixture';
 
@@ -40,7 +42,7 @@ export const getsBetter = {
       'upgrade-exported-constant-object-cjs',
       {
         './.betterer.ts': `
-const { bigger } = require('@betterer/constraints');
+import { bigger } from '@betterer/constraints';
 
 let start = 0;
 
@@ -103,8 +105,8 @@ export const getsBetter = new BettererTest({
       'upgrade-exported-constant-test-cjs',
       {
         './.betterer.ts': `
-const { BettererTest } = require('@betterer/betterer');
-const { bigger } = require('@betterer/constraints');
+import { BettererTest } from '@betterer/betterer';
+import { bigger } from '@betterer/constraints';
 
 let start = 0;
 
@@ -165,7 +167,7 @@ export const countFiles = new BettererFileTest(async (files, fileTestResult) => 
       'upgrade-exported-constant-file-test-cjs',
       {
         './.betterer.ts': `
-const { BettererFileTest } = require('@betterer/betterer');
+import { BettererFileTest } from '@betterer/betterer';
 
 module.exports.countFiles = new BettererFileTest(async (files, fileTestResult) => {        
   const [filePath] = files;
@@ -225,7 +227,7 @@ export const countFiles = new BettererFileTest(async (files, fileTestResult) => 
       'upgrade-exported-constant-file-test-include-cjs',
       {
         './.betterer.ts': `
-const { BettererFileTest } = require('@betterer/betterer');
+import { BettererFileTest } from '@betterer/betterer';
 
 module.exports.countFiles = new BettererFileTest(async (files, fileTestResult) => {        
   const [filePath] = files;
@@ -281,7 +283,7 @@ export const noHack = regexp(/HACK/i).include('**/*.ts');
       'upgrade-exported-constant-built-in-cjs',
       {
         './.betterer.ts': `
-const { regexp } = require('@betterer/regexp');
+import { regexp } from '@betterer/regexp';
 
 module.exports.noHack = regexp(/HACK/i).include('**/*.ts');
         `
@@ -415,8 +417,8 @@ module.exports = {
       'upgrade-unknown',
       {
         './.betterer.ts': `
-const { BettererTest } = require('@betterer/betterer');
-const { bigger } = require('@betterer/constraints');
+import { BettererTest } from '@betterer/betterer';
+import { bigger } from '@betterer/constraints';
 
 let start = 0;
 

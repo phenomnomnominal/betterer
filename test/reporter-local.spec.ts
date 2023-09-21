@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest';
+
 // eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from './fixture';
 
@@ -9,7 +11,7 @@ describe('betterer --reporter', () => {
       'reporter.js': `
         module.exports.reporter = {};
       `,
-      '.betterer.js': ``
+      '.betterer.mjs': ``
     });
 
     const configPaths = [paths.config];
