@@ -15,7 +15,7 @@
     "betterer": "node ./packages/cli/bin/betterer",
     "betterer:ci": "node ./packages/cli/bin/betterer ci",
     "betterer:precommit": "node ./packages/cli/bin/betterer precommit --cache",
-    "build": "yarn compile:packages && yarn test:api && yarn test:dependencies && yarn test && yarn test:workers && yarn test:e2e",
+    "build": "yarn compile:packages && yarn test:api && yarn test:dependencies && yarn format && yarn lint && yarn test && yarn test:workers && yarn test:e2e",
     "build:ci": "yarn compile:packages && yarn test:api && yarn test:dependencies && yarn format && yarn lint && yarn test && yarn test:workers && yarn betterer:ci",
     "build:extension": "lerna run build:extension",
     "build:publish": "yarn compile:packages && yarn test:api && yarn test:dependencies && yarn test",
@@ -80,7 +80,7 @@
     "prettier": "^2.2.1",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.2.1",
-    "typescript": "^4.4.2"
+    "typescript": "^5.2.2"
   },
   "config": {
     "commitizen": {

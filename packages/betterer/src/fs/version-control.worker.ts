@@ -1,6 +1,6 @@
 import { exposeToMain__ } from '@betterer/worker';
 import { BettererGitΩ } from './git.js';
-import { BettererFilePaths } from './types.js';
+import type { BettererFilePaths } from './types.js';
 
 export const versionControl = new BettererGitΩ();
 

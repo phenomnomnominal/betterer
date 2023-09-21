@@ -83,7 +83,7 @@ export function exposeToMain__<Expose>(api: Expose): void {
  * @internal This could change at any point! Please don't use!
  * @remarks Use `exposeToWorker__` to allow a Worker to call main thread functions across the thread boundary.
  */
-export function exposeToWorker__<Expose extends {}>(api: Expose): Expose {
+export function exposeToWorker__<Expose extends object>(api: Expose): Expose {
   proxy(api);
   return api;
 }
