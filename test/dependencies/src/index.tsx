@@ -4,13 +4,9 @@ import type { BettererTasksState } from '@betterer/tasks';
 
 import { React, getRenderOptions, render, useCallback } from '@betterer/render';
 import { BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
-import { createWorkerRequire } from '@phenomnomnominal/worker-require';
+import { exposeToWorker__, importWorker__ } from '@betterer/worker';
 
 import type { TestPackageDependenciesWorker } from './types.js';
-
-const testPackageDependencies = createWorkerRequire<TestPackageDependenciesWorker>('./test-package-dependencies', {
-  cache: false
-});
 
 interface DependenciesTestProps {
   packageNames: Array<string>;
@@ -22,14 +18,14 @@ export const DependenciesTest: FC<DependenciesTestProps> = function Dependencies
       {packageNames.map((packageName) => {
         const task = useCallback(
           async (logger: BettererLogger) => {
-            const worker = testPackageDependencies();
+            const worker: TestPackageDependenciesWorker = importWorker__('./test-package-dependencies.worker.js');
             try {
-              await worker.run(logger, packageName);
+              await worker.api.run(exposeToWorker__(logger), packageName);
             } finally {
               await worker.destroy();
             }
           },
-          [testPackageDependencies, packageName]
+          [packageName, exposeToWorker__]
         );
         return <BettererTaskLogger key={packageName} name={packageName} task={task} />;
       })}
@@ -50,9 +46,9 @@ function tests(n: number): string {
 }
 
 void (async () => {
-  const worker = testPackageDependencies();
+  const worker: TestPackageDependenciesWorker = importWorker__('./test-package-dependencies.worker.js');
   const test = render(
-    <DependenciesTest packageNames={await worker.getPackages()} />,
+    <DependenciesTest packageNames={await worker.api.getPackages()} />,
     getRenderOptions(process.env.NODE_ENV)
   );
   await worker.destroy();

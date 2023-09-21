@@ -1,5 +1,5 @@
 import type { BettererError } from '@betterer/errors';
-import type { WorkerRequireModule, WorkerRequireModuleAsync } from '@phenomnomnominal/worker-require';
+import type { BettererWorkerAPI, BettererWorkerHandle, BettererWorkerPool } from '@betterer/worker';
 
 import type { BettererFilePaths } from '../fs/index.js';
 import type { BettererResult } from '../results/index.js';
@@ -224,5 +224,6 @@ export interface BettererRunSummary extends BettererRun {
  */
 export type BettererRunSummaries = Array<BettererRunSummary>;
 
-export type BettererWorkerModule = WorkerRequireModule<typeof import('./run-worker')>;
-export type BettererWorker = WorkerRequireModuleAsync<BettererWorkerModule>;
+export type BettererRunWorker = BettererWorkerAPI<typeof import('./run.worker.js')>;
+export type BettererRunWorkerHandle = BettererWorkerHandle<BettererRunWorker>;
+export type BettererRunWorkerPool = BettererWorkerPool<BettererRunWorker>;

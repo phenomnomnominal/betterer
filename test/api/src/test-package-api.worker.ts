@@ -1,6 +1,8 @@
-import { BettererError } from '@betterer/errors';
 import type { BettererLogger } from '@betterer/logger';
+
+import { BettererError } from '@betterer/errors';
 import { diffStrings__ } from '@betterer/logger';
+import { exposeToMain__ } from '@betterer/worker';
 import { Extractor, ExtractorConfig } from '@microsoft/api-extractor';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
@@ -67,3 +69,5 @@ export async function run(logger: BettererLogger, packageName: string): Promise<
 function checkForBannedTokens(types: string, token: string): boolean {
   return types.includes(token);
 }
+
+exposeToMain__({ getPackages, run });

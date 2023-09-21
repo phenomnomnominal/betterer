@@ -2,6 +2,7 @@ import type { BettererLogger } from '@betterer/logger';
 import type { SourceFile } from 'typescript';
 
 import { BettererError } from '@betterer/errors';
+import { exposeToMain__ } from '@betterer/worker';
 import { tsquery } from '@phenomnomnominal/tsquery';
 import { promises as fs } from 'node:fs';
 import { format, resolveConfig } from 'prettier';
@@ -126,3 +127,5 @@ function print(upgradedSourceFile: SourceFile): string {
   const printed = printer.printFile(upgradedSourceFile);
   return printed.replace(/\/\* BLANK LINE \*\//g, '\n\n');
 }
+
+exposeToMain__({ run });

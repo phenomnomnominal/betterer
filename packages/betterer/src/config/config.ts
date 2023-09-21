@@ -102,7 +102,7 @@ async function createBaseConfig(
   const workers = validateWorkers(options);
 
   const validatedConfigPaths = validateConfigPaths(cwd, configPaths);
-  const versionControlPath = await versionControl.init(validatedConfigPaths, cwd);
+  const versionControlPath = await versionControl.api.init(validatedConfigPaths, cwd);
 
   return {
     cache,
@@ -298,8 +298,7 @@ function validateWorkers(options: BettererOptionsBase = {}): number {
     options.workers = TOTAL_CPUS >= 4 ? TOTAL_CPUS - 2 : false;
   }
   if (options.workers === false || options.workers === 0) {
-    process.env.WORKER_REQUIRE = 'false';
-    // When disabled, set workers to 1 so that BettererRunWorkerPoolΩ
+    // When disabled, set workers to 1 so that the BettererWorkerPool
     // can be instantiated correctly:
     options.workers = 1;
   }

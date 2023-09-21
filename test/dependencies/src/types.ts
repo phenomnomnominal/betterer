@@ -1,3 +1,3 @@
-import type { WorkerRequireModule } from '@phenomnomnominal/worker-require';
+import type { BettererWorkerAPI } from '@betterer/worker';
 
-export type TestPackageDependenciesWorker = WorkerRequireModule<typeof import('./test-package-dependencies')>;
+export type TestPackageDependenciesWorker = BettererWorkerAPI<typeof import('./test-package-dependencies.worker.js')>;

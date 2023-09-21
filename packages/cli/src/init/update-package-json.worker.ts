@@ -3,6 +3,7 @@ import type { BettererLogger } from '@betterer/logger';
 import type { BettererPackageJSON } from '../types.js';
 
 import { BettererError } from '@betterer/errors';
+import { exposeToMain__ } from '@betterer/worker';
 import findUp from 'find-up';
 import { promises as fs } from 'node:fs';
 
@@ -55,3 +56,5 @@ export async function run(logger: BettererLogger, cwd: string, ts: boolean): Pro
     throw new BettererError('could not write "package.json".');
   }
 }
+
+exposeToMain__({ run });

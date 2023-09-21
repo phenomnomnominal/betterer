@@ -1,9 +1,10 @@
 import type { BettererLogger } from '@betterer/logger';
 
 import { BettererError } from '@betterer/errors';
-import dependencyCheck from 'dependency-check';
+import { exposeToMain__ } from '@betterer/worker';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
+import dependencyCheck from 'dependency-check';
 
 const EXCLUDED_PACKAGES = ['docgen', 'extension', 'fixture'];
 const PACKAGES_DIR = path.resolve(__dirname, '../../../packages');
@@ -41,9 +42,14 @@ export async function run(logger: BettererLogger, packageName: string): Promise<
   const removeBuiltIns = missing.filter((dependency) => !dependency.startsWith('node:'));
   const errors = removeBuiltIns.filter((dependency) => !IGNORED[packageName]?.includes(dependency));
 
+  // Fight with race condition in Comlink 😡
+  await new Promise((resolve) => setTimeout(resolve, 50));
+
   if (!errors.length) {
     return `No missing dependencies found in "${packageNameFull}".`;
   }
 
   throw new BettererError(`Missing dependencies found in "${packageNameFull}": ${errors.join(', ')}`);
 }
+
+exposeToMain__({ getPackages, run });

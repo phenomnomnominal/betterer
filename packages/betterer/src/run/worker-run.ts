@@ -53,6 +53,7 @@ export class BettererWorkerRunΩ implements BettererRun {
     const config = await createWorkerConfig(runConfig);
     const resultsFile = await BettererResultsFileΩ.create(config.resultsPath, versionControl);
     const globals = { config, resultsFile, versionControl };
+
     const isNew = !resultsFile.hasResult(name);
 
     const testFactories = loadTestMeta(config.configPaths);
@@ -172,9 +173,9 @@ export class BettererWorkerRunΩ implements BettererRun {
 
       if (this.testMeta.isFileTest && !ci) {
         if (isComplete) {
-          await this.globals.versionControl.clearCache(this.name);
+          await this.globals.versionControl.api.clearCache(this.name);
         } else if (isBetter || isSame || isUpdated || this.isNew) {
-          await this.globals.versionControl.updateCache(this.name, this.filePaths as Array<string>);
+          await this.globals.versionControl.api.updateCache(this.name, this.filePaths as Array<string>);
         }
       }
 
