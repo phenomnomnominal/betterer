@@ -1,5 +1,6 @@
 import type { BettererConstraintResult } from '@betterer/constraints';
 import type { BettererLogs } from '@betterer/logger';
+import type { BettererWorkerAPI } from '@betterer/worker';
 
 import type { BettererDelta, BettererRun } from '../run/index.js';
 import type { MaybeAsync } from '../types.js';
@@ -282,3 +283,5 @@ export type BettererTestMeta = {
  * @public An array of test names.
  */
 export type BettererTestNames = ReadonlyArray<string>;
+
+export type BettererTestLoaderWorker = BettererWorkerAPI<typeof import('./loader.worker.js')>;

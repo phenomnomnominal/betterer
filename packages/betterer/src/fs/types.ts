@@ -1,4 +1,4 @@
-import type { WorkerRequireModule, WorkerRequireModuleAsync } from '@phenomnomnominal/worker-require';
+import type { BettererWorkerAPI } from '@betterer/worker';
 
 /**
  * @public An array of {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob }
@@ -46,14 +46,13 @@ export interface BettererFileCache {
 
 export interface BettererVersionControl extends BettererFileCache {
   add(resultsPath: string): Promise<void>;
-  getFilePaths(): BettererFilePaths;
   filterIgnored(filePaths: BettererFilePaths): BettererFilePaths;
+  getFilePaths(): BettererFilePaths;
+  init(configPaths: BettererFilePaths, cwd: string): Promise<string>;
   sync(): Promise<void>;
 }
 
-export type BettererVersionControlWorkerModule = WorkerRequireModule<typeof import('./version-control-worker')>;
-export type BettererVersionControlWorker =
-  WorkerRequireModuleAsync<BettererVersionControlWorkerModule>['versionControl'];
+export type BettererVersionControlWorker = BettererWorkerAPI<BettererVersionControl>;
 
 /**
  * @public A helper for resolving file paths in a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}.

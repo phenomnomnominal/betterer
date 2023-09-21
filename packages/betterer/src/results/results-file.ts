@@ -88,7 +88,7 @@ export class BettererResultsFileΩ {
     if (shouldWrite) {
       await write(printedResult, this._resultsPath);
       if (precommit) {
-        await this._versionControl.add(this._resultsPath);
+        await this._versionControl.api.add(this._resultsPath);
       }
     }
   }

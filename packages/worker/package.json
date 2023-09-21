@@ -1,7 +1,7 @@
 {
-  "name": "@betterer/betterer",
-  "description": "Main engine for runing betterer tests",
-  "version": "5.4.0",
+  "name": "@betterer/worker",
+  "description": "Worker helper functions for @betterer/betterer",
+  "version": "5.3.4",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -28,27 +28,12 @@
     "node": ">=12"
   },
   "dependencies": {
-    "@betterer/constraints": "^5.3.0",
     "@betterer/errors": "^5.3.0",
-    "@betterer/logger": "^5.3.4",
-    "@betterer/reporter": "^5.4.0",
-    "@betterer/time": "^5.3.4",
-    "@betterer/worker": "^5.3.4",
-    "@phenomnomnominal/debug": "^0.2.5",
-    "chokidar": "^3.3.1",
-    "djb2a": "^1.2.0",
-    "fast-memoize": "^2.5.2",
-    "lines-and-columns": "^2.0.3",
-    "minimatch": "^5.0.1",
-    "prettier": "^2.3.2",
-    "simple-git": "^3.6.0",
-    "ts-node": "^10.2.1",
+    "callsite": "^1.0.0",
+    "comlink": "^4.4.1",
     "tslib": "^2.3.1"
   },
-  "optionalDependencies": {
-    "typescript": ">=2.7"
-  },
   "devDependencies": {
-    "@types/prettier": "^2.3.2"
+    "@types/callsite": "^1.0.32"
   }
 }

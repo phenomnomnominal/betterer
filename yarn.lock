@@ -2131,15 +2131,6 @@
   resolved "https://registry.npmjs.org/@phenomnomnominal/tstemplate/-/tstemplate-0.1.0.tgz#125b2617fa8cead47433bbf34ba7ef4e30a7c0f2"
   integrity sha512-/v+GIVNFHAz4+nQtgy9e5ZAXK3xj6TbP5s9JTpnFuqkcLB+gB2lJ6x/nsDhkKhzR6o4REuzhsYoWYnXqKC/UnQ==
 
-"@phenomnomnominal/worker-require@^0.0.34":
-  version "0.0.34"
-  resolved "https://registry.npmjs.org/@phenomnomnominal/worker-require/-/worker-require-0.0.34.tgz#1b11ed024f28cbea741dfad255d077d2d957903a"
-  integrity sha512-2GoVa1PRjrCjOpbMdzsZMQzkx/yFKqWizZc+ZNYSWE+Ym8BG+qAGDcWehUmUmGqy22wS13qitdVt6sR/DAWkIw==
-  dependencies:
-    callsite "^1.0.0"
-    comlink "^4.3.0"
-    tslib "^1.10.0"
-
 "@pkgjs/parseargs@^0.11.0":
   version "0.11.0"
   resolved "https://registry.npmjs.org/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"
@@ -4107,11 +4098,6 @@ combined-stream@^1.0.8:
   integrity sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==
   dependencies:
     delayed-stream "~1.0.0"
-
-comlink@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.npmjs.org/comlink/-/comlink-4.3.0.tgz#80b3366baccd87897dab3638ebfcfae28b2f87c7"
-  integrity sha512-mu4KKKNuW8TvkfpW/H88HBPeILubBS6T94BdD1VWBXNXfiyqVtwUCVNO1GeNOBTsIswzsMjWlycYr+77F5b84g==
 
 comlink@^4.4.1:
   version "4.4.1"
@@ -11327,7 +11313,7 @@ tsconfig-paths@^4.1.2:
     minimist "^1.2.6"
     strip-bom "^3.0.0"
 
-tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0:
+tslib@^1.8.1, tslib@^1.9.0:
   version "1.14.1"
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==

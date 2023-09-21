@@ -1,3 +1,3 @@
-import type { WorkerRequireModule } from '@phenomnomnominal/worker-require';
+import type { BettererWorkerAPI } from '@betterer/worker';
 
-export type UpgradeConfigFileWorker = WorkerRequireModule<typeof import('./upgrade-config-file')>;
+export type UpgradeConfigFileWorker = BettererWorkerAPI<typeof import('./upgrade-config-file.worker')>;

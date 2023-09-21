@@ -1,34 +1,91 @@
-import type { TransferListItem } from 'node:worker_threads';
-import type { TransferHandler } from 'comlink';
+import type { MessagePort, TransferListItem } from 'node:worker_threads';
 
 import type { BettererWorkerAPI } from './types.js';
 
 import { BettererError, isBettererError } from '@betterer/errors';
 import assert from 'node:assert';
 import path from 'node:path';
-import { Worker, parentPort } from 'node:worker_threads';
+import { fileURLToPath } from 'node:url';
+import { MessageChannel, Worker, parentPort } from 'node:worker_threads';
 import callsite from 'callsite';
-import { expose, releaseProxy, transferHandlers, wrap } from 'comlink';
+import { expose, proxy, releaseProxy, transferHandlers, wrap } from 'comlink';
 
-export function importWorker<T>(requirePath: string): BettererWorkerAPI<T> {
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * @remarks Create a {@link https://nodejs.org/api/worker_threads.html | `Worker`} from a given path.
+ * The path should be relative to the file that is calling `importWorker__`. The `Worker` is then
+ * wrapped in the {@link https://github.com/GoogleChromeLabs/comlink | `Comlink`} magic, and then our
+ * own little wrapper around that.
+ *
+ * You might have something like this, in a file called `my.worker.ts`:
+ *
+ * ```
+ * import { exposeToMain__ } from '@betterer/worker';
+ *
+ * export function add (a: number, b: number): number {
+ *  return a + b;
+ * }
+ *
+ * exposeToMain__({ add });
+ * ```
+ *
+ * Not that `add` is exported, which means you can extract the exposed API:
+ *
+ * ```
+ * import { importWorker__ } from '@betterer/worker';
+ *
+ * type MyWorkerAPI = typeof import('./my.worker.js');
+ *
+ * const worker = importWorker__<MyWorkerAPI>('./my-worker.js');
+ * ```
+ *
+ * @param importPath - The path to the Worker source. Should have a `.js` extension.
+ * Should be relative to the file that is calling `importWorker__`.
+ */
+export function importWorker__<T>(importPath: string): BettererWorkerAPI<T> {
   const [, call] = callsite();
-  const sourcePath = call.getFileName();
-  const idPath = path.resolve(path.dirname(sourcePath), requirePath);
+  let callerFilePath = call.getFileName();
+  try {
+    callerFilePath = fileURLToPath(callerFilePath);
+  } catch {
+    // Was probably already a file path 🤷‍♂️
+  }
+  const idPath = path.resolve(path.dirname(callerFilePath), importPath);
   const worker = new Worker(idPath);
   const api = wrap(nodeEndpoint(worker));
 
-  return {
+  return exposeToWorker__({
     api,
-    async destroy() {
+    destroy: exposeToWorker__(async () => {
       api[releaseProxy]();
       await worker.terminate();
-    }
-  } as BettererWorkerAPI<T>;
+    })
+  } as BettererWorkerAPI<T>);
 }
 
-export function exposeWorker(api: unknown): void {
-  assert(parentPort);
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * @remarks Use `exposeToMain__` to allow the main thread to call Worker functions across the thread boundary.
+ *
+ * @throws {@link @betterer/errors#BettererError | `BettererError` }
+ * Will throw if it is called from the main thread.
+ */
+export function exposeToMain__<Expose>(api: Expose): void {
+  if (!parentPort) {
+    throw new BettererError(`"exposeToMain__" called from main thread! 🤪`);
+  }
   expose(api, nodeEndpoint(parentPort));
+}
+
+/**
+ * @internal This could change at any point! Please don't use!
+ * @remarks Use `exposeToWorker__` to allow a Worker to call main thread functions across the thread boundary.
+ */
+export function exposeToWorker__<Expose extends {}>(api: Expose): Expose {
+  proxy(api);
+  return api;
 }
 
 export interface EventSource {
@@ -73,6 +130,12 @@ export default function nodeEndpoint(nep: NodeEndpoint): Endpoint {
     },
     start: nep.start && nep.start.bind(nep)
   };
+}
+
+export interface TransferHandler<T, S> {
+  canHandle(value: unknown): value is T;
+  serialize(value: T): [S, Transferable[]];
+  deserialize(value: S): T;
 }
 
 interface ThrownValue {
@@ -178,3 +241,24 @@ throwHandler.deserialize = (serialized) => {
 };
 
 transferHandlers.set('throw', throwHandler);
+
+const proxyHandler = transferHandlers.get('proxy') as TransferHandler<unknown, MessagePort>;
+assert(proxyHandler);
+
+const proxyTransferHandler = {
+  ...proxyHandler,
+  serialize(obj: unknown) {
+    const { port1, port2 } = new MessageChannel();
+
+    expose(obj, nodeEndpoint(port1));
+
+    return [port2, [port2]];
+  },
+  deserialize(port: MessagePort) {
+    port.start();
+
+    return wrap(nodeEndpoint(port));
+  }
+} as unknown;
+
+transferHandlers.set('proxy', proxyTransferHandler as TransferHandler<unknown, MessagePort>);

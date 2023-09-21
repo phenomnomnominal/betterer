@@ -1,8 +1,7 @@
 import type { BettererWorkerRunConfig } from '../config/index.js';
 import type { BettererFilePaths, BettererVersionControlWorker } from '../fs/index.js';
 import type { BettererTestMeta } from '../test/index.js';
-import type { BettererRunWorkerHandleΩ, BettererRunWorkerPoolΩ } from './run-worker-pool.js';
-import type { BettererRun, BettererRunSummary } from './types.js';
+import type { BettererRun, BettererRunSummary, BettererRunWorkerHandle, BettererRunWorkerPool } from './types.js';
 
 import { getTime__ } from '@betterer/time';
 
@@ -14,7 +13,7 @@ export class BettererRunΩ implements BettererRun {
 
   private constructor(
     public name: string,
-    private _workerHandle: BettererRunWorkerHandleΩ,
+    private _workerHandle: BettererRunWorkerHandle,
     public testMeta: BettererTestMeta,
     public baseline: BettererResultΩ | null,
     public expected: BettererResultΩ | null,
@@ -30,16 +29,15 @@ export class BettererRunΩ implements BettererRun {
   }
 
   public static async create(
-    runWorkerPool: BettererRunWorkerPoolΩ,
+    runWorkerPool: BettererRunWorkerPool,
     testName: string,
     config: BettererWorkerRunConfig,
     filePaths: BettererFilePaths,
     versionControl: BettererVersionControlWorker
   ): Promise<BettererRunΩ> {
     const workerHandle = runWorkerPool.getWorkerHandle();
-    await workerHandle.free;
-    workerHandle.claim();
-    const testMeta = await workerHandle.worker.init(testName, config, versionControl);
+    const worker = await workerHandle.claim();
+    const testMeta = await worker.api.init(testName, config, versionControl);
     workerHandle.release();
 
     const baseline = !testMeta.isNew ? new BettererResultΩ(JSON.parse(testMeta.baselineJSON)) : null;
@@ -56,10 +54,9 @@ export class BettererRunΩ implements BettererRun {
   }
 
   public async run(isSkipped: boolean): Promise<BettererRunSummary> {
-    await this._workerHandle.free;
-    this._workerHandle.claim();
+    const worker = await this._workerHandle.claim();
     const timestamp = getTime__();
-    const summary = await this._workerHandle.worker.run(this.name, this.filePaths, isSkipped, timestamp);
+    const summary = await worker.api.run(this.name, this.filePaths, isSkipped, timestamp);
     this._workerHandle.release();
     return summary;
   }

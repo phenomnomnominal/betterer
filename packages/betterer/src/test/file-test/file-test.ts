@@ -199,7 +199,7 @@ function createTest(
     let isFullRun = runFiles === testFiles;
 
     if (!run.isNew) {
-      const cacheMisses = await versionControl.filterCached(run.name, runFiles);
+      const cacheMisses = await versionControl.api.filterCached(run.name, runFiles);
       isFullRun = isFullRun && cacheMisses.length === runFiles.length;
       runFiles = cacheMisses;
     }

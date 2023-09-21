@@ -1,5 +1,5 @@
-import type { WorkerRequireModule } from '@phenomnomnominal/worker-require';
+import type { BettererWorkerAPI } from '@betterer/worker';
 
-export type CreateTestFileWorker = WorkerRequireModule<typeof import('./create-test-file')>;
-export type EnableAutomergeWorker = WorkerRequireModule<typeof import('./enable-automerge')>;
-export type UpdatePackageJSONWorker = WorkerRequireModule<typeof import('./update-package-json')>;
+export type CreateTestFileWorker = BettererWorkerAPI<typeof import('./create-test-file.worker')>;
+export type EnableAutomergeWorker = BettererWorkerAPI<typeof import('./enable-automerge.worker')>;
+export type UpdatePackageJSONWorker = BettererWorkerAPI<typeof import('./update-package-json.worker')>;

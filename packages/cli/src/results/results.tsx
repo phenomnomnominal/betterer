@@ -4,7 +4,7 @@ import type { GetResultsSummaryWorker } from './types.js';
 
 import { React, Box, Text, useApp, useEffect, useState } from '@betterer/render';
 import { BettererLogo } from '@betterer/tasks';
-import { workerRequire } from '@phenomnomnominal/worker-require';
+import { importWorker__ } from '@betterer/worker';
 
 export interface ResultsProps {
   options: BettererOptionsResults;
@@ -15,9 +15,9 @@ export const Results: FC<ResultsProps> = function Results({ options, logo }) {
   const [resultsSummary, setResultsSummary] = useState<BettererResultsSummary | null>(null);
   useEffect(() => {
     void (async () => {
-      const getResultsSummary = workerRequire<GetResultsSummaryWorker>('./get-results-summary');
+      const getResultsSummary: GetResultsSummaryWorker = importWorker__('./get-results-summary.worker.js');
       try {
-        setResultsSummary(await getResultsSummary.run(options));
+        setResultsSummary(await getResultsSummary.api.run(options));
       } finally {
         await getResultsSummary.destroy();
       }

@@ -5,7 +5,7 @@ import type { UpgradeConfigFileWorker } from './types.js';
 
 import { React, Box, useCallback } from '@betterer/render';
 import { BettererLogo, BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
-import { workerRequire } from '@phenomnomnominal/worker-require';
+import { exposeToWorker__, importWorker__ } from '@betterer/worker';
 import path from 'node:path';
 
 export interface UpgradeProps {
@@ -23,22 +23,16 @@ export const Upgrade: FC<UpgradeProps> = function Upgrade({ configPaths, cwd, lo
         {configPaths.map((configPath) => {
           const runUpgradeConfigFile = useCallback(
             async (logger: BettererLogger) => {
-              const upgradeConfigFile = workerRequire<UpgradeConfigFileWorker>('./upgrade-config-file');
+              const upgradeConfigFile: UpgradeConfigFileWorker = importWorker__('./upgrade-config-file.worker.js');
               try {
-                await upgradeConfigFile.run(logger, path.resolve(cwd, configPath), save);
+                await upgradeConfigFile.api.run(exposeToWorker__(logger), path.resolve(cwd, configPath), save);
               } finally {
                 await upgradeConfigFile.destroy();
               }
             },
             [cwd, configPath]
           );
-          return (
-            <BettererTaskLogger
-              key={configPath}
-              name={`Upgrading "${configPath}"`}
-              task={runUpgradeConfigFile}
-            ></BettererTaskLogger>
-          );
+          return <BettererTaskLogger key={configPath} name={`Upgrading "${configPath}"`} task={runUpgradeConfigFile} />;
         })}
       </BettererTasksLogger>
     </Box>

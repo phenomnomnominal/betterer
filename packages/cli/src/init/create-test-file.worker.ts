@@ -1,6 +1,7 @@
 import type { BettererLogger } from '@betterer/logger';
 
 import { BettererError } from '@betterer/errors';
+import { exposeToMain__ } from '@betterer/worker';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
@@ -38,3 +39,5 @@ export async function run(logger: BettererLogger, cwd: string, configPath: strin
     throw new BettererError(`could not create "${configPath}".`);
   }
 }
+
+exposeToMain__({ run });
