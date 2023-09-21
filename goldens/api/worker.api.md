@@ -37,7 +37,7 @@ export function createWorkerPool__<API extends BettererWorkerAPI<unknown>>(worke
 export function exposeToMain__<Expose>(api: Expose): void;
 
 // @internal
-export function exposeToWorker__<Expose extends {}>(api: Expose): Expose;
+export function exposeToWorker__<Expose extends object>(api: Expose): Expose;
 
 // @internal
 export function importWorker__<T>(importPath: string): BettererWorkerAPI<T>;
