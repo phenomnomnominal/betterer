@@ -44,7 +44,7 @@
     "test:extension": "lerna run test:extension",
     "prepublishOnly": "yarn run build:publish",
     "publish": "lerna publish --conventional-commits --no-commit-hooks --yes",
-    "prepare": "ngcc && husky install"
+    "prepare": "patch-package && ngcc && husky install"
   },
   "engines": {
     "node": ">=16"
@@ -77,6 +77,7 @@
     "jest": "^27.0.4",
     "lerna": "^6.6.2",
     "lint-staged": ">=11.1.2",
+    "patch-package": "^8.0.0",
     "prettier": "^2.2.1",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.2.1",
