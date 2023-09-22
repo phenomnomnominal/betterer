@@ -36,7 +36,7 @@
     "@betterer/worker": "^5.3.4",
     "@phenomnomnominal/debug": "^0.2.5",
     "chokidar": "^3.3.1",
-    "djb2a": "^1.2.0",
+    "djb2a": "^2.0.0",
     "fast-memoize": "^2.5.2",
     "lines-and-columns": "^2.0.3",
     "minimatch": "^5.0.1",
