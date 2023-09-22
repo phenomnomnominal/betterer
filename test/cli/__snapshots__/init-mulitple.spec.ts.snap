@@ -1,15 +1,15 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer cli should work multiple times 1`] = `
-Array [
-  "🎉 Initialising Betterer (0ms): 2 tasks done!
+exports[`betterer cli > should work multiple times 1`] = `
+[
+  "🎉 Initialising Betterer (329ms): 2 tasks done!
 ✅ Create test file: done!
 ・ created \\"<project>/fixtures/init-multiple/.betterer.ts\\"!
 ✅ Update package.json: done!
 ・ added \\"betterer\\" script to package.json file.
 ・ added \\"@betterer/cli\\" dependency to package.json file
 ・ added \\"typescript\\" dependency to package.json file",
-  "🎉 Initialising Betterer (0ms): 2 tasks done!
+  "🎉 Initialising Betterer (219ms): 2 tasks done!
 ✅ Create test file: done!
 ・ \\"<project>/fixtures/init-multiple/.betterer.ts\\" already exists, moving on...
 ✅ Update package.json: done!

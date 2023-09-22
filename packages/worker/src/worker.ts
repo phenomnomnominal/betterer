@@ -52,6 +52,15 @@ export function importWorker__<T>(importPath: string): BettererWorkerAPI<T> {
     // Was probably already a file path 🤷‍♂️
   }
   const idPath = path.resolve(path.dirname(callerFilePath), importPath);
+
+  if (process.env.BETTERER_WORKER === 'false') {
+    return {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires -- migrating away from CJS requires
+      api: importDefault<T>(idPath),
+      destroy: () => Promise.resolve()
+    } as BettererWorkerAPI<T>;
+  }
+
   const worker = new Worker(idPath);
   const api = wrap(nodeEndpoint(worker));
 
@@ -62,6 +71,20 @@ export function importWorker__<T>(importPath: string): BettererWorkerAPI<T> {
       await worker.terminate();
     })
   } as BettererWorkerAPI<T>);
+}
+
+interface ESModule<T> {
+  default: T;
+}
+
+function importDefault<T>(importPath: string): T {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires -- migrating away from CJS requires
+  const m = require(importPath) as unknown;
+  return getDefaultExport<T>(m);
+}
+
+function getDefaultExport<T>(module: unknown): T {
+  return (module as ESModule<T>).default || (module as T);
 }
 
 /**

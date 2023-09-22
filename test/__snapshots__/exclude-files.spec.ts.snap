@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer should exclude specific files from results 1`] = `
+exports[`betterer > should exclude specific files from results 1`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
@@ -19,7 +19,7 @@ exports[\`test\`] = {
 "
 `;
 
-exports[`betterer should exclude specific files from results 2`] = `
+exports[`betterer > should exclude specific files from results 2`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
@@ -35,37 +35,37 @@ exports[\`test\`] = {
 "
 `;
 
-exports[`betterer should exclude specific files from results 3`] = `
-Array [
-  "🌟 Betterer (0ms):
+exports[`betterer > should exclude specific files from results 3`] = `
+[
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (23ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (23ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! (2 issues) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (72ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (2 issues) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (72ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (2 issues) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer (0ms):
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (11ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (11ms): 1 test running...
 ✅ test: \\"test\\" got better! (1 fixed issue, 1 remaining) 😍
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (18ms): 1 test done!
 ✅ test: \\"test\\" got better! (1 fixed issue, 1 remaining) 😍
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (18ms): 1 test done!
 ✅ test: \\"test\\" got better! (1 fixed issue, 1 remaining) 😍
 
 1 test got checked. 🤔

@@ -1,11 +1,20 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer should throw when there is not a config file 1`] = `
-Array [
+exports[`betterer > should throw when there is not a config file 1`] = `
+[
   "
 Error: could not find config file at \\"<project>/fixtures/config-missing/.betterer\\". 😔
 
-Error: Cannot find module '<project>/fixtures/config-missing/.betterer' from 'packages/betterer/dist/config/config.js'
+Error: Cannot find module '<project>/fixtures/config-missing/.betterer'
+       Require stack:
+       - <project>/packages/betterer/dist/config/config.js
+       - <project>/packages/betterer/dist/config/index.js
+       - <project>/packages/betterer/dist/context/context.js
+       - <project>/packages/betterer/dist/context/index.js
+       - <project>/packages/betterer/dist/runner/runner.js
+       - <project>/packages/betterer/dist/runner/index.js
+       - <project>/packages/betterer/dist/betterer.js
+       - <project>/packages/betterer/dist/index.js
 ",
 ]
 `;

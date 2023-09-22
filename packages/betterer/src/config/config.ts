@@ -300,6 +300,7 @@ function validateWorkers(options: BettererOptionsBase = {}): number {
   if (options.workers === false || options.workers === 0) {
     // When disabled, set workers to 1 so that the BettererWorkerPool
     // can be instantiated correctly:
+    process.env.BETTERER_WORKER = 'false';
     options.workers = 1;
   }
 

@@ -3,6 +3,7 @@ import { Module } from 'module';
 interface ESModule<T> {
   default: T;
 }
+
 interface ModulePrivate {
   _compile(source: string, path: string): void;
 }

@@ -1,7 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer --reporter should throw when there is an invalid hook name 1`] = `
-Array [
+exports[`betterer --reporter > should throw when there is an invalid hook name 1`] = `
+[
   "
 Error: could not require \\"<project>/fixtures/reporter-invalid-hook-name/reporter.js\\". 😔
 

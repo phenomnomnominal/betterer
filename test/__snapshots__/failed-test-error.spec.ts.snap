@@ -1,26 +1,26 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer should work when a test fails 1`] = `
-Array [
-  "🌟 Betterer (0ms):
+exports[`betterer > should work when a test fails 1`] = `
+[
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (17ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (17ms): 1 test running...
 🔥 test: OH NO!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-🔥 test: OH NO!
-
-Error: OH NO!
-",
-  "💥 Betterer (0ms): 1 test done! 1 test errored!
+  "🌟 Betterer (17ms): 1 test running...
 🔥 test: OH NO!
 
 Error: OH NO!
 ",
-  "💥 Betterer (0ms): 1 test done! 1 test errored!
+  "💥 Betterer (56ms): 1 test done! 1 test errored!
+🔥 test: OH NO!
+
+Error: OH NO!
+",
+  "💥 Betterer (56ms): 1 test done! 1 test errored!
 🔥 test: OH NO!
 
 Error: OH NO!

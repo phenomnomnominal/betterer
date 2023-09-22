@@ -1,19 +1,22 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer.watch should run in watch mode 1`] = `
-Array [
-  "🌟 Betterer (0ms):
+exports[`betterer.watch > should run in watch mode 1`] = `
+[
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (19ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (122ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (122ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! (2 issues) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (170ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (2 issues) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (170ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (2 issues) 🎉
 
 1 test got checked. 🤔
@@ -33,7 +36,7 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/watch/src/index.ts
 
-🌟 Betterer (0ms):
+🌟 Betterer (-1ms):
 
 (press \\"q\\" to quit)
 ",
@@ -44,7 +47,7 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/watch/src/index.ts
 
-🌟 Betterer (0ms): 1 test running...
+🌟 Betterer (32ms): 1 test running...
 🤔 test: running \\"test\\"!
 
 (press \\"q\\" to quit)
@@ -56,7 +59,7 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/watch/src/index.ts
 
-🌟 Betterer (0ms): 1 test running...
+🌟 Betterer (32ms): 1 test running...
 🔥 test: \\"test\\" got worse. (1 new issue, 3 total) 😔
 
 (press \\"q\\" to quit)
@@ -68,7 +71,7 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/watch/src/index.ts
 
-🌟 Betterer (0ms): 1 test running...
+🌟 Betterer (32ms): 1 test running...
 🔥 test: \\"test\\" got worse. (1 new issue, 3 total) 😔
 
 Error: \\"test\\" got worse. (1 new issue, 3 total) 😔
@@ -82,7 +85,7 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/watch/src/index.ts
 
-💥 Betterer (0ms): 1 test done! 1 test errored!
+💥 Betterer (93ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. (1 new issue, 3 total) 😔
 ・ 2 existing issues in \\"<project>/fixtures/watch/src/index.ts\\".
 ・ New issue in \\"<project>/fixtures/watch/src/index.ts\\"!
@@ -104,7 +107,7 @@ Checked 1 file! 🔍
 
 ・ <project>/fixtures/watch/src/index.ts
 
-💥 Betterer (0ms): 1 test done! 1 test errored!
+💥 Betterer (93ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. (1 new issue, 3 total) 😔
 ・ 2 existing issues in \\"<project>/fixtures/watch/src/index.ts\\".
 ・ New issue in \\"<project>/fixtures/watch/src/index.ts\\"!
@@ -130,7 +133,7 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/watch/src/index.ts
 
-💥 Betterer (0ms): 1 test done! 1 test errored!
+💥 Betterer (93ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. (1 new issue, 3 total) 😔
 ・ 2 existing issues in \\"<project>/fixtures/watch/src/index.ts\\".
 ・ New issue in \\"<project>/fixtures/watch/src/index.ts\\"!
@@ -152,7 +155,7 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/watch/src/index.ts
 
-🌟 Betterer (0ms): 1 test running...
+🌟 Betterer (-414ms): 1 test running...
 🤔 test: running \\"test\\"!
 
 (press \\"q\\" to quit)
@@ -164,7 +167,7 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/watch/src/index.ts
 
-🌟 Betterer (0ms): 1 test running...
+🌟 Betterer (-414ms): 1 test running...
 ✅ test: \\"test\\" stayed the same. (2 issues) 😐
 
 (press \\"q\\" to quit)
@@ -176,7 +179,7 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/watch/src/index.ts
 
-🎉 Betterer (0ms): 1 test done!
+🎉 Betterer (36ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. (2 issues) 😐
 
 (press \\"q\\" to quit)
@@ -188,7 +191,7 @@ Checked 1 file! 🔍
 
 ・ <project>/fixtures/watch/src/index.ts
 
-🎉 Betterer (0ms): 1 test done!
+🎉 Betterer (36ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. (2 issues) 😐
 
 1 test got checked. 🤔
@@ -203,7 +206,7 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/watch/src/index.ts
 
-🎉 Betterer (0ms): 1 test done!
+🎉 Betterer (36ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. (2 issues) 😐
 
 (press \\"q\\" to quit)
@@ -215,7 +218,7 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/watch/src/index.ts
 
-🌟 Betterer (0ms): 1 test running...
+🌟 Betterer (-733ms): 1 test running...
 🤔 test: running \\"test\\"!
 
 (press \\"q\\" to quit)
@@ -227,7 +230,7 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/watch/src/index.ts
 
-🌟 Betterer (0ms): 1 test running...
+🌟 Betterer (-733ms): 1 test running...
 ✅ test: \\"test\\" got better! (1 fixed issue, 1 remaining) 😍
 
 (press \\"q\\" to quit)
@@ -239,7 +242,7 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/watch/src/index.ts
 
-🎉 Betterer (0ms): 1 test done!
+🎉 Betterer (19ms): 1 test done!
 ✅ test: \\"test\\" got better! (1 fixed issue, 1 remaining) 😍
 
 (press \\"q\\" to quit)
@@ -251,7 +254,7 @@ Checked 1 file! 🔍
 
 ・ <project>/fixtures/watch/src/index.ts
 
-🎉 Betterer (0ms): 1 test done!
+🎉 Betterer (19ms): 1 test done!
 ✅ test: \\"test\\" got better! (1 fixed issue, 1 remaining) 😍
 
 1 test got checked. 🤔

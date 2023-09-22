@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer should sort files by their file path correctly with absolute paths 1`] = `
+exports[`betterer > should sort files by their file path correctly with absolute paths 1`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
@@ -30,20 +30,23 @@ exports[\`test\`] = {
 "
 `;
 
-exports[`betterer should sort files by their file path correctly with absolute paths 2`] = `
-Array [
-  "🌟 Betterer (0ms):
+exports[`betterer > should sort files by their file path correctly with absolute paths 2`] = `
+[
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (227ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (4,609ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (4,609ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! (8 issues) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (4,631ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (8 issues) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (4,631ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (8 issues) 🎉
 
 1 test got checked. 🤔
@@ -53,27 +56,27 @@ Array [
 
 ・ <project>/fixtures/file-test-sort-absolute/src/c.ts
 
-🌟 Betterer (0ms):
+🌟 Betterer (-1ms):
 ",
   "Checking 1 file... 🤔
 
 ・ <project>/fixtures/file-test-sort-absolute/src/c.ts
 
-🌟 Betterer (0ms): 1 test running...
+🌟 Betterer (57ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
   "Checking 1 file... 🤔
 
 ・ <project>/fixtures/file-test-sort-absolute/src/c.ts
 
-🌟 Betterer (0ms): 1 test running...
+🌟 Betterer (57ms): 1 test running...
 ✅ test: \\"test\\" got force updated. (1 new issue, 9 total) 🆙
 ",
   "Checking 1 file... 🤔
 
 ・ <project>/fixtures/file-test-sort-absolute/src/c.ts
 
-🎉 Betterer (0ms): 1 test done!
+🎉 Betterer (69ms): 1 test done!
 ✅ test: \\"test\\" got force updated. (1 new issue, 9 total) 🆙
 ・ 2 existing issues in \\"<project>/fixtures/file-test-sort-absolute/src/c.ts\\".
 ・ New issue in \\"<project>/fixtures/file-test-sort-absolute/src/c.ts\\"!
@@ -89,7 +92,7 @@ Array [
 
 ・ <project>/fixtures/file-test-sort-absolute/src/c.ts
 
-🎉 Betterer (0ms): 1 test done!
+🎉 Betterer (69ms): 1 test done!
 ✅ test: \\"test\\" got force updated. (1 new issue, 9 total) 🆙
 ・ 2 existing issues in \\"<project>/fixtures/file-test-sort-absolute/src/c.ts\\".
 ・ New issue in \\"<project>/fixtures/file-test-sort-absolute/src/c.ts\\"!

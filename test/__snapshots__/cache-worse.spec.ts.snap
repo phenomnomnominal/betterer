@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer doesn't cache if a test gets worse 1`] = `
+exports[`betterer > doesn't cache if a test gets worse 1`] = `
 "{
   \\"version\\": 2,
   \\"testCache\\": {
@@ -11,7 +11,7 @@ exports[`betterer doesn't cache if a test gets worse 1`] = `
 }"
 `;
 
-exports[`betterer doesn't cache if a test gets worse 2`] = `
+exports[`betterer > doesn't cache if a test gets worse 2`] = `
 "{
   \\"version\\": 2,
   \\"testCache\\": {
@@ -22,56 +22,56 @@ exports[`betterer doesn't cache if a test gets worse 2`] = `
 }"
 `;
 
-exports[`betterer doesn't cache if a test gets worse 3`] = `
-Array [
-  "🌟 Betterer (0ms):
+exports[`betterer > doesn't cache if a test gets worse 3`] = `
+[
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (10ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (10ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (46ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (46ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer (0ms):
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (25ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (25ms): 1 test running...
 ✅ test: \\"test\\" stayed the same. (1 issue) 😐
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (30ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. (1 issue) 😐
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (30ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. (1 issue) 😐
 
 1 test got checked. 🤔
 1 test stayed the same. 😐
 ",
-  "🌟 Betterer (0ms):
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (11ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (11ms): 1 test running...
 🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (11ms): 1 test running...
 🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
 
 Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ",
-  "💥 Betterer (0ms): 1 test done! 1 test errored!
+  "💥 Betterer (31ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/cache-worse/src/index.ts\\".
 ・ New issue in \\"<project>/fixtures/cache-worse/src/index.ts\\"!
@@ -84,7 +84,7 @@ Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
 
 Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ",
-  "💥 Betterer (0ms): 1 test done! 1 test errored!
+  "💥 Betterer (31ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/cache-worse/src/index.ts\\".
 ・ New issue in \\"<project>/fixtures/cache-worse/src/index.ts\\"!
@@ -102,20 +102,20 @@ Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
 
 You should try to fix the new issues! As a last resort, you can run \`betterer --update\` to force an update of the results file. 🆙
 ",
-  "🌟 Betterer (0ms):
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (8ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (8ms): 1 test running...
 🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (8ms): 1 test running...
 🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
 
 Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ",
-  "💥 Betterer (0ms): 1 test done! 1 test errored!
+  "💥 Betterer (18ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/cache-worse/src/index.ts\\".
 ・ New issue in \\"<project>/fixtures/cache-worse/src/index.ts\\"!
@@ -128,7 +128,7 @@ Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
 
 Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ",
-  "💥 Betterer (0ms): 1 test done! 1 test errored!
+  "💥 Betterer (18ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/cache-worse/src/index.ts\\".
 ・ New issue in \\"<project>/fixtures/cache-worse/src/index.ts\\"!

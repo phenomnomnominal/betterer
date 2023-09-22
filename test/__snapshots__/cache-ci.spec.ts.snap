@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer should not update the cache file in CI mode 1`] = `
+exports[`betterer > should not update the cache file in CI mode 1`] = `
 "{
   \\"version\\": 2,
   \\"testCache\\": {
@@ -11,20 +11,20 @@ exports[`betterer should not update the cache file in CI mode 1`] = `
 }"
 `;
 
-exports[`betterer should not update the cache file in CI mode 2`] = `
-Array [
-  "🌟 Betterer (0ms):
+exports[`betterer > should not update the cache file in CI mode 2`] = `
+[
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (14ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (14ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! (2 issues) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (46ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (2 issues) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (46ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (2 issues) 🎉
 
 1 test got checked. 🤔

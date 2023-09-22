@@ -1,7 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer should throw when there is an invalid config file 1`] = `
-Array [
+exports[`betterer > should throw when there is an invalid config file 1`] = `
+[
   "
 Error: could not import config from \\"<project>/fixtures/config-invalid/.betterer.ts\\". 😔
 

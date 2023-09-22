@@ -1,7 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer should load a custom tsconfigPath 1`] = `
-Array [
+exports[`betterer > should load a custom tsconfigPath 1`] = `
+[
   "
 Error: ⨯ Unable to compile TypeScript:
        error TS6046: Argument for '--target' option must be: 'es3', 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'es2021', 'esnext'.

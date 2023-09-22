@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer should report the total coverage 1`] = `
+exports[`betterer > should report the total coverage 1`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
@@ -15,26 +15,26 @@ exports[\`test\`] = {
 "
 `;
 
-exports[`betterer should report the total coverage 2`] = `
-Array [
-  "🌟 Betterer (0ms):
+exports[`betterer > should report the total coverage 2`] = `
+[
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (11ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (11ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (58ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (58ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer (0ms):
+  "🌟 Betterer (-1ms):
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
@@ -42,33 +42,33 @@ Array [
   "🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" stayed the same. 😐
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (5ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. 😐
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (5ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. 😐
 
 1 test got checked. 🤔
 1 test stayed the same. 😐
 ",
-  "🌟 Betterer (0ms):
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (1ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (1ms): 1 test running...
 ✅ test: \\"test\\" got better! 😍
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (5ms): 1 test done!
 ✅ test: \\"test\\" got better! 😍
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (5ms): 1 test done!
 ✅ test: \\"test\\" got better! 😍
 
 1 test got checked. 🤔
 1 test got better! 😍
 ",
-  "🌟 Betterer (0ms):
+  "🌟 Betterer (-1ms):
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
@@ -81,13 +81,13 @@ Array [
 
 Error: \\"test\\" got worse. 😔
 ",
-  "💥 Betterer (0ms): 1 test done! 1 test errored!
+  "💥 Betterer (14ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. 😔
 ・ \\"branches\\" coverage is worse in \\"total\\": 210 > 200
 
 Error: \\"test\\" got worse. 😔
 ",
-  "💥 Betterer (0ms): 1 test done! 1 test errored!
+  "💥 Betterer (14ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. 😔
 ・ \\"branches\\" coverage is worse in \\"total\\": 210 > 200
 

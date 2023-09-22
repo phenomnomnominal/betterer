@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer should sort files by their file path even when only running on a single file 1`] = `
+exports[`betterer > should sort files by their file path even when only running on a single file 1`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
@@ -30,34 +30,37 @@ exports[\`test\`] = {
 "
 `;
 
-exports[`betterer should sort files by their file path even when only running on a single file 2`] = `
-Array [
-  "🌟 Betterer (0ms):
+exports[`betterer > should sort files by their file path even when only running on a single file 2`] = `
+[
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (13ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (4,666ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (4,666ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! (8 issues) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (4,672ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (8 issues) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (4,672ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (8 issues) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer (0ms):
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (71ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (71ms): 1 test running...
 ✅ test: \\"test\\" got force updated. (1 new issue, 9 total) 🆙
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (78ms): 1 test done!
 ✅ test: \\"test\\" got force updated. (1 new issue, 9 total) 🆙
 ・ 2 existing issues in \\"<project>/fixtures/file-test-sort-subset/src/c.ts\\".
 ・ New issue in \\"<project>/fixtures/file-test-sort-subset/src/c.ts\\"!
@@ -69,7 +72,7 @@ Array [
 ・     | ^^^^^^^^^ Unexpected 'debugger' statement.
 ・
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (78ms): 1 test done!
 ✅ test: \\"test\\" got force updated. (1 new issue, 9 total) 🆙
 ・ 2 existing issues in \\"<project>/fixtures/file-test-sort-subset/src/c.ts\\".
 ・ New issue in \\"<project>/fixtures/file-test-sort-subset/src/c.ts\\"!

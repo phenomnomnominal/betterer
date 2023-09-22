@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer should include custom TSQuery warning messages 1`] = `
+exports[`betterer > should include custom TSQuery warning messages 1`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
@@ -16,20 +16,23 @@ exports[\`tsquery\`] = {
 "
 `;
 
-exports[`betterer should include custom TSQuery warning messages 2`] = `
-Array [
-  "🌟 Betterer (0ms):
+exports[`betterer > should include custom TSQuery warning messages 2`] = `
+[
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (37ms): 1 test running...
 🤔 tsquery: running \\"tsquery\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (154ms): 1 test running...
+🤔 tsquery: running \\"tsquery\\"!
+",
+  "🌟 Betterer (154ms): 1 test running...
 ✅ tsquery: \\"tsquery\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (181ms): 1 test done!
 ✅ tsquery: \\"tsquery\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (181ms): 1 test done!
 ✅ tsquery: \\"tsquery\\" got checked for the first time! (1 issue) 🎉
 
 1 test got checked. 🤔

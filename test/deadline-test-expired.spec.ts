@@ -1,7 +1,18 @@
+import { vitest } from 'vitest';
+
 // eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from './fixture';
 
-jest.resetModules();
+vitest.resetModules();
+vitest.mock('@betterer/time', async (importOriginal): Promise<typeof import('@betterer/time')> => {
+  const time: typeof import('@betterer/time') = await importOriginal();
+
+  return {
+    ...time,
+    getPreciseTime__: () => 0,
+    getTime__: () => Date.now()
+  };
+});
 
 describe('betterer', () => {
   it('should mark a test as expired when it is past its deadline', async () => {

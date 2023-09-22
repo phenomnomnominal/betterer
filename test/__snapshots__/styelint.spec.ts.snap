@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer should report the status of a new stylelint rule 1`] = `
+exports[`betterer > should report the status of a new stylelint rule 1`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
@@ -17,39 +17,42 @@ exports[\`stylelint\`] = {
 "
 `;
 
-exports[`betterer should report the status of a new stylelint rule 2`] = `
-Array [
-  "🌟 Betterer (0ms):
+exports[`betterer > should report the status of a new stylelint rule 2`] = `
+[
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (12ms): 1 test running...
 🤔 stylelint: running \\"stylelint\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (115ms): 1 test running...
+🤔 stylelint: running \\"stylelint\\"!
+",
+  "🌟 Betterer (115ms): 1 test running...
 ✅ stylelint: \\"stylelint\\" got checked for the first time! (2 issues) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (139ms): 1 test done!
 ✅ stylelint: \\"stylelint\\" got checked for the first time! (2 issues) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (139ms): 1 test done!
 ✅ stylelint: \\"stylelint\\" got checked for the first time! (2 issues) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer (0ms):
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (12ms): 1 test running...
 🤔 stylelint: running \\"stylelint\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (12ms): 1 test running...
 🔥 stylelint: \\"stylelint\\" got worse. (2 new issues, 4 total) 😔
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (12ms): 1 test running...
 🔥 stylelint: \\"stylelint\\" got worse. (2 new issues, 4 total) 😔
 
 Error: \\"stylelint\\" got worse. (2 new issues, 4 total) 😔
 ",
-  "💥 Betterer (0ms): 1 test done! 1 test errored!
+  "💥 Betterer (44ms): 1 test done! 1 test errored!
 🔥 stylelint: \\"stylelint\\" got worse. (2 new issues, 4 total) 😔
 ・ 2 existing issues in \\"<project>/fixtures/stylelint/src/styles.scss\\".
 ・ New issues in \\"<project>/fixtures/stylelint/src/styles.scss\\"!
@@ -67,7 +70,7 @@ Error: \\"stylelint\\" got worse. (2 new issues, 4 total) 😔
 
 Error: \\"stylelint\\" got worse. (2 new issues, 4 total) 😔
 ",
-  "💥 Betterer (0ms): 1 test done! 1 test errored!
+  "💥 Betterer (44ms): 1 test done! 1 test errored!
 🔥 stylelint: \\"stylelint\\" got worse. (2 new issues, 4 total) 😔
 ・ 2 existing issues in \\"<project>/fixtures/stylelint/src/styles.scss\\".
 ・ New issues in \\"<project>/fixtures/stylelint/src/styles.scss\\"!
@@ -90,36 +93,36 @@ Error: \\"stylelint\\" got worse. (2 new issues, 4 total) 😔
 
 You should try to fix the new issues! As a last resort, you can run \`betterer --update\` to force an update of the results file. 🆙
 ",
-  "🌟 Betterer (0ms):
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (10ms): 1 test running...
 🤔 stylelint: running \\"stylelint\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (10ms): 1 test running...
 ✅ stylelint: \\"stylelint\\" met its goal! 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (19ms): 1 test done!
 ✅ stylelint: \\"stylelint\\" met its goal! 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (19ms): 1 test done!
 ✅ stylelint: \\"stylelint\\" met its goal! 🎉
 
 1 test got checked. 🤔
 1 test got better! 😍
 1 test met its goal! 🎉
 ",
-  "🌟 Betterer (0ms):
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (13ms): 1 test running...
 🤔 stylelint: running \\"stylelint\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (13ms): 1 test running...
 ✅ stylelint: \\"stylelint\\" has already met its goal! ✨
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (27ms): 1 test done!
 ✅ stylelint: \\"stylelint\\" has already met its goal! ✨
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (27ms): 1 test done!
 ✅ stylelint: \\"stylelint\\" has already met its goal! ✨
 
 1 test got checked. 🤔

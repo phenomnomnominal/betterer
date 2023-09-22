@@ -50,11 +50,7 @@ module.exports = {
     },
     {
       files: ['test/**/*'],
-      env: {
-        jest: true
-      },
-      plugins: ['jest'],
-      extends: [...BASE_EXTENDS, 'plugin:jest/recommended', 'plugin:jest/style'],
+      extends: [...BASE_EXTENDS],
       rules: OVERRIDE_RULES
     },
     {

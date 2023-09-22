@@ -1,42 +1,42 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer should work when excluding specific files 1`] = `
-Array [
-  "🌟 Betterer (0ms):
+exports[`betterer > should work when excluding specific files 1`] = `
+[
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (10ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (10ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (48ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (48ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer (0ms):
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (1ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (1ms): 1 test running...
 ✅ test: \\"test\\" got better! 😍
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (16ms): 1 test done!
 ✅ test: \\"test\\" got better! 😍
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (16ms): 1 test done!
 ✅ test: \\"test\\" got better! 😍
 
 1 test got checked. 🤔
 1 test got better! 😍
 ",
-  "🌟 Betterer (0ms):
+  "🌟 Betterer (-1ms):
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
@@ -44,10 +44,10 @@ Array [
   "🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" stayed the same. 😐
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (5ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. 😐
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (5ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. 😐
 
 1 test got checked. 🤔

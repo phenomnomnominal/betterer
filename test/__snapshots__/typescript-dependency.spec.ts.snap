@@ -1,19 +1,22 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer should report the status of the TypeScript compiler when there is a npm dependency 1`] = `
-Array [
-  "🌟 Betterer (0ms):
+exports[`betterer > should report the status of the TypeScript compiler when there is a npm dependency 1`] = `
+[
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (20ms): 1 test running...
 🤔 typescript: running \\"typescript\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (12,218ms): 1 test running...
+🤔 typescript: running \\"typescript\\"!
+",
+  "🌟 Betterer (12,218ms): 1 test running...
 ✅ typescript: \\"typescript\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (12,227ms): 1 test done!
 ✅ typescript: \\"typescript\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (12,227ms): 1 test done!
 ✅ typescript: \\"typescript\\" got checked for the first time! (1 issue) 🎉
 
 1 test got checked. 🤔

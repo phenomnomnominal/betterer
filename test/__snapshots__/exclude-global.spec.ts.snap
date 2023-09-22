@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer should handle a global exclude 1`] = `
+exports[`betterer > should handle a global exclude 1`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
@@ -19,7 +19,7 @@ exports[\`test\`] = {
 "
 `;
 
-exports[`betterer should handle a global exclude 2`] = `
+exports[`betterer > should handle a global exclude 2`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
@@ -38,20 +38,23 @@ exports[\`test\`] = {
 "
 `;
 
-exports[`betterer should handle a global exclude 3`] = `
-Array [
-  "🌟 Betterer (0ms):
+exports[`betterer > should handle a global exclude 3`] = `
+[
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (20ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (184ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (184ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! (2 issues) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (204ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (2 issues) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (204ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (2 issues) 🎉
 
 1 test got checked. 🤔
@@ -61,34 +64,34 @@ Array [
 
 ・ <project>/fixtures/exclude-global/src/index.ts
 
-🌟 Betterer (0ms):
+🌟 Betterer (-1ms):
 ",
   "Checking 1 file... 🤔
 
 ・ <project>/fixtures/exclude-global/src/index.ts
 
-🌟 Betterer (0ms): 1 test running...
+🌟 Betterer (41ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
   "Checking 1 file... 🤔
 
 ・ <project>/fixtures/exclude-global/src/index.ts
 
-🌟 Betterer (0ms): 1 test running...
+🌟 Betterer (41ms): 1 test running...
 ✅ test: \\"test\\" stayed the same. (2 issues) 😐
 ",
   "Checking 1 file... 🤔
 
 ・ <project>/fixtures/exclude-global/src/index.ts
 
-🎉 Betterer (0ms): 1 test done!
+🎉 Betterer (62ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. (2 issues) 😐
 ",
   "Checked 1 file! 🔍
 
 ・ <project>/fixtures/exclude-global/src/index.ts
 
-🎉 Betterer (0ms): 1 test done!
+🎉 Betterer (62ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. (2 issues) 😐
 
 1 test got checked. 🤔

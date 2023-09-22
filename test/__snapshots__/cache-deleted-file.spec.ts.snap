@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer should remove files from the cache when they are deleted 1`] = `
+exports[`betterer > should remove files from the cache when they are deleted 1`] = `
 "{
   \\"version\\": 2,
   \\"testCache\\": {
@@ -12,7 +12,7 @@ exports[`betterer should remove files from the cache when they are deleted 1`] =
 }"
 `;
 
-exports[`betterer should remove files from the cache when they are deleted 2`] = `
+exports[`betterer > should remove files from the cache when they are deleted 2`] = `
 "{
   \\"version\\": 2,
   \\"testCache\\": {
@@ -23,7 +23,7 @@ exports[`betterer should remove files from the cache when they are deleted 2`] =
 }"
 `;
 
-exports[`betterer should remove files from the cache when they are deleted 3`] = `
+exports[`betterer > should remove files from the cache when they are deleted 3`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
@@ -40,7 +40,7 @@ exports[\`test\`] = {
 "
 `;
 
-exports[`betterer should remove files from the cache when they are deleted 4`] = `
+exports[`betterer > should remove files from the cache when they are deleted 4`] = `
 "{
   \\"version\\": 2,
   \\"testCache\\": {
@@ -51,7 +51,7 @@ exports[`betterer should remove files from the cache when they are deleted 4`] =
 }"
 `;
 
-exports[`betterer should remove files from the cache when they are deleted 5`] = `
+exports[`betterer > should remove files from the cache when they are deleted 5`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
@@ -68,56 +68,56 @@ exports[\`test\`] = {
 "
 `;
 
-exports[`betterer should remove files from the cache when they are deleted 6`] = `
-Array [
-  "🌟 Betterer (0ms):
+exports[`betterer > should remove files from the cache when they are deleted 6`] = `
+[
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (12ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (12ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! (4 issues) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (45ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (4 issues) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (45ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (4 issues) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer (0ms):
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (26ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (26ms): 1 test running...
 ✅ test: \\"test\\" got better! (2 fixed issues, 2 remaining) 😍
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (29ms): 1 test done!
 ✅ test: \\"test\\" got better! (2 fixed issues, 2 remaining) 😍
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (29ms): 1 test done!
 ✅ test: \\"test\\" got better! (2 fixed issues, 2 remaining) 😍
 
 1 test got checked. 🤔
 1 test got better! 😍
 ",
-  "🌟 Betterer (0ms):
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (10ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (10ms): 1 test running...
 🔥 test: \\"test\\" got worse. (2 new issues, 4 total) 😔
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (10ms): 1 test running...
 🔥 test: \\"test\\" got worse. (2 new issues, 4 total) 😔
 
 Error: \\"test\\" got worse. (2 new issues, 4 total) 😔
 ",
-  "💥 Betterer (0ms): 1 test done! 1 test errored!
+  "💥 Betterer (37ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. (2 new issues, 4 total) 😔
 ・ New issues in \\"<project>/fixtures/cache-deleted-file/src/file-2.ts\\"!
 ・ Showing first of 2 new issues:
@@ -130,7 +130,7 @@ Error: \\"test\\" got worse. (2 new issues, 4 total) 😔
 
 Error: \\"test\\" got worse. (2 new issues, 4 total) 😔
 ",
-  "💥 Betterer (0ms): 1 test done! 1 test errored!
+  "💥 Betterer (37ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. (2 new issues, 4 total) 😔
 ・ New issues in \\"<project>/fixtures/cache-deleted-file/src/file-2.ts\\"!
 ・ Showing first of 2 new issues:

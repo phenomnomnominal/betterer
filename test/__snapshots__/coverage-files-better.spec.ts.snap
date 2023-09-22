@@ -1,25 +1,25 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer should report an improved file coverage result 1`] = `
-Array [
-  "🌟 Betterer (0ms):
+exports[`betterer > should report an improved file coverage result 1`] = `
+[
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (9ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (9ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (45ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (45ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer (0ms):
+  "🌟 Betterer (-1ms):
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
@@ -27,33 +27,33 @@ Array [
   "🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" got better! 😍
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (6ms): 1 test done!
 ✅ test: \\"test\\" got better! 😍
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (6ms): 1 test done!
 ✅ test: \\"test\\" got better! 😍
 
 1 test got checked. 🤔
 1 test got better! 😍
 ",
-  "🌟 Betterer (0ms):
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (1ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (1ms): 1 test running...
 ✅ test: \\"test\\" got better! 😍
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (5ms): 1 test done!
 ✅ test: \\"test\\" got better! 😍
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (5ms): 1 test done!
 ✅ test: \\"test\\" got better! 😍
 
 1 test got checked. 🤔
 1 test got better! 😍
 ",
-  "🌟 Betterer (0ms):
+  "🌟 Betterer (-1ms):
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
@@ -61,10 +61,10 @@ Array [
   "🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" met its goal! 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (4ms): 1 test done!
 ✅ test: \\"test\\" met its goal! 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (4ms): 1 test done!
 ✅ test: \\"test\\" met its goal! 🎉
 
 1 test got checked. 🤔

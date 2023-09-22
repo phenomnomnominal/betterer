@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer should handle a global include 1`] = `
+exports[`betterer > should handle a global include 1`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
@@ -16,7 +16,7 @@ exports[\`test\`] = {
 "
 `;
 
-exports[`betterer should handle a global include 2`] = `
+exports[`betterer > should handle a global include 2`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
@@ -35,20 +35,20 @@ exports[\`test\`] = {
 "
 `;
 
-exports[`betterer should handle a global include 3`] = `
-Array [
-  "🌟 Betterer (0ms):
+exports[`betterer > should handle a global include 3`] = `
+[
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (16ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (16ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (56ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (56ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
 
 1 test got checked. 🤔
@@ -59,14 +59,14 @@ Array [
 ・ <project>/fixtures/include-global/global.ts
 ・ <project>/fixtures/include-global/src/global.ts
 
-🌟 Betterer (0ms):
+🌟 Betterer (-1ms):
 ",
   "Checking 2 files... 🤔
 
 ・ <project>/fixtures/include-global/global.ts
 ・ <project>/fixtures/include-global/src/global.ts
 
-🌟 Betterer (0ms): 1 test running...
+🌟 Betterer (21ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
   "Checking 2 files... 🤔
@@ -74,7 +74,7 @@ Array [
 ・ <project>/fixtures/include-global/global.ts
 ・ <project>/fixtures/include-global/src/global.ts
 
-🌟 Betterer (0ms): 1 test running...
+🌟 Betterer (21ms): 1 test running...
 ✅ test: \\"test\\" got force updated. (1 new issue, 2 total) 🆙
 ",
   "Checking 2 files... 🤔
@@ -82,7 +82,7 @@ Array [
 ・ <project>/fixtures/include-global/global.ts
 ・ <project>/fixtures/include-global/src/global.ts
 
-🎉 Betterer (0ms): 1 test done!
+🎉 Betterer (68ms): 1 test done!
 ✅ test: \\"test\\" got force updated. (1 new issue, 2 total) 🆙
 ・ New issue in \\"<project>/fixtures/include-global/src/global.ts\\"!
 ・
@@ -96,7 +96,7 @@ Array [
 ・ <project>/fixtures/include-global/global.ts
 ・ <project>/fixtures/include-global/src/global.ts
 
-🎉 Betterer (0ms): 1 test done!
+🎉 Betterer (68ms): 1 test done!
 ✅ test: \\"test\\" got force updated. (1 new issue, 2 total) 🆙
 ・ New issue in \\"<project>/fixtures/include-global/src/global.ts\\"!
 ・

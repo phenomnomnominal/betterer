@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer should stay the same when an issue is moved 1`] = `
+exports[`betterer > should stay the same when an issue is moved 1`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
@@ -16,7 +16,7 @@ exports[\`test\`] = {
 "
 `;
 
-exports[`betterer should stay the same when an issue is moved 2`] = `
+exports[`betterer > should stay the same when an issue is moved 2`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
@@ -32,37 +32,40 @@ exports[\`test\`] = {
 "
 `;
 
-exports[`betterer should stay the same when an issue is moved 3`] = `
-Array [
-  "🌟 Betterer (0ms):
+exports[`betterer > should stay the same when an issue is moved 3`] = `
+[
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (46ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (9,504ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (9,504ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (9,513ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (9,513ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer (0ms):
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (13,097ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (13,097ms): 1 test running...
 ✅ test: \\"test\\" stayed the same. (1 issue) 😐
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (13,100ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. (1 issue) 😐
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (13,100ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. (1 issue) 😐
 
 1 test got checked. 🤔

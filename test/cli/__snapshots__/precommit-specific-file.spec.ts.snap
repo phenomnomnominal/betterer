@@ -1,19 +1,109 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer precommit should test just the specified files 1`] = `
-Array [
-  "🌟 Betterer (0ms):
+exports[`betterer precommit > should test just the specified files 1`] = `
+[
+  "🌟 Betterer (-1ms):
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (10ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🌟 Betterer (111ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (212ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (314ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (415ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (516ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (616ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (717ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (818ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (919ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (1,020ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (1,121ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (1,222ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (1,323ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (1,423ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (1,524ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (1,624ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (1,727ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (1,828ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (1,929ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (2,030ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (2,132ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (2,233ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (2,334ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (2,436ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (2,537ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (2,638ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (2,741ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (2,842ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (2,943ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (3,044ms): 1 test running...
+🤔 test: running \\"test\\"!
+",
+  "🌟 Betterer (3,044ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! (3 issues) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (3,079ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (3 issues) 🎉
 ",
-  "🎉 Betterer (0ms): 1 test done!
+  "🎉 Betterer (3,079ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (3 issues) 🎉
 
 1 test got checked. 🤔
@@ -59,7 +149,7 @@ Array [
 ]
 `;
 
-exports[`betterer precommit should test just the specified files 2`] = `
+exports[`betterer precommit > should test just the specified files 2`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
@@ -81,4 +171,4 @@ exports[\`test\`] = {
 "
 `;
 
-exports[`betterer precommit should test just the specified files 3`] = `undefined`;
+exports[`betterer precommit > should test just the specified files 3`] = `undefined`;
