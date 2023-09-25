@@ -129,16 +129,16 @@ Error: \\"update\\" must be \`true\` or \`false\`. Received \`{}\`.
 Error: \\"workers\\" must be a number. Received \`\\"betterer\\"\`.
 ",
   "
-Error: \\"workers\\" must be more than zero and not more than the number of available CPUs (10). To disable workers, set to \`false\`. Received \`null\`.
+Error: \\"workers\\" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Received \`null\`.
 ",
   "
 Error: \\"workers\\" must be a number. Received \`{}\`.
 ",
   "
-Error: \\"workers\\" must be more than zero and not more than the number of available CPUs (10). To disable workers, set to \`false\`. Received \`-1\`.
+Error: \\"workers\\" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Received \`-1\`.
 ",
   "
-Error: \\"workers\\" must be more than zero and not more than the number of available CPUs (10). To disable workers, set to \`false\`. Received \`1000\`.
+Error: \\"workers\\" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Received \`1000\`.
 ",
 ]
 `;

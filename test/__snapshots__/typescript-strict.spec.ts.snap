@@ -23,57 +23,54 @@ exports[\`typescript\`] = {
 
 exports[`betterer > should report the status of the TypeScript compiler in strict mode 2`] = `
 [
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (9ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 typescript: running \\"typescript\\"!
 ",
-  "🌟 Betterer (9,123ms): 1 test running...
-🤔 typescript: running \\"typescript\\"!
-",
-  "🌟 Betterer (9,123ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ typescript: \\"typescript\\" got checked for the first time! (6 issues) 🎉
 ",
-  "🎉 Betterer (9,129ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: \\"typescript\\" got checked for the first time! (6 issues) 🎉
 ",
-  "🎉 Betterer (9,129ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: \\"typescript\\" got checked for the first time! (6 issues) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (39ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 typescript: running \\"typescript\\"!
 ",
-  "🌟 Betterer (39ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ typescript: \\"typescript\\" stayed the same. (6 issues) 😐
 ",
-  "🎉 Betterer (43ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: \\"typescript\\" stayed the same. (6 issues) 😐
 ",
-  "🎉 Betterer (43ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: \\"typescript\\" stayed the same. (6 issues) 😐
 
 1 test got checked. 🤔
 1 test stayed the same. 😐
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (11,748ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 typescript: running \\"typescript\\"!
 ",
-  "🌟 Betterer (11,748ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🔥 typescript: \\"typescript\\" got worse. (1 new issue, 7 total) 😔
 ",
-  "🌟 Betterer (11,748ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🔥 typescript: \\"typescript\\" got worse. (1 new issue, 7 total) 😔
 
 Error: \\"typescript\\" got worse. (1 new issue, 7 total) 😔
 ",
-  "💥 Betterer (11,763ms): 1 test done! 1 test errored!
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 typescript: \\"typescript\\" got worse. (1 new issue, 7 total) 😔
 ・ 6 existing issues in \\"<project>/fixtures/typescript-strict/src/index.ts\\".
 ・ New issue in \\"<project>/fixtures/typescript-strict/src/index.ts\\"!
@@ -87,7 +84,7 @@ Error: \\"typescript\\" got worse. (1 new issue, 7 total) 😔
 
 Error: \\"typescript\\" got worse. (1 new issue, 7 total) 😔
 ",
-  "💥 Betterer (11,763ms): 1 test done! 1 test errored!
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 typescript: \\"typescript\\" got worse. (1 new issue, 7 total) 😔
 ・ 6 existing issues in \\"<project>/fixtures/typescript-strict/src/index.ts\\".
 ・ New issue in \\"<project>/fixtures/typescript-strict/src/index.ts\\"!
@@ -106,18 +103,18 @@ Error: \\"typescript\\" got worse. (1 new issue, 7 total) 😔
 
 You should try to fix the new issues! As a last resort, you can run \`betterer --update\` to force an update of the results file. 🆙
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (9,678ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 typescript: running \\"typescript\\"!
 ",
-  "🌟 Betterer (9,678ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ typescript: \\"typescript\\" got better! (1 fixed issue, 5 remaining) 😍
 ",
-  "🎉 Betterer (9,682ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: \\"typescript\\" got better! (1 fixed issue, 5 remaining) 😍
 ",
-  "🎉 Betterer (9,682ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: \\"typescript\\" got better! (1 fixed issue, 5 remaining) 😍
 
 1 test got checked. 🤔

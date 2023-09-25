@@ -2,38 +2,35 @@
 
 exports[`betterer > should work with an incremental build 1`] = `
 [
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (10ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 typescript: running \\"typescript\\"!
 ",
-  "🌟 Betterer (8,813ms): 1 test running...
-🤔 typescript: running \\"typescript\\"!
-",
-  "🌟 Betterer (8,813ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ typescript: \\"typescript\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (8,819ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: \\"typescript\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (8,819ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: \\"typescript\\" got checked for the first time! (1 issue) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (3,797ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 typescript: running \\"typescript\\"!
 ",
-  "🌟 Betterer (3,797ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ typescript: \\"typescript\\" stayed the same. (1 issue) 😐
 ",
-  "🎉 Betterer (3,800ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: \\"typescript\\" stayed the same. (1 issue) 😐
 ",
-  "🎉 Betterer (3,800ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: \\"typescript\\" stayed the same. (1 issue) 😐
 
 1 test got checked. 🤔

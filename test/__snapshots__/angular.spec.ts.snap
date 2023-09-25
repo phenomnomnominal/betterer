@@ -20,21 +20,18 @@ exports[\`angular\`] = {
 
 exports[`betterer > should report the status of the Angular compiler in strict mode 2`] = `
 [
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (64ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 angular: running \\"angular\\"!
 ",
-  "🌟 Betterer (4,092ms): 1 test running...
-🤔 angular: running \\"angular\\"!
-",
-  "🌟 Betterer (4,092ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ angular: \\"angular\\" got checked for the first time! (3 issues) 🎉
 ",
-  "🎉 Betterer (4,099ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ angular: \\"angular\\" got checked for the first time! (3 issues) 🎉
 ",
-  "🎉 Betterer (4,099ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ angular: \\"angular\\" got checked for the first time! (3 issues) 🎉
 
 1 test got checked. 🤔

@@ -18,21 +18,18 @@ exports[\`tsquery\`] = {
 
 exports[`betterer > should include custom TSQuery warning messages 2`] = `
 [
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (37ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 tsquery: running \\"tsquery\\"!
 ",
-  "🌟 Betterer (154ms): 1 test running...
-🤔 tsquery: running \\"tsquery\\"!
-",
-  "🌟 Betterer (154ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ tsquery: \\"tsquery\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (181ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ tsquery: \\"tsquery\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (181ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ tsquery: \\"tsquery\\" got checked for the first time! (1 issue) 🎉
 
 1 test got checked. 🤔

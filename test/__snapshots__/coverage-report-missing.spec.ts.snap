@@ -2,25 +2,25 @@
 
 exports[`betterer > should fail when the coverage report is missing 1`] = `
 [
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (24ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (24ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🔥 test: Could not read coverage summary
 ",
-  "🌟 Betterer (24ms): 1 test running...
-🔥 test: Could not read coverage summary
-
-Error: Could not read coverage summary
-",
-  "💥 Betterer (53ms): 1 test done! 1 test errored!
+  "🌟 Betterer (0ms): 1 test running...
 🔥 test: Could not read coverage summary
 
 Error: Could not read coverage summary
 ",
-  "💥 Betterer (53ms): 1 test done! 1 test errored!
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
+🔥 test: Could not read coverage summary
+
+Error: Could not read coverage summary
+",
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: Could not read coverage summary
 
 Error: Could not read coverage summary

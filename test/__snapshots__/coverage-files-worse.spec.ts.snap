@@ -2,43 +2,43 @@
 
 exports[`betterer > should report a worse file coverage result 1`] = `
 [
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (10ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (10ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! 🎉
 ",
-  "🎉 Betterer (40ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! 🎉
 ",
-  "🎉 Betterer (40ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (1ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (1ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🔥 test: \\"test\\" got worse. 😔
 ",
-  "🌟 Betterer (1ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🔥 test: \\"test\\" got worse. 😔
 
 Error: \\"test\\" got worse. 😔
 ",
-  "💥 Betterer (32ms): 1 test done! 1 test errored!
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. 😔
 ・ \\"lines\\" coverage is worse in \\"src/file-1.ts\\": 60 > 50
 
 Error: \\"test\\" got worse. 😔
 ",
-  "💥 Betterer (32ms): 1 test done! 1 test errored!
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. 😔
 ・ \\"lines\\" coverage is worse in \\"src/file-1.ts\\": 60 > 50
 
@@ -49,27 +49,27 @@ Error: \\"test\\" got worse. 😔
 
 You should try to fix the new issues! As a last resort, you can run \`betterer --update\` to force an update of the results file. 🆙
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (1ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (1ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🔥 test: \\"test\\" got worse. 😔
 ",
-  "🌟 Betterer (1ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🔥 test: \\"test\\" got worse. 😔
 
 Error: \\"test\\" got worse. 😔
 ",
-  "💥 Betterer (10ms): 1 test done! 1 test errored!
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. 😔
 ・ \\"lines\\" coverage is better in \\"src/file-1.ts\\": 40 < 50
 ・ \\"lines\\" coverage is worse in \\"src/file-2.ts\\": 90 > 60
 
 Error: \\"test\\" got worse. 😔
 ",
-  "💥 Betterer (10ms): 1 test done! 1 test errored!
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. 😔
 ・ \\"lines\\" coverage is better in \\"src/file-1.ts\\": 40 < 50
 ・ \\"lines\\" coverage is worse in \\"src/file-2.ts\\": 90 > 60
@@ -81,7 +81,7 @@ Error: \\"test\\" got worse. 😔
 
 You should try to fix the new issues! As a last resort, you can run \`betterer --update\` to force an update of the results file. 🆙
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
@@ -94,7 +94,7 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 
 Error: \\"test\\" got worse. 😔
 ",
-  "💥 Betterer (15ms): 1 test done! 1 test errored!
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. 😔
 ・ \\"lines\\" coverage is better in \\"src/file-1.ts\\": 40 < 50
 ・ \\"lines\\" coverage is worse in \\"src/file-2.ts\\": 90 > 60
@@ -102,7 +102,7 @@ Error: \\"test\\" got worse. 😔
 
 Error: \\"test\\" got worse. 😔
 ",
-  "💥 Betterer (15ms): 1 test done! 1 test errored!
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. 😔
 ・ \\"lines\\" coverage is better in \\"src/file-1.ts\\": 40 < 50
 ・ \\"lines\\" coverage is worse in \\"src/file-2.ts\\": 90 > 60

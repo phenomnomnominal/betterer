@@ -32,35 +32,32 @@ exports[\`test\`] = {
 
 exports[`betterer > should sort files by their file path even when only running on a single file 2`] = `
 [
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (13ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (4,666ms): 1 test running...
-🤔 test: running \\"test\\"!
-",
-  "🌟 Betterer (4,666ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! (8 issues) 🎉
 ",
-  "🎉 Betterer (4,672ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (8 issues) 🎉
 ",
-  "🎉 Betterer (4,672ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (8 issues) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (71ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (71ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" got force updated. (1 new issue, 9 total) 🆙
 ",
-  "🎉 Betterer (78ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got force updated. (1 new issue, 9 total) 🆙
 ・ 2 existing issues in \\"<project>/fixtures/file-test-sort-subset/src/c.ts\\".
 ・ New issue in \\"<project>/fixtures/file-test-sort-subset/src/c.ts\\"!
@@ -72,7 +69,7 @@ exports[`betterer > should sort files by their file path even when only running 
 ・     | ^^^^^^^^^ Unexpected 'debugger' statement.
 ・
 ",
-  "🎉 Betterer (78ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got force updated. (1 new issue, 9 total) 🆙
 ・ 2 existing issues in \\"<project>/fixtures/file-test-sort-subset/src/c.ts\\".
 ・ New issue in \\"<project>/fixtures/file-test-sort-subset/src/c.ts\\"!

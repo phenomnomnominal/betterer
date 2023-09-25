@@ -28,24 +28,24 @@ exports[\`test\`] = {
 
 exports[`betterer > should report a stable per-file coverage result 2`] = `
 [
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (10ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (10ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! 🎉
 ",
-  "🎉 Betterer (42ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! 🎉
 ",
-  "🎉 Betterer (42ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
@@ -53,16 +53,16 @@ exports[`betterer > should report a stable per-file coverage result 2`] = `
   "🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" stayed the same. 😐
 ",
-  "🎉 Betterer (6ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. 😐
 ",
-  "🎉 Betterer (6ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. 😐
 
 1 test got checked. 🤔
 1 test stayed the same. 😐
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
@@ -70,27 +70,27 @@ exports[`betterer > should report a stable per-file coverage result 2`] = `
   "🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" stayed the same. 😐
 ",
-  "🎉 Betterer (8ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. 😐
 ",
-  "🎉 Betterer (8ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. 😐
 
 1 test got checked. 🤔
 1 test stayed the same. 😐
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (2ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (2ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" stayed the same. 😐
 ",
-  "🎉 Betterer (13ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. 😐
 ",
-  "🎉 Betterer (13ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. 😐
 
 1 test got checked. 🤔

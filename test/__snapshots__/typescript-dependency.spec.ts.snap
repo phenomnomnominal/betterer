@@ -2,21 +2,18 @@
 
 exports[`betterer > should report the status of the TypeScript compiler when there is a npm dependency 1`] = `
 [
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (20ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 typescript: running \\"typescript\\"!
 ",
-  "🌟 Betterer (12,218ms): 1 test running...
-🤔 typescript: running \\"typescript\\"!
-",
-  "🌟 Betterer (12,218ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ typescript: \\"typescript\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (12,227ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: \\"typescript\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (12,227ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: \\"typescript\\" got checked for the first time! (1 issue) 🎉
 
 1 test got checked. 🤔

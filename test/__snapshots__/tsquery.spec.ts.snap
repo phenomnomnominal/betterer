@@ -18,54 +18,54 @@ exports[\`tsquery\`] = {
 
 exports[`betterer > should report the existence of TSQuery matches 2`] = `
 [
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (16ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 tsquery: running \\"tsquery\\"!
 ",
-  "🌟 Betterer (16ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ tsquery: \\"tsquery\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (49ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ tsquery: \\"tsquery\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (49ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ tsquery: \\"tsquery\\" got checked for the first time! (1 issue) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (10ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 tsquery: running \\"tsquery\\"!
 ",
-  "🌟 Betterer (10ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ tsquery: \\"tsquery\\" stayed the same. (1 issue) 😐
 ",
-  "🎉 Betterer (17ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ tsquery: \\"tsquery\\" stayed the same. (1 issue) 😐
 ",
-  "🎉 Betterer (17ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ tsquery: \\"tsquery\\" stayed the same. (1 issue) 😐
 
 1 test got checked. 🤔
 1 test stayed the same. 😐
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (13ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 tsquery: running \\"tsquery\\"!
 ",
-  "🌟 Betterer (13ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🔥 tsquery: \\"tsquery\\" got worse. (1 new issue, 2 total) 😔
 ",
-  "🌟 Betterer (13ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🔥 tsquery: \\"tsquery\\" got worse. (1 new issue, 2 total) 😔
 
 Error: \\"tsquery\\" got worse. (1 new issue, 2 total) 😔
 ",
-  "💥 Betterer (32ms): 1 test done! 1 test errored!
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 tsquery: \\"tsquery\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/tsquery/src/index.ts\\".
 ・ New issue in \\"<project>/fixtures/tsquery/src/index.ts\\"!
@@ -78,7 +78,7 @@ Error: \\"tsquery\\" got worse. (1 new issue, 2 total) 😔
 
 Error: \\"tsquery\\" got worse. (1 new issue, 2 total) 😔
 ",
-  "💥 Betterer (32ms): 1 test done! 1 test errored!
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 tsquery: \\"tsquery\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/tsquery/src/index.ts\\".
 ・ New issue in \\"<project>/fixtures/tsquery/src/index.ts\\"!
@@ -96,36 +96,36 @@ Error: \\"tsquery\\" got worse. (1 new issue, 2 total) 😔
 
 You should try to fix the new issues! As a last resort, you can run \`betterer --update\` to force an update of the results file. 🆙
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (15ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 tsquery: running \\"tsquery\\"!
 ",
-  "🌟 Betterer (15ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ tsquery: \\"tsquery\\" met its goal! 🎉
 ",
-  "🎉 Betterer (21ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ tsquery: \\"tsquery\\" met its goal! 🎉
 ",
-  "🎉 Betterer (21ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ tsquery: \\"tsquery\\" met its goal! 🎉
 
 1 test got checked. 🤔
 1 test got better! 😍
 1 test met its goal! 🎉
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (9ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 tsquery: running \\"tsquery\\"!
 ",
-  "🌟 Betterer (9ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ tsquery: \\"tsquery\\" has already met its goal! ✨
 ",
-  "🎉 Betterer (17ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ tsquery: \\"tsquery\\" has already met its goal! ✨
 ",
-  "🎉 Betterer (17ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ tsquery: \\"tsquery\\" has already met its goal! ✨
 
 1 test got checked. 🤔

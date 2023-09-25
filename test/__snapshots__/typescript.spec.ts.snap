@@ -18,57 +18,54 @@ exports[\`typescript\`] = {
 
 exports[`betterer > should report the status of the TypeScript compiler 2`] = `
 [
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (12ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 typescript: running \\"typescript\\"!
 ",
-  "🌟 Betterer (11,102ms): 1 test running...
-🤔 typescript: running \\"typescript\\"!
-",
-  "🌟 Betterer (11,102ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ typescript: \\"typescript\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (11,107ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: \\"typescript\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (11,107ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: \\"typescript\\" got checked for the first time! (1 issue) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (10,193ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 typescript: running \\"typescript\\"!
 ",
-  "🌟 Betterer (10,193ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ typescript: \\"typescript\\" stayed the same. (1 issue) 😐
 ",
-  "🎉 Betterer (10,201ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: \\"typescript\\" stayed the same. (1 issue) 😐
 ",
-  "🎉 Betterer (10,201ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: \\"typescript\\" stayed the same. (1 issue) 😐
 
 1 test got checked. 🤔
 1 test stayed the same. 😐
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (9,059ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 typescript: running \\"typescript\\"!
 ",
-  "🌟 Betterer (9,059ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🔥 typescript: \\"typescript\\" got worse. (1 new issue, 2 total) 😔
 ",
-  "🌟 Betterer (9,059ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🔥 typescript: \\"typescript\\" got worse. (1 new issue, 2 total) 😔
 
 Error: \\"typescript\\" got worse. (1 new issue, 2 total) 😔
 ",
-  "💥 Betterer (9,085ms): 1 test done! 1 test errored!
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 typescript: \\"typescript\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/typescript/src/index.ts\\".
 ・ New issue in \\"<project>/fixtures/typescript/src/index.ts\\"!
@@ -82,7 +79,7 @@ Error: \\"typescript\\" got worse. (1 new issue, 2 total) 😔
 
 Error: \\"typescript\\" got worse. (1 new issue, 2 total) 😔
 ",
-  "💥 Betterer (9,085ms): 1 test done! 1 test errored!
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 typescript: \\"typescript\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/typescript/src/index.ts\\".
 ・ New issue in \\"<project>/fixtures/typescript/src/index.ts\\"!
@@ -101,36 +98,36 @@ Error: \\"typescript\\" got worse. (1 new issue, 2 total) 😔
 
 You should try to fix the new issues! As a last resort, you can run \`betterer --update\` to force an update of the results file. 🆙
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (12,518ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 typescript: running \\"typescript\\"!
 ",
-  "🌟 Betterer (12,518ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ typescript: \\"typescript\\" met its goal! 🎉
 ",
-  "🎉 Betterer (12,529ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: \\"typescript\\" met its goal! 🎉
 ",
-  "🎉 Betterer (12,529ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: \\"typescript\\" met its goal! 🎉
 
 1 test got checked. 🤔
 1 test got better! 😍
 1 test met its goal! 🎉
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (11,054ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 typescript: running \\"typescript\\"!
 ",
-  "🌟 Betterer (11,054ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ typescript: \\"typescript\\" has already met its goal! ✨
 ",
-  "🎉 Betterer (11,060ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: \\"typescript\\" has already met its goal! ✨
 ",
-  "🎉 Betterer (11,060ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: \\"typescript\\" has already met its goal! ✨
 
 1 test got checked. 🤔

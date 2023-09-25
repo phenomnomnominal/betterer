@@ -17,7 +17,7 @@ Checking 2 files... 🤔
 ・ <project>/fixtures/watch-debounce/src/file.ts
 ・ <project>/fixtures/watch-debounce/src/index.ts
 
-🌟 Betterer (-1ms):
+🌟 Betterer (0ms):
 
 (press \\"q\\" to quit)
 ",
@@ -29,7 +29,7 @@ Checking 2 files... 🤔
 ・ <project>/fixtures/watch-debounce/src/file.ts
 ・ <project>/fixtures/watch-debounce/src/index.ts
 
-🌟 Betterer (11ms): 1 test running...
+🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 
 (press \\"q\\" to quit)
@@ -42,7 +42,7 @@ Checking 2 files... 🤔
 ・ <project>/fixtures/watch-debounce/src/file.ts
 ・ <project>/fixtures/watch-debounce/src/index.ts
 
-🌟 Betterer (11ms): 1 test running...
+🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! (3 issues) 🎉
 
 (press \\"q\\" to quit)
@@ -55,7 +55,7 @@ Checking 2 files... 🤔
 ・ <project>/fixtures/watch-debounce/src/file.ts
 ・ <project>/fixtures/watch-debounce/src/index.ts
 
-🎉 Betterer (56ms): 1 test done!
+🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (3 issues) 🎉
 
 (press \\"q\\" to quit)
@@ -68,7 +68,7 @@ Checked 2 files! 🔍
 ・ <project>/fixtures/watch-debounce/src/file.ts
 ・ <project>/fixtures/watch-debounce/src/index.ts
 
-🎉 Betterer (56ms): 1 test done!
+🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (3 issues) 🎉
 
 1 test got checked. 🤔

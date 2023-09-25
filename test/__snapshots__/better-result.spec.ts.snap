@@ -2,26 +2,26 @@
 
 exports[`betterer > should work when a result gets better 1`] = `
 [
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🎉 Betterer (60ms): 2 tests done!
+  "🎉 Betterer (0ms): 2 tests done!
 ✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
 ✅ should grow: \\"should grow\\" got checked for the first time! 🎉
 ",
-  "🎉 Betterer (60ms): 2 tests done!
+  "🎉 Betterer (0ms): 2 tests done!
 ✅ should shrink: \\"should shrink\\" got checked for the first time! 🎉
 ✅ should grow: \\"should grow\\" got checked for the first time! 🎉
 
 2 tests got checked. 🤔
 2 tests got checked for the first time! 🎉
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🎉 Betterer (19ms): 2 tests done!
+  "🎉 Betterer (0ms): 2 tests done!
 ✅ should shrink: \\"should shrink\\" got better! 😍
 ✅ should grow: \\"should grow\\" got better! 😍
 ",
-  "🎉 Betterer (19ms): 2 tests done!
+  "🎉 Betterer (0ms): 2 tests done!
 ✅ should shrink: \\"should shrink\\" got better! 😍
 ✅ should grow: \\"should grow\\" got better! 😍
 

@@ -2,24 +2,24 @@
 
 exports[`betterer > should work with a .betterer.ts file that uses ES modules 1`] = `
 [
-  "🌟 Betterer (-13ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (23ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (23ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! 🎉
 ",
-  "🎉 Betterer (59ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! 🎉
 ",
-  "🎉 Betterer (59ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
@@ -27,10 +27,10 @@ exports[`betterer > should work with a .betterer.ts file that uses ES modules 1`
   "🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" got better! 😍
 ",
-  "🎉 Betterer (33ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got better! 😍
 ",
-  "🎉 Betterer (33ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got better! 😍
 
 1 test got checked. 🤔

@@ -5,7 +5,6 @@ export default defineConfig({
     globals: true,
     include: ['test/**/*.spec.ts'],
     exclude: ['test/**/*.e2e.spec.ts', 'test/workers.spec.ts'],
-    hookTimeout: 2000000,
     testTimeout: 9000000,
     setupFiles: ['./test/setup.ts'],
     watch: false,
@@ -13,9 +12,11 @@ export default defineConfig({
     coverage: {
       enabled: true,
       all: true,
+      include: ['**/packages/**/src/**/*.ts'],
       reportsDirectory: './reports/coverage',
-      reporter: ['clover', 'json', 'json-summary', 'lcov', 'text']
+      reporter: ['text', 'html', 'clover', 'json']
     },
-    reporters: ['basic', 'hanging-process']
+    reporters: ['basic', 'hanging-process'],
+    cache: false
   }
 });

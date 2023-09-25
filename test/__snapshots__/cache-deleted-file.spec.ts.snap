@@ -70,54 +70,54 @@ exports[\`test\`] = {
 
 exports[`betterer > should remove files from the cache when they are deleted 6`] = `
 [
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (12ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (12ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! (4 issues) 🎉
 ",
-  "🎉 Betterer (45ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (4 issues) 🎉
 ",
-  "🎉 Betterer (45ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (4 issues) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (26ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (26ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" got better! (2 fixed issues, 2 remaining) 😍
 ",
-  "🎉 Betterer (29ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got better! (2 fixed issues, 2 remaining) 😍
 ",
-  "🎉 Betterer (29ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got better! (2 fixed issues, 2 remaining) 😍
 
 1 test got checked. 🤔
 1 test got better! 😍
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (10ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (10ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🔥 test: \\"test\\" got worse. (2 new issues, 4 total) 😔
 ",
-  "🌟 Betterer (10ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🔥 test: \\"test\\" got worse. (2 new issues, 4 total) 😔
 
 Error: \\"test\\" got worse. (2 new issues, 4 total) 😔
 ",
-  "💥 Betterer (37ms): 1 test done! 1 test errored!
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. (2 new issues, 4 total) 😔
 ・ New issues in \\"<project>/fixtures/cache-deleted-file/src/file-2.ts\\"!
 ・ Showing first of 2 new issues:
@@ -130,7 +130,7 @@ Error: \\"test\\" got worse. (2 new issues, 4 total) 😔
 
 Error: \\"test\\" got worse. (2 new issues, 4 total) 😔
 ",
-  "💥 Betterer (37ms): 1 test done! 1 test errored!
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. (2 new issues, 4 total) 😔
 ・ New issues in \\"<project>/fixtures/cache-deleted-file/src/file-2.ts\\"!
 ・ Showing first of 2 new issues:

@@ -2,7 +2,7 @@
 
 exports[`betterer cli > should initialise betterer in a repo with TS 1`] = `
 [
-  "🎉 Initialising Betterer (247ms): 2 tasks done!
+  "🎉 Initialising Betterer (0ms): 2 tasks done!
 ✅ Create test file: done!
 ・ created \\"<project>/fixtures/init-ts/.betterer.ts\\"!
 ✅ Update package.json: done!

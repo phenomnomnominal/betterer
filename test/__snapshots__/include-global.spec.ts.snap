@@ -37,18 +37,18 @@ exports[\`test\`] = {
 
 exports[`betterer > should handle a global include 3`] = `
 [
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (16ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (16ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (56ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (56ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
 
 1 test got checked. 🤔
@@ -59,14 +59,14 @@ exports[`betterer > should handle a global include 3`] = `
 ・ <project>/fixtures/include-global/global.ts
 ・ <project>/fixtures/include-global/src/global.ts
 
-🌟 Betterer (-1ms):
+🌟 Betterer (0ms):
 ",
   "Checking 2 files... 🤔
 
 ・ <project>/fixtures/include-global/global.ts
 ・ <project>/fixtures/include-global/src/global.ts
 
-🌟 Betterer (21ms): 1 test running...
+🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
   "Checking 2 files... 🤔
@@ -74,7 +74,7 @@ exports[`betterer > should handle a global include 3`] = `
 ・ <project>/fixtures/include-global/global.ts
 ・ <project>/fixtures/include-global/src/global.ts
 
-🌟 Betterer (21ms): 1 test running...
+🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" got force updated. (1 new issue, 2 total) 🆙
 ",
   "Checking 2 files... 🤔
@@ -82,7 +82,7 @@ exports[`betterer > should handle a global include 3`] = `
 ・ <project>/fixtures/include-global/global.ts
 ・ <project>/fixtures/include-global/src/global.ts
 
-🎉 Betterer (68ms): 1 test done!
+🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got force updated. (1 new issue, 2 total) 🆙
 ・ New issue in \\"<project>/fixtures/include-global/src/global.ts\\"!
 ・
@@ -96,7 +96,7 @@ exports[`betterer > should handle a global include 3`] = `
 ・ <project>/fixtures/include-global/global.ts
 ・ <project>/fixtures/include-global/src/global.ts
 
-🎉 Betterer (68ms): 1 test done!
+🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got force updated. (1 new issue, 2 total) 🆙
 ・ New issue in \\"<project>/fixtures/include-global/src/global.ts\\"!
 ・

@@ -2,14 +2,14 @@
 
 exports[`betterer cli > should filter tests by name 1`] = `
 [
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🎉 Betterer (68ms): 3 tests done!
+  "🎉 Betterer (0ms): 3 tests done!
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
 ✅ test 2: \\"test 2\\" got checked for the first time! 🎉
 ✅ test 3: \\"test 3\\" got checked for the first time! 🎉
 ",
-  "🎉 Betterer (68ms): 3 tests done!
+  "🎉 Betterer (0ms): 3 tests done!
 ✅ test 1: \\"test 1\\" got checked for the first time! 🎉
 ✅ test 2: \\"test 2\\" got checked for the first time! 🎉
 ✅ test 3: \\"test 3\\" got checked for the first time! 🎉
@@ -17,14 +17,14 @@ exports[`betterer cli > should filter tests by name 1`] = `
 3 tests got checked. 🤔
 3 tests got checked for the first time! 🎉
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🎉 Betterer (53ms): 3 tests done!
+  "🎉 Betterer (0ms): 3 tests done!
 ✅ test 1: \\"test 1\\" stayed the same. 😐
 ✅ test 2: \\"test 2\\" got skipped. 🚫
 ✅ test 3: \\"test 3\\" got skipped. 🚫
 ",
-  "🎉 Betterer (53ms): 3 tests done!
+  "🎉 Betterer (0ms): 3 tests done!
 ✅ test 1: \\"test 1\\" stayed the same. 😐
 ✅ test 2: \\"test 2\\" got skipped. 🚫
 ✅ test 3: \\"test 3\\" got skipped. 🚫
@@ -33,14 +33,14 @@ exports[`betterer cli > should filter tests by name 1`] = `
 1 test stayed the same. 😐
 2 tests got skipped. 🚫
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🎉 Betterer (43ms): 3 tests done!
+  "🎉 Betterer (0ms): 3 tests done!
 ✅ test 1: \\"test 1\\" stayed the same. 😐
 ✅ test 2: \\"test 2\\" got skipped. 🚫
 ✅ test 3: \\"test 3\\" stayed the same. 😐
 ",
-  "🎉 Betterer (43ms): 3 tests done!
+  "🎉 Betterer (0ms): 3 tests done!
 ✅ test 1: \\"test 1\\" stayed the same. 😐
 ✅ test 2: \\"test 2\\" got skipped. 🚫
 ✅ test 3: \\"test 3\\" stayed the same. 😐

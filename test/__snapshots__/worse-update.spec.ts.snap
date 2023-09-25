@@ -19,32 +19,32 @@ exports[\`test\`] = {
 
 exports[`betterer > should not stay worse if an update is forced 2`] = `
 [
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (14ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (14ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (60ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (60ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (9ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (9ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" got force updated. (1 new issue, 2 total) 🆙
 ",
-  "🎉 Betterer (18ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got force updated. (1 new issue, 2 total) 🆙
 ・ 1 existing issue in \\"<project>/fixtures/worse-update/src/index.ts\\".
 ・ New issue in \\"<project>/fixtures/worse-update/src/index.ts\\"!
@@ -55,7 +55,7 @@ exports[`betterer > should not stay worse if an update is forced 2`] = `
 ・     | ^^^^^^^^^^^ TSQuery match
 ・
 ",
-  "🎉 Betterer (18ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got force updated. (1 new issue, 2 total) 🆙
 ・ 1 existing issue in \\"<project>/fixtures/worse-update/src/index.ts\\".
 ・ New issue in \\"<project>/fixtures/worse-update/src/index.ts\\"!
@@ -69,18 +69,18 @@ exports[`betterer > should not stay worse if an update is forced 2`] = `
 1 test got checked. 🤔
 1 test got force updated. 🆙
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (15ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (15ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" stayed the same. (2 issues) 😐
 ",
-  "🎉 Betterer (22ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. (2 issues) 😐
 ",
-  "🎉 Betterer (22ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" stayed the same. (2 issues) 😐
 
 1 test got checked. 🤔

@@ -16,7 +16,7 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/watch-ignored/src/index.ts
 
-🌟 Betterer (-1ms):
+🌟 Betterer (0ms):
 
 (press \\"q\\" to quit)
 ",
@@ -27,7 +27,7 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/watch-ignored/src/index.ts
 
-🌟 Betterer (20ms): 1 test running...
+🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 
 (press \\"q\\" to quit)
@@ -39,7 +39,7 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/watch-ignored/src/index.ts
 
-🌟 Betterer (20ms): 1 test running...
+🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
 
 (press \\"q\\" to quit)
@@ -51,7 +51,7 @@ Checking 1 file... 🤔
 
 ・ <project>/fixtures/watch-ignored/src/index.ts
 
-🎉 Betterer (83ms): 1 test done!
+🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
 
 (press \\"q\\" to quit)
@@ -63,7 +63,7 @@ Checked 1 file! 🔍
 
 ・ <project>/fixtures/watch-ignored/src/index.ts
 
-🎉 Betterer (83ms): 1 test done!
+🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
 
 1 test got checked. 🤔

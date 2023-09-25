@@ -2,13 +2,13 @@
 
 exports[`betterer > should mark a test as complete when it reaches its goal 1`] = `
 [
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🎉 Betterer (58ms): 2 tests done!
+  "🎉 Betterer (0ms): 2 tests done!
 ✅ should complete: \\"should complete\\" got checked for the first time! 🎉
 ✅ complete: \\"complete\\" has already met its goal! ✨
 ",
-  "🎉 Betterer (58ms): 2 tests done!
+  "🎉 Betterer (0ms): 2 tests done!
 ✅ should complete: \\"should complete\\" got checked for the first time! 🎉
 ✅ complete: \\"complete\\" has already met its goal! ✨
 
@@ -16,13 +16,13 @@ exports[`betterer > should mark a test as complete when it reaches its goal 1`] 
 1 test got checked for the first time! 🎉
 1 test met its goal! 🎉
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🎉 Betterer (13ms): 2 tests done!
+  "🎉 Betterer (0ms): 2 tests done!
 ✅ should complete: \\"should complete\\" met its goal! 🎉
 ✅ complete: \\"complete\\" has already met its goal! ✨
 ",
-  "🎉 Betterer (13ms): 2 tests done!
+  "🎉 Betterer (0ms): 2 tests done!
 ✅ should complete: \\"should complete\\" met its goal! 🎉
 ✅ complete: \\"complete\\" has already met its goal! ✨
 
@@ -30,13 +30,13 @@ exports[`betterer > should mark a test as complete when it reaches its goal 1`] 
 1 test got better! 😍
 2 tests met its goal! 🎉
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🎉 Betterer (13ms): 2 tests done!
+  "🎉 Betterer (0ms): 2 tests done!
 ✅ should complete: \\"should complete\\" has already met its goal! ✨
 ✅ complete: \\"complete\\" has already met its goal! ✨
 ",
-  "🎉 Betterer (13ms): 2 tests done!
+  "🎉 Betterer (0ms): 2 tests done!
 ✅ should complete: \\"should complete\\" has already met its goal! ✨
 ✅ complete: \\"complete\\" has already met its goal! ✨
 

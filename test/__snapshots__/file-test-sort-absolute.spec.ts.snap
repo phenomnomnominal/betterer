@@ -32,21 +32,18 @@ exports[\`test\`] = {
 
 exports[`betterer > should sort files by their file path correctly with absolute paths 2`] = `
 [
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (227ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (4,609ms): 1 test running...
-🤔 test: running \\"test\\"!
-",
-  "🌟 Betterer (4,609ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! (8 issues) 🎉
 ",
-  "🎉 Betterer (4,631ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (8 issues) 🎉
 ",
-  "🎉 Betterer (4,631ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (8 issues) 🎉
 
 1 test got checked. 🤔
@@ -56,27 +53,27 @@ exports[`betterer > should sort files by their file path correctly with absolute
 
 ・ <project>/fixtures/file-test-sort-absolute/src/c.ts
 
-🌟 Betterer (-1ms):
+🌟 Betterer (0ms):
 ",
   "Checking 1 file... 🤔
 
 ・ <project>/fixtures/file-test-sort-absolute/src/c.ts
 
-🌟 Betterer (57ms): 1 test running...
+🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
   "Checking 1 file... 🤔
 
 ・ <project>/fixtures/file-test-sort-absolute/src/c.ts
 
-🌟 Betterer (57ms): 1 test running...
+🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" got force updated. (1 new issue, 9 total) 🆙
 ",
   "Checking 1 file... 🤔
 
 ・ <project>/fixtures/file-test-sort-absolute/src/c.ts
 
-🎉 Betterer (69ms): 1 test done!
+🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got force updated. (1 new issue, 9 total) 🆙
 ・ 2 existing issues in \\"<project>/fixtures/file-test-sort-absolute/src/c.ts\\".
 ・ New issue in \\"<project>/fixtures/file-test-sort-absolute/src/c.ts\\"!
@@ -92,7 +89,7 @@ exports[`betterer > should sort files by their file path correctly with absolute
 
 ・ <project>/fixtures/file-test-sort-absolute/src/c.ts
 
-🎉 Betterer (69ms): 1 test done!
+🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got force updated. (1 new issue, 9 total) 🆙
 ・ 2 existing issues in \\"<project>/fixtures/file-test-sort-absolute/src/c.ts\\".
 ・ New issue in \\"<project>/fixtures/file-test-sort-absolute/src/c.ts\\"!

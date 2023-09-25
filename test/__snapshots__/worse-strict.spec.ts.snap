@@ -18,40 +18,37 @@ exports[\`test\`] = {
 
 exports[`betterer > should stay worse if an update is not allowed 2`] = `
 [
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (10ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (112ms): 1 test running...
-🤔 test: running \\"test\\"!
-",
-  "🌟 Betterer (112ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (121ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (121ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (9ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 test: running \\"test\\"!
 ",
-  "🌟 Betterer (9ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ",
-  "🌟 Betterer (9ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
 
 Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ",
-  "💥 Betterer (34ms): 1 test done! 1 test errored!
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/worse-strict/src/index.ts\\".
 ・ New issue in \\"<project>/fixtures/worse-strict/src/index.ts\\"!
@@ -64,7 +61,7 @@ Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
 
 Error: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ",
-  "💥 Betterer (34ms): 1 test done! 1 test errored!
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: \\"test\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/worse-strict/src/index.ts\\".
 ・ New issue in \\"<project>/fixtures/worse-strict/src/index.ts\\"!

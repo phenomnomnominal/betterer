@@ -18,54 +18,54 @@ exports[\`regexp\`] = {
 
 exports[`betterer > should report the existence of RegExp matches 2`] = `
 [
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (18ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 regexp: running \\"regexp\\"!
 ",
-  "🌟 Betterer (18ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ regexp: \\"regexp\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (47ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ regexp: \\"regexp\\" got checked for the first time! (1 issue) 🎉
 ",
-  "🎉 Betterer (47ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ regexp: \\"regexp\\" got checked for the first time! (1 issue) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (9ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 regexp: running \\"regexp\\"!
 ",
-  "🌟 Betterer (9ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ regexp: \\"regexp\\" stayed the same. (1 issue) 😐
 ",
-  "🎉 Betterer (14ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ regexp: \\"regexp\\" stayed the same. (1 issue) 😐
 ",
-  "🎉 Betterer (14ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ regexp: \\"regexp\\" stayed the same. (1 issue) 😐
 
 1 test got checked. 🤔
 1 test stayed the same. 😐
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (9ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 regexp: running \\"regexp\\"!
 ",
-  "🌟 Betterer (9ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🔥 regexp: \\"regexp\\" got worse. (1 new issue, 2 total) 😔
 ",
-  "🌟 Betterer (9ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🔥 regexp: \\"regexp\\" got worse. (1 new issue, 2 total) 😔
 
 Error: \\"regexp\\" got worse. (1 new issue, 2 total) 😔
 ",
-  "💥 Betterer (43ms): 1 test done! 1 test errored!
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 regexp: \\"regexp\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/regexp/src/index.ts\\".
 ・ New issue in \\"<project>/fixtures/regexp/src/index.ts\\"!
@@ -78,7 +78,7 @@ Error: \\"regexp\\" got worse. (1 new issue, 2 total) 😔
 
 Error: \\"regexp\\" got worse. (1 new issue, 2 total) 😔
 ",
-  "💥 Betterer (43ms): 1 test done! 1 test errored!
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 regexp: \\"regexp\\" got worse. (1 new issue, 2 total) 😔
 ・ 1 existing issue in \\"<project>/fixtures/regexp/src/index.ts\\".
 ・ New issue in \\"<project>/fixtures/regexp/src/index.ts\\"!
@@ -96,36 +96,36 @@ Error: \\"regexp\\" got worse. (1 new issue, 2 total) 😔
 
 You should try to fix the new issues! As a last resort, you can run \`betterer --update\` to force an update of the results file. 🆙
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (8ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 regexp: running \\"regexp\\"!
 ",
-  "🌟 Betterer (8ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ regexp: \\"regexp\\" met its goal! 🎉
 ",
-  "🎉 Betterer (19ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ regexp: \\"regexp\\" met its goal! 🎉
 ",
-  "🎉 Betterer (19ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ regexp: \\"regexp\\" met its goal! 🎉
 
 1 test got checked. 🤔
 1 test got better! 😍
 1 test met its goal! 🎉
 ",
-  "🌟 Betterer (-1ms):
+  "🌟 Betterer (0ms):
 ",
-  "🌟 Betterer (7ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 🤔 regexp: running \\"regexp\\"!
 ",
-  "🌟 Betterer (7ms): 1 test running...
+  "🌟 Betterer (0ms): 1 test running...
 ✅ regexp: \\"regexp\\" has already met its goal! ✨
 ",
-  "🎉 Betterer (12ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ regexp: \\"regexp\\" has already met its goal! ✨
 ",
-  "🎉 Betterer (12ms): 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ regexp: \\"regexp\\" has already met its goal! ✨
 
 1 test got checked. 🤔

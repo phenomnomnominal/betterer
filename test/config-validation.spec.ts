@@ -1,17 +1,19 @@
-import { vitest } from 'vitest';
+import mock from 'mock-require';
 
 // eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
 import { createFixture } from './fixture';
 
-vitest.mock('node:os', async (importOriginal): Promise<typeof import('node:os')> => {
-  const os: typeof import('node:os') = await importOriginal();
+import os from 'os';
 
-  const [cpu] = os.cpus();
-  return {
-    ...os,
-    cpus: () => [cpu]
-  };
+const [cpu] = os.cpus();
+mock('node:os', {
+  ...os,
+  cpus: () => [cpu]
 });
+
+// vitest.mock('node:os', async (importOriginal): Promise<typeof import('node:os')> => {
+//   const os: typeof import('node:os') = await importOriginal();
+// });
 
 describe('betterer', () => {
   it('should throw when there is invalid config', async () => {
