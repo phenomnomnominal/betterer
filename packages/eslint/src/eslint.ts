@@ -1,6 +1,6 @@
 import type { Linter } from 'eslint';
 
-import type { BettererESLintRulesConfig } from './types.js';
+import type { BettererESLintOverridesConfig, BettererESLintRulesConfig } from './types.js';
 
 import { BettererFileTest } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
@@ -37,7 +37,7 @@ import { ESLint } from 'eslint';
  * @throws {@link @betterer/errors#BettererError | `BettererError` }
  * Will throw if the user doesn't pass `rules`.
  */
-export function eslint(rules: BettererESLintRulesConfig): BettererFileTest {
+export function eslint(rules: BettererESLintRulesConfig, overrides?: BettererESLintOverridesConfig): BettererFileTest {
   if (!rules) {
     throw new BettererError(
       "for `@betterer/eslint` to work, you need to provide rule options, e.g. `{ 'no-debugger': 'error' }`. ❌"
@@ -64,7 +64,7 @@ export function eslint(rules: BettererESLintRulesConfig): BettererFileTest {
         const finalRules = { ...disabledRules, ...rules };
 
         const runner = new ESLint({
-          overrideConfig: { rules: finalRules },
+          overrideConfig: { rules: finalRules, overrides },
           useEslintrc: true,
           cwd: baseDirectory
         });
