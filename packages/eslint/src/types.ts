@@ -8,3 +8,9 @@ import type { Linter } from 'eslint';
  * or {@link https://eslint.org/docs/user-guide/configuring/rules#configuring-rules | `RuleLevelAndOptions`}.
  */
 export type BettererESLintRulesConfig = Record<string, Linter.RuleLevel | Linter.RuleLevelAndOptions>;
+
+/**
+ * @public The {@link @betterer/eslint#eslint | `eslint`} test factory optionally takes a list of
+ * overrides used for specific filetypes and allowing for `parserOptions` configuration.
+ */
+export type BettererESLintOverridesConfig = Linter.ConfigOverride[];
