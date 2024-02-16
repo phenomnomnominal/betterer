@@ -16,6 +16,8 @@ import {
   testWorse,
   unexpectedChanges,
   unexpectedChangesInstructions,
+  stayedTheSameButChanged,
+  stayedTheSameButChangedInstructions,
   updateInstructions
 } from '../../messages.js';
 
@@ -73,15 +75,22 @@ export const SuiteSummary: FC<SuiteSummaryProps> = memo(function SuiteSummary({ 
         {expired ? <Text color={TEXT_COLOURS.expired}>{testExpired(tests(expired))})</Text> : null}
       </Box>
       {context.config.ci && suiteSummary.changed.length ? (
-        <Box flexDirection="column" paddingBottom={1}>
-          <Text color={TEXT_COLOURS.changed}>{unexpectedChanges()}</Text>
-          <Box flexDirection="column" padding={1}>
-            {suiteSummary.changed.map((name) => (
-              <Text key={name}>"{name}"</Text>
-            ))}
+        allChangedTestsStayedTheSame(suiteSummary) ? (
+          <Box flexDirection="column" paddingBottom={1}>
+            <Text color={TEXT_COLOURS.changed}>{stayedTheSameButChanged()}</Text>
+            <Text color={TEXT_COLOURS.changed}>{stayedTheSameButChangedInstructions()}</Text>
           </Box>
-          <Text color={TEXT_COLOURS.changed}>{unexpectedChangesInstructions()}</Text>
-        </Box>
+        ) : (
+          <Box flexDirection="column" paddingBottom={1}>
+            <Text color={TEXT_COLOURS.changed}>{unexpectedChanges()}</Text>
+            <Box flexDirection="column" padding={1}>
+              {suiteSummary.changed.map((name) => (
+                <Text key={name}>"{name}"</Text>
+              ))}
+            </Box>
+            <Text color={TEXT_COLOURS.changed}>{unexpectedChangesInstructions()}</Text>
+          </Box>
+        )
       ) : null}
     </>
   );
@@ -89,4 +98,19 @@ export const SuiteSummary: FC<SuiteSummaryProps> = memo(function SuiteSummary({ 
 
 function tests(n: number): string {
   return n === 1 ? `${n} test` : `${n} tests`;
+}
+
+/**
+ * Given a suiteSummary, is every test name listed in `changed` also present as
+ * the name of a test listed in `same`? In that case, the supposedly `changed`
+ * tests did not really change, only their file hash(es) did.
+ */
+function allChangedTestsStayedTheSame(suiteSummary: BettererSuiteSummary): boolean {
+  function testStayedTheSame(testName: string): boolean {
+    const matchingSuite = suiteSummary.same.find((runSummary) => runSummary.name === testName);
+
+    return matchingSuite !== undefined;
+  }
+
+  return suiteSummary.changed.every(testStayedTheSame);
 }

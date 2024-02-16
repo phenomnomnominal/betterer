@@ -48,6 +48,14 @@ export function unexpectedChangesInstructions(): string {
   return 'You should make sure the results file is up-to-date before committing! You might want to run `betterer precommit` in a commit hook. 💍';
 }
 
+export function stayedTheSameButChanged(): string {
+  return 'All test results stayed the same, but your code has changed in other ways.';
+}
+
+export function stayedTheSameButChangedInstructions(): string {
+  return 'You should make sure the results file is up-to-date before committing, and also after a rebase! 🔃';
+}
+
 export function filesChecking(files: number): string {
   return `Checking ${files} ${getFiles(files)}... 🤔`;
 }
