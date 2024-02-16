@@ -36,11 +36,8 @@ Array [
 1 test got checked. 🤔
 1 test stayed the same. 😐
 
-Unexpected changes detected in these tests while running in CI mode:
-
- \\"test\\"
-
-You should make sure the results file is up-to-date before committing! You might want to run \`betterer precommit\` in a commit hook. 💍
+All test results stayed the same, but your code has changed in other ways.
+You should make sure the results file is up-to-date before committing, and also after a rebase! 🔃
 ",
 ]
 `;
