@@ -8,7 +8,9 @@ import { BettererFileTest } from '@betterer/betterer';
 import type { Linter } from 'eslint';
 
 // @public
-export type BettererESLintRulesConfig = Record<string, Linter.RuleLevel | Linter.RuleLevelAndOptions>;
+export type BettererESLintRulesConfig = Record<string, Linter.RuleLevel | Linter.RuleLevelAndOptions> | {
+    extends?: string | [string];
+};
 
 // @public
 export function eslint(rules: BettererESLintRulesConfig): BettererFileTest;
