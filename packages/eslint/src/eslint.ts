@@ -57,11 +57,11 @@ export function eslint(rules: BettererESLintRulesConfig): BettererFileTest {
         const linterOptions = (await cli.calculateConfigForFile(filePath)) as Linter.Config;
 
         // Explicitly disable all other configured rules:
-        const disabledRules: BettererESLintRulesConfig = {};
+        const disabledRules: Linter.Config['rules'] = {};
         Object.keys(linterOptions.rules || {}).forEach((ruleName) => {
           disabledRules[ruleName] = 'off';
         });
-        const finalRules = { ...disabledRules, ...rules };
+        const { extends: _, ...finalRules } = { ...disabledRules, ...rules };
 
         const runner = new ESLint({
           overrideConfig: { rules: finalRules },

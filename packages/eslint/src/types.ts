@@ -7,4 +7,8 @@ import type { Linter } from 'eslint';
  * The configuration options are defined by each rule, but will be either a {@link https://eslint.org/docs/user-guide/configuring/rules#configuring-rules | `RuleLevel` }
  * or {@link https://eslint.org/docs/user-guide/configuring/rules#configuring-rules | `RuleLevelAndOptions`}.
  */
-export type BettererESLintRulesConfig = Record<string, Linter.RuleLevel | Linter.RuleLevelAndOptions>;
+export type BettererESLintRulesConfig =
+  | Record<string, Linter.RuleLevel | Linter.RuleLevelAndOptions>
+  | {
+      extends?: string | [string];
+    };
