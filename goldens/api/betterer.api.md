@@ -8,7 +8,7 @@ import type { BettererConstraintResult } from '@betterer/constraints';
 import type { BettererError } from '@betterer/errors';
 import type { BettererLogs } from '@betterer/logger';
 
-// Warning: (ae-missing-release-tag) "betterer" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-missing-release-tag) "betterer" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public
 export function betterer(options?: BettererOptionsStart): Promise<BettererSuiteSummary>;
@@ -609,5 +609,9 @@ export function runner(options?: BettererOptionsRunner): Promise<BettererRunner>
 
 // @public
 export function watch(options?: BettererOptionsWatch): Promise<BettererRunner>;
+
+// Warnings were encountered during analysis:
+//
+// /Users/craigspence/Dev/betterer/node_modules/@types/node/globals.d.ts:72:13 - (TS2403) Subsequent variable declarations must have the same type.  Variable 'AbortSignal' must be of type '{ new (): AbortSignal; prototype: AbortSignal; abort(reason?: any): AbortSignal; timeout(milliseconds: number): AbortSignal; }', but here has type '{ new (): AbortSignal; prototype: AbortSignal; }'.
 
 ```

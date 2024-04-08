@@ -74,7 +74,7 @@ export type StdOut = Process['stdout'];
 export { Text_2 as Text }
 
 // @internal
-export const TextInput: (props: TextInputProps) => JSX.Element;
+export const TextInput: (props: TextInputProps) => R.JSX.Element;
 
 // @internal
 export type TextInputProps = React.ComponentProps<typeof TI>;
@@ -98,5 +98,9 @@ export { useRef }
 export { useState }
 
 export { useStdin }
+
+// Warnings were encountered during analysis:
+//
+// /Users/craigspence/Dev/betterer/node_modules/@types/node/globals.d.ts:72:13 - (TS2403) Subsequent variable declarations must have the same type.  Variable 'AbortSignal' must be of type '{ new (): AbortSignal; prototype: AbortSignal; abort(reason?: any): AbortSignal; timeout(milliseconds: number): AbortSignal; }', but here has type '{ new (): AbortSignal; prototype: AbortSignal; }'.
 
 ```

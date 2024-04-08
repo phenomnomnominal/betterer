@@ -21,13 +21,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix['node-version'] }}
-      - name: Install dependencies
-        uses: sergioramos/yarn-actions/install@master
-        with:
-          frozen-lockfile: true
+      - name: Run install
+        run: npm install
+      - name: Run compile
+        run: npm run compile:packages
       - name: Run build
-        run: yarn compile:packages && yarn build:extension
+        run: npm run build:extension
       - name: Run extension test
         uses: GabrielBB/xvfb-action@v1.0
         with:
-          run: yarn test:extension
+          run: npm run test:extension

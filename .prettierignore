@@ -5,13 +5,11 @@ goldens
 node_modules
 reports
 lerna-debug.log
-yarn-error.log
 tsconfig.tsbuildinfo
 .vscode-test
 *.vsix
 **/*.snap
 test/__snapshots__/**
-**/yarn.lock
 **/*.gif
 **/*.ico
 **/*.png
