@@ -20,8 +20,4 @@ export type BettererErrorDetails = ReadonlyArray<BettererErrorDetail>;
 // @public
 export function isBettererError(err: unknown): err is BettererError;
 
-// Warnings were encountered during analysis:
-//
-// /Users/craigspence/Dev/betterer/node_modules/@types/node/globals.d.ts:72:13 - (TS2403) Subsequent variable declarations must have the same type.  Variable 'AbortSignal' must be of type '{ new (): AbortSignal; prototype: AbortSignal; abort(reason?: any): AbortSignal; timeout(milliseconds: number): AbortSignal; }', but here has type '{ new (): AbortSignal; prototype: AbortSignal; }'.
-
 ```

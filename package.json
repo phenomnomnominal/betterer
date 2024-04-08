@@ -60,7 +60,7 @@
     "@phenomnomnominal/commitlint-plugin": "^1.1.1",
     "@types/eslint": "^7.28.0",
     "@types/jest": "^27.0.1",
-    "@types/node": "^17.0.23",
+    "@types/node": "^20.12.5",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "@typescript-eslint/parser": "^5.16.0",
     "cz-conventional-changelog": "^3.3.0",

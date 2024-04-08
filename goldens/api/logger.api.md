@@ -65,8 +65,4 @@ export function diffStrings__(a: string, b: string, diffOptions: DiffOptions): s
 // @internal
 export function log__(logs: BettererLogs, logger: BettererLogger): Promise<void>;
 
-// Warnings were encountered during analysis:
-//
-// /Users/craigspence/Dev/betterer/node_modules/@types/node/globals.d.ts:72:13 - (TS2403) Subsequent variable declarations must have the same type.  Variable 'AbortSignal' must be of type '{ new (): AbortSignal; prototype: AbortSignal; abort(reason?: any): AbortSignal; timeout(milliseconds: number): AbortSignal; }', but here has type '{ new (): AbortSignal; prototype: AbortSignal; }'.
-
 ```
