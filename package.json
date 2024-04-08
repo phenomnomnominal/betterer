@@ -87,8 +87,5 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
-  },
-  "dependencies": {
-    "wtfnode": "^0.9.2"
   }
 }
