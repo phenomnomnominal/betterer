@@ -1,7 +1,13 @@
 export {
+  BettererConfigFS,
+  BettererConfigMerge,
+  BettererConfigPaths,
   BettererFileGlobs,
   BettererFilePath,
   BettererFilePaths,
   BettererFilePatterns,
-  BettererFileResolver
+  BettererFileResolver,
+  BettererOptionsFS,
+  BettererOptionsMerge,
+  BettererOptionsPaths
 } from './types.js';

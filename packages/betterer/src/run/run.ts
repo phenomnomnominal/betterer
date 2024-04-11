@@ -1,4 +1,4 @@
-import type { BettererWorkerRunConfig } from '../config/index.js';
+import type { BettererConfig } from '../config/index.js';
 import type { BettererFilePaths, BettererVersionControlWorker } from '../fs/index.js';
 import type { BettererTestMeta } from '../test/index.js';
 import type { BettererRun, BettererRunSummary, BettererRunWorkerHandle, BettererRunWorkerPool } from './types.js';
@@ -31,13 +31,19 @@ export class BettererRunΩ implements BettererRun {
   public static async create(
     runWorkerPool: BettererRunWorkerPool,
     testName: string,
-    config: BettererWorkerRunConfig,
+    config: BettererConfig,
     filePaths: BettererFilePaths,
     versionControl: BettererVersionControlWorker
   ): Promise<BettererRunΩ> {
     const workerHandle = runWorkerPool.getWorkerHandle();
     const worker = await workerHandle.claim();
-    const testMeta = await worker.api.init(testName, config, versionControl);
+
+    // `BettererReporter` instance can't be passed to the worker_thread, but
+    // the worker doesn't actually need the it, so just ignore it.
+    const workerConfig = { ...config };
+    delete (workerConfig as Partial<BettererConfig>).reporter;
+
+    const testMeta = await worker.api.init(testName, workerConfig, versionControl);
     workerHandle.release();
 
     const baseline = !testMeta.isNew ? new BettererResultΩ(JSON.parse(testMeta.baselineJSON)) : null;

@@ -7,19 +7,19 @@ function noop(options: unknown): unknown {
 describe('betterer modes', () => {
   // eslint-disable-next-line jest/expect-expect -- no need to assert, just testing the types
   it('handles options for running Betterer', () => {
-    const ci: BettererOptionsStart = { ci: true, precommit: false, strict: true, update: false, watch: false };
-    noop(ci);
-
-    const precommit: BettererOptionsStart = { ci: false, precommit: true, strict: true, update: false, watch: false };
-    noop(precommit);
-
-    const start: BettererOptionsStart = { ci: false, precommit: false, strict: false, update: false, watch: false };
+    const start: BettererOptionsStart = { ci: false, precommit: false, strict: false, update: false };
     noop(start);
 
-    const update: BettererOptionsStart = { ci: false, precommit: false, strict: false, update: true, watch: false };
+    const ci: BettererOptionsStart = { ci: true, precommit: false, strict: true, update: false };
+    noop(ci);
+
+    const precommit: BettererOptionsStart = { ci: false, precommit: true, strict: true, update: false };
+    noop(precommit);
+
+    const update: BettererOptionsStart = { ci: false, precommit: false, strict: false, update: true };
     noop(update);
 
-    const strict: BettererOptionsStart = { ci: false, precommit: false, strict: true, update: false, watch: false };
+    const strict: BettererOptionsStart = { ci: false, precommit: false, strict: true, update: false };
     noop(strict);
 
     // @ts-expect-error `update` cannot be `true` is `strict` is `true`:
@@ -65,22 +65,6 @@ describe('betterer modes', () => {
     // @ts-expect-error `ignores` cannot be assigned to `BettererOptionsRunner`:
     const runner: BettererOptionsRunner = { ignores: [] };
     noop(runner);
-
-    // @ts-expect-error `ci` cannot be assigned to `BettererOptionsRunner`:
-    const ciRunnerError: BettererOptionsRunner = { ci: true };
-    noop(ciRunnerError);
-
-    // @ts-expect-error `precommit` cannot be assigned to `BettererOptionsRunner`:
-    const precommitRunnerError: BettererOptionsRunner = { precommit: true };
-    noop(precommitRunnerError);
-
-    // @ts-expect-error `strict` cannot be assigned to `BettererOptionsRunner`:
-    const strictRunnerError: BettererOptionsRunner = { strict: true };
-    noop(strictRunnerError);
-
-    // @ts-expect-error `update` cannot be assigned to `BettererOptionsRunner`:
-    const updateRunnerError: BettererOptionsRunner = { update: true };
-    noop(updateRunnerError);
 
     // @ts-expect-error `watch` cannot be assigned to `BettererOptionsRunner`:
     const watchRunnerError: BettererOptionsRunner = { watch: true };

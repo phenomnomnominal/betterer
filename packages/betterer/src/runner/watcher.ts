@@ -1,6 +1,6 @@
 import type { FSWatcher } from 'chokidar';
 
-import type { BettererGlobals } from '../types.js';
+import type { BettererConfig } from '../config/index.js';
 
 import { watch } from 'chokidar';
 import minimatch from 'minimatch';
@@ -10,9 +10,7 @@ import { normalisedPath } from '../utils.js';
 
 export const WATCHER_EVENTS = ['add', 'change'];
 
-export async function createWatcher(globals: BettererGlobals): Promise<FSWatcher | null> {
-  const { config } = globals;
-
+export async function createWatcher(config: BettererConfig): Promise<FSWatcher | null> {
   if (!config.watch) {
     return null;
   }

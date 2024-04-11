@@ -5,7 +5,7 @@ Array [
   "
 Error: could not find config file at \\"<project>/fixtures/config-missing/.betterer\\". 😔
 
-Error: Cannot find module '<project>/fixtures/config-missing/.betterer' from 'packages/betterer/dist/config/config.js'
+Error: Cannot find module '<project>/fixtures/config-missing/.betterer' from 'packages/betterer/dist/fs/config.js'
 ",
 ]
 `;

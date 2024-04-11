@@ -5,6 +5,63 @@ import type { BettererRun, BettererRunSummary } from '../run/index.js';
 import type { BettererSuiteSummary, BettererSuite } from '../suite/index.js';
 
 /**
+ * @public An array of names of npm packages that export a {@link @betterer/betterer#BettererReporter | `BettererReporter`},
+ * or `object`s that implement {@link @betterer/betterer#BettererReporter | `BettererReporter`}.
+ */
+export type BettererOptionsReporters = Array<string | BettererReporter>;
+
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * Base options for **Betterer** all running modes.
+ */
+export interface BettererOptionsReporter {
+  /**
+   * When `true`, the default reporter will render the Betterer logo.
+   * @defaultValue `false`
+   */
+  logo?: boolean;
+  /**
+   * An array of names of npm packages that export a {@link @betterer/betterer#BettererReporter | `BettererReporter` }
+   * or `object`s that implement {@link @betterer/betterer#BettererReporter | `BettererReporter`}.
+   * Ignored when `silent` is `true`.
+   * @defaultValue `['@betterer/reporter']`
+   */
+  reporters?: BettererOptionsReporters;
+  /**
+   * When `true`, all reporters will be disabled.
+   * @defaultValue `false`
+   */
+  silent?: boolean;
+  /**
+   * The path to the {@link https://phenomnomnominal.github.io/betterer/docs/betterer-and-typescript | TypeScript configuration}.
+   * The `tsconfigPath` should be relative to the `cwd`.
+   * @defaultValue `null`
+   */
+}
+
+export interface BettererOptionsReporterOverride {
+  /**
+   * An array of names of npm packages that export a {@link @betterer/betterer#BettererReporter | `BettererReporter` }
+   * or `object`s that implement {@link @betterer/betterer#BettererReporter | `BettererReporter`}.
+   * Ignored when `silent` is `true`.
+   * @defaultValue `['@betterer/reporter']`
+   */
+  reporters?: BettererOptionsReporters;
+}
+
+export interface BettererConfigReporter {
+  /**
+   * When `true`, the default reporter will render the Betterer logo.
+   */
+  logo: boolean;
+  /**
+   * The reporter instance. All reporter hooks will be a noop if `silent` is `true`.
+   */
+  reporter: BettererReporter;
+}
+
+/**
  * @public The interface for hooking into **Betterer**'s reporter system.
  *
  * @remarks There are two ways to specify a custom `BettererReporter`:

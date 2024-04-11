@@ -1,6 +1,4 @@
-export { BettererRunΩ, BettererRunsΩ } from './run.js';
-export { createRunWorkerPool } from './run-worker-pool.js';
-export {
+export type {
   BettererDelta,
   BettererRun,
   BettererRuns,
@@ -9,5 +7,7 @@ export {
   BettererRunSummaries,
   BettererRunWorkerPool
 } from './types.js';
-export { createWorkerRunConfig } from './worker-run-config.js';
-export type { BettererWorkerRunΩ } from './worker-run.js';
+
+export { BettererRunΩ, BettererRunsΩ } from './run.js';
+export { createRunWorkerPool } from './run-worker-pool.js';
+export { BettererWorkerRunΩ } from './worker-run.js';

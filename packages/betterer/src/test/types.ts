@@ -252,6 +252,7 @@ export interface BettererTestBase<DeserialisedType = unknown, SerialisedType = D
 }
 
 export type BettererTestFactory = () => MaybeAsync<BettererTestBase>;
+
 export interface BettererTestFactoryMeta {
   readonly configPath: string;
   readonly factory: BettererTestFactory;

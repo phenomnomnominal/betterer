@@ -1,9 +1,10 @@
-import type { BettererOptionsResults } from '../config/index.js';
+import type { BettererOptionsResults } from '../api/index.js';
+import type { BettererFileTestResultΩ } from '../test/index.js';
+import type { BettererFileTestResultSummaryDetails, BettererResultsSummary, BettererResultSummaries } from './types.js';
+
 import { BettererFileResolverΩ } from '../fs/index.js';
 import { createGlobals } from '../globals.js';
-import type { BettererFileTestResultΩ } from '../test/index.js';
 import { isBettererFileTest, loadTestMeta } from '../test/index.js';
-import type { BettererFileTestResultSummaryDetails, BettererResultsSummary, BettererResultSummaries } from './types.js';
 
 export class BettererResultsSummaryΩ implements BettererResultsSummary {
   public readonly resultSummaries: BettererResultSummaries;
@@ -15,14 +16,7 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
   }
 
   public static async create(options: BettererOptionsResults): Promise<BettererResultsSummary> {
-    const { config, resultsFile, versionControl } = await createGlobals({
-      configPaths: options.configPaths,
-      cwd: options.cwd,
-      excludes: options.excludes,
-      filters: options.filters,
-      includes: options.includes,
-      resultsPath: options.resultsPath
-    });
+    const { config, results, versionControl } = await createGlobals(options);
 
     const testFactories = loadTestMeta(config.configPaths);
 
@@ -45,7 +39,7 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
       testNames.map(async (name) => {
         const test = await testFactories[name].factory();
         const isFileTest = isBettererFileTest(test);
-        const [expectedJSON] = resultsFile.getExpected(name);
+        const [expectedJSON] = results.getExpected(name);
         const serialised = JSON.parse(expectedJSON) as unknown;
         const deserialised = test.config.serialiser.deserialise(serialised, resultsPath);
         if (isFileTest) {

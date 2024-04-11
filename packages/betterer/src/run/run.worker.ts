@@ -1,4 +1,4 @@
-import type { BettererWorkerRunConfig } from '../config/index.js';
+import type { BettererConfig } from '../config/index.js';
 import type { BettererFilePaths, BettererVersionControlWorker } from '../fs/index.js';
 import type { BettererTestMeta } from '../test/index.js';
 import type { BettererRunSummary } from './types.js';
@@ -11,10 +11,13 @@ const TEST_NAME_RUN: Record<string, BettererWorkerRunΩ> = {};
 
 export async function init(
   testName: string,
-  options: BettererWorkerRunConfig,
+  config: BettererConfig,
   versionControl: BettererVersionControlWorker
 ): Promise<BettererTestMeta> {
-  const worker = await BettererWorkerRunΩ.create(options, testName, versionControl);
+  const { registerExtensions } = await import('../typescript/register.js');
+  await registerExtensions(config.tsconfigPath);
+
+  const worker = await BettererWorkerRunΩ.create(config, testName, versionControl);
   TEST_NAME_RUN[testName] = worker;
   return worker.testMeta;
 }

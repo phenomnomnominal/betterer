@@ -1,4 +1,4 @@
-import type { BettererOptionsRunner } from '@betterer/betterer';
+import type { BettererOptions } from '@betterer/betterer';
 import type { RemoteWorkspace } from 'vscode-languageserver/node';
 
 import { promises as fs } from 'node:fs';
@@ -31,9 +31,9 @@ export async function getDebug(workspace: RemoteWorkspace): Promise<void> {
   }
 }
 
-export async function getBettererOptions(cwd: string, workspace: RemoteWorkspace): Promise<BettererOptionsRunner> {
+export async function getBettererOptions(cwd: string, workspace: RemoteWorkspace): Promise<BettererOptions> {
   const { cachePath, configPath, filters, resultsPath, tsconfigPath } = await getExtensionConfig(workspace);
-  const config: BettererOptionsRunner = {
+  const config: BettererOptions = {
     cache: true,
     cachePath: path.resolve(cwd, cachePath),
     configPaths: [path.resolve(cwd, configPath)],

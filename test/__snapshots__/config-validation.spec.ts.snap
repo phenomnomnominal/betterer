@@ -1,144 +1,337 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`betterer should throw when there is invalid config 1`] = `
+exports[`betterer should throw when there is invalid config: { cache: 'betterer' } 1`] = `
+Array [
+  "
+Error: \\"cache\\" must be \`true\` or \`false\`. Received \`\\"betterer\\"\`.
+",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { cache: {} } 1`] = `
+Array [
+  "
+Error: \\"cache\\" must be \`true\` or \`false\`. Received \`{}\`.
+",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { cache: 1234 } 1`] = `
 Array [
   "
 Error: \\"cache\\" must be \`true\` or \`false\`. Received \`1234\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { cachePath: {} } 1`] = `
+Array [
   "
-Error: \\"cache\\" must be \`true\` or \`false\`. Received \`\\"betterer\\"\`.
+Error: \\"cachePath\\" must be a string or an array. Received \`{}\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { cachePath: 1234 } 1`] = `
+Array [
   "
-Error: \\"cache\\" must be \`true\` or \`false\`. Received \`{}\`.
+Error: \\"cachePath\\" must be a string or an array. Received \`1234\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { cachePath: true } 1`] = `
+Array [
   "
-Error: \\"cachePath\\" must be a string. Received \`1234\`.
+Error: \\"cachePath\\" must be a string or an array. Received \`true\`.
 ",
-  "
-Error: \\"cachePath\\" must be a string. Received \`{}\`.
-",
-  "
-Error: \\"cachePath\\" must be a string. Received \`true\`.
-",
-  "
-Error: \\"ci\\" must be \`true\` or \`false\`. Received \`1234\`.
-",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { ci: 'betterer' } 1`] = `
+Array [
   "
 Error: \\"ci\\" must be \`true\` or \`false\`. Received \`\\"betterer\\"\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { ci: {} } 1`] = `
+Array [
   "
 Error: \\"ci\\" must be \`true\` or \`false\`. Received \`{}\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { ci: 1234 } 1`] = `
+Array [
   "
-Error: \\"configPaths\\" must be an array of strings. Received \`[1234]\`.
+Error: \\"ci\\" must be \`true\` or \`false\`. Received \`1234\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { configPaths: [Array] } 1`] = `
+Array [
   "
-Error: \\"configPaths\\" must be an array of strings. Received \`[true]\`.
+Error: The \\"paths[1]\\" argument must be of type string. Received type number (1234)
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { configPaths: {} } 1`] = `
+Array [
   "
-Error: \\"configPaths\\" must be an array of strings. Received \`[{}]\`.
+Error: The \\"paths[1]\\" argument must be of type string. Received an instance of Object
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { configPaths: 1234 } 1`] = `
+Array [
   "
-Error: \\"configPaths\\" must be an array of strings. Received \`[1234]\`.
+Error: The \\"paths[1]\\" argument must be of type string. Received type number (1234)
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { configPaths: true } 1`] = `
+Array [
   "
-Error: \\"cwd\\" must be a string. Received \`1234\`.
+Error: The \\"paths[1]\\" argument must be of type string. Received type boolean (true)
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { cwd: {} } 1`] = `
+Array [
   "
 Error: \\"cwd\\" must be a string. Received \`{}\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { cwd: 1234 } 1`] = `
+Array [
+  "
+Error: \\"cwd\\" must be a string. Received \`1234\`.
+",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { filters: [Array] } 1`] = `
+Array [
   "
 Error: \\"filters\\" must be an array of strings or RegExps. Received \`[1234]\`.
 ",
-  "
-Error: \\"filters\\" must be an array of strings or RegExps. Received \`[true]\`.
-",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { filters: {} } 1`] = `
+Array [
   "
 Error: \\"filters\\" must be an array of strings or RegExps. Received \`[{}]\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { filters: 1234 } 1`] = `
+Array [
   "
 Error: \\"filters\\" must be an array of strings or RegExps. Received \`[1234]\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { filters: true } 1`] = `
+Array [
   "
-Error: \\"ignores\\" must be an array of strings. Received \`[1234]\`.
+Error: \\"filters\\" must be an array of strings or RegExps. Received \`[true]\`.
 ",
-  "
-Error: \\"ignores\\" must be an array of strings. Received \`[true]\`.
-",
-  "
-Error: \\"ignores\\" must be an array of strings. Received \`[{}]\`.
-",
-  "
-Error: \\"ignores\\" must be an array of strings. Received \`[1234]\`.
-",
-  "
-Error: \\"logo\\" must be \`true\` or \`false\`. Received \`1234\`.
-",
-  "
-Error: \\"logo\\" must be \`true\` or \`false\`. Received \`{}\`.
-",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { logo: [Array] } 1`] = `
+Array [
   "
 Error: \\"logo\\" must be \`true\` or \`false\`. Received \`[1234]\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { logo: {} } 1`] = `
+Array [
   "
-Error: \\"precommit\\" must be \`true\` or \`false\`. Received \`1234\`.
+Error: \\"logo\\" must be \`true\` or \`false\`. Received \`{}\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { logo: 1234 } 1`] = `
+Array [
+  "
+Error: \\"logo\\" must be \`true\` or \`false\`. Received \`1234\`.
+",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { precommit: 'betterer' } 1`] = `
+Array [
   "
 Error: \\"precommit\\" must be \`true\` or \`false\`. Received \`\\"betterer\\"\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { precommit: {} } 1`] = `
+Array [
   "
 Error: \\"precommit\\" must be \`true\` or \`false\`. Received \`{}\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { precommit: 1234 } 1`] = `
+Array [
   "
-Error: \\"resultsPath\\" must be a string. Received \`1234\`.
+Error: \\"precommit\\" must be \`true\` or \`false\`. Received \`1234\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { resultsPath: {} } 1`] = `
+Array [
   "
-Error: \\"resultsPath\\" must be a string. Received \`true\`.
+Error: \\"resultsPath\\" must be a string or an array. Received \`{}\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { resultsPath: 1234 } 1`] = `
+Array [
   "
-Error: \\"resultsPath\\" must be a string. Received \`{}\`.
+Error: \\"resultsPath\\" must be a string or an array. Received \`1234\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { resultsPath: true } 1`] = `
+Array [
   "
-Error: \\"silent\\" must be \`true\` or \`false\`. Received \`1234\`.
+Error: \\"resultsPath\\" must be a string or an array. Received \`true\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { silent: 'betterer' } 1`] = `
+Array [
   "
 Error: \\"silent\\" must be \`true\` or \`false\`. Received \`\\"betterer\\"\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { silent: {} } 1`] = `
+Array [
   "
 Error: \\"silent\\" must be \`true\` or \`false\`. Received \`{}\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { silent: 1234 } 1`] = `
+Array [
   "
-Error: \\"strict\\" must be \`true\` or \`false\`. Received \`1234\`.
+Error: \\"silent\\" must be \`true\` or \`false\`. Received \`1234\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { strict: 'betterer' } 1`] = `
+Array [
   "
 Error: \\"strict\\" must be \`true\` or \`false\`. Received \`\\"betterer\\"\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { strict: {} } 1`] = `
+Array [
   "
 Error: \\"strict\\" must be \`true\` or \`false\`. Received \`{}\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { strict: 1234 } 1`] = `
+Array [
   "
-Error: \\"update\\" must be \`true\` or \`false\`. Received \`1234\`.
+Error: \\"strict\\" must be \`true\` or \`false\`. Received \`1234\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { update: 'betterer' } 1`] = `
+Array [
   "
 Error: \\"update\\" must be \`true\` or \`false\`. Received \`\\"betterer\\"\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { update: {} } 1`] = `
+Array [
   "
 Error: \\"update\\" must be \`true\` or \`false\`. Received \`{}\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { update: 1234 } 1`] = `
+Array [
+  "
+Error: \\"update\\" must be \`true\` or \`false\`. Received \`1234\`.
+",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { workers: 'betterer' } 1`] = `
+Array [
   "
 Error: \\"workers\\" must be a number. Received \`\\"betterer\\"\`.
 ",
-  "
-Error: \\"workers\\" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Received \`null\`.
-",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { workers: {} } 1`] = `
+Array [
   "
 Error: \\"workers\\" must be a number. Received \`{}\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { workers: -1 } 1`] = `
+Array [
   "
 Error: \\"workers\\" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Received \`-1\`.
 ",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { workers: 1000 } 1`] = `
+Array [
   "
 Error: \\"workers\\" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Received \`1000\`.
+",
+]
+`;
+
+exports[`betterer should throw when there is invalid config: { workers: NaN } 1`] = `
+Array [
+  "
+Error: \\"workers\\" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Received \`null\`.
 ",
 ]
 `;

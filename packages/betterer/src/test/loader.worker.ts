@@ -1,9 +1,9 @@
-import type { BettererConfigPaths } from '../config/types.js';
+import type { BettererConfigPaths } from '../fs/index.js';
 import type { BettererTestNames } from './types.js';
 
 import { exposeToMain__ } from '@betterer/worker';
 
-import { registerExtensions } from '../config/register.js';
+import { registerExtensions } from '../typescript/register.js';
 import { loadTestMeta } from './loader.js';
 
 export async function loadTestNames(
