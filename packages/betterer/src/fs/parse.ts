@@ -1,11 +1,9 @@
-import type { BettererResultsSerialised } from './types.js';
-
 import { BettererError } from '@betterer/errors';
 import assert from 'node:assert';
 
-import { read } from '../fs/index.js';
-import { importText } from '../import.js';
-import { mergeResults } from './merge.js';
+import { read } from './index.js';
+import { importText } from './import.js';
+import { merge } from './merge.js';
 
 const MERGE_CONFLICT_ANCESTOR = '|||||||';
 const MERGE_CONFLICT_END = '>>>>>>>';
@@ -13,7 +11,7 @@ const MERGE_CONFLICT_SEP = '=======';
 const MERGE_CONFLICT_START = '<<<<<<<';
 
 /**
- * Parses the contents of a given results file path. If the file doesn't exist, it will
+ * Parses the contents of a given file path. If the file doesn't exist, it will
  * return an empty object. If the file exists, but has merge conflicts, it will merge the
  * files using {@link mergeResults | `mergeResults`}.
  *
@@ -21,8 +19,8 @@ const MERGE_CONFLICT_START = '<<<<<<<';
  * Throws if the results file cannot be parsed, or if it contains merge conflicts that
  * can't be resolved.
  */
-export async function parseResults(resultsPath: string): Promise<BettererResultsSerialised> {
-  const contents = await read(resultsPath);
+export async function parse(filePath: string): Promise<unknown> {
+  const contents = await read(filePath);
   if (!contents) {
     return {};
   }
@@ -30,16 +28,16 @@ export async function parseResults(resultsPath: string): Promise<BettererResults
   if (hasMergeConflicts(contents)) {
     try {
       const [ours, theirs] = extractConflicts(contents);
-      return mergeResults(ours, theirs);
+      return merge(ours, theirs);
     } catch (error) {
-      throw new BettererError(`could not resolve merge conflict in "${resultsPath}". 😔`, error as Error);
+      throw new BettererError(`could not resolve merge conflict in "${filePath}". 😔`, error as Error);
     }
   }
 
   try {
-    return await importText(contents);
+    return importText(contents);
   } catch {
-    throw new BettererError(`could not read results from "${resultsPath}". 😔`);
+    throw new BettererError(`could not read results from "${filePath}". 😔`);
   }
 }
 

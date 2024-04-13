@@ -5,6 +5,72 @@ import type { BettererRun, BettererRunSummary } from '../run/index.js';
 import type { BettererSuiteSummary, BettererSuite } from '../suite/index.js';
 
 /**
+ * @public An array of names of npm packages that export a {@link @betterer/betterer#BettererReporter | `BettererReporter`},
+ * or `object`s that implement {@link @betterer/betterer#BettererReporter | `BettererReporter`}.
+ */
+export type BettererOptionsReporters = Array<string | BettererReporter>;
+
+/**
+ * @public **Betterer** options for creating a `BettererReporter`.
+ *
+ * @remarks The options object will be validated by **Betterer** and will be available on the
+ * {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
+ */
+export interface BettererOptionsReporter {
+  /**
+   * When `true`, the default reporter will render the Betterer logo.
+   * @defaultValue `false`
+   */
+  logo?: boolean;
+  /**
+   * An array of names of npm packages that export a {@link @betterer/betterer#BettererReporter | `BettererReporter` }
+   * or `object`s that implement {@link @betterer/betterer#BettererReporter | `BettererReporter`}.
+   * Ignored when `silent` is `true`.
+   * @defaultValue `['@betterer/reporter']`
+   */
+  reporters?: BettererOptionsReporters;
+  /**
+   * When `true`, all reporters will be disabled.
+   * @defaultValue `false`
+   */
+  silent?: boolean;
+  /**
+   * The path to the {@link https://phenomnomnominal.github.io/betterer/docs/betterer-and-typescript | TypeScript configuration}.
+   * The `tsconfigPath` should be relative to the `cwd`.
+   * @defaultValue `null`
+   */
+}
+
+/**
+ * @public Options for when you override the reporter config via the {@link @betterer/betterer#BettererContext.options | `BettererContext.options()` API}.
+ */
+export interface BettererOptionsReporterOverride {
+  /**
+   * An array of names of npm packages that export a {@link @betterer/betterer#BettererReporter | `BettererReporter` }
+   * or `object`s that implement {@link @betterer/betterer#BettererReporter | `BettererReporter`}.
+   * Ignored when `silent` is `true`.
+   * @defaultValue `['@betterer/reporter']`
+   */
+  reporters?: BettererOptionsReporters;
+}
+
+/**
+ * @public Full validated config object for a `BettererReporter`.
+ *
+ * @remarks Ths config can be accessed via the {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
+ */
+export interface BettererConfigReporter {
+  /**
+   * When `true`, the default reporter will render the Betterer logo.
+   */
+  logo: boolean;
+  /**
+   * The reporter instance. All reporter hooks will be a noop if `silent` is `true`.
+   */
+  reporter: BettererReporter;
+}
+
+/**
  * @public The interface for hooking into **Betterer**'s reporter system.
  *
  * @remarks There are two ways to specify a custom `BettererReporter`:

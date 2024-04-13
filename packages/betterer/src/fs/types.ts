@@ -1,6 +1,126 @@
 import type { BettererWorkerAPI } from '@betterer/worker';
 
 /**
+ * @public A path to a {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file }
+ * containing **Betterer** tests, or an array of them.
+ */
+export type BettererOptionsPaths = Array<string> | string;
+
+/**
+ * @public **Betterer** options for creating a `BettererFS`.
+ *
+ * @remarks The options object will be validated by **Betterer** and will be available on the
+ * {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
+ */
+export interface BettererOptionsFS {
+  /**
+   * When `true`, caching will be enabled for {@link @betterer/betterer#BettererFileTest | `BettererFileTest`s}.
+   * Betterer will only check files that have changes since the last test run. **Betterer** will
+   * create a cache file at the `configPath`.
+   * @defaultValue `false`
+   */
+  cache?: boolean;
+  /**
+   * The path to where the **Betterer** cache file will be saved. Only used when `cache` is `true`.
+   * The `cachePath` should be relative to the `cwd`.
+   * @defaultValue `'./.betterer.cache'`
+   */
+  cachePath?: string;
+  /**
+   * A path to a {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file }
+   * containing **Betterer** tests, or an array of them. All `configPaths` should be relative to
+   * the `cwd`.
+   * @defaultValue `['./.betterer']`
+   */
+  configPaths?: BettererOptionsPaths;
+  /**
+   * The current working directory.
+   * @defaultValue {@link https://nodejs.org/api/process.html#process_process_cwd | `process.cwd()`}
+   */
+  cwd?: string;
+  /**
+   * The path to the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
+   * The `resultsPath` should be relative to the `cwd`.
+   * @defaultValue `'./.betterer.results'`
+   */
+  resultsPath?: string;
+}
+
+/**
+ * @public An array of absolute {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file paths }
+ * containing **Betterer** tests.
+ */
+export type BettererConfigPaths = ReadonlyArray<string>;
+
+/**
+ * @public Full validated config object for a `BettererFS`.
+ *
+ * @remarks Ths config can be accessed via the {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
+ */
+export interface BettererConfigFS {
+  /**
+   * When `true`, caching will be enabled for {@link @betterer/betterer#BettererFileTest | `BettererFileTest`s }.
+   * **Betterer** will only check files that have changes since the last test run. **Betterer**
+   * will create a cache file at the `configPath`.
+   */
+  cache: boolean;
+  /**
+   * The absolute path to where the **Betterer** cache file will be saved. Only used when `cache`
+   * is `true`.
+   */
+  cachePath: string;
+  /**
+   * An array of absolute {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file paths }
+   * containing **Betterer** tests.
+   */
+  configPaths: BettererConfigPaths;
+  /**
+   * The current working directory.
+   */
+  cwd: string;
+  /**
+   * The absolute path to the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
+   */
+  resultsPath: string;
+}
+
+/**
+ * @public Options for when merging conflicts in the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}
+ * via the {@link @betterer/betterer#merge | `betterer.merge()` API}.
+ *
+ * @remarks The options object will be validated by **Betterer**.
+ */
+export interface BettererOptionsMerge {
+  /**
+   * File contents for merging. If omitted, the `resultsPath` will be read and merged.
+   */
+  contents?: Array<string>;
+  /**
+   * The current working directory.
+   * @defaultValue {@link https://nodejs.org/api/process.html#process_process_cwd | `process.cwd()` }
+   */
+  cwd?: string;
+  /**
+   * The path to the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
+   * The `resultsPath` should be relative to the `cwd`.
+   * @defaultValue `'./.betterer.results'`
+   */
+  resultsPath?: string;
+}
+
+export interface BettererConfigMerge {
+  contents: Array<string>;
+  /**
+   * The current working directory.
+   */
+  cwd: string;
+  /**
+   * The absolute path to the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
+   */
+  resultsPath: string;
+}
+
+/**
  * @public An array of {@link https://www.npmjs.com/package/glob#user-content-glob-primer | glob }
  * patterns that match file paths that will be included in an operation. All globs should be
  * relative to the current {@link @betterer/betterer#BettererConfig.cwd | `BettererConfig.cwd`}.

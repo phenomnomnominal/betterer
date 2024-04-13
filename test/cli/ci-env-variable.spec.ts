@@ -40,13 +40,13 @@ export default {
 
     const { cli__ } = await import('@betterer/cli');
 
-    await cli__(fixturePath, [...ARGV, 'start'], false);
+    await cli__(fixturePath, [...ARGV, 'start', '--workers=0'], false);
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one + one);\nconsole.log(a * one);`);
 
     process.env.CI = 'true';
 
-    await cli__(fixturePath, [...ARGV, 'start']);
+    await cli__(fixturePath, [...ARGV, 'start', '--workers=0']);
 
     expect(logs).toMatchSnapshot();
 

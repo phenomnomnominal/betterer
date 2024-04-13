@@ -13,11 +13,12 @@ module.exports.reporter = {
       `
     });
 
-    const configPaths = [paths.config];
     const resultsPath = paths.results;
     const reporters = [resolve('reporter.js')];
 
-    await expect(async () => await betterer({ configPaths, resultsPath, reporters, workers: false })).rejects.toThrow();
+    await expect(
+      async () => await betterer({ configPaths: [], resultsPath, reporters, workers: false })
+    ).rejects.toThrow();
 
     expect(logs).toMatchSnapshot();
 

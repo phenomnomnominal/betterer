@@ -1,7 +1,7 @@
 import '@betterer/fixture';
 import { jest } from '@jest/globals';
 
-jest.setTimeout(300000);
+jest.setTimeout(120000);
 
 jest.mock('@betterer/time', (): typeof import('@betterer/time') => {
   const time = jest.requireActual('@betterer/time') as typeof import('@betterer/time');

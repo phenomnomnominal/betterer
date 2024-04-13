@@ -3,7 +3,7 @@ import type { BettererError } from '@betterer/errors';
 import type { BettererConfig } from '../config/index.js';
 import type { BettererFilePaths } from '../fs/index.js';
 import type { BettererReporterΩ } from '../reporters/index.js';
-import type { BettererResultsFileΩ } from '../results/index.js';
+import type { BettererResultsΩ } from '../results/index.js';
 import type {
   BettererReporterRun,
   BettererRuns,
@@ -16,6 +16,7 @@ import type { BettererSuite } from './types.js';
 
 import assert from 'node:assert';
 
+import { write } from '../fs/index.js';
 import { defer } from '../utils.js';
 import { BettererSuiteSummaryΩ } from './suite-summary.js';
 
@@ -26,7 +27,7 @@ export class BettererSuiteΩ implements BettererSuite {
 
   constructor(
     private _config: BettererConfig,
-    private _resultsFile: BettererResultsFileΩ,
+    private _results: BettererResultsΩ,
     public filePaths: BettererFilePaths,
     public runs: BettererRuns
   ) {
@@ -47,14 +48,17 @@ export class BettererSuiteΩ implements BettererSuite {
     const reportSuiteStart = this._reporter.suiteStart(this, runsLifecycle.promise);
     try {
       const runSummaries = await this._runTests(runLifecycles);
-      const changed = this._resultsFile.getChanged(runSummaries);
+      const changed = this._results.getChanged(runSummaries);
       const suiteSummaryΩ = new BettererSuiteSummaryΩ(this.filePaths, this.runs, runSummaries, changed);
       runsLifecycle.resolve(suiteSummaryΩ);
       await reportSuiteStart;
       await this._reporter.suiteEnd(suiteSummaryΩ);
 
       if (!isRunOnce && suiteSummaryΩ && !this._config.ci) {
-        await this._resultsFile.writeNew(suiteSummaryΩ);
+        const printedNew = this._results.printNew(suiteSummaryΩ);
+        if (printedNew) {
+          await write(printedNew, this._config.resultsPath);
+        }
       }
 
       return suiteSummaryΩ;

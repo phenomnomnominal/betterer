@@ -1,10 +1,10 @@
-import type { BettererConfigPaths } from '../config/index.js';
+import type { BettererConfigPaths } from '../fs/index.js';
 import type { BettererTestMap, BettererTestFactoryMetaMap } from './types.js';
 
 import { BettererError } from '@betterer/errors';
 
 import { isFunction } from '../utils.js';
-import { importDefault } from '../import.js';
+import { importDefault } from '../fs/import.js';
 
 export function loadTestMeta(configPaths: BettererConfigPaths): BettererTestFactoryMetaMap {
   let testMetaMap: BettererTestFactoryMetaMap = {};

@@ -24,11 +24,11 @@ export function useControls(context: BettererContext): ConfigEditField {
         return;
       }
 
+      // Don't exit on 'q' if the user is editing filters or ignores:
       if (editing != null) {
         return;
       }
 
-      // Don't exit on 'q' if the user is editing filters or ignores:
       if (input === 'q') {
         void context.stop();
       }

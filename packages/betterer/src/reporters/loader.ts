@@ -1,10 +1,14 @@
-import type { BettererOptionsReporters } from '../config/index.js';
-import type { BettererReporter, BettererReporterFactory, BettererReporterModule } from './types.js';
+import type {
+  BettererOptionsReporters,
+  BettererReporter,
+  BettererReporterFactory,
+  BettererReporterModule
+} from './types.js';
 
 import { BettererError } from '@betterer/errors';
 import path from 'node:path';
 
-import { importDefault } from '../import.js';
+import { importDefault } from '../fs/index.js';
 import { isFunction, isString } from '../utils.js';
 import { BettererReporterΩ } from './reporter.js';
 

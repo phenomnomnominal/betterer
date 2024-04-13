@@ -60,9 +60,9 @@ debugger;
 
     const { cli__ } = await import('@betterer/cli');
 
-    await cli__(fixturePath, [...ARGV, 'start'], false);
+    await cli__(fixturePath, [...ARGV, 'start', '--workers=0'], false);
 
-    await cli__(fixturePath, [...ARGV, 'precommit', newFilePath], false);
+    await cli__(fixturePath, [...ARGV, 'precommit', '--workers=0', newFilePath], false);
 
     expect(logs).toMatchSnapshot();
 

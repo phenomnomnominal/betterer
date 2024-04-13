@@ -4,47 +4,54 @@
  * @packageDocumentation
  */
 
-export { betterer, merge, results, runner, watch } from './betterer.js';
-export {
-  BettererConfig,
-  BettererConfigBase,
-  BettererConfigStart,
-  BettererConfigWatch,
-  BettererConfigExcludes,
-  BettererConfigFilters,
-  BettererConfigIgnores,
-  BettererConfigIncludes,
-  BettererConfigPaths,
-  BettererOptionsBase,
-  BettererOptionsExcludes,
-  BettererOptionsFilters,
-  BettererOptionsIgnores,
-  BettererOptionsIncludes,
-  BettererOptionsMerge,
-  BettererOptionsOverride,
-  BettererOptionsPaths,
-  BettererOptionsReporters,
+export type {
+  BettererAPI,
+  BettererOptions,
   BettererOptionsResults,
   BettererOptionsRunner,
-  BettererOptionsStartBase,
-  BettererOptionsStartCI,
-  BettererOptionsStartDefault,
-  BettererOptionsStartPrecommit,
-  BettererOptionsStartStrict,
-  BettererOptionsStartUpdate,
-  BettererOptionsStart,
   BettererOptionsWatch
-} from './config/public.js';
-export { BettererContext, BettererContextSummary } from './context/public.js';
-export {
+} from './api/public.js';
+export type { BettererConfig, BettererOptionsOverride } from './config/public.js';
+export type {
+  BettererContext,
+  BettererContextSummary,
+  BettererConfigExcludes,
+  BettererConfigFilters,
+  BettererConfigIncludes,
+  BettererOptionsContext,
+  BettererOptionsContextOverride,
+  BettererOptionsExcludes,
+  BettererOptionsFilters,
+  BettererOptionsIncludes,
+  BettererOptionsMode,
+  BettererOptionsModeCI,
+  BettererOptionsModeDefault,
+  BettererOptionsModePrecommit,
+  BettererOptionsModeStrict,
+  BettererOptionsModeUpdate,
+  BettererOptionsModeWatch,
+  BettererConfigContext
+} from './context/public.js';
+export type {
+  BettererConfigFS,
+  BettererConfigPaths,
   BettererFileGlobs,
   BettererFilePath,
   BettererFilePaths,
   BettererFilePatterns,
-  BettererFileResolver
+  BettererFileResolver,
+  BettererOptionsFS,
+  BettererOptionsMerge,
+  BettererOptionsPaths
 } from './fs/public.js';
-export { BettererReporter } from './reporters/public.js';
-export {
+export type {
+  BettererConfigReporter,
+  BettererOptionsReporter,
+  BettererOptionsReporterOverride,
+  BettererOptionsReporters,
+  BettererReporter
+} from './reporters/public.js';
+export type {
   BettererFileTestResultSummary,
   BettererFileTestResultSummaryDetails,
   BettererTestResultSummary,
@@ -54,10 +61,23 @@ export {
   BettererResultSummaries,
   BettererResultsSummary
 } from './results/public.js';
-export { BettererDelta, BettererRun, BettererRuns, BettererRunSummary, BettererRunSummaries } from './run/public.js';
-export { BettererRunner } from './runner/public.js';
-export { BettererSuite, BettererSuiteSummary, BettererSuiteSummaries } from './suite/public.js';
-export {
+export type {
+  BettererDelta,
+  BettererRun,
+  BettererRuns,
+  BettererRunSummary,
+  BettererRunSummaries
+} from './run/public.js';
+export type {
+  BettererConfigIgnores,
+  BettererConfigWatcher,
+  BettererOptionsIgnores,
+  BettererOptionsWatcher,
+  BettererOptionsWatcherOverride,
+  BettererRunner
+} from './runner/public.js';
+export type { BettererSuite, BettererSuiteSummary, BettererSuiteSummaries } from './suite/public.js';
+export type {
   BettererDeserialise,
   BettererDiff,
   BettererDiffer,
@@ -65,7 +85,6 @@ export {
   BettererFileBase,
   BettererFileDiff,
   BettererFilesDiff,
-  BettererFileTest,
   BettererFileTestFunction,
   BettererFileTestResult,
   BettererFileTestResultSerialised,
@@ -78,7 +97,6 @@ export {
   BettererProgress,
   BettererSerialise,
   BettererSerialiser,
-  BettererTest,
   BettererTestBase,
   BettererTestConstraint,
   BettererTestDeadline,
@@ -90,3 +108,8 @@ export {
   BettererTestOptionsComplex,
   BettererTestNames
 } from './test/public.js';
+export type { BettererConfigTypeScript, BettererOptionsTypeScript } from './typescript/public.js';
+export type { MaybeAsync } from './types.js';
+
+export { betterer, merge, results, runner, watch } from './api/index.js';
+export { BettererFileTest, BettererTest } from './test/public.js';

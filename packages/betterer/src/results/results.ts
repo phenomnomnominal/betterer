@@ -1,4 +1,3 @@
-import type { BettererVersionControlWorker } from '../fs/index.js';
 import type { BettererRunSummary, BettererRunSummaries } from '../run/index.js';
 import type { BettererSuiteSummary } from '../suite/index.js';
 import type { BettererTestNames } from '../test/index.js';
@@ -6,25 +5,15 @@ import type { BettererResultsSerialised } from './types.js';
 
 import assert from 'node:assert';
 
-import { write } from '../fs/index.js';
-import { parseResults } from './parse.js';
 import { printResults } from './print.js';
 
-export class BettererResultsFileΩ {
-  private constructor(
-    private _resultsPath: string,
-    private _versionControl: BettererVersionControlWorker,
-    private _baseline: BettererResultsSerialised,
-    private _expected: BettererResultsSerialised
-  ) {}
+export class BettererResultsΩ {
+  private _baseline: BettererResultsSerialised;
+  private _expected: BettererResultsSerialised;
 
-  public static async create(
-    resultsPath: string,
-    versionControl: BettererVersionControlWorker
-  ): Promise<BettererResultsFileΩ> {
-    const baseline = await parseResults(resultsPath);
-    const expected = baseline;
-    return new BettererResultsFileΩ(resultsPath, versionControl, baseline, expected);
+  constructor(baseline: unknown) {
+    this._baseline = baseline as BettererResultsSerialised;
+    this._expected = this._baseline;
   }
 
   public getChanged(runSummaries: BettererRunSummaries): BettererTestNames {
@@ -52,16 +41,16 @@ export class BettererResultsFileΩ {
     return Object.hasOwnProperty.call(this._expected, name);
   }
 
-  public async sync(): Promise<void> {
-    this._expected = await parseResults(this._resultsPath);
+  public sync(expected: unknown): void {
+    this._expected = expected as BettererResultsSerialised;
   }
 
-  public async writeNew(suiteSummary: BettererSuiteSummary): Promise<void> {
+  public printNew(suiteSummary: BettererSuiteSummary): string | null {
     if (suiteSummary.new.length === 0) {
-      return;
+      return null;
     }
 
-    const printedNew = printResults(
+    return printResults(
       suiteSummary.new
         .filter((runSummary) => !runSummary.isComplete)
         .reduce((results, runSummary: BettererRunSummary) => {
@@ -69,11 +58,13 @@ export class BettererResultsFileΩ {
           return results;
         }, this._expected)
     );
-
-    await write(printedNew, this._resultsPath);
   }
 
-  public async write(suiteSummary: BettererSuiteSummary, precommit: boolean): Promise<void> {
+  public print(): string {
+    return printResults(this._baseline);
+  }
+
+  public printSummary(suiteSummary: BettererSuiteSummary): string | null {
     const printedExpected = printResults(this._expected);
     const printedResult = printResults(
       suiteSummary.runSummaries
@@ -86,11 +77,9 @@ export class BettererResultsFileΩ {
 
     const shouldWrite = printedResult !== printedExpected;
     if (shouldWrite) {
-      await write(printedResult, this._resultsPath);
-      if (precommit) {
-        await this._versionControl.api.add(this._resultsPath);
-      }
+      return printedResult;
     }
+    return null;
   }
 
   private _getResult(name: string, results: BettererResultsSerialised): string {

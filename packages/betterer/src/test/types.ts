@@ -141,7 +141,13 @@ export type BettererDeserialise<DeserialisedType, SerialisedType> = (
  * @public The functions that convert between `SerialisedType` and `DeserialisedType`.
  */
 export interface BettererSerialiser<DeserialisedType, SerialisedType = DeserialisedType> {
+  /**
+   * The function that converts from a `DeserialisedType` to a `SerialisedType`.
+   */
   serialise: BettererSerialise<DeserialisedType, SerialisedType>;
+  /**
+   * The function that converts from a `SerialisedType` to a `DeserialisedType`.
+   */
   deserialise: BettererDeserialise<DeserialisedType, SerialisedType>;
 }
 
@@ -252,6 +258,7 @@ export interface BettererTestBase<DeserialisedType = unknown, SerialisedType = D
 }
 
 export type BettererTestFactory = () => MaybeAsync<BettererTestBase>;
+
 export interface BettererTestFactoryMeta {
   readonly configPath: string;
   readonly factory: BettererTestFactory;
