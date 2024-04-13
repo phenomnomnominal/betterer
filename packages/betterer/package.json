@@ -34,7 +34,6 @@
     "@betterer/reporter": "^5.4.0",
     "@betterer/time": "^5.3.4",
     "@betterer/worker": "^5.3.4",
-    "@phenomnomnominal/debug": "^0.2.5",
     "chokidar": "^3.3.1",
     "djb2a": "^1.2.0",
     "fast-memoize": "^2.5.2",

@@ -11,7 +11,7 @@ import type { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { BettererStatus } from '../status.js';
 import { getRunner, hasBetterer } from './betterer.js';
-import { getBettererOptions, getDebug, getEnabled } from './config.js';
+import { getBettererOptions, getEnabled } from './config.js';
 import { error, info } from './console.js';
 import { BettererInvalidConfigRequest, BettererNoLibraryRequest, isNoConfigError } from './requests/index.js';
 import { BettererStatusNotification } from './status.js';
@@ -25,8 +25,6 @@ export class BettererValidator {
 
   public async validate(documents: Array<TextDocument>): Promise<void> {
     const { workspace } = this._connection;
-
-    await getDebug(workspace);
 
     const folders = await workspace.getWorkspaceFolders();
     if (!folders) {
