@@ -41,7 +41,8 @@ export function test (): number {
 
     // Test throws on purpose with the invalid "target" type:
     await expect(
-      async () => await betterer({ configPaths, resultsPath, tsconfigPath: resolve('./typescript.json') })
+      async () =>
+        await betterer({ configPaths, resultsPath, tsconfigPath: resolve('./typescript.json'), workers: false })
     ).rejects.toThrow();
 
     expect(logs).toMatchSnapshot();

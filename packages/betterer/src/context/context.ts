@@ -1,4 +1,5 @@
 import type { BettererError } from '@betterer/errors';
+import type { FSWatcher } from 'chokidar';
 
 import type { BettererConfig, BettererOptionsOverride } from '../config/index.js';
 import type { BettererFilePaths, BettererVersionControlWorker } from '../fs/index.js';
@@ -11,10 +12,11 @@ import type { BettererContext, BettererContextStarted, BettererContextSummary } 
 
 import { importWorker__ } from '@betterer/worker';
 
-import { parse, write } from '../fs/index.js';
+import { overrideContextConfig } from '../context/index.js';
+import { BettererFileResolverΩ, parse, write } from '../fs/index.js';
 import { overrideReporterConfig } from '../reporters/index.js';
 import { BettererRunΩ, createRunWorkerPool } from '../run/index.js';
-import { overrideRunnerConfig, overrideWatchConfig } from '../runner/index.js';
+import { overrideWatchConfig } from '../runner/index.js';
 import { BettererSuiteΩ } from '../suite/index.js';
 import { defer } from '../utils.js';
 import { BettererContextSummaryΩ } from './context-summary.js';
@@ -31,7 +33,8 @@ export class BettererContextΩ implements BettererContext {
   constructor(
     public readonly config: BettererConfig,
     private readonly _results: BettererResultsΩ,
-    private readonly _versionControl: BettererVersionControlWorker
+    private readonly _versionControl: BettererVersionControlWorker,
+    private readonly _watcher: FSWatcher | null
   ) {
     this._runWorkerPool = createRunWorkerPool(this.config.workers);
     this._reporter = this.config.reporter as BettererReporterΩ;
@@ -48,8 +51,8 @@ export class BettererContextΩ implements BettererContext {
     await this._started.end();
 
     // Override the config:
+    overrideContextConfig(this.config, optionsOverride);
     overrideReporterConfig(this.config, optionsOverride);
-    overrideRunnerConfig(this.config, optionsOverride);
     overrideWatchConfig(this.config, optionsOverride);
 
     // Start everything again, and trigger a new reporter:
@@ -59,10 +62,45 @@ export class BettererContextΩ implements BettererContext {
     process.on('SIGTERM', () => this.stop());
   }
 
-  public async run(filePaths: BettererFilePaths, isRunOnce = false): Promise<void> {
+  public async runOnce(): Promise<BettererSuiteSummary> {
+    try {
+      await this.run([], true);
+      const summary = await this.stop();
+      return summary;
+    } finally {
+      await this._destroy();
+    }
+  }
+
+  public async run(specifiedFilePaths: BettererFilePaths, isRunOnce = false): Promise<void> {
     try {
       const expected = await parse(this.config.resultsPath);
       this._results.sync(expected);
+      await this._versionControl.api.sync();
+
+      const { cwd, includes, excludes } = this.config;
+
+      const resolver = new BettererFileResolverΩ(cwd, this._versionControl);
+      resolver.include(...includes);
+      resolver.exclude(...excludes);
+
+      const hasSpecifiedFiles = specifiedFilePaths.length > 0;
+      const hasGlobalIncludesExcludes = includes.length || excludes.length;
+
+      let filePaths: BettererFilePaths;
+      if (hasSpecifiedFiles && hasGlobalIncludesExcludes) {
+        // Validate specified files based on global `includes`/`excludes and gitignore rules:
+        filePaths = await resolver.validate(specifiedFilePaths);
+      } else if (hasSpecifiedFiles) {
+        // Validate specified files based on gitignore rules:
+        filePaths = await resolver.validate(specifiedFilePaths);
+      } else if (hasGlobalIncludesExcludes) {
+        // Resolve files based on global `includes`/`excludes and gitignore rules:
+        filePaths = await resolver.files();
+      } else {
+        // When `filePaths` is `[]` the test will use its specific resolver:
+        filePaths = [];
+      }
 
       // Load test names in a worker so the import cache is always clean:
       const testNames = await this._testMetaLoader.api.loadTestNames(this.config.tsconfigPath, this.config.configPaths);
@@ -89,6 +127,9 @@ export class BettererContextΩ implements BettererContext {
 
   public async stop(): Promise<BettererSuiteSummary> {
     try {
+      if (this._watcher) {
+        await this._watcher.close();
+      }
       const contextSummary = await this._started.end();
       return contextSummary.lastSuite;
     } finally {

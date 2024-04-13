@@ -1,6 +1,5 @@
 export {
   BettererConfigFS,
-  BettererConfigMerge,
   BettererConfigPaths,
   BettererFileGlobs,
   BettererFilePath,

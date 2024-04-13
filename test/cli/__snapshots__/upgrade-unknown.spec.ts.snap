@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`betterer upgrade should doesn't change things it doesn't need to change 1`] = `
+Array [
+  "🎉 Upgrading Betterer (0ms): 1 task done!
+✅ Upgrading \\"./.betterer.ts\\": done!
+・ Nothing to upgrade!",
+]
+`;

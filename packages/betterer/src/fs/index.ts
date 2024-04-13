@@ -8,6 +8,7 @@ export type {
   BettererFileResolver,
   BettererOptionsFS,
   BettererOptionsMerge,
+  BettererOptionsPaths,
   BettererVersionControlWorker
 } from './types.js';
 

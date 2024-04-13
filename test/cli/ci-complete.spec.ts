@@ -41,7 +41,7 @@ export default {
 
     const { cli__ } = await import('@betterer/cli');
 
-    await cli__(fixturePath, [...ARGV, 'start'], false);
+    await cli__(fixturePath, [...ARGV, 'start', '--workers=0'], false);
 
     const result = await readFile(resultsPath);
 
@@ -49,13 +49,13 @@ export default {
 
     await writeFile(indexPath, ``);
 
-    await cli__(fixturePath, [...ARGV, 'start'], false);
+    await cli__(fixturePath, [...ARGV, 'start', '--workers=0'], false);
 
     const completeResult = await readFile(resultsPath);
 
     expect(completeResult).toMatchSnapshot();
 
-    await cli__(fixturePath, [...ARGV, 'ci']);
+    await cli__(fixturePath, [...ARGV, 'ci', '--workers=0']);
 
     expect(logs).toMatchSnapshot();
 

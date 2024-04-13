@@ -42,11 +42,11 @@ export default {
 
     const { cli__ } = await import('@betterer/cli');
 
-    await cli__(fixturePath, [...ARGV, 'start'], false);
+    await cli__(fixturePath, [...ARGV, 'start', '--workers=0'], false);
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one * a);\nconsole.log(a * one);`);
 
-    await cli__(fixturePath, [...ARGV, 'precommit']);
+    await cli__(fixturePath, [...ARGV, 'precommit', '--workers=0']);
 
     expect(process.exitCode).toEqual(1);
 

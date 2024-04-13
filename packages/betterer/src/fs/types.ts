@@ -6,6 +6,12 @@ import type { BettererWorkerAPI } from '@betterer/worker';
  */
 export type BettererOptionsPaths = Array<string> | string;
 
+/**
+ * @public **Betterer** options for creating a `BettererFS`.
+ *
+ * @remarks The options object will be validated by **Betterer** and will be available on the
+ * {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
+ */
 export interface BettererOptionsFS {
   /**
    * When `true`, caching will be enabled for {@link @betterer/betterer#BettererFileTest | `BettererFileTest`s}.
@@ -46,6 +52,11 @@ export interface BettererOptionsFS {
  */
 export type BettererConfigPaths = ReadonlyArray<string>;
 
+/**
+ * @public Full validated config object for a `BettererFS`.
+ *
+ * @remarks Ths config can be accessed via the {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
+ */
 export interface BettererConfigFS {
   /**
    * When `true`, caching will be enabled for {@link @betterer/betterer#BettererFileTest | `BettererFileTest`s }.

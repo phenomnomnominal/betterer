@@ -1,4 +1,5 @@
-export type { BettererAPI, BettererOptions, BettererOptionsResults, BettererOptionsWatch } from './types.js';
+export type { BettererAPI } from './betterer.js';
+export type { BettererOptions, BettererOptionsResults, BettererOptionsRunner, BettererOptionsWatch } from './types.js';
 
 export { betterer } from './betterer.js';
 export { merge } from './merge.js';

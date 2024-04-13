@@ -5,10 +5,11 @@ import type { BettererReporterΩ } from './reporters/index.js';
 import type { BettererOptionsWatcher } from './runner/index.js';
 import type { BettererGlobals } from './types.js';
 
+import { createContextConfig, enableMode } from './context/index.js';
 import { BettererFSΩ, createFSConfig } from './fs/index.js';
 import { createReporterConfig, loadDefaultReporter } from './reporters/index.js';
 import { BettererResultsΩ } from './results/index.js';
-import { createRunnerConfig, createWatcherConfig, enableMode } from './runner/index.js';
+import { createWatcherConfig } from './runner/index.js';
 import { createTypeScriptConfig } from './typescript/index.js';
 
 export async function createGlobals(
@@ -18,18 +19,18 @@ export async function createGlobals(
   let reporter = loadDefaultReporter();
 
   try {
+    const configContext = createContextConfig(options);
     const configFS = createFSConfig(options);
     const configReporter = createReporterConfig(configFS, options);
-    const configRunner = createRunnerConfig(options);
     const configTypeScript = await createTypeScriptConfig(configFS, options);
     const configWatcher = createWatcherConfig(configFS, optionsWatch);
 
     const { resultsFile, versionControl, versionControlPath } = await BettererFSΩ.create(configFS);
 
     const config = enableMode({
+      ...configContext,
       ...configFS,
       ...configReporter,
-      ...configRunner,
       ...configTypeScript,
       ...configWatcher,
       versionControlPath

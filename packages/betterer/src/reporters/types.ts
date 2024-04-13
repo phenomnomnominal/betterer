@@ -11,9 +11,10 @@ import type { BettererSuiteSummary, BettererSuite } from '../suite/index.js';
 export type BettererOptionsReporters = Array<string | BettererReporter>;
 
 /**
- * @internal This could change at any point! Please don't use!
+ * @public **Betterer** options for creating a `BettererReporter`.
  *
- * Base options for **Betterer** all running modes.
+ * @remarks The options object will be validated by **Betterer** and will be available on the
+ * {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
  */
 export interface BettererOptionsReporter {
   /**
@@ -40,6 +41,9 @@ export interface BettererOptionsReporter {
    */
 }
 
+/**
+ * @public Options for when you override the reporter config via the {@link @betterer/betterer#BettererContext.options | `BettererContext.options()` API}.
+ */
 export interface BettererOptionsReporterOverride {
   /**
    * An array of names of npm packages that export a {@link @betterer/betterer#BettererReporter | `BettererReporter` }
@@ -50,6 +54,11 @@ export interface BettererOptionsReporterOverride {
   reporters?: BettererOptionsReporters;
 }
 
+/**
+ * @public Full validated config object for a `BettererReporter`.
+ *
+ * @remarks Ths config can be accessed via the {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
+ */
 export interface BettererConfigReporter {
   /**
    * When `true`, the default reporter will render the Betterer logo.

@@ -1,4 +1,4 @@
-import type { BettererOptions } from '@betterer/betterer';
+import type { BettererOptionsRunner } from '@betterer/betterer';
 import type { RemoteWorkspace } from 'vscode-languageserver/node';
 
 import { promises as fs } from 'node:fs';
@@ -31,9 +31,9 @@ export async function getDebug(workspace: RemoteWorkspace): Promise<void> {
   }
 }
 
-export async function getBettererOptions(cwd: string, workspace: RemoteWorkspace): Promise<BettererOptions> {
+export async function getBettererOptions(cwd: string, workspace: RemoteWorkspace): Promise<BettererOptionsRunner> {
   const { cachePath, configPath, filters, resultsPath, tsconfigPath } = await getExtensionConfig(workspace);
-  const config: BettererOptions = {
+  const options: BettererOptionsRunner = {
     cache: true,
     cachePath: path.resolve(cwd, cachePath),
     configPaths: [path.resolve(cwd, configPath)],
@@ -46,12 +46,12 @@ export async function getBettererOptions(cwd: string, workspace: RemoteWorkspace
     try {
       const absoluteTSConfigPath = path.resolve(cwd, tsconfigPath);
       await fs.readFile(absoluteTSConfigPath);
-      config.tsconfigPath = absoluteTSConfigPath;
+      options.tsconfigPath = absoluteTSConfigPath;
     } catch {
       // Cannot read `tsconfigPath`
     }
   }
-  return config;
+  return options;
 }
 
 function getExtensionConfig(workspace: RemoteWorkspace): Promise<BettererExtensionConfig> {

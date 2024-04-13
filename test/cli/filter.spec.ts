@@ -37,11 +37,11 @@ module.exports = {
 
     const { cli__ } = await import('@betterer/cli');
 
-    await cli__(fixturePath, [...ARGV, 'start'], false);
+    await cli__(fixturePath, [...ARGV, 'start', '--workers=0'], false);
 
-    await cli__(fixturePath, [...ARGV, 'start', '--filter', '1'], false);
+    await cli__(fixturePath, [...ARGV, 'start', '--workers=0', '--filter', '1'], false);
 
-    await cli__(fixturePath, [...ARGV, 'start', '--filter', '1', '--filter', '3'], false);
+    await cli__(fixturePath, [...ARGV, 'start', '--workers=0', '--filter', '1', '--filter', '3'], false);
 
     expect(logs).toMatchSnapshot();
 

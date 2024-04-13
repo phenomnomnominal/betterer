@@ -73,6 +73,7 @@ export function validateWorkers(workers: number | boolean = true): number {
     workers = totalCPUs >= 4 ? totalCPUs - 2 : false;
   }
   if (workers === false || workers === 0) {
+    process.env.BETTERER_WORKER = 'false';
     // When disabled, set workers to 1 so that the BettererWorkerPool
     // can be instantiated correctly:
     workers = 1;

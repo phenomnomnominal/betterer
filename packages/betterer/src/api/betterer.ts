@@ -1,7 +1,11 @@
 import type { BettererSuiteSummary } from '../suite/index.js';
-import type { BettererOptionsStart } from './types.js';
+import type { BettererOptions } from './types.js';
 
 import { BettererRunnerΩ } from '../runner/index.js';
+import { merge } from './merge.js';
+import { results } from './results.js';
+import { runner } from './runner.js';
+import { watch } from './watch.js';
 
 /**
  * @public Run **Betterer** with the given options.
@@ -17,7 +21,18 @@ import { BettererRunnerΩ } from '../runner/index.js';
  * @throws {@link @betterer/errors#BettererError | `BettererError` }
  * Will throw if something goes wrong while running **Betterer**.
  */
-export async function betterer(options: BettererOptionsStart = {}): Promise<BettererSuiteSummary> {
+export const betterer = async function betterer(options: BettererOptions = {}): Promise<BettererSuiteSummary> {
   const runner = await BettererRunnerΩ.create(options);
   return await runner.run();
-}
+};
+
+betterer.merge = merge;
+betterer.results = results;
+betterer.runner = runner;
+betterer.watch = watch;
+
+/**
+ * @public Public API for **Betterer**. The types are a bit funky, but it's nice to
+ * have the base `betterer()` function with the more specific functions attached.
+ */
+export type BettererAPI = typeof betterer;

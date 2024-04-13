@@ -51,7 +51,16 @@ export function importWorker__<T>(importPath: string): BettererWorkerAPI<T> {
   } catch {
     // Was probably already a file path 🤷‍♂️
   }
+
   const idPath = path.resolve(path.dirname(callerFilePath), importPath);
+
+  if (process.env.BETTERER_WORKER === 'false') {
+    return {
+      api: importDefault<T>(idPath),
+      destroy: () => Promise.resolve()
+    } as BettererWorkerAPI<T>;
+  }
+
   const worker = new Worker(idPath);
   const api = wrap(nodeEndpoint(worker));
 
@@ -64,6 +73,20 @@ export function importWorker__<T>(importPath: string): BettererWorkerAPI<T> {
   } as BettererWorkerAPI<T>);
 }
 
+interface ESModule<T> {
+  default: T;
+}
+
+export function importDefault<T>(importPath: string): T {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires -- migrating away from CJS requires
+  const m = require(importPath) as unknown;
+  return getDefaultExport<T>(m);
+}
+
+export function getDefaultExport<T>(module: unknown): T {
+  return (module as ESModule<T>).default || (module as T);
+}
+
 /**
  * @internal This could change at any point! Please don't use!
  *
@@ -73,6 +96,10 @@ export function importWorker__<T>(importPath: string): BettererWorkerAPI<T> {
  * Will throw if it is called from the main thread.
  */
 export function exposeToMain__<Expose>(api: Expose): void {
+  if (process.env.BETTERER_WORKER === 'false') {
+    return;
+  }
+
   if (!parentPort) {
     throw new BettererError(`"exposeToMain__" called from main thread! 🤪`);
   }
@@ -84,6 +111,10 @@ export function exposeToMain__<Expose>(api: Expose): void {
  * @remarks Use `exposeToWorker__` to allow a Worker to call main thread functions across the thread boundary.
  */
 export function exposeToWorker__<Expose extends object>(api: Expose): Expose {
+  if (process.env.BETTERER_WORKER === 'false') {
+    return api;
+  }
+
   proxy(api);
   return api;
 }

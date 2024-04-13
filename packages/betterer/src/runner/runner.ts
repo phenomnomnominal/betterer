@@ -1,5 +1,3 @@
-import type { FSWatcher } from 'chokidar';
-
 import type { BettererOptions } from '../api/index.js';
 import type { BettererConfig, BettererOptionsOverride } from '../config/index.js';
 import type { BettererFilePaths, BettererVersionControlWorker } from '../fs/index.js';
@@ -23,8 +21,7 @@ export class BettererRunnerΩ implements BettererRunner {
   private constructor(
     private readonly _config: BettererConfig,
     private readonly _context: BettererContextΩ,
-    private readonly _versionControl: BettererVersionControlWorker,
-    private readonly _watcher: FSWatcher | null = null
+    private readonly _versionControl: BettererVersionControlWorker
   ) {}
 
   public static async create(
@@ -34,8 +31,8 @@ export class BettererRunnerΩ implements BettererRunner {
     const { config, results, versionControl } = await createGlobals(options, optionsWatch);
     const watcher = await createWatcher(config);
 
-    const context = new BettererContextΩ(config, results, versionControl);
-    const runner = new BettererRunnerΩ(config, context, versionControl, watcher);
+    const context = new BettererContextΩ(config, results, versionControl, watcher);
+    const runner = new BettererRunnerΩ(config, context, versionControl);
 
     if (watcher) {
       watcher.on('all', (event: string, filePath: string) => {
@@ -53,8 +50,7 @@ export class BettererRunnerΩ implements BettererRunner {
   }
 
   public async run(): Promise<BettererSuiteSummary> {
-    await this._resolveFilesAndRun([], true);
-    return await this._context.stop();
+    return await this._context.runOnce();
   }
 
   public queue(filePathOrPaths: string | BettererFilePaths = []): Promise<void> {
@@ -79,9 +75,6 @@ export class BettererRunnerΩ implements BettererRunner {
     try {
       if (!force) {
         await this._running;
-      }
-      if (this._watcher) {
-        await this._watcher.close();
       }
       return await this._context.stop();
     } catch (error) {

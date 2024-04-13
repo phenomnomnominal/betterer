@@ -4,31 +4,36 @@
  * @packageDocumentation
  */
 
-import type { BettererAPI } from './api/index.js';
-import { betterer as start, merge, results, runner, watch } from './api/index.js';
-
-const api = start as BettererAPI;
-api.merge = merge;
-api.results = results;
-api.runner = runner;
-api.watch = watch;
-
-export const betterer = api;
-export { merge, results, runner, watch };
-
-export type { BettererAPI };
-
 export type {
+  BettererAPI,
   BettererOptions,
-  BettererOptionsStart,
   BettererOptionsResults,
+  BettererOptionsRunner,
   BettererOptionsWatch
 } from './api/public.js';
 export type { BettererConfig, BettererOptionsOverride } from './config/public.js';
-export type { BettererContext, BettererContextSummary } from './context/public.js';
+export type {
+  BettererContext,
+  BettererContextSummary,
+  BettererConfigExcludes,
+  BettererConfigFilters,
+  BettererConfigIncludes,
+  BettererOptionsContext,
+  BettererOptionsContextOverride,
+  BettererOptionsExcludes,
+  BettererOptionsFilters,
+  BettererOptionsIncludes,
+  BettererOptionsMode,
+  BettererOptionsModeCI,
+  BettererOptionsModeDefault,
+  BettererOptionsModePrecommit,
+  BettererOptionsModeStrict,
+  BettererOptionsModeUpdate,
+  BettererOptionsModeWatch,
+  BettererConfigContext
+} from './context/public.js';
 export type {
   BettererConfigFS,
-  BettererConfigMerge,
   BettererConfigPaths,
   BettererFileGlobs,
   BettererFilePath,
@@ -64,24 +69,9 @@ export type {
   BettererRunSummaries
 } from './run/public.js';
 export type {
-  BettererConfigExcludes,
-  BettererConfigFilters,
   BettererConfigIgnores,
-  BettererConfigIncludes,
-  BettererConfigRunner,
   BettererConfigWatcher,
-  BettererOptionsExcludes,
-  BettererOptionsFilters,
   BettererOptionsIgnores,
-  BettererOptionsIncludes,
-  BettererOptionsModeAll,
-  BettererOptionsModeCI,
-  BettererOptionsModePrecommit,
-  BettererOptionsModeStrict,
-  BettererOptionsModeUpdate,
-  BettererOptionsModeWatch,
-  BettererOptionsRunner,
-  BettererOptionsRunnerOverride,
   BettererOptionsWatcher,
   BettererOptionsWatcherOverride,
   BettererRunner
@@ -119,5 +109,7 @@ export type {
   BettererTestNames
 } from './test/public.js';
 export type { BettererConfigTypeScript, BettererOptionsTypeScript } from './typescript/public.js';
+export type { MaybeAsync } from './types.js';
 
+export { betterer, merge, results, runner, watch } from './api/index.js';
 export { BettererFileTest, BettererTest } from './test/public.js';

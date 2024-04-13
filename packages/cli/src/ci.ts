@@ -1,4 +1,4 @@
-import type { BettererOptionsStart } from '@betterer/betterer';
+import type { BettererOptions } from '@betterer/betterer';
 import type { Command } from 'commander';
 
 import type { BettererCLIConfig } from './types.js';
@@ -35,9 +35,9 @@ export function ci(cwd: string): Command {
     };
 
     try {
-      // And then cast to BettererOptionsStart. This is possibly invalid,
+      // And then cast to BettererOptions. This is possibly invalid,
       // but it's nicer to do the options validation in @betterer/betterer
-      const suiteSummary = await betterer(options as BettererOptionsStart);
+      const suiteSummary = await betterer(options as BettererOptions);
       if (suiteSummary.changed.length > 0 || suiteSummary.failed.length > 0) {
         process.exitCode = 1;
       }

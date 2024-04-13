@@ -1,4 +1,4 @@
-import type { betterer, BettererOptions, BettererRunner } from '@betterer/betterer';
+import type { betterer, BettererOptionsRunner, BettererRunner } from '@betterer/betterer';
 
 import { Files } from 'vscode-languageserver/node';
 
@@ -18,13 +18,13 @@ export async function hasBetterer(cwd: string): Promise<boolean> {
   return !!libraryPath;
 }
 
-export async function getRunner(config: BettererOptions): Promise<BettererRunner> {
-  const key = JSON.stringify(config);
+export async function getRunner(options: BettererOptionsRunner): Promise<BettererRunner> {
+  const key = JSON.stringify(options);
   if (RUNNERS.has(key)) {
     return RUNNERS.get(key) as BettererRunner;
   }
-  const { runner } = await getLibrary(config.cwd as string);
-  const toCache = await runner(config);
+  const { runner } = await getLibrary(options.cwd as string);
+  const toCache = await runner(options);
   RUNNERS.set(key, toCache);
   return toCache;
 }

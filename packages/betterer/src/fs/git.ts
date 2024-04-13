@@ -13,6 +13,8 @@ import { normalisedPath } from '../utils.js';
 import { BettererFileCacheΩ } from './file-cache.js';
 import { read } from './reader.js';
 
+const GIT_TIMEOUT = 2000;
+
 export class BettererGitΩ implements BettererVersionControl {
   private _cache: BettererFileCache | null = null;
   private _configPaths: BettererFilePaths = [];
@@ -65,7 +67,11 @@ export class BettererGitΩ implements BettererVersionControl {
     this._configPaths = configPaths;
     this._gitDir = await this._findGitRoot(cwd);
     this._rootDir = path.dirname(this._gitDir);
-    this._git = simpleGit(this._rootDir);
+    this._git = simpleGit(this._rootDir, {
+      timeout: {
+        block: GIT_TIMEOUT
+      }
+    });
     this._cache = new BettererFileCacheΩ(this._configPaths);
     await this._init(this._git);
     await this.sync();

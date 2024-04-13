@@ -19,5 +19,7 @@ import { BettererRunnerΩ } from '../runner/index.js';
  * Will throw if something goes wrong while creating the runner or watcher.
  */
 export function watch(options: BettererOptionsWatch = {}): Promise<BettererRunner> {
-  return BettererRunnerΩ.create({ ...options }, { ignores: options.ignores, watch: true });
+  const { ignores } = options;
+  delete options.ignores;
+  return BettererRunnerΩ.create({ ...options }, { ignores, watch: true });
 }

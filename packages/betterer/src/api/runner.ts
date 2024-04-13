@@ -1,4 +1,5 @@
-import type { BettererOptionsRunner, BettererRunner } from '../runner/index.js';
+import type { BettererRunner } from '../runner/index.js';
+import type { BettererOptionsRunner } from './types.js';
 
 import { BettererRunnerΩ } from '../runner/index.js';
 

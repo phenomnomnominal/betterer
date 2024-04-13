@@ -1,60 +1,8 @@
 import type { BettererConfig } from '../config/index.js';
 import type { BettererConfigFS } from '../fs/index.js';
-import type {
-  BettererConfigRunner,
-  BettererConfigWatcher,
-  BettererOptionsRunner,
-  BettererOptionsRunnerOverride,
-  BettererOptionsWatcher,
-  BettererOptionsWatcherOverride
-} from './types.js';
+import type { BettererConfigWatcher, BettererOptionsWatcher, BettererOptionsWatcherOverride } from './types.js';
 
-import {
-  toArray,
-  toRegExps,
-  validateBool,
-  validateStringArray,
-  validateStringRegExpArray,
-  validateWorkers
-} from '../config/index.js';
-
-export function createRunnerConfig(options: BettererOptionsRunner): BettererConfigRunner {
-  const ci = options.ci || false;
-  const filters = toRegExps(toArray<string | RegExp>(options.filters));
-  const excludes = toRegExps(toArray<string | RegExp>(options.excludes)) || [];
-  const includes = toArray<string>(options.includes) || [];
-  const precommit = options.precommit || false;
-  const strict = options.strict || false;
-  const update = options.update || false;
-
-  validateBool({ ci });
-  validateBool({ precommit });
-  validateBool({ strict });
-  validateBool({ update });
-  validateStringRegExpArray({ excludes });
-  validateStringRegExpArray({ filters });
-  validateStringArray({ includes });
-
-  const workers = validateWorkers(options.workers);
-
-  return {
-    ci,
-    excludes,
-    filters,
-    includes,
-    precommit,
-    strict,
-    update,
-    workers
-  };
-}
-
-export function overrideRunnerConfig(config: BettererConfig, optionsOverride: BettererOptionsRunnerOverride): void {
-  if (optionsOverride.filters) {
-    validateStringRegExpArray({ filters: optionsOverride.filters });
-    config.filters = toRegExps(toArray<string | RegExp>(optionsOverride.filters));
-  }
-}
+import { toArray, validateBool, validateStringArray } from '../config/index.js';
 
 export function createWatcherConfig(
   configFS: BettererConfigFS,

@@ -8,43 +8,32 @@ import type { BettererConstraintResult } from '@betterer/constraints';
 import type { BettererError } from '@betterer/errors';
 import type { BettererLogs } from '@betterer/logger';
 
-// Warning: (ae-missing-release-tag) "betterer" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
 // @public
-export function betterer(options?: BettererOptionsStart): Promise<BettererSuiteSummary>;
+export const betterer: {
+    (options?: BettererOptions): Promise<BettererSuiteSummary>;
+    merge: typeof merge;
+    results: typeof results;
+    runner: typeof runner;
+    watch: typeof watch;
+};
 
-// @public (undocumented)
-export namespace betterer {
-    var // (undocumented)
-    merge: merge;
-    var // (undocumented)
-    results: results;
-    var // (undocumented)
-    runner: runner;
-    var // (undocumented)
-    watch: watch;
-}
-
-// Warning: (ae-incompatible-release-tags) The symbol "BettererConfig" is marked as @public, but its signature references "BettererConfigBase" which is marked as @internal
-// Warning: (ae-incompatible-release-tags) The symbol "BettererConfig" is marked as @public, but its signature references "BettererConfigStart" which is marked as @internal
-// Warning: (ae-incompatible-release-tags) The symbol "BettererConfig" is marked as @public, but its signature references "BettererConfigWatch" which is marked as @internal
-//
 // @public
-export interface BettererConfig extends BettererConfigBase, BettererConfigStart, BettererConfigWatch {
-}
+export type BettererAPI = typeof betterer;
 
-// @internal
-export interface BettererConfigBase {
-    cache: boolean;
-    cachePath: string;
-    configPaths: BettererConfigPaths;
-    cwd: string;
-    filters: BettererConfigFilters;
-    logo: boolean;
-    reporter: BettererReporter;
-    resultsPath: string;
-    tsconfigPath: string | null;
+// @public
+export interface BettererConfig extends BettererConfigFS, BettererConfigReporter, BettererConfigContext, BettererConfigTypeScript, BettererConfigWatcher {
     versionControlPath: string;
+}
+
+// @public
+export interface BettererConfigContext {
+    ci: boolean;
+    excludes: BettererConfigExcludes;
+    filters: BettererConfigFilters;
+    includes: BettererConfigIncludes;
+    precommit: boolean;
+    strict: boolean;
+    update: boolean;
     workers: number;
 }
 
@@ -55,6 +44,15 @@ export type BettererConfigExcludes = ReadonlyArray<RegExp>;
 export type BettererConfigFilters = ReadonlyArray<RegExp>;
 
 // @public
+export interface BettererConfigFS {
+    cache: boolean;
+    cachePath: string;
+    configPaths: BettererConfigPaths;
+    cwd: string;
+    resultsPath: string;
+}
+
+// @public
 export type BettererConfigIgnores = ReadonlyArray<string>;
 
 // @public
@@ -63,18 +61,19 @@ export type BettererConfigIncludes = ReadonlyArray<string>;
 // @public
 export type BettererConfigPaths = ReadonlyArray<string>;
 
-// @internal
-export interface BettererConfigStart {
-    ci: boolean;
-    excludes: BettererConfigExcludes;
-    includes: BettererConfigIncludes;
-    precommit: boolean;
-    strict: boolean;
-    update: boolean;
+// @public
+export interface BettererConfigReporter {
+    logo: boolean;
+    reporter: BettererReporter;
 }
 
-// @internal
-export interface BettererConfigWatch {
+// @public
+export interface BettererConfigTypeScript {
+    tsconfigPath: string | null;
+}
+
+// @public
+export interface BettererConfigWatcher {
     ignores: BettererConfigIgnores;
     watch: boolean;
 }
@@ -201,8 +200,6 @@ export class BettererFileTest implements BettererFileTestBase {
 // @public
 export type BettererFileTestDiff = BettererDiff<BettererFilesDiff>;
 
-// Warning: (ae-forgotten-export) The symbol "MaybeAsync" needs to be exported by the entry point index.d.ts
-//
 // @public
 export type BettererFileTestFunction = (filePaths: BettererFilePaths, fileTestResult: BettererFileTestResult, resolver: BettererFileResolver) => MaybeAsync<void>;
 
@@ -225,19 +222,20 @@ export interface BettererFileTestResultSummary {
 // @public
 export type BettererFileTestResultSummaryDetails = Record<string, BettererFileIssues>;
 
-// @internal
-export interface BettererOptionsBase {
-    cache?: boolean;
-    cachePath?: string;
-    configPaths?: BettererOptionsPaths;
-    cwd?: string;
+// @public
+export type BettererOptions = BettererOptionsContext & BettererOptionsFS & BettererOptionsMode & BettererOptionsReporter & BettererOptionsTypeScript;
+
+// @public
+export type BettererOptionsContext = BettererOptionsMode & {
+    excludes?: BettererOptionsExcludes;
     filters?: BettererOptionsFilters;
-    logo?: boolean;
-    reporters?: BettererOptionsReporters;
-    resultsPath?: string;
-    silent?: boolean;
-    tsconfigPath?: string;
+    includes?: BettererOptionsIncludes;
     workers?: number | boolean;
+};
+
+// @public
+export interface BettererOptionsContextOverride {
+    filters?: BettererOptionsFilters;
 }
 
 // @public
@@ -245,6 +243,15 @@ export type BettererOptionsExcludes = Array<string | RegExp> | string | RegExp;
 
 // @public
 export type BettererOptionsFilters = Array<string | RegExp> | string | RegExp;
+
+// @public
+export interface BettererOptionsFS {
+    cache?: boolean;
+    cachePath?: string;
+    configPaths?: BettererOptionsPaths;
+    cwd?: string;
+    resultsPath?: string;
+}
 
 // @public
 export type BettererOptionsIgnores = Array<string>;
@@ -260,50 +267,10 @@ export interface BettererOptionsMerge {
 }
 
 // @public
-export interface BettererOptionsOverride {
-    filters?: BettererOptionsFilters;
-    ignores?: BettererOptionsIgnores;
-    reporters?: BettererOptionsReporters;
-}
+export type BettererOptionsMode = BettererOptionsModeCI | BettererOptionsModeDefault | BettererOptionsModePrecommit | BettererOptionsModeStrict | BettererOptionsModeUpdate;
 
 // @public
-export type BettererOptionsPaths = Array<string> | string;
-
-// @public
-export type BettererOptionsReporters = Array<string | BettererReporter>;
-
-// @public
-export interface BettererOptionsResults {
-    configPaths?: BettererOptionsPaths;
-    cwd?: string;
-    excludes?: BettererOptionsExcludes;
-    filters?: BettererOptionsFilters;
-    includes?: BettererOptionsIncludes;
-    resultsPath?: string;
-}
-
-// Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsRunner" is marked as @public, but its signature references "BettererOptionsBase" which is marked as @internal
-//
-// @public
-export type BettererOptionsRunner = BettererOptionsBase;
-
-// Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsStart" is marked as @public, but its signature references "BettererOptionsStartCI" which is marked as @internal
-// Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsStart" is marked as @public, but its signature references "BettererOptionsStartDefault" which is marked as @internal
-// Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsStart" is marked as @public, but its signature references "BettererOptionsStartPrecommit" which is marked as @internal
-// Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsStart" is marked as @public, but its signature references "BettererOptionsStartStrict" which is marked as @internal
-// Warning: (ae-incompatible-release-tags) The symbol "BettererOptionsStart" is marked as @public, but its signature references "BettererOptionsStartUpdate" which is marked as @internal
-//
-// @public
-export type BettererOptionsStart = BettererOptionsStartCI | BettererOptionsStartDefault | BettererOptionsStartPrecommit | BettererOptionsStartStrict | BettererOptionsStartUpdate;
-
-// @internal
-export interface BettererOptionsStartBase extends BettererOptionsBase {
-    excludes?: BettererOptionsExcludes;
-    includes?: BettererOptionsIncludes;
-}
-
-// @internal
-export interface BettererOptionsStartCI extends BettererOptionsStartBase {
+export interface BettererOptionsModeCI {
     // (undocumented)
     ci?: true;
     // (undocumented)
@@ -312,12 +279,10 @@ export interface BettererOptionsStartCI extends BettererOptionsStartBase {
     strict?: true;
     // (undocumented)
     update?: false;
-    // (undocumented)
-    watch?: false;
 }
 
-// @internal
-export interface BettererOptionsStartDefault extends BettererOptionsStartBase {
+// @public
+export interface BettererOptionsModeDefault {
     // (undocumented)
     ci?: false;
     // (undocumented)
@@ -326,26 +291,22 @@ export interface BettererOptionsStartDefault extends BettererOptionsStartBase {
     strict?: false;
     // (undocumented)
     update?: false;
-    // (undocumented)
-    watch?: false;
 }
 
-// @internal
-export interface BettererOptionsStartPrecommit extends BettererOptionsStartBase {
+// @public
+export interface BettererOptionsModePrecommit {
     // (undocumented)
     ci?: false;
     // (undocumented)
     precommit?: true;
     // (undocumented)
-    strict?: boolean;
+    strict?: true;
     // (undocumented)
     update?: false;
-    // (undocumented)
-    watch?: false;
 }
 
-// @internal
-export interface BettererOptionsStartStrict extends BettererOptionsStartBase {
+// @public
+export interface BettererOptionsModeStrict {
     // (undocumented)
     ci?: false;
     // (undocumented)
@@ -354,12 +315,10 @@ export interface BettererOptionsStartStrict extends BettererOptionsStartBase {
     strict?: true;
     // (undocumented)
     update?: false;
-    // (undocumented)
-    watch?: false;
 }
 
-// @internal
-export interface BettererOptionsStartUpdate extends BettererOptionsStartBase {
+// @public
+export interface BettererOptionsModeUpdate {
     // (undocumented)
     ci?: false;
     // (undocumented)
@@ -368,14 +327,65 @@ export interface BettererOptionsStartUpdate extends BettererOptionsStartBase {
     strict?: false;
     // (undocumented)
     update?: true;
-    // (undocumented)
-    watch?: false;
 }
 
 // @public
-export interface BettererOptionsWatch extends BettererOptionsRunner {
+export interface BettererOptionsModeWatch {
+    // (undocumented)
+    ci?: false;
+    // (undocumented)
+    precommit?: false;
+    // (undocumented)
+    strict?: false;
+    // (undocumented)
+    update?: false;
+}
+
+// @public
+export interface BettererOptionsOverride extends BettererOptionsContextOverride, BettererOptionsReporterOverride, BettererOptionsWatcherOverride {
+}
+
+// @public
+export type BettererOptionsPaths = Array<string> | string;
+
+// @public
+export interface BettererOptionsReporter {
+    logo?: boolean;
+    reporters?: BettererOptionsReporters;
+    silent?: boolean;
+}
+
+// @public
+export interface BettererOptionsReporterOverride {
+    reporters?: BettererOptionsReporters;
+}
+
+// @public
+export type BettererOptionsReporters = Array<string | BettererReporter>;
+
+// @public
+export type BettererOptionsResults = Pick<BettererOptionsFS, 'cwd' | 'configPaths' | 'resultsPath'> & Pick<BettererOptionsContext, 'excludes' | 'filters' | 'includes'>;
+
+// @public
+export type BettererOptionsRunner = BettererOptions;
+
+// @public
+export interface BettererOptionsTypeScript {
+    tsconfigPath?: string;
+}
+
+// @public
+export type BettererOptionsWatch = BettererOptionsContext & BettererOptionsFS & BettererOptionsModeWatch & BettererOptionsReporter & BettererOptionsTypeScript & BettererOptionsWatcher;
+
+// @public
+export interface BettererOptionsWatcher {
     ignores?: BettererOptionsIgnores;
     watch?: true;
+}
+
+// @public
+export interface BettererOptionsWatcherOverride {
+    ignores?: BettererOptionsIgnores;
 }
 
 // @public
@@ -384,6 +394,8 @@ export type BettererPrinter<SerialisedType> = (serialised: SerialisedType) => Ma
 // @public
 export type BettererProgress<DeserialisedType> = (baseline: DeserialisedType | null, result: DeserialisedType | null) => MaybeAsync<BettererDelta | null>;
 
+// Warning: (ae-unresolved-link) The @link reference could not be resolved: A declaration for "betterer" was not found that matches the TSDoc selector "function"
+//
 // @public
 export interface BettererReporter {
     configError?(config: unknown, error: BettererError): Promise<void> | void;
@@ -462,9 +474,7 @@ export type BettererSerialise<DeserialisedType, SerialisedType> = (result: Deser
 
 // @public
 export interface BettererSerialiser<DeserialisedType, SerialisedType = DeserialisedType> {
-    // (undocumented)
     deserialise: BettererDeserialise<DeserialisedType, SerialisedType>;
-    // (undocumented)
     serialise: BettererSerialise<DeserialisedType, SerialisedType>;
 }
 
@@ -597,6 +607,9 @@ export interface BettererTestResultSummary {
 
 // @public
 export type BettererTestResultSummaryDetails = string;
+
+// @public
+export type MaybeAsync<T> = T | Promise<T>;
 
 // @public
 export function merge(options?: BettererOptionsMerge): Promise<void>;
