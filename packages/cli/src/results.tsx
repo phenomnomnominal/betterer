@@ -5,7 +5,7 @@ import type { BettererCLIResultsConfig } from './types.js';
 
 import { React, getRenderOptions, render } from '@betterer/render';
 
-import { resultsCommand, setEnv } from './options.js';
+import { resultsCommand } from './options.js';
 import { Results } from './results/results.js';
 
 /**
@@ -16,8 +16,6 @@ export function results(cwd: string): Command {
   const command = resultsCommand();
   command.description();
   command.action(async (config: BettererCLIResultsConfig, command: Command): Promise<void> => {
-    setEnv(config);
-
     // Mark options as unknown...
     const options: unknown = {
       configPaths: config.config,

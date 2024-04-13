@@ -16,12 +16,10 @@ export function createReporterConfig(
 ): BettererConfigReporter {
   const { cwd } = configBase;
 
-  const isDebug = !!process.env.BETTERER_DEBUG;
-
   const logo = options.logo || false;
 
   const reporters = toArray<string | BettererReporter>(options.reporters);
-  const silent = isDebug || options.silent || false;
+  const silent = options.silent || false;
 
   validateBool({ logo });
   validateBool({ silent });

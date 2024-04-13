@@ -11,24 +11,11 @@ interface BettererExtensionConfig {
   filters: Array<string>;
   resultsPath: string;
   tsconfigPath: string;
-  debug: boolean;
-  debugLogPath: string;
 }
 
 export async function getEnabled(workspace: RemoteWorkspace): Promise<boolean> {
   const { enable } = await getExtensionConfig(workspace);
   return !!enable;
-}
-
-export async function getDebug(workspace: RemoteWorkspace): Promise<void> {
-  const { debug, debugLogPath } = await getExtensionConfig(workspace);
-  const value = debug ? '1' : '';
-  process.env.BETTERER_DEBUG = value;
-  process.env.BETTERER_DEBUG_TIME = value;
-  process.env.BETTERER_DEBUG_VALUES = value;
-  if (debug && debugLogPath) {
-    process.env.BETTERER_DEBUG_LOG = debugLogPath;
-  }
 }
 
 export async function getBettererOptions(cwd: string, workspace: RemoteWorkspace): Promise<BettererOptionsRunner> {

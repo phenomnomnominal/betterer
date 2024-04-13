@@ -5,7 +5,7 @@ import type { BettererCLIConfig } from './types.js';
 
 import { betterer } from '@betterer/betterer';
 
-import { cliCommand, setEnv } from './options.js';
+import { cliCommand } from './options.js';
 import { BettererCommand } from './types.js';
 
 /**
@@ -15,8 +15,6 @@ export function precommit(cwd: string): Command {
   const command = cliCommand(BettererCommand.precommit);
   command.description('run Betterer in precommit mode');
   command.action(async (config: BettererCLIConfig, command: Command): Promise<void> => {
-    setEnv(config);
-
     // Mark options as unknown...
     const options: unknown = {
       cache: config.cache,

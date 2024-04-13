@@ -21,7 +21,6 @@ export function cliCommand(name: BettererCommand): Command {
   tsconfigPathOption();
   updateOption();
   workersOption();
-  debug();
   return command;
 }
 
@@ -31,14 +30,12 @@ export function initCommand(): Command {
   configPathOption();
   logoOption();
   resultsPathOption();
-  debug();
   return command;
 }
 
 export function mergeCommand(): Command {
   command = new Command(BettererCommand.merge);
   resultsPathOption();
-  debug();
   return command;
 }
 
@@ -49,7 +46,6 @@ export function resultsCommand(): Command {
   filtersOption();
   logoOption();
   resultsPathOption();
-  debug();
   return command;
 }
 
@@ -58,24 +54,7 @@ export function upgradeCommand(): Command {
   configPathsOption();
   logoOption();
   saveOption();
-  debug();
   return command;
-}
-
-function debug(): void {
-  command.option('-d, --debug', 'Enable verbose debug logging', false);
-  command.option('-l, --debug-log [value]', 'File path to save verbose debug logging to disk', './betterer.log');
-}
-
-export function setEnv(config: BettererCLIEnvConfig): void {
-  if (config.debug) {
-    process.env.BETTERER_DEBUG = '1';
-    process.env.BETTERER_DEBUG_TIME = '1';
-    process.env.BETTERER_DEBUG_VALUES = '1';
-    if (config.debugLog) {
-      process.env.BETTERER_DEBUG_LOG = config.debugLog;
-    }
-  }
 }
 
 function cacheOption(): void {
