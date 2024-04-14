@@ -17,12 +17,12 @@ jobs:
           node-version: '16.x'
       - name: Test Build
         run: |
-          yarn install --frozen-lockfile
-          yarn api
-          yarn docs
+          npm install
+          npm run api
+          npm run docs
           cd website
-          yarn install --frozen-lockfile
-          yarn build
+          npm install
+          npm run build
   gh-release:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
@@ -51,9 +51,9 @@ jobs:
         run: |
           git config --global user.email "actions@gihub.com"
           git config --global user.name "gh-actions"
-          yarn install --frozen-lockfile
-          yarn api
-          yarn docs
+          npm install
+          npm run api
+          npm run docs
           cd website
-          yarn install --frozen-lockfile
-          yarn deploy
+          npm install
+          npm run deploy

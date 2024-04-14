@@ -22,12 +22,10 @@ jobs:
         with:
           node-version: ${{ matrix['node-version'] }}
       - name: Install dependencies
-        uses: sergioramos/yarn-actions/install@master
-        with:
-          frozen-lockfile: true
+        run: npm install
       - name: Run build
-        run: yarn compile:packages && yarn build:extension
+        run: npm run compile:packages && npm run build:extension
       - name: Run extension test
         uses: GabrielBB/xvfb-action@v1.0
         with:
-          run: yarn test:extension
+          run: npm run test:extension
