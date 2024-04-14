@@ -103,7 +103,7 @@ export class BettererContextΩ implements BettererContext {
       }
 
       // Load test names in a worker so the import cache is always clean:
-      const testNames = await this._testMetaLoader.api.loadTestNames(this.config.tsconfigPath, this.config.configPaths);
+      const testNames = await this._testMetaLoader.api.loadTestNames(this.config.configPaths);
 
       const runs = await Promise.all(
         testNames.map(async (testName) => {

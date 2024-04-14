@@ -2,10 +2,11 @@ import type { BettererLogger } from '@betterer/logger';
 import type { FC } from '@betterer/render';
 import type { BettererTasksState } from '@betterer/tasks';
 
+import type { TestPackageAPIWorker } from './types.js';
+
 import { React, getRenderOptions, render, useCallback } from '@betterer/render';
 import { BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
 import { exposeToWorker__, importWorker__ } from '@betterer/worker';
-import type { TestPackageAPIWorker } from './types.js';
 
 interface APITestProps {
   packageNames: Array<string>;

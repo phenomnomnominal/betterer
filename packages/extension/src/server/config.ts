@@ -1,7 +1,6 @@
 import type { BettererOptionsRunner } from '@betterer/betterer';
 import type { RemoteWorkspace } from 'vscode-languageserver/node';
 
-import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
 interface BettererExtensionConfig {
@@ -10,7 +9,6 @@ interface BettererExtensionConfig {
   enable: boolean;
   filters: Array<string>;
   resultsPath: string;
-  tsconfigPath: string;
 }
 
 export async function getEnabled(workspace: RemoteWorkspace): Promise<boolean> {
@@ -19,8 +17,8 @@ export async function getEnabled(workspace: RemoteWorkspace): Promise<boolean> {
 }
 
 export async function getBettererOptions(cwd: string, workspace: RemoteWorkspace): Promise<BettererOptionsRunner> {
-  const { cachePath, configPath, filters, resultsPath, tsconfigPath } = await getExtensionConfig(workspace);
-  const options: BettererOptionsRunner = {
+  const { cachePath, configPath, filters, resultsPath } = await getExtensionConfig(workspace);
+  return {
     cache: true,
     cachePath: path.resolve(cwd, cachePath),
     configPaths: [path.resolve(cwd, configPath)],
@@ -29,16 +27,6 @@ export async function getBettererOptions(cwd: string, workspace: RemoteWorkspace
     resultsPath: path.resolve(cwd, resultsPath),
     silent: true
   };
-  if (tsconfigPath !== '') {
-    try {
-      const absoluteTSConfigPath = path.resolve(cwd, tsconfigPath);
-      await fs.readFile(absoluteTSConfigPath);
-      options.tsconfigPath = absoluteTSConfigPath;
-    } catch {
-      // Cannot read `tsconfigPath`
-    }
-  }
-  return options;
 }
 
 function getExtensionConfig(workspace: RemoteWorkspace): Promise<BettererExtensionConfig> {

@@ -50,6 +50,7 @@ export default {
           }
         }
       ],
+      strict: false,
       workers: false
     });
 

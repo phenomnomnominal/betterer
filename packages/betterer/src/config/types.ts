@@ -2,7 +2,6 @@ import type { BettererConfigContext, BettererOptionsContextOverride } from '../c
 import type { BettererConfigFS } from '../fs/index.js';
 import type { BettererConfigReporter, BettererOptionsReporterOverride } from '../reporters/index.js';
 import type { BettererConfigWatcher, BettererOptionsWatcherOverride } from '../runner/index.js';
-import type { BettererConfigTypeScript } from '../typescript/index.js';
 
 /**
  * @public Full validated config object for **Betterer**.
@@ -11,7 +10,6 @@ export interface BettererConfig
   extends BettererConfigFS,
     BettererConfigReporter,
     BettererConfigContext,
-    BettererConfigTypeScript,
     BettererConfigWatcher {
   /**
    * The path to the local version control root.

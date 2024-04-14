@@ -29,7 +29,6 @@ export function precommit(cwd: string): Command {
       reporters: config.reporter,
       resultsPath: config.results,
       silent: config.silent,
-      tsconfigPath: config.tsconfig,
       workers: config.workers
     };
 

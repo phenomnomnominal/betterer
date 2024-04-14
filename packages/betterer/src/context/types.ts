@@ -82,7 +82,7 @@ export interface BettererOptionsModeUpdate {
 export interface BettererOptionsModeWatch {
   ci?: false;
   precommit?: false;
-  strict?: false;
+  strict?: boolean;
   update?: false;
 }
 
