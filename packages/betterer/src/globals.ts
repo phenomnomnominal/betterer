@@ -10,7 +10,6 @@ import { BettererFSΩ, createFSConfig } from './fs/index.js';
 import { createReporterConfig, loadDefaultReporter } from './reporters/index.js';
 import { BettererResultsΩ } from './results/index.js';
 import { createWatcherConfig } from './runner/index.js';
-import { createTypeScriptConfig } from './typescript/index.js';
 
 export async function createGlobals(
   options: BettererOptions,
@@ -22,7 +21,6 @@ export async function createGlobals(
     const configContext = createContextConfig(options);
     const configFS = createFSConfig(options);
     const configReporter = createReporterConfig(configFS, options);
-    const configTypeScript = await createTypeScriptConfig(configFS, options);
     const configWatcher = createWatcherConfig(configFS, optionsWatch);
 
     const { resultsFile, versionControl, versionControlPath } = await BettererFSΩ.create(configFS);
@@ -31,7 +29,6 @@ export async function createGlobals(
       ...configContext,
       ...configFS,
       ...configReporter,
-      ...configTypeScript,
       ...configWatcher,
       versionControlPath
     });

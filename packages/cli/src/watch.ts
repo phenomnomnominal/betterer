@@ -28,7 +28,6 @@ export function watch(cwd: string): Command {
       resultsPath: config.results,
       silent: config.silent,
       strict: config.strict,
-      tsconfigPath: config.tsconfig,
       update: config.update,
       workers: config.workers
     };

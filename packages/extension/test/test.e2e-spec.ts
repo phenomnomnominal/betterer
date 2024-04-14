@@ -84,7 +84,6 @@ describe('Betterer VSCode Extension', () => {
       const cachePath = resolve('./.betterer.cache');
       const configPath = resolve('./.betterer.js');
       const resultsPath = resolve('./.betterer.results');
-      const tsconfigPath = resolve('./tsconfig.json');
 
       const indexUri = vscode.Uri.file(indexPath);
 
@@ -92,7 +91,6 @@ describe('Betterer VSCode Extension', () => {
       await config.update('resultsPath', resultsPath);
       await config.update('cachePath', cachePath);
       await config.update('configPath', configPath);
-      await config.update('tsconfigPath', tsconfigPath);
 
       await writeToFile(indexUri, 'debugger;');
 
@@ -146,7 +144,6 @@ export default {
       const cachePath = resolve('./.betterer.cache');
       const configPath = resolve('./.betterer.ts');
       const resultsPath = resolve('./.betterer.results');
-      const tsconfigPath = resolve('./tsconfig.json');
 
       const indexUri = vscode.Uri.file(indexPath);
 
@@ -154,7 +151,6 @@ export default {
       await config.update('resultsPath', resultsPath);
       await config.update('cachePath', cachePath);
       await config.update('configPath', configPath);
-      await config.update('tsconfigPath', tsconfigPath);
 
       await writeToFile(
         indexUri,

@@ -14,9 +14,6 @@ export async function init(
   config: BettererConfig,
   versionControl: BettererVersionControlWorker
 ): Promise<BettererTestMeta> {
-  const { registerExtensions } = await import('../typescript/register.js');
-  await registerExtensions(config.tsconfigPath);
-
   const worker = await BettererWorkerRunΩ.create(config, testName, versionControl);
   TEST_NAME_RUN[testName] = worker;
   return worker.testMeta;

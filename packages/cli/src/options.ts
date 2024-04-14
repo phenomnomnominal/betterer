@@ -1,4 +1,4 @@
-import type { BettererCLIArguments, BettererCLIEnvConfig } from './types.js';
+import type { BettererCLIArguments } from './types.js';
 
 import { Command } from 'commander';
 
@@ -18,7 +18,6 @@ export function cliCommand(name: BettererCommand): Command {
   resultsPathOption();
   silentOption();
   strictOption();
-  tsconfigPathOption();
   updateOption();
   workersOption();
   return command;
@@ -80,10 +79,6 @@ function automergeOption(): void {
 
 function resultsPathOption(): void {
   command.option('-r, --results [value]', 'Path to test results file relative to CWD');
-}
-
-function tsconfigPathOption(): void {
-  command.option('-t, --tsconfig [value]', 'Path to TypeScript config file relative to CWD');
 }
 
 function filtersOption(): void {

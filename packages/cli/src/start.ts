@@ -30,7 +30,6 @@ export function start(cwd: string, ci: boolean): Command {
       resultsPath: config.results,
       silent: config.silent,
       strict: config.strict,
-      tsconfigPath: config.tsconfig,
       update: config.update,
       workers: config.workers
     };

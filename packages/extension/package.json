@@ -64,12 +64,6 @@
           "default": "./.betterer.results",
           "description": "Path to test results file relative to working directory"
         },
-        "betterer.tsconfigPath": {
-          "scope": "resource",
-          "type": "string",
-          "default": "",
-          "description": "Path to TypeScript config file relative to working directory"
-        },
         "betterer.filters": {
           "scope": "resource",
           "type": "array",

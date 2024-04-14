@@ -21,7 +21,7 @@ export const betterer: {
 export type BettererAPI = typeof betterer;
 
 // @public
-export interface BettererConfig extends BettererConfigFS, BettererConfigReporter, BettererConfigContext, BettererConfigTypeScript, BettererConfigWatcher {
+export interface BettererConfig extends BettererConfigFS, BettererConfigReporter, BettererConfigContext, BettererConfigWatcher {
     versionControlPath: string;
 }
 
@@ -65,11 +65,6 @@ export type BettererConfigPaths = ReadonlyArray<string>;
 export interface BettererConfigReporter {
     logo: boolean;
     reporter: BettererReporter;
-}
-
-// @public
-export interface BettererConfigTypeScript {
-    tsconfigPath: string | null;
 }
 
 // @public
@@ -223,7 +218,7 @@ export interface BettererFileTestResultSummary {
 export type BettererFileTestResultSummaryDetails = Record<string, BettererFileIssues>;
 
 // @public
-export type BettererOptions = BettererOptionsContext & BettererOptionsFS & BettererOptionsMode & BettererOptionsReporter & BettererOptionsTypeScript;
+export type BettererOptions = BettererOptionsContext & BettererOptionsFS & BettererOptionsMode & BettererOptionsReporter;
 
 // @public
 export type BettererOptionsContext = BettererOptionsMode & {
@@ -336,7 +331,7 @@ export interface BettererOptionsModeWatch {
     // (undocumented)
     precommit?: false;
     // (undocumented)
-    strict?: false;
+    strict?: boolean;
     // (undocumented)
     update?: false;
 }
@@ -370,12 +365,7 @@ export type BettererOptionsResults = Pick<BettererOptionsFS, 'cwd' | 'configPath
 export type BettererOptionsRunner = BettererOptions;
 
 // @public
-export interface BettererOptionsTypeScript {
-    tsconfigPath?: string;
-}
-
-// @public
-export type BettererOptionsWatch = BettererOptionsContext & BettererOptionsFS & BettererOptionsModeWatch & BettererOptionsReporter & BettererOptionsTypeScript & BettererOptionsWatcher;
+export type BettererOptionsWatch = BettererOptionsContext & BettererOptionsFS & BettererOptionsModeWatch & BettererOptionsReporter & BettererOptionsWatcher;
 
 // @public
 export interface BettererOptionsWatcher {

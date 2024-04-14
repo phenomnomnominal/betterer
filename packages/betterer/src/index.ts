@@ -108,7 +108,6 @@ export type {
   BettererTestOptionsComplex,
   BettererTestNames
 } from './test/public.js';
-export type { BettererConfigTypeScript, BettererOptionsTypeScript } from './typescript/public.js';
 export type { MaybeAsync } from './types.js';
 
 export { betterer, merge, results, runner, watch } from './api/index.js';

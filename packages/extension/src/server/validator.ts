@@ -99,8 +99,7 @@ export class BettererValidator {
             const isCachePath = filePath === options.cachePath;
             const isResultPath = filePath === options.resultsPath;
             const isConfigPath = !!options.configPaths?.includes(filePath);
-            const isTSConfigPath = filePath === options.tsconfigPath;
-            return !(isCachePath || isResultPath || isConfigPath || isTSConfigPath);
+            return !(isCachePath || isResultPath || isConfigPath);
           });
 
           const filePaths = finalDocuments.map((document) => getFilePath(document)) as Array<string>;

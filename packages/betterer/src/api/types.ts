@@ -2,7 +2,6 @@ import type { BettererOptionsContext, BettererOptionsMode, BettererOptionsModeWa
 import type { BettererOptionsFS } from '../fs/index.js';
 import type { BettererOptionsReporter } from '../reporters/index.js';
 import type { BettererOptionsWatcher } from '../runner/index.js';
-import type { BettererOptionsTypeScript } from '../typescript/index.js';
 
 /**
  * @public Options for when you run **Betterer** via the {@link @betterer/betterer#betterer | `betterer()` API}.
@@ -12,8 +11,7 @@ import type { BettererOptionsTypeScript } from '../typescript/index.js';
 export type BettererOptions = BettererOptionsContext &
   BettererOptionsFS &
   BettererOptionsMode &
-  BettererOptionsReporter &
-  BettererOptionsTypeScript;
+  BettererOptionsReporter;
 
 /**
  * @public Options for when you create a {@link @betterer/betterer#BettererRunner | `BettererRunner` }
@@ -42,5 +40,4 @@ export type BettererOptionsWatch = BettererOptionsContext &
   BettererOptionsFS &
   BettererOptionsModeWatch &
   BettererOptionsReporter &
-  BettererOptionsTypeScript &
   BettererOptionsWatcher;
