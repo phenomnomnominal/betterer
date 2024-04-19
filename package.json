@@ -51,8 +51,8 @@
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
-    "@microsoft/api-documenter": "^7.13.54",
-    "@microsoft/api-extractor": "^7.18.11",
+    "@microsoft/api-documenter": "^7.24.2",
+    "@microsoft/api-extractor": "^7.43.1",
     "@phenomnomnominal/commitlint-plugin": "^1.1.1",
     "@types/eslint": "^7.28.0",
     "@types/node": "^18.19.31",
