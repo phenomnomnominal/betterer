@@ -10,7 +10,7 @@ import type {
 
 import { BettererError } from '@betterer/errors';
 import { diff__ } from '@betterer/logger';
-import prettier from 'prettier';
+import { format } from 'prettier';
 
 import { isFunction } from '../utils.js';
 
@@ -94,8 +94,8 @@ export function defaultDiffer(expected: unknown, result: unknown): BettererDiff<
   };
 }
 
-function defaultPrinter(serialised: unknown): string {
-  return prettier.format(JSON.stringify(serialised), { parser: 'json' });
+async function defaultPrinter(serialised: unknown): Promise<string> {
+  return await format(JSON.stringify(serialised), { parser: 'json' });
 }
 
 function defaultProgress(): null {

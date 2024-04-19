@@ -1,5 +1,6 @@
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from './fixture';
+import { describe, expect, it } from 'vitest';
+
+import { createFixture } from './fixture.js';
 
 describe('betterer', () => {
   it(`actually makes shit faster`, async () => {
@@ -7,10 +8,10 @@ describe('betterer', () => {
 
     const { paths, cleanup, testNames } = await createFixture('cache-faster', {
       '.betterer.js': `
-const { BettererFileTest } = require('@betterer/betterer');
-const { promises: fs } = require('fs');
+import { BettererFileTest } from '@betterer/betterer';
+import { promises as fs } from 'node:fs';
 
-module.exports = {
+export default {
   test: () =>
     new BettererFileTest(async (filePaths, fileTestResult) => {
       await Promise.all(

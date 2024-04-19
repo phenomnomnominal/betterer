@@ -37,11 +37,18 @@ class BettereWorkerHandleΩ<API extends BettererWorkerAPI<unknown>> implements B
 }
 
 class BettererRunWorkerPoolΩ<API extends BettererWorkerAPI<unknown>> implements BettererWorkerPool<API> {
-  private _handles: Array<BettererWorkerHandle<API>> = [];
   private _handleIndex = 0;
 
-  constructor(workerCount: number, workerFactory: BettererWorkerFactory<API>) {
-    this._handles = Array.from({ length: workerCount }).map(() => new BettereWorkerHandleΩ(workerFactory()));
+  constructor(private _handles: Array<BettererWorkerHandle<API>> = []) {}
+
+  public static async create<API extends BettererWorkerAPI<unknown>>(
+    workerCount: number,
+    workerFactory: BettererWorkerFactory<API>
+  ) {
+    const handles = await Promise.all(
+      Array.from({ length: workerCount }).map(async () => new BettereWorkerHandleΩ(await workerFactory()))
+    );
+    return new BettererRunWorkerPoolΩ<API>(handles);
   }
 
   public async destroy(): Promise<void> {
@@ -72,6 +79,6 @@ class BettererRunWorkerPoolΩ<API extends BettererWorkerAPI<unknown>> implements
 export function createWorkerPool__<API extends BettererWorkerAPI<unknown>>(
   workerCount: number,
   workerFactory: BettererWorkerFactory<API>
-): BettererWorkerPool<API> {
-  return new BettererRunWorkerPoolΩ(workerCount, workerFactory);
+): Promise<BettererWorkerPool<API>> {
+  return BettererRunWorkerPoolΩ.create(workerCount, workerFactory);
 }

@@ -15,7 +15,7 @@ export const Results: FC<ResultsProps> = function Results({ options, logo }) {
   const [resultsSummary, setResultsSummary] = useState<BettererResultsSummary | null>(null);
   useEffect(() => {
     void (async () => {
-      const getResultsSummary: GetResultsSummaryWorker = importWorker__('./get-results-summary.worker.js');
+      const getResultsSummary: GetResultsSummaryWorker = await importWorker__('./get-results-summary.worker.js');
       try {
         setResultsSummary(await getResultsSummary.api.run(options));
       } finally {

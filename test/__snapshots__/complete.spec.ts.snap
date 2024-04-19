@@ -1,16 +1,16 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer should mark a test as complete when it reaches its goal 1`] = `
-Array [
+exports[`betterer > should mark a test as complete when it reaches its goal 1`] = `
+[
   "🌟 Betterer (0ms):
 ",
   "🎉 Betterer (0ms): 2 tests done!
-✅ should complete: \\"should complete\\" got checked for the first time! 🎉
-✅ complete: \\"complete\\" has already met its goal! ✨
+✅ should complete: "should complete" got checked for the first time! 🎉
+✅ complete: "complete" has already met its goal! ✨
 ",
   "🎉 Betterer (0ms): 2 tests done!
-✅ should complete: \\"should complete\\" got checked for the first time! 🎉
-✅ complete: \\"complete\\" has already met its goal! ✨
+✅ should complete: "should complete" got checked for the first time! 🎉
+✅ complete: "complete" has already met its goal! ✨
 
 2 tests got checked. 🤔
 1 test got checked for the first time! 🎉
@@ -19,12 +19,12 @@ Array [
   "🌟 Betterer (0ms):
 ",
   "🎉 Betterer (0ms): 2 tests done!
-✅ should complete: \\"should complete\\" met its goal! 🎉
-✅ complete: \\"complete\\" has already met its goal! ✨
+✅ should complete: "should complete" met its goal! 🎉
+✅ complete: "complete" has already met its goal! ✨
 ",
   "🎉 Betterer (0ms): 2 tests done!
-✅ should complete: \\"should complete\\" met its goal! 🎉
-✅ complete: \\"complete\\" has already met its goal! ✨
+✅ should complete: "should complete" met its goal! 🎉
+✅ complete: "complete" has already met its goal! ✨
 
 2 tests got checked. 🤔
 1 test got better! 😍
@@ -33,12 +33,12 @@ Array [
   "🌟 Betterer (0ms):
 ",
   "🎉 Betterer (0ms): 2 tests done!
-✅ should complete: \\"should complete\\" has already met its goal! ✨
-✅ complete: \\"complete\\" has already met its goal! ✨
+✅ should complete: "should complete" has already met its goal! ✨
+✅ complete: "complete" has already met its goal! ✨
 ",
   "🎉 Betterer (0ms): 2 tests done!
-✅ should complete: \\"should complete\\" has already met its goal! ✨
-✅ complete: \\"complete\\" has already met its goal! ✨
+✅ should complete: "should complete" has already met its goal! ✨
+✅ complete: "complete" has already met its goal! ✨
 
 2 tests got checked. 🤔
 2 tests met its goal! 🎉
@@ -46,7 +46,7 @@ Array [
 ]
 `;
 
-exports[`betterer should mark a test as complete when it reaches its goal 2`] = `
+exports[`betterer > should mark a test as complete when it reaches its goal 2`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:

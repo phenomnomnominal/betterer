@@ -1,11 +1,9 @@
-import { jest } from '@jest/globals';
+import { describe, expect, it, vitest } from 'vitest';
 
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from './fixture';
+import { createFixture } from './fixture.js';
 
-jest.mock('node:os', (): typeof import('node:os') => {
-  const os = jest.requireActual('node:os') as typeof import('node:os');
-
+vitest.mock('node:os', async (importOriginal): Promise<typeof import('node:os')> => {
+  const os: typeof import('node:os') = await importOriginal();
   const [cpu] = os.cpus();
   return {
     ...os,
@@ -63,10 +61,11 @@ describe('betterer', () => {
     const { cleanup, logs, paths } = await createFixture('config-validation', {
       '.betterer.js': ''
     });
+
+    const configPaths = [paths.config];
     const resultsPath = paths.results;
 
-    // @ts-expect-error testing config errors:
-    await expect(async () => await betterer({ configPaths: [], resultsPath, ...config })).rejects.toThrow();
+    await expect(async () => await betterer({ configPaths, resultsPath, ...config })).rejects.toThrow();
 
     expect(logs).toMatchSnapshot();
 

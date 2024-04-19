@@ -1,5 +1,6 @@
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from './fixture';
+import { describe, expect, it } from 'vitest';
+
+import { createFixture } from './fixture.js';
 
 describe('betterer', () => {
   it('should work when excluding specific files', async () => {
@@ -7,9 +8,9 @@ describe('betterer', () => {
 
     const fixture = await createFixture('coverage-files-exclude', {
       '.betterer.js': `
-const { coverage } = require('@betterer/coverage');
+import { coverage } from '@betterer/coverage';
 
-module.exports = {
+export default {
   test: () => coverage().exclude(/file-2\\.ts/)
 };    
         `,

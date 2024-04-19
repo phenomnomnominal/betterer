@@ -1,5 +1,6 @@
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from '../fixture';
+import { describe, it, expect } from 'vitest';
+
+import { createFixture } from '../fixture.js';
 
 const ARGV = ['node', './bin/betterer'];
 
@@ -11,7 +12,7 @@ const a = 'a';
 const one = 1;
 console.log(a * one);
       `,
-      '.betterer.ts': `
+      '.betterer.js': `
 import { typescript } from '@betterer/typescript';
 
 export default {
@@ -24,13 +25,13 @@ export default {
 {
   "compilerOptions": {
     "noEmit": true,
-    "lib": ["esnext"],
+    "lib": ["esnext", "dom"],
     "moduleResolution": "node",
     "target": "ES5",
-    "typeRoots": ["../../node_modules/@types/"],
+    "typeRoots": [],
     "resolveJsonModule": true
   },
-  "include": ["./src/**/*", ".betterer.ts"]
+  "include": ["./src/**/*"]
 }
       `
     });
@@ -40,13 +41,13 @@ export default {
 
     const { cli__ } = await import('@betterer/cli');
 
-    await cli__(fixturePath, [...ARGV, 'start', '--workers=0'], false);
+    await cli__(fixturePath, [...ARGV, 'start', '--workers=false'], false);
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one + one);\nconsole.log(a * one);`);
 
     process.env.CI = 'true';
 
-    await cli__(fixturePath, [...ARGV, 'start', '--workers=0']);
+    await cli__(fixturePath, [...ARGV, 'start', '--workers=false']);
 
     expect(logs).toMatchSnapshot();
 

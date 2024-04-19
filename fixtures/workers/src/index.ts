@@ -1,2 +1,0 @@
-// HACK:
-console.log('foo');

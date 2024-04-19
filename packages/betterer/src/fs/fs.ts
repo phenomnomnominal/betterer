@@ -17,7 +17,7 @@ export class BettererFSΩ {
     const { cache, cachePath, configPaths, cwd, resultsPath } = configFS;
     const resultsFile = new BettererResultsFileΩ(resultsPath);
 
-    const versionControl: BettererVersionControlWorker = importWorker__('./version-control.worker.js');
+    const versionControl: BettererVersionControlWorker = await importWorker__('./version-control.worker.js');
     try {
       const versionControlPath = await versionControl.api.init(configPaths, cwd);
       if (cache) {

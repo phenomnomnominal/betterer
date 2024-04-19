@@ -1,5 +1,6 @@
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from '../fixture';
+import { describe, it, expect } from 'vitest';
+
+import { createFixture } from '../fixture.js';
 
 const ARGV = ['node', './bin/betterer', 'upgrade'];
 
@@ -8,7 +9,7 @@ describe('betterer upgrade', () => {
     const { cleanup, logs, paths } = await createFixture(
       'upgrade-exported-constant-file-test-cjs',
       {
-        './.betterer.ts': `
+        './.betterer.js': `
 const { BettererFileTest } = require('@betterer/betterer');
 
 module.exports.countFiles = new BettererFileTest(async (files, fileTestResult) => {        

@@ -1,7 +1,8 @@
+import { describe, it, expect } from 'vitest';
+
 import type { BettererPackageJSON } from '@betterer/cli';
 
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from '../fixture';
+import { createFixture } from '../fixture.js';
 
 const ARGV = ['node', './bin/betterer'];
 
@@ -26,11 +27,10 @@ describe('betterer cli', () => {
       }
     );
 
-    const configPath = `${paths.config}.js`;
     const fixturePath = paths.cwd;
     const packageJSONPath = resolve('./package.json');
 
-    await cli__(fixturePath, [...ARGV, 'init', '--config', configPath]);
+    await cli__(fixturePath, [...ARGV, 'init', '--config', paths.config]);
 
     const packageJSON = JSON.parse(await readFile(packageJSONPath)) as BettererPackageJSON;
 
@@ -38,9 +38,9 @@ describe('betterer cli', () => {
     expect(packageJSON.devDependencies['@betterer/cli']).toEqual(`^${version}`);
     expect(packageJSON.devDependencies['typescript']).not.toBeDefined();
 
-    const config = await readFile(configPath);
+    const config = await readFile(paths.config);
 
-    expect(config).toEqual('module.exports = {\n  // Add tests here ☀️\n};\n');
+    expect(config).toEqual('export default {\n  // Add tests here ☀️\n};\n');
 
     expect(logs).toMatchSnapshot();
 

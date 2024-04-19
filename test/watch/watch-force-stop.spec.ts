@@ -1,12 +1,13 @@
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from '../fixture';
+import { describe, expect, it } from 'vitest';
+
+import { createFixture } from '../fixture.js';
 
 describe('betterer.watch', () => {
   it('should stop when forced', async () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { logs, paths, cleanup } = await createFixture('watch-force-stop', {
-      '.betterer.ts': `
+      '.betterer.js': `
 import { tsquery } from '@betterer/tsquery';
 
 export default {

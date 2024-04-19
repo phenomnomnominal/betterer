@@ -74,7 +74,7 @@ export type StdOut = Process['stdout'];
 export { Text_2 as Text }
 
 // @internal
-export const TextInput: (props: TextInputProps) => JSX.Element;
+export const TextInput: React.FC<TextInputProps>;
 
 // @internal
 export type TextInputProps = React.ComponentProps<typeof TI>;

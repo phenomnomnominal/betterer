@@ -16,7 +16,7 @@ export class BettererMergerΩ {
   public async merge(): Promise<unknown> {
     if (this._contents.length === 2) {
       const [ours, theirs] = this._contents;
-      return merge(ours, theirs);
+      return merge(this._filePath, ours, theirs);
     } else {
       return await parse(this._filePath);
     }

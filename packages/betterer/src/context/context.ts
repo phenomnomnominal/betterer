@@ -27,16 +27,14 @@ export class BettererContextΩ implements BettererContext {
   private _started: BettererContextStarted;
   private _suiteSummaries: BettererSuiteSummaries = [];
 
-  private readonly _runWorkerPool: BettererRunWorkerPool;
-  private readonly _testMetaLoader: BettererTestLoaderWorker = importWorker__('../test/loader.worker.js');
-
-  constructor(
+  private constructor(
     public readonly config: BettererConfig,
     private readonly _results: BettererResultsΩ,
+    private readonly _runWorkerPool: BettererRunWorkerPool,
+    private readonly _testMetaLoader: BettererTestLoaderWorker,
     private readonly _versionControl: BettererVersionControlWorker,
     private readonly _watcher: FSWatcher | null
   ) {
-    this._runWorkerPool = createRunWorkerPool(this.config.workers);
     this._reporter = this.config.reporter as BettererReporterΩ;
 
     this._started = this._start();
@@ -46,13 +44,24 @@ export class BettererContextΩ implements BettererContext {
     return this._isDestroyed;
   }
 
+  public static async create(
+    config: BettererConfig,
+    results: BettererResultsΩ,
+    versionControl: BettererVersionControlWorker,
+    watcher: FSWatcher | null
+  ): Promise<BettererContextΩ> {
+    const runWorkerPool = await createRunWorkerPool(config.workers);
+    const testMetaLoader: BettererTestLoaderWorker = await importWorker__('../test/loader.worker.js');
+    return new BettererContextΩ(config, results, runWorkerPool, testMetaLoader, versionControl, watcher);
+  }
+
   public async options(optionsOverride: BettererOptionsOverride): Promise<void> {
     // Wait for any pending run to finish, and any existing reporter to render:
     await this._started.end();
 
     // Override the config:
     overrideContextConfig(this.config, optionsOverride);
-    overrideReporterConfig(this.config, optionsOverride);
+    await overrideReporterConfig(this.config, optionsOverride);
     overrideWatchConfig(this.config, optionsOverride);
 
     // Start everything again, and trigger a new reporter:

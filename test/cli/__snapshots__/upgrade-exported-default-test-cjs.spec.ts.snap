@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer upgrade should upgrade exported default test in a CJS module 1`] = `
-"const { BettererTest, BettererFileTest } = require('@betterer/betterer');
-const { bigger } = require('@betterer/constraints');
+exports[`betterer upgrade > should upgrade exported default test in a CJS module 1`] = `
+"const { BettererTest, BettererFileTest } = require("@betterer/betterer");
+const { bigger } = require("@betterer/constraints");
 
 let start = 0;
 
@@ -10,33 +10,33 @@ module.exports = {
   getsBetter: () =>
     new BettererTest({
       test: () => start++,
-      constraint: bigger
+      constraint: bigger,
     }),
-  'gets better': () =>
+  "gets better": () =>
     new BettererTest({
       test: () => start++,
-      constraint: bigger
+      constraint: bigger,
     }),
   countFiles: () =>
     new BettererFileTest(async (files, fileTestResult) => {
       const [filePath] = files;
-      const file = fileTestResult.addFile(filePath, '');
-      file.addIssue(0, 0, '\`$' + '{key}\`');
+      const file = fileTestResult.addFile(filePath, "");
+      file.addIssue(0, 0, "\`$" + "{key}\`");
     }),
-  'count files': () =>
+  "count files": () =>
     new BettererFileTest(async (files, fileTestResult) => {
       const [filePath] = files;
-      const file = fileTestResult.addFile(filePath, '');
-      file.addIssue(0, 0, '\`$' + '{key}\`');
-    }).include('./src/**/*.ts')
+      const file = fileTestResult.addFile(filePath, "");
+      file.addIssue(0, 0, "\`$" + "{key}\`");
+    }).include("./src/**/*.ts"),
 };
 "
 `;
 
-exports[`betterer upgrade should upgrade exported default test in a CJS module 2`] = `
-Array [
+exports[`betterer upgrade > should upgrade exported default test in a CJS module 2`] = `
+[
   "🎉 Upgrading Betterer (0ms): 1 task done!
-✅ Upgrading \\"./.betterer.ts\\": done!
+✅ Upgrading "./.betterer.js": done!
 ・
 ・ Betterer can upgrade your test definition file automatically! ✨
 ・ Here's what the changes will look like:
@@ -44,29 +44,31 @@ Array [
 ・ - Before
 ・ + After
 ・
-・   const { BettererTest, BettererFileTest } = require('@betterer/betterer');
-・   const { bigger } = require('@betterer/constraints');
+・ - const { BettererTest, BettererFileTest } = require('@betterer/betterer');
+・ + const { BettererTest, BettererFileTest } = require("@betterer/betterer");
+・ - const { bigger } = require('@betterer/constraints');
+・ + const { bigger } = require("@betterer/constraints");
 ・
 ・   let start = 0;
 ・
 ・   module.exports = {
 ・ -   getsBetter: {
-・ -     test: () => start++,
 ・ +   getsBetter: () =>
 ・ +     new BettererTest({
+・ -     test: () => start++,
 ・ +       test: () => start++,
 ・ -     constraint: bigger
-・ +       constraint: bigger
 ・ -   },
+・ +       constraint: bigger,
 ・ +     }),
 ・ -   'gets better': new BettererTest({
-・ +   'gets better': () =>
+・ +   "gets better": () =>
 ・ +     new BettererTest({
 ・ -     test: () => start++,
 ・ +       test: () => start++,
 ・ -     constraint: bigger
-・ +       constraint: bigger
 ・ -   }),
+・ +       constraint: bigger,
 ・ +     }),
 ・ -   countFiles: new BettererFileTest(async (files, fileTestResult) => {
 ・ -     const [filePath] = files;
@@ -74,30 +76,30 @@ Array [
 ・ +     new BettererFileTest(async (files, fileTestResult) => {
 ・ +       const [filePath] = files;
 ・ -     const file = fileTestResult.addFile(filePath, '');
-・ +       const file = fileTestResult.addFile(filePath, '');
+・ +       const file = fileTestResult.addFile(filePath, "");
 ・ -     file.addIssue(0, 0, '\`$' + '{key}\`');
-・ +       file.addIssue(0, 0, '\`$' + '{key}\`');
+・ +       file.addIssue(0, 0, "\`$" + "{key}\`");
 ・ -   }),
 ・ +     }),
 ・ -   'count files': new BettererFileTest(async (files, fileTestResult) => {
 ・ -     const [filePath] = files;
-・ +   'count files': () =>
+・ +   "count files": () =>
 ・ +     new BettererFileTest(async (files, fileTestResult) => {
 ・ +       const [filePath] = files;
 ・ -     const file = fileTestResult.addFile(filePath, '');
-・ +       const file = fileTestResult.addFile(filePath, '');
+・ +       const file = fileTestResult.addFile(filePath, "");
 ・ -     file.addIssue(0, 0, '\`$' + '{key}\`');
-・ +       file.addIssue(0, 0, '\`$' + '{key}\`');
+・ +       file.addIssue(0, 0, "\`$" + "{key}\`");
 ・ -   }).include('./src/**/*.ts')
-・ +     }).include('./src/**/*.ts')
 ・ - }
+・ +     }).include("./src/**/*.ts"),
 ・ + };
 ・ +
 ・
 ・ If that looks okay, run \`betterer upgrade --save\` to write the changes to disk. 💾
 ・",
   "🎉 Upgrading Betterer (0ms): 1 task done!
-✅ Upgrading \\"./.betterer.ts\\": done!
-・ Saved upgraded config to \\"<project>/fixtures/upgrade-exported-default-test-cjs/.betterer.ts\\"! ☀️",
+✅ Upgrading "./.betterer.js": done!
+・ Saved upgraded config to "<project>/fixtures/upgrade-exported-default-test-cjs/.betterer.js"! ☀️",
 ]
 `;

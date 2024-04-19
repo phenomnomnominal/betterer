@@ -28,16 +28,16 @@ export async function parse(filePath: string): Promise<unknown> {
   if (hasMergeConflicts(contents)) {
     try {
       const [ours, theirs] = extractConflicts(contents);
-      return merge(ours, theirs);
+      return merge(filePath, ours, theirs);
     } catch (error) {
       throw new BettererError(`could not resolve merge conflict in "${filePath}". 😔`, error as Error);
     }
   }
 
   try {
-    return importText(contents);
-  } catch {
-    throw new BettererError(`could not read results from "${filePath}". 😔`);
+    return importText(filePath, contents);
+  } catch (error) {
+    throw new BettererError(`could not read results from "${filePath}". 😔`, error as Error);
   }
 }
 

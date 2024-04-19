@@ -1,5 +1,6 @@
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from './fixture';
+import { describe, expect, it } from 'vitest';
+
+import { createFixture } from './fixture.js';
 
 describe('betterer', () => {
   it('should return only the current results for an included file', async () => {
@@ -7,9 +8,9 @@ describe('betterer', () => {
 
     const { paths, cleanup, resolve } = await createFixture('results-includes', {
       '.betterer.js': `
-const { regexp } = require('@betterer/regexp');
+import { regexp } from '@betterer/regexp';
 
-module.exports = {
+export default {
   'test': () => regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts'),
 };      
     `,

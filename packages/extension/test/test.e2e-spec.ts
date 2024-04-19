@@ -18,18 +18,18 @@ describe('Betterer VSCode Extension', () => {
 
       await vscode.commands.executeCommand('betterer.init');
 
-      await waitFor(() => readFile('.betterer.ts'));
+      await waitFor(() => readFile('.betterer.js'));
       const packageJSON = await waitFor(() => readFile('package.json'));
       const pack = JSON.parse(packageJSON) as BettererPackageJSON;
       expect(pack.devDependencies['@betterer/cli']).toBeDefined();
       expect(pack.scripts['betterer']).toBe('betterer');
 
-      const bettererConfig = await readFile('.betterer.ts');
+      const bettererConfig = await readFile('.betterer.js');
       expect(bettererConfig).not.toBe(null);
 
       await deleteDirectory(resolve('./.vscode'));
       await deleteFile(resolve('./package.json'));
-      await deleteFile(resolve('./.betterer.ts'));
+      await deleteFile(resolve('./.betterer.js'));
       await deleteFile(resolve('./index.js'));
     }
 
@@ -42,8 +42,8 @@ describe('Betterer VSCode Extension', () => {
       'e2e-eslint': () => eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
     };
           `,
-        '.eslintrc.js': `
-    const path = require('path');
+        '.eslintrc.cjs': `
+    const path = require('node:path');
 
     module.exports = {
       parser: '@typescript-eslint/parser',
@@ -106,13 +106,13 @@ describe('Betterer VSCode Extension', () => {
 
     {
       const { cleanup, resolve } = await createFixture('e2e-typescript', {
-        '.betterer.ts': `
+        '.betterer.js': `
 import { BettererTest } from '@betterer/betterer';
 import { typescript } from '@betterer/typescript';
 import { persist } from '@betterer/fixture';
 import { smaller } from '@betterer/constraints';
 
-const shrinks = persist(__dirname, 'shrinks', 2);
+const shrinks = persist(import.meta.url, 'shrinks', 2);
 
 export default {
   'e2e-typescript': () => typescript('./tsconfig.json', {
@@ -128,13 +128,13 @@ export default {
 {
   "compilerOptions": {
     "noEmit": true,
-    "lib": ["esnext"],
+    "lib": ["esnext", "dom"],
     "moduleResolution": "node",
     "target": "ES5",
-    "typeRoots": ["../../node_modules/@types/"],
+    "typeRoots": [],
     "resolveJsonModule": true
   },
-  "include": ["./src/**/*", ".betterer.ts"]
+  "include": ["./src/**/*"]
 }
           `,
         'src/index.ts': ''
@@ -142,7 +142,7 @@ export default {
 
       const indexPath = resolve('./src/index.ts');
       const cachePath = resolve('./.betterer.cache');
-      const configPath = resolve('./.betterer.ts');
+      const configPath = resolve('./.betterer.js');
       const resultsPath = resolve('./.betterer.results');
 
       const indexUri = vscode.Uri.file(indexPath);

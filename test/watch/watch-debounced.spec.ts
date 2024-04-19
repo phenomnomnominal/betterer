@@ -1,15 +1,17 @@
 import type { BettererSuiteSummary } from '@betterer/betterer';
+
+import { describe, expect, it } from 'vitest';
+
 import assert from 'node:assert';
 
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from '../fixture';
+import { createFixture } from '../fixture.js';
 
 describe('betterer.watch', () => {
   it('should debounce runs when multiple files change', async () => {
-    const { watch } = await import('@betterer/betterer');
+    const { watch } = await import('../../packages/betterer/src/index.js');
 
     const { logs, paths, resolve, cleanup, writeFile } = await createFixture('watch-debounce', {
-      '.betterer.ts': `
+      '.betterer.js': `
 import { tsquery } from '@betterer/tsquery';
 
 export default {

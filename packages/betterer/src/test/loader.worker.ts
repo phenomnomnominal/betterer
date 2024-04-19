@@ -5,8 +5,8 @@ import { exposeToMain__ } from '@betterer/worker';
 
 import { loadTestMeta } from './loader.js';
 
-export function loadTestNames(configPaths: BettererConfigPaths): BettererTestNames {
-  const testMeta = loadTestMeta(configPaths);
+export async function loadTestNames(configPaths: BettererConfigPaths): Promise<BettererTestNames> {
+  const testMeta = await loadTestMeta(configPaths);
   return Object.keys(testMeta);
 }
 

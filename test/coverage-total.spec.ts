@@ -1,7 +1,8 @@
 import type { BettererCoverageIssues } from '@betterer/coverage';
 
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from './fixture';
+import { describe, expect, it } from 'vitest';
+
+import { createFixture } from './fixture.js';
 
 describe('betterer', () => {
   it('should report the total coverage', async () => {
@@ -9,9 +10,9 @@ describe('betterer', () => {
 
     const fixture = await createFixture('coverage-total', {
       '.betterer.js': `
-const { coverageTotal } = require('@betterer/coverage');
+import { coverageTotal } from '@betterer/coverage';
 
-module.exports = {
+export default {
   test: () => coverageTotal()
 };    
         `,

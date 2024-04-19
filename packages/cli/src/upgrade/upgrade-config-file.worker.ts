@@ -5,7 +5,7 @@ import { BettererError } from '@betterer/errors';
 import { exposeToMain__ } from '@betterer/worker';
 import { tsquery } from '@phenomnomnominal/tsquery';
 import { promises as fs } from 'node:fs';
-import { format, resolveConfig } from 'prettier';
+import { format } from 'prettier';
 import { createPrinter, ModuleKind } from 'typescript';
 
 import { diff } from './diff.js';
@@ -34,12 +34,13 @@ export async function run(logger: BettererLogger, configPath: string, save: bool
   const upgrade = moduleType === ModuleKind.CommonJS ? upgradeCJS : upgradeESM;
   const upgradedSourceFile = upgrade(originalSourceFile, configPath);
 
-  const config = await resolveConfig(configPath);
   const printed = printUpgraded(originalSourceFile, upgradedSourceFile);
 
-  const formatOptions = { ...config, parser: 'typescript' };
-  const formattedOriginal = format(fileText, formatOptions);
-  const formatted = format(printed, formatOptions);
+  const formatOptions = { parser: 'typescript' };
+  const [formattedOriginal, formatted] = await Promise.all([
+    format(fileText, formatOptions),
+    format(printed, formatOptions)
+  ]);
 
   if (formattedOriginal !== formatted) {
     if (!save) {

@@ -4,6 +4,6 @@ import type { BettererRunWorker } from './types.js';
 
 import { createWorkerPool__, importWorker__ } from '@betterer/worker';
 
-export function createRunWorkerPool(workers: number): BettererWorkerPool<BettererRunWorker> {
-  return createWorkerPool__(workers, () => importWorker__('./run.worker.js'));
+export function createRunWorkerPool(workers: number): Promise<BettererWorkerPool<BettererRunWorker>> {
+  return createWorkerPool__(workers, async () => await importWorker__('./run.worker.js'));
 }

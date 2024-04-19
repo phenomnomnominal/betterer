@@ -1,5 +1,6 @@
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from './fixture';
+import { describe, expect, it } from 'vitest';
+
+import { createFixture } from './fixture.js';
 
 describe('betterer', () => {
   it('should let you override the constraint of a file test', async () => {
@@ -9,15 +10,15 @@ describe('betterer', () => {
       'file-test-constraint',
       {
         '.betterer.js': `
-const { eslint } = require('@betterer/eslint');
-const { BettererConstraintResult } = require('@betterer/constraints');
+import { eslint } from '@betterer/eslint';
+import { BettererConstraintResult } from '@betterer/constraints';
 
-module.exports = {
+export default {
   test: () => eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts').constraint(() => BettererConstraintResult.same)
 };
       `,
-        '.eslintrc.js': `
-const path = require('path');
+        '.eslintrc.cjs': `
+const path = require('node:path');
 
 module.exports = {
   parser: '@typescript-eslint/parser',

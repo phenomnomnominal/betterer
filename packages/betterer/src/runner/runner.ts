@@ -1,13 +1,12 @@
 import type { BettererOptions } from '../api/index.js';
-import type { BettererConfig, BettererOptionsOverride } from '../config/index.js';
-import type { BettererFilePaths, BettererVersionControlWorker } from '../fs/index.js';
+import type { BettererOptionsOverride } from '../config/index.js';
+import type { BettererFilePaths } from '../fs/index.js';
 import type { BettererSuiteSummary } from '../suite/index.js';
 import type { BettererOptionsWatcher, BettererRunner } from './types.js';
 
 import { BettererError } from '@betterer/errors';
 
 import { BettererContextΩ } from '../context/index.js';
-import { BettererFileResolverΩ } from '../fs/index.js';
 import { createGlobals } from '../globals.js';
 import { normalisedPath } from '../utils.js';
 import { createWatcher, WATCHER_EVENTS } from './watcher.js';
@@ -18,11 +17,7 @@ export class BettererRunnerΩ implements BettererRunner {
   private _jobs: Array<BettererFilePaths> = [];
   private _running: Promise<void> | null = null;
 
-  private constructor(
-    private readonly _config: BettererConfig,
-    private readonly _context: BettererContextΩ,
-    private readonly _versionControl: BettererVersionControlWorker
-  ) {}
+  private constructor(private readonly _context: BettererContextΩ) {}
 
   public static async create(
     options: BettererOptions,
@@ -31,8 +26,8 @@ export class BettererRunnerΩ implements BettererRunner {
     const { config, results, versionControl } = await createGlobals(options, optionsWatch);
     const watcher = await createWatcher(config);
 
-    const context = new BettererContextΩ(config, results, versionControl, watcher);
-    const runner = new BettererRunnerΩ(config, context, versionControl);
+    const context = await BettererContextΩ.create(config, results, versionControl, watcher);
+    const runner = new BettererRunnerΩ(context);
 
     if (watcher) {
       watcher.on('all', (event: string, filePath: string) => {
@@ -107,42 +102,12 @@ export class BettererRunnerΩ implements BettererRunner {
       const runPaths = Array.from(filePaths).sort();
       this._jobs = [];
 
-      this._running = this._resolveFilesAndRun(runPaths);
+      this._running = this._context.run(runPaths);
       try {
         await this._running;
       } catch {
         // Errors will be handled by reporters
       }
     }
-  }
-
-  private async _resolveFilesAndRun(specifiedFilePaths: BettererFilePaths, isRunOnce = true): Promise<void> {
-    await this._versionControl.api.sync();
-
-    const { cwd, includes, excludes } = this._config;
-
-    const resolver = new BettererFileResolverΩ(cwd, this._versionControl);
-    resolver.include(...includes);
-    resolver.exclude(...excludes);
-
-    const hasSpecifiedFiles = specifiedFilePaths.length > 0;
-    const hasGlobalIncludesExcludes = includes.length || excludes.length;
-
-    let filePaths: BettererFilePaths;
-    if (hasSpecifiedFiles && hasGlobalIncludesExcludes) {
-      // Validate specified files based on global `includes`/`excludes and gitignore rules:
-      filePaths = await resolver.validate(specifiedFilePaths);
-    } else if (hasSpecifiedFiles) {
-      // Validate specified files based on gitignore rules:
-      filePaths = await resolver.validate(specifiedFilePaths);
-    } else if (hasGlobalIncludesExcludes) {
-      // Resolve files based on global `includes`/`excludes and gitignore rules:
-      filePaths = await resolver.files();
-    } else {
-      // When `filePaths` is `[]` the test will use its specific resolver:
-      filePaths = [];
-    }
-
-    return await this._context.run(filePaths, isRunOnce);
   }
 }

@@ -1,5 +1,6 @@
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from './fixture';
+import { describe, expect, it } from 'vitest';
+
+import { createFixture } from './fixture.js';
 
 const STYLES_SOURCE = `
 a {
@@ -18,7 +19,7 @@ describe('betterer', () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { logs, paths, resolve, readFile, writeFile, cleanup, testNames } = await createFixture('stylelint', {
-      '.betterer.ts': `
+      '.betterer.js': `
 import { stylelint } from '@betterer/stylelint';
 
 export default {

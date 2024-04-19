@@ -1,2 +1,3 @@
 #!/usr/bin/env node
-require('../dist/cli').cli__(process.cwd(), process.argv);
+import { cli__ } from '../dist/cli.js';
+cli__(process.cwd(), process.argv);

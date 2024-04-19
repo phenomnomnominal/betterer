@@ -23,7 +23,9 @@ export const Upgrade: FC<UpgradeProps> = function Upgrade({ configPaths, cwd, lo
         {configPaths.map((configPath) => {
           const runUpgradeConfigFile = useCallback(
             async (logger: BettererLogger) => {
-              const upgradeConfigFile: UpgradeConfigFileWorker = importWorker__('./upgrade-config-file.worker.js');
+              const upgradeConfigFile: UpgradeConfigFileWorker = await importWorker__(
+                './upgrade-config-file.worker.js'
+              );
               try {
                 await upgradeConfigFile.api.run(exposeToWorker__(logger), path.resolve(cwd, configPath), save);
               } finally {

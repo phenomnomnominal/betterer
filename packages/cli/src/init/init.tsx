@@ -12,34 +12,33 @@ export interface InitProps {
   cwd: string;
   logo: boolean;
   resultsPath: string;
-  ts: boolean;
 }
 
-export const Init: FC<InitProps> = function Init({ automerge, cwd, configPath, logo, resultsPath, ts }) {
+export const Init: FC<InitProps> = function Init({ automerge, cwd, configPath, logo, resultsPath }) {
   const runCreateTestFile = useCallback(
     async (logger: BettererLogger) => {
-      const createTestFile: CreateTestFileWorker = importWorker__('./create-test-file.worker.js');
+      const createTestFile: CreateTestFileWorker = await importWorker__('./create-test-file.worker.js');
       try {
-        await createTestFile.api.run(exposeToWorker__(logger), cwd, configPath, ts);
+        await createTestFile.api.run(exposeToWorker__(logger), cwd, configPath);
       } finally {
         await createTestFile.destroy();
       }
     },
-    [cwd, configPath, ts]
+    [cwd, configPath]
   );
   const runUpdatePackageJSON = useCallback(
     async (logger: BettererLogger) => {
-      const updatePackageJSON: UpdatePackageJSONWorker = importWorker__('./update-package-json.worker.js');
+      const updatePackageJSON: UpdatePackageJSONWorker = await importWorker__('./update-package-json.worker.js');
       try {
-        await updatePackageJSON.api.run(exposeToWorker__(logger), cwd, ts);
+        await updatePackageJSON.api.run(exposeToWorker__(logger), cwd);
       } finally {
         await updatePackageJSON.destroy();
       }
     },
-    [cwd, ts]
+    [cwd]
   );
   const runEnableAutomerge = useCallback(async (logger: BettererLogger) => {
-    const enableAutomerge: EnableAutomergeWorker = importWorker__('./enable-automerge.worker.js');
+    const enableAutomerge: EnableAutomergeWorker = await importWorker__('./enable-automerge.worker.js');
     try {
       await enableAutomerge.api.run(exposeToWorker__(logger), cwd, resultsPath);
     } finally {

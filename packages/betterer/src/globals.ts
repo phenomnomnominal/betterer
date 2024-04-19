@@ -15,12 +15,12 @@ export async function createGlobals(
   options: BettererOptions,
   optionsWatch: BettererOptionsWatcher = {}
 ): Promise<BettererGlobals> {
-  let reporter = loadDefaultReporter();
+  let reporter = await loadDefaultReporter();
 
   try {
     const configContext = createContextConfig(options);
-    const configFS = createFSConfig(options);
-    const configReporter = createReporterConfig(configFS, options);
+    const configFS = await createFSConfig(options);
+    const configReporter = await createReporterConfig(configFS, options);
     const configWatcher = createWatcherConfig(configFS, optionsWatch);
 
     const { resultsFile, versionControl, versionControlPath } = await BettererFSΩ.create(configFS);

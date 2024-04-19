@@ -1,14 +1,16 @@
 import assert from 'node:assert';
 
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from '../fixture';
+import { describe, expect, it } from 'vitest';
+
+import { createFixture } from '../fixture.js';
 
 describe('betterer.watch', () => {
   it('should quit when "q" is pressed', async () => {
     const { betterer } = await import('@betterer/betterer');
+    const { getStdIn } = await import('@betterer/render');
 
     const { logs, paths, cleanup, resolve, writeFile } = await createFixture('watch-quit', {
-      '.betterer.ts': `
+      '.betterer.js': `
 import { tsquery } from '@betterer/tsquery';
 
 export default {
@@ -51,7 +53,7 @@ export default {
     await suiteEndDefer.promise;
 
     // Press "q" to quit watch mode:
-    process.stdin.emit('data', 'q');
+    getStdIn().emit('data', 'q');
 
     await contextEndDefer.promise;
 

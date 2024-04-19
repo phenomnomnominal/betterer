@@ -1,12 +1,13 @@
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from './fixture';
+import { describe, expect, it } from 'vitest';
+
+import { createFixture } from './fixture.js';
 
 describe('betterer', () => {
   it('should handle complex eslint rule options', async () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('eslint-complex-rule', {
-      '.betterer.ts': `
+      '.betterer.js': `
 import { eslint } from '@betterer/eslint';
 
 export default {
@@ -21,8 +22,8 @@ export default {
   }).include('./src/**/*.ts')
 };
       `,
-      '.eslintrc.js': `
-const path = require('path');
+      '.eslintrc.cjs': `
+const path = require('node:path');
 
 module.exports = {
   parser: '@typescript-eslint/parser',
@@ -46,7 +47,7 @@ module.exports = {
       'tsconfig.json': `
 {
   "extends": "../../tsconfig.json",
-  "include": ["./src/**/*", ".betterer.ts", "./.eslintrc.js"]
+  "include": ["./src/**/*", ".betterer.js", "./.eslintrc.js"]
 }
       `
     });
