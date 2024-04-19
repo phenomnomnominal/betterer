@@ -1,8 +1,9 @@
 import type { FixtureLogs, FixtureLogsMap, FixtureOptions } from './types.js';
 
+import path from 'node:path';
+
 import { getStdOut } from '@betterer/render';
 import ansiRegex from 'ansi-regex';
-import path from 'node:path';
 
 const ANSI_REGEX = ansiRegex();
 const PROJECT_REGEXP = new RegExp(normalisePaths(process.cwd()), 'g');
@@ -10,17 +11,14 @@ const STACK_TRACK_LINE_REGEXP = /^\s+at\s+/;
 
 const FIXTURE_LOGS_MAP: FixtureLogsMap = {};
 
-export function createFixtureLogs(options: FixtureOptions = {}): FixtureLogs {
+export function createFixtureLogs(fixtureName: string, options: FixtureOptions = {}): FixtureLogs {
   const fixtureLogs: Array<string> = [];
-  FIXTURE_LOGS_MAP[expect.getState().currentTestName] = fixtureLogs;
-
-  const log = (...messages: Array<string>): void => {
-    const currentFixtureLogs = FIXTURE_LOGS_MAP[expect.getState().currentTestName];
+  FIXTURE_LOGS_MAP[fixtureName] = (...messages: Array<string>): void => {
     // Do some magic to sort out the logs for snapshots. This mucks up the snapshot of the printed logo,
     // but that hardly matters...
     messages.forEach((message) => {
       if (!isString(message)) {
-        currentFixtureLogs.push(message);
+        fixtureLogs.push(message);
         return;
       }
       message = replaceAnsi(message);
@@ -39,24 +37,20 @@ export function createFixtureLogs(options: FixtureOptions = {}): FixtureLogs {
       if (trimmed.length === 0) {
         return;
       }
-      const [previous] = currentFixtureLogs.slice(-1);
+      const [previous] = fixtureLogs.slice(-1);
       if (message !== previous) {
-        currentFixtureLogs.push(message);
+        fixtureLogs.push(message);
       }
     });
   };
 
   const stdout = getStdOut();
-  try {
-    jest.spyOn(stdout, 'write').mockImplementation((message: string | Uint8Array): boolean => {
-      if (message) {
-        log(message.toString());
-      }
-      return true;
-    });
-  } catch {
-    // Cannot wrap stdout.write
-  }
+  stdout.write = (message: string | Uint8Array): boolean => {
+    if (message) {
+      FIXTURE_LOGS_MAP[fixtureName](message.toString());
+    }
+    return true;
+  };
   stdout.columns = 1000;
   stdout.rows = 20;
 

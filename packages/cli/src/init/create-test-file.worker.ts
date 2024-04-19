@@ -5,16 +5,12 @@ import { exposeToMain__ } from '@betterer/worker';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
-const TEMPLATE_JS = `module.exports = {
-  // Add tests here ☀️
-};
-`;
-const TEMPLATE_TS = `export default {
+const TEMPLATE_JS = `export default {
   // Add tests here ☀️
 };
 `;
 
-export async function run(logger: BettererLogger, cwd: string, configPath: string, ts: boolean): Promise<void> {
+export async function run(logger: BettererLogger, cwd: string, configPath: string): Promise<void> {
   configPath = path.resolve(cwd, configPath);
 
   await logger.progress(`creating "${configPath}" file...`);
@@ -32,8 +28,7 @@ export async function run(logger: BettererLogger, cwd: string, configPath: strin
   }
 
   try {
-    const template = ts ? TEMPLATE_TS : TEMPLATE_JS;
-    await fs.writeFile(configPath, template, 'utf8');
+    await fs.writeFile(configPath, TEMPLATE_JS, 'utf8');
     await logger.success(`created "${configPath}"!`);
   } catch {
     throw new BettererError(`could not create "${configPath}".`);

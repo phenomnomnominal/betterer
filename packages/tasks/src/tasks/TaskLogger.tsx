@@ -1,7 +1,7 @@
 import type { BettererLoggerCodeInfo } from '@betterer/logger';
 import type { FC } from '@betterer/render';
 
-import type { BettererTaskLog, BettererTask } from './types.js';
+import type { BettererTaskLog, BettererTask, BettererTaskColour } from './types.js';
 
 import { code__ } from '@betterer/logger';
 import { React, Box, Text, memo, useEffect } from '@betterer/render';
@@ -115,7 +115,7 @@ export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function Bet
 
 function prependLogBlock(log: BettererTaskLog): string {
   const [, colour, message] = log;
-  return prependBlock(message, chalk[colour]('・'));
+  return prependBlock(message, chalk[colour as BettererTaskColour]('・'));
 }
 
 function prependBlock(message: string, block: string): string {

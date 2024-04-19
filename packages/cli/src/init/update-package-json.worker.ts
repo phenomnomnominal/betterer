@@ -4,12 +4,12 @@ import type { BettererPackageJSON } from '../types.js';
 
 import { BettererError } from '@betterer/errors';
 import { exposeToMain__ } from '@betterer/worker';
-import findUp from 'find-up';
+import { findUp } from 'find-up';
 import { promises as fs } from 'node:fs';
 
 import { getVersion } from '../version.js';
 
-export async function run(logger: BettererLogger, cwd: string, ts: boolean): Promise<void> {
+export async function run(logger: BettererLogger, cwd: string): Promise<void> {
   await logger.progress('adding "betterer" to package.json file...');
 
   let packageJSON;
@@ -39,15 +39,6 @@ export async function run(logger: BettererLogger, cwd: string, ts: boolean): Pro
     const version = await getVersion();
     packageJSON.devDependencies['@betterer/cli'] = `^${version}`;
     await logger.success('added "@betterer/cli" dependency to package.json file');
-  }
-
-  if (ts) {
-    if (packageJSON.devDependencies['typescript']) {
-      await logger.warn('"typescript" dependency already exists, moving on...');
-    } else {
-      packageJSON.devDependencies['typescript'] = `^4`;
-      await logger.success('added "typescript" dependency to package.json file');
-    }
   }
 
   try {

@@ -1,5 +1,6 @@
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from './fixture';
+import { describe, expect, it } from 'vitest';
+
+import { createFixture } from './fixture.js';
 
 describe('betterer', () => {
   it('should fail when the coverage report is invalid', async () => {
@@ -7,9 +8,9 @@ describe('betterer', () => {
 
     const fixture = await createFixture('coverage-report-invalid', {
       '.betterer.js': `
-const { coverageTotal } = require('@betterer/coverage');
+import { coverageTotal } from '@betterer/coverage';
 
-module.exports = {
+export default {
   test: () => coverageTotal()
 };    
         `,

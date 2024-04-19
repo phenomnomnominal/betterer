@@ -63,9 +63,7 @@ export type TextInputProps = React.ComponentProps<typeof TI>;
  *
  * Re-exported TextInput component from `ink-text-input`
  */
-export const TextInput = (props: TextInputProps) => {
-  return <TI {...props} />;
-};
+export const TextInput: React.FC<TextInputProps> = TI;
 
 /**
  * @internal This could change at any point! Please don't use!

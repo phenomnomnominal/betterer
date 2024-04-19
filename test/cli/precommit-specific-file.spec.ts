@@ -1,7 +1,8 @@
+import { describe, it, expect } from 'vitest';
+
 import { simpleGit } from 'simple-git';
 
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from '../fixture';
+import { createFixture } from '../fixture.js';
 
 const ARGV = ['node', './bin/betterer'];
 
@@ -9,14 +10,14 @@ describe('betterer precommit', () => {
   it('should test just the specified files', async () => {
     const { paths, logs, cleanup, resolve, readFile, writeFile } = await createFixture('precommit-specific-file', {
       '.betterer.js': `
-const { eslint } = require('@betterer/eslint');
+import { eslint } from '@betterer/eslint';
 
-module.exports = {
+export default {
   test: () => eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
 };
       `,
-      '.eslintrc.js': `
-const path = require('path');
+      '.eslintrc.cjs': `
+const path = require('node:path');
 
 module.exports = {
   parser: '@typescript-eslint/parser',
@@ -60,9 +61,9 @@ debugger;
 
     const { cli__ } = await import('@betterer/cli');
 
-    await cli__(fixturePath, [...ARGV, 'start', '--workers=0'], false);
+    await cli__(fixturePath, [...ARGV, 'start', '--workers=false'], false);
 
-    await cli__(fixturePath, [...ARGV, 'precommit', '--workers=0', newFilePath], false);
+    await cli__(fixturePath, [...ARGV, 'precommit', '--workers=false', newFilePath], false);
 
     expect(logs).toMatchSnapshot();
 
@@ -71,7 +72,6 @@ debugger;
     expect(result).toMatchSnapshot();
 
     const git = simpleGit();
-    await git.init();
     const status = await git.status([paths.results]);
     const [stagedResultsPath] = status.staged;
     expect(stagedResultsPath).toMatchSnapshot();

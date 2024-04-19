@@ -18,7 +18,7 @@ export const APITest: FC<APITestProps> = function APITest({ packageNames }) {
       {packageNames.map((packageName) => {
         const task = useCallback(
           async (logger: BettererLogger) => {
-            const worker: TestPackageAPIWorker = importWorker__('./test-package-api.worker.js');
+            const worker: TestPackageAPIWorker = await importWorker__('./test-package-api.worker.js');
             try {
               return await worker.api.run(exposeToWorker__(logger), packageName);
             } finally {
@@ -46,7 +46,7 @@ function tests(n: number): string {
 }
 
 void (async () => {
-  const worker: TestPackageAPIWorker = importWorker__('./test-package-api.worker.js');
+  const worker: TestPackageAPIWorker = await importWorker__('./test-package-api.worker.js');
   const packageNames = await worker.api.getPackages();
   const test = render(<APITest packageNames={packageNames} />, getRenderOptions(process.env.NODE_ENV));
   await worker.destroy();

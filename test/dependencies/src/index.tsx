@@ -18,7 +18,7 @@ export const DependenciesTest: FC<DependenciesTestProps> = function Dependencies
       {packageNames.map((packageName) => {
         const task = useCallback(
           async (logger: BettererLogger) => {
-            const worker: TestPackageDependenciesWorker = importWorker__('./test-package-dependencies.worker.js');
+            const worker: TestPackageDependenciesWorker = await importWorker__('./test-package-dependencies.worker.js');
             try {
               await worker.api.run(exposeToWorker__(logger), packageName);
             } finally {
@@ -46,7 +46,7 @@ function tests(n: number): string {
 }
 
 void (async () => {
-  const worker: TestPackageDependenciesWorker = importWorker__('./test-package-dependencies.worker.js');
+  const worker: TestPackageDependenciesWorker = await importWorker__('./test-package-dependencies.worker.js');
   const test = render(
     <DependenciesTest packageNames={await worker.api.getPackages()} />,
     getRenderOptions(process.env.NODE_ENV)

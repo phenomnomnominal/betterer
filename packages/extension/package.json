@@ -55,7 +55,7 @@
         "betterer.configPath": {
           "scope": "resource",
           "type": "string",
-          "default": "./.betterer.ts",
+          "default": "./.betterer.js",
           "description": "Path to test definition file relative to working directory"
         },
         "betterer.resultsPath": {

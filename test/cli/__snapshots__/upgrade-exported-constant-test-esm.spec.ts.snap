@@ -1,9 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer upgrade should upgrade exported constant tests in an ES module 1`] = `
-Array [
+exports[`betterer upgrade > should upgrade exported constant tests in an ES module 1`] = `
+[
   "🎉 Upgrading Betterer (0ms): 1 task done!
-✅ Upgrading \\"./.betterer.ts\\": done!
+✅ Upgrading "./.betterer.js": done!
 ・
 ・ Betterer can upgrade your test definition file automatically! ✨
 ・ Here's what the changes will look like:
@@ -11,8 +11,10 @@ Array [
 ・ - Before
 ・ + After
 ・
-・   import { BettererTest } from '@betterer/betterer';
-・   import { bigger } from '@betterer/constraints';
+・ - import { BettererTest } from '@betterer/betterer';
+・ + import { BettererTest } from "@betterer/betterer";
+・ - import { bigger } from '@betterer/constraints';
+・ + import { bigger } from "@betterer/constraints";
 ・
 ・   let start = 0;
 ・
@@ -22,8 +24,8 @@ Array [
 ・ -   test: () => start++,
 ・ +     test: () => start++,
 ・ -   constraint: bigger
-・ +     constraint: bigger
 ・ - });
+・ +     constraint: bigger,
 ・ +   });
 ・ +
 ・

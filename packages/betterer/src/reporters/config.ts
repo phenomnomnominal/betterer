@@ -10,10 +10,10 @@ import type {
 import { toArray, validateBool } from '../config/index.js';
 import { loadReporters, loadSilentReporter } from './loader.js';
 
-export function createReporterConfig(
+export async function createReporterConfig(
   configBase: BettererConfigFS,
   options: BettererOptionsReporter
-): BettererConfigReporter {
+): Promise<BettererConfigReporter> {
   const { cwd } = configBase;
 
   const logo = options.logo || false;
@@ -24,7 +24,7 @@ export function createReporterConfig(
   validateBool({ logo });
   validateBool({ silent });
 
-  const reporter = silent ? loadSilentReporter() : loadReporters(reporters, cwd);
+  const reporter = silent ? loadSilentReporter() : await loadReporters(reporters, cwd);
 
   return {
     logo,
@@ -32,9 +32,12 @@ export function createReporterConfig(
   };
 }
 
-export function overrideReporterConfig(config: BettererConfig, optionsOverride: BettererOptionsReporterOverride): void {
+export async function overrideReporterConfig(
+  config: BettererConfig,
+  optionsOverride: BettererOptionsReporterOverride
+): Promise<void> {
   if (optionsOverride.reporters) {
     const reporters = toArray<string | BettererReporter>(optionsOverride.reporters);
-    config.reporter = loadReporters(reporters, config.cwd);
+    config.reporter = await loadReporters(reporters, config.cwd);
   }
 }

@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('node:path');
 
 const BASE_EXTENDS = [
   'eslint:recommended',
@@ -43,6 +43,7 @@ module.exports = {
     ...BASE_RULES
   },
   overrides: [
+    { files: ['fixtures/**/*'], rules: {} },
     {
       files: ['**/*.ts', '**/*.tsx'],
       extends: BASE_EXTENDS,
@@ -50,11 +51,7 @@ module.exports = {
     },
     {
       files: ['test/**/*'],
-      env: {
-        jest: true
-      },
-      plugins: ['jest'],
-      extends: [...BASE_EXTENDS, 'plugin:jest/recommended', 'plugin:jest/style'],
+      extends: [...BASE_EXTENDS],
       rules: OVERRIDE_RULES
     },
     {

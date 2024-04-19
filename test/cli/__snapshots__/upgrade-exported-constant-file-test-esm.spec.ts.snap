@@ -1,9 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer upgrade should upgrade exported constant file tests in an ES module 1`] = `
-Array [
+exports[`betterer upgrade > should upgrade exported constant file tests in an ES module 1`] = `
+[
   "🎉 Upgrading Betterer (0ms): 1 task done!
-✅ Upgrading \\"./.betterer.ts\\": done!
+✅ Upgrading "./.betterer.js": done!
 ・
 ・ Betterer can upgrade your test definition file automatically! ✨
 ・ Here's what the changes will look like:
@@ -11,7 +11,8 @@ Array [
 ・ - Before
 ・ + After
 ・
-・   import { BettererFileTest } from '@betterer/betterer';
+・ - import { BettererFileTest } from '@betterer/betterer';
+・ + import { BettererFileTest } from "@betterer/betterer";
 ・
 ・ - export const countFiles = new BettererFileTest(async (files, fileTestResult) => {
 ・ -   const [filePath] = files;
@@ -19,9 +20,9 @@ Array [
 ・ +   new BettererFileTest(async (files, fileTestResult) => {
 ・ +     const [filePath] = files;
 ・ -   const file = fileTestResult.addFile(filePath, '');
-・ +     const file = fileTestResult.addFile(filePath, '');
+・ +     const file = fileTestResult.addFile(filePath, "");
 ・ -   file.addIssue(0, 0, '\`$' + '{key}\`');
-・ +     file.addIssue(0, 0, '\`$' + '{key}\`');
+・ +     file.addIssue(0, 0, "\`$" + "{key}\`");
 ・ - });
 ・ +   });
 ・ +

@@ -4,7 +4,7 @@ import type { WorkspaceFolder } from 'vscode';
 import { EXTENSION_NAME } from '../constants.js';
 
 const NAME = EXTENSION_NAME;
-const DEFAULT_CONFIG_FILE = `.betterer.ts`;
+const DEFAULT_CONFIG_FILE = `.betterer.js`;
 
 const COMMAND_REQUIRES_WORKSPACE = `if VS Code is opened on a workspace folder.`;
 

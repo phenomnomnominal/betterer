@@ -1,5 +1,6 @@
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from './fixture';
+import { describe, expect, it } from 'vitest';
+
+import { createFixture } from './fixture.js';
 
 describe('betterer', () => {
   it('should run tests in workers', async () => {
@@ -8,7 +9,7 @@ describe('betterer', () => {
     const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture(
       'workers',
       {
-        '.betterer.ts': `
+        '.betterer.js': `
 import { BettererTest } from '@betterer/betterer';
 import { bigger, smaller } from '@betterer/constraints';
 import { regexp } from '@betterer/regexp';

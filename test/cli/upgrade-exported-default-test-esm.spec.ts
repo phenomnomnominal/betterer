@@ -1,5 +1,6 @@
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from '../fixture';
+import { describe, it, expect } from 'vitest';
+
+import { createFixture } from '../fixture.js';
 
 const ARGV = ['node', './bin/betterer', 'upgrade'];
 
@@ -8,7 +9,7 @@ describe('betterer upgrade', () => {
     const { cleanup, logs, paths, readFile } = await createFixture(
       'upgrade-exported-default-test-esm',
       {
-        './.betterer.ts': `
+        './.betterer.js': `
 import { BettererTest, BettererFileTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
 
@@ -49,7 +50,7 @@ export default {
 
     await cli__(fixturePath, [...ARGV, '--save']);
 
-    const upgradedConfig = await readFile(`${paths.config}.ts`);
+    const upgradedConfig = await readFile(paths.config);
 
     expect(upgradedConfig).toMatchSnapshot();
 

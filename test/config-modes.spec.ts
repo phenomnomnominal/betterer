@@ -1,11 +1,12 @@
 import type { BettererOptions, BettererOptionsRunner, BettererOptionsWatch } from '@betterer/betterer';
 
+import { describe, it } from 'vitest';
+
 function noop(options: unknown): unknown {
   return options;
 }
 
 describe('betterer modes', () => {
-  // eslint-disable-next-line jest/expect-expect -- no need to assert, just testing the types
   it('handles options for running Betterer', () => {
     const start: BettererOptions = { ci: false, precommit: false, strict: false, update: false };
     noop(start);

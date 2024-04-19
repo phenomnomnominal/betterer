@@ -15,7 +15,7 @@ export type BettererWorkerAPI<API> = {
 };
 
 // @public
-export type BettererWorkerFactory<API extends BettererWorkerAPI<unknown>> = () => API;
+export type BettererWorkerFactory<API extends BettererWorkerAPI<unknown>> = () => API | Promise<API>;
 
 // @public
 export interface BettererWorkerHandle<API extends BettererWorkerAPI<unknown>> {
@@ -31,7 +31,7 @@ export interface BettererWorkerPool<API extends BettererWorkerAPI<unknown>> {
 }
 
 // @internal
-export function createWorkerPool__<API extends BettererWorkerAPI<unknown>>(workerCount: number, workerFactory: BettererWorkerFactory<API>): BettererWorkerPool<API>;
+export function createWorkerPool__<API extends BettererWorkerAPI<unknown>>(workerCount: number, workerFactory: BettererWorkerFactory<API>): Promise<BettererWorkerPool<API>>;
 
 // @internal
 export function exposeToMain__<Expose>(api: Expose): void;
@@ -40,6 +40,6 @@ export function exposeToMain__<Expose>(api: Expose): void;
 export function exposeToWorker__<Expose extends object>(api: Expose): Expose;
 
 // @internal
-export function importWorker__<T>(importPath: string): BettererWorkerAPI<T>;
+export function importWorker__<T>(importPath: string): Promise<BettererWorkerAPI<T>>;
 
 ```

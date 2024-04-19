@@ -60,7 +60,7 @@ export class BettererWorkerRunΩ implements BettererRun {
 
     const isNew = !results.hasResult(name);
 
-    const testFactories = loadTestMeta(config.configPaths);
+    const testFactories = await loadTestMeta(config.configPaths);
     const testFactoryMeta = testFactories[name];
     const test = await testFactoryMeta.factory();
 

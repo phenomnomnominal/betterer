@@ -59,4 +59,4 @@ export type BettererWorkerAPI<API> = {
 /**
  * @public A factory function that creates a `BettererWorkerAPI` for use in a `BettererWorkerPool`.
  */
-export type BettererWorkerFactory<API extends BettererWorkerAPI<unknown>> = () => API;
+export type BettererWorkerFactory<API extends BettererWorkerAPI<unknown>> = () => API | Promise<API>;

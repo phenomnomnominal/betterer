@@ -18,7 +18,7 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
   public static async create(options: BettererOptionsResults): Promise<BettererResultsSummary> {
     const { config, results, versionControl } = await createGlobals(options);
 
-    const testFactories = loadTestMeta(config.configPaths);
+    const testFactories = await loadTestMeta(config.configPaths);
 
     let testNames = Object.keys(testFactories);
     if (config.filters.length) {

@@ -1,12 +1,12 @@
 import { diffStrings__ } from '@betterer/logger';
-import { greenBright, gray } from 'chalk';
+import chalk from 'chalk';
 
 const DIFF_OPTIONS = {
   aAnnotation: 'Before',
   aIndicator: '-',
-  aColor: gray,
+  aColor: chalk.gray,
   bAnnotation: 'After',
-  bColor: greenBright,
+  bColor: chalk.greenBright,
   bIndicator: '+',
   expand: true
 };

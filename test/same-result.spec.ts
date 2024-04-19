@@ -1,5 +1,6 @@
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from './fixture';
+import { describe, expect, it } from 'vitest';
+
+import { createFixture } from './fixture.js';
 
 describe('betterer', () => {
   it(`should work when a test is the same`, async () => {
@@ -9,12 +10,12 @@ describe('betterer', () => {
       'same-result',
       {
         '.betterer.js': `
-const { BettererTest } = require('@betterer/betterer');
-const { bigger } = require('@betterer/constraints');
+import { BettererTest } from '@betterer/betterer';
+import { bigger } from '@betterer/constraints';
 
 const start = 0;
 
-module.exports = {
+export default {
   test: () => new BettererTest({
     test: () => start,
     constraint: bigger

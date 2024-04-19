@@ -30,7 +30,7 @@ export interface BettererOptionsFS {
    * A path to a {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file }
    * containing **Betterer** tests, or an array of them. All `configPaths` should be relative to
    * the `cwd`.
-   * @defaultValue `['./.betterer']`
+   * @defaultValue `['./.betterer.js']`
    */
   configPaths?: BettererOptionsPaths;
   /**

@@ -1,33 +1,33 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer.watch should throw when there is invalid config: { ignores: [Array] } 1`] = `
-Array [
+exports[`betterer.watch > should throw when there is invalid config: { ignores: [ 1234 ] } 1`] = `
+[
   "
-Error: \\"ignores\\" must be an array of strings. Received \`[1234]\`.
+Error: "ignores" must be an array of strings. Received \`[1234]\`.
 ",
 ]
 `;
 
-exports[`betterer.watch should throw when there is invalid config: { ignores: {} } 1`] = `
-Array [
+exports[`betterer.watch > should throw when there is invalid config: { ignores: {} } 1`] = `
+[
   "
-Error: \\"ignores\\" must be an array of strings. Received \`[{}]\`.
+Error: "ignores" must be an array of strings. Received \`[{}]\`.
 ",
 ]
 `;
 
-exports[`betterer.watch should throw when there is invalid config: { ignores: 1234 } 1`] = `
-Array [
+exports[`betterer.watch > should throw when there is invalid config: { ignores: 1234 } 1`] = `
+[
   "
-Error: \\"ignores\\" must be an array of strings. Received \`[1234]\`.
+Error: "ignores" must be an array of strings. Received \`[1234]\`.
 ",
 ]
 `;
 
-exports[`betterer.watch should throw when there is invalid config: { ignores: true } 1`] = `
-Array [
+exports[`betterer.watch > should throw when there is invalid config: { ignores: true } 1`] = `
+[
   "
-Error: \\"ignores\\" must be an array of strings. Received \`[true]\`.
+Error: "ignores" must be an array of strings. Received \`[true]\`.
 ",
 ]
 `;

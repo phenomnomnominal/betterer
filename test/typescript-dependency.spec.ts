@@ -1,12 +1,13 @@
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from './fixture';
+import { describe, expect, it } from 'vitest';
+
+import { createFixture } from './fixture.js';
 
 describe('betterer', () => {
   it('should report the status of the TypeScript compiler when there is a npm dependency', async () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { paths, logs, resolve, cleanup, writeFile, testNames } = await createFixture('typescript-dependency', {
-      '.betterer.ts': `
+      '.betterer.js': `
 import { typescript } from '@betterer/typescript';
 
 export default {
@@ -19,14 +20,14 @@ export default {
 {
   "compilerOptions": {
     "noEmit": true,
-    "lib": ["esnext"],
+    "lib": ["esnext", "dom"],
     "moduleResolution": "node",
     "target": "ES5",
-    "typeRoots": ["../../node_modules/@types/"],
+    "typeRoots": [],
     "resolveJsonModule": true,
     "strict": false
   },
-  "include": ["./src/**/*", ".betterer.ts"]
+  "include": ["./src/**/*"]
 }
         `
     });

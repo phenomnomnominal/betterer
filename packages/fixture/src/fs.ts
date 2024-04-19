@@ -5,7 +5,7 @@ import { promises as fs } from 'graceful-fs';
 import path from 'node:path';
 
 const DEFAULT_CACHE_PATH = './.betterer.cache';
-const DEFAULT_CONFIG_PATH = './.betterer';
+const DEFAULT_CONFIG_PATH = './.betterer.js';
 const DEFAULT_RESULTS_PATH = `./.betterer.results`;
 
 export async function createFixtureFS(

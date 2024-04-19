@@ -1,9 +1,9 @@
 import type { BettererLogger } from '@betterer/logger';
-import type { ForegroundColor } from 'chalk';
+import type { ForegroundColorName } from 'chalk';
 
 import type { BettererTasksState } from './useTasksState.js';
 
-export type BettererTaskColour = typeof ForegroundColor;
+export type BettererTaskColour = ForegroundColorName;
 
 /**
  * @public An asynchronous task that will be orchestrated by the {@link @betterer/tasks#BettererTasksLogger | `BettererTasksLogger`}.

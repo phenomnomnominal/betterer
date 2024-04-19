@@ -1,5 +1,6 @@
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from '../fixture';
+import { describe, it, expect } from 'vitest';
+
+import { createFixture } from '../fixture.js';
 
 const ARGV = ['node', './bin/betterer', 'upgrade'];
 
@@ -8,7 +9,7 @@ describe('betterer upgrade', () => {
     const { cleanup, logs, paths } = await createFixture(
       'upgrade-exported-constant-built-in-esm',
       {
-        './.betterer.ts': `
+        './.betterer.js': `
 import { regexp } from '@betterer/regexp';
 
 export const noHack = regexp(/HACK/i).include('**/*.ts');

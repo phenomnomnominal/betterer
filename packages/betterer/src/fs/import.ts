@@ -1,4 +1,5 @@
 import { Module } from 'module';
+import path from 'node:path';
 
 interface ESModule<T> {
   default: T;
@@ -7,16 +8,16 @@ interface ModulePrivate {
   _compile(source: string, path: string): void;
 }
 
-export function importDefault<T>(importPath: string): T {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires -- migrating away from CJS requires
-  const m = require(importPath) as unknown;
+export async function importDefault<T>(importPath: string): Promise<T> {
+  const m = (await import(importPath)) as unknown;
   return getDefaultExport<T>(m);
 }
 
 let count = 0;
-export function importText<T>(text: string): T {
+export function importText<T>(filePath: string, text: string): T {
   const id = `${count++}`;
-  const m = new Module(id);
+  const { base, dir, ext } = path.parse(filePath);
+  const m = new Module(path.join(dir, `${base}.${id}.${ext}`));
   (m as unknown as ModulePrivate)._compile(text, id);
   return getDefaultExport<T>(m.exports);
 }

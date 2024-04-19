@@ -1,5 +1,6 @@
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from '../fixture';
+import { describe, expect, it } from 'vitest';
+
+import { createFixture } from '../fixture.js';
 
 describe('betterer.watch', () => {
   it.each([{ ignores: 1234 }, { ignores: true }, { ignores: {} }, { ignores: [1234] }])(
@@ -11,10 +12,10 @@ describe('betterer.watch', () => {
         '.betterer.js': ''
       });
 
+      const configPaths = [paths.config];
       const resultsPath = paths.results;
 
-      // @ts-expect-error testing config errors:
-      await expect(async () => await betterer.watch({ configPaths: [], resultsPath, ...config })).rejects.toThrow();
+      await expect(async () => await betterer.watch({ configPaths, resultsPath, ...config })).rejects.toThrow();
 
       expect(logs).toMatchSnapshot();
 

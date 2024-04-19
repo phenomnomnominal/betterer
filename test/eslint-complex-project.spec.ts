@@ -1,5 +1,6 @@
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from './fixture';
+import { describe, expect, it } from 'vitest';
+
+import { createFixture } from './fixture.js';
 
 describe('betterer', () => {
   it('should report the status of a new eslint rule with a complex set up', async () => {
@@ -8,15 +9,15 @@ describe('betterer', () => {
     const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture(
       'eslint-complex-project',
       {
-        '.betterer.ts': `
+        '.betterer.js': `
 import { eslint } from '@betterer/eslint';
 
 export default {
   test: () => eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
 };
       `,
-        '.eslintrc.js': `
-const path = require('path');
+        '.eslintrc.cjs': `
+const path = require('node:path');
 
 module.exports = {
   parser: '@typescript-eslint/parser',
@@ -40,13 +41,13 @@ module.exports = {
         'tsconfig.json': `
 {
   "extends": "../../tsconfig.json",
-  "include": ["./src/**/*", ".betterer.ts", "./.eslintrc.js"]
+  "include": ["./src/**/*", ".betterer.js", "./.eslintrc.js"]
 }
       `,
         'src/index.ts': `
 debugger;
       `,
-        'src/directory/.eslintrc.js': `
+        'src/directory/.eslintrc.cjs': `
 module.exports = {
   rules: {
     '@typescript-eslint/prefer-string-starts-ends-with': 'error'

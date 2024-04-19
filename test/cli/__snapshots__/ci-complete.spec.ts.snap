@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer ci should work when a test is already complete 1`] = `
+exports[`betterer ci > should work when a test is already complete 1`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
@@ -8,15 +8,15 @@ exports[`betterer ci should work when a test is already complete 1`] = `
 //
 exports[\`test\`] = {
   value: \`{
-    \\"src/index.ts:1499252024\\": [
-      [2, 12, 1, \\"The left-hand side of an arithmetic operation must be of type \\\\'any\\\\', \\\\'number\\\\', \\\\'bigint\\\\' or an enum type.\\", \\"177604\\"]
+    "src/index.ts:1499252024": [
+      [2, 12, 1, "The left-hand side of an arithmetic operation must be of type \\'any\\', \\'number\\', \\'bigint\\' or an enum type.", "177604"]
     ]
   }\`
 };
 "
 `;
 
-exports[`betterer ci should work when a test is already complete 2`] = `
+exports[`betterer ci > should work when a test is already complete 2`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
@@ -24,21 +24,21 @@ exports[`betterer ci should work when a test is already complete 2`] = `
 //"
 `;
 
-exports[`betterer ci should work when a test is already complete 3`] = `
-Array [
+exports[`betterer ci > should work when a test is already complete 3`] = `
+[
   "🌟 Betterer (0ms):
 ",
   "🌟 Betterer (0ms): 1 test running...
-🤔 test: running \\"test\\"!
+🤔 test: running "test"!
 ",
   "🌟 Betterer (0ms): 1 test running...
-✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
+✅ test: "test" got checked for the first time! (1 issue) 🎉
 ",
   "🎉 Betterer (0ms): 1 test done!
-✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
+✅ test: "test" got checked for the first time! (1 issue) 🎉
 ",
   "🎉 Betterer (0ms): 1 test done!
-✅ test: \\"test\\" got checked for the first time! (1 issue) 🎉
+✅ test: "test" got checked for the first time! (1 issue) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
@@ -46,16 +46,16 @@ Array [
   "🌟 Betterer (0ms):
 ",
   "🌟 Betterer (0ms): 1 test running...
-🤔 test: running \\"test\\"!
+🤔 test: running "test"!
 ",
   "🌟 Betterer (0ms): 1 test running...
-✅ test: \\"test\\" met its goal! 🎉
+✅ test: "test" met its goal! 🎉
 ",
   "🎉 Betterer (0ms): 1 test done!
-✅ test: \\"test\\" met its goal! 🎉
+✅ test: "test" met its goal! 🎉
 ",
   "🎉 Betterer (0ms): 1 test done!
-✅ test: \\"test\\" met its goal! 🎉
+✅ test: "test" met its goal! 🎉
 
 1 test got checked. 🤔
 1 test got better! 😍
@@ -64,16 +64,16 @@ Array [
   "🌟 Betterer:
 ",
   "🌟 Betterer: 1 test running...
-🤔 test: running \\"test\\"!
+🤔 test: running "test"!
 ",
   "🌟 Betterer: 1 test running...
-✅ test: \\"test\\" has already met its goal! ✨
+✅ test: "test" has already met its goal! ✨
 ",
   "🎉 Betterer: 1 test done!
-✅ test: \\"test\\" has already met its goal! ✨
+✅ test: "test" has already met its goal! ✨
 ",
   "🎉 Betterer: 1 test done!
-✅ test: \\"test\\" has already met its goal! ✨
+✅ test: "test" has already met its goal! ✨
 
 1 test got checked. 🤔
 1 test met its goal! 🎉
@@ -81,7 +81,7 @@ Array [
 ]
 `;
 
-exports[`betterer ci should work when a test is already complete 4`] = `
+exports[`betterer ci > should work when a test is already complete 4`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:

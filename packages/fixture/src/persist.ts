@@ -1,12 +1,15 @@
-import path from 'node:path';
 import { promises as fs } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 export interface FixturePersist {
   increment(): Promise<number>;
   decrement(): Promise<number>;
 }
 
-export function persist(fixtureDir: string, name: string, start: number): FixturePersist {
+export function persist(fixtureMetaUrl: string, name: string, start: number): FixturePersist {
+  const fixtureDir = path.dirname(fileURLToPath(fixtureMetaUrl));
+
   const persistPath = path.join(fixtureDir, `persist.${name}.json`);
 
   async function read(): Promise<number> {

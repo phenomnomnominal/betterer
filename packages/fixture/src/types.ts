@@ -28,8 +28,9 @@ export type Fixture = FixtureFileSystem & {
 // Readonly externally:
 export type FixtureLogs = ReadonlyArray<string>;
 
-// Writable internally:
-export type FixtureLogsMap = Record<string, Array<string>>;
+export type FixtureLogger = (testName: string, ...messages: Array<string>) => void;
+
+export type FixtureLogsMap = Record<string, FixtureLogger>;
 
 export interface FixtureOptions {
   logFilters?: Array<RegExp>;
