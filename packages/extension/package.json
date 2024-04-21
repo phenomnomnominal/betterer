@@ -123,22 +123,20 @@
   },
   "dependencies": {
     "lodash.debounce": "^4.0.8",
-    "vscode-languageclient": "^7.0.0",
-    "vscode-languageserver": "^7.0.0",
-    "vscode-languageserver-textdocument": "^1.0.3",
-    "vscode-uri": "^3.0.2"
+    "vscode-languageclient": "^9.0.1",
+    "vscode-languageserver": "^9.0.1",
+    "vscode-languageserver-textdocument": "^1.0.11",
+    "vscode-uri": "^3.0.8"
   },
   "devDependencies": {
     "@betterer/betterer": "^5.4.0",
     "@betterer/cli": "^5.4.0",
     "@betterer/errors": "^5.3.0",
     "@betterer/logger": "^5.3.4",
-    "@types/jest-cli": "^24.3.0",
     "@types/lodash.debounce": "^4.0.6",
-    "@types/vscode": "^1.62.0",
-    "jest-cli": "^27.4.3",
+    "@types/vscode": "^1.88.0",
+    "@vscode/test-electron": "^2.3.9",
     "ts-loader": "^9.4.2",
-    "vscode-test": "^1.6.1",
     "webpack": "^5.82.1",
     "webpack-cli": "^5.1.1",
     "webpack-node-externals": "^3.0.0"

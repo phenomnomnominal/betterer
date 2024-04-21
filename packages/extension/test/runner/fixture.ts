@@ -9,6 +9,7 @@ export async function createFixture(fixtureName: string, files: FixtureFileSyste
   const { workspaceFolders } = vscode.workspace;
   const [root] = workspaceFolders || [];
   assert.ok(root);
+
   const create = await createFixtureDirectoryΔ(root.uri.fsPath);
 
   const fixture = await create(fixtureName, files);

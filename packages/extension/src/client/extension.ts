@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
 import type { ExtensionContext } from 'vscode';
-import type { ErrorAction, ErrorHandler } from 'vscode-languageclient/node';
+import type { CloseHandlerResult, ErrorHandler, ErrorHandlerResult } from 'vscode-languageclient/node';
 
 import assert from 'node:assert';
 // eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
@@ -33,32 +33,31 @@ export async function activate(context: ExtensionContext): Promise<void> {
           client.error(SERVER_START_FAILED, error);
           return false;
         },
-        error: (error, message, count): ErrorAction => {
+        error: async (error, message, count): Promise<ErrorHandlerResult> => {
           assert(errorHandler);
-          return errorHandler.error(error, message, count);
+          return await errorHandler.error(error, message, count);
         },
-        closed: (): CloseAction => {
+        closed: async (): Promise<CloseHandlerResult> => {
           assert(status);
           assert(errorHandler);
           if (status.hasExited) {
-            return CloseAction.DoNotRestart;
+            return { action: CloseAction.DoNotRestart };
           }
-          return errorHandler.closed();
+          return await errorHandler.closed();
         }
       })
     );
+
     status = new BettererStatusBar(client);
     errorHandler = client.createDefaultErrorHandler();
 
-    const started = client.start();
-    await client.onReady();
+    await client.start();
 
     client.onRequest(BettererInvalidConfigRequest, (params) => invalidConfig(client, context, params));
     client.onRequest(BettererNoLibraryRequest, (params) => noLibrary(client, context, params));
 
     context.subscriptions.push(
       commands.registerCommand(COMMAND_NAMES.showOutputChannel, () => client.outputChannel.show()),
-      started,
       status
     );
   } catch {

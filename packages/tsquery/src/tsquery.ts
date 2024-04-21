@@ -47,7 +47,7 @@ export function tsquery(query: string, issueMessage = 'TSQuery match'): Betterer
       filePaths.map(async (filePath) => {
         const fileText = await fs.readFile(filePath, 'utf8');
         const sourceFile = tsq.ast(fileText);
-        const matches = tsq.query(sourceFile, query, { visitAllChildren: true });
+        const matches = tsq.query(sourceFile, query);
         if (matches.length === 0) {
           return;
         }

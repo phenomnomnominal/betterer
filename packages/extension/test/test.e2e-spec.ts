@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 import type { BettererPackageJSON } from '@betterer/cli';
 // eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
 import type { Diagnostic, Uri } from 'vscode';
@@ -7,8 +9,6 @@ import assert from 'node:assert';
 import { vscode, createFixture } from './runner';
 
 describe('Betterer VSCode Extension', () => {
-  jest.setTimeout(600000);
-
   it('should work', async () => {
     {
       const { resolve, readFile, deleteDirectory, deleteFile } = await createFixture('.', {

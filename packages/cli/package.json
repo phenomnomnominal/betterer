@@ -46,8 +46,5 @@
     "jest-diff": "^27.1.0",
     "prettier": "^3.2.5",
     "tslib": "^2.3.1"
-  },
-  "devDependencies": {
-    "@types/prettier": "^3.0.0"
   }
 }
