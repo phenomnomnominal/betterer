@@ -18,24 +18,24 @@ describe('Betterer VSCode Extension', () => {
 
       await vscode.commands.executeCommand('betterer.init');
 
-      await waitFor(() => readFile('.betterer.js'));
+      await waitFor(() => readFile('.betterer.ts'));
       const packageJSON = await waitFor(() => readFile('package.json'));
       const pack = JSON.parse(packageJSON) as BettererPackageJSON;
       expect(pack.devDependencies['@betterer/cli']).toBeDefined();
       expect(pack.scripts['betterer']).toBe('betterer');
 
-      const bettererConfig = await readFile('.betterer.js');
+      const bettererConfig = await readFile('.betterer.ts');
       expect(bettererConfig).not.toBe(null);
 
       await deleteDirectory(resolve('./.vscode'));
       await deleteFile(resolve('./package.json'));
-      await deleteFile(resolve('./.betterer.js'));
+      await deleteFile(resolve('./.betterer.ts'));
       await deleteFile(resolve('./index.js'));
     }
 
     {
       const { cleanup, resolve } = await createFixture('e2e-eslint', {
-        '.betterer.js': `
+        '.betterer.ts': `
     const { eslint } = require('../../node_modules/@betterer/eslint');
 
     module.exports = {
@@ -106,7 +106,7 @@ describe('Betterer VSCode Extension', () => {
 
     {
       const { cleanup, resolve } = await createFixture('e2e-typescript', {
-        '.betterer.js': `
+        '.betterer.ts': `
 import { BettererTest } from '@betterer/betterer';
 import { typescript } from '@betterer/typescript';
 import { persist } from '@betterer/fixture';
@@ -142,7 +142,7 @@ export default {
 
       const indexPath = resolve('./src/index.ts');
       const cachePath = resolve('./.betterer.cache');
-      const configPath = resolve('./.betterer.js');
+      const configPath = resolve('./.betterer.ts');
       const resultsPath = resolve('./.betterer.results');
 
       const indexUri = vscode.Uri.file(indexPath);

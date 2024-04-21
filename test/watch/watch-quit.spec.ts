@@ -10,7 +10,7 @@ describe('betterer.watch', () => {
     const { getStdIn } = await import('@betterer/render');
 
     const { logs, paths, cleanup, resolve, writeFile } = await createFixture('watch-quit', {
-      '.betterer.js': `
+      '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 
 export default {

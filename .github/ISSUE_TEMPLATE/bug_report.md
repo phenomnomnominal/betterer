@@ -11,7 +11,7 @@ A clear and concise description of what the bug is.
 
 **To Reproduce**
 If possible please share a repo with the issue, or another repository which demonstrates the issue.
-If possible please include the `.betterer.js` file, and the `.betterer.results` file if applicable.
+If possible please include the `.betterer.ts` file, and the `.betterer.results` file if applicable.
 At a minimum please share the command you are using to run **Betterer**.
 
 **Expected behavior**

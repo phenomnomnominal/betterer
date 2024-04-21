@@ -6,6 +6,8 @@ const ARGV = ['node', './bin/betterer'];
 
 describe('betterer cli', () => {
   it('should merge the results file', async () => {
+    const { cli__ } = await import('@betterer/cli');
+
     const { paths, cleanup, readFile } = await createFixture('merge-path', {
       '.betterer.results': `
 // BETTERER RESULTS V2.
@@ -29,7 +31,7 @@ exports[\`test\`] = {
     const resultsPath = paths.results;
     const fixturePath = paths.cwd;
 
-    const { cli__ } = await import('@betterer/cli');
+    process.env.BETTERER_WORKER = 'false';
 
     await cli__(fixturePath, [...ARGV, 'merge']);
 

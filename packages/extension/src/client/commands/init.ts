@@ -11,7 +11,7 @@ import { ALREADY_CONFIGURED, INIT_COMMAND_REQUIRES_WORKSPACE } from '../error-me
 import { error, info } from '../logger.js';
 import { pickFolder } from './folder-picker.js';
 
-const CONFIG_FILES = ['.betterer.js'];
+const CONFIG_FILES = ['.betterer.ts', '.betterer.js'];
 
 export async function initBetterer(): Promise<void> {
   const { workspaceFolders } = workspace;

@@ -6,6 +6,8 @@ const ARGV = ['node', './bin/betterer'];
 
 describe('betterer cli', () => {
   it('should work multiple times', async () => {
+    const { cli__ } = await import('@betterer/cli');
+
     const { cleanup, logs, paths } = await createFixture(
       'init-multiple',
       {
@@ -23,7 +25,7 @@ describe('betterer cli', () => {
 
     const fixturePath = paths.cwd;
 
-    const { cli__ } = await import('@betterer/cli');
+    process.env.BETTERER_WORKER = 'false';
 
     let throws = false;
     try {

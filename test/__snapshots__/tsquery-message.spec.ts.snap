@@ -9,7 +9,7 @@ exports[`betterer > should include custom TSQuery warning messages 1`] = `
 exports[\`tsquery\`] = {
   value: \`{
     "src/index.ts:4087252068": [
-      [0, 0, 11, "TSQuery match", "3870399096"]
+      [0, 0, 11, "no console logs here", "3870399096"]
     ]
   }\`
 };

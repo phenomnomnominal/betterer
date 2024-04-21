@@ -9,7 +9,7 @@ describe('betterer', () => {
     const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture(
       'eslint-complex-project',
       {
-        '.betterer.js': `
+        '.betterer.ts': `
 import { eslint } from '@betterer/eslint';
 
 export default {

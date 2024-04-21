@@ -6,10 +6,12 @@ const ARGV = ['node', './bin/betterer', 'upgrade'];
 
 describe('betterer upgrade', () => {
   it('should upgrade exported constant tests in a CommonJS module', async () => {
+    const { cli__ } = await import('@betterer/cli');
+
     const { cleanup, logs, paths } = await createFixture(
       'upgrade-exported-constant-test-cjs',
       {
-        './.betterer.js': `
+        './.betterer.ts': `
 const { BettererTest } = require('@betterer/betterer');
 const { bigger } = require('@betterer/constraints');
 
@@ -28,7 +30,7 @@ module.exports.getsBetter = new BettererTest({
 
     const fixturePath = paths.cwd;
 
-    const { cli__ } = await import('@betterer/cli');
+    process.env.BETTERER_WORKER = 'false';
 
     await cli__(fixturePath, ARGV);
 

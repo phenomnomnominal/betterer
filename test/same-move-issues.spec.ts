@@ -13,7 +13,7 @@ const one = 1;
 console.log(a * one);
 console.log(one * a);
       `,
-      '.betterer.js': `
+      '.betterer.ts': `
 import { typescript } from '@betterer/typescript';
 
 export default {

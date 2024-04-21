@@ -7,7 +7,7 @@ describe('betterer', () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('eslint-complex-rule', {
-      '.betterer.js': `
+      '.betterer.ts': `
 import { eslint } from '@betterer/eslint';
 
 export default {

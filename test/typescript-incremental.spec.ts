@@ -9,7 +9,7 @@ describe('betterer', () => {
     const { paths, logs, resolve, cleanup, readFile, writeFile, testNames } = await createFixture(
       'typescript-incremental',
       {
-        '.betterer.js': `
+        '.betterer.ts': `
 import { typescript } from '@betterer/typescript';
 
 export default {

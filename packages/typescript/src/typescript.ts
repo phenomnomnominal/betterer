@@ -3,7 +3,7 @@ import type { BettererFileGlobs, BettererFilePaths } from '@betterer/betterer';
 import { BettererFileTest } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import path from 'node:path';
-import * as ts from 'typescript';
+import ts from 'typescript';
 
 const NEW_LINE = '\n';
 

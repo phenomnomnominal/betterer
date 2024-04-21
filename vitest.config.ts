@@ -18,12 +18,12 @@ export default defineConfig({
     slowTestThreshold: 10000,
     testTimeout: 90000,
     watch: false,
-    watchExclude: ['**/fixtures', '**/packages/[^/]+/src'],
+    watchExclude: ['**/fixtures/**'],
     coverage: {
       all: true,
       enabled: true,
       exclude: [
-        '.betterer.js',
+        '.betterer.ts',
         '.eslintrc.cjs',
         '.prettierrc.cjs',
         'commitlint.config.js',

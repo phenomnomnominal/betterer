@@ -7,7 +7,7 @@ describe('betterer', () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { logs, paths, cleanup } = await createFixture('config-invalid', {
-      '.betterer.js': `
+      '.betterer.ts': `
 export const test = // Syntax Error
 `
     });

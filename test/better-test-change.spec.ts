@@ -7,7 +7,7 @@ describe('betterer', () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { logs, paths, readFile, cleanup, resolve, testNames } = await createFixture('better-test-change', {
-      '.betterer.js': `
+      '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 
 export default {
@@ -16,7 +16,7 @@ export default {
   ).include('./src/**/*.ts')
 };  
       `,
-      '.betterer.changed.js': `
+      '.betterer.changed.ts': `
 import { tsquery } from '@betterer/tsquery';
 
 export default {

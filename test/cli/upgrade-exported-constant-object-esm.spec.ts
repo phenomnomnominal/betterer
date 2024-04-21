@@ -6,10 +6,12 @@ const ARGV = ['node', './bin/betterer', 'upgrade'];
 
 describe('betterer upgrade', () => {
   it('should upgrade exported constant objects in an ES module', async () => {
+    const { cli__ } = await import('@betterer/cli');
+
     const { cleanup, logs, paths } = await createFixture(
       'upgrade-exported-constant-object-esm',
       {
-        './.betterer.js': `
+        './.betterer.ts': `
 import { bigger } from '@betterer/constraints';
 
 let start = 0;
@@ -27,7 +29,7 @@ export const getsBetter = {
 
     const fixturePath = paths.cwd;
 
-    const { cli__ } = await import('@betterer/cli');
+    process.env.BETTERER_WORKER = 'false';
 
     await cli__(fixturePath, ARGV);
 

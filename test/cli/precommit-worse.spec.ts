@@ -8,13 +8,15 @@ const ARGV = ['node', './bin/betterer'];
 
 describe('betterer precommit', () => {
   it('should not update the changeset when a test gets worse', async () => {
+    const { cli__ } = await import('@betterer/cli');
+
     const { paths, logs, cleanup, resolve, writeFile } = await createFixture('precommit-worse', {
       'src/index.ts': `
 const a = 'a';
 const one = 1;
 console.log(a * one);
       `,
-      '.betterer.js': `
+      '.betterer.ts': `
 import { typescript } from '@betterer/typescript';
 
 export default {
@@ -41,7 +43,7 @@ export default {
     const fixturePath = paths.cwd;
     const indexPath = resolve('./src/index.ts');
 
-    const { cli__ } = await import('@betterer/cli');
+    process.env.BETTERER_WORKER = 'false';
 
     await cli__(fixturePath, [...ARGV, 'start', '--workers=false'], false);
 

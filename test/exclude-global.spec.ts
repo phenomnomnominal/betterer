@@ -7,7 +7,7 @@ describe('betterer', () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('exclude-global', {
-      '.betterer.js': `
+      '.betterer.ts': `
 import { regexp } from '@betterer/regexp';
 
 export default {

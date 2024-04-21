@@ -2,7 +2,7 @@ import type { BettererRunSummaries, BettererTestNames } from '@betterer/betterer
 
 import type { Fixture, FixtureFactory, FixtureFileSystemFiles, FixtureOptions } from './types.js';
 
-import { promises as fs } from 'graceful-fs';
+import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
 import { createFixtureFS } from './fs.js';

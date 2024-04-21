@@ -36,7 +36,7 @@ export default {
 exports[`betterer upgrade > should upgrade exported default test in an ES module 2`] = `
 [
   "🎉 Upgrading Betterer (0ms): 1 task done!
-✅ Upgrading "./.betterer.js": done!
+✅ Upgrading "./.betterer.ts": done!
 ・
 ・ Betterer can upgrade your test definition file automatically! ✨
 ・ Here's what the changes will look like:
@@ -99,7 +99,7 @@ exports[`betterer upgrade > should upgrade exported default test in an ES module
 ・ If that looks okay, run \`betterer upgrade --save\` to write the changes to disk. 💾
 ・",
   "🎉 Upgrading Betterer (0ms): 1 task done!
-✅ Upgrading "./.betterer.js": done!
-・ Saved upgraded config to "<project>/fixtures/upgrade-exported-default-test-esm/.betterer.js"! ☀️",
+✅ Upgrading "./.betterer.ts": done!
+・ Saved upgraded config to "<project>/fixtures/upgrade-exported-default-test-esm/.betterer.ts"! ☀️",
 ]
 `;

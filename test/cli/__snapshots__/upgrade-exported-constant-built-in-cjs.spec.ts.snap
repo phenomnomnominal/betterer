@@ -3,7 +3,7 @@
 exports[`betterer upgrade > should upgrade exported constant built-in tests in a CommonJS module 1`] = `
 [
   "🎉 Upgrading Betterer (0ms): 1 task done!
-✅ Upgrading "./.betterer.js": done!
+✅ Upgrading "./.betterer.ts": done!
 ・
 ・ Betterer can upgrade your test definition file automatically! ✨
 ・ Here's what the changes will look like:

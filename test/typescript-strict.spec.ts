@@ -39,7 +39,7 @@ describe('betterer', () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { paths, logs, resolve, readFile, cleanup, writeFile, testNames } = await createFixture('typescript-strict', {
-      '.betterer.js': `
+      '.betterer.ts': `
 import { typescript } from '@betterer/typescript';
 
 export default {

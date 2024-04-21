@@ -7,7 +7,7 @@ describe('betterer', () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { logs, paths, readFile, cleanup } = await createFixture('conflict', {
-      '.betterer.js': `
+      '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 
 export default {

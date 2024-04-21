@@ -19,7 +19,7 @@ describe('betterer', () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { logs, paths, resolve, readFile, writeFile, cleanup, testNames } = await createFixture('stylelint', {
-      '.betterer.js': `
+      '.betterer.ts': `
 import { stylelint } from '@betterer/stylelint';
 
 export default {

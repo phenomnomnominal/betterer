@@ -2,7 +2,7 @@ import '@betterer/fixture';
 
 import { beforeEach, vitest } from 'vitest';
 
-beforeEach(({ expect }) => {
+beforeEach(() => {
   vitest.mock('@betterer/time', async (importOriginal): Promise<typeof import('@betterer/time')> => {
     const time: typeof import('@betterer/time') = await importOriginal();
     return {
@@ -11,6 +11,4 @@ beforeEach(({ expect }) => {
       getTime__: () => 0
     };
   });
-
-  process.env.BETTERER_TEST_NAME = expect.getState().currentTestName;
 });

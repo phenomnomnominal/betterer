@@ -30,7 +30,7 @@ export default {
   'test 4': () => regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts').only()
 };
         `,
-        '.betterer.js': `
+        '.betterer.ts': `
 import { BettererTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
 import { regexp } from '@betterer/regexp';
