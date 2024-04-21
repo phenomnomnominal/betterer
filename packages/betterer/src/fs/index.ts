@@ -19,4 +19,5 @@ export { importDefault } from './import.js';
 export { read } from './reader.js';
 export { BettererMergerΩ } from './merger.js';
 export { parse } from './parse.js';
+export { isTempFilePath } from './temp.js';
 export { forceRelativePaths, write } from './writer.js';

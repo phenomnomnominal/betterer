@@ -6,6 +6,7 @@ import { watch } from 'chokidar';
 import minimatch from 'minimatch';
 import path from 'node:path';
 
+import { isTempFilePath } from '../fs/index.js';
 import { normalisedPath } from '../utils.js';
 
 export const WATCHER_EVENTS = ['add', 'change'];
@@ -28,7 +29,8 @@ export async function createWatcher(config: BettererConfig): Promise<FSWatcher |
 
       const isResultsPath = itemPath === normalisedPath(resultsPath);
       const isCachePath = itemPath === normalisedPath(cachePath);
-      if (isResultsPath || isCachePath) {
+      const isTempPath = isTempFilePath(itemPath);
+      if (isResultsPath || isCachePath || isTempPath) {
         return true;
       }
 

@@ -6,10 +6,12 @@ const ARGV = ['node', './bin/betterer', 'upgrade'];
 
 describe('betterer upgrade', () => {
   it(`should doesn't change things it doesn't need to change`, async () => {
+    const { cli__ } = await import('@betterer/cli');
+
     const { cleanup, logs, paths } = await createFixture(
       'upgrade-unknown',
       {
-        './.betterer.js': `
+        './.betterer.ts': `
 const { BettererTest } = require('@betterer/betterer');
 const { bigger } = require('@betterer/constraints');
 
@@ -50,8 +52,6 @@ function bar () {
     );
 
     const fixturePath = paths.cwd;
-
-    const { cli__ } = await import('@betterer/cli');
 
     await cli__(fixturePath, ARGV);
 

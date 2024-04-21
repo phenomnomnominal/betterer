@@ -7,7 +7,7 @@ describe('betterer --reporter', () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { paths, cleanup } = await createFixture('reporter-inline', {
-      '.betterer.js': `
+      '.betterer.ts': `
 import { BettererTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
 import { persist } from '@betterer/fixture';

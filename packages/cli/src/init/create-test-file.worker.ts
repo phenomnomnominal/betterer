@@ -5,7 +5,7 @@ import { exposeToMain__ } from '@betterer/worker';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
-const TEMPLATE_JS = `export default {
+const TEMPLATE = `export default {
   // Add tests here ☀️
 };
 `;
@@ -28,7 +28,7 @@ export async function run(logger: BettererLogger, cwd: string, configPath: strin
   }
 
   try {
-    await fs.writeFile(configPath, TEMPLATE_JS, 'utf8');
+    await fs.writeFile(configPath, TEMPLATE, 'utf8');
     await logger.success(`created "${configPath}"!`);
   } catch {
     throw new BettererError(`could not create "${configPath}".`);

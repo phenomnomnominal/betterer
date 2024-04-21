@@ -6,10 +6,12 @@ const ARGV = ['node', './bin/betterer', 'upgrade'];
 
 describe('betterer upgrade', () => {
   it('should upgrade exported constant file tests with include in a CommonJS module', async () => {
+    const { cli__ } = await import('@betterer/cli');
+
     const { cleanup, logs, paths } = await createFixture(
       'upgrade-exported-constant-file-test-include-cjs',
       {
-        './.betterer.js': `
+        './.betterer.ts': `
 const { BettererFileTest } = require('@betterer/betterer');
 
 module.exports.countFiles = new BettererFileTest(async (files, fileTestResult) => {        
@@ -26,7 +28,7 @@ module.exports.countFiles = new BettererFileTest(async (files, fileTestResult) =
 
     const fixturePath = paths.cwd;
 
-    const { cli__ } = await import('@betterer/cli');
+    process.env.BETTERER_WORKER = 'false';
 
     await cli__(fixturePath, ARGV);
 

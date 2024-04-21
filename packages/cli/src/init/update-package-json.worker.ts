@@ -9,7 +9,7 @@ import { promises as fs } from 'node:fs';
 
 import { getVersion } from '../version.js';
 
-export async function run(logger: BettererLogger, cwd: string): Promise<void> {
+export async function run(logger: BettererLogger, cwd: string, ts: boolean): Promise<void> {
   await logger.progress('adding "betterer" to package.json file...');
 
   let packageJSON;
@@ -29,7 +29,7 @@ export async function run(logger: BettererLogger, cwd: string): Promise<void> {
     await logger.warn('"betterer" script already exists, moving on...');
   } else {
     packageJSON.scripts.betterer = 'betterer';
-    await logger.success('added "betterer" script to package.json file.');
+    await logger.success('added "betterer" script to package.json file');
   }
 
   packageJSON.devDependencies = packageJSON.devDependencies || {};
@@ -39,6 +39,15 @@ export async function run(logger: BettererLogger, cwd: string): Promise<void> {
     const version = await getVersion();
     packageJSON.devDependencies['@betterer/cli'] = `^${version}`;
     await logger.success('added "@betterer/cli" dependency to package.json file');
+  }
+
+  if (ts) {
+    if (packageJSON.devDependencies['typescript']) {
+      await logger.warn('"typescript" dependency already exists, moving on...');
+    } else {
+      packageJSON.devDependencies['typescript'] = `^4`;
+      await logger.success('added "typescript" dependency to package.json file');
+    }
   }
 
   try {

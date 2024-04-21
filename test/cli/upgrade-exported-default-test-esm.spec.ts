@@ -6,10 +6,12 @@ const ARGV = ['node', './bin/betterer', 'upgrade'];
 
 describe('betterer upgrade', () => {
   it('should upgrade exported default test in an ES module', async () => {
+    const { cli__ } = await import('@betterer/cli');
+
     const { cleanup, logs, paths, readFile } = await createFixture(
       'upgrade-exported-default-test-esm',
       {
-        './.betterer.js': `
+        './.betterer.ts': `
 import { BettererTest, BettererFileTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
 
@@ -44,7 +46,7 @@ export default {
 
     const fixturePath = paths.cwd;
 
-    const { cli__ } = await import('@betterer/cli');
+    process.env.BETTERER_WORKER = 'false';
 
     await cli__(fixturePath, ARGV);
 

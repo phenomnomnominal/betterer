@@ -8,10 +8,10 @@ import { createFixture } from '../fixture.js';
 
 describe('betterer.watch', () => {
   it('should debounce runs when multiple files change', async () => {
-    const { watch } = await import('../../packages/betterer/src/index.js');
+    const { watch } = await import('@betterer/betterer');
 
     const { logs, paths, resolve, cleanup, writeFile } = await createFixture('watch-debounce', {
-      '.betterer.js': `
+      '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 
 export default {

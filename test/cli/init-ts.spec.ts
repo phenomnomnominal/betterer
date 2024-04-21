@@ -1,25 +1,23 @@
-import { describe, it, expect } from 'vitest';
-
 import type { BettererPackageJSON } from '@betterer/cli';
 
-import path from 'node:path';
+import { describe, expect, it } from 'vitest';
 
-import { createFixture } from '../fixture.js';
+import { createFixture } from '../fixture';
 
 const ARGV = ['node', './bin/betterer'];
 
-import { version } from '../../packages/cli/package.json';
+import { version } from '@betterer/cli/package.json';
 
 describe('betterer cli', () => {
-  it('should initialise betterer in a repo with JS', async () => {
+  it('should initialise betterer in a repo with TS', async () => {
     const { cli__ } = await import('@betterer/cli');
 
     const { cleanup, logs, paths, readFile, resolve } = await createFixture(
-      'init-js',
+      'init-ts',
       {
         'package.json': `
       {
-        "name": "init-js",
+        "name": "init-ts",
         "version": "0.0.1"
       }
       `
@@ -29,22 +27,20 @@ describe('betterer cli', () => {
       }
     );
 
-    const { dir, name } = path.parse(paths.config);
-    const configPath = `${path.join(dir, name)}.js`;
     const fixturePath = paths.cwd;
     const packageJSONPath = resolve('./package.json');
 
     process.env.BETTERER_WORKER = 'false';
 
-    await cli__(fixturePath, [...ARGV, 'init', '--config', configPath]);
+    await cli__(fixturePath, [...ARGV, 'init', '--config', paths.config]);
 
     const packageJSON = JSON.parse(await readFile(packageJSONPath)) as BettererPackageJSON;
 
     expect(packageJSON.scripts.betterer).toEqual('betterer');
     expect(packageJSON.devDependencies['@betterer/cli']).toEqual(`^${version}`);
-    expect(packageJSON.devDependencies['typescript']).not.toBeDefined();
+    expect(packageJSON.devDependencies['typescript']).toBeDefined();
 
-    const config = await readFile(configPath);
+    const config = await readFile(paths.config);
 
     expect(config).toEqual('export default {\n  // Add tests here ☀️\n};\n');
 

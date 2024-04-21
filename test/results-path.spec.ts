@@ -7,10 +7,10 @@ describe('betterer', () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('results-path', {
-      '.betterer.js': `
+      '.betterer.ts': `
 import { BettererFileTest } from '@betterer/betterer';
 
-function test() {
+function test(): BettererFileTest {
   return new BettererFileTest((files, fileTestResult) => {
     files.forEach(filePath => {
       const file = fileTestResult.addFile(filePath, '');

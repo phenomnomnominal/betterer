@@ -8,6 +8,8 @@ const ARGV = ['node', './bin/betterer'];
 
 describe('betterer precommit', () => {
   it('should test just the specified files', async () => {
+    const { cli__ } = await import('@betterer/cli');
+
     const { paths, logs, cleanup, resolve, readFile, writeFile } = await createFixture('precommit-specific-file', {
       '.betterer.js': `
 import { eslint } from '@betterer/eslint';
@@ -57,9 +59,9 @@ debugger;
 
     const newFilePath = resolve('./src/new-file.ts');
 
-    await writeFile(newFilePath, 'debugger;');
+    process.env.BETTERER_WORKER = 'false';
 
-    const { cli__ } = await import('@betterer/cli');
+    await writeFile(newFilePath, 'debugger;');
 
     await cli__(fixturePath, [...ARGV, 'start', '--workers=false'], false);
 

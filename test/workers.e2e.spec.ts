@@ -9,7 +9,7 @@ describe('betterer', () => {
     const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture(
       'workers',
       {
-        '.betterer.js': `
+        '.betterer.ts': `
 import { BettererTest } from '@betterer/betterer';
 import { bigger, smaller } from '@betterer/constraints';
 import { regexp } from '@betterer/regexp';

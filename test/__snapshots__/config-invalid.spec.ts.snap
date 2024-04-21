@@ -3,9 +3,11 @@
 exports[`betterer > should throw when there is an invalid config file 1`] = `
 [
   "
-Error: could not import config from "<project>/fixtures/config-invalid/.betterer.js". 😔
+Error: could not import config from "<project>/fixtures/config-invalid/.betterer.ts". 😔
 
-Error: Unexpected eof
+Error: could not import "<project>/fixtures/config-invalid/.betterer.ts". 😔
+
+Error: Expression expected
 ",
 ]
 `;

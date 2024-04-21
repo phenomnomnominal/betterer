@@ -6,7 +6,7 @@ exports[`betterer cli > should initialise betterer in a repo with JS 1`] = `
 ✅ Create test file: done!
 ・ created "<project>/fixtures/init-js/.betterer.js"!
 ✅ Update package.json: done!
-・ added "betterer" script to package.json file.
+・ added "betterer" script to package.json file
 ・ added "@betterer/cli" dependency to package.json file",
 ]
 `;

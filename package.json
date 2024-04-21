@@ -37,7 +37,7 @@
     "lint": "eslint \"./packages/**/src/**/*.{js,ts}\" \"./test/**/*.{ts,tsx}\" \"./*.{js,ts}\" --fix",
     "format": "prettier \"**/*\" --write --loglevel=error",
     "test": "npm run clean:tests && vitest --config vitest.config.ts",
-    "test:e2e": "npm run compile && npm run clean:tests && vitest --config ./vitest.e2e.config.js",
+    "test:e2e": "npm run clean:tests && vitest --config ./vitest.e2e.config.js",
     "test:api": "npm run compile:api-test && node ./test/api/dist",
     "test:dependencies": "npm run compile:dependencies-test && node ./test/dependencies/dist",
     "test:extension": "lerna run test:extension",

@@ -8,13 +8,15 @@ const ARGV = ['node', './bin/betterer'];
 
 describe('betterer precommit', () => {
   it('should add the results file to the changeset if there is any change to the results file', async () => {
+    const { cli__ } = await import('@betterer/cli');
+
     const { paths, logs, cleanup, resolve, writeFile } = await createFixture('precommit-add', {
       'src/index.ts': `
 const a = 'a';
 const one = 1;
 console.log(a * one);
       `,
-      '.betterer.js': `
+      '.betterer.ts': `
 import { typescript } from '@betterer/typescript';
 
 export default {
@@ -42,9 +44,9 @@ export default {
     const fixturePath = paths.cwd;
     const indexPath = resolve('./src/index.ts');
 
-    await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one + one);\nconsole.log(a * one);`);
+    process.env.BETTERER_WORKER = 'false';
 
-    const { cli__ } = await import('@betterer/cli');
+    await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one + one);\nconsole.log(a * one);`);
 
     await cli__(fixturePath, [...ARGV, 'start', '--workers=false'], false);
 

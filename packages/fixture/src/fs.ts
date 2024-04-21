@@ -1,11 +1,10 @@
 import type { FixtureFileSystem, FixtureFileSystemFiles, Paths } from './types.js';
 
-import { ensureDir, ensureFile, remove } from 'fs-extra';
-import { promises as fs } from 'graceful-fs';
+import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
 const DEFAULT_CACHE_PATH = './.betterer.cache';
-const DEFAULT_CONFIG_PATH = './.betterer.js';
+const DEFAULT_CONFIG_PATH = './.betterer.ts';
 const DEFAULT_RESULTS_PATH = `./.betterer.results`;
 
 export async function createFixtureFS(
@@ -21,17 +20,17 @@ export async function createFixtureFS(
   }
 
   async function cleanup(): Promise<void> {
-    await remove(fixturePath);
+    return await rimraf(fixturePath);
   }
 
   async function writeFile(filePath: string, text: string): Promise<void> {
     const fullPath = resolve(filePath);
-    await ensureFile(fullPath);
+    await ensureDir(path.dirname(fullPath));
     return await fs.writeFile(fullPath, text.trim(), 'utf8');
   }
 
   async function deleteDirectory(directoryPath: string): Promise<void> {
-    return await remove(directoryPath);
+    return await rimraf(directoryPath);
   }
 
   async function deleteFile(filePath: string): Promise<void> {
@@ -40,6 +39,10 @@ export async function createFixtureFS(
 
   function readFile(filePath: string): Promise<string> {
     return fs.readFile(resolve(filePath), 'utf8');
+  }
+
+  function rimraf(directoryPath: string): Promise<void> {
+    return fs.rm(directoryPath, { recursive: true });
   }
 
   const paths: Paths = {
@@ -55,7 +58,11 @@ export async function createFixtureFS(
     // Move on...
   }
 
-  await ensureDir(fixturePath);
+  try {
+    await ensureDir(fixturePath);
+  } catch {
+    // Move on...
+  }
   await Promise.all(
     Object.keys(files).map(async (itemPath) => {
       await writeFile(itemPath, files[itemPath]);
@@ -63,4 +70,8 @@ export async function createFixtureFS(
   );
 
   return { paths, deleteDirectory, deleteFile, resolve, cleanup, readFile, writeFile };
+}
+
+async function ensureDir(directoryPath: string): Promise<void> {
+  await fs.mkdir(directoryPath, { recursive: true });
 }
