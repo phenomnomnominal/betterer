@@ -4,7 +4,7 @@
     "module": "ES2020",
     "outDir": "./dist"
   },
-  "include": ["./src/**/*.ts", "src/**/*.tsx", "./rollup.config.ts"],
+  "include": ["./src/**/*.ts", "./rollup.config.ts"],
   "exclude": ["../node_modules/*", "./node_modules/*", "./dist/*"],
   "references": []
 }

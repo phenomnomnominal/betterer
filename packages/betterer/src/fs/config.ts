@@ -64,7 +64,9 @@ async function validateConfigPaths(cwd: string, configPaths: Array<string>): Pro
         try {
           await validateFilePath({ absoluteConfigPath });
           return absoluteConfigPath;
-        } catch {}
+        } catch {
+          // Need to try other extensions
+        }
       }
 
       try {
@@ -81,4 +83,3 @@ async function validateConfigPaths(cwd: string, configPaths: Array<string>): Pro
     })
   );
 }
-

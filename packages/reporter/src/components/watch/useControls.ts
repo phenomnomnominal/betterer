@@ -20,7 +20,7 @@ export function useControls(context: BettererContext): ConfigEditField {
     }
 
     function handleData(data: string) {
-      let input = String(data);
+      const input = String(data);
       const isReturn = input === '\r';
       const isEscape = input === '\u001B';
 

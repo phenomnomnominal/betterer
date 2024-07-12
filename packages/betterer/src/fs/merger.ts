@@ -6,7 +6,10 @@ import { parse } from './parse.js';
 import { merge } from './merge.js';
 
 export class BettererMergerΩ {
-  private constructor(private _contents: Array<string>, private _filePath: string) {}
+  private constructor(
+    private _contents: Array<string>,
+    private _filePath: string
+  ) {}
 
   public static async create(options: BettererOptionsMerge): Promise<BettererMergerΩ> {
     const { contents, resultsPath } = await createMergeConfig(options);

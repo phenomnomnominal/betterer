@@ -36,7 +36,8 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2021,
     project: path.resolve(__dirname, './tsconfig.eslint.json'),
-    sourceType: 'module'
+    sourceType: 'module',
+    extraFileExtensions: ['.cjs']
   },
   plugins: ['@typescript-eslint', 'require-extensions'],
   rules: {

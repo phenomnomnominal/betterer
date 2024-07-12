@@ -11,7 +11,7 @@
         "--disable-workspace-trust",
         "--disable-extensions"
       ],
-      "outFiles": ["${workspaceRoot}/packages/extension/dist/client/**/*.js"]
+      "outFiles": ["${workspaceRoot}/packages/extension/dist/client/**/*.cjs"]
     },
     {
       "name": "Attach to Server",
@@ -19,7 +19,7 @@
       "request": "attach",
       "address": "localhost",
       "port": 6060,
-      "outFiles": ["${workspaceRoot}/packages/extension/dist/server/**/*.js"]
+      "outFiles": ["${workspaceRoot}/packages/extension/dist/server/**/*.cjs"]
     },
     {
       "name": "Run Extension Tests",
@@ -28,7 +28,7 @@
       "runtimeExecutable": "${execPath}",
       "args": [
         "--extensionDevelopmentPath=${workspaceRoot}/packages/extension",
-        "--extensionTestsPath=${workspaceFolder}/packages/extension/dist/test/runner/run.js",
+        "--extensionTestsPath=${workspaceFolder}/packages/extension/dist/test/runner/run.cjs",
         "${workspaceRoot}/fixtures",
         "--disable-workspace-trust",
         "--disable-extensions"

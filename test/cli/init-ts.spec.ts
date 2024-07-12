@@ -2,7 +2,7 @@ import type { BettererPackageJSON } from '@betterer/cli';
 
 import { describe, expect, it } from 'vitest';
 
-import { createFixture } from '../fixture';
+import { createFixture } from '../fixture.js';
 
 const ARGV = ['node', './bin/betterer'];
 

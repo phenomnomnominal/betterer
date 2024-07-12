@@ -1,6 +1,7 @@
-import { createFixtureDirectoryΔ } from '@betterer/fixture';
 import path from 'node:path';
-import { runTests } from 'vscode-test';
+
+import { createFixtureDirectoryΔ } from '@betterer/fixture';
+import { runTests } from '@vscode/test-electron';
 
 async function main() {
   try {
@@ -28,5 +29,5 @@ async function main() {
 
 void main();
 
-export { vscode } from './vscode';
-export { createFixture } from './fixture';
+export { vscode } from './vscode.js';
+export { createFixture } from './fixture.js';

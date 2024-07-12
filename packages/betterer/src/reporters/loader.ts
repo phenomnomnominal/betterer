@@ -21,7 +21,7 @@ export async function loadDefaultReporter(): Promise<BettererReporter> {
 
 export async function loadReporters(reporters: BettererOptionsReporters, cwd: string): Promise<BettererReporter> {
   if (reporters.length === 0) {
-    return loadDefaultReporter();
+    return await loadDefaultReporter();
   }
 
   return new BettererReporterΩ(

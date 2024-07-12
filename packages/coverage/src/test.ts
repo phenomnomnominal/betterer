@@ -61,13 +61,13 @@ async function readCoverageSummary(coverageSummaryPath: string): Promise<Istanbu
 async function loadCoverageFile(coverageSummaryPath: string): Promise<IstanbulCoverageSummary | null> {
   try {
     const coverageReport = await fs.readFile(coverageSummaryPath, 'utf-8');
-    return decodeCoverageSummary(JSON.parse(coverageReport));
+    return decodeCoverageSummary(JSON.parse(coverageReport) as IstanbulCoverageSummary);
   } catch (e) {
     return null;
   }
 }
 
-function decodeCoverageSummary(data: IstanbulCoverageSummary | unknown): IstanbulCoverageSummary | null {
+function decodeCoverageSummary(data: IstanbulCoverageSummary): IstanbulCoverageSummary | null {
   if (isIstanbulSummary(data) && data.total != null) {
     return data;
   }

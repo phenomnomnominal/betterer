@@ -53,3 +53,21 @@ export async function run(logger: BettererLogger, packageName: string): Promise<
 }
 
 exposeToMain__({ getPackages, run });
+
+declare module 'dependency-check' {
+  type DependencyCheckOptions = {
+    path: string;
+    entries: Array<string>;
+  };
+
+  type DependencyCheckPackage = {
+    name: string;
+  };
+
+  type DependencyCheckResult = {
+    package: DependencyCheckPackage;
+    used: Array<string>;
+  };
+
+  export function missing(package: DependencyCheckPackage, used: Array<string>): Promise<Array<string>>;
+}

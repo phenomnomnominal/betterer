@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { createFixture } from './fixture';
+import { createFixture } from './fixture.js';
 
 describe('betterer', () => {
   it('should work with a .betterer.ts file that uses ES modules', async () => {

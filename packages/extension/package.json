@@ -109,16 +109,14 @@
     ]
   },
   "scripts": {
-    "build:extension": "npm run bundle && npm run compile:test",
-    "bundle": "npm run webpack:client && npm run webpack:server",
-    "compile:test": "tsc --project ./tsconfig.e2e.json",
-    "watch": "run-p webpack:client:watch webpack:server:watch",
-    "webpack:client": "webpack --config webpack.client.config.js",
-    "webpack:client:watch": "webpack --config webpack.client.config.js --watch",
-    "webpack:server": "webpack --config webpack.server.config.js",
-    "webpack:server:watch": "webpack --config webpack.server.config.js --watch",
+    "build:extension": "npm run build:client && npm run build:server",
+    "build:extension:watch": "run-p build:client:watch build:server:watch",
+    "build:client": "webpack --config webpack.client.config.js",
+    "build:client:watch": "webpack --config webpack.client.config.js --watch",
+    "build:server": "webpack --config webpack.client.config.js",
+    "build:server:watch": "webpack --config webpack.server.config.js --watch",
     "package": "vsce package --npm",
-    "test:extension": "node ./dist/test/runner/index.js",
+    "test:extension": "tsc --project ./tsconfig.e2e.json && node ./dist/test/runner/index.js",
     "vscode:prepublish": "npm run build:extension"
   },
   "dependencies": {
@@ -133,14 +131,14 @@
     "@betterer/cli": "^5.4.0",
     "@betterer/errors": "^5.3.0",
     "@betterer/logger": "^5.3.4",
-    "@types/jest-cli": "^24.3.0",
     "@types/lodash.debounce": "^4.0.6",
     "@types/vscode": "^1.62.0",
-    "jest-cli": "^27.4.3",
-    "ts-loader": "^9.4.2",
-    "vscode-test": "^1.6.1",
-    "webpack": "^5.82.1",
-    "webpack-cli": "^5.1.1",
+    "@vscode/test-electron": "^2.3.9",
+    "typescript": "^5.4.5",
+    "ts-loader": "^9.5.1",
+    "vitest": "^1.5.1",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4",
     "webpack-node-externals": "^3.0.0"
   }
 }

@@ -20,7 +20,10 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
+    extensionAlias: {
+      '.js': ['.ts', '.js']
+    }
   },
   output: {
     filename: 'client.js',

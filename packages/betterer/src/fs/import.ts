@@ -20,7 +20,7 @@ export async function importDefault<T>(importPath: string): Promise<T> {
 
   if (TYPESCRIPT_EXTENSIONS.find((tsExt) => ext.endsWith(tsExt))) {
     try {
-      return importTypeScript<T>(importPath);
+      return await importTypeScript<T>(importPath);
     } catch (error) {
       throw new BettererError(`could not import "${importPath}". 😔`, error as Error);
     }

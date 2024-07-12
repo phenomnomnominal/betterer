@@ -21,7 +21,10 @@ import { getFilePath } from './path.js';
 export class BettererValidator {
   private _diagnostics = new BettererDiagnostics();
 
-  constructor(private _connection: Connection, private _documents: TextDocuments<TextDocument>) {}
+  constructor(
+    private _connection: Connection,
+    private _documents: TextDocuments<TextDocument>
+  ) {}
 
   public async validate(documents: Array<TextDocument>): Promise<void> {
     const { workspace } = this._connection;

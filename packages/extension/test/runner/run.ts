@@ -1,27 +1,28 @@
-import { BettererError } from '@betterer/errors';
-import { runCLI } from '@jest/core';
-import path from 'node:path';
+import type { TaskResult } from 'vitest';
 
-const ARGS = { _: [], $0: '' };
+import { startVitest } from 'vitest/node';
 
 export async function run(
-  testRootPath: string,
+  _: string,
   reportTestResults: (error: Error | null, failures?: number) => void
 ): Promise<void> {
-  const projectRootPath = path.join(testRootPath, '../../../../');
-  const config = path.join(projectRootPath, 'jest.config.js');
-  const testEnvironment = path.join(__dirname, './environment');
-
   try {
-    const { results } = await runCLI({ ...ARGS, config, testEnvironment }, [projectRootPath]);
-
-    results.testResults.forEach((testResult) => {
-      if (testResult.failureMessage) {
-        throw new BettererError(testResult.failureMessage);
+    const results: Array<TaskResult> = [];
+    const vitest = await startVitest('test', [], {
+      reporters: {
+        onTaskUpdate(packs) {
+          packs.forEach(([, result]) => {
+            if (result?.state === 'fail') {
+              results.push(result);
+            }
+          });
+        }
       }
     });
 
-    reportTestResults(null, results.numFailedTests);
+    await vitest?.close();
+
+    reportTestResults(null, results.length);
   } catch (error) {
     reportTestResults(error as Error);
   }
