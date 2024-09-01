@@ -4,6 +4,12 @@
  * @packageDocumentation
  */
 
-export { coverage, coverageTotal } from './coverage.js';
 export type { BettererCoverageTest } from './coverage-test.js';
-export { BettererCoverageDiff, BettererCoverageIssue, BettererCoverageIssues, BettererCoverageTypes } from './types.js';
+export type {
+  BettererCoverageDiff,
+  BettererCoverageIssue,
+  BettererCoverageIssues,
+  BettererCoverageTypes
+} from './types.js';
+
+export { coverage, coverageTotal } from './coverage.js';

@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer ci > should work when a test gets worse 1`] = `
+exports[`betterer ci > should throw an error when a test changes 1`] = `
 [
   "🌟 Betterer (0ms):
 ",

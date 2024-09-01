@@ -50,15 +50,16 @@ export default {
 
     await cli__(fixturePath, [...ARGV, 'start', '--workers=false'], false);
 
-    expect(process.exitCode).toEqual(1);
-
-    process.exitCode = undefined;
-
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one + one);`);
 
-    await cli__(fixturePath, [...ARGV, 'precommit', '--workers=false']);
+    let failed = false;
+    try {
+      await cli__(fixturePath, [...ARGV, 'precommit', '--workers=false']);
+    } catch {
+      failed = true;
+    }
 
-    expect(process.exitCode).toBeUndefined();
+    expect(failed).toEqual(false);
 
     expect(logs).toMatchSnapshot();
 

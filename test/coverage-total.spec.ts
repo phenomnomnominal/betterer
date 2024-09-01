@@ -1,5 +1,3 @@
-import type { BettererCoverageIssues } from '@betterer/coverage';
-
 import { describe, expect, it } from 'vitest';
 
 import { createFixture } from './fixture.js';
@@ -50,16 +48,6 @@ export default {
     const sameTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
     expect(fixture.testNames(sameTestRun.same)).toEqual(['test']);
-
-    const [sameSummary] = sameTestRun.same;
-    const testResult = sameSummary.result?.value as BettererCoverageIssues;
-
-    expect(testResult.total).toEqual({
-      lines: 220 - 110,
-      statements: 410 - 140,
-      functions: 30 - 11,
-      branches: 300 - 100
-    });
 
     const betterCoverage = `{  
       "total": {

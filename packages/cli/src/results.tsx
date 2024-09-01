@@ -26,17 +26,13 @@ export function results(cwd: string): Command {
       resultsPath: config.results
     };
 
-    try {
-      // And then cast to BettererOptionsResults. This is possibly invalid,
-      // but it's nicer to do the options validation in @betterer/betterer
-      const app = render(
-        <Results options={options as BettererOptionsResults} logo={config.logo} />,
-        getRenderOptions(process.env.NODE_ENV)
-      );
-      await app.waitUntilExit();
-    } catch {
-      process.exitCode = 1;
-    }
+    // And then cast to BettererOptionsResults. This is possibly invalid,
+    // but it's nicer to do the options validation in @betterer/betterer
+    const app = render(
+      <Results options={options as BettererOptionsResults} logo={config.logo} />,
+      getRenderOptions(process.env.NODE_ENV)
+    );
+    await app.waitUntilExit();
   });
   return command;
 }

@@ -6,11 +6,9 @@
   "license": "MIT",
   "description": "Betterer makes it easier to make incremental improvements to your codebase",
   "type": "module",
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
-  },
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "api": "npm run compile && lerna run api",
     "betterer": "node ./packages/cli/bin/betterer",
@@ -75,7 +73,7 @@
     "patch-package": "^8.0.0",
     "prettier": "^3.2.5",
     "tsx": "^4.7.2",
-    "typescript": "^4.6",
+    "typescript": "^5.5.4",
     "vite": "^5.2.9",
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.5.0"

@@ -22,11 +22,7 @@ export function merge(cwd: string): Command {
       resultsPath: config.results
     };
 
-    try {
-      await betterer.merge(options as BettererOptionsMerge);
-    } catch {
-      process.exitCode = 1;
-    }
+    await betterer.merge(options as BettererOptionsMerge);
   });
 
   return command;

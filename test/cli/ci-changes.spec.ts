@@ -5,7 +5,7 @@ import { createFixture } from '../fixture.js';
 const ARGV = ['node', './bin/betterer'];
 
 describe('betterer ci', () => {
-  it('should work when a test gets worse', async () => {
+  it('should throw an error when a test changes', async () => {
     const { paths, logs, cleanup, resolve, writeFile } = await createFixture('ci-worse', {
       'src/index.ts': `
 const a = 'a';
@@ -45,7 +45,9 @@ export default {
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one * a);\nconsole.log(a * one);`);
 
-    await cli__(fixturePath, [...ARGV, 'ci', '--workers=false']);
+    await expect(async () => {
+      await cli__(fixturePath, [...ARGV, 'ci', '--workers=false']);
+    }).rejects.toThrow('Unexpected changes detected while running in CI mode. ❌');
 
     expect(logs).toMatchSnapshot();
 
