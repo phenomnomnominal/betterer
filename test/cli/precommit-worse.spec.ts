@@ -49,9 +49,9 @@ export default {
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one * a);\nconsole.log(a * one);`);
 
-    await cli__(fixturePath, [...ARGV, 'precommit', '--workers=false']);
-
-    expect(process.exitCode).toEqual(1);
+    await expect(async () => {
+      await cli__(fixturePath, [...ARGV, 'precommit', '--workers=false']);
+    }).rejects.toThrow('Tests got worse while running in precommit mode. ❌');
 
     expect(logs).toMatchSnapshot();
 

@@ -3,9 +3,17 @@ if (process.env.NODE_ENV === 'test') {
   process.env.DEV = 'false';
 }
 
-export { createFixtureDirectoryΔ } from './fixture.js';
-export { Fixture, FixtureFactory, FixtureFileSystem, FixtureFileSystemFiles, FixtureOptions, Paths } from './types.js';
-
 import './stubs.js';
 
+export type {
+  Fixture,
+  FixtureFactory,
+  FixtureFileSystem,
+  FixtureFileSystemFiles,
+  FixtureOptions,
+  Paths
+} from './types.js';
+
+export { createFixtureDirectoryΔ } from './fixture.js';
 export { persist } from './persist.js';
+

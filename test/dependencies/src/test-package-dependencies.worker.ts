@@ -4,14 +4,16 @@ import { BettererError } from '@betterer/errors';
 import { exposeToMain__ } from '@betterer/worker';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import dependencyCheck from 'dependency-check';
 
 const EXCLUDED_PACKAGES = ['docgen', 'extension', 'fixture'];
-const PACKAGES_DIR = path.resolve(__dirname, '../../../packages');
-
 const IGNORED: Record<string, Array<string>> = {
   render: ['bufferutil', 'utf-8-validate']
 };
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const PACKAGES_DIR = path.resolve(__dirname, '../../../packages');
 
 export async function getPackages(): Promise<Array<string>> {
   const items = await fs.readdir(PACKAGES_DIR);

@@ -45,7 +45,9 @@ export default {
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one + one);\nconsole.log(a * one);`);
 
-    await cli__(fixturePath, [...ARGV, 'ci', '--workers=false']);
+    await expect(async () => {
+      await cli__(fixturePath, [...ARGV, 'ci', '--workers=false']);
+    }).rejects.toThrow('Unexpected changes detected while running in CI mode. ❌');
 
     expect(logs).toMatchSnapshot();
 

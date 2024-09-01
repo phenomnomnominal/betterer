@@ -1,10 +1,11 @@
 import type { BettererOptionsResults } from '../api/index.js';
-import type { BettererFileTestResultΩ } from '../test/index.js';
+import type { BettererFileTestResultΩ, BettererTestBase } from '../test/index.js';
 import type { BettererFileTestResultSummaryDetails, BettererResultsSummary, BettererResultSummaries } from './types.js';
 
+import { BettererError, isBettererError } from '@betterer/errors';
 import { BettererFileResolverΩ } from '../fs/index.js';
 import { createGlobals } from '../globals.js';
-import { isBettererFileTest, loadTestMeta } from '../test/index.js';
+import { isBettererFileTest, isBettererTest, loadTestMeta } from '../test/index.js';
 
 export class BettererResultsSummaryΩ implements BettererResultsSummary {
   public readonly resultSummaries: BettererResultSummaries;
@@ -37,8 +38,21 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
 
     const testStatuses = await Promise.all(
       testNames.map(async (name) => {
-        const test = await testFactories[name].factory();
+        let test: BettererTestBase | null = null;
+        try {
+          test = await testFactories[name].factory();
+        } catch (e) {
+          if (isBettererError(e)) {
+            throw e;
+          }
+        }
+        const isTest = isBettererTest(test);
         const isFileTest = isBettererFileTest(test);
+
+        if (!test || !(isTest || isFileTest)) {
+          throw new BettererError(`"${name}" must return a \`BettererTest\`.`);
+        }
+
         const [expectedJSON] = results.getExpected(name);
         const serialised = JSON.parse(expectedJSON) as unknown;
         const deserialised = test.config.serialiser.deserialise(serialised, resultsPath);

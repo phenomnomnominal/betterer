@@ -6,15 +6,16 @@
  * @packageDocumentation
  */
 
-export { BettererErrorLog, BettererErrorLogProps } from './error-log.js';
-export { BettererLogo } from './logo.js';
-export {
+export type { BettererErrorLogProps } from './error-log.js';
+export type {
   BettererTask,
-  BettererTaskLogger,
   BettererTaskLoggerProps,
   BettererTasksDone,
-  BettererTasksLogger,
   BettererTasksLoggerProps,
   BettererTasksState,
   BettererTasksStatusUpdate
 } from './tasks/public.js';
+
+export { BettererErrorLog } from './error-log.js';
+export { BettererLogo } from './logo.js';
+export { BettererTaskLogger, BettererTasksLogger } from './tasks/public.js';

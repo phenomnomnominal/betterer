@@ -4,7 +4,9 @@ import type { Command } from 'commander';
 import type { BettererCLIConfig } from './types.js';
 
 import { betterer } from '@betterer/betterer';
+import { BettererError } from '@betterer/errors';
 
+import { testNames } from './names.js';
 import { cliCommand } from './options.js';
 import { BettererCommand } from './types.js';
 
@@ -32,15 +34,14 @@ export function precommit(cwd: string): Command {
       workers: config.workers
     };
 
-    try {
-      // And then cast to BettererOptions. This is possibly invalid,
-      // but it's nicer to do the options validation in @betterer/betterer
-      const suiteSummary = await betterer(options as BettererOptions);
-      if (suiteSummary.worse.length > 0 || suiteSummary.failed.length > 0) {
-        process.exitCode = 1;
-      }
-    } catch {
-      process.exitCode = 1;
+    // And then cast to BettererOptions. This is possibly invalid,
+    // but it's nicer to do the options validation in @betterer/betterer
+    const suiteSummary = await betterer(options as BettererOptions);
+    if (suiteSummary.worse.length > 0) {
+      throw new BettererError('Tests got worse while running in precommit mode. ❌', ...testNames(suiteSummary.worse));
+    }
+    if (suiteSummary.failed.length > 0) {
+      throw new BettererError('Tests failed while running in precommit mode. ❌', ...testNames(suiteSummary.failed));
     }
   });
 

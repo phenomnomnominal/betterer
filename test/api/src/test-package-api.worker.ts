@@ -6,15 +6,18 @@ import { exposeToMain__ } from '@betterer/worker';
 import { Extractor, ExtractorConfig } from '@microsoft/api-extractor';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const EXCLUDED_PACKAGES = ['docgen', 'extension', 'fixture', 'render', 'time'];
 const EXTRACTION_EXTENSION = '.api.md';
 const EXTRACTION_CONFIG_FILE = 'api-extractor.json';
+
+const INTERNAL_TOKENS = ['Ω'];
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PACKAGES_DIR = path.resolve(__dirname, '../../../packages');
 const GOLDENS_DIR = path.resolve(__dirname, '../../../goldens/api');
 const TEMP_DIR = path.resolve(__dirname, '../../../goldens/temp');
-
-const INTERNAL_TOKENS = ['Ω'];
 
 export async function getPackages(): Promise<Array<string>> {
   const items = await fs.readdir(PACKAGES_DIR);

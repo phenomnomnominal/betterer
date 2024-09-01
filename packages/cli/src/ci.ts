@@ -4,9 +4,11 @@ import type { Command } from 'commander';
 import type { BettererCLIConfig } from './types.js';
 
 import { betterer } from '@betterer/betterer';
+import { BettererError } from '@betterer/errors';
 
 import { cliCommand } from './options.js';
 import { BettererCommand } from './types.js';
+import { testNames } from './names.js';
 
 /**
  * Run **Betterer** in `ci` mode.
@@ -31,15 +33,14 @@ export function ci(cwd: string): Command {
       workers: config.workers
     };
 
-    try {
-      // And then cast to BettererOptions. This is possibly invalid,
-      // but it's nicer to do the options validation in @betterer/betterer
-      const suiteSummary = await betterer(options as BettererOptions);
-      if (suiteSummary.changed.length > 0 || suiteSummary.failed.length > 0) {
-        process.exitCode = 1;
-      }
-    } catch {
-      process.exitCode = 1;
+    // And then cast to BettererOptions. This is possibly invalid,
+    // but it's nicer to do the options validation in @betterer/betterer
+    const suiteSummary = await betterer(options as BettererOptions);
+    if (suiteSummary.changed.length > 0) {
+      throw new BettererError('Unexpected changes detected while running in CI mode. ❌', ...suiteSummary.changed);
+    }
+    if (suiteSummary.failed.length > 0) {
+      throw new BettererError('Tests failed while running in CI mode. ❌', ...testNames(suiteSummary.failed));
     }
   });
 

@@ -67,7 +67,7 @@ export const SuiteSummary: FC<SuiteSummaryProps> = memo(function SuiteSummary({ 
             <Box paddingBottom={1}>
               <Text color={TEXT_COLOURS.worse}>{testWorse(tests(worse))}</Text>
             </Box>
-            {!context.config.strict && <Text>{updateInstructions()}</Text>}
+            {!context.config.strict ? <Text>{updateInstructions()}</Text> : null}
           </>
         ) : null}
         {expired ? <Text color={TEXT_COLOURS.expired}>{testExpired(tests(expired))})</Text> : null}

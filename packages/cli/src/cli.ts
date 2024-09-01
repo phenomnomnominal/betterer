@@ -18,7 +18,12 @@ import { getVersion } from './version.js';
  *
  * Run the **Betterer** command-line interface.
  */
-export async function cli__(cwd: string, argv: BettererCLIArguments, isCI = process.env.CI === 'true'): Promise<void> {
+export async function cli__(
+  cwd: string,
+  argv: BettererCLIArguments,
+  isCI = process.env.CI === 'true',
+  isTest = process.env.TEST === 'true'
+): Promise<void> {
   const program = new Command('Betterer');
   const version = await getVersion();
   program.version(version);
@@ -53,5 +58,12 @@ export async function cli__(cwd: string, argv: BettererCLIArguments, isCI = proc
     args.splice(2, 0, BettererCommand.start);
   }
 
-  await program.parseAsync(args);
+  try {
+    await program.parseAsync(args);
+  } catch (e) {
+    if (!isTest) {
+      process.exitCode = 1;
+    }
+    throw e;
+  }
 }

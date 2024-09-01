@@ -1,12 +1,12 @@
 import type { BettererConfig } from '../config/index.js';
 import type { BettererFilePaths, BettererVersionControlWorker } from '../fs/index.js';
 import type { BettererResult } from '../results/index.js';
-import type { BettererDiff, BettererTestConfig, BettererTestMeta } from '../test/index.js';
+import type { BettererDiff, BettererTestBase, BettererTestConfig, BettererTestMeta } from '../test/index.js';
 import type { BettererGlobals } from '../types.js';
 import type { BettererRun, BettererRunning, BettererRunSummary } from './types.js';
 
 import { BettererConstraintResult } from '@betterer/constraints';
-import { BettererError } from '@betterer/errors';
+import { BettererError, isBettererError } from '@betterer/errors';
 import assert from 'node:assert';
 
 import { forceRelativePaths, parse } from '../fs/index.js';
@@ -62,12 +62,20 @@ export class BettererWorkerRunΩ implements BettererRun {
 
     const testFactories = await loadTestMeta(config.configPaths);
     const testFactoryMeta = testFactories[name];
-    const test = await testFactoryMeta.factory();
+
+    let test: BettererTestBase | null = null;
+    try {
+      test = await testFactoryMeta.factory();
+    } catch (e) {
+      if (isBettererError(e)) {
+        throw e;
+      }
+    }
 
     const isTest = isBettererTest(test);
     const isFileTest = isBettererFileTest(test);
 
-    if (!(isTest || isFileTest)) {
+    if (!test || !(isTest || isFileTest)) {
       throw new BettererError(`"${name}" must return a \`BettererTest\`.`);
     }
 
