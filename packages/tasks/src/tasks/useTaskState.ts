@@ -56,23 +56,25 @@ export function useTaskState(): [BettererTaskState, BettererTaskStateAPI] {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const [, tasks] = useTasks();
   const api = useRef<BettererTaskStateAPI>({
-    reset() {
+    reset: () => {
       dispatch({ type: 'reset' });
     },
-    start() {
+    start: () => {
       tasks.start();
     },
-    status(status: BettererTaskLog) {
-      return Promise.resolve(dispatch({ type: 'status', data: status }));
+    status: (status: BettererTaskLog) => {
+      dispatch({ type: 'status', data: status });
+      return Promise.resolve();
     },
-    log(log: BettererTaskLog) {
-      return Promise.resolve(dispatch({ type: 'log', data: log }));
+    log: (log: BettererTaskLog) => {
+      dispatch({ type: 'log', data: log });
+      return Promise.resolve();
     },
-    stop() {
+    stop: () => {
       dispatch({ type: 'stop' });
       tasks.stop();
     },
-    error(error: Error) {
+    error: (error: Error) => {
       dispatch({ type: 'error', data: error });
       tasks.error(error);
     }

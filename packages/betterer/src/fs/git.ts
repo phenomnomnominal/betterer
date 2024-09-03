@@ -1,6 +1,6 @@
 import type { SimpleGit } from 'simple-git';
 
-import type { BettererFileCache, BettererFilePaths, BettererVersionControl } from './types.js';
+import type { BettererFileCache, BettererFileHashMap, BettererFilePaths, BettererVersionControl } from './types.js';
 
 import { BettererError } from '@betterer/errors';
 import assert from 'node:assert';
@@ -16,7 +16,7 @@ import { read } from './reader.js';
 export class BettererGitΩ implements BettererVersionControl {
   private _cache: BettererFileCache | null = null;
   private _configPaths: BettererFilePaths = [];
-  private _fileMap: Record<string, string> = {};
+  private _fileMap: BettererFileHashMap = new Map();
   private _filePaths: Array<string> = [];
   private _git: SimpleGit | null = null;
   private _gitDir: string | null = null;
@@ -34,7 +34,7 @@ export class BettererGitΩ implements BettererVersionControl {
   }
 
   public filterIgnored(filePaths: BettererFilePaths): BettererFilePaths {
-    return filePaths.filter((absolutePath) => this._fileMap[absolutePath]);
+    return filePaths.filter((absolutePath) => this._fileMap.get(absolutePath));
   }
 
   public clearCache(testName: string): void {
@@ -44,12 +44,12 @@ export class BettererGitΩ implements BettererVersionControl {
 
   public async enableCache(cachePath: string): Promise<void> {
     assert(this._cache);
-    return await this._cache.enableCache(cachePath);
+    await this._cache.enableCache(cachePath);
   }
 
   public updateCache(testName: string, filePaths: BettererFilePaths): void {
     assert(this._cache);
-    return this._cache.updateCache(testName, filePaths);
+    this._cache.updateCache(testName, filePaths);
   }
 
   public writeCache(): Promise<void> {
@@ -67,14 +67,14 @@ export class BettererGitΩ implements BettererVersionControl {
     this._rootDir = path.dirname(this._gitDir);
     this._git = simpleGit(this._rootDir);
     this._cache = new BettererFileCacheΩ(this._configPaths);
-    // await this._init(this._git);
     await this.sync();
     return this._rootDir;
   }
 
   public async sync(): Promise<void> {
     if (this._syncing) {
-      return await this._syncing;
+      await this._syncing;
+      return;
     }
     this._syncing = this._sync();
     await this._syncing;
@@ -88,7 +88,7 @@ export class BettererGitΩ implements BettererVersionControl {
         const gitPath = path.join(dir, '.git');
         await fs.access(gitPath);
         return gitPath;
-      } catch (err) {
+      } catch {
         dir = path.join(dir, '..');
       }
     }
@@ -115,21 +115,29 @@ export class BettererGitΩ implements BettererVersionControl {
     return Array.from(new Set(output.trimEnd().split('\n')));
   }
 
+  private _toFileInfo(line: string): [string, string] {
+    const [, , hash, relativePath] = line.split(/\s/);
+    if (!hash || !relativePath) {
+      throw new BettererError('Invalid data from git output. ❌');
+    }
+    return [hash, relativePath];
+  }
+
   private async _sync(): Promise<void> {
-    this._fileMap = {};
+    this._fileMap = new Map();
     this._filePaths = [];
 
     assert(this._cache);
     assert(this._git);
     assert(this._rootDir);
     const treeOutput = await this._git.raw(['ls-tree', '--full-tree', '-r', 'HEAD']);
-    const fileInfo = this._toLines(treeOutput).map((info) => info.split(/\s/));
+    const fileInfo = this._toLines(treeOutput).map((line) => this._toFileInfo(line));
 
     const fileHashes: Record<string, string | null> = {};
 
     // Collect hashes from git:
     fileInfo.forEach((fileInfo) => {
-      const [, , hash, relativePath] = fileInfo;
+      const [hash, relativePath] = fileInfo;
       assert(this._rootDir);
       const absolutePath = toAbsolutePath(this._rootDir, relativePath);
       fileHashes[absolutePath] = hash;
@@ -158,13 +166,14 @@ export class BettererGitΩ implements BettererVersionControl {
         // If file is untracked and is new:
         //    `fileHashes[absolutePath]` = null
         //    `this._getFileHash(absolutePath) = basic hash
-        const hash = fileHashes[absolutePath] || (await this._getFileHash(absolutePath));
+        const hash = fileHashes[absolutePath] ?? (await this._getFileHash(absolutePath));
 
         // If hash is null then the file was deleted so it shouldn't be included:
         if (hash == null) {
           return;
         }
-        this._fileMap[absolutePath] = hash;
+
+        this._fileMap.set(absolutePath, hash);
         this._filePaths.push(absolutePath);
       })
     );

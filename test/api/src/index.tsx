@@ -42,7 +42,7 @@ function update(state: BettererTasksState): string {
 }
 
 function tests(n: number): string {
-  return `${n} ${n === 1 ? 'test' : 'tests'}`;
+  return `${String(n)} ${n === 1 ? 'test' : 'tests'}`;
 }
 
 void (async () => {

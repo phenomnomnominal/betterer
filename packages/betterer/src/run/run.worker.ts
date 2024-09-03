@@ -3,6 +3,7 @@ import type { BettererFilePaths, BettererVersionControlWorker } from '../fs/inde
 import type { BettererTestMeta } from '../test/index.js';
 import type { BettererRunSummary } from './types.js';
 
+import { BettererError } from '@betterer/errors';
 import { exposeToMain__ } from '@betterer/worker';
 
 import { BettererWorkerRunΩ } from './worker-run.js';
@@ -26,6 +27,9 @@ export function run(
   timestamp: number
 ): Promise<BettererRunSummary> {
   const worker = TEST_NAME_RUN[testName];
+  if (!worker) {
+    throw new BettererError(`Worker has not been initialised for "${testName}". ❌`);
+  }
   return worker.run(filePaths, isSkipped, timestamp);
 }
 

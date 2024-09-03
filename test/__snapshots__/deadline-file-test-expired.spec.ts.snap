@@ -20,7 +20,7 @@ exports[`betterer > should mark a file test as expired when it is past its deadl
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
-1 test has passed its deadline. 👻)
+1 test has passed its deadline. 👻
 ",
 ]
 `;

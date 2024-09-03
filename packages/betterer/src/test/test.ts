@@ -113,13 +113,13 @@ export function isBettererTest(test: unknown): test is BettererTestBase {
   if (!test) {
     return false;
   }
-  return getBaseName((test as ObjectConstructor).constructor) === BettererTest.name;
+  return getBaseName(test.constructor) === BettererTest.name;
 }
 
 function getBaseName(input: unknown): string | null {
   const proto: unknown = Object.getPrototypeOf(input);
   if (proto === Function.prototype) {
-    return (input as ObjectConstructor)?.name || null;
+    return (input as FunctionConstructor).name || null;
   }
   return getBaseName(proto);
 }

@@ -66,7 +66,7 @@ export function createReporter__(): BettererReporter {
   }
 
   function createRenderer(context: BettererContext): BettererReporterRenderer {
-    let app: Instance;
+    let app: Instance | null = null;
 
     const dispatch = createStore(context);
 
@@ -84,7 +84,9 @@ export function createReporter__(): BettererReporter {
         }
       },
       stop() {
-        app.unmount();
+        if (app) {
+          app.unmount();
+        }
       }
     };
   }

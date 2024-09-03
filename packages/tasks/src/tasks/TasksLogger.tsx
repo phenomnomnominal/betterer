@@ -63,7 +63,7 @@ export const BettererTasksLogger: FC<BettererTasksLoggerProps> = memo(function B
     }
   }, [endTime, clear]);
 
-  const result = `${update(state)}`;
+  const result = update(state);
   let status: BettererTaskLog = ['🌟', 'whiteBright', result];
   if (errors > 0) {
     status = ['💥', 'redBright', result];
@@ -75,12 +75,14 @@ export const BettererTasksLogger: FC<BettererTasksLoggerProps> = memo(function B
 
   if (!hasChildren || endTime != null) {
     if (exit) {
-      setImmediate(() => app.exit());
+      setImmediate(() => {
+        app.exit();
+      });
     }
     done();
   }
 
-  const label = timer ? ` (${formatTime(startTime, endTime || time)}ms)` : '';
+  const label = timer ? ` (${formatTime(startTime, endTime ?? time)}ms)` : '';
 
   return (
     <BettererTasksContext.Provider value={[state, tasks]}>
@@ -107,5 +109,5 @@ function defaultUpdate(state: BettererTasksState): string {
 }
 
 function tasks(n: number): string {
-  return `${n} ${n === 1 ? 'task' : 'tasks'}`;
+  return `${String(n)} ${n === 1 ? 'task' : 'tasks'}`;
 }

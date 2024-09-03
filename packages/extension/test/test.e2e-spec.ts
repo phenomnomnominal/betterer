@@ -1,10 +1,9 @@
 import type { BettererPackageJSON } from '@betterer/cli';
-// eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
 import type { Diagnostic, Uri } from 'vscode';
 
 import assert from 'node:assert';
 
-import { vscode, createFixture } from './runner';
+import { vscode, createFixture } from './runner/index.js';
 
 describe('Betterer VSCode Extension', () => {
   jest.setTimeout(600000);
@@ -22,7 +21,7 @@ describe('Betterer VSCode Extension', () => {
       const packageJSON = await waitFor(() => readFile('package.json'));
       const pack = JSON.parse(packageJSON) as BettererPackageJSON;
       expect(pack.devDependencies['@betterer/cli']).toBeDefined();
-      expect(pack.scripts['betterer']).toBe('betterer');
+      expect(pack.scripts.betterer).toBe('betterer');
 
       const bettererConfig = await readFile('.betterer.ts');
       expect(bettererConfig).not.toBe(null);

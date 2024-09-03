@@ -15,13 +15,20 @@ import { BettererReporterΩ } from './reporter.js';
 const HOOK_NAMES = Object.getOwnPropertyNames(BettererReporterΩ.prototype) as ReadonlyArray<keyof BettererReporter>;
 
 export async function loadDefaultReporter(): Promise<BettererReporter> {
-  const { createReporter__ } = await importDefault<BettererReporterFactory>('@betterer/reporter');
-  return new BettererReporterΩ([createReporter__()]);
+  const reporterFactory = await importDefault('@betterer/reporter');
+  assertDefaultReporter(reporterFactory);
+  return new BettererReporterΩ([reporterFactory.createReporter__()]);
+}
+
+function assertDefaultReporter(reporterFactory: unknown): asserts reporterFactory is BettererReporterFactory {
+  if (!(reporterFactory as Partial<BettererReporterFactory>).createReporter__) {
+    throw new BettererError(`"@betterer/reporter" didn't provider a reporter factory. 😔`);
+  }
 }
 
 export async function loadReporters(reporters: BettererOptionsReporters, cwd: string): Promise<BettererReporter> {
   if (reporters.length === 0) {
-    return loadDefaultReporter();
+    return await loadDefaultReporter();
   }
 
   return new BettererReporterΩ(
@@ -30,10 +37,8 @@ export async function loadReporters(reporters: BettererOptionsReporters, cwd: st
         if (isString(reporter)) {
           reporter = await resolveReporter(cwd, reporter);
           try {
-            const module = await importDefault<BettererReporterModule>(reporter);
-            if (!module || !module.reporter) {
-              throw new BettererError(`"${reporter}" didn't create a reporter. 😔`);
-            }
+            const module = await importDefault(reporter);
+            assertReporter(reporter, module);
             validate(module.reporter);
             return module.reporter;
           } catch (error) {
@@ -45,6 +50,12 @@ export async function loadReporters(reporters: BettererOptionsReporters, cwd: st
       })
     )
   );
+}
+
+function assertReporter(reporter: string, reporterModule: unknown): asserts reporterModule is BettererReporterModule {
+  if (!reporterModule || !(reporterModule as Partial<BettererReporterModule>).reporter) {
+    throw new BettererError(`"${reporter}" didn't create a reporter. 😔`);
+  }
 }
 
 export function loadSilentReporter(): BettererReporterΩ {

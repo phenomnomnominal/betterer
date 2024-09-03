@@ -147,13 +147,15 @@ export type BettererFilePaths = ReadonlyArray<BettererFilePath>;
  */
 export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
 
-export type BettererFileHashMap = Record<string, string>;
+export type BettererFileHashMap = Map<string, string>;
+export type BettererFileHashMapSerialised = Record<string, string>;
 
-export type BettererTestCacheMap = Record<string, BettererFileHashMap>;
+export type BettererTestCacheMap = Map<string, BettererFileHashMap>;
+export type BettererTestCacheMapSerialised = Record<string, BettererFileHashMapSerialised>;
 
 export interface BettererCacheFile {
   version: number;
-  testCache: BettererTestCacheMap;
+  testCache: BettererTestCacheMapSerialised;
 }
 
 export interface BettererFileCache {

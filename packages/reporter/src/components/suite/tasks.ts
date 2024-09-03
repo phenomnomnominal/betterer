@@ -2,6 +2,8 @@ import type { BettererRun } from '@betterer/betterer';
 import type { BettererLogger } from '@betterer/logger';
 import type { BettererTask } from '@betterer/tasks';
 
+import type { BettererReporterRun } from '../../types.js';
+
 import { BettererError } from '@betterer/errors';
 import { log__ } from '@betterer/logger';
 
@@ -17,7 +19,6 @@ import {
   testUpdated,
   testWorse
 } from '../../messages.js';
-import type { BettererReporterRun } from '../../types.js';
 import { quote } from '../../utils.js';
 import { getDelta } from './deltas/index.js';
 

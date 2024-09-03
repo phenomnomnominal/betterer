@@ -40,21 +40,21 @@ export const test = () => new BettererTest({
         async contextStart(_: BettererContext, lifecycle: Promise<BettererContextSummary>) {
           try {
             await lifecycle;
-          } catch (e) {
+          } catch {
             return;
           }
         },
         async suiteStart(_: BettererSuite, lifecycle: Promise<BettererSuiteSummary>) {
           try {
             await lifecycle;
-          } catch (e) {
+          } catch {
             return;
           }
         },
         async runStart(_: BettererRun, lifecycle: Promise<BettererRunSummary>) {
           try {
             await lifecycle;
-          } catch (e) {
+          } catch {
             return;
           }
         }

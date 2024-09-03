@@ -1,10 +1,12 @@
 import { describe, expect, it, vitest } from 'vitest';
 
+import assert from 'node:assert';
 import { createFixture } from './fixture.js';
 
 vitest.mock('node:os', async (importOriginal): Promise<typeof import('node:os')> => {
   const os: typeof import('node:os') = await importOriginal();
   const [cpu] = os.cpus();
+  assert(cpu);
   return {
     ...os,
     cpus: () => [cpu]
@@ -65,6 +67,7 @@ describe('betterer', () => {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
 
+    // @ts-expect-error testing invalid config
     await expect(async () => await betterer({ configPaths, resultsPath, ...config })).rejects.toThrow();
 
     expect(logs).toMatchSnapshot();

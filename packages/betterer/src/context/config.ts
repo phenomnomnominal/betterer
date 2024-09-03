@@ -11,13 +11,13 @@ import {
 } from '../config/index.js';
 
 export function createContextConfig(options: BettererOptionsContext): BettererConfigContext {
-  const ci = options.ci || false;
+  const ci = options.ci ?? false;
   const filters = toRegExps(toArray<string | RegExp>(options.filters));
-  const excludes = toRegExps(toArray<string | RegExp>(options.excludes)) || [];
-  const includes = toArray<string>(options.includes) || [];
-  const precommit = options.precommit || false;
-  const strict = options.strict || false;
-  const update = options.update || false;
+  const excludes = toRegExps(toArray<string | RegExp>(options.excludes));
+  const includes = toArray<string>(options.includes);
+  const precommit = options.precommit ?? false;
+  const strict = options.strict ?? false;
+  const update = options.update ?? false;
 
   validateBool({ ci });
   validateBool({ precommit });

@@ -20,7 +20,7 @@ export async function loadTestMeta(configPaths: BettererConfigPaths): Promise<Be
 async function loadTestMetaFromConfig(configPath: string): Promise<BettererTestFactoryMetaMap> {
   try {
     const testMeta: BettererTestFactoryMetaMap = {};
-    const exports = await importDefault<BettererTestMap>(configPath);
+    const exports = (await importDefault(configPath)) as BettererTestMap;
     Object.keys(exports).forEach((name) => {
       const factory = exports[name];
       if (!isFunction(factory)) {

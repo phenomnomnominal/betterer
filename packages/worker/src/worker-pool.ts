@@ -1,6 +1,6 @@
 import type { BettererWorkerAPI, BettererWorkerFactory, BettererWorkerHandle, BettererWorkerPool } from './types.js';
 
-import { BettererError } from '@betterer/errors';
+import { BettererError, invariant } from '@betterer/errors';
 
 class BettereWorkerHandleΩ<API extends BettererWorkerAPI<unknown>> implements BettererWorkerHandle<API> {
   private _destroyed = false;
@@ -11,7 +11,7 @@ class BettereWorkerHandleΩ<API extends BettererWorkerAPI<unknown>> implements B
 
   public async claim(): Promise<API> {
     if (this._destroyed) {
-      throw new BettererError(`Handle has been destroyed so cannot be claimed.`);
+      throw new BettererError(`Handle has been destroyed so cannot be claimed. ❌`);
     }
     await this._free;
     this._free = new Promise<void>((resolve) => {
@@ -30,7 +30,7 @@ class BettereWorkerHandleΩ<API extends BettererWorkerAPI<unknown>> implements B
 
   public release(): void {
     if (!this._release) {
-      throw new BettererError(`Handle has not been claimed yet so cannot be released.`);
+      throw new BettererError(`Handle has not been claimed yet so cannot be released. ❌`);
     }
     this._release();
   }
@@ -57,6 +57,7 @@ class BettererRunWorkerPoolΩ<API extends BettererWorkerAPI<unknown>> implements
 
   public getWorkerHandle(): BettererWorkerHandle<API> {
     const worker = this._handles[this._handleIndex];
+    invariant(worker, `\`this._handleIndex\` should never be out of bounds!`, this._handles.length, this._handleIndex);
     this._handleIndex = this._handleIndex + 1 === this._handles.length ? 0 : this._handleIndex + 1;
     return worker;
   }

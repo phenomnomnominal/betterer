@@ -24,15 +24,17 @@ export async function run(logger: BettererLogger, cwd: string, ts: boolean): Pro
     throw new BettererError('could not read "package.json".');
   }
 
-  packageJSON.scripts = packageJSON.scripts || {};
-  if (packageJSON.scripts.betterer) {
+  packageJSON.scripts = packageJSON.scripts ?? { betterer: '' };
+  // eslint-disable-next-line @typescript-eslint/dot-notation -- prefer computed key
+  if (packageJSON.scripts['betterer']) {
     await logger.warn('"betterer" script already exists, moving on...');
   } else {
-    packageJSON.scripts.betterer = 'betterer';
+    // eslint-disable-next-line @typescript-eslint/dot-notation -- prefer computed key
+    packageJSON.scripts['betterer'] = 'betterer';
     await logger.success('added "betterer" script to package.json file');
   }
 
-  packageJSON.devDependencies = packageJSON.devDependencies || {};
+  packageJSON.devDependencies = packageJSON.devDependencies ?? {};
   if (packageJSON.devDependencies['@betterer/cli']) {
     await logger.warn('"@betterer/cli" dependency already exists, moving on...');
   } else {
@@ -42,10 +44,12 @@ export async function run(logger: BettererLogger, cwd: string, ts: boolean): Pro
   }
 
   if (ts) {
+    // eslint-disable-next-line @typescript-eslint/dot-notation -- prefer computed key
     if (packageJSON.devDependencies['typescript']) {
       await logger.warn('"typescript" dependency already exists, moving on...');
     } else {
-      packageJSON.devDependencies['typescript'] = `^4`;
+      // eslint-disable-next-line @typescript-eslint/dot-notation -- prefer computed key
+      packageJSON.devDependencies['typescript'] = `^5`;
       await logger.success('added "typescript" dependency to package.json file');
     }
   }

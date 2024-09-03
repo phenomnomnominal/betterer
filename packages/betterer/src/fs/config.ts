@@ -11,14 +11,14 @@ const BETTERER_RESULTS = './.betterer.results';
 const BETTERER_TS = './.betterer.ts';
 
 export async function createFSConfig(options: BettererOptionsFS): Promise<BettererConfigFS> {
-  const cache = !!options.cachePath || options.cache || false;
-  const cachePath = options.cachePath || BETTERER_CACHE;
+  const cache = (!!options.cachePath || options.cache) ?? false;
+  const cachePath = options.cachePath ?? BETTERER_CACHE;
 
-  const cwd = options.cwd || process.cwd();
+  const cwd = options.cwd ?? process.cwd();
   const configPaths = options.configPaths ? toArray<string>(options.configPaths) : [BETTERER_TS];
   const validatedConfigPaths = await validateConfigPaths(cwd, configPaths);
 
-  const resultsPath = options.resultsPath || BETTERER_RESULTS;
+  const resultsPath = options.resultsPath ?? BETTERER_RESULTS;
 
   validateString({ cwd });
   validateBool({ cache });
@@ -36,8 +36,8 @@ export async function createFSConfig(options: BettererOptionsFS): Promise<Better
 
 export async function createMergeConfig(options: BettererOptionsMerge): Promise<BettererConfigMerge> {
   const contents = toArray(options.contents);
-  const cwd = options.cwd || process.cwd();
-  const resultsPath = path.resolve(cwd, options.resultsPath || BETTERER_RESULTS);
+  const cwd = options.cwd ?? process.cwd();
+  const resultsPath = path.resolve(cwd, options.resultsPath ?? BETTERER_RESULTS);
 
   validateStringArray({ contents });
   validateString({ cwd });
@@ -64,7 +64,9 @@ async function validateConfigPaths(cwd: string, configPaths: Array<string>): Pro
         try {
           await validateFilePath({ absoluteConfigPath });
           return absoluteConfigPath;
-        } catch {}
+        } catch {
+          // Handle missing extension below
+        }
       }
 
       try {
@@ -81,4 +83,3 @@ async function validateConfigPaths(cwd: string, configPaths: Array<string>): Pro
     })
   );
 }
-

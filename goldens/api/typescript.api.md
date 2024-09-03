@@ -5,7 +5,7 @@
 ```ts
 
 import { BettererFileTest } from '@betterer/betterer';
-import * as ts from 'typescript';
+import ts from 'typescript';
 
 // @public
 export function typescript(configFilePath: string, extraCompilerOptions?: ts.CompilerOptions): BettererFileTest;

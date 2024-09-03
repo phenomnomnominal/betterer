@@ -11,7 +11,7 @@ export interface EditConfigProps<ValidatedConfigType> {
 
 export function EditConfig<ValidatedConfigType>(
   props: PropsWithChildren<EditConfigProps<ValidatedConfigType>>
-): JSX.Element {
+): React.JSX.Element {
   const { children, name, onChange, onSubmit, value } = props;
   const [error, setError] = useState<Error | null>(null);
   const [valid, setValid] = useState<ValidatedConfigType | null>(null);

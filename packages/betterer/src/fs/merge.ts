@@ -5,5 +5,5 @@ import { importText } from './import.js';
  * with the latter taking precedence.
  */
 export function merge(filePath: string, ours: string, theirs: string): unknown {
-  return { ...importText<object>(filePath, ours), ...importText<object>(filePath, theirs) };
+  return { ...(importText(filePath, ours) as object), ...(importText(filePath, theirs) as object) };
 }

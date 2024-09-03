@@ -16,9 +16,7 @@ export type BettererCoverageDiff = BettererCoverageIssues;
 export type BettererCoverageIssue = Record<BettererCoverageTypes, number>;
 
 // @public
-export type BettererCoverageIssues = {
-    [filePath: string]: BettererCoverageIssue;
-};
+export type BettererCoverageIssues = Record<string, BettererCoverageIssue>;
 
 // @public
 export class BettererCoverageTest extends BettererTest<BettererCoverageIssues, BettererCoverageIssues, BettererCoverageDiff> {

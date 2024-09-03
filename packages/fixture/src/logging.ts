@@ -47,7 +47,7 @@ export function createFixtureLogs(fixtureName: string, options: FixtureOptions =
   const stdout = getStdOut();
   stdout.write = (message: string | Uint8Array): boolean => {
     if (message) {
-      FIXTURE_LOGS_MAP[fixtureName](message.toString());
+      FIXTURE_LOGS_MAP[fixtureName]?.(message.toString());
     }
     return true;
   };
@@ -70,7 +70,7 @@ function isStackTraceLine(str: string): boolean {
 }
 
 function isFiltered(str: string, options: FixtureOptions): boolean {
-  const filters = options.logFilters || [];
+  const filters = options.logFilters ?? [];
   return filters.some((filter) => !!filter.exec(str));
 }
 

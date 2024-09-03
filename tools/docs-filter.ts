@@ -62,8 +62,6 @@ function removeMembers(members: Array<ApiItem>, references: Array<string>) {
     }
   });
   members.forEach((member) => {
-    if (member.members) {
-      removeMembers(member.members, references);
-    }
+    removeMembers(member.members, references);
   });
 }

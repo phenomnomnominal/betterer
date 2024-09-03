@@ -40,9 +40,10 @@ describe('betterer cli', () => {
 
     const packageJSON = JSON.parse(await readFile(packageJSONPath)) as BettererPackageJSON;
 
-    expect(packageJSON.scripts.betterer).toEqual('betterer');
-    expect(packageJSON.devDependencies['@betterer/cli']).toEqual(`^${version}`);
-    expect(packageJSON.devDependencies['typescript']).not.toBeDefined();
+    expect(packageJSON.scripts?.betterer).toEqual('betterer');
+    expect(packageJSON.devDependencies?.['@betterer/cli']).toEqual(`^${version}`);
+    // eslint-disable-next-line @typescript-eslint/dot-notation -- prefer computed key
+    expect(packageJSON.devDependencies?.['typescript']).not.toBeDefined();
 
     const config = await readFile(configPath);
 

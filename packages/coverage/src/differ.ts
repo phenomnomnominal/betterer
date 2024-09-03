@@ -23,8 +23,7 @@ function detectNewOrUpdatedFiles(
   logs: Array<BettererLog>
 ) {
   const diff: BettererCoverageDiff = {};
-  Object.keys(result).forEach((filePath) => {
-    const issue = result[filePath];
+  Object.entries(result).forEach(([filePath, issue]) => {
     if (expected[filePath]) {
       diff[filePath] = diffFileIssue(expected[filePath], issue, logs, filePath);
     } else {
@@ -49,14 +48,16 @@ function diffFileIssue(
   };
   const coverageTypes = Object.keys(fileDiff) as Array<keyof BettererCoverageIssue>;
   coverageTypes.forEach((attribute: keyof BettererCoverageIssue) => {
-    const delta = result[attribute] - expected[attribute];
+    const resultValue = result[attribute];
+    const expectedValue = expected[attribute];
+    const delta = resultValue - expectedValue;
     if (delta < 0) {
       logs.push({
-        debug: `"${attribute}" coverage is better in "${filePath}": ${result[attribute]} < ${expected[attribute]}`
+        debug: `"${attribute}" coverage is better in "${filePath}": ${String(result[attribute])} < ${String(expected[attribute])}`
       });
     } else if (delta > 0) {
       logs.push({
-        error: `"${attribute}" coverage is worse in "${filePath}": ${result[attribute]} > ${expected[attribute]}`
+        error: `"${attribute}" coverage is worse in "${filePath}": ${String(result[attribute])} > ${String(expected[attribute])}`
       });
     }
     fileDiff[attribute] = delta;
@@ -70,10 +71,10 @@ function detectRemovedFiles(
   logs: Array<BettererLog>
 ) {
   const diff: BettererCoverageDiff = {};
-  Object.keys(expected).forEach((expectedFile) => {
+  Object.entries(expected).forEach(([expectedFile, issues]) => {
     if (!result[expectedFile]) {
       logs.push({ debug: `${expectedFile} is gone.` });
-      diff[expectedFile] = getNegativeIssue(expected[expectedFile]);
+      diff[expectedFile] = getNegativeIssue(issues);
     }
   });
   return diff;

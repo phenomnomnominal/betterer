@@ -7,6 +7,8 @@ Error: could not import config from "<project>/fixtures/config-invalid/.betterer
 
 Error: could not import "<project>/fixtures/config-invalid/.betterer.ts". 😔
 
+Error: could not transpile "<project>/fixtures/config-invalid/.betterer.ts". 😔
+
 Error: Expression expected
 ",
 ]

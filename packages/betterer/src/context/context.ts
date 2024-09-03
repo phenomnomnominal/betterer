@@ -121,8 +121,30 @@ export class BettererContextΩ implements BettererContext {
       );
 
       const suite = new BettererSuiteΩ(this.config, this._results, filePaths, runs);
-      const suiteSummary = await suite.run(isRunOnce);
-      this._suiteSummaries = [...this._suiteSummaries, suiteSummary];
+      const suiteLifecycle = defer<BettererSuiteSummary>();
+
+      // Don't await here! A custom reporter could be awaiting
+      // the lifecycle promise which is unresolved right now!
+      const reportSuiteStart = this._reporter.suiteStart(suite, suiteLifecycle.promise);
+      try {
+        const suiteSummary = await suite.run(isRunOnce);
+
+        this._suiteSummaries = [...this._suiteSummaries, suiteSummary];
+
+        // Lifecycle promise is resolved, so it's safe to finally await
+        // the result of `reporter.suiteStart`:
+        suiteLifecycle.resolve(suiteSummary);
+        await reportSuiteStart;
+
+        await this._reporter.suiteEnd(suiteSummary);
+      } catch (error) {
+        // Lifecycle promise is rejected, so it's safe to finally await
+        // the result of `reporter.suiteStart`:
+        suiteLifecycle.reject(error as BettererError);
+        await reportSuiteStart;
+
+        await this._reporter.suiteError(suite, error as BettererError);
+      }
     } catch (error) {
       await this._started.error(error as BettererError);
 
@@ -139,8 +161,8 @@ export class BettererContextΩ implements BettererContext {
       if (this._watcher) {
         await this._watcher.close();
       }
-      const contextSummary = await this._started.end();
-      return contextSummary.lastSuite;
+      const { lastSuite } = await this._started.end();
+      return lastSuite;
     } finally {
       await this._destroy();
     }
@@ -169,12 +191,16 @@ export class BettererContextΩ implements BettererContext {
     return {
       end: async (): Promise<BettererContextSummary> => {
         const contextSummary = new BettererContextSummaryΩ(this.config, this._suiteSummaries);
+
+        // Lifecycle promise is resolved, so it's safe to finally await
+        // the result of `reporter.contextStart`:
         contextLifecycle.resolve(contextSummary);
         await reportContextStart;
+
         await reporterΩ.contextEnd(contextSummary);
 
         const suiteSummaryΩ = contextSummary.lastSuite;
-        if (suiteSummaryΩ && !this.config.ci) {
+        if (!this.config.ci) {
           const printedResult = this._results.printSummary(suiteSummaryΩ);
           if (printedResult) {
             await write(printedResult, this.config.resultsPath);
@@ -188,8 +214,11 @@ export class BettererContextΩ implements BettererContext {
         return contextSummary;
       },
       error: async (error: BettererError): Promise<void> => {
+        // Lifecycle promise is rejected, so it's safe to finally await
+        // the result of `reporter.contextStart`:
         contextLifecycle.reject(error);
         await reportContextStart;
+
         await reporterΩ.contextError(this, error);
       }
     };

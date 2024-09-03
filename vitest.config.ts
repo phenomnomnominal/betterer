@@ -12,7 +12,6 @@ export default defineConfig({
     setupFiles: ['./test/setup.ts'],
     include: ['test/**/*.spec.ts'],
     exclude: ['test/**/*.e2e.spec.ts'],
-    environment: 'jsdom',
     reporters: ['basic'],
     isolate: false,
     slowTestThreshold: 10000,

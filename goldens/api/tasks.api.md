@@ -4,8 +4,6 @@
 
 ```ts
 
-/// <reference types="react" />
-
 import type { BettererError } from '@betterer/errors';
 import type { BettererLogger } from '@betterer/logger';
 import type { FC } from '@betterer/render';

@@ -27,7 +27,9 @@ export const Results: FC<ResultsProps> = function Results({ options, logo }) {
   const app = useApp();
   useEffect(() => {
     if (resultsSummary) {
-      setImmediate(() => app.exit());
+      setImmediate(() => {
+        app.exit();
+      });
     }
   }, [resultsSummary]);
 
@@ -42,8 +44,7 @@ export const Results: FC<ResultsProps> = function Results({ options, logo }) {
                 <Box key={resultSummary.name} flexDirection="column">
                   <Text color="yellowBright">{`${resultSummary.name}: `}</Text>
                   <Box flexDirection="column" paddingTop={1} paddingLeft={2}>
-                    {Object.keys(resultSummary.details).map((filePath) => {
-                      const issues = resultSummary.details[filePath];
+                    {Object.entries(resultSummary.details).map(([filePath, issues]) => {
                       return issues.map((issue, index) => (
                         <Box key={index}>
                           <Text>{issue.message}</Text>

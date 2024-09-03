@@ -3,6 +3,7 @@ export {
   BettererFileBase,
   BettererFile,
   BettererFileTestResult,
+  BettererFileTestResultKey,
   BettererFileTestResultSerialised,
   BettererFileDiff,
   BettererFilesDiff,

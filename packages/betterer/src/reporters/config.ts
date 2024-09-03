@@ -16,10 +16,10 @@ export async function createReporterConfig(
 ): Promise<BettererConfigReporter> {
   const { cwd } = configBase;
 
-  const logo = options.logo || false;
+  const logo = options.logo ?? false;
 
   const reporters = toArray<string | BettererReporter>(options.reporters);
-  const silent = options.silent || false;
+  const silent = options.silent ?? false;
 
   validateBool({ logo });
   validateBool({ silent });

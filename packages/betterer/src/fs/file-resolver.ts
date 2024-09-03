@@ -77,12 +77,13 @@ export class BettererFileResolverΩ implements BettererFileResolver {
     filePaths.forEach((filePath) => {
       this._validatedFilePathsMap[filePath] = this._isIncluded(filePath);
     });
-    this._validatedFilePaths = Object.keys(this._validatedFilePathsMap)
-      .filter((filePath) => {
-        const included = this._validatedFilePathsMap[filePath] && !this._isExcluded(filePath);
-        this._validatedFilePathsMap[filePath] = included;
-        return included;
+    this._validatedFilePaths = Object.entries(this._validatedFilePathsMap)
+      .filter(([filePath, included]) => {
+        const includedAndNotExcluded = included && !this._isExcluded(filePath);
+        this._validatedFilePathsMap[filePath] = includedAndNotExcluded;
+        return includedAndNotExcluded;
       })
+      .map(([filePath]) => filePath)
       .sort();
   }
 

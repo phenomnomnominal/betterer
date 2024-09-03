@@ -9,7 +9,7 @@ export function createWatcherConfig(
   options: BettererOptionsWatcher
 ): BettererConfigWatcher {
   const ignores = toArray<string>(options.ignores);
-  const watch = options.watch || false;
+  const watch = options.watch ?? false;
 
   validateStringArray({ ignores });
   validateBool({ watch });

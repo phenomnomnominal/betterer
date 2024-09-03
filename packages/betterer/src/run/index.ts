@@ -1,8 +1,8 @@
 export type {
   BettererDelta,
+  BettererReporterRun,
   BettererRun,
   BettererRuns,
-  BettererReporterRun,
   BettererRunSummary,
   BettererRunSummaries,
   BettererRunWorkerPool
