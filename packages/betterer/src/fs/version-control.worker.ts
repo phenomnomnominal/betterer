@@ -25,7 +25,7 @@ export function sync(): Promise<void> {
 }
 
 export function clearCache(testName: string): void {
-  return versionControl.clearCache(testName);
+  versionControl.clearCache(testName);
 }
 
 export function filterCached(testName: string, filePaths: BettererFilePaths): BettererFilePaths {
@@ -37,7 +37,7 @@ export function enableCache(cachePath: string): Promise<void> {
 }
 
 export function updateCache(testName: string, filePaths: BettererFilePaths): void {
-  return versionControl.updateCache(testName, filePaths);
+  versionControl.updateCache(testName, filePaths);
 }
 
 export function writeCache(): Promise<void> {

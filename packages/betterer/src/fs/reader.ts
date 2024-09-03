@@ -9,8 +9,9 @@ export async function read(filePath: string): Promise<string | null> {
   try {
     const stat = await fs.stat(filePath);
     const modifiedTime = stat.mtime.getTime();
-    if (READ_CACHE_TIME[filePath] === modifiedTime) {
-      return READ_CACHE[filePath];
+    const cached = READ_CACHE[filePath];
+    if (READ_CACHE_TIME[filePath] === modifiedTime && cached) {
+      return cached;
     }
 
     const contents = await fs.readFile(filePath, 'utf-8');

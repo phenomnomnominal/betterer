@@ -20,8 +20,8 @@ export function code__(codeInfo: BettererLoggerCodeInfo): string {
   };
   const lc = new LinesAndColumns(fileText);
   const startLocation = codeInfo;
-  const startIndex = lc.indexForLocation(startLocation) || 0;
-  const endLocation = lc.locationForIndex(startIndex + codeInfo.length) || startLocation;
+  const startIndex = lc.indexForLocation(startLocation) ?? 0;
+  const endLocation = lc.locationForIndex(startIndex + codeInfo.length) ?? startLocation;
   const start = {
     line: startLocation.line + 1,
     column: startLocation.column + 1

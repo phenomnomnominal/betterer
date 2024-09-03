@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-unresolved -- vscode is an implicit dependency for extensions
 import type { WorkspaceFolder } from 'vscode';
 
 import { EXTENSION_NAME } from '../constants.js';
@@ -57,5 +56,5 @@ ${DISABLE_FOR_WORKSPACE(workspaceFolder)}
 export const CLIENT_START_FAILED = `The ${NAME} extension couldn't be started. 🔥 ${SEE_OUTPUT_CHANNEL}`;
 export const SERVER_START_FAILED = `The ${NAME} server couldn't be started. 🔥 ${SEE_OUTPUT_CHANNEL}`;
 export const SERVER_PROCESS_ENDED = (code: number): string =>
-  `Server process exited with code "${code}". 💥 This usually indicates an invalid ${NAME} configuration.`;
+  `Server process exited with code "${String(code)}". 💥 This usually indicates an invalid ${NAME} configuration.`;
 export const SERVER_PROCESS_SHUT_DOWN = `The ${NAME} server shut down itself. 💥 ${SEE_OUTPUT_CHANNEL}`;

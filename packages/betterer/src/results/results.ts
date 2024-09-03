@@ -54,7 +54,7 @@ export class BettererResultsΩ {
       suiteSummary.new
         .filter((runSummary) => !runSummary.isComplete)
         .reduce((results, runSummary: BettererRunSummary) => {
-          results[runSummary.name] = { value: runSummary.printed as string };
+          results[runSummary.name] = { value: runSummary.printed! };
           return results;
         }, this._expected)
     );
@@ -69,10 +69,10 @@ export class BettererResultsΩ {
     const printedResult = printResults(
       suiteSummary.runSummaries
         .filter((runSummary: BettererRunSummary) => runSummary.printed != null)
-        .reduce((results, runSummary) => {
-          results[runSummary.name] = { value: runSummary.printed as string };
+        .reduce<BettererResultsSerialised>((results, runSummary) => {
+          results[runSummary.name] = { value: runSummary.printed! };
           return results;
-        }, {} as BettererResultsSerialised)
+        }, {})
     );
 
     const shouldWrite = printedResult !== printedExpected;
@@ -83,9 +83,8 @@ export class BettererResultsΩ {
   }
 
   private _getResult(name: string, results: BettererResultsSerialised): string {
-    const hasResult = Object.hasOwnProperty.call(results, name);
-    assert(hasResult);
-    const { value } = results[name];
-    return value;
+    const result = results[name];
+    assert(result);
+    return result.value;
   }
 }

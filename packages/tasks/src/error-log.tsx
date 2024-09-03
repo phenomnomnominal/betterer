@@ -24,7 +24,7 @@ export const BettererErrorLog: FC<BettererErrorLogProps> = function BettererErro
   let errors: Array<Error | BettererError> = [];
   let details: Array<string> = [];
   if (isBettererError(error)) {
-    errors = error.details.filter((detail) => isError(detail)) as Array<Error | BettererError>;
+    errors = error.details.filter((detail) => isError(detail));
     details = error.details.filter((detail) => !isError(detail)) as Array<string>;
   }
 
@@ -54,7 +54,8 @@ export const BettererErrorLog: FC<BettererErrorLogProps> = function BettererErro
 };
 
 function isError(value: unknown): value is Error | BettererError {
-  return (value as Error).message != null && (value as Error).stack !== null;
+  const { message, stack } = value as Partial<Error>;
+  return message != null && stack != null;
 }
 
 function processStack(stack: string): string {

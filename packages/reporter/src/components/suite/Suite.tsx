@@ -40,5 +40,5 @@ function update(state: BettererTasksState): string {
 }
 
 function tests(n: number): string {
-  return n === 1 ? `${n} test` : `${n} tests`;
+  return `${String(n)} ${n === 1 ? 'test' : 'tests'}`;
 }

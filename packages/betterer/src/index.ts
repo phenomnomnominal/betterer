@@ -87,6 +87,7 @@ export type {
   BettererFilesDiff,
   BettererFileTestFunction,
   BettererFileTestResult,
+  BettererFileTestResultKey,
   BettererFileTestResultSerialised,
   BettererFileTestDiff,
   BettererFileIssue,

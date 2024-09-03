@@ -15,6 +15,7 @@ describe('betterer.watch', () => {
       const configPaths = [paths.config];
       const resultsPath = paths.results;
 
+      // @ts-expect-error testing invalid config
       await expect(async () => await betterer.watch({ configPaths, resultsPath, ...config })).rejects.toThrow();
 
       expect(logs).toMatchSnapshot();

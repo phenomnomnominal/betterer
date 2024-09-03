@@ -49,11 +49,11 @@ export function unexpectedChangesInstructions(): string {
 }
 
 export function filesChecking(files: number): string {
-  return `Checking ${files} ${getFiles(files)}... 🤔`;
+  return `Checking ${String(files)} ${getFiles(files)}... 🤔`;
 }
 
 export function filesChecked(files: number): string {
-  return `Checked ${files} ${getFiles(files)}! 🔍`;
+  return `Checked ${String(files)} ${getFiles(files)}! 🔍`;
 }
 
 export function watchStart(): string {

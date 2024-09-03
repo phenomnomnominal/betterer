@@ -6,64 +6,66 @@ import { BettererError } from '@betterer/errors';
 import { read } from '../fs/index.js';
 import { isBoolean, isNumber, isRegExp, isString, isUndefined } from '../utils.js';
 
-export function validateBool<Config extends object, PropertyName extends keyof Config>(config: Config): void {
-  const [propertyName] = Object.keys(config);
-  const value = config[propertyName as PropertyName];
-  validate(isBoolean(value), `"${propertyName.toString()}" must be \`true\` or \`false\`. ${received(value)}`);
+function getKeyValue(config: object): [string, unknown] {
+  const [key] = Object.keys(config);
+  if (!key) {
+    throw new BettererError('No keys found on validation config. ❌', JSON.stringify(config));
+  }
+  const value = config[key as keyof typeof config];
+  return [key, value];
 }
 
-export function validateString<Config extends object, PropertyName extends keyof Config>(config: Config): void {
-  const [propertyName] = Object.keys(config);
-  const value = config[propertyName as PropertyName];
-  validate(isString(value), `"${propertyName.toString()}" must be a string. ${received(value)}`);
+export function validateBool<Config extends object>(config: Config): Config {
+  const [key, value] = getKeyValue(config);
+  validate(isBoolean(value), `"${key}" must be \`true\` or \`false\`. ${received(value)}`);
+  return config;
 }
 
-export async function validateFilePath<Config extends object, PropertyName extends keyof Config>(
-  config: Config
-): Promise<void> {
-  const [propertyName] = Object.keys(config);
-  const value = config[propertyName as PropertyName];
+export function validateString<Config extends object>(config: Config): Config {
+  const [key, value] = getKeyValue(config);
+  validate(isString(value), `"${key}" must be a string. ${received(value)}`);
+  return config;
+}
+
+export async function validateFilePath<Config extends object>(config: Config): Promise<Config> {
+  const [key, value] = getKeyValue(config);
   validate(
     value == null || (isString(value) && (await read(value)) !== null),
-    `"${propertyName.toString()}" must be a path to a file. ${received(value)}`
+    `"${key}" must be a path to a file. ${received(value)}`
   );
+  return config;
 }
 
-function validateNumber<Config extends object, PropertyName extends keyof Config>(config: Config): void {
-  const [propertyName] = Object.keys(config);
-  const value = config[propertyName as PropertyName];
-  validate(isNumber(value), `"${propertyName.toString()}" must be a number. ${received(value)}`);
+function validateNumber<Config extends object>(config: Config): Config {
+  const [key, value] = getKeyValue(config);
+  validate(isNumber(value), `"${key}" must be a number. ${received(value)}`);
+  return config;
 }
 
-export function validateStringArray<Config extends object, PropertyName extends keyof Config>(config: Config): void {
-  const [propertyName] = Object.keys(config);
-  const value = config[propertyName as PropertyName];
+export function validateStringArray<Config extends object>(config: Config): Config {
+  const [key, value] = getKeyValue(config);
   validateStringOrArray(config);
   validate(
     !Array.isArray(value) || value.every((item) => isString(item)),
-    `"${propertyName.toString()}" must be an array of strings. ${received(value)}`
+    `"${key}" must be an array of strings. ${received(value)}`
   );
+  return config;
 }
 
-function validateStringOrArray<Config extends object, PropertyName extends keyof Config>(config: Config): void {
-  const [propertyName] = Object.keys(config);
-  const value = config[propertyName as PropertyName];
-  validate(
-    isString(value) || Array.isArray(value),
-    `"${propertyName.toString()}" must be a string or an array. ${received(value)}`
-  );
+function validateStringOrArray<Config extends object>(config: Config): Config {
+  const [key, value] = getKeyValue(config);
+  validate(isString(value) || Array.isArray(value), `"${key}" must be a string or an array. ${received(value)}`);
+  return config;
 }
 
-export function validateStringRegExpArray<Config extends object, PropertyName extends keyof Config>(
-  config: Config
-): void {
-  const [propertyName] = Object.keys(config);
-  const value = config[propertyName as PropertyName];
+export function validateStringRegExpArray<Config extends object>(config: Config): Config {
+  const [key, value] = getKeyValue(config);
   validateStringOrArray(config);
   validate(
     !Array.isArray(value) || value.every((item) => isString(item) || isRegExp(item)),
-    `"${propertyName.toString()}" must be an array of strings or RegExps. ${received(value)}`
+    `"${key}" must be an array of strings or RegExps. ${received(value)}`
   );
+  return config;
 }
 
 export function validateWorkers(workers: number | boolean = true): number {
@@ -82,20 +84,15 @@ export function validateWorkers(workers: number | boolean = true): number {
   validateNumber({ workers });
   validate(
     isNumber(workers) && workers > 0 && workers <= totalCPUs,
-    `"workers" must be more than zero and not more than the number of available CPUs (${totalCPUs}). To disable workers, set to \`false\`. ${received(
+    `"workers" must be more than zero and not more than the number of available CPUs (${String(totalCPUs)}). To disable workers, set to \`false\`. ${received(
       workers
     )}`
   );
   return workers;
 }
 
-export function validate(value: unknown, message: string): asserts value is boolean {
-  // Wrap the AssertionError in a BettererError for logging:
-  try {
-    assert(value);
-  } catch {
-    throw new BettererError(message);
-  }
+export function validate(value: unknown, message: string): asserts value {
+  assert(value, new BettererError(message));
 }
 
 function received(value: unknown): string {

@@ -62,6 +62,9 @@ export class BettererWorkerRunΩ implements BettererRun {
 
     const testFactories = await loadTestMeta(config.configPaths);
     const testFactoryMeta = testFactories[name];
+    if (!testFactoryMeta) {
+      throw new BettererError(`Could not find test metadata for "${name}". ❌`);
+    }
 
     let test: BettererTestBase | null = null;
     try {
@@ -178,7 +181,7 @@ export class BettererWorkerRunΩ implements BettererRun {
       let printed: string | null = null;
       const shouldPrint = !(isComplete || (this.isNew && (isFailed || isSkipped)));
       if (shouldPrint) {
-        const toPrint = isFailed || isSkipped || isWorse ? this.expected : (result as BettererResult);
+        const toPrint = isFailed || isSkipped || isWorse ? this.expected : result!;
         const toPrintSerialised = this.test.serialiser.serialise(toPrint.value, config.resultsPath);
         printed = forceRelativePaths(await this.test.printer(toPrintSerialised), config.versionControlPath);
       }

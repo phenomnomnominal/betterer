@@ -2,7 +2,7 @@ import type { BettererPackageJSON } from '@betterer/cli';
 
 import { describe, expect, it } from 'vitest';
 
-import { createFixture } from '../fixture';
+import { createFixture } from '../fixture.js';
 
 const ARGV = ['node', './bin/betterer'];
 
@@ -36,9 +36,11 @@ describe('betterer cli', () => {
 
     const packageJSON = JSON.parse(await readFile(packageJSONPath)) as BettererPackageJSON;
 
-    expect(packageJSON.scripts.betterer).toEqual('betterer');
-    expect(packageJSON.devDependencies['@betterer/cli']).toEqual(`^${version}`);
-    expect(packageJSON.devDependencies['typescript']).toBeDefined();
+    /* eslint-disable @typescript-eslint/dot-notation -- prefer computed key */
+    expect(packageJSON.scripts?.['betterer']).toEqual('betterer');
+    expect(packageJSON.devDependencies?.['@betterer/cli']).toEqual(`^${version}`);
+    expect(packageJSON.devDependencies?.['typescript']).toBeDefined();
+    /* eslint-enable @typescript-eslint/dot-notation */
 
     const config = await readFile(paths.config);
 

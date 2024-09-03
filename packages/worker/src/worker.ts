@@ -2,7 +2,7 @@ import type { MessagePort, TransferListItem } from 'node:worker_threads';
 
 import type { BettererWorkerAPI } from './types.js';
 
-import { BettererError, isBettererError } from '@betterer/errors';
+import { BettererError, invariant, isBettererError } from '@betterer/errors';
 import assert from 'node:assert';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
@@ -46,6 +46,7 @@ import { expose, proxy, releaseProxy, transferHandlers, wrap } from 'comlink';
  */
 export async function importWorker__<T>(importPath: string): Promise<BettererWorkerAPI<T>> {
   const [, call] = callsite();
+  invariant(call, `\`call\` should be set!`, call);
   let callerFilePath = call.getFileName();
   try {
     callerFilePath = fileURLToPath(callerFilePath);
@@ -56,7 +57,8 @@ export async function importWorker__<T>(importPath: string): Promise<BettererWor
   const idPath = path.resolve(path.dirname(callerFilePath), importPath);
   const validatedPath = await validatePath(idPath);
 
-  if (process.env.BETTERER_WORKER === 'false') {
+  // eslint-disable-next-line @typescript-eslint/dot-notation -- environment variable 🌏
+  if (process.env['BETTERER_WORKER'] === 'false') {
     return {
       api: await importDefault<T>(validatedPath),
       destroy: () => Promise.resolve()
@@ -75,17 +77,17 @@ export async function importWorker__<T>(importPath: string): Promise<BettererWor
   } as BettererWorkerAPI<T>);
 }
 
-interface ESModule<T> {
-  default: T;
+interface ESModule {
+  default: unknown;
 }
 
 export async function importDefault<T>(importPath: string): Promise<T> {
   const m = (await import(importPath)) as unknown;
-  return getDefaultExport<T>(m);
+  return getDefaultExport(m) as T;
 }
 
-export function getDefaultExport<T>(module: unknown): T {
-  return (module as ESModule<T>).default || (module as T);
+export function getDefaultExport(module: unknown): unknown {
+  return (module as ESModule).default || module;
 }
 
 /**
@@ -96,8 +98,9 @@ export function getDefaultExport<T>(module: unknown): T {
  * @throws {@link @betterer/errors#BettererError | `BettererError` }
  * Will throw if it is called from the main thread.
  */
-export function exposeToMain__<Expose>(api: Expose): void {
-  if (process.env.BETTERER_WORKER === 'false') {
+export function exposeToMain__(api: object): void {
+  // eslint-disable-next-line @typescript-eslint/dot-notation -- environment variable 🌏
+  if (process.env['BETTERER_WORKER'] === 'false') {
     return;
   }
 
@@ -112,7 +115,8 @@ export function exposeToMain__<Expose>(api: Expose): void {
  * @remarks Use `exposeToWorker__` to allow a Worker to call main thread functions across the thread boundary.
  */
 export function exposeToWorker__<Expose extends object>(api: Expose): Expose {
-  if (process.env.BETTERER_WORKER === 'false') {
+  // eslint-disable-next-line @typescript-eslint/dot-notation -- environment variable 🌏
+  if (process.env['BETTERER_WORKER'] === 'false') {
     return api;
   }
 
@@ -160,30 +164,30 @@ export default function nodeEndpoint(nep: NodeEndpoint): Endpoint {
       nep.off('message', l);
       listeners.delete(eh);
     },
-    start: nep.start && nep.start.bind(nep)
+    start: nep.start?.bind(nep)
   };
 }
 
 export interface TransferHandler<T, S> {
-  canHandle(value: unknown): value is T;
-  serialize(value: T): [S, Transferable[]];
-  deserialize(value: S): T;
+  canHandle: (value: unknown) => value is T;
+  serialize: (value: T) => [S, Array<Transferable>];
+  deserialize: (value: S) => T;
 }
 
 interface ThrownValue {
   value: unknown;
 }
 
-type ThrownErrorSerialized = {
+interface ThrownErrorSerialized {
   isError: true;
   value: {
     name: string;
     message: string;
     stack?: string;
   };
-};
+}
 
-type ThrownBettererErrorSerialized = {
+interface ThrownBettererErrorSerialized {
   isError: true;
   value: {
     isBettererError: true;
@@ -192,7 +196,7 @@ type ThrownBettererErrorSerialized = {
     stack?: string;
     details: Array<string | ThrownErrorSerialized | ThrownBettererErrorSerialized>;
   };
-};
+}
 
 type ThrownValueSerialized =
   | ThrownErrorSerialized
@@ -223,11 +227,11 @@ async function validatePath(idPath: string): Promise<string> {
 }
 
 function isErrorSerialised(error: unknown): error is ThrownErrorSerialized {
-  return (error as ThrownErrorSerialized)?.isError;
+  return !!error && !!(error as Partial<ThrownErrorSerialized>).isError;
 }
 
 function isBettererErrorSerialised(error: unknown): error is ThrownBettererErrorSerialized {
-  return (error as ThrownBettererErrorSerialized)?.value?.isBettererError;
+  return !!error && !!(error as Partial<ThrownBettererErrorSerialized>).value?.isBettererError;
 }
 
 const throwHandler = transferHandlers.get('throw') as TransferHandler<ThrownValue, ThrownValueSerialized>;
@@ -289,6 +293,9 @@ throwHandler.deserialize = (serialized) => {
   if (isBettererErrorSerialised(serialized)) {
     throw deserializeBettererError(serialized);
   }
+  // The structure of `TransferHandler` makes it hard to describe this,
+  // but let's just assume it's fine! 🗑️
+  // eslint-disable-next-line @typescript-eslint/only-throw-error -- see above!
   throw originalDeserialise(serialized);
 };
 

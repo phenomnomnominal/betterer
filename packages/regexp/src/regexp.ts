@@ -30,6 +30,10 @@ import { promises as fs } from 'node:fs';
  * Will throw if the user doesn't pass `pattern`.
  */
 export function regexp(pattern: RegExp, issueMessage = 'RegExp match'): BettererFileTest {
+  // The `regexp` function could be called from JS code, without type-checking.
+  // We *could* change the parameter to be `pattern?: RegExp`,
+  // but that would imply that it was optional, but it isn't.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- see above!
   if (!pattern) {
     throw new BettererError('for `@betterer/regexp` to work, you need to provide a RegExp, e.g. `/^foo$/`. ❌');
   }

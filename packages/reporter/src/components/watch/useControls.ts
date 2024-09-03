@@ -20,7 +20,7 @@ export function useControls(context: BettererContext): ConfigEditField {
     }
 
     function handleData(data: string) {
-      let input = String(data);
+      const input = String(data);
       const isReturn = input === '\r';
       const isEscape = input === '\u001B';
 
@@ -35,15 +35,18 @@ export function useControls(context: BettererContext): ConfigEditField {
       }
 
       if (input === 'q') {
-        return maybeExit();
+        maybeExit();
+        return;
       }
 
       if (input === 'f') {
-        return setEditing('filters');
+        setEditing('filters');
+        return;
       }
 
       if (input === 'i') {
-        return setEditing('ignores');
+        setEditing('ignores');
+        return;
       }
     }
 

@@ -224,7 +224,9 @@ function createTest(
     const relevantExcludedFilePaths = await resolver.validate(excludedFilesWithIssues);
 
     // Add the existing issues to the new result:
-    relevantExcludedFilePaths.forEach((filePath) => result.addExpected(expectedΩ.getFile(filePath)));
+    relevantExcludedFilePaths.forEach((filePath) => {
+      result.addExpected(expectedΩ.getFile(filePath));
+    });
 
     return result;
   };

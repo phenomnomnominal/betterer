@@ -6,12 +6,11 @@ import type { BettererReporterΩ } from '../reporters/index.js';
 import type { BettererResultsΩ } from '../results/index.js';
 import type {
   BettererReporterRun,
-  BettererRuns,
-  BettererRunSummaries,
   BettererRunSummary,
+  BettererRunΩ,
+  BettererRuns,
   BettererRunsΩ
 } from '../run/index.js';
-import type { Defer } from '../utils.js';
 import type { BettererSuite } from './types.js';
 
 import assert from 'node:assert';
@@ -35,50 +34,18 @@ export class BettererSuiteΩ implements BettererSuite {
   }
 
   public async run(isRunOnce = false): Promise<BettererSuiteSummaryΩ> {
-    // Attach lifecycle promises for Reporters:
-    const runLifecycles = this.runs.map((run) => {
-      const lifecycle = defer<BettererRunSummary>();
-      (run as BettererReporterRun).lifecycle = lifecycle.promise;
-      return lifecycle;
-    });
-
-    const runsLifecycle = defer<BettererSuiteSummaryΩ>();
-    // Don't await here! A custom reporter could be awaiting
-    // the lifecycle promise which is unresolved right now!
-    const reportSuiteStart = this._reporter.suiteStart(this, runsLifecycle.promise);
-    try {
-      const runSummaries = await this._runTests(runLifecycles);
-      const changed = this._results.getChanged(runSummaries);
-      const suiteSummaryΩ = new BettererSuiteSummaryΩ(this.filePaths, this.runs, runSummaries, changed);
-      runsLifecycle.resolve(suiteSummaryΩ);
-      await reportSuiteStart;
-      await this._reporter.suiteEnd(suiteSummaryΩ);
-
-      if (!isRunOnce && suiteSummaryΩ && !this._config.ci) {
-        const printedNew = this._results.printNew(suiteSummaryΩ);
-        if (printedNew) {
-          await write(printedNew, this._config.resultsPath);
-        }
-      }
-
-      return suiteSummaryΩ;
-    } catch (error) {
-      runsLifecycle.reject(error as BettererError);
-      await reportSuiteStart;
-      await this._reporter.suiteError(this, error as BettererError);
-      throw error;
-    }
-  }
-
-  private async _runTests(runLifecycles: Array<Defer<BettererRunSummary>>): Promise<BettererRunSummaries> {
     const runsΩ = this.runs as BettererRunsΩ;
 
     const hasOnly = !!runsΩ.find((run) => run.testMeta.isOnly);
     const { filters } = this._config;
 
-    return await Promise.all(
-      runsΩ.map(async (runΩ, index) => {
-        const lifecycle = runLifecycles[index];
+    const runSummaries = await Promise.all(
+      this.runs.map(async (run) => {
+        // Attach lifecycle promise for Reporters:
+        const lifecycle = defer<BettererRunSummary>();
+        (run as BettererReporterRun).lifecycle = lifecycle.promise;
+
+        const runΩ = run as BettererRunΩ;
 
         // This is all a bit backwards because "filters" is named badly.
         const hasFilters = !!filters.length;
@@ -96,13 +63,13 @@ export class BettererSuiteΩ implements BettererSuite {
           const isNegated = filter.source.startsWith(NEGATIVE_FILTER_TOKEN);
           if (selected) {
             if (isNegated) {
-              const negativeFilter = new RegExp(filter.source.substr(1), filter.flags);
+              const negativeFilter = new RegExp(filter.source.substring(1), filter.flags);
               return !negativeFilter.test(runΩ.name);
             }
             return selected;
           } else {
             if (isNegated) {
-              const negativeFilter = new RegExp(filter.source.substr(1), filter.flags);
+              const negativeFilter = new RegExp(filter.source.substring(1), filter.flags);
               return !negativeFilter.test(runΩ.name);
             }
             return filter.test(runΩ.name);
@@ -135,5 +102,18 @@ export class BettererSuiteΩ implements BettererSuite {
         return runSummary;
       })
     );
+
+    const changed = this._results.getChanged(runSummaries);
+
+    const suiteSummaryΩ = new BettererSuiteSummaryΩ(this.filePaths, this.runs, runSummaries, changed);
+
+    if (!isRunOnce && !this._config.ci) {
+      const printedNew = this._results.printNew(suiteSummaryΩ);
+      if (printedNew) {
+        await write(printedNew, this._config.resultsPath);
+      }
+    }
+
+    return suiteSummaryΩ;
   }
 }

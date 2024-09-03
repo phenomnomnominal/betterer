@@ -16,15 +16,15 @@ export function constraint(result: BettererCoverageIssues, expected: BettererCov
 }
 
 function isWorse(diff: BettererCoverageDiff): boolean {
-  return Object.keys(diff).some((filePath) => {
-    const { lines, statements, functions, branches } = diff[filePath];
+  return Object.entries(diff).some(([, fileDiff]) => {
+    const { lines, statements, functions, branches } = fileDiff;
     return lines < 0 || statements < 0 || functions < 0 || branches < 0;
   });
 }
 
 function isBetter(diff: BettererCoverageDiff): boolean {
-  return Object.keys(diff).some((filePath) => {
-    const { lines, statements, functions, branches } = diff[filePath];
+  return Object.entries(diff).some(([, fileDiff]) => {
+    const { lines, statements, functions, branches } = fileDiff;
     return lines > 0 || statements > 0 || functions > 0 || branches > 0;
   });
 }

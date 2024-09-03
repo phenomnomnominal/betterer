@@ -1,12 +1,14 @@
 import type {
-  BettererFilePaths,
-  BettererTestCacheMap,
+  BettererCacheFile,
   BettererFileCache,
+  BettererFilePaths,
   BettererFileHashMap,
-  BettererCacheFile
+  BettererFileHashMapSerialised,
+  BettererTestCacheMap,
+  BettererTestCacheMapSerialised
 } from './types.js';
 
-import assert from 'node:assert';
+import { invariant } from '@betterer/errors';
 import path from 'node:path';
 import { normalisedPath } from '../utils.js';
 import { read } from './reader.js';
@@ -39,14 +41,14 @@ const BETTERER_CACHE_VERSION = 2;
 
 export class BettererFileCacheΩ implements BettererFileCache {
   private _cachePath: string | null = null;
-  private _fileHashMap: BettererFileHashMap = {};
-  private _memoryCacheMap: BettererTestCacheMap = {};
+  private _fileHashMap: BettererFileHashMap = new Map();
+  private _memoryCacheMap: BettererTestCacheMap = new Map();
   private _reading: Promise<string | null> | null = null;
 
   constructor(private _configPaths: BettererFilePaths) {}
 
   public clearCache(testName: string): void {
-    delete this._memoryCacheMap[testName];
+    this._memoryCacheMap.delete(testName);
   }
 
   public async enableCache(cachePath: string): Promise<void> {
@@ -60,24 +62,23 @@ export class BettererFileCacheΩ implements BettererFileCache {
     }
 
     // Clean up any expired cache entries before writing to disk:
-    Object.keys(this._memoryCacheMap).forEach((testName) => {
-      const testCache = this._memoryCacheMap[testName];
-      Object.keys(testCache).forEach((filePath) => {
-        const hash = this._fileHashMap[filePath];
-        if (hash === null) {
-          delete this._memoryCacheMap[filePath];
+    [...this._memoryCacheMap.entries()].forEach(([, fileHashMap]) => {
+      [...fileHashMap.entries()].forEach(([filePath]) => {
+        const hash = this._fileHashMap.get(filePath);
+        if (hash == null) {
+          this._memoryCacheMap.delete(filePath);
         }
       });
     });
 
-    const relativeTestCache: BettererTestCacheMap = {};
-    Object.keys(this._memoryCacheMap).forEach((testName) => {
-      const absoluteFileHashMap = this._memoryCacheMap[testName];
-      const relativeFileHashMap: BettererFileHashMap = {};
-      Object.keys(absoluteFileHashMap).forEach((absoluteFilePath) => {
-        assert(this._cachePath);
+    // Convert Map to Record so it can be serialised to disk:
+    const relativeTestCache: BettererTestCacheMapSerialised = {};
+    [...this._memoryCacheMap.entries()].forEach(([testName, absoluteFileHashMap]) => {
+      const relativeFileHashMap: BettererFileHashMapSerialised = {};
+      [...absoluteFileHashMap.entries()].forEach(([absoluteFilePath, hash]) => {
+        invariant(this._cachePath, `\`this._cachePath\` should have been validated above!`, this._cachePath);
         const relativePath = normalisedPath(path.relative(path.dirname(this._cachePath), absoluteFilePath));
-        relativeFileHashMap[relativePath] = absoluteFileHashMap[absoluteFilePath];
+        relativeFileHashMap[relativePath] = hash;
       });
       relativeTestCache[testName] = relativeFileHashMap;
     });
@@ -91,17 +92,17 @@ export class BettererFileCacheΩ implements BettererFileCache {
       return filePaths;
     }
 
-    const testCache = this._memoryCacheMap[testName] || {};
+    const testCache = this._memoryCacheMap.get(testName) ?? (new Map() as BettererTestCacheMap);
     return filePaths.filter((filePath) => {
-      const hash = this._fileHashMap[filePath];
+      const hash = this._fileHashMap.get(filePath);
 
       // If hash is null, then the file isn't tracked by version control *and* it can't be read,
       // so it probably doesn't exist
-      if (hash === null) {
+      if (hash == null) {
         return true;
       }
 
-      const previousHash = testCache[filePath];
+      const previousHash = testCache.get(filePath);
       return hash !== previousHash;
     });
   }
@@ -111,27 +112,29 @@ export class BettererFileCacheΩ implements BettererFileCache {
       return;
     }
 
-    this._memoryCacheMap[testName] = this._memoryCacheMap[testName] || {};
-    const testCache = this._memoryCacheMap[testName];
-
-    const existingFilePaths = Object.keys(testCache);
+    if (!this._memoryCacheMap.get(testName)) {
+      this._memoryCacheMap.set(testName, new Map());
+    }
+    const testCache = this._memoryCacheMap.get(testName);
+    invariant(testCache, '`testCache` entry should have been validated above!', testCache);
+    const existingFilePaths = [...testCache.keys()];
 
     const cacheFilePaths = Array.from(new Set([...existingFilePaths, ...filePaths])).sort();
 
-    const updatedCache: BettererFileHashMap = {};
+    const updatedCache: BettererFileHashMap = new Map();
     cacheFilePaths.forEach((filePath) => {
-      const hash = this._fileHashMap[filePath];
+      const hash = this._fileHashMap.get(filePath);
 
       // If hash is null, then the file isn't tracked by version control *and* it can't be read,
       // so it probably doesn't exist
-      if (hash === null) {
+      if (hash == null) {
         return;
       }
 
-      updatedCache[filePath] = hash;
+      updatedCache.set(filePath, hash);
     });
 
-    this._memoryCacheMap[testName] = updatedCache;
+    this._memoryCacheMap.set(testName, updatedCache);
   }
 
   public setHashes(newHashes: BettererFileHashMap): void {
@@ -139,9 +142,9 @@ export class BettererFileCacheΩ implements BettererFileCache {
       return;
     }
     const configHash = this._getConfigHash(newHashes);
-    this._fileHashMap = {};
-    Object.keys(newHashes).forEach((absolutePath) => {
-      this._fileHashMap[absolutePath] = `${configHash}${newHashes[absolutePath]}`;
+    this._fileHashMap = new Map();
+    [...newHashes.entries()].forEach(([absolutePath, hash]) => {
+      this._fileHashMap.set(absolutePath, `${configHash}${hash}`);
     });
   }
 
@@ -152,33 +155,31 @@ export class BettererFileCacheΩ implements BettererFileCache {
     const cache = await this._reading;
     this._reading = null;
     if (!cache) {
-      return {};
+      return new Map();
     }
 
-    const parsedCache = JSON.parse(cache) as BettererCacheFile;
-    const { version } = parsedCache;
+    const parsed = JSON.parse(cache) as BettererCacheFile;
+    const { version } = parsed;
     if (!version) {
-      return {};
+      return new Map();
     }
 
-    const relativeTestCacheMap = parsedCache.testCache;
-
-    // Transform relative paths back into absolute paths:
-    const absoluteTestCacheMap: BettererTestCacheMap = {};
-    Object.keys(relativeTestCacheMap).forEach((testName) => {
-      const relativeFileHashMap = relativeTestCacheMap[testName];
-      const absoluteFileHashMap: BettererFileHashMap = {};
-      Object.keys(relativeFileHashMap).forEach((relativePath) => {
-        assert(this._cachePath);
+    // Transform serialised Record with relative paths back into
+    // Map with absolute paths:
+    const absoluteTestCacheMap: BettererTestCacheMap = new Map();
+    Object.entries(parsed.testCache).forEach(([testName, serialisedEntries]) => {
+      const absoluteFileHashMap: BettererFileHashMap = new Map();
+      Object.entries(serialisedEntries).forEach(([relativePath, hash]) => {
+        invariant(this._cachePath, `\`this._cachePath\` should have been validated above!`, this._cachePath);
         const absolutePath = normalisedPath(path.resolve(path.dirname(this._cachePath), relativePath));
-        absoluteFileHashMap[absolutePath] = relativeFileHashMap[relativePath];
+        absoluteFileHashMap.set(absolutePath, hash);
       });
-      absoluteTestCacheMap[testName] = absoluteFileHashMap;
+      absoluteTestCacheMap.set(testName, absoluteFileHashMap);
     });
     return absoluteTestCacheMap;
   }
 
   private _getConfigHash(newFileHashMap: BettererFileHashMap): string {
-    return this._configPaths.map((configPath) => newFileHashMap[normalisedPath(configPath)]).join('');
+    return this._configPaths.map((configPath) => newFileHashMap.get(normalisedPath(configPath))).join('');
   }
 }

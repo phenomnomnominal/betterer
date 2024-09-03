@@ -4,15 +4,13 @@
 
 ```ts
 
-/// <reference types="node" />
-
 import type { Remote } from 'comlink';
 
 // @public
-export type BettererWorkerAPI<API> = {
+export interface BettererWorkerAPI<API> {
     api: Remote<API>;
     destroy(): Promise<void>;
-};
+}
 
 // @public
 export type BettererWorkerFactory<API extends BettererWorkerAPI<unknown>> = () => API | Promise<API>;
@@ -34,7 +32,7 @@ export interface BettererWorkerPool<API extends BettererWorkerAPI<unknown>> {
 export function createWorkerPool__<API extends BettererWorkerAPI<unknown>>(workerCount: number, workerFactory: BettererWorkerFactory<API>): Promise<BettererWorkerPool<API>>;
 
 // @internal
-export function exposeToMain__<Expose>(api: Expose): void;
+export function exposeToMain__(api: object): void;
 
 // @internal
 export function exposeToWorker__<Expose extends object>(api: Expose): Expose;

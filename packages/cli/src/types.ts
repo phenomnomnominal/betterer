@@ -59,7 +59,7 @@ export interface BettererCLIResultsConfig {
 }
 
 export interface BettererCLIUpgradeConfig {
-  config: BettererCLIArguments;
+  config?: BettererCLIArguments;
   logo: boolean;
   save: boolean;
 }
@@ -71,6 +71,12 @@ export interface BettererCLIUpgradeConfig {
  */
 export interface BettererPackageJSON {
   version: string;
-  scripts: Record<string, string> & { betterer: string };
-  devDependencies: Record<string, string>;
+  /**
+   * "scripts" will be updated to add new `betterer` run commands
+   */
+  scripts?: Record<string, string>;
+  /**
+   * "devDependencies" will be updated to add `betterer@latest`
+   */
+  devDependencies?: Record<string, string>;
 }

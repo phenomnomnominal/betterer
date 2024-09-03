@@ -38,6 +38,10 @@ import { ESLint } from 'eslint';
  * Will throw if the user doesn't pass `rules`.
  */
 export function eslint(rules: BettererESLintRulesConfig): BettererFileTest {
+  // The `regexp` function could be called from JS code, without type-checking.
+  // We *could* change the parameter to be `rules?: BettererESLintRulesConfig`,
+  // but that would imply that it was optional, but it isn't.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- see above!
   if (!rules) {
     throw new BettererError(
       "for `@betterer/eslint` to work, you need to provide rule options, e.g. `{ 'no-debugger': 'error' }`. ❌"
@@ -54,18 +58,20 @@ export function eslint(rules: BettererESLintRulesConfig): BettererFileTest {
 
     await Promise.all(
       filePaths.map(async (filePath) => {
-        const linterOptions = (await cli.calculateConfigForFile(filePath)) as Linter.Config;
+        const linterOptions = (await cli.calculateConfigForFile(filePath)) as Linter.Config | null;
+        if (!linterOptions) {
+          throw new BettererError(`Could not find ESLint config for "${filePath}". ❌`);
+        }
 
         // Explicitly disable all other configured rules:
         const disabledRules: BettererESLintRulesConfig = {};
-        Object.keys(linterOptions.rules || {}).forEach((ruleName) => {
+        Object.keys(linterOptions.rules ?? {}).forEach((ruleName) => {
           disabledRules[ruleName] = 'off';
         });
         const finalRules = { ...disabledRules, ...rules };
 
         const runner = new ESLint({
           overrideConfig: { rules: finalRules },
-          useEslintrc: true,
           cwd: baseDirectory
         });
 

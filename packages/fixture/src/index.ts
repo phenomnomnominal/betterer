@@ -1,7 +1,9 @@
 // Disable Ink/React DevTools in test:
-if (process.env.NODE_ENV === 'test') {
-  process.env.DEV = 'false';
+/* eslint-disable @typescript-eslint/dot-notation -- environment variable 🌏 */
+if (process.env['NODE_ENV'] === 'test') {
+  process.env['DEV'] = 'false';
 }
+/* eslint-enable @typescript-eslint/dot-notation */
 
 import './stubs.js';
 
@@ -16,4 +18,3 @@ export type {
 
 export { createFixtureDirectoryΔ } from './fixture.js';
 export { persist } from './persist.js';
-

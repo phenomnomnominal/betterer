@@ -24,15 +24,16 @@ export interface SuiteSummaryProps {
   suiteSummary: BettererSuiteSummary;
 }
 
-const TEXT_COLOURS: Record<string, TextProps['color']> = {
+type TestCategories = Exclude<keyof BettererSuiteSummary, 'filePaths' | 'runs' | 'runSummaries'>;
+
+const TEXT_COLOURS: Record<TestCategories, TextProps['color']> = {
   better: 'greenBright',
   changed: 'red',
-  checked: 'gray',
   completed: 'greenBright',
   expired: 'brightRed',
   failed: 'brightRed',
   new: 'gray',
-  obsolete: 'brightRed',
+  ran: 'gray',
   same: 'brightYellow',
   skipped: 'brightYellow',
   updated: 'white',
@@ -40,47 +41,45 @@ const TEXT_COLOURS: Record<string, TextProps['color']> = {
 };
 
 export const SuiteSummary: FC<SuiteSummaryProps> = memo(function SuiteSummary({ context, suiteSummary }) {
-  const better = suiteSummary.better.length;
-  const completed = suiteSummary.completed.length;
-  const expired = suiteSummary.expired.length;
-  const failed = suiteSummary.failed.length;
-  const neww = suiteSummary.new.length;
-  const ran = suiteSummary.ran.length;
-  const same = suiteSummary.same.length;
-  const skipped = suiteSummary.skipped.length;
-  const updated = suiteSummary.updated.length;
-  const worse = suiteSummary.worse.length;
+  function getColor(name: TestCategories): TextProps['color'] {
+    return TEXT_COLOURS[name];
+  }
+
+  function showIfHasCategory(name: TestCategories, content: (count: string) => string): React.JSX.Element | null {
+    const count = suiteSummary[name].length;
+    return count ? <Text color={getColor(name)}>{content(tests(count))}</Text> : null;
+  }
 
   return (
     <>
       <Box flexDirection="column" paddingBottom={1}>
-        <Text color={TEXT_COLOURS.checked}>{testChecked(tests(ran))}</Text>
-        {neww ? <Text color={TEXT_COLOURS.new}>{testNew(tests(neww))}</Text> : null}
-        {better ? <Text color={TEXT_COLOURS.better}>{testBetter(tests(better))}</Text> : null}
-        {completed ? <Text color={TEXT_COLOURS.completed}>{testComplete(tests(completed))}</Text> : null}
-        {same ? <Text color={TEXT_COLOURS.same}>{testSame(tests(same))}</Text> : null}
-        {failed ? <Text color={TEXT_COLOURS.failed}>{testFailed(tests(failed))}</Text> : null}
-        {skipped ? <Text color={TEXT_COLOURS.skipped}>{testSkipped(tests(skipped))}</Text> : null}
-        {updated ? <Text color={TEXT_COLOURS.updated}>{testUpdated(tests(updated))}</Text> : null}
-        {worse ? (
+        <Text color={getColor('ran')}>{testChecked(tests(suiteSummary.ran.length))}</Text>
+        {showIfHasCategory('new', testNew)}
+        {showIfHasCategory('better', testBetter)}
+        {showIfHasCategory('completed', testComplete)}
+        {showIfHasCategory('same', testSame)}
+        {showIfHasCategory('failed', testFailed)}
+        {showIfHasCategory('skipped', testSkipped)}
+        {showIfHasCategory('updated', testUpdated)}
+        {suiteSummary.worse.length ? (
           <>
             <Box paddingBottom={1}>
-              <Text color={TEXT_COLOURS.worse}>{testWorse(tests(worse))}</Text>
+              <Text color={getColor('worse')}>{testWorse(tests(suiteSummary.worse.length))}</Text>
             </Box>
             {!context.config.strict ? <Text>{updateInstructions()}</Text> : null}
           </>
         ) : null}
-        {expired ? <Text color={TEXT_COLOURS.expired}>{testExpired(tests(expired))})</Text> : null}
+        {showIfHasCategory('expired', testExpired)}
       </Box>
       {context.config.ci && suiteSummary.changed.length ? (
         <Box flexDirection="column" paddingBottom={1}>
-          <Text color={TEXT_COLOURS.changed}>{unexpectedChanges()}</Text>
+          <Text color={getColor('changed')}>{unexpectedChanges()}</Text>
           <Box flexDirection="column" padding={1}>
             {suiteSummary.changed.map((name) => (
               <Text key={name}>"{name}"</Text>
             ))}
           </Box>
-          <Text color={TEXT_COLOURS.changed}>{unexpectedChangesInstructions()}</Text>
+          <Text color={getColor('changed')}>{unexpectedChangesInstructions()}</Text>
         </Box>
       ) : null}
     </>
@@ -88,5 +87,5 @@ export const SuiteSummary: FC<SuiteSummaryProps> = memo(function SuiteSummary({ 
 });
 
 function tests(n: number): string {
-  return n === 1 ? `${n} test` : `${n} tests`;
+  return `${String(n)} ${n === 1 ? 'test' : 'tests'}`;
 }

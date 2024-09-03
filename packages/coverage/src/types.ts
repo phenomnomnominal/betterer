@@ -3,8 +3,8 @@ import type { CoverageSummaryData, Totals } from 'istanbul-lib-coverage';
 
 export type IstanbulCoverage = Totals;
 export type IstanbulFileCoverage = CoverageSummaryData;
-export type IstanbulCoverageSummary = {
-  [filePath: string]: IstanbulFileCoverage;
+export type IstanbulCoverageSummary = Record<string, IstanbulFileCoverage> & {
+  total: IstanbulFileCoverage;
 };
 
 export type BettererCoverageTestFunction = (
@@ -30,9 +30,7 @@ export type BettererCoverageIssue = Record<BettererCoverageTypes, number>;
  * The coverage for a project
  * @public
  */
-export type BettererCoverageIssues = {
-  [filePath: string]: BettererCoverageIssue;
-};
+export type BettererCoverageIssues = Record<string, BettererCoverageIssue>;
 
 /**
  * The difference in coverage for a project between two test runs

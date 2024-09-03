@@ -1,4 +1,4 @@
-import type { BettererFileIssue, BettererFileIssues, BettererFile } from './types.js';
+import type { BettererFileIssue, BettererFileIssues, BettererFile, BettererFileTestResultKey } from './types.js';
 
 import assert from 'node:assert';
 import { LinesAndColumns } from 'lines-and-columns';
@@ -18,11 +18,15 @@ type BettererIssueOverride = BettererIssueStartEnd | BettererIssueLineColLength 
 
 export class BettererFileΩ implements BettererFile {
   public readonly hash: string;
-  public readonly key: string;
+  public readonly key: BettererFileTestResultKey;
 
   private _issues: BettererFileIssues = [];
 
-  constructor(public readonly absolutePath: string, private _relativePath: string, public readonly fileText: string) {
+  constructor(
+    public readonly absolutePath: string,
+    private _relativePath: string,
+    public readonly fileText: string
+  ) {
     this.absolutePath = normalisedPath(absolutePath);
     this.hash = createHash(this.fileText);
     this.key = `${normalisedPath(this._relativePath)}:${this.hash}`;
@@ -44,16 +48,16 @@ export class BettererFileΩ implements BettererFile {
     const lc = new LinesAndColumns(fileText);
 
     const issue =
-      getIssueFromStartEnd(lc, issueOverride) ||
-      getIssueFromLineColLength(issueOverride) ||
+      getIssueFromStartEnd(lc, issueOverride) ??
+      getIssueFromLineColLength(issueOverride) ??
       getIssueFromPositions(lc, issueOverride);
     assert(issue);
 
     const [line, column, length, message, overrideHash] = issue;
-    const start = lc.indexForLocation({ line, column }) || 0;
+    const start = lc.indexForLocation({ line, column }) ?? 0;
     const issueText = fileText.substring(start, start + length);
     const normalisedText = normaliseNewlines(issueText);
-    const hash = overrideHash || createHash(normalisedText);
+    const hash = overrideHash ?? createHash(normalisedText);
     return { line, column, length: normalisedText.length, message, hash };
   }
 }
@@ -78,7 +82,7 @@ function getIssueFromStartEnd(
     return null;
   }
   const [start, end, message, overrideHash] = issueOverride;
-  const { line, column } = lc.locationForIndex(start) || UNKNOWN_LOCATION;
+  const { line, column } = lc.locationForIndex(start) ?? UNKNOWN_LOCATION;
   const length = end - start;
   return [line, column, length, message, overrideHash];
 }
@@ -96,8 +100,8 @@ function getIssueFromPositions(
     return null;
   }
   const [line, column, endLine, endColumn, message, overrideHash] = issueOverride;
-  const start = lc.indexForLocation({ line, column }) || 0;
-  const end = lc.indexForLocation({ line: endLine, column: endColumn }) || 0;
+  const start = lc.indexForLocation({ line, column: Math.max(0, column) }) ?? 0;
+  const end = lc.indexForLocation({ line: endLine, column: Math.max(0, endColumn) }) ?? 0;
   const length = end - start;
   return [line, column, length, message, overrideHash];
 }

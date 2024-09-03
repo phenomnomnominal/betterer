@@ -5,7 +5,7 @@ export function isBoolean(value: unknown): value is boolean {
   return typeof value === 'boolean';
 }
 
-export function isFunction<T>(value: unknown): value is T {
+export function isFunction(value: unknown): value is (...args: Array<unknown>) => unknown {
   return typeof value === 'function';
 }
 
@@ -61,15 +61,11 @@ export function normaliseNewlines(str: string): string {
 export function flatten<T>(toFlatten: ReadonlyArray<T | ReadonlyArray<T>>): Array<T> {
   const flattened: Array<T> = [];
   toFlatten.forEach((t) => {
-    if (isItem<T>(t)) {
-      flattened.push(t);
-    } else {
+    if (Array.isArray(t)) {
       flattened.push(...t);
+    } else {
+      flattened.push(t as T);
     }
   });
   return flattened;
-}
-
-function isItem<T>(pattern: unknown): pattern is T {
-  return !Array.isArray(pattern);
 }

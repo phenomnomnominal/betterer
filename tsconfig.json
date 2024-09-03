@@ -18,6 +18,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
     "pretty": true,
     "sourceMap": true,
     "strict": true,

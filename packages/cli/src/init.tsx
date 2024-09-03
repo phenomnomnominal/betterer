@@ -33,7 +33,8 @@ export function init(cwd: string): Command {
         resultsPath={finalResults}
         ts={ts}
       />,
-      getRenderOptions(process.env.NODE_ENV)
+      // eslint-disable-next-line @typescript-eslint/dot-notation -- environment variable 🌏
+      getRenderOptions(process.env['NODE_ENV'])
     );
     await app.waitUntilExit();
   });

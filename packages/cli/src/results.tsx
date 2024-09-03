@@ -30,7 +30,8 @@ export function results(cwd: string): Command {
     // but it's nicer to do the options validation in @betterer/betterer
     const app = render(
       <Results options={options as BettererOptionsResults} logo={config.logo} />,
-      getRenderOptions(process.env.NODE_ENV)
+      // eslint-disable-next-line @typescript-eslint/dot-notation -- environment variable 🌏
+      getRenderOptions(process.env['NODE_ENV'])
     );
     await app.waitUntilExit();
   });

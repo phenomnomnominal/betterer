@@ -24,13 +24,12 @@ export async function test(
   const baseDirectory = getTestBaseDirectory(run);
   const absoluteCoverageSummaryPath = path.resolve(baseDirectory, relativeCoverageSummaryPath);
   const summary = await readCoverageSummary(absoluteCoverageSummaryPath);
-  delete summary.total;
   const uncovered: BettererCoverageIssues = {};
-  Object.keys(summary)
-    .filter((filePath) => !included.length || included.some((include) => minimatch(filePath, include)))
-    .filter((filePath) => !excluded.length || !excluded.some((exclude) => exclude.test(filePath)))
-    .forEach((filePath) => {
-      const fileCoverage = summary[filePath];
+  Object.entries(summary)
+    .filter(([key]) => key !== 'total')
+    .filter(([filePath]) => !included.length || included.some((include) => minimatch(filePath, include)))
+    .filter(([filePath]) => !excluded.length || !excluded.some((exclude) => exclude.test(filePath)))
+    .forEach(([filePath, fileCoverage]) => {
       const relativeFilePath = normalisedPath(path.relative(baseDirectory, filePath));
       uncovered[relativeFilePath] = getUncoveredIssues(fileCoverage);
     });
@@ -62,42 +61,46 @@ async function loadCoverageFile(coverageSummaryPath: string): Promise<IstanbulCo
   try {
     const coverageReport = await fs.readFile(coverageSummaryPath, 'utf-8');
     return decodeCoverageSummary(JSON.parse(coverageReport));
-  } catch (e) {
+  } catch {
     return null;
   }
 }
 
-function decodeCoverageSummary(data: IstanbulCoverageSummary | unknown): IstanbulCoverageSummary | null {
-  if (isIstanbulSummary(data) && data.total != null) {
-    return data;
-  }
-  return null;
+function decodeCoverageSummary(data: unknown): IstanbulCoverageSummary | null {
+  return isIstanbulSummary(data) ? data : null;
 }
 
 function isIstanbulSummary(data: unknown): data is IstanbulCoverageSummary {
-  const maybeSummary = data as IstanbulCoverageSummary;
-  return maybeSummary && Object.keys(maybeSummary).every((key) => isFileCoverage(maybeSummary[key]));
+  if (!data) {
+    return false;
+  }
+  const maybeIstanbulSummary = data as Partial<IstanbulCoverageSummary>;
+  return (
+    Object.keys(maybeIstanbulSummary).every((key) => isFileCoverage(maybeIstanbulSummary[key])) &&
+    maybeIstanbulSummary.total != null
+  );
 }
 
 function isFileCoverage(data: unknown): data is IstanbulFileCoverage {
-  const maybeCoverage = data as IstanbulFileCoverage;
+  if (!data) {
+    return false;
+  }
+  const maybeFileCoverage = data as Partial<IstanbulFileCoverage>;
   return (
-    maybeCoverage &&
-    isCoverage(maybeCoverage.branches) &&
-    isCoverage(maybeCoverage.functions) &&
-    isCoverage(maybeCoverage.lines) &&
-    isCoverage(maybeCoverage.statements)
+    isCoverage(maybeFileCoverage.branches) &&
+    isCoverage(maybeFileCoverage.functions) &&
+    isCoverage(maybeFileCoverage.lines) &&
+    isCoverage(maybeFileCoverage.statements)
   );
 }
 
 function isCoverage(data: unknown): data is IstanbulCoverage {
-  const maybeData = data as IstanbulCoverage;
+  if (!data) {
+    return false;
+  }
+  const maybeData = data as Partial<IstanbulCoverage>;
   return (
-    maybeData &&
-    isNumber(maybeData.covered) &&
-    isNumber(maybeData.pct) &&
-    isNumber(maybeData.skipped) &&
-    isNumber(maybeData.total)
+    isNumber(maybeData.covered) && isNumber(maybeData.pct) && isNumber(maybeData.skipped) && isNumber(maybeData.total)
   );
 }
 

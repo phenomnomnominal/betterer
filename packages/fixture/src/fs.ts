@@ -20,21 +20,21 @@ export async function createFixtureFS(
   }
 
   async function cleanup(): Promise<void> {
-    return await rimraf(fixturePath);
+    await rimraf(fixturePath);
   }
 
   async function writeFile(filePath: string, text: string): Promise<void> {
     const fullPath = resolve(filePath);
     await ensureDir(path.dirname(fullPath));
-    return await fs.writeFile(fullPath, text.trim(), 'utf8');
+    await fs.writeFile(fullPath, text.trim(), 'utf8');
   }
 
   async function deleteDirectory(directoryPath: string): Promise<void> {
-    return await rimraf(directoryPath);
+    await rimraf(directoryPath);
   }
 
   async function deleteFile(filePath: string): Promise<void> {
-    return await fs.unlink(resolve(filePath));
+    await fs.unlink(resolve(filePath));
   }
 
   function readFile(filePath: string): Promise<string> {
@@ -63,9 +63,13 @@ export async function createFixtureFS(
   } catch {
     // Move on...
   }
+
   await Promise.all(
     Object.keys(files).map(async (itemPath) => {
-      await writeFile(itemPath, files[itemPath]);
+      const contents = files[itemPath];
+      if (contents != null) {
+        await writeFile(itemPath, contents);
+      }
     })
   );
 

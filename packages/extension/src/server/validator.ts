@@ -21,7 +21,10 @@ import { getFilePath } from './path.js';
 export class BettererValidator {
   private _diagnostics = new BettererDiagnostics();
 
-  constructor(private _connection: Connection, private _documents: TextDocuments<TextDocument>) {}
+  constructor(
+    private _connection: Connection,
+    private _documents: TextDocuments<TextDocument>
+  ) {}
 
   public async validate(documents: Array<TextDocument>): Promise<void> {
     const { workspace } = this._connection;
@@ -95,7 +98,10 @@ export class BettererValidator {
             .filter(Boolean) as Array<TextDocument>;
 
           const finalDocuments = validDocuments.filter((document) => {
-            const filePath = getFilePath(document) as string;
+            const filePath = getFilePath(document);
+            if (!filePath) {
+              return false;
+            }
             const isCachePath = filePath === options.cachePath;
             const isResultPath = filePath === options.resultsPath;
             const isConfigPath = !!options.configPaths?.includes(filePath);
@@ -108,9 +114,9 @@ export class BettererValidator {
             info(`Validator: Running Betterer in "${cwd}".`);
             info(`Validator: Running Betterer on "${JSON.stringify(filePaths)}."`);
 
-            const runner = await getRunner(options);
+            const runner = await getRunner(cwd, options);
             let config: BettererConfig;
-            runner.options({
+            await runner.options({
               reporters: [
                 {
                   contextError: (_, e: BettererError): void => {
@@ -176,9 +182,10 @@ function load(connection: Connection): () => Promise<void> {
   }, LOADING_DELAY_TIME);
   return async (): Promise<void> => {
     if (isLoading) {
-      return await new Promise((resolve) => {
+      await new Promise((resolve) => {
         setTimeout(resolve, MINIMUM_LOADING_TIME);
       });
+      return;
     }
     clearTimeout(loading);
   };

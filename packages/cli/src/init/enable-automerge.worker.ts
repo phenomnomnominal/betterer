@@ -96,7 +96,7 @@ async function findGitRoot(cwd: string): Promise<string> {
       const gitPath = path.join(dir, '.git');
       await fs.access(gitPath);
       return gitPath;
-    } catch (err) {
+    } catch {
       dir = path.join(dir, '..');
     }
   }

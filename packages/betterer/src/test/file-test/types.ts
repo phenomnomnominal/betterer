@@ -14,9 +14,23 @@ export type BettererFileIssueSerialised = [line: number, column: number, length:
 export type BettererFileIssuesSerialised = ReadonlyArray<BettererFileIssueSerialised>;
 
 /**
+ * @internal The properties that create a key for a specific issue on a serialised BettererFileTestResult
+ */
+export interface BettererFileTestResultKeyParts {
+  relativePath: string;
+  hash: string;
+};
+
+/**
+ * @public A lookup key for a specific issue on a serialised BettererFileTestResult
+ */
+export type BettererFileTestResultKey = `${string}:${string}`;
+
+
+/**
  * @public A map from file path to {@link @betterer/betterer#BettererFileIssuesSerialised | `BettererFileIssuesSerialised`}.
  */
-export type BettererFileTestResultSerialised = Record<string, BettererFileIssuesSerialised>;
+export type BettererFileTestResultSerialised = Record<BettererFileTestResultKey, BettererFileIssuesSerialised>;
 
 /**
  * @public A diff object for a single file.
@@ -114,7 +128,7 @@ export interface BettererFileBase {
   /**
    * The key used for identifying the file in the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
    */
-  readonly key: string;
+  readonly key: BettererFileTestResultKey;
 }
 
 /**

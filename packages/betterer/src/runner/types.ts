@@ -77,7 +77,7 @@ export interface BettererRunner {
   /**
    * Make changes to the runner config. The updated config will be used for the next run.
    */
-  options(optionsOverride: BettererOptionsOverride): void;
+  options(optionsOverride: BettererOptionsOverride): Promise<void>;
   /**
    * Queue a **Betterer** run.
    *

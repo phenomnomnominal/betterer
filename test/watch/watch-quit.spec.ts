@@ -27,8 +27,8 @@ export default {
 
     const { cwd } = paths;
 
-    const suiteEndDefer = defer<void>();
-    const contextEndDefer = defer<void>();
+    const suiteEndDefer = defer();
+    const contextEndDefer = defer();
 
     await betterer.watch({
       configPaths,
@@ -65,13 +65,13 @@ export default {
 
 type Resolve<T> = (value: T) => void;
 type Reject = (error: Error) => void;
-interface Defer<T> {
+interface Defer<T = void> {
   promise: Promise<T>;
   resolve: Resolve<T>;
   reject: Reject;
 }
 
-function defer<T>(): Defer<T> {
+function defer<T = void>(): Defer<T> {
   let resolve: Resolve<T> | null = null;
   let reject: Reject | null = null;
   const promise = new Promise<T>((res, rej) => {

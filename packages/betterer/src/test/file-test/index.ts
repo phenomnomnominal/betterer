@@ -2,6 +2,7 @@ export { BettererFileTest, isBettererFileTest } from './file-test.js';
 export type { BettererFileTestResultΩ } from './file-test-result.js';
 export {
   BettererFileTestResult,
+  BettererFileTestResultKey,
   BettererFileTestResultSerialised,
   BettererFileTestFunction,
   BettererFileBase,

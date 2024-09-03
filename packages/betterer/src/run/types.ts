@@ -4,6 +4,7 @@ import type { BettererWorkerAPI, BettererWorkerHandle, BettererWorkerPool } from
 import type { BettererFilePaths } from '../fs/index.js';
 import type { BettererResult } from '../results/index.js';
 import type { BettererDiff } from '../test/index.js';
+import type { Defer } from '../utils.js';
 
 /**
  * @public The change between a test runs and its baseline. A {@link @betterer/betterer#BettererRun | `BettererRun`}
@@ -110,9 +111,9 @@ export interface BettererRun {
  */
 export type BettererRuns = ReadonlyArray<BettererRun>;
 
-export interface BettererReporterRun extends BettererRun {
+export type BettererReporterRun = BettererRun & {
   lifecycle: Promise<BettererRunSummary>;
-}
+};
 
 export interface BettererRunning {
   failed(error: BettererError): Promise<BettererRunSummary>;

@@ -122,7 +122,7 @@ export interface BettererFileBase {
     readonly absolutePath: string;
     readonly hash: string;
     readonly issues: BettererFileIssues;
-    readonly key: string;
+    readonly key: BettererFileTestResultKey;
 }
 
 // @public
@@ -205,7 +205,10 @@ export interface BettererFileTestResult {
 }
 
 // @public
-export type BettererFileTestResultSerialised = Record<string, BettererFileIssuesSerialised>;
+export type BettererFileTestResultKey = `${string}:${string}`;
+
+// @public
+export type BettererFileTestResultSerialised = Record<BettererFileTestResultKey, BettererFileIssuesSerialised>;
 
 // @public
 export interface BettererFileTestResultSummary {
@@ -429,7 +432,7 @@ export interface BettererRun {
 
 // @public
 export interface BettererRunner {
-    options(optionsOverride: BettererOptionsOverride): void;
+    options(optionsOverride: BettererOptionsOverride): Promise<void>;
     queue(filePaths?: string | BettererFilePaths): Promise<void>;
     stop(): Promise<BettererSuiteSummary>;
     stop(force: true): Promise<BettererSuiteSummary | null>;

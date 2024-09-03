@@ -24,7 +24,7 @@ export const WatchFiles: FC<WatchFilesProps> = memo(function WatchFiles(props) {
   return (
     <>
       <Config context={context} editField={editField} />
-      {filePaths?.length ? (
+      {filePaths.length ? (
         <>
           {isTestChange ? (
             <Box paddingBottom={1}>

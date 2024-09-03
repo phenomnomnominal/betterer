@@ -9,7 +9,7 @@ import { DefaultFiles } from './DefaultFiles.js';
 
 export const DefaultReporter: FC<BettererReporterState> = memo(function DefaultReporter(props: BettererReporterState) {
   const { context, done, suiteSummary } = props;
-  const suite = props.suite || props.suiteSummary;
+  const suite = props.suite ?? props.suiteSummary;
 
   if (!suite) {
     return null;

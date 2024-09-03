@@ -19,11 +19,11 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
   public static async create(options: BettererOptionsResults): Promise<BettererResultsSummary> {
     const { config, results, versionControl } = await createGlobals(options);
 
-    const testFactories = await loadTestMeta(config.configPaths);
+    const testMeta = await loadTestMeta(config.configPaths);
 
-    let testNames = Object.keys(testFactories);
+    let testMetaEntries = Object.entries(testMeta);
     if (config.filters.length) {
-      testNames = testNames.filter((name) => config.filters.some((filter) => filter.test(name)));
+      testMetaEntries = testMetaEntries.filter(([name]) => config.filters.some((filter) => filter.test(name)));
     }
 
     const { cwd, includes, excludes, resultsPath } = config;
@@ -37,10 +37,10 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
     const onlyFileTests = includes.length > 0 || excludes.length > 0;
 
     const testStatuses = await Promise.all(
-      testNames.map(async (name) => {
+      testMetaEntries.map(async ([name, testMeta]) => {
         let test: BettererTestBase | null = null;
         try {
-          test = await testFactories[name].factory();
+          test = await testMeta.factory();
         } catch (e) {
           if (isBettererError(e)) {
             throw e;
@@ -60,10 +60,10 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
           const resultΩ = deserialised as BettererFileTestResultΩ;
           const details = resultΩ.files
             .filter((file) => !onlyFileTests || filePaths.includes(file.absolutePath))
-            .reduce((summary, file) => {
+            .reduce<BettererFileTestResultSummaryDetails>((summary, file) => {
               summary[file.absolutePath] = file.issues;
               return summary;
-            }, {} as BettererFileTestResultSummaryDetails);
+            }, {});
           return { name, isFileTest, details };
         } else {
           const details = await test.config.printer(deserialised);

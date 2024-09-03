@@ -13,13 +13,14 @@ export const Reporter: FC<BettererReporterState> = function Reporter(props: Bett
 
   const { isRawModeSupported } = useStdin();
 
-  isRawModeSupported &&
+  if (isRawModeSupported) {
     useInput((input, key) => {
       if (key.ctrl && input === 'c') {
         void context.stop();
         return;
       }
     });
+  }
 
   const ReporterComponent = context.config.watch ? WatchReporter : DefaultReporter;
 

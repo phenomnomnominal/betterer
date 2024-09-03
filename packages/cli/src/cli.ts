@@ -54,6 +54,8 @@ export async function cli__(
 
   const args = argv.slice(0);
   const [, , command] = args;
+  // `BettererCommand` is an enum, so this conditional *is* necessary!
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- see above!
   if (!BettererCommand[command as BettererCommandName]) {
     args.splice(2, 0, BettererCommand.start);
   }

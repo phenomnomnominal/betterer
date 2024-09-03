@@ -13,7 +13,7 @@ import { useControls } from './useControls.js';
 
 export const WatchReporter: FC<BettererReporterState> = memo(function WatchReporter(props) {
   const { context, contextSummary, done, suiteSummary } = props;
-  const suite = props.suiteSummary || props.suite;
+  const suite = props.suiteSummary ?? props.suite;
 
   const editing = useControls(context);
 

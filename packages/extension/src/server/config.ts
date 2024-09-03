@@ -22,7 +22,6 @@ export async function getBettererOptions(cwd: string, workspace: RemoteWorkspace
     cache: true,
     cachePath: path.resolve(cwd, cachePath),
     configPaths: [path.resolve(cwd, configPath)],
-    cwd,
     filters,
     resultsPath: path.resolve(cwd, resultsPath),
     silent: true
