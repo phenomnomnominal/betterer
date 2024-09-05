@@ -75,7 +75,7 @@ Error: "ci" must be \`true\` or \`false\`. Received \`1234\`.
 exports[`betterer > should throw when there is invalid config: { configPaths: [ 1234 ] } 1`] = `
 [
   "
-Error: The "paths[1]" argument must be of type string. Received type number (1234)
+Error: "configPaths" must be an array of strings. Received \`[1234]\`.
 ",
 ]
 `;
@@ -83,7 +83,7 @@ Error: The "paths[1]" argument must be of type string. Received type number (123
 exports[`betterer > should throw when there is invalid config: { configPaths: {} } 1`] = `
 [
   "
-Error: The "paths[1]" argument must be of type string. Received an instance of Object
+Error: "configPaths" must be an array of strings. Received \`[{}]\`.
 ",
 ]
 `;
@@ -91,7 +91,7 @@ Error: The "paths[1]" argument must be of type string. Received an instance of O
 exports[`betterer > should throw when there is invalid config: { configPaths: 1234 } 1`] = `
 [
   "
-Error: The "paths[1]" argument must be of type string. Received type number (1234)
+Error: "configPaths" must be an array of strings. Received \`[1234]\`.
 ",
 ]
 `;
@@ -99,7 +99,7 @@ Error: The "paths[1]" argument must be of type string. Received type number (123
 exports[`betterer > should throw when there is invalid config: { configPaths: true } 1`] = `
 [
   "
-Error: The "paths[1]" argument must be of type string. Received type boolean (true)
+Error: "configPaths" must be an array of strings. Received \`[true]\`.
 ",
 ]
 `;

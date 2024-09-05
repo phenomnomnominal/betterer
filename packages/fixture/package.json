@@ -23,11 +23,14 @@
     "compile": "tsc -b ."
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "dependencies": {
     "@betterer/betterer": "^5.4.0",
     "@betterer/errors": "^5.3.0",
     "ansi-regex": "^5.0.0"
+  },
+  "devDependencies": {
+    "core-js": "^3.38.1"
   }
 }

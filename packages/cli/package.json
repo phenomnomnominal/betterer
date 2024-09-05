@@ -14,7 +14,7 @@
     "dist"
   ],
   "bin": {
-    "betterer": "./bin/betterer"
+    "betterer": "./bin/betterer.js"
   },
   "author": "Craig Spence <craigspence0@gmail.com>",
   "homepage": "https://phenomnomnominal.github.io/betterer",
@@ -30,7 +30,7 @@
     "api": "api-extractor run --local --verbose"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "dependencies": {
     "@betterer/betterer": "^5.4.0",

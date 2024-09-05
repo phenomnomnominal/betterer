@@ -23,7 +23,7 @@
     "compile": "tsc -b ."
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "dependencies": {
     "dedent": "^0.7.0",

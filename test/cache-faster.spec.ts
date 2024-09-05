@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { createFixture } from './fixture.js';
 
 describe('betterer', () => {
-  it(`actually makes shit faster`, async () => {
+  it(`actually goes faster with cache`, async () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { paths, cleanup, testNames } = await createFixture('cache-faster', {

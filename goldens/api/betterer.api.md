@@ -491,8 +491,7 @@ export interface BettererSuiteSummary extends BettererSuite {
 // @public
 export class BettererTest<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> {
     constructor(options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>);
-    // Warning: (ae-forgotten-export) The symbol "BettererTestConfigΩ" needs to be exported by the entry point index.d.ts
-    readonly config: BettererTestConfigΩ<DeserialisedType, SerialisedType, DiffType>;
+    get config(): BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
     constraint(constraintOverride: BettererTestConstraint<DeserialisedType>): this;
     deadline(deadlineOverride: BettererTestDeadline): this;
     goal(goalOverride: BettererTestGoal<DeserialisedType>): this;

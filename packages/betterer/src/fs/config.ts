@@ -16,6 +16,7 @@ export async function createFSConfig(options: BettererOptionsFS): Promise<Better
 
   const cwd = options.cwd ?? process.cwd();
   const configPaths = options.configPaths ? toArray<string>(options.configPaths) : [BETTERER_TS];
+  validateStringArray({ configPaths });
   const validatedConfigPaths = await validateConfigPaths(cwd, configPaths);
 
   const resultsPath = options.resultsPath ?? BETTERER_RESULTS;

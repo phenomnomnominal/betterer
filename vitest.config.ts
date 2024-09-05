@@ -2,6 +2,8 @@ import { defineConfig } from 'vitest/config';
 
 import tsconfigPaths from 'vite-tsconfig-paths';
 
+const isNode16 = process.version.startsWith('v16');
+
 export default defineConfig({
   plugins: [
     tsconfigPaths({
@@ -14,8 +16,14 @@ export default defineConfig({
     exclude: ['test/**/*.e2e.spec.ts'],
     reporters: ['basic'],
     isolate: false,
-    slowTestThreshold: 10000,
+
+    // node.js v16 struggled with all the parallelism...
+    fileParallelism: !isNode16,
+
+    // Our tests are basically E2E so they're a bit slow as is...
+    slowTestThreshold: 30000,
     testTimeout: 90000,
+
     watch: false,
     watchExclude: ['**/fixtures/**'],
     coverage: {
