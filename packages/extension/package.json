@@ -22,7 +22,7 @@
     "Linters"
   ],
   "activationEvents": [
-    "*"
+    "onStartupFinished"
   ],
   "icon": "images/logo.png",
   "galleryBanner": {

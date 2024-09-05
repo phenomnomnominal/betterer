@@ -5,8 +5,12 @@ import prettier from 'eslint-config-prettier';
 import globals from 'globals';
 import tsLint from 'typescript-eslint';
 
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const dirname = path.dirname(fileURLToPath(import.meta.url));
 const compat = new FlatCompat({
-  baseDirectory: import.meta.dirname
+  baseDirectory: dirname
 });
 
 // eslint-disable-next-line no-undef -- process is global
@@ -37,7 +41,7 @@ export default tsLint.config(
       globals: globals.browser,
       parserOptions: {
         project: './tsconfig.eslint.json',
-        tsconfigRootDir: import.meta.dirname
+        tsconfigRootDir: dirname
       }
     }
   },

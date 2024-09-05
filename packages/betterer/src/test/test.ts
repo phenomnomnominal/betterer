@@ -1,4 +1,10 @@
-import type { BettererTestConstraint, BettererTestDeadline, BettererTestGoal, BettererTestOptions } from './types.js';
+import type {
+  BettererTestConfig,
+  BettererTestConstraint,
+  BettererTestDeadline,
+  BettererTestGoal,
+  BettererTestOptions
+} from './types.js';
 
 import { BettererTestConfigΩ, createDeadline, createGoal } from './config.js';
 import { checkBaseName } from './utils.js';
@@ -21,16 +27,19 @@ import { checkBaseName } from './utils.js';
  * @param options - The options that define the test.
  */
 export class BettererTest<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> {
-  /**
-   * The complete configuration for the test.
-   */
-  public readonly config: BettererTestConfigΩ<DeserialisedType, SerialisedType, DiffType>;
-
+  private _config: BettererTestConfigΩ<DeserialisedType, SerialisedType, DiffType>;
   private _isOnly = false;
   private _isSkipped = false;
 
   constructor(options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>) {
-    this.config = new BettererTestConfigΩ(options);
+    this._config = new BettererTestConfigΩ(options);
+  }
+
+  /**
+   * The complete configuration for the test.
+   */
+  public get config(): BettererTestConfig<DeserialisedType, SerialisedType, DiffType> {
+    return this._config;
   }
 
   /**
@@ -54,7 +63,7 @@ export class BettererTest<DeserialisedType = unknown, SerialisedType = Deseriali
    * @returns This {@link @betterer/betterer#BettererTest | `BettererTest`}, so it is chainable.
    */
   public constraint(constraintOverride: BettererTestConstraint<DeserialisedType>): this {
-    this.config.constraint = constraintOverride;
+    this._config.constraint = constraintOverride;
     return this;
   }
 
@@ -65,7 +74,7 @@ export class BettererTest<DeserialisedType = unknown, SerialisedType = Deseriali
    * @returns This {@link @betterer/betterer#BettererTest | `BettererTest`}, so it is chainable.
    */
   public deadline(deadlineOverride: BettererTestDeadline): this {
-    this.config.deadline = createDeadline({ ...this.config, deadline: deadlineOverride });
+    this._config.deadline = createDeadline({ ...this.config, deadline: deadlineOverride });
     return this;
   }
 
@@ -76,7 +85,7 @@ export class BettererTest<DeserialisedType = unknown, SerialisedType = Deseriali
    * @returns This {@link @betterer/betterer#BettererTest | `BettererTest`}, so it is chainable.
    */
   public goal(goalOverride: BettererTestGoal<DeserialisedType>): this {
-    this.config.goal = createGoal({ ...this.config, goal: goalOverride });
+    this._config.goal = createGoal({ ...this.config, goal: goalOverride });
     return this;
   }
 

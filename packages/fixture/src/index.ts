@@ -3,6 +3,7 @@ if (process.env.NODE_ENV === 'test') {
   process.env.DEV = 'false';
 }
 
+import './polyfills.js';
 import './stubs.js';
 
 export type {
