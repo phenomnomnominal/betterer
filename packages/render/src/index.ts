@@ -4,7 +4,7 @@
  * Problems happen when there are multiple versions of `react` available within a codebase,
  * as different instances of the `ink` renderer may find different versions of `react-dom`.
  *
- * This package is an attempt to ensure that `ink` always finds the same verson of
+ * This package is an attempt to ensure that `ink` always finds the same version of
  * `react` and `react-dom`
  *
  * 🚨 THIS PACKAGE SHOULD ONLY BE USED WITHIN THE BETTERER MONOREPO 🚨
@@ -69,43 +69,31 @@ export const TextInput: React.FC<TextInputProps> = TI;
  * @internal This could change at any point! Please don't use!
  */
 export type Process = typeof import('process');
-/**
- * @internal This could change at any point! Please don't use!
- */
-export type StdErr = Process['stderr'];
-/**
- * @internal This could change at any point! Please don't use!
- */
-export type StdIn = Process['stdin'];
-/**
- * @internal This could change at any point! Please don't use!
- */
-export type StdOut = Process['stdout'];
 
 /**
  * @internal This could change at any point! Please don't use!
  *
- * Wrapped to get process.stderr so it can be stubbed for testing.
+ * @remarks can be stubbed to have control of stderr during tests.
  */
-export function getStdErr(): StdErr {
+export function getStdErrΔ(): Process['stderr'] {
   return process.stderr;
 }
 
 /**
  * @internal This could change at any point! Please don't use!
  *
- * Wrapped to get process.stdin so it can be stubbed for testing.
+ * @remarks can be stubbed to have control of stdin during tests.
  */
-export function getStdIn(): StdIn {
+export function getStdInΔ(): Process['stdin'] {
   return process.stdin;
 }
 
 /**
  * @internal This could change at any point! Please don't use!
  *
- * Wrapped to get process.stdout so it can be stubbed for testing.
+ * @remarks can be stubbed to have control of stdout during tests.
  */
-export function getStdOut(): StdOut {
+export function getStdOutΔ(): Process['stdout'] {
   return process.stdout;
 }
 
@@ -114,12 +102,12 @@ import type { RenderOptions } from 'ink';
 /**
  * @internal This could change at any point! Please don't use!
  */
-export function getRenderOptions(env = '', options: RenderOptions = {}): RenderOptions {
+export function getRenderOptionsΔ(env = '', options: RenderOptions = {}): RenderOptions {
   return {
     debug: env === 'test',
-    stderr: getStdErr(),
-    stdin: getStdIn(),
-    stdout: getStdOut(),
+    stderr: getStdErrΔ(),
+    stdin: getStdInΔ(),
+    stdout: getStdOutΔ(),
     ...options
   };
 }

@@ -1,18 +1,20 @@
 import type { BettererWorkerAPI, BettererWorkerFactory, BettererWorkerHandle, BettererWorkerPool } from './types.js';
 
-import { BettererError, invariant } from '@betterer/errors';
+import { BettererError, invariantΔ } from '@betterer/errors';
 
-class BettereWorkerHandleΩ<API extends BettererWorkerAPI<unknown>> implements BettererWorkerHandle<API> {
+class BettererWorkerHandleΩ<API extends BettererWorkerAPI<unknown>> implements BettererWorkerHandle<API> {
   private _destroyed = false;
   private _free = Promise.resolve();
   private _release: (() => void) | null = null;
+  private _worker: API | null = null;
 
-  constructor(private _worker: API) {}
+  constructor(private _workerFactory: BettererWorkerFactory<API>) {}
 
   public async claim(): Promise<API> {
     if (this._destroyed) {
       throw new BettererError(`Handle has been destroyed so cannot be claimed. ❌`);
     }
+    this._worker ??= await this._workerFactory();
     await this._free;
     this._free = new Promise<void>((resolve) => {
       this._release = resolve;
@@ -25,7 +27,7 @@ class BettereWorkerHandleΩ<API extends BettererWorkerAPI<unknown>> implements B
       return;
     }
     this._destroyed = true;
-    await this._worker.destroy();
+    await this._worker?.destroy();
   }
 
   public release(): void {
@@ -38,17 +40,10 @@ class BettereWorkerHandleΩ<API extends BettererWorkerAPI<unknown>> implements B
 
 class BettererRunWorkerPoolΩ<API extends BettererWorkerAPI<unknown>> implements BettererWorkerPool<API> {
   private _handleIndex = 0;
+  private _handles: Array<BettererWorkerHandle<API>>;
 
-  constructor(private _handles: Array<BettererWorkerHandle<API>> = []) {}
-
-  public static async create<API extends BettererWorkerAPI<unknown>>(
-    workerCount: number,
-    workerFactory: BettererWorkerFactory<API>
-  ) {
-    const handles = await Promise.all(
-      Array.from({ length: workerCount }).map(async () => new BettereWorkerHandleΩ(await workerFactory()))
-    );
-    return new BettererRunWorkerPoolΩ<API>(handles);
+  constructor(workerCount: number, workerFactory: BettererWorkerFactory<API>) {
+    this._handles = Array.from({ length: workerCount }).map(() => new BettererWorkerHandleΩ<API>(workerFactory));
   }
 
   public async destroy(): Promise<void> {
@@ -57,7 +52,7 @@ class BettererRunWorkerPoolΩ<API extends BettererWorkerAPI<unknown>> implements
 
   public getWorkerHandle(): BettererWorkerHandle<API> {
     const worker = this._handles[this._handleIndex];
-    invariant(worker, `\`this._handleIndex\` should never be out of bounds!`, this._handles.length, this._handleIndex);
+    invariantΔ(worker, `\`this._handleIndex\` should never be out of bounds!`, this._handles, this._handleIndex);
     this._handleIndex = this._handleIndex + 1 === this._handles.length ? 0 : this._handleIndex + 1;
     return worker;
   }
@@ -77,9 +72,9 @@ class BettererRunWorkerPoolΩ<API extends BettererWorkerAPI<unknown>> implements
  * @param workerFactory - A factory function which returns an instance of the specific Worker.
  * The factory should call `importWorker__` with a path to the Worker file.
  */
-export function createWorkerPool__<API extends BettererWorkerAPI<unknown>>(
+export function createWorkerPoolΔ<API extends BettererWorkerAPI<unknown>>(
   workerCount: number,
   workerFactory: BettererWorkerFactory<API>
-): Promise<BettererWorkerPool<API>> {
-  return BettererRunWorkerPoolΩ.create(workerCount, workerFactory);
+): BettererWorkerPool<API> {
+  return new BettererRunWorkerPoolΩ(workerCount, workerFactory);
 }

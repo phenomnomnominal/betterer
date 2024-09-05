@@ -1,5 +1,5 @@
 import type { BettererDiff } from '@betterer/betterer';
-import type { BettererLog, BettererLogs } from '@betterer/logger';
+import type { BettererLogs } from '@betterer/logger';
 import type { BettererCoverageDiff, BettererCoverageIssue, BettererCoverageIssues } from './types.js';
 
 export function differ(
@@ -17,11 +17,7 @@ export function differ(
   };
 }
 
-function detectNewOrUpdatedFiles(
-  expected: BettererCoverageIssues,
-  result: BettererCoverageIssues,
-  logs: Array<BettererLog>
-) {
+function detectNewOrUpdatedFiles(expected: BettererCoverageIssues, result: BettererCoverageIssues, logs: BettererLogs) {
   const diff: BettererCoverageDiff = {};
   Object.entries(result).forEach(([filePath, issue]) => {
     if (expected[filePath]) {
@@ -37,7 +33,7 @@ function detectNewOrUpdatedFiles(
 function diffFileIssue(
   expected: BettererCoverageIssue,
   result: BettererCoverageIssue,
-  logs: Array<BettererLog>,
+  logs: BettererLogs,
   filePath: string
 ): BettererCoverageIssue {
   const fileDiff: BettererCoverageIssue = {
@@ -65,11 +61,7 @@ function diffFileIssue(
   return fileDiff;
 }
 
-function detectRemovedFiles(
-  expected: BettererCoverageIssues,
-  result: BettererCoverageIssues,
-  logs: Array<BettererLog>
-) {
+function detectRemovedFiles(expected: BettererCoverageIssues, result: BettererCoverageIssues, logs: BettererLogs) {
   const diff: BettererCoverageDiff = {};
   Object.entries(expected).forEach(([expectedFile, issues]) => {
     if (!result[expectedFile]) {

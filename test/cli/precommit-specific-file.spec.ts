@@ -8,7 +8,7 @@ const ARGV = ['node', './bin/betterer'];
 
 describe('betterer precommit', () => {
   it('should test just the specified files', async () => {
-    const { cli__ } = await import('@betterer/cli');
+    const { cliΔ } = await import('@betterer/cli');
 
     const { paths, logs, cleanup, resolve, readFile, writeFile } = await createFixture('precommit-specific-file', {
       '.betterer.js': `
@@ -63,9 +63,9 @@ debugger;
 
     await writeFile(newFilePath, 'debugger;');
 
-    await cli__(fixturePath, [...ARGV, 'start', '--workers=false'], false);
+    await cliΔ(fixturePath, [...ARGV, 'start', '--workers=false'], false);
 
-    await cli__(fixturePath, [...ARGV, 'precommit', '--workers=false', newFilePath], false);
+    await cliΔ(fixturePath, [...ARGV, 'precommit', '--workers=false', newFilePath], false);
 
     expect(logs).toMatchSnapshot();
 

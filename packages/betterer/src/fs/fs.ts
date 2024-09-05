@@ -1,6 +1,6 @@
 import type { BettererConfigFS, BettererVersionControlWorker } from './types.js';
 
-import { importWorker__ } from '@betterer/worker';
+import { importWorkerΔ } from '@betterer/worker';
 
 import { BettererResultsFileΩ } from './results-file.js';
 import { BettererFileResolverΩ } from './file-resolver.js';
@@ -17,7 +17,7 @@ export class BettererFSΩ {
     const { cache, cachePath, configPaths, cwd, resultsPath } = configFS;
     const resultsFile = new BettererResultsFileΩ(resultsPath);
 
-    const versionControl: BettererVersionControlWorker = await importWorker__('./version-control.worker.js');
+    const versionControl: BettererVersionControlWorker = await importWorkerΔ('./version-control.worker.js');
     try {
       const versionControlPath = await versionControl.api.init(configPaths, cwd);
       if (cache) {

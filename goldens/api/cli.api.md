@@ -11,11 +11,10 @@ export type BettererCLIArguments = Array<string>;
 export interface BettererPackageJSON {
     devDependencies?: Record<string, string>;
     scripts?: Record<string, string>;
-    // (undocumented)
     version: string;
 }
 
 // @internal
-export function cli__(cwd: string, argv: BettererCLIArguments, isCI?: boolean, isTest?: boolean): Promise<void>;
+export function cliΔ(cwd: string, argv: BettererCLIArguments, isCI?: boolean, isTest?: boolean): Promise<void>;
 
 ```

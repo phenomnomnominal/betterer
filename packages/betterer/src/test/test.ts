@@ -1,13 +1,7 @@
-import type {
-  BettererTestBase,
-  BettererTestConfig,
-  BettererTestConstraint,
-  BettererTestDeadline,
-  BettererTestGoal,
-  BettererTestOptions
-} from './types.js';
+import type { BettererTestConstraint, BettererTestDeadline, BettererTestGoal, BettererTestOptions } from './types.js';
 
-import { createDeadline, createGoal, createTestConfig } from './config.js';
+import { BettererTestConfigΩ, createDeadline, createGoal } from './config.js';
+import { checkBaseName } from './utils.js';
 
 /**
  * @public The main interface to the **Betterer** {@link https://phenomnomnominal.github.io/betterer/docs/tests | test system}.
@@ -26,19 +20,17 @@ import { createDeadline, createGoal, createTestConfig } from './config.js';
  *
  * @param options - The options that define the test.
  */
-export class BettererTest<DeserialisedType, SerialisedType = DeserialisedType, DiffType = null>
-  implements BettererTestBase<DeserialisedType, SerialisedType, DiffType>
-{
+export class BettererTest<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> {
   /**
    * The complete configuration for the test.
    */
-  public readonly config: BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
+  public readonly config: BettererTestConfigΩ<DeserialisedType, SerialisedType, DiffType>;
 
   private _isOnly = false;
   private _isSkipped = false;
 
   constructor(options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>) {
-    this.config = createTestConfig(options) as BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
+    this.config = new BettererTestConfigΩ(options);
   }
 
   /**
@@ -109,17 +101,9 @@ export class BettererTest<DeserialisedType, SerialisedType = DeserialisedType, D
   }
 }
 
-export function isBettererTest(test: unknown): test is BettererTestBase {
+export function isBettererTest(test: unknown): test is BettererTest {
   if (!test) {
     return false;
   }
-  return getBaseName(test.constructor) === BettererTest.name;
-}
-
-function getBaseName(input: unknown): string | null {
-  const proto: unknown = Object.getPrototypeOf(input);
-  if (proto === Function.prototype) {
-    return (input as FunctionConstructor).name || null;
-  }
-  return getBaseName(proto);
+  return checkBaseName(test.constructor, BettererTest.name);
 }

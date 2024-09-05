@@ -34,16 +34,16 @@ export { createContext }
 export { FC }
 
 // @internal
-export function getRenderOptions(env?: string, options?: RenderOptions): RenderOptions;
+export function getRenderOptionsΔ(env?: string, options?: RenderOptions): RenderOptions;
 
 // @internal
-export function getStdErr(): StdErr;
+export function getStdErrΔ(): Process['stderr'];
 
 // @internal
-export function getStdIn(): StdIn;
+export function getStdInΔ(): Process['stdin'];
 
 // @internal
-export function getStdOut(): StdOut;
+export function getStdOutΔ(): Process['stdout'];
 
 export { Instance }
 
@@ -61,15 +61,6 @@ export { React_2 as React }
 export { render }
 
 export { RenderOptions }
-
-// @internal
-export type StdErr = Process['stderr'];
-
-// @internal
-export type StdIn = Process['stdin'];
-
-// @internal
-export type StdOut = Process['stdout'];
 
 export { Text_2 as Text }
 

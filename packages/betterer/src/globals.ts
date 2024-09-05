@@ -1,4 +1,4 @@
-import type { BettererError } from '@betterer/errors';
+import { BettererError } from '@betterer/errors';
 
 import type { BettererOptions } from './api/index.js';
 import type { BettererReporterΩ } from './reporters/index.js';
@@ -11,10 +11,12 @@ import { createReporterConfig, loadDefaultReporter } from './reporters/index.js'
 import { BettererResultsΩ } from './results/index.js';
 import { createWatcherConfig } from './runner/index.js';
 
+let GLOBAL_CONTAINER: BettererGlobals | null = null;
+
 export async function createGlobals(
   options: BettererOptions,
   optionsWatch: BettererOptionsWatcher = {}
-): Promise<BettererGlobals> {
+): Promise<void> {
   let reporter = await loadDefaultReporter();
 
   try {
@@ -35,10 +37,26 @@ export async function createGlobals(
     reporter = config.reporter;
 
     const results = new BettererResultsΩ(await resultsFile.parse());
-    return { config, results, versionControl };
+
+    setGlobals({ config, results, versionControl });
   } catch (error) {
     const reporterΩ = reporter as BettererReporterΩ;
     await reporterΩ.configError(options, error as BettererError);
     throw error;
   }
+}
+
+export function getGlobals(): BettererGlobals {
+  if (GLOBAL_CONTAINER === null) {
+    throw new BettererError('`createGlobals` must be called before trying to use globals! ❌');
+  }
+  return GLOBAL_CONTAINER;
+}
+
+export function setGlobals(globals: BettererGlobals): void {
+  GLOBAL_CONTAINER = globals;
+}
+
+export function destroyGlobals(): void {
+  GLOBAL_CONTAINER = null;
 }

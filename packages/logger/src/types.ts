@@ -87,7 +87,7 @@ export interface BettererLogger {
 /**
  * @internal This could change at any point! Please don't use!
  *
- * A logging instruction which can be logged at a later time using {@link @betterer/logger#log__ | `log__()`}.
+ * A logging instruction which can be logged at a later time.
  */
 export interface BettererLog {
   /**
@@ -123,6 +123,6 @@ export interface BettererLog {
 /**
  * @internal This could change at any point! Please don't use!
  *
- * A set of logging instructions which can be logged at a later time using {@link @betterer/logger#log__ | `log__()`}.
+ * A set of logging instructions which can be logged at a later time.
  */
 export type BettererLogs = Array<BettererLog>;

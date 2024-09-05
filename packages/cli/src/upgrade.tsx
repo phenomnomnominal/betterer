@@ -2,7 +2,7 @@ import type { Command } from 'commander';
 
 import type { BettererCLIUpgradeConfig } from './types.js';
 
-import { React, getRenderOptions, render } from '@betterer/render';
+import { React, getRenderOptionsΔ, render } from '@betterer/render';
 
 import { Upgrade } from './upgrade/upgrade.js';
 import { upgradeCommand } from './options.js';
@@ -20,7 +20,7 @@ export function upgrade(cwd: string): Command {
 
     const app = render(
       <Upgrade configPaths={configPaths} cwd={cwd} save={config.save} logo={config.logo} />,
-      getRenderOptions(process.env.NODE_ENV)
+      getRenderOptionsΔ(process.env.NODE_ENV)
     );
     await app.waitUntilExit();
   });

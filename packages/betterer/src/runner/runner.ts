@@ -7,7 +7,7 @@ import type { BettererOptionsWatcher, BettererRunner } from './types.js';
 import { BettererError } from '@betterer/errors';
 
 import { BettererContextΩ } from '../context/index.js';
-import { createGlobals } from '../globals.js';
+import { createGlobals, destroyGlobals, getGlobals } from '../globals.js';
 import { normalisedPath } from '../utils.js';
 import { createWatcher, WATCHER_EVENTS } from './watcher.js';
 
@@ -23,7 +23,8 @@ export class BettererRunnerΩ implements BettererRunner {
     options: BettererOptions,
     optionsWatch: BettererOptionsWatcher = {}
   ): Promise<BettererRunnerΩ> {
-    const { config, results, versionControl } = await createGlobals(options, optionsWatch);
+    await createGlobals(options, optionsWatch);
+    const { config, results, versionControl } = getGlobals();
     const watcher = await createWatcher(config);
 
     const context = await BettererContextΩ.create(config, results, versionControl, watcher);
@@ -77,6 +78,8 @@ export class BettererRunnerΩ implements BettererRunner {
         return null;
       }
       throw error;
+    } finally {
+      destroyGlobals();
     }
   }
 

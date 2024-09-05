@@ -10,4 +10,4 @@
 
 export type { BettererCLIArguments, BettererPackageJSON } from './types.js';
 
-export { cli__ } from './cli.js';
+export { cliΔ } from './cli.js';

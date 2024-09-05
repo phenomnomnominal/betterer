@@ -6,7 +6,7 @@ const ARGV = ['node', './bin/betterer'];
 
 describe('betterer cli', () => {
   it('should work multiple times', async () => {
-    const { cli__ } = await import('@betterer/cli');
+    const { cliΔ } = await import('@betterer/cli');
 
     const { cleanup, logs, paths } = await createFixture(
       'init-multiple',
@@ -29,8 +29,8 @@ describe('betterer cli', () => {
 
     let throws = false;
     try {
-      await cli__(fixturePath, [...ARGV, 'init']);
-      await cli__(fixturePath, [...ARGV, 'init']);
+      await cliΔ(fixturePath, [...ARGV, 'init']);
+      await cliΔ(fixturePath, [...ARGV, 'init']);
       await cleanup();
     } catch {
       throws = true;

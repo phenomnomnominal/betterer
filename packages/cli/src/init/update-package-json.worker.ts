@@ -3,7 +3,7 @@ import type { BettererLogger } from '@betterer/logger';
 import type { BettererPackageJSON } from '../types.js';
 
 import { BettererError } from '@betterer/errors';
-import { exposeToMain__ } from '@betterer/worker';
+import { exposeToMainΔ } from '@betterer/worker';
 import { findUp } from 'find-up';
 import { promises as fs } from 'node:fs';
 
@@ -61,4 +61,4 @@ export async function run(logger: BettererLogger, cwd: string, ts: boolean): Pro
   }
 }
 
-exposeToMain__({ run });
+exposeToMainΔ({ run });

@@ -3,7 +3,7 @@ import type { FC } from '@betterer/render';
 
 import type { BettererTaskLog, BettererTask } from './types.js';
 
-import { code__ } from '@betterer/logger';
+import { codeΔ } from '@betterer/logger';
 import { React, Box, Text, memo, useEffect } from '@betterer/render';
 import chalk from 'chalk';
 
@@ -13,7 +13,9 @@ import { useTaskState } from './useTaskState.js';
 import { useTasks } from './useTasksState.js';
 
 /**
- * @public `props` type for {@link BettererTaskLogger | `<BettererTaskLogger/>`}.
+ * @internal This could change at any point! Please don't use!
+ *
+ * `props` type for {@link BettererTaskLogger | `<BettererTaskLogger/>`}.
  */
 export interface BettererTaskLoggerProps {
   /**
@@ -27,9 +29,12 @@ export interface BettererTaskLoggerProps {
 }
 
 /**
- * @public Ink component for rendering the output of a single {@link BettererTask | `BettererTask`}.
- * The output will update based on the status of the task. Once the task is finished, it will
- * output any logging and any errors (if the task failed).
+ * @internal This could change at any point! Please don't use!
+ *
+ * Ink component for rendering the output of a single {@link BettererTask | `BettererTask`}.
+ * The output will update based on the status of the task.
+ *
+ * Once the task is finished, it will output any logging and any errors (if the task failed).
  */
 export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function BettererTaskLogger(props) {
   const { name, task } = props;
@@ -53,7 +58,7 @@ export const BettererTaskLogger: FC<BettererTaskLoggerProps> = memo(function Bet
       }
 
       async function logCode(codeInfo: BettererLoggerCodeInfo): Promise<void> {
-        const codeFrame = code__(codeInfo);
+        const codeFrame = codeΔ(codeInfo);
         await taskApi.log(['💻', 'whiteBright', codeFrame]);
       }
       async function logDebug(log: string): Promise<void> {

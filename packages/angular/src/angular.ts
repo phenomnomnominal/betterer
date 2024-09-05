@@ -10,9 +10,9 @@ import ts from 'typescript';
  * @public Use this test to incrementally introduce {@link https://angular.io/guide/angular-compiler-options | **Angular** compiler configuration }
  * to your codebase.
  *
- * @remarks {@link angular | `angular`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
- * so you can use {@link @betterer/betterer#BettererFileTest.include | `include()`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude()`},
- * {@link @betterer/betterer#BettererFileTest.only | `only()`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip()`}.
+ * @remarks {@link angular | `angular`} is a {@link @betterer/betterer#BettererResolverTest | `BettererFileTest`},
+ * so you can use {@link @betterer/betterer#BettererResolverTest.include | `include()`}, {@link @betterer/betterer#BettererResolverTest.exclude | `exclude()`},
+ * {@link @betterer/betterer#BettererTest.only | `only()`}, and {@link @betterer/betterer#BettererTest.skip | `skip()`}.
  *
  * @example
  * ```typescript

@@ -7,8 +7,8 @@ beforeEach(() => {
     const time: typeof import('@betterer/time') = await importOriginal();
     return {
       ...time,
-      getPreciseTime__: () => 0,
-      getTime__: () => 0
+      getPreciseTimeΔ: () => 0,
+      getTimeΔ: () => 0
     };
   });
 });

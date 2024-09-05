@@ -2,12 +2,12 @@ export type {
   BettererDelta,
   BettererReporterRun,
   BettererRun,
-  BettererRuns,
-  BettererRunSummary,
   BettererRunSummaries,
-  BettererRunWorkerPool
+  BettererRunSummary,
+  BettererRunWorkerPool,
+  BettererRuns
 } from './types.js';
 
-export { BettererRunΩ, BettererRunsΩ } from './run.js';
 export { createRunWorkerPool } from './run-worker-pool.js';
+export { BettererRunΩ } from './run.js';
 export { BettererWorkerRunΩ } from './worker-run.js';

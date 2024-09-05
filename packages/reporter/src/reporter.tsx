@@ -10,7 +10,7 @@ import type { Instance } from '@betterer/render';
 import type { BettererReporterAction } from './state/index.js';
 import type { BettererReporterRenderer } from './types.js';
 
-import { React, getRenderOptions, render } from '@betterer/render';
+import { React, getRenderOptionsΔ, render } from '@betterer/render';
 import { Error, Reporter } from './components/index.js';
 import { contextEnd, createStore, suiteEnd, suiteStart } from './state/index.js';
 
@@ -22,15 +22,16 @@ import { contextEnd, createStore, suiteEnd, suiteStart } from './state/index.js'
  * to handle all the fancy terminal rerendering. It also means we can do cool stuff like dynamic
  * settings in `betterer watch` mode.
  */
-export const reporter: BettererReporter = createReporter__();
+export const reporter: BettererReporter = createReporterΔ();
 
 /**
  * @internal This could change at any point! Please don't use!
  *
- * @remarks used in {@link @betterer/betterer#BettererReporter | `BettererReporter`} to make sure there is always a fresh default Reporter
+ * Used in {@link @betterer/betterer#BettererReporter | `BettererReporter`} to make
+ * sure there is always a fresh default Reporter.
  */
-export function createReporter__(): BettererReporter {
-  const renderOptions = getRenderOptions(process.env.NODE_ENV, {
+export function createReporterΔ(): BettererReporter {
+  const renderOptions = getRenderOptionsΔ(process.env.NODE_ENV, {
     exitOnCtrlC: false
   });
 

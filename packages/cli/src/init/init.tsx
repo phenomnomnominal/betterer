@@ -4,7 +4,7 @@ import type { CreateTestFileWorker, EnableAutomergeWorker, UpdatePackageJSONWork
 
 import { Box, React, useCallback } from '@betterer/render';
 import { BettererLogo, BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
-import { exposeToWorker__, importWorker__ } from '@betterer/worker';
+import { exposeToWorkerΔ, importWorkerΔ } from '@betterer/worker';
 
 export interface InitProps {
   automerge: boolean;
@@ -18,9 +18,9 @@ export interface InitProps {
 export const Init: FC<InitProps> = function Init({ automerge, cwd, configPath, logo, resultsPath, ts }) {
   const runCreateTestFile = useCallback(
     async (logger: BettererLogger) => {
-      const createTestFile: CreateTestFileWorker = await importWorker__('./create-test-file.worker.js');
+      const createTestFile: CreateTestFileWorker = await importWorkerΔ('./create-test-file.worker.js');
       try {
-        await createTestFile.api.run(exposeToWorker__(logger), cwd, configPath);
+        await createTestFile.api.run(exposeToWorkerΔ(logger), cwd, configPath);
       } finally {
         await createTestFile.destroy();
       }
@@ -29,9 +29,9 @@ export const Init: FC<InitProps> = function Init({ automerge, cwd, configPath, l
   );
   const runUpdatePackageJSON = useCallback(
     async (logger: BettererLogger) => {
-      const updatePackageJSON: UpdatePackageJSONWorker = await importWorker__('./update-package-json.worker.js');
+      const updatePackageJSON: UpdatePackageJSONWorker = await importWorkerΔ('./update-package-json.worker.js');
       try {
-        await updatePackageJSON.api.run(exposeToWorker__(logger), cwd, ts);
+        await updatePackageJSON.api.run(exposeToWorkerΔ(logger), cwd, ts);
       } finally {
         await updatePackageJSON.destroy();
       }
@@ -39,9 +39,9 @@ export const Init: FC<InitProps> = function Init({ automerge, cwd, configPath, l
     [cwd, ts]
   );
   const runEnableAutomerge = useCallback(async (logger: BettererLogger) => {
-    const enableAutomerge: EnableAutomergeWorker = await importWorker__('./enable-automerge.worker.js');
+    const enableAutomerge: EnableAutomergeWorker = await importWorkerΔ('./enable-automerge.worker.js');
     try {
-      await enableAutomerge.api.run(exposeToWorker__(logger), cwd, resultsPath);
+      await enableAutomerge.api.run(exposeToWorkerΔ(logger), cwd, resultsPath);
     } finally {
       await enableAutomerge.destroy();
     }

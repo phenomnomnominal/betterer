@@ -17,11 +17,11 @@ const HOOK_NAMES = Object.getOwnPropertyNames(BettererReporterΩ.prototype) as R
 export async function loadDefaultReporter(): Promise<BettererReporter> {
   const reporterFactory = await importDefault('@betterer/reporter');
   assertDefaultReporter(reporterFactory);
-  return new BettererReporterΩ([reporterFactory.createReporter__()]);
+  return new BettererReporterΩ([reporterFactory.createReporterΔ()]);
 }
 
 function assertDefaultReporter(reporterFactory: unknown): asserts reporterFactory is BettererReporterFactory {
-  if (!(reporterFactory as Partial<BettererReporterFactory>).createReporter__) {
+  if (!(reporterFactory as Partial<BettererReporterFactory>).createReporterΔ) {
     throw new BettererError(`"@betterer/reporter" didn't provider a reporter factory. 😔`);
   }
 }

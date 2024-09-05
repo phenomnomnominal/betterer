@@ -15,3 +15,4 @@ packages/extension/.vscode-test
 betterer.*.log
 .betterer.cache
 .betterer.*.mjs
+.eslintcache

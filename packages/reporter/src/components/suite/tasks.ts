@@ -5,7 +5,7 @@ import type { BettererTask } from '@betterer/tasks';
 import type { BettererReporterRun } from '../../types.js';
 
 import { BettererError } from '@betterer/errors';
-import { log__ } from '@betterer/logger';
+import { logΔ } from '@betterer/logger';
 
 import {
   testBetter,
@@ -61,11 +61,11 @@ export function useTask(run: BettererRun): BettererTask {
       return testSame(name, delta);
     }
     if (runSummary.isUpdated && runSummary.diff) {
-      await log__(runSummary.diff.logs, logger);
+      await logΔ(runSummary.diff.logs, logger);
       return testUpdated(name, delta);
     }
     if (runSummary.isWorse && runSummary.diff) {
-      await log__(runSummary.diff.logs, logger);
+      await logΔ(runSummary.diff.logs, logger);
       throw new BettererError(testWorse(name, delta));
     }
     return;

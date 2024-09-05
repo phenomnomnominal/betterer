@@ -6,7 +6,7 @@ const ARGV = ['node', './bin/betterer', 'upgrade'];
 
 describe('betterer upgrade', () => {
   it(`should doesn't change things it doesn't need to change`, async () => {
-    const { cli__ } = await import('@betterer/cli');
+    const { cliΔ } = await import('@betterer/cli');
 
     const { cleanup, logs, paths } = await createFixture(
       'upgrade-unknown',
@@ -53,7 +53,7 @@ function bar () {
 
     const fixturePath = paths.cwd;
 
-    await cli__(fixturePath, ARGV);
+    await cliΔ(fixturePath, ARGV);
 
     expect(logs).toMatchSnapshot();
 

@@ -18,7 +18,7 @@ import { getVersion } from './version.js';
  *
  * Run the **Betterer** command-line interface.
  */
-export async function cli__(
+export async function cliΔ(
   cwd: string,
   argv: BettererCLIArguments,
   isCI = process.env.CI === 'true',

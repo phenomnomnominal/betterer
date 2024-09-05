@@ -4,10 +4,7 @@
 
 ```ts
 
-import type { BettererFileGlobs } from '@betterer/betterer';
-import type { BettererFilePatterns } from '@betterer/betterer';
-import type { BettererRun } from '@betterer/betterer';
-import { BettererTest } from '@betterer/betterer';
+import type { BettererResolverTest } from '@betterer/betterer';
 
 // @public
 export type BettererCoverageDiff = BettererCoverageIssues;
@@ -19,14 +16,7 @@ export type BettererCoverageIssue = Record<BettererCoverageTypes, number>;
 export type BettererCoverageIssues = Record<string, BettererCoverageIssue>;
 
 // @public
-export class BettererCoverageTest extends BettererTest<BettererCoverageIssues, BettererCoverageIssues, BettererCoverageDiff> {
-    // Warning: (ae-forgotten-export) The symbol "BettererCoverageTestFunction" needs to be exported by the entry point index.d.ts
-    //
-    // @internal
-    constructor(test: BettererCoverageTestFunction, coverageSummaryPath?: string);
-    exclude(...excludePatterns: BettererFilePatterns): this;
-    include(...includePatterns: BettererFileGlobs): this;
-}
+export type BettererCoverageTest = BettererResolverTest<BettererCoverageIssues, BettererCoverageIssues, BettererCoverageDiff>;
 
 // @public
 export type BettererCoverageTypes = 'lines' | 'statements' | 'functions' | 'branches';

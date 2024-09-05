@@ -14,8 +14,8 @@ export type {
   BettererTasksLoggerProps,
   BettererTasksState,
   BettererTasksStatusUpdate
-} from './tasks/public.js';
+} from './tasks/index.js';
 
 export { BettererErrorLog } from './error-log.js';
 export { BettererLogo } from './logo.js';
-export { BettererTaskLogger, BettererTasksLogger } from './tasks/public.js';
+export { BettererTaskLogger, BettererTasksLogger } from './tasks/index.js';

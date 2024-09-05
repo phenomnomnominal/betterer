@@ -1,61 +1,120 @@
 import type { BettererLogs } from '@betterer/logger';
 
 import type {
+  BettererDiffer,
+  BettererPrinter,
+  BettererProgress,
+  BettererSerialiser,
   BettererTestConfig,
-  BettererTestOptions,
-  BettererTestOptionsComplex,
+  BettererTestConstraint,
+  BettererTestFunction,
   BettererTestGoal,
-  BettererDiff
+  BettererTestOptions
 } from './types.js';
 
 import { BettererError } from '@betterer/errors';
-import { diff__ } from '@betterer/logger';
+import { diffΔ } from '@betterer/logger';
 import { format } from 'prettier';
 
 import { isFunction } from '../utils.js';
 
-export function createTestConfig<DeserialisedType, SerialisedType, DiffType>(
-  options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>
-): BettererTestConfig<DeserialisedType, SerialisedType, DiffType> | BettererTestConfig {
-  // The `createTestConfig` function could be called from JS code, without type-checking.
-  // We *could* change the parameter to be `Partial<BettererTestOptions<...>>`,
-  // but that would imply that it was optional, but it isn't.
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- see above!
-  if (options.constraint == null) {
-    throw new BettererError('for a test to work, it must have a `constraint` function. ❌');
-  }
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- see above!
-  if (options.test == null) {
-    throw new BettererError('for a test to work, it must have a `test` function. ❌');
+export class BettererTestConfigΩ<DeserialisedType = number, SerialisedType = DeserialisedType, DiffType = null>
+  implements BettererTestConfig<DeserialisedType, SerialisedType, DiffType>
+{
+  public constraint: BettererTestConstraint<DeserialisedType>;
+  public goal: BettererTestGoal<DeserialisedType>;
+  public deadline: number;
+
+  constructor(private _options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>) {
+    // The `createTestConfig` function could be called from JS code, without type-checking.
+    // We *could* change the parameter to be `Partial<BettererTestOptions<...>>`,
+    // but that would imply that it was optional, but it isn't.
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- see above!
+    if (this._options.constraint == null) {
+      throw new BettererError('for a test to work, it must have a `constraint` function. ❌');
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- see above!
+    if (this._options.test == null) {
+      throw new BettererError('for a test to work, it must have a `test` function. ❌');
+    }
+
+    this.constraint = this._options.constraint;
+    this.deadline = this._createDeadline(this._options);
+    this.goal = this._createGoal(this._options);
   }
 
-  const deadline = createDeadline(options);
-  const goal = createGoal(options);
+  public get differ(): BettererDiffer<DeserialisedType, DiffType> {
+    return this._options.differ ?? (this._defaultDiffer as BettererDiffer<DeserialisedType, DiffType>);
+  }
 
-  if (isComplex(options)) {
+  public get printer(): BettererPrinter<SerialisedType> {
+    return this._options.printer ?? this._defaultPrinter;
+  }
+
+  public get progress(): BettererProgress<DeserialisedType> {
+    return this._options.progress ?? this._defaultProgress;
+  }
+
+  public get serialiser(): BettererSerialiser<DeserialisedType, SerialisedType> {
+    const defaultSerialiser = {
+      deserialise: this._defaultDeserialiser,
+      serialise: this._defaultSerialiser
+    } as BettererSerialiser<DeserialisedType, SerialisedType>;
+    return this._options.serialiser ?? defaultSerialiser;
+  }
+
+  public get test(): BettererTestFunction<DeserialisedType> {
+    return this._options.test;
+  }
+
+  private _createDeadline<DeserialisedType, SerialisedType, DiffType>(
+    options: Pick<BettererTestOptions<DeserialisedType, SerialisedType, DiffType>, 'deadline'>
+  ): number {
+    const { deadline } = options;
+    if (deadline == null) {
+      return Infinity;
+    }
+    const maybeDate = new Date(deadline).getTime();
+    return !isNaN(maybeDate) ? maybeDate : Infinity;
+  }
+
+  private _createGoal<DeserialisedType, SerialisedType, DiffType>(
+    options: Pick<BettererTestOptions<DeserialisedType, SerialisedType, DiffType>, 'goal'>
+  ): BettererTestGoal<DeserialisedType> {
+    const { goal } = options;
+    if (goal == null) {
+      return () => false;
+    }
+    if (isFunction(goal)) {
+      return goal as BettererTestGoal<DeserialisedType>;
+    }
+    return (value: DeserialisedType): boolean => value === goal;
+  }
+
+  private _defaultDiffer = (expected: unknown, result: unknown): unknown => {
+    const diff = diffΔ(expected, result, { aAnnotation: 'Expected', bAnnotation: 'Result' });
+    const logs: BettererLogs = diff ? [{ error: diff }] : [];
     return {
-      configPath: '',
-      printer: defaultPrinter,
-      progress: defaultProgress,
-      ...options,
-      goal,
-      deadline
-    } as BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
-  }
+      diff: null,
+      logs
+    };
+  };
 
-  return {
-    ...options,
-    configPath: '',
-    differ: defaultDiffer,
-    printer: defaultPrinter,
-    progress: defaultProgress,
-    serialiser: {
-      deserialise: defaultDeserialiser,
-      serialise: defaultSerialiser
-    },
-    goal,
-    deadline
-  } as BettererTestConfig;
+  private _defaultPrinter = async (serialised: unknown): Promise<string> => {
+    return await format(JSON.stringify(serialised), { parser: 'json' });
+  };
+
+  private _defaultProgress = (): null => {
+    return null;
+  };
+
+  private _defaultDeserialiser = (serialised: unknown): unknown => {
+    return serialised;
+  };
+
+  private _defaultSerialiser = (deserialised: unknown): unknown => {
+    return deserialised;
+  };
 }
 
 export function createDeadline<DeserialisedType, SerialisedType, DiffType>(
@@ -80,40 +139,4 @@ export function createGoal<DeserialisedType, SerialisedType, DiffType>(
     return goal as BettererTestGoal<DeserialisedType>;
   }
   return (value: DeserialisedType): boolean => value === goal;
-}
-
-type MaybeComplex<DeserialisedType, SerialisedType, DiffType> = Partial<
-  BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType>
->;
-
-function isComplex<DeserialisedType, SerialisedType, DiffType>(
-  options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>
-): options is BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType> {
-  const maybeComplex = options as MaybeComplex<DeserialisedType, SerialisedType, DiffType>;
-  return !!maybeComplex.differ && !!maybeComplex.serialiser;
-}
-
-export function defaultDiffer(expected: unknown, result: unknown): BettererDiff<unknown> {
-  const diff = diff__(expected, result, { aAnnotation: 'Expected', bAnnotation: 'Result' });
-  const logs: BettererLogs = diff ? [{ error: diff }] : [];
-  return {
-    diff: null,
-    logs
-  };
-}
-
-async function defaultPrinter(serialised: unknown): Promise<string> {
-  return await format(JSON.stringify(serialised), { parser: 'json' });
-}
-
-function defaultProgress(): null {
-  return null;
-}
-
-function defaultDeserialiser(serialised: unknown): unknown {
-  return serialised;
-}
-
-function defaultSerialiser(deserialised: unknown): unknown {
-  return deserialised;
 }

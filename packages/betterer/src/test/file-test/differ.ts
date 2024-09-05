@@ -11,7 +11,7 @@ import type {
   BettererFileBase
 } from './types.js';
 
-import { invariant } from '@betterer/errors';
+import { invariantΔ } from '@betterer/errors';
 
 const FORMATTER = Intl.NumberFormat();
 
@@ -45,7 +45,7 @@ export function differ(expected: BettererFileTestResult, result: BettererFileTes
     // Multiple possibilities means that the same content has been moved into multiple new files.
     // So just count the first one as a move, the rest will be new files:
     const [moved] = possibilities;
-    invariant(moved, `\`possibilities.length\` should be at least \`1\`!`, possibilities.length);
+    invariantΔ(moved, `\`possibilities.length\` should be at least \`1\`!`, possibilities.length);
     movedFiles.set(moved, fixedOrMovedFile);
 
     // Remove the moved file from the fixedOrMovedFiles array:
@@ -109,11 +109,11 @@ export function differ(expected: BettererFileTestResult, result: BettererFileTes
       }
       // Start by marking the first possibility as best:
       let best = possibilities.shift();
-      invariant(best, `\`best\` should be set!`, best);
+      invariantΔ(best, `\`best\` should be set!`, best);
 
       // And then search through all the possibilities to find the closest issue:
       possibilities.forEach((possibility) => {
-        invariant(best, `\`possibilities.length\` should be at least \`1\`!`, possibilities.length);
+        invariantΔ(best, `\`possibilities.length\` should be at least \`1\`!`, possibilities.length);
         if (Math.abs(line - possibility.line) >= Math.abs(line - best.line)) {
           return;
         }
@@ -139,7 +139,7 @@ export function differ(expected: BettererFileTestResult, result: BettererFileTes
       const issue = resultFile.issues[resultIssues.indexOf(newIssue)];
       // `newOrMovedIssues` comes from a filter on `resultIssues`,
       // which comes from `[...resultFile.issues]`, so this should always be valid.
-      invariant(issue, `\`issue\` should definitely exist within \`resultFile.issues\`!`, issue, resultFile.issues);
+      invariantΔ(issue, `\`issue\` should definitely exist within \`resultFile.issues\`!`, issue, resultFile.issues);
       return issue;
     });
 
@@ -177,7 +177,7 @@ export function differ(expected: BettererFileTestResult, result: BettererFileTes
       }
 
       const [firstIssue] = newIssues;
-      invariant(firstIssue, `\`nIssues\` should be at least \`1\`!`, nIssues);
+      invariantΔ(firstIssue, `\`nIssues\` should be at least \`1\`!`, nIssues);
       const fileΩ = resultΩ.getFile(filePath) as BettererFileΩ;
       const { fileText } = fileΩ;
       const [line, column, length, message] = firstIssue;

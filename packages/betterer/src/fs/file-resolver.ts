@@ -39,6 +39,10 @@ export class BettererFileResolverΩ implements BettererFileResolver {
     this._versionControl = versionControl;
   }
 
+  public isInitialised(): boolean {
+    return !!this._baseDirectory;
+  }
+
   public async validate(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
     // If `include()` was never called, just filter the given list:
     if (!this._included.length) {
@@ -49,8 +53,19 @@ export class BettererFileResolverΩ implements BettererFileResolver {
     return filePaths.filter((filePath) => this._validatedFilePathsMap[filePath]);
   }
 
+  public included(filePaths: BettererFilePaths): BettererFilePaths {
+    if (!this._included.length) {
+      return filePaths;
+    }
+    return filePaths.filter((filePath) => this._isIncluded(filePath) && !this._isExcluded(filePath));
+  }
+
   public resolve(...pathSegments: Array<string>): string {
     return normalisedPath(path.resolve(this.baseDirectory, ...pathSegments));
+  }
+
+  public relative(to: string): string {
+    return normalisedPath(path.relative(this.baseDirectory, to));
   }
 
   public include(...includePatterns: BettererFileGlobs): this {
@@ -74,17 +89,15 @@ export class BettererFileResolverΩ implements BettererFileResolver {
   private async _update(): Promise<void> {
     this._validatedFilePathsMap = {};
     const filePaths = await this.versionControl.api.getFilePaths();
+    const validatedFilePaths: Array<string> = [];
     filePaths.forEach((filePath) => {
-      this._validatedFilePathsMap[filePath] = this._isIncluded(filePath);
+      const includedAndNotExcluded = this._isIncluded(filePath) && !this._isExcluded(filePath);
+      this._validatedFilePathsMap[filePath] = includedAndNotExcluded;
+      if (includedAndNotExcluded) {
+        validatedFilePaths.push(filePath);
+      }
     });
-    this._validatedFilePaths = Object.entries(this._validatedFilePathsMap)
-      .filter(([filePath, included]) => {
-        const includedAndNotExcluded = included && !this._isExcluded(filePath);
-        this._validatedFilePathsMap[filePath] = includedAndNotExcluded;
-        return includedAndNotExcluded;
-      })
-      .map(([filePath]) => filePath)
-      .sort();
+    this._validatedFilePaths = validatedFilePaths.sort();
   }
 
   private _isIncluded(filePath: string): boolean {

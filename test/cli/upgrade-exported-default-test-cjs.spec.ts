@@ -6,7 +6,7 @@ const ARGV = ['node', './bin/betterer', 'upgrade'];
 
 describe('betterer upgrade', () => {
   it('should upgrade exported default test in a CJS module', async () => {
-    const { cli__ } = await import('@betterer/cli');
+    const { cliΔ } = await import('@betterer/cli');
 
     const { cleanup, logs, paths, readFile } = await createFixture(
       'upgrade-exported-default-test-cjs',
@@ -48,9 +48,9 @@ module.exports = {
 
     process.env.BETTERER_WORKER = 'false';
 
-    await cli__(fixturePath, ARGV);
+    await cliΔ(fixturePath, ARGV);
 
-    await cli__(fixturePath, [...ARGV, '--save']);
+    await cliΔ(fixturePath, [...ARGV, '--save']);
 
     const upgradedConfig = await readFile(paths.config);
 

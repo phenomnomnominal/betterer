@@ -1,4 +1,4 @@
-import { BettererError, isBettererError } from '@betterer/errors';
+import { BettererError } from '@betterer/errors';
 import { Module } from 'module';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';

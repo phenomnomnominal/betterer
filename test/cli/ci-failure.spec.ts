@@ -24,10 +24,10 @@ export default {
 
     const fixturePath = paths.cwd;
 
-    const { cli__ } = await import('@betterer/cli');
+    const { cliΔ } = await import('@betterer/cli');
 
     await expect(async () => {
-      await cli__(fixturePath, [...ARGV, 'ci', '--workers=false']);
+      await cliΔ(fixturePath, [...ARGV, 'ci', '--workers=false']);
     }).rejects.toThrow('Tests failed while running in CI mode. ❌');
 
     expect(logs).toMatchSnapshot();

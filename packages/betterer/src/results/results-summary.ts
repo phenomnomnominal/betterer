@@ -1,11 +1,11 @@
-import type { BettererOptionsResults } from '../api/index.js';
-import type { BettererFileTestResultΩ, BettererTestBase } from '../test/index.js';
+import type { BettererFileTestResultΩ, BettererTest } from '../test/index.js';
 import type { BettererFileTestResultSummaryDetails, BettererResultsSummary, BettererResultSummaries } from './types.js';
 
-import { BettererError, isBettererError } from '@betterer/errors';
+import { BettererError, isBettererErrorΔ } from '@betterer/errors';
 import { BettererFileResolverΩ } from '../fs/index.js';
-import { createGlobals } from '../globals.js';
-import { isBettererFileTest, isBettererTest, loadTestMeta } from '../test/index.js';
+import { getGlobals } from '../globals.js';
+import { BettererTestMetaLoaderΩ, isBettererFileTest, isBettererResolverTest, isBettererTest } from '../test/index.js';
+import { loadTestFactory } from '../run/worker-run.js';
 
 export class BettererResultsSummaryΩ implements BettererResultsSummary {
   public readonly resultSummaries: BettererResultSummaries;
@@ -16,64 +16,72 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
       : resultSummaries;
   }
 
-  public static async create(options: BettererOptionsResults): Promise<BettererResultsSummary> {
-    const { config, results, versionControl } = await createGlobals(options);
+  public static async create(): Promise<BettererResultsSummary> {
+    const { config, results, versionControl } = getGlobals();
 
-    const testMeta = await loadTestMeta(config.configPaths);
+    try {
+      const testMetaLoader = await BettererTestMetaLoaderΩ.create(config);
 
-    let testMetaEntries = Object.entries(testMeta);
-    if (config.filters.length) {
-      testMetaEntries = testMetaEntries.filter(([name]) => config.filters.some((filter) => filter.test(name)));
-    }
+      let testsMeta = await testMetaLoader.getTestsMeta();
+      if (config.filters.length) {
+        testsMeta = testsMeta.filter((testMeta) => config.filters.some((filter) => filter.test(testMeta.name)));
+      }
 
-    const { cwd, includes, excludes, resultsPath } = config;
+      const { cwd, includes, excludes, resultsPath } = config;
 
-    const resolver = new BettererFileResolverΩ(cwd, versionControl);
-    resolver.include(...includes);
-    resolver.exclude(...excludes);
+      const resolver = new BettererFileResolverΩ(cwd, versionControl);
+      resolver.include(...includes);
+      resolver.exclude(...excludes);
 
-    const filePaths = await resolver.files();
+      const filePaths = await resolver.files();
 
-    const onlyFileTests = includes.length > 0 || excludes.length > 0;
+      const onlyFileTests = includes.length > 0 || excludes.length > 0;
 
-    const testStatuses = await Promise.all(
-      testMetaEntries.map(async ([name, testMeta]) => {
-        let test: BettererTestBase | null = null;
-        try {
-          test = await testMeta.factory();
-        } catch (e) {
-          if (isBettererError(e)) {
-            throw e;
+      const testStatuses = await Promise.all(
+        testsMeta.map(async (testMeta) => {
+          const { name } = testMeta;
+          let test: BettererTest | null = null;
+          try {
+            const factory = await loadTestFactory(testMeta);
+            test = await factory();
+          } catch (e) {
+            if (isBettererErrorΔ(e)) {
+              throw e;
+            }
           }
-        }
-        const isTest = isBettererTest(test);
-        const isFileTest = isBettererFileTest(test);
+          const isTest = isBettererTest(test);
+          const isFileTest = isBettererFileTest(test);
+          const isResolverTest = isBettererResolverTest(test);
 
-        if (!test || !(isTest || isFileTest)) {
-          throw new BettererError(`"${name}" must return a \`BettererTest\`.`);
-        }
+          if (!test || !(isTest || isFileTest || isResolverTest)) {
+            throw new BettererError(`"${name}" must return a \`BettererTest\`.`);
+          }
 
-        const [expectedJSON] = results.getExpected(name);
-        const serialised = JSON.parse(expectedJSON) as unknown;
-        const deserialised = test.config.serialiser.deserialise(serialised, resultsPath);
-        if (isFileTest) {
-          const resultΩ = deserialised as BettererFileTestResultΩ;
-          const details = resultΩ.files
-            .filter((file) => !onlyFileTests || filePaths.includes(file.absolutePath))
-            .reduce<BettererFileTestResultSummaryDetails>((summary, file) => {
-              summary[file.absolutePath] = file.issues;
-              return summary;
-            }, {});
-          return { name, isFileTest, details };
-        } else {
-          const details = await test.config.printer(deserialised);
-          return { name, isFileTest, details };
-        }
-      })
-    );
+          const [expectedJSON] = results.getExpected(name);
+          const serialised = JSON.parse(expectedJSON) as unknown;
+          const deserialised = test.config.serialiser.deserialise(serialised, resultsPath);
+          if (isFileTest) {
+            const resultΩ = deserialised as BettererFileTestResultΩ;
+            const details = resultΩ.files
+              .filter((file) => !onlyFileTests || filePaths.includes(file.absolutePath))
+              .reduce<BettererFileTestResultSummaryDetails>((summary, file) => {
+                summary[file.absolutePath] = file.issues;
+                return summary;
+              }, {});
+            return { name, isFileTest, details };
+          } else {
+            const details = await test.config.printer(deserialised);
+            return { name, isFileTest, details };
+          }
+        })
+      );
 
-    const status = new BettererResultsSummaryΩ(testStatuses, onlyFileTests);
-    await versionControl.destroy();
-    return status;
+      return new BettererResultsSummaryΩ(testStatuses, onlyFileTests);
+    } catch (e) {
+      await config.reporter.configError?.(config, e as BettererError);
+      throw e;
+    } finally {
+      await versionControl.destroy();
+    }
   }
 }

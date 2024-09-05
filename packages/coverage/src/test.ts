@@ -1,5 +1,3 @@
-import type { BettererRun } from '@betterer/betterer';
-
 import type {
   BettererCoverageIssue,
   BettererCoverageIssues,
@@ -8,40 +6,41 @@ import type {
   IstanbulFileCoverage
 } from './types.js';
 
-import { BettererError } from '@betterer/errors';
+import type { BettererFileResolver } from '@betterer/betterer';
+import { BettererError, invariantΔ } from '@betterer/errors';
 import { promises as fs } from 'node:fs';
-import minimatch from 'minimatch';
-import path from 'node:path';
-
-import { isNumber, normalisedPath } from './utils.js';
 
 export async function test(
-  run: BettererRun,
   relativeCoverageSummaryPath: string,
-  included: Array<string>,
-  excluded: Array<RegExp>
+  resolver: BettererFileResolver
 ): Promise<BettererCoverageIssues> {
-  const baseDirectory = getTestBaseDirectory(run);
-  const absoluteCoverageSummaryPath = path.resolve(baseDirectory, relativeCoverageSummaryPath);
+  const absoluteCoverageSummaryPath = resolver.resolve(relativeCoverageSummaryPath);
   const summary = await readCoverageSummary(absoluteCoverageSummaryPath);
+
+  const absoluteFilePaths = Object.keys(summary).filter((key) => key !== 'total');
+  let includedAbsoluteFilePaths = resolver.included(absoluteFilePaths);
+
+  // If no files have been included, check everything:
+  if (includedAbsoluteFilePaths.length === 0) {
+    includedAbsoluteFilePaths = absoluteFilePaths;
+  }
+
   const uncovered: BettererCoverageIssues = {};
-  Object.entries(summary)
-    .filter(([key]) => key !== 'total')
-    .filter(([filePath]) => !included.length || included.some((include) => minimatch(filePath, include)))
-    .filter(([filePath]) => !excluded.length || !excluded.some((exclude) => exclude.test(filePath)))
-    .forEach(([filePath, fileCoverage]) => {
-      const relativeFilePath = normalisedPath(path.relative(baseDirectory, filePath));
-      uncovered[relativeFilePath] = getUncoveredIssues(fileCoverage);
-    });
+  includedAbsoluteFilePaths.map((filePath) => {
+    const includedRelativeFilePath = resolver.relative(filePath);
+    const fileCoverage = summary[filePath];
+    invariantΔ(fileCoverage, `\`filePath\` should be a valid key of \`summary\`!`, summary, filePath);
+    uncovered[includedRelativeFilePath] = getUncoveredIssues(fileCoverage);
+  });
+
   return uncovered;
 }
 
 export async function testTotal(
-  run: BettererRun,
-  relativeCoverageSummaryPath: string
+  relativeCoverageSummaryPath: string,
+  resolver: BettererFileResolver
 ): Promise<BettererCoverageIssues> {
-  const baseDirectory = getTestBaseDirectory(run);
-  const absoluteCoverageSummaryPath = path.resolve(baseDirectory, relativeCoverageSummaryPath);
+  const absoluteCoverageSummaryPath = resolver.resolve(relativeCoverageSummaryPath);
   const { total } = await readCoverageSummary(absoluteCoverageSummaryPath);
   return {
     total: getUncoveredIssues(total)
@@ -104,6 +103,10 @@ function isCoverage(data: unknown): data is IstanbulCoverage {
   );
 }
 
+function isNumber(input: unknown): input is number {
+  return typeof input === 'number';
+}
+
 function getUncoveredIssues(fileCoverage: IstanbulFileCoverage): BettererCoverageIssue {
   return {
     lines: fileCoverage.lines.total - fileCoverage.lines.covered,
@@ -112,13 +115,3 @@ function getUncoveredIssues(fileCoverage: IstanbulFileCoverage): BettererCoverag
     branches: fileCoverage.branches.total - fileCoverage.branches.covered
   };
 }
-
-function getTestBaseDirectory(run: BettererRun): string {
-  return path.dirname((run as BettererRunΩ).test.configPath);
-}
-
-type BettererRunΩ = BettererRun & {
-  test: {
-    configPath: string;
-  };
-};

@@ -1,4 +1,6 @@
-import { BettererCoverageTest } from './coverage-test.js';
+import type { BettererCoverageTest } from './types.js';
+
+import { BettererCoverageTestΩ } from './coverage-test.js';
 import { test, testTotal } from './test.js';
 
 /**
@@ -9,7 +11,7 @@ import { test, testTotal } from './test.js';
  * @param coverageSummaryPath - relative path to the coverage summary. Defaults to './coverage/coverage-summary.json'.
  */
 export function coverage(coverageSummaryPath?: string): BettererCoverageTest {
-  return new BettererCoverageTest(test, coverageSummaryPath);
+  return new BettererCoverageTestΩ(test, coverageSummaryPath);
 }
 
 /**
@@ -20,5 +22,5 @@ export function coverage(coverageSummaryPath?: string): BettererCoverageTest {
  * @param coverageSummaryPath - relative path to the coverage summary. Defaults to './coverage/coverage-summary.json'.
  */
 export function coverageTotal(coverageSummaryPath?: string): BettererCoverageTest {
-  return new BettererCoverageTest(testTotal, coverageSummaryPath);
+  return new BettererCoverageTestΩ(testTotal, coverageSummaryPath);
 }

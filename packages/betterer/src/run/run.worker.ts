@@ -1,23 +1,24 @@
-import type { BettererConfig } from '../config/index.js';
+import type { BettererConfig } from '../config/types.js';
 import type { BettererFilePaths, BettererVersionControlWorker } from '../fs/index.js';
 import type { BettererTestMeta } from '../test/index.js';
+import type { BettererRunMeta } from './meta/index.js';
 import type { BettererRunSummary } from './types.js';
 
 import { BettererError } from '@betterer/errors';
-import { exposeToMain__ } from '@betterer/worker';
+import { exposeToMainΔ } from '@betterer/worker';
 
 import { BettererWorkerRunΩ } from './worker-run.js';
 
 const TEST_NAME_RUN: Record<string, BettererWorkerRunΩ> = {};
 
 export async function init(
-  testName: string,
+  testMeta: BettererTestMeta,
   config: BettererConfig,
   versionControl: BettererVersionControlWorker
-): Promise<BettererTestMeta> {
-  const worker = await BettererWorkerRunΩ.create(config, testName, versionControl);
-  TEST_NAME_RUN[testName] = worker;
-  return worker.testMeta;
+): Promise<BettererRunMeta> {
+  const run = await BettererWorkerRunΩ.create(testMeta, config, versionControl);
+  TEST_NAME_RUN[testMeta.name] = run;
+  return run.runMeta;
 }
 
 export function run(
@@ -26,14 +27,14 @@ export function run(
   isSkipped: boolean,
   timestamp: number
 ): Promise<BettererRunSummary> {
-  const worker = TEST_NAME_RUN[testName];
-  if (!worker) {
+  const run = TEST_NAME_RUN[testName];
+  if (!run) {
     throw new BettererError(`Worker has not been initialised for "${testName}". ❌`);
   }
-  return worker.run(filePaths, isSkipped, timestamp);
+  return run.run(filePaths, isSkipped, timestamp);
 }
 
-exposeToMain__({
+exposeToMainΔ({
   init,
   run
 });

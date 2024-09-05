@@ -32,8 +32,9 @@ export interface BettererOptionsModeDefault {
 }
 
 /**
- * @public **Betterer** options for when running in CI mode. When `ci` is `true`, `strict` must also be
- * `true`, and `precommit` and `update` must be false.
+ * @public **Betterer** options for when running in CI mode.
+ *
+ * @remarks When `ci` is `true`, `strict` must also be `true`, and `precommit` and `update` must be false.
  */
 export interface BettererOptionsModeCI {
   ci?: true;
@@ -43,8 +44,9 @@ export interface BettererOptionsModeCI {
 }
 
 /**
- * @public **Betterer** options for when running in precommit mode. When `precommit` is `true`, `strict` must also be
- * `true`, and `ci` and `update` must be false.
+ * @public **Betterer** options for when running in precommit mode.
+ *
+ * @remarks When `precommit` is `true`, `strict` must also be `true`, and `ci` and `update` must be false.
  */
 export interface BettererOptionsModePrecommit {
   ci?: false;
@@ -54,8 +56,9 @@ export interface BettererOptionsModePrecommit {
 }
 
 /**
- * @public **Betterer** options for when running in strict mode. When `strict` is `true`, `ci`,
- * `precommit` and `update` must be false.
+ * @public **Betterer** options for when running in strict mode.
+ *
+ * @remarks When `strict` is `true`, `ci`, `precommit` and `update` must be false.
  */
 export interface BettererOptionsModeStrict {
   ci?: false;
@@ -65,8 +68,9 @@ export interface BettererOptionsModeStrict {
 }
 
 /**
- * @public **Betterer** options for when running in update mode. When `update` is `true`, `ci`,
- * `precommit` and `strict` must be false.
+ * @public **Betterer** options for when running in update mode.
+ *
+ * @remarks When `update` is `true`, `ci`, `precommit` and `strict` must be false.
  */
 export interface BettererOptionsModeUpdate {
   ci?: false;
@@ -76,8 +80,9 @@ export interface BettererOptionsModeUpdate {
 }
 
 /**
- * @public **Betterer** options for when running in watch mode. In watch mode, `ci`,
- * `precommit`, `strict` and `update` must be false.
+ * @public **Betterer** options for when running in watch mode.
+ *
+ * @remarks In watch mode, `ci`, `precommit`, `strict` and `update` must be false.
  */
 export interface BettererOptionsModeWatch {
   ci?: false;

@@ -1,37 +1,45 @@
 import type { BettererConfig } from '../config/index.js';
 import type { BettererFilePaths, BettererVersionControlWorker } from '../fs/index.js';
 import type { BettererResult } from '../results/index.js';
-import type { BettererDiff, BettererTestBase, BettererTestConfig, BettererTestMeta } from '../test/index.js';
-import type { BettererGlobals } from '../types.js';
+import type {
+  BettererDiff,
+  BettererTestConfig,
+  BettererTestMeta,
+  BettererTestFactory,
+  BettererTestMap,
+  BettererTest
+} from '../test/index.js';
+import type { BettererRunMeta } from './meta/index.js';
 import type { BettererRun, BettererRunning, BettererRunSummary } from './types.js';
 
 import { BettererConstraintResult } from '@betterer/constraints';
-import { BettererError, isBettererError } from '@betterer/errors';
+import { BettererError, isBettererErrorΔ } from '@betterer/errors';
 import assert from 'node:assert';
 
-import { forceRelativePaths, parse } from '../fs/index.js';
+import { forceRelativePaths, importDefault, parse } from '../fs/index.js';
 import { BettererResultsΩ, BettererResultΩ } from '../results/index.js';
-import { isBettererFileTest, loadTestMeta, isBettererTest } from '../test/index.js';
+import { isBettererResolverTest, isBettererTest } from '../test/index.js';
 import { BettererRunStatus, BettererRunSummaryΩ } from './run-summary.js';
+import { isFunction } from '../utils.js';
+import { getGlobals, setGlobals } from '../globals.js';
 
 export class BettererWorkerRunΩ implements BettererRun {
-  public readonly config: BettererConfig;
   public readonly isNew: boolean;
   public readonly isSkipped: boolean;
-  public filePaths: BettererFilePaths | null = null;
+  public readonly name: string;
 
   private _baseline: BettererResultΩ | null = null;
   private _expected: BettererResultΩ | null = null;
+  private _filePaths: BettererFilePaths | null = null;
 
   private constructor(
-    public readonly name: string,
-    public readonly globals: BettererGlobals,
+    public readonly test: BettererTestConfig,
     public readonly testMeta: BettererTestMeta,
-    public readonly test: BettererTestConfig
+    public readonly runMeta: BettererRunMeta
   ) {
-    this.config = globals.config;
-    this.isNew = testMeta.isNew;
-    this.isSkipped = testMeta.isSkipped;
+    this.isNew = runMeta.isNew;
+    this.isSkipped = runMeta.isSkipped;
+    this.name = testMeta.name;
   }
 
   public get baseline(): BettererResultΩ {
@@ -44,73 +52,46 @@ export class BettererWorkerRunΩ implements BettererRun {
     return this._expected;
   }
 
+  public get filePaths(): BettererFilePaths | null {
+    return this._filePaths;
+  }
+
   public static async create(
+    testMeta: BettererTestMeta,
     config: BettererConfig,
-    name: string,
     versionControl: BettererVersionControlWorker
   ): Promise<BettererWorkerRunΩ> {
-    const workerConfig = {
-      ...config,
-      workers: 1
-    };
-
+    const { name } = testMeta;
     const expected = await parse(config.resultsPath);
     const results = new BettererResultsΩ(expected);
-    const globals = { config: workerConfig, results, versionControl };
+    setGlobals({ config, results, versionControl });
 
     const isNew = !results.hasResult(name);
 
-    const testFactories = await loadTestMeta(config.configPaths);
-    const testFactoryMeta = testFactories[name];
-    if (!testFactoryMeta) {
-      throw new BettererError(`Could not find test metadata for "${name}". ❌`);
-    }
+    const testFactory = await loadTestFactory(testMeta);
 
-    let test: BettererTestBase | null = null;
+    let test: BettererTest | null = null;
     try {
-      test = await testFactoryMeta.factory();
+      test = await testFactory();
     } catch (e) {
-      if (isBettererError(e)) {
+      if (isBettererErrorΔ(e)) {
         throw e;
       }
     }
 
     const isTest = isBettererTest(test);
-    const isFileTest = isBettererFileTest(test);
+    const isResolverTest = isBettererResolverTest(test);
 
-    if (!test || !(isTest || isFileTest)) {
+    if (!test || !(isTest || isResolverTest)) {
       throw new BettererError(`"${name}" must return a \`BettererTest\`.`);
     }
 
-    test.config.configPath = testFactoryMeta.configPath;
-
-    const baseTestMeta = {
-      name,
-      configPath: testFactoryMeta.configPath,
-      isFileTest,
+    return new BettererWorkerRunΩ(test.config, testMeta, {
+      needsFilePaths: isResolverTest,
+      isNew,
       isOnly: test.isOnly,
       isSkipped: test.isSkipped
-    };
-
-    let testMeta: BettererTestMeta;
-    if (isNew) {
-      testMeta = {
-        ...baseTestMeta,
-        isNew: true,
-        baselineJSON: null,
-        expectedJSON: null
-      };
-    } else {
-      const [baselineJSON, expectedJSON] = results.getExpected(name);
-      testMeta = {
-        ...baseTestMeta,
-        isNew: false,
-        baselineJSON,
-        expectedJSON
-      };
-    }
-
-    return new BettererWorkerRunΩ(name, globals, testMeta, test.config);
+    });
   }
 
   public async run(
@@ -118,14 +99,17 @@ export class BettererWorkerRunΩ implements BettererRun {
     isSkipped: boolean,
     timestamp: number
   ): Promise<BettererRunSummary> {
-    this.filePaths = filePaths;
+    this.setFilePaths(filePaths);
 
-    if (!this.testMeta.isNew) {
-      this._baseline = this._deserialise(this.testMeta.baselineJSON);
-      this._expected = this._deserialise(this.testMeta.expectedJSON);
+    const { config, results, versionControl } = getGlobals();
+
+    if (!this.runMeta.isNew) {
+      const [baselineJSON, expectedJSON] = results.getExpected(this.name);
+      this._baseline = this._deserialise(config.resultsPath, baselineJSON);
+      this._expected = this._deserialise(config.resultsPath, expectedJSON);
     }
 
-    const running = this._run(this.config, timestamp);
+    const running = this._run(config, timestamp, versionControl);
 
     if (isSkipped) {
       return await running.skipped();
@@ -139,10 +123,13 @@ export class BettererWorkerRunΩ implements BettererRun {
     }
   }
 
-  private _deserialise(resultJSON: string): BettererResultΩ | null {
+  public setFilePaths(newFilePaths: BettererFilePaths | null) {
+    this._filePaths = newFilePaths;
+  }
+
+  private _deserialise(resultsPath: string, resultJSON: string): BettererResultΩ | null {
     try {
       const serialised = JSON.parse(resultJSON) as unknown;
-      const { resultsPath } = this.config;
       const { deserialise } = this.test.serialiser;
       return new BettererResultΩ(deserialise(serialised, resultsPath));
     } catch {
@@ -150,7 +137,11 @@ export class BettererWorkerRunΩ implements BettererRun {
     }
   }
 
-  private _run(config: BettererConfig, timestamp: number): BettererRunning {
+  private _run(
+    config: BettererConfig,
+    timestamp: number,
+    versionControl: BettererVersionControlWorker
+  ): BettererRunning {
     const end = async (
       status: BettererRunStatus,
       result: BettererResult | null = null,
@@ -186,11 +177,11 @@ export class BettererWorkerRunΩ implements BettererRun {
         printed = forceRelativePaths(await this.test.printer(toPrintSerialised), config.versionControlPath);
       }
 
-      if (this.testMeta.isFileTest && !ci) {
+      if (this.runMeta.needsFilePaths && !ci) {
         if (isComplete) {
-          await this.globals.versionControl.api.clearCache(this.name);
+          await versionControl.api.clearCache(this.name);
         } else if (isBetter || isSame || isUpdated || this.isNew) {
-          await this.globals.versionControl.api.updateCache(this.name, this.filePaths as Array<string>);
+          await versionControl.api.updateCache(this.name, this.filePaths as Array<string>);
         }
       }
 
@@ -237,5 +228,19 @@ export class BettererWorkerRunΩ implements BettererRun {
         return await end(BettererRunStatus.skipped);
       }
     };
+  }
+}
+
+export async function loadTestFactory(testMeta: BettererTestMeta): Promise<BettererTestFactory> {
+  const { configPath, name } = testMeta;
+  try {
+    const exports = (await importDefault(configPath)) as BettererTestMap;
+    const factory = exports[name];
+    if (!isFunction(factory)) {
+      throw new BettererError(`"${name}" must be a function.`);
+    }
+    return factory;
+  } catch (error) {
+    throw new BettererError(`could not create "${name}" from "${configPath}". 😔`, error as BettererError);
   }
 }

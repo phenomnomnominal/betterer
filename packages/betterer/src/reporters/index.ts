@@ -10,4 +10,4 @@ export type {
 } from './types.js';
 
 export { createReporterConfig, overrideReporterConfig } from './config.js';
-export { loadDefaultReporter, loadSilentReporter, loadReporters } from './loader.js';
+export { loadDefaultReporter, loadReporters, loadSilentReporter } from './loader.js';

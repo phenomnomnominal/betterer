@@ -1,8 +1,8 @@
 import type { BettererLogger } from '@betterer/logger';
 
 import { BettererError } from '@betterer/errors';
-import { diffStrings__ } from '@betterer/logger';
-import { exposeToMain__ } from '@betterer/worker';
+import { diffStringsΔ } from '@betterer/logger';
+import { exposeToMainΔ } from '@betterer/worker';
 import { Extractor, ExtractorConfig } from '@microsoft/api-extractor';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
@@ -65,7 +65,7 @@ export async function run(logger: BettererLogger, packageName: string): Promise<
     return `No Breaking API changes found in "@betterer/${packageName}".`;
   }
 
-  const diff = diffStrings__(packageGolden, packageGenerated, { aAnnotation: 'Golden', bAnnotation: 'Current' });
+  const diff = diffStringsΔ(packageGolden, packageGenerated, { aAnnotation: 'Golden', bAnnotation: 'Current' });
   throw new BettererError(`API changes found in "@betterer/${packageName.toString()}"`, diff);
 }
 
@@ -73,4 +73,4 @@ function checkForBannedTokens(types: string, token: string): boolean {
   return types.includes(token);
 }
 
-exposeToMain__({ getPackages, run });
+exposeToMainΔ({ getPackages, run });

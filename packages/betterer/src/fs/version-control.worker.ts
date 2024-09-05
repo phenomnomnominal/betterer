@@ -1,4 +1,4 @@
-import { exposeToMain__ } from '@betterer/worker';
+import { exposeToMainΔ } from '@betterer/worker';
 import { BettererGitΩ } from './git.js';
 import type { BettererFilePaths } from './types.js';
 
@@ -44,7 +44,7 @@ export function writeCache(): Promise<void> {
   return versionControl.writeCache();
 }
 
-exposeToMain__({
+exposeToMainΔ({
   add,
   filterIgnored,
   getFilePaths,

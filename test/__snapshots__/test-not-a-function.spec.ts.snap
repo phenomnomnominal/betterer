@@ -3,7 +3,7 @@
 exports[`betterer > should throw if a test is not a function 1`] = `
 [
   "
-Error: could not import config from "<project>/fixtures/test-not-a-function/.betterer.js". 😔
+Error: could not create "test" from "<project>/fixtures/test-not-a-function/.betterer.js". 😔
 
 Error: "test" must be a function.
 ",

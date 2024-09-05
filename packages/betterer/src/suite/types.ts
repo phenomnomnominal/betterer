@@ -28,8 +28,8 @@ import type { BettererTestNames } from '../test/index.js';
  */
 export interface BettererSuite {
   /**
-   * An array of file paths that will be tested. The file paths can be specified by the global {@link @betterer/betterer#BettererConfig.includes | `includes` }
-   * and {@link @betterer/betterer#BettererConfig.excludes | `excludes`} properties. Also used by
+   * An array of file paths that will be tested. The file paths can be specified by the global {@link @betterer/betterer#BettererConfigContext.includes | `includes` }
+   * and {@link @betterer/betterer#BettererConfigContext.excludes | `excludes`} properties. Also used by
    * watch mode to target individual files.
    */
   readonly filePaths: BettererFilePaths;

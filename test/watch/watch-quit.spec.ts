@@ -7,7 +7,7 @@ import { createFixture } from '../fixture.js';
 describe('betterer.watch', () => {
   it('should quit when "q" is pressed', async () => {
     const { betterer } = await import('@betterer/betterer');
-    const { getStdIn } = await import('@betterer/render');
+    const { getStdInΔ } = await import('@betterer/render');
 
     const { logs, paths, cleanup, resolve, writeFile } = await createFixture('watch-quit', {
       '.betterer.ts': `
@@ -53,7 +53,7 @@ export default {
     await suiteEndDefer.promise;
 
     // Press "q" to quit watch mode:
-    getStdIn().emit('data', 'q');
+    getStdInΔ().emit('data', 'q');
 
     await contextEndDefer.promise;
 

@@ -12,7 +12,7 @@ import { version } from '../../packages/cli/package.json';
 
 describe('betterer cli', () => {
   it('should initialise betterer in a repo with JS', async () => {
-    const { cli__ } = await import('@betterer/cli');
+    const { cliΔ } = await import('@betterer/cli');
 
     const { cleanup, logs, paths, readFile, resolve } = await createFixture(
       'init-js',
@@ -36,14 +36,15 @@ describe('betterer cli', () => {
 
     process.env.BETTERER_WORKER = 'false';
 
-    await cli__(fixturePath, [...ARGV, 'init', '--config', configPath]);
+    await cliΔ(fixturePath, [...ARGV, 'init', '--config', configPath]);
 
     const packageJSON = JSON.parse(await readFile(packageJSONPath)) as BettererPackageJSON;
 
-    expect(packageJSON.scripts?.betterer).toEqual('betterer');
+    /* eslint-disable @typescript-eslint/dot-notation -- prefer computed key */
+    expect(packageJSON.scripts?.['betterer']).toEqual('betterer');
     expect(packageJSON.devDependencies?.['@betterer/cli']).toEqual(`^${version}`);
-    // eslint-disable-next-line @typescript-eslint/dot-notation -- prefer computed key
     expect(packageJSON.devDependencies?.['typescript']).not.toBeDefined();
+    /* eslint-enable @typescript-eslint/dot-notation */
 
     const config = await readFile(configPath);
 

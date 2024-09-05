@@ -10,7 +10,9 @@ import { useTasksState, BettererTasksContext } from './useTasksState.js';
 import { useTimer } from './useTimer.js';
 
 /**
- * @public `props` type for {@link BettererTasksLogger | `<BettererTasksLogger/>`}.
+ * @internal This could change at any point! Please don't use!
+ *
+ * `props` type for {@link BettererTasksLogger | `<BettererTasksLogger/>`}.
  */
 export interface BettererTasksLoggerProps {
   /**
@@ -44,7 +46,9 @@ export interface BettererTasksLoggerProps {
 }
 
 /**
- * @public Ink component for rendering the output of a set of {@link BettererTask | `BettererTask`s}.
+ * @internal This could change at any point! Please don't use!
+ *
+ * Ink component for rendering the output of a set of {@link BettererTask | `BettererTask`s}.
  * The output will update based on the current status of the tasks.
  */
 export const BettererTasksLogger: FC<BettererTasksLoggerProps> = memo(function BettererTasksLogger(props) {

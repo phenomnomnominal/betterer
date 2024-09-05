@@ -5,7 +5,7 @@ import type { UpgradeConfigFileWorker } from './types.js';
 
 import { React, Box, useCallback } from '@betterer/render';
 import { BettererLogo, BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
-import { exposeToWorker__, importWorker__ } from '@betterer/worker';
+import { exposeToWorkerΔ, importWorkerΔ } from '@betterer/worker';
 import path from 'node:path';
 
 export interface UpgradeProps {
@@ -23,11 +23,9 @@ export const Upgrade: FC<UpgradeProps> = function Upgrade({ configPaths, cwd, lo
         {configPaths.map((configPath) => {
           const runUpgradeConfigFile = useCallback(
             async (logger: BettererLogger) => {
-              const upgradeConfigFile: UpgradeConfigFileWorker = await importWorker__(
-                './upgrade-config-file.worker.js'
-              );
+              const upgradeConfigFile: UpgradeConfigFileWorker = await importWorkerΔ('./upgrade-config-file.worker.js');
               try {
-                await upgradeConfigFile.api.run(exposeToWorker__(logger), path.resolve(cwd, configPath), save);
+                await upgradeConfigFile.api.run(exposeToWorkerΔ(logger), path.resolve(cwd, configPath), save);
               } finally {
                 await upgradeConfigFile.destroy();
               }

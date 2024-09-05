@@ -54,15 +54,15 @@ export type BettererLogMessage = (...messages: BettererLoggerMessages) => Promis
 export type BettererLogs = Array<BettererLog>;
 
 // @internal
-export function code__(codeInfo: BettererLoggerCodeInfo): string;
+export function codeΔ(codeInfo: BettererLoggerCodeInfo): string;
 
 // @internal
-export function diff__<T>(a: T, b: T, diffOptions: DiffOptions): string | null;
+export function diffStringsΔ(a: string, b: string, diffOptions: DiffOptions): string;
 
 // @internal
-export function diffStrings__(a: string, b: string, diffOptions: DiffOptions): string;
+export function diffΔ<T>(a: T, b: T, diffOptions: DiffOptions): string | null;
 
 // @internal
-export function log__(logs: BettererLogs, logger: BettererLogger): Promise<void>;
+export function logΔ(logs: BettererLogs, logger: BettererLogger): Promise<void>;
 
 ```
