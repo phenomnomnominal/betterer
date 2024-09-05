@@ -8,7 +8,7 @@ import type {
   BettererTestCacheMapSerialised
 } from './types.js';
 
-import { invariant } from '@betterer/errors';
+import { invariantΔ } from '@betterer/errors';
 import path from 'node:path';
 import { normalisedPath } from '../utils.js';
 import { read } from './reader.js';
@@ -76,7 +76,7 @@ export class BettererFileCacheΩ implements BettererFileCache {
     [...this._memoryCacheMap.entries()].forEach(([testName, absoluteFileHashMap]) => {
       const relativeFileHashMap: BettererFileHashMapSerialised = {};
       [...absoluteFileHashMap.entries()].forEach(([absoluteFilePath, hash]) => {
-        invariant(this._cachePath, `\`this._cachePath\` should have been validated above!`, this._cachePath);
+        invariantΔ(this._cachePath, `\`this._cachePath\` should have been validated above!`, this._cachePath);
         const relativePath = normalisedPath(path.relative(path.dirname(this._cachePath), absoluteFilePath));
         relativeFileHashMap[relativePath] = hash;
       });
@@ -116,7 +116,7 @@ export class BettererFileCacheΩ implements BettererFileCache {
       this._memoryCacheMap.set(testName, new Map());
     }
     const testCache = this._memoryCacheMap.get(testName);
-    invariant(testCache, '`testCache` entry should have been validated above!', testCache);
+    invariantΔ(testCache, '`testCache` entry should have been validated above!', testCache);
     const existingFilePaths = [...testCache.keys()];
 
     const cacheFilePaths = Array.from(new Set([...existingFilePaths, ...filePaths])).sort();
@@ -170,7 +170,7 @@ export class BettererFileCacheΩ implements BettererFileCache {
     Object.entries(parsed.testCache).forEach(([testName, serialisedEntries]) => {
       const absoluteFileHashMap: BettererFileHashMap = new Map();
       Object.entries(serialisedEntries).forEach(([relativePath, hash]) => {
-        invariant(this._cachePath, `\`this._cachePath\` should have been validated above!`, this._cachePath);
+        invariantΔ(this._cachePath, `\`this._cachePath\` should have been validated above!`, this._cachePath);
         const absolutePath = normalisedPath(path.resolve(path.dirname(this._cachePath), relativePath));
         absoluteFileHashMap.set(absolutePath, hash);
       });

@@ -1,6 +1,5 @@
 import type { BettererConstraintResult } from '@betterer/constraints';
 import type { BettererLogs } from '@betterer/logger';
-import type { BettererWorkerAPI } from '@betterer/worker';
 
 import type { BettererDelta, BettererRun } from '../run/index.js';
 import type { MaybeAsync } from '../types.js';
@@ -152,45 +151,34 @@ export interface BettererSerialiser<DeserialisedType, SerialisedType = Deseriali
 }
 
 /**
- * @public The least complex version of a {@link @betterer/betterer#BettererTest | `BettererTest` }
+ * @public Options for creating a {@link @betterer/betterer#BettererTest | `BettererTest`}.
+ *
+ * @remarks The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererTestConfig | `BettererTestConfig`}.
+ * There is a lot of power (and therefore complexity) in this options object.
+ *
+ * The default version of a {@link @betterer/betterer#BettererTest | `BettererTest` }
  * operates on simple numbers and can be defined with just a few properties.
- */
-export interface BettererTestOptionsBasic {
-  /**
-   * The constraint function for the test.
-   */
-  constraint: BettererTestConstraint<number>;
-  /**
-   * The function that runs the actual test.
-   */
-  test: BettererTestFunction<number>;
-  /**
-   * The goal function or goal value for the test.
-   */
-  goal?: number | BettererTestGoal<number>;
-  /**
-   * The deadline for the test.
-   */
-  deadline?: BettererTestDeadline;
-}
-
-/**
- * @public For a more complex version of a {@link @betterer/betterer#BettererTest | `BettererTest`} that
+ *
+ * For a more complex version of a {@link @betterer/betterer#BettererTest | `BettererTest`} that
  * operates on more complex objects, you need to define more complex behaviour.
+ *
+ * @typeParam DeserialisedType - The deserialised result type of a test.
+ * @typeParam SerialisedType - The serialised type of a test result.
+ * @typeParam DiffType - The diff between two results.
  */
-export interface BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType> {
+export interface BettererTestOptions<DeserialisedType, SerialisedType, DiffType> {
   /**
    * The constraint function for the test.
    */
   constraint: BettererTestConstraint<DeserialisedType>;
   /**
-   * The function that runs the actual test.
+   * A hook to perform any configuration before running the test.
    */
   test: BettererTestFunction<DeserialisedType>;
   /**
    * The function that compares two test results.
    */
-  differ: BettererDiffer<DeserialisedType, DiffType>;
+  differ?: BettererDiffer<DeserialisedType, DiffType>;
   /**
    * The function that converts a serialised test result to the string that will be saved in the [test results file](./results-file)
    */
@@ -202,93 +190,53 @@ export interface BettererTestOptionsComplex<DeserialisedType, SerialisedType, Di
   /**
    * The functions that serialises and deserialises a test result between the [`DeserialisedType`](#deserialisedtype-default-unknown) and [`SerialisedType`](#serialisedtype-default-deserialisedtype).
    */
-  serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
+  serialiser?: BettererSerialiser<DeserialisedType, SerialisedType>;
   /**
    * The goal function or goal value for the test.
    */
   goal: DeserialisedType | BettererTestGoal<DeserialisedType>;
   /**
    * The deadline for the test.
+   *
+   * @remarks Will be transformed into a UNIX timestamp.
    */
   deadline?: BettererTestDeadline;
 }
 
 /**
- * @public Options for creating a {@link @betterer/betterer#BettererTest | `BettererTest`}.
- *
- * @remarks The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererTestConfig | `BettererTestConfig`}.
- * There is a lot of power (and therefore complexity) in this options object.
- *
- * @typeParam DeserialisedType - The deserialised result type of a test.
- * @typeParam SerialisedType - The serialised type of a test result.
- * @typeParam DiffType - The diff between two results.
- */
-export type BettererTestOptions<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> =
-  | BettererTestOptionsBasic
-  | BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType>;
-
-/**
  * @public The validated configuration for a {@link @betterer/betterer#BettererTest | `BettererTest`}.
  */
 export interface BettererTestConfig<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> {
-  configPath: string;
-  constraint: BettererTestConstraint<DeserialisedType>;
-  deadline: number;
-  goal: BettererTestGoal<DeserialisedType>;
-  test: BettererTestFunction<DeserialisedType>;
-  differ: BettererDiffer<DeserialisedType, DiffType>;
-  printer: BettererPrinter<SerialisedType>;
-  progress: BettererProgress<DeserialisedType>;
-  serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
+  /**
+   * The constraint function for the test.
+   */
+  readonly constraint: BettererTestConstraint<DeserialisedType>;
+  /**
+   * The deadline for the test, as a UNIX timestamp.
+   */
+  readonly deadline: number;
+  /**
+   * The goal function for the test.
+   */
+  readonly goal: BettererTestGoal<DeserialisedType>;
+  /**
+   * The function that runs the actual test.
+   */
+  readonly test: BettererTestFunction<DeserialisedType>;
+  /**
+   * The function that compares two test results.
+   */
+  readonly differ: BettererDiffer<DeserialisedType, DiffType>;
+  /**
+   * The function that converts a serialised test result to the string that will be saved in the [test results file](./results-file)
+   */
+  readonly printer: BettererPrinter<SerialisedType>;
+  /**
+   * The function that converts a test result to a numeric value that represents the progress towards the goal.
+   */
+  readonly progress: BettererProgress<DeserialisedType>;
+  /**
+   * The functions that serialises and deserialises a test result between the [`DeserialisedType`](#deserialisedtype-default-unknown) and [`SerialisedType`](#serialisedtype-default-deserialisedtype).
+   */
+  readonly serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
 }
-
-/**
- * @internal This could change at any point! Please don't use!
- *
- * The base interface for a {@link @betterer/betterer#BettererTest | `BettererTest`}.
- */
-export interface BettererTestBase<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> {
-  config: BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
-  isOnly: boolean;
-  isSkipped: boolean;
-  constraint(constraintOverride: BettererTestConstraint<DeserialisedType>): this;
-  goal(goalOverride: BettererTestGoal<DeserialisedType>): this;
-  only(): this;
-  skip(): this;
-}
-
-export type BettererTestFactory = () => MaybeAsync<BettererTestBase>;
-
-export interface BettererTestFactoryMeta {
-  readonly configPath: string;
-  readonly factory: BettererTestFactory;
-  readonly name: string;
-}
-export type BettererTestFactoryMetaMap = Record<string, BettererTestFactoryMeta>;
-export type BettererTestMap = Record<string, BettererTestFactory>;
-
-export type BettererTestMeta = {
-  readonly configPath: string;
-  readonly name: string;
-  readonly isFileTest: boolean;
-  readonly isOnly: boolean;
-  readonly isSkipped: boolean;
-} & (
-  | {
-      readonly isNew: true;
-      readonly baselineJSON: null;
-      readonly expectedJSON: null;
-    }
-  | {
-      readonly isNew: false;
-      readonly baselineJSON: string;
-      readonly expectedJSON: string;
-    }
-);
-
-/**
- * @public An array of test names.
- */
-export type BettererTestNames = ReadonlyArray<string>;
-
-export type BettererTestLoaderWorker = BettererWorkerAPI<typeof import('./loader.worker.js')>;

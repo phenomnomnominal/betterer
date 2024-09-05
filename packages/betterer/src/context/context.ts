@@ -7,10 +7,7 @@ import type { BettererReporterΩ } from '../reporters/index.js';
 import type { BettererResultsΩ } from '../results/index.js';
 import type { BettererRunWorkerPool } from '../run/index.js';
 import type { BettererSuiteSummaries, BettererSuiteSummary } from '../suite/index.js';
-import type { BettererTestLoaderWorker } from '../test/index.js';
 import type { BettererContext, BettererContextStarted, BettererContextSummary } from './types.js';
-
-import { importWorker__ } from '@betterer/worker';
 
 import { overrideContextConfig } from '../context/index.js';
 import { BettererFileResolverΩ, parse, write } from '../fs/index.js';
@@ -18,6 +15,7 @@ import { overrideReporterConfig } from '../reporters/index.js';
 import { BettererRunΩ, createRunWorkerPool } from '../run/index.js';
 import { overrideWatchConfig } from '../runner/index.js';
 import { BettererSuiteΩ } from '../suite/index.js';
+import { BettererTestMetaLoaderΩ } from '../test/index.js';
 import { defer } from '../utils.js';
 import { BettererContextSummaryΩ } from './context-summary.js';
 
@@ -31,12 +29,11 @@ export class BettererContextΩ implements BettererContext {
     public readonly config: BettererConfig,
     private readonly _results: BettererResultsΩ,
     private readonly _runWorkerPool: BettererRunWorkerPool,
-    private readonly _testMetaLoader: BettererTestLoaderWorker,
+    private readonly _testMetaLoader: BettererTestMetaLoaderΩ,
     private readonly _versionControl: BettererVersionControlWorker,
     private readonly _watcher: FSWatcher | null
   ) {
     this._reporter = this.config.reporter as BettererReporterΩ;
-
     this._started = this._start();
   }
 
@@ -50,8 +47,8 @@ export class BettererContextΩ implements BettererContext {
     versionControl: BettererVersionControlWorker,
     watcher: FSWatcher | null
   ): Promise<BettererContextΩ> {
-    const runWorkerPool = await createRunWorkerPool(config.workers);
-    const testMetaLoader: BettererTestLoaderWorker = await importWorker__('../test/loader.worker.js');
+    const runWorkerPool = createRunWorkerPool(config.workers);
+    const testMetaLoader = await BettererTestMetaLoaderΩ.create(config);
     return new BettererContextΩ(config, results, runWorkerPool, testMetaLoader, versionControl, watcher);
   }
 
@@ -111,12 +108,10 @@ export class BettererContextΩ implements BettererContext {
         filePaths = [];
       }
 
-      // Load test names in a worker so the import cache is always clean:
-      const testNames = await this._testMetaLoader.api.loadTestNames(this.config.configPaths);
-
+      const testsMeta = await this._testMetaLoader.getTestsMeta();
       const runs = await Promise.all(
-        testNames.map(async (testName) => {
-          return await BettererRunΩ.create(this._runWorkerPool, testName, this.config, filePaths, this._versionControl);
+        testsMeta.map(async (testMeta) => {
+          return await BettererRunΩ.create(this._runWorkerPool, testMeta, filePaths);
         })
       );
 
@@ -172,10 +167,10 @@ export class BettererContextΩ implements BettererContext {
     if (this._isDestroyed) {
       return;
     }
-    this._isDestroyed = true;
     await this._testMetaLoader.destroy();
     await this._versionControl.destroy();
     await this._runWorkerPool.destroy();
+    this._isDestroyed = true;
   }
 
   private _start(): BettererContextStarted {

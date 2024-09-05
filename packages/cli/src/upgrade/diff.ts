@@ -1,4 +1,4 @@
-import { diffStrings__ } from '@betterer/logger';
+import { diffStringsΔ } from '@betterer/logger';
 import chalk from 'chalk';
 
 const DIFF_OPTIONS = {
@@ -12,5 +12,5 @@ const DIFF_OPTIONS = {
 };
 
 export function diff(before: string, after: string): string {
-  return diffStrings__(before, after, DIFF_OPTIONS);
+  return diffStringsΔ(before, after, DIFF_OPTIONS);
 }

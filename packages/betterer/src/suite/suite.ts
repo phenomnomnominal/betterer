@@ -4,13 +4,7 @@ import type { BettererConfig } from '../config/index.js';
 import type { BettererFilePaths } from '../fs/index.js';
 import type { BettererReporterΩ } from '../reporters/index.js';
 import type { BettererResultsΩ } from '../results/index.js';
-import type {
-  BettererReporterRun,
-  BettererRunSummary,
-  BettererRunΩ,
-  BettererRuns,
-  BettererRunsΩ
-} from '../run/index.js';
+import type { BettererReporterRun, BettererRunSummary, BettererRunΩ, BettererRuns } from '../run/index.js';
 import type { BettererSuite } from './types.js';
 
 import assert from 'node:assert';
@@ -34,9 +28,10 @@ export class BettererSuiteΩ implements BettererSuite {
   }
 
   public async run(isRunOnce = false): Promise<BettererSuiteSummaryΩ> {
-    const runsΩ = this.runs as BettererRunsΩ;
-
-    const hasOnly = !!runsΩ.find((run) => run.testMeta.isOnly);
+    const hasOnly = !!this.runs.find((run) => {
+      const runΩ = run as BettererRunΩ;
+      return runΩ.isOnly;
+    });
     const { filters } = this._config;
 
     const runSummaries = await Promise.all(
@@ -76,8 +71,8 @@ export class BettererSuiteΩ implements BettererSuite {
           }
         }, false);
 
-        const isOtherTestOnly = hasOnly && !runΩ.testMeta.isOnly;
-        const isSkipped = (hasFilters && !isSelected) || isOtherTestOnly || runΩ.testMeta.isSkipped;
+        const isOtherTestOnly = hasOnly && !runΩ.isOnly;
+        const isSkipped = (hasFilters && !isSelected) || isOtherTestOnly || runΩ.isSkipped;
 
         // Don't await here! A custom reporter could be awaiting
         // the lifecycle promise which is unresolved right now!

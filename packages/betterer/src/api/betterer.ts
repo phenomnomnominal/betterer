@@ -30,9 +30,3 @@ betterer.merge = merge;
 betterer.results = results;
 betterer.runner = runner;
 betterer.watch = watch;
-
-/**
- * @public Public API for **Betterer**. The types are a bit funky, but it's nice to
- * have the base `betterer()` function with the more specific functions attached.
- */
-export type BettererAPI = typeof betterer;

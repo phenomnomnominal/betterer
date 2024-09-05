@@ -8,36 +8,36 @@ import type { BettererError } from '@betterer/errors';
 import type { BettererLogger } from '@betterer/logger';
 import type { FC } from '@betterer/render';
 
-// @public
+// @internal
 export const BettererErrorLog: FC<BettererErrorLogProps>;
 
-// @public
+// @internal
 export interface BettererErrorLogProps {
     error: Error | BettererError;
 }
 
-// @public
+// @internal
 export const BettererLogo: FC;
 
-// @public
+// @internal
 export type BettererTask = (logger: BettererLogger) => Promise<string | void>;
 
-// @public
+// @internal
 export const BettererTaskLogger: FC<BettererTaskLoggerProps>;
 
-// @public
+// @internal
 export interface BettererTaskLoggerProps {
     name: string;
     task: BettererTask;
 }
 
-// @public
+// @internal
 export type BettererTasksDone = () => void;
 
-// @public
+// @internal
 export const BettererTasksLogger: FC<BettererTasksLoggerProps>;
 
-// @public
+// @internal
 export interface BettererTasksLoggerProps {
     done?: BettererTasksDone;
     exit?: boolean;
@@ -46,21 +46,16 @@ export interface BettererTasksLoggerProps {
     update?: BettererTasksStatusUpdate;
 }
 
-// @public
+// @internal
 export interface BettererTasksState {
-    // (undocumented)
     done: number;
-    // (undocumented)
     endTime: number | null;
-    // (undocumented)
     errors: number;
-    // (undocumented)
     running: number;
-    // (undocumented)
     startTime: number;
 }
 
-// @public
+// @internal
 export type BettererTasksStatusUpdate = (state: BettererTasksState) => string;
 
 ```

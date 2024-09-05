@@ -36,13 +36,13 @@ export default {
 
     const fixturePath = paths.cwd;
 
-    const { cli__ } = await import('@betterer/cli');
+    const { cliΔ } = await import('@betterer/cli');
 
-    await cli__(fixturePath, [...ARGV, 'start', '--workers=false'], false);
+    await cliΔ(fixturePath, [...ARGV, 'start', '--workers=false'], false);
 
-    await cli__(fixturePath, [...ARGV, 'start', '--workers=false', '--filter', '1'], false);
+    await cliΔ(fixturePath, [...ARGV, 'start', '--workers=false', '--filter', '1'], false);
 
-    await cli__(fixturePath, [...ARGV, 'start', '--workers=false', '--filter', '1', '--filter', '3'], false);
+    await cliΔ(fixturePath, [...ARGV, 'start', '--workers=false', '--filter', '1', '--filter', '3'], false);
 
     expect(logs).toMatchSnapshot();
 

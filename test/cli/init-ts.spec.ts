@@ -10,7 +10,7 @@ import { version } from '@betterer/cli/package.json';
 
 describe('betterer cli', () => {
   it('should initialise betterer in a repo with TS', async () => {
-    const { cli__ } = await import('@betterer/cli');
+    const { cliΔ } = await import('@betterer/cli');
 
     const { cleanup, logs, paths, readFile, resolve } = await createFixture(
       'init-ts',
@@ -32,7 +32,7 @@ describe('betterer cli', () => {
 
     process.env.BETTERER_WORKER = 'false';
 
-    await cli__(fixturePath, [...ARGV, 'init', '--config', paths.config]);
+    await cliΔ(fixturePath, [...ARGV, 'init', '--config', paths.config]);
 
     const packageJSON = JSON.parse(await readFile(packageJSONPath)) as BettererPackageJSON;
 

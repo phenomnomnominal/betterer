@@ -15,6 +15,6 @@ export type {
   BettererLoggerMessages
 } from './types.js';
 
-export { code__ } from './code.js';
-export { diff__, diffStrings__ } from './diff.js';
-export { log__ } from './log.js';
+export { codeΔ } from './code.js';
+export { diffΔ, diffStringsΔ } from './diff.js';
+export { logΔ } from './log.js';

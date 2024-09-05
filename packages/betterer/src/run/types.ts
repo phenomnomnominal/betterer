@@ -4,11 +4,10 @@ import type { BettererWorkerAPI, BettererWorkerHandle, BettererWorkerPool } from
 import type { BettererFilePaths } from '../fs/index.js';
 import type { BettererResult } from '../results/index.js';
 import type { BettererDiff } from '../test/index.js';
-import type { Defer } from '../utils.js';
 
 /**
  * @public The change between a test runs and its baseline. A {@link @betterer/betterer#BettererRun | `BettererRun`}
- * has a `delta` property if the test has a {@link @betterer/betterer#BettererTestOptionsComplex.progress | `progress()` }
+ * has a `delta` property if the test has a {@link @betterer/betterer#BettererTestConfig.progress | `progress()` }
  * handler.
  */
 export type BettererDelta =
@@ -84,16 +83,11 @@ export interface BettererRun {
   readonly expected: BettererResult | null;
   /**
    * An array of file paths that will be tested. Will be `null` if the test is not a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`}.
-   * If it is an empty array then all relevant files for the test (as defined by {@link @betterer/betterer#BettererFileTest.include | `BettererFileTest.include()`}
-   * and {@link @betterer/betterer#BettererFileTest.exclude | `BettererFileTest.exclude()`}) will
+   * If it is an empty array then all relevant files for the test (as defined by {@link @betterer/betterer#BettererResolverTest.include | `BettererResolverTest.include()`}
+   * and {@link @betterer/betterer#BettererResolverTest.exclude | `BettererResolverTest.exclude()`}) will
    * be tested.
    */
   readonly filePaths: BettererFilePaths | null;
-  /**
-   * The name of the test for the run.
-   */
-  readonly name: string;
-
   /**
    * When `true`, this is the first time that a test has been run. Both `baseline` and `expected`
    * will be set to `null`. The default reporter will show that this test is new.
@@ -104,6 +98,10 @@ export interface BettererRun {
    * reporter will show that this test has been skipped.
    */
   readonly isSkipped: boolean;
+  /**
+   * The name of the test for the run.
+   */
+  readonly name: string;
 }
 
 /**

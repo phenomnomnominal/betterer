@@ -132,8 +132,6 @@ export interface BettererFileDiff {
     new?: BettererFileIssuesSerialised;
 }
 
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: No member was found with name "cwd"
-//
 // @public
 export type BettererFileGlobs = ReadonlyArray<string | ReadonlyArray<string>>;
 
@@ -167,6 +165,8 @@ export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>
 // @public
 export interface BettererFileResolver {
     readonly baseDirectory: string;
+    included(filePaths: BettererFilePaths): BettererFilePaths;
+    relative(to: string): string;
     resolve(...pathSegments: Array<string>): string;
     validate(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
 }
@@ -174,22 +174,9 @@ export interface BettererFileResolver {
 // @public
 export type BettererFilesDiff = Record<string, BettererFileDiff>;
 
-// Warning: (ae-forgotten-export) The symbol "BettererFileTestBase" needs to be exported by the entry point index.d.ts
-//
 // @public
-export class BettererFileTest implements BettererFileTestBase {
+export class BettererFileTest extends BettererResolverTest<BettererFileTestResult, BettererFileTestResultSerialised, BettererFilesDiff> {
     constructor(fileTest: BettererFileTestFunction);
-    // Warning: (ae-forgotten-export) The symbol "BettererFileTestConfig" needs to be exported by the entry point index.d.ts
-    readonly config: BettererFileTestConfig;
-    constraint(constraintOverride: BettererTestConstraint<BettererFileTestResult>): this;
-    deadline(deadlineOverride: BettererTestDeadline): this;
-    exclude(...excludePatterns: BettererFilePatterns): this;
-    goal(goalOverride: BettererTestGoal<BettererFileTestResult>): this;
-    include(...includePatterns: BettererFileGlobs): this;
-    get isOnly(): boolean;
-    get isSkipped(): boolean;
-    only(): this;
-    skip(): this;
 }
 
 // @public
@@ -387,8 +374,6 @@ export type BettererPrinter<SerialisedType> = (serialised: SerialisedType) => Ma
 // @public
 export type BettererProgress<DeserialisedType> = (baseline: DeserialisedType | null, result: DeserialisedType | null) => MaybeAsync<BettererDelta | null>;
 
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: A declaration for "betterer" was not found that matches the TSDoc selector "function"
-//
 // @public
 export interface BettererReporter {
     configError?(config: unknown, error: BettererError): Promise<void> | void;
@@ -404,8 +389,15 @@ export interface BettererReporter {
 }
 
 // @public
+export class BettererResolverTest<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> extends BettererTest<DeserialisedType, SerialisedType, DiffType> {
+    constructor(options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>);
+    exclude(...excludePatterns: BettererFilePatterns): this;
+    include(...includePatterns: BettererFileGlobs): this;
+    get resolver(): BettererFileResolver;
+}
+
+// @public
 export interface BettererResult {
-    // (undocumented)
     value: unknown;
 }
 
@@ -473,8 +465,6 @@ export interface BettererSerialiser<DeserialisedType, SerialisedType = Deseriali
 
 // @public
 export interface BettererSuite {
-    // Warning: (ae-unresolved-link) The @link reference could not be resolved: No member was found with name "includes"
-    // Warning: (ae-unresolved-link) The @link reference could not be resolved: No member was found with name "excludes"
     readonly filePaths: BettererFilePaths;
     readonly runs: BettererRuns;
 }
@@ -498,12 +488,11 @@ export interface BettererSuiteSummary extends BettererSuite {
     readonly worse: BettererRunSummaries;
 }
 
-// Warning: (ae-incompatible-release-tags) The symbol "BettererTest" is marked as @public, but its signature references "BettererTestBase" which is marked as @internal
-//
 // @public
-export class BettererTest<DeserialisedType, SerialisedType = DeserialisedType, DiffType = null> implements BettererTestBase<DeserialisedType, SerialisedType, DiffType> {
+export class BettererTest<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> {
     constructor(options: BettererTestOptions<DeserialisedType, SerialisedType, DiffType>);
-    readonly config: BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
+    // Warning: (ae-forgotten-export) The symbol "BettererTestConfigΩ" needs to be exported by the entry point index.d.ts
+    readonly config: BettererTestConfigΩ<DeserialisedType, SerialisedType, DiffType>;
     constraint(constraintOverride: BettererTestConstraint<DeserialisedType>): this;
     deadline(deadlineOverride: BettererTestDeadline): this;
     goal(goalOverride: BettererTestGoal<DeserialisedType>): this;
@@ -513,44 +502,16 @@ export class BettererTest<DeserialisedType, SerialisedType = DeserialisedType, D
     skip(): this;
 }
 
-// @internal
-export interface BettererTestBase<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> {
-    // (undocumented)
-    config: BettererTestConfig<DeserialisedType, SerialisedType, DiffType>;
-    // (undocumented)
-    constraint(constraintOverride: BettererTestConstraint<DeserialisedType>): this;
-    // (undocumented)
-    goal(goalOverride: BettererTestGoal<DeserialisedType>): this;
-    // (undocumented)
-    isOnly: boolean;
-    // (undocumented)
-    isSkipped: boolean;
-    // (undocumented)
-    only(): this;
-    // (undocumented)
-    skip(): this;
-}
-
 // @public
 export interface BettererTestConfig<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> {
-    // (undocumented)
-    configPath: string;
-    // (undocumented)
-    constraint: BettererTestConstraint<DeserialisedType>;
-    // (undocumented)
-    deadline: number;
-    // (undocumented)
-    differ: BettererDiffer<DeserialisedType, DiffType>;
-    // (undocumented)
-    goal: BettererTestGoal<DeserialisedType>;
-    // (undocumented)
-    printer: BettererPrinter<SerialisedType>;
-    // (undocumented)
-    progress: BettererProgress<DeserialisedType>;
-    // (undocumented)
-    serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
-    // (undocumented)
-    test: BettererTestFunction<DeserialisedType>;
+    readonly constraint: BettererTestConstraint<DeserialisedType>;
+    readonly deadline: number;
+    readonly differ: BettererDiffer<DeserialisedType, DiffType>;
+    readonly goal: BettererTestGoal<DeserialisedType>;
+    readonly printer: BettererPrinter<SerialisedType>;
+    readonly progress: BettererProgress<DeserialisedType>;
+    readonly serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
+    readonly test: BettererTestFunction<DeserialisedType>;
 }
 
 // @public
@@ -569,25 +530,14 @@ export type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => M
 export type BettererTestNames = ReadonlyArray<string>;
 
 // @public
-export type BettererTestOptions<DeserialisedType = unknown, SerialisedType = DeserialisedType, DiffType = null> = BettererTestOptionsBasic | BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType>;
-
-// @public
-export interface BettererTestOptionsBasic {
-    constraint: BettererTestConstraint<number>;
-    deadline?: BettererTestDeadline;
-    goal?: number | BettererTestGoal<number>;
-    test: BettererTestFunction<number>;
-}
-
-// @public
-export interface BettererTestOptionsComplex<DeserialisedType, SerialisedType, DiffType> {
+export interface BettererTestOptions<DeserialisedType, SerialisedType, DiffType> {
     constraint: BettererTestConstraint<DeserialisedType>;
     deadline?: BettererTestDeadline;
-    differ: BettererDiffer<DeserialisedType, DiffType>;
+    differ?: BettererDiffer<DeserialisedType, DiffType>;
     goal: DeserialisedType | BettererTestGoal<DeserialisedType>;
     printer?: BettererPrinter<SerialisedType>;
     progress?: BettererProgress<DeserialisedType>;
-    serialiser: BettererSerialiser<DeserialisedType, SerialisedType>;
+    serialiser?: BettererSerialiser<DeserialisedType, SerialisedType>;
     test: BettererTestFunction<DeserialisedType>;
 }
 

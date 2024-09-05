@@ -4,9 +4,9 @@ import type { BettererTasksState } from '@betterer/tasks';
 
 import type { TestPackageAPIWorker } from './types.js';
 
-import { React, getRenderOptions, render, useCallback } from '@betterer/render';
+import { React, getRenderOptionsΔ, render, useCallback } from '@betterer/render';
 import { BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
-import { exposeToWorker__, importWorker__ } from '@betterer/worker';
+import { exposeToWorkerΔ, importWorkerΔ } from '@betterer/worker';
 
 interface APITestProps {
   packageNames: Array<string>;
@@ -18,14 +18,14 @@ export const APITest: FC<APITestProps> = function APITest({ packageNames }) {
       {packageNames.map((packageName) => {
         const task = useCallback(
           async (logger: BettererLogger) => {
-            const worker: TestPackageAPIWorker = await importWorker__('./test-package-api.worker.js');
+            const worker: TestPackageAPIWorker = await importWorkerΔ('./test-package-api.worker.js');
             try {
-              return await worker.api.run(exposeToWorker__(logger), packageName);
+              return await worker.api.run(exposeToWorkerΔ(logger), packageName);
             } finally {
               await worker.destroy();
             }
           },
-          [packageName, exposeToWorker__]
+          [packageName, exposeToWorkerΔ]
         );
         return <BettererTaskLogger key={packageName} name={packageName} task={task} />;
       })}
@@ -46,9 +46,9 @@ function tests(n: number): string {
 }
 
 void (async () => {
-  const worker: TestPackageAPIWorker = await importWorker__('./test-package-api.worker.js');
+  const worker: TestPackageAPIWorker = await importWorkerΔ('./test-package-api.worker.js');
   const packageNames = await worker.api.getPackages();
-  const test = render(<APITest packageNames={packageNames} />, getRenderOptions(process.env.NODE_ENV));
+  const test = render(<APITest packageNames={packageNames} />, getRenderOptionsΔ(process.env.NODE_ENV));
   await worker.destroy();
   await test.waitUntilExit();
 })();

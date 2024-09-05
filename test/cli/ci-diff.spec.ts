@@ -39,14 +39,14 @@ export default {
     const fixturePath = paths.cwd;
     const indexPath = resolve('./src/index.ts');
 
-    const { cli__ } = await import('@betterer/cli');
+    const { cliΔ } = await import('@betterer/cli');
 
-    await cli__(fixturePath, [...ARGV, 'start', '--workers=false'], false);
+    await cliΔ(fixturePath, [...ARGV, 'start', '--workers=false'], false);
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one + one);\nconsole.log(a * one);`);
 
     await expect(async () => {
-      await cli__(fixturePath, [...ARGV, 'ci', '--workers=false']);
+      await cliΔ(fixturePath, [...ARGV, 'ci', '--workers=false']);
     }).rejects.toThrow('Unexpected changes detected while running in CI mode. ❌');
 
     expect(logs).toMatchSnapshot();

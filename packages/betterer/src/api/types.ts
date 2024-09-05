@@ -2,6 +2,13 @@ import type { BettererOptionsContext, BettererOptionsMode, BettererOptionsModeWa
 import type { BettererOptionsFS } from '../fs/index.js';
 import type { BettererOptionsReporter } from '../reporters/index.js';
 import type { BettererOptionsWatcher } from '../runner/index.js';
+import type { betterer } from './betterer.js';
+
+/**
+ * @public Public API for **Betterer**. The types are a bit funky, but it's nice to
+ * have the base `betterer()` function with the more specific functions attached.
+ */
+export type BettererAPI = typeof betterer;
 
 /**
  * @public Options for when you run **Betterer** via the {@link @betterer/betterer#betterer | `betterer()` API}.

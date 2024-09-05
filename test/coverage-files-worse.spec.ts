@@ -84,7 +84,7 @@ export default {
     expect(fixture.testNames(worseTestRun.worse)).toEqual(['test']);
 
     // file-1 is better, but file-2 is worse
-    const stillWorseCoverage = `{  
+    const stillWorseCoverage = `{
       "total": {
         "lines": { "total": 220, "covered": 90, "skipped": 0, "pct": 40.9 },
         "statements": { "total": 410, "covered": 140, "skipped": 0, "pct": 34.1 },

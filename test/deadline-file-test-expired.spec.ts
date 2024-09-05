@@ -7,8 +7,8 @@ vitest.mock('@betterer/time', async (importOriginal): Promise<typeof import('@be
   const time: typeof import('@betterer/time') = await importOriginal();
   return {
     ...time,
-    getPreciseTime__: () => 0,
-    getTime__: () => Date.now()
+    getPreciseTimeΔ: () => 0,
+    getTimeΔ: () => Date.now()
   };
 });
 

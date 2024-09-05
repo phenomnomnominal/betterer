@@ -2,7 +2,7 @@ import type { Command } from 'commander';
 
 import type { BettererCLIInitConfig } from './types.js';
 
-import { React, getRenderOptions, render } from '@betterer/render';
+import { React, getRenderOptionsΔ, render } from '@betterer/render';
 import path from 'node:path';
 
 import { Init } from './init/init.js';
@@ -33,8 +33,7 @@ export function init(cwd: string): Command {
         resultsPath={finalResults}
         ts={ts}
       />,
-      // eslint-disable-next-line @typescript-eslint/dot-notation -- environment variable 🌏
-      getRenderOptions(process.env['NODE_ENV'])
+      getRenderOptionsΔ(process.env.NODE_ENV)
     );
     await app.waitUntilExit();
   });

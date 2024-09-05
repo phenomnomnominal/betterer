@@ -6,7 +6,7 @@ const ARGV = ['node', './bin/betterer', 'upgrade'];
 
 describe('betterer upgrade', () => {
   it('should upgrade exported constant objects in a CommonJS module', async () => {
-    const { cli__ } = await import('@betterer/cli');
+    const { cliΔ } = await import('@betterer/cli');
 
     const { cleanup, logs, paths } = await createFixture(
       'upgrade-exported-constant-object-cjs',
@@ -31,7 +31,7 @@ module.exports.getsBetter = {
 
     process.env.BETTERER_WORKER = 'false';
 
-    await cli__(fixturePath, ARGV);
+    await cliΔ(fixturePath, ARGV);
 
     expect(logs).toMatchSnapshot();
 

@@ -7,7 +7,8 @@
   "description": "Betterer makes it easier to make incremental improvements to your codebase",
   "type": "module",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "website/*"
   ],
   "scripts": {
     "api": "npm run compile && lerna run api",
@@ -32,7 +33,7 @@
     "compile:render": "lerna run compile --scope @betterer/render",
     "compile:watch": "tsc -b packages -w",
     "docs": "tsx ./tools/docs-filter.ts && api-documenter generate -i ./goldens/models -o ./website/docs/api/",
-    "lint": "eslint --fix",
+    "lint": "eslint --cache --fix",
     "format": "prettier \"**/*\" --write --log-level=error",
     "test": "npm run clean:tests && vitest --config vitest.config.ts",
     "test:e2e": "npm run clean:tests && vitest --config ./vitest.e2e.config.js",
@@ -44,7 +45,7 @@
     "prepare": "patch-package && husky install"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
@@ -52,8 +53,8 @@
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.9.1",
-    "@microsoft/api-documenter": "^7.24.2",
-    "@microsoft/api-extractor": "^7.43.1",
+    "@microsoft/api-documenter": "^7.25.12",
+    "@microsoft/api-extractor": "^7.47.7",
     "@phenomnomnominal/commitlint-plugin": "^1.1.1",
     "@types/eslint": "^9.6.1",
     "@types/node": "^18.19.31",

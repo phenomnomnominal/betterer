@@ -4,8 +4,8 @@
  * @packageDocumentation
  */
 
-export type { BettererCoverageTest } from './coverage-test.js';
 export type {
+  BettererCoverageTest,
   BettererCoverageDiff,
   BettererCoverageIssue,
   BettererCoverageIssues,

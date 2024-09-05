@@ -2,7 +2,7 @@ import type { FixtureLogs, FixtureLogsMap, FixtureOptions } from './types.js';
 
 import path from 'node:path';
 
-import { getStdOut } from '@betterer/render';
+import { getStdOutΔ } from '@betterer/render';
 import ansiRegex from 'ansi-regex';
 
 const ANSI_REGEX = ansiRegex();
@@ -44,7 +44,7 @@ export function createFixtureLogs(fixtureName: string, options: FixtureOptions =
     });
   };
 
-  const stdout = getStdOut();
+  const stdout = getStdOutΔ();
   stdout.write = (message: string | Uint8Array): boolean => {
     if (message) {
       FIXTURE_LOGS_MAP[fixtureName]?.(message.toString());

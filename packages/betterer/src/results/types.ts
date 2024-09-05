@@ -2,8 +2,16 @@ import type { BettererFileIssues } from '../test/index.js';
 
 /**
  * @public The deserialised result object for a single run of a single {@link @betterer/betterer#BettererTest | `BettererTest`}.
+ *
+ * @remarks Having a wrapper like this is useful to distinguish between no result (`null`),
+ * and a test that had a null result `{ value: null }`.
  */
 export interface BettererResult {
+  /**
+   * The actual value of the result.
+   *
+   * @remarks could be anything, including `null`!
+   */
   value: unknown;
 }
 

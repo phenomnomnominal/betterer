@@ -10,14 +10,15 @@ export type {
   BettererOptionsResults,
   BettererOptionsRunner,
   BettererOptionsWatch
-} from './api/public.js';
-export type { BettererConfig, BettererOptionsOverride } from './config/public.js';
+} from './api/index.js';
+export type { BettererConfig, BettererOptionsOverride } from './config/index.js';
 export type {
-  BettererContext,
-  BettererContextSummary,
+  BettererConfigContext,
   BettererConfigExcludes,
   BettererConfigFilters,
   BettererConfigIncludes,
+  BettererContext,
+  BettererContextSummary,
   BettererOptionsContext,
   BettererOptionsContextOverride,
   BettererOptionsExcludes,
@@ -29,9 +30,8 @@ export type {
   BettererOptionsModePrecommit,
   BettererOptionsModeStrict,
   BettererOptionsModeUpdate,
-  BettererOptionsModeWatch,
-  BettererConfigContext
-} from './context/public.js';
+  BettererOptionsModeWatch
+} from './context/index.js';
 export type {
   BettererConfigFS,
   BettererConfigPaths,
@@ -43,31 +43,31 @@ export type {
   BettererOptionsFS,
   BettererOptionsMerge,
   BettererOptionsPaths
-} from './fs/public.js';
+} from './fs/index.js';
 export type {
   BettererConfigReporter,
   BettererOptionsReporter,
   BettererOptionsReporterOverride,
   BettererOptionsReporters,
   BettererReporter
-} from './reporters/public.js';
+} from './reporters/index.js';
 export type {
   BettererFileTestResultSummary,
   BettererFileTestResultSummaryDetails,
-  BettererTestResultSummary,
-  BettererTestResultSummaryDetails,
   BettererResult,
-  BettererResultSummary,
   BettererResultSummaries,
-  BettererResultsSummary
-} from './results/public.js';
+  BettererResultSummary,
+  BettererResultsSummary,
+  BettererTestResultSummary,
+  BettererTestResultSummaryDetails
+} from './results/index.js';
 export type {
   BettererDelta,
   BettererRun,
-  BettererRuns,
+  BettererRunSummaries,
   BettererRunSummary,
-  BettererRunSummaries
-} from './run/public.js';
+  BettererRuns
+} from './run/index.js';
 export type {
   BettererConfigIgnores,
   BettererConfigWatcher,
@@ -75,8 +75,8 @@ export type {
   BettererOptionsWatcher,
   BettererOptionsWatcherOverride,
   BettererRunner
-} from './runner/public.js';
-export type { BettererSuite, BettererSuiteSummary, BettererSuiteSummaries } from './suite/public.js';
+} from './runner/index.js';
+export type { BettererSuite, BettererSuiteSummaries, BettererSuiteSummary } from './suite/index.js';
 export type {
   BettererDeserialise,
   BettererDiff,
@@ -84,32 +84,29 @@ export type {
   BettererFile,
   BettererFileBase,
   BettererFileDiff,
-  BettererFilesDiff,
-  BettererFileTestFunction,
-  BettererFileTestResult,
-  BettererFileTestResultKey,
-  BettererFileTestResultSerialised,
-  BettererFileTestDiff,
   BettererFileIssue,
   BettererFileIssueSerialised,
   BettererFileIssues,
   BettererFileIssuesSerialised,
+  BettererFileTestDiff,
+  BettererFileTestFunction,
+  BettererFileTestResult,
+  BettererFileTestResultKey,
+  BettererFileTestResultSerialised,
+  BettererFilesDiff,
   BettererPrinter,
   BettererProgress,
   BettererSerialise,
   BettererSerialiser,
-  BettererTestBase,
+  BettererTestConfig,
   BettererTestConstraint,
   BettererTestDeadline,
   BettererTestFunction,
   BettererTestGoal,
-  BettererTestConfig,
-  BettererTestOptions,
-  BettererTestOptionsBasic,
-  BettererTestOptionsComplex,
-  BettererTestNames
-} from './test/public.js';
+  BettererTestNames,
+  BettererTestOptions
+} from './test/index.js';
 export type { MaybeAsync } from './types.js';
 
 export { betterer, merge, results, runner, watch } from './api/index.js';
-export { BettererFileTest, BettererTest } from './test/public.js';
+export { BettererFileTest, BettererResolverTest, BettererTest } from './test/index.js';

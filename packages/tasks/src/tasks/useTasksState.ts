@@ -1,17 +1,36 @@
 import { BettererError } from '@betterer/errors';
 import { createContext, useContext, useReducer, useRef } from '@betterer/render';
 
-import { getPreciseTime__ } from '@betterer/time';
+import { getPreciseTimeΔ } from '@betterer/time';
 
 /**
- * @public The state of the running tasks. `endTime` will only be present when there are no more
+ * @internal This could change at any point! Please don't use!
+ *
+ * The state of the running tasks. `endTime` will only be present when there are no more
  * `running` tasks.
  */
 export interface BettererTasksState {
+  /**
+   * How many tasks are currently running.
+   */
   running: number;
+  /**
+   * How many tasks are done running.
+   */
   done: number;
+  /**
+   * How many tasks threw an error.
+   */
   errors: number;
+  /**
+   * What time the tasks started running.
+   */
   startTime: number;
+  /**
+   * What time the tasks finished running.
+   *
+   * @remarks will be `null` until `running` is `0`.
+   */
   endTime: number | null;
 }
 
@@ -56,7 +75,7 @@ function getInitialState(): BettererTasksState {
     running: 0,
     done: 0,
     errors: 0,
-    startTime: getPreciseTime__(),
+    startTime: getPreciseTimeΔ(),
     endTime: null
   };
 }
@@ -108,5 +127,5 @@ function setEndTime(state: BettererTasksState): BettererTasksState {
   if (!shouldExit) {
     return state;
   }
-  return { ...state, endTime: getPreciseTime__() };
+  return { ...state, endTime: getPreciseTimeΔ() };
 }

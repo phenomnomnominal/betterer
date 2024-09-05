@@ -41,8 +41,9 @@ export class BettererRunSummaryΩ implements BettererRunSummary {
     public readonly printed: string | null,
     public readonly timestamp: number
   ) {
-    this.name = run.name;
     this.filePaths = run.filePaths;
+    this.name = run.name;
+
     this.isBetter = status === BettererRunStatus.better;
     this.isFailed = status === BettererRunStatus.failed;
     this.isNew = status === BettererRunStatus.new;

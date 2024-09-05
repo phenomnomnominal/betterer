@@ -8,7 +8,7 @@ const ARGV = ['node', './bin/betterer'];
 
 describe('betterer precommit', () => {
   it('should not update the changeset when a test gets worse', async () => {
-    const { cli__ } = await import('@betterer/cli');
+    const { cliΔ } = await import('@betterer/cli');
 
     const { paths, logs, cleanup, resolve, writeFile } = await createFixture('precommit-worse', {
       'src/index.ts': `
@@ -45,12 +45,12 @@ export default {
 
     process.env.BETTERER_WORKER = 'false';
 
-    await cli__(fixturePath, [...ARGV, 'start', '--workers=false'], false);
+    await cliΔ(fixturePath, [...ARGV, 'start', '--workers=false'], false);
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one * a);\nconsole.log(a * one);`);
 
     await expect(async () => {
-      await cli__(fixturePath, [...ARGV, 'precommit', '--workers=false']);
+      await cliΔ(fixturePath, [...ARGV, 'precommit', '--workers=false']);
     }).rejects.toThrow('Tests got worse while running in precommit mode. ❌');
 
     expect(logs).toMatchSnapshot();

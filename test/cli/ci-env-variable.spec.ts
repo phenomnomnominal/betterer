@@ -39,15 +39,15 @@ export default {
     const fixturePath = paths.cwd;
     const indexPath = resolve('./src/index.ts');
 
-    const { cli__ } = await import('@betterer/cli');
+    const { cliΔ } = await import('@betterer/cli');
 
-    await cli__(fixturePath, [...ARGV, 'start', '--workers=false'], false);
+    await cliΔ(fixturePath, [...ARGV, 'start', '--workers=false'], false);
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one + one);\nconsole.log(a * one);`);
 
     process.env.CI = 'true';
 
-    await cli__(fixturePath, [...ARGV, 'start', '--workers=false']);
+    await cliΔ(fixturePath, [...ARGV, 'start', '--workers=false']);
 
     expect(logs).toMatchSnapshot();
 

@@ -11,7 +11,7 @@ const IS_JS_REGEXP = /.t|jsx?$/;
  *
  * Logs a code block with syntax highlighting and a message.
  */
-export function code__(codeInfo: BettererLoggerCodeInfo): string {
+export function codeΔ(codeInfo: BettererLoggerCodeInfo): string {
   const { filePath, fileText, message } = codeInfo;
   const isJS = IS_JS_REGEXP.exec(path.extname(filePath));
   const options = {

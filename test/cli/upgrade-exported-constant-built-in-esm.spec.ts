@@ -6,7 +6,7 @@ const ARGV = ['node', './bin/betterer', 'upgrade'];
 
 describe('betterer upgrade', () => {
   it('should upgrade exported constant built-in tests in an ES module', async () => {
-    const { cli__ } = await import('@betterer/cli');
+    const { cliΔ } = await import('@betterer/cli');
 
     const { cleanup, logs, paths } = await createFixture(
       'upgrade-exported-constant-built-in-esm',
@@ -26,7 +26,7 @@ export const noHack = regexp(/HACK/i).include('**/*.ts');
 
     process.env.BETTERER_WORKER = 'false';
 
-    await cli__(fixturePath, ARGV);
+    await cliΔ(fixturePath, ARGV);
 
     expect(logs).toMatchSnapshot();
 

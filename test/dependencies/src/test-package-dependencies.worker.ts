@@ -1,7 +1,7 @@
 import type { BettererLogger } from '@betterer/logger';
 
 import { BettererError } from '@betterer/errors';
-import { exposeToMain__ } from '@betterer/worker';
+import { exposeToMainΔ } from '@betterer/worker';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -54,4 +54,4 @@ export async function run(logger: BettererLogger, packageName: string): Promise<
   throw new BettererError(`Missing dependencies found in "${packageNameFull}": ${errors.join(', ')}`);
 }
 
-exposeToMain__({ getPackages, run });
+exposeToMainΔ({ getPackages, run });

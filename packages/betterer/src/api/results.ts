@@ -2,6 +2,7 @@ import type { BettererResultsSummary } from '../results/index.js';
 import type { BettererOptionsResults } from './types.js';
 
 import { BettererResultsSummaryΩ } from '../results/index.js';
+import { createGlobals } from '../globals.js';
 
 /**
  * @public Get a summary of the results of the defined {@link @betterer/betterer#BettererTest | `BettererTest`s}.
@@ -20,6 +21,7 @@ import { BettererResultsSummaryΩ } from '../results/index.js';
  * @throws {@link @betterer/errors#BettererError | `BettererError` }
  * Will throw if something goes wrong while getting the summary of the results.
  */
-export function results(options: BettererOptionsResults = {}): Promise<BettererResultsSummary> {
-  return BettererResultsSummaryΩ.create(options);
+export async function results(options: BettererOptionsResults = {}): Promise<BettererResultsSummary> {
+  await createGlobals(options);
+  return await BettererResultsSummaryΩ.create();
 }

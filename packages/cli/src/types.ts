@@ -70,6 +70,9 @@ export interface BettererCLIUpgradeConfig {
  * A basic representation of the package.json configuration file.
  */
 export interface BettererPackageJSON {
+  /**
+   * the current version of the package
+   */
   version: string;
   /**
    * "scripts" will be updated to add new `betterer` run commands

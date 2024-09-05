@@ -2,7 +2,7 @@ import type { MessagePort, TransferListItem } from 'node:worker_threads';
 
 import type { BettererWorkerAPI } from './types.js';
 
-import { BettererError, invariant, isBettererError } from '@betterer/errors';
+import { BettererError, invariantΔ, isBettererErrorΔ } from '@betterer/errors';
 import assert from 'node:assert';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
@@ -14,39 +14,40 @@ import { expose, proxy, releaseProxy, transferHandlers, wrap } from 'comlink';
 /**
  * @internal This could change at any point! Please don't use!
  *
- * @remarks Create a {@link https://nodejs.org/api/worker_threads.html | `Worker`} from a given path.
- * The path should be relative to the file that is calling `importWorker__`. The `Worker` is then
+ * Create a {@link https://nodejs.org/api/worker_threads.html | `Worker`} from a given path.
+ * The path should be relative to the file that is calling `importWorkerΔ`. The `Worker` is then
  * wrapped in the {@link https://github.com/GoogleChromeLabs/comlink | `Comlink`} magic, and then our
  * own little wrapper around that.
  *
- * You might have something like this, in a file called `my.worker.ts`:
+ * @example You might have something like this, in a file called `my.worker.ts`:
  *
  * ```
- * import { exposeToMain__ } from '@betterer/worker';
+ * import { exposeToMainΔ } from '@betterer/worker';
  *
  * export function add (a: number, b: number): number {
  *  return a + b;
  * }
  *
- * exposeToMain__({ add });
+ * exposeToMainΔ({ add });
  * ```
  *
  * Not that `add` is exported, which means you can extract the exposed API:
  *
  * ```
- * import { importWorker__ } from '@betterer/worker';
+ * import { importWorkerΔ } from '@betterer/worker';
  *
  * type MyWorkerAPI = typeof import('./my.worker.js');
  *
- * const worker = importWorker__<MyWorkerAPI>('./my-worker.js');
+ * const worker = importWorkerΔ<MyWorkerAPI>('./my-worker.js');
  * ```
  *
  * @param importPath - The path to the Worker source. Should have a `.js` extension.
- * Should be relative to the file that is calling `importWorker__`.
+ * Should be relative to the file that is calling `importWorkerΔ`.
  */
-export async function importWorker__<T>(importPath: string): Promise<BettererWorkerAPI<T>> {
+export async function importWorkerΔ<T>(importPath: string): Promise<BettererWorkerAPI<T>> {
   const [, call] = callsite();
-  invariant(call, `\`call\` should be set!`, call);
+  invariantΔ(call, `\`call\` should be set!`, call);
+
   let callerFilePath = call.getFileName();
   try {
     callerFilePath = fileURLToPath(callerFilePath);
@@ -57,8 +58,7 @@ export async function importWorker__<T>(importPath: string): Promise<BettererWor
   const idPath = path.resolve(path.dirname(callerFilePath), importPath);
   const validatedPath = await validatePath(idPath);
 
-  // eslint-disable-next-line @typescript-eslint/dot-notation -- environment variable 🌏
-  if (process.env['BETTERER_WORKER'] === 'false') {
+  if (process.env.BETTERER_WORKER === 'false') {
     return {
       api: await importDefault<T>(validatedPath),
       destroy: () => Promise.resolve()
@@ -68,9 +68,9 @@ export async function importWorker__<T>(importPath: string): Promise<BettererWor
   const worker = new Worker(validatedPath);
   const api = wrap(nodeEndpoint(worker));
 
-  return exposeToWorker__({
+  return exposeToWorkerΔ({
     api,
-    destroy: exposeToWorker__(async () => {
+    destroy: exposeToWorkerΔ(async () => {
       api[releaseProxy]();
       await worker.terminate();
     })
@@ -93,30 +93,29 @@ export function getDefaultExport(module: unknown): unknown {
 /**
  * @internal This could change at any point! Please don't use!
  *
- * @remarks Use `exposeToMain__` to allow the main thread to call Worker functions across the thread boundary.
+ * Use `exposeToMainΔ` to allow the main thread to call Worker functions across the thread boundary.
  *
  * @throws {@link @betterer/errors#BettererError | `BettererError` }
  * Will throw if it is called from the main thread.
  */
-export function exposeToMain__(api: object): void {
-  // eslint-disable-next-line @typescript-eslint/dot-notation -- environment variable 🌏
-  if (process.env['BETTERER_WORKER'] === 'false') {
+export function exposeToMainΔ(api: object): void {
+  if (process.env.BETTERER_WORKER === 'false') {
     return;
   }
 
   if (!parentPort) {
-    throw new BettererError(`"exposeToMain__" called from main thread! 🤪`);
+    throw new BettererError(`"exposeToMainΔ" called from main thread! 🤪`);
   }
   expose(api, nodeEndpoint(parentPort));
 }
 
 /**
  * @internal This could change at any point! Please don't use!
- * @remarks Use `exposeToWorker__` to allow a Worker to call main thread functions across the thread boundary.
+ *
+ * Use `exposeToWorkerΔ` to allow a Worker to call main thread functions across the thread boundary.
  */
-export function exposeToWorker__<Expose extends object>(api: Expose): Expose {
-  // eslint-disable-next-line @typescript-eslint/dot-notation -- environment variable 🌏
-  if (process.env['BETTERER_WORKER'] === 'false') {
+export function exposeToWorkerΔ<Expose extends object>(api: Expose): Expose {
+  if (process.env.BETTERER_WORKER === 'false') {
     return api;
   }
 
@@ -246,7 +245,7 @@ function serializeBettererError(error: BettererError): ThrownBettererErrorSerial
       message: error.message,
       stack: error.stack,
       details: error.details.map((detail) => {
-        if (isBettererError(detail)) {
+        if (isBettererErrorΔ(detail)) {
           return serializeBettererError(detail);
         } else if (detail instanceof Error) {
           assert(throwHandler);
@@ -281,7 +280,7 @@ function deserializeBettererError(serialised: ThrownBettererErrorSerialized): Be
 const originalSerialise = throwHandler.serialize;
 throwHandler.serialize = (thrown: ThrownValue) => {
   const { value } = thrown;
-  if (isBettererError(value)) {
+  if (isBettererErrorΔ(value)) {
     const serialised = serializeBettererError(value);
     return [serialised, []];
   }

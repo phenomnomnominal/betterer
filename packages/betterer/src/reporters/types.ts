@@ -70,7 +70,7 @@ export interface BettererConfigReporter {
  *
  * @remarks There are two ways to specify a custom `BettererReporter`:
  *
- * Defining the reporter _inline_ when calling `Betterer` via one of the {@link @betterer/betterer#(betterer:function) | JS APIs}:
+ * Defining the reporter _inline_ when calling `Betterer` via one of the {@link @betterer/betterer#betterer | JS APIs}:
  *
  * @example
  * ```typescript
@@ -192,5 +192,5 @@ export interface BettererReporterModule {
 }
 
 export interface BettererReporterFactory {
-  createReporter__: () => BettererReporter;
+  createReporterΔ: () => BettererReporter;
 }

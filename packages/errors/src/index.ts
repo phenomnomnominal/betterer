@@ -6,5 +6,5 @@
 
 export type { BettererErrorDetail, BettererErrorDetails } from './types.js';
 
-export { BettererError, isBettererError } from './error.js';
-export { invariant } from './invariant.js';
+export { BettererError, isBettererErrorΔ } from './error.js';
+export { invariantΔ } from './invariant.js';

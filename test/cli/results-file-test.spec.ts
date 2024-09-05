@@ -32,9 +32,9 @@ export default {
 
     await betterer({ configPaths, resultsPath, workers: false, silent: true });
 
-    const { cli__ } = await import('@betterer/cli');
+    const { cliΔ } = await import('@betterer/cli');
 
-    await cli__(fixturePath, [...ARGV, 'results']);
+    await cliΔ(fixturePath, [...ARGV, 'results']);
 
     expect(logs).toMatchSnapshot();
 
