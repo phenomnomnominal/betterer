@@ -44,7 +44,7 @@ export async function createGlobals(
   let reporter = await loadDefaultReporter();
 
   try {
-    const configContext = createContextConfig(options);
+    const configContext = await createContextConfig(options);
     const configFS = await createFSConfig(options);
     const configReporter = await createReporterConfig(configFS, options);
     const configWatcher = createWatcherConfig(configFS, optionsWatch);

@@ -1,5 +1,4 @@
 import assert from 'node:assert';
-import os from 'node:os';
 
 import { BettererError } from '@betterer/errors';
 
@@ -68,8 +67,9 @@ export function validateStringRegExpArray<Config extends object>(config: Config)
   return config;
 }
 
-export function validateWorkers(workers: number | boolean = true): number {
-  const totalCPUs = os.cpus().length;
+export async function validateWorkers(workers: number | boolean = true): Promise<number> {
+  const { cpus } = await import('node:os');
+  const totalCPUs = cpus().length;
 
   if (workers === true || isUndefined(workers)) {
     workers = totalCPUs >= 4 ? totalCPUs - 2 : false;
