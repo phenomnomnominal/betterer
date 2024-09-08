@@ -10,13 +10,20 @@ slug: /knip-test
 
 Use this test to incrementally introduce [**Knip** checks](https://knip.dev/) to your codebase.
 
+:::warning
+
+This test is currently in *beta* since the underlying [Knip](https://knip.dev/)
+implementation is based on private APIs. Will stabilise when it can be migrated to
+use public APIs.
+
+:::
+
 ```typescript
 import { knip } from '@betterer/knip';
 
 export default {
   'knip dependency checks': () =>
-      knip('./knip.json', { "entry": ["index.{js,ts}", "src/index.{js,ts}"] }, '--strict')
-    .include('./src/*.ts')
+    knip('./knip.json', { entry: ['index.{js,ts}', 'src/index.{js,ts}'] }, '--strict').include('./src/*.ts')
 };
 ```
 

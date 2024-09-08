@@ -63,6 +63,7 @@ export type KnipCLIOptions = Partial<{
 
 export type KnipIssueType = keyof typeof ISSUE_TYPE_TITLE;
 
+/** @knipignore used by an exported function */
 export interface KnipIssue {
   line?: number;
   col?: number;
@@ -71,15 +72,20 @@ export interface KnipIssue {
 
 export type KnipIssues = ReadonlyArray<KnipIssue>;
 
+/** @knipignore used by an exported function */
 export type KnipFileIssues = {
   file: string;
 } & {
   [IssueType in KnipIssueType]: KnipIssues;
 };
 
+/** @knipignore used by an exported function */
 export type KnipFilesIssues = ReadonlyArray<KnipFileIssues>;
 
+/** @knipignore used by an exported function */
 export type KnipIssuesForFile = Record<string, KnipIssues>;
+
+/** @knipignore used by an exported function */
 export type KnipIssuesByType = Partial<Record<KnipIssueType, KnipIssuesForFile>>;
 
 export interface KnipReport {

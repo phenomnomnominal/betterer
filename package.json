@@ -33,8 +33,9 @@
     "compile:render": "lerna run compile --scope @betterer/render",
     "compile:watch": "tsc -b packages -w",
     "docs": "tsx ./tools/docs-filter.ts && api-documenter generate -i ./goldens/models -o ./website/docs/api/",
-    "lint": "eslint --cache --fix",
+    "lint": "eslint --cache --cache-location \"./node_modules/.cache/eslint/\" --fix",
     "format": "prettier \"**/*\" --write --log-level=error",
+    "knip": "knip --production --strict --tags=-knipignore,-internal",
     "test": "npm run clean:tests && vitest --config vitest.config.ts",
     "test:e2e": "npm run clean:tests && vitest --config ./vitest.e2e.config.js",
     "test:api": "npm run compile:api-test && node ./test/api/dist",
@@ -42,8 +43,7 @@
     "test:extension": "lerna run test:extension",
     "prepublishOnly": "npm run build:publish",
     "publish": "lerna publish --conventional-commits --no-commit-hooks --yes",
-    "prepare": "patch-package && husky install",
-    "knip": "knip --production --strict --tags=-knipignore,-internal"
+    "prepare": "patch-package && husky install"
   },
   "engines": {
     "node": ">=18"

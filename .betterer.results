@@ -24,13 +24,6 @@ exports[`no knip errors`] = {
     "packages/fixture/package.json:1813188013": [
       [0, 0, 0, "Unused dependencies: ansi-regex", "2577412447"]
     ],
-    "packages/knip/src/types.ts:1961360955": [
-      [66, 18, 9, "Unused exported types: KnipIssue", "4265144789"],
-      [74, 13, 14, "Unused exported types: KnipFileIssues", "4219244376"],
-      [80, 13, 15, "Unused exported types: KnipFilesIssues", "1683320690"],
-      [82, 13, 17, "Unused exported types: KnipIssuesForFile", "3096855462"],
-      [83, 13, 16, "Unused exported types: KnipIssuesByType", "4009975265"]
-    ],
     "test/api/dist/index.d.ts:3932948493": [
       [0, 0, 0, "Unlisted dependencies: @betterer/render", "3900616204"]
     ],
