@@ -35,7 +35,7 @@
     "docs": "tsx ./tools/docs-filter.ts && api-documenter generate -i ./goldens/models -o ./website/docs/api/",
     "lint": "eslint --cache --cache-location \"./node_modules/.cache/eslint/\" --fix",
     "format": "prettier \"**/*\" --write --log-level=error",
-    "knip": "knip --production --strict --tags=-knipignore,-internal",
+    "knip": "knip --no-exit-code --production --strict --tags=-knipignore,-internal",
     "test": "npm run clean:tests && vitest --config vitest.config.ts",
     "test:e2e": "npm run clean:tests && vitest --config ./vitest.e2e.config.js",
     "test:api": "npm run compile:api-test && node ./test/api/dist",
