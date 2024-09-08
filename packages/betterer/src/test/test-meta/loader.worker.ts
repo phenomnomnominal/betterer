@@ -5,6 +5,7 @@ import { exposeToMainΔ } from '@betterer/worker';
 
 import { importDefault } from '../../fs/import.js';
 
+/** @knipignore part of worker API */
 export async function loadTestMetaFromConfig(configPath: string): Promise<BettererTestsMeta> {
   try {
     const exports = (await importDefault(configPath)) as BettererTestMap;

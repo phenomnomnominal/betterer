@@ -19,6 +19,7 @@ import {
   updateInstructions
 } from '../../messages.js';
 
+/** @knipignore used by an exported function */
 export interface SuiteSummaryProps {
   context: BettererContext;
   suiteSummary: BettererSuiteSummary;

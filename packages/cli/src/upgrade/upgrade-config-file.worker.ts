@@ -18,6 +18,7 @@ const printer = createPrinter();
 const EXPORT_MODULE_EXPORTS_QUERY =
   'PropertyAccessExpression:has(Identifier[name="module"]):has(Identifier[name="exports"])';
 
+/** @knipignore part of worker API */
 export async function run(logger: BettererLogger, configPath: string, save: boolean): Promise<void> {
   await logger.progress(`upgrading "${configPath}"...`);
 

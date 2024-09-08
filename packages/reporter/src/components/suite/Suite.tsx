@@ -8,6 +8,7 @@ import { BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
 import { useTask } from './tasks.js';
 import { SuiteSummary } from './SuiteSummary.js';
 
+/** @knipignore used by an exported function */
 export interface SuiteProps {
   context: BettererContext;
   suite: BettererSuite | BettererSuiteSummary;

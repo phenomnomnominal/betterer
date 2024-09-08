@@ -33,7 +33,6 @@
     "@betterer/logger": "^5.3.4",
     "@betterer/render": "^5.3.4",
     "@betterer/time": "^5.3.4",
-    "chalk": "^5.3.0",
-    "tslib": "^2.3.1"
+    "chalk": "^5.3.0"
   }
 }

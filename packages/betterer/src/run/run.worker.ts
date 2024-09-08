@@ -11,6 +11,7 @@ import { BettererWorkerRunΩ } from './worker-run.js';
 
 const TEST_NAME_RUN: Record<string, BettererWorkerRunΩ> = {};
 
+/** @knipignore part of worker API */
 export async function init(
   testMeta: BettererTestMeta,
   config: BettererConfig,
@@ -21,6 +22,7 @@ export async function init(
   return run.runMeta;
 }
 
+/** @knipignore part of worker API */
 export function run(
   testName: string,
   filePaths: BettererFilePaths | null,

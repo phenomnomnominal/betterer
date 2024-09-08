@@ -81,12 +81,12 @@ interface ESModule {
   default: unknown;
 }
 
-export async function importDefault<T>(importPath: string): Promise<T> {
+async function importDefault<T>(importPath: string): Promise<T> {
   const m = (await import(importPath)) as unknown;
   return getDefaultExport(m) as T;
 }
 
-export function getDefaultExport(module: unknown): unknown {
+function getDefaultExport(module: unknown): unknown {
   return (module as ESModule).default || module;
 }
 
@@ -123,24 +123,24 @@ export function exposeToWorkerΔ<Expose extends object>(api: Expose): Expose {
   return api;
 }
 
-export interface EventSource {
+interface EventSource {
   addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
   removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
 }
 
-export interface Endpoint extends EventSource {
+interface Endpoint extends EventSource {
   start?: () => void;
   postMessage(message: unknown, transfer?: Array<Transferable>): void;
 }
 
-export interface NodeEndpoint {
+interface NodeEndpoint {
   start?: () => void;
   postMessage(message: unknown, transfer?: Array<Transferable> | ReadonlyArray<TransferListItem>): void;
   on(type: string, listener: EventListenerOrEventListenerObject): void;
   off(type: string, listener: EventListenerOrEventListenerObject): void;
 }
 
-export default function nodeEndpoint(nep: NodeEndpoint): Endpoint {
+function nodeEndpoint(nep: NodeEndpoint): Endpoint {
   const listeners = new WeakMap<EventListenerOrEventListenerObject, EventListenerOrEventListenerObject>();
   return {
     postMessage: nep.postMessage.bind(nep),
@@ -167,7 +167,7 @@ export default function nodeEndpoint(nep: NodeEndpoint): Endpoint {
   };
 }
 
-export interface TransferHandler<T, S> {
+interface TransferHandler<T, S> {
   canHandle: (value: unknown) => value is T;
   serialize: (value: T) => [S, Array<Transferable>];
   deserialize: (value: S) => T;

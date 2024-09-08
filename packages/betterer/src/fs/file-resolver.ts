@@ -1,5 +1,6 @@
 import type {
   BettererFileGlobs,
+  BettererFilePath,
   BettererFilePaths,
   BettererFilePatterns,
   BettererFileResolver,
@@ -11,6 +12,7 @@ import minimatch from 'minimatch';
 import path from 'node:path';
 
 import { flatten, normalisedPath } from '../utils.js';
+import { getTmpPath } from './temp.js';
 
 export class BettererFileResolverΩ implements BettererFileResolver {
   private _excluded: Array<RegExp> = [];
@@ -84,6 +86,11 @@ export class BettererFileResolverΩ implements BettererFileResolver {
   public async files(): Promise<BettererFilePaths> {
     await this._update();
     return this._validatedFilePaths;
+  }
+
+  public async tmp(filePath = ''): Promise<BettererFilePath> {
+    const tmpPath = await getTmpPath(filePath);
+    return this.relative(tmpPath);
   }
 
   private async _update(): Promise<void> {

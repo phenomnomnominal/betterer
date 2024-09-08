@@ -27,8 +27,5 @@
   },
   "engines": {
     "node": ">=16"
-  },
-  "dependencies": {
-    "tslib": "^2.3.1"
   }
 }

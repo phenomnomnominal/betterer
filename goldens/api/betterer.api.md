@@ -168,6 +168,7 @@ export interface BettererFileResolver {
     included(filePaths: BettererFilePaths): BettererFilePaths;
     relative(to: string): string;
     resolve(...pathSegments: Array<string>): string;
+    tmp(filePath?: BettererFilePath): Promise<BettererFilePath>;
     validate(filePaths: BettererFilePaths): Promise<BettererFilePaths>;
 }
 

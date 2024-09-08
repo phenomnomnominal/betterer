@@ -7,6 +7,7 @@
 import type { BettererError } from '@betterer/errors';
 import type { BettererLogger } from '@betterer/logger';
 import type { FC } from '@betterer/render';
+import type { PropsWithChildren } from '@betterer/render';
 
 // @internal
 export const BettererErrorLog: FC<BettererErrorLogProps>;
@@ -38,13 +39,13 @@ export type BettererTasksDone = () => void;
 export const BettererTasksLogger: FC<BettererTasksLoggerProps>;
 
 // @internal
-export interface BettererTasksLoggerProps {
+export type BettererTasksLoggerProps = PropsWithChildren<{
     done?: BettererTasksDone;
     exit?: boolean;
     name: string;
     timer?: boolean;
     update?: BettererTasksStatusUpdate;
-}
+}>;
 
 // @internal
 export interface BettererTasksState {

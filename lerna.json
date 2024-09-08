@@ -8,6 +8,7 @@
     "packages/errors",
     "packages/eslint",
     "packages/fixture",
+    "packages/knip",
     "packages/logger",
     "packages/regexp",
     "packages/render",

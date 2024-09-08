@@ -7,5 +7,5 @@ export type {
   BettererRunner
 } from './types.js';
 
-export { createWatcherConfig, enableMode, overrideWatchConfig } from './config.js';
+export { createWatcherConfig, overrideWatchConfig } from './config.js';
 export { BettererRunnerΩ } from './runner.js';

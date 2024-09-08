@@ -8,17 +8,17 @@
   "type": "module",
   "workspaces": [
     "packages/*",
-    "website/*"
+    "test"
   ],
   "scripts": {
-    "api": "npm run compile && lerna run api",
+    "api": "npm run compile:packages && lerna run api",
     "betterer": "node ./packages/cli/bin/betterer",
     "betterer:ci": "node ./packages/cli/bin/betterer ci",
     "betterer:precommit": "node ./packages/cli/bin/betterer precommit --cache",
-    "build": "npm run compile:packages && npm run test:api && npm run test:dependencies && npm run format && npm run lint && npm run test && npm run test:workers && npm run test:e2e",
-    "build:ci": "npm run compile:packages && npm run test:api && npm run test:dependencies && npm run format && npm run lint && npm run test && npm run test:workers && npm run betterer:ci",
-    "build:extension": "lerna run build:extension",
-    "build:publish": "npm run compile:packages && npm run test:api && npm run test:dependencies && npm run test",
+    "build": "npm run api && npm run test:api && npm run test:dependencies && npm run format && npm run lint && npm run test && npm run test:e2e",
+    "build:ci": "npm run clean && npm run build && npm run betterer:ci",
+    "build:extension": "npm run clean && lerna run build:extension",
+    "build:publish": "npm run clean && npm run api && npm run test:api && npm run test:dependencies && npm run test",
     "clean": "npm run clean:tests && npm run clean:compile && npm run clean:modules",
     "clean:tests": "rimraf fixtures && rimraf reports",
     "clean:compile": "lerna exec \"rimraf dist\" && rimraf ./**/tsconfig.tsbuildinfo && npm run clean:rollup",
@@ -38,22 +38,23 @@
     "test": "npm run clean:tests && vitest --config vitest.config.ts",
     "test:e2e": "npm run clean:tests && vitest --config ./vitest.e2e.config.js",
     "test:api": "npm run compile:api-test && node ./test/api/dist",
-    "test:dependencies": "npm run compile:dependencies-test && node ./test/dependencies/dist",
+    "test:dependencies": "npm run compile:dependencies-test && node ./test/dependencies/dist && npm run knip",
     "test:extension": "lerna run test:extension",
     "prepublishOnly": "npm run build:publish",
     "publish": "lerna publish --conventional-commits --no-commit-hooks --yes",
-    "prepare": "patch-package && husky install"
+    "prepare": "patch-package && husky install",
+    "knip": "knip --production --strict --tags=-knipignore,-internal"
   },
   "engines": {
     "node": ">=18"
   },
   "devDependencies": {
+    "@betterer/cli": "./packages/betterer",
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.9.1",
-    "@microsoft/api-documenter": "^7.25.12",
     "@microsoft/api-extractor": "^7.47.7",
     "@phenomnomnominal/commitlint-plugin": "^1.1.1",
     "@types/eslint": "^9.6.1",
@@ -68,6 +69,7 @@
     "eslint-plugin-require-extensions": "^0.1.3",
     "globals": "^15.9.0",
     "husky": "^7.0.4",
+    "knip": "^5.29.2",
     "lerna": "^6.6.2",
     "lint-staged": ">=11.1.2",
     "patch-package": "^8.0.0",

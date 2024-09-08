@@ -18,4 +18,4 @@ export default {
 };
 ```
 
-[`@betterer/eslint`](https://www.npmjs.com/package/@betterer/eslint) is a [BettererFileTest](./betterer.bettererfiletest), so you can use [`include`](./betterer.bettererfiletest.include), [`exclude`](./betterer.bettererfiletest.exclude), [`only`](betterer.bettererfiletest.only), and [`skip`](betterer.bettererfiletest.skip).
+[`@betterer/eslint`](https://www.npmjs.com/package/@betterer/eslint) is a [BettererFileTest](./betterer.bettererfiletest), so you can use [`include`](./betterer.bettererresolvertest.include), [`exclude`](./betterer.bettererresolvertest.exclude), [`only`](betterer.bettererresolvertest.only), and [`skip`](betterer.bettererresolvertest.skip).

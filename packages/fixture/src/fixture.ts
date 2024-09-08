@@ -37,6 +37,6 @@ export async function createFixtureDirectoryΔ(fixturesPath: string): Promise<Fi
   };
 }
 
-export function testNames(runs: BettererRunSummaries): BettererTestNames {
+function testNames(runs: BettererRunSummaries): BettererTestNames {
   return runs.map((run) => run.name);
 }

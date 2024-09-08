@@ -3,6 +3,7 @@ import type { ForegroundColorName } from 'chalk';
 
 import type { BettererTasksState } from './useTasksState.js';
 
+/** @knipignore used by an exported function */
 export type BettererTaskColour = ForegroundColorName;
 
 /**

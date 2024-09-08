@@ -91,7 +91,7 @@ export function validateWorkers(workers: number | boolean = true): number {
   return workers;
 }
 
-export function validate(value: unknown, message: string): asserts value {
+function validate(value: unknown, message: string): asserts value {
   assert(value, new BettererError(message));
 }
 

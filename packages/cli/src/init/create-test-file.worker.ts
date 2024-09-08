@@ -10,6 +10,7 @@ const TEMPLATE = `export default {
 };
 `;
 
+/** @knipignore part of worker API */
 export async function run(logger: BettererLogger, cwd: string, configPath: string): Promise<void> {
   configPath = path.resolve(cwd, configPath);
 

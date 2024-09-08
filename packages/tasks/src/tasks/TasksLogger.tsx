@@ -1,4 +1,4 @@
-import type { FC } from '@betterer/render';
+import type { FC, PropsWithChildren } from '@betterer/render';
 
 import type { BettererTaskLog, BettererTasksDone, BettererTasksStatusUpdate } from './types.js';
 import type { BettererTasksState } from './useTasksState.js';
@@ -14,7 +14,11 @@ import { useTimer } from './useTimer.js';
  *
  * `props` type for {@link BettererTasksLogger | `<BettererTasksLogger/>`}.
  */
-export interface BettererTasksLoggerProps {
+export type BettererTasksLoggerProps = PropsWithChildren<{
+  /**
+   * An optional callback function that is called whenever a set of tasks are completed.
+   */
+  done?: BettererTasksDone;
   /**
    * Whether the Ink renderer instance should quit after the tasks are complete.
    *
@@ -28,22 +32,18 @@ export interface BettererTasksLoggerProps {
    */
   name: string;
   /**
-   * An optional hook to customise the output of the task status summary.
-   *
-   * @defaultValue `() => ${nRunning} tasks running... ${nDone} tasks done! ${nErrored} tasks errored!`
-   */
-  update?: BettererTasksStatusUpdate;
-  /**
-   * An optional callback function that is called whenever a set of tasks are completed.
-   */
-  done?: BettererTasksDone;
-  /**
    * Whether the running time should be rendered.
    *
    * @defaultValue `true`
    */
   timer?: boolean;
-}
+  /**
+   * An optional hook to customise the output of the task status summary.
+   *
+   * @defaultValue `() => ${nRunning} tasks running... ${nDone} tasks done! ${nErrored} tasks errored!`
+   */
+  update?: BettererTasksStatusUpdate;
+}>;
 
 /**
  * @internal This could change at any point! Please don't use!

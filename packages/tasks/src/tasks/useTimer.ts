@@ -3,6 +3,7 @@ import { getPreciseTimeΔ } from '@betterer/time';
 
 const DEFAULT_TASK_TIME_INTERVAL = 100;
 
+/** @knipignore used by an exported function */
 export type BettererTimerClear = () => void;
 
 export function useTimer(enable = true): [number, BettererTimerClear] {
