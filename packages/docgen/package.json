@@ -26,8 +26,9 @@
     "node": ">=16"
   },
   "dependencies": {
+    "@microsoft/api-documenter": "^7.25.12",
     "dedent": "^0.7.0",
-    "tslib": "^2.3.1"
+    "tslib": "^2.7.0"
   },
   "devDependencies": {
     "@types/dedent": "^0.7.0"

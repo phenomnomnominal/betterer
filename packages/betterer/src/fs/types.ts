@@ -147,17 +147,23 @@ export type BettererFilePaths = ReadonlyArray<BettererFilePath>;
  */
 export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
 
+/** @knipignore used by an exported function */
 export type BettererFileHashMap = Map<string, string>;
+/** @knipignore used by an exported function */
 export type BettererFileHashMapSerialised = Record<string, string>;
 
+/** @knipignore used by an exported function */
 export type BettererTestCacheMap = Map<string, BettererFileHashMap>;
+/** @knipignore used by an exported function */
 export type BettererTestCacheMapSerialised = Record<string, BettererFileHashMapSerialised>;
 
+/** @knipignore used by an exported function */
 export interface BettererCacheFile {
   version: number;
   testCache: BettererTestCacheMapSerialised;
 }
 
+/** @knipignore used by an exported function */
 export interface BettererFileCache {
   clearCache(testName: string): void;
   filterCached(testName: string, filePaths: BettererFilePaths): BettererFilePaths;
@@ -166,6 +172,7 @@ export interface BettererFileCache {
   writeCache(): Promise<void>;
 }
 
+/** @knipignore used by an exported function */
 export interface BettererVersionControl extends BettererFileCache {
   add(resultsPath: string): Promise<void>;
   filterIgnored(filePaths: BettererFilePaths): BettererFilePaths;
@@ -260,4 +267,13 @@ export interface BettererFileResolver {
    * @returns The given paths filtered for relevance based on the `includes` and `excludes` of the {@link @betterer/betterer#BettererFileResolver | `BettererFileResolver`}.
    */
   included(filePaths: BettererFilePaths): BettererFilePaths;
+  /**
+   * Create a temporary file and get the path to that file, relative to the `baseDirectory`.
+   *
+   * @param filePath - an optional file path to include in the temp path.
+   *
+   * @returns A path to a temporary directory called `.betterer` somewhere on disk, with the optional file path.
+   * If included, the file path will have extra characters inserted to guarantee uniqueness.
+   */
+  tmp(filePath?: BettererFilePath): Promise<BettererFilePath>;
 }

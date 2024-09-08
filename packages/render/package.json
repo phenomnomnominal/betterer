@@ -22,7 +22,7 @@
     "url": "https://github.com/phenomnomnominal/betterer/issues"
   },
   "scripts": {
-    "compile": "tsc -b . && rollup --config rollup.config.ts --configPlugin 'typescript={outputToFilesystem:false,sourceMap:false}'",
+    "compile": "tsc -b . && rollup --config rollup.config.ts --configPlugin \"typescript={outputToFilesystem:false,sourceMap:false}\"",
     "api": "api-extractor run --local --verbose"
   },
   "engines": {
@@ -36,7 +36,6 @@
     "@rollup/plugin-typescript": "^11.1.6",
     "ink": "^3.0.9",
     "ink-text-input": "^4.0.1",
-    "rollup": "^4.14.3",
-    "tslib": "^2.3.1"
+    "rollup": "^4.14.3"
   }
 }

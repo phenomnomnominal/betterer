@@ -32,7 +32,7 @@ export async function importDefault(importPath: string): Promise<unknown> {
   return getDefaultExport(m);
 }
 
-export async function importTypeScript(importPath: string): Promise<unknown> {
+async function importTypeScript(importPath: string): Promise<unknown> {
   try {
     await import('typescript');
   } catch (error) {
@@ -52,7 +52,9 @@ export async function importTypeScript(importPath: string): Promise<unknown> {
   const options = { compilerOptions: { module: ModuleKind.ES2015 } };
   const transpiled = transpileModule(source, options).outputText;
 
-  const tmpFile = path.join(path.dirname(importPath), getTmpFileName());
+  const { dir, name } = path.parse(importPath);
+  // Has to be next to the existing file so that relative import paths still work:
+  const tmpFile = path.join(dir, getTmpFileName(name, '.mjs'));
   try {
     await fs.writeFile(tmpFile, transpiled);
     return await importDefault(tmpFile);
@@ -72,6 +74,6 @@ export function importText(filePath: string, text: string): unknown {
   return getDefaultExport(m.exports);
 }
 
-export function getDefaultExport(module: unknown): unknown {
+function getDefaultExport(module: unknown): unknown {
   return (module as ESModule).default || module;
 }

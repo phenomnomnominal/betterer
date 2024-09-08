@@ -11,6 +11,7 @@
       "@betterer/errors": ["./packages/errors/src/index"],
       "@betterer/eslint": ["./packages/eslint/src/index"],
       "@betterer/fixture": ["./packages/fixture/src/index"],
+      "@betterer/knip": ["./packages/knip/src/index"],
       "@betterer/logger": ["./packages/logger/src/index"],
       "@betterer/regexp": ["./packages/regexp/src/index"],
       "@betterer/render": ["./packages/render/src/index"],

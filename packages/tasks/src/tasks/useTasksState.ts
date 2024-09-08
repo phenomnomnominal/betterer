@@ -34,7 +34,7 @@ export interface BettererTasksState {
   endTime: number | null;
 }
 
-export type BettererTasksAction =
+type BettererTasksAction =
   | {
       type: 'start';
     }
@@ -46,6 +46,7 @@ export type BettererTasksAction =
       data: Error;
     };
 
+/** @knipignore used by an exported function */
 export interface BettererTasksAPI {
   error(error: Error): void;
   start(): void;

@@ -6,6 +6,7 @@ import { React, Box, Text, memo } from '@betterer/render';
 
 import { filesChecked, filesChecking } from '../../messages.js';
 
+/** @knipignore used by an exported function */
 export interface DefaultFilesProps {
   suite: BettererSuite;
   running: boolean;

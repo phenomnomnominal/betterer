@@ -8,6 +8,7 @@ import { React, Box, Text, memo } from '@betterer/render';
 import { filesChecked, filesChecking, testsChanged } from '../../messages.js';
 import { Config } from '../config/index.js';
 
+/** @knipignore used by an exported function */
 export interface WatchFilesProps {
   context: BettererContext;
   editField: ConfigEditField;

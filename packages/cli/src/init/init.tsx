@@ -6,6 +6,7 @@ import { Box, React, useCallback } from '@betterer/render';
 import { BettererLogo, BettererTaskLogger, BettererTasksLogger } from '@betterer/tasks';
 import { exposeToWorkerΔ, importWorkerΔ } from '@betterer/worker';
 
+/** @knipignore used by an exported function */
 export interface InitProps {
   automerge: boolean;
   configPath: string;

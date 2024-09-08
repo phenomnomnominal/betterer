@@ -4,16 +4,19 @@ export const CONTEXT_END = 'contextEnd';
 export const SUITE_START = 'suiteStart';
 export const SUITE_END = 'suiteEnd';
 
+/** @knipignore used by an exported function */
 export interface BettererContextEndAction {
   name: typeof CONTEXT_END;
   contextSummary: BettererContextSummary;
 }
 
+/** @knipignore used by an exported function */
 export interface BettererSuiteStartAction {
   name: typeof SUITE_START;
   suite: BettererSuite;
 }
 
+/** @knipignore used by an exported function */
 export interface BettererSuiteEndAction {
   name: typeof SUITE_END;
   suiteSummary: BettererSuiteSummary;

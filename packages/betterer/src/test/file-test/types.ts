@@ -1,6 +1,6 @@
 import type { BettererFilePaths, BettererFileResolver } from '../../fs/index.js';
 import type { MaybeAsync } from '../../types.js';
-import type { BettererDiff, BettererTestConfig } from '../types.js';
+import type { BettererDiff } from '../types.js';
 
 /**
  * @public A serialised {@link @betterer/betterer#BettererFileIssue | `BettererFileIssue`}.
@@ -188,14 +188,3 @@ export interface BettererFileTestResult {
    */
   getIssues(absolutePath?: string): BettererFileIssues;
 }
-
-/**
- * @internal This could change at any point! Please don't use!
- *
- * Utility type to improve readability
- */
-export type BettererFileTestConfig = BettererTestConfig<
-  BettererFileTestResult,
-  BettererFileTestResultSerialised,
-  BettererFilesDiff
->;

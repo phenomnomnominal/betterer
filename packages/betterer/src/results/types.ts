@@ -16,6 +16,8 @@ export interface BettererResult {
 }
 
 /**
+ * @knipignore used by an exported function
+ *
  * The result object for a single run of a single {@link @betterer/betterer#BettererTest | `BettererTest`}.
  * The `value` is first serialised and then `JSON.stringify()`-ed, so it needs
  * to be `JSON.parse()`-ed and then deserialised to be useful.

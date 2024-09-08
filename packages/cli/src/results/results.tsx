@@ -6,6 +6,7 @@ import { React, Box, Text, useApp, useEffect, useState } from '@betterer/render'
 import { BettererLogo } from '@betterer/tasks';
 import { importWorkerΔ } from '@betterer/worker';
 
+/** @knipignore used by an exported function */
 export interface ResultsProps {
   options: BettererOptionsResults;
   logo: boolean;

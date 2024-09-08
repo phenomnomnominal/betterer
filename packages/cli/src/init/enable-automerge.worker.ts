@@ -10,6 +10,7 @@ const NEW_LINE = '\n';
 const MERGE_CONFIG = '[merge "betterer"]';
 const MERGE_DIRECTIVE = 'merge=betterer';
 
+/** @knipignore part of worker API */
 export async function run(logger: BettererLogger, cwd: string, resultsPath: string): Promise<void> {
   resultsPath = path.resolve(cwd, resultsPath);
 

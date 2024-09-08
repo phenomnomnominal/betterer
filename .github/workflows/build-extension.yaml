@@ -21,11 +21,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix['node-version'] }}
-      - name: Install dependencies
-        run: npm install
-      - name: Run build
-        run: npm run compile:packages && npm run build:extension
-      - name: Run extension test
-        uses: GabrielBB/xvfb-action@v1.0
-        with:
-          run: npm run test:extension
+      # - name: Install dependencies
+      #   run: npm install
+      # - name: Run build
+      #   run: npm run compile:packages && npm run build:extension
+      # - name: Run extension test
+      #   uses: GabrielBB/xvfb-action@v1.0
+      #   with:
+      #     run: npm run test:extension

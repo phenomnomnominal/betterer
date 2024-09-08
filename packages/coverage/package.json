@@ -35,8 +35,7 @@
     "@betterer/betterer": "^5.4.0",
     "@betterer/constraints": "^5.3.0",
     "@betterer/errors": "^5.3.0",
-    "@betterer/logger": "^5.3.4",
-    "tslib": "^2.3.1"
+    "@betterer/logger": "^5.3.4"
   },
   "devDependencies": {
     "@types/istanbul-lib-coverage": "2.0.4"

@@ -8,6 +8,7 @@ import { BettererLogo, BettererTaskLogger, BettererTasksLogger } from '@betterer
 import { exposeToWorkerΔ, importWorkerΔ } from '@betterer/worker';
 import path from 'node:path';
 
+/** @knipignore used by an exported function */
 export interface UpgradeProps {
   configPaths: BettererConfigPaths;
   cwd: string;

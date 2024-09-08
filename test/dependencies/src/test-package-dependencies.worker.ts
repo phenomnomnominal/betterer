@@ -1,16 +1,21 @@
-import type { BettererLogger } from '@betterer/logger';
+import type { BettererLogger, BettererLogs } from '@betterer/logger';
+import type { KnipIssue, KnipIssues, KnipIssuesByType, KnipIssueType, KnipReport } from './types.js';
 
-import { BettererError } from '@betterer/errors';
+import { logΔ } from '@betterer/logger';
+import { BettererError, invariantΔ } from '@betterer/errors';
 import { exposeToMainΔ } from '@betterer/worker';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import dependencyCheck from 'dependency-check';
+import { exec } from 'node:child_process';
+import { promisify } from 'node:util';
+
+const asyncExec = promisify(exec);
 
 const EXCLUDED_PACKAGES = ['docgen', 'extension', 'fixture'];
-const IGNORED: Record<string, Array<string>> = {
-  render: ['bufferutil', 'utf-8-validate']
-};
+
+// This is probably a bit fragile 😅
+import { ISSUE_TYPE_TITLE } from 'knip/dist/constants.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PACKAGES_DIR = path.resolve(__dirname, '../../../packages');
@@ -35,23 +40,70 @@ export async function run(logger: BettererLogger, packageName: string): Promise<
   const packageNameFull = `@betterer/${packageName}`;
   await logger.progress(`Validating dependencies for "${packageNameFull}" ...`);
 
-  const parsed = await dependencyCheck({
-    path: path.resolve(PACKAGES_DIR, packageName),
-    entries: ['package.json']
-  });
+  const { stdout } = await asyncExec(
+    `npm run knip -- --no-exit-code --reporter=json --workspace=packages/${packageName}`
+  );
 
-  const missing = await dependencyCheck.missing(parsed.package, parsed.used);
-  const removeBuiltIns = missing.filter((dependency) => !dependency.startsWith('node:'));
-  const errors = removeBuiltIns.filter((dependency) => !IGNORED[packageName]?.includes(dependency));
+  const lines = stdout.split('\n').filter(Boolean);
+  const lastLine = lines.at(-1);
+  invariantΔ(lastLine, `\`lastLine\` should be the JSON output from knip!`);
+
+  let report: KnipReport;
+  try {
+    report = JSON.parse(lastLine) as KnipReport;
+  } catch {
+    throw new BettererError(`Couldn't parse JSON output from knip. ❌`);
+  }
+
+  const issuesByType: KnipIssuesByType = {};
+  report.issues.map((filesIssues) => {
+    const filePath = filesIssues.file;
+
+    const entries = Object.entries(filesIssues).filter((entry): entry is [KnipIssueType, KnipIssues] => {
+      const [key, issues] = entry;
+      return isIssueType(key) && Array.isArray(issues) && issues.length !== 0;
+    });
+
+    if (!entries.length) {
+      return;
+    }
+
+    entries.forEach(([issueType, issues]) => {
+      issuesByType[issueType] ??= {};
+      const issuesForIssueType = issuesByType[issueType];
+      issuesForIssueType[filePath] = [...(issuesForIssueType[filePath] ?? []), ...issues];
+    });
+  });
 
   // Fight with race condition in Comlink 😡
   await new Promise((resolve) => setTimeout(resolve, 50));
 
-  if (!errors.length) {
-    return `No missing dependencies found in "${packageNameFull}".`;
-  }
+  const errors: BettererLogs = [];
+  Object.entries(issuesByType).forEach(([issueType, issues]) => {
+    const title = ISSUE_TYPE_TITLE[issueType as KnipIssueType];
+    errors.push({ error: `\n${title.toUpperCase()}:` });
+    Object.entries(issues).forEach(([filePath, issues]) => {
+      errors.push(...issues.map((issue) => ({ error: `${issue.name} - ${getFilePath(filePath, issue)}` })));
+    });
+  });
 
-  throw new BettererError(`Missing dependencies found in "${packageNameFull}": ${errors.join(', ')}`);
+  await logΔ(errors, logger);
+
+  if (errors.length) {
+    throw new BettererError(`Dependency issues found in "${packageNameFull}"`);
+  }
+  return `No dependency issues found in "${packageNameFull}".`;
+}
+
+function isIssueType(key: unknown): key is KnipIssueType {
+  return !!ISSUE_TYPE_TITLE[key as KnipIssueType];
+}
+
+function getFilePath(filePath: string, issue: KnipIssue): string {
+  if (!(issue.line && issue.col)) {
+    return filePath;
+  }
+  return `${filePath}:${String(issue.line)}:${String(issue.col)}`;
 }
 
 exposeToMainΔ({ getPackages, run });
