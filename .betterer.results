@@ -6,61 +6,84 @@
 exports[`no knip errors`] = {
   value: `{
     ".betterer.ts:194472954": [
-      [0, 0, 0, "Unused files", "5381"]
+      [0, 0, 0, "Unused files", "3789190540"]
+    ],
+    "fixtures/results-escape/.betterer.ts:3123703684": [
+      [0, 0, 0, "Unused files", "3789190540"]
+    ],
+    "fixtures/results-escape/src/index.ts:5381": [
+      [0, 0, 0, "Unused files", "3789190540"]
+    ],
+    "fixtures/results-path/.betterer.ts:3123703684": [
+      [0, 0, 0, "Unused files", "3789190540"]
+    ],
+    "fixtures/results-path/src/index.ts:5381": [
+      [0, 0, 0, "Unused files", "3789190540"]
     ],
     "packages/betterer/src/fs/version-control.worker.ts:2897508041": [
-      [0, 0, 0, "Unused files", "5381"]
+      [0, 0, 0, "Unused files", "3789190540"]
     ],
     "packages/docgen/package.json:1502158302": [
-      [0, 0, 0, "Unused dependencies: tslib", "5381"]
+      [0, 0, 0, "Unused dependencies: tslib", "975605642"]
     ],
     "packages/extension/package.json:710109374": [
-      [0, 0, 0, "Unused dependencies: lodash.debounce", "5381"],
-      [0, 0, 0, "Unused dependencies: vscode-languageserver-textdocument", "5381"]
+      [0, 0, 0, "Unused dependencies: lodash.debounce", "2305943112"],
+      [0, 0, 0, "Unused dependencies: vscode-languageclient", "2194305828"],
+      [0, 0, 0, "Unused dependencies: vscode-languageserver", "1576609144"],
+      [0, 0, 0, "Unused dependencies: vscode-languageserver-textdocument", "2013829255"],
+      [0, 0, 0, "Unused dependencies: vscode-uri", "2713846241"]
     ],
     "packages/fixture/package.json:1813188013": [
-      [0, 0, 0, "Unused dependencies: ansi-regex", "5381"]
+      [0, 0, 0, "Unused dependencies: ansi-regex", "2577412447"]
     ],
-    "packages/knip/src/types.ts:3744550187": [
-      [71, 13, 17, "Unused exported types: KnipIssuesForFile", "3096855462"],
-      [72, 13, 16, "Unused exported types: KnipIssuesByType", "4009975265"]
+    "packages/knip/src/types.ts:1961360955": [
+      [66, 18, 9, "Unused exported types: KnipIssue", "4265144789"],
+      [74, 13, 14, "Unused exported types: KnipFileIssues", "4219244376"],
+      [80, 13, 15, "Unused exported types: KnipFilesIssues", "1683320690"],
+      [82, 13, 17, "Unused exported types: KnipIssuesForFile", "3096855462"],
+      [83, 13, 16, "Unused exported types: KnipIssuesByType", "4009975265"]
     ],
     "test/api/dist/index.d.ts:3932948493": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/render", "5381"]
+      [0, 0, 0, "Unlisted dependencies: @betterer/render", "3900616204"]
     ],
     "test/api/dist/test-package-api.d.ts:2553603510": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/logger", "5381"]
+      [0, 0, 0, "Unlisted dependencies: @betterer/logger", "3662613106"]
     ],
     "test/api/dist/test-package-api.worker.d.ts:861012633": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/logger", "5381"]
+      [0, 0, 0, "Unlisted dependencies: @betterer/logger", "3662613106"]
     ],
     "test/api/dist/types.d.ts:1714551334": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/worker", "5381"]
+      [0, 0, 0, "Unlisted dependencies: @betterer/worker", "3725067120"]
     ],
     "test/dependencies/dist/index.d.ts:3599027548": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/render", "5381"]
+      [0, 0, 0, "Unlisted dependencies: @betterer/render", "3900616204"]
     ],
     "test/dependencies/dist/test-package-dependencies.d.ts:2821267719": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/logger", "5381"]
+      [0, 0, 0, "Unlisted dependencies: @betterer/logger", "3662613106"]
     ],
     "test/dependencies/dist/test-package-dependencies.worker.d.ts:373675784": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/logger", "5381"]
+      [0, 0, 0, "Unlisted dependencies: @betterer/logger", "3662613106"]
     ],
-    "test/dependencies/dist/types.d.ts:3087093882": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/worker", "5381"]
+    "test/dependencies/dist/types.d.ts:1442010433": [
+      [0, 0, 0, "Unlisted dependencies: @betterer/worker", "3725067120"]
     ],
     "tools/docs-filter.ts:2032041944": [
-      [0, 0, 0, "Unused files", "5381"]
+      [0, 0, 0, "Unused files", "3789190540"]
     ],
     "vitest.config.ts:1758587906": [
-      [0, 0, 0, "Unlisted dependencies: @vitest/coverage-v8", "5381"]
+      [0, 0, 0, "Unlisted dependencies: @vitest/coverage-v8", "423406117"]
     ],
     "website/package.json:2119283197": [
-      [0, 0, 0, "Unused dependencies: @algolia/client-search", "5381"],
-      [0, 0, 0, "Unused dependencies: @docusaurus/plugin-client-redirects", "5381"],
-      [0, 0, 0, "Unused dependencies: @docusaurus/preset-classic", "5381"],
-      [0, 0, 0, "Unused dependencies: clsx", "5381"],
-      [0, 0, 0, "Unused dependencies: react-loadable", "5381"]
+      [0, 0, 0, "Unused dependencies: @algolia/client-search", "615397950"],
+      [0, 0, 0, "Unused dependencies: @docusaurus/core", "1623780400"],
+      [0, 0, 0, "Unused dependencies: @docusaurus/plugin-client-redirects", "1894418674"],
+      [0, 0, 0, "Unused dependencies: @docusaurus/preset-classic", "3564359911"],
+      [0, 0, 0, "Unused dependencies: @mdx-js/react", "3475488353"],
+      [0, 0, 0, "Unused dependencies: clsx", "1980870894"],
+      [0, 0, 0, "Unused dependencies: react", "964551243"],
+      [0, 0, 0, "Unused dependencies: react-dom", "2933334464"],
+      [0, 0, 0, "Unused dependencies: react-loadable", "4081059722"],
+      [0, 0, 0, "Unlisted binaries: docusaurus", "1661342944"]
     ]
   }`
 };
