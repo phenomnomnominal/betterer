@@ -8,18 +8,6 @@ exports[`no knip errors`] = {
     ".betterer.ts:194472954": [
       [0, 0, 0, "Unused files", "3789190540"]
     ],
-    "fixtures/results-escape/.betterer.ts:3123703684": [
-      [0, 0, 0, "Unused files", "3789190540"]
-    ],
-    "fixtures/results-escape/src/index.ts:5381": [
-      [0, 0, 0, "Unused files", "3789190540"]
-    ],
-    "fixtures/results-path/.betterer.ts:3123703684": [
-      [0, 0, 0, "Unused files", "3789190540"]
-    ],
-    "fixtures/results-path/src/index.ts:5381": [
-      [0, 0, 0, "Unused files", "3789190540"]
-    ],
     "packages/betterer/src/fs/version-control.worker.ts:2897508041": [
       [0, 0, 0, "Unused files", "3789190540"]
     ],
