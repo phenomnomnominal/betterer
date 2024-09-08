@@ -5,6 +5,8 @@ import prettier from 'eslint-config-prettier';
 import globals from 'globals';
 import tsLint from 'typescript-eslint';
 
+import 'core-js/actual/structured-clone.js';
+
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
