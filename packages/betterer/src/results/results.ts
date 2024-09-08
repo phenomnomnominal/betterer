@@ -1,8 +1,9 @@
-import type { BettererRunSummary, BettererRunSummaries } from '../run/index.js';
+import type { BettererRunSummaries } from '../run/index.js';
 import type { BettererSuiteSummary } from '../suite/index.js';
 import type { BettererTestNames } from '../test/index.js';
 import type { BettererResultsSerialised } from './types.js';
 
+import { invariantΔ } from '@betterer/errors';
 import assert from 'node:assert';
 
 import { printResults } from './print.js';
@@ -17,18 +18,21 @@ export class BettererResultsΩ {
   }
 
   public getChanged(runSummaries: BettererRunSummaries): BettererTestNames {
-    const missingRuns = Object.keys(this._expected).filter(
+    const missingRunNames = Object.keys(this._expected).filter(
       (name) => !runSummaries.find((runSummary) => runSummary.name === name)
     );
-    const changedRuns = runSummaries
-      .filter((runSummary) => !runSummary.isNew && !runSummary.isFailed && !runSummary.isSkipped)
-      .filter((runSummary) => runSummary.printed !== this._getResult(runSummary.name, this._expected))
-      .map((runSummary) => runSummary.name);
-    const newRuns = runSummaries
-      .filter((runSummary) => runSummary.isNew && !runSummary.isComplete)
-      .map((runSummary) => runSummary.name);
-    const worseRuns = runSummaries.filter((runSummary) => runSummary.isWorse).map((runSummary) => runSummary.name);
-    return [...missingRuns, ...changedRuns, ...newRuns, ...worseRuns];
+    const notFailedOrSkipped = runSummaries.filter((runSummary) => !runSummary.isFailed && !runSummary.isSkipped);
+    const changedRuns = notFailedOrSkipped
+      .filter((runSummary) => !runSummary.isNew)
+      .filter((runSummary) => {
+        const { result, expected } = runSummary;
+        invariantΔ(result, 'Test is not _new_, _failed_, or _skipped_ so it must have a result!');
+        invariantΔ(expected, 'Test is not _new_ so it must have an expected result!');
+        return result.printed !== expected.printed;
+      });
+    const newRuns = notFailedOrSkipped.filter((runSummary) => runSummary.isNew && !runSummary.isComplete);
+    const newOrChangedRunNames = [...changedRuns, ...newRuns].map((runSummary) => runSummary.name);
+    return [...missingRunNames, ...newOrChangedRunNames];
   }
 
   public getExpected(name: string): [string, string] {
@@ -45,21 +49,6 @@ export class BettererResultsΩ {
     this._expected = expected as BettererResultsSerialised;
   }
 
-  public printNew(suiteSummary: BettererSuiteSummary): string | null {
-    if (suiteSummary.new.length === 0) {
-      return null;
-    }
-
-    return printResults(
-      suiteSummary.new
-        .filter((runSummary) => !runSummary.isComplete)
-        .reduce((results, runSummary: BettererRunSummary) => {
-          results[runSummary.name] = { value: runSummary.printed! };
-          return results;
-        }, this._expected)
-    );
-  }
-
   public print(): string {
     return printResults(this._baseline);
   }
@@ -67,12 +56,22 @@ export class BettererResultsΩ {
   public printSummary(suiteSummary: BettererSuiteSummary): string | null {
     const printedExpected = printResults(this._expected);
     const printedResult = printResults(
-      suiteSummary.runSummaries
-        .filter((runSummary: BettererRunSummary) => runSummary.printed != null)
-        .reduce<BettererResultsSerialised>((results, runSummary) => {
-          results[runSummary.name] = { value: runSummary.printed! };
+      suiteSummary.runSummaries.reduce<BettererResultsSerialised>((results, runSummary) => {
+        const { isComplete, isFailed, isSkipped, isNew, isWorse } = runSummary;
+        const isSkippedOrFailed = isSkipped || isFailed;
+        if (isComplete || (isSkippedOrFailed && isNew)) {
           return results;
-        }, {})
+        }
+        const { expected, name, result } = runSummary;
+        if ((isSkippedOrFailed && !isNew) || isWorse) {
+          invariantΔ(expected, 'Test is not _new_, or _worse_ so it must have an expected result!');
+          results[name] = { value: expected.printed };
+          return results;
+        }
+        invariantΔ(result, 'Test is not _completed_, _skipped_ or _failed_ so it must have a new result!');
+        results[name] = { value: result.printed };
+        return results;
+      }, {})
     );
 
     const shouldWrite = printedResult !== printedExpected;

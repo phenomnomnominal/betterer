@@ -26,14 +26,14 @@ export async function init(
 export function run(
   testName: string,
   filePaths: BettererFilePaths | null,
-  isSkipped: boolean,
+  isFiltered: boolean,
   timestamp: number
 ): Promise<BettererRunSummary> {
   const run = TEST_NAME_RUN[testName];
   if (!run) {
     throw new BettererError(`Worker has not been initialised for "${testName}". ❌`);
   }
-  return run.run(filePaths, isSkipped, timestamp);
+  return run.run(filePaths, isFiltered, timestamp);
 }
 
 exposeToMainΔ({

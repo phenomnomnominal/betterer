@@ -9,7 +9,7 @@ exports[`betterer > should escape interpolation characters in the result file 1`
 exports[\`test\`] = {
   value: \`{
     "src/index.ts:5381": [
-      [0, 0, 0, "\\\`$\\{key}\\\`", "5381"]
+      [0, 0, 0, "\\\`$\\{key}\\\`", "2284429680"]
     ]
   }\`
 };

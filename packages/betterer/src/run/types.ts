@@ -1,3 +1,4 @@
+import type { BettererConstraintResult } from '@betterer/constraints';
 import type { BettererError } from '@betterer/errors';
 import type { BettererWorkerAPI, BettererWorkerHandle, BettererWorkerPool } from '@betterer/worker';
 
@@ -119,6 +120,15 @@ export interface BettererRunning {
   skipped(): Promise<BettererRunSummary>;
 }
 
+export interface BettererRunningEnd {
+  comparison?: BettererConstraintResult | null;
+  diff?: BettererDiff | null;
+  error?: BettererError | null;
+  result?: BettererResult | null;
+  timestamp: number;
+  isSkipped?: true;
+}
+
 /**
  * @public The summary of a {@link @betterer/betterer#BettererTest | `BettererTest`} run. Includes
  * everything from {@link @betterer/betterer#BettererRun | `BettererRun`}.
@@ -165,7 +175,6 @@ export interface BettererRunSummary extends BettererRun {
    * The `error` that cause the run to fail. Will be present when `isFailed` is `true`.
    */
   readonly error: Error | null;
-  readonly printed: string | null;
   /**
    * The result for the test run. Will be `null` when `isFailed` or `isSkipped` is `true`.
    */

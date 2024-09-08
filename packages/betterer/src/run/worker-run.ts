@@ -2,7 +2,6 @@ import type { BettererConfig } from '../config/index.js';
 import type { BettererFilePaths, BettererVersionControlWorker } from '../fs/index.js';
 import type { BettererResult } from '../results/index.js';
 import type {
-  BettererDiff,
   BettererTestConfig,
   BettererTestMeta,
   BettererTestFactory,
@@ -10,7 +9,7 @@ import type {
   BettererTest
 } from '../test/index.js';
 import type { BettererRunMeta } from './meta/index.js';
-import type { BettererRun, BettererRunning, BettererRunSummary } from './types.js';
+import type { BettererRun, BettererRunning, BettererRunningEnd, BettererRunSummary } from './types.js';
 
 import { BettererConstraintResult } from '@betterer/constraints';
 import { BettererError, isBettererErrorΔ } from '@betterer/errors';
@@ -19,7 +18,7 @@ import assert from 'node:assert';
 import { forceRelativePaths, importDefault, parse } from '../fs/index.js';
 import { BettererResultsΩ, BettererResultΩ } from '../results/index.js';
 import { isBettererResolverTest, isBettererTest } from '../test/index.js';
-import { BettererRunStatus, BettererRunSummaryΩ } from './run-summary.js';
+import { BettererRunSummaryΩ } from './run-summary.js';
 import { isFunction } from '../utils.js';
 import { getGlobals, setGlobals } from '../globals.js';
 
@@ -64,7 +63,11 @@ export class BettererWorkerRunΩ implements BettererRun {
     const { name } = testMeta;
     const expected = await parse(config.resultsPath);
     const results = new BettererResultsΩ(expected);
-    setGlobals({ config, results, versionControl });
+
+    // If we're in a worker, we need to populate the globals:
+    if (process.env.BETTERER_WORKER !== 'false') {
+      setGlobals(config, results, null, null, versionControl);
+    }
 
     const isNew = !results.hasResult(name);
 
@@ -96,12 +99,13 @@ export class BettererWorkerRunΩ implements BettererRun {
 
   public async run(
     filePaths: BettererFilePaths | null,
-    isSkipped: boolean,
+    isFiltered: boolean,
     timestamp: number
   ): Promise<BettererRunSummary> {
     this.setFilePaths(filePaths);
 
-    const { config, results, versionControl } = getGlobals();
+    const { config, results } = getGlobals();
+    const { resultsPath } = config;
 
     if (!this.runMeta.isNew) {
       const [baselineJSON, expectedJSON] = results.getExpected(this.name);
@@ -109,15 +113,17 @@ export class BettererWorkerRunΩ implements BettererRun {
       this._expected = this._deserialise(config.resultsPath, expectedJSON);
     }
 
-    const running = this._run(config, timestamp, versionControl);
+    const running = this._run(timestamp);
 
-    if (isSkipped) {
+    if (this.runMeta.isSkipped || isFiltered) {
       return await running.skipped();
     }
 
     try {
-      const result = new BettererResultΩ(await this.test.test(this));
-      return await running.done(result);
+      const result = await this.test.test(this);
+      const serialisedResult = await this.test.serialiser.serialise(result, resultsPath);
+      const printedResult = forceRelativePaths(await this.test.printer(serialisedResult), resultsPath);
+      return await running.done(new BettererResultΩ(result, printedResult));
     } catch (error) {
       return await running.failed(error as BettererError);
     }
@@ -131,103 +137,97 @@ export class BettererWorkerRunΩ implements BettererRun {
     try {
       const serialised = JSON.parse(resultJSON) as unknown;
       const { deserialise } = this.test.serialiser;
-      return new BettererResultΩ(deserialise(serialised, resultsPath));
+      return new BettererResultΩ(deserialise(serialised, resultsPath), resultJSON);
     } catch {
       return null;
     }
   }
 
-  private _run(
-    config: BettererConfig,
-    timestamp: number,
-    versionControl: BettererVersionControlWorker
-  ): BettererRunning {
-    const end = async (
-      status: BettererRunStatus,
-      result: BettererResult | null = null,
-      diff: BettererDiff | null = null,
-      error: BettererError | null = null
-    ): Promise<BettererRunSummary> => {
-      const isBetter = status === BettererRunStatus.better;
-      const isSame = status === BettererRunStatus.same;
-      const isUpdated = status === BettererRunStatus.update;
-      const isSkipped = status === BettererRunStatus.skipped;
-      const isFailed = status === BettererRunStatus.failed;
-      const isWorse = status === BettererRunStatus.worse;
-
-      const baselineValue = this.isNew ? null : this.baseline.value;
-      const resultValue = !result ? null : result.value;
-
-      const delta = await this.test.progress(baselineValue, resultValue);
-
-      const { resultsPath, ci } = config;
+  private _serialise(resultsPath: string, deserialised: BettererResult): BettererResultΩ | null {
+    try {
       const { serialise } = this.test.serialiser;
+      return new BettererResultΩ(serialise(deserialised.value, resultsPath), deserialised.printed);
+    } catch {
+      return null;
+    }
+  }
 
-      const resultSerialised = resultValue != null ? new BettererResultΩ(serialise(resultValue, resultsPath)) : null;
-      const baselineSerialised = this.isNew ? null : new BettererResultΩ(serialise(this.baseline.value, resultsPath));
-      const expectedSerialised = this.isNew ? null : new BettererResultΩ(serialise(this.expected.value, resultsPath));
-
-      const isComplete = resultValue != null && (await this.test.goal(resultValue));
-      const isExpired = timestamp >= this.test.deadline;
-      let printed: string | null = null;
-      const shouldPrint = !(isComplete || (this.isNew && (isFailed || isSkipped)));
-      if (shouldPrint) {
-        const toPrint = isFailed || isSkipped || isWorse ? this.expected : result!;
-        const toPrintSerialised = this.test.serialiser.serialise(toPrint.value, config.resultsPath);
-        printed = forceRelativePaths(await this.test.printer(toPrintSerialised), config.versionControlPath);
-      }
-
-      if (this.runMeta.needsFilePaths && !ci) {
-        if (isComplete) {
-          await versionControl.api.clearCache(this.name);
-        } else if (isBetter || isSame || isUpdated || this.isNew) {
-          await versionControl.api.updateCache(this.name, this.filePaths as Array<string>);
-        }
-      }
-
-      return new BettererRunSummaryΩ(
-        this,
-        resultSerialised,
-        baselineSerialised,
-        expectedSerialised,
-        status,
-        isComplete,
-        isExpired,
-        delta,
-        diff,
-        error,
-        printed,
-        timestamp
-      );
-    };
-
+  private _run(timestamp: number): BettererRunning {
     return {
       done: async (result: BettererResultΩ): Promise<BettererRunSummary> => {
         if (this.isNew) {
-          return await end(BettererRunStatus.new, result);
+          return await this._end({ comparison: null, result, timestamp });
         }
 
         const comparison = await this.test.constraint(result.value, this.expected.value);
 
         if (comparison === BettererConstraintResult.same) {
-          return await end(BettererRunStatus.same, result);
+          return await this._end({ comparison, result, timestamp });
         }
 
         const diff = this.test.differ(this.expected.value, result.value);
-        if (comparison === BettererConstraintResult.better) {
-          return await end(BettererRunStatus.better, result, diff);
-        }
-
-        const status = config.update ? BettererRunStatus.update : BettererRunStatus.worse;
-        return await end(status, result, diff);
+        return await this._end({ comparison, diff, result, timestamp });
       },
       failed: async (error: BettererError): Promise<BettererRunSummary> => {
-        return await end(BettererRunStatus.failed, null, null, error);
+        return await this._end({ error, timestamp });
       },
       skipped: async (): Promise<BettererRunSummary> => {
-        return await end(BettererRunStatus.skipped);
+        return await this._end({ timestamp, isSkipped: true });
       }
     };
+  }
+
+  private async _end(end: BettererRunningEnd): Promise<BettererRunSummary> {
+    const { comparison, diff, error, result, timestamp, isSkipped } = end;
+    const { config, versionControl } = getGlobals();
+    const { resultsPath } = config;
+
+    const isFailed = !!error;
+    const isWorse = comparison === BettererConstraintResult.worse && !config.update;
+    const isUpdated = comparison === BettererConstraintResult.worse && config.update;
+
+    const { ci } = config;
+
+    const isComplete = !!result && (await this.test.goal(result.value));
+    const isExpired = timestamp >= this.test.deadline;
+    const shouldPrint = !(isComplete || (this.isNew && (isFailed || isSkipped)));
+
+    const baselineValue = this.isNew ? null : this.baseline.value;
+    const delta = result ? await this.test.progress(baselineValue, result.value) : null;
+
+    if (this.runMeta.needsFilePaths && !ci) {
+      if (isComplete) {
+        await versionControl.api.clearCache(this.name);
+      } else if (shouldPrint && !isWorse) {
+        await versionControl.api.updateCache(this.name, this.filePaths as Array<string>);
+      }
+    }
+
+    // Make sure to use the serialised result so it can be passed back to the main thread:
+    const serialisedResult = result ? this._serialise(resultsPath, result) : null;
+    const serialisedBaseline = !this.isNew ? this._serialise(resultsPath, this.baseline) : null;
+    const serialisedExpected = !this.isNew ? this._serialise(resultsPath, this.expected) : null;
+
+    return new BettererRunSummaryΩ({
+      baseline: serialisedBaseline,
+      delta,
+      diff: diff ?? null,
+      expected: serialisedExpected,
+      error: error ?? null,
+      filePaths: this.filePaths,
+      isBetter: comparison === BettererConstraintResult.better,
+      isComplete,
+      isExpired,
+      isFailed,
+      isNew: this.isNew,
+      isSame: comparison === BettererConstraintResult.same,
+      isSkipped: !!isSkipped,
+      isUpdated,
+      isWorse,
+      name: this.name,
+      result: serialisedResult,
+      timestamp
+    });
   }
 }
 

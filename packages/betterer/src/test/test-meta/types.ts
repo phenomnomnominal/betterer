@@ -18,4 +18,4 @@ export type BettererTestsMeta = Array<BettererTestMeta>;
  */
 export type BettererTestNames = ReadonlyArray<string>;
 
-export type BettererTestLoaderWorker = BettererWorkerAPI<typeof import('./loader.worker.js')>;
+export type BettererTestMetaLoaderWorker = BettererWorkerAPI<typeof import('./loader.worker.js')>;

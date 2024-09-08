@@ -14,7 +14,7 @@ const asyncExec = promisify(exec);
 /**
  * @beta Use this test to incrementally introduce {@link https://knip.dev/ | **Knip** checks }
  * to your codebase.
- * 
+ *
  * This test is currently in *beta* since the underlying {@link https://knip.dev/ | Knip}
  * implementation is based on private APIs. Will stabilise when it can be migrated to
  * use public APIs.

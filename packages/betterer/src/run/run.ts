@@ -64,8 +64,8 @@ export class BettererRunΩ implements BettererRun {
     const isNew = !results.hasResult(testMeta.name);
     if (!isNew) {
       const [baselineJSON, expectedJSON] = results.getExpected(testMeta.name);
-      baseline = new BettererResultΩ(JSON.parse(baselineJSON));
-      expected = new BettererResultΩ(JSON.parse(expectedJSON));
+      baseline = new BettererResultΩ(JSON.parse(baselineJSON), baselineJSON);
+      expected = new BettererResultΩ(JSON.parse(expectedJSON), baselineJSON);
     }
 
     return new BettererRunΩ(
@@ -78,10 +78,10 @@ export class BettererRunΩ implements BettererRun {
     );
   }
 
-  public async run(isSkipped: boolean): Promise<BettererRunSummary> {
+  public async run(isFiltered: boolean): Promise<BettererRunSummary> {
     const worker = await this._workerHandle.claim();
     const timestamp = getTimeΔ();
-    const summary = await worker.api.run(this.name, this.filePaths, isSkipped, timestamp);
+    const summary = await worker.api.run(this.name, this.filePaths, isFiltered, timestamp);
     this._workerHandle.release();
     return summary;
   }

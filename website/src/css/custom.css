@@ -89,7 +89,7 @@ code {
   vertical-align: initial;
 }
 
-main[class*="docMainContainer"] div[class*="docItemCol"] {
+main[class*='docMainContainer'] div[class*='docItemCol'] {
   background: rgba(255, 255, 255, 0.1);
   margin: 1rem;
   padding: 1.5rem;
