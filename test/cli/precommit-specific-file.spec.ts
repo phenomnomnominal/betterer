@@ -51,7 +51,8 @@ debugger;
       `,
       './src/existing-file-2.ts': `
 debugger;
-      `
+      `,
+      './src/new-file.ts': ''
     });
 
     const fixturePath = paths.cwd;

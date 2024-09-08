@@ -49,7 +49,8 @@ module.exports = {
   "extends": "../../tsconfig.json",
   "include": ["./src/**/*", ".betterer.js", "./.eslintrc.js"]
 }
-      `
+      `,
+      './src/index.ts': ''
     });
 
     const configPaths = [paths.config];

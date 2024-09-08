@@ -12,7 +12,7 @@ import { eslint } from '@betterer/eslint';
 
 export default {
   test: () => eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
-};    
+};
       `,
       '.eslintrc.cjs': `
 const path = require('node:path');
