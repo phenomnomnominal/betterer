@@ -24,30 +24,6 @@ exports[`no knip errors`] = {
     "packages/fixture/package.json:4000629575": [
       [0, 0, 0, "Unused dependencies: ansi-regex", "2577412447"]
     ],
-    "test/api/dist/index.d.ts:3932948493": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/render", "3900616204"]
-    ],
-    "test/api/dist/test-package-api.d.ts:2553603510": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/logger", "3662613106"]
-    ],
-    "test/api/dist/test-package-api.worker.d.ts:861012633": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/logger", "3662613106"]
-    ],
-    "test/api/dist/types.d.ts:1714551334": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/worker", "3725067120"]
-    ],
-    "test/dependencies/dist/index.d.ts:3599027548": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/render", "3900616204"]
-    ],
-    "test/dependencies/dist/test-package-dependencies.d.ts:2821267719": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/logger", "3662613106"]
-    ],
-    "test/dependencies/dist/test-package-dependencies.worker.d.ts:373675784": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/logger", "3662613106"]
-    ],
-    "test/dependencies/dist/types.d.ts:1442010433": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/worker", "3725067120"]
-    ],
     "tools/docs-filter.ts:893765149": [
       [0, 0, 0, "Unused files", "3789190540"]
     ],
