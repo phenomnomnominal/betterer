@@ -60,7 +60,7 @@ export async function createGlobals(
     });
     reporter = config.reporter;
 
-    const runWorkerPool = createRunWorkerPool(config.workers);
+    const runWorkerPool = await createRunWorkerPool(config.workers);
     const results = new BettererResultsΩ(await resultsFile.parse());
 
     setGlobals(config, results, runWorkerPool, testMetaLoader, versionControl);
