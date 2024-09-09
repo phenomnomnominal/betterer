@@ -17,10 +17,10 @@ export default defineConfig({
   plugins: [
     replace({
       preventAssignment: true,
-      [`process.env['NODE_ENV']`]: JSON.stringify('development'),
+      [`process.env.NODE_ENV`]: JSON.stringify('rollup'),
       "'use strict'": '',
       // React dev tools breaks tests because of the `ink` DEV mode
-      [`process.env['DEV']`]: 'false'
+      [`process.env.DEV`]: 'rollup'
     }),
     nodeResolve({
       dedupe: ['react', 'react-reconciler'],

@@ -14,7 +14,7 @@ const IS_JS_REGEXP = /.t|jsx?$/;
 export function codeΔ(codeInfo: BettererLoggerCodeInfo): string {
   codeInfo.line = isNaN(codeInfo.line) ? 0 : codeInfo.line;
   codeInfo.column = isNaN(codeInfo.column) ? 0 : codeInfo.column;
-  
+
   const { filePath, fileText, message } = codeInfo;
   const isJS = IS_JS_REGEXP.exec(path.extname(filePath));
   const options = {
