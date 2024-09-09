@@ -15,30 +15,24 @@ describe('betterer precommit', () => {
 import { eslint } from '@betterer/eslint';
 
 export default {
-  test: () => eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
+  test: () => eslint({ 
+      rules: { 
+        'no-debugger': 'error'
+      }
+    })
+    .include('./src/**/*.ts')
 };
       `,
-      '.eslintrc.cjs': `
-const path = require('node:path');
+      'eslint.config.js': `
+import config from '../../eslint.config.js';
 
-module.exports = {
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaVersion: 2018,
-    project: path.resolve(__dirname, './tsconfig.json'),
-    sourceType: 'module'
+export default [
+  ...config,
+  {
+    ignores: ['!fixtures/**']
   },
-  plugins: ['@typescript-eslint'],
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking'
-  ],
-  rules: {
-    'no-debugger': 1
-  }
-};
+  { rules: { 'no-debugger': 'off' } }
+];
       `,
       'tsconfig.json': `
 {
@@ -51,8 +45,7 @@ debugger;
       `,
       './src/existing-file-2.ts': `
 debugger;
-      `,
-      './src/new-file.ts': ''
+      `
     });
 
     const fixturePath = paths.cwd;

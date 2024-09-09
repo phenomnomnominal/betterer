@@ -8,6 +8,9 @@ exports[`betterer > should report the status of a new eslint rule with a complex
 //
 exports[\`test\`] = {
   value: \`{
+    "src/directory/index.ts:2738652613": [
+      [0, 22, 18, "Use \\'String#startsWith\\' method instead.", "2194816964"]
+    ],
     "src/index.ts:3201740415": [
       [0, 0, 9, "Unexpected \\'debugger\\' statement.", "3201740415"]
     ]
@@ -24,13 +27,13 @@ exports[`betterer > should report the status of a new eslint rule with a complex
 🤔 test: running "test"!
 ",
   "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got checked for the first time! (1 issue) 🎉
+✅ test: "test" got checked for the first time! (2 issues) 🎉
 ",
   "🎉 Betterer (0ms): 1 test done!
-✅ test: "test" got checked for the first time! (1 issue) 🎉
+✅ test: "test" got checked for the first time! (2 issues) 🎉
 ",
   "🎉 Betterer (0ms): 1 test done!
-✅ test: "test" got checked for the first time! (1 issue) 🎉
+✅ test: "test" got checked for the first time! (2 issues) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
@@ -41,13 +44,13 @@ exports[`betterer > should report the status of a new eslint rule with a complex
 🤔 test: running "test"!
 ",
   "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" stayed the same. (1 issue) 😐
+✅ test: "test" stayed the same. (2 issues) 😐
 ",
   "🎉 Betterer (0ms): 1 test done!
-✅ test: "test" stayed the same. (1 issue) 😐
+✅ test: "test" stayed the same. (2 issues) 😐
 ",
   "🎉 Betterer (0ms): 1 test done!
-✅ test: "test" stayed the same. (1 issue) 😐
+✅ test: "test" stayed the same. (2 issues) 😐
 
 1 test got checked. 🤔
 1 test stayed the same. 😐
@@ -58,15 +61,15 @@ exports[`betterer > should report the status of a new eslint rule with a complex
 🤔 test: running "test"!
 ",
   "🌟 Betterer (0ms): 1 test running...
-🔥 test: "test" got worse. (1 new issue, 2 total) 😔
+🔥 test: "test" got worse. (1 new issue, 3 total) 😔
 ",
   "🌟 Betterer (0ms): 1 test running...
-🔥 test: "test" got worse. (1 new issue, 2 total) 😔
+🔥 test: "test" got worse. (1 new issue, 3 total) 😔
 
-Error: "test" got worse. (1 new issue, 2 total) 😔
+Error: "test" got worse. (1 new issue, 3 total) 😔
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 test: "test" got worse. (1 new issue, 2 total) 😔
+🔥 test: "test" got worse. (1 new issue, 3 total) 😔
 ・ 1 existing issue in "<project>/fixtures/eslint-complex-project/src/index.ts".
 ・ New issue in "<project>/fixtures/eslint-complex-project/src/index.ts"!
 ・
@@ -76,10 +79,10 @@ Error: "test" got worse. (1 new issue, 2 total) 😔
 ・     | ^^^^^^^^^ Unexpected 'debugger' statement.
 ・
 
-Error: "test" got worse. (1 new issue, 2 total) 😔
+Error: "test" got worse. (1 new issue, 3 total) 😔
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 test: "test" got worse. (1 new issue, 2 total) 😔
+🔥 test: "test" got worse. (1 new issue, 3 total) 😔
 ・ 1 existing issue in "<project>/fixtures/eslint-complex-project/src/index.ts".
 ・ New issue in "<project>/fixtures/eslint-complex-project/src/index.ts"!
 ・
@@ -89,7 +92,7 @@ Error: "test" got worse. (1 new issue, 2 total) 😔
 ・     | ^^^^^^^^^ Unexpected 'debugger' statement.
 ・
 
-Error: "test" got worse. (1 new issue, 2 total) 😔
+Error: "test" got worse. (1 new issue, 3 total) 😔
 
 1 test got checked. 🤔
 1 test got worse. 😔

@@ -56,10 +56,15 @@ exports[`no knip errors`] = {
     ],
     "website/package.json:2119283197": [
       [0, 0, 0, "Unused dependencies: @algolia/client-search", "615397950"],
+      [0, 0, 0, "Unused dependencies: @docusaurus/core", "1623780400"],
       [0, 0, 0, "Unused dependencies: @docusaurus/plugin-client-redirects", "1894418674"],
       [0, 0, 0, "Unused dependencies: @docusaurus/preset-classic", "3564359911"],
+      [0, 0, 0, "Unused dependencies: @mdx-js/react", "3475488353"],
       [0, 0, 0, "Unused dependencies: clsx", "1980870894"],
-      [0, 0, 0, "Unused dependencies: react-loadable", "4081059722"]
+      [0, 0, 0, "Unused dependencies: react", "964551243"],
+      [0, 0, 0, "Unused dependencies: react-dom", "2933334464"],
+      [0, 0, 0, "Unused dependencies: react-loadable", "4081059722"],
+      [0, 0, 0, "Unlisted binaries: docusaurus", "1661342944"]
     ]
   }`
 };

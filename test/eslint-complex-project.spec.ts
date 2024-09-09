@@ -13,49 +13,43 @@ describe('betterer', () => {
 import { eslint } from '@betterer/eslint';
 
 export default {
-  test: () => eslint({ 'no-debugger': 'error' }).include('./src/**/*.ts')
+  test: () => eslint({ 
+    rules: { 
+      'no-debugger': 'error'
+    }
+  })
+  .include('./src/**/*.ts')
 };
       `,
-        '.eslintrc.cjs': `
-const path = require('node:path');
+        'eslint.base.config.js': `
+import config from '../../eslint.config.js';
 
-module.exports = {
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaVersion: 2018,
-    project: path.resolve(__dirname, './tsconfig.json'),
-    sourceType: 'module'
+export default [
+  ...config,
+  {
+    ignores: ['!fixtures/**']
   },
-  plugins: ['@typescript-eslint'],
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking'
-  ],
-  rules: {
-    'no-debugger': 1
-  }
-};      
+  { rules: { 'no-debugger': 'off' } }
+];
       `,
+        'eslint.config.mjs': `
+import config from './eslint.base.config.js';
+
+export default [...config, {
+  rules: {
+    '@typescript-eslint/prefer-string-starts-ends-with': 'error'
+  }
+}];
+            `,
         'tsconfig.json': `
 {
   "extends": "../../tsconfig.json",
   "include": ["./src/**/*", ".betterer.js", "./.eslintrc.js"]
 }
       `,
-        'src/index.ts': `
-debugger;
-      `,
-        'src/directory/.eslintrc.cjs': `
-module.exports = {
-  rules: {
-    '@typescript-eslint/prefer-string-starts-ends-with': 'error'
-  }
-};
-      `,
+
         'src/directory/index.ts': `
-'hello'[0] === 'h';
+export const result = 'hello'[0] === 'h';
 
 export enum Numbers {
   one,
@@ -70,6 +64,7 @@ export enum Numbers {
     const configPaths = [paths.config];
     const resultsPath = paths.results;
     const indexPath = resolve('./src/index.ts');
+    const deepIndexPath = resolve('./src/directory/index.ts');
 
     await writeFile(indexPath, `debugger;`);
 
@@ -92,6 +87,10 @@ export enum Numbers {
     expect(result).toMatchSnapshot();
 
     await writeFile(indexPath, ``);
+    await writeFile(
+      deepIndexPath,
+      `export const result = 'hello'.startsWith('h');\n\nexport enum Numbers {\n  one,\n  two,\n  three,\n  four\n}`
+    );
 
     const betterTestRun = await betterer({ configPaths, resultsPath, workers: false });
 

@@ -15,18 +15,15 @@ const compat = new FlatCompat({
   baseDirectory: dirname
 });
 
-// eslint-disable-next-line no-undef -- process is global
-const isTest = process.env['TEST'];
-
+ 
 export default tsLint.config(
   { files: ['packages/**/src/**/*.{ts,tsx}', 'test/**/*.{ts,tsx}', '*.{ts}'] },
   {
     ignores: ['**/node_modules/**', '**/dist/**', 'reports/**', 'website/**', '**/.vscode-test/**']
   },
 
-  // TODO: Should probably add ESLint config files to test fixtures
-  // instead. Don't ignore `fixtures` directory when running tests:
-  !isTest ? { ignores: ['fixtures/**'] } : {},
+  // Each `eslint` test will un-ignore this!
+  { ignores: ['fixtures/**'] },
 
   // TODO: Fix when extension is upgraded:
   {
