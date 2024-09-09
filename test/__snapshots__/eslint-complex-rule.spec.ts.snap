@@ -9,8 +9,7 @@ exports[`betterer > should handle complex eslint rule options 1`] = `
 exports[\`test\`] = {
   value: \`{
     "src/index.ts:1015454386": [
-      [0, 0, 34, "Prefer named exports", "1332276585"],
-      [0, 31, 3, "Unexpected empty function \\'foo\\'.", "193440003"]
+      [0, 0, 34, "Prefer named exports", "1332276585"]
     ]
   }\`
 };
@@ -25,13 +24,13 @@ exports[`betterer > should handle complex eslint rule options 2`] = `
 🤔 test: running "test"!
 ",
   "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got checked for the first time! (2 issues) 🎉
+✅ test: "test" got checked for the first time! (1 issue) 🎉
 ",
   "🎉 Betterer (0ms): 1 test done!
-✅ test: "test" got checked for the first time! (2 issues) 🎉
+✅ test: "test" got checked for the first time! (1 issue) 🎉
 ",
   "🎉 Betterer (0ms): 1 test done!
-✅ test: "test" got checked for the first time! (2 issues) 🎉
+✅ test: "test" got checked for the first time! (1 issue) 🎉
 
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉

@@ -45,10 +45,8 @@ export class BettererContextΩ implements BettererContext {
     process.on('SIGTERM', () => this.stop());
   }
 
-  public async runOnce(): Promise<BettererSuiteSummary> {
+  public async runOnce(): Promise<void> {
     await this.run([], true);
-    const summary = await this.stop();
-    return summary;
   }
 
   public async run(specifiedFilePaths: BettererFilePaths, isRunOnce = false): Promise<void> {

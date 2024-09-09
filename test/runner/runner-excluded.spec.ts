@@ -20,20 +20,29 @@ export default {
 };    
       `,
       'eslint.config.js': `
-import config from '../../eslint.config.js';
+import eslint from '@eslint/js';
+import tslint from 'typescript-eslint';
 
-export default [
-  ...config,
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+export default tslint.config(
+  eslint.configs.recommended,
+  ...tslint.configs.recommended,
   {
-    ignores: ['!fixtures/**']
+    languageOptions: {
+      parserOptions: {
+        project: "./tsconfig.json",
+        tsconfigRootDir: path.dirname(fileURLToPath(import.meta.url))
+      },
+    },
   },
   { rules: { 'no-debugger': 'off' } }
-];
+);
       `,
       'tsconfig.json': `
 {
-  "extends": "../../tsconfig.spec.json",
-  "include": ["./src/**/*", "./.betterer.js", "./.eslintrc.js"]
+  "include": ["./src/**/*"]
 }      
       `
     });

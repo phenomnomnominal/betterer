@@ -22,7 +22,6 @@
       "@betterer/tsquery": ["./packages/tsquery/src/index"],
       "@betterer/typescript": ["./packages/typescript/src/index"],
       "@betterer/worker": ["./packages/worker/src/index"]
-    },
-    "include": ["**/*.{js,ts,tsx}"]
+    }
   }
 }

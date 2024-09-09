@@ -50,7 +50,8 @@ export class BettererRunnerΩ implements BettererRunner {
   }
 
   public async run(): Promise<BettererSuiteSummary> {
-    return await this._context.runOnce();
+    await this._context.runOnce();
+    return await this.stop();
   }
 
   public queue(filePathOrPaths: string | BettererFilePaths = []): Promise<void> {

@@ -15,15 +15,11 @@ const compat = new FlatCompat({
   baseDirectory: dirname
 });
 
- 
 export default tsLint.config(
   { files: ['packages/**/src/**/*.{ts,tsx}', 'test/**/*.{ts,tsx}', '*.{ts}'] },
   {
-    ignores: ['**/node_modules/**', '**/dist/**', 'reports/**', 'website/**', '**/.vscode-test/**']
+    ignores: ['**/node_modules/**', '**/dist/**', 'fixtures/**', 'reports/**', 'website/**', '**/.vscode-test/**']
   },
-
-  // Each `eslint` test will un-ignore this!
-  { ignores: ['fixtures/**'] },
 
   // TODO: Fix when extension is upgraded:
   {
