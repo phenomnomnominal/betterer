@@ -43,7 +43,7 @@ export default [...config, {
             `,
         'tsconfig.json': `
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.spec.json",
   "include": ["./src/**/*", ".betterer.js", "./.eslintrc.js"]
 }
       `,
