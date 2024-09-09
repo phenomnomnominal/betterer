@@ -1,0 +1,12 @@
+diff --git a/node_modules/@typescript-eslint/typescript-estree/dist/create-program/useProvidedPrograms.js b/node_modules/@typescript-eslint/typescript-estree/dist/create-program/useProvidedPrograms.js
+index 45f38fc..5d5a939 100644
+--- a/node_modules/@typescript-eslint/typescript-estree/dist/create-program/useProvidedPrograms.js
++++ b/node_modules/@typescript-eslint/typescript-estree/dist/create-program/useProvidedPrograms.js
+@@ -55,6 +55,7 @@ function useProvidedPrograms(programInstances, parseSettings) {
+     const errorLines = [
+         `"parserOptions.${typeSource}" has been provided for @typescript-eslint/parser.`,
+         `The file was not found in any of the provided ${typeSources}: ${relativeFilePath}`,
++        JSON.stringify(parseSettings.tsconfigRootDir)
+     ];
+     throw new Error(errorLines.join('\n'));
+ }
