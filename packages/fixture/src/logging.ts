@@ -79,5 +79,5 @@ function replaceProjectPath(str: string): string {
 }
 
 function normalisedPath(str: string): string {
-  return str.split(path.sep).join(path.posix.sep);
+  return str.split(path.win32.sep).join(path.posix.sep);
 }
