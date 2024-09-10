@@ -6,7 +6,7 @@ import { getStdOutΔ } from '@betterer/render';
 import ansiRegex from 'ansi-regex';
 
 const ANSI_REGEX = ansiRegex();
-const PROJECT_REGEXP = new RegExp(normalisePaths(process.cwd()), 'g');
+const PROJECT_REGEXP = new RegExp(normalisedPath(process.cwd()), 'g');
 const STACK_TRACK_LINE_REGEXP = /^\s+at\s+/;
 
 const FIXTURE_LOGS_MAP: FixtureLogsMap = {};
@@ -28,7 +28,7 @@ export function createFixtureLogs(fixtureName: string, options: FixtureOptions =
       const lines = message.replace(/\r/g, '').split('\n');
       const filteredLines = lines.filter((line) => !isStackTraceLine(line));
       const formattedLines = filteredLines.map((line) => {
-        line = replaceProjectPath(normalisePaths(line));
+        line = replaceProjectPath(normalisedPath(line));
         line = line.trimEnd();
         return line;
       });
@@ -78,6 +78,6 @@ function replaceProjectPath(str: string): string {
   return str.replace(PROJECT_REGEXP, '<project>');
 }
 
-function normalisePaths(str: string): string {
-  return str.split(path.win32.sep).join(path.posix.sep);
+function normalisedPath(str: string): string {
+  return str.split(path.sep).join(path.posix.sep);
 }

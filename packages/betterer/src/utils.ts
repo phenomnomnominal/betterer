@@ -26,7 +26,7 @@ export function isUndefined(value: unknown): value is undefined {
 }
 
 export function normalisedPath(filePath: string): string {
-  return path.sep === path.posix.sep ? filePath : filePath.split(path.sep).join(path.posix.sep);
+  return filePath.split(path.sep).join(path.posix.sep);
 }
 
 type Resolve<T> = (value: T) => void;

@@ -22,7 +22,7 @@ export function toArgs(options: KnipCLIOptions) {
       if (result === false) {
         return `--no-${param}`;
       }
-      return `--${kebabCase(name)}=${String(result)}`;
+      return `--${kebabCase(name)}="${String(result)}"`;
     })
     .join(' ');
 }

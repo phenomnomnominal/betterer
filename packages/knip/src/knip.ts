@@ -36,7 +36,7 @@ const asyncExec = promisify(exec);
  *
  * @param configFilePath - The relative path to a knip.json file.
  * @param extraConfiguration - Additional {@link https://knip.dev/overview/configuration | **Knip** configuration }
- * to enable. This will be merge with the existing configuration in the config file,
+ * to enable. This will be merged with the existing configuration in the config file,
  * overwriting any existing existing properties.
  * @param extraCLIOptions - Additional CLI flags to enable.
  *
@@ -73,23 +73,22 @@ export function knip(
 
     const { dir, base } = path.parse(absoluteConfigFilePath);
 
-    let stdout: string;
-
     const tmpJSONPath = await resolver.tmp(base);
     const absoluteTmpJSONPath = resolver.resolve(tmpJSONPath);
     const relativeTmpJSONPath = path.relative(dir, absoluteTmpJSONPath);
+
+    let stdout: string;
 
     try {
       const finalConfig = { ...config, ...extraConfiguration };
       await fs.writeFile(absoluteTmpJSONPath, JSON.stringify(finalConfig), 'utf-8');
       const finalArgs = toArgs({
         ...extraCliOptions,
-        directory: dir,
         config: relativeTmpJSONPath,
         noExitCode: true,
         reporter: ['json']
       });
-      const buffers = await asyncExec(`${binPath} ${finalArgs}`);
+      const buffers = await asyncExec(`node "${binPath}" ${finalArgs}`, { cwd: dir });
       stdout = buffers.stdout;
     } catch (error) {
       throw new BettererError(`Couldn't run knip. ❌`, error as Error);
