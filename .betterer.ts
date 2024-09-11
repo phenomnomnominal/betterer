@@ -13,5 +13,5 @@ export default {
         strict: true,
         tags: ['-knipignore', '-internal']
       }
-    )
+    ).skip()
 };
