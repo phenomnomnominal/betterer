@@ -6,15 +6,17 @@ class BettererWorkerHandleΩ<API extends BettererWorkerAPI<unknown>> implements 
   private _destroyed = false;
   private _free = Promise.resolve();
   private _release: (() => void) | null = null;
-  private _worker: API | null = null;
 
-  constructor(private _workerFactory: BettererWorkerFactory<API>) {}
+  private constructor(private _worker: API) {}
+
+  public static async create<API extends BettererWorkerAPI<unknown>>(workerFactory: BettererWorkerFactory<API>) {
+    return new BettererWorkerHandleΩ(await workerFactory());
+  }
 
   public async claim(): Promise<API> {
     if (this._destroyed) {
       throw new BettererError(`Handle has been destroyed so cannot be claimed. ❌`);
     }
-    this._worker ??= await this._workerFactory();
     await this._free;
     this._free = new Promise<void>((resolve) => {
       this._release = resolve;
@@ -27,7 +29,7 @@ class BettererWorkerHandleΩ<API extends BettererWorkerAPI<unknown>> implements 
       return;
     }
     this._destroyed = true;
-    await this._worker?.destroy();
+    await this._worker.destroy();
   }
 
   public release(): void {
@@ -40,10 +42,17 @@ class BettererWorkerHandleΩ<API extends BettererWorkerAPI<unknown>> implements 
 
 class BettererRunWorkerPoolΩ<API extends BettererWorkerAPI<unknown>> implements BettererWorkerPool<API> {
   private _handleIndex = 0;
-  private _handles: Array<BettererWorkerHandle<API>>;
 
-  constructor(workerCount: number, workerFactory: BettererWorkerFactory<API>) {
-    this._handles = Array.from({ length: workerCount }).map(() => new BettererWorkerHandleΩ<API>(workerFactory));
+  constructor(private _handles: Array<BettererWorkerHandle<API>>) {}
+
+  public static async create<API extends BettererWorkerAPI<unknown>>(
+    workerCount: number,
+    workerFactory: BettererWorkerFactory<API>
+  ) {
+    const handles = await Promise.all(
+      Array.from({ length: workerCount }).map(() => BettererWorkerHandleΩ.create<API>(workerFactory))
+    );
+    return new BettererRunWorkerPoolΩ(handles);
   }
 
   public async destroy(): Promise<void> {
@@ -72,9 +81,9 @@ class BettererRunWorkerPoolΩ<API extends BettererWorkerAPI<unknown>> implements
  * @param workerFactory - A factory function which returns an instance of the specific Worker.
  * The factory should call `importWorker__` with a path to the Worker file.
  */
-export function createWorkerPoolΔ<API extends BettererWorkerAPI<unknown>>(
+export async function createWorkerPoolΔ<API extends BettererWorkerAPI<unknown>>(
   workerCount: number,
   workerFactory: BettererWorkerFactory<API>
-): BettererWorkerPool<API> {
-  return new BettererRunWorkerPoolΩ(workerCount, workerFactory);
+): Promise<BettererWorkerPool<API>> {
+  return await BettererRunWorkerPoolΩ.create(workerCount, workerFactory);
 }

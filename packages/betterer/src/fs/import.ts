@@ -2,6 +2,7 @@ import { BettererError } from '@betterer/errors';
 import { Module } from 'module';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
+import url from 'node:url';
 
 import { read } from './reader.js';
 import { getTmpFileName } from './temp.js';
@@ -27,8 +28,16 @@ export async function importDefault(importPath: string): Promise<unknown> {
     }
   }
 
+  let importId = importPath;
+
+  // If we have an extension then it's probably not a module:
+  if (ext) {
+    // Absolute paths on Windows must be transformed to a URL before importing:
+    importId = url.pathToFileURL(importPath).toString();
+  }
+
   // Maybe a real module:
-  const m = (await import(importPath)) as unknown;
+  const m = (await import(importId)) as unknown;
   return getDefaultExport(m);
 }
 

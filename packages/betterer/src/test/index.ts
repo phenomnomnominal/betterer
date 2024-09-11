@@ -16,7 +16,7 @@ export type {
 } from './file-test/index.js';
 export type {
   BettererTestFactory,
-  BettererTestLoaderWorker,
+  BettererTestMetaLoaderWorker,
   BettererTestMap,
   BettererTestNames,
   BettererTestMeta,
@@ -40,5 +40,4 @@ export type {
 
 export { BettererFileTest, isBettererFileTest } from './file-test/index.js';
 export { BettererResolverTest, isBettererResolverTest } from './resolver-test/index.js';
-export { BettererTestMetaLoaderΩ } from './test-meta/index.js';
 export { BettererTest, isBettererTest } from './test.js';

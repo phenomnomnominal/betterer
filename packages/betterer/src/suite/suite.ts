@@ -1,38 +1,44 @@
 import type { BettererError } from '@betterer/errors';
 
-import type { BettererConfig } from '../config/index.js';
 import type { BettererFilePaths } from '../fs/index.js';
 import type { BettererReporterΩ } from '../reporters/index.js';
-import type { BettererResultsΩ } from '../results/index.js';
-import type { BettererReporterRun, BettererRunSummary, BettererRunΩ, BettererRuns } from '../run/index.js';
+import type { BettererReporterRun, BettererRunSummary, BettererRuns } from '../run/index.js';
 import type { BettererSuite } from './types.js';
 
-import assert from 'node:assert';
+import { invariantΔ } from '@betterer/errors';
 
-import { write } from '../fs/index.js';
 import { defer } from '../utils.js';
 import { BettererSuiteSummaryΩ } from './suite-summary.js';
+import { BettererRunΩ } from '../run/index.js';
+import { getGlobals } from '../globals.js';
 
 const NEGATIVE_FILTER_TOKEN = '!';
 
 export class BettererSuiteΩ implements BettererSuite {
-  private _reporter: BettererReporterΩ;
-
-  constructor(
-    private _config: BettererConfig,
-    private _results: BettererResultsΩ,
+  private constructor(
     public filePaths: BettererFilePaths,
     public runs: BettererRuns
-  ) {
-    this._reporter = this._config.reporter as BettererReporterΩ;
+  ) {}
+
+  public static async create(filePaths: BettererFilePaths): Promise<BettererSuiteΩ> {
+    const { config, runWorkerPool, testMetaLoader } = getGlobals();
+    const { configPaths } = config;
+
+    const testsMeta = await testMetaLoader.api.loadTestsMeta(configPaths);
+    const runsΩ = await Promise.all(
+      testsMeta.map(async (testMeta) => {
+        return await BettererRunΩ.create(runWorkerPool, testMeta, filePaths);
+      })
+    );
+
+    return new BettererSuiteΩ(filePaths, runsΩ);
   }
 
-  public async run(isRunOnce = false): Promise<BettererSuiteSummaryΩ> {
+  public async run(): Promise<BettererSuiteSummaryΩ> {
     const hasOnly = !!this.runs.find((run) => {
       const runΩ = run as BettererRunΩ;
       return runΩ.isOnly;
     });
-    const { filters } = this._config;
 
     const runSummaries = await Promise.all(
       this.runs.map(async (run) => {
@@ -41,6 +47,10 @@ export class BettererSuiteΩ implements BettererSuite {
         (run as BettererReporterRun).lifecycle = lifecycle.promise;
 
         const runΩ = run as BettererRunΩ;
+
+        const { config } = getGlobals();
+        const { filters, reporter } = config;
+        const reporterΩ = reporter as BettererReporterΩ;
 
         // This is all a bit backwards because "filters" is named badly.
         const hasFilters = !!filters.length;
@@ -72,12 +82,13 @@ export class BettererSuiteΩ implements BettererSuite {
         }, false);
 
         const isOtherTestOnly = hasOnly && !runΩ.isOnly;
-        const isSkipped = (hasFilters && !isSelected) || isOtherTestOnly || runΩ.isSkipped;
+        const isFiltered = (hasFilters && !isSelected) || isOtherTestOnly;
 
         // Don't await here! A custom reporter could be awaiting
         // the lifecycle promise which is unresolved right now!
-        const reportRunStart = this._reporter.runStart(runΩ, lifecycle.promise);
-        const runSummary = await runΩ.run(isSkipped);
+        const reportRunStart = reporterΩ.runStart(runΩ, lifecycle.promise);
+
+        const runSummary = await runΩ.run(isFiltered);
 
         // `filePaths` will be updated in the worker if the test filters the files
         // so it needs to be updated
@@ -85,30 +96,22 @@ export class BettererSuiteΩ implements BettererSuite {
 
         if (runSummary.isFailed) {
           const { error } = runSummary;
-          assert(error);
+          invariantΔ(error, 'A failed run will always have an `error`!');
           lifecycle.reject(error);
           await reportRunStart;
-          await this._reporter.runError(runΩ, error as BettererError);
+          await reporterΩ.runError(runΩ, error as BettererError);
         } else {
           lifecycle.resolve(runSummary);
           await reportRunStart;
-          await this._reporter.runEnd(runSummary);
+          await reporterΩ.runEnd(runSummary);
         }
         return runSummary;
       })
     );
 
-    const changed = this._results.getChanged(runSummaries);
+    const { results } = getGlobals();
+    const changed = results.getChanged(runSummaries);
 
-    const suiteSummaryΩ = new BettererSuiteSummaryΩ(this.filePaths, this.runs, runSummaries, changed);
-
-    if (!isRunOnce && !this._config.ci) {
-      const printedNew = this._results.printNew(suiteSummaryΩ);
-      if (printedNew) {
-        await write(printedNew, this._config.resultsPath);
-      }
-    }
-
-    return suiteSummaryΩ;
+    return new BettererSuiteSummaryΩ(this.filePaths, this.runs, runSummaries, changed);
   }
 }

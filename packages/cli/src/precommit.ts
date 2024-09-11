@@ -6,7 +6,7 @@ import type { BettererCLIConfig } from './types.js';
 import { betterer } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 
-import { testNames } from './names.js';
+import { testErrors, testNames } from './details.js';
 import { cliCommand } from './options.js';
 import { BettererCommand } from './types.js';
 
@@ -41,7 +41,7 @@ export function precommit(cwd: string): Command {
       throw new BettererError('Tests got worse while running in precommit mode. ❌', ...testNames(suiteSummary.worse));
     }
     if (suiteSummary.failed.length > 0) {
-      throw new BettererError('Tests failed while running in precommit mode. ❌', ...testNames(suiteSummary.failed));
+      throw new BettererError('Tests failed while running in precommit mode. ❌', ...testErrors(suiteSummary));
     }
   });
 

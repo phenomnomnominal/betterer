@@ -1,4 +1,5 @@
-export default {
+// eslint-disable-next-line no-undef -- CommonJS module:
+module.exports = {
   extends: ['@commitlint/config-conventional'],
   plugins: ['@phenomnomnominal'],
   rules: {

@@ -78,8 +78,8 @@ async function validateConfigPaths(cwd: string, configPaths: Array<string>): Pro
             return possibleConfigPath;
           })
         );
-      } catch {
-        throw new BettererError(`could not find config file at "${absoluteConfigPath}". 😔`);
+      } catch (error) {
+        throw new BettererError(`could not find config file at "${absoluteConfigPath}". 😔`, error as Error);
       }
     })
   );

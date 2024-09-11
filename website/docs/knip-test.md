@@ -12,7 +12,7 @@ Use this test to incrementally introduce [**Knip** checks](https://knip.dev/) to
 
 :::warning
 
-This test is currently in *beta* since the underlying [Knip](https://knip.dev/)
+This test is currently in _beta_ since the underlying [Knip](https://knip.dev/)
 implementation is based on private APIs. Will stabilise when it can be migrated to
 use public APIs.
 

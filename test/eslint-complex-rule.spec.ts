@@ -11,43 +11,44 @@ describe('betterer', () => {
 import { eslint } from '@betterer/eslint';
 
 export default {
-  test: () => eslint({ 
-    'no-restricted-syntax': [
-      'error',
-      {
-        selector: 'ExportDefaultDeclaration',
-        message: 'Prefer named exports'
-      }
-    ]
-  }).include('./src/**/*.ts')
+  test: () => eslint({
+    rules: {
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'ExportDefaultDeclaration',
+          message: 'Prefer named exports'
+        }
+      ]
+    }
+  })
+  .include('./src/**/*.ts')
 };
       `,
-      '.eslintrc.cjs': `
-const path = require('node:path');
+      'eslint.config.js': `
+import eslint from '@eslint/js';
+import tslint from 'typescript-eslint';
 
-module.exports = {
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaVersion: 2018,
-    project: path.resolve(__dirname, './tsconfig.json'),
-    sourceType: 'module'
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+export default tslint.config(
+  eslint.configs.recommended,
+  ...tslint.configs.recommended,
+  {
+    languageOptions: {
+      parserOptions: {
+        project: "./tsconfig.json",
+        tsconfigRootDir: path.dirname(fileURLToPath(import.meta.url))
+      },
+    },
   },
-  plugins: ['@typescript-eslint'],
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking'
-  ],
-  rules: {
-    'no-debugger': 1
-  }
-};      
+  { rules: { 'no-debugger': 'off' } }
+);
       `,
       'tsconfig.json': `
 {
-  "extends": "../../tsconfig.json",
-  "include": ["./src/**/*", ".betterer.js", "./.eslintrc.js"]
+  "include": ["./src/**/*"]
 }
       `
     });

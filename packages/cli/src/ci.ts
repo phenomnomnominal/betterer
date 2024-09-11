@@ -8,7 +8,7 @@ import { BettererError } from '@betterer/errors';
 
 import { cliCommand } from './options.js';
 import { BettererCommand } from './types.js';
-import { testNames } from './names.js';
+import { testErrors } from './details.js';
 
 /**
  * Run **Betterer** in `ci` mode.
@@ -40,7 +40,7 @@ export function ci(cwd: string): Command {
       throw new BettererError('Unexpected changes detected while running in CI mode. ❌', ...suiteSummary.changed);
     }
     if (suiteSummary.failed.length > 0) {
-      throw new BettererError('Tests failed while running in CI mode. ❌', ...testNames(suiteSummary.failed));
+      throw new BettererError('Tests failed while running in CI mode. ❌', ...testErrors(suiteSummary));
     }
   });
 

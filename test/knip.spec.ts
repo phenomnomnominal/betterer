@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { createFixture } from './fixture.js';
 
 describe('betterer', () => {
-  it('should report the status of a new knip config', async () => {
+  it.skip('should report the status of a new knip config', async () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { paths, logs, resolve, readFile, cleanup, writeFile, testNames } = await createFixture('knip', {

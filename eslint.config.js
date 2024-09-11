@@ -5,6 +5,8 @@ import prettier from 'eslint-config-prettier';
 import globals from 'globals';
 import tsLint from 'typescript-eslint';
 
+import 'core-js/actual/structured-clone.js';
+
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -13,18 +15,11 @@ const compat = new FlatCompat({
   baseDirectory: dirname
 });
 
-// eslint-disable-next-line no-undef -- process is global
-const isTest = process.env['TEST'];
-
 export default tsLint.config(
   { files: ['packages/**/src/**/*.{ts,tsx}', 'test/**/*.{ts,tsx}', '*.{ts}'] },
   {
-    ignores: ['**/node_modules/**', '**/dist/**', 'reports/**', 'website/**', '**/.vscode-test/**']
+    ignores: ['**/node_modules/**', '**/dist/**', 'fixtures/**', 'reports/**', 'website/**', '**/.vscode-test/**']
   },
-
-  // TODO: Should probably add ESLint config files to test fixtures
-  // instead. Don't ignore `fixtures` directory when running tests:
-  !isTest ? { ignores: ['fixtures/**'] } : {},
 
   // TODO: Fix when extension is upgraded:
   {

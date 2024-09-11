@@ -4,7 +4,7 @@ import type { BettererFileTestResultSummaryDetails, BettererResultsSummary, Bett
 import { BettererError, isBettererErrorΔ } from '@betterer/errors';
 import { BettererFileResolverΩ } from '../fs/index.js';
 import { getGlobals } from '../globals.js';
-import { BettererTestMetaLoaderΩ, isBettererFileTest, isBettererResolverTest, isBettererTest } from '../test/index.js';
+import { isBettererFileTest, isBettererResolverTest, isBettererTest } from '../test/index.js';
 import { loadTestFactory } from '../run/worker-run.js';
 
 export class BettererResultsSummaryΩ implements BettererResultsSummary {
@@ -17,17 +17,14 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
   }
 
   public static async create(): Promise<BettererResultsSummary> {
-    const { config, results, versionControl } = getGlobals();
+    const { config, results, testMetaLoader, versionControl } = getGlobals();
+    const { configPaths, cwd, filters, includes, excludes, resultsPath } = config;
 
     try {
-      const testMetaLoader = await BettererTestMetaLoaderΩ.create(config);
-
-      let testsMeta = await testMetaLoader.getTestsMeta();
-      if (config.filters.length) {
-        testsMeta = testsMeta.filter((testMeta) => config.filters.some((filter) => filter.test(testMeta.name)));
+      let testsMeta = await testMetaLoader.api.loadTestsMeta(configPaths);
+      if (filters.length) {
+        testsMeta = testsMeta.filter((testMeta) => filters.some((filter) => filter.test(testMeta.name)));
       }
-
-      const { cwd, includes, excludes, resultsPath } = config;
 
       const resolver = new BettererFileResolverΩ(cwd, versionControl);
       resolver.include(...includes);

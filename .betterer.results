@@ -11,7 +11,7 @@ exports[`no knip errors`] = {
     "packages/betterer/src/fs/version-control.worker.ts:2897508041": [
       [0, 0, 0, "Unused files", "3789190540"]
     ],
-    "packages/docgen/package.json:1502158302": [
+    "packages/docgen/package.json:2326583700": [
       [0, 0, 0, "Unused dependencies: tslib", "975605642"]
     ],
     "packages/extension/package.json:710109374": [
@@ -21,34 +21,10 @@ exports[`no knip errors`] = {
       [0, 0, 0, "Unused dependencies: vscode-languageserver-textdocument", "2013829255"],
       [0, 0, 0, "Unused dependencies: vscode-uri", "2713846241"]
     ],
-    "packages/fixture/package.json:1813188013": [
+    "packages/fixture/package.json:4000629575": [
       [0, 0, 0, "Unused dependencies: ansi-regex", "2577412447"]
     ],
-    "test/api/dist/index.d.ts:3932948493": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/render", "3900616204"]
-    ],
-    "test/api/dist/test-package-api.d.ts:2553603510": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/logger", "3662613106"]
-    ],
-    "test/api/dist/test-package-api.worker.d.ts:861012633": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/logger", "3662613106"]
-    ],
-    "test/api/dist/types.d.ts:1714551334": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/worker", "3725067120"]
-    ],
-    "test/dependencies/dist/index.d.ts:3599027548": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/render", "3900616204"]
-    ],
-    "test/dependencies/dist/test-package-dependencies.d.ts:2821267719": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/logger", "3662613106"]
-    ],
-    "test/dependencies/dist/test-package-dependencies.worker.d.ts:373675784": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/logger", "3662613106"]
-    ],
-    "test/dependencies/dist/types.d.ts:1442010433": [
-      [0, 0, 0, "Unlisted dependencies: @betterer/worker", "3725067120"]
-    ],
-    "tools/docs-filter.ts:2032041944": [
+    "tools/docs-filter.ts:893765149": [
       [0, 0, 0, "Unused files", "3789190540"]
     ],
     "vitest.config.ts:1758587906": [

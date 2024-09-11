@@ -1,5 +1,7 @@
+import type { BettererErrorDetails } from '@betterer/errors';
 import type { BettererCLIArguments, BettererCommandName } from './types.js';
 
+import { isBettererErrorΔ } from '@betterer/errors';
 import { Command } from 'commander';
 
 import { ci } from './ci.js';
@@ -62,10 +64,41 @@ export async function cliΔ(
 
   try {
     await program.parseAsync(args);
-  } catch (e) {
+  } catch (error) {
+    if (isBettererErrorΔ(error)) {
+      error.details = flattenErrors(error.details);
+    }
     if (!isTest) {
       process.exitCode = 1;
     }
-    throw e;
+    throw error;
   }
+}
+
+function flattenErrors(details: BettererErrorDetails): BettererErrorDetails {
+  return details
+    .flatMap((detail) => {
+      if (isBettererErrorΔ(detail)) {
+        const flattened = [detail, ...flattenErrors(detail.details)];
+        detail.details = [];
+        return flattened;
+      }
+      return detail;
+    })
+    .map((detail) => {
+      const error = new Error();
+      if (isError(detail)) {
+        error.message = detail.message;
+        error.name = detail.name;
+        error.stack = detail.stack;
+      } else {
+        error.message = detail;
+      }
+      return error;
+    });
+}
+
+function isError(value: unknown): value is Error {
+  const { message, stack } = value as Partial<Error>;
+  return message != null && stack != null;
 }

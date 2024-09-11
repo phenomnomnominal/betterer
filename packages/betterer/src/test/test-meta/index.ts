@@ -1,10 +1,8 @@
 export type {
   BettererTestFactory,
-  BettererTestLoaderWorker,
+  BettererTestMetaLoaderWorker,
   BettererTestMap,
   BettererTestMeta,
   BettererTestsMeta,
   BettererTestNames
 } from './types.js';
-
-export { BettererTestMetaLoaderΩ } from './test-meta-loader.js';

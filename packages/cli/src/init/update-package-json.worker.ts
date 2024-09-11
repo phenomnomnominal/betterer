@@ -21,8 +21,8 @@ export async function run(logger: BettererLogger, cwd: string, ts: boolean): Pro
       throw new BettererError('could not find "package.json".');
     }
     packageJSON = JSON.parse(await fs.readFile(packageJSONPath, 'utf-8')) as BettererPackageJSON;
-  } catch {
-    throw new BettererError('could not read "package.json".');
+  } catch (error) {
+    throw new BettererError('could not read "package.json".', error as Error);
   }
 
   packageJSON.scripts = packageJSON.scripts ?? { betterer: '' };
@@ -57,8 +57,8 @@ export async function run(logger: BettererLogger, cwd: string, ts: boolean): Pro
 
   try {
     await fs.writeFile(packageJSONPath, `${JSON.stringify(packageJSON, null, 2)}\n`, 'utf-8');
-  } catch {
-    throw new BettererError('could not write "package.json".');
+  } catch (error) {
+    throw new BettererError('could not write "package.json".', error as Error);
   }
 }
 

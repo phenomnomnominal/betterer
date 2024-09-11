@@ -38,7 +38,7 @@ export function createErrorHandler(connection: Connection): void {
       }
       /* eslint-enable no-console */
     } catch {
-      // Error handle died, uh oh.
+      // Error handler died, uh oh.
     }
   });
 }

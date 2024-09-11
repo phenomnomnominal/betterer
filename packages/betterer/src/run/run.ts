@@ -1,3 +1,5 @@
+import type { BettererError } from '@betterer/errors';
+
 import type { BettererConfig } from '../config/types.js';
 import type { BettererFilePaths } from '../fs/index.js';
 import type { BettererTestMeta } from '../test/index.js';
@@ -8,6 +10,7 @@ import { getTimeΔ } from '@betterer/time';
 
 import { BettererResultΩ } from '../results/index.js';
 import { getGlobals } from '../globals.js';
+import { BettererRunSummaryΩ } from './run-summary.js';
 
 export class BettererRunΩ implements BettererRun {
   public readonly isNew: boolean;
@@ -64,8 +67,8 @@ export class BettererRunΩ implements BettererRun {
     const isNew = !results.hasResult(testMeta.name);
     if (!isNew) {
       const [baselineJSON, expectedJSON] = results.getExpected(testMeta.name);
-      baseline = new BettererResultΩ(JSON.parse(baselineJSON));
-      expected = new BettererResultΩ(JSON.parse(expectedJSON));
+      baseline = new BettererResultΩ(JSON.parse(baselineJSON), baselineJSON);
+      expected = new BettererResultΩ(JSON.parse(expectedJSON), baselineJSON);
     }
 
     return new BettererRunΩ(
@@ -78,11 +81,34 @@ export class BettererRunΩ implements BettererRun {
     );
   }
 
-  public async run(isSkipped: boolean): Promise<BettererRunSummary> {
+  public async run(isFiltered: boolean): Promise<BettererRunSummary> {
     const worker = await this._workerHandle.claim();
     const timestamp = getTimeΔ();
-    const summary = await worker.api.run(this.name, this.filePaths, isSkipped, timestamp);
-    this._workerHandle.release();
-    return summary;
+    try {
+      return await worker.api.run(this.name, this.filePaths, isFiltered, timestamp);
+    } catch (error) {
+      return new BettererRunSummaryΩ({
+        baseline: this.baseline,
+        delta: null,
+        diff: null,
+        error: error as BettererError,
+        expected: this.expected,
+        filePaths: this.filePaths,
+        isBetter: false,
+        isComplete: false,
+        isExpired: false,
+        isFailed: true,
+        isNew: this.isNew,
+        isSame: false,
+        isSkipped: this.isSkipped || isFiltered,
+        isUpdated: false,
+        isWorse: false,
+        name: this.name,
+        result: null,
+        timestamp: timestamp
+      });
+    } finally {
+      this._workerHandle.release();
+    }
   }
 }

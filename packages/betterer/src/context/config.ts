@@ -10,7 +10,7 @@ import {
   validateWorkers
 } from '../config/index.js';
 
-export function createContextConfig(options: BettererOptionsContext): BettererConfigContext {
+export async function createContextConfig(options: BettererOptionsContext): Promise<BettererConfigContext> {
   const ci = options.ci ?? false;
   const filters = toRegExps(toArray<string | RegExp>(options.filters));
   const excludes = toRegExps(toArray<string | RegExp>(options.excludes));
@@ -27,7 +27,7 @@ export function createContextConfig(options: BettererOptionsContext): BettererCo
   validateStringRegExpArray({ filters });
   validateStringArray({ includes });
 
-  const workers = validateWorkers(options.workers);
+  const workers = await validateWorkers(options.workers);
 
   return {
     ci,

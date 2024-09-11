@@ -10,7 +10,7 @@ describe('betterer precommit', () => {
   it('should not update the changeset when a test fails', async () => {
     const { cliΔ } = await import('@betterer/cli');
 
-    const { paths, logs, cleanup } = await createFixture('precommit-worse', {
+    const { paths, logs, cleanup } = await createFixture('precommit-failure', {
       '.betterer.ts': `
 import { BettererTest } from '@betterer/betterer';
 import { smaller } from '@betterer/constraints';

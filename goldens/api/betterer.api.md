@@ -399,6 +399,7 @@ export class BettererResolverTest<DeserialisedType = unknown, SerialisedType = D
 
 // @public
 export interface BettererResult {
+    printed: string;
     value: unknown;
 }
 
@@ -449,8 +450,6 @@ export interface BettererRunSummary extends BettererRun {
     readonly isSame: boolean;
     readonly isUpdated: boolean;
     readonly isWorse: boolean;
-    // (undocumented)
-    readonly printed: string | null;
     readonly result: BettererResult | null;
     readonly timestamp: number;
 }
