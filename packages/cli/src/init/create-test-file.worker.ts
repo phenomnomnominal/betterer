@@ -31,8 +31,8 @@ export async function run(logger: BettererLogger, cwd: string, configPath: strin
   try {
     await fs.writeFile(configPath, TEMPLATE, 'utf8');
     await logger.success(`created "${configPath}"!`);
-  } catch {
-    throw new BettererError(`could not create "${configPath}".`);
+  } catch (error) {
+    throw new BettererError(`could not create "${configPath}".`, error as Error);
   }
 }
 

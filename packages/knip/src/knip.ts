@@ -103,8 +103,8 @@ export function knip(
     let report: KnipReport;
     try {
       report = JSON.parse(lastLine) as KnipReport;
-    } catch {
-      throw new BettererError(`Couldn't parse JSON output from knip. ❌`);
+    } catch (error) {
+      throw new BettererError(`Couldn't parse JSON output from knip. ❌`, error as Error);
     }
 
     await Promise.all(

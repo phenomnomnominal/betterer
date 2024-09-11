@@ -50,8 +50,8 @@ async function gitconfig(logger: BettererLogger, gitDir: string): Promise<void> 
   try {
     await fs.writeFile(gitconfigPath, lines.join(NEW_LINE), 'utf-8');
     await logger.success(`added Betterer merge config to "${gitconfigPath}"!`);
-  } catch {
-    throw new BettererError(`could not write "${gitconfigPath}".`);
+  } catch (error) {
+    throw new BettererError(`could not write "${gitconfigPath}".`, error as Error);
   }
 }
 
