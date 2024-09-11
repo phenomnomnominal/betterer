@@ -42,7 +42,7 @@ export async function createFixtureFS(
   }
 
   function rimraf(directoryPath: string): Promise<void> {
-    return fs.rm(directoryPath, { recursive: true });
+    return fs.rm(directoryPath, { recursive: true, force: true });
   }
 
   const paths: Paths = {
