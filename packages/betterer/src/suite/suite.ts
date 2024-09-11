@@ -5,7 +5,7 @@ import type { BettererReporterΩ } from '../reporters/index.js';
 import type { BettererReporterRun, BettererRunSummary, BettererRuns } from '../run/index.js';
 import type { BettererSuite } from './types.js';
 
-import assert from 'node:assert';
+import { invariantΔ } from '@betterer/errors';
 
 import { defer } from '../utils.js';
 import { BettererSuiteSummaryΩ } from './suite-summary.js';
@@ -96,7 +96,7 @@ export class BettererSuiteΩ implements BettererSuite {
 
         if (runSummary.isFailed) {
           const { error } = runSummary;
-          assert(error);
+          invariantΔ(error, 'A failed run will always have an `error`!');
           lifecycle.reject(error);
           await reportRunStart;
           await reporterΩ.runError(runΩ, error as BettererError);

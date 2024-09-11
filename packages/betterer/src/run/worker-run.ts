@@ -119,14 +119,11 @@ export class BettererWorkerRunΩ implements BettererRun {
       return await running.skipped();
     }
 
-    try {
-      const result = await this.test.test(this);
-      const serialisedResult = await this.test.serialiser.serialise(result, resultsPath);
-      const printedResult = forceRelativePaths(await this.test.printer(serialisedResult), resultsPath);
-      return await running.done(new BettererResultΩ(result, printedResult));
-    } catch (error) {
-      return await running.failed(error as BettererError);
-    }
+    // No try/catch - the main thread handles the `isFailed` case:
+    const result = await this.test.test(this);
+    const serialisedResult = await this.test.serialiser.serialise(result, resultsPath);
+    const printedResult = forceRelativePaths(await this.test.printer(serialisedResult), resultsPath);
+    return await running.done(new BettererResultΩ(result, printedResult));
   }
 
   public setFilePaths(newFilePaths: BettererFilePaths | null) {
@@ -168,9 +165,6 @@ export class BettererWorkerRunΩ implements BettererRun {
         const diff = this.test.differ(this.expected.value, result.value);
         return await this._end({ comparison, diff, result, timestamp });
       },
-      failed: async (error: BettererError): Promise<BettererRunSummary> => {
-        return await this._end({ error, timestamp });
-      },
       skipped: async (): Promise<BettererRunSummary> => {
         return await this._end({ timestamp, isSkipped: true });
       }
@@ -178,11 +172,10 @@ export class BettererWorkerRunΩ implements BettererRun {
   }
 
   private async _end(end: BettererRunningEnd): Promise<BettererRunSummary> {
-    const { comparison, diff, error, result, timestamp, isSkipped } = end;
+    const { comparison, diff, result, timestamp, isSkipped } = end;
     const { config, versionControl } = getGlobals();
     const { resultsPath } = config;
 
-    const isFailed = !!error;
     const isWorse = comparison === BettererConstraintResult.worse && !config.update;
     const isUpdated = comparison === BettererConstraintResult.worse && config.update;
 
@@ -190,7 +183,7 @@ export class BettererWorkerRunΩ implements BettererRun {
 
     const isComplete = !!result && (await this.test.goal(result.value));
     const isExpired = timestamp >= this.test.deadline;
-    const shouldPrint = !(isComplete || (this.isNew && (isFailed || isSkipped)));
+    const shouldPrint = !(isComplete || isSkipped);
 
     const baselineValue = this.isNew ? null : this.baseline.value;
     const delta = result ? await this.test.progress(baselineValue, result.value) : null;
@@ -213,12 +206,12 @@ export class BettererWorkerRunΩ implements BettererRun {
       delta,
       diff: diff ?? null,
       expected: serialisedExpected,
-      error: error ?? null,
+      error: null,
       filePaths: this.filePaths,
       isBetter: comparison === BettererConstraintResult.better,
       isComplete,
       isExpired,
-      isFailed,
+      isFailed: false,
       isNew: this.isNew,
       isSame: comparison === BettererConstraintResult.same,
       isSkipped: !!isSkipped,

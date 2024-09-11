@@ -66,7 +66,7 @@ export async function cliΔ(
     await program.parseAsync(args);
   } catch (error) {
     if (isBettererErrorΔ(error)) {
-      error.details = collapseErrors(error.details);
+      error.details = flattenErrors(error.details);
     }
     if (!isTest) {
       process.exitCode = 1;
@@ -75,11 +75,30 @@ export async function cliΔ(
   }
 }
 
-function collapseErrors(details: BettererErrorDetails): BettererErrorDetails {
-  return details.flatMap((detail) => {
-    if (isBettererErrorΔ(detail)) {
-      return [detail, ...collapseErrors(detail.details)];
-    }
-    return detail;
-  });
+function flattenErrors(details: BettererErrorDetails): BettererErrorDetails {
+  return details
+    .flatMap((detail) => {
+      if (isBettererErrorΔ(detail)) {
+        const flattened = [detail, ...flattenErrors(detail.details)];
+        detail.details = [];
+        return flattened;
+      }
+      return detail;
+    })
+    .map((detail) => {
+      const error = new Error();
+      if (isError(detail)) {
+        error.message = detail.message;
+        error.name = detail.name;
+        error.stack = detail.stack;
+      } else {
+        error.message = detail;
+      }
+      return error;
+    });
+}
+
+function isError(value: unknown): value is Error {
+  const { message, stack } = value as Partial<Error>;
+  return message != null && stack != null;
 }

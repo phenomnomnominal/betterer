@@ -29,7 +29,7 @@ export interface BettererWorkerPool<API extends BettererWorkerAPI<unknown>> {
 }
 
 // @internal
-export function createWorkerPoolΔ<API extends BettererWorkerAPI<unknown>>(workerCount: number, workerFactory: BettererWorkerFactory<API>): BettererWorkerPool<API>;
+export function createWorkerPoolΔ<API extends BettererWorkerAPI<unknown>>(workerCount: number, workerFactory: BettererWorkerFactory<API>): Promise<BettererWorkerPool<API>>;
 
 // @internal
 export function exposeToMainΔ(api: object): void;

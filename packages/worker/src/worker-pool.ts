@@ -49,7 +49,9 @@ class BettererRunWorkerPoolΩ<API extends BettererWorkerAPI<unknown>> implements
     workerCount: number,
     workerFactory: BettererWorkerFactory<API>
   ) {
-    const handles = await Promise.all(Array.from({ length: workerCount }).map(() => BettererWorkerHandleΩ.create<API>(workerFactory)))
+    const handles = await Promise.all(
+      Array.from({ length: workerCount }).map(() => BettererWorkerHandleΩ.create<API>(workerFactory))
+    );
     return new BettererRunWorkerPoolΩ(handles);
   }
 

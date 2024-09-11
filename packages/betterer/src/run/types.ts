@@ -1,5 +1,4 @@
 import type { BettererConstraintResult } from '@betterer/constraints';
-import type { BettererError } from '@betterer/errors';
 import type { BettererWorkerAPI, BettererWorkerHandle, BettererWorkerPool } from '@betterer/worker';
 
 import type { BettererFilePaths } from '../fs/index.js';
@@ -115,7 +114,6 @@ export type BettererReporterRun = BettererRun & {
 };
 
 export interface BettererRunning {
-  failed(error: BettererError): Promise<BettererRunSummary>;
   done(result: BettererResult): Promise<BettererRunSummary>;
   skipped(): Promise<BettererRunSummary>;
 }
@@ -123,7 +121,6 @@ export interface BettererRunning {
 export interface BettererRunningEnd {
   comparison?: BettererConstraintResult | null;
   diff?: BettererDiff | null;
-  error?: BettererError | null;
   result?: BettererResult | null;
   timestamp: number;
   isSkipped?: true;
