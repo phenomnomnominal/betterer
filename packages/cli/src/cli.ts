@@ -1,5 +1,7 @@
+import type { BettererErrorDetails } from '@betterer/errors';
 import type { BettererCLIArguments, BettererCommandName } from './types.js';
 
+import { isBettererErrorΔ } from '@betterer/errors';
 import { Command } from 'commander';
 
 import { ci } from './ci.js';
@@ -62,10 +64,22 @@ export async function cliΔ(
 
   try {
     await program.parseAsync(args);
-  } catch (e) {
+  } catch (error) {
+    if (isBettererErrorΔ(error)) {
+      error.details = collapseErrors(error.details);
+    }
     if (!isTest) {
       process.exitCode = 1;
     }
-    throw e;
+    throw error;
   }
+}
+
+function collapseErrors(details: BettererErrorDetails): BettererErrorDetails {
+  return details.flatMap((detail) => {
+    if (isBettererErrorΔ(detail)) {
+      return [detail, ...collapseErrors(detail.details)];
+    }
+    return detail;
+  });
 }
