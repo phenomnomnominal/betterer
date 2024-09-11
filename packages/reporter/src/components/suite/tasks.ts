@@ -4,7 +4,7 @@ import type { BettererTask } from '@betterer/tasks';
 
 import type { BettererReporterRun } from '../../types.js';
 
-import { BettererError } from '@betterer/errors';
+import { BettererError, invariantΔ } from '@betterer/errors';
 import { logΔ } from '@betterer/logger';
 
 import {
@@ -49,7 +49,8 @@ export function useTask(run: BettererRun): BettererTask {
       return testBetter(name, delta);
     }
     if (runSummary.isFailed) {
-      throw new BettererError(testFailed(name));
+      invariantΔ(runSummary.error, 'A failed run will always have an `error`!');
+      throw new BettererError(testFailed(name), runSummary.error);
     }
     if (runSummary.isNew) {
       return testNew(name, delta);

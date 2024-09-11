@@ -85,8 +85,8 @@ async function gitattributes(logger: BettererLogger, rootDir: string, resultsPat
   try {
     await fs.writeFile(gitattributesPath, lines.join(NEW_LINE), 'utf-8');
     await logger.success(`added Betterer merge attribute to "${gitattributesPath}"!`);
-  } catch {
-    throw new BettererError(`could not write "${gitattributesPath}".`);
+  } catch (error) {
+    throw new BettererError(`could not write "${gitattributesPath}".`, error as Error);
   }
 }
 

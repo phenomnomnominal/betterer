@@ -57,8 +57,8 @@ export async function run(logger: BettererLogger, cwd: string, ts: boolean): Pro
 
   try {
     await fs.writeFile(packageJSONPath, `${JSON.stringify(packageJSON, null, 2)}\n`, 'utf-8');
-  } catch {
-    throw new BettererError('could not write "package.json".');
+  } catch (error) {
+    throw new BettererError('could not write "package.json".', error as Error);
   }
 }
 
