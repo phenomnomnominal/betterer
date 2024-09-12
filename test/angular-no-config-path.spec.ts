@@ -3,15 +3,15 @@ import { describe, expect, it } from 'vitest';
 import { createFixture } from './fixture.js';
 
 describe('betterer', () => {
-  it('should throw when trying to run ESLint with no config', async () => {
+  it('should throw when trying to run Angular with no config file path', async () => {
     const { betterer } = await import('@betterer/betterer');
 
-    const { paths, logs, cleanup } = await createFixture('eslint-no-config', {
+    const { paths, logs, cleanup } = await createFixture('angular-no-config-path', {
       '.betterer.js': `
-import { eslint } from '@betterer/eslint';
+import { angular } from '@betterer/angular';
 
 export default {
-  test: () => eslint().include('./src/**/*.ts')
+  test: () => angular().include('./src/**/*.ts')
 };
       `
     });

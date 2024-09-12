@@ -110,7 +110,7 @@ export class BettererSuiteΩ implements BettererSuite {
     );
 
     const { results } = getGlobals();
-    const changed = results.getChanged(runSummaries);
+    const changed = await results.getChanged(runSummaries);
 
     return new BettererSuiteSummaryΩ(this.filePaths, this.runs, runSummaries, changed);
   }

@@ -7,7 +7,7 @@ import type { BettererSuiteSummaries, BettererSuiteSummary } from '../suite/inde
 import type { BettererContext, BettererContextStarted, BettererContextSummary } from './types.js';
 
 import { overrideContextConfig } from '../context/index.js';
-import { BettererFileResolverΩ, parse, write } from '../fs/index.js';
+import { BettererFileResolverΩ } from '../fs/index.js';
 import { overrideReporterConfig } from '../reporters/index.js';
 import { overrideWatchConfig } from '../runner/index.js';
 import { BettererSuiteΩ } from '../suite/index.js';
@@ -20,6 +20,8 @@ export class BettererContextΩ implements BettererContext {
 
   private _started: BettererContextStarted;
   private _suiteSummaries: BettererSuiteSummaries = [];
+
+  private _stopHandler = this.stop.bind(this);
 
   constructor() {
     const { config } = getGlobals();
@@ -42,7 +44,7 @@ export class BettererContextΩ implements BettererContext {
     this._started = this._start();
 
     // eslint-disable-next-line @typescript-eslint/no-misused-promises -- SIGTERM doesn't care about Promises
-    process.on('SIGTERM', () => this.stop());
+    process.on('SIGTERM', this._stopHandler);
   }
 
   public async runOnce(): Promise<void> {
@@ -53,8 +55,6 @@ export class BettererContextΩ implements BettererContext {
     try {
       const { config, results, versionControl } = getGlobals();
 
-      const expected = await parse(config.resultsPath);
-      results.sync(expected);
       await versionControl.api.sync();
 
       const { cwd, ci, includes, excludes, reporter } = config;
@@ -92,10 +92,7 @@ export class BettererContextΩ implements BettererContext {
         const suiteSummary = await suite.run();
 
         if (!isRunOnce && !ci) {
-          const printed = results.printSummary(suiteSummary);
-          if (printed) {
-            await write(printed, config.resultsPath);
-          }
+          await results.writeSummary(suiteSummary);
         }
 
         this._suiteSummaries = [...this._suiteSummaries, suiteSummary];
@@ -122,6 +119,8 @@ export class BettererContextΩ implements BettererContext {
 
   public async stop(): Promise<BettererSuiteSummary> {
     const { lastSuite } = await this._started.end();
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises -- SIGTERM doesn't care about Promises
+    process.off('SIGTERM', this._stopHandler);
     return lastSuite;
   }
 
@@ -148,13 +147,11 @@ export class BettererContextΩ implements BettererContext {
         await reporterΩ.contextEnd(contextSummary);
 
         const suiteSummaryΩ = contextSummary.lastSuite;
+
         if (!config.ci) {
-          const printedResult = results.printSummary(suiteSummaryΩ);
-          if (printedResult) {
-            await write(printedResult, config.resultsPath);
-            if (config.precommit) {
-              await versionControl.api.add(config.resultsPath);
-            }
+          const printed = await results.writeSummary(suiteSummaryΩ);
+          if (printed && config.precommit) {
+            await versionControl.api.add(results.resultsPath);
           }
         }
         await versionControl.api.writeCache();

@@ -1,4 +1,4 @@
-import { BettererError, invariantΔ } from '@betterer/errors';
+import type { BettererError } from '@betterer/errors';
 
 import type { BettererOptions } from './api/index.js';
 import type { BettererConfig } from './config/types.js';
@@ -8,6 +8,7 @@ import type { BettererRunWorkerPool } from './run/types.js';
 import type { BettererOptionsWatcher } from './runner/index.js';
 import type { BettererTestMetaLoaderWorker } from './test/index.js';
 
+import { invariantΔ } from '@betterer/errors';
 import { createContextConfig, enableMode } from './context/index.js';
 import { BettererFSΩ, createFSConfig } from './fs/index.js';
 import { createReporterConfig, loadDefaultReporter } from './reporters/index.js';
@@ -61,7 +62,7 @@ export async function createGlobals(
     reporter = config.reporter;
 
     const runWorkerPool = await createRunWorkerPool(config.workers);
-    const results = new BettererResultsΩ(await resultsFile.parse());
+    const results = await BettererResultsΩ.create(resultsFile);
 
     setGlobals(config, results, runWorkerPool, testMetaLoader, versionControl);
   } catch (error) {
@@ -72,9 +73,7 @@ export async function createGlobals(
 }
 
 export function getGlobals(): BettererGlobals {
-  if (GLOBAL_CONTAINER === null) {
-    throw new BettererError('`createGlobals` must be called before trying to use globals! ❌');
-  }
+  invariantΔ(GLOBAL_CONTAINER, '`createGlobals` must be called before trying to use globals!');
   return GLOBAL_CONTAINER;
 }
 

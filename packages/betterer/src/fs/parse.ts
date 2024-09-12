@@ -10,6 +10,8 @@ const MERGE_CONFLICT_END = '>>>>>>>';
 const MERGE_CONFLICT_SEP = '=======';
 const MERGE_CONFLICT_START = '<<<<<<<';
 
+const PARSE_CACHE = new Map<string, unknown>();
+
 /**
  * Parses the contents of a given file path. If the file doesn't exist, it will
  * return an empty object. If the file exists, but has merge conflicts, it will merge the
@@ -25,6 +27,17 @@ export async function parse(filePath: string): Promise<unknown> {
     return {};
   }
 
+  const cached = PARSE_CACHE.get(contents);
+  if (cached) {
+    return cached;
+  }
+
+  const parsed = parseContents(filePath, contents);
+  PARSE_CACHE.set(contents, parsed);
+  return parsed;
+}
+
+function parseContents(filePath: string, contents: string): unknown {
   if (hasMergeConflicts(contents)) {
     try {
       const [ours, theirs] = extractConflicts(contents);

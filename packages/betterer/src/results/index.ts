@@ -14,3 +14,5 @@ export type {
 export { BettererResultΩ } from './result.js';
 export { BettererResultsSummaryΩ } from './results-summary.js';
 export { BettererResultsΩ } from './results.js';
+
+export { printResults } from './print.js';

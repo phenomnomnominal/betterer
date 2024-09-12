@@ -54,7 +54,7 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
             throw new BettererError(`"${name}" must return a \`BettererTest\`.`);
           }
 
-          const [expectedJSON] = results.getExpected(name);
+          const [, expectedJSON] = await results.getExpected(name);
           const serialised = JSON.parse(expectedJSON) as unknown;
           const deserialised = test.config.serialiser.deserialise(serialised, resultsPath);
           if (isFileTest) {

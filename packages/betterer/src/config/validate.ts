@@ -1,15 +1,13 @@
 import assert from 'node:assert';
 
-import { BettererError } from '@betterer/errors';
+import { BettererError, invariantΔ } from '@betterer/errors';
 
 import { read } from '../fs/index.js';
 import { isBoolean, isNumber, isRegExp, isString, isUndefined } from '../utils.js';
 
 function getKeyValue(config: object): [string, unknown] {
   const [key] = Object.keys(config);
-  if (!key) {
-    throw new BettererError('No keys found on validation config. ❌', JSON.stringify(config));
-  }
+  invariantΔ(key, `No keys found on validation config!`, config);
   const value = config[key as keyof typeof config];
   return [key, value];
 }

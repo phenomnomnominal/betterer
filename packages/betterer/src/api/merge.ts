@@ -1,7 +1,7 @@
 import type { BettererOptionsMerge } from '../fs/index.js';
 
 import { BettererMergerΩ } from '../fs/index.js';
-import { BettererResultsΩ } from '../results/index.js';
+import { printResults } from '../results/index.js';
 
 /**
  * @public Resolve any merge conflicts in the specified results file.
@@ -20,6 +20,5 @@ import { BettererResultsΩ } from '../results/index.js';
 export async function merge(options: BettererOptionsMerge = {}): Promise<void> {
   const merger = await BettererMergerΩ.create(options);
   const merged = await merger.merge();
-  const results = new BettererResultsΩ(merged);
-  await merger.write(results.print());
+  await merger.write(printResults(merged));
 }

@@ -15,12 +15,13 @@ import { BettererConstraintResult } from '@betterer/constraints';
 import { BettererError, isBettererErrorΔ } from '@betterer/errors';
 import assert from 'node:assert';
 
-import { forceRelativePaths, importDefault, parse } from '../fs/index.js';
+import { forceRelativePaths, importDefault } from '../fs/index.js';
 import { BettererResultsΩ, BettererResultΩ } from '../results/index.js';
 import { isBettererResolverTest, isBettererTest } from '../test/index.js';
 import { BettererRunSummaryΩ } from './run-summary.js';
 import { isFunction } from '../utils.js';
 import { getGlobals, setGlobals } from '../globals.js';
+import { BettererResultsFileΩ } from '../fs/results-file.js';
 
 export class BettererWorkerRunΩ implements BettererRun {
   public readonly isNew: boolean;
@@ -61,8 +62,7 @@ export class BettererWorkerRunΩ implements BettererRun {
     versionControl: BettererVersionControlWorker
   ): Promise<BettererWorkerRunΩ> {
     const { name } = testMeta;
-    const expected = await parse(config.resultsPath);
-    const results = new BettererResultsΩ(expected);
+    const results = await BettererResultsΩ.create(new BettererResultsFileΩ(config.resultsPath));
 
     // If we're in a worker, we need to populate the globals:
     if (process.env.BETTERER_WORKER !== 'false') {
@@ -108,7 +108,7 @@ export class BettererWorkerRunΩ implements BettererRun {
     const { resultsPath } = config;
 
     if (!this.runMeta.isNew) {
-      const [baselineJSON, expectedJSON] = results.getExpected(this.name);
+      const [baselineJSON, expectedJSON] = await results.getExpected(this.name);
       this._baseline = this._deserialise(config.resultsPath, baselineJSON);
       this._expected = this._deserialise(config.resultsPath, expectedJSON);
     }

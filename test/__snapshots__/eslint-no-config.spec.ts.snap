@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer > should throw if there are no config 1`] = `
+exports[`betterer > should throw when trying to run ESLint with no config 1`] = `
 [
   "
 Error: for \`@betterer/eslint\` to work, you need to provide configuration options, e.g. \`{ rules: { 'no-debugger': 'error' } }\`. ❌

@@ -66,7 +66,7 @@ export class BettererRunΩ implements BettererRun {
     let expected: BettererResultΩ | null = null;
     const isNew = !results.hasResult(testMeta.name);
     if (!isNew) {
-      const [baselineJSON, expectedJSON] = results.getExpected(testMeta.name);
+      const [baselineJSON, expectedJSON] = await results.getExpected(testMeta.name);
       baseline = new BettererResultΩ(JSON.parse(baselineJSON), baselineJSON);
       expected = new BettererResultΩ(JSON.parse(expectedJSON), baselineJSON);
     }

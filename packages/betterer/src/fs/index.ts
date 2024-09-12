@@ -10,6 +10,7 @@ export type {
   BettererOptionsFS,
   BettererOptionsMerge,
   BettererOptionsPaths,
+  BettererResultsFile,
   BettererVersionControlWorker
 } from './types.js';
 
