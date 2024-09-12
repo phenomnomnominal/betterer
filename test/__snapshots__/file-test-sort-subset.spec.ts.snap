@@ -9,21 +9,21 @@ exports[`betterer > should sort files by their file path even when only running 
 exports[\`test\`] = {
   value: \`{
     "src/a.ts:2053668783": [
-      [0, 0, 9, "[no-debugger] Unexpected \\'debugger\\' statement.", "3201740415"],
-      [1, 0, 9, "[no-debugger] Unexpected \\'debugger\\' statement.", "3201740415"]
+      [0, 0, 9, "Unexpected \\'debugger\\' statement. eslint(no-debugger)", "3201740415"],
+      [1, 0, 9, "Unexpected \\'debugger\\' statement. eslint(no-debugger)", "3201740415"]
     ],
     "src/b.ts:2053668783": [
-      [0, 0, 9, "[no-debugger] Unexpected \\'debugger\\' statement.", "3201740415"],
-      [1, 0, 9, "[no-debugger] Unexpected \\'debugger\\' statement.", "3201740415"]
+      [0, 0, 9, "Unexpected \\'debugger\\' statement. eslint(no-debugger)", "3201740415"],
+      [1, 0, 9, "Unexpected \\'debugger\\' statement. eslint(no-debugger)", "3201740415"]
     ],
     "src/c.ts:1761844991": [
-      [0, 0, 9, "[no-debugger] Unexpected \\'debugger\\' statement.", "3201740415"],
-      [1, 0, 9, "[no-debugger] Unexpected \\'debugger\\' statement.", "3201740415"],
-      [2, 0, 9, "[no-debugger] Unexpected \\'debugger\\' statement.", "3201740415"]
+      [0, 0, 9, "Unexpected \\'debugger\\' statement. eslint(no-debugger)", "3201740415"],
+      [1, 0, 9, "Unexpected \\'debugger\\' statement. eslint(no-debugger)", "3201740415"],
+      [2, 0, 9, "Unexpected \\'debugger\\' statement. eslint(no-debugger)", "3201740415"]
     ],
     "src/d.ts:2053668783": [
-      [0, 0, 9, "[no-debugger] Unexpected \\'debugger\\' statement.", "3201740415"],
-      [1, 0, 9, "[no-debugger] Unexpected \\'debugger\\' statement.", "3201740415"]
+      [0, 0, 9, "Unexpected \\'debugger\\' statement. eslint(no-debugger)", "3201740415"],
+      [1, 0, 9, "Unexpected \\'debugger\\' statement. eslint(no-debugger)", "3201740415"]
     ]
   }\`
 };
@@ -66,7 +66,7 @@ exports[`betterer > should sort files by their file path even when only running 
 ・   1 | debugger;
 ・   2 | debugger;
 ・ > 3 | debugger;
-・     | ^^^^^^^^^ [no-debugger] Unexpected 'debugger' statement.
+・     | ^^^^^^^^^ Unexpected 'debugger' statement. eslint(no-debugger)
 ・
 ",
   "🎉 Betterer (0ms): 1 test done!
@@ -78,7 +78,7 @@ exports[`betterer > should sort files by their file path even when only running 
 ・   1 | debugger;
 ・   2 | debugger;
 ・ > 3 | debugger;
-・     | ^^^^^^^^^ [no-debugger] Unexpected 'debugger' statement.
+・     | ^^^^^^^^^ Unexpected 'debugger' statement. eslint(no-debugger)
 ・
 
 1 test got checked. 🤔
