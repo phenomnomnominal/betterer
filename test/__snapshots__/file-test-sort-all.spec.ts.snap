@@ -9,20 +9,20 @@ exports[`betterer > should sort files by their file path 1`] = `
 exports[\`test\`] = {
   value: \`{
     "src/a.ts:2053668783": [
-      [0, 0, 9, "Unexpected \\'debugger\\' statement.", "3201740415"],
-      [1, 0, 9, "Unexpected \\'debugger\\' statement.", "3201740415"]
+      [0, 0, 9, "[no-debugger] Unexpected \\'debugger\\' statement.", "3201740415"],
+      [1, 0, 9, "[no-debugger] Unexpected \\'debugger\\' statement.", "3201740415"]
     ],
     "src/b.ts:2053668783": [
-      [0, 0, 9, "Unexpected \\'debugger\\' statement.", "3201740415"],
-      [1, 0, 9, "Unexpected \\'debugger\\' statement.", "3201740415"]
+      [0, 0, 9, "[no-debugger] Unexpected \\'debugger\\' statement.", "3201740415"],
+      [1, 0, 9, "[no-debugger] Unexpected \\'debugger\\' statement.", "3201740415"]
     ],
     "src/c.ts:2053668783": [
-      [0, 0, 9, "Unexpected \\'debugger\\' statement.", "3201740415"],
-      [1, 0, 9, "Unexpected \\'debugger\\' statement.", "3201740415"]
+      [0, 0, 9, "[no-debugger] Unexpected \\'debugger\\' statement.", "3201740415"],
+      [1, 0, 9, "[no-debugger] Unexpected \\'debugger\\' statement.", "3201740415"]
     ],
     "src/d.ts:2053668783": [
-      [0, 0, 9, "Unexpected \\'debugger\\' statement.", "3201740415"],
-      [1, 0, 9, "Unexpected \\'debugger\\' statement.", "3201740415"]
+      [0, 0, 9, "[no-debugger] Unexpected \\'debugger\\' statement.", "3201740415"],
+      [1, 0, 9, "[no-debugger] Unexpected \\'debugger\\' statement.", "3201740415"]
     ]
   }\`
 };

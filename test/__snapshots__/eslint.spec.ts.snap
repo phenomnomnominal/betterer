@@ -9,7 +9,7 @@ exports[`betterer > should report the status of a new eslint rule 1`] = `
 exports[\`test\`] = {
   value: \`{
     "src/index.ts:3201740415": [
-      [0, 0, 9, "Unexpected \\'debugger\\' statement.", "3201740415"]
+      [0, 0, 9, "[no-debugger] Unexpected \\'debugger\\' statement.", "3201740415"]
     ]
   }\`
 };
@@ -73,7 +73,7 @@ Error: "test" got worse. (1 new issue, 2 total) 😔
 ・   <project>/fixtures/eslint/src/index.ts
 ・   1 | debugger;
 ・ > 2 | debugger;
-・     | ^^^^^^^^^ Unexpected 'debugger' statement.
+・     | ^^^^^^^^^ [no-debugger] Unexpected 'debugger' statement.
 ・
 
 Error: "test" got worse. (1 new issue, 2 total) 😔
@@ -86,7 +86,7 @@ Error: "test" got worse. (1 new issue, 2 total) 😔
 ・   <project>/fixtures/eslint/src/index.ts
 ・   1 | debugger;
 ・ > 2 | debugger;
-・     | ^^^^^^^^^ Unexpected 'debugger' statement.
+・     | ^^^^^^^^^ [no-debugger] Unexpected 'debugger' statement.
 ・
 
 Error: "test" got worse. (1 new issue, 2 total) 😔

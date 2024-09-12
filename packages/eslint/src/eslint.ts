@@ -79,7 +79,7 @@ export function eslint(...overrideConfig: BettererESLintConfig): BettererFileTes
           const startColumn = message.column - 1;
           const endLine = message.endLine ? message.endLine - 1 : 0;
           const endColumn = message.endColumn ? message.endColumn - 1 : 0;
-          file.addIssue(startLine, startColumn, endLine, endColumn, message.message);
+          file.addIssue(startLine, startColumn, endLine, endColumn, `[${message.ruleId}] ${message.message}`);
         });
       });
   });
