@@ -4,7 +4,7 @@ import type { BettererConfig } from '../config/types.js';
 import type { BettererFilePaths } from '../fs/index.js';
 import type { BettererTestMeta } from '../test/index.js';
 import type { BettererRunMeta } from './meta/types.js';
-import type { BettererRun, BettererRunSummary, BettererRunWorkerHandle, BettererRunWorkerPool } from './types.js';
+import type { BettererRun, BettererRunSummary, BettererRunWorkerHandle } from './types.js';
 
 import { getTimeΔ } from '@betterer/time';
 
@@ -37,17 +37,13 @@ export class BettererRunΩ implements BettererRun {
     }
   }
 
-  public static async create(
-    runWorkerPool: BettererRunWorkerPool,
-    testMeta: BettererTestMeta,
-    filePaths: BettererFilePaths
-  ): Promise<BettererRunΩ> {
+  public static async create(testMeta: BettererTestMeta, filePaths: BettererFilePaths): Promise<BettererRunΩ> {
+    const globals = getGlobals();
+    const { config, results, runWorkerPool, versionControl } = globals;
+
     const workerHandle = runWorkerPool.getWorkerHandle();
     const worker = await workerHandle.claim();
 
-    const globals = getGlobals();
-
-    const { config, versionControl } = globals;
     const workerConfig = {
       ...config,
       workers: 1
@@ -57,18 +53,18 @@ export class BettererRunΩ implements BettererRun {
     // the worker doesn't actually need the it, so just ignore it.
     delete (workerConfig as Partial<BettererConfig>).reporter;
 
-    // TODO: Make `globals.results` a worker so it can be passed across thread boundaries:
-    const runMeta = await worker.api.init(testMeta, workerConfig, versionControl);
+    const runMeta = await worker.api.init(testMeta, workerConfig, results, versionControl);
     workerHandle.release();
 
-    const { results } = globals;
     let baseline: BettererResultΩ | null = null;
     let expected: BettererResultΩ | null = null;
-    const isNew = !results.hasResult(testMeta.name);
+
+    const isNew = !(await results.api.hasBaseline(testMeta.name));
     if (!isNew) {
-      const [baselineJSON, expectedJSON] = await results.getExpected(testMeta.name);
-      baseline = new BettererResultΩ(JSON.parse(baselineJSON), baselineJSON);
-      expected = new BettererResultΩ(JSON.parse(expectedJSON), baselineJSON);
+      const baselineSerialised = await results.api.getBaseline(testMeta.name);
+      const expectedSerialised = await results.api.getExpected(testMeta.name);
+      baseline = new BettererResultΩ(JSON.parse(baselineSerialised), baselineSerialised);
+      expected = new BettererResultΩ(JSON.parse(expectedSerialised), expectedSerialised);
     }
 
     return new BettererRunΩ(

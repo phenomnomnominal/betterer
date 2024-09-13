@@ -1,3 +1,5 @@
+import type { BettererFilePath } from './index.js';
+
 import { BettererError } from '@betterer/errors';
 import assert from 'node:assert';
 
@@ -21,7 +23,7 @@ const PARSE_CACHE = new Map<string, unknown>();
  * Throws if the results file cannot be parsed, or if it contains merge conflicts that
  * can't be resolved.
  */
-export async function parse(filePath: string): Promise<unknown> {
+export async function parse(filePath: BettererFilePath): Promise<unknown> {
   const contents = await read(filePath);
   if (!contents) {
     return {};
@@ -37,7 +39,7 @@ export async function parse(filePath: string): Promise<unknown> {
   return parsed;
 }
 
-function parseContents(filePath: string, contents: string): unknown {
+function parseContents(filePath: BettererFilePath, contents: string): unknown {
   if (hasMergeConflicts(contents)) {
     try {
       const [ours, theirs] = extractConflicts(contents);
@@ -58,10 +60,10 @@ function hasMergeConflicts(str: string): boolean {
   return str.includes(MERGE_CONFLICT_START) && str.includes(MERGE_CONFLICT_SEP) && str.includes(MERGE_CONFLICT_END);
 }
 
-function extractConflicts(file: string): [string, string] {
+function extractConflicts(contents: string): [string, string] {
   const ours = [];
   const theirs = [];
-  const lines = file.split(/\r?\n/g);
+  const lines = contents.split(/\r?\n/g);
   let skip = false;
 
   while (lines.length) {

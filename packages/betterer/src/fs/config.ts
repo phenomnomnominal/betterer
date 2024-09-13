@@ -1,4 +1,4 @@
-import type { BettererConfigFS, BettererConfigMerge, BettererOptionsFS, BettererOptionsMerge } from './types.js';
+import type { BettererConfigFS, BettererOptionsFS } from './types.js';
 
 import path from 'node:path';
 
@@ -31,22 +31,6 @@ export async function createFSConfig(options: BettererOptionsFS): Promise<Better
     cachePath: path.resolve(cwd, cachePath),
     cwd,
     configPaths: validatedConfigPaths,
-    resultsPath: path.resolve(cwd, resultsPath)
-  };
-}
-
-export async function createMergeConfig(options: BettererOptionsMerge): Promise<BettererConfigMerge> {
-  const contents = toArray(options.contents);
-  const cwd = options.cwd ?? process.cwd();
-  const resultsPath = path.resolve(cwd, options.resultsPath ?? BETTERER_RESULTS);
-
-  validateStringArray({ contents });
-  validateString({ cwd });
-  await validateFilePath({ resultsPath });
-
-  return {
-    contents,
-    cwd,
     resultsPath: path.resolve(cwd, resultsPath)
   };
 }

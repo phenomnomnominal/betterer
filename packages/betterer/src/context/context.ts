@@ -3,7 +3,7 @@ import type { BettererError } from '@betterer/errors';
 import type { BettererConfig, BettererOptionsOverride } from '../config/index.js';
 import type { BettererFilePaths } from '../fs/index.js';
 import type { BettererReporterΩ } from '../reporters/index.js';
-import type { BettererSuiteSummaries, BettererSuiteSummary } from '../suite/index.js';
+import type { BettererSuiteSummaries, BettererSuiteSummary, BettererSuiteSummaryΩ } from '../suite/index.js';
 import type { BettererContext, BettererContextStarted, BettererContextSummary } from './types.js';
 
 import { overrideContextConfig } from '../context/index.js';
@@ -92,7 +92,7 @@ export class BettererContextΩ implements BettererContext {
         const suiteSummary = await suite.run();
 
         if (!isRunOnce && !ci) {
-          await results.writeSummary(suiteSummary);
+          await results.api.write(suiteSummary.result);
         }
 
         this._suiteSummaries = [...this._suiteSummaries, suiteSummary];
@@ -146,12 +146,11 @@ export class BettererContextΩ implements BettererContext {
 
         await reporterΩ.contextEnd(contextSummary);
 
-        const suiteSummaryΩ = contextSummary.lastSuite;
-
+        const suiteSummaryΩ = contextSummary.lastSuite as BettererSuiteSummaryΩ;
         if (!config.ci) {
-          const printed = await results.writeSummary(suiteSummaryΩ);
-          if (printed && config.precommit) {
-            await versionControl.api.add(results.resultsPath);
+          const didWrite = await results.api.write(suiteSummaryΩ.result);
+          if (didWrite && config.precommit) {
+            await versionControl.api.add(config.resultsPath);
           }
         }
         await versionControl.api.writeCache();
