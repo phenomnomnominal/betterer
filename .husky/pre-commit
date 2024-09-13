@@ -1,4 +1,5 @@
 npm install
 npx lint-staged
-npm run api
+npm run test:api
+npm run test:dependencies
 npm run betterer:precommit

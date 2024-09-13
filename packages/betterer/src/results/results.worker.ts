@@ -8,30 +8,36 @@ import { BettererResultsΩ } from './results.js';
 
 let results: BettererResultsΩ | null = null;
 
+/** @knipignore part of worker API */
 export async function init(resultsPath: BettererFilePath): Promise<void> {
   results = await BettererResultsΩ.create(resultsPath);
 }
 
+/** @knipignore part of worker API */
 export function getBaseline(testName: string): string {
   checkInitialised(results);
   return results.getBaseline(testName);
 }
 
+/** @knipignore part of worker API */
 export function getExpected(testName: string): string {
   checkInitialised(results);
   return results.getExpected(testName);
 }
 
+/** @knipignore part of worker API */
 export function getExpectedTestNames(): BettererTestNames {
   checkInitialised(results);
   return results.getExpectedTestNames();
 }
 
+/** @knipignore part of worker API */
 export function hasBaseline(testName: string): boolean {
   checkInitialised(results);
   return results.hasBaseline(testName);
 }
 
+/** @knipignore part of worker API */
 export function write(result: BettererResultsSerialised): Promise<string | null> {
   checkInitialised(results);
   return results.write(result);
