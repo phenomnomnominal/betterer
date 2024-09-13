@@ -21,13 +21,13 @@ export class BettererSuiteΩ implements BettererSuite {
   ) {}
 
   public static async create(filePaths: BettererFilePaths): Promise<BettererSuiteΩ> {
-    const { config, runWorkerPool, testMetaLoader } = getGlobals();
+    const { config, testMetaLoader } = getGlobals();
     const { configPaths } = config;
 
     const testsMeta = await testMetaLoader.api.loadTestsMeta(configPaths);
     const runsΩ = await Promise.all(
       testsMeta.map(async (testMeta) => {
-        return await BettererRunΩ.create(runWorkerPool, testMeta, filePaths);
+        return await BettererRunΩ.create(testMeta, filePaths);
       })
     );
 
@@ -110,8 +110,7 @@ export class BettererSuiteΩ implements BettererSuite {
     );
 
     const { results } = getGlobals();
-    const changed = results.getChanged(runSummaries);
-
-    return new BettererSuiteSummaryΩ(this.filePaths, this.runs, runSummaries, changed);
+    const expectedTestNames = await results.api.getExpectedTestNames();
+    return new BettererSuiteSummaryΩ(expectedTestNames, this.filePaths, this.runs, runSummaries);
   }
 }

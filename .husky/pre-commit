@@ -1,2 +1,4 @@
 npm install
 npx lint-staged
+npm run api
+npm run betterer:precommit
