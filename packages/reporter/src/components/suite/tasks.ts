@@ -53,6 +53,7 @@ export function useTask(run: BettererRun): BettererTask {
       throw new BettererError(testFailed(name), runSummary.error);
     }
     if (runSummary.isNew) {
+      debugger;
       return testNew(name, delta);
     }
     if (runSummary.isSkipped) {

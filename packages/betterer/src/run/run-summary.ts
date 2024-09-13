@@ -34,6 +34,7 @@ export class BettererRunSummaryΩ implements BettererRunSummary {
     this.isComplete = summary.isComplete;
     this.isExpired = summary.isExpired;
     this.isFailed = summary.isFailed;
+    debugger;
     this.isNew = summary.isNew;
     this.isSame = summary.isSame;
     this.isSkipped = summary.isSkipped;

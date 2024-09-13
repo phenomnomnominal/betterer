@@ -1,5 +1,4 @@
 import type { BettererWorkerAPI } from '@betterer/worker';
-import type { BettererResultsSerialised } from '../results/index.js';
 
 /**
  * @public A path to a {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file }
@@ -241,10 +240,4 @@ export interface BettererFileResolver {
    * If included, the file path will have extra characters inserted to guarantee uniqueness.
    */
   tmp(filePath?: BettererFilePath): Promise<BettererFilePath>;
-}
-
-export interface BettererResultsFile {
-  resultsPath: string;
-  parse(): Promise<BettererResultsSerialised>;
-  write(toWrite: string): Promise<void>;
 }

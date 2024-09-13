@@ -26,6 +26,7 @@ export class BettererRunΩ implements BettererRun {
     public expected: BettererResultΩ | null,
     public filePaths: BettererFilePaths | null
   ) {
+    debugger;
     this.isNew = !(baseline && expected);
     this.isOnly = runMeta.isOnly;
     this.isSkipped = runMeta.isSkipped;

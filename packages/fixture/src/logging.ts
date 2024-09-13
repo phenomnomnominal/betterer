@@ -1,4 +1,4 @@
-import type { FixtureLogs, FixtureLogsMap, FixtureOptions } from './types.js';
+import type { FixtureLogging, FixtureLogsMap, FixtureOptions } from './types.js';
 
 import path from 'node:path';
 
@@ -11,7 +11,7 @@ const STACK_TRACK_LINE_REGEXP = /^\s+at\s+/;
 
 const FIXTURE_LOGS_MAP: FixtureLogsMap = {};
 
-export function createFixtureLogs(fixtureName: string, options: FixtureOptions = {}): FixtureLogs {
+export function createFixtureLogs(fixtureName: string, options: FixtureOptions = {}): FixtureLogging {
   const fixtureLogs: Array<string> = [];
   FIXTURE_LOGS_MAP[fixtureName] = (...messages: Array<string>): void => {
     // Do some magic to sort out the logs for snapshots. This mucks up the snapshot of the printed logo,
@@ -54,7 +54,9 @@ export function createFixtureLogs(fixtureName: string, options: FixtureOptions =
   stdout.columns = 1000;
   stdout.rows = 20;
 
-  return fixtureLogs as FixtureLogs;
+  return {
+    logs: fixtureLogs
+  };
 }
 
 function isString(message: unknown): message is string {

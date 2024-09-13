@@ -9,9 +9,8 @@ import { createFixture } from '../fixture.js';
 describe('betterer.watch', () => {
   it('should filter in watch mode', async () => {
     const { betterer } = await import('@betterer/betterer');
-    const { getStdInΔ } = await import('@betterer/render');
 
-    const { logs, paths, resolve, cleanup, writeFile } = await createFixture('watch-filter', {
+    const { logs, paths, resolve, cleanup, writeFile, sendKeys } = await createFixture('watch-filter', {
       '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 
@@ -44,12 +43,10 @@ export default {
         '@betterer/reporter',
         {
           suiteEnd(suiteSummary: BettererSuiteSummary) {
-            debugger;
             const suiteSummaryDefer = suiteSummaryDefers.shift();
             suiteSummaryDefer?.resolve(suiteSummary);
           },
           suiteError(_, error) {
-            debugger;
             const suiteSummaryDefer = suiteSummaryDefers.shift();
             suiteSummaryDefer?.reject(error);
           }
@@ -66,19 +63,13 @@ export default {
     expect(worseSuiteSummary.runSummaries).toHaveLength(2);
 
     // Press "f" to enter filter mode:
-    getStdInΔ().emit('data', 'f');
-
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await sendKeys('f');
 
     // Press "2" to target "test2":
-    getStdInΔ().emit('data', '2');
-
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await sendKeys('2');
 
     // Press "Enter" to enable the filter:
-    getStdInΔ().emit('data', '\r');
-
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await sendKeys('\r');
 
     debugger;
 

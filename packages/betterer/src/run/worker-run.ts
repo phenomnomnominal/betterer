@@ -36,6 +36,7 @@ export class BettererWorkerRunΩ implements BettererRun {
     public readonly testMeta: BettererTestMeta,
     public readonly runMeta: BettererRunMeta
   ) {
+    debugger;
     this.isNew = runMeta.isNew;
     this.isSkipped = runMeta.isSkipped;
     this.name = testMeta.name;
@@ -68,6 +69,7 @@ export class BettererWorkerRunΩ implements BettererRun {
       setGlobals(config, results, null, null, versionControl);
     }
 
+    debugger;
     const isNew = !(await results.api.hasBaseline(name));
 
     const testFactory = await loadTestFactory(testMeta);
