@@ -41,7 +41,6 @@ export type {
   BettererFilePatterns,
   BettererFileResolver,
   BettererOptionsFS,
-  BettererOptionsMerge,
   BettererOptionsPaths
 } from './fs/index.js';
 export type {
@@ -54,6 +53,7 @@ export type {
 export type {
   BettererFileTestResultSummary,
   BettererFileTestResultSummaryDetails,
+  BettererOptionsMerge,
   BettererResult,
   BettererResultSummaries,
   BettererResultSummary,

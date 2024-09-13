@@ -1,5 +1,6 @@
 import type { BettererConfig } from '../config/types.js';
 import type { BettererFilePaths, BettererVersionControlWorker } from '../fs/index.js';
+import type { BettererResultsWorker } from '../results/index.js';
 import type { BettererTestMeta } from '../test/index.js';
 import type { BettererRunMeta } from './meta/index.js';
 import type { BettererRunSummary } from './types.js';
@@ -15,9 +16,10 @@ const TEST_NAME_RUN: Record<string, BettererWorkerRunΩ> = {};
 export async function init(
   testMeta: BettererTestMeta,
   config: BettererConfig,
+  results: BettererResultsWorker,
   versionControl: BettererVersionControlWorker
 ): Promise<BettererRunMeta> {
-  const run = await BettererWorkerRunΩ.create(testMeta, config, versionControl);
+  const run = await BettererWorkerRunΩ.create(testMeta, config, results, versionControl);
   TEST_NAME_RUN[testMeta.name] = run;
   return run.runMeta;
 }

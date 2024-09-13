@@ -1,6 +1,5 @@
 export type {
   BettererConfigFS,
-  BettererConfigMerge,
   BettererConfigPaths,
   BettererFileGlobs,
   BettererFilePath,
@@ -8,16 +7,15 @@ export type {
   BettererFilePatterns,
   BettererFileResolver,
   BettererOptionsFS,
-  BettererOptionsMerge,
   BettererOptionsPaths,
   BettererVersionControlWorker
 } from './types.js';
 
 export { createFSConfig } from './config.js';
 export { BettererFileResolverΩ } from './file-resolver.js';
-export { BettererFSΩ } from './fs.js';
+export { BettererResultsFileΩ } from './results-file.js';
 export { importDefault } from './import.js';
-export { BettererMergerΩ } from './merger.js';
+export { merge } from './merge.js';
 export { parse } from './parse.js';
 export { read } from './reader.js';
 export { isTempFilePath } from './temp.js';

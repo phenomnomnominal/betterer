@@ -1,24 +1,25 @@
-import { BettererError, invariantΔ } from '@betterer/errors';
-
 import type { BettererOptions } from './api/index.js';
 import type { BettererConfig } from './config/types.js';
 import type { BettererVersionControlWorker } from './fs/index.js';
 import type { BettererReporterΩ } from './reporters/index.js';
+import type { BettererResultsWorker } from './results/index.js';
 import type { BettererRunWorkerPool } from './run/types.js';
 import type { BettererOptionsWatcher } from './runner/index.js';
 import type { BettererTestMetaLoaderWorker } from './test/index.js';
 
+import { BettererError, invariantΔ } from '@betterer/errors';
+import { importWorkerΔ } from '@betterer/worker';
+
 import { createContextConfig, enableMode } from './context/index.js';
-import { BettererFSΩ, createFSConfig } from './fs/index.js';
+import { createFSConfig } from './fs/index.js';
 import { createReporterConfig, loadDefaultReporter } from './reporters/index.js';
-import { BettererResultsΩ } from './results/index.js';
 import { createRunWorkerPool } from './run/index.js';
 import { createWatcherConfig } from './runner/index.js';
 
 class BettererGlobals {
   constructor(
     public readonly config: BettererConfig,
-    public readonly results: BettererResultsΩ,
+    public readonly results: BettererResultsWorker,
     private _runWorkerPool: BettererRunWorkerPool | null,
     private _testMetaLoader: BettererTestMetaLoaderWorker | null,
     public readonly versionControl: BettererVersionControlWorker
@@ -49,21 +50,34 @@ export async function createGlobals(
     const configReporter = await createReporterConfig(configFS, options);
     const configWatcher = createWatcherConfig(configFS, optionsWatch);
 
-    const { resultsFile, testMetaLoader, versionControl, versionControlPath } = await BettererFSΩ.create(configFS);
+    const { cache, cachePath, configPaths, cwd, resultsPath } = configFS;
 
-    const config = enableMode({
-      ...configContext,
-      ...configFS,
-      ...configReporter,
-      ...configWatcher,
-      versionControlPath
-    });
-    reporter = config.reporter;
+    const results: BettererResultsWorker = await importWorkerΔ('./results/results.worker.js');
+    const versionControl: BettererVersionControlWorker = await importWorkerΔ('./fs/version-control.worker.js');
+    const testMetaLoader: BettererTestMetaLoaderWorker = await importWorkerΔ('./test/test-meta/loader.worker.js');
 
-    const runWorkerPool = await createRunWorkerPool(config.workers);
-    const results = new BettererResultsΩ(await resultsFile.parse());
+    try {
+      await results.api.init(resultsPath);
+      const versionControlPath = await versionControl.api.init(configPaths, cwd);
+      if (cache) {
+        await versionControl.api.enableCache(cachePath);
+      }
+      const config = enableMode({
+        ...configContext,
+        ...configFS,
+        ...configReporter,
+        ...configWatcher,
+        versionControlPath
+      });
+      reporter = config.reporter;
 
-    setGlobals(config, results, runWorkerPool, testMetaLoader, versionControl);
+      const runWorkerPool = await createRunWorkerPool(config.workers);
+
+      setGlobals(config, results, runWorkerPool, testMetaLoader, versionControl);
+    } catch (error) {
+      await Promise.all([results.destroy(), testMetaLoader.destroy(), versionControl.destroy()]);
+      throw error;
+    }
   } catch (error) {
     const reporterΩ = reporter as BettererReporterΩ;
     await reporterΩ.configError(options, error as BettererError);
@@ -83,9 +97,7 @@ export function setGlobals(...globals: ConstructorParameters<typeof BettererGlob
 }
 
 export async function destroyGlobals(): Promise<void> {
-  const { runWorkerPool, testMetaLoader, versionControl } = getGlobals();
+  const { results, runWorkerPool, testMetaLoader, versionControl } = getGlobals();
   GLOBAL_CONTAINER = null;
-  await runWorkerPool.destroy();
-  await testMetaLoader.destroy();
-  await versionControl.destroy();
+  await Promise.all([results.destroy(), runWorkerPool.destroy(), testMetaLoader.destroy(), versionControl.destroy()]);
 }

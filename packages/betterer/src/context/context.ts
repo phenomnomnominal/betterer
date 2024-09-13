@@ -3,11 +3,11 @@ import type { BettererError } from '@betterer/errors';
 import type { BettererConfig, BettererOptionsOverride } from '../config/index.js';
 import type { BettererFilePaths } from '../fs/index.js';
 import type { BettererReporterΩ } from '../reporters/index.js';
-import type { BettererSuiteSummaries, BettererSuiteSummary } from '../suite/index.js';
+import type { BettererSuiteSummaries, BettererSuiteSummary, BettererSuiteSummaryΩ } from '../suite/index.js';
 import type { BettererContext, BettererContextStarted, BettererContextSummary } from './types.js';
 
 import { overrideContextConfig } from '../context/index.js';
-import { BettererFileResolverΩ, parse, write } from '../fs/index.js';
+import { BettererFileResolverΩ } from '../fs/index.js';
 import { overrideReporterConfig } from '../reporters/index.js';
 import { overrideWatchConfig } from '../runner/index.js';
 import { BettererSuiteΩ } from '../suite/index.js';
@@ -53,8 +53,6 @@ export class BettererContextΩ implements BettererContext {
     try {
       const { config, results, versionControl } = getGlobals();
 
-      const expected = await parse(config.resultsPath);
-      results.sync(expected);
       await versionControl.api.sync();
 
       const { cwd, ci, includes, excludes, reporter } = config;
@@ -92,10 +90,7 @@ export class BettererContextΩ implements BettererContext {
         const suiteSummary = await suite.run();
 
         if (!isRunOnce && !ci) {
-          const printed = results.printSummary(suiteSummary);
-          if (printed) {
-            await write(printed, config.resultsPath);
-          }
+          await results.api.write(suiteSummary.result);
         }
 
         this._suiteSummaries = [...this._suiteSummaries, suiteSummary];
@@ -147,14 +142,11 @@ export class BettererContextΩ implements BettererContext {
 
         await reporterΩ.contextEnd(contextSummary);
 
-        const suiteSummaryΩ = contextSummary.lastSuite;
+        const suiteSummaryΩ = contextSummary.lastSuite as BettererSuiteSummaryΩ;
         if (!config.ci) {
-          const printedResult = results.printSummary(suiteSummaryΩ);
-          if (printedResult) {
-            await write(printedResult, config.resultsPath);
-            if (config.precommit) {
-              await versionControl.api.add(config.resultsPath);
-            }
+          const didWrite = await results.api.write(suiteSummaryΩ.result);
+          if (didWrite && config.precommit) {
+            await versionControl.api.add(config.resultsPath);
           }
         }
         await versionControl.api.writeCache();

@@ -1,6 +1,6 @@
 import type { BettererConfig } from '../config/index.js';
 import type { BettererFilePaths, BettererVersionControlWorker } from '../fs/index.js';
-import type { BettererResult } from '../results/index.js';
+import type { BettererResult, BettererResultsWorker } from '../results/index.js';
 import type {
   BettererTestConfig,
   BettererTestMeta,
@@ -15,8 +15,8 @@ import { BettererConstraintResult } from '@betterer/constraints';
 import { BettererError, isBettererErrorΔ } from '@betterer/errors';
 import assert from 'node:assert';
 
-import { forceRelativePaths, importDefault, parse } from '../fs/index.js';
-import { BettererResultsΩ, BettererResultΩ } from '../results/index.js';
+import { forceRelativePaths, importDefault } from '../fs/index.js';
+import { BettererResultΩ } from '../results/index.js';
 import { isBettererResolverTest, isBettererTest } from '../test/index.js';
 import { BettererRunSummaryΩ } from './run-summary.js';
 import { isFunction } from '../utils.js';
@@ -58,27 +58,26 @@ export class BettererWorkerRunΩ implements BettererRun {
   public static async create(
     testMeta: BettererTestMeta,
     config: BettererConfig,
+    results: BettererResultsWorker,
     versionControl: BettererVersionControlWorker
   ): Promise<BettererWorkerRunΩ> {
     const { name } = testMeta;
-    const expected = await parse(config.resultsPath);
-    const results = new BettererResultsΩ(expected);
 
     // If we're in a worker, we need to populate the globals:
     if (process.env.BETTERER_WORKER !== 'false') {
       setGlobals(config, results, null, null, versionControl);
     }
 
-    const isNew = !results.hasResult(name);
+    const isNew = !(await results.api.hasBaseline(name));
 
     const testFactory = await loadTestFactory(testMeta);
 
     let test: BettererTest | null = null;
     try {
       test = await testFactory();
-    } catch (e) {
-      if (isBettererErrorΔ(e)) {
-        throw e;
+    } catch (error) {
+      if (isBettererErrorΔ(error)) {
+        throw error;
       }
     }
 
@@ -89,12 +88,9 @@ export class BettererWorkerRunΩ implements BettererRun {
       throw new BettererError(`"${name}" must return a \`BettererTest\`.`);
     }
 
-    return new BettererWorkerRunΩ(test.config, testMeta, {
-      needsFilePaths: isResolverTest,
-      isNew,
-      isOnly: test.isOnly,
-      isSkipped: test.isSkipped
-    });
+    const { isOnly, isSkipped } = test;
+
+    return new BettererWorkerRunΩ(test.config, testMeta, { needsFilePaths: isResolverTest, isNew, isOnly, isSkipped });
   }
 
   public async run(
@@ -108,9 +104,8 @@ export class BettererWorkerRunΩ implements BettererRun {
     const { resultsPath } = config;
 
     if (!this.runMeta.isNew) {
-      const [baselineJSON, expectedJSON] = results.getExpected(this.name);
-      this._baseline = this._deserialise(config.resultsPath, baselineJSON);
-      this._expected = this._deserialise(config.resultsPath, expectedJSON);
+      this._baseline = this._deserialise(config.resultsPath, await results.api.getBaseline(this.name));
+      this._expected = this._deserialise(config.resultsPath, await results.api.getExpected(this.name));
     }
 
     const running = this._run(timestamp);
