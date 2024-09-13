@@ -90,7 +90,8 @@ export class BettererContextΩ implements BettererContext {
         const suiteSummary = await suite.run();
 
         if (!isRunOnce && !ci) {
-          await results.api.write(suiteSummary.result);
+          const suiteSummaryΩ = suiteSummary as BettererSuiteSummaryΩ;
+          await results.api.write(suiteSummaryΩ.result);
         }
 
         this._suiteSummaries = [...this._suiteSummaries, suiteSummary];

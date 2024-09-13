@@ -15,6 +15,8 @@ export class BettererRunSummaryΩ implements BettererRunSummary {
   public readonly isExpired: boolean;
   public readonly isFailed: boolean;
   public readonly isNew: boolean;
+  public readonly isObsolete: boolean;
+  public readonly isRemoved: boolean;
   public readonly isSame: boolean;
   public readonly isSkipped: boolean;
   public readonly isUpdated: boolean;
@@ -35,6 +37,8 @@ export class BettererRunSummaryΩ implements BettererRunSummary {
     this.isExpired = summary.isExpired;
     this.isFailed = summary.isFailed;
     this.isNew = summary.isNew;
+    this.isObsolete = summary.isObsolete;
+    this.isRemoved = summary.isRemoved;
     this.isSame = summary.isSame;
     this.isSkipped = summary.isSkipped;
     this.isUpdated = summary.isUpdated;
