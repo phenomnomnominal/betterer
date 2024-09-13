@@ -13,6 +13,8 @@ import {
   testExpired,
   testFailed,
   testNew,
+  testObsolete,
+  testRemoved,
   testRunning,
   testSame,
   testSkipped,
@@ -43,7 +45,7 @@ export function useTask(run: BettererRun): BettererTask {
     const delta = getDelta(runSummary);
 
     if (runSummary.isComplete) {
-      return testComplete(name, runSummary.isNew);
+      return testComplete(name, runSummary.isSame);
     }
     if (runSummary.isBetter) {
       return testBetter(name, delta);
@@ -55,19 +57,25 @@ export function useTask(run: BettererRun): BettererTask {
     if (runSummary.isNew) {
       return testNew(name, delta);
     }
+    if (runSummary.isObsolete && !runSummary.isRemoved) {
+      return testObsolete(name);
+    }
+    if (runSummary.isRemoved) {
+      return testRemoved(name);
+    }
     if (runSummary.isSkipped) {
       return testSkipped(name, delta);
     }
     if (runSummary.isSame) {
       return testSame(name, delta);
     }
+    if (runSummary.isWorse && !runSummary.isUpdated && runSummary.diff) {
+      await logΔ(runSummary.diff.logs, logger);
+      throw new BettererError(testWorse(name, delta));
+    }
     if (runSummary.isUpdated && runSummary.diff) {
       await logΔ(runSummary.diff.logs, logger);
       return testUpdated(name, delta);
-    }
-    if (runSummary.isWorse && runSummary.diff) {
-      await logΔ(runSummary.diff.logs, logger);
-      throw new BettererError(testWorse(name, delta));
     }
     return;
   };

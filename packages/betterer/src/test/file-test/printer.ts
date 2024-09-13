@@ -3,8 +3,12 @@ import type { BettererFileTestResultSerialised } from './types.js';
 import { isKey } from './serialiser.js';
 
 export function printer(serialised: BettererFileTestResultSerialised): string {
+  const keys = Object.keys(serialised);
+  if (keys.length === 0) {
+    return '{}';
+  }
   let printed = '{\n';
-  Object.keys(serialised)
+  keys
     .sort()
     .filter(isKey)
     .forEach((filePath, index) => {

@@ -4,19 +4,22 @@ import type { FC, TextProps } from '@betterer/render';
 import { React, Box, Text, memo } from '@betterer/render';
 
 import {
-  testBetter,
-  testChecked,
-  testComplete,
-  testExpired,
-  testFailed,
-  testNew,
-  testSame,
-  testSkipped,
-  testUpdated,
-  testWorse,
+  testsBetter,
+  testsChecked,
+  testsComplete,
+  testsExpired,
+  testsFailed,
+  testsNew,
+  testsObsolete,
+  testsRemoved,
+  testsSame,
+  testsSkipped,
+  testsUpdated,
+  testsWorse,
   unexpectedChanges,
   unexpectedChangesInstructions,
-  updateInstructions
+  updateInstructionsWorse,
+  updateInstructionsObsolete
 } from '../../messages.js';
 
 /** @knipignore used by an exported function */
@@ -34,7 +37,9 @@ const TEXT_COLOURS: Record<TestCategories, TextProps['color']> = {
   expired: 'brightRed',
   failed: 'brightRed',
   new: 'gray',
+  obsolete: 'magentaBright',
   ran: 'gray',
+  removed: 'white',
   same: 'brightYellow',
   skipped: 'brightYellow',
   updated: 'white',
@@ -46,31 +51,40 @@ export const SuiteSummary: FC<SuiteSummaryProps> = memo(function SuiteSummary({ 
     return TEXT_COLOURS[name];
   }
 
-  function showIfHasCategory(name: TestCategories, content: (count: string) => string): React.JSX.Element | null {
+  function showIfHasCategory(name: TestCategories, getMessage: (count: number) => string): React.JSX.Element | null {
     const count = suiteSummary[name].length;
-    return count ? <Text color={getColor(name)}>{content(tests(count))}</Text> : null;
+    return count ? <Text color={getColor(name)}>{getMessage(count)}</Text> : null;
   }
 
   return (
     <>
       <Box flexDirection="column" paddingBottom={1}>
-        <Text color={getColor('ran')}>{testChecked(tests(suiteSummary.ran.length))}</Text>
-        {showIfHasCategory('new', testNew)}
-        {showIfHasCategory('better', testBetter)}
-        {showIfHasCategory('completed', testComplete)}
-        {showIfHasCategory('same', testSame)}
-        {showIfHasCategory('failed', testFailed)}
-        {showIfHasCategory('skipped', testSkipped)}
-        {showIfHasCategory('updated', testUpdated)}
+        <Text color={getColor('ran')}>{testsChecked(suiteSummary.ran.length)}</Text>
+        {showIfHasCategory('new', testsNew)}
+        {showIfHasCategory('better', testsBetter)}
+        {showIfHasCategory('completed', testsComplete)}
+        {showIfHasCategory('same', testsSame)}
+        {showIfHasCategory('failed', testsFailed)}
+        {showIfHasCategory('skipped', testsSkipped)}
+        {showIfHasCategory('updated', testsUpdated)}
         {suiteSummary.worse.length ? (
           <>
             <Box paddingBottom={1}>
-              <Text color={getColor('worse')}>{testWorse(tests(suiteSummary.worse.length))}</Text>
+              <Text color={getColor('worse')}>{testsWorse(suiteSummary.worse.length)}</Text>
             </Box>
-            {!context.config.strict ? <Text>{updateInstructions()}</Text> : null}
+            {!context.config.strict ? <Text>{updateInstructionsWorse()}</Text> : null}
           </>
         ) : null}
-        {showIfHasCategory('expired', testExpired)}
+        {showIfHasCategory('removed', testsRemoved)}
+        {suiteSummary.obsolete.length ? (
+          <>
+            <Box paddingBottom={1}>
+              <Text color={getColor('obsolete')}>{testsObsolete(suiteSummary.obsolete.length)}</Text>
+            </Box>
+            {<Text>{updateInstructionsObsolete()}</Text>}
+          </>
+        ) : null}
+        {showIfHasCategory('expired', testsExpired)}
       </Box>
       {context.config.ci && suiteSummary.changed.length ? (
         <Box flexDirection="column" paddingBottom={1}>
@@ -86,7 +100,3 @@ export const SuiteSummary: FC<SuiteSummaryProps> = memo(function SuiteSummary({ 
     </>
   );
 });
-
-function tests(n: number): string {
-  return `${String(n)} ${n === 1 ? 'test' : 'tests'}`;
-}

@@ -14,7 +14,9 @@ import { BettererRunSummaryΩ } from './run-summary.js';
 
 export class BettererRunΩ implements BettererRun {
   public readonly isNew: boolean;
+  public readonly isObsolete = false;
   public readonly isOnly: boolean;
+  public readonly isRemoved = false;
   public readonly isSkipped: boolean;
   public readonly name: string;
 
@@ -95,8 +97,10 @@ export class BettererRunΩ implements BettererRun {
         isExpired: false,
         isFailed: true,
         isNew: this.isNew,
+        isObsolete: this.isObsolete,
+        isRemoved: this.isRemoved,
         isSame: false,
-        isSkipped: this.isSkipped || isFiltered,
+        isSkipped: false,
         isUpdated: false,
         isWorse: false,
         name: this.name,

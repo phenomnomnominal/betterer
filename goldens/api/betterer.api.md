@@ -420,6 +420,7 @@ export interface BettererRun {
     readonly expected: BettererResult | null;
     readonly filePaths: BettererFilePaths | null;
     readonly isNew: boolean;
+    readonly isObsolete: boolean;
     readonly isSkipped: boolean;
     readonly name: string;
 }
@@ -447,6 +448,7 @@ export interface BettererRunSummary extends BettererRun {
     readonly isComplete: boolean;
     readonly isExpired: boolean;
     readonly isFailed: boolean;
+    readonly isRemoved: boolean;
     readonly isSame: boolean;
     readonly isUpdated: boolean;
     readonly isWorse: boolean;
@@ -480,7 +482,9 @@ export interface BettererSuiteSummary extends BettererSuite {
     readonly expired: BettererRunSummaries;
     readonly failed: BettererRunSummaries;
     readonly new: BettererRunSummaries;
+    readonly obsolete: BettererRunSummaries;
     readonly ran: BettererRunSummaries;
+    readonly removed: BettererRunSummaries;
     readonly runSummaries: BettererRunSummaries;
     readonly same: BettererRunSummaries;
     readonly skipped: BettererRunSummaries;

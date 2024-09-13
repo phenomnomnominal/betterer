@@ -80,6 +80,10 @@ exports[\`test 2\`] = {
 \`
 };
 
+exports[\`test 3\`] = {
+  value: \`{}\`
+};
+
 exports[\`test 4\`] = {
   value: \`{
     "src/index.ts:2760033717": [

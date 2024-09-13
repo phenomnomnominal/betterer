@@ -10,12 +10,18 @@ export class BettererSuiteSummaryΩ implements BettererSuiteSummary {
   public readonly result: BettererResultsSerialised;
 
   constructor(
-    private readonly _expectedTestNames: BettererTestNames,
     public readonly filePaths: BettererFilePaths,
     public readonly runs: BettererRuns,
     public readonly runSummaries: BettererRunSummaries
   ) {
     this.result = this._mergeResult();
+  }
+  public get better(): BettererRunSummaries {
+    return this.runSummaries.filter((runSummary) => runSummary.isBetter);
+  }
+
+  public get changed(): BettererTestNames {
+    return this._getChanged();
   }
 
   public get completed(): BettererRunSummaries {
@@ -24,10 +30,6 @@ export class BettererSuiteSummaryΩ implements BettererSuiteSummary {
 
   public get expired(): BettererRunSummaries {
     return this.runSummaries.filter((runSummary) => runSummary.isExpired);
-  }
-
-  public get better(): BettererRunSummaries {
-    return this.runSummaries.filter((runSummary) => runSummary.isBetter);
   }
 
   public get failed(): BettererRunSummaries {
@@ -40,12 +42,22 @@ export class BettererSuiteSummaryΩ implements BettererSuiteSummary {
     );
   }
 
+  public get obsolete(): BettererRunSummaries {
+    return this.runSummaries.filter((runSummary) => runSummary.isObsolete && !runSummary.isRemoved);
+  }
+
   public get ran(): BettererRunSummaries {
-    return this.runSummaries.filter((runSummary) => !(runSummary.isSkipped || runSummary.isFailed));
+    return this.runSummaries.filter(
+      (runSummary) => !(runSummary.isSkipped || runSummary.isFailed || runSummary.isObsolete || runSummary.isRemoved)
+    );
+  }
+
+  public get removed(): BettererRunSummaries {
+    return this.runSummaries.filter((runSummary) => runSummary.isRemoved);
   }
 
   public get same(): BettererRunSummaries {
-    return this.runSummaries.filter((runSummary) => runSummary.isSame);
+    return this.runSummaries.filter((runSummary) => runSummary.isSame && !runSummary.isComplete);
   }
 
   public get skipped(): BettererRunSummaries {
@@ -57,17 +69,11 @@ export class BettererSuiteSummaryΩ implements BettererSuiteSummary {
   }
 
   public get worse(): BettererRunSummaries {
-    return this.runSummaries.filter((runSummary) => runSummary.isWorse);
-  }
-
-  public get changed(): BettererTestNames {
-    return this._getChanged();
+    return this.runSummaries.filter((runSummary) => runSummary.isWorse && !runSummary.isUpdated);
   }
 
   private _getChanged(): BettererTestNames {
-    const missingRunNames = this._expectedTestNames.filter(
-      (name) => !this.runSummaries.find((runSummary) => runSummary.name === name)
-    );
+    const obsoleteRunNames = this.obsolete.map((runSummary) => runSummary.name);
     const notFailedOrSkipped = this.runSummaries.filter((runSummary) => !runSummary.isFailed && !runSummary.isSkipped);
     const changedRuns = notFailedOrSkipped
       .filter((runSummary) => !runSummary.isNew)
@@ -79,23 +85,23 @@ export class BettererSuiteSummaryΩ implements BettererSuiteSummary {
       });
     const newRuns = notFailedOrSkipped.filter((runSummary) => runSummary.isNew && !runSummary.isComplete);
     const newOrChangedRunNames = [...changedRuns, ...newRuns].map((runSummary) => runSummary.name);
-    return [...missingRunNames, ...newOrChangedRunNames];
+    return [...obsoleteRunNames, ...newOrChangedRunNames];
   }
 
   private _mergeResult(): BettererResultsSerialised {
     return this.runSummaries.reduce<BettererResultsSerialised>((results, runSummary) => {
-      const { isComplete, isFailed, isSkipped, isNew, isWorse } = runSummary;
+      const { isFailed, isSkipped, isNew, isObsolete, isRemoved, isWorse } = runSummary;
       const isSkippedOrFailed = isSkipped || isFailed;
-      if (isComplete || (isSkippedOrFailed && isNew)) {
+      if (isRemoved || (isSkippedOrFailed && isNew)) {
         return results;
       }
       const { expected, name, result } = runSummary;
-      if ((isSkippedOrFailed && !isNew) || isWorse) {
-        invariantΔ(expected, 'Test is not _new_, or _worse_ so it must have an expected result!');
+      if ((isSkippedOrFailed && !isNew) || isWorse || isObsolete) {
+        invariantΔ(expected, 'Test has successfully run in the past so it must have an expected result!');
         results[name] = { value: expected.printed };
         return results;
       }
-      invariantΔ(result, 'Test is not _completed_, _skipped_ or _failed_ so it must have a new result!');
+      invariantΔ(result, 'Test has successfully run so it must have a new result!');
       results[name] = { value: result.printed };
       return results;
     }, {});

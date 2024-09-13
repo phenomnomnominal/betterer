@@ -24,6 +24,8 @@ import { getGlobals, setGlobals } from '../globals.js';
 
 export class BettererWorkerRunΩ implements BettererRun {
   public readonly isNew: boolean;
+  public readonly isObsolete = false;
+  public readonly isRemoved = false;
   public readonly isSkipped: boolean;
   public readonly name: string;
 
@@ -208,6 +210,8 @@ export class BettererWorkerRunΩ implements BettererRun {
       isExpired,
       isFailed: false,
       isNew: this.isNew,
+      isObsolete: this.isObsolete,
+      isRemoved: this.isRemoved,
       isSame: comparison === BettererConstraintResult.same,
       isSkipped: !!isSkipped,
       isUpdated,

@@ -1,11 +1,8 @@
+import type { FixturePersist } from './types.js';
+
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-
-export interface FixturePersist {
-  increment(): Promise<number>;
-  decrement(): Promise<number>;
-}
 
 export function persist(fixtureMetaUrl: string, name: string, start: number): FixturePersist {
   const fixtureDir = path.dirname(fileURLToPath(fixtureMetaUrl));
@@ -36,6 +33,10 @@ export function persist(fixtureMetaUrl: string, name: string, start: number): Fi
       const result = val - 1;
       await write(result);
       return result;
+    },
+    async reset(): Promise<number> {
+      await write(start);
+      return start;
     }
   };
 }
