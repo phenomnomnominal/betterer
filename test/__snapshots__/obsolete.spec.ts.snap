@@ -85,7 +85,7 @@ exports[`betterer > should report obsolete tests and remove them with the update
 ✅ will be renamed: "will be renamed" is obsolete! 🗑️
 ✅ has been renamed: "has been renamed" got checked for the first time! (1 issue) 🎉
 
-2 tests got checked. 🤔
+1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 1 test is obsolete! 🗑️
 
@@ -117,7 +117,7 @@ You have saved tests results that no longer have tests! If they are no longer ne
 ✅ will be renamed: "will be renamed" got removed! 👋🏻
 ✅ has been renamed: "has been renamed" stayed the same. (1 issue) 😐
 
-2 tests got checked. 🤔
+1 test got checked. 🤔
 1 test stayed the same. 😐
 1 test got removed! 👋🏻
 ",

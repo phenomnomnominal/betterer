@@ -47,7 +47,9 @@ export class BettererSuiteSummaryΩ implements BettererSuiteSummary {
   }
 
   public get ran(): BettererRunSummaries {
-    return this.runSummaries.filter((runSummary) => !(runSummary.isSkipped || runSummary.isFailed));
+    return this.runSummaries.filter(
+      (runSummary) => !(runSummary.isSkipped || runSummary.isFailed || runSummary.isObsolete || runSummary.isRemoved)
+    );
   }
 
   public get removed(): BettererRunSummaries {
