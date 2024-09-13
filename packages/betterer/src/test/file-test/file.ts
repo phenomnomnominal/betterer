@@ -103,10 +103,12 @@ function getIssueFromPositions(
     return null;
   }
   const [line, column, endLine, endColumn, message, overrideHash] = issueOverride;
-  const start = lc.indexForLocation({ line, column: Math.max(0, column) }) ?? 0;
-  const end = lc.indexForLocation({ line: endLine, column: Math.max(0, endColumn) }) ?? 0;
+  const absStartColumn = Math.max(0, column);
+  const absEndColumn = Math.max(0, endColumn);
+  const start = lc.indexForLocation({ line, column: absStartColumn }) ?? 0;
+  const end = lc.indexForLocation({ line: endLine, column: absEndColumn }) ?? 0;
   const length = end - start;
-  return [line, column, length, message, overrideHash];
+  return [line, absStartColumn, length, message, overrideHash];
 }
 
 function isPositions(issueOverride: BettererIssueOverride): issueOverride is BettererIssuePositions {
