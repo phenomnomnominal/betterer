@@ -1,6 +1,5 @@
 export type {
   BettererDelta,
-  BettererReporterRun,
   BettererRun,
   BettererRunSummaries,
   BettererRunSummary,
@@ -10,4 +9,5 @@ export type {
 
 export { createRunWorkerPool } from './run-worker-pool.js';
 export { BettererRunΩ } from './run.js';
-export { BettererWorkerRunΩ } from './worker-run.js';
+export { BettererRunObsoleteΩ } from './run-obsolete.js';
+export { BettererWorkerRunΩ, loadTestFactory } from './worker-run.js';

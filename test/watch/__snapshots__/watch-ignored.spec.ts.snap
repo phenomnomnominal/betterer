@@ -14,7 +14,7 @@ Ignores (press "i" to edit): No current ignore patterns
 
 Checking 1 file... 🤔
 
-・ <project>/fixtures/watch-ignored/src/index.ts
+・ fixtures/watch-ignored/src/index.ts
 
 🌟 Betterer (0ms):
 
@@ -25,7 +25,7 @@ Ignores (press "i" to edit): No current ignore patterns
 
 Checking 1 file... 🤔
 
-・ <project>/fixtures/watch-ignored/src/index.ts
+・ fixtures/watch-ignored/src/index.ts
 
 🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
@@ -37,7 +37,7 @@ Ignores (press "i" to edit): No current ignore patterns
 
 Checking 1 file... 🤔
 
-・ <project>/fixtures/watch-ignored/src/index.ts
+・ fixtures/watch-ignored/src/index.ts
 
 🌟 Betterer (0ms): 1 test running...
 ✅ test: "test" got checked for the first time! (1 issue) 🎉
@@ -49,7 +49,7 @@ Ignores (press "i" to edit): No current ignore patterns
 
 Checking 1 file... 🤔
 
-・ <project>/fixtures/watch-ignored/src/index.ts
+・ fixtures/watch-ignored/src/index.ts
 
 🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got checked for the first time! (1 issue) 🎉
@@ -61,7 +61,7 @@ Ignores (press "i" to edit): No current ignore patterns
 
 Checked 1 file! 🔍
 
-・ <project>/fixtures/watch-ignored/src/index.ts
+・ fixtures/watch-ignored/src/index.ts
 
 🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got checked for the first time! (1 issue) 🎉

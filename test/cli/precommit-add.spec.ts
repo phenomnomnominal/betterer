@@ -52,14 +52,7 @@ export default {
 
     await writeFile(indexPath, `const a = 'a';\nconst one = 1;\nconsole.log(one + one);`);
 
-    let failed = false;
-    try {
-      await cliΔ(fixturePath, [...ARGV, 'precommit', '--workers=false']);
-    } catch {
-      failed = true;
-    }
-
-    expect(failed).toEqual(false);
+    await cliΔ(fixturePath, [...ARGV, 'precommit', '--workers=false']);
 
     expect(logs).toMatchSnapshot();
 

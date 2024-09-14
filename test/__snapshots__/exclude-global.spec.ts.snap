@@ -59,34 +59,34 @@ exports[`betterer > should handle a global exclude 3`] = `
 ",
   "Checking 1 file... 🤔
 
-・ <project>/fixtures/exclude-global/src/index.ts
+・ fixtures/exclude-global/src/index.ts
 
 🌟 Betterer (0ms):
 ",
   "Checking 1 file... 🤔
 
-・ <project>/fixtures/exclude-global/src/index.ts
+・ fixtures/exclude-global/src/index.ts
 
 🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
   "Checking 1 file... 🤔
 
-・ <project>/fixtures/exclude-global/src/index.ts
+・ fixtures/exclude-global/src/index.ts
 
 🌟 Betterer (0ms): 1 test running...
 ✅ test: "test" stayed the same. (2 issues) 😐
 ",
   "Checking 1 file... 🤔
 
-・ <project>/fixtures/exclude-global/src/index.ts
+・ fixtures/exclude-global/src/index.ts
 
 🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" stayed the same. (2 issues) 😐
 ",
   "Checked 1 file! 🔍
 
-・ <project>/fixtures/exclude-global/src/index.ts
+・ fixtures/exclude-global/src/index.ts
 
 🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" stayed the same. (2 issues) 😐

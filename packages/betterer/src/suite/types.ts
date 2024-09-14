@@ -40,6 +40,8 @@ export interface BettererSuite {
   readonly runs: BettererRuns;
 }
 
+export type BettererSuites = Array<BettererSuite>;
+
 /**
  * @public The summary of a {@link @betterer/betterer#BettererSuite | `BettererSuite`} suite. Includes
  * everything from {@link @betterer/betterer#BettererSuite | `BettererSuite`}.

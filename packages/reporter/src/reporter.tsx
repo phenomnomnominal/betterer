@@ -74,8 +74,6 @@ export function createReporterΔ(): BettererReporter {
     return {
       render(action?: BettererReporterAction, done?: () => void): void {
         const state = dispatch(action);
-        // eslint-disable-next-line no-console -- Clear the console before re-rendering the CLI UI:
-        console.clear();
 
         const component = <Reporter {...state} done={done} />;
         if (!app) {

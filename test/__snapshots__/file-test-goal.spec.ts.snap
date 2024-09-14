@@ -59,40 +59,36 @@ exports[`betterer > should let you override the goal of a file test 2`] = `
 🤔 test: running "test"!
 ",
   "🌟 Betterer (0ms): 1 test running...
-🔥 test: "test" got worse. (1 new issue, 3 total) 😔
+🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 ",
   "🌟 Betterer (0ms): 1 test running...
-🔥 test: "test" got worse. (1 new issue, 3 total) 😔
+🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 
-Error: "test" got worse. (1 new issue, 3 total) 😔
+Error: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 test: "test" got worse. (1 new issue, 3 total) 😔
-・ 2 existing issues in "<project>/fixtures/file-test-goal/src/index.ts".
-・ New issue in "<project>/fixtures/file-test-goal/src/index.ts"!
+🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
+・ 2 existing, 1 new issues in "fixtures/file-test-goal/src/index.ts".
 ・
-・   <project>/fixtures/file-test-goal/src/index.ts
 ・   1 | debugger;
 ・   2 | debugger;
 ・ > 3 | debugger;
 ・     | ^^^^^^^^^ Unexpected 'debugger' statement.
 ・
 
-Error: "test" got worse. (1 new issue, 3 total) 😔
+Error: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 test: "test" got worse. (1 new issue, 3 total) 😔
-・ 2 existing issues in "<project>/fixtures/file-test-goal/src/index.ts".
-・ New issue in "<project>/fixtures/file-test-goal/src/index.ts"!
+🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
+・ 2 existing, 1 new issues in "fixtures/file-test-goal/src/index.ts".
 ・
-・   <project>/fixtures/file-test-goal/src/index.ts
 ・   1 | debugger;
 ・   2 | debugger;
 ・ > 3 | debugger;
 ・     | ^^^^^^^^^ Unexpected 'debugger' statement.
 ・
 
-Error: "test" got worse. (1 new issue, 3 total) 😔
+Error: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 
 1 test got checked. 🤔
 1 test got worse. 😔

@@ -1,4 +1,4 @@
-import type { BettererLogs } from '@betterer/logger';
+import type { BettererLogger, BettererLogs } from '@betterer/logger';
 
 import type { BettererFileΩ } from './file.js';
 import type { BettererFileTestResultΩ } from './file-test-result.js';
@@ -159,19 +159,33 @@ export function differ(expected: BettererFileTestResult, result: BettererFileTes
   const diffEntries = Object.entries(diff);
 
   const logs: BettererLogs = [];
+
   diffEntries.forEach(([filePath, diff]) => {
     const existing = diff.existing ?? [];
     const fixed = diff.fixed ?? [];
-    if (fixed.length) {
-      logs.push({ success: `${String(fixed.length)} fixed ${getIssues(fixed.length)} in "${filePath}".` });
-    }
-    if (existing.length) {
-      logs.push({ warn: `${String(existing.length)} existing ${getIssues(existing.length)} in "${filePath}".` });
-    }
     const newIssues = diff.new ?? [];
+    const nExisting = existing.length;
+    const nFixed = fixed.length;
     const nIssues = newIssues.length;
+
+    if (nFixed || nExisting || nIssues) {
+      let type: keyof BettererLogger = 'success';
+      const messages: Array<string> = [];
+      if (nFixed > 0) {
+        messages.push(`${FORMATTER.format(nFixed)} fixed`);
+      }
+      if (nExisting > 0) {
+        type = 'warn';
+        messages.push(`${FORMATTER.format(nExisting)} existing`);
+      }
+      if (nIssues > 0) {
+        type = 'error';
+        messages.push(`${FORMATTER.format(nIssues)} new`);
+      }
+      logs.push({ [type]: `${messages.join(', ')} ${getIssues(nFixed + nExisting + nIssues)} in "${filePath}".` });
+    }
+
     if (nIssues) {
-      logs.push({ error: `New ${getIssues(nIssues)} in "${filePath}"!` });
       if (nIssues > 1) {
         logs.push({ error: `Showing first of ${FORMATTER.format(nIssues)} new issues:` });
       }

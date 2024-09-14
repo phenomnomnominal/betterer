@@ -16,7 +16,7 @@ export async function createFixtureFS(
   }
 
   function normalisedPath(filePath: string): string {
-    return path.sep === path.posix.sep ? filePath : filePath.split(path.sep).join(path.posix.sep);
+    return filePath.split(path.sep).join(path.posix.sep);
   }
 
   async function cleanup(): Promise<void> {

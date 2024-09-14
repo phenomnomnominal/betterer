@@ -90,13 +90,13 @@ export class BettererSuiteSummaryΩ implements BettererSuiteSummary {
 
   private _mergeResult(): BettererResultsSerialised {
     return this.runSummaries.reduce<BettererResultsSerialised>((results, runSummary) => {
-      const { isFailed, isSkipped, isNew, isObsolete, isRemoved, isWorse } = runSummary;
+      const { isFailed, isSkipped, isNew, isObsolete, isRemoved, isWorse, isUpdated } = runSummary;
       const isSkippedOrFailed = isSkipped || isFailed;
       if (isRemoved || (isSkippedOrFailed && isNew)) {
         return results;
       }
       const { expected, name, result } = runSummary;
-      if ((isSkippedOrFailed && !isNew) || isWorse || isObsolete) {
+      if ((isSkippedOrFailed && !isNew) || (isWorse && !isUpdated) || isObsolete) {
         invariantΔ(expected, 'Test has successfully run in the past so it must have an expected result!');
         results[name] = { value: expected.printed };
         return results;

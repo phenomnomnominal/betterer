@@ -1,7 +1,7 @@
 import type { BettererOptions } from './api/index.js';
 import type { BettererConfig } from './config/types.js';
-import type { BettererVersionControlWorker } from './fs/index.js';
-import type { BettererReporterΩ } from './reporters/index.js';
+import type { BettererFileResolver, BettererVersionControlWorker } from './fs/index.js';
+import type { BettererReporter, BettererReporterΩ } from './reporters/index.js';
 import type { BettererResultsWorker } from './results/index.js';
 import type { BettererRunWorkerPool } from './run/types.js';
 import type { BettererOptionsWatcher } from './runner/index.js';
@@ -11,12 +11,23 @@ import { BettererError, invariantΔ } from '@betterer/errors';
 import { importWorkerΔ } from '@betterer/worker';
 
 import { createContextConfig, enableMode } from './context/index.js';
-import { createFSConfig } from './fs/index.js';
+import { BettererFileResolverΩ, createFSConfig } from './fs/index.js';
 import { createReporterConfig, loadDefaultReporter } from './reporters/index.js';
 import { createRunWorkerPool } from './run/index.js';
 import { createWatcherConfig } from './runner/index.js';
 
+class BettererGlobalResolvers {
+  public cwd: BettererFileResolver;
+
+  public constructor(config: BettererConfig) {
+    this.cwd = new BettererFileResolverΩ(config.cwd);
+  }
+}
+
 class BettererGlobals {
+  public readonly reporter: BettererReporter = this.config.reporter;
+  public readonly resolvers: BettererGlobalResolvers = new BettererGlobalResolvers(this.config);
+
   constructor(
     public readonly config: BettererConfig,
     public readonly results: BettererResultsWorker,

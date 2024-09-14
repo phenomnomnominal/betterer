@@ -114,10 +114,6 @@ export interface BettererRun {
  */
 export type BettererRuns = ReadonlyArray<BettererRun>;
 
-export type BettererReporterRun = BettererRun & {
-  lifecycle: Promise<BettererRunSummary>;
-};
-
 export interface BettererRunning {
   done(result: BettererResult): Promise<BettererRunSummary>;
   skipped(): Promise<BettererRunSummary>;

@@ -4,6 +4,7 @@ import type { BettererResultsSerialised } from './types.js';
 
 import { invariantΔ } from '@betterer/errors';
 import { exposeToMainΔ } from '@betterer/worker';
+
 import { BettererResultsΩ } from './results.js';
 
 let results: BettererResultsΩ | null = null;
@@ -38,9 +39,9 @@ export function hasBaseline(testName: string): boolean {
 }
 
 /** @knipignore part of worker API */
-export function write(result: BettererResultsSerialised): Promise<string | null> {
+export async function write(result: BettererResultsSerialised): Promise<string | null> {
   checkInitialised(results);
-  return results.write(result);
+  return await results.write(result);
 }
 
 function checkInitialised(results: BettererResultsΩ | null): asserts results is BettererResultsΩ {

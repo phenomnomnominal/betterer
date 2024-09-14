@@ -1,4 +1,3 @@
-import type { BettererConfig } from '../config/index.js';
 import type { BettererConfigFS } from '../fs/index.js';
 import type {
   BettererConfigReporter,
@@ -8,6 +7,7 @@ import type {
 } from './types.js';
 
 import { toArray, validateBool } from '../config/index.js';
+import { getGlobals, setGlobals } from '../globals.js';
 import { loadReporters, loadSilentReporter } from './loader.js';
 
 export async function createReporterConfig(
@@ -32,12 +32,11 @@ export async function createReporterConfig(
   };
 }
 
-export async function overrideReporterConfig(
-  config: BettererConfig,
-  optionsOverride: BettererOptionsReporterOverride
-): Promise<void> {
+export async function overrideReporterConfig(optionsOverride: BettererOptionsReporterOverride): Promise<void> {
   if (optionsOverride.reporters) {
+    const { config, results, runWorkerPool, testMetaLoader, versionControl } = getGlobals();
     const reporters = toArray<string | BettererReporter>(optionsOverride.reporters);
     config.reporter = await loadReporters(reporters, config.cwd);
+    setGlobals(config, results, runWorkerPool, testMetaLoader, versionControl);
   }
 }

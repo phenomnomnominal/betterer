@@ -42,48 +42,44 @@ exports[`betterer > should report the status of a new stylelint rule 2`] = `
 🤔 stylelint: running "stylelint"!
 ",
   "🌟 Betterer (0ms): 1 test running...
-🔥 stylelint: "stylelint" got worse. (2 new issues, 4 total) 😔
+🔥 stylelint: "stylelint" got worse. (2 new issues, 2 existing, 4 total) 😔
 ",
   "🌟 Betterer (0ms): 1 test running...
-🔥 stylelint: "stylelint" got worse. (2 new issues, 4 total) 😔
+🔥 stylelint: "stylelint" got worse. (2 new issues, 2 existing, 4 total) 😔
 
-Error: "stylelint" got worse. (2 new issues, 4 total) 😔
+Error: "stylelint" got worse. (2 new issues, 2 existing, 4 total) 😔
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 stylelint: "stylelint" got worse. (2 new issues, 4 total) 😔
-・ 2 existing issues in "<project>/fixtures/stylelint/src/styles.scss".
-・ New issues in "<project>/fixtures/stylelint/src/styles.scss"!
+🔥 stylelint: "stylelint" got worse. (2 new issues, 2 existing, 4 total) 😔
+・ 2 existing, 2 new issues in "fixtures/stylelint/src/styles.scss".
 ・ Showing first of 2 new issues:
 ・
-・   <project>/fixtures/stylelint/src/styles.scss
 ・   12 |   b & {}
 ・   13 |   & b {}
 ・ > 14 |   &:hover {}
-・      |   ^ Expected rule with selector matching "/^&:/w/" to come before rule with selector matching "/^&/" (order/order)
+・      |   ^ Expected rule with selector matching "/^&:\\w/" to come before rule with selector matching "/^&/" (order/order)
 ・   15 | }
 ・   16 |
 ・   17 | .foo {
 ・
 
-Error: "stylelint" got worse. (2 new issues, 4 total) 😔
+Error: "stylelint" got worse. (2 new issues, 2 existing, 4 total) 😔
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 stylelint: "stylelint" got worse. (2 new issues, 4 total) 😔
-・ 2 existing issues in "<project>/fixtures/stylelint/src/styles.scss".
-・ New issues in "<project>/fixtures/stylelint/src/styles.scss"!
+🔥 stylelint: "stylelint" got worse. (2 new issues, 2 existing, 4 total) 😔
+・ 2 existing, 2 new issues in "fixtures/stylelint/src/styles.scss".
 ・ Showing first of 2 new issues:
 ・
-・   <project>/fixtures/stylelint/src/styles.scss
 ・   12 |   b & {}
 ・   13 |   & b {}
 ・ > 14 |   &:hover {}
-・      |   ^ Expected rule with selector matching "/^&:/w/" to come before rule with selector matching "/^&/" (order/order)
+・      |   ^ Expected rule with selector matching "/^&:\\w/" to come before rule with selector matching "/^&/" (order/order)
 ・   15 | }
 ・   16 |
 ・   17 | .foo {
 ・
 
-Error: "stylelint" got worse. (2 new issues, 4 total) 😔
+Error: "stylelint" got worse. (2 new issues, 2 existing, 4 total) 😔
 
 1 test got checked. 🤔
 1 test got worse. 😔

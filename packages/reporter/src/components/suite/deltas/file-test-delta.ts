@@ -18,7 +18,8 @@ export function fileTestDelta(delta: BettererDelta | null): string | null {
   }
   if (baseline != null && diff > 0) {
     const diffFormatted = formatter.format(diff);
-    return ` (${diffFormatted} new ${diffIssues}, ${resultFormatted} total)`;
+    const existingFormatted = formatter.format(result - diff);
+    return ` (${diffFormatted} new ${diffIssues}, ${existingFormatted} existing, ${resultFormatted} total)`;
   }
   return '';
 }

@@ -12,9 +12,9 @@ import { memo } from 'react';
 import { process as process_2 } from 'process';
 import { PropsWithChildren } from 'react';
 import R from 'react';
+import { default as React_3 } from 'react';
 import { render } from 'ink';
 import { RenderOptions } from 'ink';
-import { Text as Text_2 } from 'ink';
 import { TextProps } from 'ink';
 import TI from 'ink-text-input';
 import { useApp } from 'ink';
@@ -62,6 +62,8 @@ export { render }
 
 export { RenderOptions }
 
+// @internal
+const Text_2: React_3.FC<TextProps>;
 export { Text_2 as Text }
 
 // @internal

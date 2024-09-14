@@ -32,7 +32,8 @@ export function normalisedPath(filePath: string): string {
 type Resolve<T> = (value: T) => void;
 type Reject = (error: Error) => void;
 
-interface Defer<T> {
+/** @knipignore */
+export interface Defer<T> {
   promise: Promise<T>;
   resolve: Resolve<T>;
   reject: Reject;

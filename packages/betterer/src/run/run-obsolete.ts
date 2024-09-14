@@ -1,16 +1,18 @@
 import type { BettererResult } from '../results/index.js';
 import type { BettererRun, BettererRunSummary } from './types.js';
 
+import { defer } from '../utils.js';
 import { BettererRunSummaryΩ } from './run-summary.js';
 
 export class BettererRunObsoleteΩ implements BettererRun {
   public readonly expected: BettererResult;
+  public readonly filePaths = null;
   public readonly isNew = false;
   public readonly isObsolete = true;
   public readonly isOnly = false;
   public readonly isRemoved: boolean;
   public readonly isSkipped = false;
-  public readonly filePaths = null;
+  public readonly lifecycle = defer<BettererRunSummary>();
 
   constructor(
     public readonly name: string,

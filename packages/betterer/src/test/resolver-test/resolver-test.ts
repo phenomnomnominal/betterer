@@ -1,18 +1,17 @@
-import type { BettererRun, BettererWorkerRunΩ } from '../../run/index.js';
-import type { BettererFileTestResultΩ } from '../file-test/index.js';
 import type {
   BettererFileGlobs,
   BettererFilePaths,
   BettererFilePatterns,
   BettererFileResolver
 } from '../../fs/index.js';
+import type { BettererRun, BettererWorkerRunΩ } from '../../run/index.js';
+import type { BettererFileTestResultΩ } from '../file-test/index.js';
 import type { BettererTestOptions } from '../types.js';
 
-import path from 'node:path';
-import { BettererFileResolverΩ } from '../../fs/index.js';
-import { getGlobals } from '../../globals.js';
-import { BettererTest } from '../test.js';
 import { BettererError, invariantΔ } from '@betterer/errors';
+
+import { BettererFileResolverΩ } from '../../fs/index.js';
+import { BettererTest } from '../test.js';
 import { checkBaseName } from '../utils.js';
 
 /**
@@ -34,8 +33,8 @@ export class BettererResolverTest<
       ...options,
       test: async (run: BettererRun): Promise<DeserialisedType> => {
         const runΩ = run as BettererWorkerRunΩ;
-        const { versionControl } = getGlobals();
-        this._resolverΩ.init(path.dirname(runΩ.testMeta.configPath), versionControl);
+
+        this._resolverΩ.init(runΩ.testMeta);
 
         const { filePaths } = runΩ;
         invariantΔ(filePaths, `\`filePaths\` should always exist for a \`BettererResolverTest\` run!`);
@@ -59,7 +58,7 @@ export class BettererResolverTest<
         let isFullRun = filePathsForThisRun === testFiles;
 
         if (!run.isNew) {
-          const cacheMisses = await versionControl.api.filterCached(run.name, filePathsForThisRun);
+          const cacheMisses = await this._resolverΩ.filterCached(filePathsForThisRun);
           isFullRun = isFullRun && cacheMisses.length === filePathsForThisRun.length;
           filePathsForThisRun = cacheMisses;
         }
@@ -96,7 +95,7 @@ export class BettererResolverTest<
    * the `test()` function is being executed.
    */
   public get resolver(): BettererFileResolver {
-    if (!this._resolverΩ.isInitialised()) {
+    if (!this._resolverΩ.initialised) {
       throw new BettererError('`resolver` can only be used while the `test` function is being executed. ❌');
     }
     return this._resolverΩ;
