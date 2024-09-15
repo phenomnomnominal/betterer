@@ -13,7 +13,7 @@ import { loadReporters, loadSilentReporter } from './loader.js';
 export async function createReporterConfig(
   configBase: BettererConfigFS,
   options: BettererOptionsReporter
-): Promise<BettererConfigReporter> {
+): Promise<[BettererConfigReporter, BettererReporter]> {
   const { cwd } = configBase;
 
   const logo = options.logo ?? false;
@@ -26,17 +26,14 @@ export async function createReporterConfig(
 
   const reporter = silent ? loadSilentReporter() : await loadReporters(reporters, cwd);
 
-  return {
-    logo,
-    reporter
-  };
+  return [{ logo }, reporter];
 }
 
 export async function overrideReporterConfig(optionsOverride: BettererOptionsReporterOverride): Promise<void> {
   if (optionsOverride.reporters) {
     const { config, results, runWorkerPool, testMetaLoader, versionControl } = getGlobals();
     const reporters = toArray<string | BettererReporter>(optionsOverride.reporters);
-    config.reporter = await loadReporters(reporters, config.cwd);
-    setGlobals(config, results, runWorkerPool, testMetaLoader, versionControl);
+    const reporter = await loadReporters(reporters, config.cwd);
+    setGlobals(config, reporter, results, runWorkerPool, testMetaLoader, versionControl);
   }
 }

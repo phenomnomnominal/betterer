@@ -67,7 +67,7 @@ export class BettererWorkerRunΩ implements BettererRun {
 
     // If we're in a worker, we need to populate the globals:
     if (process.env.BETTERER_WORKER !== 'false') {
-      setGlobals(config, results, null, null, versionControl);
+      setGlobals(config, null, results, null, null, versionControl);
     }
 
     const isNew = !(await results.api.hasBaseline(name));
