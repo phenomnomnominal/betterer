@@ -10,13 +10,12 @@ import { invariantΔ } from '@betterer/errors';
 import { getGlobals } from '../globals.js';
 import { BettererResultΩ } from '../results/index.js';
 import { BettererRunΩ, BettererRunObsoleteΩ } from '../run/index.js';
-import { defer } from '../utils.js';
 import { BettererSuiteSummaryΩ } from './suite-summary.js';
 
 const NEGATIVE_FILTER_TOKEN = '!';
 
 export class BettererSuiteΩ implements BettererSuite {
-  public readonly lifecycle = defer<BettererSuiteSummary>();
+  public readonly lifecycle = Promise.withResolvers<BettererSuiteSummary>();
 
   private constructor(
     public filePaths: BettererFilePaths,
