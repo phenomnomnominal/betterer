@@ -2,6 +2,7 @@ import type { FixtureLogs, FixtureLogsMap, FixtureOptions } from './types.js';
 
 import { getStdOutΔ } from '@betterer/render';
 import ansiRegex from 'ansi-regex';
+import path from 'node:path';
 
 const ANSI_REGEX = ansiRegex();
 const STACK_TRACK_LINE_REGEXP = /^\s+at\s+/;
@@ -24,7 +25,7 @@ export function createFixtureLogs(fixtureName: string, options: FixtureOptions =
       }
       const lines = message.replace(/\r/g, '').split('\n');
       const filteredLines = lines.filter((line) => !isStackTraceLine(line));
-      const formattedLines = filteredLines.map((line) => line.trimEnd());
+      const formattedLines = filteredLines.map((line) => line.trimEnd()).map((line) => normaliseSlashes(line));
       message = formattedLines.join('\n');
       const trimmed = message.trim();
       if (trimmed.length === 0) {
@@ -65,4 +66,8 @@ function isStackTraceLine(str: string): boolean {
 function isFiltered(str: string, options: FixtureOptions): boolean {
   const filters = options.logFilters ?? [];
   return filters.some((filter) => !!filter.exec(str));
+}
+
+function normaliseSlashes(line: string): string {
+  return line.split(path.sep).join(path.posix.sep);
 }
