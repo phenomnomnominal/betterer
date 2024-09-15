@@ -1,4 +1,4 @@
-import type { BettererFilePath } from '../fs/index.js';
+import type { BettererConfig } from '../config/types.js';
 import type { BettererTestNames } from '../test/index.js';
 import type { BettererResultsSerialised } from './types.js';
 
@@ -10,8 +10,8 @@ import { BettererResultsΩ } from './results.js';
 let results: BettererResultsΩ | null = null;
 
 /** @knipignore part of worker API */
-export async function init(resultsPath: BettererFilePath): Promise<void> {
-  results = await BettererResultsΩ.create(resultsPath);
+export async function init(config: BettererConfig): Promise<void> {
+  results = await BettererResultsΩ.create(config.resultsPath);
 }
 
 /** @knipignore part of worker API */

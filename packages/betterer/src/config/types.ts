@@ -10,17 +10,7 @@ export interface BettererConfig
   extends BettererConfigFS,
     BettererConfigReporter,
     BettererConfigContext,
-    BettererConfigWatcher {
-  /**
-   * The path to the local version control root.
-   *
-   * @remarks you might think that this should live on `BettererConfigFS`,
-   * but it can't! The `versionControlPath` is inferred from the instantiated
-   * `BettererVersionControl` instance, rather than being passed as options by the
-   * user.
-   */
-  versionControlPath: string;
-}
+    BettererConfigWatcher {}
 
 /**
  * @public Options for when you override the config via the {@link @betterer/betterer#BettererContext.options | `BettererContext.options()` API}.

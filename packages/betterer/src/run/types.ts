@@ -99,6 +99,11 @@ export interface BettererRun {
    */
   readonly isObsolete: boolean;
   /**
+   * When `true`, this test is "obsolete", due to a test being delete or renamed, but the `--update`
+   * option was used. is enabled. The previous result will be deleted from the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
+   */
+  readonly isRemoved: boolean;
+  /**
    * When `true`, this test has been skipped and the test function will not run. The default
    * reporter will show that this test has been skipped.
    */
@@ -204,11 +209,6 @@ export interface BettererRunSummary extends BettererRun {
    * reporter will show that this test has failed.
    */
   readonly isFailed: boolean;
-  /**
-   * When `true`, this test is "obsolete", due to a test being delete or renamed, but the `--update`
-   * option was used. is enabled. The previous result will be deleted from the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
-   */
-  readonly isRemoved: boolean;
   /**
    * When `true`, this test is "the same", based on the result of the `constraint` function.
    * The {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file} will

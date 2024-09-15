@@ -92,7 +92,7 @@ export class BettererWorkerRunΩ implements BettererRun {
 
     const { isOnly, isSkipped } = test;
 
-    return new BettererWorkerRunΩ(test.config, testMeta, { needsFilePaths: isResolverTest, isNew, isOnly, isSkipped });
+    return new BettererWorkerRunΩ(test.config, testMeta, { isCacheable: isResolverTest, isNew, isOnly, isSkipped });
   }
 
   public async run(
@@ -172,25 +172,16 @@ export class BettererWorkerRunΩ implements BettererRun {
 
   private async _end(end: BettererRunningEnd): Promise<BettererRunSummary> {
     const { comparison, diff, result, timestamp, isSkipped } = end;
-    const { config, versionControl } = getGlobals();
+    const { config } = getGlobals();
 
     const isWorse = comparison === BettererConstraintResult.worse;
     const isUpdated = isWorse && config.update;
 
     const isComplete = !!result && (await this.test.goal(result.value));
     const isExpired = timestamp >= this.test.deadline;
-    const shouldPrint = !(isComplete || isSkipped);
 
     const baselineValue = this.isNew ? null : this.baseline.value;
     const delta = result ? await this.test.progress(baselineValue, result.value) : null;
-
-    if (this.runMeta.needsFilePaths && !config.ci) {
-      if (isComplete) {
-        await versionControl.api.clearCache(this.name);
-      } else if (shouldPrint && !isWorse) {
-        await versionControl.api.updateCache(this.name, this.filePaths as Array<string>);
-      }
-    }
 
     // Make sure to use the serialised result so it can be passed back to the main thread:
     const serialisedResult = result ? this._serialise(result) : null;

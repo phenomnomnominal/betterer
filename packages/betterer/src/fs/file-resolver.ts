@@ -57,7 +57,10 @@ export class BettererFileResolverΩ implements BettererFileResolver {
   }
 
   public async filterCached(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
-    const { versionControl } = getGlobals();
+    const { config, versionControl } = getGlobals();
+    if (!config.cache) {
+      return filePaths;
+    }
     return await versionControl.api.filterCached(this.testName, filePaths);
   }
 

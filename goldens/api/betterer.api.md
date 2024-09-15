@@ -22,7 +22,6 @@ export type BettererAPI = typeof betterer;
 
 // @public
 export interface BettererConfig extends BettererConfigFS, BettererConfigReporter, BettererConfigContext, BettererConfigWatcher {
-    versionControlPath: string;
 }
 
 // @public
@@ -50,6 +49,7 @@ export interface BettererConfigFS {
     configPaths: BettererConfigPaths;
     cwd: string;
     resultsPath: string;
+    versionControlPath: string;
 }
 
 // @public
@@ -420,6 +420,7 @@ export interface BettererRun {
     readonly filePaths: BettererFilePaths | null;
     readonly isNew: boolean;
     readonly isObsolete: boolean;
+    readonly isRemoved: boolean;
     readonly isSkipped: boolean;
     readonly name: string;
 }
@@ -446,7 +447,6 @@ export interface BettererRunSummary extends BettererRun {
     readonly isComplete: boolean;
     readonly isExpired: boolean;
     readonly isFailed: boolean;
-    readonly isRemoved: boolean;
     readonly isSame: boolean;
     readonly isUpdated: boolean;
     readonly isWorse: boolean;
