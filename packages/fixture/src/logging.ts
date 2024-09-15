@@ -68,6 +68,8 @@ function isFiltered(str: string, options: FixtureOptions): boolean {
   return filters.some((filter) => !!filter.exec(str));
 }
 
+// If a log contains *any* \ characters, swap it with /, regardless of OS.
+// This has some false negative, but it just makes it easier.
 function normaliseSlashes(line: string): string {
-  return line.split(path.sep).join(path.posix.sep);
+  return line.split(path.win32.sep).join(path.posix.sep);
 }
