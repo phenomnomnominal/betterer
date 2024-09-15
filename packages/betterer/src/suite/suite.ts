@@ -61,8 +61,8 @@ export class BettererSuiteΩ implements BettererSuite {
           const runSummary = await runObsoleteΩ.run();
           runObsoleteΩ.lifecycle.resolve(runSummary);
 
-          if (runObsoleteΩ.isRemoved) {
-            const { versionControl } = getGlobals();
+          const { config, versionControl } = getGlobals();
+          if (runObsoleteΩ.isRemoved && config.cache) {
             await versionControl.api.clearCache(runObsoleteΩ.name);
           }
 

@@ -135,10 +135,9 @@ export class BettererRunnerΩ implements BettererRunner {
       }
       throw error;
     } finally {
+      await destroyGlobals();
       // eslint-disable-next-line @typescript-eslint/no-misused-promises -- SIGTERM doesn't care about Promises
       process.off('SIGTERM', this._sigterm);
-
-      await destroyGlobals();
     }
   }
 
@@ -164,12 +163,12 @@ export class BettererRunnerΩ implements BettererRunner {
       const runPaths = Array.from(filePaths).sort();
       this._jobs = [];
 
-      const { versionControl } = getGlobals();
-
-      await versionControl.api.sync();
-
-      this._running = this._context.run(runPaths, this._isRunOnce);
       try {
+        const { versionControl } = getGlobals();
+        await versionControl.api.sync();
+
+        this._running = this._context.run(runPaths, this._isRunOnce);
+
         await this._running;
       } catch (error) {
         // Lifecycle promise is rejected, so it's safe to await
@@ -180,6 +179,7 @@ export class BettererRunnerΩ implements BettererRunner {
         const { reporter } = getGlobals();
         const reporterΩ = reporter as BettererReporterΩ;
         await reporterΩ.contextError(this, error as BettererError);
+        await destroyGlobals();
         throw error;
       }
     }

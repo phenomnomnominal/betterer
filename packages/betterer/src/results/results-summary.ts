@@ -3,7 +3,7 @@ import type { BettererFileResolverΩ } from '../fs/index.js';
 import type { BettererFileTestResultSummaryDetails, BettererResultsSummary, BettererResultSummaries } from './types.js';
 
 import { BettererError, isBettererErrorΔ } from '@betterer/errors';
-import { getGlobals } from '../globals.js';
+import { destroyGlobals, getGlobals } from '../globals.js';
 import { loadTestFactory } from '../run/index.js';
 import { isBettererFileTest, isBettererResolverTest, isBettererTest } from '../test/index.js';
 
@@ -17,7 +17,7 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
   }
 
   public static async create(): Promise<BettererResultsSummary> {
-    const { config, reporter, resolvers, results, testMetaLoader, versionControl } = getGlobals();
+    const { config, reporter, resolvers, results, testMetaLoader } = getGlobals();
     const { configPaths, filters, includes, excludes, resultsPath } = config;
 
     try {
@@ -79,7 +79,7 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
       await reporter.configError?.(config, error as BettererError);
       throw error;
     } finally {
-      await Promise.all([results.destroy(), testMetaLoader.destroy(), versionControl.destroy()]);
+      await destroyGlobals();
     }
   }
 }

@@ -73,24 +73,19 @@ export async function createGlobals(
     const versionControl: BettererVersionControlWorker = await importWorkerΔ('./fs/version-control.worker.js');
     const testMetaLoader: BettererTestMetaLoaderWorker = await importWorkerΔ('./test/test-meta/loader.worker.js');
 
-    try {
-      const config = enableMode({
-        ...configContext,
-        ...configFS,
-        ...configReporter,
-        ...configWatcher
-      });
+    const config = enableMode({
+      ...configContext,
+      ...configFS,
+      ...configReporter,
+      ...configWatcher
+    });
 
-      await results.api.init(config);
-      await versionControl.api.init(config);
+    await results.api.init(config);
+    await versionControl.api.init(config);
 
-      const runWorkerPool = await createRunWorkerPool(config.workers);
+    const runWorkerPool = await createRunWorkerPool(config.workers);
 
-      setGlobals(config, reporter, results, runWorkerPool, testMetaLoader, versionControl);
-    } catch (error) {
-      await Promise.all([results.destroy(), testMetaLoader.destroy(), versionControl.destroy()]);
-      throw error;
-    }
+    setGlobals(config, reporter, results, runWorkerPool, testMetaLoader, versionControl);
   } catch (error) {
     const reporterΩ = errorReporter as BettererReporterΩ;
     await reporterΩ.configError(options, error as BettererError);
@@ -111,6 +106,6 @@ export function setGlobals(...globals: ConstructorParameters<typeof BettererGlob
 
 export async function destroyGlobals(): Promise<void> {
   const { results, runWorkerPool, testMetaLoader, versionControl } = getGlobals();
-  GLOBAL_CONTAINER = null;
   await Promise.all([results.destroy(), runWorkerPool.destroy(), testMetaLoader.destroy(), versionControl.destroy()]);
+  GLOBAL_CONTAINER = null;
 }
