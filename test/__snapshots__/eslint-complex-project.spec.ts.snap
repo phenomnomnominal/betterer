@@ -61,38 +61,34 @@ exports[`betterer > should report the status of a new eslint rule with a complex
 🤔 test: running "test"!
 ",
   "🌟 Betterer (0ms): 1 test running...
-🔥 test: "test" got worse. (1 new issue, 3 total) 😔
+🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 ",
   "🌟 Betterer (0ms): 1 test running...
-🔥 test: "test" got worse. (1 new issue, 3 total) 😔
+🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 
-Error: "test" got worse. (1 new issue, 3 total) 😔
+Error: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 test: "test" got worse. (1 new issue, 3 total) 😔
-・ 1 existing issue in "<project>/fixtures/eslint-complex-project/src/index.ts".
-・ New issue in "<project>/fixtures/eslint-complex-project/src/index.ts"!
+🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
+・ 1 existing, 1 new issues in "fixtures/eslint-complex-project/src/index.ts".
 ・
-・   <project>/fixtures/eslint-complex-project/src/index.ts
 ・   1 | debugger;
 ・ > 2 | debugger;
 ・     | ^^^^^^^^^ Unexpected 'debugger' statement.
 ・
 
-Error: "test" got worse. (1 new issue, 3 total) 😔
+Error: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 test: "test" got worse. (1 new issue, 3 total) 😔
-・ 1 existing issue in "<project>/fixtures/eslint-complex-project/src/index.ts".
-・ New issue in "<project>/fixtures/eslint-complex-project/src/index.ts"!
+🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
+・ 1 existing, 1 new issues in "fixtures/eslint-complex-project/src/index.ts".
 ・
-・   <project>/fixtures/eslint-complex-project/src/index.ts
 ・   1 | debugger;
 ・ > 2 | debugger;
 ・     | ^^^^^^^^^ Unexpected 'debugger' statement.
 ・
 
-Error: "test" got worse. (1 new issue, 3 total) 😔
+Error: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 
 1 test got checked. 🤔
 1 test got worse. 😔

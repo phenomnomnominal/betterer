@@ -1,167 +1,135 @@
-import type { BettererError } from '@betterer/errors';
+import { BettererError } from '@betterer/errors';
 
 import type { BettererConfig, BettererOptionsOverride } from '../config/index.js';
 import type { BettererFilePaths } from '../fs/index.js';
 import type { BettererReporterΩ } from '../reporters/index.js';
-import type { BettererSuiteSummaries, BettererSuiteSummary, BettererSuiteSummaryΩ } from '../suite/index.js';
-import type { BettererContext, BettererContextStarted, BettererContextSummary } from './types.js';
+import type {
+  BettererSuite,
+  BettererSuites,
+  BettererSuiteSummaries,
+  BettererSuiteSummary,
+  BettererSuiteSummaryΩ
+} from '../suite/index.js';
+import type { BettererContext, BettererContextSummary } from './types.js';
 
 import { overrideContextConfig } from '../context/index.js';
-import { BettererFileResolverΩ } from '../fs/index.js';
+import type { BettererFileResolverΩ } from '../fs/index.js';
 import { overrideReporterConfig } from '../reporters/index.js';
 import { overrideWatchConfig } from '../runner/index.js';
 import { BettererSuiteΩ } from '../suite/index.js';
-import { defer } from '../utils.js';
-import { BettererContextSummaryΩ } from './context-summary.js';
 import { getGlobals } from '../globals.js';
+import { BettererContextSummaryΩ } from './context-summary.js';
 
 export class BettererContextΩ implements BettererContext {
   public readonly config: BettererConfig;
 
-  private _started: BettererContextStarted;
+  private _suites: BettererSuites = [];
   private _suiteSummaries: BettererSuiteSummaries = [];
 
   constructor() {
     const { config } = getGlobals();
     this.config = config;
-    this._started = this._start();
+  }
+
+  public get lastSuite(): BettererSuite {
+    const suite = this._suites[this._suites.length - 1];
+    if (!suite) {
+      throw new BettererError(`Context has not started a suite run yet! ❌`);
+    }
+    return suite;
   }
 
   public async options(optionsOverride: BettererOptionsOverride): Promise<void> {
     // Wait for any pending run to finish, and any existing reporter to render:
-    await this._started.end();
-
-    const { config } = getGlobals();
+    let lastSuiteΩ: BettererSuiteΩ | null = null;
+    try {
+      const lastSuite = this.lastSuite;
+      lastSuiteΩ = lastSuite as BettererSuiteΩ;
+      await lastSuiteΩ.lifecycle.promise;
+    } catch {
+      // It's okay if there's not a pending suite!
+    }
 
     // Override the config:
-    overrideContextConfig(config, optionsOverride);
-    await overrideReporterConfig(config, optionsOverride);
-    overrideWatchConfig(config, optionsOverride);
+    overrideContextConfig(optionsOverride);
+    await overrideReporterConfig(optionsOverride);
+    overrideWatchConfig(optionsOverride);
 
-    // Start everything again, and trigger a new reporter:
-    this._started = this._start();
-
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises -- SIGTERM doesn't care about Promises
-    process.on('SIGTERM', () => this.stop());
+    if (lastSuiteΩ) {
+      // Run the tests again, with all the new options:
+      void this.run(lastSuiteΩ.filePaths, false);
+    }
   }
 
-  public async runOnce(): Promise<void> {
-    await this.run([], true);
-  }
+  public async run(specifiedFilePaths: BettererFilePaths, isRunOnce = false): Promise<BettererSuiteSummary> {
+    const { config, reporter, resolvers, results } = getGlobals();
+    const resolver = resolvers.cwd as BettererFileResolverΩ;
 
-  public async run(specifiedFilePaths: BettererFilePaths, isRunOnce = false): Promise<void> {
+    const { includes, excludes } = config;
+    resolver.include(...includes);
+    resolver.exclude(...excludes);
+
+    const hasSpecifiedFiles = specifiedFilePaths.length > 0;
+    const hasGlobalIncludesExcludes = includes.length || excludes.length;
+
+    let filePaths: BettererFilePaths;
+    if (hasSpecifiedFiles && hasGlobalIncludesExcludes) {
+      // Validate specified files based on global `includes`/`excludes and gitignore rules:
+      filePaths = await resolver.validate(specifiedFilePaths);
+    } else if (hasSpecifiedFiles) {
+      // Validate specified files based on gitignore rules:
+      filePaths = await resolver.validate(specifiedFilePaths);
+    } else if (hasGlobalIncludesExcludes) {
+      // Resolve files based on global `includes`/`excludes and gitignore rules:
+      filePaths = await resolver.files();
+    } else {
+      // When `filePaths` is `[]` the test will use its specific resolver:
+      filePaths = [];
+    }
+
+    const suiteΩ = await BettererSuiteΩ.create(filePaths);
+    this._suites.push(suiteΩ);
+
+    const reporterΩ = reporter as BettererReporterΩ;
+
+    // Don't await here! A custom reporter could be awaiting
+    // the lifecycle promise which is unresolved right now!
+    const reportSuiteStart = reporterΩ.suiteStart(suiteΩ, suiteΩ.lifecycle.promise);
     try {
-      const { config, results, versionControl } = getGlobals();
+      const suiteSummary = await suiteΩ.run();
+      this._suiteSummaries = [...this._suiteSummaries, suiteSummary];
 
-      await versionControl.api.sync();
-
-      const { cwd, ci, includes, excludes, reporter } = config;
-      const reporterΩ = reporter as BettererReporterΩ;
-
-      const resolver = new BettererFileResolverΩ(cwd, versionControl);
-      resolver.include(...includes);
-      resolver.exclude(...excludes);
-
-      const hasSpecifiedFiles = specifiedFilePaths.length > 0;
-      const hasGlobalIncludesExcludes = includes.length || excludes.length;
-
-      let filePaths: BettererFilePaths;
-      if (hasSpecifiedFiles && hasGlobalIncludesExcludes) {
-        // Validate specified files based on global `includes`/`excludes and gitignore rules:
-        filePaths = await resolver.validate(specifiedFilePaths);
-      } else if (hasSpecifiedFiles) {
-        // Validate specified files based on gitignore rules:
-        filePaths = await resolver.validate(specifiedFilePaths);
-      } else if (hasGlobalIncludesExcludes) {
-        // Resolve files based on global `includes`/`excludes and gitignore rules:
-        filePaths = await resolver.files();
-      } else {
-        // When `filePaths` is `[]` the test will use its specific resolver:
-        filePaths = [];
+      if (!isRunOnce && !config.ci) {
+        const suiteSummaryΩ = suiteSummary as BettererSuiteSummaryΩ;
+        await results.api.write(suiteSummaryΩ.result);
       }
 
-      const suite = await BettererSuiteΩ.create(filePaths);
-      const suiteLifecycle = defer<BettererSuiteSummary>();
+      // Lifecycle promise is resolved, so it's safe to await
+      // the result of `reporter.suiteStart`:
+      suiteΩ.lifecycle.resolve(suiteSummary);
+      await reportSuiteStart;
 
-      // Don't await here! A custom reporter could be awaiting
-      // the lifecycle promise which is unresolved right now!
-      const reportSuiteStart = reporterΩ.suiteStart(suite, suiteLifecycle.promise);
-      try {
-        const suiteSummary = await suite.run();
-
-        if (!isRunOnce && !ci) {
-          const suiteSummaryΩ = suiteSummary as BettererSuiteSummaryΩ;
-          await results.api.write(suiteSummaryΩ.result);
-        }
-
-        this._suiteSummaries = [...this._suiteSummaries, suiteSummary];
-
-        // Lifecycle promise is resolved, so it's safe to finally await
-        // the result of `reporter.suiteStart`:
-        suiteLifecycle.resolve(suiteSummary);
-        await reportSuiteStart;
-
-        await reporterΩ.suiteEnd(suiteSummary);
-      } catch (error) {
-        // Lifecycle promise is rejected, so it's safe to finally await
-        // the result of `reporter.suiteStart`:
-        suiteLifecycle.reject(error as BettererError);
-        await reportSuiteStart;
-
-        await reporterΩ.suiteError(suite, error as BettererError);
-      }
+      await reporterΩ.suiteEnd(suiteSummary);
+      return suiteSummary;
     } catch (error) {
-      await this._started.error(error as BettererError);
+      // Lifecycle promise is rejected, so it's safe to await
+      // the result of `reporter.suiteStart`:
+      suiteΩ.lifecycle.reject(error as BettererError);
+      await reportSuiteStart;
+
+      await reporterΩ.suiteError(suiteΩ, error as BettererError);
       throw error;
     }
   }
 
-  public async stop(): Promise<BettererSuiteSummary> {
-    const { lastSuite } = await this._started.end();
-    return lastSuite;
-  }
+  public async stop(): Promise<BettererContextSummary> {
+    try {
+      const lastSuiteΩ = this.lastSuite as BettererSuiteΩ;
+      await lastSuiteΩ.lifecycle.promise;
+    } catch {
+      //
+    }
 
-  private _start(): BettererContextStarted {
-    const { config, results, versionControl } = getGlobals();
-
-    // Update `reporterΩ` here because `this.options()` may have been called:
-    const reporterΩ = config.reporter as BettererReporterΩ;
-
-    const contextLifecycle = defer<BettererContextSummary>();
-
-    // Don't await here! A custom reporter could be awaiting
-    // the lifecycle promise which is unresolved right now!
-    const reportContextStart = reporterΩ.contextStart(this, contextLifecycle.promise);
-    return {
-      end: async (): Promise<BettererContextSummary> => {
-        const contextSummary = new BettererContextSummaryΩ(config, this._suiteSummaries);
-
-        // Lifecycle promise is resolved, so it's safe to finally await
-        // the result of `reporter.contextStart`:
-        contextLifecycle.resolve(contextSummary);
-        await reportContextStart;
-
-        await reporterΩ.contextEnd(contextSummary);
-
-        const suiteSummaryΩ = contextSummary.lastSuite as BettererSuiteSummaryΩ;
-        if (!config.ci) {
-          const didWrite = await results.api.write(suiteSummaryΩ.result);
-          if (didWrite && config.precommit) {
-            await versionControl.api.add(config.resultsPath);
-          }
-        }
-        await versionControl.api.writeCache();
-
-        return contextSummary;
-      },
-      error: async (error: BettererError): Promise<void> => {
-        // Lifecycle promise is rejected, so it's safe to finally await
-        // the result of `reporter.contextStart`:
-        contextLifecycle.reject(error);
-        await reportContextStart;
-
-        await reporterΩ.contextError(this, error);
-      }
-    };
+    return new BettererContextSummaryΩ(this._suiteSummaries);
   }
 }

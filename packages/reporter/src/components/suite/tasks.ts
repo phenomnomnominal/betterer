@@ -36,7 +36,7 @@ export function useTask(run: BettererRun): BettererTask {
     const name = quote(run.name);
     await logger.progress(testRunning(name));
 
-    const runSummary = await (run as BettererReporterRun).lifecycle;
+    const runSummary = await (run as BettererReporterRun).lifecycle.promise;
 
     if (runSummary.isExpired) {
       await logger.warn(testExpired(name));

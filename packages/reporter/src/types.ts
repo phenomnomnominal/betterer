@@ -9,5 +9,15 @@ export interface BettererReporterRenderer {
 }
 
 export type BettererReporterRun = BettererRun & {
-  lifecycle: Promise<BettererRunSummary>;
+  lifecycle: Defer<BettererRunSummary>;
 };
+
+type Resolve<T> = (value: T) => void;
+type Reject = (error: Error) => void;
+
+/** @knipignore */
+export interface Defer<T> {
+  promise: Promise<T>;
+  resolve: Resolve<T>;
+  reject: Reject;
+}

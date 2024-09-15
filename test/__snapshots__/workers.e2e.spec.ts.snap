@@ -25,33 +25,29 @@ exports[`betterer > should run tests in workers 1`] = `
 ✅ test 1: "test 1" stayed the same. 😐
 ✅ test 2: "test 2" stayed the same. 😐
 ✅ test 3: "test 3" met its goal! 🎉
-🔥 test 4: "test 4" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in "<project>/fixtures/workers/src/index.ts".
-・ New issue in "<project>/fixtures/workers/src/index.ts"!
+🔥 test 4: "test 4" got worse. (1 new issue, 1 existing, 2 total) 😔
+・ 1 existing, 1 new issues in "fixtures/workers/src/index.ts".
 ・
-・   <project>/fixtures/workers/src/index.ts
 ・   1 | // HACK
 ・ > 2 | // HACK
 ・     | ^^^^^^^ RegExp match
 ・
 
-Error: "test 4" got worse. (1 new issue, 2 total) 😔
+Error: "test 4" got worse. (1 new issue, 1 existing, 2 total) 😔
 ",
   "💥 Betterer (0ms): 4 tests done! 1 test errored!
 ✅ test 1: "test 1" stayed the same. 😐
 ✅ test 2: "test 2" stayed the same. 😐
 ✅ test 3: "test 3" met its goal! 🎉
-🔥 test 4: "test 4" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in "<project>/fixtures/workers/src/index.ts".
-・ New issue in "<project>/fixtures/workers/src/index.ts"!
+🔥 test 4: "test 4" got worse. (1 new issue, 1 existing, 2 total) 😔
+・ 1 existing, 1 new issues in "fixtures/workers/src/index.ts".
 ・
-・   <project>/fixtures/workers/src/index.ts
 ・   1 | // HACK
 ・ > 2 | // HACK
 ・     | ^^^^^^^ RegExp match
 ・
 
-Error: "test 4" got worse. (1 new issue, 2 total) 😔
+Error: "test 4" got worse. (1 new issue, 1 existing, 2 total) 😔
 
 4 tests got checked. 🤔
 1 test got better! 😍

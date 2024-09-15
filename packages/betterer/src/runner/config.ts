@@ -1,8 +1,8 @@
-import type { BettererConfig } from '../config/index.js';
 import type { BettererConfigFS } from '../fs/index.js';
 import type { BettererConfigWatcher, BettererOptionsWatcher, BettererOptionsWatcherOverride } from './types.js';
 
 import { toArray, validateBool, validateStringArray } from '../config/index.js';
+import { getGlobals } from '../globals.js';
 
 export function createWatcherConfig(
   configFS: BettererConfigFS,
@@ -17,8 +17,9 @@ export function createWatcherConfig(
   return { ...configFS, ignores, watch };
 }
 
-export function overrideWatchConfig(config: BettererConfig, optionsOverride: BettererOptionsWatcherOverride): void {
+export function overrideWatchConfig(optionsOverride: BettererOptionsWatcherOverride): void {
   if (optionsOverride.ignores) {
+    const { config } = getGlobals();
     validateStringArray({ ignores: optionsOverride.ignores });
     config.ignores = toArray<string>(optionsOverride.ignores);
   }

@@ -1,6 +1,4 @@
-export { createContextConfig, enableMode, overrideContextConfig } from './config.js';
-export { BettererContextΩ } from './context.js';
-export {
+export type {
   BettererConfigContext,
   BettererConfigExcludes,
   BettererConfigFilters,
@@ -20,3 +18,7 @@ export {
   BettererOptionsModeUpdate,
   BettererOptionsModeWatch
 } from './types.js';
+
+export { createContextConfig, enableMode, overrideContextConfig } from './config.js';
+export { BettererContextSummaryΩ } from './context-summary.js';
+export { BettererContextΩ } from './context.js';

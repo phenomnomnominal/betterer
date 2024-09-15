@@ -100,6 +100,6 @@ exports[`betterer upgrade > should upgrade exported default test in a CJS module
 ・",
   "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading "./.betterer.ts": done!
-・ Saved upgraded config to "<project>/fixtures/upgrade-exported-default-test-cjs/.betterer.ts"! ☀️",
+・ Saved upgraded config to "fixtures/upgrade-exported-default-test-cjs/.betterer.ts"! ☀️",
 ]
 `;

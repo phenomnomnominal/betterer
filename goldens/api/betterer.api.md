@@ -77,7 +77,7 @@ export interface BettererConfigWatcher {
 export interface BettererContext {
     readonly config: BettererConfig;
     options(optionsOverride: BettererOptionsOverride): Promise<void>;
-    stop(): Promise<BettererSuiteSummary>;
+    stop(): Promise<BettererContextSummary>;
 }
 
 // @public
@@ -426,11 +426,10 @@ export interface BettererRun {
 }
 
 // @public
-export interface BettererRunner {
-    options(optionsOverride: BettererOptionsOverride): Promise<void>;
+export interface BettererRunner extends BettererContext {
     queue(filePaths?: string | BettererFilePaths): Promise<void>;
-    stop(): Promise<BettererSuiteSummary>;
-    stop(force: true): Promise<BettererSuiteSummary | null>;
+    stop(): Promise<BettererContextSummary>;
+    stop(force?: true): Promise<BettererContextSummary | null>;
 }
 
 // @public

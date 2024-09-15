@@ -2,21 +2,22 @@ import type { BettererError } from '@betterer/errors';
 
 import type { BettererFilePaths } from '../fs/index.js';
 import type { BettererReporterΩ } from '../reporters/index.js';
-import type { BettererReporterRun, BettererRunSummary, BettererRuns } from '../run/index.js';
+import type { BettererRuns } from '../run/index.js';
 import type { BettererSuite, BettererSuiteSummary } from './types.js';
 
 import { invariantΔ } from '@betterer/errors';
 
+import { getGlobals } from '../globals.js';
+import { BettererResultΩ } from '../results/index.js';
+import { BettererRunΩ, BettererRunObsoleteΩ } from '../run/index.js';
 import { defer } from '../utils.js';
 import { BettererSuiteSummaryΩ } from './suite-summary.js';
-import { BettererRunΩ } from '../run/index.js';
-import { getGlobals } from '../globals.js';
-import { BettererRunObsoleteΩ } from '../run/run-obsolete.js';
-import { BettererResultΩ } from '../results/result.js';
 
 const NEGATIVE_FILTER_TOKEN = '!';
 
 export class BettererSuiteΩ implements BettererSuite {
+  public readonly lifecycle = defer<BettererSuiteSummary>();
+
   private constructor(
     public filePaths: BettererFilePaths,
     public runs: BettererRuns
@@ -56,15 +57,10 @@ export class BettererSuiteΩ implements BettererSuite {
 
     const runSummaries = await Promise.all(
       this.runs.map(async (run) => {
-        // Attach lifecycle promise for Reporters:
-        const lifecycle = defer<BettererRunSummary>();
-        (run as BettererReporterRun).lifecycle = lifecycle.promise;
-
         const runΩ = run as BettererRunΩ;
 
         const { config } = getGlobals();
-        const { filters, reporter } = config;
-        const reporterΩ = reporter as BettererReporterΩ;
+        const { filters } = config;
 
         // This is all a bit backwards because "filters" is named badly.
         const hasFilters = !!filters.length;
@@ -98,9 +94,12 @@ export class BettererSuiteΩ implements BettererSuite {
         const isOtherTestOnly = hasOnly && !runΩ.isOnly;
         const isFiltered = (hasFilters && !isSelected) || isOtherTestOnly;
 
+        const { reporter } = getGlobals();
+        const reporterΩ = reporter as BettererReporterΩ;
+
         // Don't await here! A custom reporter could be awaiting
         // the lifecycle promise which is unresolved right now!
-        const reportRunStart = reporterΩ.runStart(runΩ, lifecycle.promise);
+        const reportRunStart = reporterΩ.runStart(runΩ, runΩ.lifecycle.promise);
 
         const runSummary = await runΩ.run(isFiltered);
 
@@ -111,11 +110,17 @@ export class BettererSuiteΩ implements BettererSuite {
         if (runSummary.isFailed) {
           const { error } = runSummary;
           invariantΔ(error, 'A failed run will always have an `error`!');
-          lifecycle.reject(error);
+          runΩ.lifecycle.reject(error);
+
+          // Lifecycle promise is resolved, so it's safe to await
+          // the result of `reporter.runStart`:
           await reportRunStart;
           await reporterΩ.runError(runΩ, error as BettererError);
         } else {
-          lifecycle.resolve(runSummary);
+          runΩ.lifecycle.resolve(runSummary);
+
+          // Lifecycle promise is resolved, so it's safe to await
+          // the result of `reporter.runStart`:
           await reportRunStart;
           await reporterΩ.runEnd(runSummary);
         }

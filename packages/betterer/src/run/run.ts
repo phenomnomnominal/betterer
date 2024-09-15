@@ -8,11 +8,13 @@ import type { BettererRun, BettererRunSummary, BettererRunWorkerHandle } from '.
 
 import { getTimeΔ } from '@betterer/time';
 
-import { BettererResultΩ } from '../results/index.js';
 import { getGlobals } from '../globals.js';
+import { BettererResultΩ } from '../results/index.js';
+import { defer } from '../utils.js';
 import { BettererRunSummaryΩ } from './run-summary.js';
 
 export class BettererRunΩ implements BettererRun {
+  public readonly lifecycle = defer<BettererRunSummary>();
   public readonly isNew: boolean;
   public readonly isObsolete = false;
   public readonly isOnly: boolean;
@@ -40,8 +42,7 @@ export class BettererRunΩ implements BettererRun {
   }
 
   public static async create(testMeta: BettererTestMeta, filePaths: BettererFilePaths): Promise<BettererRunΩ> {
-    const globals = getGlobals();
-    const { config, results, runWorkerPool, versionControl } = globals;
+    const { config, results, runWorkerPool, versionControl } = getGlobals();
 
     const workerHandle = runWorkerPool.getWorkerHandle();
     const worker = await workerHandle.claim();

@@ -33,6 +33,6 @@ export function codeΔ(codeInfo: BettererLoggerCodeInfo): string {
     line: endLocation.line + 1,
     column: endLocation.column + 1
   };
-  // `codeFrameColumns` doesn't handle empty strings very well!
-  return `\n  ${filePath}\n${codeFrameColumns(fileText || ' ', { start, end }, options)}\n`;
+  // `codeFrameColumns` doesn't handle empty strings very well, so add some whitespace!
+  return `\n${codeFrameColumns(fileText || ' ', { start, end }, options)}\n`;
 }

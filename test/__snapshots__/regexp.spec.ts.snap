@@ -58,38 +58,34 @@ exports[`betterer > should report the existence of RegExp matches 2`] = `
 🤔 regexp: running "regexp"!
 ",
   "🌟 Betterer (0ms): 1 test running...
-🔥 regexp: "regexp" got worse. (1 new issue, 2 total) 😔
+🔥 regexp: "regexp" got worse. (1 new issue, 1 existing, 2 total) 😔
 ",
   "🌟 Betterer (0ms): 1 test running...
-🔥 regexp: "regexp" got worse. (1 new issue, 2 total) 😔
+🔥 regexp: "regexp" got worse. (1 new issue, 1 existing, 2 total) 😔
 
-Error: "regexp" got worse. (1 new issue, 2 total) 😔
+Error: "regexp" got worse. (1 new issue, 1 existing, 2 total) 😔
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 regexp: "regexp" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in "<project>/fixtures/regexp/src/index.ts".
-・ New issue in "<project>/fixtures/regexp/src/index.ts"!
+🔥 regexp: "regexp" got worse. (1 new issue, 1 existing, 2 total) 😔
+・ 1 existing, 1 new issues in "fixtures/regexp/src/index.ts".
 ・
-・   <project>/fixtures/regexp/src/index.ts
 ・   1 | // HACK:
 ・ > 2 | // HACK:
 ・     | ^^^^^^^ RegExp match
 ・
 
-Error: "regexp" got worse. (1 new issue, 2 total) 😔
+Error: "regexp" got worse. (1 new issue, 1 existing, 2 total) 😔
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 regexp: "regexp" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in "<project>/fixtures/regexp/src/index.ts".
-・ New issue in "<project>/fixtures/regexp/src/index.ts"!
+🔥 regexp: "regexp" got worse. (1 new issue, 1 existing, 2 total) 😔
+・ 1 existing, 1 new issues in "fixtures/regexp/src/index.ts".
 ・
-・   <project>/fixtures/regexp/src/index.ts
 ・   1 | // HACK:
 ・ > 2 | // HACK:
 ・     | ^^^^^^^ RegExp match
 ・
 
-Error: "regexp" got worse. (1 new issue, 2 total) 😔
+Error: "regexp" got worse. (1 new issue, 1 existing, 2 total) 😔
 
 1 test got checked. 🤔
 1 test got worse. 😔

@@ -61,7 +61,7 @@ ignored.ts
 
     await runner.stop();
 
-    expect(runSummary.filePaths).toHaveLength(1);
+    expect(runSummary?.filePaths).toHaveLength(1);
 
     expect(logs).toMatchSnapshot();
 

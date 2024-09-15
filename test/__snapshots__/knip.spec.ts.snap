@@ -61,36 +61,32 @@ exports[`betterer > should report the status of a new knip config 2`] = `
 🤔 knip: running "knip"!
 ",
   "🌟 Betterer (0ms): 1 test running...
-🔥 knip: "knip" got worse. (1 new issue, 3 total) 😔
+🔥 knip: "knip" got worse. (1 new issue, 2 existing, 3 total) 😔
 ",
   "🌟 Betterer (0ms): 1 test running...
-🔥 knip: "knip" got worse. (1 new issue, 3 total) 😔
+🔥 knip: "knip" got worse. (1 new issue, 2 existing, 3 total) 😔
 
-Error: "knip" got worse. (1 new issue, 3 total) 😔
+Error: "knip" got worse. (1 new issue, 2 existing, 3 total) 😔
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 knip: "knip" got worse. (1 new issue, 3 total) 😔
-・ 1 existing issue in "<project>/fixtures/knip/src/index.ts".
-・ New issue in "<project>/fixtures/knip/src/index.ts"!
+🔥 knip: "knip" got worse. (1 new issue, 2 existing, 3 total) 😔
+・ 1 existing, 1 new issues in "fixtures/knip/src/index.ts".
 ・
-・   <project>/fixtures/knip/src/index.ts
 ・ > 1 | import 'thanos-glove'; import 'console.fuck';
 ・     | ^ Unlisted dependencies: console.fuck
 ・
 
-Error: "knip" got worse. (1 new issue, 3 total) 😔
+Error: "knip" got worse. (1 new issue, 2 existing, 3 total) 😔
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 knip: "knip" got worse. (1 new issue, 3 total) 😔
-・ 1 existing issue in "<project>/fixtures/knip/src/index.ts".
-・ New issue in "<project>/fixtures/knip/src/index.ts"!
+🔥 knip: "knip" got worse. (1 new issue, 2 existing, 3 total) 😔
+・ 1 existing, 1 new issues in "fixtures/knip/src/index.ts".
 ・
-・   <project>/fixtures/knip/src/index.ts
 ・ > 1 | import 'thanos-glove'; import 'console.fuck';
 ・     | ^ Unlisted dependencies: console.fuck
 ・
 
-Error: "knip" got worse. (1 new issue, 3 total) 😔
+Error: "knip" got worse. (1 new issue, 2 existing, 3 total) 😔
 
 1 test got checked. 🤔
 1 test got worse. 😔

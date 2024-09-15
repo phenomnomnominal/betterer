@@ -9,6 +9,7 @@ import {
   validateStringRegExpArray,
   validateWorkers
 } from '../config/index.js';
+import { getGlobals } from '../globals.js';
 
 export async function createContextConfig(options: BettererOptionsContext): Promise<BettererConfigContext> {
   const ci = options.ci ?? false;
@@ -41,8 +42,9 @@ export async function createContextConfig(options: BettererOptionsContext): Prom
   };
 }
 
-export function overrideContextConfig(config: BettererConfig, optionsOverride: BettererOptionsContextOverride): void {
+export function overrideContextConfig(optionsOverride: BettererOptionsContextOverride): void {
   if (optionsOverride.filters) {
+    const { config } = getGlobals();
     validateStringRegExpArray({ filters: optionsOverride.filters });
     config.filters = toRegExps(toArray<string | RegExp>(optionsOverride.filters));
   }
