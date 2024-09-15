@@ -141,7 +141,7 @@ export interface BettererVersionControl extends BettererFileCache {
   add(resultsPath: string): Promise<void>;
   filterIgnored(filePaths: BettererFilePaths): BettererFilePaths;
   getFilePaths(): BettererFilePaths;
-  init(configPaths: BettererFilePaths, cwd: string): Promise<string>;
+  init(configPaths: BettererFilePaths, cwd: string, ci: boolean): Promise<string>;
   sync(): Promise<void>;
 }
 

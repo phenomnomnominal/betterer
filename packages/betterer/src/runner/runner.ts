@@ -123,8 +123,8 @@ export class BettererRunnerΩ implements BettererRunner {
         if (didWrite && config.precommit) {
           await versionControl.api.add(config.resultsPath);
         }
+        await versionControl.api.writeCache();
       }
-      await versionControl.api.writeCache();
 
       return contextSummary;
     } catch (error) {

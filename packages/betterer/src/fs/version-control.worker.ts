@@ -16,8 +16,8 @@ export function getFilePaths(): BettererFilePaths {
   return versionControl.getFilePaths();
 }
 
-export function init(configPaths: BettererFilePaths, cwd: string): Promise<string> {
-  return versionControl.init(configPaths, cwd);
+export function init(configPaths: BettererFilePaths, cwd: string, ci: boolean): Promise<string> {
+  return versionControl.init(configPaths, cwd, ci);
 }
 
 export function sync(): Promise<void> {

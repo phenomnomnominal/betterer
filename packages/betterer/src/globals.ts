@@ -61,7 +61,8 @@ export async function createGlobals(
     const configReporter = await createReporterConfig(configFS, options);
     const configWatcher = createWatcherConfig(configFS, optionsWatch);
 
-    const { cache, cachePath, configPaths, cwd, resultsPath } = configFS;
+    const { ci } = configContext;
+    const { configPaths, cwd, resultsPath } = configFS;
 
     const results: BettererResultsWorker = await importWorkerΔ('./results/results.worker.js');
     const versionControl: BettererVersionControlWorker = await importWorkerΔ('./fs/version-control.worker.js');
@@ -69,10 +70,8 @@ export async function createGlobals(
 
     try {
       await results.api.init(resultsPath);
-      const versionControlPath = await versionControl.api.init(configPaths, cwd);
-      if (cache) {
-        await versionControl.api.enableCache(cachePath);
-      }
+      const versionControlPath = await versionControl.api.init(configPaths, cwd, ci);
+
       const config = enableMode({
         ...configContext,
         ...configFS,
@@ -81,6 +80,10 @@ export async function createGlobals(
         versionControlPath
       });
       reporter = config.reporter;
+
+      if (config.cache) {
+        await versionControl.api.enableCache(config.cachePath);
+      }
 
       const runWorkerPool = await createRunWorkerPool(config.workers);
 

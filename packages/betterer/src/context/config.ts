@@ -57,6 +57,7 @@ export function enableMode(config: BettererConfig): BettererConfig {
     config.strict = true;
     config.update = false;
     config.watch = false;
+    config.cache = false;
     return config;
   }
 
