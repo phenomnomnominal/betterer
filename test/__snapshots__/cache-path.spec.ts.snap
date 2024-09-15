@@ -69,7 +69,11 @@ exports[\`test\`] = {
 exports[`betterer > should write a cache file to a different path 6`] = `
 "{
   "version": 2,
-  "testCache": {}
+  "testCache": {
+    "test": {
+      "../src/index.ts": "18758961005381"
+    }
+  }
 }"
 `;
 

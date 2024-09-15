@@ -79,7 +79,7 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
       await reporter.configError?.(config, error as BettererError);
       throw error;
     } finally {
-      await versionControl.destroy();
+      await Promise.all([results.destroy(), testMetaLoader.destroy(), versionControl.destroy()]);
     }
   }
 }

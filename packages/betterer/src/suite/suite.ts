@@ -56,6 +56,19 @@ export class BettererSuiteΩ implements BettererSuite {
 
     const runSummaries = await Promise.all(
       this.runs.map(async (run) => {
+        if (run.isObsolete) {
+          const runObsoleteΩ = run as BettererRunObsoleteΩ;
+          const runSummary = await runObsoleteΩ.run();
+          runObsoleteΩ.lifecycle.resolve(runSummary);
+
+          if (runObsoleteΩ.isRemoved) {
+            const { versionControl } = getGlobals();
+            await versionControl.api.clearCache(runObsoleteΩ.name);
+          }
+
+          return runSummary;
+        }
+
         const runΩ = run as BettererRunΩ;
 
         const { config } = getGlobals();
@@ -93,7 +106,7 @@ export class BettererSuiteΩ implements BettererSuite {
         const isOtherTestOnly = hasOnly && !runΩ.isOnly;
         const isFiltered = (hasFilters && !isSelected) || isOtherTestOnly;
 
-        const { reporter } = getGlobals();
+        const { reporter, versionControl } = getGlobals();
         const reporterΩ = reporter as BettererReporterΩ;
 
         // Don't await here! A custom reporter could be awaiting
@@ -101,6 +114,15 @@ export class BettererSuiteΩ implements BettererSuite {
         const reportRunStart = reporterΩ.runStart(runΩ, runΩ.lifecycle.promise);
 
         const runSummary = await runΩ.run(isFiltered);
+
+        if (config.cache && runΩ.runMeta.isCacheable) {
+          const { isBetter, isComplete, isNew, isSame, isUpdated, name } = runSummary;
+          // Handle the special case of being in CI mode with cache enabled:
+          if (isBetter || isComplete || isNew || isUpdated || (isSame && config.ci)) {
+            invariantΔ(runSummary.filePaths, `if a run is cacheable, then the summary will always have file paths!`);
+            await versionControl.api.updateCache(name, runSummary.filePaths);
+          }
+        }
 
         // `filePaths` will be updated in the worker if the test filters the files
         // so it needs to be updated

@@ -69,28 +69,20 @@ export async function createGlobals(
 
     const configWatcher = createWatcherConfig(configFS, optionsWatch);
 
-    const { ci } = configContext;
-    const { configPaths, cwd, resultsPath } = configFS;
-
     const results: BettererResultsWorker = await importWorkerΔ('./results/results.worker.js');
     const versionControl: BettererVersionControlWorker = await importWorkerΔ('./fs/version-control.worker.js');
     const testMetaLoader: BettererTestMetaLoaderWorker = await importWorkerΔ('./test/test-meta/loader.worker.js');
 
     try {
-      await results.api.init(resultsPath);
-      const versionControlPath = await versionControl.api.init(configPaths, cwd, ci);
-
       const config = enableMode({
         ...configContext,
         ...configFS,
         ...configReporter,
-        ...configWatcher,
-        versionControlPath
+        ...configWatcher
       });
 
-      if (config.cache) {
-        await versionControl.api.enableCache(config.cachePath);
-      }
+      await results.api.init(config);
+      await versionControl.api.init(config);
 
       const runWorkerPool = await createRunWorkerPool(config.workers);
 

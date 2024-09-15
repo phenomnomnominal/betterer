@@ -14,9 +14,9 @@ import { BettererRunSummaryΩ } from './run-summary.js';
 export class BettererRunΩ implements BettererRun {
   public readonly lifecycle = Promise.withResolvers<BettererRunSummary>();
   public readonly isNew: boolean;
-  public readonly isObsolete = false;
+  public readonly isObsolete: boolean = false;
   public readonly isOnly: boolean;
-  public readonly isRemoved = false;
+  public readonly isRemoved: boolean = false;
   public readonly isSkipped: boolean;
   public readonly name: string;
 
@@ -70,7 +70,7 @@ export class BettererRunΩ implements BettererRun {
       runMeta,
       baseline,
       expected,
-      runMeta.needsFilePaths ? filePaths : null
+      runMeta.isCacheable ? filePaths : null
     );
   }
 

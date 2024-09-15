@@ -16,6 +16,7 @@ export class BettererSuiteSummaryΩ implements BettererSuiteSummary {
   ) {
     this.result = this._mergeResult();
   }
+
   public get better(): BettererRunSummaries {
     return this.runSummaries.filter((runSummary) => runSummary.isBetter);
   }
