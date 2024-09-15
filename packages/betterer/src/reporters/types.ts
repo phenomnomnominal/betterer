@@ -59,10 +59,6 @@ export interface BettererConfigReporter {
    * When `true`, the default reporter will render the Betterer logo.
    */
   logo: boolean;
-  /**
-   * The reporter instance. All reporter hooks will be a noop if `silent` is `true`.
-   */
-  reporter: BettererReporter;
 }
 
 /**

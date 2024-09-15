@@ -25,16 +25,21 @@ class BettererGlobalResolvers {
 }
 
 class BettererGlobals {
-  public readonly reporter: BettererReporter = this.config.reporter;
   public readonly resolvers: BettererGlobalResolvers = new BettererGlobalResolvers(this.config);
 
   constructor(
     public readonly config: BettererConfig,
+    public readonly _reporter: BettererReporter | null,
     public readonly results: BettererResultsWorker,
-    private _runWorkerPool: BettererRunWorkerPool | null,
-    private _testMetaLoader: BettererTestMetaLoaderWorker | null,
+    private readonly _runWorkerPool: BettererRunWorkerPool | null,
+    private readonly _testMetaLoader: BettererTestMetaLoaderWorker | null,
     public readonly versionControl: BettererVersionControlWorker
   ) {}
+
+  public get reporter(): BettererReporter {
+    invariantΔ(this._reporter, `\`reporter\` should only be accessed on the main thread!`);
+    return this._reporter;
+  }
 
   public get runWorkerPool(): BettererRunWorkerPool {
     invariantΔ(this._runWorkerPool, `\`runWorkerPool\` should only be accessed on the main thread!`);
@@ -53,12 +58,15 @@ export async function createGlobals(
   options: BettererOptions,
   optionsWatch: BettererOptionsWatcher = {}
 ): Promise<void> {
-  let reporter = await loadDefaultReporter();
+  let errorReporter = await loadDefaultReporter();
 
   try {
     const configContext = await createContextConfig(options);
     const configFS = await createFSConfig(options);
-    const configReporter = await createReporterConfig(configFS, options);
+
+    const [configReporter, reporter] = await createReporterConfig(configFS, options);
+    errorReporter = reporter;
+
     const configWatcher = createWatcherConfig(configFS, optionsWatch);
 
     const { ci } = configContext;
@@ -79,7 +87,6 @@ export async function createGlobals(
         ...configWatcher,
         versionControlPath
       });
-      reporter = config.reporter;
 
       if (config.cache) {
         await versionControl.api.enableCache(config.cachePath);
@@ -87,13 +94,13 @@ export async function createGlobals(
 
       const runWorkerPool = await createRunWorkerPool(config.workers);
 
-      setGlobals(config, results, runWorkerPool, testMetaLoader, versionControl);
+      setGlobals(config, reporter, results, runWorkerPool, testMetaLoader, versionControl);
     } catch (error) {
       await Promise.all([results.destroy(), testMetaLoader.destroy(), versionControl.destroy()]);
       throw error;
     }
   } catch (error) {
-    const reporterΩ = reporter as BettererReporterΩ;
+    const reporterΩ = errorReporter as BettererReporterΩ;
     await reporterΩ.configError(options, error as BettererError);
     throw error;
   }
