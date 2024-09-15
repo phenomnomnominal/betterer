@@ -17,7 +17,7 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
   }
 
   public static async create(): Promise<BettererResultsSummary> {
-    const { config, resolvers, results, testMetaLoader, versionControl } = getGlobals();
+    const { config, reporter, resolvers, results, testMetaLoader, versionControl } = getGlobals();
     const { configPaths, filters, includes, excludes, resultsPath } = config;
 
     try {
@@ -75,9 +75,9 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
       );
 
       return new BettererResultsSummaryΩ(testStatuses, onlyFileTests);
-    } catch (e) {
-      await config.reporter.configError?.(config, e as BettererError);
-      throw e;
+    } catch (error) {
+      await reporter.configError?.(config, error as BettererError);
+      throw error;
     } finally {
       await versionControl.destroy();
     }

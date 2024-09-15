@@ -1,6 +1,5 @@
 import type { BettererError } from '@betterer/errors';
 
-import type { BettererConfig } from '../config/types.js';
 import type { BettererFilePaths } from '../fs/index.js';
 import type { BettererTestMeta } from '../test/index.js';
 import type { BettererRunMeta } from './meta/types.js';
@@ -50,10 +49,6 @@ export class BettererRunΩ implements BettererRun {
       ...config,
       workers: 1
     };
-
-    // `BettererReporter` instance can't be passed to the worker_thread, but
-    // the worker doesn't actually need the it, so just ignore it.
-    delete (workerConfig as Partial<BettererConfig>).reporter;
 
     const runMeta = await worker.api.init(testMeta, workerConfig, results, versionControl);
     workerHandle.release();

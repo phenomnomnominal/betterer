@@ -64,7 +64,6 @@ export type BettererConfigPaths = ReadonlyArray<string>;
 // @public
 export interface BettererConfigReporter {
     logo: boolean;
-    reporter: BettererReporter;
 }
 
 // @public
