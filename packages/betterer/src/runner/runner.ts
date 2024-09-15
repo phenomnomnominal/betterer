@@ -11,14 +11,14 @@ import { BettererError } from '@betterer/errors';
 
 import { BettererContextΩ } from '../context/index.js';
 import { createGlobals, destroyGlobals, getGlobals } from '../globals.js';
-import { defer, normalisedPath } from '../utils.js';
+import { normalisedPath } from '../utils.js';
 import { createWatcher, WATCHER_EVENTS } from './watcher.js';
 
 const DEBOUNCE_TIME = 200;
 
 export class BettererRunnerΩ implements BettererRunner {
   public config: BettererConfig;
-  public readonly lifecycle = defer<BettererContextSummary>();
+  public readonly lifecycle = Promise.withResolvers<BettererContextSummary>();
 
   private _reporterContextStart: Promise<void>;
   private _isRunOnce = false;

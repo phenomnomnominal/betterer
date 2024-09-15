@@ -10,11 +10,10 @@ import { getTimeΔ } from '@betterer/time';
 
 import { getGlobals } from '../globals.js';
 import { BettererResultΩ } from '../results/index.js';
-import { defer } from '../utils.js';
 import { BettererRunSummaryΩ } from './run-summary.js';
 
 export class BettererRunΩ implements BettererRun {
-  public readonly lifecycle = defer<BettererRunSummary>();
+  public readonly lifecycle = Promise.withResolvers<BettererRunSummary>();
   public readonly isNew: boolean;
   public readonly isObsolete = false;
   public readonly isOnly: boolean;

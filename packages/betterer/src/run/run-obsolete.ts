@@ -1,7 +1,6 @@
 import type { BettererResult } from '../results/index.js';
 import type { BettererRun, BettererRunSummary } from './types.js';
 
-import { defer } from '../utils.js';
 import { BettererRunSummaryΩ } from './run-summary.js';
 
 export class BettererRunObsoleteΩ implements BettererRun {
@@ -12,7 +11,7 @@ export class BettererRunObsoleteΩ implements BettererRun {
   public readonly isOnly = false;
   public readonly isRemoved: boolean;
   public readonly isSkipped = false;
-  public readonly lifecycle = defer<BettererRunSummary>();
+  public readonly lifecycle = Promise.withResolvers<BettererRunSummary>();
 
   constructor(
     public readonly name: string,

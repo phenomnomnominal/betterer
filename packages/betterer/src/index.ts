@@ -4,6 +4,8 @@
  * @packageDocumentation
  */
 
+import 'core-js/proposals/promise-with-resolvers.js';
+
 export type {
   BettererAPI,
   BettererOptions,

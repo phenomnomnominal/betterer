@@ -1,5 +1,3 @@
-import assert from 'node:assert';
-
 import { describe, expect, it } from 'vitest';
 
 import { createFixture } from '../fixture.js';
@@ -27,8 +25,8 @@ export default {
 
     const { cwd } = paths;
 
-    const suiteEndDefer = defer();
-    const contextEndDefer = defer();
+    const suiteEndDefer = Promise.withResolvers<void>();
+    const contextEndDefer = Promise.withResolvers<void>();
 
     await betterer.watch({
       configPaths,
@@ -62,23 +60,3 @@ export default {
     await cleanup();
   });
 });
-
-type Resolve<T> = (value: T) => void;
-type Reject = (error: Error) => void;
-interface Defer<T = void> {
-  promise: Promise<T>;
-  resolve: Resolve<T>;
-  reject: Reject;
-}
-
-function defer<T = void>(): Defer<T> {
-  let resolve: Resolve<T> | null = null;
-  let reject: Reject | null = null;
-  const promise = new Promise<T>((res, rej) => {
-    resolve = res;
-    reject = rej;
-  });
-  assert(resolve);
-  assert(reject);
-  return { promise, resolve, reject };
-}

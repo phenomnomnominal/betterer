@@ -14,6 +14,7 @@ export class BettererReporterΩ implements BettererReporter {
   }
 
   async contextStart(context: BettererContext, lifecycle: Promise<BettererContextSummary>): Promise<void> {
+    defaultLifecycleCatch(lifecycle);
     await Promise.all(this._reporters.map((r) => r.contextStart?.(context, lifecycle)));
   }
 
@@ -26,6 +27,7 @@ export class BettererReporterΩ implements BettererReporter {
   }
 
   async suiteStart(suite: BettererSuite, lifecycle: Promise<BettererSuiteSummary>): Promise<void> {
+    defaultLifecycleCatch(lifecycle);
     await Promise.all(this._reporters.map((r) => r.suiteStart?.(suite, lifecycle)));
   }
 
@@ -38,6 +40,7 @@ export class BettererReporterΩ implements BettererReporter {
   }
 
   async runStart(run: BettererRun, lifecycle: Promise<BettererRunSummary>): Promise<void> {
+    defaultLifecycleCatch(lifecycle);
     await Promise.all(this._reporters.map((r) => r.runStart?.(run, lifecycle)));
   }
 
@@ -48,4 +51,9 @@ export class BettererReporterΩ implements BettererReporter {
   async runError(run: BettererRun, error: BettererError): Promise<void> {
     await Promise.all(this._reporters.map((r) => r.runError?.(run, error)));
   }
+}
+
+function defaultLifecycleCatch(lifecycle: Promise<unknown>): void {
+  // Just in case no-one handles this error in a reporter:
+  lifecycle.catch(() => void 0);
 }
