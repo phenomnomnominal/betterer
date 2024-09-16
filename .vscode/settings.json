@@ -17,6 +17,7 @@
     "docgen",
     "GOLDENS",
     "hasher",
+    "initialisation",
     "initialise",
     "initialised",
     "Initialising",
