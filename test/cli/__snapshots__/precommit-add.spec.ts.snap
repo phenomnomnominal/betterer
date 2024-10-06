@@ -29,9 +29,11 @@ exports[`betterer precommit > should add the results file to the changeset if th
 ",
   "🎉 Betterer: 1 test done!
 ✅ test: "test" met its goal! 🎉
+・ 1 fixed issue in "fixtures/precommit-add/src/index.ts".
 ",
   "🎉 Betterer: 1 test done!
 ✅ test: "test" met its goal! 🎉
+・ 1 fixed issue in "fixtures/precommit-add/src/index.ts".
 
 1 test got checked. 🤔
 1 test got better! 😍

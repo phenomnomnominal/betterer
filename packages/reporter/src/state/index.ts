@@ -1,14 +1,20 @@
 export {
+  BettererContextEndAction,
+  BettererLogAction,
+  BettererReporterAction,
+  BettererStatusAction,
+  BettererSuiteEndAction,
+  BettererSuiteStartAction,
   CONTEXT_END,
+  LOG,
+  STATUS,
   SUITE_END,
   SUITE_START,
-  BettererContextEndAction,
-  BettererReporterAction,
-  BettererSuiteStartAction,
-  BettererSuiteEndAction,
   contextEnd,
-  suiteStart,
-  suiteEnd
+  log,
+  status,
+  suiteEnd,
+  suiteStart
 } from './actions.js';
-export { createStore } from './store.js';
+export { BettererReporterContext, useStore, useReporterState } from './store.js';
 export { BettererReporterState } from './types.js';

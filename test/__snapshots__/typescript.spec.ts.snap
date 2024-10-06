@@ -57,11 +57,15 @@ exports[`betterer > should report the status of the TypeScript compiler 2`] = `
   "🌟 Betterer (0ms): 1 test running...
 🤔 typescript: running "typescript"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-🔥 typescript: "typescript" got worse. (1 new issue, 1 existing, 2 total) 😔
-",
-  "🌟 Betterer (0ms): 1 test running...
-🔥 typescript: "typescript" got worse. (1 new issue, 1 existing, 2 total) 😔
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
+🤔 typescript: running "typescript"!
+・ 1 existing, 1 new issues in "fixtures/typescript/src/index.ts".
+・
+・   1 | const a = 'a';
+・   2 | const one = 1;
+・ > 3 | console.log(a * one, one * a);
+・     |                            ^ The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+・
 
 Error: "typescript" got worse. (1 new issue, 1 existing, 2 total) 😔
 ",
@@ -104,9 +108,11 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: "typescript" met its goal! 🎉
+・ 1 fixed issue in "fixtures/typescript/src/index.ts".
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: "typescript" met its goal! 🎉
+・ 1 fixed issue in "fixtures/typescript/src/index.ts".
 
 1 test got checked. 🤔
 1 test got better! 😍

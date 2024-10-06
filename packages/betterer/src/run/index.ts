@@ -7,7 +7,8 @@ export type {
   BettererRuns
 } from './types.js';
 
-export { createRunWorkerPool } from './run-worker-pool.js';
 export { BettererRunΩ } from './run.js';
+export { BettererRunLoggerΩ } from './run-logger.js';
 export { BettererRunObsoleteΩ } from './run-obsolete.js';
+export { createRunWorkerPool } from './run-worker-pool.js';
 export { BettererWorkerRunΩ, loadTestFactory } from './worker-run.js';

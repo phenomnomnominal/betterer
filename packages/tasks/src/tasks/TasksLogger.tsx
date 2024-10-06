@@ -6,7 +6,7 @@ import type { BettererTasksState } from './useTasksState.js';
 import { React, Box, memo, useApp, useEffect } from '@betterer/render';
 
 import { BettererTaskStatus } from './status.js';
-import { useTasksState, BettererTasksContext } from './useTasksState.js';
+import { BettererTasksContext, useTasksState } from './useTasksState.js';
 import { useTimer } from './useTimer.js';
 
 /**
@@ -54,11 +54,12 @@ export type BettererTasksLoggerProps = PropsWithChildren<{
 export const BettererTasksLogger: FC<BettererTasksLoggerProps> = memo(function BettererTasksLogger(props) {
   const { children, done = () => void 0, exit = true, name, update = defaultUpdate, timer = true } = props;
 
+  const [state, tasksApi] = useTasksState();
+
   const app = useApp();
 
   const [time, clear] = useTimer(timer);
 
-  const [state, tasks] = useTasksState();
   const { startTime, endTime, errors } = state;
 
   useEffect(() => {
@@ -89,7 +90,7 @@ export const BettererTasksLogger: FC<BettererTasksLoggerProps> = memo(function B
   const label = timer ? ` (${formatTime(startTime, endTime ?? time)}ms)` : '';
 
   return (
-    <BettererTasksContext.Provider value={[state, tasks]}>
+    <BettererTasksContext.Provider value={[state, tasksApi]}>
       <Box flexDirection="column">
         <BettererTaskStatus name={`${name}${label}`} status={status} />
         {children}

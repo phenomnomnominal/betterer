@@ -9,12 +9,18 @@ import { BettererError } from '@betterer/errors';
 import path from 'node:path';
 
 import { importDefault } from '../fs/index.js';
+import { BettererRunLoggerΩ } from '../run/index.js';
 import { isFunction, isString } from '../utils.js';
 import { BettererReporterΩ } from './reporter.js';
 
-const HOOK_NAMES = Object.getOwnPropertyNames(BettererReporterΩ.prototype) as ReadonlyArray<keyof BettererReporter>;
+const REPORTER_HOOK_NAMES = Object.getOwnPropertyNames(BettererReporterΩ.prototype) as ReadonlyArray<
+  keyof BettererReporter
+>;
+const RUN_LOGGER_HOOK_NAMES = Object.getOwnPropertyNames(BettererRunLoggerΩ.prototype) as ReadonlyArray<
+  keyof BettererRunLoggerΩ
+>;
 
-export async function loadDefaultReporter(): Promise<BettererReporter> {
+export async function loadDefaultReporter(): Promise<BettererReporterΩ> {
   const reporterFactory = await importDefault('@betterer/reporter');
   assertDefaultReporter(reporterFactory);
   return new BettererReporterΩ([reporterFactory.createReporterΔ()]);
@@ -26,7 +32,7 @@ function assertDefaultReporter(reporterFactory: unknown): asserts reporterFactor
   }
 }
 
-export async function loadReporters(reporters: BettererOptionsReporters, cwd: string): Promise<BettererReporter> {
+export async function loadReporters(reporters: BettererOptionsReporters, cwd: string): Promise<BettererReporterΩ> {
   if (reporters.length === 0) {
     return await loadDefaultReporter();
   }
@@ -39,13 +45,13 @@ export async function loadReporters(reporters: BettererOptionsReporters, cwd: st
           try {
             const module = await importDefault(reporter);
             assertReporter(reporter, module);
-            validate(module.reporter);
+            validate(module.reporter, REPORTER_HOOK_NAMES);
             return module.reporter;
           } catch (error) {
             throw new BettererError(`could not import "${reporter}". 😔`, error as BettererError);
           }
         }
-        validate(reporter);
+        validate(reporter, REPORTER_HOOK_NAMES);
         return reporter;
       })
     )
@@ -62,11 +68,15 @@ export function loadSilentReporter(): BettererReporterΩ {
   return new BettererReporterΩ([]);
 }
 
-function validate(result: unknown): asserts result is BettererReporter {
+function validate(result: unknown, hookNames: ReadonlyArray<string>): asserts result is BettererReporter {
   const reporter = result as BettererReporter;
   Object.keys(reporter).forEach((key) => {
     const hookName = key as keyof BettererReporter;
-    if (!HOOK_NAMES.includes(hookName)) {
+    if (key === 'runLogger') {
+      validate(reporter.runLogger, RUN_LOGGER_HOOK_NAMES);
+      return;
+    }
+    if (!hookNames.includes(hookName)) {
       throw new BettererError(`"${hookName}" is not a valid reporter hook name. 😔`);
     }
     if (!isFunction(reporter[hookName])) {

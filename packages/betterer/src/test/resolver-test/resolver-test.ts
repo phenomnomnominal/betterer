@@ -65,7 +65,7 @@ export class BettererResolverTest<
 
         // Set the final files back on the `BettererRun`:
         runΩ.setFilePaths(filePathsForThisRun);
-        const result = await options.test(run);
+        const result = (await options.test.call(run, run)) as DeserialisedType;
         if (isFullRun) {
           return result;
         }

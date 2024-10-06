@@ -29,9 +29,13 @@ exports[`betterer > should work when including specific files 1`] = `
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got better! 😍
+・ "lines" coverage is worse in "src/file-1.ts": 50 > 40
+・ "lines" coverage is better in "src/file-1.ts": 40 < 50
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got better! 😍
+・ "lines" coverage is worse in "src/file-1.ts": 50 > 40
+・ "lines" coverage is better in "src/file-1.ts": 40 < 50
 
 1 test got checked. 🤔
 1 test got better! 😍

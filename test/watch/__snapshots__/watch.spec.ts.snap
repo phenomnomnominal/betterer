@@ -56,20 +56,14 @@ Checking 1 file... 🤔
 
 ・ fixtures/watch/src/index.ts
 
-🌟 Betterer (0ms): 1 test running...
-🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
-
-(press "q" to quit)
-",
-  "Filters (press "f" to edit): No current filter patterns
-Ignores (press "i" to edit): No current ignore patterns
-
-Checking 1 file... 🤔
-
-・ fixtures/watch/src/index.ts
-
-🌟 Betterer (0ms): 1 test running...
-🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
+💥 Betterer (0ms): 1 test done! 1 test errored!
+🤔 test: running "test"!
+・ 2 existing, 1 new issues in "fixtures/watch/src/index.ts".
+・
+・   1 | console.log('foo');
+・ > 2 | console.log('foo');console.log('foo');
+・     |                    ^^^^^^^^^^^ TSQuery match
+・
 
 Error: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 
@@ -128,13 +122,6 @@ Checking 1 file... 🤔
 ・ fixtures/watch/src/index.ts
 
 💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
-・ 2 existing, 1 new issues in "fixtures/watch/src/index.ts".
-・
-・   1 | console.log('foo');
-・ > 2 | console.log('foo');console.log('foo');
-・     |                    ^^^^^^^^^^^ TSQuery match
-・
 
 Error: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 
@@ -147,7 +134,7 @@ Checking 1 file... 🤔
 
 ・ fixtures/watch/src/index.ts
 
-🌟 Betterer (0ms): 1 test running...
+💥 Betterer (0ms): 1 test running... 1 test done! 1 test errored!
 🤔 test: running "test"!
 
 (press "q" to quit)
@@ -159,7 +146,7 @@ Checking 1 file... 🤔
 
 ・ fixtures/watch/src/index.ts
 
-🌟 Betterer (0ms): 1 test running...
+💥 Betterer (0ms): 1 test running... 1 test done! 1 test errored!
 ✅ test: "test" stayed the same. (2 issues) 😐
 
 (press "q" to quit)
@@ -171,7 +158,7 @@ Checking 1 file... 🤔
 
 ・ fixtures/watch/src/index.ts
 
-🎉 Betterer (0ms): 1 test done!
+💥 Betterer (0ms): 2 tests done! 1 test errored!
 ✅ test: "test" stayed the same. (2 issues) 😐
 
 (press "q" to quit)
@@ -183,7 +170,7 @@ Checked 1 file! 🔍
 
 ・ fixtures/watch/src/index.ts
 
-🎉 Betterer (0ms): 1 test done!
+💥 Betterer (0ms): 2 tests done! 1 test errored!
 ✅ test: "test" stayed the same. (2 issues) 😐
 
 1 test got checked. 🤔
@@ -198,8 +185,7 @@ Checking 1 file... 🤔
 
 ・ fixtures/watch/src/index.ts
 
-🎉 Betterer (0ms): 1 test done!
-✅ test: "test" stayed the same. (2 issues) 😐
+💥 Betterer (0ms): 2 tests done! 1 test errored!
 
 (press "q" to quit)
 ",
@@ -210,7 +196,7 @@ Checking 1 file... 🤔
 
 ・ fixtures/watch/src/index.ts
 
-🌟 Betterer (0ms): 1 test running...
+💥 Betterer (0ms): 1 test running... 2 tests done! 1 test errored!
 🤔 test: running "test"!
 
 (press "q" to quit)
@@ -222,7 +208,7 @@ Checking 1 file... 🤔
 
 ・ fixtures/watch/src/index.ts
 
-🌟 Betterer (0ms): 1 test running...
+💥 Betterer (0ms): 1 test running... 2 tests done! 1 test errored!
 ✅ test: "test" got better! (1 fixed issue, 1 remaining) 😍
 
 (press "q" to quit)
@@ -234,8 +220,9 @@ Checking 1 file... 🤔
 
 ・ fixtures/watch/src/index.ts
 
-🎉 Betterer (0ms): 1 test done!
+💥 Betterer (0ms): 3 tests done! 1 test errored!
 ✅ test: "test" got better! (1 fixed issue, 1 remaining) 😍
+・ 1 fixed, 1 existing issues in "fixtures/watch/src/index.ts".
 
 (press "q" to quit)
 ",
@@ -246,8 +233,9 @@ Checked 1 file! 🔍
 
 ・ fixtures/watch/src/index.ts
 
-🎉 Betterer (0ms): 1 test done!
+💥 Betterer (0ms): 3 tests done! 1 test errored!
 ✅ test: "test" got better! (1 fixed issue, 1 remaining) 😍
+・ 1 fixed, 1 existing issues in "fixtures/watch/src/index.ts".
 
 1 test got checked. 🤔
 1 test got better! 😍

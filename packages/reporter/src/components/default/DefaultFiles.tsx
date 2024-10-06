@@ -1,4 +1,4 @@
-import type { BettererSuite } from '@betterer/betterer';
+import type { BettererFilePaths } from '@betterer/betterer';
 
 import type { FC } from '@betterer/render';
 
@@ -8,13 +8,12 @@ import { filesChecked, filesChecking } from '../../messages.js';
 
 /** @knipignore used by an exported function */
 export interface DefaultFilesProps {
-  suite: BettererSuite;
+  filePaths: BettererFilePaths;
   running: boolean;
 }
 
 export const DefaultFiles: FC<DefaultFilesProps> = memo(function DefaultFiles(props) {
-  const { suite, running } = props;
-  const { filePaths } = suite;
+  const { filePaths, running } = props;
 
   return (
     <>

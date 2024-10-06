@@ -1,5 +1,4 @@
 import type { BettererConstraintResult } from '@betterer/constraints';
-import type { BettererLogs } from '@betterer/logger';
 
 import type { BettererDelta, BettererRun } from '../run/index.js';
 import type { MaybeAsync } from '../types.js';
@@ -27,6 +26,7 @@ import type { MaybeAsync } from '../types.js';
  * @param expected - Expected result from the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
  */
 export type BettererTestConstraint<DeserialisedType> = (
+  this: BettererRun,
   result: DeserialisedType,
   expected: DeserialisedType
 ) => MaybeAsync<BettererConstraintResult>;
@@ -52,7 +52,10 @@ export type BettererTestDeadline = Date | string;
  *
  * @param run - The current run.
  */
-export type BettererTestFunction<DeserialisedType> = (run: BettererRun) => MaybeAsync<DeserialisedType>;
+export type BettererTestFunction<DeserialisedType> = (
+  this: BettererRun,
+  run: BettererRun
+) => MaybeAsync<DeserialisedType>;
 
 /**
  * @public A function that returns whether the test has met its goal.
@@ -66,7 +69,7 @@ export type BettererTestFunction<DeserialisedType> = (run: BettererRun) => Maybe
  *
  * @param result - Result from the current test run.
  */
-export type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
+export type BettererTestGoal<DeserialisedType> = (this: BettererRun, result: DeserialisedType) => MaybeAsync<boolean>;
 
 /**
  * @public The result of computing the difference between two results.
@@ -76,11 +79,6 @@ export interface BettererDiff<DiffType = null> {
    * The difference between `expected` and `result`.
    */
   diff: DiffType;
-  /**
-   * A set of logging instructions that provide insight about the diff. The default reporter will
-   * show these to the user once the test is complete.
-   */
-  logs: BettererLogs;
 }
 
 /**
@@ -90,9 +88,10 @@ export interface BettererDiff<DiffType = null> {
  * @param result - Result from the current test run.
  */
 export type BettererDiffer<DeserialisedType, DiffType> = (
+  this: BettererRun,
   expected: DeserialisedType,
   result: DeserialisedType
-) => BettererDiff<DiffType>;
+) => MaybeAsync<BettererDiff<DiffType>>;
 
 /**
  * @public A function that converts a serialised test result into the string that will be saved in
@@ -110,6 +109,7 @@ export type BettererPrinter<SerialisedType> = (serialised: SerialisedType) => Ma
  * @param result - The result from the current test run.
  */
 export type BettererProgress<DeserialisedType> = (
+  this: BettererRun,
   baseline: DeserialisedType | null,
   result: DeserialisedType | null
 ) => MaybeAsync<BettererDelta | null>;
@@ -121,6 +121,7 @@ export type BettererProgress<DeserialisedType> = (
  * @param resultsPath - The path to the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
  */
 export type BettererSerialise<DeserialisedType, SerialisedType> = (
+  this: BettererRun,
   result: DeserialisedType,
   resultsPath: string
 ) => SerialisedType;

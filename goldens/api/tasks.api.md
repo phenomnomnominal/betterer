@@ -5,7 +5,9 @@
 ```ts
 
 import type { BettererError } from '@betterer/errors';
+import type { BettererLog } from '@betterer/logger';
 import type { BettererLogger } from '@betterer/logger';
+import type { BettererLogs } from '@betterer/logger';
 import type { FC } from '@betterer/render';
 import type { PropsWithChildren } from '@betterer/render';
 
@@ -21,15 +23,30 @@ export interface BettererErrorLogProps {
 export const BettererLogo: FC;
 
 // @internal
-export type BettererTask = (logger: BettererLogger) => Promise<string | void>;
+export type BettererTask = (logger: BettererLogger, statusLogger: BettererLogger) => Promise<string | void>;
 
 // @internal
 export const BettererTaskLogger: FC<BettererTaskLoggerProps>;
 
 // @internal
 export interface BettererTaskLoggerProps {
+    existingLogger?: BettererLogger;
+    existingLogs?: BettererLogs;
+    existingStatus?: BettererLog;
+    existingStatusLogger?: BettererLogger;
     name: string;
     task: BettererTask;
+}
+
+// @internal
+export const BettererTaskResult: FC<BettererTaskResultProps>;
+
+// @internal
+export interface BettererTaskResultProps {
+    error: Error | null;
+    logs: BettererLogs;
+    name: string;
+    status: BettererLog;
 }
 
 // @internal
@@ -54,9 +71,17 @@ export interface BettererTasksState {
     errors: number;
     running: number;
     startTime: number;
+    taskState: Record<string, BettererTaskState>;
 }
 
 // @internal
 export type BettererTasksStatusUpdate = (state: BettererTasksState) => string;
+
+// @internal
+export interface BettererTaskState {
+    done: boolean;
+    error: Error | null;
+    running: boolean;
+}
 
 ```

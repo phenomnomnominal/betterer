@@ -97,9 +97,11 @@ exports[`betterer > should remove files from the cache when they are deleted 6`]
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got better! (2 fixed issues, 2 remaining) 😍
+・ 2 fixed issues in "fixtures/cache-deleted-file/src/file-2.ts".
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got better! (2 fixed issues, 2 remaining) 😍
+・ 2 fixed issues in "fixtures/cache-deleted-file/src/file-2.ts".
 
 1 test got checked. 🤔
 1 test got better! 😍
@@ -109,11 +111,15 @@ exports[`betterer > should remove files from the cache when they are deleted 6`]
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-🔥 test: "test" got worse. (2 new issues, 2 existing, 4 total) 😔
-",
-  "🌟 Betterer (0ms): 1 test running...
-🔥 test: "test" got worse. (2 new issues, 2 existing, 4 total) 😔
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
+🤔 test: running "test"!
+・ 2 new issues in "fixtures/cache-deleted-file/src/file-2.ts".
+・ Showing first of 2 new issues:
+・
+・ > 1 | // HACK:
+・     | ^^^^^^^ RegExp match
+・   2 | // HACK:
+・
 
 Error: "test" got worse. (2 new issues, 2 existing, 4 total) 😔
 ",

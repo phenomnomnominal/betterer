@@ -1,11 +1,16 @@
+import type { BettererRun } from '@betterer/betterer';
 import type { BettererCoverageDiff, BettererCoverageIssues } from './types.js';
 
 import { BettererConstraintResult } from '@betterer/constraints';
 
 import { differ } from './differ.js';
 
-export function constraint(result: BettererCoverageIssues, expected: BettererCoverageIssues): BettererConstraintResult {
-  const { diff } = differ(result, expected);
+export async function constraint(
+  this: BettererRun,
+  result: BettererCoverageIssues,
+  expected: BettererCoverageIssues
+): Promise<BettererConstraintResult> {
+  const { diff } = await differ.call(this, result, expected);
   if (isWorse(diff)) {
     return BettererConstraintResult.worse;
   }

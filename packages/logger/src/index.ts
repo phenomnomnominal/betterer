@@ -12,7 +12,8 @@ export type {
   BettererLogs,
   BettererLoggerCodeInfo,
   BettererLoggerMessage,
-  BettererLoggerMessages
+  BettererLoggerMessages,
+  MaybeAsync
 } from './types.js';
 
 export { codeΔ } from './code.js';

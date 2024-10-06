@@ -127,7 +127,7 @@ export class BettererContextΩ implements BettererContext {
       const lastSuiteΩ = this.lastSuite as BettererSuiteΩ;
       await lastSuiteΩ.lifecycle.promise;
     } catch {
-      //
+      // Not a problem if there hasn't been a suite run yet!
     }
 
     return new BettererContextSummaryΩ(this._suiteSummaries);

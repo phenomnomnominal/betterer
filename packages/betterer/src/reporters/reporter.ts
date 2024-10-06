@@ -1,12 +1,37 @@
 import type { BettererError } from '@betterer/errors';
+import type { BettererLoggerCodeInfo, BettererLoggerMessages } from '@betterer/logger';
 
 import type { BettererContext } from '../context/index.js';
 import type { BettererContextSummary } from '../context/types.js';
 import type { BettererRun, BettererRunSummary } from '../run/index.js';
 import type { BettererSuite, BettererSuiteSummary } from '../suite/index.js';
-import type { BettererReporter } from './types.js';
+import type { BettererReporter, BettererRunLogger } from './types.js';
 
 export class BettererReporterΩ implements BettererReporter {
+  public runLogger: BettererRunLogger = {
+    code: async (run: BettererRun, code: BettererLoggerCodeInfo): Promise<void> => {
+      await Promise.all(this._reporters.map((r) => r.runLogger?.code(run, code)));
+    },
+    debug: async (run: BettererRun, ...debug: BettererLoggerMessages): Promise<void> => {
+      await Promise.all(this._reporters.map((r) => r.runLogger?.debug(run, ...debug)));
+    },
+    error: async (run: BettererRun, ...error: BettererLoggerMessages): Promise<void> => {
+      await Promise.all(this._reporters.map((r) => r.runLogger?.error(run, ...error)));
+    },
+    info: async (run: BettererRun, ...info: BettererLoggerMessages): Promise<void> => {
+      await Promise.all(this._reporters.map((r) => r.runLogger?.info(run, ...info)));
+    },
+    progress: async (run: BettererRun, ...progress: BettererLoggerMessages): Promise<void> => {
+      await Promise.all(this._reporters.map((r) => r.runLogger?.progress(run, ...progress)));
+    },
+    success: async (run: BettererRun, ...success: BettererLoggerMessages): Promise<void> => {
+      await Promise.all(this._reporters.map((r) => r.runLogger?.success(run, ...success)));
+    },
+    warn: async (run: BettererRun, ...warn: BettererLoggerMessages): Promise<void> => {
+      await Promise.all(this._reporters.map((r) => r.runLogger?.warn(run, ...warn)));
+    }
+  };
+
   constructor(private _reporters: Array<BettererReporter>) {}
 
   async configError(invalidConfig: unknown, error: BettererError): Promise<void> {

@@ -115,23 +115,17 @@ export type BettererFilePaths = ReadonlyArray<BettererFilePath>;
  */
 export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
 
-/** @knipignore used by an exported function */
 export type BettererFileHashMap = Map<string, string>;
-/** @knipignore used by an exported function */
 export type BettererFileHashMapSerialised = Record<string, string>;
 
-/** @knipignore used by an exported function */
 export type BettererTestCacheMap = Map<string, BettererFileHashMap>;
-/** @knipignore used by an exported function */
 export type BettererTestCacheMapSerialised = Record<string, BettererFileHashMapSerialised>;
 
-/** @knipignore used by an exported function */
 export interface BettererCacheFile {
   version: number;
   testCache: BettererTestCacheMapSerialised;
 }
 
-/** @knipignore used by an exported function */
 export interface BettererFileCache {
   clearCache(testName: string): void;
   filterCached(testName: string, filePaths: BettererFilePaths): BettererFilePaths;
@@ -139,7 +133,6 @@ export interface BettererFileCache {
   writeCache(): Promise<void>;
 }
 
-/** @knipignore used by an exported function */
 export interface BettererVersionControl {
   add(resultsPath: string): Promise<void>;
   filterIgnored(filePaths: BettererFilePaths): BettererFilePaths;

@@ -9,7 +9,9 @@
 export type { BettererErrorLogProps } from './error-log.js';
 export type {
   BettererTask,
+  BettererTaskState,
   BettererTaskLoggerProps,
+  BettererTaskResultProps,
   BettererTasksDone,
   BettererTasksLoggerProps,
   BettererTasksState,
@@ -18,4 +20,4 @@ export type {
 
 export { BettererErrorLog } from './error-log.js';
 export { BettererLogo } from './logo.js';
-export { BettererTaskLogger, BettererTasksLogger } from './tasks/index.js';
+export { BettererTaskLogger, BettererTaskResult, BettererTasksLogger } from './tasks/index.js';

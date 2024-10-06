@@ -60,11 +60,14 @@ exports[`betterer > should report the status of a new eslint rule with a complex
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
-",
-  "🌟 Betterer (0ms): 1 test running...
-🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
+🤔 test: running "test"!
+・ 1 existing, 1 new issues in "fixtures/eslint-complex-project/src/index.ts".
+・
+・   1 | debugger;
+・ > 2 | debugger;
+・     | ^^^^^^^^^ Unexpected 'debugger' statement.
+・
 
 Error: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 ",
@@ -105,9 +108,13 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" met its goal! 🎉
+・ 1 fixed issue in "fixtures/eslint-complex-project/src/directory/index.ts".
+・ 1 fixed issue in "fixtures/eslint-complex-project/src/index.ts".
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" met its goal! 🎉
+・ 1 fixed issue in "fixtures/eslint-complex-project/src/directory/index.ts".
+・ 1 fixed issue in "fixtures/eslint-complex-project/src/index.ts".
 
 1 test got checked. 🤔
 1 test got better! 😍
