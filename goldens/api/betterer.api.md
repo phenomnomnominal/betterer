@@ -6,7 +6,7 @@
 
 import type { BettererConstraintResult } from '@betterer/constraints';
 import type { BettererError } from '@betterer/errors';
-import type { BettererLogs } from '@betterer/logger';
+import type { BettererLogger } from '@betterer/logger';
 
 // @public
 export const betterer: {
@@ -103,11 +103,10 @@ export type BettererDeserialise<DeserialisedType, SerialisedType> = (serialised:
 // @public
 export interface BettererDiff<DiffType = null> {
     diff: DiffType;
-    logs: BettererLogs;
 }
 
 // @public
-export type BettererDiffer<DeserialisedType, DiffType> = (expected: DeserialisedType, result: DeserialisedType) => BettererDiff<DiffType>;
+export type BettererDiffer<DeserialisedType, DiffType> = (this: BettererRun, expected: DeserialisedType, result: DeserialisedType) => MaybeAsync<BettererDiff<DiffType>>;
 
 // @public
 export interface BettererFile extends BettererFileBase {
@@ -372,7 +371,7 @@ export interface BettererOptionsWatcherOverride {
 export type BettererPrinter<SerialisedType> = (serialised: SerialisedType) => MaybeAsync<string>;
 
 // @public
-export type BettererProgress<DeserialisedType> = (baseline: DeserialisedType | null, result: DeserialisedType | null) => MaybeAsync<BettererDelta | null>;
+export type BettererProgress<DeserialisedType> = (this: BettererRun, baseline: DeserialisedType | null, result: DeserialisedType | null) => MaybeAsync<BettererDelta | null>;
 
 // @public
 export interface BettererReporter {
@@ -382,6 +381,7 @@ export interface BettererReporter {
     contextStart?(context: BettererContext, lifecycle: Promise<BettererContextSummary>): Promise<void> | void;
     runEnd?(runSummary: BettererRunSummary): Promise<void> | void;
     runError?(run: BettererRun, error: BettererError): Promise<void> | void;
+    runLogger?: BettererRunLogger;
     runStart?(run: BettererRun, lifecycle: Promise<BettererRunSummary>): Promise<void> | void;
     suiteEnd?(suiteSummary: BettererSuiteSummary): Promise<void> | void;
     suiteError?(suite: BettererSuite, error: BettererError): Promise<void> | void;
@@ -422,8 +422,17 @@ export interface BettererRun {
     readonly isObsolete: boolean;
     readonly isRemoved: boolean;
     readonly isSkipped: boolean;
+    readonly logger: BettererLogger;
     readonly name: string;
 }
+
+// @public
+export type BettererRunLogFunction<LogFunction extends Func> = (run: BettererRun, ...args: Parameters<LogFunction>) => ReturnType<LogFunction>;
+
+// @public
+export type BettererRunLogger = {
+    [Log in keyof BettererLogger]: BettererLogger[Log] extends Func ? BettererRunLogFunction<BettererLogger[Log]> : never;
+};
 
 // @public
 export interface BettererRunner extends BettererContext {
@@ -455,7 +464,7 @@ export interface BettererRunSummary extends BettererRun {
 }
 
 // @public
-export type BettererSerialise<DeserialisedType, SerialisedType> = (result: DeserialisedType, resultsPath: string) => SerialisedType;
+export type BettererSerialise<DeserialisedType, SerialisedType> = (this: BettererRun, result: DeserialisedType, resultsPath: string) => SerialisedType;
 
 // @public
 export interface BettererSerialiser<DeserialisedType, SerialisedType = DeserialisedType> {
@@ -516,16 +525,16 @@ export interface BettererTestConfig<DeserialisedType = unknown, SerialisedType =
 }
 
 // @public
-export type BettererTestConstraint<DeserialisedType> = (result: DeserialisedType, expected: DeserialisedType) => MaybeAsync<BettererConstraintResult>;
+export type BettererTestConstraint<DeserialisedType> = (this: BettererRun, result: DeserialisedType, expected: DeserialisedType) => MaybeAsync<BettererConstraintResult>;
 
 // @public
 export type BettererTestDeadline = Date | string;
 
 // @public
-export type BettererTestFunction<DeserialisedType> = (run: BettererRun) => MaybeAsync<DeserialisedType>;
+export type BettererTestFunction<DeserialisedType> = (this: BettererRun, run: BettererRun) => MaybeAsync<DeserialisedType>;
 
 // @public
-export type BettererTestGoal<DeserialisedType> = (result: DeserialisedType) => MaybeAsync<boolean>;
+export type BettererTestGoal<DeserialisedType> = (this: BettererRun, result: DeserialisedType) => MaybeAsync<boolean>;
 
 // @public
 export type BettererTestNames = ReadonlyArray<string>;
@@ -551,6 +560,9 @@ export interface BettererTestResultSummary {
 
 // @public
 export type BettererTestResultSummaryDetails = string;
+
+// @public
+export type Func = (...args: Array<any>) => any;
 
 // @public
 export type MaybeAsync<T> = T | Promise<T>;

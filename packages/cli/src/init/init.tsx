@@ -18,10 +18,10 @@ export interface InitProps {
 
 export const Init: FC<InitProps> = function Init({ automerge, cwd, configPath, logo, resultsPath, ts }) {
   const runCreateTestFile = useCallback(
-    async (logger: BettererLogger) => {
+    async (logger: BettererLogger, status: BettererLogger) => {
       const createTestFile: CreateTestFileWorker = await importWorkerΔ('./create-test-file.worker.js');
       try {
-        await createTestFile.api.run(exposeToWorkerΔ(logger), cwd, configPath);
+        await createTestFile.api.run(exposeToWorkerΔ(logger), exposeToWorkerΔ(status), cwd, configPath);
       } finally {
         await createTestFile.destroy();
       }
@@ -29,24 +29,27 @@ export const Init: FC<InitProps> = function Init({ automerge, cwd, configPath, l
     [cwd, configPath]
   );
   const runUpdatePackageJSON = useCallback(
-    async (logger: BettererLogger) => {
+    async (logger: BettererLogger, status: BettererLogger) => {
       const updatePackageJSON: UpdatePackageJSONWorker = await importWorkerΔ('./update-package-json.worker.js');
       try {
-        await updatePackageJSON.api.run(exposeToWorkerΔ(logger), cwd, ts);
+        await updatePackageJSON.api.run(exposeToWorkerΔ(logger), exposeToWorkerΔ(status), cwd, ts);
       } finally {
         await updatePackageJSON.destroy();
       }
     },
     [cwd, ts]
   );
-  const runEnableAutomerge = useCallback(async (logger: BettererLogger) => {
-    const enableAutomerge: EnableAutomergeWorker = await importWorkerΔ('./enable-automerge.worker.js');
-    try {
-      await enableAutomerge.api.run(exposeToWorkerΔ(logger), cwd, resultsPath);
-    } finally {
-      await enableAutomerge.destroy();
-    }
-  }, []);
+  const runEnableAutomerge = useCallback(
+    async (logger: BettererLogger, status: BettererLogger) => {
+      const enableAutomerge: EnableAutomergeWorker = await importWorkerΔ('./enable-automerge.worker.js');
+      try {
+        await enableAutomerge.api.run(exposeToWorkerΔ(logger), exposeToWorkerΔ(status), cwd, resultsPath);
+      } finally {
+        await enableAutomerge.destroy();
+      }
+    },
+    [cwd, resultsPath]
+  );
 
   return (
     <Box flexDirection="column">

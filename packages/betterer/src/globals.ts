@@ -1,7 +1,7 @@
 import type { BettererOptions } from './api/index.js';
 import type { BettererConfig } from './config/types.js';
 import type { BettererFileResolver, BettererVersionControlWorker } from './fs/index.js';
-import type { BettererReporter, BettererReporterΩ } from './reporters/index.js';
+import type { BettererReporter } from './reporters/index.js';
 import type { BettererResultsWorker } from './results/index.js';
 import type { BettererRunWorkerPool } from './run/types.js';
 import type { BettererOptionsWatcher } from './runner/index.js';
@@ -87,7 +87,7 @@ export async function createGlobals(
 
     setGlobals(config, reporter, results, runWorkerPool, testMetaLoader, versionControl);
   } catch (error) {
-    const reporterΩ = errorReporter as BettererReporterΩ;
+    const reporterΩ = errorReporter;
     await reporterΩ.configError(options, error as BettererError);
     throw error;
   }

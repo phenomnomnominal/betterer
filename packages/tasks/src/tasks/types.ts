@@ -11,17 +11,16 @@ export type BettererTaskColour = ForegroundColorName;
  *
  * An asynchronous task that will be orchestrated by the {@link @betterer/tasks#BettererTasksLogger | `BettererTasksLogger`}.
  *
- * @param logger - Parameter provides access to asynchronous logging which will be shown to the
- * user once the task is complete.
+ * @param logger - logger for information that will be shown to the user once the task is complete.
+ * @param statusLogger - logger for information that will be shown to the user as the task runs.
  *
  * @returns If the task returns it is a "success".
  *
  * @throws If the task throws it is a "failure".
  */
-export type BettererTask = (logger: BettererLogger) => Promise<string | void>;
+export type BettererTask = (logger: BettererLogger, statusLogger: BettererLogger) => Promise<string | void>;
 
 export type BettererTaskLog = [indicator: string, colour: BettererTaskColour, message: string];
-export type BettererTaskLogs = Array<BettererTaskLog>;
 
 /**
  * @internal This could change at any point! Please don't use!

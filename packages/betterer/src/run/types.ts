@@ -1,4 +1,5 @@
 import type { BettererConstraintResult } from '@betterer/constraints';
+import type { BettererLogger } from '@betterer/logger';
 import type { BettererWorkerAPI, BettererWorkerHandle, BettererWorkerPool } from '@betterer/worker';
 
 import type { BettererFilePaths } from '../fs/index.js';
@@ -68,6 +69,11 @@ export type BettererDelta =
  * ```
  */
 export interface BettererRun {
+  /**
+   * The {@link @betterer/logger#BettererLogger | `BettererLogger`} for this run, which
+   * can be used to emit information, issues, or status updates to the reporter.
+   */
+  readonly logger: BettererLogger;
   /**
    * The baseline result for the test run. If the {@link @betterer/betterer#BettererTest | `BettererTest`}
    * gets better over the lifetime of the {@link @betterer/betterer#BettererContext}, `baseline`

@@ -7,11 +7,8 @@ exports[`betterer precommit > should not update the changeset when a test fails 
   "🌟 Betterer: 1 test running...
 🤔 throws: running "throws"!
 ",
-  "🌟 Betterer: 1 test running...
-🔥 throws:
-",
-  "🌟 Betterer: 1 test running...
-🔥 throws:
+  "💥 Betterer: 1 test done! 1 test errored!
+🤔 throws: running "throws"!
 
 Error:
 ",

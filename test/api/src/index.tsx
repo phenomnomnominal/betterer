@@ -17,10 +17,10 @@ export const APITest: FC<APITestProps> = function APITest({ packageNames }) {
     <BettererTasksLogger name="Test Package APIs" update={update}>
       {packageNames.map((packageName) => {
         const task = useCallback(
-          async (logger: BettererLogger) => {
+          async (_: BettererLogger, status: BettererLogger) => {
             const worker: TestPackageAPIWorker = await importWorkerΔ('./test-package-api.worker.js');
             try {
-              return await worker.api.run(exposeToWorkerΔ(logger), packageName);
+              return await worker.api.run(exposeToWorkerΔ(status), packageName);
             } finally {
               await worker.destroy();
             }

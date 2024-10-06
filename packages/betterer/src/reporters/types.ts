@@ -1,8 +1,10 @@
 import type { BettererError } from '@betterer/errors';
+import type { BettererLogger } from '@betterer/logger';
 
 import type { BettererContext, BettererContextSummary } from '../context/index.js';
 import type { BettererRun, BettererRunSummary } from '../run/index.js';
-import type { BettererSuiteSummary, BettererSuite } from '../suite/index.js';
+import type { BettererSuite, BettererSuiteSummary } from '../suite/index.js';
+import type { Func } from '../types.js';
 
 /**
  * @public An array of names of npm packages that export a {@link @betterer/betterer#BettererReporter | `BettererReporter`},
@@ -62,6 +64,26 @@ export interface BettererConfigReporter {
 }
 
 /**
+ * @public The interface for hooking into **Betterer**'s per-run logging system.
+ *
+ * @remarks A {@link @betterer/betterer#BettererReporter | `BettererReporter`} provides lifecycle-level events
+ * for a {@link @betterer/betterer#BettererContext | `BettererContext`}, {@link @betterer/betterer#BettererSuite | `BettererContext`}
+ * or {@link @betterer/betterer#BettererRun | `BettererRun`} starting, stopping, or throwing an error. A `BettererRunLogger`
+ * is available during a test run to log real-time information as the test is executed.
+ */
+export type BettererRunLogger = {
+  [Log in keyof BettererLogger]: BettererLogger[Log] extends Func ? BettererRunLogFunction<BettererLogger[Log]> : never;
+};
+
+/**
+ * @public The interface for hooking into **Betterer**'s per-run logging system.
+ */
+export type BettererRunLogFunction<LogFunction extends Func> = (
+  run: BettererRun,
+  ...args: Parameters<LogFunction>
+) => ReturnType<LogFunction>;
+
+/**
  * @public The interface for hooking into **Betterer**'s reporter system.
  *
  * @remarks There are two ways to specify a custom `BettererReporter`:
@@ -95,6 +117,14 @@ export interface BettererConfigReporter {
  * `'my-custom-module'` should export a `reporter` which implements the `BettererReporter` interface.
  */
 export interface BettererReporter {
+  /**
+   * The `runLogger` contains hooks for per-run logs. Each individual test run has its own logger which
+   * can be used to emit information, issues, or status updates to the reporter.
+   *
+   * @remarks each hook will be called with the {@link @betterer/betterer#BettererRun | `BettererRun` } that
+   * emitted the log. The name of each run will be unique, so can be used to group log messages together.
+   */
+  runLogger?: BettererRunLogger;
   /**
    * The `configError()` hook is called when there is an error while instantiating and validating
    * the {@link @betterer/betterer#BettererConfig | `BettererConfig`}.

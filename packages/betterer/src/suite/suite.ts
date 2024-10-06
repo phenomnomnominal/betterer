@@ -9,7 +9,7 @@ import { invariantΔ } from '@betterer/errors';
 
 import { getGlobals } from '../globals.js';
 import { BettererResultΩ } from '../results/index.js';
-import { BettererRunΩ, BettererRunObsoleteΩ } from '../run/index.js';
+import { BettererRunObsoleteΩ, BettererRunΩ } from '../run/index.js';
 import { BettererSuiteSummaryΩ } from './suite-summary.js';
 
 const NEGATIVE_FILTER_TOKEN = '!';
@@ -23,7 +23,7 @@ export class BettererSuiteΩ implements BettererSuite {
   ) {}
 
   public static async create(filePaths: BettererFilePaths): Promise<BettererSuiteΩ> {
-    const { config, results, testMetaLoader } = getGlobals();
+    const { config, reporter, results, testMetaLoader } = getGlobals();
     const { configPaths, update } = config;
 
     const expectedTestNames = await results.api.getExpectedTestNames();
@@ -34,6 +34,7 @@ export class BettererSuiteΩ implements BettererSuite {
         return await BettererRunΩ.create(testMeta, filePaths);
       })
     );
+
     const testNames = testsMeta.map((testMeta) => testMeta.name);
     const obsoleteTestNames = expectedTestNames.filter((expectedTestName) => !testNames.includes(expectedTestName));
 
@@ -41,7 +42,7 @@ export class BettererSuiteΩ implements BettererSuite {
       obsoleteTestNames.map(async (testName) => {
         const baselineJSON = await results.api.getBaseline(testName);
         const baseline = new BettererResultΩ(JSON.parse(baselineJSON), baselineJSON);
-        return new BettererRunObsoleteΩ(testName, baseline, update);
+        return new BettererRunObsoleteΩ(reporter, testName, baseline, update);
       })
     );
 

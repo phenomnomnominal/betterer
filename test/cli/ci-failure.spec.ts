@@ -6,7 +6,7 @@ const ARGV = ['node', './bin/betterer'];
 
 describe('betterer ci', () => {
   it('should throw an error when a test fails', async () => {
-    const { paths, logs, cleanup } = await createFixture('ci-worse', {
+    const { paths, logs, cleanup } = await createFixture('ci-failure', {
       '.betterer.ts': `
 import { BettererTest } from '@betterer/betterer';
 import { smaller } from '@betterer/constraints';

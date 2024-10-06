@@ -9,7 +9,18 @@ import { importDefault } from '../../fs/import.js';
 /** @knipignore part of worker API */
 export async function loadTestsMeta(configPaths: BettererFilePaths): Promise<BettererTestsMeta> {
   const testsMetaForConfigs = await Promise.all(configPaths.map(async (configPath) => await loadTestMeta(configPath)));
-  return testsMetaForConfigs.flat();
+  const testsMeta = testsMetaForConfigs.flat();
+
+  const allTests: Record<string, string> = {};
+  testsMeta.forEach((testMeta) => {
+    const { name, configPath } = testMeta;
+    const existingConfigPath = allTests[name];
+    if (existingConfigPath) {
+      throw new BettererError(`Duplicate test name found in "${existingConfigPath}" and "${configPath}": "${name}"`);
+    }
+    allTests[name] = configPath;
+  });
+  return testsMeta;
 }
 
 async function loadTestMeta(configPath: BettererFilePath): Promise<BettererTestsMeta> {

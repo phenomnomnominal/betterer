@@ -89,9 +89,11 @@ exports[`betterer > should report a stable per-file coverage result 2`] = `
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" stayed the same. 😐
+・ src/file-3.ts is gone.
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" stayed the same. 😐
+・ src/file-3.ts is gone.
 
 1 test got checked. 🤔
 1 test stayed the same. 😐

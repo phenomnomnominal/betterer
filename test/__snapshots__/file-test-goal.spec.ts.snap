@@ -58,11 +58,15 @@ exports[`betterer > should let you override the goal of a file test 2`] = `
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
-",
-  "🌟 Betterer (0ms): 1 test running...
-🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
+🤔 test: running "test"!
+・ 2 existing, 1 new issues in "fixtures/file-test-goal/src/index.ts".
+・
+・   1 | debugger;
+・   2 | debugger;
+・ > 3 | debugger;
+・     | ^^^^^^^^^ Unexpected 'debugger' statement.
+・
 
 Error: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 ",
@@ -105,9 +109,11 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" met its goal! 🎉
+・ 1 fixed, 1 existing issues in "fixtures/file-test-goal/src/index.ts".
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" met its goal! 🎉
+・ 1 fixed, 1 existing issues in "fixtures/file-test-goal/src/index.ts".
 
 1 test got checked. 🤔
 1 test got better! 😍

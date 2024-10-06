@@ -11,10 +11,15 @@ const MERGE_CONFIG = '[merge "betterer"]';
 const MERGE_DIRECTIVE = 'merge=betterer';
 
 /** @knipignore part of worker API */
-export async function run(logger: BettererLogger, cwd: string, resultsPath: string): Promise<void> {
+export async function run(
+  logger: BettererLogger,
+  status: BettererLogger,
+  cwd: string,
+  resultsPath: string
+): Promise<void> {
   resultsPath = path.resolve(cwd, resultsPath);
 
-  await logger.progress(`enabling Betterer merge for "${resultsPath}" file...`);
+  await status.progress(`enabling Betterer merge for "${resultsPath}" file...`);
 
   const gitDir = await validateGitRepo(cwd);
   const rootDir = path.dirname(gitDir);

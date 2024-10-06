@@ -1,6 +1,5 @@
-import type { BettererLogs } from '@betterer/logger';
-
 import type {
+  BettererDiff,
   BettererDiffer,
   BettererPrinter,
   BettererProgress,
@@ -13,7 +12,6 @@ import type {
 } from './types.js';
 
 import { BettererError } from '@betterer/errors';
-import { diffΔ } from '@betterer/logger';
 import { format } from 'prettier';
 
 import { isFunction } from '../utils.js';
@@ -91,13 +89,10 @@ export class BettererTestConfigΩ<DeserialisedType = number, SerialisedType = De
     return (value: DeserialisedType): boolean => value === goal;
   }
 
-  private _defaultDiffer = (expected: unknown, result: unknown): unknown => {
-    const diff = diffΔ(expected, result, { aAnnotation: 'Expected', bAnnotation: 'Result' });
-    const logs: BettererLogs = diff ? [{ error: diff }] : [];
+  private _defaultDiffer = (): BettererDiff<DiffType> => {
     return {
-      diff: null,
-      logs
-    };
+      diff: null
+    } as BettererDiff<DiffType>;
   };
 
   private _defaultPrinter = async (serialised: unknown): Promise<string> => {

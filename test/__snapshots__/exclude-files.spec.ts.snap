@@ -64,9 +64,11 @@ exports[`betterer > should exclude specific files from results 3`] = `
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got better! (1 fixed issue, 1 remaining) 😍
+・ 1 fixed issue in "fixtures/exclude-files/src/exclude.ts".
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got better! (1 fixed issue, 1 remaining) 😍
+・ 1 fixed issue in "fixtures/exclude-files/src/exclude.ts".
 
 1 test got checked. 🤔
 1 test got better! 😍

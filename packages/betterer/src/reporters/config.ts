@@ -1,4 +1,5 @@
 import type { BettererConfigFS } from '../fs/index.js';
+import type { BettererReporterΩ } from './reporter.js';
 import type {
   BettererConfigReporter,
   BettererOptionsReporter,
@@ -13,7 +14,7 @@ import { loadReporters, loadSilentReporter } from './loader.js';
 export async function createReporterConfig(
   configBase: BettererConfigFS,
   options: BettererOptionsReporter
-): Promise<[BettererConfigReporter, BettererReporter]> {
+): Promise<[BettererConfigReporter, BettererReporterΩ]> {
   const { cwd } = configBase;
 
   const logo = options.logo ?? false;

@@ -57,11 +57,14 @@ exports[`betterer > should report the existence of RegExp matches 2`] = `
   "🌟 Betterer (0ms): 1 test running...
 🤔 regexp: running "regexp"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-🔥 regexp: "regexp" got worse. (1 new issue, 1 existing, 2 total) 😔
-",
-  "🌟 Betterer (0ms): 1 test running...
-🔥 regexp: "regexp" got worse. (1 new issue, 1 existing, 2 total) 😔
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
+🤔 regexp: running "regexp"!
+・ 1 existing, 1 new issues in "fixtures/regexp/src/index.ts".
+・
+・   1 | // HACK:
+・ > 2 | // HACK:
+・     | ^^^^^^^ RegExp match
+・
 
 Error: "regexp" got worse. (1 new issue, 1 existing, 2 total) 😔
 ",
@@ -102,9 +105,11 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ regexp: "regexp" met its goal! 🎉
+・ 1 fixed issue in "fixtures/regexp/src/index.ts".
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ regexp: "regexp" met its goal! 🎉
+・ 1 fixed issue in "fixtures/regexp/src/index.ts".
 
 1 test got checked. 🤔
 1 test got better! 😍

@@ -1,6 +1,10 @@
+import type { BettererLogger } from '@betterer/logger';
+
+import type { BettererReporter, BettererReporterΩ } from '../reporters/index.js';
 import type { BettererResult } from '../results/index.js';
 import type { BettererRun, BettererRunSummary } from './types.js';
 
+import { BettererRunLoggerΩ } from './run-logger.js';
 import { BettererRunSummaryΩ } from './run-summary.js';
 
 export class BettererRunObsoleteΩ implements BettererRun {
@@ -12,12 +16,16 @@ export class BettererRunObsoleteΩ implements BettererRun {
   public readonly isRemoved: boolean;
   public readonly isSkipped = false;
   public readonly lifecycle = Promise.withResolvers<BettererRunSummary>();
+  public readonly logger: BettererLogger;
 
   constructor(
+    reporter: BettererReporter,
     public readonly name: string,
     public readonly baseline: BettererResult,
     update = false
   ) {
+    const { runLogger } = reporter as BettererReporterΩ;
+    this.logger = new BettererRunLoggerΩ(runLogger, this);
     this.isRemoved = update;
     this.expected = baseline;
   }
@@ -43,6 +51,7 @@ export class BettererRunObsoleteΩ implements BettererRun {
         isUpdated: false,
         isWorse: false,
         name: this.name,
+        logger: this.logger,
         result: null,
         timestamp: -Infinity
       })

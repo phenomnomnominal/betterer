@@ -115,6 +115,7 @@ export function getRenderOptionsΔ(env = '', options: RenderOptions = {}): Rende
     stderr: getStdErrΔ(),
     stdin: getStdInΔ(),
     stdout: getStdOutΔ(),
+    patchConsole: true,
     ...options
   };
 }

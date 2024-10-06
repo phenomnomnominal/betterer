@@ -29,9 +29,11 @@ exports[`betterer > should work when a test changes and makes the result better 
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got better! (1 fixed issue, 2 remaining) 😍
+・ 1 fixed, 2 existing issues in "fixtures/better-test-change/src/index.ts".
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got better! (1 fixed issue, 2 remaining) 😍
+・ 1 fixed, 2 existing issues in "fixtures/better-test-change/src/index.ts".
 
 1 test got checked. 🤔
 1 test got better! 😍

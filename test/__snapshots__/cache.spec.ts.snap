@@ -118,11 +118,15 @@ exports[`betterer > should write a cache file 7`] = `
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
-",
-  "🌟 Betterer (0ms): 1 test running...
-🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
+🤔 test: running "test"!
+・ 2 existing, 1 new issues in "fixtures/cache/src/index.ts".
+・
+・   1 | // HACK:
+・   2 | // HACK:
+・ > 3 | // HACK:
+・     | ^^^^^^^ RegExp match
+・
 
 Error: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 ",
@@ -165,9 +169,11 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got better! (1 fixed issue, 1 remaining) 😍
+・ 1 fixed, 1 existing issues in "fixtures/cache/src/index.ts".
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got better! (1 fixed issue, 1 remaining) 😍
+・ 1 fixed, 1 existing issues in "fixtures/cache/src/index.ts".
 
 1 test got checked. 🤔
 1 test got better! 😍
@@ -182,9 +188,11 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" met its goal! 🎉
+・ 1 fixed issue in "fixtures/cache/src/index.ts".
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" met its goal! 🎉
+・ 1 fixed issue in "fixtures/cache/src/index.ts".
 
 1 test got checked. 🤔
 1 test got better! 😍

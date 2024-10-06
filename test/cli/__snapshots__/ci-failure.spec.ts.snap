@@ -7,11 +7,8 @@ exports[`betterer ci > should throw an error when a test fails 1`] = `
   "🌟 Betterer: 1 test running...
 🤔 throws: running "throws"!
 ",
-  "🌟 Betterer: 1 test running...
-🔥 throws:
-",
-  "🌟 Betterer: 1 test running...
-🔥 throws:
+  "💥 Betterer: 1 test done! 1 test errored!
+🤔 throws: running "throws"!
 
 Error:
 ",

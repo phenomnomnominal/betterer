@@ -24,11 +24,15 @@ exports[`betterer precommit > should not update the changeset when a test gets w
   "🌟 Betterer: 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer: 1 test running...
-🔥 test: "test" got worse. (1 new issue, 1 existing, 2 total) 😔
-",
-  "🌟 Betterer: 1 test running...
-🔥 test: "test" got worse. (1 new issue, 1 existing, 2 total) 😔
+  "💥 Betterer: 1 test done! 1 test errored!
+🤔 test: running "test"!
+・ 1 existing, 1 new issues in "fixtures/precommit-worse/src/index.ts".
+・
+・   2 | const one = 1;
+・   3 | console.log(one * a);
+・ > 4 | console.log(a * one);
+・     |             ^ The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+・
 
 Error: "test" got worse. (1 new issue, 1 existing, 2 total) 😔
 ",

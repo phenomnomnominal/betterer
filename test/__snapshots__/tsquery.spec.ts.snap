@@ -57,11 +57,14 @@ exports[`betterer > should report the existence of TSQuery matches 2`] = `
   "🌟 Betterer (0ms): 1 test running...
 🤔 tsquery: running "tsquery"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-🔥 tsquery: "tsquery" got worse. (1 new issue, 1 existing, 2 total) 😔
-",
-  "🌟 Betterer (0ms): 1 test running...
-🔥 tsquery: "tsquery" got worse. (1 new issue, 1 existing, 2 total) 😔
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
+🤔 tsquery: running "tsquery"!
+・ 1 existing, 1 new issues in "fixtures/tsquery/src/index.ts".
+・
+・   1 | console.log('foo');
+・ > 2 | console.log('foo');
+・     | ^^^^^^^^^^^ TSQuery match
+・
 
 Error: "tsquery" got worse. (1 new issue, 1 existing, 2 total) 😔
 ",
@@ -102,9 +105,11 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ tsquery: "tsquery" met its goal! 🎉
+・ 1 fixed issue in "fixtures/tsquery/src/index.ts".
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ tsquery: "tsquery" met its goal! 🎉
+・ 1 fixed issue in "fixtures/tsquery/src/index.ts".
 
 1 test got checked. 🤔
 1 test got better! 😍

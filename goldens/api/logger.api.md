@@ -18,7 +18,7 @@ export interface BettererLog {
 }
 
 // @public
-export type BettererLogCode = (codeInfo: BettererLoggerCodeInfo) => Promise<void>;
+export type BettererLogCode = (codeInfo: BettererLoggerCodeInfo) => MaybeAsync<void>;
 
 // @public
 export interface BettererLogger {
@@ -48,7 +48,7 @@ export type BettererLoggerMessage = string;
 export type BettererLoggerMessages = Array<BettererLoggerMessage>;
 
 // @public
-export type BettererLogMessage = (...messages: BettererLoggerMessages) => Promise<void>;
+export type BettererLogMessage = (...messages: BettererLoggerMessages) => MaybeAsync<void>;
 
 // @internal
 export type BettererLogs = Array<BettererLog>;
@@ -64,5 +64,8 @@ export function diffΔ<T>(a: T, b: T, diffOptions: DiffOptions): string | null;
 
 // @internal
 export function logΔ(logs: BettererLogs, logger: BettererLogger): Promise<void>;
+
+// @public
+export type MaybeAsync<T> = T | Promise<T>;
 
 ```

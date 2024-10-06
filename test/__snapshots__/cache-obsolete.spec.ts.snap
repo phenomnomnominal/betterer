@@ -69,9 +69,11 @@ exports[`betterer > should hold onto the cache for an obsolete test until its re
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" met its goal! 🎉
+・ 2 fixed issues in "fixtures/cache-obsolete/src/index.ts".
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" met its goal! 🎉
+・ 2 fixed issues in "fixtures/cache-obsolete/src/index.ts".
 
 1 test got checked. 🤔
 1 test got better! 😍
