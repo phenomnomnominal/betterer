@@ -20,6 +20,10 @@ export async function createContextConfig(options: BettererOptionsContext): Prom
   const strict = options.strict ?? false;
   const update = options.update ?? false;
 
+  if (ci) {
+    process.env.CI = 'true';
+  }
+
   validateBool({ ci });
   validateBool({ precommit });
   validateBool({ strict });

@@ -8,7 +8,7 @@ import { DefaultReporter } from './default/index.js';
 import { WatchReporter } from './watch/index.js';
 
 export const Reporter: FC = function Reporter() {
-  const { context } = useReporterState();
+  const [{ context }] = useReporterState();
 
   const { isRawModeSupported } = useStdin();
 

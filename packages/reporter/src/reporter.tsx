@@ -4,19 +4,53 @@ import type {
   BettererReporter,
   BettererRun,
   BettererRunLogger,
+  BettererRunSummary,
   BettererSuite,
   BettererSuiteSummary
 } from '@betterer/betterer';
-import type { BettererError } from '@betterer/errors';
-import type { BettererLog, BettererLoggerCodeInfo, BettererLoggerMessage } from '@betterer/logger';
+import type { BettererLog, BettererLoggerCodeInfo, BettererLoggerMessage, BettererLogs } from '@betterer/logger';
 import type { FC, Instance } from '@betterer/render';
 
 import type { BettererReporterAction, BettererReporterState } from './state/index.js';
 
+import type { BettererError } from '@betterer/errors';
+import { invariantΔ } from '@betterer/errors';
+import { diffΔ } from '@betterer/logger';
 import { React, getRenderOptionsΔ, render } from '@betterer/render';
+
 import { Error, Reporter } from './components/index.js';
-import { contextEnd, useStore, log, status, suiteEnd, suiteStart } from './state/index.js';
-import { BettererReporterContext } from './state/store.js';
+import { getDelta } from './deltas/index.js';
+import {
+  testBetter,
+  testComplete,
+  testExpired,
+  testFailed,
+  testNew,
+  testObsolete,
+  testRemoved,
+  testRunning,
+  testSame,
+  testSkipped,
+  testUpdated,
+  testWorse
+} from './messages.js';
+import {
+  BettererReporterContext,
+  contextEnd,
+  runEnd,
+  runError,
+  runStart,
+  suiteEnd,
+  suiteStart,
+  useStore
+} from './state/index.js';
+import { quote } from './utils.js';
+import { getPreciseTimeΔ } from '@betterer/time';
+
+const DIFF_OPTIONS = {
+  aAnnotation: 'Expected',
+  bAnnotation: 'Result'
+};
 
 /**
  * @public The default {@link @betterer/betterer#BettererReporter | `BettererReporter`}.
@@ -42,11 +76,16 @@ export function createReporterΔ(): BettererReporter {
   let app: Instance;
   let dispatch: React.Dispatch<BettererReporterAction>;
 
+  let logs: Record<string, BettererLogs> = {};
+  let status: Record<string, BettererLog> = {};
+
   const logger = createLogger((run: BettererRun, message: BettererLog) => {
-    dispatch(log(run, message));
+    const runLogs = logs[run.name] ?? [];
+    runLogs.push(message);
+    logs[run.name] = runLogs;
   });
   const statusLogger = createLogger((run: BettererRun, message: BettererLog) => {
-    dispatch(status(run, message));
+    status[run.name] = message;
   });
 
   const ReporterRoot: FC<BettererReporterState> = (props) => {
@@ -55,7 +94,7 @@ export function createReporterΔ(): BettererReporter {
     [, dispatch] = store;
 
     return (
-      <BettererReporterContext.Provider value={state}>
+      <BettererReporterContext.Provider value={[state, logs, status]}>
         <Reporter />
       </BettererReporterContext.Provider>
     );
@@ -95,11 +134,12 @@ export function createReporterΔ(): BettererReporter {
     contextStart(context: BettererContext): void {
       const initialState = {
         context,
-        done: () => void 0,
-        logs: {},
-        logger,
-        status: {},
-        statusLogger
+
+        done: 0,
+        running: 0,
+        errors: 0,
+        startTime: getPreciseTimeΔ(),
+        endTime: null
       };
       app = render(<ReporterRoot {...initialState} />, renderOptions);
     },
@@ -110,17 +150,91 @@ export function createReporterΔ(): BettererReporter {
     contextError(context: BettererContext, error: BettererError): void {
       renderError(error, context.config.logo);
     },
-    suiteStart(suite: BettererSuite): Promise<void> {
-      return new Promise((resolve) => {
-        dispatch(suiteStart(suite, resolve));
-      });
+    suiteStart(suite: BettererSuite): void {
+      logs = {};
+      status = {};
+      dispatch(suiteStart(suite));
     },
     suiteEnd(suiteSummary: BettererSuiteSummary): void {
       dispatch(suiteEnd(suiteSummary));
+    },
+    async runStart(run: BettererRun): Promise<void> {
+      await statusLogger.progress(run, testRunning(quote(run.name)));
+      dispatch(runStart(run));
+    },
+    async runEnd(runSummary: BettererRunSummary): Promise<void> {
+      await logRunSummary(runSummary);
+      dispatch(runEnd(runSummary));
+    },
+    async runError(run: BettererRun, error: BettererError): Promise<void> {
+      await statusLogger.error(run, error.message);
+      dispatch(runError(run, error));
     }
   };
 
   function renderError(error: BettererError, logo = false): void {
     render(<Error error={error} logo={logo} />, renderOptions);
+  }
+
+  async function logRunSummary(runSummary: BettererRunSummary): Promise<void> {
+    const name = quote(runSummary.name);
+
+    if (runSummary.isExpired) {
+      await logger.warn(runSummary, testExpired(name));
+    }
+
+    if (runSummary.isComplete) {
+      await statusLogger.success(runSummary, testComplete(name, runSummary.isSame));
+      return;
+    }
+
+    const delta = getDelta(runSummary);
+
+    if (runSummary.isBetter) {
+      await statusLogger.success(runSummary, testBetter(name, delta));
+      return;
+    }
+    if (runSummary.isFailed) {
+      invariantΔ(runSummary.error, 'A failed run will always have an `error`!');
+      await statusLogger.error(runSummary, testFailed(name));
+      return;
+    }
+    if (runSummary.isNew) {
+      await statusLogger.success(runSummary, testNew(name, delta));
+      return;
+    }
+    if (runSummary.isObsolete && !runSummary.isRemoved) {
+      await statusLogger.success(runSummary, testObsolete(name));
+      return;
+    }
+    if (runSummary.isRemoved) {
+      await statusLogger.success(runSummary, testRemoved(name));
+      return;
+    }
+    if (runSummary.isSkipped) {
+      await statusLogger.success(runSummary, testSkipped(name, delta));
+      return;
+    }
+    if (runSummary.isSame) {
+      await statusLogger.success(runSummary, testSame(name, delta));
+      return;
+    }
+
+    const { diff, expected, result } = runSummary;
+    if (diff?.diff === null && expected && result) {
+      const diffStr = diffΔ(expected.value, result.value, DIFF_OPTIONS);
+      if (diffStr) {
+        await logger.error(runSummary, diffStr);
+      }
+    }
+
+    if (runSummary.isWorse && !runSummary.isUpdated) {
+      await statusLogger.error(runSummary, testWorse(name, delta));
+      return;
+    }
+    if (runSummary.isUpdated) {
+      await statusLogger.success(runSummary, testUpdated(name, delta));
+      return;
+    }
   }
 }

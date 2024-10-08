@@ -36,6 +36,8 @@ module.exports = {
 exports[`betterer upgrade > should upgrade exported default test in a CJS module 2`] = `
 [
   "🎉 Upgrading Betterer (0ms): 1 task done!
+✅ Upgrading "./.betterer.ts": done!",
+  "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading "./.betterer.ts": done!
 ・
 ・ Betterer can upgrade your test definition file automatically! ✨
@@ -98,6 +100,8 @@ exports[`betterer upgrade > should upgrade exported default test in a CJS module
 ・
 ・ If that looks okay, run \`betterer upgrade --save\` to write the changes to disk. 💾
 ・",
+  "🎉 Upgrading Betterer (0ms): 1 task done!
+✅ Upgrading "./.betterer.ts": done!",
   "🎉 Upgrading Betterer (0ms): 1 task done!
 ✅ Upgrading "./.betterer.ts": done!
 ・ Saved upgraded config to "fixtures/upgrade-exported-default-test-cjs/.betterer.ts"! ☀️",

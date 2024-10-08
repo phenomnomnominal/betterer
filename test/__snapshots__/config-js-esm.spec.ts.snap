@@ -7,9 +7,6 @@ exports[`betterer > should work with a .betterer.js file that uses ES modules 1`
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got checked for the first time! 🎉
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got checked for the first time! 🎉
 ",
@@ -23,9 +20,6 @@ exports[`betterer > should work with a .betterer.js file that uses ES modules 1`
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
-",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got better! 😍
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got better! 😍

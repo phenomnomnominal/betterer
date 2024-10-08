@@ -84,9 +84,6 @@ exports[`betterer > should write a cache file to a different path 7`] = `
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got checked for the first time! (2 issues) 🎉
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got checked for the first time! (2 issues) 🎉
 ",
@@ -100,9 +97,6 @@ exports[`betterer > should write a cache file to a different path 7`] = `
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
-",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" stayed the same. (2 issues) 😐
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" stayed the same. (2 issues) 😐
@@ -119,7 +113,7 @@ exports[`betterer > should write a cache file to a different path 7`] = `
 🤔 test: running "test"!
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
-🤔 test: running "test"!
+🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 ・ 2 existing, 1 new issues in "fixtures/cache-path/src/index.ts".
 ・
 ・   1 | // HACK:
@@ -127,8 +121,6 @@ exports[`betterer > should write a cache file to a different path 7`] = `
 ・ > 3 | // HACK:
 ・     | ^^^^^^^ RegExp match
 ・
-
-Error: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
@@ -139,20 +131,6 @@ Error: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 ・ > 3 | // HACK:
 ・     | ^^^^^^^ RegExp match
 ・
-
-Error: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
-",
-  "💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
-・ 2 existing, 1 new issues in "fixtures/cache-path/src/index.ts".
-・
-・   1 | // HACK:
-・   2 | // HACK:
-・ > 3 | // HACK:
-・     | ^^^^^^^ RegExp match
-・
-
-Error: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 
 1 test got checked. 🤔
 1 test got worse. 😔
@@ -163,9 +141,6 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
-",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got better! (1 fixed issue, 1 remaining) 😍
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got better! (1 fixed issue, 1 remaining) 😍
@@ -182,9 +157,6 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
-",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" met its goal! 🎉
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" met its goal! 🎉

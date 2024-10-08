@@ -75,9 +75,6 @@ exports[`betterer > should remove files from the cache when they are deleted 6`]
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got checked for the first time! (4 issues) 🎉
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got checked for the first time! (4 issues) 🎉
 ",
@@ -91,9 +88,6 @@ exports[`betterer > should remove files from the cache when they are deleted 6`]
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
-",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got better! (2 fixed issues, 2 remaining) 😍
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got better! (2 fixed issues, 2 remaining) 😍
@@ -112,7 +106,7 @@ exports[`betterer > should remove files from the cache when they are deleted 6`]
 🤔 test: running "test"!
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
-🤔 test: running "test"!
+🔥 test: "test" got worse. (2 new issues, 2 existing, 4 total) 😔
 ・ 2 new issues in "fixtures/cache-deleted-file/src/file-2.ts".
 ・ Showing first of 2 new issues:
 ・
@@ -120,8 +114,6 @@ exports[`betterer > should remove files from the cache when they are deleted 6`]
 ・     | ^^^^^^^ RegExp match
 ・   2 | // HACK:
 ・
-
-Error: "test" got worse. (2 new issues, 2 existing, 4 total) 😔
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: "test" got worse. (2 new issues, 2 existing, 4 total) 😔
@@ -132,20 +124,6 @@ Error: "test" got worse. (2 new issues, 2 existing, 4 total) 😔
 ・     | ^^^^^^^ RegExp match
 ・   2 | // HACK:
 ・
-
-Error: "test" got worse. (2 new issues, 2 existing, 4 total) 😔
-",
-  "💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 test: "test" got worse. (2 new issues, 2 existing, 4 total) 😔
-・ 2 new issues in "fixtures/cache-deleted-file/src/file-2.ts".
-・ Showing first of 2 new issues:
-・
-・ > 1 | // HACK:
-・     | ^^^^^^^ RegExp match
-・   2 | // HACK:
-・
-
-Error: "test" got worse. (2 new issues, 2 existing, 4 total) 😔
 
 1 test got checked. 🤔
 1 test got worse. 😔

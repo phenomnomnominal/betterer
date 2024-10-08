@@ -2,10 +2,9 @@ import type { BettererRun } from '@betterer/betterer';
 import type { FC } from '@betterer/render';
 
 import { memo, React } from '@betterer/render';
-import { BettererTaskLogger } from '@betterer/tasks';
+import { BettererTaskResult } from '@betterer/tasks';
 
-import { useTask } from './tasks.js';
-import { useRunReporterState } from './useRunLogger.js';
+import { useReporterState } from '../../state/store.js';
 
 /** @knipignore used by an exported function */
 export interface RunProps {
@@ -13,17 +12,10 @@ export interface RunProps {
 }
 
 export const Run: FC<RunProps> = memo(function Run({ run }) {
-  const [logs, runLogger, status, runStatusLogger] = useRunReporterState(run);
-  const task = useTask(run);
+  const [, logs, status] = useReporterState();
 
-  return (
-    <BettererTaskLogger
-      name={run.name}
-      task={task}
-      existingLogger={runLogger}
-      existingLogs={logs}
-      existingStatus={status}
-      existingStatusLogger={runStatusLogger}
-    />
-  );
+  const runLogs = logs[run.name];
+  const runStatus = status[run.name];
+
+  return <BettererTaskResult error={null} name={run.name} status={runStatus ?? null} logs={runLogs ?? []} />;
 });

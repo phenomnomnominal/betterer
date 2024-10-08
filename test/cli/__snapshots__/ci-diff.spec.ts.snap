@@ -7,9 +7,6 @@ exports[`betterer ci > should add a diff to the suiteSummary if there is any cha
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got checked for the first time! (1 issue) 🎉
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got checked for the first time! (1 issue) 🎉
 ",
@@ -19,18 +16,7 @@ exports[`betterer ci > should add a diff to the suiteSummary if there is any cha
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer:
-",
-  "🌟 Betterer: 1 test running...
-🤔 test: running "test"!
-",
-  "🌟 Betterer: 1 test running...
-✅ test: "test" stayed the same. (1 issue) 😐
-",
-  "🎉 Betterer: 1 test done!
-✅ test: "test" stayed the same. (1 issue) 😐
-",
-  "🎉 Betterer: 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" stayed the same. (1 issue) 😐
 
 1 test got checked. 🤔

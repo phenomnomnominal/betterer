@@ -31,7 +31,7 @@ export interface BettererTaskResultProps {
   /**
    * The final status of the {@link BettererTask | `BettererTask`}.
    */
-  status: BettererLog;
+  status: BettererLog | null;
 }
 
 /**
@@ -41,7 +41,7 @@ export interface BettererTaskResultProps {
  */
 export const BettererTaskResult: FC<BettererTaskResultProps> = memo(function BettererTaskResult(props) {
   const { error, name, logs, status } = props;
-  const hasStatus = Object.keys(status).length !== 0;
+  const hasStatus = status && Object.keys(status).length !== 0;
 
   return (
     <Box flexDirection="column">

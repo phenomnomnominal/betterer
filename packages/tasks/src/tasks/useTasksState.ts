@@ -2,9 +2,9 @@ import { BettererError } from '@betterer/errors';
 import { createContext, useContext, useReducer, useRef } from '@betterer/render';
 import { getPreciseTimeΔ } from '@betterer/time';
 
-export const BettererTasksContext = createContext<[BettererTasksState, BettererTasksAPI] | null>(null);
+export const BettererTasksContext = createContext<BettererTasksAPI | null>(null);
 
-function useTasksContext(): [BettererTasksState, BettererTasksAPI] {
+function useTasksContext(): BettererTasksAPI {
   const context = useContext(BettererTasksContext);
   if (context === null) {
     throw new BettererError('Trying to use `BettererTasksContext` before it was created` 🔥');
@@ -61,16 +61,9 @@ export interface BettererTasksState {
    * @remarks will be `null` until `running` is `0`.
    */
   endTime: number | null;
-  /**
-   * State for each individual running task.
-   */
-  taskState: Record<string, BettererTaskState>;
 }
 
-type BettererTasksAction =
-  | {
-      type: 'reset';
-    }
+type BettererTaskAction =
   | {
       type: 'start';
       name: string;
@@ -85,6 +78,12 @@ type BettererTasksAction =
       error: Error;
     };
 
+type BettererTasksAction =
+  | BettererTaskAction
+  | {
+      type: 'reset';
+    };
+
 /** @knipignore used by an exported function */
 export interface BettererTasksAPI {
   error(name: string, error: Error): void;
@@ -93,7 +92,7 @@ export interface BettererTasksAPI {
 }
 
 export function useTasksState(): [BettererTasksState, BettererTasksAPI] {
-  const [state, dispatch] = useReducer(reducer, getInitialState());
+  const [state, dispatch] = useReducer(tasksReducer, getInitialState());
 
   const api = useRef<BettererTasksAPI>({
     error(name: string, error: Error) {
@@ -110,29 +109,33 @@ export function useTasksState(): [BettererTasksState, BettererTasksAPI] {
   return [state, api.current];
 }
 
-/** @knipignore used by an exported function */
-export interface BettererTaskAPI {
-  error(error: Error): void;
-  start(): void;
-  stop(): void;
-}
-
-export function useTaskState(name: string): [BettererTaskState | null, BettererTaskAPI] {
-  const [tasksState, tasks] = useTasksContext();
-
-  const api = useRef<BettererTaskAPI>({
-    error(error: Error) {
-      tasks.error(name, error);
-    },
-    start() {
-      tasks.start(name);
-    },
-    stop() {
-      tasks.stop(name);
+function tasksReducer(state: BettererTasksState, action: BettererTasksAction): BettererTasksState {
+  switch (action.type) {
+    case 'start': {
+      return {
+        ...state,
+        running: state.running + 1
+      };
     }
-  });
-
-  return [tasksState.taskState[name] ?? null, api.current];
+    case 'stop': {
+      return setEndTime({
+        ...state,
+        running: state.running - 1,
+        done: state.done + 1
+      });
+    }
+    case 'error': {
+      return setEndTime({
+        ...state,
+        running: state.running - 1,
+        done: state.done + 1,
+        errors: state.errors + 1
+      });
+    }
+    default: {
+      return state;
+    }
+  }
 }
 
 function getInitialState(): BettererTasksState {
@@ -141,39 +144,66 @@ function getInitialState(): BettererTasksState {
     done: 0,
     errors: 0,
     startTime: getPreciseTimeΔ(),
-    endTime: null,
-    taskState: {}
+    endTime: null
   };
 }
 
-function reducer(state: BettererTasksState, action: BettererTasksAction): BettererTasksState {
+/** @knipignore used by an exported function */
+export interface BettererTaskAPI {
+  error(error: Error): void;
+  start(): void;
+  stop(): void;
+}
+
+export function useTaskState(name: string): [BettererTaskState | null, BettererTaskAPI] {
+  const [taskState, dispatch] = useReducer(taskReducer, {
+    done: false,
+    error: null,
+    running: false
+  });
+
+  const tasks = useTasksContext();
+
+  const api = useRef<BettererTaskAPI>({
+    error(error: Error) {
+      tasks.error(name, error);
+      dispatch({ type: 'error', name, error });
+    },
+    start() {
+      tasks.start(name);
+      dispatch({ type: 'start', name });
+    },
+    stop() {
+      tasks.stop(name);
+      dispatch({ type: 'stop', name });
+    }
+  });
+
+  return [taskState, api.current];
+}
+
+function taskReducer(state: BettererTaskState, action: BettererTaskAction): BettererTaskState {
   switch (action.type) {
     case 'start': {
-      if (state.endTime) {
-        state = getInitialState();
-      }
       return {
-        ...state,
-        running: state.running + 1,
-        taskState: { ...state.taskState, [action.name]: { running: true, done: false, error: null } }
+        running: true,
+        done: false,
+        error: null
       };
     }
     case 'stop': {
-      return setEndTime({
-        ...state,
-        running: state.running - 1,
-        done: state.done + 1,
-        taskState: { ...state.taskState, [action.name]: { running: false, done: true, error: null } }
-      });
+      return {
+        running: false,
+        done: true,
+        error: null
+      };
     }
     case 'error': {
-      return setEndTime({
-        ...state,
-        running: state.running - 1,
-        done: state.done + 1,
-        errors: state.errors + 1,
-        taskState: { ...state.taskState, [action.name]: { running: false, done: true, error: action.error } }
-      });
+      return {
+        running: false,
+        done: true,
+        error: action.error
+      };
     }
     default: {
       return state;

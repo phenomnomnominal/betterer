@@ -7,9 +7,6 @@ exports[`betterer > should not update the cache file in CI mode when the cache i
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got checked for the first time! (2 issues) 🎉
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got checked for the first time! (2 issues) 🎉
 ",
@@ -19,18 +16,7 @@ exports[`betterer > should not update the cache file in CI mode when the cache i
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer:
-",
-  "🌟 Betterer: 1 test running...
-🤔 test: running "test"!
-",
-  "🌟 Betterer: 1 test running...
-✅ test: "test" stayed the same. (2 issues) 😐
-",
-  "🎉 Betterer: 1 test done!
-✅ test: "test" stayed the same. (2 issues) 😐
-",
-  "🎉 Betterer: 1 test done!
+  "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" stayed the same. (2 issues) 😐
 
 1 test got checked. 🤔
