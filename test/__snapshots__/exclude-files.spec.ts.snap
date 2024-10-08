@@ -42,9 +42,6 @@ exports[`betterer > should exclude specific files from results 3`] = `
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got checked for the first time! (2 issues) 🎉
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got checked for the first time! (2 issues) 🎉
 ",
@@ -58,9 +55,6 @@ exports[`betterer > should exclude specific files from results 3`] = `
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
-",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got better! (1 fixed issue, 1 remaining) 😍
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got better! (1 fixed issue, 1 remaining) 😍

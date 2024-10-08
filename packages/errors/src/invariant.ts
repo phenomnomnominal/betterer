@@ -3,7 +3,9 @@ import assert from 'assert';
 import { BettererError } from './error.js';
 
 /**
- * @internal A slightly fancier assertion for when we're confident about the truthiness
+ * @internal This could change at any point! Please don't use!
+ *
+ * A slightly fancier assertion for when we're confident about the truthiness
  * of some value.
  *
  * @remarks Useful for validating indexed access.

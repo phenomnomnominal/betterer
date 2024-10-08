@@ -33,8 +33,6 @@ exports[`betterer > should run tests in workers 1`] = `
 ・ > 2 | // HACK
 ・     | ^^^^^^^ RegExp match
 ・
-
-Error: "test 4" got worse. (1 new issue, 1 existing, 2 total) 😔
 ",
   "💥 Betterer (0ms): 4 tests done! 1 test errored!
 ✅ test 1: "test 1" stayed the same. 😐
@@ -48,8 +46,6 @@ Error: "test 4" got worse. (1 new issue, 1 existing, 2 total) 😔
 ・ > 2 | // HACK
 ・     | ^^^^^^^ RegExp match
 ・
-
-Error: "test 4" got worse. (1 new issue, 1 existing, 2 total) 😔
 
 4 tests got checked. 🤔
 1 test got better! 😍

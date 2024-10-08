@@ -7,9 +7,6 @@ exports[`betterer > should report the status of the TypeScript compiler when the
   "🌟 Betterer (0ms): 1 test running...
 🤔 typescript: running "typescript"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ typescript: "typescript" got checked for the first time! (1 issue) 🎉
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: "typescript" got checked for the first time! (1 issue) 🎉
 ",

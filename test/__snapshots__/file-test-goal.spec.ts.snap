@@ -24,9 +24,6 @@ exports[`betterer > should let you override the goal of a file test 2`] = `
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got checked for the first time! (2 issues) 🎉
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got checked for the first time! (2 issues) 🎉
 ",
@@ -40,9 +37,6 @@ exports[`betterer > should let you override the goal of a file test 2`] = `
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
-",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" stayed the same. (2 issues) 😐
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" stayed the same. (2 issues) 😐
@@ -59,7 +53,7 @@ exports[`betterer > should let you override the goal of a file test 2`] = `
 🤔 test: running "test"!
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
-🤔 test: running "test"!
+🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 ・ 2 existing, 1 new issues in "fixtures/file-test-goal/src/index.ts".
 ・
 ・   1 | debugger;
@@ -67,8 +61,6 @@ exports[`betterer > should let you override the goal of a file test 2`] = `
 ・ > 3 | debugger;
 ・     | ^^^^^^^^^ Unexpected 'debugger' statement.
 ・
-
-Error: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
@@ -79,20 +71,6 @@ Error: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 ・ > 3 | debugger;
 ・     | ^^^^^^^^^ Unexpected 'debugger' statement.
 ・
-
-Error: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
-",
-  "💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 test: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
-・ 2 existing, 1 new issues in "fixtures/file-test-goal/src/index.ts".
-・
-・   1 | debugger;
-・   2 | debugger;
-・ > 3 | debugger;
-・     | ^^^^^^^^^ Unexpected 'debugger' statement.
-・
-
-Error: "test" got worse. (1 new issue, 2 existing, 3 total) 😔
 
 1 test got checked. 🤔
 1 test got worse. 😔
@@ -103,9 +81,6 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
-",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" met its goal! 🎉
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" met its goal! 🎉
@@ -123,9 +98,6 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
-",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" has already met its goal! ✨
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" has already met its goal! ✨

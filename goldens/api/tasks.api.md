@@ -30,10 +30,6 @@ export const BettererTaskLogger: FC<BettererTaskLoggerProps>;
 
 // @internal
 export interface BettererTaskLoggerProps {
-    existingLogger?: BettererLogger;
-    existingLogs?: BettererLogs;
-    existingStatus?: BettererLog;
-    existingStatusLogger?: BettererLogger;
     name: string;
     task: BettererTask;
 }
@@ -46,21 +42,26 @@ export interface BettererTaskResultProps {
     error: Error | null;
     logs: BettererLogs;
     name: string;
-    status: BettererLog;
+    status: BettererLog | null;
 }
-
-// @internal
-export type BettererTasksDone = () => void;
 
 // @internal
 export const BettererTasksLogger: FC<BettererTasksLoggerProps>;
 
 // @internal
 export type BettererTasksLoggerProps = PropsWithChildren<{
-    done?: BettererTasksDone;
     exit?: boolean;
     name: string;
-    timer?: boolean;
+    update?: BettererTasksStatusUpdate;
+}>;
+
+// @internal
+export const BettererTasksResult: FC<BettererTasksResultProps>;
+
+// @internal
+export type BettererTasksResultProps = PropsWithChildren<BettererTasksState & {
+    name: string;
+    time: number;
     update?: BettererTasksStatusUpdate;
 }>;
 
@@ -71,7 +72,6 @@ export interface BettererTasksState {
     errors: number;
     running: number;
     startTime: number;
-    taskState: Record<string, BettererTaskState>;
 }
 
 // @internal
@@ -83,5 +83,8 @@ export interface BettererTaskState {
     error: Error | null;
     running: boolean;
 }
+
+// @internal
+export function useTimer(): number;
 
 ```

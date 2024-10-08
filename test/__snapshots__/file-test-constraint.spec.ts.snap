@@ -25,9 +25,6 @@ exports[`betterer > should let you override the constraint of a file test 2`] = 
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got checked for the first time! (2 issues) 🎉
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got checked for the first time! (2 issues) 🎉
 ",
@@ -41,9 +38,6 @@ exports[`betterer > should let you override the constraint of a file test 2`] = 
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
-",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" stayed the same. (1 new issue, 2 existing, 3 total) 😐
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" stayed the same. (1 new issue, 2 existing, 3 total) 😐

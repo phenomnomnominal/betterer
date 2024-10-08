@@ -47,9 +47,6 @@ exports[`betterer > should hold onto the cache for an obsolete test until its re
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got checked for the first time! (2 issues) 🎉
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got checked for the first time! (2 issues) 🎉
 ",
@@ -63,9 +60,6 @@ exports[`betterer > should hold onto the cache for an obsolete test until its re
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
-",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" met its goal! 🎉
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" met its goal! 🎉
@@ -84,9 +78,6 @@ exports[`betterer > should hold onto the cache for an obsolete test until its re
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" is obsolete! 🗑️
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" is obsolete! 🗑️
 ",
@@ -102,9 +93,6 @@ You have saved tests results that no longer have tests! If they are no longer ne
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
-",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got removed! 👋🏻
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got removed! 👋🏻

@@ -39,9 +39,6 @@ exports[`betterer > should stay the same when a file is moved 3`] = `
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got checked for the first time! (1 issue) 🎉
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got checked for the first time! (1 issue) 🎉
 ",
@@ -55,9 +52,6 @@ exports[`betterer > should stay the same when a file is moved 3`] = `
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
-",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" stayed the same. (1 issue) 😐
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" stayed the same. (1 issue) 😐

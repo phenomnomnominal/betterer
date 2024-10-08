@@ -7,9 +7,6 @@ exports[`betterer > should report an improved file coverage result 1`] = `
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got checked for the first time! 🎉
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got checked for the first time! 🎉
 ",
@@ -24,9 +21,6 @@ exports[`betterer > should report an improved file coverage result 1`] = `
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got better! 😍
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got better! 😍
 ・ "lines" coverage is worse in "src/file-1.ts": 50 > 40
@@ -45,9 +39,6 @@ exports[`betterer > should report an improved file coverage result 1`] = `
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got better! 😍
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got better! 😍
 ・ new file: src/file-1.ts
@@ -65,9 +56,6 @@ exports[`betterer > should report an improved file coverage result 1`] = `
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
-",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" met its goal! 🎉
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" met its goal! 🎉

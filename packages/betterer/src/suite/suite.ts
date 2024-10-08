@@ -57,12 +57,20 @@ export class BettererSuiteΩ implements BettererSuite {
 
     const runSummaries = await Promise.all(
       this.runs.map(async (run) => {
+        const { config, reporter, versionControl } = getGlobals();
+        const reporterΩ = reporter as BettererReporterΩ;
+
         if (run.isObsolete) {
           const runObsoleteΩ = run as BettererRunObsoleteΩ;
+
+          const reportRunStart = reporterΩ.runStart(runObsoleteΩ, runObsoleteΩ.lifecycle.promise);
+
           const runSummary = await runObsoleteΩ.run();
           runObsoleteΩ.lifecycle.resolve(runSummary);
 
-          const { config, versionControl } = getGlobals();
+          await reportRunStart;
+          await reporterΩ.runEnd(runSummary);
+
           if (runObsoleteΩ.isRemoved && config.cache) {
             await versionControl.api.clearCache(runObsoleteΩ.name);
           }
@@ -72,7 +80,6 @@ export class BettererSuiteΩ implements BettererSuite {
 
         const runΩ = run as BettererRunΩ;
 
-        const { config } = getGlobals();
         const { filters } = config;
 
         // This is all a bit backwards because "filters" is named badly.
@@ -106,9 +113,6 @@ export class BettererSuiteΩ implements BettererSuite {
 
         const isOtherTestOnly = hasOnly && !runΩ.isOnly;
         const isFiltered = (hasFilters && !isSelected) || isOtherTestOnly;
-
-        const { reporter, versionControl } = getGlobals();
-        const reporterΩ = reporter as BettererReporterΩ;
 
         // Don't await here! A custom reporter could be awaiting
         // the lifecycle promise which is unresolved right now!
@@ -145,6 +149,10 @@ export class BettererSuiteΩ implements BettererSuite {
           // the result of `reporter.runStart`:
           await reportRunStart;
           await reporterΩ.runEnd(runSummary);
+        }
+
+        if (runSummary.isFailed || (runSummary.isWorse && !runSummary.isUpdated)) {
+          process.exitCode = 1;
         }
         return runSummary;
       })

@@ -1,7 +1,8 @@
 import type { BettererContext, BettererSuiteSummary } from '@betterer/betterer';
 import type { FC, TextProps } from '@betterer/render';
 
-import { React, Box, Text, memo } from '@betterer/render';
+import { Box, React, Text, memo } from '@betterer/render';
+import { BettererTasksResult } from '@betterer/tasks';
 
 import {
   testsBetter,
@@ -18,9 +19,12 @@ import {
   testsWorse,
   unexpectedChanges,
   unexpectedChangesInstructions,
-  updateInstructionsWorse,
-  updateInstructionsObsolete
+  updateInstructionsObsolete,
+  updateInstructionsWorse
 } from '../../messages.js';
+import { useReporterState } from '../../state/index.js';
+import { RunSummary } from './RunSummary.js';
+import { update } from './update.js';
 
 /** @knipignore used by an exported function */
 export interface SuiteSummaryProps {
@@ -47,6 +51,8 @@ const TEXT_COLOURS: Record<TestCategories, TextProps['color']> = {
 };
 
 export const SuiteSummary: FC<SuiteSummaryProps> = memo(function SuiteSummary({ context, suiteSummary }) {
+  const [state] = useReporterState();
+
   function getColor(name: TestCategories): TextProps['color'] {
     return TEXT_COLOURS[name];
   }
@@ -56,8 +62,21 @@ export const SuiteSummary: FC<SuiteSummaryProps> = memo(function SuiteSummary({ 
     return count ? <Text color={getColor(name)}>{getMessage(count)}</Text> : null;
   }
 
+  const { endTime } = state;
+
+  if (endTime == null) {
+    return null;
+  }
+
   return (
     <>
+      <Box flexDirection="column" paddingBottom={1}>
+        <BettererTasksResult {...state} name="Betterer" time={endTime} update={update}>
+          {suiteSummary.runSummaries.map((runSummary) => (
+            <RunSummary key={runSummary.name} runSummary={runSummary} />
+          ))}
+        </BettererTasksResult>
+      </Box>
       <Box flexDirection="column" paddingBottom={1}>
         <Text color={getColor('ran')}>{testsChecked(suiteSummary.ran.length)}</Text>
         {showIfHasCategory('new', testsNew)}

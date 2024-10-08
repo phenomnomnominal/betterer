@@ -2,11 +2,7 @@ import type { BettererLogger, BettererLoggerCodeInfo, BettererLoggerMessage, Bet
 
 import { useRef, useState } from '@betterer/render';
 
-export function useTaskLogs(
-  existing: [existingLogs: BettererLogs, existingLogger: BettererLogger] | []
-): [BettererLogs, BettererLogger] {
-  const [existingLogs, existingLogger] = existing;
-
+export function useTaskLogs(): [BettererLogs, BettererLogger] {
   const [logs, setLogs] = useState<BettererLogs>([]);
 
   const logger = useRef({
@@ -33,5 +29,5 @@ export function useTaskLogs(
     }
   });
 
-  return [existingLogs ?? logs, existingLogger ?? logger.current];
+  return [logs, logger.current];
 }

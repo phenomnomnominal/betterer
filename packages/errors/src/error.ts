@@ -28,7 +28,9 @@ export class BettererError extends Error {
 }
 
 /**
- * @internal Check if an object is a {@link BettererError | `BettererError`}.
+ * @internal This could change at any point! Please don't use!
+ *
+ * Check if an object is a {@link BettererError | `BettererError`}.
  *
  * @example
  * ```typescript

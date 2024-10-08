@@ -1,21 +1,9 @@
-import type {
-  BettererContext,
-  BettererContextSummary,
-  BettererRunLogger,
-  BettererSuite,
-  BettererSuiteSummary
-} from '@betterer/betterer';
-import type { BettererTasksDone } from '@betterer/tasks';
-import type { BettererLog, BettererLogs } from '@betterer/logger';
+import type { BettererContext, BettererContextSummary, BettererSuite, BettererSuiteSummary } from '@betterer/betterer';
+import type { BettererTasksState } from '@betterer/tasks';
 
-export interface BettererReporterState {
+export interface BettererReporterState extends BettererTasksState {
   context: BettererContext;
   contextSummary?: BettererContextSummary;
-  done?: BettererTasksDone;
-  logs: Record<string, BettererLogs>;
-  logger: BettererRunLogger;
-  status: Record<string, BettererLog>;
-  statusLogger: BettererRunLogger;
   suite?: BettererSuite;
   suiteSummary?: BettererSuiteSummary;
 }

@@ -13,7 +13,9 @@ export type BettererFileIssueSerialised = [line: number, column: number, length:
 export type BettererFileIssuesSerialised = ReadonlyArray<BettererFileIssueSerialised>;
 
 /**
- * @internal The properties that create a key for a specific issue on a serialised BettererFileTestResult
+ * @internal This could change at any point! Please don't use!
+ *
+ * The properties that create a key for a specific issue on a serialised BettererFileTestResult
  */
 export interface BettererFileTestResultKeyParts {
   relativePath: string;

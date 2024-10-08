@@ -22,9 +22,6 @@ exports[`betterer > should report the total coverage 2`] = `
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got checked for the first time! 🎉
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got checked for the first time! 🎉
 ",
@@ -39,9 +36,6 @@ exports[`betterer > should report the total coverage 2`] = `
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" stayed the same. 😐
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" stayed the same. 😐
 ",
@@ -55,9 +49,6 @@ exports[`betterer > should report the total coverage 2`] = `
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
-",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got better! 😍
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got better! 😍
@@ -78,25 +69,14 @@ exports[`betterer > should report the total coverage 2`] = `
 🤔 test: running "test"!
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
-🤔 test: running "test"!
+🔥 test: "test" got worse. 😔
 ・ "branches" coverage is better in "total": 200 < 210
 ・ "branches" coverage is worse in "total": 210 > 200
-
-Error: "test" got worse. 😔
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
 🔥 test: "test" got worse. 😔
 ・ "branches" coverage is better in "total": 200 < 210
 ・ "branches" coverage is worse in "total": 210 > 200
-
-Error: "test" got worse. 😔
-",
-  "💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 test: "test" got worse. 😔
-・ "branches" coverage is better in "total": 200 < 210
-・ "branches" coverage is worse in "total": 210 > 200
-
-Error: "test" got worse. 😔
 
 1 test got checked. 🤔
 1 test got worse. 😔

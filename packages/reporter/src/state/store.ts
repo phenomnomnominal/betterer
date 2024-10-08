@@ -3,14 +3,20 @@ import type { BettererLog, BettererLogs } from '@betterer/logger';
 import type { BettererReporterAction } from './actions.js';
 import type { BettererReporterState } from './types.js';
 
+import { BettererError } from '@betterer/errors';
 import { createContext, useContext, useReducer } from '@betterer/render';
+import { getPreciseTimeΔ } from '@betterer/time';
 
-import { CONTEXT_END, LOG, STATUS, SUITE_END, SUITE_START } from './actions.js';
-import { BettererError, invariantΔ } from '@betterer/errors';
+import { CONTEXT_END, RUN_END, RUN_ERROR, RUN_START, SUITE_END, SUITE_START } from './actions.js';
 
-export const BettererReporterContext = createContext<BettererReporterState | null>(null);
+type BettererReporterLogs = Record<string, BettererLogs>;
+type BettererReporterStatus = Record<string, BettererLog>;
 
-export function useReporterState(): BettererReporterState {
+export const BettererReporterContext = createContext<
+  [BettererReporterState, BettererReporterLogs, BettererReporterStatus] | null
+>(null);
+
+export function useReporterState(): [BettererReporterState, BettererReporterLogs, BettererReporterStatus] {
   const context = useContext(BettererReporterContext);
   if (context === null) {
     throw new BettererError('Trying to use `BettererReporterContext` before it was created` 🔥');
@@ -29,29 +35,52 @@ export function useStore(
           contextSummary: action.contextSummary
         };
       }
-      case LOG: {
-        const { name } = action.run;
-        const runLogs = state.logs[name];
-        invariantΔ(runLogs, '`logs[run.name]` should have been initialised in the `suiteStart` action!');
+
+      case RUN_END: {
+        const { runSummary } = action;
+
+        // `isFailed` will be handled by `RUN_ERROR`:
+        const error = runSummary.isWorse && !runSummary.isUpdated;
+        const running = state.running - 1;
+        const allDone = running === 0;
+
         return {
           ...state,
-          logs: { ...state.logs, [name]: [...runLogs, action.log] }
+
+          running,
+          done: state.done + 1,
+          errors: state.errors + (error ? 1 : 0),
+          endTime: allDone ? getPreciseTimeΔ() : null
         };
       }
-      case STATUS: {
-        const { name } = action.run;
+
+      case RUN_ERROR: {
+        const running = state.running - 1;
+        const allDone = running === 0;
+
         return {
           ...state,
-          status: { ...state.status, [name]: action.status }
+          running,
+          done: state.done + 1,
+          errors: state.errors + 1,
+          endTime: allDone ? getPreciseTimeΔ() : null
         };
       }
+
+      case RUN_START: {
+        return {
+          ...state,
+          running: state.running + 1
+        };
+      }
+
       case SUITE_END: {
         return {
           ...state,
-          suite: void 0,
           suiteSummary: action.suiteSummary
         };
       }
+
       case SUITE_START: {
         const runsLogs: Record<string, BettererLogs> = {};
         const runsStatus: Record<string, BettererLog> = {};
@@ -62,11 +91,14 @@ export function useStore(
 
         return {
           ...state,
-          done: action.done,
-          logs: { ...state.logs, ...runsLogs },
-          status: { ...state.status, ...runsStatus },
           suite: action.suite,
-          suiteSummary: void 0
+          suiteSummary: void 0,
+
+          done: 0,
+          running: 0,
+          errors: 0,
+          startTime: getPreciseTimeΔ(),
+          endTime: null
         };
       }
     }
