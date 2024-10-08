@@ -3,10 +3,12 @@ import { getPreciseTimeΔ } from '@betterer/time';
 
 const DEFAULT_TASK_TIME_INTERVAL = 100;
 
-/** @knipignore used by an exported function */
-export type BettererTimerClear = () => void;
-
-export function useTimer(enable = true): [number, BettererTimerClear] {
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * @returns the number of milliseconds since the timer started.
+ */
+export function useTimer(): number {
   const timer = useRef<NodeJS.Timeout | null>(null);
   const [time, setTime] = useState(getPreciseTimeΔ());
 
@@ -21,13 +23,10 @@ export function useTimer(enable = true): [number, BettererTimerClear] {
   }, []);
 
   useEffect(() => {
-    if (!enable) {
-      return;
-    }
     timer.current = setInterval(updateTime, DEFAULT_TASK_TIME_INTERVAL);
     updateTime();
     return clearTime;
   }, [updateTime, clearTime]);
 
-  return [time, clearTime];
+  return time;
 }

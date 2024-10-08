@@ -1,12 +1,10 @@
 import type { FixtureLogging, FixtureLogsMap, FixtureOptions } from './types.js';
 
-import path from 'node:path';
-
 import { getStdOutΔ } from '@betterer/render';
 import ansiRegex from 'ansi-regex';
+import path from 'node:path';
 
 const ANSI_REGEX = ansiRegex();
-const PROJECT_REGEXP = new RegExp(normalisedPath(process.cwd()), 'g');
 const STACK_TRACK_LINE_REGEXP = /^\s+at\s+/;
 
 const FIXTURE_LOGS_MAP: FixtureLogsMap = {};
@@ -27,11 +25,7 @@ export function createFixtureLogs(fixtureName: string, options: FixtureOptions =
       }
       const lines = message.replace(/\r/g, '').split('\n');
       const filteredLines = lines.filter((line) => !isStackTraceLine(line));
-      const formattedLines = filteredLines.map((line) => {
-        line = replaceProjectPath(normalisedPath(line));
-        line = line.trimEnd();
-        return line;
-      });
+      const formattedLines = filteredLines.map((line) => line.trimEnd()).map((line) => normaliseSlashes(line));
       message = formattedLines.join('\n');
       const trimmed = message.trim();
       if (trimmed.length === 0) {
@@ -76,10 +70,8 @@ function isFiltered(str: string, options: FixtureOptions): boolean {
   return filters.some((filter) => !!filter.exec(str));
 }
 
-function replaceProjectPath(str: string): string {
-  return str.replace(PROJECT_REGEXP, '<project>');
-}
-
-function normalisedPath(str: string): string {
-  return str.split(path.win32.sep).join(path.posix.sep);
+// If a log contains *any* \ characters, swap it with /, regardless of OS.
+// This has some false negative, but it just makes it easier.
+function normaliseSlashes(line: string): string {
+  return line.split(path.win32.sep).join(path.posix.sep);
 }

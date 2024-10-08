@@ -1,8 +1,8 @@
 import type { BettererError } from '@betterer/errors';
 import type { BettererOptions } from './api/index.js';
 import type { BettererConfig } from './config/types.js';
-import type { BettererVersionControlWorker } from './fs/index.js';
-import type { BettererReporterΩ } from './reporters/index.js';
+import type { BettererFileResolver, BettererVersionControlWorker } from './fs/index.js';
+import type { BettererReporter } from './reporters/index.js';
 import type { BettererResultsWorker } from './results/index.js';
 import type { BettererRunWorkerPool } from './run/types.js';
 import type { BettererOptionsWatcher } from './runner/index.js';
@@ -12,19 +12,35 @@ import { invariantΔ } from '@betterer/errors';
 import { importWorkerΔ } from '@betterer/worker';
 
 import { createContextConfig, enableMode } from './context/index.js';
-import { createFSConfig } from './fs/index.js';
+import { BettererFileResolverΩ, createFSConfig } from './fs/index.js';
 import { createReporterConfig, loadDefaultReporter } from './reporters/index.js';
 import { createRunWorkerPool } from './run/index.js';
 import { createWatcherConfig } from './runner/index.js';
 
+class BettererGlobalResolvers {
+  public cwd: BettererFileResolver;
+
+  public constructor(config: BettererConfig) {
+    this.cwd = new BettererFileResolverΩ(config.cwd);
+  }
+}
+
 class BettererGlobals {
+  public readonly resolvers: BettererGlobalResolvers = new BettererGlobalResolvers(this.config);
+
   constructor(
     public readonly config: BettererConfig,
+    public readonly _reporter: BettererReporter | null,
     public readonly results: BettererResultsWorker,
-    private _runWorkerPool: BettererRunWorkerPool | null,
-    private _testMetaLoader: BettererTestMetaLoaderWorker | null,
+    private readonly _runWorkerPool: BettererRunWorkerPool | null,
+    private readonly _testMetaLoader: BettererTestMetaLoaderWorker | null,
     public readonly versionControl: BettererVersionControlWorker
   ) {}
+
+  public get reporter(): BettererReporter {
+    invariantΔ(this._reporter, `\`reporter\` should only be accessed on the main thread!`);
+    return this._reporter;
+  }
 
   public get runWorkerPool(): BettererRunWorkerPool {
     invariantΔ(this._runWorkerPool, `\`runWorkerPool\` should only be accessed on the main thread!`);
@@ -43,44 +59,36 @@ export async function createGlobals(
   options: BettererOptions,
   optionsWatch: BettererOptionsWatcher = {}
 ): Promise<void> {
-  let reporter = await loadDefaultReporter();
+  let errorReporter = await loadDefaultReporter();
 
   try {
     const configContext = await createContextConfig(options);
     const configFS = await createFSConfig(options);
-    const configReporter = await createReporterConfig(configFS, options);
-    const configWatcher = createWatcherConfig(configFS, optionsWatch);
 
-    const { cache, cachePath, configPaths, cwd, resultsPath } = configFS;
+    const [configReporter, reporter] = await createReporterConfig(configFS, options);
+    errorReporter = reporter;
+
+    const configWatcher = createWatcherConfig(configFS, optionsWatch);
 
     const results: BettererResultsWorker = await importWorkerΔ('./results/results.worker.js');
     const versionControl: BettererVersionControlWorker = await importWorkerΔ('./fs/version-control.worker.js');
     const testMetaLoader: BettererTestMetaLoaderWorker = await importWorkerΔ('./test/test-meta/loader.worker.js');
 
-    try {
-      await results.api.init(resultsPath);
-      const versionControlPath = await versionControl.api.init(configPaths, cwd);
-      if (cache) {
-        await versionControl.api.enableCache(cachePath);
-      }
-      const config = enableMode({
-        ...configContext,
-        ...configFS,
-        ...configReporter,
-        ...configWatcher,
-        versionControlPath
-      });
-      reporter = config.reporter;
+    const config = enableMode({
+      ...configContext,
+      ...configFS,
+      ...configReporter,
+      ...configWatcher
+    });
 
-      const runWorkerPool = await createRunWorkerPool(config.workers);
+    await results.api.init(config);
+    await versionControl.api.init(config);
 
-      setGlobals(config, results, runWorkerPool, testMetaLoader, versionControl);
-    } catch (error) {
-      await Promise.all([results.destroy(), testMetaLoader.destroy(), versionControl.destroy()]);
-      throw error;
-    }
+    const runWorkerPool = await createRunWorkerPool(config.workers);
+
+    setGlobals(config, reporter, results, runWorkerPool, testMetaLoader, versionControl);
   } catch (error) {
-    const reporterΩ = reporter as BettererReporterΩ;
+    const reporterΩ = errorReporter;
     await reporterΩ.configError(options, error as BettererError);
     throw error;
   }
@@ -97,6 +105,6 @@ export function setGlobals(...globals: ConstructorParameters<typeof BettererGlob
 
 export async function destroyGlobals(): Promise<void> {
   const { results, runWorkerPool, testMetaLoader, versionControl } = getGlobals();
-  GLOBAL_CONTAINER = null;
   await Promise.all([results.destroy(), runWorkerPool.destroy(), testMetaLoader.destroy(), versionControl.destroy()]);
+  GLOBAL_CONTAINER = null;
 }

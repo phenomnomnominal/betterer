@@ -1,17 +1,17 @@
 import type { FSWatcher } from 'chokidar';
 
-import type { BettererConfig } from '../config/index.js';
-
 import { watch } from 'chokidar';
 import minimatch from 'minimatch';
 import path from 'node:path';
 
 import { isTempFilePath } from '../fs/index.js';
+import { getGlobals } from '../globals.js';
 import { normalisedPath } from '../utils.js';
 
 export const WATCHER_EVENTS = ['add', 'change'];
 
-export async function createWatcher(config: BettererConfig): Promise<FSWatcher | null> {
+export async function createWatcher(): Promise<FSWatcher | null> {
+  const { config } = getGlobals();
   if (!config.watch) {
     return null;
   }

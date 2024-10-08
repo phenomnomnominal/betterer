@@ -1,16 +1,17 @@
-import type { BettererFilePath } from '../fs/index.js';
+import type { BettererConfig } from '../config/types.js';
 import type { BettererTestNames } from '../test/index.js';
 import type { BettererResultsSerialised } from './types.js';
 
 import { invariantΔ } from '@betterer/errors';
 import { exposeToMainΔ } from '@betterer/worker';
+
 import { BettererResultsΩ } from './results.js';
 
 let results: BettererResultsΩ | null = null;
 
 /** @knipignore part of worker API */
-export async function init(resultsPath: BettererFilePath): Promise<void> {
-  results = await BettererResultsΩ.create(resultsPath);
+export async function init(config: BettererConfig): Promise<void> {
+  results = await BettererResultsΩ.create(config.resultsPath);
 }
 
 /** @knipignore part of worker API */
@@ -38,9 +39,9 @@ export function hasBaseline(testName: string): boolean {
 }
 
 /** @knipignore part of worker API */
-export function write(result: BettererResultsSerialised): Promise<string | null> {
+export async function write(result: BettererResultsSerialised): Promise<string | null> {
   checkInitialised(results);
-  return results.write(result);
+  return await results.write(result);
 }
 
 function checkInitialised(results: BettererResultsΩ | null): asserts results is BettererResultsΩ {

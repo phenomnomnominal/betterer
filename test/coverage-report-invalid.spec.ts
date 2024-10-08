@@ -6,7 +6,7 @@ describe('betterer', () => {
   it('should fail when the coverage report is invalid', async () => {
     const { betterer } = await import('@betterer/betterer');
 
-    const fixture = await createFixture('coverage-report-invalid', {
+    const { paths, logs, cleanup, resolve, testNames, writeFile } = await createFixture('coverage-report-invalid', {
       '.betterer.js': `
 import { coverageTotal } from '@betterer/coverage';
 
@@ -30,18 +30,18 @@ export default {
   }
 }`;
 
-    const configPaths = [fixture.paths.config];
-    const resultsPath = fixture.paths.results;
-    const coveragePath = fixture.resolve('./coverage/coverage-summary.json');
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+    const coveragePath = resolve('./coverage/coverage-summary.json');
 
-    await fixture.writeFile(coveragePath, coverage);
+    await writeFile(coveragePath, coverage);
 
     const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(fixture.testNames(newTestRun.failed)).toEqual(['test']);
+    expect(testNames(newTestRun.failed)).toEqual(['test']);
 
-    expect(fixture.logs).toMatchSnapshot();
+    expect(logs).toMatchSnapshot();
 
-    await fixture.cleanup();
+    await cleanup();
   });
 });

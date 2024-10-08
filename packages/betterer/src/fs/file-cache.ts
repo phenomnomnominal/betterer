@@ -40,27 +40,26 @@ const BETTERER_CACHE_VERSION = 2;
 // Of course the actual test itself could have changed so ... 🤷‍♂️
 
 export class BettererFileCacheΩ implements BettererFileCache {
-  private _cachePath: string | null = null;
   private _fileHashMap: BettererFileHashMap = new Map();
   private _memoryCacheMap: BettererTestCacheMap = new Map();
-  private _reading: Promise<string | null> | null = null;
 
-  constructor(private _configPaths: BettererFilePaths) {}
+  private constructor(
+    private _cachePath: string,
+    private _configPaths: BettererFilePaths,
+    cacheJson: string | null
+  ) {
+    this._memoryCacheMap = this._readCache(cacheJson);
+  }
+
+  public static async create(cachePath: string, configPaths: BettererFilePaths): Promise<BettererFileCacheΩ> {
+    return new BettererFileCacheΩ(cachePath, configPaths, await read(cachePath));
+  }
 
   public clearCache(testName: string): void {
     this._memoryCacheMap.delete(testName);
   }
 
-  public async enableCache(cachePath: string): Promise<void> {
-    this._cachePath = cachePath;
-    this._memoryCacheMap = await this._readCache(this._cachePath);
-  }
-
   public async writeCache(): Promise<void> {
-    if (!this._cachePath) {
-      return;
-    }
-
     // Clean up any expired cache entries before writing to disk:
     [...this._memoryCacheMap.entries()].forEach(([, fileHashMap]) => {
       [...fileHashMap.entries()].forEach(([filePath]) => {
@@ -76,7 +75,6 @@ export class BettererFileCacheΩ implements BettererFileCache {
     [...this._memoryCacheMap.entries()].forEach(([testName, absoluteFileHashMap]) => {
       const relativeFileHashMap: BettererFileHashMapSerialised = {};
       [...absoluteFileHashMap.entries()].forEach(([absoluteFilePath, hash]) => {
-        invariantΔ(this._cachePath, `\`this._cachePath\` should have been validated above!`, this._cachePath);
         const relativePath = normalisedPath(path.relative(path.dirname(this._cachePath), absoluteFilePath));
         relativeFileHashMap[relativePath] = hash;
       });
@@ -88,10 +86,6 @@ export class BettererFileCacheΩ implements BettererFileCache {
   }
 
   public filterCached(testName: string, filePaths: BettererFilePaths): BettererFilePaths {
-    if (!this._cachePath) {
-      return filePaths;
-    }
-
     const testCache = this._memoryCacheMap.get(testName) ?? (new Map() as BettererTestCacheMap);
     return filePaths.filter((filePath) => {
       const hash = this._fileHashMap.get(filePath);
@@ -108,10 +102,6 @@ export class BettererFileCacheΩ implements BettererFileCache {
   }
 
   public updateCache(testName: string, filePaths: BettererFilePaths): void {
-    if (!this._cachePath) {
-      return;
-    }
-
     if (!this._memoryCacheMap.get(testName)) {
       this._memoryCacheMap.set(testName, new Map());
     }
@@ -138,9 +128,6 @@ export class BettererFileCacheΩ implements BettererFileCache {
   }
 
   public setHashes(newHashes: BettererFileHashMap): void {
-    if (!this._cachePath) {
-      return;
-    }
     const configHash = this._getConfigHash(newHashes);
     this._fileHashMap = new Map();
     [...newHashes.entries()].forEach(([absolutePath, hash]) => {
@@ -148,17 +135,12 @@ export class BettererFileCacheΩ implements BettererFileCache {
     });
   }
 
-  private async _readCache(cachePath: string): Promise<BettererTestCacheMap> {
-    if (!this._reading) {
-      this._reading = read(cachePath);
-    }
-    const cache = await this._reading;
-    this._reading = null;
-    if (!cache) {
+  private _readCache(cacheJSON: string | null): BettererTestCacheMap {
+    if (!cacheJSON) {
       return new Map();
     }
 
-    const parsed = JSON.parse(cache) as BettererCacheFile;
+    const parsed = JSON.parse(cacheJSON) as BettererCacheFile;
     const { version } = parsed;
     if (!version) {
       return new Map();

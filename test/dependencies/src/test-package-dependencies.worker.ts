@@ -36,9 +36,9 @@ export async function getPackages(): Promise<Array<string>> {
   });
 }
 
-export async function run(logger: BettererLogger, packageName: string): Promise<string> {
+export async function run(logger: BettererLogger, status: BettererLogger, packageName: string): Promise<string> {
   const packageNameFull = `@betterer/${packageName}`;
-  await logger.progress(`Validating dependencies for "${packageNameFull}" ...`);
+  await status.progress(`Validating dependencies for "${packageNameFull}" ...`);
 
   const { stdout } = await asyncExec(
     `npm run knip -- --no-exit-code --reporter=json --workspace=packages/${packageName}`
@@ -87,9 +87,8 @@ export async function run(logger: BettererLogger, packageName: string): Promise<
     });
   });
 
-  await logΔ(errors, logger);
-
   if (errors.length) {
+    await logΔ(errors, logger);
     throw new BettererError(`Dependency issues found in "${packageNameFull}"`);
   }
   return `No dependency issues found in "${packageNameFull}".`;

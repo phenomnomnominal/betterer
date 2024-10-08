@@ -4,6 +4,8 @@
  * @packageDocumentation
  */
 
+import 'core-js/proposals/promise-with-resolvers.js';
+
 export type {
   BettererAPI,
   BettererOptions,
@@ -48,7 +50,9 @@ export type {
   BettererOptionsReporter,
   BettererOptionsReporterOverride,
   BettererOptionsReporters,
-  BettererReporter
+  BettererReporter,
+  BettererRunLogFunction,
+  BettererRunLogger
 } from './reporters/index.js';
 export type {
   BettererFileTestResultSummary,
@@ -106,7 +110,7 @@ export type {
   BettererTestNames,
   BettererTestOptions
 } from './test/index.js';
-export type { MaybeAsync } from './types.js';
+export type { MaybeAsync, Func } from './types.js';
 
 export { betterer, merge, results, runner, watch } from './api/index.js';
 export { BettererFileTest, BettererResolverTest, BettererTest } from './test/index.js';

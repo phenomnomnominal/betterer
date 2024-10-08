@@ -50,3 +50,9 @@ export type FixtureFactory = (
   files?: FixtureFileSystemFiles,
   options?: FixtureOptions
 ) => Promise<Fixture>;
+
+export interface FixturePersist {
+  increment(): Promise<number>;
+  decrement(): Promise<number>;
+  reset(): Promise<number>;
+}

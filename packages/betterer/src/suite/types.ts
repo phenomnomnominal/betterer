@@ -40,6 +40,8 @@ export interface BettererSuite {
   readonly runs: BettererRuns;
 }
 
+export type BettererSuites = Array<BettererSuite>;
+
 /**
  * @public The summary of a {@link @betterer/betterer#BettererSuite | `BettererSuite`} suite. Includes
  * everything from {@link @betterer/betterer#BettererSuite | `BettererSuite`}.
@@ -111,9 +113,19 @@ export interface BettererSuiteSummary extends BettererSuite {
   readonly new: BettererRunSummaries;
   /**
    * An array containing a {@link @betterer/betterer#BettererRunSummary | `BettererRunSummary`}
+   * for each test that has a previous saved result but is no longer defined.
+   */
+  readonly obsolete: BettererRunSummaries;
+  /**
+   * An array containing a {@link @betterer/betterer#BettererRunSummary | `BettererRunSummary`}
    * for each test that didn't fail and wasn't skipped.
    */
   readonly ran: BettererRunSummaries;
+  /**
+   * An array containing a {@link @betterer/betterer#BettererRunSummary | `BettererRunSummary`}
+   * for each test that is obsolete, but the `--update` option was enabled.
+   */
+  readonly removed: BettererRunSummaries;
   /**
    * An array containing a {@link @betterer/betterer#BettererRunSummary | `BettererRunSummary`}
    * for each test that stayed the same.

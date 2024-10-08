@@ -2,27 +2,31 @@ import type { BettererError } from '@betterer/errors';
 
 import type { BettererFilePaths } from '../fs/index.js';
 import type { BettererReporterΩ } from '../reporters/index.js';
-import type { BettererReporterRun, BettererRunSummary, BettererRuns } from '../run/index.js';
-import type { BettererSuite } from './types.js';
+import type { BettererRuns } from '../run/index.js';
+import type { BettererSuite, BettererSuiteSummary } from './types.js';
 
 import { invariantΔ } from '@betterer/errors';
 
-import { defer } from '../utils.js';
-import { BettererSuiteSummaryΩ } from './suite-summary.js';
-import { BettererRunΩ } from '../run/index.js';
 import { getGlobals } from '../globals.js';
+import { BettererResultΩ } from '../results/index.js';
+import { BettererRunObsoleteΩ, BettererRunΩ } from '../run/index.js';
+import { BettererSuiteSummaryΩ } from './suite-summary.js';
 
 const NEGATIVE_FILTER_TOKEN = '!';
 
 export class BettererSuiteΩ implements BettererSuite {
+  public readonly lifecycle = Promise.withResolvers<BettererSuiteSummary>();
+
   private constructor(
     public filePaths: BettererFilePaths,
     public runs: BettererRuns
   ) {}
 
   public static async create(filePaths: BettererFilePaths): Promise<BettererSuiteΩ> {
-    const { config, testMetaLoader } = getGlobals();
-    const { configPaths } = config;
+    const { config, reporter, results, testMetaLoader } = getGlobals();
+    const { configPaths, update } = config;
+
+    const expectedTestNames = await results.api.getExpectedTestNames();
 
     const testsMeta = await testMetaLoader.api.loadTestsMeta(configPaths);
     const runsΩ = await Promise.all(
@@ -31,10 +35,21 @@ export class BettererSuiteΩ implements BettererSuite {
       })
     );
 
-    return new BettererSuiteΩ(filePaths, runsΩ);
+    const testNames = testsMeta.map((testMeta) => testMeta.name);
+    const obsoleteTestNames = expectedTestNames.filter((expectedTestName) => !testNames.includes(expectedTestName));
+
+    const obsoleteRuns = await Promise.all(
+      obsoleteTestNames.map(async (testName) => {
+        const baselineJSON = await results.api.getBaseline(testName);
+        const baseline = new BettererResultΩ(JSON.parse(baselineJSON), baselineJSON);
+        return new BettererRunObsoleteΩ(reporter, testName, baseline, update);
+      })
+    );
+
+    return new BettererSuiteΩ(filePaths, [...obsoleteRuns, ...runsΩ]);
   }
 
-  public async run(): Promise<BettererSuiteSummaryΩ> {
+  public async run(): Promise<BettererSuiteSummary> {
     const hasOnly = !!this.runs.find((run) => {
       const runΩ = run as BettererRunΩ;
       return runΩ.isOnly;
@@ -42,15 +57,30 @@ export class BettererSuiteΩ implements BettererSuite {
 
     const runSummaries = await Promise.all(
       this.runs.map(async (run) => {
-        // Attach lifecycle promise for Reporters:
-        const lifecycle = defer<BettererRunSummary>();
-        (run as BettererReporterRun).lifecycle = lifecycle.promise;
+        const { config, reporter, versionControl } = getGlobals();
+        const reporterΩ = reporter as BettererReporterΩ;
+
+        if (run.isObsolete) {
+          const runObsoleteΩ = run as BettererRunObsoleteΩ;
+
+          const reportRunStart = reporterΩ.runStart(runObsoleteΩ, runObsoleteΩ.lifecycle.promise);
+
+          const runSummary = await runObsoleteΩ.run();
+          runObsoleteΩ.lifecycle.resolve(runSummary);
+
+          await reportRunStart;
+          await reporterΩ.runEnd(runSummary);
+
+          if (runObsoleteΩ.isRemoved && config.cache) {
+            await versionControl.api.clearCache(runObsoleteΩ.name);
+          }
+
+          return runSummary;
+        }
 
         const runΩ = run as BettererRunΩ;
 
-        const { config } = getGlobals();
-        const { filters, reporter } = config;
-        const reporterΩ = reporter as BettererReporterΩ;
+        const { filters } = config;
 
         // This is all a bit backwards because "filters" is named badly.
         const hasFilters = !!filters.length;
@@ -86,9 +116,18 @@ export class BettererSuiteΩ implements BettererSuite {
 
         // Don't await here! A custom reporter could be awaiting
         // the lifecycle promise which is unresolved right now!
-        const reportRunStart = reporterΩ.runStart(runΩ, lifecycle.promise);
+        const reportRunStart = reporterΩ.runStart(runΩ, runΩ.lifecycle.promise);
 
         const runSummary = await runΩ.run(isFiltered);
+
+        if (config.cache && runΩ.runMeta.isCacheable) {
+          const { isBetter, isComplete, isNew, isSame, isUpdated, name } = runSummary;
+          // Handle the special case of being in CI mode with cache enabled:
+          if (isBetter || isComplete || isNew || isUpdated || (isSame && config.ci)) {
+            invariantΔ(runSummary.filePaths, `if a run is cacheable, then the summary will always have file paths!`);
+            await versionControl.api.updateCache(name, runSummary.filePaths);
+          }
+        }
 
         // `filePaths` will be updated in the worker if the test filters the files
         // so it needs to be updated
@@ -97,20 +136,28 @@ export class BettererSuiteΩ implements BettererSuite {
         if (runSummary.isFailed) {
           const { error } = runSummary;
           invariantΔ(error, 'A failed run will always have an `error`!');
-          lifecycle.reject(error);
+          runΩ.lifecycle.reject(error);
+
+          // Lifecycle promise is resolved, so it's safe to await
+          // the result of `reporter.runStart`:
           await reportRunStart;
           await reporterΩ.runError(runΩ, error as BettererError);
         } else {
-          lifecycle.resolve(runSummary);
+          runΩ.lifecycle.resolve(runSummary);
+
+          // Lifecycle promise is resolved, so it's safe to await
+          // the result of `reporter.runStart`:
           await reportRunStart;
           await reporterΩ.runEnd(runSummary);
+        }
+
+        if (runSummary.isFailed || (runSummary.isWorse && !runSummary.isUpdated)) {
+          process.exitCode = 1;
         }
         return runSummary;
       })
     );
 
-    const { results } = getGlobals();
-    const expectedTestNames = await results.api.getExpectedTestNames();
-    return new BettererSuiteSummaryΩ(expectedTestNames, this.filePaths, this.runs, runSummaries);
+    return new BettererSuiteSummaryΩ(this.filePaths, this.runs, runSummaries);
   }
 }

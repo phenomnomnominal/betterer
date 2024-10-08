@@ -1,4 +1,4 @@
-import type { BettererContext, BettererSuite } from '@betterer/betterer';
+import type { BettererContext, BettererFilePaths } from '@betterer/betterer';
 import type { FC } from '@betterer/render';
 
 import type { ConfigEditField } from '../config/index.js';
@@ -12,13 +12,12 @@ import { Config } from '../config/index.js';
 export interface WatchFilesProps {
   context: BettererContext;
   editField: ConfigEditField;
-  suite: BettererSuite;
+  filePaths: BettererFilePaths;
   running: boolean;
 }
 
 export const WatchFiles: FC<WatchFilesProps> = memo(function WatchFiles(props) {
-  const { context, editField, suite, running } = props;
-  const { filePaths } = suite;
+  const { context, editField, filePaths, running } = props;
 
   const isTestChange = context.config.configPaths.some((configPath) => filePaths.includes(configPath));
 

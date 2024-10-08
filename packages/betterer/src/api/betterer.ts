@@ -23,7 +23,8 @@ import { watch } from './watch.js';
  */
 export const betterer = async function betterer(options: BettererOptions = {}): Promise<BettererSuiteSummary> {
   const runner = await BettererRunnerΩ.create(options);
-  return await runner.run();
+  const contextSummary = await runner.run();
+  return contextSummary.lastSuite;
 };
 
 betterer.merge = merge;

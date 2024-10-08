@@ -6,7 +6,9 @@ export type {
   BettererOptionsReporters,
   BettererReporter,
   BettererReporterFactory,
-  BettererReporterModule
+  BettererReporterModule,
+  BettererRunLogFunction,
+  BettererRunLogger
 } from './types.js';
 
 export { createReporterConfig, overrideReporterConfig } from './config.js';

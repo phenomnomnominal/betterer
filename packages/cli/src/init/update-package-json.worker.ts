@@ -10,8 +10,8 @@ import { promises as fs } from 'node:fs';
 import { getVersion } from '../version.js';
 
 /** @knipignore part of worker API */
-export async function run(logger: BettererLogger, cwd: string, ts: boolean): Promise<void> {
-  await logger.progress('adding "betterer" to package.json file...');
+export async function run(logger: BettererLogger, status: BettererLogger, cwd: string, ts: boolean): Promise<void> {
+  await status.progress('adding "betterer" to package.json file...');
 
   let packageJSON;
   let packageJSONPath;

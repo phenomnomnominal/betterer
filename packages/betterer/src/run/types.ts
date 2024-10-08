@@ -1,4 +1,5 @@
 import type { BettererConstraintResult } from '@betterer/constraints';
+import type { BettererLogger } from '@betterer/logger';
 import type { BettererWorkerAPI, BettererWorkerHandle, BettererWorkerPool } from '@betterer/worker';
 
 import type { BettererFilePaths } from '../fs/index.js';
@@ -69,6 +70,11 @@ export type BettererDelta =
  */
 export interface BettererRun {
   /**
+   * The {@link @betterer/logger#BettererLogger | `BettererLogger`} for this run, which
+   * can be used to emit information, issues, or status updates to the reporter.
+   */
+  readonly logger: BettererLogger;
+  /**
    * The baseline result for the test run. If the {@link @betterer/betterer#BettererTest | `BettererTest`}
    * gets better over the lifetime of the {@link @betterer/betterer#BettererContext}, `baseline`
    * will always reflect the original result. Will be `null` when `isNew` is `true`.
@@ -94,6 +100,16 @@ export interface BettererRun {
    */
   readonly isNew: boolean;
   /**
+   * When `true`, Betterer found a previous result for a test that is no longer relevant. Both `baseline` and `expected`
+   * will be set to previous result. The default reporter will show that this test is obsolete, and suggest that it can be removed.
+   */
+  readonly isObsolete: boolean;
+  /**
+   * When `true`, this test is "obsolete", due to a test being delete or renamed, but the `--update`
+   * option was used. is enabled. The previous result will be deleted from the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
+   */
+  readonly isRemoved: boolean;
+  /**
    * When `true`, this test has been skipped and the test function will not run. The default
    * reporter will show that this test has been skipped.
    */
@@ -108,10 +124,6 @@ export interface BettererRun {
  * @public An array of {@link @betterer/betterer#BettererRun | `BettererRun`s}.
  */
 export type BettererRuns = ReadonlyArray<BettererRun>;
-
-export type BettererReporterRun = BettererRun & {
-  lifecycle: Promise<BettererRunSummary>;
-};
 
 export interface BettererRunning {
   done(result: BettererResult): Promise<BettererRunSummary>;

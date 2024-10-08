@@ -10,7 +10,6 @@ import { React, Box, Text, useState } from '@betterer/render';
 
 import { EditConfig } from './EditConfig.js';
 
-/** @knipignore used by an exported function */
 export type ConfigEditField = 'filters' | 'ignores' | null;
 
 /** @knipignore used by an exported function */

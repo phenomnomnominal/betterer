@@ -40,11 +40,21 @@ export async function testTotal(
   relativeCoverageSummaryPath: string,
   resolver: BettererFileResolver
 ): Promise<BettererCoverageIssues> {
-  const absoluteCoverageSummaryPath = resolver.resolve(relativeCoverageSummaryPath);
-  const { total } = await readCoverageSummary(absoluteCoverageSummaryPath);
-  return {
-    total: getUncoveredIssues(total)
+  const uncovered = await test(relativeCoverageSummaryPath, resolver);
+
+  const total: BettererCoverageIssue = {
+    lines: 0,
+    statements: 0,
+    functions: 0,
+    branches: 0
   };
+  Object.values(uncovered).forEach((fileCoverage) => {
+    total.branches += fileCoverage.branches;
+    total.functions += fileCoverage.functions;
+    total.lines += fileCoverage.lines;
+    total.statements += fileCoverage.statements;
+  });
+  return { total };
 }
 
 async function readCoverageSummary(coverageSummaryPath: string): Promise<IstanbulCoverageSummary> {
