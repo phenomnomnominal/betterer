@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { createFixture } from '../fixture.js';
 
 describe('betterer.watch', () => {
-  it('should filter based on input in watch mode', async () => {
+  it.skipIf(!process.stdout.isTTY)('should filter based on input in watch mode', async () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { logs, paths, resolve, cleanup, writeFile, sendKeys } = await createFixture('watch-filter', {
