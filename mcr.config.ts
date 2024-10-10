@@ -2,7 +2,7 @@ export const MCROptions = {
   name: 'Unit Coverage Report',
   outputDir: './reports/unit-coverage',
 
-  reports: ['v8'],
+  reports: ['v8', 'markdown-summary', 'console-summary'],
 
   filter: {
     '**/index.ts': false,
