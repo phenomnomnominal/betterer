@@ -1,4 +1,4 @@
-import type { BettererRun, BettererWorkerRunΩ } from '../../run/index.js';
+import type { BettererRun } from '../../run/index.js';
 import type {
   BettererFileTestFunction,
   BettererFileTestResult,
@@ -50,10 +50,8 @@ export class BettererFileTest extends BettererResolverTest<
   constructor(fileTest: BettererFileTestFunction) {
     super({
       test: async (run: BettererRun): Promise<BettererFileTestResultΩ> => {
-        const runΩ = run as BettererWorkerRunΩ;
-
-        const { filePaths } = runΩ;
-        invariantΔ(filePaths, `\`filePaths\` should always exist for a \`BettererResolverTest\` run!`);
+        const { filePaths } = run;
+        invariantΔ(filePaths, `\`filePaths\` should always exist for a \`BettererFileTest\` run!`);
 
         const { config } = getGlobals();
         const result = new BettererFileTestResultΩ(this.resolver, config.resultsPath);
@@ -71,8 +69,5 @@ export class BettererFileTest extends BettererResolverTest<
 }
 
 export function isBettererFileTest(test: unknown): test is BettererResolverTest {
-  if (!test) {
-    return false;
-  }
-  return checkBaseName(test.constructor, BettererFileTest.name);
+  return !!test && checkBaseName(test.constructor, BettererFileTest.name);
 }

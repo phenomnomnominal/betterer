@@ -13,22 +13,22 @@ import { useControls } from './useControls.js';
 export const WatchReporter: FC = memo(function WatchReporter() {
   const [{ context, contextSummary, suite, suiteSummary }] = useReporterState();
 
-  const editing = useControls(context);
+  const editField = useControls(context);
 
   if (contextSummary) {
     return <WatchEnding />;
   }
 
   if (!suite) {
-    return <WatchStarting context={context} editField={editing} />;
+    return <WatchStarting context={context} editField={editField} />;
   }
 
   return (
     <>
-      <WatchFiles context={context} editField={editing} filePaths={suite.filePaths} running={!suiteSummary} />
+      <WatchFiles context={context} editField={editField} filePaths={suite.filePaths} running={!suiteSummary} />
       {!suiteSummary && <Suite suite={suite} />}
       {suiteSummary && <SuiteSummary context={context} suiteSummary={suiteSummary} />}
-      <WatchInstructions />
+      <WatchInstructions editField={editField} />
     </>
   );
 });

@@ -8,11 +8,12 @@ import type { BettererRun, BettererWorkerRunΩ } from '../../run/index.js';
 import type { BettererFileTestResultΩ } from '../file-test/index.js';
 import type { BettererTestOptions } from '../types.js';
 
-import { BettererError, invariantΔ } from '@betterer/errors';
+import { invariantΔ } from '@betterer/errors';
 
 import { BettererFileResolverΩ } from '../../fs/index.js';
 import { BettererTest } from '../test.js';
 import { checkBaseName } from '../utils.js';
+import { getGlobals } from '../../globals.js';
 
 /**
  * @public A very common need for a **Betterer** test is to resolve file paths, and include and exclude files
@@ -57,14 +58,24 @@ export class BettererResolverTest<
 
         let isFullRun = filePathsForThisRun === testFiles;
 
+        let hasCached = false;
         if (!run.isNew) {
           const cacheMisses = await this._resolverΩ.filterCached(filePathsForThisRun);
-          isFullRun = isFullRun && cacheMisses.length === filePathsForThisRun.length;
+          hasCached = cacheMisses.length !== filePathsForThisRun.length;
+          isFullRun = isFullRun && !hasCached;
           filePathsForThisRun = cacheMisses;
         }
 
         // Set the final files back on the `BettererRun`:
         runΩ.setFilePaths(filePathsForThisRun);
+
+        const { config } = getGlobals();
+        if (!hasCached && filePathsForThisRun.length === 0 && !config.precommit) {
+          await run.logger.info(
+            'No relevant files found. Are the `include()`/`exclude()` options for this test correct?'
+          );
+        }
+
         const result = (await options.test.call(run, run)) as DeserialisedType;
         if (isFullRun) {
           return result;
@@ -95,9 +106,7 @@ export class BettererResolverTest<
    * the `test()` function is being executed.
    */
   public get resolver(): BettererFileResolver {
-    if (!this._resolverΩ.initialised) {
-      throw new BettererError('`resolver` can only be used while the `test` function is being executed. ❌');
-    }
+    invariantΔ(this._resolverΩ.initialised, '`resolver` can only be used while the `test` function is being executed!');
     return this._resolverΩ;
   }
 
@@ -127,8 +136,5 @@ export class BettererResolverTest<
 }
 
 export function isBettererResolverTest(test: unknown): test is BettererResolverTest {
-  if (!test) {
-    return false;
-  }
-  return checkBaseName(test.constructor, BettererResolverTest.name);
+  return !!test && checkBaseName(test.constructor, BettererResolverTest.name);
 }

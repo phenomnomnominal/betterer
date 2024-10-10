@@ -4,7 +4,7 @@ import type { BettererConfig, BettererOptionsOverride } from '../config/index.js
 import type { BettererContextSummary } from '../context/index.js';
 import type { BettererFilePaths } from '../fs/index.js';
 import type { BettererReporterΩ } from '../reporters/index.js';
-import type { BettererSuiteSummary, BettererSuiteSummaryΩ } from '../suite/index.js';
+import type { BettererSuiteSummary, BettererSuiteSummaryΩ, BettererSuiteΩ } from '../suite/index.js';
 import type { BettererOptionsWatcher, BettererRunner } from './types.js';
 
 import { BettererError } from '@betterer/errors';
@@ -32,10 +32,10 @@ export class BettererRunnerΩ implements BettererRunner {
     private readonly _watcher: FSWatcher | null
   ) {
     const { config, reporter } = getGlobals();
-    const reporterΩ = reporter as BettererReporterΩ;
 
     this.config = config;
 
+    const reporterΩ = reporter as BettererReporterΩ;
     // Don't await here! A custom reporter could be awaiting
     // the lifecycle promise which is unresolved right now!
     this._reporterContextStart = reporterΩ.contextStart(this, this.lifecycle.promise);
@@ -65,12 +65,18 @@ export class BettererRunnerΩ implements BettererRunner {
 
   public async options(optionsOverride: BettererOptionsOverride): Promise<void> {
     await this._context.options(optionsOverride);
+    await this._restart(optionsOverride);
   }
 
   public async run(): Promise<BettererContextSummary> {
     this._isRunOnce = true;
-    await this.queue([]);
-    return await this.stop();
+    try {
+      await this.queue([]);
+      return await this.stop();
+    } catch (error) {
+      await this.stop();
+      throw error;
+    }
   }
 
   public queue(filePathOrPaths: string | BettererFilePaths = []): Promise<void> {
@@ -160,12 +166,17 @@ export class BettererRunnerΩ implements BettererRunner {
           filePaths.add(path);
         });
       });
-      const runPaths = Array.from(filePaths).sort();
+      let runPaths = Array.from(filePaths).sort();
       this._jobs = [];
 
       try {
-        const { versionControl } = getGlobals();
+        const { config, versionControl } = getGlobals();
         await versionControl.api.sync();
+
+        const configFileChange = config.configPaths.some((configPath) => runPaths.includes(configPath));
+        if (configFileChange) {
+          runPaths = [];
+        }
 
         this._running = this._context.run(runPaths, this._isRunOnce);
 
@@ -182,6 +193,32 @@ export class BettererRunnerΩ implements BettererRunner {
         await destroyGlobals();
         throw error;
       }
+    }
+  }
+  private async _restart(optionsOverride: BettererOptionsOverride): Promise<void> {
+    let filePaths: BettererFilePaths | null = null;
+    // Wait for any pending run to finish, and any existing reporter to render:
+    let lastSuiteΩ: BettererSuiteΩ | null = null;
+    try {
+      const lastSuite = this._context.lastSuite;
+      lastSuiteΩ = lastSuite as BettererSuiteΩ;
+      await lastSuiteΩ.lifecycle.promise;
+      filePaths = lastSuite.filePaths;
+    } catch {
+      // It's okay if there's not a pending suite!
+    }
+
+    if (optionsOverride.reporters) {
+      const { reporter } = getGlobals();
+
+      const reporterΩ = reporter as BettererReporterΩ;
+      // Don't await here! A custom reporter could be awaiting
+      // the lifecycle promise which is unresolved right now!
+      this._reporterContextStart = reporterΩ.contextStart(this, this.lifecycle.promise);
+    }
+
+    if (optionsOverride.filters && filePaths) {
+      void this._context.run(filePaths);
     }
   }
 }

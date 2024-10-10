@@ -27,10 +27,11 @@ export async function createWatcher(): Promise<FSWatcher | null> {
         return false;
       }
 
+      const isGitPath = itemPath.includes('.git');
       const isResultsPath = itemPath === normalisedPath(resultsPath);
       const isCachePath = itemPath === normalisedPath(cachePath);
       const isTempPath = isTempFilePath(itemPath);
-      if (isResultsPath || isCachePath || isTempPath) {
+      if (isGitPath || isResultsPath || isCachePath || isTempPath) {
         return true;
       }
 

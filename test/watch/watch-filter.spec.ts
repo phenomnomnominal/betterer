@@ -2,12 +2,10 @@ import type { BettererSuiteSummary } from '@betterer/betterer';
 
 import { describe, expect, it } from 'vitest';
 
-import assert from 'node:assert';
-
 import { createFixture } from '../fixture.js';
 
 describe('betterer.watch', () => {
-  it('should filter in watch mode', async () => {
+  it('should filter based on input in watch mode', async () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { logs, paths, resolve, cleanup, writeFile, sendKeys } = await createFixture('watch-filter', {
@@ -15,9 +13,12 @@ describe('betterer.watch', () => {
 import { tsquery } from '@betterer/tsquery';
 
 export default {
-  test1: () => tsquery(
-    'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
-  ).include('./src/**/*.ts'),
+  test1: async () => {
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    return tsquery(
+      'CallExpression > PropertyAccessExpression[expression.name="console"][name.name="log"]'
+    ).include('./src/**/*.ts')
+  },
   test2: () => tsquery('DebuggerStatement').include('./src/**/*.ts')
 };
       `
@@ -32,8 +33,12 @@ export default {
 
     await betterer({ configPaths, resultsPath, cwd, workers: false });
 
-    const suiteSummaryDefers = [defer<BettererSuiteSummary>(), defer<BettererSuiteSummary>()];
-    const [worse, filtered] = suiteSummaryDefers;
+    const suiteSummaryDefers = [
+      Promise.withResolvers<BettererSuiteSummary>(),
+      Promise.withResolvers<BettererSuiteSummary>(),
+      Promise.withResolvers<BettererSuiteSummary>()
+    ];
+    const [worse, filtered, worseFiltered] = suiteSummaryDefers;
 
     const runner = await betterer.watch({
       configPaths,
@@ -71,12 +76,13 @@ export default {
     // Press "Enter" to enable the filter:
     await sendKeys('\r');
 
-    debugger;
+    const filteredSuiteSummary = await filtered.promise;
+    expect(filteredSuiteSummary.runSummaries).toHaveLength(2);
 
     await writeFile(indexPath, `console.log('foo');debugger;debugger;`);
 
-    const filteredSuiteSummary = await filtered.promise;
-    expect(filteredSuiteSummary.runSummaries).toHaveLength(2);
+    const filteredWorseSuiteSummary = await worseFiltered.promise;
+    expect(filteredWorseSuiteSummary.runSummaries).toHaveLength(2);
 
     await runner.stop();
 
@@ -85,23 +91,3 @@ export default {
     await cleanup();
   });
 });
-
-type Resolve<T> = (value: T) => void;
-type Reject = (error: Error) => void;
-interface Defer<T> {
-  promise: Promise<T>;
-  resolve: Resolve<T>;
-  reject: Reject;
-}
-
-function defer<T>(): Defer<T> {
-  let resolve: Resolve<T> | null = null;
-  let reject: Reject | null = null;
-  const promise = new Promise<T>((res, rej) => {
-    resolve = res;
-    reject = rej;
-  });
-  assert(resolve);
-  assert(reject);
-  return { promise, resolve, reject };
-}

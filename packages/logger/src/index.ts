@@ -18,4 +18,3 @@ export type {
 
 export { codeΔ } from './code.js';
 export { diffΔ, diffStringsΔ } from './diff.js';
-export { logΔ } from './log.js';

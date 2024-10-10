@@ -62,7 +62,7 @@ export function stylelint(configOverrides: Partial<Configuration>): BettererFile
         const file = fileTestResult.addFile(result.source, contents);
         result.warnings.forEach((warning) => {
           const { line, column, text } = warning;
-          file.addIssue(line - 1, column - 1, line - 1, column - 1, text, text);
+          file.addIssue(line - 1, column - 1, 0, text, text);
         });
       })
     );

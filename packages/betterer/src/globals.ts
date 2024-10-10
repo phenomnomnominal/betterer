@@ -104,6 +104,9 @@ export function setGlobals(...globals: ConstructorParameters<typeof BettererGlob
 }
 
 export async function destroyGlobals(): Promise<void> {
+  if (!GLOBAL_CONTAINER) {
+    return;
+  }
   const { results, runWorkerPool, testMetaLoader, versionControl } = getGlobals();
   await Promise.all([results.destroy(), runWorkerPool.destroy(), testMetaLoader.destroy(), versionControl.destroy()]);
   GLOBAL_CONTAINER = null;

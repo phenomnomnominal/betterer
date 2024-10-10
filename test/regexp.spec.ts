@@ -11,7 +11,7 @@ describe('betterer', () => {
 import { regexp } from '@betterer/regexp';
 
 export default {
-  'regexp': () => regexp(/(\\/\\/\\s*HACK)/i).include('./src/**/*.ts')
+  'regexp': () => regexp(/(\\/\\/\\s*HACK)/g).include('./src/**/*.ts')
 };
     `
     });

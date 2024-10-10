@@ -24,6 +24,7 @@ export class BettererRunLoggerΩ implements BettererLogger {
   public async info(info: BettererLoggerMessage): Promise<void> {
     await this._runLogger.info(this._run, info);
   }
+
   public async progress(progress: BettererLoggerMessage): Promise<void> {
     await this._runLogger.progress(this._run, progress);
   }

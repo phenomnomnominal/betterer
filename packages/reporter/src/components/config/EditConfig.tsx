@@ -29,7 +29,8 @@ export function EditConfig<ValidatedConfigType>(props: EditConfigProps<Validated
 
   return (
     <Box flexDirection="column">
-      <Text color="grey">{children} Press "enter" to confirm.</Text>
+      <Text color="grey">Press "enter" to confirm, or "esc" to cancel.</Text>
+      <Text color="grey">{children}</Text>
       <Box>
         <Text color={error ? 'redBright' : 'yellowBright'}>{name}: </Text>
         <TextInput value={value} onChange={change} onSubmit={() => void submit()}></TextInput>

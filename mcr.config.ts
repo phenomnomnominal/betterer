@@ -2,9 +2,10 @@ export const MCROptions = {
   name: 'Unit Coverage Report',
   outputDir: './reports/unit-coverage',
 
-  reports: ['console-details', 'markdown-summary', 'v8', 'raw'],
+  reports: ['v8'],
 
   filter: {
+    '**/index.ts': false,
     '**/packages/angular/src/**': true,
     '**/packages/betterer/src/**': true,
     '**/packages/cli/src/**': true,
@@ -12,7 +13,7 @@ export const MCROptions = {
     '**/packages/coverage/src/**': true,
     '**/packages/errors/src/**': true,
     '**/packages/eslint/src/**': true,
-    '**/packages/knip/src/**': true,
+    '**/packages/knip/src/**': false,
     '**/packages/logger/src/**': true,
     '**/packages/regexp/src/**': true,
     '**/packages/reporter/src/**': true,

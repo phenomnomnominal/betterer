@@ -19,29 +19,27 @@ export interface WatchFilesProps {
 export const WatchFiles: FC<WatchFilesProps> = memo(function WatchFiles(props) {
   const { context, editField, filePaths, running } = props;
 
-  const isTestChange = context.config.configPaths.some((configPath) => filePaths.includes(configPath));
+  const isTestChange = filePaths.length === 0;
+
+  if (isTestChange) {
+    return (
+      <Box paddingBottom={1}>
+        <Text>{testsChanged()}</Text>
+      </Box>
+    );
+  }
 
   return (
     <>
       <Config context={context} editField={editField} />
-      {filePaths.length ? (
-        <>
-          {isTestChange ? (
-            <Box paddingBottom={1}>
-              <Text>{testsChanged()}</Text>
-            </Box>
-          ) : (
-            <Box paddingBottom={1}>
-              <Text>{running ? filesChecking(filePaths.length) : filesChecked(filePaths.length)}</Text>
-            </Box>
-          )}
-          <Box flexDirection="column" paddingBottom={1}>
-            {filePaths.map((filePath) => (
-              <Text key={filePath}>・ {filePath}</Text>
-            ))}
-          </Box>
-        </>
-      ) : null}
+      <Box paddingBottom={1}>
+        <Text>{running ? filesChecking(filePaths.length) : filesChecked(filePaths.length)}</Text>
+      </Box>
+      <Box flexDirection="column" paddingBottom={1}>
+        {filePaths.map((filePath) => (
+          <Text key={filePath}>・ {filePath}</Text>
+        ))}
+      </Box>
     </>
   );
 });

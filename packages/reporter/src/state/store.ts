@@ -3,7 +3,7 @@ import type { BettererLog, BettererLogs } from '@betterer/logger';
 import type { BettererReporterAction } from './actions.js';
 import type { BettererReporterState } from './types.js';
 
-import { BettererError } from '@betterer/errors';
+import { invariantΔ } from '@betterer/errors';
 import { createContext, useContext, useReducer } from '@betterer/render';
 import { getPreciseTimeΔ } from '@betterer/time';
 
@@ -18,9 +18,7 @@ export const BettererReporterContext = createContext<
 
 export function useReporterState(): [BettererReporterState, BettererReporterLogs, BettererReporterStatus] {
   const context = useContext(BettererReporterContext);
-  if (context === null) {
-    throw new BettererError('Trying to use `BettererReporterContext` before it was created` 🔥');
-  }
+  invariantΔ(context, 'Trying to use `BettererReporterContext` before it was created!');
   return context;
 }
 

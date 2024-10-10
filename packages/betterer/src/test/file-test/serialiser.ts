@@ -7,7 +7,7 @@ import type {
   BettererFileTestResultSerialised
 } from './types.js';
 
-import { BettererError } from '@betterer/errors';
+import { invariantΔ } from '@betterer/errors';
 import path from 'node:path';
 
 import { BettererFileResolverΩ } from '../../fs/index.js';
@@ -16,48 +16,42 @@ import { BettererFileTestResultΩ } from './file-test-result.js';
 export function deserialise(serialised: BettererFileTestResultSerialised, resultsPath: string): BettererFileTestResult {
   const resolver = new BettererFileResolverΩ(path.dirname(resultsPath));
   const deserialised = new BettererFileTestResultΩ(resolver, resultsPath);
-  Object.keys(serialised)
-    .filter(isKey)
-    .map((key) => {
-      const { relativePath, hash } = splitKey(key);
-      const issuesForFile = serialised[key] ?? [];
+  Object.entries(serialised)
+    .filter(([key]) => isKey(key))
+    .map(([key, issuesForFile]) => {
+      const { relativePath, hash } = splitKey(key as BettererFileTestResultKey);
       const issues = issuesForFile.map((issue) => {
         const [line, column, length, message, hash] = issue;
         return { line, column, length, message, hash };
       });
       const absolutePath = resolver.resolve(relativePath);
-      key = `${relativePath}:${hash}`;
-      deserialised.addExpected({ absolutePath, key, hash, issues });
+      const relativeKey: BettererFileTestResultKey = `${relativePath}:${hash}`;
+      deserialised.addExpected({ absolutePath, key: relativeKey, hash, issues });
     });
   return deserialised as BettererFileTestResult;
 }
 
 export function serialise(result: BettererFileTestResult): BettererFileTestResultSerialised {
   const resultΩ = result as BettererFileTestResultΩ;
-  return resultΩ.files
-    .filter((file) => file.issues.length)
-    .sort((fileA, fileB) => {
-      if (fileA.absolutePath < fileB.absolutePath) {
-        return -1;
-      }
-      if (fileA.absolutePath > fileB.absolutePath) {
-        return 1;
-      }
-      return 0;
-    })
-    .reduce<BettererFileTestResultSerialised>(
-      (serialised: BettererFileTestResultSerialised, file: BettererFileBase) => {
-        serialised[file.key] = sortLinesAndColumns(file.issues).map((issue) => [
-          issue.line,
-          issue.column,
-          issue.length,
-          issue.message,
-          issue.hash
-        ]);
-        return serialised;
-      },
-      {}
-    );
+  return (
+    resultΩ.files
+      .filter((file) => file.issues.length)
+      // Sort based on absolute file path, assuming that each file `resultΩ.files` has a unique path:
+      .sort((fileA, fileB) => (fileA.absolutePath < fileB.absolutePath ? -1 : 1))
+      .reduce<BettererFileTestResultSerialised>(
+        (serialised: BettererFileTestResultSerialised, file: BettererFileBase) => {
+          serialised[file.key] = sortLinesAndColumns(file.issues).map((issue) => [
+            issue.line,
+            issue.column,
+            issue.length,
+            issue.message,
+            issue.hash
+          ]);
+          return serialised;
+        },
+        {}
+      )
+  );
 }
 
 function sortLinesAndColumns(issues: BettererFileIssues): BettererFileIssues {
@@ -71,12 +65,10 @@ export function isKey(key: string): key is BettererFileTestResultKey {
 function splitKey(key: BettererFileTestResultKey): BettererFileTestResultKeyParts {
   const [relativePath, hash] = key.split(':');
   const parts = { relativePath, hash };
-  assertsKey(parts);
+  assertKey(parts);
   return parts;
 }
 
-function assertsKey(key: Partial<BettererFileTestResultKeyParts>): asserts key is BettererFileTestResultKeyParts {
-  if (key.hash == null || key.relativePath == null) {
-    throw new BettererError('Invalid serialised key parts, cannot deserialise. ❌');
-  }
+function assertKey(key: Partial<BettererFileTestResultKeyParts>): asserts key is BettererFileTestResultKeyParts {
+  invariantΔ(key.relativePath != null && key.hash != null, 'Invalid serialised key parts, cannot deserialise!');
 }

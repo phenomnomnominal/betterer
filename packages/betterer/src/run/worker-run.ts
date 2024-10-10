@@ -2,17 +2,24 @@ import type { BettererLogger } from '@betterer/logger';
 
 import type { BettererFilePaths } from '../fs/index.js';
 import type { BettererResult } from '../results/index.js';
-import type { BettererTestConfig, BettererTestFactory, BettererTestMap, BettererTestMeta } from '../test/index.js';
+import type {
+  BettererTest,
+  BettererTestConfig,
+  BettererTestFactory,
+  BettererTestMap,
+  BettererTestMeta
+} from '../test/index.js';
 import type { BettererRunMeta } from './meta/index.js';
 import type { BettererRun, BettererRunning, BettererRunningEnd, BettererRunSummary } from './types.js';
 
-import { BettererConstraintResult } from '@betterer/constraints';
-import { BettererError } from '@betterer/errors';
 import assert from 'node:assert';
+import { BettererConstraintResult } from '@betterer/constraints';
+import { BettererError, isBettererErrorΔ } from '@betterer/errors';
 
 import { forceRelativePaths, importDefault } from '../fs/index.js';
 import { getGlobals } from '../globals.js';
 import { BettererResultΩ } from '../results/index.js';
+import { isBettererTest } from '../test/index.js';
 import { isFunction } from '../utils.js';
 import { BettererRunSummaryΩ } from './run-summary.js';
 
@@ -42,7 +49,6 @@ export class BettererWorkerRunΩ implements BettererRun, BettererTestConfig {
     public readonly testMeta: BettererTestMeta,
     public readonly runMeta: BettererRunMeta
   ) {
-    debugger;
     this.isNew = runMeta.isNew;
     this.isSkipped = runMeta.isSkipped;
     this.name = testMeta.name;
@@ -146,6 +152,7 @@ export class BettererWorkerRunΩ implements BettererRun, BettererTestConfig {
     const isUpdated = isWorse && config.update;
 
     const isComplete = !!result && (await this.goal(result.value));
+
     const isExpired = timestamp >= this.deadline;
 
     const baselineValue = this.isNew ? null : this.baseline.value;
@@ -183,7 +190,28 @@ export class BettererWorkerRunΩ implements BettererRun, BettererTestConfig {
   }
 }
 
-export async function loadTestFactory(testMeta: BettererTestMeta): Promise<BettererTestFactory> {
+export async function loadTest(testMeta: BettererTestMeta): Promise<BettererTest> {
+  const { name } = testMeta;
+
+  let test: BettererTest | null = null;
+  try {
+    const factory = await loadTestFactory(testMeta);
+    test = await factory();
+  } catch (e) {
+    if (isBettererErrorΔ(e)) {
+      throw e;
+    }
+  }
+  const isTest = isBettererTest(test);
+
+  if (!test || !isTest) {
+    throw new BettererError(`"${name}" must return a \`BettererTest\`.`);
+  }
+
+  return test;
+}
+
+async function loadTestFactory(testMeta: BettererTestMeta): Promise<BettererTestFactory> {
   const { configPath, name } = testMeta;
   try {
     const exports = (await importDefault(configPath)) as BettererTestMap;

@@ -6,7 +6,7 @@ describe('betterer', () => {
   it('should work with a .betterer.ts file that uses ES modules', async () => {
     const { betterer } = await import('@betterer/betterer');
 
-    const { logs, paths, readFile, cleanup, testNames } = await createFixture('config-ts', {
+    const { logs, paths, readFile, cleanup, testNames } = await createFixture('config-ts-esm', {
       '.betterer.ts': `
 import { BettererTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';

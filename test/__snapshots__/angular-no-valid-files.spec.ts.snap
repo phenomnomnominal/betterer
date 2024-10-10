@@ -7,14 +7,13 @@ exports[`betterer > shouldn't actually run the compiler when there are no valid 
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" has already met its goal! ✨
+  "🎉 Betterer (0ms): 1 test done!
+✅ test: "test" met its goal! 🎉
+・ No relevant files found. Are the \`include()\`/\`exclude()\` options for this test correct?
 ",
   "🎉 Betterer (0ms): 1 test done!
-✅ test: "test" has already met its goal! ✨
-",
-  "🎉 Betterer (0ms): 1 test done!
-✅ test: "test" has already met its goal! ✨
+✅ test: "test" met its goal! 🎉
+・ No relevant files found. Are the \`include()\`/\`exclude()\` options for this test correct?
 
 1 test got checked. 🤔
 1 test met its goal! 🎉

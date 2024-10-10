@@ -19,7 +19,7 @@ export interface FixtureFileSystem {
 }
 
 export interface FixtureStdout {
-  sendKeys(keys: string): Promise<void>;
+  sendKeys: (keys: string) => Promise<void>;
 }
 
 export type FixtureFileSystemFiles = Record<string, string>;
