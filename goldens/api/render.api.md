@@ -7,6 +7,7 @@
 import { Box } from 'ink';
 import { createContext } from 'react';
 import { FC } from 'react';
+import IL from 'ink-link';
 import { Instance } from 'ink';
 import { memo } from 'react';
 import { process as process_2 } from 'process';
@@ -46,6 +47,12 @@ export function getStdInΔ(): Process['stdin'];
 export function getStdOutΔ(): Process['stdout'];
 
 export { Instance }
+
+// @internal
+export const Link: React.FC<LinkProps>;
+
+// @internal
+export type LinkProps = React.ComponentProps<typeof IL>;
 
 export { memo }
 
