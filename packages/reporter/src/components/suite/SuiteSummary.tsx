@@ -19,12 +19,15 @@ import {
   testsWorse,
   unexpectedChanges,
   unexpectedChangesInstructions,
+  stayedTheSameButChanged,
+  stayedTheSameButChangedInstructions,
   updateInstructionsObsolete,
   updateInstructionsWorse
 } from '../../messages.js';
 import { useReporterState } from '../../state/index.js';
 import { RunSummary } from './RunSummary.js';
 import { update } from './update.js';
+import { WorkflowSuggestions } from './WorkflowSuggestions.js';
 
 /** @knipignore used by an exported function */
 export interface SuiteSummaryProps {
@@ -68,6 +71,9 @@ export const SuiteSummary: FC<SuiteSummaryProps> = memo(function SuiteSummary({ 
     return null;
   }
 
+  const unexpectedChangesDetected = context.config.ci && suiteSummary.changed.length;
+  const fileContentChanges = unexpectedChangesDetected && onlyFileContentsChanges(suiteSummary);
+
   return (
     <>
       <Box flexDirection="column" paddingBottom={1}>
@@ -105,7 +111,7 @@ export const SuiteSummary: FC<SuiteSummaryProps> = memo(function SuiteSummary({ 
         ) : null}
         {showIfHasCategory('expired', testsExpired)}
       </Box>
-      {context.config.ci && suiteSummary.changed.length ? (
+      {unexpectedChangesDetected && !fileContentChanges ? (
         <Box flexDirection="column" paddingBottom={1}>
           <Text color={getColor('changed')}>{unexpectedChanges()}</Text>
           <Box flexDirection="column" padding={1}>
@@ -114,8 +120,24 @@ export const SuiteSummary: FC<SuiteSummaryProps> = memo(function SuiteSummary({ 
             ))}
           </Box>
           <Text color={getColor('changed')}>{unexpectedChangesInstructions()}</Text>
+          <WorkflowSuggestions />
+        </Box>
+      ) : null}
+      {fileContentChanges ? (
+        <Box flexDirection="column" paddingBottom={1}>
+          <Text color={TEXT_COLOURS.changed}>{stayedTheSameButChanged()}</Text>
+          <Text color={TEXT_COLOURS.changed}>{stayedTheSameButChangedInstructions()}</Text>
+          <WorkflowSuggestions />
         </Box>
       ) : null}
     </>
   );
 });
+
+function onlyFileContentsChanges(suiteSummary: BettererSuiteSummary): boolean {
+  // If every test name listed in `changed` is also the name of a test listed in `same`,
+  // the the actual contents of the files changed, but not the results:
+  return suiteSummary.changed.every(
+    (testName) => !!suiteSummary.same.find((runSummary) => runSummary.name === testName)
+  );
+}

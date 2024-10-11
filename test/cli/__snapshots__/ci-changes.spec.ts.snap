@@ -34,7 +34,11 @@ Unexpected changes detected in these tests while running in CI mode:
 
  "test"
 
-You should make sure the results file is up-to-date before committing! You might want to run \`betterer precommit\` in a commit hook. 💍
+You should make sure the results file is up-to-date before committing!
+
+Check out some suggestions to improve your workflow in the docs:
+
+    Workflow Documentation
 ",
 ]
 `;

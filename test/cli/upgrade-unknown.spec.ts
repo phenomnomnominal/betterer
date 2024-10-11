@@ -54,7 +54,7 @@ function bar () {
     const fixturePath = paths.cwd;
 
     process.env.BETTERER_WORKER = 'false';
-    
+
     await cliΔ(fixturePath, ARGV);
 
     expect(logs).toMatchSnapshot();
