@@ -2,7 +2,6 @@ import type { FSWatcher } from 'chokidar';
 
 import { watch } from 'chokidar';
 import minimatch from 'minimatch';
-import path from 'node:path';
 
 import { isTempFilePath } from '../fs/index.js';
 import { getGlobals } from '../globals.js';
@@ -22,7 +21,8 @@ export async function createWatcher(): Promise<FSWatcher | null> {
     ignoreInitial: true,
     ignored: (itemPath: string) => {
       itemPath = normalisedPath(itemPath);
-      const isCwd = itemPath === normalisedPath(cwd);
+      const normalisedCwd = normalisedPath(cwd);
+      const isCwd = itemPath === normalisedPath(normalisedCwd);
       if (isCwd) {
         return false;
       }
@@ -37,7 +37,7 @@ export async function createWatcher(): Promise<FSWatcher | null> {
 
       // read `ignores` here so that it can be updated by watch mode:
       const { ignores } = config;
-      const watchIgnores = ignores.map((ignore) => path.join(cwd, ignore));
+      const watchIgnores = ignores.map((ignore) => `${normalisedCwd}/${ignore}`);
       const isIgnored = watchIgnores.some((ignore) => minimatch(itemPath, ignore, { matchBase: true }));
       return isIgnored;
     }
