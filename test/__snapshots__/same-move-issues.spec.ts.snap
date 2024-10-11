@@ -9,8 +9,8 @@ exports[`betterer > should stay the same when multiple issues are moved 1`] = `
 exports[\`test\`] = {
   value: \`{
     "src/index.ts:3120621594": [
-      [2, 12, 1, "tsc:The left-hand side of an arithmetic operation must be of type \\'any\\', \\'number\\', \\'bigint\\' or an enum type.", "177604"],
-      [3, 18, 1, "tsc:The right-hand side of an arithmetic operation must be of type \\'any\\', \\'number\\', \\'bigint\\' or an enum type.", "177604"]
+      [2, 12, 1, "tsc: The left-hand side of an arithmetic operation must be of type \\'any\\', \\'number\\', \\'bigint\\' or an enum type.", "177604"],
+      [3, 18, 1, "tsc: The right-hand side of an arithmetic operation must be of type \\'any\\', \\'number\\', \\'bigint\\' or an enum type.", "177604"]
     ]
   }\`
 };
@@ -26,8 +26,8 @@ exports[`betterer > should stay the same when multiple issues are moved 2`] = `
 exports[\`test\`] = {
   value: \`{
     "src/index.ts:3189117303": [
-      [4, 18, 1, "tsc:The right-hand side of an arithmetic operation must be of type \\'any\\', \\'number\\', \\'bigint\\' or an enum type.", "177604"],
-      [5, 12, 1, "tsc:The left-hand side of an arithmetic operation must be of type \\'any\\', \\'number\\', \\'bigint\\' or an enum type.", "177604"]
+      [4, 18, 1, "tsc: The right-hand side of an arithmetic operation must be of type \\'any\\', \\'number\\', \\'bigint\\' or an enum type.", "177604"],
+      [5, 12, 1, "tsc: The left-hand side of an arithmetic operation must be of type \\'any\\', \\'number\\', \\'bigint\\' or an enum type.", "177604"]
     ]
   }\`
 };

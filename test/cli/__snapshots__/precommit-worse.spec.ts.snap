@@ -28,7 +28,7 @@ exports[`betterer precommit > should not update the changeset when a test gets w
 ・   2 | const one = 1;
 ・   3 | console.log(one * a);
 ・ > 4 | console.log(a * one);
-・     |             ^ tsc:The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+・     |             ^ tsc: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
 ・
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
@@ -38,7 +38,7 @@ exports[`betterer precommit > should not update the changeset when a test gets w
 ・   2 | const one = 1;
 ・   3 | console.log(one * a);
 ・ > 4 | console.log(a * one);
-・     |             ^ tsc:The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+・     |             ^ tsc: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
 ・
 
 1 test got checked. 🤔

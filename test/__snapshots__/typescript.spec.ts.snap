@@ -9,7 +9,7 @@ exports[`betterer > should report the status of the TypeScript compiler 1`] = `
 exports[\`typescript\`] = {
   value: \`{
     "src/index.ts:1499252024": [
-      [2, 12, 1, "tsc:The left-hand side of an arithmetic operation must be of type \\'any\\', \\'number\\', \\'bigint\\' or an enum type.", "177604"]
+      [2, 12, 1, "tsc: The left-hand side of an arithmetic operation must be of type \\'any\\', \\'number\\', \\'bigint\\' or an enum type.", "177604"]
     ]
   }\`
 };
@@ -58,7 +58,7 @@ exports[`betterer > should report the status of the TypeScript compiler 2`] = `
 ・   1 | const a = 'a';
 ・   2 | const one = 1;
 ・ > 3 | console.log(a * one, one * a);
-・     |                            ^ tsc:The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+・     |                            ^ tsc: The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
 ・
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
@@ -68,7 +68,7 @@ exports[`betterer > should report the status of the TypeScript compiler 2`] = `
 ・   1 | const a = 'a';
 ・   2 | const one = 1;
 ・ > 3 | console.log(a * one, one * a);
-・     |                            ^ tsc:The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+・     |                            ^ tsc: The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
 ・
 
 1 test got checked. 🤔

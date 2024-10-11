@@ -116,7 +116,7 @@ export function typescript(configFilePath: string, extraCompilerOptions: Compile
 }
 
 function typescriptIssueMessage(source = 'tsc', message: string) {
-  let issueMessage = source ? `${source}:` : '';
+  let issueMessage = source ? `${source}: ` : '';
   issueMessage = `${issueMessage}${message}`;
   return issueMessage;
 }
