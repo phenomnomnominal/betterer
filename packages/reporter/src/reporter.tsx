@@ -14,7 +14,6 @@ import type { FC, Instance } from '@betterer/render';
 import type { BettererReporterAction, BettererReporterState } from './state/index.js';
 
 import type { BettererError } from '@betterer/errors';
-import { invariantΔ } from '@betterer/errors';
 import { diffΔ } from '@betterer/logger';
 import { React, getRenderOptionsΔ, render } from '@betterer/render';
 
@@ -24,7 +23,6 @@ import {
   testBetter,
   testComplete,
   testExpired,
-  testFailed,
   testNew,
   testObsolete,
   testRemoved,
@@ -44,7 +42,6 @@ import {
   suiteStart,
   useStore
 } from './state/index.js';
-import { quote } from './utils.js';
 import { getPreciseTimeΔ } from '@betterer/time';
 
 const DIFF_OPTIONS = {
@@ -148,6 +145,7 @@ export function createReporterΔ(): BettererReporter {
       app.unmount();
     },
     contextError(context: BettererContext, error: BettererError): void {
+      app.unmount();
       renderError(error, context.config.logo);
     },
     suiteStart(suite: BettererSuite): void {
@@ -173,7 +171,8 @@ export function createReporterΔ(): BettererReporter {
   };
 
   function renderError(error: BettererError, logo = false): void {
-    render(<Error error={error} logo={logo} />, renderOptions);
+    const app = render(<Error error={error} logo={logo} />, renderOptions);
+    app.unmount();
   }
 
   async function logRunSummary(runSummary: BettererRunSummary): Promise<void> {
@@ -192,11 +191,6 @@ export function createReporterΔ(): BettererReporter {
 
     if (runSummary.isBetter) {
       await statusLogger.success(runSummary, testBetter(name, delta));
-      return;
-    }
-    if (runSummary.isFailed) {
-      invariantΔ(runSummary.error, 'A failed run will always have an `error`!');
-      await statusLogger.error(runSummary, testFailed(name));
       return;
     }
     if (runSummary.isNew) {
@@ -236,5 +230,12 @@ export function createReporterΔ(): BettererReporter {
       await statusLogger.success(runSummary, testUpdated(name, delta));
       return;
     }
+
+    // Should never get here. Note that `isFailed` isn't covered here because
+    // that will trigger the `runError()` hook.
   }
+}
+
+function quote(str: string): string {
+  return `"${str.replace(/^"/, '').replace(/"$/, '')}"`;
 }

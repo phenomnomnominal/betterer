@@ -1,4 +1,4 @@
-import { BettererError } from '@betterer/errors';
+import { invariantΔ } from '@betterer/errors';
 import { createContext, useContext, useReducer, useRef } from '@betterer/render';
 import { getPreciseTimeΔ } from '@betterer/time';
 
@@ -6,9 +6,7 @@ export const BettererTasksContext = createContext<BettererTasksAPI | null>(null)
 
 function useTasksContext(): BettererTasksAPI {
   const context = useContext(BettererTasksContext);
-  if (context === null) {
-    throw new BettererError('Trying to use `BettererTasksContext` before it was created` 🔥');
-  }
+  invariantΔ(context, 'Trying to use `BettererTasksContext` before it was created!');
   return context;
 }
 

@@ -18,8 +18,8 @@ export function testComplete(name: string, isSame = false): string {
   return `${name}${isSame ? ` ${getHas(1)} already` : ''} met ${getIts(1)} goal! ${isSame ? '✨' : '🎉'}`;
 }
 
-export function testsComplete(count: number, isSame = false): string {
-  return `${getTests(count)}${isSame ? ` ${getHas(count)} already` : ''} met ${getIts(count)} goal! ${isSame ? '✨' : '🎉'}`;
+export function testsComplete(count: number): string {
+  return `${getTests(count)} met ${getIts(count)} goal! 🎉`;
 }
 
 export function testExpired(name: string): string {
@@ -30,7 +30,7 @@ export function testsExpired(count: number): string {
   return `${getTests(count)} ${getHas(count)} passed ${getIts(count)} deadline. 👻`;
 }
 
-export function testFailed(name: string): string {
+function testFailed(name: string): string {
   return `${name} failed to run. 🔥`;
 }
 

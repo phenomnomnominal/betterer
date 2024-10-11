@@ -7,53 +7,14 @@ import type { BettererTest, BettererTestMeta } from '../test/index.js';
 import type { BettererRunMeta } from './meta/index.js';
 import type { BettererRunSummary } from './types.js';
 
-import { BettererError, isBettererErrorΔ } from '@betterer/errors';
+import { invariantΔ } from '@betterer/errors';
 import { exposeToMainΔ } from '@betterer/worker';
 
 import { isBettererResolverTest, isBettererTest } from '../test/index.js';
-import { loadTestFactory, BettererWorkerRunΩ } from './worker-run.js';
+import { loadTest, BettererWorkerRunΩ } from './worker-run.js';
 import { setGlobals } from '../globals.js';
 
 const TEST_META_MAP: Record<string, [BettererTest, BettererTestMeta, BettererRunMeta]> = {};
-
-async function loadTest(
-  testMeta: BettererTestMeta,
-  results: BettererResultsWorker
-): Promise<[BettererTest, BettererRunMeta]> {
-  const { name } = testMeta;
-
-  const isNew = !(await results.api.hasBaseline(name));
-
-  const testFactory = await loadTestFactory(testMeta);
-
-  let test: BettererTest | null = null;
-  try {
-    test = await testFactory();
-  } catch (error) {
-    if (isBettererErrorΔ(error)) {
-      throw error;
-    }
-  }
-
-  const isTest = isBettererTest(test);
-  const isResolverTest = isBettererResolverTest(test);
-
-  if (!test || !(isTest || isResolverTest)) {
-    throw new BettererError(`"${name}" must return a \`BettererTest\`.`);
-  }
-
-  const { isOnly, isSkipped } = test;
-
-  return [
-    test,
-    {
-      isCacheable: isResolverTest,
-      isNew,
-      isOnly,
-      isSkipped
-    }
-  ];
-}
 
 /** @knipignore part of worker API */
 export async function init(
@@ -67,7 +28,19 @@ export async function init(
     setGlobals(config, null, results, null, null, versionControl);
   }
 
-  const [test, runMeta] = await loadTest(testMeta, results);
+  const { name } = testMeta;
+
+  const test = await loadTest(testMeta);
+  const isTest = isBettererTest(test);
+
+  invariantΔ(isTest, `"${name}" must return a \`BettererTest\`!`);
+
+  const isNew = !(await results.api.hasBaseline(name));
+  const isResolverTest = isBettererResolverTest(test);
+  const { isOnly, isSkipped } = test;
+
+  const runMeta = { isCacheable: isResolverTest, isNew, isOnly, isSkipped };
+
   TEST_META_MAP[testMeta.name] = [test, testMeta, runMeta];
   return runMeta;
 }
@@ -81,9 +54,7 @@ export function run(
   timestamp: number
 ): Promise<BettererRunSummary> {
   const meta = TEST_META_MAP[testName];
-  if (!meta) {
-    throw new BettererError(`Worker has not been initialised for "${testName}". ❌`);
-  }
+  invariantΔ(meta, `Worker has not been initialised for "${testName}"!`);
   const [test, testMeta, runMeta] = meta;
 
   const run = new BettererWorkerRunΩ(test.config, logger, testMeta, runMeta);

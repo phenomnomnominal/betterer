@@ -111,8 +111,5 @@ export class BettererTest<DeserialisedType = unknown, SerialisedType = Deseriali
 }
 
 export function isBettererTest(test: unknown): test is BettererTest {
-  if (!test) {
-    return false;
-  }
-  return checkBaseName(test.constructor, BettererTest.name);
+  return !!test && checkBaseName(test.constructor, BettererTest.name);
 }

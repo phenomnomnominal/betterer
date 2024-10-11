@@ -18,3 +18,5 @@ export { BettererResultΩ } from './result.js';
 export { BettererResultsMergerΩ } from './results-merger.js';
 export { BettererResultsSummaryΩ } from './results-summary.js';
 export { BettererResultsΩ } from './results.js';
+
+export { printResults } from './print.js';

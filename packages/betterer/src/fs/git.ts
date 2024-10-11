@@ -9,7 +9,7 @@ import type {
   BettererVersionControl
 } from './types.js';
 
-import { BettererError } from '@betterer/errors';
+import { invariantΔ } from '@betterer/errors';
 import path from 'node:path';
 import { simpleGit } from 'simple-git';
 
@@ -39,10 +39,6 @@ export class BettererGitΩ implements BettererVersionControl {
 
   public async add(resultsPath: string): Promise<void> {
     await this._git.add(resultsPath);
-  }
-
-  public filterIgnored(filePaths: BettererFilePaths): BettererFilePaths {
-    return filePaths.filter((absolutePath) => this._fileMap.get(absolutePath));
   }
 
   public getFilePaths(): BettererFilePaths {
@@ -81,9 +77,7 @@ export class BettererGitΩ implements BettererVersionControl {
 
   private _toFileInfo(line: string): [string, string] {
     const [, , hash, relativePath] = line.split(/\s/);
-    if (!hash || !relativePath) {
-      throw new BettererError('Invalid data from git output. ❌');
-    }
+    invariantΔ(hash && relativePath, 'Invalid data from git output!');
     return [hash, relativePath];
   }
 

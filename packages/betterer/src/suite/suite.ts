@@ -55,21 +55,26 @@ export class BettererSuiteΩ implements BettererSuite {
       return runΩ.isOnly;
     });
 
+    const { reporter } = getGlobals();
+    const reporterΩ = reporter as BettererReporterΩ;
+
+    // Call the `runStart` reporter hook sequentially for all the tests:
+    const reportRunStarts = this.runs.map(async (run) => {
+      const runΩ = run as BettererRunΩ;
+      const reportRunStart = reporterΩ.runStart(runΩ, runΩ.lifecycle.promise);
+      // Don't await here! A custom reporter could be awaiting the lifecycle promise which is unresolved right now!
+      // eslint-disable-next-line @typescript-eslint/return-await -- see above
+      return reportRunStart;
+    });
+
     const runSummaries = await Promise.all(
       this.runs.map(async (run) => {
-        const { config, reporter, versionControl } = getGlobals();
-        const reporterΩ = reporter as BettererReporterΩ;
+        const { config, versionControl } = getGlobals();
 
         if (run.isObsolete) {
           const runObsoleteΩ = run as BettererRunObsoleteΩ;
 
-          const reportRunStart = reporterΩ.runStart(runObsoleteΩ, runObsoleteΩ.lifecycle.promise);
-
           const runSummary = await runObsoleteΩ.run();
-          runObsoleteΩ.lifecycle.resolve(runSummary);
-
-          await reportRunStart;
-          await reporterΩ.runEnd(runSummary);
 
           if (runObsoleteΩ.isRemoved && config.cache) {
             await versionControl.api.clearCache(runObsoleteΩ.name);
@@ -78,12 +83,12 @@ export class BettererSuiteΩ implements BettererSuite {
           return runSummary;
         }
 
-        const runΩ = run as BettererRunΩ;
-
         const { filters } = config;
 
         // This is all a bit backwards because "filters" is named badly.
         const hasFilters = !!filters.length;
+
+        const runΩ = run as BettererRunΩ;
 
         // And this is some madness which applies filters and negative filters in
         // the order they are read:
@@ -114,10 +119,6 @@ export class BettererSuiteΩ implements BettererSuite {
         const isOtherTestOnly = hasOnly && !runΩ.isOnly;
         const isFiltered = (hasFilters && !isSelected) || isOtherTestOnly;
 
-        // Don't await here! A custom reporter could be awaiting
-        // the lifecycle promise which is unresolved right now!
-        const reportRunStart = reporterΩ.runStart(runΩ, runΩ.lifecycle.promise);
-
         const runSummary = await runΩ.run(isFiltered);
 
         if (config.cache && runΩ.runMeta.isCacheable) {
@@ -133,6 +134,20 @@ export class BettererSuiteΩ implements BettererSuite {
         // so it needs to be updated
         runΩ.filePaths = runSummary.filePaths;
 
+        if (runSummary.isFailed || (runSummary.isWorse && !runSummary.isUpdated)) {
+          process.exitCode = 1;
+        }
+        return runSummary;
+      })
+    );
+
+    // Call the `runEnd` and `runError` reporter hooks in the same order that they ran:
+    await Promise.all(
+      runSummaries.map(async (runSummary, index) => {
+        const run = this.runs[index];
+        const reportRunStart = reportRunStarts[index];
+
+        const runΩ = run as BettererRunΩ;
         if (runSummary.isFailed) {
           const { error } = runSummary;
           invariantΔ(error, 'A failed run will always have an `error`!');
@@ -150,11 +165,6 @@ export class BettererSuiteΩ implements BettererSuite {
           await reportRunStart;
           await reporterΩ.runEnd(runSummary);
         }
-
-        if (runSummary.isFailed || (runSummary.isWorse && !runSummary.isUpdated)) {
-          process.exitCode = 1;
-        }
-        return runSummary;
       })
     );
 

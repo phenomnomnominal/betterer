@@ -14,9 +14,5 @@ export async function createMergeConfig(options: BettererOptionsMerge): Promise<
   validateString({ cwd });
   await validateFilePath({ resultsPath });
 
-  return {
-    contents,
-    cwd,
-    resultsPath: path.resolve(cwd, resultsPath)
-  };
+  return { contents, cwd, resultsPath };
 }

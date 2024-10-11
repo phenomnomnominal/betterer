@@ -1,12 +1,13 @@
 import { describe, expect, it, vitest } from 'vitest';
 
-import assert from 'node:assert';
+import { invariantΔ } from '@betterer/errors';
+
 import { createFixture } from './fixture.js';
 
 vitest.mock('node:os', async (importOriginal): Promise<typeof import('node:os')> => {
   const os: typeof import('node:os') = await importOriginal();
   const [cpu] = os.cpus();
-  assert(cpu);
+  invariantΔ(cpu, 'There will always be at least one CPU or something is very wrong!');
   return {
     ...os,
     cpus: () => [cpu]

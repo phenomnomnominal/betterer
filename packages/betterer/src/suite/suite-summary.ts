@@ -75,8 +75,10 @@ export class BettererSuiteSummaryΩ implements BettererSuiteSummary {
 
   private _getChanged(): BettererTestNames {
     const obsoleteRunNames = this.obsolete.map((runSummary) => runSummary.name);
-    const notFailedOrSkipped = this.runSummaries.filter((runSummary) => !runSummary.isFailed && !runSummary.isSkipped);
-    const changedRuns = notFailedOrSkipped
+    const notFailedOrSkippedOrObsolete = this.runSummaries.filter(
+      (runSummary) => !runSummary.isFailed && !runSummary.isSkipped && !runSummary.isObsolete
+    );
+    const changedRuns = notFailedOrSkippedOrObsolete
       .filter((runSummary) => !runSummary.isNew)
       .filter((runSummary) => {
         const { result, expected } = runSummary;
@@ -84,7 +86,7 @@ export class BettererSuiteSummaryΩ implements BettererSuiteSummary {
         invariantΔ(expected, 'Test is not _new_ so it must have an expected result!');
         return result.printed !== expected.printed;
       });
-    const newRuns = notFailedOrSkipped.filter((runSummary) => runSummary.isNew && !runSummary.isComplete);
+    const newRuns = notFailedOrSkippedOrObsolete.filter((runSummary) => runSummary.isNew && !runSummary.isComplete);
     const newOrChangedRunNames = [...changedRuns, ...newRuns].map((runSummary) => runSummary.name);
     return [...obsoleteRunNames, ...newOrChangedRunNames];
   }

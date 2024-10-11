@@ -21,7 +21,7 @@ Ignores (press "i" to edit): No current ignore patterns
 
 Starting Betterer in watch mode! 🎉
 
-(press "q" to quit)
+(press "ctrl+c" or "q" to quit)
 ",
   "Filters (press "f" to edit): No current filter patterns
 Ignores (press "i" to edit): No current ignore patterns
@@ -32,7 +32,7 @@ Checking 1 file... 🤔
 
 🌟 Betterer (0ms):
 
-(press "q" to quit)
+(press "ctrl+c" or "q" to quit)
 ",
   "Filters (press "f" to edit): No current filter patterns
 Ignores (press "i" to edit): No current ignore patterns
@@ -44,7 +44,7 @@ Checking 1 file... 🤔
 🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 
-(press "q" to quit)
+(press "ctrl+c" or "q" to quit)
 ",
   "Filters (press "f" to edit): No current filter patterns
 Ignores (press "i" to edit): No current ignore patterns
@@ -62,7 +62,7 @@ Checking 1 file... 🤔
 ・     |                    ^^^^^^^^^^^ TSQuery match
 ・
 
-(press "q" to quit)
+(press "ctrl+c" or "q" to quit)
 ",
   "Filters (press "f" to edit): No current filter patterns
 Ignores (press "i" to edit): No current ignore patterns
@@ -85,7 +85,7 @@ Checked 1 file! 🔍
 
 You should try to fix the new issues! As a last resort, you can run \`betterer --update\` to force an update of the results file. 🆙
 
-(press "q" to quit)
+(press "ctrl+c" or "q" to quit)
 ",
   "Filters (press "f" to edit): No current filter patterns
 Ignores (press "i" to edit): No current ignore patterns
@@ -96,7 +96,7 @@ Checking 1 file... 🤔
 
 🌟 Betterer (0ms):
 
-(press "q" to quit)
+(press "ctrl+c" or "q" to quit)
 ",
   "Filters (press "f" to edit): No current filter patterns
 Ignores (press "i" to edit): No current ignore patterns
@@ -108,7 +108,7 @@ Checking 1 file... 🤔
 🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 
-(press "q" to quit)
+(press "ctrl+c" or "q" to quit)
 ",
   "Filters (press "f" to edit): No current filter patterns
 Ignores (press "i" to edit): No current ignore patterns
@@ -120,7 +120,7 @@ Checking 1 file... 🤔
 🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" stayed the same. (2 issues) 😐
 
-(press "q" to quit)
+(press "ctrl+c" or "q" to quit)
 ",
   "Filters (press "f" to edit): No current filter patterns
 Ignores (press "i" to edit): No current ignore patterns
@@ -135,7 +135,7 @@ Checked 1 file! 🔍
 1 test got checked. 🤔
 1 test stayed the same. 😐
 
-(press "q" to quit)
+(press "ctrl+c" or "q" to quit)
 ",
   "Filters (press "f" to edit): No current filter patterns
 Ignores (press "i" to edit): No current ignore patterns
@@ -146,7 +146,7 @@ Checking 1 file... 🤔
 
 🌟 Betterer (0ms):
 
-(press "q" to quit)
+(press "ctrl+c" or "q" to quit)
 ",
   "Filters (press "f" to edit): No current filter patterns
 Ignores (press "i" to edit): No current ignore patterns
@@ -158,7 +158,7 @@ Checking 1 file... 🤔
 🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 
-(press "q" to quit)
+(press "ctrl+c" or "q" to quit)
 ",
   "Filters (press "f" to edit): No current filter patterns
 Ignores (press "i" to edit): No current ignore patterns
@@ -171,7 +171,7 @@ Checking 1 file... 🤔
 ✅ test: "test" got better! (1 fixed issue, 1 remaining) 😍
 ・ 1 fixed, 1 existing issues in "fixtures/watch/src/index.ts".
 
-(press "q" to quit)
+(press "ctrl+c" or "q" to quit)
 ",
   "Filters (press "f" to edit): No current filter patterns
 Ignores (press "i" to edit): No current ignore patterns
@@ -187,7 +187,7 @@ Checked 1 file! 🔍
 1 test got checked. 🤔
 1 test got better! 😍
 
-(press "q" to quit)
+(press "ctrl+c" or "q" to quit)
 ",
   "Stopping watch mode... 👋
 ",

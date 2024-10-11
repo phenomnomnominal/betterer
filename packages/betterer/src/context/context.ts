@@ -1,7 +1,7 @@
 import { BettererError } from '@betterer/errors';
 
 import type { BettererConfig, BettererOptionsOverride } from '../config/index.js';
-import type { BettererFilePaths } from '../fs/index.js';
+import type { BettererFilePaths, BettererFileResolverΩ } from '../fs/index.js';
 import type { BettererReporterΩ } from '../reporters/index.js';
 import type {
   BettererSuite,
@@ -13,7 +13,6 @@ import type {
 import type { BettererContext, BettererContextSummary } from './types.js';
 
 import { overrideContextConfig } from '../context/index.js';
-import type { BettererFileResolverΩ } from '../fs/index.js';
 import { overrideReporterConfig } from '../reporters/index.js';
 import { overrideWatchConfig } from '../runner/index.js';
 import { BettererSuiteΩ } from '../suite/index.js';
@@ -40,25 +39,10 @@ export class BettererContextΩ implements BettererContext {
   }
 
   public async options(optionsOverride: BettererOptionsOverride): Promise<void> {
-    // Wait for any pending run to finish, and any existing reporter to render:
-    let lastSuiteΩ: BettererSuiteΩ | null = null;
-    try {
-      const lastSuite = this.lastSuite;
-      lastSuiteΩ = lastSuite as BettererSuiteΩ;
-      await lastSuiteΩ.lifecycle.promise;
-    } catch {
-      // It's okay if there's not a pending suite!
-    }
-
     // Override the config:
     overrideContextConfig(optionsOverride);
     await overrideReporterConfig(optionsOverride);
     overrideWatchConfig(optionsOverride);
-
-    if (lastSuiteΩ) {
-      // Run the tests again, with all the new options:
-      void this.run(lastSuiteΩ.filePaths, false);
-    }
   }
 
   public async run(specifiedFilePaths: BettererFilePaths, isRunOnce = false): Promise<BettererSuiteSummary> {
@@ -73,10 +57,7 @@ export class BettererContextΩ implements BettererContext {
     const hasGlobalIncludesExcludes = includes.length || excludes.length;
 
     let filePaths: BettererFilePaths;
-    if (hasSpecifiedFiles && hasGlobalIncludesExcludes) {
-      // Validate specified files based on global `includes`/`excludes and gitignore rules:
-      filePaths = await resolver.validate(specifiedFilePaths);
-    } else if (hasSpecifiedFiles) {
+    if (hasSpecifiedFiles) {
       // Validate specified files based on gitignore rules:
       filePaths = await resolver.validate(specifiedFilePaths);
     } else if (hasGlobalIncludesExcludes) {
