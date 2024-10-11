@@ -37,9 +37,6 @@ exports[`betterer > should sort files by their file path correctly with absolute
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got checked for the first time! (8 issues) 🎉
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got checked for the first time! (8 issues) 🎉
 ",
@@ -51,34 +48,25 @@ exports[`betterer > should sort files by their file path correctly with absolute
 ",
   "Checking 1 file... 🤔
 
-・ <project>/fixtures/file-test-sort-absolute/src/c.ts
+・ fixtures/file-test-sort-absolute/src/c.ts
 
 🌟 Betterer (0ms):
 ",
   "Checking 1 file... 🤔
 
-・ <project>/fixtures/file-test-sort-absolute/src/c.ts
+・ fixtures/file-test-sort-absolute/src/c.ts
 
 🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
   "Checking 1 file... 🤔
 
-・ <project>/fixtures/file-test-sort-absolute/src/c.ts
-
-🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got force updated. (1 new issue, 9 total) 🆙
-",
-  "Checking 1 file... 🤔
-
-・ <project>/fixtures/file-test-sort-absolute/src/c.ts
+・ fixtures/file-test-sort-absolute/src/c.ts
 
 🎉 Betterer (0ms): 1 test done!
-✅ test: "test" got force updated. (1 new issue, 9 total) 🆙
-・ 2 existing issues in "<project>/fixtures/file-test-sort-absolute/src/c.ts".
-・ New issue in "<project>/fixtures/file-test-sort-absolute/src/c.ts"!
+✅ test: "test" got force updated. (1 new issue, 8 existing, 9 total) 🆙
+・ 2 existing, 1 new issues in "fixtures/file-test-sort-absolute/src/c.ts".
 ・
-・   <project>/fixtures/file-test-sort-absolute/src/c.ts
 ・   1 | debugger;
 ・   2 | debugger;
 ・ > 3 | debugger;
@@ -87,14 +75,12 @@ exports[`betterer > should sort files by their file path correctly with absolute
 ",
   "Checked 1 file! 🔍
 
-・ <project>/fixtures/file-test-sort-absolute/src/c.ts
+・ fixtures/file-test-sort-absolute/src/c.ts
 
 🎉 Betterer (0ms): 1 test done!
-✅ test: "test" got force updated. (1 new issue, 9 total) 🆙
-・ 2 existing issues in "<project>/fixtures/file-test-sort-absolute/src/c.ts".
-・ New issue in "<project>/fixtures/file-test-sort-absolute/src/c.ts"!
+✅ test: "test" got force updated. (1 new issue, 8 existing, 9 total) 🆙
+・ 2 existing, 1 new issues in "fixtures/file-test-sort-absolute/src/c.ts".
 ・
-・   <project>/fixtures/file-test-sort-absolute/src/c.ts
 ・   1 | debugger;
 ・   2 | debugger;
 ・ > 3 | debugger;

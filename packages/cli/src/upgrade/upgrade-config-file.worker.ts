@@ -19,8 +19,13 @@ const EXPORT_MODULE_EXPORTS_QUERY =
   'PropertyAccessExpression:has(Identifier[name="module"]):has(Identifier[name="exports"])';
 
 /** @knipignore part of worker API */
-export async function run(logger: BettererLogger, configPath: string, save: boolean): Promise<void> {
-  await logger.progress(`upgrading "${configPath}"...`);
+export async function run(
+  logger: BettererLogger,
+  status: BettererLogger,
+  configPath: string,
+  save: boolean
+): Promise<void> {
+  await status.progress(`upgrading "${configPath}"...`);
 
   const fileText = await fs.readFile(configPath, 'utf8');
   const replaceNewLines = fileText.split('\n\n').join('/* BLANK LINE */');
@@ -55,7 +60,7 @@ export async function run(logger: BettererLogger, configPath: string, save: bool
   }
 
   if (save) {
-    await logger.progress(`Saving upgraded config to "${configPath}"...`);
+    await status.progress(`Saving upgraded config to "${configPath}"...`);
     await fs.writeFile(configPath, formatted);
     await logger.success(`Saved upgraded config to "${configPath}"! ☀️`);
   }

@@ -1,31 +1,42 @@
+import { exposeToWorkerΔ } from '@betterer/worker';
 import type { BettererError } from '@betterer/errors';
+import type { BettererLogger } from '@betterer/logger';
 
-import type { BettererConfig } from '../config/types.js';
 import type { BettererFilePaths } from '../fs/index.js';
+import type { BettererReporter, BettererReporterΩ } from '../reporters/index.js';
 import type { BettererTestMeta } from '../test/index.js';
 import type { BettererRunMeta } from './meta/types.js';
-import type { BettererRun, BettererRunSummary, BettererRunWorkerHandle, BettererRunWorkerPool } from './types.js';
+import type { BettererRun, BettererRunSummary, BettererRunWorkerHandle } from './types.js';
 
 import { getTimeΔ } from '@betterer/time';
 
-import { BettererResultΩ } from '../results/index.js';
 import { getGlobals } from '../globals.js';
+import { BettererResultΩ } from '../results/index.js';
+import { BettererRunLoggerΩ } from './run-logger.js';
 import { BettererRunSummaryΩ } from './run-summary.js';
 
 export class BettererRunΩ implements BettererRun {
+  public readonly lifecycle = Promise.withResolvers<BettererRunSummary>();
   public readonly isNew: boolean;
+  public readonly isObsolete: boolean = false;
   public readonly isOnly: boolean;
+  public readonly isRemoved: boolean = false;
   public readonly isSkipped: boolean;
   public readonly name: string;
+  public readonly logger: BettererLogger;
 
   private constructor(
     private _workerHandle: BettererRunWorkerHandle,
+    reporter: BettererReporter,
     public testMeta: BettererTestMeta,
     public runMeta: BettererRunMeta,
     public baseline: BettererResultΩ | null,
     public expected: BettererResultΩ | null,
     public filePaths: BettererFilePaths | null
   ) {
+    const { runLogger } = reporter as BettererReporterΩ;
+    this.logger = exposeToWorkerΔ(new BettererRunLoggerΩ(runLogger, this));
+
     this.isNew = !(baseline && expected);
     this.isOnly = runMeta.isOnly;
     this.isSkipped = runMeta.isSkipped;
@@ -37,47 +48,34 @@ export class BettererRunΩ implements BettererRun {
     }
   }
 
-  public static async create(
-    runWorkerPool: BettererRunWorkerPool,
-    testMeta: BettererTestMeta,
-    filePaths: BettererFilePaths
-  ): Promise<BettererRunΩ> {
+  public static async create(testMeta: BettererTestMeta, filePaths: BettererFilePaths): Promise<BettererRunΩ> {
+    const { config, reporter, results, runWorkerPool, versionControl } = getGlobals();
+
     const workerHandle = runWorkerPool.getWorkerHandle();
     const worker = await workerHandle.claim();
 
-    const globals = getGlobals();
-
-    const { config, versionControl } = globals;
-    const workerConfig = {
-      ...config,
-      workers: 1
-    };
-
-    // `BettererReporter` instance can't be passed to the worker_thread, but
-    // the worker doesn't actually need the it, so just ignore it.
-    delete (workerConfig as Partial<BettererConfig>).reporter;
-
-    // TODO: Make `globals.results` a worker so it can be passed across thread boundaries:
-    const runMeta = await worker.api.init(testMeta, workerConfig, versionControl);
+    const runMeta = await worker.api.init(testMeta, { ...config, workers: 1 }, results, versionControl);
     workerHandle.release();
 
-    const { results } = globals;
     let baseline: BettererResultΩ | null = null;
     let expected: BettererResultΩ | null = null;
-    const isNew = !results.hasResult(testMeta.name);
+
+    const isNew = !(await results.api.hasBaseline(testMeta.name));
     if (!isNew) {
-      const [baselineJSON, expectedJSON] = results.getExpected(testMeta.name);
-      baseline = new BettererResultΩ(JSON.parse(baselineJSON), baselineJSON);
-      expected = new BettererResultΩ(JSON.parse(expectedJSON), baselineJSON);
+      const baselineSerialised = await results.api.getBaseline(testMeta.name);
+      const expectedSerialised = await results.api.getExpected(testMeta.name);
+      baseline = new BettererResultΩ(JSON.parse(baselineSerialised), baselineSerialised);
+      expected = new BettererResultΩ(JSON.parse(expectedSerialised), expectedSerialised);
     }
 
     return new BettererRunΩ(
       workerHandle,
+      reporter,
       testMeta,
       runMeta,
       baseline,
       expected,
-      runMeta.needsFilePaths ? filePaths : null
+      runMeta.isCacheable ? filePaths : null
     );
   }
 
@@ -85,7 +83,7 @@ export class BettererRunΩ implements BettererRun {
     const worker = await this._workerHandle.claim();
     const timestamp = getTimeΔ();
     try {
-      return await worker.api.run(this.name, this.filePaths, isFiltered, timestamp);
+      return await worker.api.run(this.logger, this.name, this.filePaths, isFiltered, timestamp);
     } catch (error) {
       return new BettererRunSummaryΩ({
         baseline: this.baseline,
@@ -99,10 +97,13 @@ export class BettererRunΩ implements BettererRun {
         isExpired: false,
         isFailed: true,
         isNew: this.isNew,
+        isObsolete: this.isObsolete,
+        isRemoved: this.isRemoved,
         isSame: false,
-        isSkipped: this.isSkipped || isFiltered,
+        isSkipped: false,
         isUpdated: false,
         isWorse: false,
+        logger: this.logger,
         name: this.name,
         result: null,
         timestamp: timestamp

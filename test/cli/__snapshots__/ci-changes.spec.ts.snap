@@ -7,9 +7,6 @@ exports[`betterer ci > should throw an error when a test changes 1`] = `
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got checked for the first time! (1 issue) 🎉
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got checked for the first time! (1 issue) 🎉
 ",
@@ -19,25 +16,10 @@ exports[`betterer ci > should throw an error when a test changes 1`] = `
 1 test got checked. 🤔
 1 test got checked for the first time! 🎉
 ",
-  "🌟 Betterer:
-",
-  "🌟 Betterer: 1 test running...
-🤔 test: running "test"!
-",
-  "🌟 Betterer: 1 test running...
-🔥 test: "test" got worse. (1 new issue, 2 total) 😔
-",
-  "🌟 Betterer: 1 test running...
-🔥 test: "test" got worse. (1 new issue, 2 total) 😔
-
-Error: "test" got worse. (1 new issue, 2 total) 😔
-",
-  "💥 Betterer: 1 test done! 1 test errored!
-🔥 test: "test" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in "<project>/fixtures/ci-worse/src/index.ts".
-・ New issue in "<project>/fixtures/ci-worse/src/index.ts"!
+  "💥 Betterer (0ms): 1 test done! 1 test errored!
+🔥 test: "test" got worse. (1 new issue, 1 existing, 2 total) 😔
+・ 1 existing, 1 new issues in "fixtures/ci-worse/src/index.ts".
 ・
-・   <project>/fixtures/ci-worse/src/index.ts
 ・   2 | const one = 1;
 ・   3 | console.log(one * a);
 ・ > 4 | console.log(a * one);
@@ -68,7 +50,11 @@ Unexpected changes detected in these tests while running in CI mode:
 
  "test"
 
-You should make sure the results file is up-to-date before committing! You might want to run \`betterer precommit\` in a commit hook. 💍
+You should make sure the results file is up-to-date before committing!
+
+Check out some suggestions to improve your workflow in the docs:
+
+    Workflow Documentation
 ",
 ]
 `;

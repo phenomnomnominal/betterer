@@ -56,11 +56,14 @@ export default tslint.config(
 
     const runner = await betterer.runner({ configPaths, resultsPath, cwd, workers: false });
     await runner.queue(indexPath);
-    const suiteSummary = await runner.stop();
-    const [runSummary] = suiteSummary.runSummaries;
 
-    expect(runSummary.isNew).toEqual(true);
-    expect(runSummary.filePaths).toEqual([indexPath]);
+    const contextSummary = await runner.stop();
+
+    const runSuite = contextSummary?.lastSuite;
+    const [runSummary] = runSuite?.runSummaries ?? [];
+
+    expect(runSummary?.isNew).toEqual(true);
+    expect(runSummary?.filePaths).toEqual([indexPath]);
 
     await cleanup();
   });

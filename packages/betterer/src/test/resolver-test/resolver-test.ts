@@ -1,19 +1,19 @@
-import type { BettererRun, BettererWorkerRunΩ } from '../../run/index.js';
-import type { BettererFileTestResultΩ } from '../file-test/index.js';
 import type {
   BettererFileGlobs,
   BettererFilePaths,
   BettererFilePatterns,
   BettererFileResolver
 } from '../../fs/index.js';
+import type { BettererRun, BettererWorkerRunΩ } from '../../run/index.js';
+import type { BettererFileTestResultΩ } from '../file-test/index.js';
 import type { BettererTestOptions } from '../types.js';
 
-import path from 'node:path';
+import { invariantΔ } from '@betterer/errors';
+
 import { BettererFileResolverΩ } from '../../fs/index.js';
-import { getGlobals } from '../../globals.js';
 import { BettererTest } from '../test.js';
-import { BettererError, invariantΔ } from '@betterer/errors';
 import { checkBaseName } from '../utils.js';
+import { getGlobals } from '../../globals.js';
 
 /**
  * @public A very common need for a **Betterer** test is to resolve file paths, and include and exclude files
@@ -34,8 +34,8 @@ export class BettererResolverTest<
       ...options,
       test: async (run: BettererRun): Promise<DeserialisedType> => {
         const runΩ = run as BettererWorkerRunΩ;
-        const { versionControl } = getGlobals();
-        this._resolverΩ.init(path.dirname(runΩ.testMeta.configPath), versionControl);
+
+        this._resolverΩ.init(runΩ.testMeta);
 
         const { filePaths } = runΩ;
         invariantΔ(filePaths, `\`filePaths\` should always exist for a \`BettererResolverTest\` run!`);
@@ -58,15 +58,25 @@ export class BettererResolverTest<
 
         let isFullRun = filePathsForThisRun === testFiles;
 
+        let hasCached = false;
         if (!run.isNew) {
-          const cacheMisses = await versionControl.api.filterCached(run.name, filePathsForThisRun);
-          isFullRun = isFullRun && cacheMisses.length === filePathsForThisRun.length;
+          const cacheMisses = await this._resolverΩ.filterCached(filePathsForThisRun);
+          hasCached = cacheMisses.length !== filePathsForThisRun.length;
+          isFullRun = isFullRun && !hasCached;
           filePathsForThisRun = cacheMisses;
         }
 
         // Set the final files back on the `BettererRun`:
         runΩ.setFilePaths(filePathsForThisRun);
-        const result = await options.test(run);
+
+        const { config } = getGlobals();
+        if (!hasCached && filePathsForThisRun.length === 0 && !config.precommit) {
+          await run.logger.info(
+            'No relevant files found. Are the `include()`/`exclude()` options for this test correct?'
+          );
+        }
+
+        const result = (await options.test.call(run, run)) as DeserialisedType;
         if (isFullRun) {
           return result;
         }
@@ -96,9 +106,7 @@ export class BettererResolverTest<
    * the `test()` function is being executed.
    */
   public get resolver(): BettererFileResolver {
-    if (!this._resolverΩ.isInitialised()) {
-      throw new BettererError('`resolver` can only be used while the `test` function is being executed. ❌');
-    }
+    invariantΔ(this._resolverΩ.initialised, '`resolver` can only be used while the `test` function is being executed!');
     return this._resolverΩ;
   }
 
@@ -128,8 +136,5 @@ export class BettererResolverTest<
 }
 
 export function isBettererResolverTest(test: unknown): test is BettererResolverTest {
-  if (!test) {
-    return false;
-  }
-  return checkBaseName(test.constructor, BettererResolverTest.name);
+  return !!test && checkBaseName(test.constructor, BettererResolverTest.name);
 }

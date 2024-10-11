@@ -6,7 +6,7 @@ describe('betterer', () => {
   it('should fail when the coverage report is missing', async () => {
     const { betterer } = await import('@betterer/betterer');
 
-    const fixture = await createFixture('coverage-report-missing', {
+    const { paths, logs, cleanup, testNames } = await createFixture('coverage-report-missing', {
       '.betterer.js': `
 import { coverageTotal } from '@betterer/coverage';
 
@@ -22,15 +22,15 @@ export default {
       `
     });
 
-    const configPaths = [fixture.paths.config];
-    const resultsPath = fixture.paths.results;
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
 
     const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(fixture.testNames(newTestRun.failed)).toEqual(['test']);
+    expect(testNames(newTestRun.failed)).toEqual(['test']);
 
-    expect(fixture.logs).toMatchSnapshot();
+    expect(logs).toMatchSnapshot();
 
-    await fixture.cleanup();
+    await cleanup();
   });
 });

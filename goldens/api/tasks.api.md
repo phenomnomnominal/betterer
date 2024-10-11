@@ -5,7 +5,9 @@
 ```ts
 
 import type { BettererError } from '@betterer/errors';
+import type { BettererLog } from '@betterer/logger';
 import type { BettererLogger } from '@betterer/logger';
+import type { BettererLogs } from '@betterer/logger';
 import type { FC } from '@betterer/render';
 import type { PropsWithChildren } from '@betterer/render';
 
@@ -21,7 +23,7 @@ export interface BettererErrorLogProps {
 export const BettererLogo: FC;
 
 // @internal
-export type BettererTask = (logger: BettererLogger) => Promise<string | void>;
+export type BettererTask = (logger: BettererLogger, statusLogger: BettererLogger) => Promise<string | void>;
 
 // @internal
 export const BettererTaskLogger: FC<BettererTaskLoggerProps>;
@@ -33,17 +35,33 @@ export interface BettererTaskLoggerProps {
 }
 
 // @internal
-export type BettererTasksDone = () => void;
+export const BettererTaskResult: FC<BettererTaskResultProps>;
+
+// @internal
+export interface BettererTaskResultProps {
+    error: Error | null;
+    logs: BettererLogs;
+    name: string;
+    status: BettererLog | null;
+}
 
 // @internal
 export const BettererTasksLogger: FC<BettererTasksLoggerProps>;
 
 // @internal
 export type BettererTasksLoggerProps = PropsWithChildren<{
-    done?: BettererTasksDone;
     exit?: boolean;
     name: string;
-    timer?: boolean;
+    update?: BettererTasksStatusUpdate;
+}>;
+
+// @internal
+export const BettererTasksResult: FC<BettererTasksResultProps>;
+
+// @internal
+export type BettererTasksResultProps = PropsWithChildren<BettererTasksState & {
+    name: string;
+    time: number;
     update?: BettererTasksStatusUpdate;
 }>;
 
@@ -58,5 +76,15 @@ export interface BettererTasksState {
 
 // @internal
 export type BettererTasksStatusUpdate = (state: BettererTasksState) => string;
+
+// @internal
+export interface BettererTaskState {
+    done: boolean;
+    error: Error | null;
+    running: boolean;
+}
+
+// @internal
+export function useTimer(): number;
 
 ```

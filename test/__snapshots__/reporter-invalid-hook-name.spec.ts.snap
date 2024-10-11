@@ -3,7 +3,7 @@
 exports[`betterer --reporter > should throw when there is an invalid hook name 1`] = `
 [
   "
-Error: could not import "<project>/fixtures/reporter-invalid-hook-name/reporter.js". 😔
+Error: could not import "fixtures/reporter-invalid-hook-name/reporter.js". 😔
 
 Error: "notAHook" is not a valid reporter hook name. 😔
 ",

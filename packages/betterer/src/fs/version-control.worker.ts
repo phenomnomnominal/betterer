@@ -1,58 +1,82 @@
+import { invariantΔ } from '@betterer/errors';
+import type { BettererConfig } from '../config/index.js';
+import type { BettererFileCache, BettererFilePaths, BettererVersionControl } from './types.js';
+
 import { exposeToMainΔ } from '@betterer/worker';
+
 import { BettererGitΩ } from './git.js';
-import type { BettererFilePaths } from './types.js';
+import { BettererFileCacheΩ } from './file-cache.js';
 
-export const versionControl = new BettererGitΩ();
+let versionControl: BettererVersionControl | null = null;
+let cache: BettererFileCache | null = null;
 
+/** @knipignore part of worker API */
+export async function init(config: BettererConfig): Promise<void> {
+  if (config.cache) {
+    cache = await BettererFileCacheΩ.create(config.cachePath, config.configPaths);
+  }
+  versionControl = await BettererGitΩ.create(cache, config.versionControlPath);
+}
+
+/** @knipignore part of worker API */
 export function add(resultsPath: string): Promise<void> {
+  checkInitialisedVersionControl(versionControl);
   return versionControl.add(resultsPath);
 }
 
-export function filterIgnored(filePaths: BettererFilePaths): BettererFilePaths {
-  return versionControl.filterIgnored(filePaths);
-}
-
+/** @knipignore part of worker API */
 export function getFilePaths(): BettererFilePaths {
+  checkInitialisedVersionControl(versionControl);
   return versionControl.getFilePaths();
 }
 
-export function init(configPaths: BettererFilePaths, cwd: string): Promise<string> {
-  return versionControl.init(configPaths, cwd);
-}
-
+/** @knipignore part of worker API */
 export function sync(): Promise<void> {
-  return versionControl.sync();
+  checkInitialisedVersionControl(versionControl);
+  return versionControl.sync(cache);
 }
 
+/** @knipignore part of worker API */
 export function clearCache(testName: string): void {
-  versionControl.clearCache(testName);
+  checkInitialisedCache(cache);
+  cache.clearCache(testName);
 }
 
+/** @knipignore part of worker API */
 export function filterCached(testName: string, filePaths: BettererFilePaths): BettererFilePaths {
-  return versionControl.filterCached(testName, filePaths);
+  checkInitialisedCache(cache);
+  return cache.filterCached(testName, filePaths);
 }
 
-export function enableCache(cachePath: string): Promise<void> {
-  return versionControl.enableCache(cachePath);
-}
-
+/** @knipignore part of worker API */
 export function updateCache(testName: string, filePaths: BettererFilePaths): void {
-  versionControl.updateCache(testName, filePaths);
+  checkInitialisedCache(cache);
+  cache.updateCache(testName, filePaths);
 }
 
+/** @knipignore part of worker API */
 export function writeCache(): Promise<void> {
-  return versionControl.writeCache();
+  checkInitialisedCache(cache);
+  return cache.writeCache();
+}
+
+function checkInitialisedVersionControl(
+  versionControl: BettererVersionControl | null
+): asserts versionControl is BettererVersionControl {
+  invariantΔ(versionControl, '`init` must be called before using version control!');
+}
+
+function checkInitialisedCache(cache: BettererFileCache | null): asserts cache is BettererFileCache {
+  invariantΔ(cache, '`init` must be called before using cache!');
 }
 
 exposeToMainΔ({
-  add,
-  filterIgnored,
-  getFilePaths,
   init,
+  add,
+  getFilePaths,
   sync,
   clearCache,
   filterCached,
-  enableCache,
   updateCache,
   writeCache
 });

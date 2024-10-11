@@ -1,5 +1,3 @@
-import assert from 'node:assert';
-
 import { describe, expect, it } from 'vitest';
 
 import { createFixture } from '../fixture.js';
@@ -7,9 +5,8 @@ import { createFixture } from '../fixture.js';
 describe('betterer.watch', () => {
   it('should quit when "q" is pressed', async () => {
     const { betterer } = await import('@betterer/betterer');
-    const { getStdInΔ } = await import('@betterer/render');
 
-    const { logs, paths, cleanup, resolve, writeFile } = await createFixture('watch-quit', {
+    const { logs, paths, cleanup, resolve, sendKeys, writeFile } = await createFixture('watch-quit', {
       '.betterer.ts': `
 import { tsquery } from '@betterer/tsquery';
 
@@ -27,8 +24,8 @@ export default {
 
     const { cwd } = paths;
 
-    const suiteEndDefer = defer();
-    const contextEndDefer = defer();
+    const suiteEndDefer = Promise.withResolvers<void>();
+    const contextEndDefer = Promise.withResolvers<void>();
 
     await betterer.watch({
       configPaths,
@@ -53,7 +50,7 @@ export default {
     await suiteEndDefer.promise;
 
     // Press "q" to quit watch mode:
-    getStdInΔ().emit('data', 'q');
+    await sendKeys('q');
 
     await contextEndDefer.promise;
 
@@ -62,23 +59,3 @@ export default {
     await cleanup();
   });
 });
-
-type Resolve<T> = (value: T) => void;
-type Reject = (error: Error) => void;
-interface Defer<T = void> {
-  promise: Promise<T>;
-  resolve: Resolve<T>;
-  reject: Reject;
-}
-
-function defer<T = void>(): Defer<T> {
-  let resolve: Resolve<T> | null = null;
-  let reject: Reject | null = null;
-  const promise = new Promise<T>((res, rej) => {
-    resolve = res;
-    reject = rej;
-  });
-  assert(resolve);
-  assert(reject);
-  return { promise, resolve, reject };
-}

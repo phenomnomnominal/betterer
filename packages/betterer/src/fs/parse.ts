@@ -1,3 +1,5 @@
+import type { BettererFilePath } from './index.js';
+
 import { BettererError } from '@betterer/errors';
 import assert from 'node:assert';
 
@@ -10,6 +12,8 @@ const MERGE_CONFLICT_END = '>>>>>>>';
 const MERGE_CONFLICT_SEP = '=======';
 const MERGE_CONFLICT_START = '<<<<<<<';
 
+const PARSE_CACHE = new Map<string, unknown>();
+
 /**
  * Parses the contents of a given file path. If the file doesn't exist, it will
  * return an empty object. If the file exists, but has merge conflicts, it will merge the
@@ -19,12 +23,23 @@ const MERGE_CONFLICT_START = '<<<<<<<';
  * Throws if the results file cannot be parsed, or if it contains merge conflicts that
  * can't be resolved.
  */
-export async function parse(filePath: string): Promise<unknown> {
+export async function parse(filePath: BettererFilePath): Promise<unknown> {
   const contents = await read(filePath);
   if (!contents) {
     return {};
   }
 
+  const cached = PARSE_CACHE.get(contents);
+  if (cached) {
+    return cached;
+  }
+
+  const parsed = parseContents(filePath, contents);
+  PARSE_CACHE.set(contents, parsed);
+  return parsed;
+}
+
+function parseContents(filePath: BettererFilePath, contents: string): unknown {
   if (hasMergeConflicts(contents)) {
     try {
       const [ours, theirs] = extractConflicts(contents);
@@ -45,10 +60,10 @@ function hasMergeConflicts(str: string): boolean {
   return str.includes(MERGE_CONFLICT_START) && str.includes(MERGE_CONFLICT_SEP) && str.includes(MERGE_CONFLICT_END);
 }
 
-function extractConflicts(file: string): [string, string] {
+function extractConflicts(contents: string): [string, string] {
   const ours = [];
   const theirs = [];
-  const lines = file.split(/\r?\n/g);
+  const lines = contents.split(/\r?\n/g);
   let skip = false;
 
   while (lines.length) {

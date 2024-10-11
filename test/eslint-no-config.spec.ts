@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { createFixture } from './fixture.js';
 
 describe('betterer', () => {
-  it('should throw if there are no config', async () => {
+  it('should throw when trying to run ESLint with no config', async () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { paths, logs, cleanup } = await createFixture('eslint-no-config', {

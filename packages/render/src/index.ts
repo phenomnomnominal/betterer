@@ -26,7 +26,7 @@ export const React = R;
  *
  * Re-exported from `ink`
  */
-export type { Instance, RenderOptions, TextProps } from 'ink';
+export type { Instance, RenderOptions } from 'ink';
 
 /**
  * @internal This could change at any point! Please don't use!
@@ -40,7 +40,14 @@ export type { FC, PropsWithChildren } from 'react';
  *
  * Re-exported from `ink`
  */
-export { render, Box, Text, useApp, useInput, useStdin } from 'ink';
+export { render, Box, useApp, useInput, useStdin } from 'ink';
+
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * Re-exported from `ink`, but modified to remove process.cwd() from any text
+ */
+export { Text, TextProps } from './text.js';
 
 /**
  * @internal This could change at any point! Please don't use!
@@ -64,6 +71,22 @@ export type TextInputProps = React.ComponentProps<typeof TI>;
  * Re-exported TextInput component from `ink-text-input`
  */
 export const TextInput: React.FC<TextInputProps> = TI;
+
+import IL from 'ink-link';
+
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * Re-exported LinkProps from `ink-link`
+ */
+export type LinkProps = React.ComponentProps<typeof IL>;
+
+/**
+ * @internal This could change at any point! Please don't use!
+ *
+ * Re-exported Link component from `ink-link`
+ */
+export const Link: React.FC<LinkProps> = IL;
 
 /**
  * @internal This could change at any point! Please don't use!
@@ -108,6 +131,7 @@ export function getRenderOptionsΔ(env = '', options: RenderOptions = {}): Rende
     stderr: getStdErrΔ(),
     stdin: getStdInΔ(),
     stdout: getStdOutΔ(),
+    patchConsole: true,
     ...options
   };
 }

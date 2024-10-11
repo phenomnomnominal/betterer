@@ -1,7 +1,6 @@
-import type { BettererLogger, BettererLogs } from '@betterer/logger';
+import type { BettererLogger } from '@betterer/logger';
 import type { KnipIssue, KnipIssues, KnipIssuesByType, KnipIssueType, KnipReport } from './types.js';
 
-import { logΔ } from '@betterer/logger';
 import { BettererError, invariantΔ } from '@betterer/errors';
 import { exposeToMainΔ } from '@betterer/worker';
 import { promises as fs } from 'node:fs';
@@ -36,9 +35,9 @@ export async function getPackages(): Promise<Array<string>> {
   });
 }
 
-export async function run(logger: BettererLogger, packageName: string): Promise<string> {
+export async function run(logger: BettererLogger, status: BettererLogger, packageName: string): Promise<string> {
   const packageNameFull = `@betterer/${packageName}`;
-  await logger.progress(`Validating dependencies for "${packageNameFull}" ...`);
+  await status.progress(`Validating dependencies for "${packageNameFull}" ...`);
 
   const { stdout } = await asyncExec(
     `npm run knip -- --no-exit-code --reporter=json --workspace=packages/${packageName}`
@@ -78,20 +77,20 @@ export async function run(logger: BettererLogger, packageName: string): Promise<
   // Fight with race condition in Comlink 😡
   await new Promise((resolve) => setTimeout(resolve, 50));
 
-  const errors: BettererLogs = [];
+  const errors: Array<string> = [];
   Object.entries(issuesByType).forEach(([issueType, issues]) => {
     const title = ISSUE_TYPE_TITLE[issueType as KnipIssueType];
-    errors.push({ error: `\n${title.toUpperCase()}:` });
+    errors.push(`\n${title.toUpperCase()}:`);
     Object.entries(issues).forEach(([filePath, issues]) => {
-      errors.push(...issues.map((issue) => ({ error: `${issue.name} - ${getFilePath(filePath, issue)}` })));
+      errors.push(...issues.map((issue) => `${issue.name} - ${getFilePath(filePath, issue)}`));
     });
   });
 
-  await logΔ(errors, logger);
-
   if (errors.length) {
+    await Promise.all(errors.map((error) => logger.error(error)));
     throw new BettererError(`Dependency issues found in "${packageNameFull}"`);
   }
+
   return `No dependency issues found in "${packageNameFull}".`;
 }
 

@@ -2,58 +2,93 @@ import type { BettererError } from '@betterer/errors';
 
 import type { BettererFilePaths } from '../fs/index.js';
 import type { BettererReporterΩ } from '../reporters/index.js';
-import type { BettererReporterRun, BettererRunSummary, BettererRuns } from '../run/index.js';
-import type { BettererSuite } from './types.js';
+import type { BettererRuns } from '../run/index.js';
+import type { BettererSuite, BettererSuiteSummary } from './types.js';
 
 import { invariantΔ } from '@betterer/errors';
 
-import { defer } from '../utils.js';
-import { BettererSuiteSummaryΩ } from './suite-summary.js';
-import { BettererRunΩ } from '../run/index.js';
 import { getGlobals } from '../globals.js';
+import { BettererResultΩ } from '../results/index.js';
+import { BettererRunObsoleteΩ, BettererRunΩ } from '../run/index.js';
+import { BettererSuiteSummaryΩ } from './suite-summary.js';
 
 const NEGATIVE_FILTER_TOKEN = '!';
 
 export class BettererSuiteΩ implements BettererSuite {
+  public readonly lifecycle = Promise.withResolvers<BettererSuiteSummary>();
+
   private constructor(
     public filePaths: BettererFilePaths,
     public runs: BettererRuns
   ) {}
 
   public static async create(filePaths: BettererFilePaths): Promise<BettererSuiteΩ> {
-    const { config, runWorkerPool, testMetaLoader } = getGlobals();
-    const { configPaths } = config;
+    const { config, reporter, results, testMetaLoader } = getGlobals();
+    const { configPaths, update } = config;
+
+    const expectedTestNames = await results.api.getExpectedTestNames();
 
     const testsMeta = await testMetaLoader.api.loadTestsMeta(configPaths);
     const runsΩ = await Promise.all(
       testsMeta.map(async (testMeta) => {
-        return await BettererRunΩ.create(runWorkerPool, testMeta, filePaths);
+        return await BettererRunΩ.create(testMeta, filePaths);
       })
     );
 
-    return new BettererSuiteΩ(filePaths, runsΩ);
+    const testNames = testsMeta.map((testMeta) => testMeta.name);
+    const obsoleteTestNames = expectedTestNames.filter((expectedTestName) => !testNames.includes(expectedTestName));
+
+    const obsoleteRuns = await Promise.all(
+      obsoleteTestNames.map(async (testName) => {
+        const baselineJSON = await results.api.getBaseline(testName);
+        const baseline = new BettererResultΩ(JSON.parse(baselineJSON), baselineJSON);
+        return new BettererRunObsoleteΩ(reporter, testName, baseline, update);
+      })
+    );
+
+    return new BettererSuiteΩ(filePaths, [...obsoleteRuns, ...runsΩ]);
   }
 
-  public async run(): Promise<BettererSuiteSummaryΩ> {
+  public async run(): Promise<BettererSuiteSummary> {
     const hasOnly = !!this.runs.find((run) => {
       const runΩ = run as BettererRunΩ;
       return runΩ.isOnly;
     });
 
+    const { reporter } = getGlobals();
+    const reporterΩ = reporter as BettererReporterΩ;
+
+    // Call the `runStart` reporter hook sequentially for all the tests:
+    const reportRunStarts = this.runs.map(async (run) => {
+      const runΩ = run as BettererRunΩ;
+      const reportRunStart = reporterΩ.runStart(runΩ, runΩ.lifecycle.promise);
+      // Don't await here! A custom reporter could be awaiting the lifecycle promise which is unresolved right now!
+      // eslint-disable-next-line @typescript-eslint/return-await -- see above
+      return reportRunStart;
+    });
+
     const runSummaries = await Promise.all(
       this.runs.map(async (run) => {
-        // Attach lifecycle promise for Reporters:
-        const lifecycle = defer<BettererRunSummary>();
-        (run as BettererReporterRun).lifecycle = lifecycle.promise;
+        const { config, versionControl } = getGlobals();
 
-        const runΩ = run as BettererRunΩ;
+        if (run.isObsolete) {
+          const runObsoleteΩ = run as BettererRunObsoleteΩ;
 
-        const { config } = getGlobals();
-        const { filters, reporter } = config;
-        const reporterΩ = reporter as BettererReporterΩ;
+          const runSummary = await runObsoleteΩ.run();
+
+          if (runObsoleteΩ.isRemoved && config.cache) {
+            await versionControl.api.clearCache(runObsoleteΩ.name);
+          }
+
+          return runSummary;
+        }
+
+        const { filters } = config;
 
         // This is all a bit backwards because "filters" is named badly.
         const hasFilters = !!filters.length;
+
+        const runΩ = run as BettererRunΩ;
 
         // And this is some madness which applies filters and negative filters in
         // the order they are read:
@@ -84,34 +119,55 @@ export class BettererSuiteΩ implements BettererSuite {
         const isOtherTestOnly = hasOnly && !runΩ.isOnly;
         const isFiltered = (hasFilters && !isSelected) || isOtherTestOnly;
 
-        // Don't await here! A custom reporter could be awaiting
-        // the lifecycle promise which is unresolved right now!
-        const reportRunStart = reporterΩ.runStart(runΩ, lifecycle.promise);
-
         const runSummary = await runΩ.run(isFiltered);
+
+        if (config.cache && runΩ.runMeta.isCacheable) {
+          const { isBetter, isComplete, isNew, isSame, isUpdated, name } = runSummary;
+          // Handle the special case of being in CI mode with cache enabled:
+          if (isBetter || isComplete || isNew || isUpdated || (isSame && config.ci)) {
+            invariantΔ(runSummary.filePaths, `if a run is cacheable, then the summary will always have file paths!`);
+            await versionControl.api.updateCache(name, runSummary.filePaths);
+          }
+        }
 
         // `filePaths` will be updated in the worker if the test filters the files
         // so it needs to be updated
         runΩ.filePaths = runSummary.filePaths;
 
-        if (runSummary.isFailed) {
-          const { error } = runSummary;
-          invariantΔ(error, 'A failed run will always have an `error`!');
-          lifecycle.reject(error);
-          await reportRunStart;
-          await reporterΩ.runError(runΩ, error as BettererError);
-        } else {
-          lifecycle.resolve(runSummary);
-          await reportRunStart;
-          await reporterΩ.runEnd(runSummary);
+        if (runSummary.isFailed || (runSummary.isWorse && !runSummary.isUpdated)) {
+          process.exitCode = 1;
         }
         return runSummary;
       })
     );
 
-    const { results } = getGlobals();
-    const changed = results.getChanged(runSummaries);
+    // Call the `runEnd` and `runError` reporter hooks in the same order that they ran:
+    await Promise.all(
+      runSummaries.map(async (runSummary, index) => {
+        const run = this.runs[index];
+        const reportRunStart = reportRunStarts[index];
 
-    return new BettererSuiteSummaryΩ(this.filePaths, this.runs, runSummaries, changed);
+        const runΩ = run as BettererRunΩ;
+        if (runSummary.isFailed) {
+          const { error } = runSummary;
+          invariantΔ(error, 'A failed run will always have an `error`!');
+          runΩ.lifecycle.reject(error);
+
+          // Lifecycle promise is resolved, so it's safe to await
+          // the result of `reporter.runStart`:
+          await reportRunStart;
+          await reporterΩ.runError(runΩ, error as BettererError);
+        } else {
+          runΩ.lifecycle.resolve(runSummary);
+
+          // Lifecycle promise is resolved, so it's safe to await
+          // the result of `reporter.runStart`:
+          await reportRunStart;
+          await reporterΩ.runEnd(runSummary);
+        }
+      })
+    );
+
+    return new BettererSuiteSummaryΩ(this.filePaths, this.runs, runSummaries);
   }
 }

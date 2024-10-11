@@ -1,5 +1,3 @@
-import type { BettererError } from '@betterer/errors';
-
 import type { BettererConfig, BettererOptionsOverride } from '../config/index.js';
 import type { BettererSuiteSummaries, BettererSuiteSummary } from '../suite/index.js';
 
@@ -270,15 +268,13 @@ export interface BettererContext {
    */
   options(optionsOverride: BettererOptionsOverride): Promise<void>;
   /**
-   * Stop the test run and clean everything up. If tests are running, waits for them to end before
-   * stopping.
+   * Stop the runner, but first wait for it to finish running the current suite.
+   *
+   * @returns the {@link @betterer/betterer#BettererContextSummary | `BettererContextSummary`} containing
+   * details of all successful runs.
+   * @throws the error if something went wrong while stopping everything.
    */
-  stop(): Promise<BettererSuiteSummary>;
-}
-
-export interface BettererContextStarted {
-  end(): Promise<BettererContextSummary>;
-  error(error: BettererError): Promise<void>;
+  stop(): Promise<BettererContextSummary>;
 }
 
 /**

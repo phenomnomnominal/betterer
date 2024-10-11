@@ -1,6 +1,6 @@
 import type { BettererWorkerAPI, BettererWorkerFactory, BettererWorkerHandle, BettererWorkerPool } from './types.js';
 
-import { BettererError, invariantΔ } from '@betterer/errors';
+import { invariantΔ } from '@betterer/errors';
 
 class BettererWorkerHandleΩ<API extends BettererWorkerAPI<unknown>> implements BettererWorkerHandle<API> {
   private _destroyed = false;
@@ -14,9 +14,7 @@ class BettererWorkerHandleΩ<API extends BettererWorkerAPI<unknown>> implements 
   }
 
   public async claim(): Promise<API> {
-    if (this._destroyed) {
-      throw new BettererError(`Handle has been destroyed so cannot be claimed. ❌`);
-    }
+    invariantΔ(!this._destroyed, 'Handle has been destroyed so cannot be claimed!');
     await this._free;
     this._free = new Promise<void>((resolve) => {
       this._release = resolve;
@@ -25,17 +23,13 @@ class BettererWorkerHandleΩ<API extends BettererWorkerAPI<unknown>> implements 
   }
 
   public async destroy(): Promise<void> {
-    if (this._destroyed) {
-      return;
-    }
+    invariantΔ(!this._destroyed, 'Handle has been destroyed so cannot be destroyed again!');
     this._destroyed = true;
     await this._worker.destroy();
   }
 
   public release(): void {
-    if (!this._release) {
-      throw new BettererError(`Handle has not been claimed yet so cannot be released. ❌`);
-    }
+    invariantΔ(this._release, 'Handle has not been claimed yet so cannot be released!');
     this._release();
   }
 }

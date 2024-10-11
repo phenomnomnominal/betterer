@@ -1,5 +1,7 @@
 import { defineConfig } from 'vitest/config';
 
+import { MCROptions } from './mcr.config.js';
+
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 const isNode16 = process.version.startsWith('v16');
@@ -10,44 +12,35 @@ export default defineConfig({
       configNames: ['tsconfig.spec.json']
     })
   ],
+  server: {
+    watch: {
+      ignored: ['**/fixtures/**']
+    }
+  },
   test: {
     setupFiles: ['./test/setup.ts'],
     include: ['test/**/*.spec.ts'],
     exclude: ['test/**/*.e2e.spec.ts'],
     reporters: ['basic'],
-    isolate: false,
+    isolate: true,
 
     // node.js v16 struggled with all the parallelism...
     fileParallelism: !isNode16,
 
     // Our tests are basically E2E so they're a bit slow as is...
     slowTestThreshold: 30000,
-    testTimeout: 90000,
+    testTimeout: 900000,
 
     watch: false,
-    watchExclude: ['**/fixtures/**'],
     coverage: {
-      all: true,
       enabled: true,
-      exclude: [
-        '.betterer.ts',
-        '.eslintrc.cjs',
-        '.prettierrc.cjs',
-        'commitlint.config.js',
-        'vitest.e2e.config.ts',
-        'fixtures/**',
-        'packages/**/public.ts',
-        'packages/**/types.ts',
-        'packages/docgen/**',
-        'packages/extension/**',
-        'packages/fixture/**',
-        'packages/render/**',
-        'test/**',
-        'tools/**',
-        'types/**',
-        'website/**'
-      ],
-      reportsDirectory: 'reports/coverage'
+      reportsDirectory: 'reports/unit-coverage-v8',
+
+      provider: 'custom',
+      customProviderModule: 'vitest-monocart-coverage',
+
+      // @ts-expect-error - types are wrong for monocart I guess?
+      coverageReportOptions: MCROptions
     }
   }
 });

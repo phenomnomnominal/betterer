@@ -54,6 +54,10 @@ export function angular(configFilePath: string, extraCompilerOptions: CompilerOp
 
   // Always has to do the full compile since a .component.html file needs to know about the module it lives in:
   return new BettererFileTest((filePaths, fileTestResult, resolver) => {
+    if (filePaths.length === 0) {
+      return;
+    }
+
     const absoluteConfigFilePath = resolver.resolve(configFilePath);
 
     const { rootNames, options } = readConfiguration(absoluteConfigFilePath, extraCompilerOptions);

@@ -35,8 +35,8 @@ export async function getPackages(): Promise<Array<string>> {
   });
 }
 
-export async function run(logger: BettererLogger, packageName: string): Promise<string> {
-  await logger.progress(`Validating API for "@betterer/${packageName}" ...`);
+export async function run(status: BettererLogger, packageName: string): Promise<string> {
+  await status.progress(`Validating API for "@betterer/${packageName}" ...`);
 
   const packageGoldenPath = path.join(GOLDENS_DIR, `${packageName}${EXTRACTION_EXTENSION}`);
   const packageGeneratedPath = path.join(TEMP_DIR, `${packageName}${EXTRACTION_EXTENSION}`);

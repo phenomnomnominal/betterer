@@ -11,10 +11,15 @@ const TEMPLATE = `export default {
 `;
 
 /** @knipignore part of worker API */
-export async function run(logger: BettererLogger, cwd: string, configPath: string): Promise<void> {
+export async function run(
+  logger: BettererLogger,
+  status: BettererLogger,
+  cwd: string,
+  configPath: string
+): Promise<void> {
   configPath = path.resolve(cwd, configPath);
 
-  await logger.progress(`creating "${configPath}" file...`);
+  await status.progress(`creating "${configPath}" file...`);
 
   let exists = false;
   try {

@@ -54,7 +54,7 @@ export function eslint(...overrideConfig: BettererESLintConfig): BettererFileTes
     if (config.files || config.ignores) {
       throw new BettererError(
         `Please use \`eslint({ ... }).include()\` or \`eslint({ ... }).exclude()\` to control linting extra files, using paths relative to your test definition file.
-        This makes it easier to configure exactly which files should be checked! ❌`
+This makes it easier to configure exactly which files should be checked! ❌`
       );
     }
   });

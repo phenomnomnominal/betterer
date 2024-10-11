@@ -1,5 +1,6 @@
-import type { BettererConfigFS, BettererConfigMerge, BettererOptionsFS, BettererOptionsMerge } from './types.js';
+import type { BettererConfigFS, BettererOptionsFS } from './types.js';
 
+import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
 import { BettererError } from '@betterer/errors';
@@ -26,28 +27,15 @@ export async function createFSConfig(options: BettererOptionsFS): Promise<Better
   validateStringArray({ cachePath });
   validateStringArray({ resultsPath });
 
+  const gitRoot = await validateGitRepo(cwd);
+
   return {
     cache,
     cachePath: path.resolve(cwd, cachePath),
     cwd,
     configPaths: validatedConfigPaths,
-    resultsPath: path.resolve(cwd, resultsPath)
-  };
-}
-
-export async function createMergeConfig(options: BettererOptionsMerge): Promise<BettererConfigMerge> {
-  const contents = toArray(options.contents);
-  const cwd = options.cwd ?? process.cwd();
-  const resultsPath = path.resolve(cwd, options.resultsPath ?? BETTERER_RESULTS);
-
-  validateStringArray({ contents });
-  validateString({ cwd });
-  await validateFilePath({ resultsPath });
-
-  return {
-    contents,
-    cwd,
-    resultsPath: path.resolve(cwd, resultsPath)
+    resultsPath: path.resolve(cwd, resultsPath),
+    versionControlPath: path.dirname(gitRoot)
   };
 }
 
@@ -83,4 +71,18 @@ async function validateConfigPaths(cwd: string, configPaths: Array<string>): Pro
       }
     })
   );
+}
+
+async function validateGitRepo(cwd: string): Promise<string> {
+  let dir = cwd;
+  while (dir !== path.parse(dir).root) {
+    try {
+      const gitPath = path.join(dir, '.git');
+      await fs.access(gitPath);
+      return gitPath;
+    } catch {
+      dir = path.join(dir, '..');
+    }
+  }
+  throw new BettererError('.git directory not found. Betterer must be used within a git repository.');
 }

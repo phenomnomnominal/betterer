@@ -3,10 +3,10 @@ import { describe, expect, it } from 'vitest';
 import { createFixture } from './fixture.js';
 
 describe('betterer', () => {
-  it('should not update the cache file in CI mode', async () => {
+  it('should not update the cache file in CI mode when the cache is off', async () => {
     const { betterer } = await import('@betterer/betterer');
 
-    const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture('cache-ci', {
+    const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture('cache-ci-off', {
       '.betterer.js': `
 import { regexp } from '@betterer/regexp';
 
@@ -23,23 +23,17 @@ export default {
 
     await writeFile(indexPath, `// HACK:\n// HACK:`);
 
-    const newTestRun = await betterer({ configPaths, resultsPath, cachePath, workers: false });
+    const newTestRun = await betterer({ configPaths, resultsPath, cache: false, workers: false });
 
     expect(testNames(newTestRun.new)).toEqual(['test']);
 
-    const newCache = await readFile(cachePath);
+    await expect(async () => await readFile(cachePath)).rejects.toThrow();
 
-    expect(newCache).toMatchSnapshot();
+    const ciTestRun = await betterer({ configPaths, resultsPath, cache: false, ci: true, workers: false });
 
-    await writeFile(indexPath, `// HACK:\n// HACK:\n// HACK:`);
+    expect(testNames(ciTestRun.same)).toEqual(['test']);
 
-    const ciTestRun = await betterer({ configPaths, resultsPath, cachePath, ci: true, workers: false });
-
-    expect(testNames(ciTestRun.worse)).toEqual(['test']);
-
-    const ciCache = await readFile(cachePath);
-
-    expect(ciCache).toEqual(newCache);
+    await expect(async () => await readFile(cachePath)).rejects.toThrow();
 
     expect(logs).toMatchSnapshot();
 

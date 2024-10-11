@@ -36,6 +36,7 @@
     "@rollup/plugin-typescript": "^11.1.6",
     "ink": "^3.0.9",
     "ink-text-input": "^4.0.1",
+    "ink-link": "^2.0.0",
     "rollup": "^4.14.3"
   }
 }

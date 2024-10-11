@@ -82,42 +82,10 @@ export interface BettererConfigFS {
    * The absolute path to the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
    */
   resultsPath: string;
-}
-
-/**
- * @public Options for when merging conflicts in the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}
- * via the {@link @betterer/betterer#merge | `betterer.merge()` API}.
- *
- * @remarks The options object will be validated by **Betterer**.
- */
-export interface BettererOptionsMerge {
   /**
-   * File contents for merging. If omitted, the `resultsPath` will be read and merged.
+   * The path to the local version control root.
    */
-  contents?: Array<string>;
-  /**
-   * The current working directory.
-   * @defaultValue {@link https://nodejs.org/api/process.html#process_process_cwd | `process.cwd()` }
-   */
-  cwd?: string;
-  /**
-   * The path to the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
-   * The `resultsPath` should be relative to the `cwd`.
-   * @defaultValue `'./.betterer.results'`
-   */
-  resultsPath?: string;
-}
-
-export interface BettererConfigMerge {
-  contents: Array<string>;
-  /**
-   * The current working directory.
-   */
-  cwd: string;
-  /**
-   * The absolute path to the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
-   */
-  resultsPath: string;
+  versionControlPath: string;
 }
 
 /**
@@ -147,41 +115,31 @@ export type BettererFilePaths = ReadonlyArray<BettererFilePath>;
  */
 export type BettererFilePatterns = ReadonlyArray<RegExp | ReadonlyArray<RegExp>>;
 
-/** @knipignore used by an exported function */
 export type BettererFileHashMap = Map<string, string>;
-/** @knipignore used by an exported function */
 export type BettererFileHashMapSerialised = Record<string, string>;
 
-/** @knipignore used by an exported function */
 export type BettererTestCacheMap = Map<string, BettererFileHashMap>;
-/** @knipignore used by an exported function */
 export type BettererTestCacheMapSerialised = Record<string, BettererFileHashMapSerialised>;
 
-/** @knipignore used by an exported function */
 export interface BettererCacheFile {
   version: number;
   testCache: BettererTestCacheMapSerialised;
 }
 
-/** @knipignore used by an exported function */
 export interface BettererFileCache {
   clearCache(testName: string): void;
   filterCached(testName: string, filePaths: BettererFilePaths): BettererFilePaths;
-  enableCache(cachePath: string): Promise<void>;
   updateCache(testName: string, filePaths: BettererFilePaths): void;
   writeCache(): Promise<void>;
 }
 
-/** @knipignore used by an exported function */
-export interface BettererVersionControl extends BettererFileCache {
+export interface BettererVersionControl {
   add(resultsPath: string): Promise<void>;
-  filterIgnored(filePaths: BettererFilePaths): BettererFilePaths;
   getFilePaths(): BettererFilePaths;
-  init(configPaths: BettererFilePaths, cwd: string): Promise<string>;
-  sync(): Promise<void>;
+  sync(cache: BettererFileCache | null): Promise<void>;
 }
 
-export type BettererVersionControlWorker = BettererWorkerAPI<BettererVersionControl>;
+export type BettererVersionControlWorker = BettererWorkerAPI<typeof import('./version-control.worker.js')>;
 
 /**
  * @public A helper for resolving file paths in a {@link @betterer/betterer#BettererResolverTest | `BettererResolverTest`}.

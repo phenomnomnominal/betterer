@@ -23,9 +23,6 @@ exports[`betterer > should report the status of the TypeScript compiler 2`] = `
   "🌟 Betterer (0ms): 1 test running...
 🤔 typescript: running "typescript"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ typescript: "typescript" got checked for the first time! (1 issue) 🎉
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: "typescript" got checked for the first time! (1 issue) 🎉
 ",
@@ -39,9 +36,6 @@ exports[`betterer > should report the status of the TypeScript compiler 2`] = `
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 typescript: running "typescript"!
-",
-  "🌟 Betterer (0ms): 1 test running...
-✅ typescript: "typescript" stayed the same. (1 issue) 😐
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: "typescript" stayed the same. (1 issue) 😐
@@ -57,41 +51,25 @@ exports[`betterer > should report the status of the TypeScript compiler 2`] = `
   "🌟 Betterer (0ms): 1 test running...
 🤔 typescript: running "typescript"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-🔥 typescript: "typescript" got worse. (1 new issue, 2 total) 😔
-",
-  "🌟 Betterer (0ms): 1 test running...
-🔥 typescript: "typescript" got worse. (1 new issue, 2 total) 😔
-
-Error: "typescript" got worse. (1 new issue, 2 total) 😔
-",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 typescript: "typescript" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in "<project>/fixtures/typescript/src/index.ts".
-・ New issue in "<project>/fixtures/typescript/src/index.ts"!
+🔥 typescript: "typescript" got worse. (1 new issue, 1 existing, 2 total) 😔
+・ 1 existing, 1 new issues in "fixtures/typescript/src/index.ts".
 ・
-・   <project>/fixtures/typescript/src/index.ts
 ・   1 | const a = 'a';
 ・   2 | const one = 1;
 ・ > 3 | console.log(a * one, one * a);
 ・     |                            ^ tsc:The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
 ・
-
-Error: "typescript" got worse. (1 new issue, 2 total) 😔
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
-🔥 typescript: "typescript" got worse. (1 new issue, 2 total) 😔
-・ 1 existing issue in "<project>/fixtures/typescript/src/index.ts".
-・ New issue in "<project>/fixtures/typescript/src/index.ts"!
+🔥 typescript: "typescript" got worse. (1 new issue, 1 existing, 2 total) 😔
+・ 1 existing, 1 new issues in "fixtures/typescript/src/index.ts".
 ・
-・   <project>/fixtures/typescript/src/index.ts
 ・   1 | const a = 'a';
 ・   2 | const one = 1;
 ・ > 3 | console.log(a * one, one * a);
 ・     |                            ^ tsc:The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
 ・
-
-Error: "typescript" got worse. (1 new issue, 2 total) 😔
 
 1 test got checked. 🤔
 1 test got worse. 😔
@@ -103,14 +81,13 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
   "🌟 Betterer (0ms): 1 test running...
 🤔 typescript: running "typescript"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
+  "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: "typescript" met its goal! 🎉
+・ 1 fixed issue in "fixtures/typescript/src/index.ts".
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: "typescript" met its goal! 🎉
-",
-  "🎉 Betterer (0ms): 1 test done!
-✅ typescript: "typescript" met its goal! 🎉
+・ 1 fixed issue in "fixtures/typescript/src/index.ts".
 
 1 test got checked. 🤔
 1 test got better! 😍
@@ -120,9 +97,6 @@ You should try to fix the new issues! As a last resort, you can run \`betterer -
 ",
   "🌟 Betterer (0ms): 1 test running...
 🤔 typescript: running "typescript"!
-",
-  "🌟 Betterer (0ms): 1 test running...
-✅ typescript: "typescript" has already met its goal! ✨
 ",
   "🎉 Betterer (0ms): 1 test done!
 ✅ typescript: "typescript" has already met its goal! ✨

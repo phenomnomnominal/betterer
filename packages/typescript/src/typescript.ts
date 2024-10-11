@@ -1,3 +1,4 @@
+import type { CompilerOptions, DiagnosticWithLocation, ParseConfigHost } from 'typescript';
 import type { TypeScriptReadConfigResult } from './types.js';
 
 import { BettererFileTest } from '@betterer/betterer';
@@ -40,7 +41,7 @@ const CODE_FILE_NOT_INCLUDED = 6307;
  * @throws {@link @betterer/errors#BettererError | `BettererError` }
  * Will throw if the user doesn't pass `configFilePath` or `extraCompilerOptions`.
  */
-export function typescript(configFilePath: string, extraCompilerOptions: ts.CompilerOptions = {}): BettererFileTest {
+export function typescript(configFilePath: string, extraCompilerOptions: CompilerOptions = {}): BettererFileTest {
   if (!configFilePath) {
     throw new BettererError(
       "for `@betterer/typescript` to work, you need to provide the path to a tsconfig.json file, e.g. `'./tsconfig.json'`. ❌"
@@ -72,7 +73,7 @@ export function typescript(configFilePath: string, extraCompilerOptions: ts.Comp
     }
 
     const compilerHost = ts.createCompilerHost(fullCompilerOptions);
-    const configHost: ts.ParseConfigHost = {
+    const configHost: ParseConfigHost = {
       ...compilerHost,
       readDirectory: ts.sys.readDirectory.bind(ts.sys),
       useCaseSensitiveFileNames: compilerHost.useCaseSensitiveFileNames()
@@ -101,7 +102,7 @@ export function typescript(configFilePath: string, extraCompilerOptions: ts.Comp
     ]);
 
     allDiagnostics
-      .filter((diagnostic): diagnostic is ts.DiagnosticWithLocation => {
+      .filter((diagnostic): diagnostic is DiagnosticWithLocation => {
         const { file, start, length } = diagnostic;
         return file != null && start != null && length != null;
       })

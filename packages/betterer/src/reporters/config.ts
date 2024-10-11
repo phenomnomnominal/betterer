@@ -1,5 +1,5 @@
-import type { BettererConfig } from '../config/index.js';
 import type { BettererConfigFS } from '../fs/index.js';
+import type { BettererReporterΩ } from './reporter.js';
 import type {
   BettererConfigReporter,
   BettererOptionsReporter,
@@ -8,12 +8,13 @@ import type {
 } from './types.js';
 
 import { toArray, validateBool } from '../config/index.js';
+import { getGlobals, setGlobals } from '../globals.js';
 import { loadReporters, loadSilentReporter } from './loader.js';
 
 export async function createReporterConfig(
   configBase: BettererConfigFS,
   options: BettererOptionsReporter
-): Promise<BettererConfigReporter> {
+): Promise<[BettererConfigReporter, BettererReporterΩ]> {
   const { cwd } = configBase;
 
   const logo = options.logo ?? false;
@@ -26,18 +27,14 @@ export async function createReporterConfig(
 
   const reporter = silent ? loadSilentReporter() : await loadReporters(reporters, cwd);
 
-  return {
-    logo,
-    reporter
-  };
+  return [{ logo }, reporter];
 }
 
-export async function overrideReporterConfig(
-  config: BettererConfig,
-  optionsOverride: BettererOptionsReporterOverride
-): Promise<void> {
+export async function overrideReporterConfig(optionsOverride: BettererOptionsReporterOverride): Promise<void> {
   if (optionsOverride.reporters) {
+    const { config, results, runWorkerPool, testMetaLoader, versionControl } = getGlobals();
     const reporters = toArray<string | BettererReporter>(optionsOverride.reporters);
-    config.reporter = await loadReporters(reporters, config.cwd);
+    const reporter = await loadReporters(reporters, config.cwd);
+    setGlobals(config, reporter, results, runWorkerPool, testMetaLoader, versionControl);
   }
 }

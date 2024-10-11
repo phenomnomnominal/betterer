@@ -17,10 +17,10 @@ export const DependenciesTest: FC<DependenciesTestProps> = function Dependencies
     <BettererTasksLogger name="Test Package Dependencies" update={update}>
       {packageNames.map((packageName) => {
         const task = useCallback(
-          async (logger: BettererLogger) => {
+          async (logger: BettererLogger, status: BettererLogger) => {
             const worker: TestPackageDependenciesWorker = await importWorkerΔ('./test-package-dependencies.worker.js');
             try {
-              await worker.api.run(exposeToWorkerΔ(logger), packageName);
+              await worker.api.run(exposeToWorkerΔ(logger), exposeToWorkerΔ(status), packageName);
             } finally {
               await worker.destroy();
             }

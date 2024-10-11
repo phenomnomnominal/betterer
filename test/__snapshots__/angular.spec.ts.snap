@@ -25,9 +25,6 @@ exports[`betterer > should report the status of the Angular compiler in strict m
   "🌟 Betterer (0ms): 1 test running...
 🤔 angular: running "angular"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ angular: "angular" got checked for the first time! (3 issues) 🎉
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ angular: "angular" got checked for the first time! (3 issues) 🎉
 ",

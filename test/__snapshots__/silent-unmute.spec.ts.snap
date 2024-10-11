@@ -7,9 +7,6 @@ exports[`betterer --silent > should be possible to unmute a subsequent run 1`] =
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got better! 😍
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got better! 😍
 ",

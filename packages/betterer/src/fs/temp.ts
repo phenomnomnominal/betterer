@@ -3,20 +3,17 @@ import os from 'node:os';
 import crypto from 'node:crypto';
 import path from 'node:path';
 
-const CREATED_FILES: Record<string, boolean> = {};
-
 const BETTERER_TEMP_DIR = 'betterer';
+const BETTERER_TMP_EXT = '.betterer.tmp';
 
 export function getTmpFileName(name: string, ext: string) {
   const id = crypto.randomBytes(4).toString('hex');
-  const tmpFileName = `${name}.${id}${ext}`;
-  CREATED_FILES[tmpFileName] = true;
-  return tmpFileName;
+  return `${name}.${id}${BETTERER_TMP_EXT}${ext}`;
 }
 
 export function isTempFilePath(filePath: string): boolean {
   const { base } = path.parse(filePath);
-  return CREATED_FILES[base] === true;
+  return base.includes(BETTERER_TMP_EXT);
 }
 
 export async function getTmpPath(fileName = ''): Promise<string> {

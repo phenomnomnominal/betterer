@@ -7,9 +7,6 @@ exports[`betterer > should mark a test as expired when it is past its deadline 1
   "🌟 Betterer (0ms): 1 test running...
 🤔 test: running "test"!
 ",
-  "🌟 Betterer (0ms): 1 test running...
-✅ test: "test" got checked for the first time! 🎉
-",
   "🎉 Betterer (0ms): 1 test done!
 ✅ test: "test" got checked for the first time! 🎉
 ・ "test" has passed its deadline. 👻

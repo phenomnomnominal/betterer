@@ -1,6 +1,5 @@
-import type { BettererLogs } from '@betterer/logger';
-
 import type {
+  BettererDiff,
   BettererDiffer,
   BettererPrinter,
   BettererProgress,
@@ -13,7 +12,6 @@ import type {
 } from './types.js';
 
 import { BettererError } from '@betterer/errors';
-import { diffΔ } from '@betterer/logger';
 import { format } from 'prettier';
 
 import { isFunction } from '../utils.js';
@@ -39,8 +37,8 @@ export class BettererTestConfigΩ<DeserialisedType = number, SerialisedType = De
     }
 
     this.constraint = this._options.constraint;
-    this.deadline = this._createDeadline(this._options);
-    this.goal = this._createGoal(this._options);
+    this.deadline = createDeadline(this._options);
+    this.goal = createGoal(this._options);
   }
 
   public get differ(): BettererDiffer<DeserialisedType, DiffType> {
@@ -67,37 +65,10 @@ export class BettererTestConfigΩ<DeserialisedType = number, SerialisedType = De
     return this._options.test;
   }
 
-  private _createDeadline<DeserialisedType, SerialisedType, DiffType>(
-    options: Pick<BettererTestOptions<DeserialisedType, SerialisedType, DiffType>, 'deadline'>
-  ): number {
-    const { deadline } = options;
-    if (deadline == null) {
-      return Infinity;
-    }
-    const maybeDate = new Date(deadline).getTime();
-    return !isNaN(maybeDate) ? maybeDate : Infinity;
-  }
-
-  private _createGoal<DeserialisedType, SerialisedType, DiffType>(
-    options: Pick<BettererTestOptions<DeserialisedType, SerialisedType, DiffType>, 'goal'>
-  ): BettererTestGoal<DeserialisedType> {
-    const { goal } = options;
-    if (goal == null) {
-      return () => false;
-    }
-    if (isFunction(goal)) {
-      return goal as BettererTestGoal<DeserialisedType>;
-    }
-    return (value: DeserialisedType): boolean => value === goal;
-  }
-
-  private _defaultDiffer = (expected: unknown, result: unknown): unknown => {
-    const diff = diffΔ(expected, result, { aAnnotation: 'Expected', bAnnotation: 'Result' });
-    const logs: BettererLogs = diff ? [{ error: diff }] : [];
+  private _defaultDiffer = (): BettererDiff<DiffType> => {
     return {
-      diff: null,
-      logs
-    };
+      diff: null
+    } as BettererDiff<DiffType>;
   };
 
   private _defaultPrinter = async (serialised: unknown): Promise<string> => {
@@ -124,8 +95,11 @@ export function createDeadline<DeserialisedType, SerialisedType, DiffType>(
   if (deadline == null) {
     return Infinity;
   }
-  const maybeDate = new Date(deadline).getTime();
-  return !isNaN(maybeDate) ? maybeDate : Infinity;
+  const parsed = new Date(deadline).getTime();
+  if (isNaN(parsed)) {
+    throw new BettererError(`invalid deadline: ${String(deadline)}`);
+  }
+  return parsed;
 }
 
 export function createGoal<DeserialisedType, SerialisedType, DiffType>(
