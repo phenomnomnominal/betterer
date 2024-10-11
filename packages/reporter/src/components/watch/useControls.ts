@@ -10,32 +10,21 @@ export function useControls(context: BettererContext): ConfigEditField {
   const [editing, setEditing] = useState<ConfigEditField>(null);
 
   useEffect(() => {
-    function maybeExit() {
-      // Return early when editing so 'q' doesn't quit:
-      if (editing != null) {
-        return;
-      }
-
-      void context.stop();
-    }
-
     function handleData(data: string) {
       const input = String(data);
       const isReturn = input === '\r';
       const isEscape = input === '\u001B';
 
-      if (isReturn || (isEscape && editing)) {
-        setEditing(null);
+      if (editing) {
+        if (isReturn || isEscape) {
+          setEditing(null);
+          return;
+        }
         return;
       }
 
-      if (isEscape) {
+      if (isEscape || input === 'q') {
         void context.stop();
-        return;
-      }
-
-      if (input === 'q') {
-        maybeExit();
         return;
       }
 

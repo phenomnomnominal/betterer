@@ -1,3 +1,4 @@
+import type { BettererError } from '@betterer/errors';
 import type { BettererOptions } from './api/index.js';
 import type { BettererConfig } from './config/types.js';
 import type { BettererFileResolver, BettererVersionControlWorker } from './fs/index.js';
@@ -7,7 +8,7 @@ import type { BettererRunWorkerPool } from './run/types.js';
 import type { BettererOptionsWatcher } from './runner/index.js';
 import type { BettererTestMetaLoaderWorker } from './test/index.js';
 
-import { BettererError, invariantΔ } from '@betterer/errors';
+import { invariantΔ } from '@betterer/errors';
 import { importWorkerΔ } from '@betterer/worker';
 
 import { createContextConfig, enableMode } from './context/index.js';
@@ -94,9 +95,7 @@ export async function createGlobals(
 }
 
 export function getGlobals(): BettererGlobals {
-  if (GLOBAL_CONTAINER === null) {
-    throw new BettererError('`createGlobals` must be called before trying to use globals! ❌');
-  }
+  invariantΔ(GLOBAL_CONTAINER, '`createGlobals` must be called before trying to use globals!');
   return GLOBAL_CONTAINER;
 }
 
@@ -105,6 +104,9 @@ export function setGlobals(...globals: ConstructorParameters<typeof BettererGlob
 }
 
 export async function destroyGlobals(): Promise<void> {
+  if (!GLOBAL_CONTAINER) {
+    return;
+  }
   const { results, runWorkerPool, testMetaLoader, versionControl } = getGlobals();
   await Promise.all([results.destroy(), runWorkerPool.destroy(), testMetaLoader.destroy(), versionControl.destroy()]);
   GLOBAL_CONTAINER = null;

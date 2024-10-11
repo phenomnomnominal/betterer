@@ -5,7 +5,7 @@ import type {
   BettererReporterModule
 } from './types.js';
 
-import { BettererError } from '@betterer/errors';
+import { BettererError, invariantΔ } from '@betterer/errors';
 import path from 'node:path';
 
 import { importDefault } from '../fs/index.js';
@@ -27,9 +27,10 @@ export async function loadDefaultReporter(): Promise<BettererReporterΩ> {
 }
 
 function assertDefaultReporter(reporterFactory: unknown): asserts reporterFactory is BettererReporterFactory {
-  if (!(reporterFactory as Partial<BettererReporterFactory>).createReporterΔ) {
-    throw new BettererError(`"@betterer/reporter" didn't provider a reporter factory. 😔`);
-  }
+  invariantΔ(
+    (reporterFactory as Partial<BettererReporterFactory>).createReporterΔ,
+    `"@betterer/reporter" didn't provider a reporter factory!`
+  );
 }
 
 export async function loadReporters(reporters: BettererOptionsReporters, cwd: string): Promise<BettererReporterΩ> {

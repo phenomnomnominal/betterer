@@ -24,7 +24,7 @@ export const WatchStarting: FC<WatchStartingProps> = memo(function WatchStarting
       <Box paddingBottom={1}>
         <Text>{watchStart()}</Text>
       </Box>
-      <WatchInstructions />
+      <WatchInstructions editField={editField} />
     </Box>
   );
 });

@@ -170,7 +170,8 @@ async function differLog(this: BettererRun, expected: BettererFileTestResult, re
   const fileDiff = diff(expected, result);
   const resultΩ = result as BettererFileTestResultΩ;
 
-  const diffEntries = Object.entries(fileDiff.diff);
+  // Sort by file path:
+  const diffEntries = Object.entries(fileDiff.diff).sort(([aPath], [bPath]) => (aPath < bPath ? -1 : 1));
 
   await Promise.all(
     diffEntries.map(async ([filePath, diff]) => {
@@ -181,22 +182,20 @@ async function differLog(this: BettererRun, expected: BettererFileTestResult, re
       const nFixed = fixed.length;
       const nIssues = newIssues.length;
 
-      if (nFixed || nExisting || nIssues) {
-        let type: keyof BettererLogger = 'success';
-        const messages: Array<string> = [];
-        if (nFixed > 0) {
-          messages.push(`${FORMATTER.format(nFixed)} fixed`);
-        }
-        if (nExisting > 0) {
-          type = 'warn';
-          messages.push(`${FORMATTER.format(nExisting)} existing`);
-        }
-        if (nIssues > 0) {
-          type = 'error';
-          messages.push(`${FORMATTER.format(nIssues)} new`);
-        }
-        await this.logger[type](`${messages.join(', ')} ${getIssues(nFixed + nExisting + nIssues)} in "${filePath}".`);
+      let type: keyof BettererLogger = 'success';
+      const messages: Array<string> = [];
+      if (nFixed > 0) {
+        messages.push(`${FORMATTER.format(nFixed)} fixed`);
       }
+      if (nExisting > 0) {
+        type = 'warn';
+        messages.push(`${FORMATTER.format(nExisting)} existing`);
+      }
+      if (nIssues > 0) {
+        type = 'error';
+        messages.push(`${FORMATTER.format(nIssues)} new`);
+      }
+      await this.logger[type](`${messages.join(', ')} ${getIssues(nFixed + nExisting + nIssues)} in "${filePath}".`);
 
       if (nIssues) {
         if (nIssues > 1) {

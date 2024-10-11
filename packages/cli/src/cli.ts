@@ -69,6 +69,7 @@ export async function cliΔ(
       error.details = flattenErrors(error.details);
     }
     if (!isTest) {
+      /* v8 ignore next */
       process.exitCode = 1;
     }
     throw error;

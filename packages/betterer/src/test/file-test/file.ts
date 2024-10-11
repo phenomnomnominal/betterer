@@ -1,6 +1,6 @@
+import { invariantΔ } from '@betterer/errors';
 import type { BettererFileIssue, BettererFileIssues, BettererFile, BettererFileTestResultKey } from './types.js';
 
-import assert from 'node:assert';
 import { LinesAndColumns } from 'lines-and-columns';
 
 import { createHash } from '../../hasher.js';
@@ -47,11 +47,16 @@ export class BettererFileΩ implements BettererFile {
   private _handleIssue(issueOverride: BettererIssueOverride, fileText: string): BettererFileIssue {
     const lc = new LinesAndColumns(fileText);
 
-    const issue =
-      getIssueFromStartEnd(lc, issueOverride) ??
-      getIssueFromLineColLength(issueOverride) ??
-      getIssueFromPositions(lc, issueOverride);
-    assert(issue);
+    let issue: BettererIssueLineColLength | null = null;
+    if (isStartEnd(issueOverride)) {
+      issue = getIssueFromStartEnd(lc, issueOverride);
+    } else if (isLineColLength(issueOverride)) {
+      issue = getIssueFromLineColLength(issueOverride);
+    } else if (isPositions(issueOverride)) {
+      issue = getIssueFromPositions(lc, issueOverride);
+    }
+
+    invariantΔ(issue, '`issue` must start with 2, 3, or 4 numbers designating the start and end position in a file!');
 
     const [line, column, length, message, overrideHash] = issue;
     const start = lc.indexForLocation({ line, column }) ?? 0;
@@ -65,10 +70,7 @@ export class BettererFileΩ implements BettererFile {
   }
 }
 
-function getIssueFromLineColLength(issueOverride: BettererIssueOverride): BettererIssueLineColLength | null {
-  if (!isLineColLength(issueOverride)) {
-    return null;
-  }
+function getIssueFromLineColLength(issueOverride: BettererIssueLineColLength): BettererIssueLineColLength {
   return issueOverride;
 }
 
@@ -77,13 +79,7 @@ function isLineColLength(issueOverride: BettererIssueOverride): issueOverride is
   return isString(message);
 }
 
-function getIssueFromStartEnd(
-  lc: LinesAndColumns,
-  issueOverride: BettererIssueOverride
-): BettererIssueLineColLength | null {
-  if (!isStartEnd(issueOverride)) {
-    return null;
-  }
+function getIssueFromStartEnd(lc: LinesAndColumns, issueOverride: BettererIssueStartEnd): BettererIssueLineColLength {
   const [start, end, message, overrideHash] = issueOverride;
   const { line, column } = lc.locationForIndex(start) ?? UNKNOWN_LOCATION;
   const length = end - start;
@@ -95,13 +91,7 @@ function isStartEnd(issueOverride: BettererIssueOverride): issueOverride is Bett
   return isString(message);
 }
 
-function getIssueFromPositions(
-  lc: LinesAndColumns,
-  issueOverride: BettererIssueOverride
-): BettererIssueLineColLength | null {
-  if (!isPositions(issueOverride)) {
-    return null;
-  }
+function getIssueFromPositions(lc: LinesAndColumns, issueOverride: BettererIssuePositions): BettererIssueLineColLength {
   const [line, column, endLine, endColumn, message, overrideHash] = issueOverride;
   const absStartColumn = Math.max(0, column);
   const absEndColumn = Math.max(0, endColumn);

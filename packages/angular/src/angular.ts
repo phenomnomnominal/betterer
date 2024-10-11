@@ -52,7 +52,11 @@ export function angular(configFilePath: string, extraCompilerOptions: CompilerOp
   }
 
   // Always has to do the full compile since a .component.html file needs to know about the module it lives in:
-  return new BettererFileTest((_, fileTestResult, resolver) => {
+  return new BettererFileTest((filePaths, fileTestResult, resolver) => {
+    if (filePaths.length === 0) {
+      return;
+    }
+
     const absoluteConfigFilePath = resolver.resolve(configFilePath);
 
     const { rootNames, options } = readConfiguration(absoluteConfigFilePath, extraCompilerOptions);
@@ -62,12 +66,20 @@ export function angular(configFilePath: string, extraCompilerOptions: CompilerOp
       options
     });
 
-    diagnostics.forEach((diagnostic) => {
-      const { file, start, length } = diagnostic as DiagnosticWithLocation;
-      const { fileName } = file;
-      const result = fileTestResult.addFile(fileName, file.getFullText());
-      const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
-      result.addIssue(start, start + length, message);
-    });
+    diagnostics
+      .filter((diagnostic): diagnostic is DiagnosticWithLocation => {
+        const { file, start, length } = diagnostic;
+        return file != null && start != null && length != null;
+      })
+      .filter(({ file }) => {
+        return filePaths.includes(file.fileName);
+      })
+      .forEach((diagnostic) => {
+        const { file, start, length } = diagnostic;
+        const { fileName } = file;
+        const result = fileTestResult.addFile(fileName, file.getFullText());
+        const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
+        result.addIssue(start, start + length, message);
+      });
   });
 }

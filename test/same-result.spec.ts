@@ -11,14 +11,18 @@ describe('betterer', () => {
       {
         '.betterer.js': `
 import { BettererTest } from '@betterer/betterer';
-import { bigger } from '@betterer/constraints';
+import { bigger, smaller } from '@betterer/constraints';
 
 const start = 0;
 
 export default {
-  test: () => new BettererTest({
+  bigger: () => new BettererTest({
     test: () => start,
     constraint: bigger
+  }),
+  smaller: () => new BettererTest({
+    test: () => start,
+    constraint: smaller
   }),
 };
       `
@@ -33,11 +37,11 @@ export default {
 
     const firstRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(testNames(firstRun.new)).toEqual(['test']);
+    expect(testNames(firstRun.new)).toEqual(['bigger', 'smaller']);
 
     const secondRun = await betterer({ configPaths, resultsPath, workers: false });
 
-    expect(testNames(secondRun.same)).toEqual(['test']);
+    expect(testNames(secondRun.same)).toEqual(['bigger', 'smaller']);
 
     expect(logs).toMatchSnapshot();
 

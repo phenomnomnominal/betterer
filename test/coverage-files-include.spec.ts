@@ -19,7 +19,9 @@ export default {
   "extends": "../../tsconfig.json",
   "include": ["./src/**/*", "./.betterer.js"]
 }
-      `
+      `,
+      'src/file-1.ts': '', // Empty on purpose, coverage data below is fake
+      'src/file-2.ts': '' // Empty on purpose, coverage data below is fake
     });
 
     const file1Path = resolve('./src/file-1.ts');

@@ -18,12 +18,21 @@ export interface FixtureFileSystem {
   cleanup: () => Promise<void>;
 }
 
+export interface FixtureStdout {
+  sendKeys: (keys: string) => Promise<void>;
+}
+
 export type FixtureFileSystemFiles = Record<string, string>;
 
-export type Fixture = FixtureFileSystem & {
-  logs: ReadonlyArray<string>;
-  testNames: (runs: BettererRunSummaries) => BettererTestNames;
-};
+export interface FixtureLogging {
+  logs: FixtureLogs;
+}
+
+export type Fixture = FixtureFileSystem &
+  FixtureStdout &
+  FixtureLogging & {
+    testNames: (runs: BettererRunSummaries) => BettererTestNames;
+  };
 
 // Readonly externally:
 export type FixtureLogs = ReadonlyArray<string>;

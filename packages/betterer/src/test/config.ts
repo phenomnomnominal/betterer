@@ -37,8 +37,8 @@ export class BettererTestConfigΩ<DeserialisedType = number, SerialisedType = De
     }
 
     this.constraint = this._options.constraint;
-    this.deadline = this._createDeadline(this._options);
-    this.goal = this._createGoal(this._options);
+    this.deadline = createDeadline(this._options);
+    this.goal = createGoal(this._options);
   }
 
   public get differ(): BettererDiffer<DeserialisedType, DiffType> {
@@ -63,30 +63,6 @@ export class BettererTestConfigΩ<DeserialisedType = number, SerialisedType = De
 
   public get test(): BettererTestFunction<DeserialisedType> {
     return this._options.test;
-  }
-
-  private _createDeadline<DeserialisedType, SerialisedType, DiffType>(
-    options: Pick<BettererTestOptions<DeserialisedType, SerialisedType, DiffType>, 'deadline'>
-  ): number {
-    const { deadline } = options;
-    if (deadline == null) {
-      return Infinity;
-    }
-    const maybeDate = new Date(deadline).getTime();
-    return !isNaN(maybeDate) ? maybeDate : Infinity;
-  }
-
-  private _createGoal<DeserialisedType, SerialisedType, DiffType>(
-    options: Pick<BettererTestOptions<DeserialisedType, SerialisedType, DiffType>, 'goal'>
-  ): BettererTestGoal<DeserialisedType> {
-    const { goal } = options;
-    if (goal == null) {
-      return () => false;
-    }
-    if (isFunction(goal)) {
-      return goal as BettererTestGoal<DeserialisedType>;
-    }
-    return (value: DeserialisedType): boolean => value === goal;
   }
 
   private _defaultDiffer = (): BettererDiff<DiffType> => {
@@ -119,8 +95,11 @@ export function createDeadline<DeserialisedType, SerialisedType, DiffType>(
   if (deadline == null) {
     return Infinity;
   }
-  const maybeDate = new Date(deadline).getTime();
-  return !isNaN(maybeDate) ? maybeDate : Infinity;
+  const parsed = new Date(deadline).getTime();
+  if (isNaN(parsed)) {
+    throw new BettererError(`invalid deadline: ${String(deadline)}`);
+  }
+  return parsed;
 }
 
 export function createGoal<DeserialisedType, SerialisedType, DiffType>(

@@ -62,9 +62,6 @@ export function diffStringsΔ(a: string, b: string, diffOptions: DiffOptions): s
 // @internal
 export function diffΔ<T>(a: T, b: T, diffOptions: DiffOptions): string | null;
 
-// @internal
-export function logΔ(logs: BettererLogs, logger: BettererLogger): Promise<void>;
-
 // @public
 export type MaybeAsync<T> = T | Promise<T>;
 

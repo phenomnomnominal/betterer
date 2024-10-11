@@ -25,12 +25,6 @@ export function add(resultsPath: string): Promise<void> {
 }
 
 /** @knipignore part of worker API */
-export function filterIgnored(filePaths: BettererFilePaths): BettererFilePaths {
-  checkInitialisedVersionControl(versionControl);
-  return versionControl.filterIgnored(filePaths);
-}
-
-/** @knipignore part of worker API */
 export function getFilePaths(): BettererFilePaths {
   checkInitialisedVersionControl(versionControl);
   return versionControl.getFilePaths();
@@ -79,7 +73,6 @@ function checkInitialisedCache(cache: BettererFileCache | null): asserts cache i
 exposeToMainΔ({
   init,
   add,
-  filterIgnored,
   getFilePaths,
   sync,
   clearCache,

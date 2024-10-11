@@ -15,9 +15,11 @@ import { getGlobals } from '../globals.js';
 import { flatten, normalisedPath } from '../utils.js';
 import { getTmpPath } from './temp.js';
 
+const INCLUDE_ALL = '**/*';
+
 export class BettererFileResolverΩ implements BettererFileResolver {
   private _excluded: Array<RegExp> = [];
-  private _included: Array<string> = [];
+  private _included: Array<string> = [INCLUDE_ALL];
   private _includedResolved: Array<string> | null = null;
   private _testName: string | null = null;
   private _validatedFilePaths: Array<string> = [];
@@ -46,12 +48,10 @@ export class BettererFileResolverΩ implements BettererFileResolver {
   }
 
   public async validate(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
-    // If `include()` was never called, just filter the given list:
-    if (!this._included.length) {
-      const { versionControl } = getGlobals();
-      const validFilePaths = await versionControl.api.filterIgnored(filePaths);
-      return validFilePaths.filter((filePath) => !this._isExcluded(filePath));
+    if (!filePaths.length) {
+      return filePaths;
     }
+
     await this._update();
     return filePaths.filter((filePath) => this._validatedFilePathsMap[filePath]);
   }
@@ -80,14 +80,19 @@ export class BettererFileResolverΩ implements BettererFileResolver {
   }
 
   public include(...includePatterns: BettererFileGlobs): this {
+    if (!includePatterns.length) {
+      return this;
+    }
+
+    if (this._included.includes(INCLUDE_ALL)) {
+      this._included = this._included.filter((include) => include !== INCLUDE_ALL);
+    }
+
     this._included = [...this._included, ...flatten(includePatterns)];
     return this;
   }
 
   public exclude(...excludePatterns: BettererFilePatterns): this {
-    if (!this._included.length) {
-      this.include('**/*');
-    }
     this._excluded = [...this._excluded, ...flatten(excludePatterns)];
     return this;
   }

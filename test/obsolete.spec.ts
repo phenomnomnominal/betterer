@@ -36,6 +36,7 @@ export default {
 
     expect(testNames(obsoleteTestRun.obsolete)).toEqual(['will be renamed']);
     expect(testNames(obsoleteTestRun.new)).toEqual(['has been renamed']);
+    expect(obsoleteTestRun.changed).toEqual(['will be renamed', 'has been renamed']);
 
     const resultObsolete = await readFile(resultsPath);
 

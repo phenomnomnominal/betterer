@@ -135,7 +135,6 @@ export interface BettererFileCache {
 
 export interface BettererVersionControl {
   add(resultsPath: string): Promise<void>;
-  filterIgnored(filePaths: BettererFilePaths): BettererFilePaths;
   getFilePaths(): BettererFilePaths;
   sync(cache: BettererFileCache | null): Promise<void>;
 }
