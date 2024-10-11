@@ -2,4 +2,5 @@ npm install
 npx lint-staged
 npm run test:api
 npm run test:dependencies
+npm run test:e2e
 npm run betterer:precommit

@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from '@betterer/render';
 
-import { React, Box, Text, TextInput, useState } from '@betterer/render';
+import { React, Box, Text, TextInput, useState, useCallback } from '@betterer/render';
 
 /** @knipignore used by an exported function */
 export type EditConfigProps<ValidatedConfigType> = PropsWithChildren<{
@@ -15,17 +15,20 @@ export function EditConfig<ValidatedConfigType>(props: EditConfigProps<Validated
   const [error, setError] = useState<Error | null>(null);
   const [valid, setValid] = useState<ValidatedConfigType | null>(null);
 
-  function change(newValue: string): void {
-    const [valid, error] = onChange(newValue);
-    setValid(valid);
-    setError(error);
-  }
+  const change = useCallback(
+    (newValue: string): void => {
+      const [valid, error] = onChange(newValue);
+      setValid(valid);
+      setError(error);
+    },
+    [onChange]
+  );
 
-  async function submit(): Promise<void> {
+  const submit = useCallback(async (): Promise<void> => {
     if (valid) {
       await onSubmit(valid);
     }
-  }
+  }, [valid, onSubmit]);
 
   return (
     <Box flexDirection="column">

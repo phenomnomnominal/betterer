@@ -15,7 +15,7 @@
     "betterer": "node ./packages/cli/bin/betterer --cache",
     "betterer:ci": "node ./packages/cli/bin/betterer ci",
     "betterer:precommit": "node ./packages/cli/bin/betterer precommit --cache",
-    "build": "npm run compile:packages && npm run test:api && npm run test:dependencies && npm run format && npm run lint && npm run test && npm run test:e2e",
+    "build": "npm run compile:packages && npm run test:api && npm run test:dependencies && npm run format && npm run lint && npm run test:e2e && npm run test",
     "build:ci": "npm run clean && npm run build && npm run betterer:ci",
     "build:extension": "npm run clean && lerna run build:extension",
     "build:publish": "npm run clean && npm run api && npm run test:api && npm run test:dependencies && npm run test",

@@ -35,7 +35,7 @@ sum.apply(null, [1, 2, 3]);
 `;
 
 describe('betterer', () => {
-  it.skip('actually goes faster in workers', async () => {
+  it('actually goes faster in workers', async () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { paths, cleanup, resolve, writeFile, testNames } = await createFixture('workers-faster', {
