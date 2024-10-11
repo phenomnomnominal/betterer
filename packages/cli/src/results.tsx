@@ -3,9 +3,9 @@ import type { Command } from 'commander';
 
 import type { BettererCLIResultsConfig } from './types.js';
 
-import { React, getRenderOptions, render } from '@betterer/render';
+import { React, getRenderOptionsΔ, render } from '@betterer/render';
 
-import { resultsCommand, setEnv } from './options.js';
+import { resultsCommand } from './options.js';
 import { Results } from './results/results.js';
 
 /**
@@ -16,8 +16,6 @@ export function results(cwd: string): Command {
   const command = resultsCommand();
   command.description();
   command.action(async (config: BettererCLIResultsConfig, command: Command): Promise<void> => {
-    setEnv(config);
-
     // Mark options as unknown...
     const options: unknown = {
       configPaths: config.config,
@@ -28,17 +26,13 @@ export function results(cwd: string): Command {
       resultsPath: config.results
     };
 
-    try {
-      // And then cast to BettererOptionsResults. This is possibly invalid,
-      // but it's nicer to do the options validation in @betterer/betterer
-      const app = render(
-        <Results options={options as BettererOptionsResults} logo={config.logo} />,
-        getRenderOptions(process.env.NODE_ENV)
-      );
-      await app.waitUntilExit();
-    } catch {
-      process.exitCode = 1;
-    }
+    // And then cast to BettererOptionsResults. This is possibly invalid,
+    // but it's nicer to do the options validation in @betterer/betterer
+    const app = render(
+      <Results options={options as BettererOptionsResults} logo={config.logo} />,
+      getRenderOptionsΔ(process.env.NODE_ENV)
+    );
+    await app.waitUntilExit();
   });
   return command;
 }

@@ -8,10 +8,14 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "files": [
     "dist"
   ],
-  "author": "Lucas Treffenstädt <lucas.treffenstaedt@check24.de>",
+  "contributors": [
+    "Lucas Treffenstädt <lucas.treffenstaedt@check24.de>",
+    "Craig Spence <craigspence0@gmail.com>"
+  ],
   "homepage": "https://phenomnomnominal.github.io/betterer",
   "repository": {
     "type": "git",
@@ -25,18 +29,15 @@
     "api": "api-extractor run --local --verbose"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "dependencies": {
     "@betterer/betterer": "^5.4.0",
     "@betterer/constraints": "^5.3.0",
     "@betterer/errors": "^5.3.0",
-    "@betterer/logger": "^5.3.4",
-    "minimatch": "^5.0.1",
-    "tslib": "^2.3.1"
+    "@betterer/logger": "^5.3.4"
   },
   "devDependencies": {
-    "@types/istanbul-lib-coverage": "2.0.4",
-    "@types/minimatch": "^3.0.5"
+    "@types/istanbul-lib-coverage": "2.0.4"
   }
 }

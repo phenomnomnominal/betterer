@@ -11,7 +11,10 @@ const IS_JS_REGEXP = /.t|jsx?$/;
  *
  * Logs a code block with syntax highlighting and a message.
  */
-export function code__(codeInfo: BettererLoggerCodeInfo): string {
+export function codeΔ(codeInfo: BettererLoggerCodeInfo): string {
+  codeInfo.line = isNaN(codeInfo.line) ? 0 : codeInfo.line;
+  codeInfo.column = isNaN(codeInfo.column) ? 0 : codeInfo.column;
+
   const { filePath, fileText, message } = codeInfo;
   const isJS = IS_JS_REGEXP.exec(path.extname(filePath));
   const options = {
@@ -20,8 +23,8 @@ export function code__(codeInfo: BettererLoggerCodeInfo): string {
   };
   const lc = new LinesAndColumns(fileText);
   const startLocation = codeInfo;
-  const startIndex = lc.indexForLocation(startLocation) || 0;
-  const endLocation = lc.locationForIndex(startIndex + codeInfo.length) || startLocation;
+  const startIndex = lc.indexForLocation(startLocation) ?? 0;
+  const endLocation = lc.locationForIndex(startIndex + codeInfo.length) ?? startLocation;
   const start = {
     line: startLocation.line + 1,
     column: startLocation.column + 1
@@ -30,6 +33,6 @@ export function code__(codeInfo: BettererLoggerCodeInfo): string {
     line: endLocation.line + 1,
     column: endLocation.column + 1
   };
-  // `codeFrameColumns` doesn't handle empty strings very well!
-  return `\n  ${filePath}\n${codeFrameColumns(fileText || ' ', { start, end }, options)}\n`;
+  // `codeFrameColumns` doesn't handle empty strings very well, so add some whitespace!
+  return `\n${codeFrameColumns(fileText || ' ', { start, end }, options)}\n`;
 }

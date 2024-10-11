@@ -1,4 +1,4 @@
-import type { BettererCLIArguments, BettererCLIEnvConfig } from './types.js';
+import type { BettererCLIArguments } from './types.js';
 
 import { Command } from 'commander';
 
@@ -18,10 +18,8 @@ export function cliCommand(name: BettererCommand): Command {
   resultsPathOption();
   silentOption();
   strictOption();
-  tsconfigPathOption();
   updateOption();
   workersOption();
-  debug();
   return command;
 }
 
@@ -31,14 +29,12 @@ export function initCommand(): Command {
   configPathOption();
   logoOption();
   resultsPathOption();
-  debug();
   return command;
 }
 
 export function mergeCommand(): Command {
   command = new Command(BettererCommand.merge);
   resultsPathOption();
-  debug();
   return command;
 }
 
@@ -49,7 +45,6 @@ export function resultsCommand(): Command {
   filtersOption();
   logoOption();
   resultsPathOption();
-  debug();
   return command;
 }
 
@@ -58,24 +53,7 @@ export function upgradeCommand(): Command {
   configPathsOption();
   logoOption();
   saveOption();
-  debug();
   return command;
-}
-
-function debug(): void {
-  command.option('-d, --debug', 'Enable verbose debug logging', false);
-  command.option('-l, --debug-log [value]', 'File path to save verbose debug logging to disk', './betterer.log');
-}
-
-export function setEnv(config: BettererCLIEnvConfig): void {
-  if (config.debug) {
-    process.env.BETTERER_DEBUG = '1';
-    process.env.BETTERER_DEBUG_TIME = '1';
-    process.env.BETTERER_DEBUG_VALUES = '1';
-    if (config.debugLog) {
-      process.env.BETTERER_DEBUG_LOG = config.debugLog;
-    }
-  }
 }
 
 function cacheOption(): void {
@@ -101,10 +79,6 @@ function automergeOption(): void {
 
 function resultsPathOption(): void {
   command.option('-r, --results [value]', 'Path to test results file relative to CWD');
-}
-
-function tsconfigPathOption(): void {
-  command.option('-t, --tsconfig [value]', 'Path to TypeScript config file relative to CWD');
 }
 
 function filtersOption(): void {

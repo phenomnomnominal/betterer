@@ -8,6 +8,7 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "files": [
     "dist"
   ],
@@ -25,7 +26,7 @@
     "api": "api-extractor run --local --verbose"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "dependencies": {
     "@betterer/betterer": "^5.4.0",
@@ -33,6 +34,6 @@
     "@betterer/logger": "^5.3.4",
     "@betterer/render": "^5.3.4",
     "@betterer/tasks": "^5.3.6",
-    "tslib": "^2.3.1"
+    "@betterer/time": "^5.3.4"
   }
 }

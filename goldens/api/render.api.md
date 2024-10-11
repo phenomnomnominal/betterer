@@ -12,9 +12,9 @@ import { memo } from 'react';
 import { process as process_2 } from 'process';
 import { PropsWithChildren } from 'react';
 import R from 'react';
+import { default as React_3 } from 'react';
 import { render } from 'ink';
 import { RenderOptions } from 'ink';
-import { Text as Text_2 } from 'ink';
 import { TextProps } from 'ink';
 import TI from 'ink-text-input';
 import { useApp } from 'ink';
@@ -34,16 +34,16 @@ export { createContext }
 export { FC }
 
 // @internal
-export function getRenderOptions(env?: string, options?: RenderOptions): RenderOptions;
+export function getRenderOptionsΔ(env?: string, options?: RenderOptions): RenderOptions;
 
 // @internal
-export function getStdErr(): StdErr;
+export function getStdErrΔ(): Process['stderr'];
 
 // @internal
-export function getStdIn(): StdIn;
+export function getStdInΔ(): Process['stdin'];
 
 // @internal
-export function getStdOut(): StdOut;
+export function getStdOutΔ(): Process['stdout'];
 
 export { Instance }
 
@@ -63,18 +63,11 @@ export { render }
 export { RenderOptions }
 
 // @internal
-export type StdErr = Process['stderr'];
-
-// @internal
-export type StdIn = Process['stdin'];
-
-// @internal
-export type StdOut = Process['stdout'];
-
+const Text_2: React_3.FC<TextProps>;
 export { Text_2 as Text }
 
 // @internal
-export const TextInput: (props: TextInputProps) => JSX.Element;
+export const TextInput: React.FC<TextInputProps>;
 
 // @internal
 export type TextInputProps = React.ComponentProps<typeof TI>;

@@ -8,6 +8,7 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "files": [
     "dist"
   ],
@@ -25,7 +26,7 @@
     "api": "api-extractor run --local --verbose"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "dependencies": {
     "@betterer/constraints": "^5.3.0",
@@ -34,21 +35,16 @@
     "@betterer/reporter": "^5.4.0",
     "@betterer/time": "^5.3.4",
     "@betterer/worker": "^5.3.4",
-    "@phenomnomnominal/debug": "^0.2.5",
-    "chokidar": "^3.3.1",
-    "djb2a": "^1.2.0",
+    "chokidar": "^3.6.0",
+    "core-js": "^3.38.1",
+    "djb2a": "^2.0.0",
     "fast-memoize": "^2.5.2",
     "lines-and-columns": "^2.0.3",
     "minimatch": "^5.0.1",
-    "prettier": "^2.3.2",
-    "simple-git": "^3.6.0",
-    "ts-node": "^10.2.1",
-    "tslib": "^2.3.1"
+    "prettier": "^3.2.5",
+    "simple-git": "^3.6.0"
   },
   "optionalDependencies": {
-    "typescript": ">=2.7"
-  },
-  "devDependencies": {
-    "@types/prettier": "^2.3.2"
+    "typescript": "*"
   }
 }

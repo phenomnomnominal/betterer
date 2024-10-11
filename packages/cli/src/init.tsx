@@ -2,15 +2,14 @@ import type { Command } from 'commander';
 
 import type { BettererCLIInitConfig } from './types.js';
 
-import { React, getRenderOptions, render } from '@betterer/render';
+import { React, getRenderOptionsΔ, render } from '@betterer/render';
 import path from 'node:path';
 
 import { Init } from './init/init.js';
-import { initCommand, setEnv } from './options.js';
+import { initCommand } from './options.js';
 
 const BETTERER_TS = './.betterer.ts';
 const BETTERER_RESULTS = './.betterer.results';
-const TS_EXTENSION = '.ts';
 
 /**
  * Run the **Betterer** `init` command to initialise **Betterer** in a new project.
@@ -19,12 +18,11 @@ export function init(cwd: string): Command {
   const command = initCommand();
   command.description('init Betterer in a project');
   command.action(async (config: BettererCLIInitConfig): Promise<void> => {
-    setEnv(config);
-
     const finalConfig = config.config || BETTERER_TS;
     const finalResults = config.results || BETTERER_RESULTS;
+
     const ext = path.extname(finalConfig);
-    const ts = ext === TS_EXTENSION;
+    const ts = ext === path.extname(BETTERER_TS);
 
     const app = render(
       <Init
@@ -35,7 +33,7 @@ export function init(cwd: string): Command {
         resultsPath={finalResults}
         ts={ts}
       />,
-      getRenderOptions(process.env.NODE_ENV)
+      getRenderOptionsΔ(process.env.NODE_ENV)
     );
     await app.waitUntilExit();
   });

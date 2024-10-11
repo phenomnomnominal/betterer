@@ -1,19 +1,11 @@
-import type { BettererFileGlobs, BettererFilePaths } from '@betterer/betterer';
+import type { TypeScriptReadConfigResult } from './types.js';
 
 import { BettererFileTest } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import path from 'node:path';
-import * as ts from 'typescript';
+import ts from 'typescript';
 
 const NEW_LINE = '\n';
-
-interface TypeScriptReadConfigResult {
-  config: {
-    compilerOptions: ts.CompilerOptions;
-    files: BettererFilePaths;
-    include?: BettererFileGlobs;
-  };
-}
 
 // TypeScript throws a 6307 error when it need to access type information from a file
 // that wasn't included by the tsconfig. This happens whenever we run the compiler on
@@ -25,8 +17,8 @@ const CODE_FILE_NOT_INCLUDED = 6307;
  * to your codebase.
  *
  * @remarks {@link @betterer/typescript#typescript | `typescript`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
- * so you can use {@link @betterer/betterer#BettererFileTest.include | `include()`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude()`},
- * {@link @betterer/betterer#BettererFileTest.only | `only()`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip()`}.
+ * so you can use {@link @betterer/betterer#BettererResolverTest.include | `include()`}, {@link @betterer/betterer#BettererResolverTest.exclude | `exclude()`},
+ * {@link @betterer/betterer#BettererTest.only | `only()`}, and {@link @betterer/betterer#BettererTest.skip | `skip()`}.
  *
  * @example
  * ```typescript

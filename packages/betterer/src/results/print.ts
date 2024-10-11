@@ -27,7 +27,7 @@ const RESULTS_HEADER = `// BETTERER RESULTS V2.
  * `import()`-able string of JavaScript.
  */
 export function printResults(results: BettererResultsSerialised): string {
-  const printedResults = Object.keys(results).map((name) => printResult(name, results[name].value));
+  const printedResults = Object.entries(results).map(([name, result]) => printResult(name, result.value));
   return [RESULTS_HEADER, ...printedResults].join('');
 }
 
@@ -37,6 +37,6 @@ function printResult(name: string, printedValue: string): string {
 
 function escape(printedValue: string): string {
   return printedValue
-    .replace(/['`\\\b\f\r\t\u2028\u2029]/g, (char) => ESCAPE_REPLACERS[char])
+    .replace(/['`\\\b\f\r\t\u2028\u2029]/g, (char) => ESCAPE_REPLACERS[char] ?? char)
     .replace(JS_INTERP_UNESCAPED_REGEXP, JS_INTERP_ESCAPED);
 }

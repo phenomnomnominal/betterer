@@ -1,7 +1,7 @@
 import type { BettererLogger } from '@betterer/logger';
 
 import { BettererError } from '@betterer/errors';
-import { exposeToMain__ } from '@betterer/worker';
+import { exposeToMainΔ } from '@betterer/worker';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
@@ -10,12 +10,18 @@ const NEW_LINE = '\n';
 const MERGE_CONFIG = '[merge "betterer"]';
 const MERGE_DIRECTIVE = 'merge=betterer';
 
-export async function run(logger: BettererLogger, cwd: string, resultsPath: string): Promise<void> {
+/** @knipignore part of worker API */
+export async function run(
+  logger: BettererLogger,
+  status: BettererLogger,
+  cwd: string,
+  resultsPath: string
+): Promise<void> {
   resultsPath = path.resolve(cwd, resultsPath);
 
-  await logger.progress(`enabling Betterer merge for "${resultsPath}" file...`);
+  await status.progress(`enabling Betterer merge for "${resultsPath}" file...`);
 
-  const gitDir = await findGitRoot(cwd);
+  const gitDir = await validateGitRepo(cwd);
   const rootDir = path.dirname(gitDir);
 
   await Promise.all([gitconfig(logger, gitDir), gitattributes(logger, rootDir, resultsPath)]);
@@ -49,8 +55,8 @@ async function gitconfig(logger: BettererLogger, gitDir: string): Promise<void> 
   try {
     await fs.writeFile(gitconfigPath, lines.join(NEW_LINE), 'utf-8');
     await logger.success(`added Betterer merge config to "${gitconfigPath}"!`);
-  } catch {
-    throw new BettererError(`could not write "${gitconfigPath}".`);
+  } catch (error) {
+    throw new BettererError(`could not write "${gitconfigPath}".`, error as Error);
   }
 }
 
@@ -84,23 +90,23 @@ async function gitattributes(logger: BettererLogger, rootDir: string, resultsPat
   try {
     await fs.writeFile(gitattributesPath, lines.join(NEW_LINE), 'utf-8');
     await logger.success(`added Betterer merge attribute to "${gitattributesPath}"!`);
-  } catch {
-    throw new BettererError(`could not write "${gitattributesPath}".`);
+  } catch (error) {
+    throw new BettererError(`could not write "${gitattributesPath}".`, error as Error);
   }
 }
 
-async function findGitRoot(cwd: string): Promise<string> {
+async function validateGitRepo(cwd: string): Promise<string> {
   let dir = cwd;
   while (dir !== path.parse(dir).root) {
     try {
       const gitPath = path.join(dir, '.git');
       await fs.access(gitPath);
       return gitPath;
-    } catch (err) {
+    } catch {
       dir = path.join(dir, '..');
     }
   }
   throw new BettererError('.git directory not found. Betterer must be used within a git repository.');
 }
 
-exposeToMain__({ run });
+exposeToMainΔ({ run });

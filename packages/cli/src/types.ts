@@ -18,12 +18,7 @@ export enum BettererCommand {
 
 export type BettererCommandName = `${BettererCommand}`;
 
-export interface BettererCLIEnvConfig {
-  debug: boolean;
-  debugLog: string;
-}
-
-export interface BettererCLIConfig extends BettererCLIEnvConfig {
+export interface BettererCLIConfig {
   cache: boolean;
   cachePath: string;
   config: BettererCLIArguments;
@@ -41,20 +36,20 @@ export interface BettererCLIConfig extends BettererCLIEnvConfig {
   workers: number | boolean;
 }
 
-export interface BettererCLIInitConfig extends BettererCLIEnvConfig {
+export interface BettererCLIInitConfig {
   automerge: boolean;
   config: string;
   logo: boolean;
   results: string;
 }
 
-export interface BettererCLIMergeConfig extends BettererCLIEnvConfig {
+export interface BettererCLIMergeConfig {
   contents: Array<string>;
   logo: boolean;
   results: string;
 }
 
-export interface BettererCLIResultsConfig extends BettererCLIEnvConfig {
+export interface BettererCLIResultsConfig {
   config: BettererCLIArguments;
   exclude: BettererCLIArguments;
   filter: BettererCLIArguments;
@@ -63,8 +58,8 @@ export interface BettererCLIResultsConfig extends BettererCLIEnvConfig {
   results: string;
 }
 
-export interface BettererCLIUpgradeConfig extends BettererCLIEnvConfig {
-  config: BettererCLIArguments;
+export interface BettererCLIUpgradeConfig {
+  config?: BettererCLIArguments;
   logo: boolean;
   save: boolean;
 }
@@ -75,7 +70,16 @@ export interface BettererCLIUpgradeConfig extends BettererCLIEnvConfig {
  * A basic representation of the package.json configuration file.
  */
 export interface BettererPackageJSON {
+  /**
+   * the current version of the package
+   */
   version: string;
-  scripts: Record<string, string> & { betterer: string };
-  devDependencies: Record<string, string>;
+  /**
+   * "scripts" will be updated to add new `betterer` run commands
+   */
+  scripts?: Record<string, string>;
+  /**
+   * "devDependencies" will be updated to add `betterer@latest`
+   */
+  devDependencies?: Record<string, string>;
 }

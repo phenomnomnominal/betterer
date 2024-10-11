@@ -4,15 +4,15 @@ import type { DiagnosticWithLocation } from 'typescript';
 import { performCompilation, readConfiguration } from '@angular/compiler-cli';
 import { BettererFileTest } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
-import { flattenDiagnosticMessageText } from 'typescript';
+import ts from 'typescript';
 
 /**
  * @public Use this test to incrementally introduce {@link https://angular.io/guide/angular-compiler-options | **Angular** compiler configuration }
  * to your codebase.
  *
  * @remarks {@link angular | `angular`} is a {@link @betterer/betterer#BettererFileTest | `BettererFileTest`},
- * so you can use {@link @betterer/betterer#BettererFileTest.include | `include()`}, {@link @betterer/betterer#BettererFileTest.exclude | `exclude()`},
- * {@link @betterer/betterer#BettererFileTest.only | `only()`}, and {@link @betterer/betterer#BettererFileTest.skip | `skip()`}.
+ * so you can use {@link @betterer/betterer#BettererResolverTest.include | `include()`}, {@link @betterer/betterer#BettererResolverTest.exclude | `exclude()`},
+ * {@link @betterer/betterer#BettererTest.only | `only()`}, and {@link @betterer/betterer#BettererTest.skip | `skip()`}.
  *
  * @example
  * ```typescript
@@ -40,6 +40,11 @@ export function angular(configFilePath: string, extraCompilerOptions: CompilerOp
       "For `@betterer/angular` to work, you need to provide the path to a tsconfig.json file, e.g. `'./tsconfig.json'`. ❌"
     );
   }
+
+  // The `angular` function could be called from JS code, without type-checking.
+  // We *could* change the parameter to be `extraCompilerOptions?: CompilerOptions`,
+  // but that would imply that it was optional, but it isn't.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- see above!
   if (!extraCompilerOptions) {
     throw new BettererError(
       'For `@betterer/angular` to work, you need to provide compiler options, e.g. `{ strictTemplates: true }`. ❌'
@@ -61,7 +66,7 @@ export function angular(configFilePath: string, extraCompilerOptions: CompilerOp
       const { file, start, length } = diagnostic as DiagnosticWithLocation;
       const { fileName } = file;
       const result = fileTestResult.addFile(fileName, file.getFullText());
-      const message = flattenDiagnosticMessageText(diagnostic.messageText, '\n');
+      const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
       result.addIssue(start, start + length, message);
     });
   });

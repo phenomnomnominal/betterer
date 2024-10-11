@@ -1,17 +1,18 @@
-// eslint-disable-next-line require-extensions/require-extensions -- tests not ESM ready yet
-import { createFixture } from './fixture';
+import { describe, expect, it } from 'vitest';
+
+import { createFixture } from './fixture.js';
 
 describe('betterer', () => {
   it('should work with a .betterer.ts file that uses ES modules', async () => {
     const { betterer } = await import('@betterer/betterer');
 
-    const { logs, paths, readFile, cleanup, testNames } = await createFixture('config-ts-esm', {
+    const { logs, paths, readFile, cleanup, testNames } = await createFixture('config-ts', {
       '.betterer.ts': `
 import { BettererTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
 import { persist } from '@betterer/fixture';
 
-const grows = persist(__dirname, 'grows', 0);
+const grows = persist(import.meta.url, 'grows', 0);
 
 export default {
   test: () => new BettererTest({
@@ -19,13 +20,6 @@ export default {
     constraint: bigger
   })
 };
-      `,
-      'tsconfig.json': `
-{
-  "compilerOptions": {
-    "module": "ESNext",
-  },
-}
       `
     });
 

@@ -1,5 +1,3 @@
 {
-    "*.ts,tsx": "yarn betterer:precommit",
-    "*.js": "yarn lint",
-    "*": "yarn format"
-  }
+  "*": ["npm run lint", "npm run format:staged"]
+}

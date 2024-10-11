@@ -8,6 +8,7 @@
     "packages/errors",
     "packages/eslint",
     "packages/fixture",
+    "packages/knip",
     "packages/logger",
     "packages/regexp",
     "packages/render",
@@ -19,7 +20,7 @@
     "packages/typescript",
     "packages/worker"
   ],
-  "npmClient": "yarn",
+  "npmClient": "npm",
   "useWorkspaces": true,
   "version": "5.4.0",
   "command": {

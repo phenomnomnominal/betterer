@@ -28,8 +28,8 @@ import type { BettererTestNames } from '../test/index.js';
  */
 export interface BettererSuite {
   /**
-   * An array of file paths that will be tested. The file paths can be specified by the global {@link @betterer/betterer#BettererConfig.includes | `includes` }
-   * and {@link @betterer/betterer#BettererConfig.excludes | `excludes`} properties. Also used by
+   * An array of file paths that will be tested. The file paths can be specified by the global {@link @betterer/betterer#BettererConfigContext.includes | `includes` }
+   * and {@link @betterer/betterer#BettererConfigContext.excludes | `excludes`} properties. Also used by
    * watch mode to target individual files.
    */
   readonly filePaths: BettererFilePaths;
@@ -39,6 +39,8 @@ export interface BettererSuite {
    */
   readonly runs: BettererRuns;
 }
+
+export type BettererSuites = Array<BettererSuite>;
 
 /**
  * @public The summary of a {@link @betterer/betterer#BettererSuite | `BettererSuite`} suite. Includes
@@ -111,9 +113,19 @@ export interface BettererSuiteSummary extends BettererSuite {
   readonly new: BettererRunSummaries;
   /**
    * An array containing a {@link @betterer/betterer#BettererRunSummary | `BettererRunSummary`}
+   * for each test that has a previous saved result but is no longer defined.
+   */
+  readonly obsolete: BettererRunSummaries;
+  /**
+   * An array containing a {@link @betterer/betterer#BettererRunSummary | `BettererRunSummary`}
    * for each test that didn't fail and wasn't skipped.
    */
   readonly ran: BettererRunSummaries;
+  /**
+   * An array containing a {@link @betterer/betterer#BettererRunSummary | `BettererRunSummary`}
+   * for each test that is obsolete, but the `--update` option was enabled.
+   */
+  readonly removed: BettererRunSummaries;
   /**
    * An array containing a {@link @betterer/betterer#BettererRunSummary | `BettererRunSummary`}
    * for each test that stayed the same.

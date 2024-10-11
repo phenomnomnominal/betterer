@@ -2,16 +2,15 @@ import type { PropsWithChildren } from '@betterer/render';
 
 import { React, Box, Text, TextInput, useState } from '@betterer/render';
 
-export interface EditConfigProps<ValidatedConfigType> {
+/** @knipignore used by an exported function */
+export type EditConfigProps<ValidatedConfigType> = PropsWithChildren<{
   name: string;
   onChange: (newValue: string) => [ValidatedConfigType | null, Error | null];
   onSubmit: (newValue: ValidatedConfigType) => Promise<void>;
   value: string;
-}
+}>;
 
-export function EditConfig<ValidatedConfigType>(
-  props: PropsWithChildren<EditConfigProps<ValidatedConfigType>>
-): JSX.Element {
+export function EditConfig<ValidatedConfigType>(props: EditConfigProps<ValidatedConfigType>): React.JSX.Element {
   const { children, name, onChange, onSubmit, value } = props;
   const [error, setError] = useState<Error | null>(null);
   const [valid, setValid] = useState<ValidatedConfigType | null>(null);

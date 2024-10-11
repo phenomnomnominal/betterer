@@ -1,18 +1,17 @@
 import type { FSWatcher } from 'chokidar';
 
-import type { BettererGlobals } from '../types.js';
-
 import { watch } from 'chokidar';
 import minimatch from 'minimatch';
 import path from 'node:path';
 
+import { isTempFilePath } from '../fs/index.js';
+import { getGlobals } from '../globals.js';
 import { normalisedPath } from '../utils.js';
 
 export const WATCHER_EVENTS = ['add', 'change'];
 
-export async function createWatcher(globals: BettererGlobals): Promise<FSWatcher | null> {
-  const { config } = globals;
-
+export async function createWatcher(): Promise<FSWatcher | null> {
+  const { config } = getGlobals();
   if (!config.watch) {
     return null;
   }
@@ -30,7 +29,8 @@ export async function createWatcher(globals: BettererGlobals): Promise<FSWatcher
 
       const isResultsPath = itemPath === normalisedPath(resultsPath);
       const isCachePath = itemPath === normalisedPath(cachePath);
-      if (isResultsPath || isCachePath) {
+      const isTempPath = isTempFilePath(itemPath);
+      if (isResultsPath || isCachePath || isTempPath) {
         return true;
       }
 

@@ -1,19 +1,17 @@
 import type { FC } from '@betterer/render';
 
-import type { BettererReporterState } from '../../state/index.js';
-
 import { React, memo } from '@betterer/render';
 
-import { Suite } from '../suite/index.js';
+import { useReporterState } from '../../state/index.js';
+import { Suite, SuiteSummary } from '../suite/index.js';
 import { WatchEnding } from './WatchEnding.js';
 import { WatchFiles } from './WatchFiles.js';
 import { WatchInstructions } from './WatchInstructions.js';
 import { WatchStarting } from './WatchStarting.js';
 import { useControls } from './useControls.js';
 
-export const WatchReporter: FC<BettererReporterState> = memo(function WatchReporter(props) {
-  const { context, contextSummary, done, suiteSummary } = props;
-  const suite = props.suiteSummary || props.suite;
+export const WatchReporter: FC = memo(function WatchReporter() {
+  const [{ context, contextSummary, suite, suiteSummary }] = useReporterState();
 
   const editing = useControls(context);
 
@@ -21,15 +19,16 @@ export const WatchReporter: FC<BettererReporterState> = memo(function WatchRepor
     return <WatchEnding />;
   }
 
-  if (suite) {
-    return (
-      <>
-        <WatchFiles context={context} editField={editing} suite={suite} running={!suiteSummary} />
-        <Suite context={context} suite={suite} suiteSummary={suiteSummary} done={done} />
-        <WatchInstructions />
-      </>
-    );
+  if (!suite) {
+    return <WatchStarting context={context} editField={editing} />;
   }
 
-  return <WatchStarting context={context} editField={editing} />;
+  return (
+    <>
+      <WatchFiles context={context} editField={editing} filePaths={suite.filePaths} running={!suiteSummary} />
+      {!suiteSummary && <Suite suite={suite} />}
+      {suiteSummary && <SuiteSummary context={context} suiteSummary={suiteSummary} />}
+      <WatchInstructions />
+    </>
+  );
 });
