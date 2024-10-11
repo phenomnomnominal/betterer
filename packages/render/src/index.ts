@@ -88,7 +88,6 @@ export type LinkProps = React.ComponentProps<typeof IL>;
  */
 export const Link: React.FC<LinkProps> = IL;
 
-
 /**
  * @internal This could change at any point! Please don't use!
  */
