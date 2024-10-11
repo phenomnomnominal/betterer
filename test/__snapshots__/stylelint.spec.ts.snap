@@ -9,8 +9,8 @@ exports[`betterer > should report the status of a new stylelint rule 1`] = `
 exports[\`stylelint\`] = {
   value: \`{
     "src/styles.scss:3896471814": [
-      [3, 2, 0, "Expected rule with selector matching \\\\"/^&:\\\\\\\\w/\\\\" to come before rule with selector matching \\\\"/^&/\\\\" (order/order)", "Expected rule with selector matching \\\\"/^&:\\\\\\\\w/\\\\" to come before rule with selector matching \\\\"/^&/\\\\" (order/order)"],
-      [7, 9, 0, "Unexpected unknown unit \\\\"borks\\\\" (unit-no-unknown)", "Unexpected unknown unit \\\\"borks\\\\" (unit-no-unknown)"]
+      [3, 2, 0, "stylelint(order/order): Expected rule with selector matching \\\\"/^&:\\\\\\\\w/\\\\" to come before rule with selector matching \\\\"/^&/\\\\" (order/order)", "3367612702"],
+      [7, 9, 0, "stylelint(unit-no-unknown): Unexpected unknown unit \\\\"borks\\\\" (unit-no-unknown)", "4051308763"]
     ]
   }\`
 };
@@ -59,7 +59,7 @@ Error: "stylelint" got worse. (2 new issues, 4 total) 😔
 ・   12 |   b & {}
 ・   13 |   & b {}
 ・ > 14 |   &:hover {}
-・      |   ^ Expected rule with selector matching "/^&:/w/" to come before rule with selector matching "/^&/" (order/order)
+・      |   ^ stylelint(order/order): Expected rule with selector matching "/^&:/w/" to come before rule with selector matching "/^&/" (order/order)
 ・   15 | }
 ・   16 |
 ・   17 | .foo {
@@ -77,7 +77,7 @@ Error: "stylelint" got worse. (2 new issues, 4 total) 😔
 ・   12 |   b & {}
 ・   13 |   & b {}
 ・ > 14 |   &:hover {}
-・      |   ^ Expected rule with selector matching "/^&:/w/" to come before rule with selector matching "/^&/" (order/order)
+・      |   ^ stylelint(order/order): Expected rule with selector matching "/^&:/w/" to come before rule with selector matching "/^&/" (order/order)
 ・   15 | }
 ・   16 |
 ・   17 | .foo {

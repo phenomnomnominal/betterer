@@ -75,12 +75,20 @@ export function eslint(...overrideConfig: BettererESLintConfig): BettererFileTes
         assert(source);
         const file = fileTestResult.addFile(filePath, source);
         messages.forEach((message) => {
-          const startLine = message.line - 1;
-          const startColumn = message.column - 1;
+          const { line, column, ruleId } = message;
+          const startLine = line - 1;
+          const startColumn = column - 1;
           const endLine = message.endLine ? message.endLine - 1 : 0;
           const endColumn = message.endColumn ? message.endColumn - 1 : 0;
-          file.addIssue(startLine, startColumn, endLine, endColumn, `${message.message}${message.ruleId ? ` eslint(${message.ruleId})` : ''}`);
+          file.addIssue(startLine, startColumn, endLine, endColumn, eslintIssueMessage(ruleId, message.message));
         });
       });
   });
+}
+
+function eslintIssueMessage(ruleId: string | null, message: string) {
+  let issueMessage = 'eslint';
+  issueMessage += ruleId ? `(${ruleId}): ` : ': ';
+  issueMessage += message;
+  return issueMessage;
 }

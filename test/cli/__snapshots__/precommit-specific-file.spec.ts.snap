@@ -68,13 +68,13 @@ exports[`betterer precommit > should test just the specified files 2`] = `
 exports[\`test\`] = {
   value: \`{
     "src/existing-file-1.ts:3201740415": [
-      [0, 0, 9, "Unexpected \\'debugger\\' statement. eslint(no-debugger)", "3201740415"]
+      [0, 0, 9, "eslint(no-debugger): Unexpected \\'debugger\\' statement.", "3201740415"]
     ],
     "src/existing-file-2.ts:3201740415": [
-      [0, 0, 9, "Unexpected \\'debugger\\' statement. eslint(no-debugger)", "3201740415"]
+      [0, 0, 9, "eslint(no-debugger): Unexpected \\'debugger\\' statement.", "3201740415"]
     ],
     "src/new-file.ts:3201740415": [
-      [0, 0, 9, "Unexpected \\'debugger\\' statement. eslint(no-debugger)", "3201740415"]
+      [0, 0, 9, "eslint(no-debugger): Unexpected \\'debugger\\' statement.", "3201740415"]
     ]
   }\`
 };

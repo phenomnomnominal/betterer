@@ -5,6 +5,8 @@ import { LinesAndColumns } from 'lines-and-columns';
 import path from 'node:path';
 
 const IS_JS_REGEXP = /.t|jsx?$/;
+const IS_JSON_REGEXP = /.json$/;
+const IS_CSS_REGEXP = /.s?css$/;
 
 /**
  * @internal Definitely not stable! Please don't use!
@@ -16,9 +18,12 @@ export function codeΔ(codeInfo: BettererLoggerCodeInfo): string {
   codeInfo.column = isNaN(codeInfo.column) ? 0 : codeInfo.column;
 
   const { filePath, fileText, message } = codeInfo;
-  const isJS = IS_JS_REGEXP.exec(path.extname(filePath));
+  const ext = path.extname(filePath);
+  const isJS = IS_JS_REGEXP.exec(ext);
+  const isJSON = IS_JSON_REGEXP.exec(ext);
+  const isCSS = IS_CSS_REGEXP.exec(ext);
   const options = {
-    highlightCode: !!isJS,
+    highlightCode: !!(isJS ?? isJSON ?? isCSS),
     message
   };
   const lc = new LinesAndColumns(fileText);

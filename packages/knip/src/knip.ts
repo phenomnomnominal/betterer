@@ -112,7 +112,7 @@ export function knip(
         const absoluteFilePath = resolver.resolve(relativeFilePath);
         const contents = await fs.readFile(absoluteFilePath, 'utf-8');
         const file = fileTestResult.addFile(absoluteFilePath, contents);
-        file.addIssue(0, 0, ISSUE_TYPE_TITLE.files);
+        file.addIssue(0, 0, knipIssueMessage('files', ''));
       })
     );
 
@@ -135,7 +135,7 @@ export function knip(
         entries.forEach(([issueType, issues]) => {
           issues.forEach((issue) => {
             const { line, col, name } = issue;
-            const message = `${ISSUE_TYPE_TITLE[issueType]}: ${name}`;
+            const message = knipIssueMessage(issueType, name);
             if (line == null || col == null) {
               file.addIssue(0, 0, message);
             } else {
@@ -150,4 +150,11 @@ export function knip(
 
 function isIssueType(key: unknown): key is KnipIssueType {
   return !!ISSUE_TYPE_TITLE[key as KnipIssueType];
+}
+
+function knipIssueMessage(issueType: keyof typeof ISSUE_TYPE_TITLE, message: string) {
+  let issueMessage = 'knip';
+  issueMessage += `(${ISSUE_TYPE_TITLE[issueType]})`;
+  issueMessage += message ? `: ${message}` : '';
+  return issueMessage;
 }

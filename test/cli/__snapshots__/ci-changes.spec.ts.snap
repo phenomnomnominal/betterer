@@ -41,7 +41,7 @@ Error: "test" got worse. (1 new issue, 2 total) 😔
 ・   2 | const one = 1;
 ・   3 | console.log(one * a);
 ・ > 4 | console.log(a * one);
-・     |             ^ The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+・     |             ^ tsc:The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
 ・
 
 Error: "test" got worse. (1 new issue, 2 total) 😔
@@ -55,7 +55,7 @@ Error: "test" got worse. (1 new issue, 2 total) 😔
 ・   2 | const one = 1;
 ・   3 | console.log(one * a);
 ・ > 4 | console.log(a * one);
-・     |             ^ The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+・     |             ^ tsc:The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
 ・
 
 Error: "test" got worse. (1 new issue, 2 total) 😔

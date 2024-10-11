@@ -1,10 +1,11 @@
 import type { CompilerOptions } from '@angular/compiler-cli';
-import type { DiagnosticWithLocation } from 'typescript';
 
 import { performCompilation, readConfiguration } from '@angular/compiler-cli';
 import { BettererFileTest } from '@betterer/betterer';
 import { BettererError } from '@betterer/errors';
 import ts from 'typescript';
+
+const NEW_LINE = '\n';
 
 /**
  * @public Use this test to incrementally introduce {@link https://angular.io/guide/angular-compiler-options | **Angular** compiler configuration }
@@ -52,7 +53,7 @@ export function angular(configFilePath: string, extraCompilerOptions: CompilerOp
   }
 
   // Always has to do the full compile since a .component.html file needs to know about the module it lives in:
-  return new BettererFileTest((_, fileTestResult, resolver) => {
+  return new BettererFileTest((filePaths, fileTestResult, resolver) => {
     const absoluteConfigFilePath = resolver.resolve(configFilePath);
 
     const { rootNames, options } = readConfiguration(absoluteConfigFilePath, extraCompilerOptions);
@@ -62,12 +63,23 @@ export function angular(configFilePath: string, extraCompilerOptions: CompilerOp
       options
     });
 
-    diagnostics.forEach((diagnostic) => {
-      const { file, start, length } = diagnostic as DiagnosticWithLocation;
-      const { fileName } = file;
-      const result = fileTestResult.addFile(fileName, file.getFullText());
-      const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
-      result.addIssue(start, start + length, message);
-    });
+    diagnostics
+      .filter((diagnostic): diagnostic is ts.DiagnosticWithLocation => {
+        const { file, start, length } = diagnostic;
+        return file != null && start != null && length != null;
+      })
+      .filter(({ file }) => filePaths.includes(file.fileName))
+      .forEach(({ file, start, length, source, messageText }) => {
+        const { fileName } = file;
+        const resultFile = fileTestResult.addFile(fileName, file.getFullText());
+        const message = ts.flattenDiagnosticMessageText(messageText, NEW_LINE);
+        resultFile.addIssue(start, start + length, angularIssueMessage(source, message));
+      });
   });
+}
+
+function angularIssueMessage(source = 'ng', message: string) {
+  let issueMessage = source ? `${source}: ` : '';
+  issueMessage = `${issueMessage}${message}`;
+  return issueMessage;
 }

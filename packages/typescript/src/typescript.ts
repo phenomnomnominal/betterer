@@ -105,13 +105,17 @@ export function typescript(configFilePath: string, extraCompilerOptions: ts.Comp
         const { file, start, length } = diagnostic;
         return file != null && start != null && length != null;
       })
-      .filter(({ file, code }) => {
-        return filePaths.includes(file.fileName) && code !== CODE_FILE_NOT_INCLUDED;
-      })
-      .forEach(({ start, length, file: source, messageText }) => {
-        const file = fileTestResult.addFile(source.fileName, source.getFullText());
+      .filter(({ file, code }) => filePaths.includes(file.fileName) && code !== CODE_FILE_NOT_INCLUDED)
+      .forEach(({ start, length, file, source, messageText }) => {
+        const resultFile = fileTestResult.addFile(file.fileName, file.getFullText());
         const message = ts.flattenDiagnosticMessageText(messageText, NEW_LINE);
-        file.addIssue(start, start + length, message);
+        resultFile.addIssue(start, start + length, typescriptIssueMessage(source, message));
       });
   });
+}
+
+function typescriptIssueMessage(source = 'tsc', message: string) {
+  let issueMessage = source ? `${source}:` : '';
+  issueMessage = `${issueMessage}${message}`;
+  return issueMessage;
 }

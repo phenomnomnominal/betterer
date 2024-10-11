@@ -59,12 +59,19 @@ export function stylelint(configOverrides: Partial<Configuration>): BettererFile
     await Promise.all(
       result.results.map(async (result) => {
         const contents = await fs.readFile(result.source, 'utf8');
-        const file = fileTestResult.addFile(result.source, contents);
+        const resultFile = fileTestResult.addFile(result.source, contents);
         result.warnings.forEach((warning) => {
-          const { line, column, text } = warning;
-          file.addIssue(line - 1, column - 1, line - 1, column - 1, text, text);
+          const { line, column, text, rule } = warning;
+          resultFile.addIssue(line - 1, column - 1, line - 1, column - 1, stylelintIssueMessage(rule, text));
         });
       })
     );
   });
+}
+
+function stylelintIssueMessage(rule: string, message: string) {
+  let issueMessage = 'stylelint';
+  issueMessage += rule ? `(${rule}): ` : ': ';
+  issueMessage += message.replace(new RegExp(`\\W\\(${rule}\\)$`, 'g'), '');
+  return issueMessage;
 }
