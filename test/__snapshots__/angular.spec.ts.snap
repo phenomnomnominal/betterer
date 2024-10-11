@@ -9,9 +9,9 @@ exports[`betterer > should report the status of the Angular compiler in strict m
 exports[\`angular\`] = {
   value: \`{
     "src/app/app.component.ts:3728100455": [
-      [10, 8, 5, "Property \\'title\\' does not exist on type \\'AppComponent\\'.", "183222373"],
-      [12, 34, 7, "Type \\'(hero: Hero) => number\\' is not assignable to type \\'TrackByFunction<Hero>\\'.", "926731729"],
-      [13, 17, 2, "Property \\'Id\\' does not exist on type \\'Hero\\'. Did you mean \\'id\\'?", "5862152"]
+      [10, 8, 5, "ngtsc: Property \\'title\\' does not exist on type \\'AppComponent\\'.", "183222373"],
+      [12, 34, 7, "ngtsc: Type \\'(hero: Hero) => number\\' is not assignable to type \\'TrackByFunction<Hero>\\'.", "926731729"],
+      [13, 17, 2, "ngtsc: Property \\'Id\\' does not exist on type \\'Hero\\'. Did you mean \\'id\\'?", "5862152"]
     ]
   }\`
 };

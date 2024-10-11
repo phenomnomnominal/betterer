@@ -9,9 +9,9 @@ exports[`betterer > should let you override the constraint of a file test 1`] = 
 exports[\`test\`] = {
   value: \`{
     "src/index.ts:1761844991": [
-      [0, 0, 9, "Unexpected \\'debugger\\' statement.", "3201740415"],
-      [1, 0, 9, "Unexpected \\'debugger\\' statement.", "3201740415"],
-      [2, 0, 9, "Unexpected \\'debugger\\' statement.", "3201740415"]
+      [0, 0, 9, "eslint(no-debugger): Unexpected \\'debugger\\' statement.", "3201740415"],
+      [1, 0, 9, "eslint(no-debugger): Unexpected \\'debugger\\' statement.", "3201740415"],
+      [2, 0, 9, "eslint(no-debugger): Unexpected \\'debugger\\' statement.", "3201740415"]
     ]
   }\`
 };

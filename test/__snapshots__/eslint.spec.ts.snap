@@ -9,7 +9,7 @@ exports[`betterer > should report the status of a new eslint rule 1`] = `
 exports[\`test\`] = {
   value: \`{
     "src/index.ts:3201740415": [
-      [0, 0, 9, "Unexpected \\'debugger\\' statement.", "3201740415"]
+      [0, 0, 9, "eslint(no-debugger): Unexpected \\'debugger\\' statement.", "3201740415"]
     ]
   }\`
 };
@@ -57,7 +57,7 @@ exports[`betterer > should report the status of a new eslint rule 2`] = `
 ・
 ・   1 | debugger;
 ・ > 2 | debugger;
-・     | ^^^^^^^^^ Unexpected 'debugger' statement.
+・     | ^^^^^^^^^ eslint(no-debugger): Unexpected 'debugger' statement.
 ・
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
@@ -66,7 +66,7 @@ exports[`betterer > should report the status of a new eslint rule 2`] = `
 ・
 ・   1 | debugger;
 ・ > 2 | debugger;
-・     | ^^^^^^^^^ Unexpected 'debugger' statement.
+・     | ^^^^^^^^^ eslint(no-debugger): Unexpected 'debugger' statement.
 ・
 
 1 test got checked. 🤔

@@ -9,12 +9,12 @@ exports[`betterer > should report the status of the TypeScript compiler in stric
 exports[\`typescript\`] = {
   value: \`{
     "src/index.ts:3281126131": [
-      [0, 27, 4, "Parameter \\'list\\' implicitly has an \\'any\\' type.", "2087656743"],
-      [1, 18, 6, "Parameter \\'member\\' implicitly has an \\'any\\' type.", "1468198325"],
-      [5, 9, 4, "\\'this\\' implicitly has type \\'any\\' because it does not have a type annotation.", "2087959715"],
-      [17, 9, 6, "\\'number\\' is possibly \\'undefined\\'.", "1682699846"],
-      [21, 10, 3, "Property \\'bar\\' has no initializer and is not definitely assigned in the constructor.", "193415156"],
-      [29, 16, 9, "Argument of type \\'[number, number, number]\\' is not assignable to parameter of type \\'[num1: number, num2: number]\\'.\\\\n  Source has 3 element(s) but target allows only 2.", "2320562899"]
+      [0, 27, 4, "tsc: Parameter \\'list\\' implicitly has an \\'any\\' type.", "2087656743"],
+      [1, 18, 6, "tsc: Parameter \\'member\\' implicitly has an \\'any\\' type.", "1468198325"],
+      [5, 9, 4, "tsc: \\'this\\' implicitly has type \\'any\\' because it does not have a type annotation.", "2087959715"],
+      [17, 9, 6, "tsc: \\'number\\' is possibly \\'undefined\\'.", "1682699846"],
+      [21, 10, 3, "tsc: Property \\'bar\\' has no initializer and is not definitely assigned in the constructor.", "193415156"],
+      [29, 16, 9, "tsc: Argument of type \\'[number, number, number]\\' is not assignable to parameter of type \\'[num1: number, num2: number]\\'.\\\\n  Source has 3 element(s) but target allows only 2.", "2320562899"]
     ]
   }\`
 };
@@ -63,7 +63,7 @@ exports[`betterer > should report the status of the TypeScript compiler in stric
 ・   32 | const a = 'a';
 ・   33 | const one = 1;
 ・ > 34 | console.log(a * one);
-・      |             ^ The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+・      |             ^ tsc: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
 ・
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
@@ -73,7 +73,7 @@ exports[`betterer > should report the status of the TypeScript compiler in stric
 ・   32 | const a = 'a';
 ・   33 | const one = 1;
 ・ > 34 | console.log(a * one);
-・      |             ^ The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+・      |             ^ tsc: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
 ・
 
 1 test got checked. 🤔

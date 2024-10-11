@@ -9,7 +9,7 @@ exports[`betterer > should report the status of the Angular compiler on specific
 exports[\`angular\`] = {
   value: \`{
     "src/app/hero-list.component.ts:9489403": [
-      [14, 29, 2, "Property \\'Id\\' does not exist on type \\'Hero\\'. Did you mean \\'id\\'?", "5862152"]
+      [14, 29, 2, "ngtsc: Property \\'Id\\' does not exist on type \\'Hero\\'. Did you mean \\'id\\'?", "5862152"]
     ]
   }\`
 };

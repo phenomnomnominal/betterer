@@ -9,8 +9,8 @@ exports[`betterer > should let you override the goal of a file test 1`] = `
 exports[\`test\`] = {
   value: \`{
     "src/index.ts:2053668783": [
-      [0, 0, 9, "Unexpected \\'debugger\\' statement.", "3201740415"],
-      [1, 0, 9, "Unexpected \\'debugger\\' statement.", "3201740415"]
+      [0, 0, 9, "eslint(no-debugger): Unexpected \\'debugger\\' statement.", "3201740415"],
+      [1, 0, 9, "eslint(no-debugger): Unexpected \\'debugger\\' statement.", "3201740415"]
     ]
   }\`
 };
@@ -59,7 +59,7 @@ exports[`betterer > should let you override the goal of a file test 2`] = `
 ・   1 | debugger;
 ・   2 | debugger;
 ・ > 3 | debugger;
-・     | ^^^^^^^^^ Unexpected 'debugger' statement.
+・     | ^^^^^^^^^ eslint(no-debugger): Unexpected 'debugger' statement.
 ・
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
@@ -69,7 +69,7 @@ exports[`betterer > should let you override the goal of a file test 2`] = `
 ・   1 | debugger;
 ・   2 | debugger;
 ・ > 3 | debugger;
-・     | ^^^^^^^^^ Unexpected 'debugger' statement.
+・     | ^^^^^^^^^ eslint(no-debugger): Unexpected 'debugger' statement.
 ・
 
 1 test got checked. 🤔

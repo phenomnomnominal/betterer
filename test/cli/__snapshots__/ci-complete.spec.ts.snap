@@ -9,7 +9,7 @@ exports[`betterer ci > should work when a test is already complete 1`] = `
 exports[\`test\`] = {
   value: \`{
     "src/index.ts:1499252024": [
-      [2, 12, 1, "The left-hand side of an arithmetic operation must be of type \\'any\\', \\'number\\', \\'bigint\\' or an enum type.", "177604"]
+      [2, 12, 1, "tsc: The left-hand side of an arithmetic operation must be of type \\'any\\', \\'number\\', \\'bigint\\' or an enum type.", "177604"]
     ]
   }\`
 };

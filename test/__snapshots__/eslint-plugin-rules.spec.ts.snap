@@ -9,9 +9,9 @@ exports[`betterer > should handle eslint rule from other plugins 1`] = `
 exports[\`test\`] = {
   value: \`{
     "src/index.ts:3387724021": [
-      [0, 0, 20, "Requires \\'eslint-enable\\' directive.", "3387724021"],
-      [0, 0, 20, "Unexpected unlimited \\'eslint-disable\\' comment. Specify some rule names to disable.", "3387724021"],
-      [0, 0, 0, "Unused eslint-disable directive (no problems were reported).", "585591554"]
+      [0, 0, 20, "eslint(@eslint-community/eslint-comments/disable-enable-pair): Requires \\'eslint-enable\\' directive.", "3387724021"],
+      [0, 0, 20, "eslint(@eslint-community/eslint-comments/no-unlimited-disable): Unexpected unlimited \\'eslint-disable\\' comment. Specify some rule names to disable.", "3387724021"],
+      [0, 0, 0, "eslint: Unused eslint-disable directive (no problems were reported).", "963424369"]
     ]
   }\`
 };

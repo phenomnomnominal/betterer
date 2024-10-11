@@ -9,7 +9,7 @@ exports[`betterer > should handle complex eslint rule options 1`] = `
 exports[\`test\`] = {
   value: \`{
     "src/index.ts:1015454386": [
-      [0, 0, 34, "Prefer named exports", "1332276585"]
+      [0, 0, 34, "eslint(no-restricted-syntax): Prefer named exports", "1332276585"]
     ]
   }\`
 };

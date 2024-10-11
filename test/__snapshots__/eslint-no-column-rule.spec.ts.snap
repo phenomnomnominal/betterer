@@ -9,8 +9,8 @@ exports[`betterer > should handle eslint rules that mark the entire line of code
 exports[\`test\`] = {
   value: \`{
     "src/index.ts:3395480044": [
-      [0, 0, 27, "Unexpected unlimited \\'eslint-disable-next-line\\' comment. Specify some rule names to disable.", "1912322876"],
-      [0, 0, 27, "Unexpected undescribed directive comment. Include descriptions to explain why the comment is necessary.", "1912322876"]
+      [0, 0, 27, "eslint(@eslint-community/eslint-comments/no-unlimited-disable): Unexpected unlimited \\'eslint-disable-next-line\\' comment. Specify some rule names to disable.", "1912322876"],
+      [0, 0, 27, "eslint(@eslint-community/eslint-comments/require-description): Unexpected undescribed directive comment. Include descriptions to explain why the comment is necessary.", "1912322876"]
     ]
   }\`
 };

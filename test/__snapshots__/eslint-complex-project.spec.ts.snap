@@ -9,10 +9,10 @@ exports[`betterer > should report the status of a new eslint rule with a complex
 exports[\`test\`] = {
   value: \`{
     "src/directory/index.ts:2738652613": [
-      [0, 22, 18, "Use \\'String#startsWith\\' method instead.", "2194816964"]
+      [0, 22, 18, "eslint(@typescript-eslint/prefer-string-starts-ends-with): Use \\'String#startsWith\\' method instead.", "2194816964"]
     ],
     "src/index.ts:3201740415": [
-      [0, 0, 9, "Unexpected \\'debugger\\' statement.", "3201740415"]
+      [0, 0, 9, "eslint(no-debugger): Unexpected \\'debugger\\' statement.", "3201740415"]
     ]
   }\`
 };
@@ -60,7 +60,7 @@ exports[`betterer > should report the status of a new eslint rule with a complex
 ・
 ・   1 | debugger;
 ・ > 2 | debugger;
-・     | ^^^^^^^^^ Unexpected 'debugger' statement.
+・     | ^^^^^^^^^ eslint(no-debugger): Unexpected 'debugger' statement.
 ・
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
@@ -69,7 +69,7 @@ exports[`betterer > should report the status of a new eslint rule with a complex
 ・
 ・   1 | debugger;
 ・ > 2 | debugger;
-・     | ^^^^^^^^^ Unexpected 'debugger' statement.
+・     | ^^^^^^^^^ eslint(no-debugger): Unexpected 'debugger' statement.
 ・
 
 1 test got checked. 🤔
