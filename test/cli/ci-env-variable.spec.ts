@@ -47,7 +47,9 @@ export default {
 
     process.env.CI = 'true';
 
-    await cliΔ(fixturePath, [...ARGV, 'start', '--workers=false']);
+    await expect(async () => {
+      await cliΔ(fixturePath, [...ARGV, 'start', '--workers=false']);
+    }).rejects.toThrow('Unexpected changes detected while running in CI mode. ❌');
 
     expect(logs).toMatchSnapshot();
 

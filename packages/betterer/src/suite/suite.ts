@@ -134,9 +134,6 @@ export class BettererSuiteΩ implements BettererSuite {
         // so it needs to be updated
         runΩ.filePaths = runSummary.filePaths;
 
-        if (runSummary.isFailed || (runSummary.isWorse && !runSummary.isUpdated)) {
-          process.exitCode = 1;
-        }
         return runSummary;
       })
     );
@@ -148,15 +145,14 @@ export class BettererSuiteΩ implements BettererSuite {
         const reportRunStart = reportRunStarts[index];
 
         const runΩ = run as BettererRunΩ;
-        if (runSummary.isFailed) {
-          const { error } = runSummary;
-          invariantΔ(error, 'A failed run will always have an `error`!');
+        if (runSummary.error) {
+          const error = runSummary.error;
           runΩ.lifecycle.reject(error);
 
           // Lifecycle promise is resolved, so it's safe to await
           // the result of `reporter.runStart`:
           await reportRunStart;
-          await reporterΩ.runError(runΩ, error as BettererError);
+          await reporterΩ.runError(runSummary, error as BettererError);
         } else {
           runΩ.lifecycle.resolve(runSummary);
 

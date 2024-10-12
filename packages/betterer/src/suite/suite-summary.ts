@@ -4,9 +4,12 @@ import type { BettererRuns, BettererRunSummaries } from '../run/index.js';
 import type { BettererTestNames } from '../test/index.js';
 import type { BettererSuiteSummary } from './types.js';
 
-import { invariantΔ } from '@betterer/errors';
+import { BettererError, invariantΔ } from '@betterer/errors';
+
+import { getGlobals } from '../globals.js';
 
 export class BettererSuiteSummaryΩ implements BettererSuiteSummary {
+  public readonly error: BettererError | null = null;
   public readonly result: BettererResultsSerialised;
 
   constructor(
@@ -15,6 +18,12 @@ export class BettererSuiteSummaryΩ implements BettererSuiteSummary {
     public readonly runSummaries: BettererRunSummaries
   ) {
     this.result = this._mergeResult();
+
+    try {
+      this._handleContextErrors();
+    } catch (error) {
+      this.error = error as BettererError;
+    }
   }
 
   public get better(): BettererRunSummaries {
@@ -108,5 +117,49 @@ export class BettererSuiteSummaryΩ implements BettererSuiteSummary {
       results[name] = { value: result.printed };
       return results;
     }, {});
+  }
+
+  private _handleContextErrors(): void {
+    const { changed, expired, failed, worse } = this;
+    const hasChanged = changed.length > 0;
+    const hasExpired = expired.length > 0;
+    const hasFailed = failed.length > 0;
+    const hasWorse = worse.length > 0;
+
+    if (!(hasChanged || hasExpired || hasFailed || hasWorse)) {
+      return;
+    }
+
+    const errors = failed.flatMap((failed) => {
+      invariantΔ(failed.error, 'A failed run will always have an `error`!');
+      return [failed.name, failed.error];
+    });
+
+    const worseNames = worse.map((run) => run.name);
+
+    const { config } = getGlobals();
+    const { ci, precommit, strictDeadlines } = config;
+    if (strictDeadlines && hasExpired) {
+      const expiredNames = expired.map((run) => run.name);
+      throw new BettererError('Tests have passed their deadline without achieving their goal. ❌', ...expiredNames);
+    }
+    if (ci && hasFailed) {
+      throw new BettererError('Tests failed while running in CI mode. ❌', ...errors);
+    }
+    if (ci && hasChanged) {
+      throw new BettererError('Unexpected changes detected while running in CI mode. ❌', ...changed);
+    }
+    if (precommit && hasFailed) {
+      throw new BettererError('Tests failed while running in precommit mode. ❌', ...errors);
+    }
+    if (precommit && hasWorse) {
+      throw new BettererError('Tests got worse while running in precommit mode. ❌', ...worseNames);
+    }
+    if (hasFailed) {
+      throw new BettererError('Tests failed while running Betterer. ❌', ...errors);
+    }
+    if (hasWorse) {
+      throw new BettererError('Tests got worse while running Betterer. ❌', ...worseNames);
+    }
   }
 }

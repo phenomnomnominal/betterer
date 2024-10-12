@@ -46,6 +46,10 @@ export default {
           suiteEnd(suiteSummary: BettererSuiteSummary) {
             const suiteSummaryDefer = suiteSummaryDefers.shift();
             suiteSummaryDefer?.resolve(suiteSummary);
+          },
+          suiteError(suiteSummary: BettererSuiteSummary) {
+            const suiteSummaryDefer = suiteSummaryDefers.shift();
+            suiteSummaryDefer?.resolve(suiteSummary);
           }
         }
       ],

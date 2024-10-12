@@ -85,7 +85,6 @@ export interface BettererSuiteSummary extends BettererSuite {
    * stayed the same but still changed in some way.
    */
   readonly changed: BettererTestNames;
-
   /**
    * An array containing a {@link @betterer/betterer#BettererRunSummary | `BettererRunSummary`}
    * for each test that got better.
@@ -96,6 +95,15 @@ export interface BettererSuiteSummary extends BettererSuite {
    * for each test that met its goal.
    */
   readonly completed: BettererRunSummaries;
+  /**
+   * The `error` that caused the suite to fail. Will be present in the following situations:
+   *
+   * * A test run has failed.
+   * * A test run has got worse.
+   * * `strictDeadlines` is enabled and a test has expired.
+   * * `ci` mode is enabled and a test has changed (in any way!).
+   */
+  readonly error: Error | null;
   /**
    * An array containing a {@link @betterer/betterer#BettererRunSummary | `BettererRunSummary`}
    * for each test that has expired.

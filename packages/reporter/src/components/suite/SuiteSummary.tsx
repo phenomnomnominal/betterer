@@ -35,7 +35,7 @@ export interface SuiteSummaryProps {
   suiteSummary: BettererSuiteSummary;
 }
 
-type TestCategories = Exclude<keyof BettererSuiteSummary, 'filePaths' | 'runs' | 'runSummaries'>;
+type TestCategories = Exclude<keyof BettererSuiteSummary, 'error' | 'filePaths' | 'runs' | 'runSummaries'>;
 
 const TEXT_COLOURS: Record<TestCategories, TextProps['color']> = {
   better: 'greenBright',

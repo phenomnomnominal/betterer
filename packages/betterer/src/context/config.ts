@@ -18,6 +18,7 @@ export async function createContextConfig(options: BettererOptionsContext): Prom
   const includes = toArray<string>(options.includes);
   const precommit = options.precommit ?? false;
   const strict = options.strict ?? false;
+  const strictDeadlines = options.strictDeadlines ?? false;
   const update = options.update ?? false;
 
   if (ci) {
@@ -27,6 +28,7 @@ export async function createContextConfig(options: BettererOptionsContext): Prom
   validateBool({ ci });
   validateBool({ precommit });
   validateBool({ strict });
+  validateBool({ strictDeadlines });
   validateBool({ update });
   validateStringRegExpArray({ excludes });
   validateStringRegExpArray({ filters });
@@ -41,6 +43,7 @@ export async function createContextConfig(options: BettererOptionsContext): Prom
     includes,
     precommit,
     strict,
+    strictDeadlines,
     update,
     workers
   };

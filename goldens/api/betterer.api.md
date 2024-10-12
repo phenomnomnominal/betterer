@@ -32,6 +32,7 @@ export interface BettererConfigContext {
     includes: BettererConfigIncludes;
     precommit: boolean;
     strict: boolean;
+    strictDeadlines: boolean;
     update: boolean;
     workers: number;
 }
@@ -214,6 +215,7 @@ export type BettererOptionsContext = BettererOptionsMode & {
     excludes?: BettererOptionsExcludes;
     filters?: BettererOptionsFilters;
     includes?: BettererOptionsIncludes;
+    strictDeadlines?: boolean;
     workers?: number | boolean;
 };
 
@@ -320,7 +322,7 @@ export interface BettererOptionsModeWatch {
     // (undocumented)
     precommit?: false;
     // (undocumented)
-    strict?: boolean;
+    strict?: false;
     // (undocumented)
     update?: false;
 }
@@ -486,6 +488,7 @@ export interface BettererSuiteSummary extends BettererSuite {
     readonly better: BettererRunSummaries;
     readonly changed: BettererTestNames;
     readonly completed: BettererRunSummaries;
+    readonly error: Error | null;
     readonly expired: BettererRunSummaries;
     readonly failed: BettererRunSummaries;
     readonly new: BettererRunSummaries;

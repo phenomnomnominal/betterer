@@ -31,6 +31,7 @@ export interface BettererCLIConfig {
   results: string;
   silent: boolean;
   strict: boolean;
+  strictDeadlines: boolean;
   tsconfig: string;
   update: boolean;
   workers: number | boolean;
