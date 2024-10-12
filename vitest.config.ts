@@ -29,7 +29,7 @@ export default defineConfig({
 
     // Our tests are basically E2E so they're a bit slow as is...
     slowTestThreshold: 30000,
-    testTimeout: 900000,
+    testTimeout: 90000,
 
     watch: false,
     coverage: {

@@ -6,19 +6,55 @@ import { BettererCommand } from './types.js';
 
 let command: Command;
 
-export function cliCommand(name: BettererCommand): Command {
-  command = new Command(name);
+export function ciCommand(): Command {
+  command = new Command(BettererCommand.ci);
   cacheOption();
   configPathsOption();
   excludesOption();
   filtersOption();
-  ignoresOption();
-  logoOption();
-  reportersOption();
+  reportersOptions();
   resultsPathOption();
-  silentOption();
+  strictDeadlinesOption();
+  workersOption();
+  return command;
+}
+
+export function precommitCommand(): Command {
+  command = new Command(BettererCommand.precommit);
+  cacheOption();
+  configPathsOption();
+  excludesOption();
+  filtersOption();
+  reportersOptions();
+  resultsPathOption();
+  strictDeadlinesOption();
+  workersOption();
+  return command;
+}
+
+export function startCommand(): Command {
+  command = new Command(BettererCommand.start);
+  cacheOption();
+  configPathsOption();
+  excludesOption();
+  filtersOption();
+  reportersOptions();
+  resultsPathOption();
   strictOption();
+  strictDeadlinesOption();
   updateOption();
+  workersOption();
+  return command;
+}
+
+export function watchCommand(): Command {
+  command = new Command(BettererCommand.watch);
+  cacheOption();
+  configPathsOption();
+  filtersOption();
+  ignoresOption();
+  reportersOptions();
+  resultsPathOption();
   workersOption();
   return command;
 }
@@ -97,6 +133,19 @@ function ignoresOption(): void {
   command.option('-i, --ignore [value]', 'Glob pattern for files to ignore. Takes multiple values', argsToArray);
 }
 
+function reportersOptions(): void {
+  command.option(
+    '-R, --reporter [value]',
+    'npm package name for a Betterer reporter. Takes multiple values',
+    argsToArray
+  );
+  command.option(
+    '-s, --silent',
+    'When present, all default reporters will be disabled. Custom reporters will still work normally.'
+  );
+  logoOption();
+}
+
 function logoOption(): void {
   command.option(
     '--logo',
@@ -105,29 +154,21 @@ function logoOption(): void {
   );
 }
 
-function reportersOption(): void {
-  command.option(
-    '-R, --reporter [value]',
-    'npm package name for a Betterer reporter. Takes multiple values',
-    argsToArray
-  );
-}
-
 function saveOption(): void {
   command.option('--save', 'When present, Betterer will save the result of an upgrade to disk.');
-}
-
-function silentOption(): void {
-  command.option(
-    '-s, --silent',
-    'When present, all default reporters will be disabled. Custom reporters will still work normally.'
-  );
 }
 
 function strictOption(): void {
   command.option(
     '--strict',
     'When present, the "how to update" message will not be shown and the `--update` option will be set to false.'
+  );
+}
+
+function strictDeadlinesOption(): void {
+  command.option(
+    '--strictDeadlines',
+    'When present, Betterer will throw an error if any tests have passed their deadline without meeting their goal.'
   );
 }
 

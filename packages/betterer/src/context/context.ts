@@ -46,7 +46,15 @@ export class BettererContextΩ implements BettererContext {
   }
 
   public async run(specifiedFilePaths: BettererFilePaths, isRunOnce = false): Promise<BettererSuiteSummary> {
-    const { config, reporter, resolvers, results } = getGlobals();
+    const configFileChange = this.config.configPaths.some((configPath) => specifiedFilePaths.includes(configPath));
+    if (configFileChange) {
+      specifiedFilePaths = [];
+    }
+
+    const { config, reporter, resolvers, results, versionControl } = getGlobals();
+
+    await versionControl.api.sync();
+
     const resolver = resolvers.cwd as BettererFileResolverΩ;
 
     const { includes, excludes } = config;
@@ -76,31 +84,32 @@ export class BettererContextΩ implements BettererContext {
     // Don't await here! A custom reporter could be awaiting
     // the lifecycle promise which is unresolved right now!
     const reportSuiteStart = reporterΩ.suiteStart(suiteΩ, suiteΩ.lifecycle.promise);
-    try {
-      const suiteSummary = await suiteΩ.run();
-      this._suiteSummaries = [...this._suiteSummaries, suiteSummary];
+    const suiteSummary = await suiteΩ.run();
+    this._suiteSummaries = [...this._suiteSummaries, suiteSummary];
 
-      if (!isRunOnce && !config.ci) {
-        const suiteSummaryΩ = suiteSummary as BettererSuiteSummaryΩ;
-        await results.api.write(suiteSummaryΩ.result);
-      }
+    if (!isRunOnce && !config.ci) {
+      const suiteSummaryΩ = suiteSummary as BettererSuiteSummaryΩ;
+      await results.api.write(suiteSummaryΩ.result);
+    }
 
+    if (suiteSummary.error) {
+      const { error } = suiteSummary;
+      suiteΩ.lifecycle.reject(error as BettererError);
+
+      // Lifecycle promise is rejected, so it's safe to await
+      // the result of `reporter.suiteStart`:
+      await reportSuiteStart;
+      await reporterΩ.suiteError(suiteSummary, error as BettererError);
+    } else {
       // Lifecycle promise is resolved, so it's safe to await
       // the result of `reporter.suiteStart`:
       suiteΩ.lifecycle.resolve(suiteSummary);
       await reportSuiteStart;
 
       await reporterΩ.suiteEnd(suiteSummary);
-      return suiteSummary;
-    } catch (error) {
-      // Lifecycle promise is rejected, so it's safe to await
-      // the result of `reporter.suiteStart`:
-      suiteΩ.lifecycle.reject(error as BettererError);
-      await reportSuiteStart;
-
-      await reporterΩ.suiteError(suiteΩ, error as BettererError);
-      throw error;
     }
+
+    return suiteSummary;
   }
 
   public async stop(): Promise<BettererContextSummary> {

@@ -39,6 +39,7 @@ import {
   runError,
   runStart,
   suiteEnd,
+  suiteError,
   suiteStart,
   useStore
 } from './state/index.js';
@@ -156,6 +157,9 @@ export function createReporterΔ(): BettererReporter {
     suiteEnd(suiteSummary: BettererSuiteSummary): void {
       dispatch(suiteEnd(suiteSummary));
     },
+    suiteError(suite: BettererSuiteSummary, error: BettererError): void {
+      dispatch(suiteError(suite, error));
+    },
     async runStart(run: BettererRun): Promise<void> {
       await statusLogger.progress(run, testRunning(quote(run.name)));
       dispatch(runStart(run));
@@ -164,9 +168,9 @@ export function createReporterΔ(): BettererReporter {
       await logRunSummary(runSummary);
       dispatch(runEnd(runSummary));
     },
-    async runError(run: BettererRun, error: BettererError): Promise<void> {
-      await statusLogger.error(run, error.message);
-      dispatch(runError(run, error));
+    async runError(runSummary: BettererRunSummary, error: BettererError): Promise<void> {
+      await statusLogger.error(runSummary, error.message);
+      dispatch(runError(runSummary, error));
     }
   };
 

@@ -25,7 +25,6 @@ export class BettererRunnerΩ implements BettererRunner {
   private _isStopped = false;
   private _jobs: Array<BettererFilePaths> = [];
   private _running: Promise<BettererSuiteSummary> | null = null;
-  private _sigterm = this.stop.bind(this);
 
   private constructor(
     private readonly _context: BettererContextΩ,
@@ -70,75 +69,90 @@ export class BettererRunnerΩ implements BettererRunner {
 
   public async run(): Promise<BettererContextSummary> {
     this._isRunOnce = true;
+    await this.queue([]);
+    return await this.stop();
+  }
+
+  public async queue(filePathOrPaths: string | BettererFilePaths = []): Promise<void> {
+    const filePaths: BettererFilePaths = Array.isArray(filePathOrPaths) ? filePathOrPaths : [filePathOrPaths as string];
+    if (this._isStopped) {
+      throw new BettererError('You cannot queue a test run after the runner has been stopped! 💥');
+    }
+    this._addJob(filePaths);
     try {
-      await this.queue([]);
-      return await this.stop();
+      await new Promise<void>((resolve, reject) => {
+        setTimeout(() => {
+          void (async () => {
+            try {
+              await this._processQueue();
+              resolve();
+            } catch (error) {
+              reject(error as BettererError);
+            }
+          })();
+        }, DEBOUNCE_TIME);
+      });
     } catch (error) {
       await this.stop();
       throw error;
     }
   }
 
-  public queue(filePathOrPaths: string | BettererFilePaths = []): Promise<void> {
-    const filePaths: BettererFilePaths = Array.isArray(filePathOrPaths) ? filePathOrPaths : [filePathOrPaths as string];
-    if (this._isStopped) {
-      throw new BettererError('You cannot queue a test run after the runner has been stopped! 💥');
-    }
-    this._addJob(filePaths);
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        void (async () => {
-          try {
-            await this._processQueue();
-            resolve();
-          } catch (error) {
-            reject(error as BettererError);
-          }
-        })();
-      }, DEBOUNCE_TIME);
-    });
-  }
-
   public async stop(): Promise<BettererContextSummary>;
   public async stop(force: true): Promise<BettererContextSummary | null>;
   public async stop(force?: true): Promise<BettererContextSummary | null> {
+    if (this._isStopped) {
+      return null;
+    }
+
+    const { reporter } = getGlobals();
+    const reporterΩ = reporter as BettererReporterΩ;
+
     try {
       this._isStopped = true;
-      if (!force) {
-        await this._running;
-      }
+
       if (this._watcher) {
         await this._watcher.close();
       }
 
+      if (force) {
+        return null;
+      }
+
+      await this._running;
+
       const contextSummary = await this._context.stop();
-
-      // Lifecycle promise is resolved, so it's safe to await
-      // the result of `reporter.contextStart`:
-      this.lifecycle.resolve(contextSummary);
-      await this._reporterContextStart;
-
-      const { config, reporter, results, versionControl } = getGlobals();
-      const reporterΩ = reporter as BettererReporterΩ;
-
-      await reporterΩ.contextEnd(contextSummary);
-
       const suiteSummaryΩ = contextSummary.lastSuite as BettererSuiteSummaryΩ;
+
+      const { config, results, versionControl } = getGlobals();
+
       if (!config.ci) {
         const didWrite = await results.api.write(suiteSummaryΩ.result);
         if (didWrite && config.precommit) {
           await versionControl.api.add(config.resultsPath);
         }
       }
+
       if (config.cache) {
         await versionControl.api.writeCache();
       }
 
+      // Lifecycle promise is resolved, so it's safe to await
+      // the result of `reporter.contextStart`:
+      this.lifecycle.resolve(contextSummary);
+      await this._reporterContextStart;
+
+      await reporterΩ.contextEnd(contextSummary);
+
       return contextSummary;
     } catch (error) {
-      if (force) {
-        return null;
-      }
+      // Lifecycle promise is rejected, so it's safe to await
+      // the result of `reporter.contextStart`:
+      this.lifecycle.reject(error as BettererError);
+      await this._reporterContextStart;
+
+      await reporterΩ.contextError(this, error as BettererError);
+
       throw error;
     } finally {
       await destroyGlobals();
@@ -146,6 +160,8 @@ export class BettererRunnerΩ implements BettererRunner {
       process.off('SIGTERM', this._sigterm);
     }
   }
+
+  private _sigterm = () => this.stop(true);
 
   private _addJob(filePaths: BettererFilePaths = []): void {
     const normalisedPaths = filePaths.map(normalisedPath);
@@ -166,48 +182,15 @@ export class BettererRunnerΩ implements BettererRunner {
           filePaths.add(path);
         });
       });
-      let runPaths = Array.from(filePaths).sort();
+      const runPaths = Array.from(filePaths).sort();
       this._jobs = [];
 
-      try {
-        const { config, versionControl } = getGlobals();
-        await versionControl.api.sync();
-
-        const configFileChange = config.configPaths.some((configPath) => runPaths.includes(configPath));
-        if (configFileChange) {
-          runPaths = [];
-        }
-
-        this._running = this._context.run(runPaths, this._isRunOnce);
-
-        await this._running;
-      } catch (error) {
-        // Lifecycle promise is rejected, so it's safe to await
-        // the result of `reporter.contextStart`:
-        this.lifecycle.reject(error as BettererError);
-        await this._reporterContextStart;
-
-        const { reporter } = getGlobals();
-        const reporterΩ = reporter as BettererReporterΩ;
-        await reporterΩ.contextError(this, error as BettererError);
-        await destroyGlobals();
-        throw error;
-      }
+      this._running = this._context.run(runPaths, this._isRunOnce);
+      await this._running;
     }
   }
-  private async _restart(optionsOverride: BettererOptionsOverride): Promise<void> {
-    let filePaths: BettererFilePaths | null = null;
-    // Wait for any pending run to finish, and any existing reporter to render:
-    let lastSuiteΩ: BettererSuiteΩ | null = null;
-    try {
-      const lastSuite = this._context.lastSuite;
-      lastSuiteΩ = lastSuite as BettererSuiteΩ;
-      await lastSuiteΩ.lifecycle.promise;
-      filePaths = lastSuite.filePaths;
-    } catch {
-      // It's okay if there's not a pending suite!
-    }
 
+  private async _restart(optionsOverride: BettererOptionsOverride): Promise<void> {
     if (optionsOverride.reporters) {
       const { reporter } = getGlobals();
 
@@ -217,8 +200,21 @@ export class BettererRunnerΩ implements BettererRunner {
       this._reporterContextStart = reporterΩ.contextStart(this, this.lifecycle.promise);
     }
 
-    if (optionsOverride.filters && filePaths) {
-      void this._context.run(filePaths);
+    if (optionsOverride.filters) {
+      // Wait for any pending run to finish, and any existing reporter to render:
+      let lastSuiteΩ: BettererSuiteΩ | null = null;
+      try {
+        const lastSuite = this._context.lastSuite;
+        lastSuiteΩ = lastSuite as BettererSuiteΩ;
+        try {
+          // This might throw or reject, but we want to rerun either way:
+          await lastSuiteΩ.lifecycle.promise;
+        } finally {
+          void this._context.run(lastSuite.filePaths);
+        }
+      } catch {
+        // It's okay if there's not a pending suite!
+      }
     }
   }
 }

@@ -85,7 +85,7 @@ export interface BettererOptionsModeUpdate {
 export interface BettererOptionsModeWatch {
   ci?: false;
   precommit?: false;
-  strict?: boolean;
+  strict?: false;
   update?: false;
 }
 
@@ -126,6 +126,11 @@ export type BettererOptionsContext = BettererOptionsMode & {
    * @defaultValue `[]`
    */
   includes?: BettererOptionsIncludes;
+  /**
+   * When `true`, {@link https://phenomnomnominal.github.io/betterer/docs/tests#test-deadline | strict deadlines }
+   * are enabled. With strict deadlines, **Betterer** will throw an error if there are any expired tests.
+   */
+  strictDeadlines?: boolean;
   /**
    * The number of {@link https://nodejs.org/api/worker_threads.html | worker threads } to use when
    * running tests. When `workers` is `true`, **Betterer** will pick a sensible default.
@@ -215,6 +220,11 @@ export interface BettererConfigContext {
    * and `watch` will be `false`.
    */
   strict: boolean;
+  /**
+   * When `true`, {@link https://phenomnomnominal.github.io/betterer/docs/tests#test-deadline | strict deadlines }
+   * are enabled. With strict deadlines, **Betterer** will throw an error if there are any expired tests.
+   */
+  strictDeadlines: boolean;
   /**
    * When `true`, {@link https://phenomnomnominal.github.io/betterer/docs/running-betterer#update-mode | update mode }
    * is enabled. In update mode, **Betterer** will {@link https://phenomnomnominal.github.io/betterer/docs/updating-results | update the results file},

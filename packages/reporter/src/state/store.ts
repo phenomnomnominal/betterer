@@ -7,7 +7,7 @@ import { invariantΔ } from '@betterer/errors';
 import { createContext, useContext, useReducer } from '@betterer/render';
 import { getPreciseTimeΔ } from '@betterer/time';
 
-import { CONTEXT_END, RUN_END, RUN_ERROR, RUN_START, SUITE_END, SUITE_START } from './actions.js';
+import { CONTEXT_END, RUN_END, RUN_ERROR, RUN_START, SUITE_END, SUITE_ERROR, SUITE_START } from './actions.js';
 
 type BettererReporterLogs = Record<string, BettererLogs>;
 type BettererReporterStatus = Record<string, BettererLog>;
@@ -73,6 +73,13 @@ export function useStore(
       }
 
       case SUITE_END: {
+        return {
+          ...state,
+          suiteSummary: action.suiteSummary
+        };
+      }
+
+      case SUITE_ERROR: {
         return {
           ...state,
           suiteSummary: action.suiteSummary

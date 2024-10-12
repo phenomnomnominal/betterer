@@ -12,6 +12,7 @@ export const RUN_END = 'runEnd';
 export const RUN_ERROR = 'runError';
 export const RUN_START = 'runStart';
 export const SUITE_END = 'suiteEnd';
+export const SUITE_ERROR = 'suiteError';
 export const SUITE_START = 'suiteStart';
 
 /** @knipignore used by an exported function */
@@ -29,7 +30,7 @@ export interface BettererRunEndAction {
 /** @knipignore used by an exported function */
 export interface BettererRunErrorAction {
   name: typeof RUN_ERROR;
-  run: BettererRun;
+  runSummary: BettererRunSummary;
   error: BettererError;
 }
 
@@ -46,6 +47,13 @@ export interface BettererSuiteEndAction {
 }
 
 /** @knipignore used by an exported function */
+export interface BettererSuiteErrorAction {
+  name: typeof SUITE_ERROR;
+  suiteSummary: BettererSuiteSummary;
+  error: BettererError;
+}
+
+/** @knipignore used by an exported function */
 export interface BettererSuiteStartAction {
   name: typeof SUITE_START;
   suite: BettererSuite;
@@ -57,6 +65,7 @@ export type BettererReporterAction =
   | BettererRunErrorAction
   | BettererRunStartAction
   | BettererSuiteEndAction
+  | BettererSuiteErrorAction
   | BettererSuiteStartAction;
 
 export function contextEnd(contextSummary: BettererContextSummary): BettererContextEndAction {
@@ -67,8 +76,8 @@ export function runEnd(runSummary: BettererRunSummary): BettererRunEndAction {
   return { name: RUN_END, runSummary };
 }
 
-export function runError(run: BettererRun, error: BettererError): BettererRunErrorAction {
-  return { name: RUN_ERROR, run, error };
+export function runError(runSummary: BettererRunSummary, error: BettererError): BettererRunErrorAction {
+  return { name: RUN_ERROR, runSummary, error };
 }
 
 export function runStart(run: BettererRun): BettererRunStartAction {
@@ -81,4 +90,8 @@ export function suiteStart(suite: BettererSuite): BettererSuiteStartAction {
 
 export function suiteEnd(suiteSummary: BettererSuiteSummary): BettererSuiteEndAction {
   return { name: SUITE_END, suiteSummary };
+}
+
+export function suiteError(suiteSummary: BettererSuiteSummary, error: BettererError): BettererSuiteErrorAction {
+  return { name: SUITE_ERROR, suiteSummary, error };
 }

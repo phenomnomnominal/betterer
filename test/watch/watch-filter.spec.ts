@@ -51,9 +51,9 @@ export default {
             const suiteSummaryDefer = suiteSummaryDefers.shift();
             suiteSummaryDefer?.resolve(suiteSummary);
           },
-          suiteError(_, error) {
+          suiteError(suiteSummary: BettererSuiteSummary) {
             const suiteSummaryDefer = suiteSummaryDefers.shift();
-            suiteSummaryDefer?.reject(error);
+            suiteSummaryDefer?.resolve(suiteSummary);
           }
         }
       ],
