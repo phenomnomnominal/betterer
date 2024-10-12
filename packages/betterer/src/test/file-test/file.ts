@@ -78,10 +78,10 @@ export class BettererFileΩ implements BettererFile {
 function replacePathsInMessage(message: string): string {
   const { config } = getGlobals();
   const { versionControlPath } = config;
+
   // No way of knowing what OS the message was created on:
-  const posixOrWin32 = path.join(versionControlPath, path.sep);
-  const definitelyPosix = normalisedPath(posixOrWin32);
-  return message.replace(posixOrWin32, '').replace(definitelyPosix, '');
+  const normalised = normalisedPath(path.join(versionControlPath, path.sep));
+  return normalisedPath(message).replace(normalised, '');
 }
 
 function getIssueFromLineColLength(issueOverride: BettererIssueLineColLength): BettererIssueLineColLength {
