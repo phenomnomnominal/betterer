@@ -2,7 +2,7 @@ import type { CompilerOptions, DiagnosticWithLocation, ParseConfigHost } from 't
 import type { TypeScriptReadConfigResult } from './types.js';
 
 import { BettererFileTest } from '@betterer/betterer';
-import { BettererError } from '@betterer/errors';
+import { BettererError, invariantΔ } from '@betterer/errors';
 import path from 'node:path';
 import ts from 'typescript';
 
@@ -63,7 +63,8 @@ export function typescript(configFilePath: string, extraCompilerOptions: Compile
 
     const fullCompilerOptions = {
       ...compilerOptions,
-      ...extraCompilerOptions
+      ...extraCompilerOptions,
+      noErrorTruncation: true
     };
     config.compilerOptions = fullCompilerOptions;
 
@@ -118,5 +119,67 @@ export function typescript(configFilePath: string, extraCompilerOptions: Compile
 function typescriptIssueMessage(source = 'tsc', message: string) {
   let issueMessage = source ? `${source}: ` : '';
   issueMessage = `${issueMessage}${message}`;
+  issueMessage = fixUnionOrder(issueMessage);
+  issueMessage = fixMissingProperties(issueMessage);
   return issueMessage;
+}
+
+// TypeScript produces error messages that are unstable.
+// Trying to handle this is probably a bad idea (https://github.com/microsoft/TypeScript/issues/49996#issuecomment-1198383661)
+// But what the heck, let's give it a go.
+// And yes I know this should probably use a parser instead of a RegExp but maybe it's good enough?
+//
+// Example input:
+//   "Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Document | Node | Element | Window'.\n	 Type 'null' is not assignable to type 'Document | Node | Element | Window'.",
+// Output:
+//   "Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Document | Element | Node | Window'.\n	 Type 'null' is not assignable to type 'Document | Element | Node | Window'.",
+const UNION_REGEX = /'([^']*?\s+\|+\s+[^']*?)'/g;
+function fixUnionOrder(message: string): string {
+  const matches = [...message.matchAll(UNION_REGEX)];
+  matches.forEach((match) => {
+    const [, union] = match;
+    invariantΔ(union, 'RegExp has group so matches must contain union!');
+    const members = union.split('|').map((member) => member.trim());
+    const sortedMembers = members.sort();
+    const sortedUnion = sortedMembers.join(' | ');
+    message = message.replace(union, sortedUnion);
+  });
+  return message;
+}
+
+// Again we will probably regret this but:
+//
+// Example input:
+//   "Type '{}' is missing the following properties from type 'D': d1, d2, d3, d4"
+//   "Type '{}' is missing the following properties from type 'F': f1, f2, f3, f4, and 2 more."
+// Output:
+//   "Type '{}' is missing 4 properties from type 'D'"
+//   "Type '{}' is missing 6 properties from type 'F'"
+const MISSING_PROPERTIES_MESSAGE = 'is missing the following properties from type';
+const MISSING_PROPERTIES_REGEXP = /from type '.*?':((?:\W+.*?,)+\W.*)/g;
+const AND_N_MORE_REGEXP = /and\W(.*)\Wmore/;
+function fixMissingProperties(message: string): string {
+  if (message.includes(MISSING_PROPERTIES_MESSAGE)) {
+    const matches = [...message.matchAll(MISSING_PROPERTIES_REGEXP)];
+    matches.forEach((match) => {
+      const [, props] = match;
+      invariantΔ(props, 'RegExp has group so matches must contain properties!');
+      const propNames = props.split(',').map((member) => member.trim());
+
+      const last = propNames[propNames.length - 1];
+      invariantΔ(last, 'RegExp has matches must contain a property!');
+
+      let nProps = propNames.length;
+      const hasNMore = AND_N_MORE_REGEXP.exec(last);
+      if (hasNMore) {
+        const [, nStr] = hasNMore;
+        invariantΔ(nStr, 'RegExp has matches must contain a property!');
+        const n = parseFloat(nStr);
+        nProps = nProps + n - 1;
+      }
+      message = message.replace('the following', String(nProps));
+      message = message.replace(`:${props}`, '');
+    });
+  }
+  return message;
 }

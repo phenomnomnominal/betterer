@@ -1,8 +1,10 @@
+import type { BettererFile, BettererFileIssue, BettererFileIssues, BettererFileTestResultKey } from './types.js';
+
 import { invariantΔ } from '@betterer/errors';
-import type { BettererFileIssue, BettererFileIssues, BettererFile, BettererFileTestResultKey } from './types.js';
-
 import { LinesAndColumns } from 'lines-and-columns';
+import path from 'node:path';
 
+import { getGlobals } from '../../globals.js';
 import { createHash } from '../../hasher.js';
 import { isString, normalisedPath, normaliseNewlines } from '../../utils.js';
 
@@ -58,7 +60,10 @@ export class BettererFileΩ implements BettererFile {
 
     invariantΔ(issue, '`issue` must start with 2, 3, or 4 numbers designating the start and end position in a file!');
 
-    const [line, column, length, message, overrideHash] = issue;
+    const [line, column, length, rawMessage, overrideHash] = issue;
+
+    const message = replacePathsInMessage(rawMessage);
+
     const start = lc.indexForLocation({ line, column }) ?? 0;
     const issueText = fileText.substring(start, start + length);
     const normalisedText = normaliseNewlines(issueText);
@@ -68,6 +73,15 @@ export class BettererFileΩ implements BettererFile {
     }
     return { line, column, length: normalisedText.length, message, hash };
   }
+}
+
+function replacePathsInMessage(message: string): string {
+  const { config } = getGlobals();
+  const { versionControlPath } = config;
+  // No way of knowing what OS the message was created on:
+  const posixOrWin32 = path.join(versionControlPath, path.sep);
+  const definitelyPosix = normalisedPath(posixOrWin32);
+  return message.replace(posixOrWin32, '').replace(definitelyPosix, '');
 }
 
 function getIssueFromLineColLength(issueOverride: BettererIssueLineColLength): BettererIssueLineColLength {
