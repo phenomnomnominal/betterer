@@ -25,7 +25,7 @@ export function isUndefined(value: unknown): value is undefined {
 }
 
 export function normalisedPath(filePath: string): string {
-  return filePath.split(path.sep).join(path.posix.sep);
+  return filePath.split(path.win32.sep).join(path.posix.sep);
 }
 
 const NEW_LINE = '\n';

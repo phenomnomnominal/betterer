@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`betterer > should write a results file to a different path 1`] = `
+exports[`betterer > should remove the version control path from issue messages 1`] = `
 "// BETTERER RESULTS V2.
 //
 // If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
@@ -8,15 +8,15 @@ exports[`betterer > should write a results file to a different path 1`] = `
 //
 exports[\`test\`] = {
   value: \`{
-    "../src/index.ts:5381": [
-      [0, 0, 0, "issue", "180017116"]
+    "src/index.ts:5381": [
+      [0, 0, 0, "some/file/path", "1664982906"]
     ]
   }\`
 };
 "
 `;
 
-exports[`betterer > should write a results file to a different path 2`] = `
+exports[`betterer > should remove the version control path from issue messages 2`] = `
 [
   "🌟 Betterer (0ms):
 ",

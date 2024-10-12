@@ -3,18 +3,19 @@ import { describe, expect, it } from 'vitest';
 import { createFixture } from './fixture.js';
 
 describe('betterer', () => {
-  it('should write a results file to a different path', async () => {
+  it('should remove the version control path from issue messages', async () => {
     const { betterer } = await import('@betterer/betterer');
 
-    const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('results-path', {
+    const { logs, paths, readFile, cleanup, resolve, writeFile } = await createFixture('results-files-paths', {
       '.betterer.ts': `
 import { BettererFileTest } from '@betterer/betterer';
+import path from 'node:path';
 
 function test(): BettererFileTest {
   return new BettererFileTest((files, fileTestResult) => {
     files.forEach(filePath => {
       const file = fileTestResult.addFile(filePath, '');
-      file.addIssue(0, 0, "issue");  
+      file.addIssue(0, 0, path.join(process.cwd(), 'some', 'file', 'path'));
     });
   });
 }
@@ -26,7 +27,7 @@ export default {
     });
 
     const configPaths = [paths.config];
-    const resultsPath = resolve('./betterer/.betterer.results');
+    const resultsPath = paths.results;
 
     await writeFile(resolve('./src/index.ts'), '');
 
