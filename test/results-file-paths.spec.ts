@@ -15,7 +15,7 @@ function test(): BettererFileTest {
   return new BettererFileTest((files, fileTestResult) => {
     files.forEach(filePath => {
       const file = fileTestResult.addFile(filePath, '');
-      file.addIssue(0, 0, path.join(process.cwd(), 'some', 'file', 'path'));
+      file.addIssue(0, 0, path.posix.join(process.cwd(), 'some', 'file', 'path'));
     });
   });
 }
