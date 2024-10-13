@@ -2,6 +2,7 @@ import { BettererError } from '@betterer/errors';
 import { promises as fs } from 'node:fs';
 import { Module } from 'node:module';
 import path from 'node:path';
+import url from 'node:url';
 
 import { createCacheHash } from '../hasher.js';
 import { read } from './reader.js';
@@ -44,7 +45,12 @@ export async function importTranspiled(importPath: string): Promise<unknown> {
 
 export async function importDefault(importPath: string): Promise<unknown> {
   try {
-    const m = (await import(importPath)) as unknown;
+    let importId = importPath;
+    if (path.extname(importId)) {
+      // Absolute paths on Windows must be transformed to a URL before importing:
+      importId = url.pathToFileURL(importId).toString();
+    }
+    const m = (await import(importId)) as unknown;
     return getDefaultExport(m);
   } catch (error) {
     throw new BettererError(`could not import "${importPath}". 😔`, error as Error);
