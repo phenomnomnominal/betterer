@@ -3,7 +3,6 @@ import type { BettererTestMap, BettererTestsMeta } from './types.js';
 
 import { BettererError, invariantΔ } from '@betterer/errors';
 import { exposeToMainΔ } from '@betterer/worker';
-import dependencyTree from 'dependency-tree';
 
 import { importDefault, read } from '../../fs/index.js';
 import { createCacheHash } from '../../hasher.js';
