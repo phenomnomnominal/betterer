@@ -28,7 +28,7 @@ async function loadTestMeta(configPath: BettererFilePath): Promise<BettererTests
   try {
     const exports = (await importDefault(configPath)) as BettererTestMap;
     const contents = await read(configPath);
-    invariantΔ(contents, 'contents should exist because file has been imported!');
+    invariantΔ(contents !== null, 'contents should exist because file has been imported!');
     return Object.keys(exports).map((name) => ({ configPath, configHash: createCacheHash(contents), name }));
   } catch (error) {
     throw new BettererError(`could not import config from "${configPath}". 😔`, error as BettererError);
