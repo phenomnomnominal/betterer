@@ -5,7 +5,8 @@ exports[`betterer > doesn't cache if a test gets worse 1`] = `
   "version": 2,
   "testCache": {
     "test": {
-      "src/index.ts": "18758961004126639614"
+      ".betterer.js": "4ab63baf88c69567f2352fd7091458dfe73881cb53cd9ef0f271a9aedc10b6ab",
+      "src/index.ts": "8228477b3ac0640fb6fd6402a5648cd6c737cff1716bac36d9855ddd4960e18a"
     }
   }
 }"
@@ -16,7 +17,8 @@ exports[`betterer > doesn't cache if a test gets worse 2`] = `
   "version": 2,
   "testCache": {
     "test": {
-      "src/index.ts": "18758961004126639614"
+      ".betterer.js": "4ab63baf88c69567f2352fd7091458dfe73881cb53cd9ef0f271a9aedc10b6ab",
+      "src/index.ts": "8228477b3ac0640fb6fd6402a5648cd6c737cff1716bac36d9855ddd4960e18a"
     }
   }
 }"

@@ -1,5 +1,7 @@
 import type { BettererWorkerAPI } from '@betterer/worker';
 
+import type { BettererTestMeta } from '../test/index.js';
+
 /**
  * @public A path to a {@link https://phenomnomnominal.github.io/betterer/docs/test-definition-file | test definition file }
  * containing **Betterer** tests, or an array of them.
@@ -128,15 +130,15 @@ export interface BettererCacheFile {
 
 export interface BettererFileCache {
   clearCache(testName: string): void;
-  filterCached(testName: string, filePaths: BettererFilePaths): BettererFilePaths;
-  updateCache(testName: string, filePaths: BettererFilePaths): void;
+  filterCached(testMeta: BettererTestMeta, filePaths: BettererFilePaths): Promise<BettererFilePaths>;
+  updateCache(testMeta: BettererTestMeta, filePaths: BettererFilePaths): Promise<void>;
   writeCache(): Promise<void>;
 }
 
 export interface BettererVersionControl {
   add(resultsPath: string): Promise<void>;
   getFilePaths(): BettererFilePaths;
-  sync(cache: BettererFileCache | null): Promise<void>;
+  sync(): Promise<void>;
 }
 
 export type BettererVersionControlWorker = BettererWorkerAPI<typeof import('./version-control.worker.js')>;

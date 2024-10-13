@@ -122,11 +122,11 @@ export class BettererSuiteΩ implements BettererSuite {
         const runSummary = await runΩ.run(isFiltered);
 
         if (config.cache && runΩ.runMeta.isCacheable) {
-          const { isBetter, isComplete, isNew, isSame, isUpdated, name } = runSummary;
-          // Handle the special case of being in CI mode with cache enabled:
-          if (isBetter || isComplete || isNew || isUpdated || (isSame && config.ci)) {
+          const { isBetter, isComplete, isNew, isSame, isUpdated } = runSummary;
+          // The cache should update on `isSame` because the files still might have changed:
+          if (isBetter || isComplete || isNew || isUpdated || isSame) {
             invariantΔ(runSummary.filePaths, `if a run is cacheable, then the summary will always have file paths!`);
-            await versionControl.api.updateCache(name, runSummary.filePaths);
+            await versionControl.api.updateCache(runΩ.testMeta, runSummary.filePaths);
           }
         }
 

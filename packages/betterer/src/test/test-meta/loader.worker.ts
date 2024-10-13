@@ -1,10 +1,11 @@
 import type { BettererFilePath, BettererFilePaths } from '../../fs/types.js';
 import type { BettererTestMap, BettererTestsMeta } from './types.js';
 
-import { BettererError } from '@betterer/errors';
+import { BettererError, invariantΔ } from '@betterer/errors';
 import { exposeToMainΔ } from '@betterer/worker';
 
-import { importDefault } from '../../fs/import.js';
+import { importDefault, read } from '../../fs/index.js';
+import { createCacheHash } from '../../hasher.js';
 
 /** @knipignore part of worker API */
 export async function loadTestsMeta(configPaths: BettererFilePaths): Promise<BettererTestsMeta> {
@@ -26,7 +27,9 @@ export async function loadTestsMeta(configPaths: BettererFilePaths): Promise<Bet
 async function loadTestMeta(configPath: BettererFilePath): Promise<BettererTestsMeta> {
   try {
     const exports = (await importDefault(configPath)) as BettererTestMap;
-    return Object.keys(exports).map((name) => ({ configPath, name }));
+    const contents = await read(configPath);
+    invariantΔ(contents !== null, 'contents should exist because file has been imported!');
+    return Object.keys(exports).map((name) => ({ configPath, configHash: createCacheHash(contents), name }));
   } catch (error) {
     throw new BettererError(`could not import config from "${configPath}". 😔`, error as BettererError);
   }

@@ -21,7 +21,7 @@ export class BettererFileResolverΩ implements BettererFileResolver {
   private _excluded: Array<RegExp> = [];
   private _included: Array<string> = [INCLUDE_ALL];
   private _includedResolved: Array<string> | null = null;
-  private _testName: string | null = null;
+  private _testMeta: BettererTestMeta | null = null;
   private _validatedFilePaths: Array<string> = [];
   private _validatedFilePathsMap: Record<string, boolean> = {};
 
@@ -36,15 +36,14 @@ export class BettererFileResolverΩ implements BettererFileResolver {
     return !!this._baseDirectory;
   }
 
-  public get testName(): string {
-    invariantΔ(this._testName, '`baseDirectory` is only set once the resolver is initialised!');
-    return this._testName;
+  public get testMeta(): BettererTestMeta {
+    invariantΔ(this._testMeta, '`testMeta` is only set once the resolver is initialised!');
+    return this._testMeta;
   }
 
   public init(testMeta: BettererTestMeta): void {
-    const { configPath, name } = testMeta;
-    this._testName = name;
-    this._baseDirectory = path.dirname(configPath);
+    this._testMeta = testMeta;
+    this._baseDirectory = path.dirname(this._testMeta.configPath);
   }
 
   public async validate(filePaths: BettererFilePaths): Promise<BettererFilePaths> {
@@ -61,7 +60,7 @@ export class BettererFileResolverΩ implements BettererFileResolver {
     if (!config.cache) {
       return filePaths;
     }
-    return await versionControl.api.filterCached(this.testName, filePaths);
+    return await versionControl.api.filterCached(this.testMeta, filePaths);
   }
 
   public included(filePaths: BettererFilePaths): BettererFilePaths {

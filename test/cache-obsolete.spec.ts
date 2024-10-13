@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { createFixture } from './fixture.js';
 
 describe('betterer', () => {
-  it('should hold onto the cache for an obsolete test until its removed', async () => {
+  it('should hold onto the cache for an obsolete test until it is removed', async () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { logs, paths, readFile, cleanup, resolve, writeFile, testNames } = await createFixture('cache-obsolete', {
