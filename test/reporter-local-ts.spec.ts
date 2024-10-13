@@ -8,7 +8,15 @@ describe('betterer --reporter', () => {
 
     const { paths, cleanup, resolve } = await createFixture('reporter-local-ts', {
       'reporter.ts': `
-        export const reporter = {};
+        import { BettererReporter } from '@betterer/betterer';
+        import { reporter as actual } from './actual-reporter.ts';
+
+        export const reporter: BettererReporter = actual;
+      `,
+      'actual-reporter.ts': `
+        import type { BettererReporter } from '@betterer/betterer';
+
+        export const reporter: BettererReporter = {};
       `,
       '.betterer.js': ``
     });

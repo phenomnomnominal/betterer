@@ -30,6 +30,7 @@
     "loglevel",
     "monocart",
     "ngcc",
+    "outfile",
     "pluralisation",
     "reparse",
     "serialisable",

@@ -1,6 +1,6 @@
 {
   "name": "@betterer/betterer",
-  "description": "Main engine for runing betterer tests",
+  "description": "Main engine for running betterer tests",
   "version": "5.4.0",
   "license": "MIT",
   "publishConfig": {
@@ -38,6 +38,7 @@
     "chokidar": "^3.6.0",
     "core-js": "^3.38.1",
     "djb2a": "^2.0.0",
+    "esbuild": "^0.24.0",
     "fast-memoize": "^2.5.2",
     "lines-and-columns": "^2.0.3",
     "minimatch": "^5.0.1",

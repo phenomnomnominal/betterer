@@ -1,76 +1,44 @@
 import { BettererError } from '@betterer/errors';
-import { Module } from 'module';
+import * as esbuild from 'esbuild';
 import { promises as fs } from 'node:fs';
+import { Module } from 'node:module';
 import path from 'node:path';
-import url from 'node:url';
 
+import { createHash } from '../hasher.js';
 import { read } from './reader.js';
 import { getTmpFileName } from './temp.js';
 
-interface ESModule {
+export interface ESModule {
   default: unknown;
 }
 
-interface ModulePrivate {
+export interface ModulePrivate {
   _compile(source: string, path: string): void;
 }
 
-const TYPESCRIPT_EXTENSIONS = ['.ts', '.tsx', '.cts', '.ctsx', '.mtx', '.mtsx'];
-
-export async function importDefault(importPath: string): Promise<unknown> {
-  const ext = path.extname(importPath);
-
-  if (TYPESCRIPT_EXTENSIONS.find((tsExt) => ext.endsWith(tsExt))) {
-    try {
-      return await importTypeScript(importPath);
-    } catch (error) {
-      throw new BettererError(`could not import "${importPath}". 😔`, error as Error);
-    }
+export async function importTranspiledHashed(importPath: string): Promise<[unknown, string]> {
+  try {
+    return await importFrom(importPath);
+  } catch (error) {
+    throw new BettererError(`could not import "${importPath}". 😔`, error as Error);
   }
-
-  let importId = importPath;
-
-  // If we have an extension then it's probably not a module:
-  if (ext) {
-    // Absolute paths on Windows must be transformed to a URL before importing:
-    importId = url.pathToFileURL(importPath).toString();
-  }
-
-  // Maybe a real module:
-  const m = (await import(importId)) as unknown;
-  return getDefaultExport(m);
 }
 
-async function importTypeScript(importPath: string): Promise<unknown> {
+export async function importTranspiled(importPath: string): Promise<unknown> {
   try {
-    await import('typescript');
+    const [result] = await importFrom(importPath);
+    return result;
   } catch (error) {
-    throw new BettererError(
-      'could not import "typescript". You might need to add it as a dependency in your project. 😔',
-      error as Error
-    );
+    throw new BettererError(`could not import "${importPath}". 😔`, error as Error);
   }
+}
 
-  const source = await read(importPath);
-  if (source === null) {
-    throw new BettererError(`could not read "${importPath}". 😔`);
-  }
-
-  const typescript = await import('typescript');
-  const { transpileModule, ModuleKind } = getDefaultExport(typescript) as typeof import('typescript');
-  const options = { compilerOptions: { module: ModuleKind.ES2015 } };
-  const transpiled = transpileModule(source, options).outputText;
-
-  const { dir, name } = path.parse(importPath);
-  // Has to be next to the existing file so that relative import paths still work:
-  const tmpFile = path.join(dir, getTmpFileName(name, '.mjs'));
+export async function importDefault(importPath: string): Promise<unknown> {
   try {
-    await fs.writeFile(tmpFile, transpiled);
-    return await importDefault(tmpFile);
+    const m = (await import(importPath)) as unknown;
+    return getDefaultExport(m);
   } catch (error) {
-    throw new BettererError(`could not transpile "${importPath}". 😔`, error as Error);
-  } finally {
-    await fs.rm(tmpFile);
+    throw new BettererError(`could not import "${importPath}". 😔`, error as Error);
   }
 }
 
@@ -85,4 +53,47 @@ export function importText(filePath: string, text: string): unknown {
 
 function getDefaultExport(module: unknown): unknown {
   return (module as ESModule).default || module;
+}
+
+async function importFrom(importPath: string): Promise<[unknown, string]> {
+  const contents = await read(importPath);
+  if (contents == null) {
+    throw new BettererError(`could not read "${importPath}". 😔`);
+  }
+
+  const outfile = getTmpFileName(importPath, '.mjs');
+  const cleanup = async () => {
+    await fs.rm(outfile);
+  };
+
+  try {
+    await esbuild.build({
+      bundle: true,
+      format: 'esm',
+      entryPoints: [importPath],
+      outfile,
+      packages: 'external',
+      platform: 'node',
+      logLevel: 'silent'
+    });
+
+    const transpiled = await read(outfile);
+    if (transpiled === null) {
+      throw new BettererError(`could not read "${importPath}". 😔`);
+    }
+
+    const hash = createHash(transpiled);
+    const result = await importDefault(outfile);
+    return [result, hash];
+  } catch (error) {
+    const failure = error as esbuild.BuildFailure;
+    const [first] = failure.errors;
+    throw new BettererError(first ? first.text : failure.message);
+  } finally {
+    try {
+      await cleanup();
+    } catch {
+      // No file was actually created!
+    }
+  }
 }

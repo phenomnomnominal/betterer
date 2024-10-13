@@ -16,7 +16,7 @@ import assert from 'node:assert';
 import { BettererConstraintResult } from '@betterer/constraints';
 import { BettererError, isBettererErrorΔ } from '@betterer/errors';
 
-import { forceRelativePaths, importDefault } from '../fs/index.js';
+import { forceRelativePaths, importTranspiled } from '../fs/index.js';
 import { getGlobals } from '../globals.js';
 import { BettererResultΩ } from '../results/index.js';
 import { isBettererTest } from '../test/index.js';
@@ -214,7 +214,7 @@ export async function loadTest(testMeta: BettererTestMeta): Promise<BettererTest
 async function loadTestFactory(testMeta: BettererTestMeta): Promise<BettererTestFactory> {
   const { configPath, name } = testMeta;
   try {
-    const exports = (await importDefault(configPath)) as BettererTestMap;
+    const exports = (await importTranspiled(configPath)) as BettererTestMap;
     const factory = exports[name];
     if (!isFunction(factory)) {
       throw new BettererError(`"${name}" must be a function.`);
