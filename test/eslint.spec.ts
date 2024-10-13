@@ -11,7 +11,7 @@ describe('betterer', () => {
 import { eslint } from '@betterer/eslint';
 
 export default {
-  test: () => eslint({ 
+  test: () => eslint({
       rules: { 
         'no-debugger': 'error'
       }

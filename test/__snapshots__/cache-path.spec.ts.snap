@@ -5,7 +5,8 @@ exports[`betterer > should write a cache file to a different path 1`] = `
   "version": 2,
   "testCache": {
     "test": {
-      "../src/index.ts": "1875896100153364047"
+      "../.betterer.js": "01529c29102a4b709ce51447f59bb89f02d53750af41521f8bd3618d02d36ed8",
+      "../src/index.ts": "5458e7616c690e6baf27a785a3f14f3e6fc3737fce3fd1f1e6c8e6692c093be0"
     }
   }
 }"
@@ -16,7 +17,8 @@ exports[`betterer > should write a cache file to a different path 2`] = `
   "version": 2,
   "testCache": {
     "test": {
-      "../src/index.ts": "1875896100153364047"
+      "../.betterer.js": "01529c29102a4b709ce51447f59bb89f02d53750af41521f8bd3618d02d36ed8",
+      "../src/index.ts": "5458e7616c690e6baf27a785a3f14f3e6fc3737fce3fd1f1e6c8e6692c093be0"
     }
   }
 }"
@@ -44,7 +46,8 @@ exports[`betterer > should write a cache file to a different path 4`] = `
   "version": 2,
   "testCache": {
     "test": {
-      "../src/index.ts": "18758961004126639614"
+      "../.betterer.js": "01529c29102a4b709ce51447f59bb89f02d53750af41521f8bd3618d02d36ed8",
+      "../src/index.ts": "8228477b3ac0640fb6fd6402a5648cd6c737cff1716bac36d9855ddd4960e18a"
     }
   }
 }"
@@ -71,7 +74,8 @@ exports[`betterer > should write a cache file to a different path 6`] = `
   "version": 2,
   "testCache": {
     "test": {
-      "../src/index.ts": "18758961005381"
+      "../.betterer.js": "01529c29102a4b709ce51447f59bb89f02d53750af41521f8bd3618d02d36ed8",
+      "../src/index.ts": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     }
   }
 }"

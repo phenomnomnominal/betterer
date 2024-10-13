@@ -28,6 +28,10 @@ export function normalisedPath(filePath: string): string {
   return filePath.split(path.win32.sep).join(path.posix.sep);
 }
 
+export function sortEntriesKeys([keyA]: [string, unknown], [keyB]: [string, unknown]): 0 | -1 | 1 {
+  return keyA === keyB ? 0 : keyA < keyB ? -1 : 1;
+}
+
 const NEW_LINE = '\n';
 const NEW_LINES = /\r\n|\r|\n/g;
 

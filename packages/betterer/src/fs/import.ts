@@ -3,7 +3,7 @@ import { promises as fs } from 'node:fs';
 import { Module } from 'node:module';
 import path from 'node:path';
 
-import { createHash } from '../hasher.js';
+import { createCacheHash } from '../hasher.js';
 import { read } from './reader.js';
 import { getTmpFileName } from './temp.js';
 
@@ -26,7 +26,7 @@ export async function importTranspiledHashed(importPath: string): Promise<[unkno
       throw new BettererError(`could not read "${importPath}". 😔`);
     }
 
-    const hash = createHash(contents);
+    const hash = createCacheHash(contents);
     return [await importDefault(importPath), hash];
   }
 
@@ -87,7 +87,7 @@ async function importFrom(importPath: string, esbuild: ESBuild): Promise<[unknow
       throw new BettererError(`could not read "${importPath}". 😔`);
     }
 
-    const hash = createHash(transpiled);
+    const hash = createCacheHash(transpiled);
     const result = await importDefault(outfile);
     return [result, hash];
   } catch (error) {
