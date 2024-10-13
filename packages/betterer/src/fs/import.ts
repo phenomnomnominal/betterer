@@ -1,5 +1,4 @@
 import { BettererError } from '@betterer/errors';
-import * as esbuild from 'esbuild';
 import { promises as fs } from 'node:fs';
 import { Module } from 'node:module';
 import path from 'node:path';
@@ -16,21 +15,31 @@ export interface ModulePrivate {
   _compile(source: string, path: string): void;
 }
 
+type ESBuild = typeof import('esbuild');
+type BuildResult = Awaited<ReturnType<ESBuild['build']>>;
+
 export async function importTranspiledHashed(importPath: string): Promise<[unknown, string]> {
+  const esbuild = await importESBuild();
+  if (!esbuild) {
+    const contents = await read(importPath);
+    if (contents == null) {
+      throw new BettererError(`could not read "${importPath}". 😔`);
+    }
+
+    const hash = createHash(contents);
+    return [await importDefault(importPath), hash];
+  }
+
   try {
-    return await importFrom(importPath);
+    return await importFrom(importPath, esbuild);
   } catch (error) {
     throw new BettererError(`could not import "${importPath}". 😔`, error as Error);
   }
 }
 
 export async function importTranspiled(importPath: string): Promise<unknown> {
-  try {
-    const [result] = await importFrom(importPath);
-    return result;
-  } catch (error) {
-    throw new BettererError(`could not import "${importPath}". 😔`, error as Error);
-  }
+  const [result] = await importTranspiledHashed(importPath);
+  return result;
 }
 
 export async function importDefault(importPath: string): Promise<unknown> {
@@ -55,12 +64,7 @@ function getDefaultExport(module: unknown): unknown {
   return (module as ESModule).default || module;
 }
 
-async function importFrom(importPath: string): Promise<[unknown, string]> {
-  const contents = await read(importPath);
-  if (contents == null) {
-    throw new BettererError(`could not read "${importPath}". 😔`);
-  }
-
+async function importFrom(importPath: string, esbuild: ESBuild): Promise<[unknown, string]> {
   const outfile = getTmpFileName(importPath, '.mjs');
   const cleanup = async () => {
     await fs.rm(outfile);
@@ -74,7 +78,8 @@ async function importFrom(importPath: string): Promise<[unknown, string]> {
       outfile,
       packages: 'external',
       platform: 'node',
-      logLevel: 'silent'
+      logLevel: 'silent',
+      jsx: 'automatic'
     });
 
     const transpiled = await read(outfile);
@@ -86,14 +91,22 @@ async function importFrom(importPath: string): Promise<[unknown, string]> {
     const result = await importDefault(outfile);
     return [result, hash];
   } catch (error) {
-    const failure = error as esbuild.BuildFailure;
+    const failure = error as BuildResult;
     const [first] = failure.errors;
-    throw new BettererError(first ? first.text : failure.message);
+    throw new BettererError(first ? first.text : (error as Error).message);
   } finally {
     try {
       await cleanup();
     } catch {
       // No file was actually created!
     }
+  }
+}
+
+async function importESBuild(): Promise<ESBuild | null> {
+  try {
+    return await import('esbuild');
+  } catch {
+    return null;
   }
 }
