@@ -7,11 +7,11 @@ import { createCacheHash } from '../hasher.js';
 import { read } from './reader.js';
 import { getTmpFileName } from './temp.js';
 
-export interface ESModule {
+interface ESModule {
   default: unknown;
 }
 
-export interface ModulePrivate {
+interface ModulePrivate {
   _compile(source: string, path: string): void;
 }
 
