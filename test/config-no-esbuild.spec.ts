@@ -6,8 +6,10 @@ vitest.mock('esbuild', (): null => {
   return null;
 });
 
+const isNode16 = process.version.startsWith('v16');
+
 describe('betterer', () => {
-  it('should throw with a .betterer.ts file when esbuild is not available', async () => {
+  it.skipIf(isNode16)('should throw with a .betterer.ts file when esbuild is not available', async () => {
     const { betterer } = await import('@betterer/betterer');
 
     const { logs, paths, cleanup, resolve } = await createFixture('config-no-esbuild', {
