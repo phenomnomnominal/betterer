@@ -74,10 +74,15 @@ export class BettererFileCacheΩ implements BettererFileCache {
     const relativeTestCache: BettererTestCacheMapSerialised = {};
     [...this._memoryCacheMap.entries()].sort(sortEntriesKeys).forEach(([testName, absoluteFileHashMap]) => {
       const relativeFileHashMap: BettererFileHashMapSerialised = {};
-      [...absoluteFileHashMap.entries()].sort(sortEntriesKeys).forEach(([absoluteFilePath, hash]) => {
-        const relativePath = normalisedPath(path.relative(path.dirname(this._cachePath), absoluteFilePath));
-        relativeFileHashMap[relativePath] = hash;
-      });
+      [...absoluteFileHashMap.entries()]
+        .map(([absoluteFilePath, hash]): [string, string] => {
+          const relativePath = normalisedPath(path.relative(path.dirname(this._cachePath), absoluteFilePath));
+          return [relativePath, hash] as [string, string];
+        })
+        .sort(sortEntriesKeys)
+        .forEach(([relativePath, hash]) => {
+          relativeFileHashMap[relativePath] = hash;
+        });
       relativeTestCache[testName] = relativeFileHashMap;
     });
     const cache = { version: BETTERER_CACHE_VERSION, testCache: relativeTestCache };
