@@ -17,7 +17,6 @@ interface ModulePrivate {
 }
 
 type ESBuild = typeof import('esbuild');
-type BuildResult = Awaited<ReturnType<ESBuild['build']>>;
 
 export async function importTranspiledHashed(importPath: string): Promise<[unknown, string]> {
   const esbuild = await importESBuild();
@@ -97,9 +96,7 @@ async function importFrom(importPath: string, esbuild: ESBuild): Promise<[unknow
     const result = await importDefault(outfile);
     return [result, hash];
   } catch (error) {
-    const failure = error as BuildResult;
-    const [first] = failure.errors;
-    throw new BettererError(first ? first.text : (error as Error).message);
+    throw new BettererError((error as Error).message);
   } finally {
     try {
       await cleanup();
