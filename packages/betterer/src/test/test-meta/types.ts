@@ -8,6 +8,7 @@ export type BettererTestMap = Record<string, BettererTestFactory>;
 
 export interface BettererTestMeta {
   readonly configPath: string;
+  readonly configHash: string;
   readonly name: string;
 }
 

@@ -1,7 +1,8 @@
-import { invariantΔ } from '@betterer/errors';
 import type { BettererConfig } from '../config/index.js';
+import type { BettererTestMeta } from '../test/index.js';
 import type { BettererFileCache, BettererFilePaths, BettererVersionControl } from './types.js';
 
+import { invariantΔ } from '@betterer/errors';
 import { exposeToMainΔ } from '@betterer/worker';
 
 import { BettererGitΩ } from './git.js';
@@ -13,9 +14,9 @@ let cache: BettererFileCache | null = null;
 /** @knipignore part of worker API */
 export async function init(config: BettererConfig): Promise<void> {
   if (config.cache) {
-    cache = await BettererFileCacheΩ.create(config.cachePath, config.configPaths);
+    cache = await BettererFileCacheΩ.create(config.cachePath);
   }
-  versionControl = await BettererGitΩ.create(cache, config.versionControlPath);
+  versionControl = await BettererGitΩ.create(config.versionControlPath);
 }
 
 /** @knipignore part of worker API */
@@ -33,7 +34,7 @@ export function getFilePaths(): BettererFilePaths {
 /** @knipignore part of worker API */
 export function sync(): Promise<void> {
   checkInitialisedVersionControl(versionControl);
-  return versionControl.sync(cache);
+  return versionControl.sync();
 }
 
 /** @knipignore part of worker API */
@@ -43,15 +44,15 @@ export function clearCache(testName: string): void {
 }
 
 /** @knipignore part of worker API */
-export function filterCached(testName: string, filePaths: BettererFilePaths): BettererFilePaths {
+export function filterCached(testMeta: BettererTestMeta, filePaths: BettererFilePaths): Promise<BettererFilePaths> {
   checkInitialisedCache(cache);
-  return cache.filterCached(testName, filePaths);
+  return cache.filterCached(testMeta, filePaths);
 }
 
 /** @knipignore part of worker API */
-export function updateCache(testName: string, filePaths: BettererFilePaths): void {
+export async function updateCache(testMeta: BettererTestMeta, filePaths: BettererFilePaths): Promise<void> {
   checkInitialisedCache(cache);
-  cache.updateCache(testName, filePaths);
+  await cache.updateCache(testMeta, filePaths);
 }
 
 /** @knipignore part of worker API */
