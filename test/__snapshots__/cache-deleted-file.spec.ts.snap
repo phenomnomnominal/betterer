@@ -5,7 +5,7 @@ exports[`betterer > should remove files from the cache when they are deleted 1`]
   "version": 2,
   "testCache": {
     "test": {
-      ".betterer.js": "4ab63baf88c69567f2352fd7091458dfe73881cb53cd9ef0f271a9aedc10b6ab",
+      ".betterer.js": "a3a5145d2d2ec4828c977274956d91469148cddeeb33a7629e133b81f05591cf",
       "src/file-1.ts": "5458e7616c690e6baf27a785a3f14f3e6fc3737fce3fd1f1e6c8e6692c093be0",
       "src/file-2.ts": "5458e7616c690e6baf27a785a3f14f3e6fc3737fce3fd1f1e6c8e6692c093be0"
     }
@@ -18,7 +18,7 @@ exports[`betterer > should remove files from the cache when they are deleted 2`]
   "version": 2,
   "testCache": {
     "test": {
-      ".betterer.js": "4ab63baf88c69567f2352fd7091458dfe73881cb53cd9ef0f271a9aedc10b6ab",
+      ".betterer.js": "a3a5145d2d2ec4828c977274956d91469148cddeeb33a7629e133b81f05591cf",
       "src/file-1.ts": "5458e7616c690e6baf27a785a3f14f3e6fc3737fce3fd1f1e6c8e6692c093be0"
     }
   }
@@ -47,7 +47,7 @@ exports[`betterer > should remove files from the cache when they are deleted 4`]
   "version": 2,
   "testCache": {
     "test": {
-      ".betterer.js": "4ab63baf88c69567f2352fd7091458dfe73881cb53cd9ef0f271a9aedc10b6ab",
+      ".betterer.js": "a3a5145d2d2ec4828c977274956d91469148cddeeb33a7629e133b81f05591cf",
       "src/file-1.ts": "5458e7616c690e6baf27a785a3f14f3e6fc3737fce3fd1f1e6c8e6692c093be0"
     }
   }

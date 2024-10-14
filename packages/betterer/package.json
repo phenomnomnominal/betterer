@@ -1,6 +1,6 @@
 {
   "name": "@betterer/betterer",
-  "description": "Main engine for runing betterer tests",
+  "description": "Main engine for running betterer tests",
   "version": "5.4.0",
   "license": "MIT",
   "publishConfig": {
@@ -45,6 +45,6 @@
     "simple-git": "^3.6.0"
   },
   "optionalDependencies": {
-    "typescript": "*"
+    "esbuild": "*"
   }
 }

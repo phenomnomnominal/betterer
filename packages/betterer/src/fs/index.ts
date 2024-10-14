@@ -14,7 +14,7 @@ export type {
 export { createFSConfig } from './config.js';
 export { BettererFileResolverΩ } from './file-resolver.js';
 export { BettererResultsFileΩ } from './results-file.js';
-export { importDefault } from './import.js';
+export { importDefault, importTranspiled, importTranspiledHashed } from './import.js';
 export { merge } from './merge.js';
 export { parse } from './parse.js';
 export { read } from './reader.js';

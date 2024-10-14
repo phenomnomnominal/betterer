@@ -1,11 +1,10 @@
 import type { BettererFilePath, BettererFilePaths } from '../../fs/types.js';
 import type { BettererTestMap, BettererTestsMeta } from './types.js';
 
-import { BettererError, invariantΔ } from '@betterer/errors';
+import { BettererError } from '@betterer/errors';
 import { exposeToMainΔ } from '@betterer/worker';
 
-import { importDefault, read } from '../../fs/index.js';
-import { createCacheHash } from '../../hasher.js';
+import { importTranspiledHashed } from '../../fs/index.js';
 
 /** @knipignore part of worker API */
 export async function loadTestsMeta(configPaths: BettererFilePaths): Promise<BettererTestsMeta> {
@@ -26,10 +25,8 @@ export async function loadTestsMeta(configPaths: BettererFilePaths): Promise<Bet
 
 async function loadTestMeta(configPath: BettererFilePath): Promise<BettererTestsMeta> {
   try {
-    const exports = (await importDefault(configPath)) as BettererTestMap;
-    const contents = await read(configPath);
-    invariantΔ(contents !== null, 'contents should exist because file has been imported!');
-    return Object.keys(exports).map((name) => ({ configPath, configHash: createCacheHash(contents), name }));
+    const [exports, configHash] = (await importTranspiledHashed(configPath)) as [BettererTestMap, string];
+    return Object.keys(exports).map((name) => ({ configPath, configHash, name }));
   } catch (error) {
     throw new BettererError(`could not import config from "${configPath}". 😔`, error as BettererError);
   }

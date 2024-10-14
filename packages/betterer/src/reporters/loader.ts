@@ -8,7 +8,7 @@ import type {
 import { BettererError, invariantΔ } from '@betterer/errors';
 import path from 'node:path';
 
-import { importDefault } from '../fs/index.js';
+import { importDefault, importTranspiled } from '../fs/index.js';
 import { BettererRunLoggerΩ } from '../run/index.js';
 import { isFunction, isString } from '../utils.js';
 import { BettererReporterΩ } from './reporter.js';
@@ -44,7 +44,7 @@ export async function loadReporters(reporters: BettererOptionsReporters, cwd: st
         if (isString(reporter)) {
           reporter = await resolveReporter(cwd, reporter);
           try {
-            const module = await importDefault(reporter);
+            const module = path.extname(reporter) ? await importTranspiled(reporter) : await importDefault(reporter);
             assertReporter(reporter, module);
             validate(module.reporter, REPORTER_HOOK_NAMES);
             return module.reporter;

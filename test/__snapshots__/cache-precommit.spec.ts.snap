@@ -5,15 +5,15 @@ exports[`betterer > should work with precommit 1`] = `
   "version": 2,
   "testCache": {
     "no enzyme tests": {
-      ".betterer.js": "f2376aeaad6f3f1a85be53e7aa132271ce399247c024cc24768c83d82d45b001",
+      ".betterer.js": "92f35b217570542740490c0963357d1b4d300a6dc7a5a8f5282465f943ffbe4e",
       "src/example.test.tsx": "df699ceb1d1d086a3e6bc9e834e6059006523cd8199ee8fd3351e295ee035442"
     },
     "no explicit any": {
-      ".betterer.js": "f2376aeaad6f3f1a85be53e7aa132271ce399247c024cc24768c83d82d45b001",
+      ".betterer.js": "92f35b217570542740490c0963357d1b4d300a6dc7a5a8f5282465f943ffbe4e",
       "src/example.test.tsx": "df699ceb1d1d086a3e6bc9e834e6059006523cd8199ee8fd3351e295ee035442"
     },
     "no type assertions": {
-      ".betterer.js": "f2376aeaad6f3f1a85be53e7aa132271ce399247c024cc24768c83d82d45b001",
+      ".betterer.js": "92f35b217570542740490c0963357d1b4d300a6dc7a5a8f5282465f943ffbe4e",
       "src/example.test.tsx": "df699ceb1d1d086a3e6bc9e834e6059006523cd8199ee8fd3351e295ee035442"
     }
   }
@@ -65,15 +65,15 @@ exports[`betterer > should work with precommit 3`] = `
   "version": 2,
   "testCache": {
     "no enzyme tests": {
-      ".betterer.js": "f2376aeaad6f3f1a85be53e7aa132271ce399247c024cc24768c83d82d45b001",
+      ".betterer.js": "92f35b217570542740490c0963357d1b4d300a6dc7a5a8f5282465f943ffbe4e",
       "src/example.test.tsx": "6e7963438bee7f226bc7ed4d4aa0bf3b32453d8d596cb929995286f744de6bbb"
     },
     "no explicit any": {
-      ".betterer.js": "f2376aeaad6f3f1a85be53e7aa132271ce399247c024cc24768c83d82d45b001",
+      ".betterer.js": "92f35b217570542740490c0963357d1b4d300a6dc7a5a8f5282465f943ffbe4e",
       "src/example.test.tsx": "6e7963438bee7f226bc7ed4d4aa0bf3b32453d8d596cb929995286f744de6bbb"
     },
     "no type assertions": {
-      ".betterer.js": "f2376aeaad6f3f1a85be53e7aa132271ce399247c024cc24768c83d82d45b001",
+      ".betterer.js": "92f35b217570542740490c0963357d1b4d300a6dc7a5a8f5282465f943ffbe4e",
       "src/example.test.tsx": "6e7963438bee7f226bc7ed4d4aa0bf3b32453d8d596cb929995286f744de6bbb"
     }
   }
