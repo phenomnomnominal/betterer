@@ -41,8 +41,8 @@ async function gitconfig(logger: BettererLogger, gitDir: string): Promise<void> 
   }
 
   const cliPath = require.resolve('@betterer/cli');
-  const mergePath = path.resolve(cliPath, '../../bin/betterer-merge');
-  const mergeCommand = `\tdriver = ${mergePath} %A %B`;
+  const mergePath = path.resolve(cliPath, '../../bin/betterer');
+  const mergeCommand = `\tdriver = ${mergePath} merge %A %B`;
 
   lines.push(MERGE_CONFIG, mergeCommand, '');
 

@@ -1,7 +1,7 @@
 {
   "name": "@betterer/cli",
   "description": "betterer CLI",
-  "version": "5.4.0",
+  "version": "5.4.1",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
