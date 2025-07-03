@@ -3,12 +3,12 @@ import type { LanguageClient } from 'vscode-languageclient/node';
 
 import { StatusBarAlignment, window } from 'vscode';
 import { NotificationType, State } from 'vscode-languageclient/node';
-import { EXTENSION_NAME } from '../constants.js';
-import { BettererStatus } from '../status.js';
-import { COMMAND_NAMES } from './commands/index.js';
-import { SERVER_PROCESS_ENDED, SERVER_PROCESS_SHUT_DOWN } from './error-messages.js';
-import { error } from './logger.js';
-import { getAlwaysShowStatus } from './settings.js';
+import { EXTENSION_NAME } from '../constants';
+import { BettererStatus } from '../status';
+import { COMMAND_NAMES } from './commands/index';
+import { SERVER_PROCESS_ENDED, SERVER_PROCESS_SHUT_DOWN } from './error-messages';
+import { error } from './logger';
+import { getAlwaysShowStatus } from './settings';
 
 const SERVER_RUNNING = `${EXTENSION_NAME} is running.`;
 const SERVER_STOPPED = `${EXTENSION_NAME} stopped.`;
@@ -67,7 +67,7 @@ export class BettererStatusBar {
       }
     });
 
-    await client.onReady();
+    await client.start();
 
     client.onNotification(BettererStatusNotification, (status) => {
       this.update(status);

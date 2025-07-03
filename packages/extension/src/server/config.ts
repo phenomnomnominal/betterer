@@ -24,7 +24,9 @@ export async function getBettererOptions(cwd: string, workspace: RemoteWorkspace
     configPaths: [path.resolve(cwd, configPath)],
     filters,
     resultsPath: path.resolve(cwd, resultsPath),
-    silent: true
+    silent: true,
+    // TODO: VD: test ci ?
+    ci: true
   };
 }
 

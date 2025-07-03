@@ -2,11 +2,11 @@ import type { WorkspaceFolder } from 'vscode';
 
 import { workspace } from 'vscode';
 
-import { EXTENSION_NAME } from '../../constants.js';
-import { ALREADY_ENABLED, ENABLE_COMMAND_REQUIRES_WORKSPACE } from '../error-messages.js';
-import { error, info } from '../logger.js';
-import { enable, getEnabled } from '../settings.js';
-import { pickFolder } from './folder-picker.js';
+import { EXTENSION_NAME } from '../../constants';
+import { ALREADY_ENABLED, ENABLE_COMMAND_REQUIRES_WORKSPACE } from '../error-messages';
+import { error, info } from '../logger';
+import { enable, getEnabled } from '../settings';
+import { pickFolder } from './folder-picker';
 
 export async function enableBetterer(): Promise<void> {
   const { workspaceFolders } = workspace;
@@ -23,7 +23,7 @@ export async function enableBetterer(): Promise<void> {
 
   let folder: WorkspaceFolder | null = null;
   if (disabledFolders.length === 1) {
-    [folder] = disabledFolders;
+    folder = disabledFolders[0] ?? null;
   } else {
     folder = await pickFolder(disabledFolders, `Select a workspace folder to enable ${EXTENSION_NAME} in:`);
   }

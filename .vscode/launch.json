@@ -11,7 +11,7 @@
         "--disable-workspace-trust",
         "--disable-extensions"
       ],
-      "outFiles": ["${workspaceRoot}/packages/extension/dist/client/**/*.js"]
+      "outFiles": ["${workspaceRoot}/packages/extension/dist/client/**/*.js", "${workspaceRoot}/packages/extension/**"]
     },
     {
       "name": "Attach to Server",
@@ -19,7 +19,7 @@
       "request": "attach",
       "address": "localhost",
       "port": 6060,
-      "outFiles": ["${workspaceRoot}/packages/extension/dist/server/**/*.js"]
+      "outFiles": ["${workspaceRoot}/packages/extension/dist/server/**/*.js", "${workspaceRoot}/packages/extension/**"]
     },
     {
       "name": "Run Extension Tests",

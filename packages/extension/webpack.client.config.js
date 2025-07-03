@@ -4,6 +4,7 @@ const nodeExternals = require('webpack-node-externals');
 module.exports = {
   entry: './src/client/extension.ts',
   mode: 'development',
+  devtool: 'source-map',
   externals: {
     ...nodeExternals(),
     vscode: 'commonjs vscode',
@@ -26,7 +27,7 @@ module.exports = {
     filename: 'client.js',
     path: path.resolve(__dirname, 'dist', 'client'),
     libraryTarget: 'commonjs2',
-    devtoolModuleFilenameTemplate: '../[resource-path]'
+    devtoolModuleFilenameTemplate: '../../[resource-path]'
   },
   watchOptions: {
     ignored: /node_modules/

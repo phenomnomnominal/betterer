@@ -4,10 +4,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { window, workspace } from 'vscode';
 
-import { EXTENSION_NAME } from '../../constants.js';
-import { ALREADY_CONFIGURED, INIT_COMMAND_REQUIRES_WORKSPACE } from '../error-messages.js';
-import { error, info } from '../logger.js';
-import { pickFolder } from './folder-picker.js';
+import { EXTENSION_NAME } from '../../constants';
+import { ALREADY_CONFIGURED, INIT_COMMAND_REQUIRES_WORKSPACE } from '../error-messages';
+import { error, info } from '../logger';
+import { pickFolder } from './folder-picker';
 
 const CONFIG_FILES = ['.betterer.ts', '.betterer.js'];
 
@@ -31,7 +31,7 @@ export async function initBetterer(): Promise<void> {
 
   let folder: WorkspaceFolder | null = null;
   if (foldersWithoutConfig.length === 1) {
-    [folder] = workspaceFolders;
+    folder = foldersWithoutConfig[0] ?? null;
   } else {
     folder = await pickFolder(foldersWithoutConfig, `Select a workspace folder to initialise ${EXTENSION_NAME} in:`);
   }

@@ -13,9 +13,9 @@ import type {
 import path from 'node:path';
 import { DiagnosticSeverity } from 'vscode-languageserver/node';
 
-import { EXTENSION_NAME } from '../constants.js';
-import { info } from './console.js';
-import { getFilePath } from './path.js';
+import { EXTENSION_NAME } from '../constants';
+import { info } from './console';
+import { getFilePath } from './path';
 
 type BettererFileDiagnostics = Record<string, Array<Diagnostic> | null>;
 
@@ -27,10 +27,11 @@ export class BettererDiagnostics {
     document: TextDocument,
     runSummary: BettererRunSummary
   ): Array<Diagnostic> {
-    const filePath = getFilePath(document);
+    let filePath = getFilePath(document);
     if (filePath == null) {
       return [];
     }
+    filePath = normalisedPath(filePath);
 
     this._resetDiagnosticsForFile(filePath, runSummary.name);
     const currentFileDiagnostics = this._getAllDiagnosticsForFile(filePath);
@@ -40,6 +41,7 @@ export class BettererDiagnostics {
     }
 
     const result = runSummary.result?.value as BettererFileTestResultSerialised | null;
+    info(`DEBUG: Validator: content of result for "${runSummary.name}" ${filePath}`);
     if (!result) {
       return currentFileDiagnostics;
     }
@@ -69,6 +71,7 @@ export class BettererDiagnostics {
       existingIssues = issues;
     } else {
       const fileDiff = (runSummary.diff as unknown as BettererFileTestDiff).diff[filePath];
+      info(`DEBUG: Validator: debug diff filePath=${filePath} fileDiff=${JSON.stringify(fileDiff)} runSummary=${JSON.stringify(runSummary)}`);
       info(`Validator: "${runSummary.name}" got diff from Betterer for "${filePath}"`);
       existingIssues = fileDiff?.existing ?? [];
       newIssues = fileDiff?.new ?? [];
@@ -122,7 +125,9 @@ export class BettererDiagnostics {
   }
 
   private _getFileIssues(result: BettererFileTestResultSerialised, filePath: string): BettererFileIssuesSerialised {
-    const entry = Object.entries(result).find(([fileKey]) => fileKey.startsWith(filePath));
+    const entry = Object.entries(result).find(([fileKey, _issue]) => {
+      return fileKey.startsWith(filePath);
+    });
     if (!entry) {
       return [];
     }
@@ -184,7 +189,9 @@ function createWarning(
 
 function getIssuePath(resultsPath: string, filePath: string): string {
   const directory = `${normalisedPath(path.dirname(resultsPath))}/`;
-  return path.relative(directory, filePath);
+  const result = normalisedPath(path.relative(directory, filePath));
+  info(`DEBUG: getIssuePath, resultsPath: ${resultsPath}, filePath: ${filePath}, directory ${directory}, result ${result}`);
+  return result;
 }
 
 function normalisedPath(filePath: string): string {
