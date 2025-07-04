@@ -10,8 +10,8 @@ import path from 'node:path';
 import { workspace } from 'vscode';
 import { RevealOutputChannelOn, TransportKind } from 'vscode-languageclient/node';
 
-import { EXTENSION_NAME } from '../constants.js';
-import { getRuntime } from './settings.js';
+import { EXTENSION_NAME } from '../constants';
+import { getRuntime } from './settings';
 
 export function getServerOptions(context: ExtensionContext): ServerOptions {
   const serverModule = context.asAbsolutePath(path.join('dist', 'server', 'server.js'));

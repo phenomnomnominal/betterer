@@ -1,6 +1,6 @@
 import type { WorkspaceFolder } from 'vscode';
 
-import { EXTENSION_NAME } from '../constants.js';
+import { EXTENSION_NAME } from '../constants';
 
 const NAME = EXTENSION_NAME;
 const BETTERER_TS = `.betterer.ts`;

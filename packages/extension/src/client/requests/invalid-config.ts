@@ -8,10 +8,10 @@ import {
   BETTERER_CONFIG_FILE_INVALID,
   BETTERER_CONFIG_FILE_INVALID_DETAILS,
   BETTERER_OUTPUT_CHANNEL
-} from '../error-messages.js';
-import { info } from '../logger.js';
-import type { BettererRequestParams } from './types.js';
-import { getInvalidConfigState } from './state.js';
+} from '../error-messages';
+import { info } from '../logger';
+import type { BettererRequestParams } from './types';
+import { getInvalidConfigState } from './state';
 
 export const BettererInvalidConfigRequest = new RequestType<BettererRequestParams, void, void>(
   'betterer/invalidConfig'

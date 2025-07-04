@@ -2,7 +2,7 @@ import type { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { URI } from 'vscode-uri';
 
-import { isString } from '../utils.js';
+import { isString } from '../utils';
 
 export function getFilePath(documentOrUri: URI | TextDocument | string): string | null {
   if (!documentOrUri) {

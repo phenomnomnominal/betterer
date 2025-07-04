@@ -3,7 +3,7 @@ import type { FixtureFileSystemFiles, Fixture } from '@betterer/fixture';
 import { createFixtureDirectoryΔ } from '@betterer/fixture';
 import assert from 'node:assert';
 
-import { vscode } from './vscode.js';
+import { vscode } from './vscode';
 
 export async function createFixture(fixtureName: string, files: FixtureFileSystemFiles): Promise<Fixture> {
   const { workspaceFolders } = vscode.workspace;

@@ -2,7 +2,7 @@ import type { Connection } from 'vscode-languageserver/node';
 
 import { NotificationType } from 'vscode-languageserver/node';
 
-import { isString } from '../utils.js';
+import { isString } from '../utils';
 
 const BettererExitCalled = new NotificationType<[number, string]>('betterer/exitCalled');
 
