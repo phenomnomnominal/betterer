@@ -1,4 +1,4 @@
-import type { BettererRequestParams } from './types.js';
+import type { BettererRequestParams } from './types';
 
 import { RequestType } from 'vscode-languageserver/node';
 

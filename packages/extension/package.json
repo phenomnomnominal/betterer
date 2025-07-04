@@ -4,7 +4,7 @@
   "publisher": "Betterer",
   "private": true,
   "description": "VSCode extension for @betterer/betterer",
-  "version": "5.4.0",
+  "version": "6.0.0-dev",
   "main": "./dist/client/client.js",
   "author": "Craig Spence <craigspence0@gmail.com>",
   "homepage": "https://phenomnomnominal.github.io/betterer",
@@ -16,7 +16,7 @@
     "url": "https://github.com/phenomnomnominal/betterer/issues"
   },
   "engines": {
-    "vscode": "^1.62.0"
+    "vscode": "^1.101.0"
   },
   "categories": [
     "Linters"
@@ -74,6 +74,12 @@
             ".*"
           ],
           "description": "Select tests to run by RegExp. Takes multiple values"
+        },
+        "betterer.ci": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": false,
+          "description": "Controls whether Betterer is  running in Continuous Integration mode. If enabled, the result file will not be updated."
         }
       }
     },
@@ -109,7 +115,7 @@
     ]
   },
   "scripts": {
-    "build:extension": "npm run bundle && npm run compile:test",
+    "build:extension": "npm run bundle",
     "bundle": "npm run webpack:client && npm run webpack:server",
     "compile:test": "tsc --project ./tsconfig.e2e.json",
     "watch": "run-p webpack:client:watch webpack:server:watch",
@@ -117,27 +123,30 @@
     "webpack:client:watch": "webpack --config webpack.client.config.js --watch",
     "webpack:server": "webpack --config webpack.server.config.js",
     "webpack:server:watch": "webpack --config webpack.server.config.js --watch",
-    "package": "vsce package --npm",
+    "package": "vsce package",
+    "package2": "vsce package --no-dependencies",
     "test:extension": "node ./dist/test/runner/index.js",
     "vscode:prepublish": "npm run build:extension"
   },
   "dependencies": {
     "lodash.debounce": "^4.0.8",
-    "vscode-languageclient": "^7.0.0",
-    "vscode-languageserver": "^7.0.0",
-    "vscode-languageserver-textdocument": "^1.0.3",
+    "vscode-languageclient": "^9.0.1",
+    "vscode-languageserver": "^9.0.1",
+    "vscode-languageserver-textdocument": "^1.0.12",
     "vscode-uri": "^3.0.2"
   },
   "devDependencies": {
-    "@betterer/betterer": "^5.4.0",
-    "@betterer/cli": "^5.4.0",
-    "@betterer/errors": "^5.3.0",
-    "@betterer/logger": "^5.3.4",
+    "@betterer/betterer": "^6.0.0-alpha.1",
+    "@betterer/cli": "^6.0.0-alpha.1",
+    "@betterer/errors": "^6.0.0-alpha.1",
+    "@betterer/logger": "^6.0.0-alpha.1",
+    "@types/jest": "^30.0.0",
     "@types/jest-cli": "^24.3.0",
-    "@types/lodash.debounce": "^4.0.6",
-    "@types/vscode": "^1.62.0",
+    "@types/lodash.debounce": "^4.0.9",
+    "@types/vscode": "^1.101.0",
+    "@vscode/vsce": "^3.5.0",
     "jest-cli": "^27.4.3",
-    "ts-loader": "^9.4.2",
+    "ts-loader": "^9.5.2",
     "vscode-test": "^1.6.1",
     "webpack": "^5.82.1",
     "webpack-cli": "^5.1.1",

@@ -1,6 +1,6 @@
 import NodeEnvironment from 'jest-environment-node';
 
-import type { VSCodeJestGlobal } from './vscode.js';
+import type { VSCodeJestGlobal } from './vscode';
 
 import vscode from 'vscode';
 

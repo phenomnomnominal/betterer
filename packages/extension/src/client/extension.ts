@@ -1,16 +1,16 @@
 import type { ExtensionContext } from 'vscode';
-import type { ErrorAction, ErrorHandler } from 'vscode-languageclient/node';
+import type { ErrorHandler } from 'vscode-languageclient/node';
 
 import assert from 'node:assert';
 import { commands } from 'vscode';
 import { CloseAction, LanguageClient } from 'vscode-languageclient/node';
-import { EXTENSION_NAME } from '../constants.js';
-import { COMMAND_NAMES, disableBetterer, enableBetterer, initBetterer } from './commands/index.js';
-import { CLIENT_START_FAILED, SERVER_START_FAILED } from './error-messages.js';
-import { error } from './logger.js';
-import { getClientOptions, getServerOptions } from './options.js';
-import { BettererInvalidConfigRequest, BettererNoLibraryRequest, invalidConfig, noLibrary } from './requests/index.js';
-import { BettererStatusBar } from './status.js';
+import { EXTENSION_NAME } from '../constants';
+import { COMMAND_NAMES, disableBetterer, enableBetterer, initBetterer } from './commands/index';
+import { CLIENT_START_FAILED, SERVER_START_FAILED } from './error-messages';
+import { error } from './logger';
+import { getClientOptions, getServerOptions } from './options';
+import { BettererInvalidConfigRequest, BettererNoLibraryRequest, invalidConfig, noLibrary } from './requests/index';
+import { BettererStatusBar } from './status';
 
 export async function activate(context: ExtensionContext): Promise<void> {
   context.subscriptions.push(
@@ -31,15 +31,16 @@ export async function activate(context: ExtensionContext): Promise<void> {
           client.error(SERVER_START_FAILED, error);
           return false;
         },
-        error: (error, message, count): ErrorAction => {
+        error: (error, message, count)  => {
           assert(errorHandler);
+          errorHandler.error(error, message, count)
           return errorHandler.error(error, message, count);
         },
-        closed: (): CloseAction => {
+        closed: () => {
           assert(status);
           assert(errorHandler);
           if (status.hasExited) {
-            return CloseAction.DoNotRestart;
+            return {action: CloseAction.DoNotRestart};
           }
           return errorHandler.closed();
         }
@@ -48,8 +49,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
     status = new BettererStatusBar(client);
     errorHandler = client.createDefaultErrorHandler();
 
-    const started = client.start();
-    await client.onReady();
+    await client.start();
 
     client.onRequest(BettererInvalidConfigRequest, (params) => invalidConfig(client, context, params));
     client.onRequest(BettererNoLibraryRequest, (params) => noLibrary(client, context, params));
@@ -58,7 +58,6 @@ export async function activate(context: ExtensionContext): Promise<void> {
       commands.registerCommand(COMMAND_NAMES.showOutputChannel, () => {
         client.outputChannel.show();
       }),
-      started,
       status
     );
   } catch {

@@ -9,6 +9,7 @@ module.exports = {
     vscode: 'commonjs vscode',
     fsevents: 'commonjs fsevents'
   },
+  devtool: 'source-map',
   target: 'node',
   module: {
     rules: [
@@ -26,7 +27,7 @@ module.exports = {
     filename: 'server.js',
     path: path.resolve(__dirname, 'dist', 'server'),
     libraryTarget: 'commonjs2',
-    devtoolModuleFilenameTemplate: '../[resource-path]'
+    devtoolModuleFilenameTemplate: '../../[resource-path]'
   },
   watchOptions: {
     ignored: /node_modules/

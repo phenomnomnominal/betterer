@@ -43,7 +43,8 @@
     "test:extension": "lerna run test:extension",
     "prepublishOnly": "npm run build:publish",
     "publish": "lerna publish --conventional-commits --no-commit-hooks --yes",
-    "prepare": "patch-package && husky"
+    "prepare": "patch-package && husky",
+    "package:extension": "lerna run compile:packages && lerna run package2"
   },
   "engines": {
     "node": ">=18"

@@ -2,8 +2,8 @@ import type { betterer, BettererOptionsRunner, BettererRunner } from '@betterer/
 
 import { Files } from 'vscode-languageserver/node';
 
-import { nodeRequire } from '../utils.js';
-import { trace } from './trace.js';
+import { nodeRequire } from '../utils';
+import { trace } from './trace';
 
 type BettererLibrary = typeof betterer;
 interface BettererModule {
@@ -20,13 +20,15 @@ export async function hasBetterer(cwd: string): Promise<boolean> {
 
 export async function getRunner(cwd: string, options: BettererOptionsRunner): Promise<BettererRunner> {
   const key = JSON.stringify(options);
+  // TODO: VD: use better key since no order guaranteed in options key,
+  // example of options: "{\"cache\":true,\"cachePath\":\"c:\\\\Repos\\\\ClinTrakImaging\\\\Projects\\\\angular\\\\.betterer.cache\",\"configPaths\":[\"c:\\\\Repos\\\\ClinTrakImaging\\\\Projects\\\\angular\\\\.betterer.ts\"],\"filters\":[\".*\"],\"resultsPath\":\"c:\\\\Repos\\\\ClinTrakImaging\\\\Projects\\\\angular\\\\.betterer_extension.results\",\"silent\":true}"
   const existingRunner = RUNNERS.get(key);
   if (existingRunner) {
     return existingRunner;
   }
   const { runner } = await getLibrary(cwd);
   const toCache = await runner(options);
-  RUNNERS.set(key, toCache);
+  //RUNNERS.set(key, toCache);
   return toCache;
 }
 
