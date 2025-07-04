@@ -9,6 +9,7 @@ interface BettererExtensionConfig {
   enable: boolean;
   filters: Array<string>;
   resultsPath: string;
+  ci: boolean;
 }
 
 export async function getEnabled(workspace: RemoteWorkspace): Promise<boolean> {
@@ -17,7 +18,7 @@ export async function getEnabled(workspace: RemoteWorkspace): Promise<boolean> {
 }
 
 export async function getBettererOptions(cwd: string, workspace: RemoteWorkspace): Promise<BettererOptionsRunner> {
-  const { cachePath, configPath, filters, resultsPath } = await getExtensionConfig(workspace);
+  const { cachePath, configPath, filters, resultsPath, ci } = await getExtensionConfig(workspace);
   return {
     cache: true,
     cachePath: path.resolve(cwd, cachePath),
@@ -25,8 +26,7 @@ export async function getBettererOptions(cwd: string, workspace: RemoteWorkspace
     filters,
     resultsPath: path.resolve(cwd, resultsPath),
     silent: true,
-    // TODO: VD: test ci ?
-    ci: true
+    ci: !!ci
   };
 }
 

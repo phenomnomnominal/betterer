@@ -74,6 +74,12 @@
             ".*"
           ],
           "description": "Select tests to run by RegExp. Takes multiple values"
+        },
+        "betterer.ci": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": false,
+          "description": "Controls whether Betterer is  running in Continuous Integration mode. If enabled, the result file will not be updated."
         }
       }
     },
