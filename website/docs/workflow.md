@@ -10,6 +10,8 @@ There is not a perfect "one-size-fits-all" workflow for all teams, but here's a 
 
 - You should run **Betterer** in Pre-commit mode ([`betterer precommit`](./running-betterer#pre-commit-mode)) as a pre-commit hook - perhaps using [husky](https://typicode.github.io/husky) and [lint-staged](https://github.com/okonet/lint-staged).
 
+  - Pre-commit mode can also be useful as a post-rewrite hook to detect drift in the results file after a rebase.
+
 - You should run **Betterer** as part of a build pipeline along with other static analysis tools and tests.
 
 - You should run **Betterer** in CI mode ([`betterer ci`](./running-betterer#ci-mode-run-your-tests-and-throw-on-changes)) when running on a build server. When **Betterer** runs in CI mode, it will throw an error when the tests results do not exactly match whatever is in the results file. This ensures that the [results file](./results-file) accurately reflects the state of the codebase.
