@@ -4,10 +4,10 @@
 .husky
 .gitattributes
 .gitignore
-.lintstagedrc
 .npmrc
 .prettierignore
 .vscode-test
+.nx
 CHANGELOG.md
 dist
 fixtures

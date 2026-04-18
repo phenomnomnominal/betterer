@@ -13,3 +13,8 @@ export type {
 
 export { createReporterConfig, overrideReporterConfig } from './config.js';
 export { loadDefaultReporter, loadReporters, loadSilentReporter } from './loader.js';
+
+export function renderError(error: Error): void {
+  // eslint-disable-next-line no-console -- Fallback when reporter is not yet available
+  console.error(error);
+}

@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitest/config';
 
-import { MCROptions } from './mcr.config.js';
+import { MCROptions } from './config/mcr.config.js';
 
 import tsconfigPaths from 'vite-tsconfig-paths';
 
@@ -9,7 +9,7 @@ const isNode16 = process.version.startsWith('v16');
 export default defineConfig({
   plugins: [
     tsconfigPaths({
-      configNames: ['tsconfig.spec.json']
+      configNames: ['config/tsconfig.spec.json']
     })
   ],
   server: {

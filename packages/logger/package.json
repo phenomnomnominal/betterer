@@ -21,10 +21,6 @@
   "bugs": {
     "url": "https://github.com/phenomnomnominal/betterer/issues"
   },
-  "scripts": {
-    "compile": "tsc -b .",
-    "api": "api-extractor run --local --verbose"
-  },
   "engines": {
     "node": ">=16"
   },

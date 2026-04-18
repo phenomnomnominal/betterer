@@ -16,7 +16,7 @@ const compat = new FlatCompat({
 });
 
 export default tsLint.config(
-  { files: ['packages/**/src/**/*.{ts,tsx}', 'test/**/*.{ts,tsx}', '*.{ts}'] },
+  { files: ['packages/**/src/**/*.{ts,tsx}', 'test/**/*.{ts,tsx}', 'tools/**/src/**/*.ts', '*.{ts}'] },
   {
     ignores: ['**/node_modules/**', '**/dist/**', 'fixtures/**', 'reports/**', 'website/**', '**/.vscode-test/**']
   },
@@ -35,7 +35,7 @@ export default tsLint.config(
     languageOptions: {
       globals: globals.browser,
       parserOptions: {
-        project: './tsconfig.eslint.json',
+        project: './config/tsconfig.eslint.json',
         tsconfigRootDir: dirname
       }
     }

@@ -21,9 +21,13 @@ const RUN_LOGGER_HOOK_NAMES = Object.getOwnPropertyNames(BettererRunLoggerΩ.pro
 >;
 
 export async function loadDefaultReporter(): Promise<BettererReporterΩ> {
-  const reporterFactory = await importDefault('@betterer/reporter');
-  assertDefaultReporter(reporterFactory);
-  return new BettererReporterΩ([reporterFactory.createReporterΔ()]);
+  try {
+    const reporterFactory = await importDefault('@betterer/reporter');
+    assertDefaultReporter(reporterFactory);
+    return new BettererReporterΩ([reporterFactory.createReporterΔ()]);
+  } catch {
+    return new BettererReporterΩ([]);
+  }
 }
 
 function assertDefaultReporter(reporterFactory: unknown): asserts reporterFactory is BettererReporterFactory {

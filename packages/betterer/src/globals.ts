@@ -2,7 +2,7 @@ import type { BettererError } from '@betterer/errors';
 import type { BettererOptions } from './api/index.js';
 import type { BettererConfig } from './config/types.js';
 import type { BettererFileResolver, BettererFSWorker, BettererOptionsWatcher } from './fs/index.js';
-import type { BettererReporter } from './reporters/index.js';
+import type { BettererReporterΩ } from './reporters/index.js';
 import type { BettererResultsWorker } from './results/index.js';
 import type { BettererRunWorkerPool } from './run/types.js';
 import type { BettererTestMetaLoaderWorker } from './test/index.js';
@@ -12,7 +12,7 @@ import { importWorkerΔ } from '@betterer/worker';
 
 import { createContextConfig, enableMode } from './context/index.js';
 import { BettererFileResolverΩ, createFSConfig } from './fs/index.js';
-import { createReporterConfig, loadDefaultReporter } from './reporters/index.js';
+import { createReporterConfig, renderError } from './reporters/index.js';
 import { createRunWorkerPool } from './run/index.js';
 
 class BettererGlobalResolvers {
@@ -29,13 +29,13 @@ class BettererGlobals {
   constructor(
     public readonly config: BettererConfig,
     public readonly fs: BettererFSWorker,
-    private readonly _reporter: BettererReporter | null,
+    private readonly _reporter: BettererReporterΩ | null,
     public readonly results: BettererResultsWorker,
     private readonly _runWorkerPool: BettererRunWorkerPool | null,
     private readonly _testMetaLoader: BettererTestMetaLoaderWorker | null
   ) {}
 
-  public get reporter(): BettererReporter {
+  public get reporter(): BettererReporterΩ {
     invariantΔ(this._reporter, `\`reporter\` should only be accessed on the main thread!`);
     return this._reporter;
   }
@@ -57,7 +57,7 @@ export async function createGlobals(
   options: BettererOptions,
   optionsWatch: BettererOptionsWatcher = {}
 ): Promise<void> {
-  let errorReporter = await loadDefaultReporter();
+  let errorReporter: BettererReporterΩ | null = null;
 
   try {
     const configContext = await createContextConfig(options);
@@ -83,8 +83,11 @@ export async function createGlobals(
 
     setGlobals(config, fs, reporter, results, runWorkerPool, testMetaLoader);
   } catch (error) {
-    const reporterΩ = errorReporter;
-    await reporterΩ.configError(options, error as BettererError);
+    if (errorReporter) {
+      await errorReporter.configError(options, error as BettererError);
+    } else {
+      renderError(error as BettererError);
+    }
     throw error;
   }
 }

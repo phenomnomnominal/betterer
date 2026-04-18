@@ -6,7 +6,7 @@ export default {
     regexp(/(\/\/\s*HACK)/i).include(['./packages/**/src/**/*.ts', './packages/**/src/**/*.tsx']),
   'no knip errors': () =>
     knip(
-      './knip.json',
+      './config/knip.json',
       {},
       {
         production: true,
