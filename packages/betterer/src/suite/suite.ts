@@ -1,7 +1,6 @@
 import type { BettererError } from '@betterer/errors';
 
 import type { BettererFilePaths } from '../fs/index.js';
-import type { BettererReporterΩ } from '../reporters/index.js';
 import type { BettererRuns } from '../run/index.js';
 import type { BettererSuite, BettererSuiteSummary } from './types.js';
 
@@ -56,7 +55,7 @@ export class BettererSuiteΩ implements BettererSuite {
     });
 
     const { reporter } = getGlobals();
-    const reporterΩ = reporter as BettererReporterΩ;
+    const reporterΩ = reporter;
 
     // Call the `runStart` reporter hook sequentially for all the tests:
     const reportRunStarts = this.runs.map(async (run) => {

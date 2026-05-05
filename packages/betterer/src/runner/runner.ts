@@ -3,7 +3,6 @@ import type { BettererOptions } from '../api/index.js';
 import type { BettererConfig, BettererOptionsOverride } from '../config/index.js';
 import type { BettererContextSummary } from '../context/index.js';
 import type { BettererFilePaths, BettererOptionsWatcher } from '../fs/index.js';
-import type { BettererReporterΩ } from '../reporters/index.js';
 import type { BettererSuiteSummary, BettererSuiteSummaryΩ, BettererSuiteΩ } from '../suite/index.js';
 import type { BettererRunner } from './types.js';
 
@@ -35,7 +34,7 @@ export class BettererRunnerΩ implements BettererRunner {
 
     this.config = config;
 
-    const reporterΩ = reporter as BettererReporterΩ;
+    const reporterΩ = reporter;
     // Don't await here! A custom reporter could be awaiting
     // the lifecycle promise which is unresolved right now!
     this._reporterContextStart = reporterΩ.contextStart(this, this.lifecycle.promise);
@@ -107,7 +106,7 @@ export class BettererRunnerΩ implements BettererRunner {
     }
 
     const { reporter } = getGlobals();
-    const reporterΩ = reporter as BettererReporterΩ;
+    const reporterΩ = reporter;
 
     try {
       this._isStopped = true;
@@ -225,7 +224,7 @@ export class BettererRunnerΩ implements BettererRunner {
     if (optionsOverride.reporters) {
       const { reporter } = getGlobals();
 
-      const reporterΩ = reporter as BettererReporterΩ;
+      const reporterΩ = reporter;
       // Don't await here! A custom reporter could be awaiting
       // the lifecycle promise which is unresolved right now!
       this._reporterContextStart = reporterΩ.contextStart(this, this.lifecycle.promise);

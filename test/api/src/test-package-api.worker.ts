@@ -88,7 +88,7 @@ export async function run(status: BettererLogger, packageName: string): Promise<
   }
 
   const diff = diffStringsΔ(packageGolden, packageGenerated, { aAnnotation: 'Golden', bAnnotation: 'Current' });
-  throw new BettererError(`API changes found in "@betterer/${packageName.toString()}"`, diff);
+  throw new BettererError(`API changes found in "@betterer/${packageName}"`, diff);
 }
 
 function checkForBannedTokens(types: string, token: string): boolean {

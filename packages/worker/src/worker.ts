@@ -87,7 +87,7 @@ async function importDefault<T>(importPath: string): Promise<T> {
 }
 
 function getDefaultExport(module: unknown): unknown {
-  return (module as ESModule).default || module;
+  return (module as ESModule).default ?? module;
 }
 
 /**
@@ -267,7 +267,10 @@ function deserializeBettererError(serialised: ThrownBettererErrorSerialized): Be
       if (isBettererErrorSerialised(detail)) {
         return deserializeBettererError(detail);
       } else if (isErrorSerialised(detail)) {
-        return { ...new Error(detail.value.message), ...detail.value };
+        const deserialisedError = new Error(detail.value.message);
+        deserialisedError.name = detail.value.name;
+        deserialisedError.stack = detail.value.stack;
+        return deserialisedError;
       } else {
         return detail;
       }

@@ -13,7 +13,7 @@ interface BettererExtensionConfig {
 
 export async function getEnabled(workspace: RemoteWorkspace): Promise<boolean> {
   const { enable } = await getExtensionConfig(workspace);
-  return !!enable;
+  return enable;
 }
 
 export async function getBettererOptions(cwd: string, workspace: RemoteWorkspace): Promise<BettererOptionsRunner> {

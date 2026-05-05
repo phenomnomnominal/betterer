@@ -12,7 +12,7 @@ import { importWorkerΔ } from '@betterer/worker';
 
 import { createContextConfig, enableMode } from './context/index.js';
 import { BettererFileResolverΩ, createFSConfig } from './fs/index.js';
-import { createReporterConfig, renderError } from './reporters/index.js';
+import { createReporterConfig, loadDefaultReporter } from './reporters/index.js';
 import { createRunWorkerPool } from './run/index.js';
 
 class BettererGlobalResolvers {
@@ -57,7 +57,7 @@ export async function createGlobals(
   options: BettererOptions,
   optionsWatch: BettererOptionsWatcher = {}
 ): Promise<void> {
-  let errorReporter: BettererReporterΩ | null = null;
+  let errorReporter: BettererReporterΩ = await loadDefaultReporter();
 
   try {
     const configContext = await createContextConfig(options);
@@ -83,11 +83,7 @@ export async function createGlobals(
 
     setGlobals(config, fs, reporter, results, runWorkerPool, testMetaLoader);
   } catch (error) {
-    if (errorReporter) {
-      await errorReporter.configError(options, error as BettererError);
-    } else {
-      renderError(error as BettererError);
-    }
+    await errorReporter.configError(options, error as BettererError);
     throw error;
   }
 }

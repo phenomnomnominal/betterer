@@ -23,7 +23,7 @@
         "commands": [
           "nx run workspace:clean",
           "nx run workspace:build",
-          "npm run betterer:ci"
+          "node ./packages/cli/bin/betterer ci --config config/.betterer.ts"
         ],
         "parallel": false
       }
@@ -31,10 +31,7 @@
     "build:extension": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "nx run workspace:clean",
-          "nx run-many -t build:extension"
-        ],
+        "commands": ["nx run workspace:clean", "nx run-many -t build:extension"],
         "parallel": false
       }
     },
@@ -108,10 +105,7 @@
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "nx run workspace:clean:tests",
-          "vitest --config config/vitest.config.ts"
-        ],
+        "commands": ["nx run workspace:clean:tests", "vitest --config vitest.config.ts"],
         "parallel": false
       }
     },
@@ -130,10 +124,7 @@
     "test:e2e": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "nx run workspace:clean:tests",
-          "vitest --config config/vitest.e2e.config.ts"
-        ],
+        "commands": ["nx run workspace:clean:tests", "vitest --config config/vitest.e2e.config.ts"],
         "parallel": false
       }
     },
@@ -142,6 +133,6 @@
       "options": {
         "command": "nx run-many -t test:extension"
       }
-    },
+    }
   }
 }

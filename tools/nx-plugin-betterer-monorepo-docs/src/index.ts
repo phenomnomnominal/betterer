@@ -22,11 +22,7 @@ export const createNodesV2: CreateNodesV2<DocsPluginOptions> = [
   }
 ];
 
-async function createNodesInternal(
-  configFilePath: string,
-  options: DocsPluginOptions,
-  context: CreateNodesContextV2
-) {
+async function createNodesInternal(configFilePath: string, options: DocsPluginOptions, context: CreateNodesContextV2) {
   const projectRoot = dirname(configFilePath);
 
   // Only the root project gets the docs target

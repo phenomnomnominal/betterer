@@ -127,16 +127,12 @@ export class BettererFileResolverΩ implements BettererFileResolver {
   }
 
   private _isIncluded(filePath: string): boolean {
-    if (!this._includedResolved) {
-      this._includedResolved = this._included.map((pattern) => this.resolve(pattern));
-    }
+    this._includedResolved ??= this._included.map((pattern) => this.resolve(pattern));
     return this._includedResolved.some((pattern) => minimatch(filePath, pattern));
   }
 
   private _isExcluded(filePath: string): boolean {
-    if (!this._excludedResolved) {
-      this._excludedResolved = this._excluded.map((pattern) => (isString(pattern) ? this.resolve(pattern) : pattern));
-    }
+    this._excludedResolved ??= this._excluded.map((pattern) => (isString(pattern) ? this.resolve(pattern) : pattern));
     return this._excluded.some((pattern) =>
       isString(pattern) ? minimatch(filePath, pattern) : pattern.test(filePath)
     );

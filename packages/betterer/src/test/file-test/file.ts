@@ -77,10 +77,7 @@ export class BettererFileΩ implements BettererFile {
     const start = lc.indexForLocation({ line, column }) ?? 0;
     const issueText = fileText.substring(start, start + length);
     const normalisedText = normaliseNewlines(issueText);
-    let hash = overrideHash;
-    if (!hash) {
-      hash = normalisedText ? createHash(normalisedText) : createHash(message);
-    }
+    const hash = overrideHash ?? (normalisedText ? createHash(normalisedText) : createHash(message));
     return { line, column, length: normalisedText.length, message, hash };
   }
 }

@@ -17,7 +17,7 @@ export function upgrade(cwd: string): Command {
   const command = upgradeCommand();
   command.description('upgrade Betterer files in a project');
   command.action(async (config: BettererCLIUpgradeConfig): Promise<void> => {
-    const configPaths = config.config ? config.config : DEFAULT_CONFIG_PATHS;
+    const configPaths = config.config ?? DEFAULT_CONFIG_PATHS;
 
     const app = render(
       <Upgrade configPaths={configPaths as BettererConfigPaths} cwd={cwd} save={config.save} logo={config.logo} />,

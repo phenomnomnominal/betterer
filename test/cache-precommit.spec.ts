@@ -1,8 +1,20 @@
-import { describe, expect, it } from 'vitest';
+import type { SimpleGit, SimpleGitFactory } from 'simple-git';
 
-import { simpleGit } from 'simple-git';
+type SimpleGitModule = typeof import('simple-git');
+
+import { describe, expect, it, vi, vitest } from 'vitest';
 
 import { createFixture } from './fixture.js';
+
+vitest.mock('simple-git', async (importOriginal): Promise<SimpleGitModule> => {
+  const sg = await importOriginal<SimpleGitModule>();
+  const simpleGit = ((...args: Parameters<SimpleGitFactory>) => {
+    const instance = sg.simpleGit(...args);
+    instance.add = vi.fn<SimpleGit['add']>();
+    return instance;
+  }) as SimpleGitFactory;
+  return { ...sg, simpleGit };
+});
 
 describe('betterer', () => {
   it('should work with precommit', async () => {
@@ -236,10 +248,6 @@ describe('QueryOperationRow', () => {
     expect(firstCache).not.toEqual(nextCache);
 
     expect(logs).toMatchSnapshot();
-
-    const git = simpleGit();
-
-    await git.reset([resultsPath]);
 
     await cleanup();
   });

@@ -92,7 +92,6 @@ function prependLogBlock(log: BettererTaskLog): string {
 
 function prependBlock(message: string, block: string): string {
   return message
-    .toString()
     .split('\n')
     .map((line) => `${block} ${line}`)
     .join('\n');

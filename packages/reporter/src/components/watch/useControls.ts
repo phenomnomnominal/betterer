@@ -11,7 +11,7 @@ export function useControls(context: BettererContext): ConfigEditField {
 
   useEffect(() => {
     function handleData(data: string) {
-      const input = String(data);
+      const input = data;
       const isReturn = input === '\r';
       const isEscape = input === '\u001B';
 

@@ -78,8 +78,8 @@ This makes it easier to configure exactly which files should be checked! ❌`
           const { line, column, ruleId } = message;
           const startLine = line - 1;
           const startColumn = column - 1;
-          const endLine = message.endLine ? message.endLine - 1 : 0;
-          const endColumn = message.endColumn ? message.endColumn - 1 : 0;
+          const endLine = message.endLine ? message.endLine - 1 : startLine;
+          const endColumn = message.endColumn ? message.endColumn - 1 : startColumn;
           file.addIssue(startLine, startColumn, endLine, endColumn, eslintIssueMessage(ruleId, message.message));
         });
       });

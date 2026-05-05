@@ -1,4 +1,4 @@
-import type { CreateNodesV2, CreateNodesContextV2, TargetConfiguration } from '@nx/devkit';
+import type { CreateNodesV2, TargetConfiguration } from '@nx/devkit';
 
 import { createNodesFromFiles } from '@nx/devkit';
 import { dirname } from 'path';
@@ -15,7 +15,7 @@ export const createNodesV2: CreateNodesV2<CleanPluginOptions> = [
   packageJsonGlob,
   async (configFiles, options, context) => {
     return await createNodesFromFiles(
-      (configFile, options, context) => createNodesInternal(configFile, options ?? {}, context),
+      (configFile, options) => createNodesInternal(configFile, options ?? {}),
       configFiles,
       options,
       context
@@ -23,7 +23,7 @@ export const createNodesV2: CreateNodesV2<CleanPluginOptions> = [
   }
 ];
 
-function createNodesInternal(configFilePath: string, options: CleanPluginOptions, _context: CreateNodesContextV2) {
+function createNodesInternal(configFilePath: string, options: CleanPluginOptions) {
   const projectRoot = dirname(configFilePath);
 
   const cleanTestsTarget: TargetConfiguration = {
