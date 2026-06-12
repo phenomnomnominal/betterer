@@ -105,11 +105,6 @@ export class BettererGitΩ implements BettererVersionControl {
   }
 
   private async _init(git: SimpleGit): Promise<void> {
-    // `_findGitRoot` has already established that we are inside a git repository, so there is no
-    // need to initialise one. Re-running `git init` is not only redundant, it is dangerous: in a
-    // linked worktree (where `<worktree>/.git` is a gitfile pointing into a shared common git dir)
-    // it reinitialises against the *common* git dir and can rewrite shared config, flipping
-    // `core.bare` and breaking every worktree on the repo:
     if (await git.checkIsRepo()) {
       return;
     }
