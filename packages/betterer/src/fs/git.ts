@@ -105,12 +105,17 @@ export class BettererGitΩ implements BettererVersionControl {
   }
 
   private async _init(git: SimpleGit): Promise<void> {
+    if (await git.checkIsRepo()) {
+      return;
+    }
+
     const retries = 3;
     for (let i = 0; i < retries; i++) {
       try {
         await git.init();
+        return;
       } catch (error) {
-        if (i >= retries) {
+        if (i === retries - 1) {
           throw error;
         }
       }
