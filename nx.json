@@ -41,9 +41,6 @@
       "plugin": "./tools/nx-plugin-betterer-monorepo-metadata/src/index.ts"
     },
     {
-      "plugin": "./tools/nx-plugin-betterer-monorepo-docs/src/index.ts"
-    },
-    {
       "plugin": "@nx/js/typescript",
       "options": {
         "typecheck": {

@@ -14,6 +14,9 @@
   },
   "scripts": {
     "api:all": "nx run workspace:api:all",
+    "betterer": "node ./packages/cli/bin/betterer --config config/.betterer.ts",
+    "betterer:ci": "node ./packages/cli/bin/betterer ci --config config/.betterer.ts",
+    "betterer:precommit": "node ./packages/cli/bin/betterer precommit --cache --config config/.betterer.ts",
     "build": "nx run workspace:build",
     "build:ci": "nx run workspace:build:ci",
     "build:extension": "nx run workspace:build:extension",
@@ -21,7 +24,6 @@
     "clean": "nx run workspace:clean",
     "clean:compile:all": "nx run workspace:clean:compile:all",
     "clean:modules:all": "nx run workspace:clean:modules:all",
-    "clean:tests:all": "nx run workspace:clean:tests:all",
     "compile:all": "nx run workspace:compile:all",
     "docs": "nx run workspace:docs",
     "compile:watch": "tsc -b packages -w",
@@ -36,7 +38,6 @@
     "prepare": "patch-package && husky"
   },
   "devDependencies": {
-    "@betterer/cli": "./packages/betterer",
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.7.1",

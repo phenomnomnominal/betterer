@@ -83,6 +83,17 @@
         "command": "tsc -b packages"
       }
     },
+    "docs": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "node --import tsx ./tools/docs/filter.ts",
+          "api-documenter generate -i ./goldens/models -o ./website/docs/api/"
+        ],
+        "parallel": false
+      },
+      "dependsOn": ["api:all"]
+    },
     "api:all": {
       "executor": "nx:run-commands",
       "options": {
