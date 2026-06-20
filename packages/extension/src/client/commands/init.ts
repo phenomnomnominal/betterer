@@ -31,7 +31,7 @@ export async function initBetterer(): Promise<void> {
 
   let folder: WorkspaceFolder | null = null;
   if (foldersWithoutConfig.length === 1) {
-    [folder] = workspaceFolders;
+    [folder = null] = workspaceFolders;
   } else {
     folder = await pickFolder(foldersWithoutConfig, `Select a workspace folder to initialise ${EXTENSION_NAME} in:`);
   }

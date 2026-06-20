@@ -3,7 +3,7 @@
   "targetDefaults": {
     "compile": {
       "dependsOn": ["^compile"],
-      "outputs": ["{projectRoot}/dist"],
+      "outputs": ["{projectRoot}/dist", "{projectRoot}/tsconfig.tsbuildinfo"],
       "cache": true
     },
     "lint": {
@@ -17,7 +17,7 @@
     "projects": ["packages/*", "!packages/extension", "!packages/fixture", "!packages/docgen"],
     "projectsRelationship": "fixed",
     "version": {
-      "conventionalCommits": true,
+      "currentVersionResolver": "disk",
       "preVersionCommand": "nx run-many -t sync:metadata"
     },
     "changelog": {
@@ -45,6 +45,10 @@
       "options": {
         "typecheck": {
           "targetName": "typecheck"
+        },
+        "build": {
+          "targetName": "compile",
+          "configName": "tsconfig.json"
         }
       }
     },

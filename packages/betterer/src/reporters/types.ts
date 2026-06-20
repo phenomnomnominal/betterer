@@ -32,7 +32,7 @@ export interface BettererOptionsReporter {
    *
    * @remarks When given a file path, the path will be resolved relative to the `cwd`.
    *
-   * @defaultValue `['@betterer/reporter']`
+   * @defaultValue `[]` — renders with the engine's built-in plain-text reporter. The `@betterer/cli` defaults to `['@betterer/reporter']` for the rich terminal UI.
    */
   reporters?: BettererOptionsReporters;
   /**
@@ -50,7 +50,7 @@ export interface BettererOptionsReporterOverride {
    * An array of names of npm packages that export a {@link @betterer/betterer#BettererReporter | `BettererReporter` }
    * or `object`s that implement {@link @betterer/betterer#BettererReporter | `BettererReporter`}.
    * Ignored when `silent` is `true`.
-   * @defaultValue `['@betterer/reporter']`
+   * @defaultValue `[]` — renders with the engine's built-in plain-text reporter.
    */
   reporters?: BettererOptionsReporters;
 }
@@ -219,8 +219,4 @@ export interface BettererReporter {
 
 export interface BettererReporterModule {
   reporter: BettererReporter;
-}
-
-export interface BettererReporterFactory {
-  createReporterΔ: () => BettererReporter;
 }

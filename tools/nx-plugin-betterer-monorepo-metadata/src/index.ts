@@ -1,8 +1,8 @@
 import type { CreateNodesV2, CreateNodesContextV2, TargetConfiguration } from '@nx/devkit';
 
 import { createNodesFromFiles } from '@nx/devkit';
-import { readFile } from 'fs/promises';
-import { dirname, join } from 'path';
+import { readFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
 
 export interface MetadataPluginOptions {
   syncMetadataTargetName?: string;

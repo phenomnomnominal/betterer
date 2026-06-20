@@ -1,8 +1,9 @@
 import type { CreateNodesV2, CreateNodesContextV2, TargetConfiguration } from '@nx/devkit';
 
 import { createNodesFromFiles } from '@nx/devkit';
-import { readFile } from 'fs/promises';
-import { dirname, join } from 'path';
+import assert from 'node:assert';
+import { readFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
 
 export interface APIExtractorPluginOptions {
   apiTargetName?: string;
@@ -32,10 +33,13 @@ async function createNodesInternal(
   // Only create api target for publishable packages
   const packageJsonPath = join(context.workspaceRoot, configFilePath);
   const packageJsonContents = await readFile(packageJsonPath, 'utf-8');
-  const packageJson = JSON.parse(packageJsonContents) as { publishConfig?: unknown; private?: boolean };
+  const packageJson = JSON.parse(packageJsonContents) as { name?: string; publishConfig?: unknown; private?: boolean };
   if (!packageJson.publishConfig || packageJson.private) {
     return {};
   }
+
+  const unscopedPackageName = packageJson.name?.split('/').pop();
+  assert(unscopedPackageName, `A publishable package must have a name: "${configFilePath}"`);
 
   const apiTarget: TargetConfiguration = {
     executor: 'nx:run-commands',
@@ -43,8 +47,11 @@ async function createNodesInternal(
       command: 'node --import tsx ../../tools/nx-plugin-betterer-monorepo-api/src/run.ts',
       cwd: projectRoot
     },
-    dependsOn: ['compile'],
-    outputs: [`{workspaceRoot}/goldens/api/{projectName}.api.md`],
+    dependsOn: ['typecheck', '^typecheck'],
+    outputs: [
+      `{workspaceRoot}/goldens/api/${unscopedPackageName}.api.md`,
+      `{workspaceRoot}/goldens/models/${unscopedPackageName}.api.json`
+    ],
     cache: true
   };
 

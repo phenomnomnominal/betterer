@@ -1,7 +1,7 @@
 import type { CreateNodesV2, TargetConfiguration } from '@nx/devkit';
 
 import { createNodesFromFiles } from '@nx/devkit';
-import { dirname } from 'path';
+import { dirname } from 'node:path';
 
 export interface CleanPluginOptions {
   cleanTestsTargetName?: string;

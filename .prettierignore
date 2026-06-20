@@ -14,7 +14,6 @@ fixtures
 goldens
 node_modules
 reports
-lerna-debug.log
 test/__snapshots__/**
 tsconfig.tsbuildinfo
 website/build

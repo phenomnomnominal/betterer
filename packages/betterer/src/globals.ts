@@ -57,7 +57,7 @@ export async function createGlobals(
   options: BettererOptions,
   optionsWatch: BettererOptionsWatcher = {}
 ): Promise<void> {
-  let errorReporter: BettererReporterΩ = await loadDefaultReporter();
+  let errorReporter = loadDefaultReporter();
 
   try {
     const configContext = await createContextConfig(options);

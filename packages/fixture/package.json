@@ -23,7 +23,7 @@
     "compile": "tsc -b ."
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "dependencies": {
     "@betterer/betterer": "^6.0.0-alpha.0",

@@ -26,5 +26,80 @@
     "target": "ES2017",
     "noEmit": false,
     "typeRoots": ["./node_modules/@types", "./types"]
-  }
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tools/nx-plugin-betterer-monorepo-metadata"
+    },
+    {
+      "path": "./tools/nx-plugin-betterer-monorepo-clean"
+    },
+    {
+      "path": "./tools/nx-plugin-betterer-monorepo-api"
+    },
+    {
+      "path": "./packages/constraints"
+    },
+    {
+      "path": "./packages/typescript"
+    },
+    {
+      "path": "./packages/stylelint"
+    },
+    {
+      "path": "./packages/extension"
+    },
+    {
+      "path": "./packages/betterer"
+    },
+    {
+      "path": "./packages/coverage"
+    },
+    {
+      "path": "./packages/reporter"
+    },
+    {
+      "path": "./packages/angular"
+    },
+    {
+      "path": "./packages/fixture"
+    },
+    {
+      "path": "./packages/tsquery"
+    },
+    {
+      "path": "./packages/errors"
+    },
+    {
+      "path": "./packages/eslint"
+    },
+    {
+      "path": "./packages/logger"
+    },
+    {
+      "path": "./packages/regexp"
+    },
+    {
+      "path": "./packages/render"
+    },
+    {
+      "path": "./packages/worker"
+    },
+    {
+      "path": "./packages/docgen"
+    },
+    {
+      "path": "./packages/tasks"
+    },
+    {
+      "path": "./packages/knip"
+    },
+    {
+      "path": "./packages/time"
+    },
+    {
+      "path": "./packages/cli"
+    }
+  ]
 }

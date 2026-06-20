@@ -23,7 +23,7 @@ export async function enableBetterer(): Promise<void> {
 
   let folder: WorkspaceFolder | null = null;
   if (disabledFolders.length === 1) {
-    [folder] = disabledFolders;
+    [folder = null] = disabledFolders;
   } else {
     folder = await pickFolder(disabledFolders, `Select a workspace folder to enable ${EXTENSION_NAME} in:`);
   }

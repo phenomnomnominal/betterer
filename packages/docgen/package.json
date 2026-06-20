@@ -23,7 +23,7 @@
     "compile": "tsc -b ."
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "dependencies": {
     "@microsoft/api-documenter": "^7.25.12",

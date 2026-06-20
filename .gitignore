@@ -2,7 +2,6 @@
 dist
 node_modules
 reports
-lerna-debug.log
 fixtures
 *.tsbuildinfo
 *.vsix

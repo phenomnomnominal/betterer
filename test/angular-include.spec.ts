@@ -91,12 +91,13 @@ export default {
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": ["ES2022", "dom"]
+    "lib": ["ES2022", "dom"],
+    "typeRoots": []
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

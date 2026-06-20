@@ -2,6 +2,7 @@ import { FlatCompat } from '@eslint/eslintrc';
 import jsLint from '@eslint/js';
 import comments from '@eslint-community/eslint-plugin-eslint-comments/configs';
 import prettier from 'eslint-config-prettier';
+import nodePlugin from 'eslint-plugin-n';
 import globals from 'globals';
 import tsLint from 'typescript-eslint';
 
@@ -51,6 +52,15 @@ export default tsLint.config(
     }
   },
 
+  {
+    plugins: { n: nodePlugin },
+    rules: {
+      'n/prefer-node-protocol': 'error',
+      'n/no-deprecated-api': 'error',
+      'n/no-unsupported-features/node-builtins': 'error'
+    }
+  },
+
   ...compat.plugins('require-extensions'),
   ...compat.extends('plugin:require-extensions/recommended'),
 
@@ -75,7 +85,7 @@ export default tsLint.config(
   },
 
   {
-    files: ['*.js'],
+    files: ['*.js', '**/bin/*.js', '**/*.mjs'],
     ...tsLint.configs.disableTypeChecked
   },
 

@@ -22,7 +22,7 @@
     "url": "https://github.com/phenomnomnominal/betterer/issues"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "dependencies": {
     "@betterer/errors": "^6.0.0-alpha.1",
@@ -30,6 +30,5 @@
     "@betterer/render": "^6.0.0-alpha.1",
     "@betterer/time": "^6.0.0-alpha.1",
     "chalk": "^5.3.0"
-  },
-  "gitHead": "821992635c8b6a4891169dad3334203f866e5521"
+  }
 }

@@ -5,7 +5,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "tsc -b packages",
+          "nx run-many -t compile --exclude betterer-vscode",
           "nx run-many -t api",
           "npm run test:api",
           "npm run test:dependencies",
@@ -21,9 +21,9 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx run workspace:clean",
+          "nx run workspace:clean:compile:all",
           "nx run workspace:build",
-          "node ./packages/cli/bin/betterer ci --config config/.betterer.ts"
+          "node ./packages/cli/bin/betterer ci --config config/.betterer.ts --results config/.betterer.results"
         ],
         "parallel": false
       }
@@ -40,6 +40,7 @@
       "options": {
         "commands": [
           "nx run workspace:clean",
+          "nx run-many -t compile --exclude betterer-vscode",
           "nx run-many -t api",
           "npm run test:api",
           "npm run test:dependencies",
@@ -80,7 +81,7 @@
     "compile:all": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "tsc -b packages"
+        "command": "nx run-many -t compile --exclude betterer-vscode"
       }
     },
     "docs": {
@@ -98,8 +99,7 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "nx run-many -t api"
-      },
-      "dependsOn": ["compile:all"]
+      }
     },
     "format:all": {
       "executor": "nx:run-commands",

@@ -21,6 +21,8 @@ const packageJsonPath = path.resolve(process.cwd(), 'package.json');
 const packageJsonContents = readFileSync(packageJsonPath, 'utf-8');
 const packageJson = JSON.parse(packageJsonContents) as Record<string, unknown>;
 
+delete packageJson.gitHead;
+
 const updatedPackageJson = {
   ...packageJson,
   ...COMMON_METADATA

@@ -7,7 +7,10 @@
   "ignore": ["**/dist/**/*.{ts,js}"],
   "workspaces": {
     "packages/betterer": {
-      "ignoreDependencies": ["@betterer/reporter", "simple-git", "esbuild"]
+      "ignoreDependencies": ["simple-git", "esbuild"]
+    },
+    "packages/cli": {
+      "ignoreDependencies": ["@betterer/reporter"]
     },
     "packages/extension": {
       "entry": ["packages/extension/client/extension.ts", "packages/extension/server/server.ts"],

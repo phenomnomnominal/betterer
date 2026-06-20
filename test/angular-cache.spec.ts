@@ -54,7 +54,7 @@ export default {
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "strict": true,
     "target": "es2015",
@@ -80,6 +80,7 @@ import { Hero } from './hero';
 
 @Component({
   selector: 'my-app',
+  standalone: false,
   template: \`
 <div>{{ title }}</div>
 <ul>

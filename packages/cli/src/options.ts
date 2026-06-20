@@ -8,6 +8,8 @@ let command: Command;
 
 const DEPRECATED_V7 = 'This is now a noop and will be removed in v7.0.0 🚨';
 
+const DEFAULT_REPORTERS: BettererCLIArguments = ['@betterer/reporter'];
+
 export function ciCommand(): Command {
   command = new Command(BettererCommand.ci);
   cacheOption();
@@ -169,7 +171,9 @@ function reportersOptions(): void {
   command.option(
     '-R, --reporter [value]',
     'npm package name for a Betterer reporter. Takes multiple values',
-    argsToArray
+    (value: string, previous: BettererCLIArguments) =>
+      previous === DEFAULT_REPORTERS ? [value] : previous.concat([value]),
+    DEFAULT_REPORTERS
   );
   command.option(
     '-s, --silent',

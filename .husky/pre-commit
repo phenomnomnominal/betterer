@@ -1,1 +1,2 @@
 npx lint-staged --config config/lint-staged.config.mjs
+npm run betterer:precommit
