@@ -15,10 +15,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
+          cache: 'npm'
       - name: Test Build
         run: |
           npm install
-          npm run api
+          npm run api:all
           npm run docs
           cd website
           npm install
@@ -32,6 +33,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
+          cache: 'npm'
       - name: Add key to allow access to repository
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
@@ -53,7 +55,7 @@ jobs:
           git config --global user.email "actions@gihub.com"
           git config --global user.name "gh-actions"
           npm install
-          npm run api
+          npm run api:all
           npm run docs
           cd website
           npm install

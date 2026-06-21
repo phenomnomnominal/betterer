@@ -2,9 +2,10 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "module": "ES2020",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo"
   },
-  "include": ["./src/**/*.ts", "src/**/*.tsx", "./rollup.config.ts"],
+  "include": ["./src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["../node_modules/*", "./node_modules/*", "./dist/*"],
   "references": []
 }

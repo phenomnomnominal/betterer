@@ -40,7 +40,7 @@ export async function run(logger: BettererLogger, status: BettererLogger, packag
   await status.progress(`Validating dependencies for "${packageNameFull}" ...`);
 
   const { stdout } = await asyncExec(
-    `npm run knip -- --no-exit-code --reporter=json --workspace=packages/${packageName}`
+    `npx knip --config config/knip.json --no-exit-code --production --strict --tags=-knipignore,-internal --reporter=json --workspace=packages/${packageName}`
   );
 
   const lines = stdout.split('\n').filter(Boolean);
@@ -87,7 +87,8 @@ export async function run(logger: BettererLogger, status: BettererLogger, packag
   });
 
   if (errors.length) {
-    await Promise.all(errors.map((error) => logger.error(error)));
+    const logResults = errors.map((errorMessage) => logger.error(errorMessage));
+    await Promise.all(logResults.filter((result): result is Promise<void> => result instanceof Promise));
     throw new BettererError(`Dependency issues found in "${packageNameFull}"`);
   }
 

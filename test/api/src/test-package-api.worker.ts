@@ -10,7 +10,6 @@ import { fileURLToPath } from 'node:url';
 
 const EXCLUDED_PACKAGES = ['docgen', 'extension', 'fixture', 'render', 'time'];
 const EXTRACTION_EXTENSION = '.api.md';
-const EXTRACTION_CONFIG_FILE = 'api-extractor.json';
 
 const INTERNAL_TOKENS = ['Ω'];
 
@@ -18,6 +17,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PACKAGES_DIR = path.resolve(__dirname, '../../../packages');
 const GOLDENS_DIR = path.resolve(__dirname, '../../../goldens/api');
 const TEMP_DIR = path.resolve(__dirname, '../../../goldens/temp');
+const CONFIG_PATH = path.resolve(__dirname, '../../../config/api-extractor.json');
 
 export async function getPackages(): Promise<Array<string>> {
   const items = await fs.readdir(PACKAGES_DIR);
@@ -41,8 +41,30 @@ export async function run(status: BettererLogger, packageName: string): Promise<
   const packageGoldenPath = path.join(GOLDENS_DIR, `${packageName}${EXTRACTION_EXTENSION}`);
   const packageGeneratedPath = path.join(TEMP_DIR, `${packageName}${EXTRACTION_EXTENSION}`);
 
-  const apiExtractorJsonPath: string = path.join(PACKAGES_DIR, packageName, EXTRACTION_CONFIG_FILE);
-  const extractorConfig = ExtractorConfig.loadFileAndPrepare(apiExtractorJsonPath);
+  const packageDir = path.join(PACKAGES_DIR, packageName);
+  const packageJsonPath = path.join(packageDir, 'package.json');
+  const workspaceRoot = path.resolve(__dirname, '../../..');
+  const configObject = ExtractorConfig.loadFile(CONFIG_PATH);
+  const extractorConfig = ExtractorConfig.prepare({
+    configObject: {
+      ...configObject,
+      mainEntryPointFilePath: path.join(packageDir, 'dist', 'index.d.ts'),
+      projectFolder: packageDir,
+      apiReport: {
+        ...configObject.apiReport,
+        enabled: true,
+        reportFolder: path.resolve(workspaceRoot, 'goldens/api/'),
+        reportTempFolder: path.resolve(workspaceRoot, 'goldens/temp/')
+      },
+      docModel: {
+        ...configObject.docModel,
+        enabled: true,
+        apiJsonFilePath: path.resolve(workspaceRoot, 'goldens/models/<unscopedPackageName>.api.json')
+      }
+    },
+    configObjectFullPath: CONFIG_PATH,
+    packageJsonFullPath: packageJsonPath
+  });
 
   Extractor.invoke(extractorConfig, {
     messageCallback: (message) => (message.handled = true)
@@ -66,7 +88,7 @@ export async function run(status: BettererLogger, packageName: string): Promise<
   }
 
   const diff = diffStringsΔ(packageGolden, packageGenerated, { aAnnotation: 'Golden', bAnnotation: 'Current' });
-  throw new BettererError(`API changes found in "@betterer/${packageName.toString()}"`, diff);
+  throw new BettererError(`API changes found in "@betterer/${packageName}"`, diff);
 }
 
 function checkForBannedTokens(types: string, token: string): boolean {

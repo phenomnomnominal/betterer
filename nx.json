@@ -1,0 +1,70 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "compile": {
+      "dependsOn": ["^compile"],
+      "outputs": ["{projectRoot}/dist", "{projectRoot}/tsconfig.tsbuildinfo"],
+      "cache": true
+    },
+    "lint": {
+      "options": {
+        "command": "eslint --cache ."
+      }
+    }
+  },
+  "defaultBase": "master",
+  "release": {
+    "projects": ["packages/*", "!packages/extension", "!packages/fixture", "!packages/docgen"],
+    "projectsRelationship": "fixed",
+    "version": {
+      "currentVersionResolver": "disk",
+      "preVersionCommand": "nx run-many -t sync:metadata"
+    },
+    "changelog": {
+      "workspaceChangelog": true,
+      "projectChangelogs": false
+    },
+    "git": {
+      "commit": true,
+      "commitMessage": "chore(release 🔖): publish {version}",
+      "tag": true
+    }
+  },
+  "plugins": [
+    {
+      "plugin": "./tools/nx-plugin-betterer-monorepo-api/src/index.ts"
+    },
+    {
+      "plugin": "./tools/nx-plugin-betterer-monorepo-clean/src/index.ts"
+    },
+    {
+      "plugin": "./tools/nx-plugin-betterer-monorepo-metadata/src/index.ts"
+    },
+    {
+      "plugin": "@nx/js/typescript",
+      "options": {
+        "typecheck": {
+          "targetName": "typecheck"
+        },
+        "build": {
+          "targetName": "compile",
+          "configName": "tsconfig.json"
+        }
+      }
+    },
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      }
+    },
+    {
+      "plugin": "@nx/vite/plugin",
+      "options": {
+        "testTargetName": "test",
+        "typecheckTargetName": "typecheck"
+      }
+    }
+  ],
+  "analytics": false
+}

@@ -2,7 +2,6 @@ import { BettererError } from '@betterer/errors';
 
 import type { BettererConfig, BettererOptionsOverride } from '../config/index.js';
 import type { BettererFilePaths, BettererFileResolverΩ } from '../fs/index.js';
-import type { BettererReporterΩ } from '../reporters/index.js';
 import type {
   BettererSuite,
   BettererSuites,
@@ -79,7 +78,7 @@ export class BettererContextΩ implements BettererContext {
     const suiteΩ = await BettererSuiteΩ.create(filePaths);
     this._suites.push(suiteΩ);
 
-    const reporterΩ = reporter as BettererReporterΩ;
+    const reporterΩ = reporter;
 
     // Don't await here! A custom reporter could be awaiting
     // the lifecycle promise which is unresolved right now!

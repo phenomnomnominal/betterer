@@ -25,18 +25,15 @@
   "bugs": {
     "url": "https://github.com/phenomnomnominal/betterer/issues"
   },
-  "scripts": {
-    "compile": "tsc -b .",
-    "api": "api-extractor run --local --verbose"
-  },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "dependencies": {
     "@betterer/betterer": "^6.0.0-alpha.1",
     "@betterer/errors": "^6.0.0-alpha.1",
     "@betterer/logger": "^6.0.0-alpha.1",
     "@betterer/render": "^6.0.0-alpha.1",
+    "@betterer/reporter": "^6.0.0-alpha.1",
     "@betterer/tasks": "^6.0.0-alpha.1",
     "@betterer/worker": "^6.0.0-alpha.1",
     "@phenomnomnominal/tsquery": "^6.1.3",
@@ -45,6 +42,5 @@
     "commander": "^8.3.0",
     "find-up": "^7.0.0",
     "prettier": "^3.2.5"
-  },
-  "gitHead": "821992635c8b6a4891169dad3334203f866e5521"
+  }
 }

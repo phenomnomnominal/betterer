@@ -75,9 +75,7 @@ export type KnipIssues = ReadonlyArray<KnipIssue>;
 /** @knipignore used by an exported function */
 export type KnipFileIssues = {
   file: string;
-} & {
-  [IssueType in KnipIssueType]: KnipIssues;
-};
+} & Record<KnipIssueType, KnipIssues>;
 
 /** @knipignore used by an exported function */
 export type KnipFilesIssues = ReadonlyArray<KnipFileIssues>;

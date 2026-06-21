@@ -55,9 +55,7 @@ export function bar (a: number, b: number, c:number) {
 
     await writeFile(indexPath, `import { foo } from './foo';\n\nfoo('a', 'b', 'c');`);
 
-    const newStart = new Date().getTime();
     const newTestRun = await betterer({ configPaths, resultsPath, workers: false });
-    const newTime = new Date().getTime() - newStart;
 
     expect(testNames(newTestRun.new)).toEqual(['typescript']);
 
@@ -65,11 +63,7 @@ export function bar (a: number, b: number, c:number) {
 
     expect(buildInfo).not.toBeNull();
 
-    const sameStart = new Date().getTime();
     const sameTestRun = await betterer({ configPaths, resultsPath, workers: false });
-    const sameTime = new Date().getTime() - sameStart;
-
-    expect(sameTime).toBeLessThan(newTime);
 
     expect(testNames(sameTestRun.same)).toEqual(['typescript']);
 

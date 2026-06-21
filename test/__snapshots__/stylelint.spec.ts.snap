@@ -9,8 +9,8 @@ exports[`betterer > should report the status of a new stylelint rule 1`] = `
 exports[\`stylelint\`] = {
   value: \`{
     "src/styles.scss:3896471814": [
-      [3, 2, 0, "stylelint(order/order): Expected rule with selector matching \\\\"/^&:\\\\\\\\w/\\\\" to come before rule with selector matching \\\\"/^&/\\\\"", "1075804560"],
-      [7, 9, 0, "stylelint(unit-no-unknown): Unexpected unknown unit \\\\"borks\\\\"", "3713529269"]
+      [3, 2, 41, "stylelint(order/order): Expected rule with selector matching \\\\"/^&:\\\\\\\\w/\\\\" to come before rule with selector matching \\\\"/^&/\\\\"", "193522102"],
+      [7, 9, 11, "stylelint(unit-no-unknown): Unexpected unknown unit \\\\"borks\\\\"", "3895723928"]
     ]
   }\`
 };
@@ -43,13 +43,40 @@ exports[`betterer > should report the status of a new stylelint rule 2`] = `
 ・ 2 existing, 2 new issues in "fixtures/stylelint/src/styles.scss".
 ・ Showing first of 2 new issues:
 ・
-・   12 |   b & {}
-・   13 |   & b {}
+・    2 |   b & {}
+・    3 |   & b {}
+・ >  4 |   &:hover {}
+・      |   ^^^^^^^^^^
+・ >  5 | }
+・      | ^
+・ >  6 |
+・      | ^
+・ >  7 | .foo {
+・      | ^
+・ >  8 |   width: 666borks;
+・      | ^
+・ >  9 | }
+・      | ^
+・ > 10 |
+・      | ^
+・ > 11 | a {
+・      | ^
+・ > 12 |   b & {}
+・      | ^
+・ > 13 |   & b {}
+・      | ^
 ・ > 14 |   &:hover {}
-・      |   ^ stylelint(order/order): Expected rule with selector matching "/^&:/w/" to come before rule with selector matching "/^&/"
-・   15 | }
-・   16 |
-・   17 | .foo {
+・      | ^
+・ > 15 | }
+・      | ^
+・ > 16 |
+・      | ^
+・ > 17 | .foo {
+・      | ^
+・ > 18 |   width: 666borks;
+・      | ^
+・ > 19 | }
+・      | ^^ stylelint(order/order): Expected rule with selector matching "/^&:/w/" to come before rule with selector matching "/^&/"
 ・
 ",
   "💥 Betterer (0ms): 1 test done! 1 test errored!
@@ -57,13 +84,40 @@ exports[`betterer > should report the status of a new stylelint rule 2`] = `
 ・ 2 existing, 2 new issues in "fixtures/stylelint/src/styles.scss".
 ・ Showing first of 2 new issues:
 ・
-・   12 |   b & {}
-・   13 |   & b {}
+・    2 |   b & {}
+・    3 |   & b {}
+・ >  4 |   &:hover {}
+・      |   ^^^^^^^^^^
+・ >  5 | }
+・      | ^
+・ >  6 |
+・      | ^
+・ >  7 | .foo {
+・      | ^
+・ >  8 |   width: 666borks;
+・      | ^
+・ >  9 | }
+・      | ^
+・ > 10 |
+・      | ^
+・ > 11 | a {
+・      | ^
+・ > 12 |   b & {}
+・      | ^
+・ > 13 |   & b {}
+・      | ^
 ・ > 14 |   &:hover {}
-・      |   ^ stylelint(order/order): Expected rule with selector matching "/^&:/w/" to come before rule with selector matching "/^&/"
-・   15 | }
-・   16 |
-・   17 | .foo {
+・      | ^
+・ > 15 | }
+・      | ^
+・ > 16 |
+・      | ^
+・ > 17 | .foo {
+・      | ^
+・ > 18 |   width: 666borks;
+・      | ^
+・ > 19 | }
+・      | ^^ stylelint(order/order): Expected rule with selector matching "/^&:/w/" to come before rule with selector matching "/^&/"
 ・
 
 1 test got checked. 🤔

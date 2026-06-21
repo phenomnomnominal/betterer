@@ -1,8 +1,9 @@
 import { defineConfig } from 'vitest/config';
 
-import config from './vitest.config.js';
+import config from '../vitest.config.js';
 
 export default defineConfig({
+  plugins: config.plugins,
   test: {
     ...config.test,
     include: ['test/**/*.e2e.spec.ts'],

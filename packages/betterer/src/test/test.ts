@@ -7,6 +7,7 @@ import type {
 } from './types.js';
 
 import { BettererTestConfigΩ, createDeadline, createGoal } from './config.js';
+import { isBettererFileTest } from './file-test/index.js';
 import { checkBaseName } from './utils.js';
 
 /**
@@ -111,5 +112,5 @@ export class BettererTest<DeserialisedType = unknown, SerialisedType = Deseriali
 }
 
 export function isBettererTest(test: unknown): test is BettererTest {
-  return !!test && checkBaseName(test.constructor, BettererTest.name);
+  return !!test && (checkBaseName(test.constructor, BettererTest.name) || isBettererFileTest(test));
 }

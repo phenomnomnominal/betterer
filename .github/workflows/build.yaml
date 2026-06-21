@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x, 18.x, 20.x, 22.x]
+        node-version: [18.x, 20.x, 22.x]
         operating-system: [windows-latest, macOS-latest, ubuntu-latest]
 
     steps:
@@ -22,6 +22,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix['node-version'] }}
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm install
@@ -31,3 +32,25 @@ jobs:
 
       - name: Coverage
         run: cat ./reports/unit-coverage/coverage-summary.md >> $GITHUB_STEP_SUMMARY
+
+  affected:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - uses: nrwl/nx-set-shas@v4
+
+      - name: Lint and typecheck affected projects
+        run: npx nx affected -t lint typecheck

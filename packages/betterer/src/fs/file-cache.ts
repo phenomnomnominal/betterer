@@ -41,7 +41,6 @@ const BETTERER_CACHE_VERSION = 2;
 // Of course the actual test itself could have changed so ... 🤷‍♂️
 
 export class BettererFileCacheΩ implements BettererFileCache {
-  private _fileHashMap: BettererFileHashMap = new Map();
   private _memoryCacheMap: BettererTestCacheMap = new Map();
 
   private constructor(
@@ -60,16 +59,6 @@ export class BettererFileCacheΩ implements BettererFileCache {
   }
 
   public async writeCache(): Promise<void> {
-    // Clean up any expired cache entries before writing to disk:
-    [...this._memoryCacheMap.entries()].forEach(([, fileHashMap]) => {
-      [...fileHashMap.entries()].forEach(([filePath]) => {
-        const hash = this._fileHashMap.get(filePath);
-        if (hash == null) {
-          this._memoryCacheMap.delete(filePath);
-        }
-      });
-    });
-
     // Convert Map to Record so it can be serialised to disk:
     const relativeTestCache: BettererTestCacheMapSerialised = {};
     [...this._memoryCacheMap.entries()].sort(sortEntriesKeys).forEach(([testName, absoluteFileHashMap]) => {

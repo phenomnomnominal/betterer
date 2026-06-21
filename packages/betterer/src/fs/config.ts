@@ -21,6 +21,7 @@ import {
   validateStringArray
 } from '../config/index.js';
 import { getGlobals } from '../globals.js';
+import { normalisedPath } from '../utils.js';
 
 const BETTERER_CACHE = './.betterer.cache';
 const BETTERER_RESULTS = './.betterer.results';
@@ -45,10 +46,10 @@ export async function createFSConfig(
   const resultsPath = options.resultsPath ?? BETTERER_RESULTS;
   const [configPath] = validatedConfigPaths;
 
-  const basePath = options.basePath ? path.resolve(cwd, options.basePath) : path.dirname(configPath);
+  const basePath = options.basePath ? resolvePath(cwd, options.basePath) : normalisedPath(path.dirname(configPath));
   await validateDirectory({ basePath });
 
-  const repoPath = options.repoPath ? path.resolve(cwd, options.repoPath) : basePath;
+  const repoPath = options.repoPath ? resolvePath(cwd, options.repoPath) : basePath;
   await validateDirectory({ repoPath });
 
   validateString({ cwd });
@@ -67,12 +68,12 @@ export async function createFSConfig(
   return {
     basePath,
     cache,
-    cachePath: path.resolve(cwd, cachePath),
+    cachePath: resolvePath(cwd, cachePath),
     cwd,
     configPaths: validatedConfigPaths,
     ignores,
     repoPath,
-    resultsPath: path.resolve(cwd, resultsPath),
+    resultsPath: resolvePath(cwd, resultsPath),
     tsconfigPath: tsconfigPath != null ? path.resolve(cwd, tsconfigPath) : null,
     versionControlPath: gitPath ?? null,
     watch
@@ -91,10 +92,14 @@ const JS_EXTENSIONS = ['.js', '.cjs', '.mjs'];
 const TS_EXTENSIONS = ['.ts', '.tsx', '.cts', '.ctsx', '.mtx', '.mtsx'];
 const IMPORT_EXTENSIONS = [...JS_EXTENSIONS, ...TS_EXTENSIONS];
 
+function resolvePath(cwd: string, filePath: string): string {
+  return normalisedPath(path.resolve(cwd, filePath));
+}
+
 async function validateConfigPaths(cwd: string, configPaths: Array<string>): Promise<BettererConfigPaths> {
   const validatedConfigPaths = await Promise.all(
     configPaths.map(async (configPath) => {
-      const absoluteConfigPath = path.resolve(cwd, configPath);
+      const absoluteConfigPath = resolvePath(cwd, configPath);
       const { dir, name, ext } = path.parse(absoluteConfigPath);
 
       if (ext) {
@@ -109,7 +114,7 @@ async function validateConfigPaths(cwd: string, configPaths: Array<string>): Pro
       try {
         return await Promise.any(
           IMPORT_EXTENSIONS.map(async (importExt) => {
-            const possibleConfigPath = path.join(dir, `${name}${importExt}`);
+            const possibleConfigPath = resolvePath(dir, `${name}${importExt}`);
             await validateFilePath({ possibleConfigPath });
             return possibleConfigPath;
           })

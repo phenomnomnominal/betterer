@@ -19,9 +19,7 @@ export type KnipIssues = ReadonlyArray<KnipIssue>;
 
 export type KnipFileIssues = {
   file: string;
-} & {
-  [IssueType in KnipIssueType]: KnipIssues;
-};
+} & Record<KnipIssueType, KnipIssues>;
 
 export type KnipFilesIssues = ReadonlyArray<KnipFileIssues>;
 

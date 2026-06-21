@@ -21,12 +21,8 @@
   "bugs": {
     "url": "https://github.com/phenomnomnominal/betterer/issues"
   },
-  "scripts": {
-    "compile": "tsc -b .",
-    "api": "api-extractor run --local --verbose"
-  },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "dependencies": {
     "@betterer/betterer": "^6.0.0-alpha.1",
@@ -35,6 +31,5 @@
   },
   "peerDependencies": {
     "knip": "^5"
-  },
-  "gitHead": "821992635c8b6a4891169dad3334203f866e5521"
+  }
 }

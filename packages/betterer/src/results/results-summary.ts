@@ -65,7 +65,7 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
 
       return new BettererResultsSummaryΩ(testStatuses, onlyFileTests);
     } catch (error) {
-      await reporter.configError?.(config, error as BettererError);
+      await reporter.configError(config, error as BettererError);
       throw error;
     } finally {
       await destroyGlobals();

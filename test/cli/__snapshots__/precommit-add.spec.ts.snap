@@ -35,5 +35,3 @@ exports[`betterer precommit > should add the results file to the changeset if th
 ",
 ]
 `;
-
-exports[`betterer precommit > should add the results file to the changeset if there is any change to the results file 2`] = `"fixtures/precommit-add/.betterer.results"`;

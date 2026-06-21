@@ -66,7 +66,7 @@ export function importText(filePath: string, text: string): unknown {
 }
 
 function getDefaultExport(module: unknown): unknown {
-  return (module as ESModule).default || module;
+  return (module as ESModule).default ?? module;
 }
 
 async function importFrom(importPath: string, esbuild: ESBuild): Promise<[unknown, string]> {

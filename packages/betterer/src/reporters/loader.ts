@@ -1,16 +1,12 @@
-import type {
-  BettererOptionsReporters,
-  BettererReporter,
-  BettererReporterFactory,
-  BettererReporterModule
-} from './types.js';
+import type { BettererOptionsReporters, BettererReporter, BettererReporterModule } from './types.js';
 
-import { BettererError, invariantΔ } from '@betterer/errors';
+import { BettererError } from '@betterer/errors';
 import path from 'node:path';
 
 import { importDefault, importTranspiled } from '../fs/index.js';
 import { BettererRunLoggerΩ } from '../run/index.js';
 import { isFunction, isString } from '../utils.js';
+import { createDefaultReporter } from './default-reporter.js';
 import { BettererReporterΩ } from './reporter.js';
 
 const REPORTER_HOOK_NAMES = Object.getOwnPropertyNames(BettererReporterΩ.prototype) as ReadonlyArray<
@@ -20,22 +16,13 @@ const RUN_LOGGER_HOOK_NAMES = Object.getOwnPropertyNames(BettererRunLoggerΩ.pro
   keyof BettererRunLoggerΩ
 >;
 
-export async function loadDefaultReporter(): Promise<BettererReporterΩ> {
-  const reporterFactory = await importDefault('@betterer/reporter');
-  assertDefaultReporter(reporterFactory);
-  return new BettererReporterΩ([reporterFactory.createReporterΔ()]);
-}
-
-function assertDefaultReporter(reporterFactory: unknown): asserts reporterFactory is BettererReporterFactory {
-  invariantΔ(
-    (reporterFactory as Partial<BettererReporterFactory>).createReporterΔ,
-    `"@betterer/reporter" didn't provider a reporter factory!`
-  );
+export function loadDefaultReporter(): BettererReporterΩ {
+  return new BettererReporterΩ([createDefaultReporter()]);
 }
 
 export async function loadReporters(reporters: BettererOptionsReporters, cwd: string): Promise<BettererReporterΩ> {
   if (reporters.length === 0) {
-    return await loadDefaultReporter();
+    return loadDefaultReporter();
   }
 
   return new BettererReporterΩ(

@@ -13,6 +13,4 @@ export interface BettererConfig extends BettererConfigFS, BettererConfigReporter
  * @remarks The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
  */
 export interface BettererOptionsOverride
-  extends BettererOptionsContextOverride,
-    BettererOptionsReporterOverride,
-    BettererOptionsWatcherOverride {}
+  extends BettererOptionsContextOverride, BettererOptionsReporterOverride, BettererOptionsWatcherOverride {}

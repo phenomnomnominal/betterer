@@ -7,7 +7,7 @@ slug: /reporters
 
 ### Default reporter
 
-**Betterer** has a reporter system for hooking into the test runner. The default reporter lives in it's own package ([`@betterer/reporter`](https://www.npmjs.com/package/@betterer/reporter)), and uses [Ink](https://github.com/vadimdemedes/ink) for fancy terminal output:
+**Betterer** has a reporter system for hooking into the test runner. The engine ships with a built-in plain-text reporter by default, while the [`@betterer/cli`](https://www.npmjs.com/package/@betterer/cli) defaults to [`@betterer/reporter`](https://www.npmjs.com/package/@betterer/reporter), which uses [Ink](https://github.com/vadimdemedes/ink) for fancy terminal output:
 
 <!-- prettier-ignore -->
 <div className="video__container">

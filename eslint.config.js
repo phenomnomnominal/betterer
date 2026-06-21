@@ -2,6 +2,7 @@ import { FlatCompat } from '@eslint/eslintrc';
 import jsLint from '@eslint/js';
 import comments from '@eslint-community/eslint-plugin-eslint-comments/configs';
 import prettier from 'eslint-config-prettier';
+import nodePlugin from 'eslint-plugin-n';
 import globals from 'globals';
 import tsLint from 'typescript-eslint';
 
@@ -16,7 +17,7 @@ const compat = new FlatCompat({
 });
 
 export default tsLint.config(
-  { files: ['packages/**/src/**/*.{ts,tsx}', 'test/**/*.{ts,tsx}', '*.{ts}'] },
+  { files: ['packages/**/src/**/*.{ts,tsx}', 'test/**/*.{ts,tsx}', 'tools/**/src/**/*.ts', '*.{ts}'] },
   {
     ignores: ['**/node_modules/**', '**/dist/**', 'fixtures/**', 'reports/**', 'website/**', '**/.vscode-test/**']
   },
@@ -35,7 +36,7 @@ export default tsLint.config(
     languageOptions: {
       globals: globals.browser,
       parserOptions: {
-        project: './tsconfig.eslint.json',
+        project: './config/tsconfig.eslint.json',
         tsconfigRootDir: dirname
       }
     }
@@ -48,6 +49,15 @@ export default tsLint.config(
     rules: {
       'no-console': 'error',
       '@eslint-community/eslint-comments/require-description': ['error', { ignore: ['eslint-enable'] }]
+    }
+  },
+
+  {
+    plugins: { n: nodePlugin },
+    rules: {
+      'n/prefer-node-protocol': 'error',
+      'n/no-deprecated-api': 'error',
+      'n/no-unsupported-features/node-builtins': 'error'
     }
   },
 
@@ -75,7 +85,7 @@ export default tsLint.config(
   },
 
   {
-    files: ['*.js'],
+    files: ['*.js', '**/bin/*.js', '**/*.mjs'],
     ...tsLint.configs.disableTypeChecked
   },
 

@@ -5,7 +5,6 @@ export type {
   BettererOptionsReporterOverride,
   BettererOptionsReporters,
   BettererReporter,
-  BettererReporterFactory,
   BettererReporterModule,
   BettererRunLogFunction,
   BettererRunLogger

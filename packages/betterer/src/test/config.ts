@@ -16,9 +16,11 @@ import { format } from 'prettier';
 
 import { isFunction } from '../utils.js';
 
-export class BettererTestConfigΩ<DeserialisedType = number, SerialisedType = DeserialisedType, DiffType = null>
-  implements BettererTestConfig<DeserialisedType, SerialisedType, DiffType>
-{
+export class BettererTestConfigΩ<
+  DeserialisedType = number,
+  SerialisedType = DeserialisedType,
+  DiffType = null
+> implements BettererTestConfig<DeserialisedType, SerialisedType, DiffType> {
   public constraint: BettererTestConstraint<DeserialisedType>;
   public goal: BettererTestGoal<DeserialisedType>;
   public deadline: number;

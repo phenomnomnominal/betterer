@@ -1,8 +1,22 @@
-import { describe, it, expect } from 'vitest';
+import type { SimpleGit, SimpleGitFactory } from 'simple-git';
 
-import { simpleGit } from 'simple-git';
+type SimpleGitModule = typeof import('simple-git');
+
+import { describe, it, expect, vi, vitest } from 'vitest';
 
 import { createFixture } from '../fixture.js';
+
+const gitAddMock = vi.fn<SimpleGit['add']>();
+
+vitest.mock('simple-git', async (importOriginal): Promise<SimpleGitModule> => {
+  const sg = await importOriginal<SimpleGitModule>();
+  const simpleGit = ((...args: Parameters<SimpleGitFactory>) => {
+    const instance = sg.simpleGit(...args);
+    instance.add = gitAddMock;
+    return instance;
+  }) as SimpleGitFactory;
+  return { ...sg, simpleGit };
+});
 
 const ARGV = ['node', './bin/betterer'];
 
@@ -40,7 +54,6 @@ export default {
       `
     });
 
-    const resultsPath = paths.results;
     const fixturePath = paths.cwd;
     const indexPath = resolve('./src/index.ts');
 
@@ -56,12 +69,7 @@ export default {
 
     expect(logs).toMatchSnapshot();
 
-    const git = simpleGit();
-    const status = await git.status([paths.results]);
-    const [stagedResultsPath] = status.staged;
-    expect(stagedResultsPath).toMatchSnapshot();
-
-    await git.reset([resultsPath]);
+    expect(gitAddMock).toHaveBeenCalledWith(paths.results);
 
     await cleanup();
   });

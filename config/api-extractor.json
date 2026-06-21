@@ -5,13 +5,13 @@
   "apiReport": {
     "enabled": true,
     "reportFileName": "<unscopedPackageName>.api.md",
-    "reportFolder": "./goldens/api/",
-    "reportTempFolder": "./goldens/temp/"
+    "reportFolder": "../goldens/api/",
+    "reportTempFolder": "../goldens/temp/"
   },
 
   "docModel": {
     "enabled": true,
-    "apiJsonFilePath": "./goldens/models/<unscopedPackageName>.api.json"
+    "apiJsonFilePath": "../goldens/models/<unscopedPackageName>.api.json"
   },
 
   "dtsRollup": {
@@ -29,6 +29,10 @@
       "default": {
         "logLevel": "warning",
         "addToApiReportFile": true
+      },
+      "ae-internal-missing-underscore": {
+        "logLevel": "none",
+        "addToApiReportFile": false
       }
     },
     "tsdocMessageReporting": {

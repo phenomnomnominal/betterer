@@ -1,0 +1,149 @@
+{
+  "name": "workspace",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run-many -t compile --exclude betterer-vscode",
+          "nx run-many -t api",
+          "npm run test:api",
+          "npm run test:dependencies",
+          "npm run format:all",
+          "npm run lint:all",
+          "npm run test:e2e",
+          "npm run test"
+        ],
+        "parallel": false
+      }
+    },
+    "build:ci": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run workspace:clean:compile:all",
+          "nx run workspace:build",
+          "node ./packages/cli/bin/betterer ci --config config/.betterer.ts --results config/.betterer.results"
+        ],
+        "parallel": false
+      }
+    },
+    "build:extension": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["nx run workspace:clean", "nx run-many -t build:extension"],
+        "parallel": false
+      }
+    },
+    "build:publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run workspace:clean",
+          "nx run-many -t compile --exclude betterer-vscode",
+          "nx run-many -t api",
+          "npm run test:api",
+          "npm run test:dependencies",
+          "npm run test"
+        ],
+        "parallel": false
+      }
+    },
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run workspace:clean:tests",
+          "nx run workspace:clean:compile:all",
+          "nx run workspace:clean:modules:all"
+        ],
+        "parallel": false
+      }
+    },
+    "clean:compile:all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx run-many -t clean:compile"
+      }
+    },
+    "clean:modules:all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run-many -t clean:modules",
+          "rimraf website/node_modules",
+          "rimraf node_modules",
+          "npm install"
+        ],
+        "parallel": false
+      }
+    },
+    "compile:all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx run-many -t compile --exclude betterer-vscode"
+      }
+    },
+    "docs": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "node --import tsx ./tools/docs/filter.ts",
+          "api-documenter generate -i ./goldens/models -o ./website/docs/api/"
+        ],
+        "parallel": false
+      },
+      "dependsOn": ["api:all"]
+    },
+    "api:all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx run-many -t api"
+      }
+    },
+    "format:all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "prettier \"**/*\" --write --log-level=error"
+      }
+    },
+    "lint:all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "eslint --cache --cache-location \"./node_modules/.cache/eslint/\" --fix"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["nx run workspace:clean:tests", "vitest --config vitest.config.ts"],
+        "parallel": false
+      }
+    },
+    "test:api": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -b test/api && node ./test/api/dist"
+      }
+    },
+    "test:dependencies": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -b test/dependencies && node ./test/dependencies/dist && knip --config config/knip.json --no-exit-code --production --strict --tags=-knipignore,-internal"
+      }
+    },
+    "test:e2e": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["nx run workspace:clean:tests", "vitest --config config/vitest.e2e.config.ts"],
+        "parallel": false
+      }
+    },
+    "test:extension": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx run-many -t test:extension"
+      }
+    }
+  }
+}

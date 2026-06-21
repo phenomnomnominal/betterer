@@ -8,10 +8,10 @@ exports[`betterer > should still reports errors if another file effects a cached
 //
 exports[\`angular\`] = {
   value: \`{
-    "src/app/app.component.ts:1689234207": [
-      [6, 8, 5, "ngtsc: Property \\'title\\' does not exist on type \\'AppComponent\\'.", "183222373"],
-      [8, 34, 7, "ngtsc: Type \\'(hero: Hero) => number\\' is not assignable to type \\'TrackByFunction<Hero>\\'.", "926731729"],
-      [9, 17, 2, "ngtsc: Property \\'Id\\' does not exist on type \\'Hero\\'. Did you mean \\'id\\'?", "5862152"]
+    "src/app/app.component.ts:1635298491": [
+      [7, 8, 5, "ngtsc: Property \\'title\\' does not exist on type \\'AppComponent\\'.", "183222373"],
+      [9, 34, 7, "ngtsc: Type \\'(hero: Hero) => number\\' is not assignable to type \\'TrackByFunction<Hero>\\'.\\\\n  Types of parameters \\'hero\\' and \\'index\\' are incompatible.\\\\n    Type \\'number\\' is not assignable to type \\'Hero\\'.", "926731729"],
+      [10, 17, 2, "ngtsc: Property \\'Id\\' does not exist on type \\'Hero\\'. Did you mean \\'id\\'?", "5862152"]
     ]
   }\`
 };
@@ -70,13 +70,13 @@ exports[`betterer > should still reports errors if another file effects a cached
 ・ 3 fixed, 4 new issues in "fixtures/angular-cache/src/app/app.component.ts".
 ・ Showing first of 4 new issues:
 ・
-・   15 | export class AppComponent {
-・   16 |   public heroes: Array<Hero> = [
-・ > 17 |     { id: 10, name: "Landon" },
+・   16 | export class AppComponent {
+・   17 |   public heroes: Array<Hero> = [
+・ > 18 |     { id: 10, name: "Landon" },
 ・      |     ^^^^^^^^^^^^^^^^^^^^^^^^^^ ng: Property 'power' is missing in type '{ id: number; name: string; }' but required in type 'Hero'.
-・   18 |     { id: 20, name: "Ella" },
-・   19 |     { id: 30, name: "Madelyn" },
-・   20 |     { id: 40, name: "Haley" }
+・   19 |     { id: 20, name: "Ella" },
+・   20 |     { id: 30, name: "Madelyn" },
+・   21 |     { id: 40, name: "Haley" }
 ・
 ",
   "Checked 1 file! 🔍
@@ -88,13 +88,13 @@ exports[`betterer > should still reports errors if another file effects a cached
 ・ 3 fixed, 4 new issues in "fixtures/angular-cache/src/app/app.component.ts".
 ・ Showing first of 4 new issues:
 ・
-・   15 | export class AppComponent {
-・   16 |   public heroes: Array<Hero> = [
-・ > 17 |     { id: 10, name: "Landon" },
+・   16 | export class AppComponent {
+・   17 |   public heroes: Array<Hero> = [
+・ > 18 |     { id: 10, name: "Landon" },
 ・      |     ^^^^^^^^^^^^^^^^^^^^^^^^^^ ng: Property 'power' is missing in type '{ id: number; name: string; }' but required in type 'Hero'.
-・   18 |     { id: 20, name: "Ella" },
-・   19 |     { id: 30, name: "Madelyn" },
-・   20 |     { id: 40, name: "Haley" }
+・   19 |     { id: 20, name: "Ella" },
+・   20 |     { id: 30, name: "Madelyn" },
+・   21 |     { id: 40, name: "Haley" }
 ・
 
 1 test got checked. 🤔
