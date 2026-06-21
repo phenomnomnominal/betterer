@@ -11,8 +11,8 @@
           "npm run test:dependencies",
           "npm run format:all",
           "npm run lint:all",
-          "npm run test",
-          "npm run test:e2e"
+          "npm run test:e2e",
+          "npm run test"
         ],
         "parallel": false
       }
