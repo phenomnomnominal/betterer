@@ -160,6 +160,46 @@ Error: "filters" must be an array of strings or RegExps. Received \`[true]\`.
 ]
 `;
 
+exports[`betterer > should throw when there is invalid config: { includes: [ /foo/ ] } 1`] = `
+[
+  "
+Error: "includes" must be an array of strings. Received \`["/foo/"]\`.
+",
+]
+`;
+
+exports[`betterer > should throw when there is invalid config: { includes: [ 1234 ] } 1`] = `
+[
+  "
+Error: "includes" must be an array of strings. Received \`[1234]\`.
+",
+]
+`;
+
+exports[`betterer > should throw when there is invalid config: { includes: {} } 1`] = `
+[
+  "
+Error: "includes" must be an array of strings. Received \`[{}]\`.
+",
+]
+`;
+
+exports[`betterer > should throw when there is invalid config: { includes: 1234 } 1`] = `
+[
+  "
+Error: "includes" must be an array of strings. Received \`[1234]\`.
+",
+]
+`;
+
+exports[`betterer > should throw when there is invalid config: { includes: true } 1`] = `
+[
+  "
+Error: "includes" must be an array of strings. Received \`[true]\`.
+",
+]
+`;
+
 exports[`betterer > should throw when there is invalid config: { logo: [ 1234 ] } 1`] = `
 [
   "
@@ -331,7 +371,7 @@ Error: "workers" must be a number. Received \`{}\`.
 exports[`betterer > should throw when there is invalid config: { workers: -1 } 1`] = `
 [
   "
-Error: "workers" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Received \`-1\`.
+Error: "workers" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\` or \`0\`. Received \`-1\`.
 ",
 ]
 `;
@@ -339,7 +379,7 @@ Error: "workers" must be more than zero and not more than the number of availabl
 exports[`betterer > should throw when there is invalid config: { workers: 1000 } 1`] = `
 [
   "
-Error: "workers" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Received \`1000\`.
+Error: "workers" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\` or \`0\`. Received \`1000\`.
 ",
 ]
 `;
@@ -347,7 +387,7 @@ Error: "workers" must be more than zero and not more than the number of availabl
 exports[`betterer > should throw when there is invalid config: { workers: NaN } 1`] = `
 [
   "
-Error: "workers" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Received \`NaN\`.
+Error: "workers" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\` or \`0\`. Received \`NaN\`.
 ",
 ]
 `;

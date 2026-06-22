@@ -116,7 +116,7 @@ export interface BettererSuiteSummary extends BettererSuite {
   readonly failed: BettererRunSummaries;
   /**
    * An array containing a {@link @betterer/betterer#BettererRunSummary | `BettererRunSummary`}
-   * for each test that was run for the first time.
+   * for each test that was run for the first time, unless it was already complete.
    */
   readonly new: BettererRunSummaries;
   /**
@@ -136,7 +136,7 @@ export interface BettererSuiteSummary extends BettererSuite {
   readonly removed: BettererRunSummaries;
   /**
    * An array containing a {@link @betterer/betterer#BettererRunSummary | `BettererRunSummary`}
-   * for each test that stayed the same.
+   * for each test that stayed the same, unless it was already complete.
    */
   readonly same: BettererRunSummaries;
   /**
@@ -151,7 +151,7 @@ export interface BettererSuiteSummary extends BettererSuite {
   readonly updated: BettererRunSummaries;
   /**
    * An array containing a {@link @betterer/betterer#BettererRunSummary | `BettererRunSummary`}
-   * for each test that got worse.
+   * for each test that got worse, unless `--update` was enabled.
    */
   readonly worse: BettererRunSummaries;
 }

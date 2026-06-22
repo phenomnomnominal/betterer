@@ -6,7 +6,7 @@ import type {
   BettererTestOptions
 } from './types.js';
 
-import { BettererTestConfigΩ, createDeadline, createGoal } from './config.js';
+import { BettererTestConfigΩ, createConstraint, createDeadline, createGoal } from './config.js';
 import { isBettererFileTest } from './file-test/index.js';
 import { checkBaseName } from './utils.js';
 
@@ -64,7 +64,7 @@ export class BettererTest<DeserialisedType = unknown, SerialisedType = Deseriali
    * @returns This {@link @betterer/betterer#BettererTest | `BettererTest`}, so it is chainable.
    */
   public constraint(constraintOverride: BettererTestConstraint<DeserialisedType>): this {
-    this._config.constraint = constraintOverride;
+    this._config.constraint = createConstraint({ constraint: constraintOverride });
     return this;
   }
 
@@ -75,7 +75,7 @@ export class BettererTest<DeserialisedType = unknown, SerialisedType = Deseriali
    * @returns This {@link @betterer/betterer#BettererTest | `BettererTest`}, so it is chainable.
    */
   public deadline(deadlineOverride: BettererTestDeadline): this {
-    this._config.deadline = createDeadline({ ...this.config, deadline: deadlineOverride });
+    this._config.deadline = createDeadline({ deadline: deadlineOverride });
     return this;
   }
 
@@ -86,27 +86,31 @@ export class BettererTest<DeserialisedType = unknown, SerialisedType = Deseriali
    * @returns This {@link @betterer/betterer#BettererTest | `BettererTest`}, so it is chainable.
    */
   public goal(goalOverride: BettererTestGoal<DeserialisedType>): this {
-    this._config.goal = createGoal({ ...this.config, goal: goalOverride });
+    this._config.goal = createGoal({ goal: goalOverride });
     return this;
   }
 
   /**
    * Run only this test. All other tests will be marked as skipped.
    *
+   * @remarks `only()` and `skip()` are mutually exclusive; calling this clears any previous `skip()`.
    * @returns This {@link @betterer/betterer#BettererTest | `BettererTest`}, so it is chainable.
    */
   public only(): this {
     this._isOnly = true;
+    this._isSkipped = false;
     return this;
   }
 
   /**
    * Skip this test.
    *
+   * @remarks `only()` and `skip()` are mutually exclusive; calling this clears any previous `only()`.
    * @returns This {@link @betterer/betterer#BettererTest | `BettererTest`}, so it is chainable.
    */
   public skip(): this {
     this._isSkipped = true;
+    this._isOnly = false;
     return this;
   }
 }

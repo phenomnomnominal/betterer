@@ -557,7 +557,7 @@ export interface BettererTestOptions<DeserialisedType, SerialisedType, DiffType>
     constraint: BettererTestConstraint<DeserialisedType>;
     deadline?: BettererTestDeadline;
     differ?: BettererDiffer<DeserialisedType, DiffType>;
-    goal: DeserialisedType | BettererTestGoal<DeserialisedType>;
+    goal?: DeserialisedType | BettererTestGoal<DeserialisedType>;
     printer?: BettererPrinter<SerialisedType>;
     progress?: BettererProgress<DeserialisedType>;
     serialiser?: BettererSerialiser<DeserialisedType, SerialisedType>;

@@ -81,16 +81,19 @@ export class BettererRunnerΩ implements BettererRunner {
     this._addJob(filePaths);
     try {
       await new Promise<void>((resolve, reject) => {
-        setTimeout(() => {
-          void (async () => {
-            try {
-              await this._processQueue();
-              resolve();
-            } catch (error) {
-              reject(error as BettererError);
-            }
-          })();
-        }, DEBOUNCE_TIME);
+        setTimeout(
+          () => {
+            void (async () => {
+              try {
+                await this._processQueue();
+                resolve();
+              } catch (error) {
+                reject(error as BettererError);
+              }
+            })();
+          },
+          this._isRunOnce ? 0 : DEBOUNCE_TIME
+        );
       });
     } catch (error) {
       await this.stop();
@@ -122,6 +125,11 @@ export class BettererRunnerΩ implements BettererRunner {
       await this._running;
 
       const contextSummary = await this._context.stop();
+
+      if (contextSummary.suites.length === 0) {
+        throw new BettererError('You cannot stop a runner before it has run any tests! 💥');
+      }
+
       const suiteSummaryΩ = contextSummary.lastSuite as BettererSuiteSummaryΩ;
 
       const { config, fs, results } = getGlobals();

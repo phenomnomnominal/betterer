@@ -19,7 +19,7 @@ export function isString(value: unknown): value is string {
   return typeof value === 'string';
 }
 
-export function isRegExp(value: unknown): value is string {
+export function isRegExp(value: unknown): value is RegExp {
   return Object.prototype.toString.call(value) === '[object RegExp]';
 }
 

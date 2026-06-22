@@ -32,7 +32,7 @@ export async function createFSConfig(
   options: BettererOptionsFS,
   optionsWatcher: BettererOptionsWatcher
 ): Promise<BettererConfigFS> {
-  const cache = (!!options.cachePath || options.cache) ?? false;
+  const cache = options.cache ?? !!options.cachePath;
   const cachePath = options.cachePath ?? BETTERER_CACHE;
 
   const cwd = options.cwd ?? process.cwd();
