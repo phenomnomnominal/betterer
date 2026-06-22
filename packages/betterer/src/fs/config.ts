@@ -54,8 +54,8 @@ export async function createFSConfig(
 
   validateString({ cwd });
   validateBool({ cache });
-  validateStringArray({ cachePath });
-  validateStringArray({ resultsPath });
+  validateString({ cachePath });
+  validateString({ resultsPath });
 
   const gitPath = configContext.precommit ? await validateGitRepo(repoPath) : null;
 

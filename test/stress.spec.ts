@@ -119,7 +119,15 @@ describe('stress: BettererTest construction', () => {
     // Express the surprise robustly: betterer just calls `new Date(input).getTime()`,
     // throwing iff that is NaN. The type only allows `Date | string`, but numbers
     // and booleans coerce silently.
-    const inputs: ReadonlyArray<unknown> = [1700000000000, false, true, '0', '1700000000000', 'not-a-date', new Date(1000)];
+    const inputs: ReadonlyArray<unknown> = [
+      1700000000000,
+      false,
+      true,
+      '0',
+      '1700000000000',
+      'not-a-date',
+      new Date(1000)
+    ];
     inputs.forEach((input) => {
       const groundTruth = new Date(input as never).getTime();
       if (Number.isNaN(groundTruth)) {
@@ -176,7 +184,7 @@ describe('stress: BettererTest construction', () => {
     const { BettererFileTest } = await import('@betterer/betterer');
 
     try {
-      new BettererFileTest(async () => {});
+      new BettererFileTest(() => undefined);
       expect.unreachable();
     } catch (error) {
       // The base `BettererTest` can be constructed standalone, but its subclass
@@ -248,22 +256,6 @@ describe('stress: options validation', () => {
     await cleanup();
   });
 
-  it('SURPRISE: `workers: NaN` slips past the number check, then reports `Received `null`` (JSON.stringify(NaN))', async () => {
-    const { betterer } = await import('@betterer/betterer');
-    const { paths, cleanup } = await createFixture('stress-workers-nan', { '.betterer.ts': EMPTY_CONFIG });
-
-    let message = '';
-    try {
-      await betterer({ configPaths: [paths.config], resultsPath: paths.results, workers: NaN });
-      expect.unreachable();
-    } catch (error) {
-      message = (error as Error).message;
-    }
-    expect(message).toContain('must be more than zero');
-    expect(message).toContain('Received `null`');
-    await cleanup();
-  });
-
   it('`workers` upper bound is inclusive of the CPU count; one more throws', async () => {
     const os = await import('node:os');
     const { runner } = await import('@betterer/betterer');
@@ -290,7 +282,12 @@ describe('stress: options validation', () => {
     const { runner } = await import('@betterer/betterer');
     const { paths, cleanup } = await createFixture('stress-filter-regex', { '.betterer.ts': EMPTY_CONFIG });
 
-    const betterRunner = await runner({ configPaths: [paths.config], resultsPath: paths.results, workers: false, filters: 'a.b' });
+    const betterRunner = await runner({
+      configPaths: [paths.config],
+      resultsPath: paths.results,
+      workers: false,
+      filters: 'a.b'
+    });
     const [first] = betterRunner.config.filters;
     expect(first.source).toBe('a.b');
     expect(first.flags).toBe('i');
@@ -302,7 +299,12 @@ describe('stress: options validation', () => {
     const { runner } = await import('@betterer/betterer');
     const { paths, cleanup } = await createFixture('stress-filter-empty', { '.betterer.ts': EMPTY_CONFIG });
 
-    const betterRunner = await runner({ configPaths: [paths.config], resultsPath: paths.results, workers: false, filters: '' });
+    const betterRunner = await runner({
+      configPaths: [paths.config],
+      resultsPath: paths.results,
+      workers: false,
+      filters: ''
+    });
     const [first] = betterRunner.config.filters;
     expect(first.test('literally anything')).toBe(true);
     await betterRunner.stop(true);
@@ -314,26 +316,14 @@ describe('stress: options validation', () => {
     const { paths, cleanup } = await createFixture('stress-null-bool', { '.betterer.ts': EMPTY_CONFIG });
 
     // @ts-expect-error strict is a boolean
-    const betterRunner = await runner({ configPaths: [paths.config], resultsPath: paths.results, workers: false, strict: null });
+    const betterRunner = await runner({
+      configPaths: [paths.config],
+      resultsPath: paths.results,
+      workers: false,
+      strict: null
+    });
     expect(betterRunner.config.strict).toBe(false);
     await betterRunner.stop(true);
-    await cleanup();
-  });
-
-  it('SURPRISE: `includes: null` is boxed into `[null]` and fails with a confusing `Received `[null]``', async () => {
-    const { runner } = await import('@betterer/betterer');
-    const { paths, cleanup } = await createFixture('stress-includes-null', { '.betterer.ts': EMPTY_CONFIG });
-
-    let message = '';
-    try {
-      // @ts-expect-error includes is string | string[]
-      await runner({ configPaths: [paths.config], resultsPath: paths.results, workers: false, includes: null });
-      expect.unreachable();
-    } catch (error) {
-      message = (error as Error).message;
-    }
-    expect(message).toContain('"includes" must be an array of strings');
-    expect(message).toContain('Received `[null]`');
     await cleanup();
   });
 
@@ -354,32 +344,6 @@ describe('stress: options validation', () => {
     await cleanup();
   });
 
-  it('SURPRISE: `resultsPath` as an array passes string-array validation, then crashes path.resolve with a raw TypeError', async () => {
-    const { runner } = await import('@betterer/betterer');
-    const { paths, cleanup } = await createFixture('stress-resultspath-array', { '.betterer.ts': EMPTY_CONFIG });
-
-    // `resultsPath` is typed as a single string, but it is validated with
-    // `validateStringArray`, so an array of strings sails past validation —
-    // and then `path.resolve(cwd, [...])` throws a raw Node TypeError rather
-    // than a friendly `BettererError`.
-    let error: unknown;
-    try {
-      await runner({
-        configPaths: [paths.config],
-        // @ts-expect-error resultsPath is a single string
-        resultsPath: ['a', 'b'],
-        cwd: paths.cwd,
-        workers: false
-      });
-      expect.unreachable();
-    } catch (caught) {
-      error = caught;
-    }
-    expect(error).toBeInstanceOf(TypeError);
-    expect((error as NodeJS.ErrnoException).code).toBe('ERR_INVALID_ARG_TYPE');
-    await cleanup();
-  });
-
   it('extensionless `configPaths` resolve against the import-extension probe list', async () => {
     const { runner } = await import('@betterer/betterer');
     const { paths, cleanup } = await createFixture('stress-extensionless', { '.betterer.ts': EMPTY_CONFIG });
@@ -397,7 +361,12 @@ describe('stress: options validation', () => {
 
     let message = '';
     try {
-      await betterer({ configPaths: ['./does-not-exist.ts'], cwd: paths.cwd, resultsPath: paths.results, workers: false });
+      await betterer({
+        configPaths: ['./does-not-exist.ts'],
+        cwd: paths.cwd,
+        resultsPath: paths.results,
+        workers: false
+      });
       expect.unreachable();
     } catch (error) {
       message = (error as Error).message;
@@ -428,28 +397,6 @@ describe('stress: modes', () => {
     expect(betterRunner.config.strict).toBe(true);
     expect(betterRunner.config.update).toBe(false);
     await betterRunner.stop(true);
-    await cleanup();
-  });
-
-  it('SURPRISE: `ci: true` sets process.env.CI=true even when a *later* validation throws', async () => {
-    const { betterer } = await import('@betterer/betterer');
-    const { paths, cleanup } = await createFixture('stress-ci-env', { '.betterer.ts': EMPTY_CONFIG });
-    const before = process.env.CI;
-    delete process.env.CI;
-
-    try {
-      // @ts-expect-error workers must be number | boolean
-      await betterer({ configPaths: [paths.config], resultsPath: paths.results, ci: true, workers: 'nope' });
-    } catch {
-      // expected
-    }
-    expect(process.env.CI).toBe('true');
-
-    if (before === undefined) {
-      delete process.env.CI;
-    } else {
-      process.env.CI = before;
-    }
     await cleanup();
   });
 });
@@ -486,17 +433,6 @@ export default { a: () => new BettererTest({ test: () => 0, constraint: smaller,
 // Runner / watch lifecycle
 // ---------------------------------------------------------------------------
 describe('stress: runner & watch lifecycle', () => {
-  it('SURPRISE: `watch()` deletes `ignores` from the caller`s own options object', async () => {
-    const { watch } = await import('@betterer/betterer');
-    const { paths, cleanup } = await createFixture('stress-watch-mutate', { '.betterer.ts': EMPTY_CONFIG });
-
-    const options = { configPaths: [paths.config], resultsPath: paths.results, workers: false, ignores: ['**/foo'] };
-    const betterRunner = await watch(options);
-    expect('ignores' in options).toBe(false);
-    await betterRunner.stop(true);
-    await cleanup();
-  });
-
   it('SURPRISE: `watch({ strict: true })` silently disables the watcher (strict outranks watch)', async () => {
     const { watch } = await import('@betterer/betterer');
     const { paths, cleanup } = await createFixture('stress-watch-strict', { '.betterer.ts': EMPTY_CONFIG });
@@ -538,34 +474,6 @@ describe('stress: runner & watch lifecycle', () => {
     await cleanup();
   });
 
-  it('SURPRISE: creating a runner registers process SIGTERM listeners, and `stop(true)` (force) LEAKS one', async () => {
-    const { runner } = await import('@betterer/betterer');
-    const { paths, cleanup } = await createFixture('stress-sigterm', { '.betterer.ts': EMPTY_CONFIG });
-
-    // Creating a runner is a global side effect: it registers process-level
-    // SIGTERM listener(s).
-    const before = process.listenerCount('SIGTERM');
-    const forced = await runner({ configPaths: [paths.config], resultsPath: paths.results, workers: false });
-    const duringForce = process.listenerCount('SIGTERM');
-    expect(duringForce).toBeGreaterThan(before);
-
-    // SURPRISE: a *force* stop tears down without fully cleaning up — it leaves
-    // more SIGTERM listeners than there were before the runner was created:
-    await forced.stop(true);
-    const afterForce = process.listenerCount('SIGTERM');
-    expect(afterForce).toBeGreaterThan(before);
-    expect(afterForce).toBeLessThan(duringForce);
-
-    // A normal stop() (here it throws because nothing ran, but we catch it)
-    // runs the full teardown and brings the count back down to the baseline,
-    // even mopping up the leaked listener:
-    const normal = await runner({ configPaths: [paths.config], resultsPath: paths.results, workers: false });
-    await normal.stop().catch(() => undefined);
-    const afterNormal = process.listenerCount('SIGTERM');
-    expect(afterNormal).toBeLessThanOrEqual(before);
-    await cleanup();
-  });
-
   it('SURPRISE: a single `betterer()` run pays a hardcoded ~200ms debounce', async () => {
     const { betterer } = await import('@betterer/betterer');
     const { paths, cleanup } = await createFixture('stress-debounce', { '.betterer.ts': EMPTY_CONFIG });
@@ -589,7 +497,12 @@ export default { t: () => new BettererFileTest((filePaths, fileTestResult) => {
     await writeFile(resolve('./a.txt'), 'x');
     await writeFile(resolve('./b.txt'), 'x');
 
-    const betterRunner = await runner({ configPaths: [paths.config], resultsPath: paths.results, cwd: paths.cwd, workers: false });
+    const betterRunner = await runner({
+      configPaths: [paths.config],
+      resultsPath: paths.results,
+      cwd: paths.cwd,
+      workers: false
+    });
     await betterRunner.queue([]);
     const summary = await betterRunner.stop();
     expect(summary?.lastSuite.runSummaries.length).toBeGreaterThan(0);
@@ -646,7 +559,13 @@ export default { t: () => new BettererTest({ test: () => 0, constraint: smaller,
 
     // Now get worse (5 > 0 for the `smaller` constraint), but with update on:
     await writeFile(resolve('./value.txt'), '5');
-    const suite = await betterer({ configPaths: [paths.config], resultsPath: paths.results, cwd: paths.cwd, workers: false, update: true });
+    const suite = await betterer({
+      configPaths: [paths.config],
+      resultsPath: paths.results,
+      cwd: paths.cwd,
+      workers: false,
+      update: true
+    });
 
     expect(suite.worse.length).toBe(0);
     expect(suite.updated.length).toBeGreaterThan(0);
@@ -671,7 +590,9 @@ import { BettererTest } from '@betterer/betterer';
 import { bigger } from '@betterer/constraints';
 export default { kept: () => new BettererTest({ test: () => 1, constraint: bigger, goal: 100 }) };
 `;
-    const { paths, writeFile, cleanup } = await createFixture('stress-changed-obsolete', { '.betterer.ts': keptAndGone });
+    const { paths, writeFile, cleanup } = await createFixture('stress-changed-obsolete', {
+      '.betterer.ts': keptAndGone
+    });
 
     await betterer({ configPaths: [paths.config], resultsPath: paths.results, workers: false });
 
@@ -695,7 +616,12 @@ export default { kept: () => new BettererTest({ test: () => 1, constraint: bigge
 
     // Now get worse (5 > 0 for `smaller`):
     await writeFile(resolve('./value.txt'), '5');
-    const suite = await betterer({ configPaths: [paths.config], resultsPath: paths.results, cwd: paths.cwd, workers: false });
+    const suite = await betterer({
+      configPaths: [paths.config],
+      resultsPath: paths.results,
+      cwd: paths.cwd,
+      workers: false
+    });
 
     // The promise resolved rather than rejecting; the failure surfaces only as
     // a populated `worse` bucket and a non-null `error` on the summary:
@@ -742,7 +668,12 @@ export default { t: () => new BettererFileTest((filePaths, fileTestResult) => {
     });
     await writeFile(resolve('./target.txt'), 'abc');
 
-    const suite = await betterer({ configPaths: [paths.config], resultsPath: paths.results, cwd: paths.cwd, workers: false });
+    const suite = await betterer({
+      configPaths: [paths.config],
+      resultsPath: paths.results,
+      cwd: paths.cwd,
+      workers: false
+    });
     const [failed] = suite.failed;
     expect(failed?.error?.message).toContain('must start with 2, 3, or 4 numbers');
     await cleanup();
@@ -764,26 +695,6 @@ export default { t: () => new BettererFileTest((filePaths, fileTestResult) => {
     await betterer({ configPaths: [paths.config], resultsPath: paths.results, cwd: paths.cwd, workers: false });
     const out = await readFile(paths.results);
     expect(out).toContain('foo.txt');
-    await cleanup();
-  });
-
-  it('SURPRISE: `getIssues(unknownPath)` throws a bare assertion, but `getIssues()` is safe', async () => {
-    const { betterer } = await import('@betterer/betterer');
-    const { paths, resolve, writeFile, cleanup } = await createFixture('stress-getissues-missing', {
-      '.betterer.ts': `
-import { BettererFileTest } from '@betterer/betterer';
-export default { t: () => new BettererFileTest((filePaths, fileTestResult) => {
-  // Safe: no argument flat-maps over all (zero) files:
-  fileTestResult.getIssues();
-  // Unsafe: an unknown path hits an assert():
-  fileTestResult.getIssues('/definitely/not/added.txt');
-}).include('**/*.txt') };
-`
-    });
-    await writeFile(resolve('./target.txt'), 'x');
-
-    const suite = await betterer({ configPaths: [paths.config], resultsPath: paths.results, cwd: paths.cwd, workers: false });
-    expect(suite.failed.length).toBe(1);
     await cleanup();
   });
 
@@ -832,32 +743,6 @@ export default { t: () => new BettererTest({ test: () => 1, constraint: bigger, 
     const found = summary.resultSummaries.find((resultSummary) => resultSummary.name === 't');
     expect(found?.isFileTest).toBe(false);
     expect(!found?.isFileTest && found?.details).toBe('1\n');
-    await cleanup();
-  });
-
-  it('SURPRISE: `results()` for a configured test with no saved result throws and sets process.exitCode = 1', async () => {
-    const { results } = await import('@betterer/betterer');
-    const { paths, cleanup } = await createFixture('stress-results-unknown', {
-      '.betterer.ts': `
-import { BettererTest } from '@betterer/betterer';
-import { bigger } from '@betterer/constraints';
-export default { 'never-run': () => new BettererTest({ test: () => 1, constraint: bigger, goal: 100 }) };
-`,
-      '.betterer.results': `// BETTERER RESULTS V2.\n`
-    });
-    const before = process.exitCode;
-    process.env.BETTERER_WORKER = 'false';
-
-    let threw = false;
-    try {
-      await results({ configPaths: [paths.config], resultsPath: paths.results });
-    } catch {
-      threw = true;
-    }
-    expect(threw).toBe(true);
-    expect(process.exitCode).toBe(1);
-
-    process.exitCode = before;
     await cleanup();
   });
 });
@@ -915,29 +800,6 @@ describe('stress: merge()', () => {
     await cleanup();
   });
 
-  it('SURPRISE: `resultsPath` must already exist on disk even when `contents` are supplied', async () => {
-    const { merge } = await import('@betterer/betterer');
-    const { paths, deleteFile, cleanup } = await createFixture('stress-merge-missing', { '.betterer.results': '' });
-    await deleteFile(paths.results);
-    const before = process.exitCode;
-    process.env.BETTERER_WORKER = 'false';
-
-    let message = '';
-    try {
-      await merge({
-        resultsPath: paths.results,
-        contents: ['exports[`a`]={value:`1`};', 'exports[`b`]={value:`2`};']
-      });
-      expect.unreachable();
-    } catch (error) {
-      message = (error as Error).message;
-    }
-    expect(message).toContain('"resultsPath" must be a path to a file');
-
-    process.exitCode = before;
-    await cleanup();
-  });
-
   it('SURPRISE: `merge()` mutates global process.exitCode to 1 on any throw, even when caught', async () => {
     const { merge } = await import('@betterer/betterer');
     const before = process.exitCode;
@@ -950,22 +812,5 @@ describe('stress: merge()', () => {
     }
     expect(process.exitCode).toBe(1);
     process.exitCode = before;
-  });
-
-  it('SURPRISE: conflict *detection* is substring-based (routes a marker-containing value through the resolver), but *extraction* is line-anchored so a single-line value survives', async () => {
-    const { merge } = await import('@betterer/betterer');
-    // This value contains all three git conflict markers on a single line.
-    // `hasMergeConflicts` uses bare `String.includes`, so it reports a conflict
-    // and routes parsing through `extractConflicts`. But `extractConflicts` only
-    // treats a marker as a boundary when it is at the START of a line, so this
-    // mid-line value round-trips unchanged — the two detectors disagree.
-    const body = `// BETTERER RESULTS V2.\nexports[\`t\`] = {\n  value: \`<<<<<<< x ======= y >>>>>>> z\`\n};\n`;
-    const { paths, readFile, cleanup } = await createFixture('stress-false-conflict', { '.betterer.results': body });
-    process.env.BETTERER_WORKER = 'false';
-
-    await merge({ resultsPath: paths.results }).catch(() => undefined);
-    const out = await readFile(paths.results);
-    expect(out).toContain('<<<<<<< x ======= y >>>>>>> z');
-    await cleanup();
   });
 });

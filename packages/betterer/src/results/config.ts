@@ -12,7 +12,11 @@ export async function createMergeConfig(options: BettererOptionsMerge): Promise<
 
   validateStringArray({ contents });
   validateString({ cwd });
-  await validateFilePath({ resultsPath });
+
+  const willReadResultsFile = contents.length < 2;
+  if (willReadResultsFile) {
+    await validateFilePath({ resultsPath });
+  }
 
   return { contents, cwd, resultsPath };
 }

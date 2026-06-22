@@ -21,10 +21,6 @@ export async function createContextConfig(options: BettererOptionsContext): Prom
   const strictDeadlines = options.strictDeadlines ?? false;
   const update = options.update ?? false;
 
-  if (ci) {
-    process.env.CI = 'true';
-  }
-
   validateBool({ ci });
   validateBool({ precommit });
   validateBool({ strict });
@@ -35,6 +31,10 @@ export async function createContextConfig(options: BettererOptionsContext): Prom
   validateStringArray({ includes });
 
   const workers = await validateWorkers(options.workers);
+
+  if (ci) {
+    process.env.CI = 'true';
+  }
 
   return {
     ci,

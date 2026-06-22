@@ -1,7 +1,7 @@
 import type { BettererFilePaths, BettererFileResolver } from '../../fs/index.js';
 import type { BettererFileTestResult, BettererFileIssues, BettererFile, BettererFileBase } from './types.js';
 
-import assert from 'node:assert';
+import { BettererError, invariantΔ } from '@betterer/errors';
 import path from 'node:path';
 
 import { BettererFileΩ } from './file.js';
@@ -32,7 +32,7 @@ export class BettererFileTestResultΩ implements BettererFileTestResult {
 
   public getFile(absolutePath: string): BettererFileBase {
     const file = this._fileMap[absolutePath];
-    assert(file);
+    invariantΔ(file, `file "${absolutePath}" should have been added to the result!`);
     return file;
   }
 
@@ -58,7 +58,11 @@ export class BettererFileTestResultΩ implements BettererFileTestResult {
     if (!absolutePath) {
       return this.files.flatMap((files) => files.issues);
     }
-    return this.getFile(absolutePath).issues;
+    const file = this._fileMap[absolutePath];
+    if (!file) {
+      throw new BettererError(`could not find file "${absolutePath}". 😔`);
+    }
+    return file.issues;
   }
 
   private _addFile(file: BettererFileBase): void {

@@ -55,4 +55,28 @@ export default {
 
     await cleanup();
   });
+
+  it('should not set the CI env variable when validation fails', async () => {
+    const { paths, cleanup } = await createFixture('ci-env-variable-invalid', { '.betterer.ts': `export default {};` });
+
+    const before = process.env.CI;
+    delete process.env.CI;
+
+    const { betterer } = await import('@betterer/betterer');
+    try {
+      // @ts-expect-error workers must be a number or boolean
+      await betterer({ configPaths: [paths.config], resultsPath: paths.results, ci: true, workers: 'nope' });
+      expect.unreachable();
+    } catch (error) {
+      expect((error as Error).message).toContain('"workers" must be a number');
+    }
+    expect(process.env.CI).toBeUndefined();
+
+    if (before === undefined) {
+      delete process.env.CI;
+    } else {
+      process.env.CI = before;
+    }
+    await cleanup();
+  });
 });

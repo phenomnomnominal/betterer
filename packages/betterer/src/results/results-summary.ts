@@ -1,8 +1,8 @@
-import type { BettererError } from '@betterer/errors';
-
 import type { BettererFileTestResultΩ } from '../test/index.js';
 import type { BettererFileResolverΩ } from '../fs/index.js';
 import type { BettererFileTestResultSummaryDetails, BettererResultsSummary, BettererResultSummaries } from './types.js';
+
+import { BettererError } from '@betterer/errors';
 
 import { destroyGlobals, getGlobals } from '../globals.js';
 import { loadTest } from '../run/index.js';
@@ -35,9 +35,15 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
 
       const onlyFileTests = includes.length > 0 || excludes.length > 0;
 
+      const expectedTestNames = await results.api.getExpectedTestNames();
+
       const testStatuses = await Promise.all(
         testsMeta.map(async (testMeta) => {
           const { name } = testMeta;
+
+          if (!expectedTestNames.includes(name)) {
+            throw new BettererError(`could not find a result for test "${name}". Run \`betterer\` to create one. 😔`);
+          }
 
           const test = await loadTest(testMeta);
 

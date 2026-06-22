@@ -103,5 +103,8 @@ function validate(value: unknown, message: string): asserts value {
 }
 
 function received(value: unknown): string {
+  if (isNumber(value) && !Number.isFinite(value)) {
+    return `Received \`${String(value)}\`.`;
+  }
   return `Received \`${JSON.stringify(value)}\`.`;
 }

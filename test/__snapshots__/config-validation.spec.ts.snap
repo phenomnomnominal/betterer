@@ -24,10 +24,18 @@ Error: "cache" must be \`true\` or \`false\`. Received \`1234\`.
 ]
 `;
 
+exports[`betterer > should throw when there is invalid config: { cachePath: [ 'a', 'b' ] } 1`] = `
+[
+  "
+Error: "cachePath" must be a string. Received \`["a","b"]\`.
+",
+]
+`;
+
 exports[`betterer > should throw when there is invalid config: { cachePath: {} } 1`] = `
 [
   "
-Error: "cachePath" must be a string or an array. Received \`{}\`.
+Error: "cachePath" must be a string. Received \`{}\`.
 ",
 ]
 `;
@@ -35,7 +43,7 @@ Error: "cachePath" must be a string or an array. Received \`{}\`.
 exports[`betterer > should throw when there is invalid config: { cachePath: 1234 } 1`] = `
 [
   "
-Error: "cachePath" must be a string or an array. Received \`1234\`.
+Error: "cachePath" must be a string. Received \`1234\`.
 ",
 ]
 `;
@@ -43,7 +51,7 @@ Error: "cachePath" must be a string or an array. Received \`1234\`.
 exports[`betterer > should throw when there is invalid config: { cachePath: true } 1`] = `
 [
   "
-Error: "cachePath" must be a string or an array. Received \`true\`.
+Error: "cachePath" must be a string. Received \`true\`.
 ",
 ]
 `;
@@ -200,10 +208,18 @@ Error: "precommit" must be \`true\` or \`false\`. Received \`1234\`.
 ]
 `;
 
+exports[`betterer > should throw when there is invalid config: { resultsPath: [ 'a', 'b' ] } 1`] = `
+[
+  "
+Error: "resultsPath" must be a string. Received \`["a","b"]\`.
+",
+]
+`;
+
 exports[`betterer > should throw when there is invalid config: { resultsPath: {} } 1`] = `
 [
   "
-Error: "resultsPath" must be a string or an array. Received \`{}\`.
+Error: "resultsPath" must be a string. Received \`{}\`.
 ",
 ]
 `;
@@ -211,7 +227,7 @@ Error: "resultsPath" must be a string or an array. Received \`{}\`.
 exports[`betterer > should throw when there is invalid config: { resultsPath: 1234 } 1`] = `
 [
   "
-Error: "resultsPath" must be a string or an array. Received \`1234\`.
+Error: "resultsPath" must be a string. Received \`1234\`.
 ",
 ]
 `;
@@ -219,7 +235,7 @@ Error: "resultsPath" must be a string or an array. Received \`1234\`.
 exports[`betterer > should throw when there is invalid config: { resultsPath: true } 1`] = `
 [
   "
-Error: "resultsPath" must be a string or an array. Received \`true\`.
+Error: "resultsPath" must be a string. Received \`true\`.
 ",
 ]
 `;
@@ -331,7 +347,7 @@ Error: "workers" must be more than zero and not more than the number of availabl
 exports[`betterer > should throw when there is invalid config: { workers: NaN } 1`] = `
 [
   "
-Error: "workers" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Received \`null\`.
+Error: "workers" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Received \`NaN\`.
 ",
 ]
 `;

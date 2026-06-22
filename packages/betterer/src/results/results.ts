@@ -2,7 +2,7 @@ import type { BettererFilePath } from '../fs/index.js';
 import type { BettererTestNames } from '../test/index.js';
 import type { BettererResultsSerialised } from './types.js';
 
-import assert from 'node:assert';
+import { invariantΔ } from '@betterer/errors';
 
 import { BettererResultsFileΩ } from '../fs/index.js';
 import { write } from '../fs/index.js';
@@ -54,7 +54,7 @@ export class BettererResultsΩ {
 
   private _getResult(name: string, results: BettererResultsSerialised): string {
     const result = results[name];
-    assert(result);
+    invariantΔ(result, `result for test "${name}" should exist!`);
     return result.value;
   }
 }
