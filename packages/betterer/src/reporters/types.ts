@@ -211,10 +211,11 @@ export interface BettererReporter {
    * The `runError()` hook is called when a {@link @betterer/betterer#BettererRun | `BettererRun`}
    * throws an error.
    *
-   * @param run - The test run.
+   * @param runSummary - A {@link @betterer/betterer#BettererRunSummary | `BettererRunSummary` }
+   * for the failed test run.
    * @param error - The error thrown while running the test.
    */
-  runError?(run: BettererRun, error: BettererError): Promise<void> | void;
+  runError?(runSummary: BettererRunSummary, error: BettererError): Promise<void> | void;
 }
 
 export interface BettererReporterModule {

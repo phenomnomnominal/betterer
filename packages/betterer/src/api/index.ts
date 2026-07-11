@@ -1,7 +1,7 @@
 export type {
   BettererAPI,
   BettererOptions,
-  BettererOptionsResults,
+  BettererOptionsResultsSummary,
   BettererOptionsRunner,
   BettererOptionsWatch
 } from './types.js';

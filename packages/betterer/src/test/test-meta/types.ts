@@ -10,6 +10,7 @@ export interface BettererTestMeta {
   readonly configPath: string;
   readonly configHash: string;
   readonly name: string;
+  readonly slug: string;
 }
 
 export type BettererTestsMeta = Array<BettererTestMeta>;

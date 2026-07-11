@@ -1,6 +1,7 @@
 import type { BettererOptionsContext, BettererOptionsMode, BettererOptionsModeWatch } from '../context/index.js';
 import type { BettererOptionsFS, BettererOptionsWatcher } from '../fs/index.js';
 import type { BettererOptionsReporter } from '../reporters/index.js';
+import type { BettererOptionsResults } from '../results/index.js';
 import type { betterer } from './betterer.js';
 
 /**
@@ -17,7 +18,8 @@ export type BettererAPI = typeof betterer;
 export type BettererOptions = BettererOptionsContext &
   BettererOptionsFS &
   BettererOptionsMode &
-  BettererOptionsReporter;
+  BettererOptionsReporter &
+  BettererOptionsResults;
 
 /**
  * @public Options for when you create a {@link @betterer/betterer#BettererRunner | `BettererRunner` }
@@ -33,7 +35,8 @@ export type BettererOptionsRunner = BettererOptions;
  *
  * @remarks The options object will be validated by **Betterer** and turned into a {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
  */
-export type BettererOptionsResults = Pick<BettererOptionsFS, 'cwd' | 'configPaths' | 'resultsPath'> &
+export type BettererOptionsResultsSummary = BettererOptionsResults &
+  Pick<BettererOptionsFS, 'cwd' | 'configPaths'> &
   Pick<BettererOptionsContext, 'excludes' | 'filters' | 'includes'>;
 
 /**
@@ -46,4 +49,5 @@ export type BettererOptionsWatch = BettererOptionsContext &
   BettererOptionsFS &
   BettererOptionsModeWatch &
   BettererOptionsReporter &
-  BettererOptionsWatcher;
+  BettererOptionsWatcher &
+  BettererOptionsResults;

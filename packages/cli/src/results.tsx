@@ -1,4 +1,4 @@
-import type { BettererOptionsResults } from '@betterer/betterer';
+import type { BettererOptionsResultsSummary } from '@betterer/betterer';
 import type { Command } from 'commander';
 
 import type { BettererCLIResultsConfig } from './types.js';
@@ -28,10 +28,10 @@ export function results(cwd: string): Command {
       resultsPath: config.results
     };
 
-    // And then cast to BettererOptionsResults. This is possibly invalid,
+    // And then cast to BettererOptionsResultsSummary. This is possibly invalid,
     // but it's nicer to do the options validation in @betterer/betterer
     const app = render(
-      <Results options={options as BettererOptionsResults} logo={config.logo} />,
+      <Results options={options as BettererOptionsResultsSummary} logo={config.logo} />,
       getRenderOptionsΔ(process.env.NODE_ENV)
     );
     await app.waitUntilExit();

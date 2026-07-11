@@ -11,7 +11,9 @@ describe('betterer', () => {
 import { BettererTest } from '@betterer/betterer';
 
 export default {
-  test: () => new BettererTest({})
+  test: () => new BettererTest({
+    test: () => {}
+  })
 };
       `
     });

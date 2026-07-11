@@ -10,6 +10,7 @@ export interface Paths {
 export interface FixtureFileSystem {
   paths: Paths;
 
+  createDirectory: (directoryPath: string) => Promise<void>;
   deleteDirectory: (filePath: string) => Promise<void>;
   deleteFile: (filePath: string) => Promise<void>;
   readFile: (filePath: string) => Promise<string>;

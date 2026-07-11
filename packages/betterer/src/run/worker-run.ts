@@ -16,11 +16,11 @@ import assert from 'node:assert';
 import { BettererConstraintResult } from '@betterer/constraints';
 import { BettererError, isBettererErrorΔ } from '@betterer/errors';
 
-import { forceRelativePaths, importTranspiled } from '../fs/index.js';
+import { importTranspiled } from '../fs/index.js';
 import { getGlobals } from '../globals.js';
 import { BettererResultΩ } from '../results/index.js';
 import { isBettererTest } from '../test/index.js';
-import { isFunction } from '../utils.js';
+import { forceRelativePaths, isFunction } from '../utils.js';
 import { BettererRunSummaryΩ } from './run-summary.js';
 
 export class BettererWorkerRunΩ implements BettererRun, BettererTestConfig {
@@ -42,16 +42,23 @@ export class BettererWorkerRunΩ implements BettererRun, BettererTestConfig {
   private _baseline: BettererResultΩ | null = null;
   private _expected: BettererResultΩ | null = null;
   private _filePaths: BettererFilePaths | null = null;
+  private _logger: BettererLogger | null = null;
 
   constructor(
     private _test: BettererTestConfig,
-    public readonly logger: BettererLogger,
     public readonly testMeta: BettererTestMeta,
-    public readonly runMeta: BettererRunMeta
+    public readonly runMeta: BettererRunMeta,
+    baseline: string | null,
+    expected: string | null
   ) {
     this.isNew = runMeta.isNew;
     this.isSkipped = runMeta.isSkipped;
     this.name = testMeta.name;
+
+    if (baseline && expected) {
+      this._baseline = this._deserialise(baseline);
+      this._expected = this._deserialise(expected);
+    }
   }
 
   public get baseline(): BettererResultΩ {
@@ -68,20 +75,22 @@ export class BettererWorkerRunΩ implements BettererRun, BettererTestConfig {
     return this._filePaths;
   }
 
+  public get logger(): BettererLogger {
+    assert(this._logger != null);
+    return this._logger;
+  }
+
   public async run(
+    logger: BettererLogger,
     filePaths: BettererFilePaths | null,
     isFiltered: boolean,
     timestamp: number
   ): Promise<BettererRunSummary> {
+    this._logger = logger;
     this.setFilePaths(filePaths);
 
-    const { config, results } = getGlobals();
-    const { resultsPath } = config;
-
-    if (!this.runMeta.isNew) {
-      this._baseline = this._deserialise(await results.api.getBaseline(this.name));
-      this._expected = this._deserialise(await results.api.getExpected(this.name));
-    }
+    const { config } = getGlobals();
+    const { resultsBasePath } = config;
 
     const running = this._run(timestamp);
 
@@ -91,8 +100,8 @@ export class BettererWorkerRunΩ implements BettererRun, BettererTestConfig {
 
     // No try/catch - the main thread handles the `isFailed` case:
     const result = await this.test(this);
-    const serialisedResult = await this.serialiser.serialise.call(this, result, resultsPath);
-    const printedResult = forceRelativePaths(await this.printer(serialisedResult), resultsPath);
+    const serialisedResult = await this.serialiser.serialise.call(this, result, resultsBasePath);
+    const printedResult = forceRelativePaths(await this.printer(serialisedResult), resultsBasePath);
     return await running.done(new BettererResultΩ(result, printedResult));
   }
 
@@ -104,7 +113,7 @@ export class BettererWorkerRunΩ implements BettererRun, BettererTestConfig {
     try {
       const serialised = JSON.parse(resultJSON) as unknown;
       const { config } = getGlobals();
-      return new BettererResultΩ(this.serialiser.deserialise(serialised, config.resultsPath), resultJSON);
+      return new BettererResultΩ(this.serialiser.deserialise(serialised, config.resultsBasePath), resultJSON);
     } catch {
       return null;
     }
@@ -115,7 +124,7 @@ export class BettererWorkerRunΩ implements BettererRun, BettererTestConfig {
       const { config } = getGlobals();
       const deserialisedΩ = deserialised as BettererResultΩ;
       return new BettererResultΩ(
-        this.serialiser.serialise.call(this, deserialisedΩ.value, config.resultsPath),
+        this.serialiser.serialise.call(this, deserialisedΩ.value, config.resultsBasePath),
         deserialisedΩ.printed
       );
     } catch {
@@ -161,16 +170,12 @@ export class BettererWorkerRunΩ implements BettererRun, BettererTestConfig {
 
     // Make sure to use the serialised result so it can be passed back to the main thread:
     const serialisedResult = result ? this._serialise(result) : null;
-    const serialisedBaseline = !this.isNew ? this._serialise(this.baseline) : null;
-    const serialisedExpected = !this.isNew ? this._serialise(this.expected) : null;
 
-    // `logger` isn't included here, which is why we need the `as` but it will
-    // definitely be assigned on the main thread so it's okay!
     return new BettererRunSummaryΩ({
-      baseline: serialisedBaseline,
+      baseline: this._baseline,
       delta,
       diff: diff ?? null,
-      expected: serialisedExpected,
+      expected: this._expected,
       error: null,
       filePaths: this.filePaths,
       isBetter: comparison === BettererConstraintResult.better,
@@ -187,7 +192,7 @@ export class BettererWorkerRunΩ implements BettererRun, BettererTestConfig {
       name: this.name,
       result: serialisedResult,
       timestamp
-    } as BettererRunSummary);
+    });
   }
 }
 

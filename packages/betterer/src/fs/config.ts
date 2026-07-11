@@ -21,10 +21,9 @@ import {
   validateStringArray
 } from '../config/index.js';
 import { getGlobals } from '../globals.js';
-import { normalisedPath } from '../utils.js';
+import { normalisedPath, resolvePath } from '../utils.js';
 
 const BETTERER_CACHE = './.betterer.cache';
-const BETTERER_RESULTS = './.betterer.results';
 const BETTERER_TS = './.betterer.ts';
 
 export async function createFSConfig(
@@ -43,7 +42,6 @@ export async function createFSConfig(
   const ignores = toArray<string>(optionsWatcher.ignores);
   const watch = optionsWatcher.watch ?? false;
 
-  const resultsPath = options.resultsPath ?? BETTERER_RESULTS;
   const [configPath] = validatedConfigPaths;
 
   const basePath = options.basePath ? resolvePath(cwd, options.basePath) : normalisedPath(path.dirname(configPath));
@@ -55,7 +53,6 @@ export async function createFSConfig(
   validateString({ cwd });
   validateBool({ cache });
   validateString({ cachePath });
-  validateString({ resultsPath });
 
   const gitPath = configContext.precommit ? await validateGitRepo(repoPath) : null;
 
@@ -73,7 +70,6 @@ export async function createFSConfig(
     configPaths: validatedConfigPaths,
     ignores,
     repoPath,
-    resultsPath: resolvePath(cwd, resultsPath),
     tsconfigPath: tsconfigPath != null ? path.resolve(cwd, tsconfigPath) : null,
     versionControlPath: gitPath ?? null,
     watch
@@ -91,10 +87,6 @@ export function overrideWatchConfig(optionsOverride: BettererOptionsWatcherOverr
 const JS_EXTENSIONS = ['.js', '.cjs', '.mjs'];
 const TS_EXTENSIONS = ['.ts', '.tsx', '.cts', '.ctsx', '.mtx', '.mtsx'];
 const IMPORT_EXTENSIONS = [...JS_EXTENSIONS, ...TS_EXTENSIONS];
-
-function resolvePath(cwd: string, filePath: string): string {
-  return normalisedPath(path.resolve(cwd, filePath));
-}
 
 async function validateConfigPaths(cwd: string, configPaths: Array<string>): Promise<BettererConfigPaths> {
   const validatedConfigPaths = await Promise.all(

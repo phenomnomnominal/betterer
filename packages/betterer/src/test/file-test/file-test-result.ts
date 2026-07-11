@@ -13,7 +13,7 @@ export class BettererFileTestResultΩ implements BettererFileTestResult {
 
   constructor(
     private _resolver: BettererFileResolver,
-    private _resultsPath: string
+    private _basePath: string
   ) {}
 
   // Previously the `files` getter was just doing `Object.values(this._fileMap)`,
@@ -38,7 +38,7 @@ export class BettererFileTestResultΩ implements BettererFileTestResult {
 
   public addFile(filePath: string, fileText: string): BettererFile {
     const absolutePath = this._resolver.resolve(filePath);
-    const relativePath = path.relative(path.dirname(this._resultsPath), absolutePath);
+    const relativePath = path.relative(this._basePath, absolutePath);
     const file = new BettererFileΩ(absolutePath, relativePath, fileText);
     const existingFile = this._fileMap[file.absolutePath];
     if (existingFile) {

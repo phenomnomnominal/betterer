@@ -19,7 +19,7 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
 
   public static async create(): Promise<BettererResultsSummary> {
     const { config, reporter, resolvers, results, testMetaLoader } = getGlobals();
-    const { configPaths, filters, includes, excludes, resultsPath } = config;
+    const { configPaths, filters, includes, excludes, resultsBasePath } = config;
 
     try {
       let testsMeta = await testMetaLoader.api.loadTestsMeta(configPaths);
@@ -35,7 +35,7 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
 
       const onlyFileTests = includes.length > 0 || excludes.length > 0;
 
-      const expectedTestNames = await results.api.getExpectedTestNames();
+      const expectedTestNames = results.getExpectedTestNames();
 
       const testStatuses = await Promise.all(
         testsMeta.map(async (testMeta) => {
@@ -49,9 +49,9 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
 
           const isFileTest = isBettererFileTest(test);
 
-          const expectedJSON = await results.api.getExpected(name);
+          const expectedJSON = results.getExpected(name);
           const serialised = JSON.parse(expectedJSON) as unknown;
-          const deserialised = test.config.serialiser.deserialise(serialised, resultsPath);
+          const deserialised = test.config.serialiser.deserialise(serialised, resultsBasePath);
 
           if (isFileTest) {
             const resultΩ = deserialised as BettererFileTestResultΩ;

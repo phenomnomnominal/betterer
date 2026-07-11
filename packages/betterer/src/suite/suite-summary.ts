@@ -1,5 +1,5 @@
 import type { BettererFilePaths } from '../fs/index.js';
-import type { BettererResultsSerialised, BettererResultΩ } from '../results/index.js';
+import type { BettererResultΩ } from '../results/index.js';
 import type { BettererRuns, BettererRunSummaries } from '../run/index.js';
 import type { BettererTestNames } from '../test/index.js';
 import type { BettererSuiteSummary } from './types.js';
@@ -10,15 +10,12 @@ import { getGlobals } from '../globals.js';
 
 export class BettererSuiteSummaryΩ implements BettererSuiteSummary {
   public readonly error: BettererError | null = null;
-  public readonly result: BettererResultsSerialised;
 
   constructor(
     public readonly filePaths: BettererFilePaths,
     public readonly runs: BettererRuns,
     public readonly runSummaries: BettererRunSummaries
   ) {
-    this.result = this._mergeResult();
-
     try {
       this._handleContextErrors();
     } catch (error) {
@@ -100,27 +97,6 @@ export class BettererSuiteSummaryΩ implements BettererSuiteSummary {
     const newRuns = notFailedOrSkippedOrObsolete.filter((runSummary) => runSummary.isNew && !runSummary.isComplete);
     const newOrChangedRunNames = [...changedRuns, ...newRuns].map((runSummary) => runSummary.name);
     return [...obsoleteRunNames, ...newOrChangedRunNames];
-  }
-
-  private _mergeResult(): BettererResultsSerialised {
-    return this.runSummaries.reduce<BettererResultsSerialised>((results, runSummary) => {
-      const { isFailed, isSkipped, isNew, isObsolete, isRemoved, isWorse, isUpdated } = runSummary;
-      const isSkippedOrFailed = isSkipped || isFailed;
-      if (isRemoved || (isSkippedOrFailed && isNew)) {
-        return results;
-      }
-      const { expected, name, result } = runSummary;
-      if ((isSkippedOrFailed && !isNew) || (isWorse && !isUpdated) || isObsolete) {
-        invariantΔ(expected, 'Test has successfully run in the past so it must have an expected result!');
-        const expectedΩ = expected as BettererResultΩ;
-        results[name] = { value: expectedΩ.printed };
-        return results;
-      }
-      invariantΔ(result, 'Test has successfully run so it must have a new result!');
-      const resultΩ = result as BettererResultΩ;
-      results[name] = { value: resultΩ.printed };
-      return results;
-    }, {});
   }
 
   private _handleContextErrors(): void {

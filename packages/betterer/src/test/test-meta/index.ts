@@ -6,3 +6,5 @@ export type {
   BettererTestsMeta,
   BettererTestNames
 } from './types.js';
+
+export { decodeSlug, encodeSlug } from './slug.js';

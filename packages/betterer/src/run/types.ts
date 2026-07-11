@@ -140,7 +140,8 @@ export interface BettererRunningEnd {
 
 /**
  * @public The summary of a {@link @betterer/betterer#BettererTest | `BettererTest`} run. Includes
- * everything from {@link @betterer/betterer#BettererRun | `BettererRun`}.
+ * everything from {@link @betterer/betterer#BettererRun | `BettererRun`} except its `logger`, which
+ * is only meaningful while the run is live.
  *
  * @remarks You can get the `BettererRunSummary` via the {@link @betterer/betterer#BettererReporter | `BettererReporter` }
  * interface.
@@ -169,7 +170,7 @@ export interface BettererRunningEnd {
  * }
  * ```
  */
-export interface BettererRunSummary extends BettererRun {
+export interface BettererRunSummary extends Omit<BettererRun, 'logger'> {
   /**
    * The verbose diff between the current test result and the expected result. Will be present when
    * `isWorse` is `true`.

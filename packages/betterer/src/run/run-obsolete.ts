@@ -51,7 +51,6 @@ export class BettererRunObsoleteΩ implements BettererRun {
         isUpdated: false,
         isWorse: false,
         name: this.name,
-        logger: this.logger,
         result: null,
         timestamp: -Infinity
       })

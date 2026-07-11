@@ -54,7 +54,7 @@ export class BettererFileTest extends BettererResolverTest<
         invariantΔ(filePaths, `\`filePaths\` should always exist for a \`BettererFileTest\` run!`);
 
         const { config } = getGlobals();
-        const result = new BettererFileTestResultΩ(this.resolver, config.resultsPath);
+        const result = new BettererFileTestResultΩ(this.resolver, config.resultsBasePath);
         await fileTest(filePaths, result, this.resolver);
         return result;
       },

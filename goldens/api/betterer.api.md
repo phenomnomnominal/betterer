@@ -27,7 +27,7 @@ export enum BettererCacheStrategy {
 }
 
 // @public
-export interface BettererConfig extends BettererConfigFS, BettererConfigReporter, BettererConfigContext {
+export interface BettererConfig extends BettererConfigFS, BettererConfigReporter, BettererConfigContext, BettererConfigResults {
 }
 
 // @public
@@ -58,7 +58,6 @@ export interface BettererConfigFS {
     cwd: string;
     ignores: BettererConfigIgnores;
     repoPath: string;
-    resultsPath: string;
     // @deprecated
     tsconfigPath: string | null;
     versionControlPath: string | null;
@@ -77,6 +76,15 @@ export type BettererConfigPaths = readonly [string, ...Array<string>];
 // @public
 export interface BettererConfigReporter {
     logo: boolean;
+}
+
+// @public
+export interface BettererConfigResults {
+    resultsBasePath: string;
+    resultsDir: string | null;
+    resultsPath: string | null;
+    resultsServerUrl: string | null;
+    resultsStrategy: BettererResultsStrategy;
 }
 
 // @public
@@ -214,7 +222,7 @@ export interface BettererFileTestResultSummary {
 export type BettererFileTestResultSummaryDetails = Record<string, BettererFileIssues>;
 
 // @public
-export type BettererOptions = BettererOptionsContext & BettererOptionsFS & BettererOptionsMode & BettererOptionsReporter;
+export type BettererOptions = BettererOptionsContext & BettererOptionsFS & BettererOptionsMode & BettererOptionsReporter & BettererOptionsResults;
 
 // @public
 export type BettererOptionsContext = BettererOptionsMode & {
@@ -244,7 +252,6 @@ export interface BettererOptionsFS {
     configPaths?: BettererOptionsPaths;
     cwd?: string;
     repoPath?: string;
-    resultsPath?: string;
     // @deprecated
     tsconfigPath?: string;
 }
@@ -360,13 +367,34 @@ export interface BettererOptionsReporterOverride {
 export type BettererOptionsReporters = Array<string | BettererReporter>;
 
 // @public
-export type BettererOptionsResults = Pick<BettererOptionsFS, 'cwd' | 'configPaths' | 'resultsPath'> & Pick<BettererOptionsContext, 'excludes' | 'filters' | 'includes'>;
+export type BettererOptionsResults = BettererOptionsResultsFile | BettererOptionsResultsDirectory | BettererOptionsResultsServer;
+
+// @public
+export interface BettererOptionsResultsDirectory {
+    resultsDir?: string;
+    resultsStrategy: 'directory';
+}
+
+// @public
+export interface BettererOptionsResultsFile {
+    resultsPath?: string;
+    resultsStrategy?: 'file';
+}
+
+// @public
+export interface BettererOptionsResultsServer {
+    resultsServerUrl: string;
+    resultsStrategy: 'server';
+}
+
+// @public
+export type BettererOptionsResultsSummary = BettererOptionsResults & Pick<BettererOptionsFS, 'cwd' | 'configPaths'> & Pick<BettererOptionsContext, 'excludes' | 'filters' | 'includes'>;
 
 // @public
 export type BettererOptionsRunner = BettererOptions;
 
 // @public
-export type BettererOptionsWatch = BettererOptionsContext & BettererOptionsFS & BettererOptionsModeWatch & BettererOptionsReporter & BettererOptionsWatcher;
+export type BettererOptionsWatch = BettererOptionsContext & BettererOptionsFS & BettererOptionsModeWatch & BettererOptionsReporter & BettererOptionsWatcher & BettererOptionsResults;
 
 // @public
 export interface BettererOptionsWatcher {
@@ -392,7 +420,7 @@ export interface BettererReporter {
     contextError?(context: BettererContext, error: BettererError): Promise<void> | void;
     contextStart?(context: BettererContext, lifecycle: Promise<BettererContextSummary>): Promise<void> | void;
     runEnd?(runSummary: BettererRunSummary): Promise<void> | void;
-    runError?(run: BettererRun, error: BettererError): Promise<void> | void;
+    runError?(runSummary: BettererRunSummary, error: BettererError): Promise<void> | void;
     runLogger?: BettererRunLogger;
     runStart?(run: BettererRun, lifecycle: Promise<BettererRunSummary>): Promise<void> | void;
     suiteEnd?(suiteSummary: BettererSuiteSummary): Promise<void> | void;
@@ -413,6 +441,9 @@ export class BettererResolverTest<DeserialisedType = unknown, SerialisedType = D
 export interface BettererResult {
     value: unknown;
 }
+
+// @public
+export type BettererResultsStrategy = 'file' | 'directory' | 'server';
 
 // @public
 export interface BettererResultsSummary {
@@ -460,7 +491,7 @@ export type BettererRuns = ReadonlyArray<BettererRun>;
 export type BettererRunSummaries = Array<BettererRunSummary>;
 
 // @public
-export interface BettererRunSummary extends BettererRun {
+export interface BettererRunSummary extends Omit<BettererRun, 'logger'> {
     readonly delta: BettererDelta | null;
     readonly diff: BettererDiff | null;
     readonly error: Error | null;
@@ -584,7 +615,7 @@ export type MaybeAsync<T> = T | Promise<T>;
 export function merge(options?: BettererOptionsMerge): Promise<void>;
 
 // @public
-export function results(options?: BettererOptionsResults): Promise<BettererResultsSummary>;
+export function results(options?: BettererOptionsResultsSummary): Promise<BettererResultsSummary>;
 
 // @public
 export function runner(options?: BettererOptionsRunner): Promise<BettererRunner>;

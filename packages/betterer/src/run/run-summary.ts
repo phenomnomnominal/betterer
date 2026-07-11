@@ -1,5 +1,3 @@
-import type { BettererLogger } from '@betterer/logger';
-
 import type { BettererFilePaths } from '../fs/index.js';
 import type { BettererResult } from '../results/index.js';
 import type { BettererDiff } from '../test/index.js';
@@ -23,7 +21,6 @@ export class BettererRunSummaryΩ implements BettererRunSummary {
   public readonly isSkipped: boolean;
   public readonly isUpdated: boolean;
   public readonly isWorse: boolean;
-  public readonly logger: BettererLogger;
   public readonly name: string;
   public readonly result: BettererResult | null;
   public readonly timestamp: number;
@@ -46,7 +43,6 @@ export class BettererRunSummaryΩ implements BettererRunSummary {
     this.isSkipped = summary.isSkipped;
     this.isUpdated = summary.isUpdated;
     this.isWorse = summary.isWorse;
-    this.logger = summary.logger;
     this.name = summary.name;
     this.result = summary.result;
     this.timestamp = summary.timestamp;

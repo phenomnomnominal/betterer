@@ -2,13 +2,7 @@ import { BettererError } from '@betterer/errors';
 
 import type { BettererConfig, BettererOptionsOverride } from '../config/index.js';
 import type { BettererFilePaths, BettererFileResolverΩ } from '../fs/index.js';
-import type {
-  BettererSuite,
-  BettererSuites,
-  BettererSuiteSummaries,
-  BettererSuiteSummary,
-  BettererSuiteSummaryΩ
-} from '../suite/index.js';
+import type { BettererSuite, BettererSuites, BettererSuiteSummaries, BettererSuiteSummary } from '../suite/index.js';
 import type { BettererContext, BettererContextSummary } from './types.js';
 
 import { overrideContextConfig } from '../context/index.js';
@@ -87,8 +81,7 @@ export class BettererContextΩ implements BettererContext {
     this._suiteSummaries = [...this._suiteSummaries, suiteSummary];
 
     if (!isRunOnce && !config.ci) {
-      const suiteSummaryΩ = suiteSummary as BettererSuiteSummaryΩ;
-      await results.api.write(suiteSummaryΩ.result);
+      await results.write();
     }
 
     if (suiteSummary.error) {

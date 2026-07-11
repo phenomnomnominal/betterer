@@ -3,7 +3,7 @@ import type { BettererOptions } from '../api/index.js';
 import type { BettererConfig, BettererOptionsOverride } from '../config/index.js';
 import type { BettererContextSummary } from '../context/index.js';
 import type { BettererFilePaths, BettererOptionsWatcher } from '../fs/index.js';
-import type { BettererSuiteSummary, BettererSuiteSummaryΩ, BettererSuiteΩ } from '../suite/index.js';
+import type { BettererSuiteSummary, BettererSuiteΩ } from '../suite/index.js';
 import type { BettererRunner } from './types.js';
 
 import { BettererError } from '@betterer/errors';
@@ -12,6 +12,7 @@ import minimatch from 'minimatch';
 import { BettererContextΩ } from '../context/index.js';
 import { createWatcher, isTempFilePath, WATCHER_EVENTS } from '../fs/index.js';
 import { createGlobals, destroyGlobals, getGlobals } from '../globals.js';
+import { isResultsPath } from '../results/index.js';
 import { normalisedPath } from '../utils.js';
 
 const DEBOUNCE_TIME = 200;
@@ -130,14 +131,12 @@ export class BettererRunnerΩ implements BettererRunner {
         throw new BettererError('You cannot stop a runner before it has run any tests! 💥');
       }
 
-      const suiteSummaryΩ = contextSummary.lastSuite as BettererSuiteSummaryΩ;
-
       const { config, fs, results } = getGlobals();
 
-      if (!config.ci) {
-        const didWrite = await results.api.write(suiteSummaryΩ.result);
-        if (didWrite && config.precommit) {
-          await fs.api.add(config.resultsPath);
+      if (!config.ci && this._isRunOnce) {
+        const writtenPath = await results.write();
+        if (writtenPath && config.precommit) {
+          await fs.api.add(writtenPath);
         }
       }
 
@@ -175,7 +174,7 @@ export class BettererRunnerΩ implements BettererRunner {
     }
 
     const { config } = getGlobals();
-    const { cachePath, cwd, resultsPath } = config;
+    const { cachePath, cwd } = config;
 
     itemPath = normalisedPath(itemPath);
     const normalisedCwd = normalisedPath(cwd);
@@ -185,10 +184,9 @@ export class BettererRunnerΩ implements BettererRunner {
     }
 
     const isGitPath = itemPath.includes('.git');
-    const isResultsPath = itemPath === normalisedPath(resultsPath);
     const isCachePath = itemPath === normalisedPath(cachePath);
     const isTempPath = isTempFilePath(itemPath);
-    if (isGitPath || isResultsPath || isCachePath || isTempPath) {
+    if (isGitPath || isResultsPath(config, itemPath) || isCachePath || isTempPath) {
       return false;
     }
 
@@ -211,6 +209,12 @@ export class BettererRunnerΩ implements BettererRunner {
     if (this._isStopped) {
       this._jobs = [];
       return;
+    }
+
+    try {
+      await this._running;
+    } catch {
+      // Error would be handled in `queue()`
     }
 
     if (this._jobs.length) {

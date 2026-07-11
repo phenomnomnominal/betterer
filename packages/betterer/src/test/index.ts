@@ -38,6 +38,7 @@ export type {
   BettererTestOptions
 } from './types.js';
 
-export { BettererFileTest, isBettererFileTest } from './file-test/index.js';
+export { BettererFileTest, isBettererFileTest, splitKey } from './file-test/index.js';
 export { BettererResolverTest, isBettererResolverTest } from './resolver-test/index.js';
+export { decodeSlug, encodeSlug } from './test-meta/index.js';
 export { BettererTest, isBettererTest } from './test.js';

@@ -51,22 +51,24 @@ export class BettererRunΩ implements BettererRun {
   public static async create(testMeta: BettererTestMeta, filePaths: BettererFilePaths): Promise<BettererRunΩ> {
     const { config, fs, reporter, results, runWorkerPool } = getGlobals();
 
-    const workerHandle = runWorkerPool.getWorkerHandle();
-    const worker = await workerHandle.claim();
-
-    const runMeta = await worker.api.init(testMeta, { ...config, workers: 1 }, fs, results);
-    workerHandle.release();
+    const isNew = !results.hasBaseline(testMeta.name);
 
     let baseline: BettererResultΩ | null = null;
     let expected: BettererResultΩ | null = null;
-
-    const isNew = !(await results.api.hasBaseline(testMeta.name));
+    let baselineSerialised: string | null = null;
+    let expectedSerialised: string | null = null;
     if (!isNew) {
-      const baselineSerialised = await results.api.getBaseline(testMeta.name);
-      const expectedSerialised = await results.api.getExpected(testMeta.name);
+      baselineSerialised = results.getBaseline(testMeta.name);
+      expectedSerialised = results.getExpected(testMeta.name);
       baseline = new BettererResultΩ(JSON.parse(baselineSerialised), baselineSerialised);
       expected = new BettererResultΩ(JSON.parse(expectedSerialised), expectedSerialised);
     }
+
+    const workerHandle = runWorkerPool.getWorkerHandle();
+    const worker = await workerHandle.claim();
+    const workerConfig = { ...config, workers: 1 };
+    const runMeta = await worker.api.init(testMeta, workerConfig, fs, baselineSerialised, expectedSerialised);
+    workerHandle.release();
 
     return new BettererRunΩ(
       workerHandle,
@@ -103,7 +105,6 @@ export class BettererRunΩ implements BettererRun {
         isSkipped: false,
         isUpdated: false,
         isWorse: false,
-        logger: this.logger,
         name: this.name,
         result: null,
         timestamp: timestamp

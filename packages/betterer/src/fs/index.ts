@@ -18,11 +18,10 @@ export type {
 export { createFSConfig, overrideWatchConfig } from './config.js';
 export { BettererCacheStrategy } from './file-cache-strategy.js';
 export { BettererFileResolverΩ } from './file-resolver.js';
-export { BettererResultsFileΩ } from './results-file.js';
 export { importDefault, importTranspiled, importTranspiledHashed } from './import.js';
 export { merge } from './merge.js';
 export { parse } from './parse.js';
-export { read, readdir } from './reader.js';
+export { readdir, removeDir, syncDir, walkDir } from './dir.js';
+export { read, write } from './file.js';
 export { isTempFilePath } from './temp.js';
-export { forceRelativePaths, write } from './writer.js';
 export { WATCHER_EVENTS, createWatcher } from './watcher.js';
