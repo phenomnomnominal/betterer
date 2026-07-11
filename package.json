@@ -16,7 +16,7 @@
     "api:all": "nx run workspace:api:all",
     "betterer": "node ./packages/cli/bin/betterer --config config/.betterer.ts --results config/.betterer.results",
     "betterer:ci": "node ./packages/cli/bin/betterer ci --config config/.betterer.ts --results config/.betterer.results",
-    "betterer:precommit": "node ./packages/cli/bin/betterer precommit --cache --config config/.betterer.ts --results config/.betterer.results --repoPath .",
+    "betterer:precommit": "node ./packages/cli/bin/betterer precommit --cache --cachePath config/.betterer.cache --config config/.betterer.ts --results config/.betterer.results --repoPath .",
     "build": "nx run workspace:build",
     "build:ci": "nx run workspace:build:ci",
     "build:extension": "nx run workspace:build:extension",

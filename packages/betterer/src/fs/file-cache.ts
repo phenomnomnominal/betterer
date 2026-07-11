@@ -13,8 +13,7 @@ import type {
 import { invariantΔ } from '@betterer/errors';
 import path from 'node:path';
 import { normalisedPath, sortEntriesKeys } from '../utils.js';
-import { read } from './reader.js';
-import { write } from './writer.js';
+import { read, write } from './file.js';
 import { createCacheHash } from '../hasher.js';
 
 const BETTERER_CACHE_VERSION = 2;

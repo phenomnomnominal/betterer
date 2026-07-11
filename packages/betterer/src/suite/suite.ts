@@ -25,25 +25,20 @@ export class BettererSuiteΩ implements BettererSuite {
     const { config, reporter, results, testMetaLoader } = getGlobals();
     const { configPaths, update } = config;
 
-    const expectedTestNames = await results.api.getExpectedTestNames();
-
+    const expectedTestNames = results.getExpectedTestNames();
     const testsMeta = await testMetaLoader.api.loadTestsMeta(configPaths);
-    const runsΩ = await Promise.all(
-      testsMeta.map(async (testMeta) => {
-        return await BettererRunΩ.create(testMeta, filePaths);
-      })
-    );
+    const runsΩ = await Promise.all(testsMeta.map((testMeta) => BettererRunΩ.create(testMeta, filePaths)));
 
     const testNames = testsMeta.map((testMeta) => testMeta.name);
-    const obsoleteTestNames = expectedTestNames.filter((expectedTestName) => !testNames.includes(expectedTestName));
-
-    const obsoleteRuns = await Promise.all(
-      obsoleteTestNames.map(async (testName) => {
-        const baselineJSON = await results.api.getBaseline(testName);
-        const baseline = new BettererResultΩ(JSON.parse(baselineJSON), baselineJSON);
-        return new BettererRunObsoleteΩ(reporter, testName, baseline, update);
-      })
+    const obsoleteTestNames = expectedTestNames.filter(
+      (name) => !testNames.includes(name) && results.hasBaseline(name)
     );
+
+    const obsoleteRuns = obsoleteTestNames.map((testName) => {
+      const baselineJSON = results.getExpected(testName);
+      const baseline = new BettererResultΩ(JSON.parse(baselineJSON), baselineJSON);
+      return new BettererRunObsoleteΩ(reporter, testName, baseline, update);
+    });
 
     return new BettererSuiteΩ(filePaths, [...obsoleteRuns, ...runsΩ]);
   }
@@ -54,7 +49,7 @@ export class BettererSuiteΩ implements BettererSuite {
       return runΩ.isOnly;
     });
 
-    const { reporter } = getGlobals();
+    const { reporter, results } = getGlobals();
     const reporterΩ = reporter;
 
     // Call the `runStart` reporter hook sequentially for all the tests:
@@ -162,6 +157,22 @@ export class BettererSuiteΩ implements BettererSuite {
         }
       })
     );
+
+    runSummaries.forEach((runSummary, index) => {
+      const { isFailed, isSkipped, isNew, isObsolete, isRemoved, isWorse, isUpdated, expected, result } = runSummary;
+      const isSkippedOrFailed = isSkipped || isFailed;
+      if (isRemoved || (isSkippedOrFailed && isNew)) {
+        return;
+      }
+      const run = this.runs[index] as BettererRunΩ;
+      if ((isSkippedOrFailed && !isNew) || (isWorse && !isUpdated) || isObsolete) {
+        invariantΔ(expected, 'previous successful test run must have an expected result!');
+        results.set(run, (expected as BettererResultΩ).printed);
+        return;
+      }
+      invariantΔ(result, 'successful test run must have a new result!');
+      results.set(run, (result as BettererResultΩ).printed);
+    });
 
     return new BettererSuiteSummaryΩ(this.filePaths, this.runs, runSummaries);
   }

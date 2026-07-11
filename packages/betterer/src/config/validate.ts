@@ -91,7 +91,7 @@ export async function validateWorkers(workers: number | boolean = true): Promise
   validateNumber({ workers });
   validate(
     isNumber(workers) && workers > 0 && workers <= totalCPUs,
-    `"workers" must be more than zero and not more than the number of available CPUs (${String(totalCPUs)}). To disable workers, set to \`false\`. ${received(
+    `"workers" must be more than zero and not more than the number of available CPUs (${String(totalCPUs)}). To disable workers, set to \`false\` or \`0\`. ${received(
       workers
     )}`
   );
@@ -103,5 +103,8 @@ function validate(value: unknown, message: string): asserts value {
 }
 
 function received(value: unknown): string {
-  return `Received \`${JSON.stringify(value)}\`.`;
+  if (isNumber(value) && !Number.isFinite(value)) {
+    return `Received \`${String(value)}\`.`;
+  }
+  return `Received \`${JSON.stringify(value, (_, item: unknown) => (isRegExp(item) ? item.toString() : item))}\`.`;
 }

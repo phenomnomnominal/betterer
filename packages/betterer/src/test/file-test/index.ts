@@ -16,3 +16,4 @@ export type {
 
 export { BettererFileTestResultΩ } from './file-test-result.js';
 export { BettererFileTest, isBettererFileTest } from './file-test.js';
+export { splitKey } from './serialiser.js';

@@ -194,8 +194,10 @@ export interface BettererTestOptions<DeserialisedType, SerialisedType, DiffType>
   serialiser?: BettererSerialiser<DeserialisedType, SerialisedType>;
   /**
    * The goal function or goal value for the test.
+   *
+   * @remarks When omitted, the test will never be reported as "complete".
    */
-  goal: DeserialisedType | BettererTestGoal<DeserialisedType>;
+  goal?: DeserialisedType | BettererTestGoal<DeserialisedType>;
   /**
    * The deadline for the test.
    *

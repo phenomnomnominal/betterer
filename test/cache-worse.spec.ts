@@ -44,6 +44,7 @@ export default {
     const worseTestRun = await betterer({ configPaths, resultsPath, cachePath, workers: false });
 
     expect(testNames(worseTestRun.worse)).toEqual(['test']);
+    expect(worseTestRun.error).toBeInstanceOf(Error);
 
     const worseCache = await readFile(cachePath);
 

@@ -44,4 +44,27 @@ exports[\`test\`] = {
 
     await cleanup();
   });
+
+  it('should merge supplied contents into a results file that does not yet exist', async () => {
+    const { merge } = await import('@betterer/betterer');
+
+    const { paths, deleteFile, readFile, cleanup } = await createFixture('merge-create', {
+      '.betterer.results': ''
+    });
+    await deleteFile(paths.results);
+
+    process.env.BETTERER_WORKER = 'false';
+
+    await merge({
+      resultsPath: paths.results,
+      contents: ['exports[`a`] = { value: `1` };', 'exports[`b`] = { value: `2` };']
+    });
+
+    const merged = await readFile(paths.results);
+
+    expect(merged).toContain('`a`');
+    expect(merged).toContain('`b`');
+
+    await cleanup();
+  });
 });

@@ -1,6 +1,111 @@
-import type { BettererWorkerAPI } from '@betterer/worker';
+import type { BettererRun } from '../run/index.js';
+import type { BettererFileIssues, BettererTestNames } from '../test/index.js';
 
-import type { BettererFileIssues } from '../test/index.js';
+/**
+ * @public The {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results }
+ * storage strategy. `'file'` stores results in a single file, `'directory'` stores one file per
+ * issue (to avoid merge conflicts), and `'server'` stores results remotely.
+ */
+export type BettererResultsStrategy = 'file' | 'directory' | 'server';
+
+/**
+ * @public **Betterer** options for the `'file'` results strategy: results are stored in a single
+ * file at `resultsPath`.
+ */
+export interface BettererOptionsResultsFile {
+  /**
+   * Selects the `'file'` results strategy.
+   * @defaultValue `'file'`
+   */
+  resultsStrategy?: 'file';
+  /**
+   * The path to the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}.
+   * Resolved relative to the `cwd`.
+   * @defaultValue `'./.betterer.results'`
+   */
+  resultsPath?: string;
+}
+
+/**
+ * @public **Betterer** options for the `'directory'` results strategy: results are stored as one
+ * file per issue beneath `resultsDir`, so that concurrent edits merge without conflicts.
+ */
+export interface BettererOptionsResultsDirectory {
+  /**
+   * Selects the `'directory'` results strategy.
+   */
+  resultsStrategy: 'directory';
+  /**
+   * The path to the results directory. Resolved relative to the `cwd`.
+   * @defaultValue `'./.betterer.results.d'`
+   */
+  resultsDir?: string;
+}
+
+/**
+ * @public **Betterer** options for the `'server'` results strategy: results are stored remotely.
+ */
+export interface BettererOptionsResultsServer {
+  /**
+   * Selects the `'server'` results strategy.
+   */
+  resultsStrategy: 'server';
+  /**
+   * The URL of the results server.
+   */
+  resultsServerUrl: string;
+}
+
+/**
+ * @public Selects and configures the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results }
+ * storage strategy. The chosen `resultsStrategy` determines which other settings are valid: `'file'`
+ * uses `resultsPath`, `'directory'` uses `resultsDir`, and `'server'` uses `resultsServerUrl`.
+ */
+export type BettererOptionsResults =
+  | BettererOptionsResultsFile
+  | BettererOptionsResultsDirectory
+  | BettererOptionsResultsServer;
+
+/**
+ * Reads and writes the `expected` results baseline.
+ */
+export interface BettererResults {
+  set(run: BettererRun, value: string): void;
+  write(): Promise<string | null>;
+  getBaseline(name: string): string;
+  getExpected(name: string): string;
+  getExpectedTestNames(): BettererTestNames;
+  hasBaseline(name: string): boolean;
+}
+
+/**
+ * @public Full validated config for results storage, available on the
+ * {@link @betterer/betterer#BettererConfig | `BettererConfig`}.
+ */
+export interface BettererConfigResults {
+  /**
+   * The results strategy used to store and retrieve the `expected` baseline.
+   */
+  resultsStrategy: BettererResultsStrategy;
+  /**
+   * The absolute path to the results file. Set when `resultsStrategy` is `'file'`, otherwise `null`.
+   */
+  resultsPath: string | null;
+  /**
+   * The absolute path to the results directory. Set when `resultsStrategy` is `'directory'`,
+   * otherwise `null`.
+   */
+  resultsDir: string | null;
+  /**
+   * The URL of the results server. Set when `resultsStrategy` is `'server'`, otherwise `null`.
+   */
+  resultsServerUrl: string | null;
+  /**
+   * The absolute path to the directory that relative result paths are resolved against. Derived
+   * from the active results strategy's location.
+   */
+  resultsBasePath: string;
+}
 
 /**
  * @public Options for when merging conflicts in the {@link https://phenomnomnominal.github.io/betterer/docs/results-file | results file}
@@ -140,5 +245,3 @@ export type BettererFileTestResultSummaryDetails = Record<string, BettererFileIs
  * @public The summarised result of a {@link @betterer/betterer#BettererTest | `BettererTest`}.
  */
 export type BettererTestResultSummaryDetails = string;
-
-export type BettererResultsWorker = BettererWorkerAPI<typeof import('./results.worker.js')>;

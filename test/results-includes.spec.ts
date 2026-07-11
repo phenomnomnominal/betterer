@@ -55,4 +55,25 @@ export default {
 
     await cleanup();
   });
+
+  it('should treat a nullish `includes` as no includes', async () => {
+    const { runner } = await import('@betterer/betterer');
+
+    const { paths, cleanup } = await createFixture('results-includes-null', {
+      '.betterer.ts': `export default {};`
+    });
+
+    const betterRunner = await runner({
+      configPaths: [paths.config],
+      resultsPath: paths.results,
+      workers: false,
+      // @ts-expect-error includes is string | string[]
+      includes: null
+    });
+
+    expect(betterRunner.config.includes).toEqual([]);
+
+    await betterRunner.stop(true);
+    await cleanup();
+  });
 });

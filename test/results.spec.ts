@@ -38,4 +38,34 @@ export default {
 
     await cleanup();
   });
+
+  it('should throw a clear error when a configured test has no saved result', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
+    const { paths, cleanup } = await createFixture('results-missing', {
+      '.betterer.js': `
+import { BettererTest } from '@betterer/betterer';
+import { bigger } from '@betterer/constraints';
+
+export default {
+  'never-run': () => new BettererTest({ test: () => 1, constraint: bigger, goal: 100 })
+};
+    `,
+      '.betterer.results': `// BETTERER RESULTS V2.\n`
+    });
+
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+    const exitCode = process.exitCode;
+
+    try {
+      await betterer.results({ configPaths, resultsPath });
+      expect.unreachable();
+    } catch (error) {
+      expect((error as Error).message).toContain('could not find a result for test "never-run"');
+    }
+
+    process.exitCode = exitCode;
+    await cleanup();
+  });
 });

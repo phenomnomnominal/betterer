@@ -2,30 +2,30 @@ import type { BettererLogger } from '@betterer/logger';
 
 import type { BettererConfig } from '../config/types.js';
 import type { BettererFilePaths, BettererFileResolverΩ, BettererFSWorker } from '../fs/index.js';
-import type { BettererResultsWorker } from '../results/index.js';
-import type { BettererTest, BettererTestMeta } from '../test/index.js';
+import type { BettererTestMeta } from '../test/index.js';
 import type { BettererRunMeta } from './meta/index.js';
 import type { BettererRunSummary } from './types.js';
 
 import { invariantΔ } from '@betterer/errors';
 import { exposeToMainΔ } from '@betterer/worker';
 
-import { isBettererResolverTest, isBettererTest } from '../test/index.js';
+import { isBettererFileTest, isBettererResolverTest, isBettererTest } from '../test/index.js';
 import { loadTest, BettererWorkerRunΩ } from './worker-run.js';
-import { setGlobals } from '../globals.js';
+import { setWorkerGlobals } from '../globals.js';
 
-const TEST_META_MAP: Record<string, [BettererTest, BettererTestMeta, BettererRunMeta]> = {};
+const RUNS: Record<string, BettererWorkerRunΩ> = {};
 
 /** @knipignore part of worker API */
 export async function init(
   testMeta: BettererTestMeta,
   config: BettererConfig,
   fs: BettererFSWorker,
-  results: BettererResultsWorker
+  baseline: string | null,
+  expected: string | null
 ): Promise<BettererRunMeta> {
   // If we're in a worker, we need to populate the globals:
   if (process.env.BETTERER_WORKER !== 'false') {
-    setGlobals(config, fs, null, results, null, null);
+    setWorkerGlobals(config, fs);
   }
 
   const { name } = testMeta;
@@ -35,8 +35,9 @@ export async function init(
 
   invariantΔ(isTest, `"${name}" must return a \`BettererTest\`!`);
 
-  const isNew = !(await results.api.hasBaseline(name));
   const { isOnly, isSkipped } = test;
+  const isNew = !(baseline && expected);
+  const isFileTest = isBettererFileTest(test);
   const hasFilePaths = isBettererResolverTest(test);
   let isCacheable = false;
   if (hasFilePaths) {
@@ -45,9 +46,9 @@ export async function init(
     isCacheable = resolverΩ.isCacheable;
   }
 
-  const runMeta = { hasFilePaths, isCacheable, isNew, isOnly, isSkipped };
+  const runMeta = { hasFilePaths, isCacheable, isFileTest, isNew, isOnly, isSkipped };
 
-  TEST_META_MAP[testMeta.name] = [test, testMeta, runMeta];
+  RUNS[testMeta.name] = new BettererWorkerRunΩ(test.config, testMeta, runMeta, baseline, expected);
   return runMeta;
 }
 
@@ -59,12 +60,9 @@ export function run(
   isFiltered: boolean,
   timestamp: number
 ): Promise<BettererRunSummary> {
-  const meta = TEST_META_MAP[testName];
-  invariantΔ(meta, `Worker has not been initialised for "${testName}"!`);
-  const [test, testMeta, runMeta] = meta;
-
-  const run = new BettererWorkerRunΩ(test.config, logger, testMeta, runMeta);
-  return run.run(filePaths, isFiltered, timestamp);
+  const run = RUNS[testName];
+  invariantΔ(run, `Worker has not been initialised for "${testName}"!`);
+  return run.run(logger, filePaths, isFiltered, timestamp);
 }
 
 exposeToMainΔ({

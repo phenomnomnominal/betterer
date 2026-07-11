@@ -1,5 +1,5 @@
 import type { FC } from '@betterer/render';
-import type { BettererOptionsResults, BettererResultsSummary } from '@betterer/betterer';
+import type { BettererOptionsResultsSummary, BettererResultsSummary } from '@betterer/betterer';
 import type { GetResultsSummaryWorker } from './types.js';
 
 import { React, Box, Text, useApp, useEffect, useState } from '@betterer/render';
@@ -8,7 +8,7 @@ import { importWorkerΔ } from '@betterer/worker';
 
 /** @knipignore used by an exported function */
 export interface ResultsProps {
-  options: BettererOptionsResults;
+  options: BettererOptionsResultsSummary;
   logo: boolean;
 }
 

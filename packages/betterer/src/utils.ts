@@ -19,7 +19,7 @@ export function isString(value: unknown): value is string {
   return typeof value === 'string';
 }
 
-export function isRegExp(value: unknown): value is string {
+export function isRegExp(value: unknown): value is RegExp {
   return Object.prototype.toString.call(value) === '[object RegExp]';
 }
 
@@ -29,6 +29,15 @@ export function isUndefined(value: unknown): value is undefined {
 
 export function normalisedPath(filePath: string): string {
   return filePath.split(path.win32.sep).join(path.posix.sep);
+}
+
+export function resolvePath(cwd: string, filePath: string): string {
+  return normalisedPath(path.resolve(cwd, filePath));
+}
+
+export function forceRelativePaths(toWrite: string, basePath: string): string {
+  const directory = `${normalisedPath(basePath)}/`;
+  return toWrite.replace(new RegExp(directory, 'g'), '');
 }
 
 export function sortEntriesKeys([keyA]: [string, unknown], [keyB]: [string, unknown]): 0 | -1 | 1 {

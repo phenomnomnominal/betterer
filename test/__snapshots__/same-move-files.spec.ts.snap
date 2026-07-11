@@ -1,0 +1,72 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`betterer > should stay the same when multiple files are moved at once 1`] = `
+"// BETTERER RESULTS V2.
+//
+// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//
+exports[\`test\`] = {
+  value: \`{
+    "src/a.ts:1499252024": [
+      [2, 12, 1, "tsc: The left-hand side of an arithmetic operation must be of type \\'any\\', \\'number\\', \\'bigint\\' or an enum type.", "177604"]
+    ],
+    "src/b.ts:2786975096": [
+      [2, 12, 1, "tsc: The left-hand side of an arithmetic operation must be of type \\'any\\', \\'number\\', \\'bigint\\' or an enum type.", "177607"]
+    ]
+  }\`
+};
+"
+`;
+
+exports[`betterer > should stay the same when multiple files are moved at once 2`] = `
+"// BETTERER RESULTS V2.
+//
+// If this file contains merge conflicts, use \`betterer merge\` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//
+exports[\`test\`] = {
+  value: \`{
+    "src/a-moved.ts:1499252024": [
+      [2, 12, 1, "tsc: The left-hand side of an arithmetic operation must be of type \\'any\\', \\'number\\', \\'bigint\\' or an enum type.", "177604"]
+    ],
+    "src/b-moved.ts:2786975096": [
+      [2, 12, 1, "tsc: The left-hand side of an arithmetic operation must be of type \\'any\\', \\'number\\', \\'bigint\\' or an enum type.", "177607"]
+    ]
+  }\`
+};
+"
+`;
+
+exports[`betterer > should stay the same when multiple files are moved at once 3`] = `
+[
+  "🌟 Betterer (0ms):
+",
+  "🌟 Betterer (0ms): 1 test running...
+🤔 test: running "test"!
+",
+  "🎉 Betterer (0ms): 1 test done!
+✅ test: "test" got checked for the first time! (2 issues) 🎉
+",
+  "🎉 Betterer (0ms): 1 test done!
+✅ test: "test" got checked for the first time! (2 issues) 🎉
+
+1 test got checked. 🤔
+1 test got checked for the first time! 🎉
+",
+  "🌟 Betterer (0ms):
+",
+  "🌟 Betterer (0ms): 1 test running...
+🤔 test: running "test"!
+",
+  "🎉 Betterer (0ms): 1 test done!
+✅ test: "test" stayed the same. (2 issues) 😐
+",
+  "🎉 Betterer (0ms): 1 test done!
+✅ test: "test" stayed the same. (2 issues) 😐
+
+1 test got checked. 🤔
+1 test stayed the same. 😐
+",
+]
+`;

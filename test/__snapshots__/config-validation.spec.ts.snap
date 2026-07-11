@@ -24,10 +24,18 @@ Error: "cache" must be \`true\` or \`false\`. Received \`1234\`.
 ]
 `;
 
+exports[`betterer > should throw when there is invalid config: { cachePath: [ 'a', 'b' ] } 1`] = `
+[
+  "
+Error: "cachePath" must be a string. Received \`["a","b"]\`.
+",
+]
+`;
+
 exports[`betterer > should throw when there is invalid config: { cachePath: {} } 1`] = `
 [
   "
-Error: "cachePath" must be a string or an array. Received \`{}\`.
+Error: "cachePath" must be a string. Received \`{}\`.
 ",
 ]
 `;
@@ -35,7 +43,7 @@ Error: "cachePath" must be a string or an array. Received \`{}\`.
 exports[`betterer > should throw when there is invalid config: { cachePath: 1234 } 1`] = `
 [
   "
-Error: "cachePath" must be a string or an array. Received \`1234\`.
+Error: "cachePath" must be a string. Received \`1234\`.
 ",
 ]
 `;
@@ -43,7 +51,7 @@ Error: "cachePath" must be a string or an array. Received \`1234\`.
 exports[`betterer > should throw when there is invalid config: { cachePath: true } 1`] = `
 [
   "
-Error: "cachePath" must be a string or an array. Received \`true\`.
+Error: "cachePath" must be a string. Received \`true\`.
 ",
 ]
 `;
@@ -152,6 +160,46 @@ Error: "filters" must be an array of strings or RegExps. Received \`[true]\`.
 ]
 `;
 
+exports[`betterer > should throw when there is invalid config: { includes: [ /foo/ ] } 1`] = `
+[
+  "
+Error: "includes" must be an array of strings. Received \`["/foo/"]\`.
+",
+]
+`;
+
+exports[`betterer > should throw when there is invalid config: { includes: [ 1234 ] } 1`] = `
+[
+  "
+Error: "includes" must be an array of strings. Received \`[1234]\`.
+",
+]
+`;
+
+exports[`betterer > should throw when there is invalid config: { includes: {} } 1`] = `
+[
+  "
+Error: "includes" must be an array of strings. Received \`[{}]\`.
+",
+]
+`;
+
+exports[`betterer > should throw when there is invalid config: { includes: 1234 } 1`] = `
+[
+  "
+Error: "includes" must be an array of strings. Received \`[1234]\`.
+",
+]
+`;
+
+exports[`betterer > should throw when there is invalid config: { includes: true } 1`] = `
+[
+  "
+Error: "includes" must be an array of strings. Received \`[true]\`.
+",
+]
+`;
+
 exports[`betterer > should throw when there is invalid config: { logo: [ 1234 ] } 1`] = `
 [
   "
@@ -200,10 +248,18 @@ Error: "precommit" must be \`true\` or \`false\`. Received \`1234\`.
 ]
 `;
 
+exports[`betterer > should throw when there is invalid config: { resultsPath: [ 'a', 'b' ] } 1`] = `
+[
+  "
+Error: "resultsPath" must be a string. Received \`["a","b"]\`.
+",
+]
+`;
+
 exports[`betterer > should throw when there is invalid config: { resultsPath: {} } 1`] = `
 [
   "
-Error: "resultsPath" must be a string or an array. Received \`{}\`.
+Error: "resultsPath" must be a string. Received \`{}\`.
 ",
 ]
 `;
@@ -211,7 +267,7 @@ Error: "resultsPath" must be a string or an array. Received \`{}\`.
 exports[`betterer > should throw when there is invalid config: { resultsPath: 1234 } 1`] = `
 [
   "
-Error: "resultsPath" must be a string or an array. Received \`1234\`.
+Error: "resultsPath" must be a string. Received \`1234\`.
 ",
 ]
 `;
@@ -219,7 +275,7 @@ Error: "resultsPath" must be a string or an array. Received \`1234\`.
 exports[`betterer > should throw when there is invalid config: { resultsPath: true } 1`] = `
 [
   "
-Error: "resultsPath" must be a string or an array. Received \`true\`.
+Error: "resultsPath" must be a string. Received \`true\`.
 ",
 ]
 `;
@@ -315,7 +371,7 @@ Error: "workers" must be a number. Received \`{}\`.
 exports[`betterer > should throw when there is invalid config: { workers: -1 } 1`] = `
 [
   "
-Error: "workers" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Received \`-1\`.
+Error: "workers" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\` or \`0\`. Received \`-1\`.
 ",
 ]
 `;
@@ -323,7 +379,7 @@ Error: "workers" must be more than zero and not more than the number of availabl
 exports[`betterer > should throw when there is invalid config: { workers: 1000 } 1`] = `
 [
   "
-Error: "workers" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Received \`1000\`.
+Error: "workers" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\` or \`0\`. Received \`1000\`.
 ",
 ]
 `;
@@ -331,7 +387,7 @@ Error: "workers" must be more than zero and not more than the number of availabl
 exports[`betterer > should throw when there is invalid config: { workers: NaN } 1`] = `
 [
   "
-Error: "workers" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\`. Received \`null\`.
+Error: "workers" must be more than zero and not more than the number of available CPUs (1). To disable workers, set to \`false\` or \`0\`. Received \`NaN\`.
 ",
 ]
 `;

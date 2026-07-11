@@ -1,7 +1,7 @@
 import type { BettererFilePaths, BettererFileResolver } from '../../fs/index.js';
 import type { BettererFileTestResult, BettererFileIssues, BettererFile, BettererFileBase } from './types.js';
 
-import assert from 'node:assert';
+import { BettererError, invariantΔ } from '@betterer/errors';
 import path from 'node:path';
 
 import { BettererFileΩ } from './file.js';
@@ -13,7 +13,7 @@ export class BettererFileTestResultΩ implements BettererFileTestResult {
 
   constructor(
     private _resolver: BettererFileResolver,
-    private _resultsPath: string
+    private _basePath: string
   ) {}
 
   // Previously the `files` getter was just doing `Object.values(this._fileMap)`,
@@ -32,13 +32,13 @@ export class BettererFileTestResultΩ implements BettererFileTestResult {
 
   public getFile(absolutePath: string): BettererFileBase {
     const file = this._fileMap[absolutePath];
-    assert(file);
+    invariantΔ(file, `file "${absolutePath}" should have been added to the result!`);
     return file;
   }
 
   public addFile(filePath: string, fileText: string): BettererFile {
     const absolutePath = this._resolver.resolve(filePath);
-    const relativePath = path.relative(path.dirname(this._resultsPath), absolutePath);
+    const relativePath = path.relative(this._basePath, absolutePath);
     const file = new BettererFileΩ(absolutePath, relativePath, fileText);
     const existingFile = this._fileMap[file.absolutePath];
     if (existingFile) {
@@ -58,7 +58,11 @@ export class BettererFileTestResultΩ implements BettererFileTestResult {
     if (!absolutePath) {
       return this.files.flatMap((files) => files.issues);
     }
-    return this.getFile(absolutePath).issues;
+    const file = this._fileMap[absolutePath];
+    if (!file) {
+      throw new BettererError(`could not find file "${absolutePath}". 😔`);
+    }
+    return file.issues;
   }
 
   private _addFile(file: BettererFileBase): void {

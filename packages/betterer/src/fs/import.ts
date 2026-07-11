@@ -5,7 +5,7 @@ import path from 'node:path';
 import url from 'node:url';
 
 import { createCacheHash } from '../hasher.js';
-import { read } from './reader.js';
+import { read } from './file.js';
 import { getTmpFileName } from './temp.js';
 
 interface ESModule {

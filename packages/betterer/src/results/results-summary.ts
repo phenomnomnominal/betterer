@@ -1,8 +1,8 @@
-import type { BettererError } from '@betterer/errors';
-
 import type { BettererFileTestResultΩ } from '../test/index.js';
 import type { BettererFileResolverΩ } from '../fs/index.js';
 import type { BettererFileTestResultSummaryDetails, BettererResultsSummary, BettererResultSummaries } from './types.js';
+
+import { BettererError } from '@betterer/errors';
 
 import { destroyGlobals, getGlobals } from '../globals.js';
 import { loadTest } from '../run/index.js';
@@ -19,7 +19,7 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
 
   public static async create(): Promise<BettererResultsSummary> {
     const { config, reporter, resolvers, results, testMetaLoader } = getGlobals();
-    const { configPaths, filters, includes, excludes, resultsPath } = config;
+    const { configPaths, filters, includes, excludes, resultsBasePath } = config;
 
     try {
       let testsMeta = await testMetaLoader.api.loadTestsMeta(configPaths);
@@ -35,17 +35,23 @@ export class BettererResultsSummaryΩ implements BettererResultsSummary {
 
       const onlyFileTests = includes.length > 0 || excludes.length > 0;
 
+      const expectedTestNames = results.getExpectedTestNames();
+
       const testStatuses = await Promise.all(
         testsMeta.map(async (testMeta) => {
           const { name } = testMeta;
+
+          if (!expectedTestNames.includes(name)) {
+            throw new BettererError(`could not find a result for test "${name}". Run \`betterer\` to create one. 😔`);
+          }
 
           const test = await loadTest(testMeta);
 
           const isFileTest = isBettererFileTest(test);
 
-          const expectedJSON = await results.api.getExpected(name);
+          const expectedJSON = results.getExpected(name);
           const serialised = JSON.parse(expectedJSON) as unknown;
-          const deserialised = test.config.serialiser.deserialise(serialised, resultsPath);
+          const deserialised = test.config.serialiser.deserialise(serialised, resultsBasePath);
 
           if (isFileTest) {
             const resultΩ = deserialised as BettererFileTestResultΩ;

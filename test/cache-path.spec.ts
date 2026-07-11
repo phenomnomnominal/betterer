@@ -3,6 +3,44 @@ import { describe, expect, it } from 'vitest';
 import { createFixture } from './fixture.js';
 
 describe('betterer', () => {
+  it('should enable the cache when a cachePath is set', async () => {
+    const { runner } = await import('@betterer/betterer');
+
+    const { paths, cleanup } = await createFixture('cache-path-enabled', {
+      '.betterer.ts': `export default {};`
+    });
+
+    const cachePath = paths.cache;
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+
+    const betterRunner = await runner({ configPaths, resultsPath, workers: false, cachePath });
+
+    expect(betterRunner.config.cache).toBe(true);
+
+    await betterRunner.stop(true);
+    await cleanup();
+  });
+
+  it('should leave the cache disabled when cache is false', async () => {
+    const { runner } = await import('@betterer/betterer');
+
+    const { paths, cleanup } = await createFixture('cache-path-disabled', {
+      '.betterer.ts': `export default {};`
+    });
+
+    const cachePath = paths.cache;
+    const configPaths = [paths.config];
+    const resultsPath = paths.results;
+
+    const betterRunner = await runner({ configPaths, resultsPath, workers: false, cache: false, cachePath });
+
+    expect(betterRunner.config.cache).toBe(false);
+
+    await betterRunner.stop(true);
+    await cleanup();
+  });
+
   it('should write a cache file to a different path', async () => {
     const { betterer } = await import('@betterer/betterer');
 

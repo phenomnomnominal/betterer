@@ -40,23 +40,26 @@ export function diff(expected: BettererFileTestResult, result: BettererFileTestR
   );
 
   const movedFiles = new Map<BettererFileBase, BettererFileBase>();
-  fixedOrMovedFiles.forEach((fixedOrMovedFile, index) => {
-    // A file may have been moved it has the same hash in both result and expected
-    const possibilities = newOrMovedFiles.filter((newOrMovedFile) => newOrMovedFile.hash === fixedOrMovedFile.hash);
-    if (!possibilities.length) {
+  [...fixedOrMovedFiles].forEach((fixedOrMovedFile) => {
+    // A file may have been moved if it shares issues with a new file even though its path and content changed:
+    const expectedHashes = new Set(fixedOrMovedFile.issues.map((issue) => issue.hash));
+    const [best] = newOrMovedFiles
+      .map((newOrMovedFile) => ({
+        file: newOrMovedFile,
+        shared: newOrMovedFile.issues.filter((issue) => expectedHashes.has(issue.hash)).length
+      }))
+      .filter((candidate) => candidate.shared > 0)
+      .sort((candidateA, candidateB) => candidateB.shared - candidateA.shared);
+    if (!best) {
       return;
     }
 
-    // Multiple possibilities means that the same content has been moved into multiple new files.
-    // So just count the first one as a move, the rest will be new files:
-    const [moved] = possibilities;
-    invariantΔ(moved, `\`possibilities.length\` should be at least \`1\`!`, possibilities.length);
-    movedFiles.set(moved, fixedOrMovedFile);
+    movedFiles.set(best.file, fixedOrMovedFile);
 
     // Remove the moved file from the fixedOrMovedFiles array:
-    fixedOrMovedFiles.splice(index, 1);
+    fixedOrMovedFiles.splice(fixedOrMovedFiles.indexOf(fixedOrMovedFile), 1);
     // And from the newOrMovedFiles array:
-    newOrMovedFiles.splice(newOrMovedFiles.indexOf(moved), 1);
+    newOrMovedFiles.splice(newOrMovedFiles.indexOf(best.file), 1);
   });
 
   // All the moved files have been removed from fixedOrMovedFiles and newOrMovedFiles:

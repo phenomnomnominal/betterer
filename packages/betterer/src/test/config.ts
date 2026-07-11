@@ -30,15 +30,11 @@ export class BettererTestConfigΩ<
     // We *could* change the parameter to be `Partial<BettererTestOptions<...>>`,
     // but that would imply that it was optional, but it isn't.
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- see above!
-    if (this._options.constraint == null) {
-      throw new BettererError('for a test to work, it must have a `constraint` function. ❌');
-    }
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- see above!
     if (this._options.test == null) {
       throw new BettererError('for a test to work, it must have a `test` function. ❌');
     }
 
-    this.constraint = this._options.constraint;
+    this.constraint = createConstraint(this._options);
     this.deadline = createDeadline(this._options);
     this.goal = createGoal(this._options);
   }
@@ -88,6 +84,17 @@ export class BettererTestConfigΩ<
   private _defaultSerialiser = (deserialised: unknown): unknown => {
     return deserialised;
   };
+}
+
+export function createConstraint<DeserialisedType, SerialisedType, DiffType>(
+  options: Pick<BettererTestOptions<DeserialisedType, SerialisedType, DiffType>, 'constraint'>
+): BettererTestConstraint<DeserialisedType> {
+  const { constraint } = options;
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- could be called from JS without type-checking
+  if (constraint == null) {
+    throw new BettererError('for a test to work, it must have a `constraint` function. ❌');
+  }
+  return constraint;
 }
 
 export function createDeadline<DeserialisedType, SerialisedType, DiffType>(

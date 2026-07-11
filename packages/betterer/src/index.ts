@@ -9,7 +9,7 @@ import 'core-js/proposals/promise-with-resolvers.js';
 export type {
   BettererAPI,
   BettererOptions,
-  BettererOptionsResults,
+  BettererOptionsResultsSummary,
   BettererOptionsRunner,
   BettererOptionsWatch
 } from './api/index.js';
@@ -59,10 +59,16 @@ export type {
   BettererRunLogger
 } from './reporters/index.js';
 export type {
+  BettererConfigResults,
   BettererFileTestResultSummary,
   BettererFileTestResultSummaryDetails,
   BettererOptionsMerge,
+  BettererOptionsResults,
+  BettererOptionsResultsDirectory,
+  BettererOptionsResultsFile,
+  BettererOptionsResultsServer,
   BettererResult,
+  BettererResultsStrategy,
   BettererResultSummaries,
   BettererResultSummary,
   BettererResultsSummary,

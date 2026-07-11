@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`betterer.runner > should throw when stopped before running any tests 1`] = `
+[
+  "
+Error: You cannot stop a runner before it has run any tests! 💥
+",
+]
+`;

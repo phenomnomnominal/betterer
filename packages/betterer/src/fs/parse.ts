@@ -40,9 +40,10 @@ export async function parse(filePath: BettererFilePath): Promise<unknown> {
 }
 
 function parseContents(filePath: BettererFilePath, contents: string): unknown {
-  if (hasMergeConflicts(contents)) {
+  const conflict = extractConflicts(contents);
+  if (conflict) {
     try {
-      const [ours, theirs] = extractConflicts(contents);
+      const [ours, theirs] = conflict;
       return merge(filePath, ours, theirs);
     } catch (error) {
       throw new BettererError(`could not resolve merge conflict in "${filePath}". 😔`, error as Error);
@@ -56,11 +57,12 @@ function parseContents(filePath: BettererFilePath, contents: string): unknown {
   }
 }
 
-function hasMergeConflicts(str: string): boolean {
-  return str.includes(MERGE_CONFLICT_START) && str.includes(MERGE_CONFLICT_SEP) && str.includes(MERGE_CONFLICT_END);
-}
+function extractConflicts(contents: string): [string, string] | null {
+  const hasConflictStart = contents.startsWith(MERGE_CONFLICT_START) || contents.includes(`\n${MERGE_CONFLICT_START}`);
+  if (!hasConflictStart) {
+    return null;
+  }
 
-function extractConflicts(contents: string): [string, string] {
   const ours = [];
   const theirs = [];
   const lines = contents.split(/\r?\n/g);

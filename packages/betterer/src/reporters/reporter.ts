@@ -73,8 +73,8 @@ export class BettererReporterΩ implements BettererReporter {
     await Promise.all(this._reporters.map(async (r) => await r.runEnd?.(run)));
   }
 
-  async runError(run: BettererRun, error: BettererError): Promise<void> {
-    await Promise.all(this._reporters.map(async (r) => await r.runError?.(run, error)));
+  async runError(runSummary: BettererRunSummary, error: BettererError): Promise<void> {
+    await Promise.all(this._reporters.map(async (r) => await r.runError?.(runSummary, error)));
   }
 }
 

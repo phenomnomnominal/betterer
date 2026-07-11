@@ -38,8 +38,8 @@ export function createDefaultReporter(): BettererReporter {
     suiteError(_: BettererSuite, error: BettererError): void {
       writeStdout(error.message);
     },
-    runError(run: BettererRun, error: BettererError): void {
-      writeStdout(`${run.name}: ${error.message}`);
+    runError(runSummary: BettererRunSummary, error: BettererError): void {
+      writeStdout(`${runSummary.name}: ${error.message}`);
     },
     runEnd(runSummary: BettererRunSummary): void {
       writeStdout(`${runSummary.name}: ${getRunStatus(runSummary)}`);

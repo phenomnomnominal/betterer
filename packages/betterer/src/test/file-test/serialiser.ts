@@ -8,14 +8,13 @@ import type {
 } from './types.js';
 
 import { invariantΔ } from '@betterer/errors';
-import path from 'node:path';
 
 import { BettererFileResolverΩ } from '../../fs/index.js';
 import { BettererFileTestResultΩ } from './file-test-result.js';
 
-export function deserialise(serialised: BettererFileTestResultSerialised, resultsPath: string): BettererFileTestResult {
-  const resolver = new BettererFileResolverΩ(path.dirname(resultsPath));
-  const deserialised = new BettererFileTestResultΩ(resolver, resultsPath);
+export function deserialise(serialised: BettererFileTestResultSerialised, basePath: string): BettererFileTestResult {
+  const resolver = new BettererFileResolverΩ(basePath);
+  const deserialised = new BettererFileTestResultΩ(resolver, basePath);
   Object.entries(serialised)
     .filter(([key]) => isKey(key))
     .map(([key, issuesForFile]) => {
@@ -62,7 +61,7 @@ export function isKey(key: string): key is BettererFileTestResultKey {
   return /.*:.*/.test(key);
 }
 
-function splitKey(key: BettererFileTestResultKey): BettererFileTestResultKeyParts {
+export function splitKey(key: BettererFileTestResultKey): BettererFileTestResultKeyParts {
   const [relativePath, hash] = key.split(':');
   const parts = { relativePath, hash };
   assertKey(parts);

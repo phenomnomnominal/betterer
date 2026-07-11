@@ -134,7 +134,7 @@ export type BettererOptionsContext = BettererOptionsMode & {
   /**
    * The number of {@link https://nodejs.org/api/worker_threads.html | worker threads } to use when
    * running tests. When `workers` is `true`, **Betterer** will pick a sensible default.
-   * When `workers` is `false` **Betterer** will run in a single thread.
+   * When `workers` is `false` or `0` **Betterer** will run in a single thread.
    * @defaultValue `true`
    */
   workers?: number | boolean;

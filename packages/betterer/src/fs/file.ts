@@ -1,3 +1,5 @@
+import { BettererError } from '@betterer/errors';
+import path from 'node:path';
 import { promises as fs } from 'node:fs';
 
 import { normaliseNewlines } from '../utils.js';
@@ -24,12 +26,14 @@ export async function read(filePath: string): Promise<string | null> {
   }
 }
 
-export async function readdir(dirPath: string): Promise<true | null> {
+export async function write(toWrite: string, filePath: string): Promise<void> {
   try {
-    const stat = await fs.stat(dirPath);
-    const isDirectory = stat.isDirectory();
-    return isDirectory || null;
-  } catch {
-    return null;
+    await fs.mkdir(path.dirname(filePath), { recursive: true });
+    await fs.writeFile(filePath, toWrite, 'utf8');
+    const stat = await fs.stat(filePath);
+    READ_CACHE[filePath] = normaliseNewlines(toWrite);
+    READ_CACHE_TIME[filePath] = stat.mtime.getTime();
+  } catch (error) {
+    throw new BettererError(`could not write to "${filePath}". 😔`, error as Error);
   }
 }

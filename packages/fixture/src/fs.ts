@@ -29,6 +29,10 @@ export async function createFixtureFS(
     await fs.writeFile(fullPath, text.trim(), 'utf8');
   }
 
+  async function createDirectory(directoryPath: string): Promise<void> {
+    await ensureDir(resolve(directoryPath));
+  }
+
   async function deleteDirectory(directoryPath: string): Promise<void> {
     await rimraf(directoryPath);
   }
@@ -73,7 +77,7 @@ export async function createFixtureFS(
     })
   );
 
-  return { paths, deleteDirectory, deleteFile, resolve, cleanup, readFile, writeFile };
+  return { paths, createDirectory, deleteDirectory, deleteFile, resolve, cleanup, readFile, writeFile };
 }
 
 async function ensureDir(directoryPath: string): Promise<void> {

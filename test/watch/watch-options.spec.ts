@@ -74,4 +74,26 @@ export default {
 
     await cleanup();
   });
+
+  it('should not mutate the options object passed to it', async () => {
+    const { betterer } = await import('@betterer/betterer');
+
+    const { paths, cleanup } = await createFixture('watch-options-no-mutation', {
+      '.betterer.ts': `export default {};`
+    });
+
+    const options = {
+      configPaths: [paths.config],
+      resultsPath: paths.results,
+      cwd: paths.cwd,
+      workers: false,
+      ignores: ['**/foo']
+    };
+    const runner = await betterer.watch(options);
+
+    expect(options.ignores).toEqual(['**/foo']);
+
+    await runner.stop(true);
+    await cleanup();
+  });
 });

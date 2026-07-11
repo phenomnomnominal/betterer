@@ -52,4 +52,33 @@ console.info('foo');
 
     await cleanup();
   });
+
+  it('should report a read error, not a merge conflict, for a malformed file with marker substrings mid-line', async () => {
+    const { merge } = await import('@betterer/betterer');
+
+    const start = '<'.repeat(7);
+    const separator = '='.repeat(7);
+    const end = '>'.repeat(7);
+    const { paths, cleanup } = await createFixture('conflict-midline', {
+      '.betterer.results': [
+        '// BETTERER RESULTS V2.',
+        'exports[`test`] = {',
+        `  value: \`${start} ${separator} ${end}\``,
+        '} not valid javascript {{{'
+      ].join('\n')
+    });
+
+    process.env.BETTERER_WORKER = 'false';
+    const exitCode = process.exitCode;
+
+    try {
+      await merge({ resultsPath: paths.results });
+      expect.unreachable();
+    } catch (error) {
+      expect((error as Error).message).toContain('could not read results');
+    }
+
+    process.exitCode = exitCode;
+    await cleanup();
+  });
 });
